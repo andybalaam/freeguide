@@ -67,7 +67,7 @@ have 'YYYYMM'.  You can also append a timezone to the end; if no
 explicit timezone is given, UT is assumed.  Examples:
 '200007281733 BST', '200209', '19880523083000 +0300'.  (BST == +0100.)
 
-Version 0.5 (xmltv-0.4).  Written by Ed Avis (epa98@doc.ic.ac.uk) and
+Version 0.5 (xmltv-0.4).  Written by Ed Avis (ed@membled.com) and
 Gottfried Szing, thanks to others for suggestions.
 $Id$
 
@@ -363,7 +363,7 @@ describing the system you use.
 <!ELEMENT episode-num (#PCDATA)>
 <!ATTLIST episode-num system CDATA "onscreen">
 
-<!-- Video details: the sub-elements describe the picture quality as
+<!-- Video details: the subelements describe the picture quality as
 follows:
 
 present: whether this programme has a picture (no, in the
@@ -422,7 +422,9 @@ example:
   First showing on national terrestrial TV
 </premiere>
 
-If you don't want to do that, just write empty content: <premiere />.
+If you don't want to do that, just write empty content:
+
+<premiere />
 -->
 <!ELEMENT premiere (#PCDATA)>
 <!ATTLIST premiere lang CDATA #IMPLIED>
@@ -433,16 +435,22 @@ the first may be flagged 'premiere', the last as 'last showing'.
 
 For symmetry with premiere, you may use the element content to
 describe exactly what is meant - it's unlikely to be the last showing
-ever!  Otherwise, explicitly put empty content: <last-chance />.
+ever!  Otherwise, explicitly put empty content:
+
+<last-chance />
 -->
 <!ELEMENT last-chance (#PCDATA)>
 <!ATTLIST last-chance lang CDATA #IMPLIED>
 
-<!-- New.  This is an episode from a new series that has never been
-shown on television before - if not worldwide then at least never
-before in this country.  After the first episode or programme has been
-shown, subsequent ones are no longer 'new'.  Similarly the second
-series of an established programme is not 'new'.
+<!-- New.  This is the first screened programme from a new show that
+has never been shown on television before - if not worldwide then at
+least never before in this country.  After the first episode or
+programme has been shown, subsequent ones are no longer 'new'.
+Similarly the second series of an established programme is not 'new'.
+
+Note that this does not mean 'new season' or 'new episode' of an
+existing show.  You can express part of that using the episode-num
+stuff.
 -->
 <!ELEMENT new EMPTY>
 
