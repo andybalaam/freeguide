@@ -33,6 +33,8 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 		
 		viewer.programmes = new Vector();
 		
+
+		// FIXME -- this should be the same as viewer.earliest/latest
 		theDateStart 	= GregorianCalendar.getInstance();
 		theDateEnd 		= GregorianCalendar.getInstance();
 		
@@ -178,6 +180,11 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 				
 				if((!dataMissingEnd) && (!dataMissingStart)) {
 					
+					// FIXME -- this will almost allways be true for certain
+					// configurable cases because each file loaded will only
+					// contribute to the start or end of the day.
+					// The only time this check might be valid is if the 
+					// day_start = grabber_day_start which I never use... :-)
 					viewer.missingFiles = false;
 					
 				}
