@@ -52,7 +52,7 @@ foreach ($arCheck as $strBase) {
             
             $arDiff = array_diff($arOriginal, $arTranslated[$strFile]);
             if (count($arDiff) > 0) {
-                echo ' ' . $strFile . ' misses the follwing strings:' . "\r\n";
+                echo ' ' . $strFile . ' misses the following strings:' . "\r\n";
                 foreach( $arDiff as $strString) {
                     echo '  ' . $strString . "\r\n";
                 }
