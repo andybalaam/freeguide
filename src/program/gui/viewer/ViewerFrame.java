@@ -2068,7 +2068,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
             for (int i = 0; i < files.length; i++) {
 
                 // If it's an xmltv file, we may want to delete it
-                if (files[i].matches("tv-\\d{8}.xmltv")) {
+                if (files[i].matches(".*-\\d{8}.xmltv")) {
 
                     int len = files[i].length();
                     String dateStr = files[i].substring(3, 11);
