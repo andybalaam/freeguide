@@ -34,7 +34,7 @@ c  means done by Christian Weiske
 + Separate classes into packages
 - Reduce the size of the XMLTV exe by removing unnecessary Tk files
 + Fix problem that if you reinstall to a new dir the old install can't be
-	uninstalled (well, you have to delete the directory instead...)
+    uninstalled (well, you have to delete the directory instead...)
 - Single channel view
 - Integration with tv card software
 - Automated bug reporting e.g. when the grabber fails.
@@ -49,10 +49,10 @@ c  means done by Christian Weiske
   running the Java installer.
 - Automate upgrading XMLTV without upgrading FreeGuide?
 - Separate reminders from chosenness?  If so, need a new set of preferences
-	which need to be scanned on startup (in fact that is a better way to do
-	it in even if we stick with choices.).
-	Perhaps just add an option - remind of chosen programmes?  If that's
-	unselected then need to add explicit reminders.
+    which need to be scanned on startup (in fact that is a better way to do
+    it in even if we stick with choices.).
+    Perhaps just add an option - remind of chosen programmes?  If that's
+    unselected then need to add explicit reminders.
 - Notice "Please run --configure" in the command output, cancel downloading
   and launch "Choose channels".
 - Include Python XMLTV grabbers, and all others available
@@ -72,7 +72,7 @@ c  means done by Christian Weiske
 - Make scrollbar increment in fractions of hours on mouse wheel or click.
 - Add firefox to the possible browsers.
 - Facilitating the download of listings outside of FreeGuide
-	(e.g. via a cron job, or at ppp connect)
+    (e.g. via a cron job, or at ppp connect)
 - Error message on RegExp error in Favourite editor
 - Snap to nearest half hour in timeline on click
 - Easy access to different channel ordering - through right-click menu
@@ -84,8 +84,8 @@ c  means done by Christian Weiske
 - Save today's choices to xmltv format.
 - Add a "save to html" option
 - Look for the default browser in the Windows registry under:
-	KEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command
-	(actually that looks like the HTML editor, but anyway)
+    KEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command
+    (actually that looks like the HTML editor, but anyway)
 - Deal with programme ratings
 - x-dist icon support in RPM http://www.hyperborea.org/software/dillo/dillo.spec
 - Look into SQL engines: http://www.mckoi.com/database/
@@ -177,7 +177,7 @@ c  means done by Christian Weiske
 - Look into focus/modal bug with About box and reminder: Shaun email 2005-01-06
 - Fix bug with E! icon killing FreeGuide - Jim Konowitz's email of 2005-01-05
 - Fix the problem with configuration failing if ~/.xmltv does not exist
-	... maybe this should be fixed in XMLTV.
+    ... maybe this should be fixed in XMLTV.
 - Make tall and thin channel icons wider to line up text
 - Make a default channel icon for channels missing an icon
 - Allow resizing fonts in HTML displays
@@ -192,7 +192,6 @@ c  means done by Christian Weiske
 - Fix cropped channel icons in program details panel
 - Fix bug where vertical scrolling makes the cursor disappear
 - Make the StripView focussed when you click on a programme
-+ Check that upgrading on Windows doesn't leave 2 Add/Remove program entries.
 - Automate building with swingwt to an exe
 - If a link for a program in the "personalized tv guide" is clicked, the
   program view scrolls to it. It would be also nice if the detail view
@@ -219,11 +218,16 @@ c  means done by Christian Weiske
 - Make 00:00 starts after time in favourites _either_ late at night _or_ early
   in the morning depending what the starts before time is - see debian bug
   http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=285719
+- Fix inability to change day when using tv-unprocessed.xmltv
+- Make _pt use tv_unprocessed method like uk_rt
 
 + 0.9pre4
 
-- Fix wrong channel names bug.
-- Change all relevant XMLTV commands to use --brief
+- Run Jalopy
+- Fix problem with non-C working dir
++ Check that upgrading on Windows doesn't leave 2 Add/Remove program entries.
++ Fix wrong channel names bug.
++ Change all relevant XMLTV commands to use --quiet
 
 + 0.9pre3 (xmltv 0.5.39)
 
@@ -263,11 +267,11 @@ c Translate into German
 + 0.9pre1 (MVC)
 
 + Make keyboard navigation more natural:
-	+ jump several channels up/down if the intermediate channel is blank
-	+ when left or right is pressed, remember the horizontal position of the
-	  middle of this programme.  During all up/down presses, jump to the
-	  programme that best matches this horizontal position.  When left or right
-	  is pressed, forget this value and find another one.
+    + jump several channels up/down if the intermediate channel is blank
+    + when left or right is pressed, remember the horizontal position of the
+      middle of this programme.  During all up/down presses, jump to the
+      programme that best matches this horizontal position.  When left or right
+      is pressed, forget this value and find another one.
 + Fix problem with the selected programme appearing in the top left
 + Make the selected programme appear selected after a SPACE-press/dbl-click
 + Fix whatever is using 100% of CPU whenever FreeGuide is running
@@ -279,9 +283,11 @@ c Translate into German
   mean it will be recorded.)
 + Make hearts appear on favourites.
 
-- Release 0.8.6
++ Release 0.8.6
 
-- Change all relevant XMLTV commands to use --brief
+- Run Jalopy
+- Fix problem with non-C working dir
++ Change all relevant XMLTV commands to use --quiet
 
 + Release 0.8.5
 
@@ -397,10 +403,10 @@ y Move programmes names, making them visible when they've scrolled off the left
 + Do share files for those grabbers that need them
 + Get Robert to do a windows version of the grabbers.
 + Respond to the needs of tv_grab_na_dd including:
-	+ update docs saying you need a Zap2it account
-	+ update docs about overwriting listings
-	+ tell user they need to get an account before they continue
-	+ automatically make a password file
+    + update docs saying you need a Zap2it account
+    + update docs about overwriting listings
+    + tell user they need to get an account before they continue
+    + automatically make a password file
 + Write uk_bleb grabber
 + Accept dates with seconds but no timezone
 + Use XMLTV 0.5.31 grabbers (modified)
@@ -452,7 +458,7 @@ e Anti-alias heart icon for Favourites
 + Factor HTML guide stuff out of ViewerFrame
 + Fix the bug with spaces in filenames on Linux
 + Alert me when my programme starts
-	(using secret options misc.reminders_on and misc.reminders_warning_secs)
+    (using secret options misc.reminders_on and misc.reminders_warning_secs)
 + Automate creation of tar.gz Source package with Debian naming
 + Use sensible naming for zip package too.
 
@@ -516,14 +522,14 @@ b Change Favourites, Customiser, Channel Sets frames to JDialogs
 + Release 0.5.2 (interim release for new xmltv version 0.5.7)
 
 + Test with new xmltv on Linux and Windows clean installs - check NZ and update
-	README as required.
+    README as required.
 + Fix no-refresh bug in channel sets
 + Include xmltv.exe 0.5.7
 + Tidy channel sets screen
 + Add notes about how to upgrade XMLTV without upgrading FreeGuide
 + Default to grab 4 days in uk as provider only provides 4 days' worth
 + Remove the big binaries from CVS and add to the developers' doc about how to
-	do a build from CVS checkout + a couple of other files.
+    do a build from CVS checkout + a couple of other files.
 + Add new fi grabber
 + Remove tv_split and other cruft
 + Add the XMLTV source distribution to the source package (good GPL practice)
@@ -540,7 +546,7 @@ b Change Favourites, Customiser, Channel Sets frames to JDialogs
 
 + Include new xmltv.exe 0.5.6 - test on windows first for "share" problem
 + Add to docs that some people (e.g. RedHat users) will need to change their
-	XMLTV dir to /usr/bin/ instead of /usr/local/bin/
+    XMLTV dir to /usr/bin/ instead of /usr/local/bin/
 + Bug in German installer
 
 + Release 0.5 (Features - especially use of many grabbers, and bug fixes)
@@ -550,7 +556,7 @@ b Change Favourites, Customiser, Channel Sets frames to JDialogs
 + Use xmltv 0.5.5 including nz grabber, and sn channel selection.
 + Add to docs known bug that na grabber always doesn't overwrite old files.
 + Explain in documentation that if you grab quite late in a day you may only
-	get tomorrow's listings.
+    get tomorrow's listings.
 + Stop it from grabbing stuff that's already been done.
 + Fix bug that means favourites sometimes aren't chosen (YES!)
 * Dynamic population of the date list comboBox based on available data
@@ -558,12 +564,12 @@ b Change Favourites, Customiser, Channel Sets frames to JDialogs
 * Add configurable option to set grabber day start (na=00:00, uk=06:00)
 * Add configurable option grabber_start_today with "today", or current showing day
 * Add configurable Choice (checkbox) option (convert grabber_start_today? option)
-	(do we need/want a CheckboxWizard?)
+    (do we need/want a CheckboxWizard?)
 * Fix bug with NullPointerException when you start and there's no listings
 + Fix concept of missing time.  (Huh?) lol
 + Endless (if you only select "yes") loop - fixed, sorry :-)
 + Executor.exec() recursive call to FreeGuide.prefs.performSubstitutions()
-	causes %% substitution to misbehave.
+    causes %% substitution to misbehave.
 + Seems to be a bug where only first grabber command executes.
 + Ability to control how many days are downloaded
 + Support for new grabbers
@@ -572,15 +578,15 @@ b Change Favourites, Customiser, Channel Sets frames to JDialogs
 + Make it work with the new XMLTV grabbers
 + 2 installers - Win and Linux that let you choose your location during install
 + Allow for the fact that a grabber may use dates without seconds, and other
-	differences (e.g. tv_grab_de).
+    differences (e.g. tv_grab_de).
 + Get rid of config guessing and use defaults instead.
 + Make installer understand file>location syntax of props files including
-	changing share to be included in file stuff.
+    changing share to be included in file stuff.
 + Remove the need for tv_split by calling the grabber once for each day required
 + Stop hard-coding the directories into the preference values on install, use
-	e.g. %misc.working_directory%, %misc.xmltv_directory%
+    e.g. %misc.working_directory%, %misc.xmltv_directory%
 + Fix bug in StreamThreadReader (?) that means only the output of the first
-	command is shown.
+    command is shown.
 + Grab one day at a time using a %date% %offset% substitution
 * Dynamic update of command output window
 * Fix bug that causes exception if running release candidate jvm (1.4.0-rc1)
@@ -611,7 +617,7 @@ x Display which channels are missing when some listings are missing.
 + New screenshots for web site, and freshmeat.
 + Rename files with version number on build
 + Add the fact that your .jar installer has to be executed by javaw on Windows,
-	not WinRAR, etc. to the readmes
+    not WinRAR, etc. to the readmes
 + Fix scrollbar arrows only moving display a tiny bit
 + Use columnHeaderView of scrollpane for time panel (doh!)
 
@@ -630,15 +636,15 @@ x Display which channels are missing when some listings are missing.
 + Fix bug with "&" in programme name (is this tv_grab_na?)
 + Make draggable bars look draggable
 + Make Options screen ask you its first 3 questions, then present you with all
-	other options simultaneously. Each option has a "Guess" button
+    other options simultaneously. Each option has a "Guess" button
 + Make options screen better
 + Convert installer to FreeGuideWizard
 + make installer check your java version, (and other things?)
 + Delete these classes: OptionsWizard, DirectoryDialog
 + Add a question to the beginning of the installer: install or uninstall (if
-	the misc.install_directory pref exists) - if click uninstall, delete the
-	whole installation directory, and the working directory if there is one,
-	and the preferences group for FreeGuide.
+    the misc.install_directory pref exists) - if click uninstall, delete the
+    whole installation directory, and the working directory if there is one,
+    and the preferences group for FreeGuide.
 + Make the selected fav on the favourites list presistent
 
 + Release 0.4
@@ -653,8 +659,8 @@ x Display which channels are missing when some listings are missing.
 + New "Redecorate" screen for colours options
 + Installers on Windows and Linux!
 + Alter Options wizard so focuslost events are replaced with custom thing that works
-	+ Create directory if it doesn't exist
-	+ Do browse buttons
+    + Create directory if it doesn't exist
+    + Do browse buttons
 + Separate channels and customisation screens
 + Setup wizard sets up every param explicitly and subsumes checks.
 + Fix tv_split so it gives a better error when no programmes are found.
