@@ -76,7 +76,7 @@ m  means done by Mike Dean
 - Make installer launch xmltv configure
 - Set up bochs test machines for vanilla Win98 and Linux
 
-- Release 0.7.5 (preferences creep)
+- Release 0.7.6 (preferences creep)
 
 - Choose how old files are before you delete them
 - Ability to save and load preferences (using Java's ability to save to XML)
@@ -91,7 +91,7 @@ m  means done by Mike Dean
 - Movie and/or category matching in favourites
 - Subtitle matches in favourites
 
-- Release 0.7.4 (code tidying)
+- Release 0.7.5 (code tidying)
 
 - Refactor FreeGuideViewer into a sort of MVC setup
 - Separate classes into packages
@@ -102,7 +102,7 @@ m  means done by Mike Dean
 - Change all forms to use GridBagEasy and newXXX methods.
 - Sort out Utils.exec methods so they make sense
 
-- Release 0.7.3 (aesthetics)
+- Release 0.7.4 (aesthetics)
 
 - Apply different fonts to every screen?
 - Go To Now scrolls the personalised listing panel as well as the main panel
@@ -122,7 +122,7 @@ m  means done by Mike Dean
 - Expand ConfigGuesser's checking capabilities
 - Channel icons
 
-- Release 0.7.2 (accessibility, accessibility, accessibility)
+- Release 0.7.3 (accessibility, accessibility, accessibility)
 
 - Improve accessibility, specifically keyboard shortcuts
 - Shortcut keys for everything
@@ -134,6 +134,12 @@ m  means done by Mike Dean
 - Write tv_grab_uk_bleb2?
 - Fix mentions of "C" drive in Windows versions
 - Add "contact" page to the docs (and/or as a footer to each page)
+- Update web site saying what countries are supported etc.
+
++ Release 0.7.2
+
+- Include xmltv 0.5.32
++ Fix missing uk_bleb in Linux installer
 
 + Release 0.7.1
 

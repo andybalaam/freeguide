@@ -153,6 +153,8 @@ public class WizardFrame extends javax.swing.JFrame {
      */
     private void butFinishActionPerformed(java.awt.event.ActionEvent evt) {
 
+        butFinish.setEnabled( false );
+        
 		panels[panelCounter].onExit();
 		
         if (finishMethod != null) {

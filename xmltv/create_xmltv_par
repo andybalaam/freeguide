@@ -12,24 +12,25 @@
 echo "Creating patched XMLTV..."
 
 # Find out the version of XMLTV we're working with
-XMLTV_VERSION=xmltv-0.5.31
+XMLTV_VERSION=xmltv-0.5.32
+MODIFIED_VERSION=$XMLTV_VERSION-tkgui-bleb-1
 
 # Remove any old directories
 rm -rf $XMLTV_VERSION
-rm -rf $XMLTV_VERSION-tkgui
+rm -rf $MODIFIED_VERSION
 
 # Untar the vanilla XMLTV source
 tar -xjf $XMLTV_VERSION.tar.bz2 
 
 # Rename the directory
-mv $XMLTV_VERSION $XMLTV_VERSION-tkgui
+mv $XMLTV_VERSION $MODIFIED_VERSION
 
 # Patch the sources in the directory, remove unneeded file and add the new files
-./addguipatch $XMLTV_VERSION-tkgui
+./addguipatch $MODIFIED_VERSION
 
 # Tar up the patched sources for distribution
-rm -rf $XMLTV_VERSION-tkgui.tar.bz2
-tar -cjf $XMLTV_VERSION-tkgui.tar.bz2 $XMLTV_VERSION-tkgui
+rm -rf $MODIFIED_VERSION.tar.bz2
+tar -cjf $MODIFIED_VERSION.tar.bz2 $MODIFIED_VERSION
 
 if [ "$1" != "--make-par" ]; then
 

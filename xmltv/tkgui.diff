@@ -1,10 +1,10 @@
 Index: MANIFEST
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/MANIFEST,v
-retrieving revision 1.94
-diff -u -B -b -w -r1.94 MANIFEST
---- MANIFEST	17 Mar 2004 18:36:10 -0000	1.94
-+++ MANIFEST	8 Apr 2004 07:40:58 -0000
+retrieving revision 1.100
+diff -u -B -b -w -r1.100 MANIFEST
+--- MANIFEST	10 Apr 2004 22:00:29 -0000	1.100
++++ MANIFEST	15 Apr 2004 08:09:33 -0000
 @@ -4,8 +4,14 @@
  Uninstall.pm
  README
@@ -25,10 +25,10 @@ diff -u -B -b -w -r1.94 MANIFEST
 Index: Makefile.PL
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/Makefile.PL,v
-retrieving revision 1.193
-diff -u -B -b -w -r1.193 Makefile.PL
---- Makefile.PL	21 Mar 2004 14:51:33 -0000	1.193
-+++ Makefile.PL	8 Apr 2004 07:40:59 -0000
+retrieving revision 1.199
+diff -u -B -b -w -r1.199 Makefile.PL
+--- Makefile.PL	13 Apr 2004 22:20:54 -0000	1.199
++++ Makefile.PL	15 Apr 2004 08:09:34 -0000
 @@ -107,9 +107,16 @@
       'lib/Usage.pm'               => '$(INST_LIBDIR)/XMLTV/Usage.pm',
       'lib/Date.pm'                => '$(INST_LIBDIR)/XMLTV/Date.pm',
@@ -80,7 +80,7 @@ diff -u -B -b -w -r1.193 Makefile.PL
       { name => 'tv_grab_it',
         blurb => 'Grabber for Italy',
         exes => [ 'grab/it/tv_grab_it' ],
-@@ -430,7 +442,7 @@
+@@ -436,7 +448,7 @@
  		  "\n");
  }
  print STDERR "\n";
@@ -89,7 +89,7 @@ diff -u -B -b -w -r1.193 Makefile.PL
      # Need to set {install} for each component by prompting.
      foreach my $info (@opt_components) {
  	my $missing = $info->{missing};
-@@ -460,7 +472,7 @@
+@@ -466,7 +478,7 @@
  	else { die }
  	
  	$info->{install} =
@@ -104,7 +104,7 @@ RCS file: /cvsroot/xmltv/xmltv/grab/Grab_XML.pm,v
 retrieving revision 1.11
 diff -u -B -b -w -r1.11 Grab_XML.pm
 --- grab/Grab_XML.pm	3 Jan 2004 14:52:53 -0000	1.11
-+++ grab/Grab_XML.pm	8 Apr 2004 07:40:59 -0000
++++ grab/Grab_XML.pm	15 Apr 2004 08:09:35 -0000
 @@ -6,6 +6,8 @@
  use XMLTV;
  use XMLTV::Usage;
@@ -274,10 +274,10 @@ diff -u -B -b -w -r1.11 Grab_XML.pm
 Index: grab/de_tvtoday/tv_grab_de_tvtoday.in
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/de_tvtoday/tv_grab_de_tvtoday.in,v
-retrieving revision 1.3
-diff -u -B -b -w -r1.3 tv_grab_de_tvtoday.in
---- grab/de_tvtoday/tv_grab_de_tvtoday.in	12 Mar 2004 17:32:11 -0000	1.3
-+++ grab/de_tvtoday/tv_grab_de_tvtoday.in	8 Apr 2004 07:41:00 -0000
+retrieving revision 1.9
+diff -u -B -b -w -r1.9 tv_grab_de_tvtoday.in
+--- grab/de_tvtoday/tv_grab_de_tvtoday.in	10 Apr 2004 22:00:30 -0000	1.9
++++ grab/de_tvtoday/tv_grab_de_tvtoday.in	15 Apr 2004 08:09:35 -0000
 @@ -11,7 +11,7 @@
  
  tv_grab_de_tvtoday --help
@@ -286,7 +286,7 @@ diff -u -B -b -w -r1.3 tv_grab_de_tvtoday.in
 +tv_grab_de_tvtoday [--config-file FILE] --configure [--gui OPTION]
  
  tv_grab_de_tvtoday [--config-file FILE] [--output FILE] 
-                    [--days N] [--offset N] [--force]
+                    [--days N] [--offset N]
 @@ -37,6 +37,11 @@
  default is B<~/.xmltv/tv_grab_de_tvtoday.conf>.  This is the file 
  written by B<--configure> and read when grabbing.
@@ -299,24 +299,25 @@ diff -u -B -b -w -r1.3 tv_grab_de_tvtoday.in
  B<--output FILE> write to FILE rather than standard output.
  
  B<--days N> grab N days.  The default is seven.
-@@ -100,6 +105,7 @@
+@@ -88,6 +93,8 @@
  use URI::Escape;
  use XMLTV;
  use XMLTV::Ask;
 +use XMLTV::ProgressBar;
- use XMLTV::Europe_TZ;
++use XMLTV::Europe_TZ;
+ use XMLTV::DST;
  use XMLTV::Config_file;
  use XMLTV::Mode;
-@@ -107,7 +113,7 @@
+@@ -95,7 +102,7 @@
  use XMLTV::Memoize;
  use XMLTV::Usage <<END
  $0: get German television listings from www.tvtoday.de in XMLTV format
 -To configure: $0 --configure [--config-file FILE]
 +To configure: $0 --configure [--config-file FILE] [--gui OPTION]
  To grab data: $0 [--config-file FILE] [--output FILE] 
-                  [--days N] [--offset N] [--force]
+                  [--days N] [--offset N]
                   [--quiet] [--slow] [--nosqueezeout]
-@@ -137,9 +143,6 @@
+@@ -137,9 +144,6 @@
  my $debug = 0;
  $XMLTV::Get_nice::Delay = 0 if($debug);
  
@@ -326,7 +327,7 @@ diff -u -B -b -w -r1.3 tv_grab_de_tvtoday.in
  #-- attributes of xmltv root element
  my $head = { 
      'source-data-url'      => 'http://www.tvtoday.de/tv/programm/programm.php',
-@@ -156,6 +159,7 @@
+@@ -157,6 +161,7 @@
  
  my $opt_configure;
  my $opt_config_file;
@@ -334,7 +335,7 @@ diff -u -B -b -w -r1.3 tv_grab_de_tvtoday.in
  my $opt_output;
  my $opt_days;
  my $opt_offset = 0;
-@@ -170,6 +174,7 @@
+@@ -170,6 +175,7 @@
  GetOptions(
      'configure'      => \$opt_configure,
      'config-file=s'  => \$opt_config_file,
@@ -342,7 +343,7 @@ diff -u -B -b -w -r1.3 tv_grab_de_tvtoday.in
      'output=s'       => \$opt_output,
      'days=i'         => \$opt_days,
      'offset=i'       => \$opt_offset,
-@@ -184,6 +189,9 @@
+@@ -183,6 +189,9 @@
  
  usage(1) if $opt_help;
  
@@ -350,9 +351,9 @@ diff -u -B -b -w -r1.3 tv_grab_de_tvtoday.in
 +XMLTV::ProgressBar::init($opt_gui);
 +
  #-- make sure offset+days arguments are within range
- die "you have to specify how many days to fetch, when trying to force"
-   if($opt_force && !defined($opt_days));
-@@ -373,16 +381,18 @@
+ die "offset mustn't be larger than six"
+   if($opt_offset > 6);
+@@ -353,16 +362,18 @@
  
  #-- write out <programme> tags
  my $numdays = $opt_days + $opt_offset - 1;
@@ -362,9 +363,9 @@ diff -u -B -b -w -r1.3 tv_grab_de_tvtoday.in
 +my $bar = new XMLTV::ProgressBar('grabbing', scalar(@requests) * $opt_days)
 +  if not $opt_quiet;
  
- foreach(@requests) {
+ foreach my $channel (@requests) {
      for (my $day = $opt_offset; $day <= $numdays; $day ++) {
- 	grab_data($_, $day, $day == $numdays);
+ 	grab_data($channel, $day, $day == $numdays);
 -	update $bar if Have_bar && not $opt_quiet;
 +	update $bar if not $opt_quiet;
      }
@@ -374,24 +375,22 @@ diff -u -B -b -w -r1.3 tv_grab_de_tvtoday.in
  
  #-- hey, looks like we've finished ...
  $writer->end();
-@@ -414,8 +424,8 @@
- 	'lastday'   => $lday,
-     };
+@@ -387,7 +398,7 @@
+     my $lday = shift @_;    #- true: last day to grab in row
  
--    print "grabbing channel $channels{$ch} (", UnixDate($grab->{day}, "%a, %Y-%m-%d"), ") ...\n"
+     print STDERR "grabbing channel $channels{$ch} (offset=$offset) ...\n"
 -      unless(Have_bar || $opt_quiet);
-+    say( "grabbing channel $channels{$ch} (", UnixDate($grab->{day}, "%a, %Y-%m-%d"), ") ..." )
 +      unless($opt_quiet);
  	    
-     while (defined($grab->{url})) {
- 	my $tb = HTML::TreeBuilder->new();
+     #- we got to send ztag=8 to retrieve data for yesterday
+     $offset = 8 if($offset < 0);
 Index: grab/dk/tv_grab_dk
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/dk/tv_grab_dk,v
-retrieving revision 1.12
-diff -u -B -b -w -r1.12 tv_grab_dk
---- grab/dk/tv_grab_dk	10 Jan 2004 10:47:08 -0000	1.12
-+++ grab/dk/tv_grab_dk	8 Apr 2004 07:41:00 -0000
+retrieving revision 1.14
+diff -u -B -b -w -r1.14 tv_grab_dk
+--- grab/dk/tv_grab_dk	10 Apr 2004 22:00:30 -0000	1.14
++++ grab/dk/tv_grab_dk	15 Apr 2004 08:09:36 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_dk --help
@@ -531,10 +530,10 @@ diff -u -B -b -w -r1.12 tv_grab_dk
 Index: grab/es/tv_grab_es
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/es/tv_grab_es,v
-retrieving revision 1.24
-diff -u -B -b -w -r1.24 tv_grab_es
---- grab/es/tv_grab_es	14 Feb 2004 17:53:33 -0000	1.24
-+++ grab/es/tv_grab_es	8 Apr 2004 07:41:01 -0000
+retrieving revision 1.26
+diff -u -B -b -w -r1.26 tv_grab_es
+--- grab/es/tv_grab_es	10 Apr 2004 22:00:30 -0000	1.26
++++ grab/es/tv_grab_es	15 Apr 2004 08:09:37 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_es --help
@@ -563,7 +562,7 @@ diff -u -B -b -w -r1.24 tv_grab_es
 +use XMLTV::ProgressBar;
  use XMLTV::Ask;
  use XMLTV::Config_file;
- use XMLTV::Europe_TZ;
+ use XMLTV::DST;
 @@ -113,9 +119,6 @@
  END
    ;
@@ -622,7 +621,7 @@ diff -u -B -b -w -r1.24 tv_grab_es
  $writer->end();
  
  ######################################################################
-@@ -482,8 +490,8 @@
+@@ -491,8 +499,8 @@
  
  # get channel listing
  sub get_channels {
@@ -633,7 +632,7 @@ diff -u -B -b -w -r1.24 tv_grab_es
      my %channels;
      my $url="http://www.elpais.es/parrillatv/portada.html";
      t $url;
-@@ -518,7 +526,8 @@
+@@ -527,7 +535,8 @@
  	}
      }
      die "no channels could be found" if not keys %channels;
@@ -646,10 +645,10 @@ diff -u -B -b -w -r1.24 tv_grab_es
 Index: grab/es_digital/tv_grab_es_digital
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/es_digital/tv_grab_es_digital,v
-retrieving revision 1.2
-diff -u -B -b -w -r1.2 tv_grab_es_digital
---- grab/es_digital/tv_grab_es_digital	6 Mar 2004 11:35:18 -0000	1.2
-+++ grab/es_digital/tv_grab_es_digital	8 Apr 2004 07:41:02 -0000
+retrieving revision 1.3
+diff -u -B -b -w -r1.3 tv_grab_es_digital
+--- grab/es_digital/tv_grab_es_digital	10 Apr 2004 22:00:30 -0000	1.3
++++ grab/es_digital/tv_grab_es_digital	15 Apr 2004 08:09:37 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_es_digital --help
@@ -678,7 +677,7 @@ diff -u -B -b -w -r1.2 tv_grab_es_digital
 +use XMLTV::ProgressBar;
  use XMLTV::Ask;
  use XMLTV::Config_file;
- use XMLTV::Europe_TZ;
+ use XMLTV::DST;
 @@ -108,9 +114,6 @@
  END
    ;
@@ -764,10 +763,10 @@ diff -u -B -b -w -r1.2 tv_grab_es_digital
 Index: grab/fi/tv_grab_fi
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/fi/tv_grab_fi,v
-retrieving revision 1.30
-diff -u -B -b -w -r1.30 tv_grab_fi
---- grab/fi/tv_grab_fi	1 Feb 2004 20:38:07 -0000	1.30
-+++ grab/fi/tv_grab_fi	8 Apr 2004 07:41:02 -0000
+retrieving revision 1.31
+diff -u -B -b -w -r1.31 tv_grab_fi
+--- grab/fi/tv_grab_fi	10 Apr 2004 22:00:31 -0000	1.31
++++ grab/fi/tv_grab_fi	15 Apr 2004 08:09:38 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_fi --help
@@ -796,7 +795,7 @@ diff -u -B -b -w -r1.30 tv_grab_fi
 +use XMLTV::ProgressBar;
  use XMLTV::Ask;
  use XMLTV::Config_file;
- use XMLTV::Europe_TZ;
+ use XMLTV::DST;
 @@ -93,9 +99,6 @@
  END
    ;
@@ -879,10 +878,10 @@ diff -u -B -b -w -r1.30 tv_grab_fi
 Index: grab/fr/tv_grab_fr
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/fr/tv_grab_fr,v
-retrieving revision 1.1
-diff -u -B -b -w -r1.1 tv_grab_fr
---- grab/fr/tv_grab_fr	23 Feb 2004 20:55:57 -0000	1.1
-+++ grab/fr/tv_grab_fr	8 Apr 2004 07:41:03 -0000
+retrieving revision 1.4
+diff -u -B -b -w -r1.4 tv_grab_fr
+--- grab/fr/tv_grab_fr	10 Apr 2004 22:00:31 -0000	1.4
++++ grab/fr/tv_grab_fr	15 Apr 2004 08:09:38 -0000
 @@ -6,7 +6,7 @@
  
  =head1 SYNOPSIS
@@ -921,7 +920,7 @@ diff -u -B -b -w -r1.1 tv_grab_fr
 +use XMLTV::ProgressBar;
  use XMLTV::Mode;
  use XMLTV::Config_file;
- use XMLTV::Europe_TZ;
+ use XMLTV::DST;
 @@ -106,7 +109,7 @@
  # Global variables allocation according to options
  #***************************************************************************
@@ -992,10 +991,10 @@ diff -u -B -b -w -r1.1 tv_grab_fr
 Index: grab/hu/tv_grab_hu
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/hu/tv_grab_hu,v
-retrieving revision 1.12
-diff -u -B -b -w -r1.12 tv_grab_hu
---- grab/hu/tv_grab_hu	1 Feb 2004 20:38:07 -0000	1.12
-+++ grab/hu/tv_grab_hu	8 Apr 2004 07:41:04 -0000
+retrieving revision 1.13
+diff -u -B -b -w -r1.13 tv_grab_hu
+--- grab/hu/tv_grab_hu	10 Apr 2004 22:00:31 -0000	1.13
++++ grab/hu/tv_grab_hu	15 Apr 2004 08:09:39 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_hu --help
@@ -1023,7 +1022,7 @@ diff -u -B -b -w -r1.12 tv_grab_hu
  use XMLTV::Memoize;
 +use XMLTV::ProgressBar;
  use XMLTV::Ask;
- use XMLTV::Europe_TZ;
+ use XMLTV::DST;
  use XMLTV::Get_nice;
 @@ -85,16 +91,13 @@
  # Todo: perhaps we should internationalize messages and docs?
@@ -1125,10 +1124,10 @@ diff -u -B -b -w -r1.12 tv_grab_hu
 Index: grab/it/tv_grab_it.in
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/it/tv_grab_it.in,v
-retrieving revision 1.23
-diff -u -B -b -w -r1.23 tv_grab_it.in
---- grab/it/tv_grab_it.in	1 Feb 2004 20:38:07 -0000	1.23
-+++ grab/it/tv_grab_it.in	8 Apr 2004 07:41:04 -0000
+retrieving revision 1.24
+diff -u -B -b -w -r1.24 tv_grab_it.in
+--- grab/it/tv_grab_it.in	10 Apr 2004 22:00:31 -0000	1.24
++++ grab/it/tv_grab_it.in	15 Apr 2004 08:09:39 -0000
 @@ -11,7 +11,7 @@
  
  tv_grab_it --help
@@ -1157,7 +1156,7 @@ diff -u -B -b -w -r1.23 tv_grab_it.in
 +use XMLTV::ProgressBar;
  use XMLTV::Ask;
  use XMLTV::Config_file;
- use XMLTV::Europe_TZ;
+ use XMLTV::DST;
 @@ -86,7 +92,7 @@
  # Todo: perhaps we should internationalize messages and docs?
  use XMLTV::Usage <<END
@@ -1273,7 +1272,7 @@ RCS file: /cvsroot/xmltv/xmltv/grab/jp/tv_grab_jp,v
 retrieving revision 1.2
 diff -u -B -b -w -r1.2 tv_grab_jp
 --- grab/jp/tv_grab_jp	26 Feb 2004 04:28:26 -0000	1.2
-+++ grab/jp/tv_grab_jp	8 Apr 2004 07:41:05 -0000
++++ grab/jp/tv_grab_jp	15 Apr 2004 08:09:40 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_jp --help
@@ -1444,7 +1443,7 @@ RCS file: /cvsroot/xmltv/xmltv/grab/na/tv_grab_na,v
 retrieving revision 1.98
 diff -u -B -b -w -r1.98 tv_grab_na
 --- grab/na/tv_grab_na	2 Mar 2004 21:00:03 -0000	1.98
-+++ grab/na/tv_grab_na	8 Apr 2004 07:41:07 -0000
++++ grab/na/tv_grab_na	15 Apr 2004 08:09:43 -0000
 @@ -8,7 +8,7 @@
  
  =head1 SYNOPSIS
@@ -1683,35 +1682,35 @@ diff -u -B -b -w -r1.98 tv_grab_na
 Index: grab/na_dd/tv_grab_na_dd
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/na_dd/tv_grab_na_dd,v
-retrieving revision 1.13
-diff -u -B -b -w -r1.13 tv_grab_na_dd
---- grab/na_dd/tv_grab_na_dd	19 Mar 2004 12:39:15 -0000	1.13
-+++ grab/na_dd/tv_grab_na_dd	8 Apr 2004 07:41:08 -0000
-@@ -10,7 +10,7 @@
+retrieving revision 1.39
+diff -u -B -b -w -r1.39 tv_grab_na_dd
+--- grab/na_dd/tv_grab_na_dd	11 Apr 2004 04:35:48 -0000	1.39
++++ grab/na_dd/tv_grab_na_dd	15 Apr 2004 08:09:44 -0000
+@@ -14,6 +14,7 @@
+     
+     tv_grab_na_dd --configure [--config-file FILE] [--dd-data FILE]
+                               [--reprocess] [--auto-config add|ignore]
++                              [--gui OPTION]
  
- tv_grab_na_dd --help
+     tv_grab_na_dd --list-lineups [--config-file FILE] [--dd-data FILE]
+                               [--reprocess]
+@@ -55,6 +56,12 @@
+ Lists available lineups.  Only requires username in the config file. Used by programs that
+ automate the L<--configure> process.
  
--tv_grab_na_dd [--config-file FILE] --configure
-+tv_grab_na_dd [--config-file FILE] --configure [--gui OPTION]
- 
- tv_grab_na_dd [--config-file FILE] [--password-file FILE]
-               [--output FILE] [--days N]
-@@ -43,6 +43,11 @@
- default is B<~/.xmltv/tv_grab_na_dd.conf>.  This is the file written by
- B<--configure> and read when grabbing.
- 
-+B<--gui OPTION> Use this option to enable a graphical interface to be used.
++=item --gui OPTION
++
++Use this option to enable a graphical interface to be used.
 +OPTION may be 'Tk' or 'GDialog', or left blank for the best available choice.
 +Additional allowed values of OPTION are 'Term' for normal terminal output
 +(default) and 'TermNoProgressBar' to disable the use of Term::ProgressBar.
-+
- B<--password-file FILE> Read the DataDirect password from FILE.  If
- this option is not given, the grabber prompts for a password.
  
-@@ -91,15 +96,15 @@
+ =back
+ 
+@@ -236,10 +243,10 @@
+ use File::Temp qw(tempfile);
  use Getopt::Long;
  use XML::Twig 3.10;
- # use Data::Dumper;
 -use constant Have_bar => eval { require Term::ProgressBar; 1 };
  
  use XMLTV;
@@ -1720,111 +1719,221 @@ diff -u -B -b -w -r1.13 tv_grab_na_dd
  use XMLTV::Config_file;
  use XMLTV::Version '$Id$';
  use XMLTV::Usage <<END
- $0: get lists from Zap2IT's DataDirect service in XMLTV format
--To configure: $0 --configure [--config-file FILE]
-+To configure: $0 --configure [--config-file FILE] [--gui OPTION]
- To grab listings: $0 [--config-file FILE] [--output FILE] [--days N]
-         [--offset N] [--quiet] [--lineup "LINEUP"] [--old-chan-id] [--low-mem]
-         [--dd-data FILE] [--reprocess]
-@@ -139,6 +144,7 @@
+@@ -250,6 +257,7 @@
+ To Configure
+     $0 --configure [--config-file FILE] [--dd-data FILE]
+                               [--reprocess] [--auto-config add|ignore]
++                   [--gui OPTION]
+ To get listings
+     $0 [--config-file FILE] [--dd-data FILE]
+                   [--reprocess] [--auto-config add|ignore]
+@@ -298,6 +306,7 @@
  my $opt_help;           # ask for help
  my $opt_configure;      # configure mode
- my $opt_config_file;    # config_file_name
+ my $opt_config_file ;   # config_file_name
 +my $opt_gui;            # what type of gui to use
- my $opt_password_file;  # file containing password
  my $opt_output;         # output name
  my $opt_days       =10; # days to fetch
-@@ -160,6 +166,7 @@
- 	       'help'          => \$opt_help,
-     	   'configure'       => \$opt_configure,
-     	   'config-file=s'   => \$opt_config_file,
-+           'gui:s'           => \$opt_gui,
-            'password-file=s' => \$opt_password_file,
-     	   'output=s'        => \$opt_output,
-            'days=i'          => \$opt_days,
-@@ -176,6 +183,9 @@
- 
+ my $opt_offset     =0;  # day to start
+@@ -325,6 +334,7 @@
+     	   'configure'     => \$opt_configure,
+     	   'config-file=s' => \$opt_config_file,
+     	   'config_file=s' => \$opt_config_file,
++           'gui:s'         => \$opt_gui,
+     	   'output=s'      => \$opt_output,
+            'days=i'        => \$opt_days,
+     	   'offset=i'      => \$opt_offset,
+@@ -347,6 +357,10 @@
+ 	  )
+   or usage(0);
  usage(1) if $opt_help;
- 
++
 +XMLTV::Ask::init($opt_gui);
 +XMLTV::ProgressBar::init($opt_gui);
 +
  die 'number of days must not be negative' if ($opt_days < 0);
- 
- die "must specify --dd-data during reprocess\n"
-@@ -253,11 +263,8 @@
-     #
-     require Term::ReadKey;
-     $| = 1;
--    print STDERR "Password for $dd_user: ";
--    Term::ReadKey::ReadMode('noecho');
--    chomp($dd_pass = <STDIN>);
--    Term::ReadKey::ReadMode('restore');
--    print STDERR "\n";
-+    chomp( $dd_pass = ask( "Password for $dd_user: " ) );
+ die "must specify --dd_data during reprocess\n" if $opt_reprocess and not $opt_dd_data;
+ die "--auto-config must be 'add' or 'ignore'\n" if $opt_auto_config && $opt_auto_config !~ /^(add|ignore)$/;
+@@ -414,7 +428,13 @@
+     open(CONF,">$config_file") or die "can't open config file: $config_file\n";
+     if ( ! $opt_auto_config )
+     {
+-       say("
++       while (1)
++       {
++#        $opt_tz_offset='local' unless length($opt_tz_offset);
++#        $opt_tz_offset=ask("Timezone offset (+/-####), or 'local' ($opt_tz_offset)")||'local';
++         $opt_tz_offset=$ENV{TZ} unless defined $opt_tz_offset || $ENV{TZ} !~ /[+-]\d\d\d\d/;
++         $opt_tz_offset='+0000'  unless defined $opt_tz_offset;
++         $opt_tz_offset=ask("
+ DD data is in UTC by default
+ Please specify the appropriate offset
+ (We're working on improving this)
+@@ -424,14 +444,9 @@
+ -0600 Central  Standard or Mountain Daylight
+ -0700 Mountain Standard or Pacific Daylight
+ -0800 Pacific  Standard
+-");
+-       while (1)
+-       {
+-#        $opt_tz_offset='local' unless length($opt_tz_offset);
+-#        $opt_tz_offset=ask("Timezone offset (+/-####), or 'local' ($opt_tz_offset)")||'local';
+-         $opt_tz_offset=$ENV{TZ} unless defined $opt_tz_offset || $ENV{TZ} !~ /[+-]\d\d\d\d/;
+-         $opt_tz_offset='+0000'  unless defined $opt_tz_offset;
+-         $opt_tz_offset=ask("Timezone offset (+/-####) ($opt_tz_offset)") || $opt_tz_offset;
 +
- }
++Timezone offset (+/-####) ($opt_tz_offset)
++") || $opt_tz_offset;
+          last if $opt_tz_offset =~ /[+-]\d\d\d\d/;
+        }
  
+@@ -442,7 +457,7 @@
  
-@@ -326,7 +333,7 @@
-                                              SUFFIX => '.tmp',
-                                              UNLINK=>($DEBUG ? 0 : 1));
+     ");
+         $dd_user=ask("Username ($dd_user):")|| $dd_user || die "DataDirect Username Required\n";
+-        $dd_pass=ask("
++        $dd_pass=askPassword("
+ WARNING: Storing the password in the config file is not secure
+ If password is blank, it will be prompted as needed(more secure)
+ Unsecured password ('x':delete,default:<keep>,):")|| $dd_pass;
+@@ -524,17 +539,15 @@
+     {
+         require Term::ReadKey;
+         $| = 1;
+-        print STDERR "Password for $dd_user: ";
+-        Term::ReadKey::ReadMode('noecho');
+-        chomp($dd_pass = <STDIN>);
+-        Term::ReadKey::ReadMode('restore');
+-        print STDERR "\n";
++        $dd_pass = askPassword( "Password for $dd_user: " );
      }
+ 
+ #
+ # Fetch data
+ # 
 -    print STDERR "Fetching from DataDirect\n";
-+    say( "Fetching from DataDirect" );
-     print STDERR "dd data is in $dd_data_name\n"
-       if $DEBUG || defined $opt_dd_data;
++    my $bar = new XMLTV::ProgressBar( "Fetching from DataDirect", 1 )
++        if not $opt_quiet;
++        
+     print STDERR "    dd_data is in $dd_data_name\n" if $DEBUG || $opt_dd_data;   
  
-@@ -349,7 +356,7 @@
-                              })
-             -> proxy("http://localhost/", options => {compress_threshold => 10000},
-                                                       timeout            => 420);
--    print STDERR "about to download\n";
-+    say( "about to download" );
-     my $got = $soap->download("<startTime>$dd_start</startTime><endTime>$dd_stop</endTime>");
-     $dd_data->print($got);
+     sub SOAP::Transport::HTTP::Client::get_basic_credentials
+@@ -563,7 +576,14 @@
      $dd_data->flush;
-@@ -358,7 +365,7 @@
-     }
      $dd_data_size= -s $dd_data;
      $time = int(time() - $time);
--    printf STDERR "Fetched %d k/bytes in %d seconds\n",$dd_data_size/1024,$time;
-+    say( "Fetched %d k/bytes in %d seconds\n",$dd_data_size/1024,$time );
+-    printf STDERR "    Fetched %d k/bytes in %d seconds\n",$dd_data_size/1024,$time;
++     
++    if($bar) {
++        $bar->update();
++        $bar->finish();
++    }
++    
++    printf STDERR "Fetched %d k/bytes in %d seconds\n", $dd_data_size/1024,
++        $time;
  } # get data
  
  #
-@@ -440,13 +447,12 @@
+@@ -673,12 +693,6 @@
+                   		          },
+ 	         });
  
- unless ($opt_quiet)
- {
+-
+-unless ($opt_quiet)
+-{
 -    if (Have_bar) { $bar = new Term::ProgressBar('loading data',$dd_data_size+1) }
 -    else          { print STDERR "loading data "; }
-+    $bar = new XMLTV::ProgressBar('loading data',$dd_data_size+1);
- }
+-}
  seek($dd_data,0,0);  #rewind
- $twig->parse( $dd_data );
- $bar->update($dd_data_size+1) if $bar;
--print STDERR "\n" unless ($opt_quiet || $bar );
-+$bar->finish();
+ eval { $twig->parse( $dd_data ) };
+ if ($@) {
+@@ -694,9 +708,6 @@
+     die "\nBad XML from DD, cannot continue\n";
+ }
  
+-$bar->update($dd_data_size+1) if $bar;
+-print STDERR "\n" unless ($opt_quiet || $bar );
+-
  $twig=undef;  # destroy twig (just in case)
  
-@@ -464,7 +470,7 @@
- #
- # store lineup information with stations
- #
--print STDERR "Processing only lineup '$opt_lineup'\n" if defined $opt_lineup;
-+say( "Processing only lineup '$opt_lineup'" ) if defined $opt_lineup;
- {
-     my $id;
-     my $count=0;
-@@ -754,13 +760,12 @@
+ 
+@@ -766,51 +777,36 @@
+                                    $lineups{$dd_lineup}{name},
+                                    $lineups{$dd_lineup}{type});
+                                            
+-        $val = askQuestion("\nWhich Lineup? ($dd_lineup)",$val,@choices);
++        $val = askQuestion("\nWhich Lineup?", $val, @choices);
+         $dd_lineup = (split(/\|/,$val))[0];
+     }
+     print CONF "lineup: $dd_lineup\n";
+ 
++    my @channels;
+     foreach (@{$lineups{$dd_lineup}{map}})
+     {
+-       my $res='yes';
+-       my $key=sprintf("%d %s",$_->{channel},$station{$_->{station}}{callSign});
+-       $chan_found{$key}=1;
+-       if ($opt_auto_config)
+-       {
+-            if (exists $chan_config{$key})
+-            {
++        push @channels, sprintf( "%d %s",
++            $_->{channel}, $station{$_->{station}}{callSign} );
+             }
+-            elsif ($opt_auto_config eq 'add')
+-            {
+-                print STDERR "Adding new channel: $key\n";
+-                $chan_config{$key}=1;
++    
++    my @questions;
++        
++    foreach my $chan ( @channels ) {
++        push @questions, "Add channel $chan? ";
+             }
+-            else
+-            {
+-                print STDERR "Ignoring new channel: $key\n";
+-                $chan_config{$key}=0;
++    my @answers = askManyBooleanQuestions( 1, @questions );
++        
++    my $i = 0;
++    for( my $i=0; $i <= $#channels; $i++ ) {
++        if( $answers[$i] ) {
++            print CONF "channel: ".$channels[$i]."\n";
++        } else {
++            print CONF "not channel: ".$channels[$i]."\n";
+             }
+        }
+-       else
+-       {
+-            $res='no' if exists $chan_config{$key} and ! $chan_config{$key};
+-            $res = askQuestion("Add channel $key?",$res,qw(yes no all none ));
+-            $chan_config{$key}=1       if $res=~/^[ya]/i;
+-            $chan_config{$key}=0       if $res=~/^[n]/i;
+-            $opt_auto_config='add'     if $res=~/^all/i;
+-            $opt_auto_config='ign'     if $res=~/^none/i;
+-       } # ask question (or --auto-new )
+-
+-       print CONF ( $chan_config{$key} ? '' : 'not ' ), "channel: $key\n";
+-    } # channel loop
+ 
+-    foreach (sort keys %chan_config)
+-    {
+-        next if $chan_found{$_};
+-        print STDERR "Channel '$_' no longer exists\n";
+-    }
+     close CONF;
++    say( "Configuration complete." );
+     exit 0;
+ } # --configure channel list
+ 
+@@ -1134,13 +1130,12 @@
+ seek($dd_data,0,0);  #rewind
  unless ($opt_quiet)
  {
-     my $msg = 'writing schedule';
--    if (Have_bar) { $bar = new Term::ProgressBar($msg,$dd_data_size+1) }
--    else          { print STDERR $msg; }
-+    $bar = new XMLTV::ProgressBar($msg,$dd_data_size+1);
+-    if (Have_bar) { $bar = new Term::ProgressBar('Writing schedule',$dd_data_size+1) }
+-    else          { print STDERR "Writing schedule"; }
++    $bar = new XMLTV::ProgressBar('writing schedule',$dd_data_size+1);
  }
  my $time=time();
  $twig->parse( $dd_data );
@@ -1834,22 +1943,22 @@ diff -u -B -b -w -r1.13 tv_grab_na_dd
  
  $writer->end();
  if (@messages)
-@@ -768,7 +773,7 @@
-     warn join( "\n", @messages ), "\n";
+@@ -1148,7 +1143,7 @@
+     print STDERR "Message: $_\n" foreach @messages;
  }
  
 -printf STDERR "Downloaded %d programs in %d seconds\n",$prog_count,time()-$start_time
-+say( "Downloaded %d programs in %d seconds\n",$prog_count,time()-$start_time )
++say( sprintf("Downloaded %d programs in %d seconds\n",$prog_count,time()-$start_time) )
      unless $opt_quiet;
  
- exit();
+ exit(0);
 Index: grab/nl/tv_grab_nl.in
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/nl/tv_grab_nl.in,v
-retrieving revision 1.3
-diff -u -B -b -w -r1.3 tv_grab_nl.in
---- grab/nl/tv_grab_nl.in	7 Jan 2004 19:55:26 -0000	1.3
-+++ grab/nl/tv_grab_nl.in	8 Apr 2004 07:41:09 -0000
+retrieving revision 1.7
+diff -u -B -b -w -r1.7 tv_grab_nl.in
+--- grab/nl/tv_grab_nl.in	10 Apr 2004 22:00:31 -0000	1.7
++++ grab/nl/tv_grab_nl.in	15 Apr 2004 08:09:46 -0000
 @@ -82,6 +82,7 @@
  use Date::Manip;
  use XMLTV;
@@ -1857,7 +1966,7 @@ diff -u -B -b -w -r1.3 tv_grab_nl.in
 +use XMLTV::ProgressBar;
  use XMLTV::Ask;
  use XMLTV::Config_file;
- use XMLTV::Europe_TZ;
+ use XMLTV::DST;
 @@ -111,9 +112,6 @@
      }
  }
@@ -1984,7 +2093,7 @@ RCS file: /cvsroot/xmltv/xmltv/grab/nl_wolf/tv_grab_nl_wolf,v
 retrieving revision 1.11
 diff -u -B -b -w -r1.11 tv_grab_nl_wolf
 --- grab/nl_wolf/tv_grab_nl_wolf	14 Feb 2004 22:10:31 -0000	1.11
-+++ grab/nl_wolf/tv_grab_nl_wolf	8 Apr 2004 07:41:10 -0000
++++ grab/nl_wolf/tv_grab_nl_wolf	15 Apr 2004 08:09:46 -0000
 @@ -81,7 +81,7 @@
  my $url_base = "$URL_HOST$URL_DIR";
  
@@ -2029,10 +2138,10 @@ diff -u -B -b -w -r1.11 tv_grab_nl_wolf
 Index: grab/se/tv_grab_se
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/se/tv_grab_se,v
-retrieving revision 1.5
-diff -u -B -b -w -r1.5 tv_grab_se
---- grab/se/tv_grab_se	17 Mar 2004 17:43:49 -0000	1.5
-+++ grab/se/tv_grab_se	8 Apr 2004 07:41:11 -0000
+retrieving revision 1.8
+diff -u -B -b -w -r1.8 tv_grab_se
+--- grab/se/tv_grab_se	13 Apr 2004 22:20:55 -0000	1.8
++++ grab/se/tv_grab_se	15 Apr 2004 08:09:46 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_se --help
@@ -2072,7 +2181,7 @@ diff -u -B -b -w -r1.5 tv_grab_se
  # The timezone for Sweden during wintertime.
  use constant LOCAL_TZ => "+0100";
  
-@@ -147,6 +150,7 @@
+@@ -150,6 +153,7 @@
  my $opt = { days => 5,
              offset => 0,
              "config-file" => undef,
@@ -2080,7 +2189,7 @@ diff -u -B -b -w -r1.5 tv_grab_se
              configure => 0,
              help => 0,
              quiet => 0,
-@@ -158,6 +162,7 @@
+@@ -161,6 +165,7 @@
                        days=i
                        offset=i
                        config-file=s
@@ -2088,7 +2197,7 @@ diff -u -B -b -w -r1.5 tv_grab_se
                        configure
                        help|h
                        quiet
-@@ -172,7 +177,7 @@
+@@ -175,7 +180,7 @@
    print << 'EOH';
  tv_grab_se --help
  
@@ -2097,17 +2206,17 @@ diff -u -B -b -w -r1.5 tv_grab_se
  
  tv_grab_se [--config-file FILE] [--output FILE] [--days N]
             [--offset N] [--quiet] [--debug]
-@@ -182,6 +187,9 @@
+@@ -185,6 +190,9 @@
    exit(1);
  }
  
 +XMLTV::Ask::init($opt->{'gui'});
 +XMLTV::ProgressBar::init($opt->{'gui'});
 +
- # XMLTV::Europe_TZ says that we should do this...
+ # XMLTV::DST says that we should do this...
  Date_Init('TZ=UTC');
  
-@@ -237,10 +245,10 @@
+@@ -240,10 +248,10 @@
  my $date = increase_date( $today, $opt->{offset} );
  
  my $bar = undef;
@@ -2120,7 +2229,7 @@ diff -u -B -b -w -r1.5 tv_grab_se
  
  for( my $i=0; $i < $opt->{days}; $i++ )
  {
-@@ -255,7 +263,7 @@
+@@ -258,7 +266,7 @@
  
      $date = increase_date( $date, 1 );
  }
@@ -2132,10 +2241,10 @@ diff -u -B -b -w -r1.5 tv_grab_se
 Index: grab/uk_rt/tv_grab_uk_rt.in
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/uk_rt/tv_grab_uk_rt.in,v
-retrieving revision 1.55
-diff -u -B -b -w -r1.55 tv_grab_uk_rt.in
---- grab/uk_rt/tv_grab_uk_rt.in	19 Mar 2004 21:12:39 -0000	1.55
-+++ grab/uk_rt/tv_grab_uk_rt.in	8 Apr 2004 07:41:12 -0000
+retrieving revision 1.59
+diff -u -B -b -w -r1.59 tv_grab_uk_rt.in
+--- grab/uk_rt/tv_grab_uk_rt.in	10 Apr 2004 22:00:32 -0000	1.59
++++ grab/uk_rt/tv_grab_uk_rt.in	15 Apr 2004 08:09:49 -0000
 @@ -11,7 +11,7 @@
  
  tv_grab_uk_rt --help
@@ -2163,9 +2272,9 @@ diff -u -B -b -w -r1.55 tv_grab_uk_rt.in
  use XMLTV::Memoize;
 +use XMLTV::ProgressBar;
  use XMLTV::Ask;
- use XMLTV::Europe_TZ;
+ use XMLTV::DST;
  use XMLTV::Config_file;
-@@ -177,6 +183,7 @@
+@@ -179,6 +185,7 @@
      $opt_share,
      $opt_configure,
      $opt_config_file,
@@ -2173,7 +2282,7 @@ diff -u -B -b -w -r1.55 tv_grab_uk_rt.in
      $opt_offset,
      $opt_quiet,
      $opt_slow,
-@@ -192,6 +199,7 @@
+@@ -194,6 +201,7 @@
  	   'help'          => \$opt_help,
  	   'configure'     => \$opt_configure,
  	   'config-file=s' => \$opt_config_file,
@@ -2181,7 +2290,7 @@ diff -u -B -b -w -r1.55 tv_grab_uk_rt.in
  	   'output=s'      => \$opt_output,
  	   'share=s'       => \$opt_share, # also undocumented
             'offset=i'      => \$opt_offset,
-@@ -208,6 +216,9 @@
+@@ -210,6 +218,9 @@
  die "--limit-details makes no sense without --slow\n"
    if defined $opt_detailtimerange and not $opt_slow;
  
@@ -2191,7 +2300,7 @@ diff -u -B -b -w -r1.55 tv_grab_uk_rt.in
  # Date::Manip has a bug where 'now' will be wrong if you change the
  # timezone.  It won't be correctly converted from the system timezone
  # to the new one.  So we call parse_date('today midnight') _before_
-@@ -387,8 +398,11 @@
+@@ -389,8 +400,11 @@
  	}
      }
      my $days = @dates_to_get > 1 ? 'days' : 'day';
@@ -2204,7 +2313,7 @@ diff -u -B -b -w -r1.55 tv_grab_uk_rt.in
      t 'getting dates:' . d \@dates_to_get;
  
      $writer->start({ 'source-info-url'     => "$BASE_URL/",
-@@ -641,6 +655,9 @@
+@@ -647,6 +661,9 @@
  	$writer->write_programme($_);
      }
      $writer->end();
@@ -2214,7 +2323,7 @@ diff -u -B -b -w -r1.55 tv_grab_uk_rt.in
  }
  
  
-@@ -1758,10 +1775,12 @@
+@@ -1767,10 +1784,12 @@
  
      XMLTV::Config_file::check_no_overwrite($config_file);
  
@@ -2236,8 +2345,8 @@ RCS file: /cvsroot/xmltv/xmltv/lib/Ask.pm,v
 retrieving revision 1.12
 diff -u -B -b -w -r1.12 Ask.pm
 --- lib/Ask.pm	3 Jan 2004 14:52:53 -0000	1.12
-+++ lib/Ask.pm	8 Apr 2004 07:41:12 -0000
-@@ -7,9 +7,19 @@
++++ lib/Ask.pm	15 Apr 2004 08:09:49 -0000
+@@ -7,9 +7,20 @@
  
  package XMLTV::Ask;
  use strict;
@@ -2249,6 +2358,7 @@ diff -u -B -b -w -r1.12 Ask.pm
 +use Exporter;
 +@ISA = qw(Exporter);
 +@EXPORT = qw(ask
++             askPassword
 +             askQuestion
 +             askBooleanQuestion
 +             askManyBooleanQuestions
@@ -2259,7 +2369,7 @@ diff -u -B -b -w -r1.12 Ask.pm
  BEGIN {
      eval { require Log::TraceMessages };
      if ($@) {
-@@ -20,22 +30,38 @@
+@@ -20,22 +31,38 @@
  	*t = \&Log::TraceMessages::t;
  	*d = \&Log::TraceMessages::d;
      }
@@ -2317,7 +2427,7 @@ RCS file: /cvsroot/xmltv/xmltv/lib/exe_opt.pl,v
 retrieving revision 1.7
 diff -u -B -b -w -r1.7 exe_opt.pl
 --- lib/exe_opt.pl	16 Mar 2004 22:43:08 -0000	1.7
-+++ lib/exe_opt.pl	8 Apr 2004 07:41:12 -0000
++++ lib/exe_opt.pl	15 Apr 2004 08:09:49 -0000
 @@ -14,7 +14,10 @@
  #
  print '-nologo
