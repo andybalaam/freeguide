@@ -2,10 +2,10 @@
 <html>
 <head>
 	<link rel="stylesheet" href="stylesheet.css" type="text/css">
-	<title>FreeGuide 0.4.3 Readme</title>
+	<title>FreeGuide 0.5 Readme</title>
 </head>
   <body>
-<h1>FreeGuide 0.4.3 Readme</h1>
+<h1>FreeGuide 0.5 Readme</h1>
 <h2>Contents</h2>
 <ul>
   <li><a href="#intro">Introduction</a>
@@ -22,13 +22,13 @@
 </ul>
 <h2><a name="intro"></a>Introduction </h2>
 
-<p>FreeGuide is an TV guide programme. It uses parser programmes to extract TV information from web pages and stores them for viewing without the need to connect to the Internet. The viewer allows the user to view television  listings and create customised TV guides by selecting programmes and by building up a favourites list.</p>
+<p>FreeGuide is a TV guide programme. It uses parser programmes to extract TV information from web pages and stores them for viewing without the need to connect to the Internet. The viewer allows the user to view television  listings and create customised TV guides by selecting programmes and by building up a favourites list.</p>
 
-<p>For the moment, it works for UK and North American listings, but contributions are welcome, especially in the area of getting the German listings grabber tv_grab_de to play nicely with FreeGuide.</p>
+<p>It works for UK, US, Canadian, German, Swedish and Norwegian listings, and has experimental support for listings for New Zealand.</p>
 
 <p>FreeGuide is written by the <a href="contributors.html">FreeGuide contributors</a> (copyright 2001-2002).  Please do send code, ideas, bugs and comments to <a href="mailto:freeguide-tv-devel@lists.sourceforge.net">freeguide-tv-devel@lists.sourceforge.net</a>.  FreeGuide's home page is at <a href="http://freeguide-tv.sourceforge.net">http://freeguide-tv.sourceforge.net</a>. You can contact the lead developer, Andy Balaam at the Centre for Computational Neuroscience and Robotics (CCNR), University of Sussex, Falmer, Brighton, UK.</p>
 
-<p>FreeGuide uses the XMLTV format and parsers developed by the very friendly people at XMLTV (<a href="http://membled.com/work/apps/xmltv/">http://membled.com/work/apps/xmltv/</a> and <a href="http://sourceforge.net/projects/xmltv">http://sourceforge.net/projects/xmltv</a>).  It also contains a little code by Slava Pestov from the JEdit project (<a href="http://www.jedit.org">www.jedit.org</a>).</p>
+<p>FreeGuide uses the XMLTV parsers (and file format) developed by the very friendly people at XMLTV (<a href="http://membled.com/work/apps/xmltv/">http://membled.com/work/apps/xmltv/</a> and <a href="http://sourceforge.net/projects/xmltv">http://sourceforge.net/projects/xmltv</a>).  It also contains a little code by Slava Pestov from the JEdit project (<a href="http://www.jedit.org">www.jedit.org</a>).</p>
 
 <h2><a name="licence"></a>Licence</h2>
 
@@ -58,21 +58,29 @@
 
 <p>You can click on a programme (making it go grey) to add it to your personalised TV guide for today, which is shown in the bottom section of the window.</p>
 
-<p>You can make programmes highlight themselves by adding them to your favourites list (under the "Actions" menu click "Choose Favourites").  Any programme matching a favourite will be ticked automatically.  You can always un-tick programmes if you wish.  You can also make a programme a favourite by right-clicking it and choosing "Add to Favourites".</p>
+<p>You can make programmes highlight themselves by adding them to your favourites list (under the "Tools" menu click "Favourites").  Any programme matching a favourite will be ticked automatically.  You can always un-tick programmes if you wish.  You can also make a programme a favourite by right-clicking it and choosing "Add to Favourites".</p>
 
 <p>Clicking "Print this personalised listing" will open up your web browser with your customised TV guide, and you can print it by choosing "File" and then "Print" in your browser.</p>
 
 <p>To download more listings, click on "Download Listings".</p>
 
-<p>Check out the "Tools" menu to alter channels, colours and settings..</p>
+<p>Check out the "Tools" menu to customise FreeGuide and alter varius options.</p>
 
 <h2><a name="notes"></a>Notes</h2>
 
 <p>If FreeGuide used to work for you and has now stopped, it is probably because the web site it grabs listings from has changed its format.  Check the XMLTV page for updated parsers.</p>
 
-<p>If FreeGuide won't work for you, why not make it work?  If you're having trouble, ask me and I'll be glad to help.</p>
+<p>If FreeGuide won't work for you, why not make it work?  If you're having trouble, ask us and we'll be glad to help.</p>
 
-<p>Check out my <a href="TODO">TODO</a> list.</p>
+<p>Check out our <a href="TODO">TODO</a> list.</p>
+
+<p>Support for New Zealand listings doesn't appear to work as far as I can tell, so I'm calling it "experimental".  Let me know if you have any success with this.  I <i>think</i> the grabber provided with XMLTV 0.5.5 just doesn't work for some reason.  If you do use the nz grabber, you'll have to leave the preference setting for grabber config file location as %home%/.xmltv/tv_grab_nz since the grabber is unable to use a file in a different location.</p>
+
+<p>If you use the North American grabber on Linux it will never overwrite listings files that already exist.  If you want it to overwrite a particular file, delete it from ~/.freeguide-tv/.</p>
+
+<p>If you grab some listings late in a day, nearing the grabber's idea of the end of a day (e.g. close to 6am for the UK grabber) then you may be told that there are missing listings for that day even though you've just grabbed new listings.  This is because the grabbing has started from tomorrow, so what's left of today doesn't have a full set of listings.  Don't worry about this - just say "No" and you should be able to see what you need.</p>
+
+<p>If you install the Windows version and choose UK as your region, and then uninstall FreeGuide at a later date, some files will not be removed from C:\Perl\share\xmltv.  You may remove the directory manually if you like.</p>
 
 </body>
 </html>
