@@ -25,6 +25,7 @@ import freeguide.*;
  */
 public class AboutFrame extends javax.swing.JDialog
 {
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -111,8 +112,8 @@ public class AboutFrame extends javax.swing.JDialog
         setLocation( 
             ( screenSize.width - 416 ) / 2, ( screenSize.height - 245 ) / 2 );
 
-// To Be Added Shortly (Rob)
-//        GuiUtils.centerDialog( this, 416, 245 );
+        // To Be Added Shortly (Rob)
+        //        GuiUtils.centerDialog( this, 416, 245 );
     }
 
     /**

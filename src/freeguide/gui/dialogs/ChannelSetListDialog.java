@@ -38,6 +38,7 @@ import javax.swing.*;
  */
 public class ChannelSetListDialog extends FGDialog
 {
+
     private javax.swing.JButton butAdd;
     private javax.swing.JButton butCancel;
     private javax.swing.JButton butEdit;
@@ -138,6 +139,7 @@ public class ChannelSetListDialog extends FGDialog
 
     private void initComponents(  )
     {
+
         java.awt.GridBagConstraints gridBagConstraints;
 
         getContentPane(  ).setLayout( new java.awt.GridBagLayout(  ) );
@@ -176,8 +178,8 @@ public class ChannelSetListDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 10 );
         jPanel1.add( butEdit, gridBagConstraints );
 
-        butRemove = new javax.swing.JButton(
-            FreeGuide.msg.getString( "remove" ) );
+        butRemove =
+            new javax.swing.JButton( FreeGuide.msg.getString( "remove" ) );
         butRemove.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
@@ -215,11 +217,14 @@ public class ChannelSetListDialog extends FGDialog
             nWidthAdd = nWidthRemove;
         }
 
-        butAdd.setPreferredSize( new Dimension( 
+        butAdd.setPreferredSize( 
+            new Dimension( 
                 nWidthAdd, (int)butAdd.getPreferredSize(  ).getHeight(  ) ) );
-        butEdit.setPreferredSize( new Dimension( 
+        butEdit.setPreferredSize( 
+            new Dimension( 
                 nWidthAdd, (int)butEdit.getPreferredSize(  ).getHeight(  ) ) );
-        butRemove.setPreferredSize( new Dimension( 
+        butRemove.setPreferredSize( 
+            new Dimension( 
                 nWidthAdd, (int)butRemove.getPreferredSize(  ).getHeight(  ) ) );
 
         list = new javax.swing.JList( channelsetModel );
@@ -234,9 +239,10 @@ public class ChannelSetListDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 10, 5, 5 );
         getContentPane(  ).add( jScrollPane1, gridBagConstraints );
 
-        jLabel1 = new javax.swing.JLabel( 
-            FreeGuide.msg.getString( "channel_sets" ) + ":",
-            javax.swing.SwingConstants.CENTER );
+        jLabel1 =
+            new javax.swing.JLabel( 
+                FreeGuide.msg.getString( "channel_sets" ) + ":",
+                javax.swing.SwingConstants.CENTER );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
@@ -291,8 +297,8 @@ public class ChannelSetListDialog extends FGDialog
         setLocation( 
             ( screenSize.width - 400 ) / 2, ( screenSize.height - 300 ) / 2 );
 
-// To Be Added Shortly (Rob)
-//        GuiUtils.centerDialog( this, 400, 300 );
+        // To Be Added Shortly (Rob)
+        //        GuiUtils.centerDialog( this, 400, 300 );
     }
 
     /**

@@ -27,39 +27,14 @@ import java.util.*;
 import javax.swing.*;
 
 /**
- * Implements the model for ProgrammeJLabel to get and change
- * application state according to user interaction with
- * ProgrammeJLabel
+ * Implements the model for ProgrammeJLabel to get and change application
+ * state according to user interaction with ProgrammeJLabel
  *
  * @author Risto Kankkunen (split out of ViewerFrame by Andy Balaam).
  * @version 1
  */
 public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
 {
-
-    private static class RenderedProgrammeJLabel extends ProgrammeJLabel {
-        
-        RenderedProgrammeJLabel( SimpleDateFormat timeFormat, Font font )
-        {
-            super( timeFormat, font );
-        }
-        
-        RenderedProgrammeJLabel( Model model, SimpleDateFormat timeFormat,
-            Font font )
-        {
-            super( model, timeFormat, font );
-        }
-        
-        /*
-         * Overridden to make sure we get drawn by CellRendererPane
-         *
-         * @see java.awt.Component#isShowing()
-         */
-        public boolean isShowing(  )
-        {
-            return true;
-        }
-    }
 
     private ViewerFrame viewerFrame;
     private Programme programme;
@@ -68,11 +43,10 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
     ProgrammeRenderer( 
         SimpleDateFormat timeFormat, Font font, ViewerFrame viewerFrame )
     {
-        this.label = new RenderedProgrammeJLabel(timeFormat, font );
+        this.label = new RenderedProgrammeJLabel( timeFormat, font );
 
         this.viewerFrame = viewerFrame;
     }
-
 
     // --- StripRenderer interface ---
     public Component getStripRendererComponent( 
@@ -95,7 +69,8 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
             }
             else
             {
-                label.setBorder( BorderFactory.createLineBorder( Color.gray, 3 ) );
+                label.setBorder( 
+                    BorderFactory.createLineBorder( Color.gray, 3 ) );
             }
         }
 
@@ -259,9 +234,7 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
             setInGuide( true );
 
         }
-
     }
-
 
     /**
      * DOCUMENT_ME!
@@ -286,5 +259,30 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
             programme ) );
         viewerFrame.detailsPanel.updateProgramme( programme );
         */
+    }
+
+    private static class RenderedProgrammeJLabel extends ProgrammeJLabel
+    {
+        RenderedProgrammeJLabel( SimpleDateFormat timeFormat, Font font )
+        {
+            super( timeFormat, font );
+        }
+
+        RenderedProgrammeJLabel( 
+            Model model, SimpleDateFormat timeFormat, Font font )
+        {
+            super( model, timeFormat, font );
+        }
+
+        /*
+         * Overridden to make sure we get drawn by CellRendererPane
+         *
+         * @see java.awt.Component#isShowing()
+         */
+        public boolean isShowing(  )
+        {
+
+            return true;
+        }
     }
 }

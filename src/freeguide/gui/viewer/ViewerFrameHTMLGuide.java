@@ -171,10 +171,10 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
         ans.append( "  <title>" );
 
         Object[] messageArguments =
-            {
-                parentViewerFrame.htmlDateFormat.format( 
-                    parentViewerFrame.theDate.getTime(  ) )
-            };
+        {
+            parentViewerFrame.htmlDateFormat.format( 
+                parentViewerFrame.theDate.getTime(  ) )
+        };
         ans.append( 
             FreeGuide.getCompoundMessage( 
                 "tv_guide_for_template", messageArguments ) );
@@ -225,10 +225,10 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
                 "<font face='helvetica, helv, arial, sans serif' size='4'>" );
 
             Object[] messageArguments2 =
-                {
-                    parentViewerFrame.htmlDateFormat.format( 
-                        parentViewerFrame.theDate.getTime(  ) )
-                };
+            {
+                parentViewerFrame.htmlDateFormat.format( 
+                    parentViewerFrame.theDate.getTime(  ) )
+            };
             ans.append( 
                 FreeGuide.getCompoundMessage( 
                     "your_personalised_tv_guide_for_template",
@@ -240,10 +240,10 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
         {
 
             Object[] messageArguments2 =
-                {
-                    parentViewerFrame.htmlDateFormat.format( 
-                        parentViewerFrame.theDate.getTime(  ) )
-                };
+            {
+                parentViewerFrame.htmlDateFormat.format( 
+                    parentViewerFrame.theDate.getTime(  ) )
+            };
             ans.append( 
                 FreeGuide.getCompoundMessage( 
                     "tv_guide_for_template", messageArguments2 ) );

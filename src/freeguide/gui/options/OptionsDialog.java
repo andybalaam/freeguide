@@ -119,8 +119,8 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
             ( screenSize.width - dialogSize.width ) / 2,
             ( screenSize.height - dialogSize.height ) / 2 );
 
-// To Be Added Shortly (Rob)
-//        GuiUtils.centerDialog( this, 500, 400 );
+        // To Be Added Shortly (Rob)
+        //        GuiUtils.centerDialog( this, 500, 400 );
     }
 
     /**

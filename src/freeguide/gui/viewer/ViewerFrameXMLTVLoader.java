@@ -555,7 +555,6 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler
         }
         else if( saxLoc.equals( ":tv:channel" ) )
         {
-
             tmpChannelID = attrs.getValue( "id" );
             tmpChannelName = null;
 
@@ -805,8 +804,10 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler
         }
         else if( saxLoc.equals( ":tv:channel:display-name" ) )
         {
+
             if( tmpChannelName == null )
             {
+
                 // Remember the name of the channel we're looking at
                 tmpChannelName = data;
             }

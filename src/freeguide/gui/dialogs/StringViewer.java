@@ -14,7 +14,6 @@ import freeguide.*;
 
 // To Be Added Shortly (Rob)
 //import freeguide.lib.general.*;
-
 import java.awt.*;
 
 import java.io.*;
@@ -32,6 +31,7 @@ import javax.swing.*;
  */
 public class StringViewer extends JDialog
 {
+
     private javax.swing.JScrollPane scrError;
     private javax.swing.JScrollPane scrOutput;
     private javax.swing.JSplitPane splitpane;
@@ -71,8 +71,8 @@ public class StringViewer extends JDialog
                 }
             } );
 
-        splitpane = new javax.swing.JSplitPane(
-            javax.swing.JSplitPane.VERTICAL_SPLIT );
+        splitpane =
+            new javax.swing.JSplitPane( javax.swing.JSplitPane.VERTICAL_SPLIT );
         splitpane.setDividerLocation( 100 );
 
         txaOutput = new javax.swing.JTextArea(  );
@@ -98,8 +98,8 @@ public class StringViewer extends JDialog
         setLocation( 
             ( screenSize.width - 450 ) / 2, ( screenSize.height - 400 ) / 2 );
 
-// To Be Added Shortly (Rob)
-//        GuiUtils.centerDialog( this, 450, 400 );
+        // To Be Added Shortly (Rob)
+        //        GuiUtils.centerDialog( this, 450, 400 );
     }
 
     /**

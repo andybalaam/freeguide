@@ -303,7 +303,7 @@ public class StripView extends JPanel implements Scrollable
     public void focus( long millis )
     {
 
-        Point p = new Point( XToXPixel( millis ), 0 );
+        Point p = new Point( xToXPixel( millis ), 0 );
         final int startRow = ( currentStrip != null ) ? currentRow : 0;
 
         int row = startRow;
@@ -311,7 +311,7 @@ public class StripView extends JPanel implements Scrollable
 
         do
         {
-            p.y = RowToYPixel( row );
+            p.y = rowToYPixel( row );
 
             Strip s = getStripAt( p );
 
@@ -394,13 +394,13 @@ public class StripView extends JPanel implements Scrollable
         return (long)( x / widthMultiplier ) + min;
     }
 
-    private int RowToYPixel( int row )
+    private int rowToYPixel( int row )
     {
 
         return row * channelHeight;
     }
 
-    private int XToXPixel( long x )
+    private int xToXPixel( long x )
     {
 
         return (int)( ( x - min ) * widthMultiplier );
@@ -513,11 +513,11 @@ public class StripView extends JPanel implements Scrollable
             return null;
         }
 
-        int left = XToXPixel( s.start );
-        int right = XToXPixel( s.end );
+        int left = xToXPixel( s.start );
+        int right = xToXPixel( s.end );
 
-        int top = RowToYPixel( row );
-        int bottom = RowToYPixel( row + 1 );
+        int top = rowToYPixel( row );
+        int bottom = rowToYPixel( row + 1 );
 
         return new Rectangle( 
             left + ( horGap / 2 ), top + ( verGap / 2 ), right - left - horGap,
@@ -969,7 +969,9 @@ public class StripView extends JPanel implements Scrollable
                 if( s != null )
                 {
                     focusStrip( row, s );
-                } // Otherwise, give up - there's nothing in the rows below
+                }
+
+                // Otherwise, give up - there's nothing in the rows below
             }
         }
     }
@@ -1063,7 +1065,9 @@ public class StripView extends JPanel implements Scrollable
                 if( s != null )
                 {
                     focusStrip( row, s );
-                } // Otherwise, give up - there's nothing in the rows above
+                }
+
+                // Otherwise, give up - there's nothing in the rows above
             }
         }
     }

@@ -395,6 +395,7 @@ public class ProgrammeJLabel extends JLabel
         {
             model.setFavourite( isFavourite );
         }
+
         updateIsFavourite( isFavourite );
     }
 
@@ -417,13 +418,14 @@ public class ProgrammeJLabel extends JLabel
             setBorder( nonTickedBorder );
             setBackground( nonTickedColour );
         }
-        repaint();
+
+        repaint(  );
     }
 
     protected void updateIsFavourite( boolean isFavourite )
     {
         this.isFavourite = isFavourite;
-        repaint();
+        repaint(  );
     }
 
     /**

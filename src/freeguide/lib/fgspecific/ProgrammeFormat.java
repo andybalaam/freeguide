@@ -423,7 +423,7 @@ public class ProgrammeFormat
             toAppendTo.append( " " );
 
             Object[] messageArguments =
-                { dateFormat.format( programme.getEnd(  ).getTime(  ) ) };
+            { dateFormat.format( programme.getEnd(  ).getTime(  ) ) };
             toAppendTo.append( 
                 FreeGuide.getCompoundMessage( 
                     "ends_template", messageArguments ) );

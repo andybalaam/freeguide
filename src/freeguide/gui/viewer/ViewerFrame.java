@@ -8,6 +8,7 @@
  *
  *  See the file COPYING for more information.
  */
+
 //{{{ Imports
 package freeguide.gui.viewer;
 
@@ -230,6 +231,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     public ViewerFrame( PleaseWaitFrame pleaseWait )
     {
+
         // Set the look and feel
         setLookAndFeel(  );
 
@@ -325,6 +327,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
         // Check the FreeGuide version
         if( !FreeGuide.prefs.misc.get( "privacy", "no" ).equals( "no" ) )
         {
+
             // Run the check in a separate thread to avoid blocking.
             new VersionCheckerThread( this ).start(  );
         }
@@ -344,8 +347,10 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     private void checkForNoData( PleaseWaitFrame pleaseWait )
     {
+
         if( !xmltvLoader.hasData(  ) )
         {
+
             Object[] oa = new Object[2];
             oa[0] =
                 FreeGuide.msg.getString( 
@@ -373,6 +378,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     private void setupAndFindDates(  )
     {
+
         // Find out what dates exist, from the filenames
         dateFilesExistList =
             new DateFilesExistList( 
@@ -386,6 +392,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     private void findInitialDate(  )
     {
+
         // Set the date to today
         theDate = GregorianCalendar.getInstance(  );
 
@@ -404,6 +411,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     private void findInitialChannelSet(  )
     {
+
         String currentChannelSetString =
             FreeGuide.prefs.screen.get( 
                 "viewer_channel_set", CHANNEL_SET_ALL_CHANNELS );
@@ -420,6 +428,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     private void drawStaticGUI(  )
     {
+
         //{{{ Initialisations
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -537,9 +546,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
             FreeGuide.prefs.screen.getInt( 
                 "viewer_top", ( screenSize.height - 400 ) / 2 ) );
 
-// To Be Added Shortly (Rob)
-//        GuiUtils.centerDialog( this, "viewer", 640, 400 );
-
+        // To Be Added Shortly (Rob)
+        //        GuiUtils.centerDialog( this, "viewer", 640, 400 );
         splitPaneChanProg.setDividerLocation( 
             FreeGuide.prefs.screen.getInt( "viewer_splitpane_vertical", 100 ) );
         splitPaneMainDet.setDividerLocation( 
@@ -550,7 +558,6 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
 
         //}}}
         //{{{ topButtonsPanel
-
         topButtonsPanel.setLayout( new java.awt.GridBagLayout(  ) );
 
         butGoToNow.setText( FreeGuide.msg.getString( "go_to_now" ) );
@@ -717,6 +724,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
             {
                 public void preferenceChange( FGPreferenceChangeEvent evt )
                 {
+
                     //TODO: maybe repaint()
                     programmesPanel.invalidate(  );
                 }
@@ -727,6 +735,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
             {
                 public void preferenceChange( FGPreferenceChangeEvent evt )
                 {
+
                     //TODO: maybe repaint()
                     programmesPanel.invalidate(  );
                 }
@@ -1029,6 +1038,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
 
         if( alignTextToLeftOfScreen )
         {
+
             /**
              * Listen for scroll events to make programmes off the left still
              * visible.
@@ -1046,6 +1056,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
                                 .addAdjustmentListener( 
                 comProgramScrollListener );
         }
+
         //}}}
     }
 
@@ -1053,6 +1064,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
     //{{{ (re)-Initialisation methods
     private void setLookAndFeel(  )
     {
+
         LookAndFeel currentLAF = UIManager.getLookAndFeel(  );
         String defaultLAFName = "Metal";
         String currentLAFClassName = null;
@@ -1070,12 +1082,14 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
             ( !requestedLookAndFeel.equals( defaultLAFName ) )
                 && ( !( requestedLookAndFeel.equals( currentLAFClassName ) ) ) )
         {
+
             String className =
                 LookAndFeelManager.getLookAndFeelClassName( 
                     requestedLookAndFeel );
 
             if( className == null )
             {
+
                 // Assume that the pref specifies the classname
                 // and do our best
                 className = requestedLookAndFeel;
@@ -1106,6 +1120,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     private void findChannelSets(  )
     {
+
         // Find out what channel sets exist, from the preferences
         channelSetsList = FreeGuide.prefs.getChannelSets(  );
     }
@@ -1123,6 +1138,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     private void drawDateComboList(  )
     {
+
         // Stop listening to item events temporarily while we mess about
         comTheDate.removeItemListener( comTheDateItemListener );
 
@@ -1145,15 +1161,15 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
 
         goToDate( theDate.getTime(  ) );
 
-// To Be Added Shortly (Rob)
-//        GuiUtils.resizeToContents( comTheDate );
-        
+        // To Be Added Shortly (Rob)
+        //        GuiUtils.resizeToContents( comTheDate );
         // Restart listening to item events
         comTheDate.addItemListener( comTheDateItemListener );
     }
 
     private void drawChannelSetComboList(  )
     {
+
         // Stop listening to item events temporarily while we mess about
         comChannelSet.removeItemListener( comChannelSetItemListener );
 
@@ -1182,9 +1198,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
         comChannelSet.setSelectedItem( 
             currentChannelSet.getChannelSetName(  ) );
 
-// To Be Added Shortly (Rob)
-//        GuiUtils.resizeToContents( comChannelSet );
-
+        // To Be Added Shortly (Rob)
+        //        GuiUtils.resizeToContents( comChannelSet );
         // Restart listening to item events
         comChannelSet.addItemListener( comChannelSetItemListener );
         validate(  );
@@ -1193,6 +1208,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
 
     private void scrollToNow(  )
     {
+
         long now = System.currentTimeMillis(  );
         programmesPanel.focus( now );
 
@@ -1210,6 +1226,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
 
     void scrollToReference( String reference )
     {
+
         // TODO should focus the programme referred by reference
         printedGuideArea.scrollToReference( reference );
     }
@@ -1222,6 +1239,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     private void drawProgrammes(  )
     {
+
         //FreeGuide.log.info( "drawProgrammes - begin" );
         //{{{ Set up variables
         String lineBreak = System.getProperty( "line.separator" );
@@ -1277,6 +1295,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
 
         if( drawTime )
         {
+
             if( draw24time )
             {
                 timeFormat = timeFormat24Hour;
@@ -1341,8 +1360,10 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
                     || ( FreeGuide.prefs.screen.get( 
                         "customIcon." + ctxt.getChannel(  ).getID(  ) ) != null ) )
             {
+
                 try
                 {
+
                     ImageIcon iconImg = null;
 
                     // If a custom icon is set use it !
@@ -1361,6 +1382,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
                     }
                     else
                     {
+
                         // First convert the id to a suitable (and safe!!)
                         // filename
                         File cache =
@@ -1369,6 +1391,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
                         // then verify if the file is in the cache
                         if( !cache.canRead(  ) )
                         {
+
                             // if not, we try to fetch it from the url
                             URL iconURL = new URL( iconURLstr );
                             InputStream i = iconURL.openStream(  );
@@ -1400,6 +1423,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
                 }
                 catch( MalformedURLException e )
                 {
+
                     // Do nothing
                 }
                 catch( IOException e )
@@ -1449,6 +1473,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
                     private void maybeShowPopup( 
                         java.awt.event.MouseEvent evt )
                     {
+
                         if( evt.isPopupTrigger(  ) )
                         {
                             rightClickedChannel =
@@ -1470,6 +1495,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
 
         for( int c = 0; c < num_chans; c++ )
         {
+
             ChannelJLabel ctxt = tmpChannels[c];
 
             ctxt.setBounds( 
@@ -1547,19 +1573,23 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     private void checkCurrentChannelSet(  )
     {
+
         // If it's the default channelset, no problem
         if( currentChannelSet == xmltvLoader )
         {
+
             return;
         }
 
         // If it's in the list, no problem
         for( int i = 0; i < channelSetsList.length; i++ )
         {
+
             if( 
                 currentChannelSet.getChannelSetName(  ).equals( 
                         channelSetsList[i].getChannelSetName(  ) ) )
             {
+
                 return;
             }
         }
@@ -1592,9 +1622,11 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
     private ChannelSetInterface getChannelSetInterfaceFromName( 
         String channelSetName )
     {
+
         // It's either All Channels ...
         if( channelSetName.equals( CHANNEL_SET_ALL_CHANNELS ) )
         {
+
             return xmltvLoader;
         }
 
@@ -1602,11 +1634,13 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
         // Step through the channel sets
         for( int i = 0; i < channelSetsList.length; i++ )
         {
+
             // Checking whether their name matches the required one.
             if( 
                 channelSetsList[i].getChannelSetName(  ).equals( 
                         channelSetName ) )
             {
+
                 // If so, return this one.
                 return channelSetsList[i];
             }
@@ -1627,6 +1661,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     public void reShow(  )
     {
+
         // Redraw the channel sets combo
         findChannelSets(  );
 
@@ -1671,6 +1706,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
     //{{{ Progressor interface code
     public void setProgress( int percent )
     {
+
         //progressBar.setValue( percent );
     }
 
@@ -1685,6 +1721,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
     public void popMenuChannelPopupMenuWillBecomeVisible( 
         javax.swing.event.PopupMenuEvent evt )
     {
+
         String customIcon =
             FreeGuide.prefs.screen.get( 
                 "customIcon." + rightClickedChannel.getChannel(  ).getID(  ) );
@@ -1720,6 +1757,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     public void mbtConfigureActionPerformed( java.awt.event.ActionEvent evt )
     {
+
         String preconfig_message =
             FreeGuide.prefs.misc.get( "preconfig_message" );
 
@@ -1741,6 +1779,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
     public void butRevertToFavouritesActionPerformed( 
         java.awt.event.ActionEvent evt )
     {
+
         // Tell the prefs we've got no programmes for today
         //FreeGuide.prefs.somethingInGuide( theDate, false );
         resetSelections(  );
@@ -1753,6 +1792,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     public void resetSelections(  )
     {
+
         FavouritesList favouritesList = FavouritesList.getInstance(  );
 
         for( 
@@ -1760,6 +1800,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
                 ( (ProgrammeStripModel)programmesPanel.getModel(  ) ).getAll(  )
                   .iterator(  ); i.hasNext(  ); )
         {
+
             Programme programme = (Programme)( i.next(  ) );
 
             programme.setInGuide( favouritesList.isFavourite( programme ) );
@@ -1773,9 +1814,11 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     public void comChannelSetItemStateChanged( java.awt.event.ItemEvent evt )
     {
+
         // Do nothing if this isn't an item selection
         if( evt.getStateChange(  ) != ItemEvent.SELECTED )
         {
+
             return;
         }
 
@@ -1794,10 +1837,12 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
         }
         else
         {
+
             int i;
 
             for( i = 0; i < channelSetsList.length; i++ )
             {
+
                 if( 
                     channelSetString.equals( 
                             channelSetsList[i].getChannelSetName(  ) ) )
@@ -1836,9 +1881,11 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     public void comTheDateItemStateChanged( java.awt.event.ItemEvent evt )
     {
+
         // Do nothing if this isn't an item selection
         if( evt.getStateChange(  ) != ItemEvent.SELECTED )
         {
+
             return;
         }
 
@@ -1894,6 +1941,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     public void mbtUserGuideActionPerformed( java.awt.event.ActionEvent evt )
     {
+
         String fs = System.getProperty( "file.separator" );
 
         String[] cmds =
@@ -1931,10 +1979,12 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     public void mbtOptionsActionPerformed( java.awt.event.ActionEvent evt )
     {
+
         boolean updated = centreDialogAndRun( new OptionsDialog( this ) );
 
         if( updated )
         {
+
             // Set the look and feel - Don't want this in reShow()
             setLookAndFeel(  );
             reShow(  );
@@ -1943,6 +1993,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
 
     private boolean centreDialogAndRun( FGDialog dialog )
     {
+
         Dimension thisSize = getSize(  );
         Dimension dialogSize = dialog.getSize(  );
         Point thisLocation = getLocation(  );
@@ -1966,6 +2017,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
 
     private void editChannelSets(  )
     {
+
         boolean updated =
             centreDialogAndRun( new ChannelSetListDialog( this, xmltvLoader ) );
 
@@ -1983,6 +2035,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     public void mbtFavouritesActionPerformed( java.awt.event.ActionEvent evt )
     {
+
         // DEBUG - do we still need to do this?
         FreeGuide.prefs.favourites.removeFGPreferenceChangeListener( 
             favouritesChangeListener );
@@ -2027,14 +2080,17 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     public void mbtChangeIconActionPerformed( ActionEvent evt )
     {
+
         JFileChooser chooser = new JFileChooser(  );
         chooser.setFileFilter( 
             new FileFilter(  )
             {
+
                 private Pattern images = null;
 
                 public boolean accept( File f )
                 {
+
                     if( images == null )
                     {
                         images =
@@ -2047,6 +2103,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
 
                 public String getDescription(  )
                 {
+
                     return FreeGuide.msg.getString( "images_gif_jpeg_png" );
                 }
             } );
@@ -2092,6 +2149,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     public void butNextDayActionPerformed( java.awt.event.ActionEvent evt )
     {
+
         Calendar tmpDate = GregorianCalendar.getInstance(  );
 
         tmpDate.setTimeInMillis( theDate.getTimeInMillis(  ) );
@@ -2108,6 +2166,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     public void butPreviousDayActionPerformed( java.awt.event.ActionEvent evt )
     {
+
         Calendar tmpDate = GregorianCalendar.getInstance(  );
         tmpDate.setTimeInMillis( theDate.getTimeInMillis(  ) );
 
@@ -2170,6 +2229,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     public void goToNow(  )
     {
+
         // Remember what day we were one        
         int oldDay = theDate.get( Calendar.DAY_OF_YEAR );
         int oldYear = theDate.get( Calendar.YEAR );
@@ -2204,6 +2264,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
      */
     public void quit(  )
     {
+
         // Save the window size and position etc.
         // --------------------------------------
         FreeGuide.prefs.screen.putInt( "viewer_left", getX(  ) );
@@ -2220,8 +2281,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
             "viewer_splitpane_horizontal_bottom",
             splitPaneGuideDet.getDividerLocation(  ) );
         FreeGuide.prefs.screen.put( 
-            "viewer_channel_set",
-            (String)( comChannelSet.getSelectedItem(  ) ) );
+            "viewer_channel_set", (String)( comChannelSet.getSelectedItem(  ) ) );
 
         // Delete old .xmltv files
         // ---------------------
@@ -2240,13 +2300,16 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
 
         if( wd.isDirectory(  ) )
         {
+
             String[] files = wd.list(  );
 
             for( int i = 0; i < files.length; i++ )
             {
+
                 // If it's an xmltv file, we may want to delete it
                 if( files[i].matches( ".*-\\d{8}.xmltv" ) )
                 {
+
                     int len = files[i].length(  );
                     String dateStr = files[i].substring( 3, 11 );
 
@@ -2273,6 +2336,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
 
         for( int i = 0; i < choiceDates.length; i++ )
         {
+
             if( choiceDates[i].before( lastWeek ) )
             {
                 FreeGuide.prefs.somethingInGuide( choiceDates[i], false );
@@ -2287,6 +2351,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
 
     static class BorderChanger implements FocusListener
     {
+
         static final Border focusedBorder = new LineBorder( Color.black, 2 );
         static final Border unfocusedBorder = new EmptyBorder( 2, 2, 2, 2 );
         JComponent borderChangee;

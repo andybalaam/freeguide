@@ -31,6 +31,7 @@ import javax.swing.DefaultListModel;
  */
 public class FavouritesListDialog extends FGDialog
 {
+
     private javax.swing.JButton butAdd;
     private javax.swing.JButton butCancel;
     private javax.swing.JButton butEdit;
@@ -114,6 +115,7 @@ public class FavouritesListDialog extends FGDialog
 
     private void initComponents(  )
     {
+
         java.awt.GridBagConstraints gridBagConstraints;
 
         getContentPane(  ).setLayout( new java.awt.GridBagLayout(  ) );
@@ -154,8 +156,8 @@ public class FavouritesListDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 10 );
         jPanel1.add( butEdit, gridBagConstraints );
 
-        butRemove = new javax.swing.JButton(
-            FreeGuide.msg.getString( "remove" ) );
+        butRemove =
+            new javax.swing.JButton( FreeGuide.msg.getString( "remove" ) );
         butRemove.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
@@ -191,9 +193,10 @@ public class FavouritesListDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 10, 5, 5 );
         getContentPane(  ).add( jScrollPane1, gridBagConstraints );
 
-        jLabel1 = new javax.swing.JLabel(
-            FreeGuide.msg.getString( "your_favourites" ) + ":",
-            javax.swing.SwingConstants.CENTER );
+        jLabel1 =
+            new javax.swing.JLabel( 
+                FreeGuide.msg.getString( "your_favourites" ) + ":",
+                javax.swing.SwingConstants.CENTER );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
@@ -216,8 +219,8 @@ public class FavouritesListDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 10, 5 );
         jPanel2.add( butOK, gridBagConstraints );
 
-        butCancel = new javax.swing.JButton(
-            FreeGuide.msg.getString( "cancel" ) );
+        butCancel =
+            new javax.swing.JButton( FreeGuide.msg.getString( "cancel" ) );
         butCancel.setPreferredSize( new java.awt.Dimension( 83, 26 ) );
         butCancel.addActionListener( 
             new java.awt.event.ActionListener(  )

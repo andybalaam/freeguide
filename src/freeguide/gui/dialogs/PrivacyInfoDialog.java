@@ -45,9 +45,11 @@ public class PrivacyInfoDialog extends JDialog
 
     private void initComponents(  )
     {
+
         java.awt.GridBagConstraints gridBagConstraints;
 
-        ResourceBundle privBundle = ResourceBundle.getBundle( 
+        ResourceBundle privBundle =
+            ResourceBundle.getBundle( 
                 "resources/PrivacyBundle", FreeGuide.locale );
 
         String privacyInfo = privBundle.getString( "privacy_html" );
@@ -70,7 +72,7 @@ public class PrivacyInfoDialog extends JDialog
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
                 {
-                    OKButtonActionPerformed( evt );
+                    okButtonActionPerformed( evt );
                 }
             } );
 
@@ -87,8 +89,8 @@ public class PrivacyInfoDialog extends JDialog
             ( screenSize.width - dialogSize.width ) / 2,
             ( screenSize.height - dialogSize.height ) / 2 );
 
-// To Be Added Shortly (Rob)
-//        GuiUtils.centerDialog( this, 600, 400 );
+        // To Be Added Shortly (Rob)
+        //        GuiUtils.centerDialog( this, 600, 400 );
     }
 
     /**
@@ -96,7 +98,7 @@ public class PrivacyInfoDialog extends JDialog
      *
      * @param evt
      */
-    private void OKButtonActionPerformed( java.awt.event.ActionEvent evt )
+    private void okButtonActionPerformed( java.awt.event.ActionEvent evt )
     {
         quit(  );
     }

@@ -20,7 +20,6 @@ import freeguide.lib.fgspecific.*;
 
 // To Be Added Shortly (Rob)
 //import freeguide.lib.general.*;
-
 import java.awt.*;
 
 import java.util.*;
@@ -36,6 +35,7 @@ import javax.swing.*;
  */
 public class ChannelSetEditorDialog extends FGDialog
 {
+
     private javax.swing.JButton addButton;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton moveDownButton;
@@ -53,7 +53,6 @@ public class ChannelSetEditorDialog extends FGDialog
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nameTextField;
-
     private ViewerFrameXMLTVLoader loader;
     private ChannelSet channelset;
 
@@ -121,6 +120,7 @@ public class ChannelSetEditorDialog extends FGDialog
 
     private void initComponents(  )
     {
+
         java.awt.GridBagConstraints gridBagConstraints;
 
         getContentPane(  ).setLayout( new java.awt.GridBagLayout(  ) );
@@ -168,8 +168,9 @@ public class ChannelSetEditorDialog extends FGDialog
 
         jPanel1 = new javax.swing.JPanel( new java.awt.GridBagLayout(  ) );
 
-        addButton = new javax.swing.JButton( 
-            FreeGuide.msg.getString( "add_to_set" ) + " >>" );
+        addButton =
+            new javax.swing.JButton( 
+                FreeGuide.msg.getString( "add_to_set" ) + " >>" );
         addButton.setMaximumSize( new java.awt.Dimension( 135, 26 ) );
         addButton.setMinimumSize( new java.awt.Dimension( 135, 26 ) );
         addButton.addActionListener( 
@@ -187,8 +188,9 @@ public class ChannelSetEditorDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 0, 5, 0, 5 );
         jPanel1.add( addButton, gridBagConstraints );
 
-        removeButton = new javax.swing.JButton( 
-            "<< " + FreeGuide.msg.getString( "remove_from_set" ) );
+        removeButton =
+            new javax.swing.JButton( 
+                "<< " + FreeGuide.msg.getString( "remove_from_set" ) );
         removeButton.setMaximumSize( new java.awt.Dimension( 135, 26 ) );
         removeButton.setMinimumSize( new java.awt.Dimension( 135, 26 ) );
         removeButton.setPreferredSize( new java.awt.Dimension( 172, 26 ) );
@@ -208,8 +210,8 @@ public class ChannelSetEditorDialog extends FGDialog
         gridBagConstraints.weighty = 0.25;
         jPanel1.add( removeButton, gridBagConstraints );
 
-        moveUpButton = new javax.swing.JButton(
-            FreeGuide.msg.getString( "move_up" ) );
+        moveUpButton =
+            new javax.swing.JButton( FreeGuide.msg.getString( "move_up" ) );
         moveUpButton.setMaximumSize( new java.awt.Dimension( 115, 26 ) );
         moveUpButton.setMinimumSize( new java.awt.Dimension( 115, 26 ) );
         moveUpButton.setPreferredSize( new java.awt.Dimension( 115, 26 ) );
@@ -228,8 +230,8 @@ public class ChannelSetEditorDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 0, 5, 0, 5 );
         jPanel1.add( moveUpButton, gridBagConstraints );
 
-        moveDownButton = new javax.swing.JButton(
-            FreeGuide.msg.getString( "move_down" ) );
+        moveDownButton =
+            new javax.swing.JButton( FreeGuide.msg.getString( "move_down" ) );
         moveDownButton.setMaximumSize( new java.awt.Dimension( 115, 26 ) );
         moveDownButton.setMinimumSize( new java.awt.Dimension( 115, 26 ) );
         moveDownButton.setPreferredSize( new java.awt.Dimension( 115, 26 ) );
@@ -297,9 +299,10 @@ public class ChannelSetEditorDialog extends FGDialog
         jPanel3 = new javax.swing.JPanel( new java.awt.GridBagLayout(  ) );
         jPanel3.setMinimumSize( new java.awt.Dimension( 400, 80 ) );
 
-        nameLabel = new javax.swing.JLabel( 
-            FreeGuide.msg.getString( "channel_set_name" ) + ":",
-            javax.swing.SwingConstants.LEFT );
+        nameLabel =
+            new javax.swing.JLabel( 
+                FreeGuide.msg.getString( "channel_set_name" ) + ":",
+                javax.swing.SwingConstants.LEFT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -330,7 +333,8 @@ public class ChannelSetEditorDialog extends FGDialog
 
         jPanel4 = new javax.swing.JPanel( new java.awt.GridBagLayout(  ) );
 
-        saveButton = new javax.swing.JButton( FreeGuide.msg.getString( "ok" ) );
+        saveButton =
+            new javax.swing.JButton( FreeGuide.msg.getString( "ok" ) );
         saveButton.setMaximumSize( new java.awt.Dimension( 83, 26 ) );
         saveButton.setMinimumSize( new java.awt.Dimension( 83, 26 ) );
         saveButton.setPreferredSize( new java.awt.Dimension( 83, 26 ) );
@@ -347,8 +351,8 @@ public class ChannelSetEditorDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 0, 0, 0, 10 );
         jPanel4.add( saveButton, gridBagConstraints );
 
-        cancelButton = new javax.swing.JButton( 
-            FreeGuide.msg.getString( "cancel" ) );
+        cancelButton =
+            new javax.swing.JButton( FreeGuide.msg.getString( "cancel" ) );
         cancelButton.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
@@ -368,15 +372,17 @@ public class ChannelSetEditorDialog extends FGDialog
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         getContentPane(  ).add( jPanel4, gridBagConstraints );
 
-        jLabel1 = new javax.swing.JLabel( 
-            FreeGuide.msg.getString( "available_channels" ) + ":" );
+        jLabel1 =
+            new javax.swing.JLabel( 
+                FreeGuide.msg.getString( "available_channels" ) + ":" );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         getContentPane(  ).add( jLabel1, gridBagConstraints );
 
-        jLabel2 = new javax.swing.JLabel( 
-            FreeGuide.msg.getString( "this_set" ) + ":" );
+        jLabel2 =
+            new javax.swing.JLabel( 
+                FreeGuide.msg.getString( "this_set" ) + ":" );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -392,8 +398,8 @@ public class ChannelSetEditorDialog extends FGDialog
         setLocation( 
             ( screenSize.width - 400 ) / 2, ( screenSize.height - 300 ) / 2 );
 
-// To Be Added Shortly (Rob)
-//        GuiUtils.centerDialog( this, 400, 300 );
+        // To Be Added Shortly (Rob)
+        //        GuiUtils.centerDialog( this, 400, 300 );
     }
 
     /**

@@ -262,11 +262,14 @@ public class Programme
      */
     public void setTitle( String title )
     {
+
         if( this.title == null )
         {
             this.title = title;
 
-        } // FIXME else use the one with the correct lang tag
+        }
+
+        // FIXME else use the one with the correct lang tag
     }
 
     /**
@@ -281,7 +284,9 @@ public class Programme
         {
             this.subtitle = subtitle;
 
-        } // FIXME else use the one with the correct lang tag
+        }
+
+        // FIXME else use the one with the correct lang tag
     }
 
     /**

@@ -223,6 +223,7 @@ c  means done by Christian Weiske
 
 + 0.9pre4
 
+- Use new alpha-exe with fixed uk_bleb problem
 - Run Jalopy
 - Fix problem with non-C working dir
 + Check that upgrading on Windows doesn't leave 2 Add/Remove program entries.
@@ -285,6 +286,7 @@ c Translate into German
 
 + Release 0.8.6
 
+- Use new alpha-exe with fixed uk_bleb problem
 - Run Jalopy
 - Fix problem with non-C working dir
 + Change all relevant XMLTV commands to use --quiet

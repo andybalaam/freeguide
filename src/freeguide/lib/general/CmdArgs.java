@@ -83,11 +83,12 @@ public class CmdArgs
             {
 
                 int equals_index = arg.indexOf( '=' );
-                
-                if( equals_index == -1 || equals_index >= arg.length(  ) )
+
+                if( 
+                    ( equals_index == -1 ) || ( equals_index >= arg.length(  ) ) )
                 {
+
                     // This argument doesn't contain an equals sign
-                
                     // a word flag
                     // Add this word as a flag
                     addFlag( arg.substring( 2 ) );
@@ -96,21 +97,20 @@ public class CmdArgs
                     // argument), turn the foundFlag argument on, otherwise
                     // turn it off.
                     foundFlag = !booleanFlags.contains( arg );
-                
+
                 }
                 else
                 {
+
                     // This argument contains an equals sign: split it and
                     // store the flag and its data simultaneously
-                    
                     addFlag( arg.substring( 2, equals_index ) );
-                    
-                    addData( arg.substring( equals_index + 1 ) );
-                    
-                    foundFlag = false;
-                    
-                }
 
+                    addData( arg.substring( equals_index + 1 ) );
+
+                    foundFlag = false;
+
+                }
             }
             else if( arg.startsWith( "-" ) )
             {
@@ -287,5 +287,6 @@ public class CmdArgs
 
     // The arguments not associated with any flag
 }
+
 
 //class

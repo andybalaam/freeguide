@@ -46,15 +46,17 @@ public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor
 
     private void initComponents(  )
     {
+
         java.net.URL imgURL = getClass(  ).getResource( "/logo-256x256.png" );
 
-        image = new javax.swing.ImageIcon( 
+        image =
+            new javax.swing.ImageIcon( 
                 imgURL, FreeGuide.msg.getString( "please_wait" ) );
 
-        imageLabel = new javax.swing.JLabel(
-            image, javax.swing.SwingConstants.CENTER );
-        imageLabel.setBorder( javax.swing.BorderFactory.createLineBorder(
-            java.awt.Color.BLACK ) );
+        imageLabel =
+            new javax.swing.JLabel( image, javax.swing.SwingConstants.CENTER );
+        imageLabel.setBorder( 
+            javax.swing.BorderFactory.createLineBorder( java.awt.Color.BLACK ) );
         getContentPane(  ).add( imageLabel, java.awt.BorderLayout.CENTER );
 
         progressBar = new javax.swing.JProgressBar( 0, 100 );
@@ -81,8 +83,8 @@ public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor
             ( screenSize.width - windowSize.width ) / 2,
             ( screenSize.height - windowSize.height ) / 2 );
 
-// To Be Added Shortly (Rob)
-//        GuiUtils.centerDialog( this );
+        // To Be Added Shortly (Rob)
+        //        GuiUtils.centerDialog( this );
     }
 
     /**

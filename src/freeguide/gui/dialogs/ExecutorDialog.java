@@ -153,6 +153,7 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor
 
     private void initComponents(  )
     {
+
         java.awt.GridBagConstraints gridBagConstraints;
 
         getContentPane(  ).setLayout( new java.awt.GridBagLayout(  ) );
@@ -167,8 +168,8 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor
                 }
             } );
 
-        butCancel = new javax.swing.JButton(
-            FreeGuide.msg.getString( "cancel" ) );
+        butCancel =
+            new javax.swing.JButton( FreeGuide.msg.getString( "cancel" ) );
         butCancel.setMaximumSize( new java.awt.Dimension( 115, 23 ) );
         butCancel.setMinimumSize( new java.awt.Dimension( 115, 23 ) );
         butCancel.setPreferredSize( new java.awt.Dimension( 115, 23 ) );
@@ -189,8 +190,8 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( butCancel, gridBagConstraints );
 
-        butDetails = new javax.swing.JButton(
-            FreeGuide.msg.getString( "show_output" ) );
+        butDetails =
+            new javax.swing.JButton( FreeGuide.msg.getString( "show_output" ) );
         butDetails.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
         butDetails.setMaximumSize( new java.awt.Dimension( 115, 23 ) );
         butDetails.setMinimumSize( new java.awt.Dimension( 115, 23 ) );
@@ -212,9 +213,10 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( butDetails, gridBagConstraints );
 
-        labPleaseWait = new javax.swing.JLabel( 
-            FreeGuide.msg.getString( "please_wait" ),
-            javax.swing.SwingConstants.CENTER );
+        labPleaseWait =
+            new javax.swing.JLabel( 
+                FreeGuide.msg.getString( "please_wait" ),
+                javax.swing.SwingConstants.CENTER );
         labPleaseWait.setBorder( 
             javax.swing.BorderFactory.createBevelBorder( 
                 javax.swing.border.BevelBorder.LOWERED ) );
@@ -250,8 +252,8 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor
             ( screenSize.width - getWidth(  ) ) / 2,
             ( screenSize.height - getHeight(  ) ) / 2 );
 
-// To Be Added Shortly (Rob)
-//        GuiUtils.centerDialog( this );
+        // To Be Added Shortly (Rob)
+        //        GuiUtils.centerDialog( this );
     }
 
     /**
@@ -454,10 +456,10 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor
                         {
 
                             Object[] options =
-                                {
-                                    FreeGuide.msg.getString( "redownload" ),
-                                    FreeGuide.msg.getString( "skip" )
-                                };
+                            {
+                                FreeGuide.msg.getString( "redownload" ),
+                                FreeGuide.msg.getString( "skip" )
+                            };
                             int ans =
                                 JOptionPane.showOptionDialog( 
                                     this,
