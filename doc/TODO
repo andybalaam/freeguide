@@ -156,6 +156,11 @@ r  means done by Rob Stewart
 - Fix bad characters being displayed in Tk GUI of XMLTV (entering username).
 - Complain when the system prefs are not installed because installation went
   wrong.
+- Fix tv_grab_uk_rt to use --gui.
+- Fix the old channels hanging around bug - see Yann's email of 15/11/04
+- Fix the bug with a favourite that matches everything appearing - see my email
+  of 2005-01-05.
+- Add an FAQ about when Java wasn't installed when FreeGuide was installed.
 
 + Release 0.8.1 (bug fix)
 
