@@ -1,7 +1,7 @@
 Time flows upward.  Releases happen when all actions
 below them are completed.
 
-This document is at risk of radical change whenever I
+This document is at risk of radical change whenever Ifo
 feel like it.
 
 - means to do
@@ -83,6 +83,7 @@ Release 0.5 (most wanted features)
 - Fix possible NullPointerException in StartupChecker.checkFileFailure
 - Add the fact that your .jar installer has to be executed by javaw on Windows,
 	not WinRAR, etc.
+- Allow changing of font sizes from customise screen
 
 Release 0.4.2 (mainly bug fixes)
 
