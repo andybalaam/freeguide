@@ -80,7 +80,7 @@ feel like it.
 + Ability to turn off listing at bottom of screen. (added one-touch buttons)
 + Move XML stuff to a separate object from FreeGuideViewer
 + Tidy up FreeGuideOptionsWizard - make it not a wizard
-- New screenshots for web site, and freshmeat.
++ New screenshots for web site, and freshmeat.
 + Rename files with version number on build
 + Add the fact that your .jar installer has to be executed by javaw on Windows,
 	not WinRAR, etc. to the readmes
