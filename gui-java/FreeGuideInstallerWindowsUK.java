@@ -148,7 +148,7 @@ public class FreeGuideInstallerWindowsUK extends javax.swing.JFrame {
 
         jLabel2116.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel2116.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2116.setText("Read the README file to get started (in the installation directory).");
+        jLabel2116.setText("Read the README.html file to get started (in the installation directory).");
         panFinish.add(jLabel2116);
 
         tabs.addTab("Finish", panFinish);
@@ -370,7 +370,7 @@ public class FreeGuideInstallerWindowsUK extends javax.swing.JFrame {
 		browser[0] = "\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" \"%filename%\"";
 		prefs.commandline.putStrings("browser_command", browser);
 		prefs.misc.putFreeGuideTime("day_start_time", new FreeGuideTime(6,0));
-		prefs.misc.put("css_file", working_directory + "guide.css");
+		//prefs.misc.put("css_file", working_directory + "guide.css");
 		prefs.misc.put("grabber_config", xmltv_directory+"tv_grab_uk");
 		
 		quit();
@@ -402,22 +402,22 @@ public class FreeGuideInstallerWindowsUK extends javax.swing.JFrame {
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane tabs;
+    private javax.swing.JButton butBrowseInstallDir;
     private javax.swing.JButton butFinish;
     private javax.swing.JPanel panInstallDir;
-    private javax.swing.JLabel jLabel1112;
-    private javax.swing.JButton butCancel;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JLabel jLabel2116;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton butBrowseInstallDir;
     private javax.swing.JLabel jLabel116;
     private javax.swing.JLabel jLabel236;
+    private javax.swing.JLabel jLabel1112;
     private javax.swing.JLabel jLabel11121;
     private javax.swing.JPanel panButtons;
+    private javax.swing.JButton butCancel;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JButton butNext;
     private javax.swing.JPanel panFinish;
+    private javax.swing.JLabel jLabel2116;
     private javax.swing.JButton butBack;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField txtInstallDir;
     private javax.swing.JPanel panFirstTime;
     // End of variables declaration//GEN-END:variables

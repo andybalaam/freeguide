@@ -31,14 +31,15 @@ import javax.swing.JOptionPane;
 public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 	
 	public FreeGuideOptionsWizard(FreeGuideLauncher launcher) {
-		this(launcher, SCREEN_OPTIONS, true, true, true, true, true, true, true, true, true, true);
+		this(launcher, SCREEN_OPTIONS, true, true, true, true, true, true, true, true, true);
 	}
 	
 	public FreeGuideOptionsWizard(FreeGuideLauncher launcher, int frontScreen, 
 		boolean failOS, boolean failCountry, boolean failBrowserName, 
 		boolean failXMLTVCmdDir, boolean failWorkingDir, boolean failGrabber,
 		boolean failBrowser, boolean failDayStartTime,
-		boolean failStyleSheet, boolean failXMLTVCfg) {
+		boolean failXMLTVCfg) {
+		//boolean failStyleSheet, 
 	
 		this.launcher = launcher;
 		prevTab = 0;
@@ -73,7 +74,7 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 		if(!failGrabber)		{tabs.remove(panGrabber);}
 		if(!failBrowser)		{tabs.remove(panBrowser);}
 		if(!failDayStartTime)	{tabs.remove(panDayStartTime);}
-		if(!failStyleSheet)		{tabs.remove(panStyleSheet);}
+		//if(!failStyleSheet)		{tabs.remove(panStyleSheet);}
 		if(!failXMLTVCfg)		{tabs.remove(panXMLTVCfg);}
 		
 	}
@@ -134,11 +135,6 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
         jPanel121 = new javax.swing.JPanel();
         txtDayStartTime = new javax.swing.JTextField();
         jLabel111211 = new javax.swing.JLabel();
-        panStyleSheet = new javax.swing.JPanel();
-        jLabel11112 = new javax.swing.JLabel();
-        jPanel111 = new javax.swing.JPanel();
-        txtStyleSheet = new javax.swing.JTextField();
-        butBrowseXMLTVCfg1 = new javax.swing.JButton();
         panXMLTVCfg = new javax.swing.JPanel();
         jLabel1111 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
@@ -428,42 +424,6 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 
         tabs.addTab("Day Start", panDayStartTime);
 
-        panStyleSheet.setLayout(new java.awt.GridLayout(2, 0));
-
-        jLabel11112.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11112.setText("Choose a style sheet file for your TV listings:");
-        panStyleSheet.add(jLabel11112);
-
-        jPanel111.setLayout(new java.awt.GridBagLayout());
-
-        txtStyleSheet.setMinimumSize(new java.awt.Dimension(4, 26));
-        txtStyleSheet.setPreferredSize(new java.awt.Dimension(69, 26));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 0.9;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel111.add(txtStyleSheet, gridBagConstraints);
-
-        butBrowseXMLTVCfg1.setFont(new java.awt.Font("Dialog", 0, 12));
-        butBrowseXMLTVCfg1.setText("Browse...");
-        butBrowseXMLTVCfg1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butBrowseXMLTVCfg1ActionPerformed(evt);
-            }
-        });
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 5);
-        jPanel111.add(butBrowseXMLTVCfg1, gridBagConstraints);
-
-        panStyleSheet.add(jPanel111);
-
-        tabs.addTab("Style Sheet", panStyleSheet);
-
         panXMLTVCfg.setLayout(new java.awt.GridLayout(3, 0));
 
         jLabel1111.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -592,10 +552,6 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
         setLocation((screenSize.width-500)/2,(screenSize.height-350)/2);
     }//GEN-END:initComponents
 
-	private void butBrowseXMLTVCfg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butBrowseXMLTVCfg1ActionPerformed
-		browse(txtStyleSheet, false);
-	}//GEN-LAST:event_butBrowseXMLTVCfg1ActionPerformed
-
 	private void butBrowseXMLTVCfgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butBrowseXMLTVCfgActionPerformed
 		browse(txtXMLTVCfg, false);
 	}//GEN-LAST:event_butBrowseXMLTVCfgActionPerformed
@@ -608,14 +564,14 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 		browse(txtWorkingDir, true);
 	}//GEN-LAST:event_butBrowseWorkingDirActionPerformed
 
-	private boolean panStyleSheetDeparted() {
+	/*private boolean panStyleSheetDeparted() {
 		txtTabDeparted(txtStyleSheet, "css_file");
 		return true;
 	}
 
 	private void panStyleSheetArrived() {
 		txtTabArrived(txtStyleSheet, "css_file");
-	}
+	}*/
 
 	private boolean panDayStartTimeDeparted() {
 		FreeGuide.prefs.misc.putFreeGuideTime("day_start_time", new FreeGuideTime(txtDayStartTime.getText()));
@@ -900,7 +856,7 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 			else if(fromTab==panGrabber)		{allowChange = panGrabberDeparted();}
 			else if(fromTab==panBrowser)		{allowChange = panBrowserDeparted();}
 			else if(fromTab==panDayStartTime)	{allowChange = panDayStartTimeDeparted();}
-			else if(fromTab==panStyleSheet)		{allowChange = panStyleSheetDeparted();}
+			//else if(fromTab==panStyleSheet)		{allowChange = panStyleSheetDeparted();}
 			else if(fromTab==panXMLTVCfg)		{allowChange = panXMLTVCfgDeparted();}
 		}
 		
@@ -915,7 +871,7 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 			else if(toTab==panGrabber)		{panGrabberArrived();}
 			else if(toTab==panBrowser)		{panBrowserArrived();}
 			else if(toTab==panDayStartTime)	{panDayStartTimeArrived();}
-			else if(toTab==panStyleSheet)	{panStyleSheetArrived();}
+			//else if(toTab==panStyleSheet)	{panStyleSheetArrived();}
 			else if(toTab==panXMLTVCfg)		{panXMLTVCfgArrived();}
 			prevTab = tabs.getSelectedIndex();
 		} else {
@@ -1026,7 +982,6 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
     private javax.swing.JPanel panOS;
     private javax.swing.JButton butBrowseXMLTVCmdDir;
     private javax.swing.JScrollPane jScrollPane11;
-    private javax.swing.JTextField txtStyleSheet;
     private javax.swing.JComboBox cmbCountry;
     private javax.swing.JPanel panCountry;
     private javax.swing.JPanel jPanel1;
@@ -1037,7 +992,6 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel237;
     private javax.swing.JTextField txtWorkingDir;
     private javax.swing.JLabel jLabel236;
-    private javax.swing.JPanel panStyleSheet;
     private javax.swing.JLabel jLabel2221;
     private javax.swing.JLabel jLabel112;
     private javax.swing.JLabel jLabel111;
@@ -1049,16 +1003,13 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
     private javax.swing.JTextField txtDayStartTime;
     private javax.swing.JComboBox cmbOS;
     private javax.swing.JTextField txtXMLTVCmdDir;
-    private javax.swing.JButton butBrowseXMLTVCfg1;
     private javax.swing.JPanel panWorkingDir;
-    private javax.swing.JPanel jPanel111;
     private javax.swing.JButton butNext;
     private javax.swing.JPanel panFinish;
     private javax.swing.JTextArea txaBrowser;
     private javax.swing.JLabel jLabel1121;
     private javax.swing.JButton butBack;
     private javax.swing.JPanel panXMLTVCfg;
-    private javax.swing.JLabel jLabel11112;
     private javax.swing.JLabel jLabel222;
     private javax.swing.JLabel jLabel11111;
     private javax.swing.JPanel panFirstTime;

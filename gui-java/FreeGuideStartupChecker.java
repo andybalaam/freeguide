@@ -57,7 +57,8 @@ public class FreeGuideStartupChecker {
 		boolean failRunBefore;
 		boolean failOS, failCountry, failBrowserName;
 		boolean failXMLTVCmdDir;
-		boolean failGrabber, failBrowser, failDayStartTime, failStyleSheet;
+		boolean failGrabber, failBrowser, failDayStartTime;
+		//, failStyleSheet;
 		boolean failXMLTVCfg, failWorkingDir;
 		
 		failRunBefore = !checkRunBefore();
@@ -71,14 +72,15 @@ public class FreeGuideStartupChecker {
 		failGrabber= (FreeGuide.prefs.commandline.getStrings("tv_grab").length == 0);
 		failBrowser = (FreeGuide.prefs.commandline.getStrings("browser_command").length == 0);
 		failDayStartTime = (FreeGuide.prefs.misc.get("day_start_time") == null);
-		failStyleSheet = (FreeGuide.prefs.misc.get("css_file") == null);
+		//failStyleSheet = (FreeGuide.prefs.misc.get("css_file") == null);
 		
 		failXMLTVCfg = !checkXMLTVCfg();
 		failWorkingDir = !checkWorkingDir();
 		
 		boolean failSomething = failOS || failCountry || failBrowserName ||
 			failXMLTVCmdDir || failWorkingDir || failGrabber || failBrowser ||
-			failDayStartTime || failStyleSheet || failXMLTVCfg;
+			failDayStartTime || failXMLTVCfg;
+		// failStyleSheet ||
 		
 		int runType = failRunBefore ? FreeGuideOptionsWizard.SCREEN_FIRST_TIME : FreeGuideOptionsWizard.SCREEN_PROBLEM;
 		
@@ -87,7 +89,8 @@ public class FreeGuideStartupChecker {
 			new FreeGuideOptionsWizard(launcher, 
 				runType, failOS, failCountry, 
 				failBrowserName, failXMLTVCmdDir, failWorkingDir, failGrabber, 
-				failBrowser, failDayStartTime, failStyleSheet, failXMLTVCfg).setVisible(true);
+				failBrowser, failDayStartTime, failXMLTVCfg).setVisible(true);
+			//failStyleSheet, 
 		} else {
 			// All is ok, so begin with viewer
 			new FreeGuideViewer(launcher);
@@ -165,7 +168,7 @@ public class FreeGuideStartupChecker {
 		String versionString = System.getProperty("java.version");
 		
 		// Split it
-		Pattern dot = Pattern.compile("\\.");
+		Pattern dot = Pattern.compile("\\.|_");
 		String[] splitVersion = dot.split(versionString);
 		
 		// If we've got something unexpected, say it's wrong

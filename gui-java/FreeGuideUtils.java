@@ -398,8 +398,8 @@ loop:			while(true)
 			return getDefaultGrabber();
 		} else if(name.equals("browser_command")) {
 			return getDefaultBrowser();
-		} else if(name.equals("css_file")) {
-			return getDefaultStyleSheet();
+		//} else if(name.equals("css_file")) {
+		//	return getDefaultStyleSheet();
 		} else if(name.equals("grabber_config")) {
 			return getDefaultXMLTVCfg();
 		} else {
@@ -453,7 +453,7 @@ loop:			while(true)
 	/**
 	 * Returns a guess at the stylesheet location
 	 */
-	private static String getDefaultStyleSheet() {
+	/*private static String getDefaultStyleSheet() {
 		String os = FreeGuide.prefs.misc.get("os");
 		
 		String ans = new String();
@@ -471,7 +471,7 @@ loop:			while(true)
 		}
 		
 		return ans;
-	}
+	}*/
 	
 	/**
 	 * Returns a guess at the browser command
