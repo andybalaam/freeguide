@@ -775,7 +775,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	
 		comTheDate.setSelectedIndex(0);
 		
-		int tmpScr = timePanel.getNowScroll();
+		int tmpScr = timePanel.getNowScroll() - 100;
 		
 		//timeScrollPane.getHorizontalScrollBar().setValue(tmpScr);
 		innerScrollPane.getHorizontalScrollBar().setValue(tmpScr);

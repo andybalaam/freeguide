@@ -73,7 +73,7 @@ x means done by Sagar Shah
 - Fix possible NullPointerException in StartupChecker.checkFileFailure
 - Shortcut keys for everything
 - single channel view
-- GoToNow shouldn't put the "now" arrow right at the edge of the screen
+x GoToNow shouldn't put the "now" arrow right at the edge of the screen
 x Display which channels are missing when some listings are missing.
 
 + Release 0.4.3 (most wanted features)
