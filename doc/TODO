@@ -72,20 +72,21 @@ x means done by Sagar Shah
 - Support for new grabbers 
 - Ability to control how many days are downloaded
 - Don't bother over-writing already-downloaded info (unless user wants it)
+- Code rationalisation, FIXMEs, remove commented sections
+- Refactor to rename losing FreeGuide prefix to most classes
+- Separate classes into packages
   
 - Release 0.4.4 (minor features and bug fixes)
 
 - coloured programme categories and favourites
 - Allow changing of font sizes from customise screen
-- Separate classes into packages
-- Code rationalisation, FIXMEs, remove commented sections
-- Refactor to rename losing FreeGuide prefix to most classes
+- Make it work with the new XMLTV grabbers
 - Make installer install shortcuts for Windows, Gnome and KDE
 - Make installer launch FreeGuide and/or a README file.
-- Include tv_split in Linux installer
-* Dynamic update of command output window
+- Remove the need for tv_split by calling the grabber once for each day required
 - Fix bug that means favourites sometimes aren't chosen
 - Dynamic population of the date list comboBox based on available data
+* Dynamic update of command output window
 * Fix bug that causes exception if running release candidate jvm (1.4.0-rc1)
 + Fix bug where you get asked twice whether you want to download new listings
 * Put list of "missing listings" channels in a scroll pane...

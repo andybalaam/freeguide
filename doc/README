@@ -1,0 +1,119 @@
+                            FreeGuide 0.4.3 Readme
+
+Contents
+
+     * Introduction
+     * Licence
+     * Installing FreeGuide
+     * Using FreeGuide
+     * Notes
+
+Introduction
+
+   FreeGuide is an TV guide programme. It uses parser programmes to
+   extract TV information from web pages and stores them for viewing
+   without the need to connect to the Internet. The viewer allows the
+   user to view television listings and create customised TV guides by
+   selecting programmes and by building up a favourites list.
+
+   For the moment, it works for UK and North American listings, but
+   contributions are welcome, especially in the area of getting the
+   German listings grabber tv_grab_de to play nicely with FreeGuide.
+
+   FreeGuide is written by the FreeGuide contributors (copyright
+   2001-2002). Please do send code, ideas, bugs and comments to
+   freeguide-tv-devel@lists.sourceforge.net. FreeGuide's home page is at
+   http://freeguide-tv.sourceforge.net. You can contact the lead
+   developer, Andy Balaam at the Centre for Computational Neuroscience
+   and Robotics (CCNR), University of Sussex, Falmer, Brighton, UK.
+
+   FreeGuide uses the XMLTV format and parsers developed by the very
+   friendly people at XMLTV
+   (http://www.doc.ic.ac.uk/~epa98/work/apps/xmltv/ and
+   http://sourceforge.net/projects/xmltv). It also contains a little code
+   by Slava Pestov from the JEdit project (www.jedit.org).
+
+Licence
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or (at
+   your option) any later version. This licence is contained in the file
+   COPYING
+
+   This program is distributed in the hope that it will be useful, but
+   WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+   General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 US
+
+Installing FreeGuide
+
+   FreeGuide is written in Java, and thus should work on most types of
+   computer. It is developed and tested on Linux and Windows.
+
+   Windows users should read the Windows installation docs.
+
+   Linux and other Unix-like users should read the Linux installation
+   docs.
+
+   Other people should try following the Linux instructions, but note
+   that you will definitely need Java 1.4, which may be a problem on Mac
+   OS.
+
+Using FreeGuide
+
+   The first time you run FreeGuide it will check that everything is set
+   up correctly, and allow you to change things if something's gone
+   wrong. If you followed the installation instructions for your platform
+   exactly, but you get an error here, it's a bug - sorry! - contact the
+   developers and we'll sort you out.
+
+   If all has gone well, FreeGuide will know what channels you want, but
+   won't be able to show any programmes because you haven't downloaded
+   them yet. When it starts it will ask you whether you want to go to the
+   download screen. Connect to the Internet, and click Yes. Cross your
+   fingers and wait. If all is well, the listings should eventually
+   download (it can take some time), and you can click OK to start using
+   FreeGuide. If you've had problems, click "Show Output" and look at
+   what's happened. Now you'll need to go to the Options screen and try
+   to sort it out. Email if you need help.
+
+   On the main screen time advances from left to right (click "Go To Now"
+   to see what's on now), and the channels are shown one below another.
+
+   The + and - buttons change the day you are looking at, or you can
+   choose a day from the list.
+
+   You can click on a programme (making it go grey) to add it to your
+   personalised TV guide for today, which is shown in the bottom section
+   of the window.
+
+   You can make programmes highlight themselves by adding them to your
+   favourites list (under the "Actions" menu click "Choose Favourites").
+   Any programme matching a favourite will be ticked automatically. You
+   can always un-tick programmes if you wish. You can also make a
+   programme a favourite by right-clicking it and choosing "Add to
+   Favourites".
+
+   Clicking "Print this personalised listing" will open up your web
+   browser with your customised TV guide, and you can print it by
+   choosing "File" and then "Print" in your browser.
+
+   To download more listings, click on "Download Listings".
+
+   Check out the "Tools" menu to alter channels, colours and settings..
+
+Notes
+
+   If FreeGuide used to work for you and has now stopped, it is probably
+   because the web site it grabs listings from has changed its format.
+   Check the XMLTV page for updated parsers.
+
+   If FreeGuide won't work for you, why not make it work? If you're
+   having trouble, ask me and I'll be glad to help.
+
+   Check out my TODO list.
