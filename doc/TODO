@@ -78,7 +78,6 @@ m  means done by Mike Dean
 
 - Release 0.7.4 (preferences creep)
 
-- Multiline tooltips if too long (if possible)
 - Choose how old files are before you delete them
 - Ability to save and load preferences (using Java's ability to save to XML)
 - Check that the grabber is installer by calling tv_grab_* --help?
@@ -102,7 +101,6 @@ m  means done by Mike Dean
 - Release 0.7.2 (aesthetics)
 
 - Apply different fonts to every screen?
-- Hovering over a programme scrolls the personalised listing to show it
 - Go To Now scrolls the personalised listing panel as well as the main panel
 - Handle other XMLTV tags (Programme Details box?)
 - Coloured favourites categories (text and/or background)
@@ -131,6 +129,7 @@ m  means done by Mike Dean
 
 - Release 0.7 (xmltv-tk)
 
+m Multiline tooltips if too long
 m Sort out themes in some way
 m Make "More Info" box be scrolled to the top.
 + Fix unable to move "View Command" box bug
