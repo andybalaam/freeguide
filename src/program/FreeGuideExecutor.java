@@ -295,29 +295,21 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 
 		XMLTVLoader loader = new XMLTVLoader();
 		int alwaysDownload = MAYBE;
-
+		
 		// Check for any elements that mean this command must be called multiple
 		// times, once for each day.
-//		if( (cmdstr.indexOf("%date%")!=-1)
-//				|| (cmdstr.indexOf("%offset%")!=-1) ) {
-		if( (cmdstr.matches(".*[^%]%date%[^%]*.*"))
-				|| (cmdstr.matches(".*[^%]%offset%[^%]*.*")) ) {
-
+		if( (cmdstr.indexOf("%date%")!=-1)
+				|| (cmdstr.indexOf("%offset%")!=-1) ) {
+				
 			boolean didOK = true;
-
+			
 			//Calendar date = GregorianCalendar.getInstance();
 			
-			// we need a minimum of two days in case we need to satisfy
-			// XMLTVLoader
-			// 1) skip day 1 if necessary 
-			// 2) load day 2 (satisfy XMLTVLoader to exit data missing query loop)
-			int get_days=FreeGuide.prefs.misc.getInt("days_to_grab", 7);
-			if (get_days<2) { get_days=2; }
-			for(int i=0;i<get_days;i++) {
+			for(int i=0;i<FreeGuide.prefs.misc.getInt("days_to_grab", 7);i++) {
 				
 				String subbedCmd = FreeGuide.prefs.performSubstitutions(
 						cmdstr, thisDate, true);
-
+				
 				if( alwaysDownload == TRUE ) {
 					
 					// Recursive call to this function	
@@ -331,7 +323,7 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 					loader.loadProgrammeData( thisDate );
 				
 					// Only load a new lot if we haven't got any for this date
-					if( loader.hasData( thisDate ) ) {
+					if( loader.hasData() ) {
 				
 						// If we not have chosen already, ask the user whether
 						// to re-download

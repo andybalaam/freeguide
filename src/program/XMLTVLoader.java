@@ -78,7 +78,7 @@ class XMLTVLoader extends DefaultHandler {
 		
 		String date1str;
 		String date2str;
-
+		
 		//FreeGuide.log.info( "grabber_start_time=" + grabber_start_time + 
 		//	" day_start_time=" + day_start_time );
 		
@@ -110,7 +110,7 @@ class XMLTVLoader extends DefaultHandler {
 			//FreeGuide.log.info( "Getting yesterday data" );
 			
 		}
-
+		
 		String day1Filename  = working_directory + fs + "tv-" +
 			date1str + ".xmltv";
 		
@@ -122,7 +122,7 @@ class XMLTVLoader extends DefaultHandler {
 		File day1File = new File( day1Filename );
 		File day2File = new File( day2Filename );
 		File unprocFile = new File( unprocFilename );
-
+			
 		// Parse any files that exist
 		
 		try {//ParserExceptions etc
@@ -142,7 +142,7 @@ class XMLTVLoader extends DefaultHandler {
 			if( day1FileExists ) {
 				
 				saxParser.parse( day1Filename, this );
-
+				
 			}
 			
 			if( day2FileExists ) {
@@ -175,47 +175,12 @@ class XMLTVLoader extends DefaultHandler {
 	// Returns true if there was "enough" data for today and false if some was
 	// missing.
 	public boolean hasData() {
-
+		
 		// Normal:
 		return (thereAreEarlyProgs && thereAreLateProgs);
-
+		
 	}
-
-	// Returns true if data was available for supplied date
-	public boolean hasData(Calendar date) {
-
-		if ( ! thereAreEarlyProgs && (
-				date.get( Calendar.YEAR ) ==
-					earliest.get( Calendar.YEAR ) &&
-				date.get( Calendar.DAY_OF_YEAR ) ==
-					earliest.get( Calendar.DAY_OF_YEAR )
-				)) {
-			return false;
-		}
-		if ( ! thereAreLateProgs && (
-				date.get( Calendar.YEAR ) ==
-					latest.get( Calendar.YEAR ) &&
-				date.get( Calendar.DAY_OF_YEAR ) ==
-					latest.get( Calendar.DAY_OF_YEAR )
-				)) {
-			return false;
-		}
-		return true;
-	}
-
-	// Returns earliest date that has no data loaded
-	// Returns null if all data available
-	public Calendar needData() {
-
-		if ( ! thereAreEarlyProgs ) {
-			return earliest;
-		}
-		if ( ! thereAreLateProgs ) {
-			return latest;
-		}
-		return null;
-	}
-
+	
 	// ----------------------------------------------------------------------
 
 	/**
@@ -227,10 +192,10 @@ class XMLTVLoader extends DefaultHandler {
 
 		day_start_time = FreeGuide.prefs.misc.getFreeGuideTime(
 			"day_start_time", new FreeGuideTime(6, 0) );
-
+		
 		grabber_start_time = FreeGuide.prefs.misc.getFreeGuideTime(
 			"grabber_start_time", new FreeGuideTime(0, 0) );
-
+		
 		working_directory = FreeGuide.prefs.performSubstitutions(
 			FreeGuide.prefs.misc.get("working_directory") );
 		
@@ -241,9 +206,9 @@ class XMLTVLoader extends DefaultHandler {
 		
 		// If we're before the day start time we actually want the previous day.
 		//FreeGuideTime nowTime = new FreeGuideTime( date );
-
+		
 		//if( nowTime.before( day_start_time, new FreeGuideTime( 0, 0 ) ) ) {
-
+		
 		// If we need to adjust because our day start is before our grabber's
 		//if( day_start_time.before(
 		//		grabber_start_time, new FreeGuideTime( 0, 0 ) ) ) {
@@ -276,7 +241,7 @@ class XMLTVLoader extends DefaultHandler {
 		hasDataLatest = (Calendar)latest.clone();
 		
 		// If it's today then hasDataEarliest is now-ish
-		if( dayIsToday( nowDate ) ) {
+		if( dayIsToday( nowDate ) ) { 
 			
 			hasDataEarliest.setTimeInMillis( nowDate.getTimeInMillis() );
 			
@@ -305,9 +270,9 @@ class XMLTVLoader extends DefaultHandler {
 		
 		// Now check whether the dates are equal.
 		return( nowDate.get( Calendar.YEAR ) == today.get( Calendar.YEAR ) &&
-			nowDate.get( Calendar.DAY_OF_YEAR ) ==
+			nowDate.get( Calendar.DAY_OF_YEAR ) == 
 				today.get( Calendar.DAY_OF_YEAR ) );
-
+		
 	}
 	
 	// ----------------------------------------------------------------------
@@ -328,7 +293,7 @@ class XMLTVLoader extends DefaultHandler {
 		//FreeGuide.log.info( saxLoc );
 	
 		if( saxLoc.equals( ":tv:programme" ) ) {
-
+	    
 			currentProgramme = new FreeGuideProgramme();
 
 			// Prepare GregorianCalendars for start and end
@@ -360,7 +325,7 @@ class XMLTVLoader extends DefaultHandler {
 					end = parseDate( attrs.getValue("stop") );
 					
 				}
-
+			
 			} catch(java.text.ParseException e) {
 				e.printStackTrace();
 				currentProgramme = null;
@@ -369,9 +334,9 @@ class XMLTVLoader extends DefaultHandler {
 			}
 
 			if( start.before( hasDataEarliest ) ) {
-
+						
 				thereAreEarlyProgs = true;
-
+						
 			}
 			
 			if( end.after( hasDataLatest ) ) {
@@ -401,9 +366,9 @@ class XMLTVLoader extends DefaultHandler {
 	 SimpleDateFormat deFmt = new SimpleDateFormat("yyyyMMddHHmm Z");
 	 
 	 Calendar ans = GregorianCalendar.getInstance();
-
+	 
 	 try {
-
+		 
 		 ans.setTime( normalFmt.parse( strDate ) );
 		 
 	 } catch(java.text.ParseException e) {
@@ -424,7 +389,7 @@ class XMLTVLoader extends DefaultHandler {
 				
 			if( currentProgramme.getEnd().after( earliest ) &&
 					currentProgramme.getStart().before( latest ) ) {
-
+				
 				programmes.add(currentProgramme);
 			}
 			
@@ -432,7 +397,7 @@ class XMLTVLoader extends DefaultHandler {
 		}
 		
 		if( saxLoc.endsWith( name ) ) {
-
+	    
 			saxLoc = saxLoc.substring(0, saxLoc.length() - (name.length()+1));
 	    
 		} else {
@@ -456,7 +421,7 @@ class XMLTVLoader extends DefaultHandler {
 			}
 	    
 		} else if (saxLoc.equals(":tv:programme:desc")) {
-
+	    
 			if(currentProgramme!=null) {
 				currentProgramme.addDesc(data);
 			}
@@ -529,9 +494,9 @@ class XMLTVLoader extends DefaultHandler {
 	public String getChannelName( int i ) {
 		
 		return (String)channelNames.get( i );
-
+		
 	}
-
+	
 	public int getNoChannels() {
 		
 		return channelIDs.size();
@@ -560,11 +525,11 @@ class XMLTVLoader extends DefaultHandler {
 		} else {
 			
 			String chName = (String)channelNames.get( ch );
-
+			
 			if( chName == null ) {
 			
 				return channelID;
-
+			
 			} else {
 				
 				return chName;
@@ -584,7 +549,7 @@ class XMLTVLoader extends DefaultHandler {
 
 	private String saxLoc = "";  // Holds our current pos in the XML hierarchy
 	private String tmpChannelID;
-
+	
 	private FreeGuideProgramme currentProgramme;
 		// The programme we're loading in now
 	
@@ -593,9 +558,9 @@ class XMLTVLoader extends DefaultHandler {
 	private FreeGuideTime day_start_time; 
 		
 	private FreeGuideTime grabber_start_time;
-
+	
 	private String working_directory;
-
+	
 	public Vector programmes;	// Vector of loaded FreeGuideProgrammes
 	private Vector channelIDs;	// The IDs of the channels
 	private Vector channelNames;	// The names of the channels
