@@ -9,7 +9,7 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.gui.viewer;
+package freeguide.gui.viewer;
 
 import javax.swing.JPanel;
 import javax.swing.Scrollable;

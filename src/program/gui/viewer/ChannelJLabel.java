@@ -10,10 +10,10 @@
  *  Created on Jun 24, 2004
  */
 
-package freeguidetv.gui.viewer;
+package freeguide.gui.viewer;
 
-import freeguidetv.*;
-import freeguidetv.lib.fgspecific.FGPreferences;
+import freeguide.*;
+import freeguide.lib.fgspecific.FGPreferences;
 
 import java.awt.*;
 import java.awt.event.*;

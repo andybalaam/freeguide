@@ -11,10 +11,10 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.lib.fgspecific;
+package freeguide.lib.fgspecific;
 
-import freeguidetv.*;
-import freeguidetv.gui.viewer.*;
+import freeguide.*;
+import freeguide.gui.viewer.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

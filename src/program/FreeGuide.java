@@ -11,13 +11,13 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv;
+package freeguide;
 
-import freeguidetv.gui.dialogs.*;
-import freeguidetv.gui.viewer.*;
-import freeguidetv.gui.wizard.*;
-import freeguidetv.lib.fgspecific.*;
-import freeguidetv.lib.general.*;
+import freeguide.gui.dialogs.*;
+import freeguide.gui.viewer.*;
+import freeguide.gui.wizard.*;
+import freeguide.lib.fgspecific.*;
+import freeguide.lib.general.*;
 import java.awt.*;
 import java.io.*;
 import java.util.*;

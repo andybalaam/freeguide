@@ -9,10 +9,10 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.gui.viewer;
+package freeguide.gui.viewer;
 
-import freeguidetv.*;
-import freeguidetv.lib.fgspecific.*;
+import freeguide.*;
+import freeguide.lib.fgspecific.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;

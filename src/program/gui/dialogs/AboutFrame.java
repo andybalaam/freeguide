@@ -11,9 +11,9 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.gui.dialogs;
+package freeguide.gui.dialogs;
 
-import freeguidetv.*;
+import freeguide.*;
 
 /**
  *  A small About box.

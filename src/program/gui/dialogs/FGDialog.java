@@ -11,7 +11,7 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.gui.dialogs;
+package freeguide.gui.dialogs;
 
 import java.awt.*;
 import javax.swing.*;

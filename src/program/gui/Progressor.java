@@ -16,7 +16,7 @@
  *@created    08 July 2003
  */
 
-package freeguidetv.gui;
+package freeguide.gui;
 
  
 public interface Progressor {

@@ -11,9 +11,9 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.lib.fgspecific;
+package freeguide.lib.fgspecific;
 
-import freeguidetv.lib.general.*;
+import freeguide.lib.general.*;
 import java.util.regex.Pattern;
 import java.util.Calendar;
 import java.util.Date;

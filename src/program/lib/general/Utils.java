@@ -18,11 +18,11 @@
  *
  */
 
-package freeguidetv.lib.general;
+package freeguide.lib.general;
 
-import freeguidetv.*;
-import freeguidetv.gui.dialogs.*;
-import freeguidetv.lib.fgspecific.*;
+import freeguide.*;
+import freeguide.gui.dialogs.*;
+import freeguide.lib.fgspecific.*;
 import java.awt.*;
 import java.lang.reflect.*;
 import java.io.*;

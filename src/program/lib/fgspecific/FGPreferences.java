@@ -11,10 +11,10 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.lib.fgspecific;
+package freeguide.lib.fgspecific;
 
-import freeguidetv.FreeGuide;
-import freeguidetv.lib.general.*;
+import freeguide.FreeGuide;
+import freeguide.lib.general.*;
 import java.awt.Color;  // Not * since List conflicts with util.List
 import java.io.*;
 import java.util.*;

@@ -11,12 +11,12 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.lib.fgspecific;
+package freeguide.lib.fgspecific;
 
-import freeguidetv.*;
-import freeguidetv.gui.viewer.*;
-import freeguidetv.lib.fgspecific.*;
-import freeguidetv.lib.general.*;
+import freeguide.*;
+import freeguide.gui.viewer.*;
+import freeguide.lib.fgspecific.*;
+import freeguide.lib.general.*;
 import java.io.File;
 import java.util.logging.Logger;
 import java.util.Vector;

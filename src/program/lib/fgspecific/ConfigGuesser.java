@@ -11,9 +11,9 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.lib.fgspecific;
+package freeguide.lib.fgspecific;
 
-import freeguidetv.*;
+import freeguide.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

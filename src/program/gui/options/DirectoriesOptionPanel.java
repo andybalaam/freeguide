@@ -11,10 +11,10 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.gui.options;
+package freeguide.gui.options;
 
-import freeguidetv.gui.dialogs.*;
-import freeguidetv.lib.general.*;
+import freeguide.gui.dialogs.*;
+import freeguide.lib.general.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;

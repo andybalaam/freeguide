@@ -11,11 +11,11 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.lib.fgspecific;
+package freeguide.lib.fgspecific;
 
-import freeguidetv.*;
-import freeguidetv.gui.viewer.*;
-import freeguidetv.lib.general.*;
+import freeguide.*;
+import freeguide.gui.viewer.*;
+import freeguide.lib.general.*;
 import java.text.*;
 import java.io.*;
 import java.util.*;

@@ -11,10 +11,10 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.gui.dialogs;
+package freeguide.gui.dialogs;
 
-import freeguidetv.*;
-import freeguidetv.gui.*;
+import freeguide.*;
+import freeguide.gui.*;
 
 /**
  *  A window saying "Please Wait", displayed while FreeGuide loads.

@@ -18,7 +18,7 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.gui.viewer;
+package freeguide.gui.viewer;
 
 import java.io.*;
 import java.util.*;

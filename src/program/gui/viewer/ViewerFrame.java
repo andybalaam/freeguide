@@ -11,15 +11,15 @@
  
 //{{{ Imports
 
-package freeguidetv.gui.viewer;
+package freeguide.gui.viewer;
 
-import freeguidetv.*;
-import freeguidetv.gui.*;
-import freeguidetv.gui.dialogs.*;
-import freeguidetv.gui.options.*;
-import freeguidetv.gui.wizard.*;
-import freeguidetv.lib.fgspecific.*;
-import freeguidetv.lib.general.*;
+import freeguide.*;
+import freeguide.gui.*;
+import freeguide.gui.dialogs.*;
+import freeguide.gui.options.*;
+import freeguide.gui.wizard.*;
+import freeguide.lib.fgspecific.*;
+import freeguide.lib.general.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;

@@ -31,7 +31,7 @@
  * Modified by: FreeGuide contributors Copyright (c) 2001-2004.
  */
 
-package freeguidetv.gui.jcommon;
+package freeguide.gui.jcommon;
 
 import java.awt.Frame;
 import java.awt.Dialog;

@@ -11,9 +11,9 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.gui.wizard;
+package freeguide.gui.wizard;
 
-import freeguidetv.lib.fgspecific.*;
+import freeguide.lib.fgspecific.*;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;

@@ -9,9 +9,9 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.gui.viewer;
+package freeguide.gui.viewer;
 
-import freeguidetv.*;
+import freeguide.*;
 import java.awt.*;
 import java.text.*;
 import java.util.*;

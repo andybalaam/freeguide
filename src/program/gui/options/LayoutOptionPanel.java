@@ -11,12 +11,12 @@
  *  See the file COPYING for more information.
  */
 
-package freeguidetv.gui.options;
+package freeguide.gui.options;
 
-import freeguidetv.*;
-import freeguidetv.gui.dialogs.*;
-import freeguidetv.gui.jcommon.*;
-import freeguidetv.lib.general.*;
+import freeguide.*;
+import freeguide.gui.dialogs.*;
+import freeguide.gui.jcommon.*;
+import freeguide.lib.general.*;
 import java.awt.Dimension;   // No * since Lists clash
 import java.awt.Font;
 import java.awt.Insets;
