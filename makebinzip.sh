@@ -21,6 +21,6 @@ find freeguide-tv/ -name "INSTALL"      		>> mkbintmp
 find .freeguide-tv/ -name "*.dtd"       		>> mkbintmp
 find .freeguide-tv/ -name "freeguiderc.txt" 		>> mkbintmp
 
-tar -czf freeguide-tv/freeguide-bin.tar.gz -T mkbintmp
+tar -czf freeguide-tv/freeguide-bin-0_2_1.tar.gz -T mkbintmp
 
 rm -f mkbintmp

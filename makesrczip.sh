@@ -13,6 +13,6 @@ echo "./README"       >> tmp
 echo "./COPYING"      >> tmp
 echo "./INSTALL"      >> tmp
 
-tar -czf freeguide-src.tar.gz -T tmp
+tar -czf freeguide-src-0_2_1.tar.gz -T tmp
 
 rm -f tmp
