@@ -20,7 +20,7 @@
   <li><a href="#windowsgtk+">I have Java 2 version 1.4.2 or above and I still don't see GTK+.  What's wrong?</a></li>
   <li><a href="#moregtk+themes">Where can I get more GTK+ themes?</a></li>
   <li><a href="#supportedgtk+themes">My GTK+ theme doesn't look right (or doesn't work).  What's wrong?</a></li>
-  <li><a href="#issupportedgtk+theme">So, how do I know if a GTK+ theme is a supported?</a></li>
+  <li><a href="#issupportedgtk+theme">So, how do I know if a GTK+ theme is supported?</a></li>
   <li><a href="#gtk+themes">You said the GTK+ L&F supports themes.  How do I change my theme?</a></li>
   <li><a href="#slow">Since I changed my L&F, FreeGuide seems slow.  Why?</a></li>
   <li><a href="#slowerstartup">Since I changed my L&F, FreeGuide seems to take 4.5ms longer to start up.  Why?</a></li>
@@ -52,7 +52,7 @@
 
 <p>For Windows</p>
 <pre>
-java -classpath "C:\path\to\my\LookAndFeel.jar" -jar "C:\Program Files\freeguide-tv\FreeGuide.jar"
+javaw -classpath "C:\path\to\my\LookAndFeel.jar" -jar "C:\Program Files\freeguide-tv\FreeGuide.jar"
 </pre>
 <p>Or, for Unix-like operating systems:</p>
 <pre>
@@ -87,7 +87,7 @@ java -version
 
 <p>Currently, the GTK+ L&F only supports a subset of the themes available for GTK+.  Themes must be GTK+ 2 themes and may only use the Default, pixmap, and/or bluecurve theme engines.  <a href="#issupportedgtk+theme">What does all that mean?</a>  If you really want to know, I suggest you go to the <a href="http://www.gtk.org/">GTK+</a> website and start reading.  After all, this is a FreeGuide FAQ.  :)</p>
 
-<h2><a name="issupportedgtk+theme">So, how do I know if a GTK+ theme is a supported?</a></h2>
+<h2><a name="issupportedgtk+theme">So, how do I know if a GTK+ theme is supported?</a></h2>
 
 <p>In truth, the best way to find out is to try the theme.  Even if the theme is not fully supported, you might like the results; and since it is a "Look and Feel," if you like the look and you like the feel, it works for you!</p>
 
@@ -95,17 +95,17 @@ java -version
 
 <p>First, you'll need <a href="#moregtk+themes">some themes</a>.  Once you've downloaded one or more themes to try, install the theme.</p>
 
-<p>If you're using a Unix-like operating system, use the tool provided by your distribution vendor to install and select the theme.  Now, simply start FreeGuide and, if you haven't already done so, select the GTK+ L&F and enjoy the new look.  In general, themes are installed by extracting their files into the <code>${USER}/.themes</code> directory.  If you do not have a tool for working with GTK+ themes, <a href="http://www.muhri.net/nav.php3?node=gts">GTK Theme Switch 2</a> is a nice lightweight program for installing and selecting themes.  Note:  If you do not want to install and/or select the theme, you may follow the Windows instructions below.</p>
+<p>If you're using a Unix-like operating system, use the tool provided by your distribution vendor to install and select the theme.  Now, simply start FreeGuide and, if you haven't already done so, select the GTK+ L&F and enjoy, the new look.  In general, themes are installed by extracting their files into the <code>${USER}/.themes</code> directory.  If you do not have a tool for working with GTK+ themes, <a href="http://www.muhri.net/nav.php3?node=gts">GTK Theme Switch 2</a> is a nice lightweight program for installing and selecting themes.  Note:  If you do not want to install and/or select the theme, you may follow the Windows instructions below.</p>
 
 <p>If you're using Windows (or you don't want to install the theme on your Unix-like operating system), it's not necessary to install the theme.  Extract the theme files to a directory, keeping each theme in its own directory, and keep all the theme directories together in a single directory to make them easy to find (I recommend using <code>C:\gtk</code> since it's short and easy to type).</p>
 
-<p>Since most of the themes will be distributed in "tarballs" (a common way to distribute software for Unix-like operating systems), you will need an extraction tool that can handle tape archive files (tar files) and GZIP and BZIP2 compression.  One such tool for Windows is <a href="http://www.7-zip.org/">7-Zip</a>.</p>
+<p>Since most of the themes will be distributed in "tarballs" (a common way to distribute software for Unix-like operating systems), you will need an extraction tool that can handle tape archive files (tar files) and GZIP and/or BZIP2 compression.  One such tool for Windows is <a href="http://www.7-zip.org/">7-Zip</a>.</p>
 
 <p>Once you've extracted the themes, you're ready to use them.  To do so, just specify the location of the <code>gtkrc</code> file in the <code>swing.gtkthemefile</code> system property on the command line, as shown below:</p>
 
 <p>For Windows</p>
 <pre>
-java -Dswing.gtkthemefile="C:\gtk\Theme Name\gtk-2.0\gtkrc" -jar "C:\Program Files\freeguide-tv\FreeGuide.jar"
+javaw -Dswing.gtkthemefile="C:\gtk\Theme Name\gtk-2.0\gtkrc" -jar "C:\Program Files\freeguide-tv\FreeGuide.jar"
 </pre>
 <p>Or, for Unix-like operating systems:</p>
 <pre>
@@ -114,7 +114,7 @@ java -Dswing.gtkthemefile="${HOME}/.themes/Theme Name/gtk-2.0/gtkrc" -jar "${HOM
 
 <h2><a name="slow">Since I changed my L&F, FreeGuide seems slow.  Why?</a></h2>
 
-<p>Well, you can't get something for nothing--with the exception of good quality open source software, of course!  Some L&F's are slower than others, some L&F's claim to be faster than the default Java L&F's (Metal), so you might want to try experimenting with <a href="#morelafs">other L&F's</a>.  If you've got your heart set on the L&F you're using, you'll have to get used to its performance.</p>
+<p>Well, you can't get something for nothing--with the exception of good quality open source software, of course!  Some L&F's are slower than others, some L&F's claim to be faster than the default Java L&F (Metal), so you might want to try experimenting with <a href="#morelafs">other L&F's</a>.  If you've got your heart set on the L&F you're using, you'll have to get used to its performance.</p>
 
 <h2><a name="slowerstartup">Since I changed my L&F, FreeGuide seems to take 4.5ms longer to start up.  Why?</a></h2>
 
@@ -130,14 +130,14 @@ swing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel
 
 <p>For Windows</p>
 <pre>
-java -classpath "C:\path\to\my\LookAndFeel.jar" -Dswing.defaultlaf="javax.swing.plaf.metal.MetalLookAndFeel" -jar "C:\Program Files\freeguide-tv\FreeGuide.jar"
+javaw -classpath "C:\path\to\my\LookAndFeel.jar" -Dswing.defaultlaf="javax.swing.plaf.metal.MetalLookAndFeel" -jar "C:\Program Files\freeguide-tv\FreeGuide.jar"
 </pre>
 <p>Or, for Unix-like operating systems:</p>
 <pre>
 java -classpath "/path/to/my/LookAndFeel.jar" -Dswing.defaultlaf="javax.swing.plaf.metal.MetalLookAndFeel" -jar "${HOME}/freeguide-tv/FreeGuide.jar"
 </pre>
 
-<p>Note that the Metal L&F is most likely the default on your Java installation, so the above command line would do nothing.  Instead, use the fully qualified classname of the L&F you want to use.  The fully qualified classname should be given in the L&F's documentation.</p>
+<p>Note that the Metal L&F is most likely the default on your Java installation, so the above command lines and properties file would do nothing.  Instead, use the fully qualified classname of the L&F you want to use.  The fully qualified classname should be given in the L&F's documentation.</p>
 
 <h2><a name="morelafs"></a>Where can I find more L&F's?</h2>
 
