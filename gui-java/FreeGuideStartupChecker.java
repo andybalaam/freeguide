@@ -11,6 +11,7 @@
  * See the file COPYING for more information.
  */
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.logging.Logger;
@@ -24,40 +25,77 @@ import javax.swing.JOptionPane;
  * not.
  *
  * @author  Andy Balaam
- * @version 1
+ * @version 2
  */
 public class FreeGuideStartupChecker {
 
-	public static void runChecks(String[] args) {
+	public static void runChecks(FreeGuideLauncher launcher, String[] args) {
 		
+		// --------------------------------------------------------------------
+		// Potentially fatal checks
+		
+		// Check we can make a log file
 		if(!setupLog()) {
-			System.err.println("Failed to create log file.");
+			System.err.println("FreeGuide - Failed to create log file.");
 			System.exit(1);
 		}
 		
-		if(!checkJavaVersion()){
-			FreeGuide.die("Halted due to wrong Java version.");
+		// Check the user has the right version of Java
+		if(!checkJavaVersion()){FreeGuide.die("Halted due to wrong Java version.");}
+		
+		// Check any arguments that were passed in are ok
+		if(!processArgs(args)) {FreeGuide.die("Argument processing failed.");}
+		
+		// Set up the Preferences clases
+		if(!setupPrefs()) {	FreeGuide.die("Failed to set up configuration.");}
+		
+		// --------------------------------------------------------------------
+		// Checks that need correction
+		
+		// Variables that will be true if something needs correcting
+		boolean failOS, failCountry, failBrowserName;
+		boolean failXMLTVCmdDir;
+		boolean failGrabber, failBrowser, failDayStartTime, failStyleSheet;
+		boolean failXMLTVCfg, failWorkingDir;
+		
+		failOS = (FreeGuide.prefs.misc.get("os") == null);
+		failCountry = (FreeGuide.prefs.misc.get("country") == null);
+		failBrowserName = (FreeGuide.prefs.misc.get("browser_name") == null);
+		
+		failXMLTVCmdDir = !checkXMLTVCmdDir();
+		
+		failGrabber= (FreeGuide.prefs.commandline.get("tv_grab") == null);
+		failBrowser = (FreeGuide.prefs.commandline.get("browser") == null);
+		failDayStartTime = (FreeGuide.prefs.misc.get("day_start_time") == null);
+		failStyleSheet = (FreeGuide.prefs.misc.get("css_file") == null);
+		
+		failXMLTVCfg = !checkXMLTVCfg();
+		failWorkingDir = !checkWorkingDir();
+		
+		boolean failSomething = failOS || failCountry || failBrowserName ||
+			failXMLTVCmdDir || failWorkingDir || failGrabber || failBrowser ||
+			failDayStartTime || failStyleSheet || failXMLTVCfg;
+		
+		if(failSomething) {
+			// Something's wrong, so begin with configuration
+			new FreeGuideOptionsWizard(launcher, 
+				FreeGuideOptionsWizard.SCREEN_FIRST_TIME, failOS, failCountry, 
+				failBrowserName, failXMLTVCmdDir, failWorkingDir, failGrabber, 
+				failBrowser, failDayStartTime, failStyleSheet, failXMLTVCfg);
+		} else {
+			// All is ok, so begin with viewer
+			new FreeGuideViewer(launcher);
 		}
 		
-		if(!processArgs(args)) {
-			FreeGuide.die("Argument processing failed.");
-		}
-		
-		if(!setupPrefs()) {
-			FreeGuide.die("Failed to set up configuration.");
-		}
-		
-		checkFirstTime();
-		
-		if(!checkXMLTV()) {
+		/*if(!checkXMLTV()) {
 			FreeGuide.die("Halted since XMLTV tools not found.");
 		}
 		
 		if(!checkWorkingDir()) {
 			FreeGuide.die("Failed to set up a working directory.");
-		}
+		}*/
 		
-		checkDayStartTime();
+		//checkDayStartTime();
 		
 		FreeGuide.log.info("Checks ok, starting FreeGuide " + FreeGuide.version + " ...");
 		
@@ -68,7 +106,7 @@ public class FreeGuideStartupChecker {
 	 *
 	 * Checks we have a start time for our days, and adds one if not.
 	 */
-	 private static void checkDayStartTime() {
+	 /*private static void checkDayStartTime() {
 		 
 		 String ds = FreeGuide.prefs.misc.get("day_start_time");
 		 if(ds == null) {
@@ -77,23 +115,7 @@ public class FreeGuideStartupChecker {
 			 
 		 }
 		 
-	 }
-	
-	/**
-	 * checkFirstTime
-	 *
-	 * Check whether this is the first time we've run FreeGuide and if so
-	 * launches the first time wizard.
-	 */
-	private static void checkFirstTime() {
-		// version_major is present if FreeGuide has been used before.
-		String versionMajor = FreeGuide.prefs.misc.get("version_major");
-		if(versionMajor == null) {
-			FreeGuideFirstTimeWizard wiz = new FreeGuideFirstTimeWizard();
-			FreeGuide.prefs.misc.putInt("version_major", 0);
-			FreeGuide.prefs.misc.putInt("version_minor", 3);
-		}
-	}
+	 }*/
 	
 	/**
 	* checkJavaVersion
@@ -184,8 +206,20 @@ public class FreeGuideStartupChecker {
 	*
 	* Creates that the XMLTV tools are installed
 	*/
-	private static boolean checkXMLTV() {
+	public static boolean checkXMLTVCmdDir() {
 	
+		String fname =  FreeGuide.prefs.misc.get("xmltv_directory");
+		
+		// If there is no config file entry, we fail
+		if(fname==null) {return false;}
+		
+		// Otherwise check the file exists
+		File xmltvDir = new File(FreeGuide.prefs.performSubstitutions(fname));
+		
+		return testXMLTVCmdDir(xmltvDir);
+		
+		/*
+		
 		// First check whether it's already in the preferences
 		
 		// Come up with a guess as to where XMLTV would be
@@ -237,11 +271,13 @@ public class FreeGuideStartupChecker {
 		
 		// The chosen directory passed the test
 		return true;
-		
+		*/
 	}
 		
-	/** Find whether a proposed XMLTV directory is correct */
-	private static boolean testXMLTV(File xmltvDir) {
+	/** Find whether a proposed XMLTV directory is correct.  Checks this
+	 * by looking for the file tv_split in it.
+	 */
+	public static boolean testXMLTVCmdDir(File xmltvDir) {
 		
 		// Check the dir exists
 		if(xmltvDir.exists()) {
@@ -263,12 +299,68 @@ public class FreeGuideStartupChecker {
 	}
 	
 	/**
+	 * checkXMLTVCfg
+	 *
+	 * Check whether the file we've got for the xmtlv config file exists and is
+	 * appropriate.
+	 */
+	public static boolean checkXMLTVCfg() {
+		
+		String fname =  FreeGuide.prefs.misc.get("grabber_config");
+		
+		// If there is no config file entry, we fail
+		if(fname==null) {return false;}
+		
+		// Otherwise check the file exists and contains a channel entry
+		File grabber_config = new File(FreeGuide.prefs.performSubstitutions(fname));
+		
+		return testXMLTVCfg(grabber_config);
+		
+	}
+	
+	private static boolean testXMLTVCfg(File grabber_config) {
+		
+		// Check the dir exists
+		if(grabber_config.exists()) {
+
+			BufferedReader buffy = new BufferedReader(new FileReader(grabber_config));
+			
+			String line;
+			while( (line = buffy.readLine()) != null ) {
+				line = line.trim();
+				// If we found a channel entry, the file is good
+				if(line.startsWith("channel") || line.startsWith("#channel")) {
+					buffy.close();
+					return true;
+				}
+			}
+			
+			buffy.close();
+			
+		}
+		
+		// Something went wrong: either file doesn't exist or it has no
+		// channel entries
+		return false;
+		
+	}
+	
+	/**
 	* checkWorkingDir
 	*
 	* Checks that we've got a working directory of some kind.
 	*/
-	private static boolean checkWorkingDir() {
-	
+	public static boolean checkWorkingDir() {
+		
+		// Is there a config entry?
+		String workDir = FreeGuide.prefs.misc.get("working_directory");
+		if(workDir==null) {return false;}
+		
+		File working_directory = new File(FreeGuide.prefs.performSubstitutions(workDir));
+		
+		return testWorkingDir(working_directory);
+		
+		/*
 		// Find out what the config file says the working dir is
 		String possWorkDir = FreeGuide.prefs.performSubstitutions(FreeGuide.prefs.misc.get("working_directory"));
 		
@@ -323,20 +415,17 @@ public class FreeGuideStartupChecker {
 		
 		// Working directory is ok
 		return true;
+		*/
 	}
 	
-	private static boolean testWorkDir(String possWorkDir) {
-		
-		if(possWorkDir==null) {
-			return false;
-		}
+	private static boolean testWorkingDir(File working_directory) {
 		
 		try {
 		
 			// Check it exists and you can write a file to it
-			File testFile = new File(possWorkDir + "test.tmp");
+			File testFile = new File(working_directory.getPath() + "test.tmp");
 			testFile.createNewFile();
-			if(new File(possWorkDir).exists() && testFile.canWrite()) {
+			if(new File(working_directory).exists() && testFile.canWrite()) {
 				
 				testFile.delete();
 				return true;
@@ -352,7 +441,7 @@ public class FreeGuideStartupChecker {
 		}
 	}
 	
-	private static boolean warnBadWorkDir(String possWorkDir) {
+	/*private static boolean warnBadWorkDir(String possWorkDir) {
 		
 		String msg = "The chosen working directory cannot be created\n" + 
 			"or is not writeable.  Do you want to choose another one\n" +
@@ -363,18 +452,18 @@ public class FreeGuideStartupChecker {
 
 		return (r==0);
 		
-	}
+	}*/
 	
 	/**
 	 * Look for a possible working directory location.
 	 */
-	private static String findPossWorkDir() {
+	/*private static String findPossWorkDir() {
 		
 		String home = System.getProperty("user.home");
 		String fs = System.getProperty("file.separator");
 		
 		return home + fs + ".xmltv" + fs +"freeguide-tv";
 		
-	}
+	}*/
 	
 }

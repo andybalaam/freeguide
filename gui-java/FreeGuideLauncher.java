@@ -19,6 +19,7 @@ public interface FreeGuideLauncher {
 	public void reShow();
 	
 	public FreeGuideLauncher getLauncher();
+	public void setVisible(boolean show);
 	
 }
 

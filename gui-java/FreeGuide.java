@@ -15,8 +15,8 @@ import java.awt.Color;
 import java.util.logging.Logger;
 
 /**
- * The main class called to start FreeGuide.  Performs some
- * housekeeping before launching the viewer or downloader.
+ * The main class called to start FreeGuide.  Calls the FreeGuideStartupChecker
+ * to do the real work.
  *
  * Also contains some global objects.
  *
@@ -24,37 +24,23 @@ import java.util.logging.Logger;
  * @version 6
  */
 public class FreeGuide implements FreeGuideLauncher {
-
-	/** 
-	 * The constructor for a particular FreeGuide instance.
+	
+	/**
+	 * The constructor for the class that starts it all.
 	 */
-	public FreeGuide() {
-	
-		new FreeGuideViewer(this);
-		
+	public FreeGuide(String[] args) {
+		// Check various things and then begin
+		FreeGuideStartupChecker.runChecks(this, args);
 	}
-	
+
     /**
-	 * The method called when FreeGuide is run.  Processes
-	 * command line arguments, sets up the preferences,
-	 * makes a log file, checks there's a working directory,
-	 * and starts the viewer.
+	 * The method called when FreeGuide is run.
 	 *
      * @param args the command line arguments
      */
     public static void main (String args[]) {
 		
-		// Check various things and then begin
-		FreeGuideStartupChecker.runChecks(args);
-		
-		// All is ok, so begin
-		new FreeGuide();
-		
-	}
-	
-	public void reShow() {
-		
-		die("I don't think it should ever get here!");
+		new FreeGuide(args);
 		
 	}
 
@@ -65,18 +51,28 @@ public class FreeGuide implements FreeGuideLauncher {
 		System.exit(1);
 		
 	}
+
+	// -----------------------------------------------------------------------
 	
 	public FreeGuideLauncher getLauncher() {
 		return null;
 	}
 	
-	//------------------------------------------------------------------------
+	public void setVisible(boolean show) {
+		// Nothing - not used
+	}
 	
+	public void reShow() {	
+		die("I don't think it should ever get here!");
+	}
+	
+	//------------------------------------------------------------------------
+
 	public static FreeGuideCmdArgs arguments;	// The command line args
 	public static FreeGuidePreferencesGroup prefs;	// Holds all preferences info
 	public static Logger log;					// The log file
 	
-	public static final String version = "0.3";
+	public static final String version = "0.3.1";
 	
 	// Defaults - can be overridden by user preferences
 	public static final Color PROGRAMME_NORMAL_COLOUR = Color.white;

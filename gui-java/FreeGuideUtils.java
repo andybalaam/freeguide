@@ -12,7 +12,7 @@
  */
 
 /*
- * parse() method Copyright (c) by Slava Pestov
+ * parseCommand() method Copyright (c) by Slava Pestov
  *
  * from the Jedit project: www.jedit.org
  *
@@ -20,16 +20,11 @@
 
 import java.awt.Color;
 import java.lang.reflect.Array;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
 import java.io.StreamTokenizer;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.StringReader;
 import java.util.Vector;
-import javax.swing.JOptionPane;
+import java.util.Calendar;
+import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 
 /**
@@ -41,143 +36,53 @@ import javax.swing.JTextArea;
 
 public class FreeGuideUtils {
 	
-	/** execExternal
-	 *
-	 * Execute several external applications via the command line interface,
-	 * and wait until they have finished executing before returning.
-	 *
-	 * @param cmdstr  the commands to execute, one per entry in the array
+	/**
+	 * Execute an external command, without waiting for it to finish.
 	 */
-	public static void execExternal(String[] cmds, JTextArea feedback) {
-		execExternal(cmds, true, feedback);
-	}
-	public static void execExternal(String[] cmds, boolean waitFor, JTextArea feedback) {
+	public static void execNoWait(String[] cmds) {
 		
+		// Step through each command in the list
 		for(int i=0;i<cmds.length;i++) {
 			
-			execExternal(FreeGuide.prefs.performSubstitutions(cmds[i]), waitFor, feedback);
+			// Substitute in any system variables for this command
+			String cmdstr = FreeGuide.prefs.performSubstitutions(cmds[i]);
 			
+			// Log what we're doing
+			FreeGuide.log.info("Executing system command in background: "+cmdstr);
+			
+			try {
+			
+				// Parse the command into arguments and execute
+				Runtime.getRuntime().exec(parseCommand(cmdstr));
+				
+			} catch(java.io.IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}
 	
-	
-	/** execExternal
-	 *
-	 * Execute an external application via the command line interface and
-	 * wait for it to end.
-	 *
-	 * @param cmdstr  the command to execute
+	/** 
+	 * Execute an external command and wait for it to finish, providing visual
+	 * feedback to the user.
 	 */
-	private static void execExternal(String cmdstr, JTextArea feedback) {
-		execExternal(cmdstr, true, feedback);
+	public static void execAndWait(String[] cmds, String commandType, FreeGuideLauncher launcher) {
+		// Show the command execution window
+		launcher.setVisible(false);
+		FreeGuideExecutor executor = new FreeGuideExecutor(launcher, cmds, commandType);
+		executor.setVisible(true);
 	}
-	
-	/** execExternal
-	 *
-	 * Execute an external application via the command line interface.
-	 *
-	 * @param cmdstr  the command to execute
-	 * @param waitFor true wait for this command to end before continuing?
-	 */
-	private static void execExternal(String cmdstr, boolean waitFor, JTextArea feedback) {
-	
-		if(cmdstr==null || cmdstr.equals("")) {
-			return;
-		}
-		
-		String lb = System.getProperty("line.separator");
-		
-		// Tokenize this string properly, not the default way.
-		String[] cmdarr = parse(cmdstr);
-		
-		try {//IOException etc
-			
-			// Log what we're about to do
-			if(waitFor) {
-				FreeGuide.log.info("FreeGuide - Executing system command: "+cmdstr+" ...");
-			} else {
-				FreeGuide.log.info("FreeGuide - Executing system command in background: "+cmdstr);
-			}//if
-			
-			feedback.append("$ "+cmdstr+lb);
-			
-			int exitCode=0;
-			
-			// Execute the command
-			Process pr = Runtime.getRuntime().exec(cmdarr);
-			
-			if(waitFor) {
-						
-				BufferedReader prErr = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
-				BufferedReader prOut = new BufferedReader(new InputStreamReader(pr.getInputStream()));
-				
-				// Little hack to make Windows wait. Should be better really
-				if(System.getProperty("os.name").startsWith("Windows")) {
-					
-					try {
-						pr.waitFor();
-					} catch(InterruptedException e) {
-						e.printStackTrace();
-					}
-					
-				}
-				
-				String stdLine;
-				String errLine;
-				boolean x = false;
-				while(!x) {
-					stdLine = prOut.readLine();
-					errLine = prErr.readLine();
-					x = true;
-					if(stdLine!=null) {
-						x=false;
-						feedback.append(stdLine + lb);
-					}
-					if(errLine!=null) {
-						x=false;
-						feedback.append("! " + errLine + lb);
-					}
-					
-				}
-			
-				if(System.getProperty("os.name").startsWith("Windows")) {
-				
-					pr.destroy();
-					
-				}
-				
-				exitCode = pr.exitValue();
-				
-				// Log it finishing
-				FreeGuide.log.info("FreeGuide - Finished execution with exit code "+exitCode+".");
-				
-				if(exitCode==0) {
-					feedback.append("Finished successfully." + lb);
-				} else {
-					feedback.append("Command terminated with error code "+exitCode+"." + lb);
-				}
-				
-			}//if
-	    
-		} catch(IOException e) {
-			e.printStackTrace();
-		//} catch(InterruptedException e) {
-		//	e.printStackTrace();
-		}//try
-	
-    }//execExternal
 	
 	// parse
 	/**
-	 * Convert a command into a vector of arguments.
+	 * Convert a command into an array of arguments.
 	 *
 	 * Adapted from a method written by Slava Pestov
-	 * for the Jedit project www.jedit.org
+	 * for the JEdit project www.jedit.org
 	 *
 	 * Thanks Slava!
 	 */
-	private static String[] parse(String command)
+	public static String[] parseCommand(String command)
 	{
 		Vector args = new Vector();
 		String[] ans;
@@ -203,7 +108,7 @@ public class FreeGuideUtils {
 
 		try
 			{
-loop:			for(;;)
+loop:			while(true)
 				{
 					switch(st.nextToken())
 					{
@@ -217,7 +122,7 @@ loop:			for(;;)
 				}
 			}
 		}
-		catch(IOException io)
+		catch(java.io.IOException io)
 		{
 			// won't happen
 		}
@@ -227,6 +132,8 @@ loop:			for(;;)
 			
 		return ans;
 	}
+	
+	// --------------------------------------------------------------------
 	
 	/**
 	 * In each of the string in str, replace any occurences of oldStr with
@@ -293,9 +200,41 @@ loop:			for(;;)
 	}
 	
 	/**
+	 * Convert a Vector of Calendars to an array.
+	 */
+	public static Calendar[] arrayFromVector_Calendar(Vector vector) {
+		Calendar[] ans = new Calendar[vector.size()];
+		vector.copyInto(ans);
+		return ans;
+	}
+	
+	/**
+	 * Convert a Vector of Integers to an array of ints.
+	 */
+	public static int[] arrayFromVector_int(Vector vector) {
+		int[] ans = new int[vector.size()];
+		for(int i=0;i<ans.length;i++) {
+			ans[i] = ((Integer)vector.get(i)).intValue();
+		}
+		return ans;
+	}
+	
+	public static void fillComboBox(JComboBox box, String name) {
+		
+		if(name.equals("os")) {
+			fillComboBoxOS(box);
+		} else if(name.equals("country")) {
+			fillComboBoxCountry(box);
+		} else if(name.equals("browser_name")) {
+			fillComboBoxBrowserName(box);
+		}
+		
+	}
+	
+	/**
 	 * Fill a combo box with possible types of OS.
 	 */
-	public static void addOSsToComboBox(javax.swing.JComboBox box) {
+	public static void fillComboBoxOS(javax.swing.JComboBox box) {
 		
 		box.addItem(os_Windows);
 		box.addItem(os_Other);
@@ -305,7 +244,7 @@ loop:			for(;;)
 	/**
 	 * Fill a combo box with possible countries.
 	 */
-	public static void addCountriesToComboBox(javax.swing.JComboBox box) {
+	public static void fillComboBoxCountry(javax.swing.JComboBox box) {
 		
 		box.addItem(country_UK);
 		box.addItem(country_NA);
@@ -316,7 +255,7 @@ loop:			for(;;)
 	/**
 	 * Fill a combo box with possible Browsers.
 	 */
-	public static void addBrowsersToComboBox(javax.swing.JComboBox box) {
+	public static void fillComboBoxBrowserName(javax.swing.JComboBox box) {
 		
 		box.addItem(browser_IE);
 		box.addItem(browser_NS);
@@ -332,7 +271,7 @@ loop:			for(;;)
 	 * passed in.  Fill in the boxes on the given options screen, rather than
 	 * setting them directly.
 	 */
-	public static void setDefaultOptions(String os, String country, String browser) {
+	/*public static void setDefaultOptions(String os, String country, String browser) {
 		
 		String lb = System.getProperty("line.separator");
 		
@@ -440,7 +379,230 @@ loop:			for(;;)
 			FreeGuide.log.warning("Invalid OS chosen!");
 		}
 		
+	}*/
+	
+	public static String getDefault(String name) {
+		if(name.equals("os")) {
+			return getDefaultOS();
+		} else if(name.equals("country")) {
+			return getDefaultCountry();
+		} else if(name.equals("browser_name")) {
+			return getDefaultBrowserName();
+		} else if(name.equals("xmltv_directory")) {
+			return getDefaultXMLTVCmdDir();
+		} else if(name.equals("working_directory")) {
+			return getDefaultWorkingDir();
+		} else if(name.equals("tv_grab")) {
+			return getDefaultGrabber();
+		} else if(name.equals("browser")) {
+			return getDefaultBrowser();
+		} else if(name.equals("grabber_config")) {
+			return getDefaultXMLTVCfg();
+		} else {
+			FreeGuide.log.warning("Unknown default requested.");
+			return null;
+		}
 	}
+	
+	/**
+	 * Returns a guess at the xmltv config file
+	 */
+	private static String getDefaultXMLTVCfg() {
+		String os = FreeGuide.prefs.misc.get("os");
+		String country = FreeGuide.prefs.misc.get("country");
+		String lb = System.getProperty("line.separator");
+		
+		String ans = new String();
+		
+		if(os.equals(os_Windows)) {
+			
+			if(country.equals(country_UK)) {
+				ans = "C:\\My Documents\\.xmltv\\tv_grab_uk";
+			} else if(country.equals(country_NA)) {
+				ans = "C:\\My Documents\\.xmltv\\tv_grab_na";
+			} else if(country.equals(country_Germany)) {
+				ans = "C:\\My Documents\\.xmltv\\tv_grab_de";
+			} else {
+				FreeGuide.log.warning("Invalid country chosen!");
+				ans = "";
+			}
+			
+		} else if(os.equals(os_Other)) {
+			
+			if(country.equals(country_UK)) {
+				ans = "%home%/.xmltv/tv_grab_uk";
+			} else if(country.equals(country_NA)) {
+				ans = "%home%/.xmltv/tv_grab_na";
+			} else if(country.equals(country_Germany)) {
+				ans = "%home%/.xmltv/tv_grab_de";
+			} else {
+				FreeGuide.log.warning("Invalid country chosen!");
+				ans = "";
+			}
+
+		} else {
+			FreeGuide.log.warning("Invalid OS chosen!");
+		}
+		
+		return ans;
+	}
+	
+	/**
+	 * Returns a guess at the browser command
+	 */
+	private static String getDefaultBrowser() {
+		String os = FreeGuide.prefs.misc.get("os");
+		String browser = FreeGuide.prefs.misc.get("browser");
+		String xmltvDir = FreeGuide.prefs.misc.get("xmltv_directory");
+		String workingDir = FreeGuide.prefs.misc.get("working_directory");
+		String lb = System.getProperty("line.separator");
+		
+		String ans = new String();
+		
+		if(os.equals(os_Windows)) {
+			
+			if(browser.equals(browser_IE)) {
+				ans = "\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" \"%filename%\"";
+			} else if(browser.equals(browser_NS)) {
+				ans = "\"C:\\Program Files\\Netscape\\netscape.exe\" \"%filename%\"";
+			} else if(browser.equals(browser_Mozilla)) {
+				ans = "\"C:\\Program Files\\mozilla.org\\Mozilla\\mozilla.exe\" %filename%";
+			} else if(browser.equals(browser_Opera)) {
+				ans = "\"C:\\Program Files\\Opera\\opera.exe\" %filename%";
+			} else {
+				FreeGuide.log.warning("Invalid browser chosen!");
+				ans = "";
+			}
+			
+		} else if(os.equals(os_Other)) {
+			
+			if(browser.equals(browser_Galeon)) {
+				ans = "galeon %filename%";
+			} else if(browser.equals(browser_NS)) {
+				ans = "netscape %filename%";
+			} else if(browser.equals(browser_Mozilla)) {
+				ans = "mozilla %filename%";
+			} else if(browser.equals(browser_Konqueror)) {
+				ans = "konqueror %filename%";
+			} else if(browser.equals(browser_Opera)) {
+				ans = "opera %filename%";
+			} else {
+				FreeGuide.log.warning("Invalid browser chosen!");
+				ans = "";
+			}
+
+		} else {
+			FreeGuide.log.warning("Invalid OS chosen!");
+		}
+		
+		return ans;
+		
+	}
+	
+	/**
+	 * Returns a guess at the xmltv grabber command
+	 */
+	private static String getDefaultGrabber() {
+		String os = FreeGuide.prefs.misc.get("os");
+		String country = FreeGuide.prefs.misc.get("country");
+		String xmltvDir = FreeGuide.prefs.misc.get("xmltv_directory");
+		String workingDir = FreeGuide.prefs.misc.get("working_directory");
+		String lb = System.getProperty("line.separator");
+		
+		String ans = new String();
+		
+		if(os.equals(os_Windows)) {
+			
+			
+			if(country.equals(country_UK)) {
+				ans = "\"%misc.xmltv_directory%\\tv_grab_uk\" --output \"%misc.working_directory%\\listings_unprocessed.xml\"";
+			} else if(country.equals(country_NA)) {
+				ans = "\"%misc.xmltv_directory%\\tv_grab_na\" --output \"%misc.working_directory%\\listings_unprocessed.xml\"";
+			} else if(country.equals(country_Germany)) {
+				ans = "\"%misc.xmltv_directory%\\tv_grab_de\" --output \"%misc.working_directory%\\listings_unprocessed.xml\"";
+			} else {
+				FreeGuide.log.warning("Invalid country chosen!");
+				ans = "";
+			}
+			ans += lb + "\"" + xmltvDir + "\\tv_split\" --output \"%misc.working_directory%\\%%channel-%%Y%%m%%d.fgd\" --day_start_time %misc.day_start_time% \"%misc.working_directory%\\listings_unprocessed.xml\"";
+			
+		} else if(os.equals(os_Other)) {
+			
+			if(country.equals(country_UK)) {
+				ans = "tv_grab_uk --output %misc.working_directory%/listings_unprocessed.xml";
+			} else if(country.equals(country_NA)) {
+				ans = "tv_grab_na --output %misc.working_directory%/listings_unprocessed.xml";
+			} else if(country.equals(country_Germany)) {
+				ans = "tv_grab_de --output %misc.working_directory%/listings_unprocessed.xml";
+			} else {
+				FreeGuide.log.warning("Invalid country chosen!");
+				ans = "";
+			}
+			ans += lb + "tv_split --output %misc.working_directory%/%%channel-%%Y%%m%%d.fgd --day_start_time %misc.day_start_time% %misc.working_directory%/listings_unprocessed.xml";
+
+		} else {
+			FreeGuide.log.warning("Invalid OS chosen!");
+		}
+		
+		return ans;
+	}
+	
+	/**
+	 * Returns a guess at the working directory
+	 */
+	private static String getDefaultWorkingDir() {
+		String os = FreeGuide.prefs.misc.get("os");
+		if(os.equals(os_Windows)) {
+			return "C:\\My Documents\\.xmltv\\freeguide-tv\\";
+		} else {
+			return "%home%/.xmltv/freeguide-tv/";
+		}
+	}
+	
+	/**
+	 * Returns a guess at the xmltv directory
+	 */
+	private static String getDefaultXMLTVCmdDir() {
+		String os = FreeGuide.prefs.misc.get("os");
+		if(os.equals(os_Windows)) {
+			return "C:\\Program Files\\xmltv\\";
+		} else {
+			return "/usr/bin/";
+		}
+	}
+	
+	/**
+	 * Returns IE on Windows and Netscape for real men
+	 */
+	private static String getDefaultBrowserName() {
+		String os = FreeGuide.prefs.misc.get("os");
+		if(os.equals(os_Windows)) {
+			return browser_IE;
+		} else {
+			return browser_NS;
+		}
+	}
+	
+	/**
+	 * Returns UK
+	 */
+	private static String getDefaultCountry() {
+		return country_UK;
+	}
+	
+	/**
+	 * Returns either "Windows" if we're on windows or "Linux" otherwise.
+	 */
+	private static String getDefaultOS() {
+		String os = System.getProperty("os.name");
+		if(os.startsWith("Windows")) {
+			return os_Windows;
+		} else {
+			return os_Other;
+		}
+	}
+	
+	// -----------------------------------------------------------------------
 	
 	private static final String os_Windows = "Windows";
 	private static final String os_Other = "Linux/Unix/Other";

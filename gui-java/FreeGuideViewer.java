@@ -484,11 +484,14 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 	private void menDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menDownloadActionPerformed
 		
-		hide();
-		new FreeGuideDownloader(this).setVisible(true);
+		downloadListings();
 		
 	}//GEN-LAST:event_menDownloadActionPerformed
 
+	private void downloadListings() {
+		FreeGuideUtils.execAndWait(FreeGuide.prefs.getCommands("tv_grab"), "Downloading", this);
+	}
+	
 	private void menQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menQuitActionPerformed
 		
 		quit();
@@ -658,6 +661,14 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			}
 		}
 		
+		// Delete old entries in choices preferences
+		Calendar[] choiceDates = FreeGuide.prefs.getAllChosenDays();
+		for(int i=0;i<choiceDates.length;i++) {
+			if(choiceDates[i].before(lastWeek)) {
+				FreeGuide.prefs.chosenSomething(choiceDates[i], false);
+			}
+		}
+		
 		// Exit
 		// ----
 		System.exit(0);
@@ -759,8 +770,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			
 				if(r==0) {
 				
-					setVisible(false);
-					new FreeGuideDownloader(this).setVisible(true);
+					//new FreeGuideDownloader(this).setVisible(true);
+					downloadListings();
 				
 				} else {
 					innerPanel.removeAll();
@@ -1096,11 +1107,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 			buffy.close();
 			
-			JTextArea fb = new JTextArea();
-			
-			String[] cmd = FreeGuideUtils.substitute(FreeGuide.prefs.commandline.getStrings("browser_command"), "%filename%", f.getPath());
-			
-			FreeGuideUtils.execExternal(cmd, false, fb);
+			String[] cmds = FreeGuideUtils.substitute(FreeGuide.prefs.commandline.getStrings("browser_command"), "%filename%", f.getPath());
+			FreeGuideUtils.execNoWait(cmds);
 
 		
 		} catch(java.io.IOException e) {

@@ -14,8 +14,7 @@
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-//import java.io.ByteArrayOutputStream;
-//import java.io.ByteArrayInputStream;
+import java.text.SimpleDateFormat;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Arrays;
@@ -158,65 +157,6 @@ public class FreeGuidePreferencesGroup {
 		
 	}//performSubstitutions
 	
-	/**
-	 * Store the current state of the preferences so that we can restore it
-	 * at a later date if we need to.
-	 */
-	/*public void remember() {
-		
-		try {
-
-			ByteArrayOutputStream bytey = new ByteArrayOutputStream();
-			
-			screen.exportNode(bytey);
-			commandline.exportNode(bytey);
-			misc.exportNode(bytey);
-			favourites.exportNode(bytey);
-			chosen_progs.exportNode(bytey);
-			channels.exportNode(bytey);
-			
-			memory = bytey.toByteArray();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-	}*/
-	
-	/**
-	 * Restore a previous state of the preferences saved using the remember
-	 * method.
-	 */
-	/*public void restore() {
-				
-		if(memory != null) {
-			
-			try {
-			
-				ByteArrayInputStream bytey = new ByteArrayInputStream(memory);
-				screen.importPreferences(bytey);
-				commandline.importPreferences(bytey);
-				misc.importPreferences(bytey);
-				favourites.importPreferences(bytey);
-				chosen_progs.importPreferences(bytey);
-				channels.importPreferences(bytey);
-				
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-			
-		} else {
-			FreeGuide.log.warning("Trying to restore preferences from an empty memory!");
-		}
-		
-	}*/
-	
-	/**
-	 * Delete the stored preferences made after the remember method was called.
-	 */
-	/*public void forget() {
-		memory = null;
-	}*/
-	
 	// ------------------------------------------------------------------------
 	// Convenience methods
 	
@@ -312,7 +252,39 @@ public class FreeGuidePreferencesGroup {
 	 * Has the user chosen any programmes for today?
 	 */
 	public boolean chosenAnything(Calendar date) {
-		return chosen_progs.getBoolean( "day-" + date.get(Calendar.YEAR) + "-" + date.get(Calendar.MONTH) + "-" + date.get(Calendar.DAY_OF_MONTH), false );
+		String dateStr = "day-" + chosenDateFormat.format(date.getTime());
+		return chosen_progs.getBoolean(dateStr, false);
+		//date.get(Calendar.YEAR) + "-" + date.get(Calendar.MONTH) + "-" + date.get(Calendar.DAY_OF_MONTH), false );
+	}
+	
+	/**
+	 * Get a list of all days that have been chosen.
+	 */
+	public Calendar[] getAllChosenDays() {
+		Vector ans = new Vector();
+		
+		try {
+		
+			String[] keys = chosen_progs.keys();
+		
+			for(int i=0;i<keys.length;i++) {
+				if(keys[i].startsWith("day-")) {
+					Calendar cal = GregorianCalendar.getInstance();
+					try {
+						cal.setTime(chosenDateFormat.parse(keys[i].substring(4)));
+						ans.add(cal);
+					} catch(java.text.ParseException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			
+		} catch(java.util.prefs.BackingStoreException e) {
+			e.printStackTrace();
+		}
+		
+		return FreeGuideUtils.arrayFromVector_Calendar(ans);
+		
 	}
 	
 	/**
@@ -320,11 +292,25 @@ public class FreeGuidePreferencesGroup {
 	 */
 	public void chosenSomething(Calendar date) {chosenSomething(date, true);}
 	public void chosenSomething(Calendar date, boolean yes) {
-		chosen_progs.putBoolean( "day-" + date.get(Calendar.YEAR) + "-" + date.get(Calendar.MONTH) + "-" + date.get(Calendar.DAY_OF_MONTH), yes );
+		String dateStr = "day-" + chosenDateFormat.format(date.getTime());
+		if(yes) {
+			chosen_progs.putBoolean(dateStr, true);
+		} else {
+			// Remove the choices for this day
+			int[] chosenProgKeys = getChosenProgKeys(date);
+			for(int i=0;i<chosenProgKeys.length;i++) {
+				chosen_progs.removeCompoundObject(chosenProgKeys[i]);
+			}
+			// Remove the fact that this day is chosen
+			chosen_progs.remove(dateStr);
+		}
+		//+ date.get(Calendar.YEAR) + "-" + date.get(Calendar.MONTH) + "-" + date.get(Calendar.DAY_OF_MONTH), true );
 	}
 	
 	/**
-	 * Returns all the choices the user has made.
+	 * Returns all the choices the user has made for one day.
+	 *
+	 * NOTE: actually returns all choice _if_ there are any choices for today.
 	 *
 	 * @return	null if there are no choices for today, or all chosen programmes
 	 */
@@ -353,6 +339,41 @@ public class FreeGuidePreferencesGroup {
 		} else {
 			return null;
 		}
+		
+	}
+	
+	/**
+	 * Returns the keys of all the choices the user has made for one day.
+	 *
+	 * NOTE: this returns programmes actually on that date, not adjusted for
+	 * the day_start_time parameter.
+	 *
+	 * @return	null if there are no choices for today, or all chosen programmes
+	 */
+	public int[] getChosenProgKeys(Calendar date) {
+		
+		Vector ans = new Vector();
+		
+		if(chosenAnything(date)) {
+			
+			int i = 1;
+			FreeGuideProgramme prog = chosen_progs.getFreeGuideProgramme(String.valueOf(i), null);
+		
+			while( prog != null ) {
+	
+				Calendar progStart = prog.getStart();
+			
+				if( (progStart.YEAR == date.YEAR) && (progStart.DAY_OF_YEAR == date.DAY_OF_YEAR) ) {
+					ans.add( new Integer(i) );
+					i++;
+					prog = chosen_progs.getFreeGuideProgramme(String.valueOf(i), null);	
+				}
+			
+			}
+		
+		}
+			
+		return FreeGuideUtils.arrayFromVector_int(ans);
 		
 	}
 	
@@ -554,78 +575,6 @@ public class FreeGuidePreferencesGroup {
 		
 	}
 	
-	
-	/*
-	 * Clever version we don't need.
-	 private void putChannelIDsToConfigFile( String confFilename, String[] channelIDs ) throws java.io.IOException {
-		
-		Vector oldConfigFile = new Vector();	// Holds the old config file
-		Vector channels = new Vector();			// The channels in the config file
-		Vector chosenChannels = new Vector(Arrays.asList(channelIDs));	// The chosen channels
-		String channelPrefix=null;				// Will be either "channel" or "channel: "
-		
-		BufferedReader buffy = new BufferedReader(new FileReader(confFilename));
-		
-		String line = buffy.readLine().trim();
-		while(line != null) {
-			
-			// If we've got a channel
-			if(line.startsWith("channel") || line.startsWith("#channel")) {
-				line = commentTrim(line);
-				// Grab the channel prefix if we need it
-				if(channelPrefix == null) {
-					int i = line.indexOf(' ');
-					if(i!=-1) {
-						if(line.charAt(0) == '#') {
-							channelPrefix = line.substring(1, i);
-						} else {
-							channelPrefix = line.substring(0, i);
-						}
-					}
-				}
-				// And remember the channel
-				channels.add(getChannelIDFromConfigLine(line));
-				
-			} else {	// Otherwise remember the line as it was
-				oldConfigFile.add(line);
-			}
-			
-			line = buffy.readLine().trim();
-		}
-		
-		buffy.close();
-		
-		// If we didn't find any channels, guess the prefix
-		if(channelPrefix == null) {
-			channelPrefix = "channel";
-		}
-		
-		String lb = System.getProperty("line.separator");
-		BufferedWriter buffyw = new BufferedWriter(new FileWriter(confFilename));
-		
-		// Write out the rest of the config file
-		for(int i=0;i<oldConfigFile.size();i++) {
-			buffyw.write((String)(oldConfigFile.get(i)) + lb);
-		}
-		
-		// Then write out the channels found in the file
-		for(int i=0;i<channels.size();i++) {
-			
-			String thisChan = (String)channels.get(i);
-			int j = chosenChannels.indexOf(thisChan);
-			if(j!=-1) {	// If this was chosen
-				buffyw.write(channelPrefix + " " + thisChan + lb);
-				chosenChannels.remove(j);
-			} else {	// If it wasn't, write it commented out
-				buffyw.write("#" + channelPrefix + " " + thisChan + lb);
-			}
-		}
-		
-		// I think there can't be any channels left here
-		//assert(chosenChannels.size()==0);
-		
-	}*/
-	
 	// ------------------------------------------------------------------------
 	
 	public FreeGuidePreferences screen;		// The screen dimensions etc.
@@ -634,7 +583,7 @@ public class FreeGuidePreferencesGroup {
 	public FreeGuidePreferences favourites;	// The user's favourite progs
 	public FreeGuidePreferences chosen_progs;// The selected progs
 	public FreeGuidePreferences channels;	// The selected channels
-
-	//byte[] memory;
+	
+	private static final SimpleDateFormat chosenDateFormat = new SimpleDateFormat("yyyyMMdd");
 	
 }

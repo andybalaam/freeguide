@@ -35,7 +35,7 @@ import java.util.Vector;
  * tv_grab.1, tv_grab.2 etc. for commandline options.)
  *
  * @author  Andy Balaam
- * @version 2
+ * @version 3
  */
 
 public class FreeGuidePreferences {
@@ -71,35 +71,6 @@ public class FreeGuidePreferences {
 		return FreeGuideUtils.arrayFromVector_String(ans);
 		
 	}
-	
-	/*public void onlyTheseNoncommented(String[] setKeys) {
-		
-		try {
-		
-			Vector vKeys = new Vector(Arrays.asList(setKeys));
-		
-			String[] keys = keys();
-		
-			for(int i=0;i<keys.length;i++) {
-			
-				int j = vKeys.indexOf(keys[i]);
-				if(j!=-1) {
-					put(keys[i], "");
-					vKeys.remove(j);
-				} else {
-					// Comment it out if it's not in our list of keys to show
-					put(keys[i], "#");
-				}
-			
-			}
-		
-			// assert(vKeys.size()==0);
-			
-		} catch(BackingStoreException e) {
-			e.printStackTrace();
-		}
-		
-	}*/
 	
 	/**
 	 * Remove all key-value pairs in this node and replace them with the keys
