@@ -125,6 +125,7 @@ public class PrivacyInfoDialog extends JDialog {
 		
 		infoPane = new JEditorPane( "text/html", privacyInfo );
 		infoPane.setEditable( false );
+		infoPane.setCaretPosition(0);
 		
 		scrollPane = new JScrollPane( infoPane );
 		
