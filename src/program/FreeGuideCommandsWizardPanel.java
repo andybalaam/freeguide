@@ -106,7 +106,8 @@ public class FreeGuideCommandsWizardPanel extends FreeGuideWizardPanel {
 	// ------------------------------------------
 	
 	protected Object getBoxValue() {
-		return textarea.getText().split(System.getProperty("line.separator"));
+		//return textarea.getText().split(System.getProperty("line.separator"));
+		return textarea.getText().split( "\n" );
 	}
 	
 	protected void setBoxValue(Object val) {

@@ -110,6 +110,7 @@ D  means work in progress by Dave Torok
 + Talk to XMLTV people about non-zero exit codes under Windows (all but na, sn)
 + Talk to XMLTV people about tv_grab_nl errors
 + Talk to XMLTV people about xmltv.exe tv_grab_na --listings "tv-%Y%m%d.xml" works
++ Fix bug with CommandsWizardPanel not splitting into separate lines on Windows
 
 + Release 0.5.5 (Win NA bug fix + remember channel set)
 
