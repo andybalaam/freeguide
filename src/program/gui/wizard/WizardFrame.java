@@ -16,35 +16,25 @@ import javax.swing.*;
  */
 public class WizardFrame extends javax.swing.JFrame {
 
-    // The user passes in a title and an array of FreeGuideWizardPanels
     /**
-     *  Constructor for the FreeGuideWizard object
+     *  Construct this wizard
      *
-     *@param  title     Description of the Parameter
-     *@param  panels    Description of the Parameter
-     */
-    public WizardFrame(String title, WizardPanel[] panels) {
-
-        this(title, panels, null, null);
-
-    }
-
-
-    // The user passes in a title and an array of FreeGuideWizardPanels
-    /**
-     *  Constructor for the FreeGuideWizard object
-     *
-     *@param  title         Description of the Parameter
-     *@param  panels        Description of the Parameter
-     *@param  finishObject  Description of the Parameter
-     *@param  finishMethod  Description of the Parameter
+     *@param  title         the String title of the wizard
+     *@param  panels        an array of WizardPanels to be displayed
+     *@param  finishObject  the object on which to call finishMethod
+     *@param  finishMethod  a method to call when the wizard finishes
+	 *                      successfully
+	 *@param  exitObject    the object on which to call exitMethod
+     *@param  exitMethod    a method to call when the user prematurely exited
      */
     public WizardFrame(String title, WizardPanel[] panels, Object finishObject,
-			Method finishMethod) {
+			Method finishMethod, Object exitObject, Method exitMethod) {
 
         this.panels = panels;
         this.finishObject = finishObject;
         this.finishMethod = finishMethod;
+		this.exitObject = exitObject;
+        this.exitMethod = exitMethod;
 
         panelCounter = 0;
 
@@ -179,7 +169,8 @@ public class WizardFrame extends javax.swing.JFrame {
 
         }
 
-        quit();
+        setVisible(false);
+        dispose();
     }
 
 
@@ -302,11 +293,19 @@ public class WizardFrame extends javax.swing.JFrame {
 
 
     /**
-     *  Description of the Method
+     * Close this wizard and invoke the method given to be invoked
+	 * when the user prematurely stops the wizard.
      */
     private void quit() {
         setVisible(false);
         dispose();
+		try {
+			exitMethod.invoke(exitObject, new Class[0]);
+		} catch( IllegalAccessException e ) {
+			e.printStackTrace();
+		} catch( InvocationTargetException e ) {
+			e.printStackTrace();
+		}
     }
 
 
@@ -322,5 +321,8 @@ public class WizardFrame extends javax.swing.JFrame {
 
     private Object finishObject;
     private Method finishMethod;
+	private Object exitObject;
+    private Method exitMethod;
+	
 
 }

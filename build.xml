@@ -98,14 +98,13 @@
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/windows/install-win-all.props" tofile="${package}/windows/install-all.props" overwrite="true" />
 		<copy file="${src}/install/windows/install-win-dk.props" tofile="${package}/windows/install-0.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-de.props" tofile="${package}/windows/install-1.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-es.props" tofile="${package}/windows/install-2.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-fi.props" tofile="${package}/windows/install-3.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-hu.props" tofile="${package}/windows/install-4.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-it.props" tofile="${package}/windows/install-5.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-nl.props" tofile="${package}/windows/install-6.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-na.props" tofile="${package}/windows/install-7.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-uk.props" tofile="${package}/windows/install-8.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-es.props" tofile="${package}/windows/install-1.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-fi.props" tofile="${package}/windows/install-2.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-hu.props" tofile="${package}/windows/install-3.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-it.props" tofile="${package}/windows/install-4.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-nl.props" tofile="${package}/windows/install-5.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-na.props" tofile="${package}/windows/install-6.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-uk.props" tofile="${package}/windows/install-7.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Win-Install.jar"
@@ -136,15 +135,14 @@
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/linux/install-lin-all.props" tofile="${package}/linux/install-all.props" overwrite="true" />
 		<copy file="${src}/install/linux/install-lin-dk.props" tofile="${package}/linux/install-0.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-de.props" tofile="${package}/linux/install-1.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-es.props" tofile="${package}/linux/install-2.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-fi.props" tofile="${package}/linux/install-3.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-hu.props" tofile="${package}/linux/install-4.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-it.props" tofile="${package}/linux/install-5.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-nl.props" tofile="${package}/linux/install-6.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-nz.props" tofile="${package}/linux/install-7.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-na.props" tofile="${package}/linux/install-8.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-uk.props" tofile="${package}/linux/install-9.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-es.props" tofile="${package}/linux/install-1.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-fi.props" tofile="${package}/linux/install-2.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-hu.props" tofile="${package}/linux/install-3.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-it.props" tofile="${package}/linux/install-4.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-nl.props" tofile="${package}/linux/install-5.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-nz.props" tofile="${package}/linux/install-6.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-na.props" tofile="${package}/linux/install-7.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-uk.props" tofile="${package}/linux/install-8.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Linux-NoXMLTV-Install.jar"
@@ -182,14 +180,13 @@
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/linux-par/install-lin-all.props" tofile="${package}/linux-par/install-all.props" overwrite="true" />
 		<copy file="${src}/install/linux-par/install-lin-dk.props" tofile="${package}/linux-par/install-0.props" overwrite="true" />
-		<copy file="${src}/install/linux-par/install-lin-de.props" tofile="${package}/linux-par/install-1.props" overwrite="true" />
-		<copy file="${src}/install/linux-par/install-lin-es.props" tofile="${package}/linux-par/install-2.props" overwrite="true" />
-		<copy file="${src}/install/linux-par/install-lin-fi.props" tofile="${package}/linux-par/install-3.props" overwrite="true" />
-		<copy file="${src}/install/linux-par/install-lin-hu.props" tofile="${package}/linux-par/install-4.props" overwrite="true" />
-		<copy file="${src}/install/linux-par/install-lin-it.props" tofile="${package}/linux-par/install-5.props" overwrite="true" />
-		<copy file="${src}/install/linux-par/install-lin-nl.props" tofile="${package}/linux-par/install-6.props" overwrite="true" />
-		<copy file="${src}/install/linux-par/install-lin-na.props" tofile="${package}/linux-par/install-7.props" overwrite="true" />
-		<copy file="${src}/install/linux-par/install-lin-uk.props" tofile="${package}/linux-par/install-8.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-es.props" tofile="${package}/linux-par/install-1.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-fi.props" tofile="${package}/linux-par/install-2.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-hu.props" tofile="${package}/linux-par/install-3.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-it.props" tofile="${package}/linux-par/install-4.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-nl.props" tofile="${package}/linux-par/install-5.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-na.props" tofile="${package}/linux-par/install-6.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-uk.props" tofile="${package}/linux-par/install-7.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Linux-Install.jar"

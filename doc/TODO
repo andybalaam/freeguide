@@ -139,6 +139,7 @@ e  means done by Ewan Harrow
 
 - Update docs
 - Include a modified XMLTV for configuration.
+- Finish privacy dialogue
 + Fix popups coming up behind window on startup bug (using a later time?)
 + Enable configuration option within viewer 
 + Refresh after download (using dialog?)

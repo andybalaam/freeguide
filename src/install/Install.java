@@ -145,15 +145,18 @@ public class Install extends PrefsHolder {
             panels[5] = new InstallWizardPanel( this );
             panels[5].setMessages(
 				"FreeGuide will be installed when you click \"Finish\".",
-			   "Now you will be asked some questions about grabbing listings.");
+			   "If you chooose to configure your grabber, please connect to "
+			   + "the Internet now.");
 			clses = new Class[1];
 			clses[0] = InstallWizardPanel.class;
 			panels[5].setOnExit( this, getClass().getMethod( "exitFinal",
 				clses ) );
 
 			clses = new Class[0];
-            new WizardFrame("FreeGuide Setup Wizard", panels, this,
-                    getClass().getMethod("doInstall", clses)).setVisible(true);
+            new WizardFrame("FreeGuide Setup Wizard", panels,
+				this, getClass().getMethod("doInstall", clses),
+				this, getClass().getMethod("quitInstall", clses)
+					).setVisible(true);
 
         } catch (java.lang.NoSuchMethodException e) {
             e.printStackTrace();
@@ -388,6 +391,13 @@ public class Install extends PrefsHolder {
     }
 
 
+	public void quitInstall() {
+		
+		System.err.println("The user quit the install before it completed.");
+		System.exit(0);
+		
+	}
+	
     /**
      *  Description of the Method
      */
@@ -424,7 +434,9 @@ public class Install extends PrefsHolder {
 			String[] cmds = Utils.substitute(
 				prefs.commandline.getStrings( "browser_command" ),
 				"%filename%", prefs.performSubstitutions( 
-					"%misc.install_directory%/README.html" ) );
+					"%misc.install_directory%"
+					+ System.getProperty( "file.separator" )
+					+ "README.html" ) );
 			
 			Utils.execNoWait( cmds, prefs );
 			

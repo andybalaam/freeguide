@@ -33,16 +33,25 @@ public class ConfigGuesser {
 				return checkNumeric( (String)val, "the number of days to grab");
 			} else if( entry.equals( "working_directory" ) ) {
 				return checkDirWriteable( (File)val, "a working directory");
+			} else if( entry.equals( "install_directory" ) ) {
+				return checkDirWriteable( (File)val, "the install directory");
 			} else if( entry.equals( "region" ) ) {
 				return checkNonEmpty( (String)val, "region" );
+			} else if( entry.equals( "browser" ) ) {
+				return null;
+			} else if( entry.equals( "privacy" ) ) {
+				return null;
 			}
 			
 		}
 		
+		String msg = "Check asked for on an unknown option \"" + group + "."
+			+ entry + "\".";
+		
 		if( FreeGuide.log != null ) {
-			FreeGuide.log.info( "Check asked for on an unknown option." );
+			FreeGuide.log.info( msg );
 		} else {
-			System.err.println( "Check asked for on an unknown option." );
+			System.err.println( msg );
 		}
 		
 		// If it's not one of these, don't check , just say it's good.

@@ -4,4 +4,4 @@ prefs.1=misc.days_to_grab=7
 prefs.2=commandline.tv_grab.1=\"%misc.xmltv_directory%\\xmltv.exe\" tv_grab_hu --config-file \"%misc.grabber_config%\" --offset %offset% --days 1 --output \"%misc.working_directory%\\tv-%date%.xmltv\"
 prefs.3=misc.grabber_start_time=00:00
 prefs.4=misc.grabber_config=%misc.xmltv_directory%\\tv_grab_hu.conf
-
+prefs.5=commandline.tv_config.1=\"%misc.xmltv_directory%\\xmltv.exe\" tv_grab_hu --config-file \"%misc.grabber_config%\" --configure --gui

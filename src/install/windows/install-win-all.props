@@ -10,7 +10,7 @@ prefs.7=misc.grabber_start_today=true
 prefs.8=misc.browser.1=Internet Explorer
 prefs.9=commandline.browser_command.1.1=\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" \"%filename%\"
 prefs.10=misc.browser.2=Mozilla
-prefs.11=commandline.browser_command.2.1=\"C:\\Program Files\\mozilla.org\\Mozilla\mozilla.exe" \"%filename%\"
+prefs.11=commandline.browser_command.2.1=\"C:\\Program Files\\mozilla.org\\Mozilla\\mozilla.exe" \"%filename%\"
 prefs.12=misc.browser.3=K-Meleon
 prefs.13=commandline.browser_command.3.1=
 prefs.14=misc.browser.4=Opera
