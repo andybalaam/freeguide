@@ -9,7 +9,7 @@
 Name "FreeGuide"
 
 ; The file to write
-OutFile "..\..\..\installer\FreeGuide-0.8-Install.exe"
+OutFile "..\..\..\installer\FreeGuide-0.8-Windows.exe"
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\freeguide-tv 
