@@ -75,7 +75,9 @@ b  means done by Brendan Corrigan
 	after download?)
 - Install in a more Unix-y way.
 - Move default and common preferences to the System prefs instead of user.
-- Merge the installer into the startup sequence of the main program
+- Merge the installer into the startup sequence of the main program?
+- Allow sorting of favourites list
+- Remember last hit-time of favourites
 
 - Release 0.6.3 (non-urgent minor features)
 
@@ -103,7 +105,7 @@ b  means done by Brendan Corrigan
 - Release 0.6.2 (consolidation and code tidying)
 
 - Separate classes into packages
-- Coloured programme categories and favourites
+- Coloured favourites categories (text and/or background)
 - Apply different fonts to every screen.
 - Highlight a given channel
 - GUI to deal with --configure step and any other post-install, pre-use stuff

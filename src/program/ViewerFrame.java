@@ -37,7 +37,6 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.text.JTextComponent;
-import javax.swing.JDialog;
 import javax.swing.*;
 
 //}}}
@@ -94,7 +93,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 		drawProgrammes();
 		
 		// Show the printed guide
-		updatePrintedGuide();
+		printedGuideArea.update();
 
 		// Get rid of the "Please Wait" window if it is visible
         if (pleaseWait != null) {
@@ -211,7 +210,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
         butNextDay = new javax.swing.JButton();
         horizontalSplitPane = new javax.swing.JSplitPane();
         printedGuideScrollPane = new javax.swing.JScrollPane();
-        printedGuideArea = new javax.swing.JEditorPane();
+        printedGuideArea = new ViewerFrameHTMLGuide( this );
         verticalSplitPane = new javax.swing.JSplitPane();
         channelNameScrollPane = new javax.swing.JScrollPane();
         channelNamePanel = new javax.swing.JPanel();
@@ -1046,7 +1045,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 		drawProgrammes();
 		
 		// Show the printed guide
-		updatePrintedGuide();
+		printedGuideArea.update();
 		
 		// Show the screen
 		setVisible( true );
@@ -1184,7 +1183,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 						programmeJLabel.setSelected( false );
 							
                         // Update the guide
-                        updatePrintedGuide();
+                        printedGuideArea.update();
 
                     }
                 }
@@ -1228,7 +1227,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 			
 		}
 		
-        updatePrintedGuide();
+        printedGuideArea.update();
 
     }
 
@@ -1289,7 +1288,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 		drawProgrammes();
 		
 		// Refresh the printed guide
-		updatePrintedGuide();
+		printedGuideArea.update();
 		
 		progressor.setProgress( 0 );
 
@@ -1328,7 +1327,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
         drawProgrammes();
 		
 		// Refresh the printed guide
-		updatePrintedGuide();
+		printedGuideArea.update();
 		
 		progressor.setProgress( 0 );
 		
@@ -1341,7 +1340,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
      */
     public void mbtPrintActionPerformed(java.awt.event.ActionEvent evt) {
 
-        writeOutAsHTML();
+        printedGuideArea.writeOutAsHTML();
 
     }
 
@@ -1482,7 +1481,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
      */
     public void butPrintActionPerformed(java.awt.event.ActionEvent evt) {
 
-        writeOutAsHTML();
+        printedGuideArea.writeOutAsHTML();
 
     }
 
@@ -1532,7 +1531,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 			
 		programmeJLabel.setSelected( !programmeJLabel.isSelected );
 
-        updatePrintedGuide();
+        printedGuideArea.update();
 
     }
 
@@ -1698,11 +1697,11 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 	/**
      *  Get the HTML version of the listing and show it in the printed guide
      */
-    public void updatePrintedGuide() {
+    /*public void updatePrintedGuide() {
 
         printedGuideArea.setText(constructHTMLGuide(true));
 
-    }
+    }*/
 
 
     /*
@@ -1711,7 +1710,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
     /**
      *  Description of the Method
      */
-    public void writeOutAsHTML() {
+    /*public void writeOutAsHTML() {
 
         String fs = System.getProperty("file.separator");
 
@@ -1737,7 +1736,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
         }
         //try
 
-    }
+    }*/
 
 
     //writeOutAsHTML
@@ -1748,7 +1747,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
      *@param  onScreen  Description of the Parameter
      *@return           the TV guide as a string of html
      */
-    private String constructHTMLGuide( boolean onScreen ) {
+    /*private String constructHTMLGuide( boolean onScreen ) {
 		
 		// Find out whether we're in the 24 hour clock
         boolean draw24time = FreeGuide.prefs.screen.getBoolean(
@@ -1818,7 +1817,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
         ans.append( "</head>").append( lineBreak );
         ans.append( "<body>").append( lineBreak );
         ans.append( "  <h1>" );
-
+		
         if (onScreen) {
 			
             ans.append(
@@ -1924,7 +1923,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
         ans.append( "</html>" ).append( lineBreak );
 
         return ans.toString();
-    }
+    }*/
 	
 	//}}}
 	
@@ -2065,10 +2064,6 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
      *  The combobox showing the channel set we are using
      */
     public javax.swing.JComboBox comChannelSet;
-	/**
-     *  The JEditorPane where the printedGuide is shown
-     */
-    public javax.swing.JEditorPane printedGuideArea;
 	
 	/**
      *  The panel showing the timeline
@@ -2102,6 +2097,11 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 	//}}}
 	
 	//{{{ Static GUI
+	
+	/**
+     *  The JEditorPane where the printedGuide is shown
+     */
+    private ViewerFrameHTMLGuide printedGuideArea;
 	
 	private javax.swing.JProgressBar progressBar;
     private javax.swing.JMenuItem mbtCustomiser;

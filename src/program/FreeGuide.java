@@ -31,8 +31,6 @@ public class FreeGuide implements Launcher {
      */
     public FreeGuide(String[] args) {
 		
-		timerHandler = new TimerHandler();
-		
         PleaseWaitFrame pleaseWait = new PleaseWaitFrame(this, args);
 		
     }
@@ -127,11 +125,6 @@ public class FreeGuide implements Launcher {
      *  The log file
      */
     public static Logger log;
-	
-	/**
-     *  Class that handles timers
-     */
-    public static TimerHandler timerHandler;
 
     /**
      *  The major version of FreeGuide
