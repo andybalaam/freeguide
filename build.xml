@@ -185,19 +185,28 @@
   
 	
 	<target name="FreeGuide-Source"
-  		description="generate the source zip" depends="init">
+  		description="generate the source zips" depends="init">
 		
-		<zip zipfile="${dist}/${freeguideversion}-Source.zip">
-			<zipfileset dir="${src}" prefix="src">
+		<zip zipfile="${dist}/${freeguideversion}.zip">
+			<zipfileset dir="${src}" prefix="${freeguideversion}/src">
 				<exclude name="**/.xvpics/**" />
 			</zipfileset>
-			<zipfileset dir="${doc}" prefix="doc">
+			<zipfileset dir="${doc}" prefix="${freeguideversion}/doc">
 				<exclude name="**/.xvpics/**" />
 			</zipfileset>
-			<fileset dir="." includes="build.xml" />
-			<fileset dir="xmltv" includes="xmltv-*.tar.bz2" />
+			<zipfileset dir="." includes="build.xml" prefix="${freeguideversion}" />
+			<zipfileset dir="xmltv" includes="xmltv-*.tar.bz2" prefix="${freeguideversion}/xmltv" />
 		</zip>
   
+  		<unzip src="${dist}/${freeguideversion}.zip" dest="${dist}/zipfile/" />
+  
+  		<tar tarfile="${dist}/${freeguideversion}.tar" basedir="${dist}/zipfile" />
+  
+  		<gzip src="${dist}/${freeguideversion}.tar" zipfile="${dist}/${freeguideversion}.tar.gz" />
+
+		<delete dir="${dist}/zipfile" />
+		<delete file="${dist}/${freeguideversion}.tar" />
+		
   	</target>
   
   	<target name="main" depends="FreeGuide-Source,FreeGuide-Win-Install,FreeGuide-Linux-Install" 

@@ -61,7 +61,6 @@ b  means done by Brendan Corrigan
 
 - Release 0.7 (nice features)
 
-- Alert me when my programme starts
 - Fix feature that if you reinstall to a new dir the old install can't be
 	uninstalled (well, you have to delete the directory instead...)
 - Properties box for a programme showing longer descriptions, other DTD stuff
@@ -80,14 +79,12 @@ b  means done by Brendan Corrigan
 - Multiline tooltips if too long
 - Choose how old files are before you delete them
 - Terms and conditions of listings
-- Option to turn off non-quarter-hour times in programme box.
 - Ability to save and load preferences (using Java's ability to save to XML)
 - Make a subclass of JLabel that represents the visual display of a programme
 	and record e.g. is it a favourite, is it ticked?
 - Hence rewrite FreeGuideViewer much better
 - Shortcut keys for everything
 - Scroll to the programme you've just added in the list view
-- Remember what country you're from when you re-install.
 - Check that the grabber is installer by calling tv_grab_* --help?
 - Progress bar when downloading listings (by day)
 - Option to jump to a specific time on program start
@@ -115,9 +112,10 @@ b  means done by Brendan Corrigan
 - Make the About box a _lot_ nicer.
 - Choose browser on startup
 - Nice browser chooser in options
-- Automate creation of tar.gz Source package, and change naming to use . instead
-	of _ and put zip and tar.gz inside a dir called FreeGuide-0.6.1
-
+- Alert me when my programme starts (using java.util.Timer?)
++ Automate creation of tar.gz Source package with Debian naming
++ Use sensible naming for zip package too.
+	
 + Release 0.6.1 (gradual improvements to GUI begin)
 
 + Implement sub-titles properly to avoid favourites-not-working regression
