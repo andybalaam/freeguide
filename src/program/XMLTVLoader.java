@@ -133,30 +133,31 @@ class XMLTVLoader extends DefaultHandler {
 
 			SAXParser saxParser = factory.newSAXParser();
 
-			//doingProgs=true;
-			//boolean parsedPartOfToday = false;
-
-			if( day1File.exists() && day2File.exists() ) {
-				
-				//FreeGuide.log.info( "Getting data from " + day1Filename +
-				//	" and "  + day2Filename );
+			boolean day1FileExists = day1File.exists();
+			boolean day2FileExists = day2File.exists();
+			
+			// If either day file exists (or both), parse it/them.  Otherwise
+			// get the unproc. listings if they exist.
+			
+			if( day1FileExists ) {
 				
 				saxParser.parse( day1Filename, this );
+				
+			}
+			
+			if( day2FileExists ) {
+				
 				saxParser.parse( day2Filename, this );
 				
-				//parsedPartOfToday = true;
-			} else {
-				
-				if(unprocFile.exists()) {
+			}
+			
+			if( (!day1FileExists) && (!day2FileExists) && unprocFile.exists() ){
 				
 					// The grabber must not be able to split into days,
 					// so we'll deal with the unprocessed data.
 					saxParser.parse( unprocFilename, this );
-				}
 				
 			}
-			
-			//doingProgs=false;
 
 		} catch(ParserConfigurationException e) {
 			e.printStackTrace();
@@ -175,6 +176,7 @@ class XMLTVLoader extends DefaultHandler {
 	// missing.
 	public boolean hasData() {
 		
+		// Normal:
 		return (thereAreEarlyProgs && thereAreLateProgs);
 		
 	}
@@ -197,21 +199,25 @@ class XMLTVLoader extends DefaultHandler {
 		working_directory = FreeGuide.prefs.performSubstitutions(
 			FreeGuide.prefs.misc.get("working_directory") );
 		
-		earliest = GregorianCalendar.getInstance();
-		latest = GregorianCalendar.getInstance();
+		//earliest = GregorianCalendar.getInstance();
+		//latest = GregorianCalendar.getInstance();
 		
 		date = (Calendar)nowDate.clone();
 		
 		// If we're before the day start time we actually want the previous day.
-		FreeGuideTime nowTime = new FreeGuideTime( date );
+		//FreeGuideTime nowTime = new FreeGuideTime( date );
 		
-		if( nowTime.before( day_start_time ) ) {
+		//if( nowTime.before( day_start_time, new FreeGuideTime( 0, 0 ) ) ) {
+		
+		// If we need to adjust because our day start is before our grabber's
+		//if( day_start_time.before(
+		//		grabber_start_time, new FreeGuideTime( 0, 0 ) ) ) {
 			
 			// Set the time to the previous day, 1 hour after the day start time
-			date.add( Calendar.DATE, -1 );
-			date.set( Calendar.HOUR, day_start_time.getHours() + 1 );
+		//	date.add( Calendar.DATE, -1 );
+		//	date.set( Calendar.HOUR, day_start_time.getHours() + 1 );
 			
-		}
+		//}
 		
 		// Set earliest to the start time on the date
 		earliest = (Calendar)date.clone();
@@ -247,9 +253,6 @@ class XMLTVLoader extends DefaultHandler {
 		// and remove an hour from the end time
 		hasDataLatest.add( Calendar.HOUR, -1 );
 		
-		//FreeGuide.log.info(hasDataEarliest.toString() + " " 
-		//	+ hasDataLatest.toString());
-		
 	}
 	
 	private boolean dayIsToday( Calendar nowDate ) {
@@ -259,7 +262,7 @@ class XMLTVLoader extends DefaultHandler {
 		FreeGuideTime nowTime = new FreeGuideTime( today );
 		
 		// If we're before the day start time then go to the previous day
-		if( nowTime.before( day_start_time ) ) {
+		if( nowTime.before( day_start_time, new FreeGuideTime( 0, 0 ) ) ) {
 			
 			today.add( Calendar.DATE, -1 );
 			

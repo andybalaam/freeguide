@@ -91,9 +91,13 @@ W  means work in progress by Walter Duncan
 	allways captured (intermittent linux java 1.4.1_01).  Maybe add a
 	permanent (not always visible) viewer w/ a clear button, or
 	timestamped output...
+- Only parse one input file if day_start_time == grabber_start_time
 
 - Release 0.5 (Features - especially use of many grabbers, and bug fixes)
 
+- Add to docs known bug that na grabber always doesn't overwrite old files.
+- Explain in documentation that if you grab quite late in a day you may only
+	get tomorrow's listings.
 + Stop it from grabbing stuff that's already been done.
 + Fix bug that means favourites sometimes aren't chosen (YES!)
 * Dynamic population of the date list comboBox based on available data

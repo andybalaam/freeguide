@@ -46,7 +46,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 		launcher = newLauncher;
 
-		ddl = new DataDateList( FreeGuide.prefs.performSubstitutions( 
+		dataDateList = new DataDateList( FreeGuide.prefs.performSubstitutions( 
 			FreeGuide.prefs.misc.get("working_directory") ),
 			"^tv-.*\\.xmltv$");
 		
@@ -230,8 +230,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         topPanel.add(butPrev, gridBagConstraints);
 
         comTheDate.setEditable(true);
-        comTheDate.setMinimumSize(new java.awt.Dimension(150, 25));
-        comTheDate.setPreferredSize(new java.awt.Dimension(150, 25));
+        comTheDate.setMinimumSize(new java.awt.Dimension(170, 25));
+        comTheDate.setPreferredSize(new java.awt.Dimension(170, 25));
         comTheDate.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comTheDateItemStateChanged(evt);
@@ -752,89 +752,87 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 	}
 
-	// Original
-	/*private void makeDatesList0() {
-		Calendar tmpDate = GregorianCalendar.getInstance();
-		tmpDate.setTimeInMillis( theDate.getTimeInMillis() );
-
-		for(int i=0;i<14;i++) {
-
-			comTheDate.addItem(comboBoxDateFormat.format(tmpDate.getTime()));
-			tmpDate.add( Calendar.DAY_OF_YEAR, 1 );
-
-		}
-		comTheDate.setSelectedItem(comboBoxDateFormat.format(theDate.getTime()));
-	}*/
-	// causes strange(tm) refresh
-	//private void makeDatesList1() {
-		/*comTheDate.removeAllItems();
-		ddl.updateDates();
-		for (int i=0;i<ddl.size();i++) {
-			comTheDate.addItem(comboBoxDateFormat.format((Date)ddl.get(i)));
-		}
-		comTheDate.setSelectedItem(comboBoxDateFormat.format(theDate.getTime()));
-		*/
-	//}
-	// utility function for makeDatesList
+	/**
+	 * @return 	a Date object that is either the date represented by the given
+	 * 			line of the given combobox or today's date if something goes
+	 * 			wrong (i.e. the line is null or the parsing fails).
+	 */
 	private static Date parseComboItem(JComboBox cbox, int i) {
+		
 		Date d1;
-		String s1;
-		s1=(String)cbox.getItemAt(i);
+		String s1 = (String)cbox.getItemAt(i);
+		
 		if ( s1 != null ) {
 			try {
-				d1=((SimpleDateFormat)comboBoxDateFormat).parse(s1);
+				
+				d1 = ((SimpleDateFormat)comboBoxDateFormat).parse(s1);
+				
 			} catch (java.text.ParseException e) {
-				d1=new Date();
+				
+				d1 = new Date();
+				
 			}
+			
 		} else {
-			d1=new Date();
+			
+			d1 = new Date();
+			
 		}
-		return(d1);
+		
+		return d1;
+		
 	}
 	// FIXME -- WCD -- makeDatesList()  Dynamic operation
 	// FIXME -- Might actually work if we can get it to wait for the grabber to complete
+	// Think it does now ... ?
 	private void makeDatesList() {
-		boolean debug=false;
-		//debug=true;
-		/*if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
-		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
-		comTheDate.addItem(comTheDate.getSelectedItem());
-		while (comTheDate.getItemCount() > 1) {
-			if (comTheDate.getItemAt(0) == comTheDate.getSelectedItem() ) {
-				if (debug) System.out.print("remove1\n");
-				comTheDate.removeItemAt(1);
-			} else {
-				if (debug) System.out.print("remove0\n");
-				comTheDate.removeItemAt(0);
+		
+		// First reduce the list to just the selected item without causing a
+		// "comTheDateItemStateChanged" event.
+		
+		Object selItem = comTheDate.getSelectedItem();
+		
+		int noItems = comTheDate.getItemCount();
+		for( int i = noItems-1; i >= 0; i-- ) {
+			
+			if( !( comTheDate.getItemAt( i ).equals( selItem ) ) ) {
+				
+				comTheDate.removeItemAt( i );
+				
 			}
-		}*/
+			
+		}
 		
-		comTheDate.removeAllItems();
+		// Next fill in the list of dates.
 		
-		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
-		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
-		// now we should have only one item in the list.  Check to see if theDate is it.
-		// If not, fix the situation.
-
-		//comTheDate.setSelectedItem(comTheDate.getSelectedItem());
-		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
-		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
-		ddl.updateDates();
-		Date d1;
-		Date d2;
+		// Get a list of all the needed dates
+		dataDateList.updateDates();
+		
+		Date selectedDate = parseComboItem(
+			comTheDate, comTheDate.getSelectedIndex() );
+		
+		boolean noneSelected = ( comTheDate.getSelectedIndex() == -1 );
+		
+		Date newDate;
 		String s1;
-		for (int i=0;i<ddl.size();i++) {
-			if (debug) System.out.print("insert1\n");
-			d1=parseComboItem(comTheDate, comTheDate.getSelectedIndex());
-			d2=(Date)ddl.get(i);
-			if (( ! d1.equals(d2) ) || (comTheDate.getSelectedIndex()<0)) { // check for existance of selected item in container
-				if (debug) System.out.print("insert2\n");
-				comTheDate.insertItemAt(comboBoxDateFormat.format(d2),i);
+		
+		// Step through each date in the newly-created list
+		for( int i=0; i < dataDateList.size(); i++ ) {
+
+			newDate = (Date)dataDateList.get(i);
+			
+			// Add this new date if it's not already there
+			if ( noneSelected || ( !(selectedDate.equals( newDate )) ) ) {
+				
+				comTheDate.insertItemAt( comboBoxDateFormat.format( 
+					newDate ), i );
+				
 			}
 		}
-		comTheDate.setSelectedItem(comboBoxDateFormat.format(theDate.getTime()));
-		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
-		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
+		
+		
+		//comTheDate.setSelectedItem(
+		//	comboBoxDateFormat.format( theDate.getTime() ) );
 
 	}
 	
@@ -860,35 +858,45 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		int oldDay = theDate.get(Calendar.DAY_OF_YEAR);
 		int oldYear = theDate.get(Calendar.YEAR);
 
-		Calendar now = GregorianCalendar.getInstance();
-		theDate.setTime( now.getTime() );
-		loader.updateDaySpan( theDate );
+		//Calendar now = GregorianCalendar.getInstance();
+		//theDate.setTime( now.getTime() );
+		
+		theDate = GregorianCalendar.getInstance();
+		
+		//loader.updateDaySpan( theDate );
 		
 		// TODO -- WCD -- handle case where grabber day start is not 00:00
-		if ( theDate.before( loader.earliest ) ) {
+		
+		FreeGuideTime nowTime = new FreeGuideTime( theDate );
+		FreeGuideTime day_start_time = FreeGuide.prefs.misc.getFreeGuideTime(
+			"day_start_time" );
+		
+		if ( nowTime.before( day_start_time, new FreeGuideTime( 0, 0 ) ) ) {
 			
-			theDate.add(Calendar.DAY_OF_YEAR,-1);
+			theDate.add( Calendar.DAY_OF_YEAR, -1 );
 			
 		}
+		
 		
 		comTheDate.setSelectedItem(
 			comboBoxDateFormat.format( theDate.getTime() ) );
 
 		// update now pointer
-		loader.updateDaySpan( theDate );
-		timePanel.setTimes( loader.earliest, loader.latest );
+		//loader.updateDaySpan( theDate );
+		//timePanel.setTimes( loader.earliest, loader.latest );
 
 		// I suspect, panel is not updated before scroll position is set
 		// This seems to fix things in the case of a day change
-		if (!(oldDay == theDate.get(Calendar.DAY_OF_YEAR) &&
-				oldYear == theDate.get(Calendar.YEAR)) || update) {
+		if ( !( oldDay == theDate.get(Calendar.DAY_OF_YEAR) &&
+				oldYear == theDate.get(Calendar.YEAR) ) 
+			|| update ) {
 			
 			updatePanel();
 			
 		}
 
 		innerScrollPane.getHorizontalScrollBar().
-			setValue(timePanel.getNowScroll() - 100);
+			setValue( timePanel.getNowScroll() - 100 );
 		
 	}
 
@@ -1602,7 +1610,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	private FreeGuideProgramme rightClickedProg;
 		// The programme the user last right clicked on
 		
-	private DataDateList ddl;
+	private DataDateList dataDateList;
 
 }
 
