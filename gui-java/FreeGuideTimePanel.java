@@ -14,7 +14,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.beans.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 
@@ -53,34 +54,36 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 		
 		if(wid>0) {
 		
-			multiplier = (double)(endTime.getTime() - startTime.getTime()) / (double)(wid);
+			multiplier = (double)(endTime.getTimeInMillis() - startTime.getTimeInMillis()) / (double)(wid);
 		
-			Date tmpTime = new Date(startTime.getTime());
+			Calendar tmpTime = GregorianCalendar.getInstance();
+			tmpTime.setTimeInMillis( startTime.getTimeInMillis() );
 		
-			// Forget about seconds
-			tmpTime.setSeconds(0);
+			// Forget about seconds and milliseconds
+			tmpTime.set( Calendar.SECOND, 0);
+			tmpTime.set( Calendar.MILLISECOND, 0);
 		
 			// Round to the nearest 5 mins
-			tmpTime.setMinutes((((int)(tmpTime.getMinutes()/5)))*5);
+			tmpTime.set( Calendar.MINUTE, ((int)(tmpTime.get(Calendar.MINUTE)/5)) * 5 );
 		
 			// Step through each 5 mins
 			while(tmpTime.before(endTime)) {
 			
-				int xPos = (int)((tmpTime.getTime() - startTime.getTime())/multiplier);
+				int xPos = (int)((tmpTime.getTimeInMillis() - startTime.getTimeInMillis())/multiplier);
 			
 				// Make a mark
 				
-				if(tmpTime.getMinutes()==0) {	// Hours
+				if(tmpTime.get(Calendar.MINUTE)==0) {	// Hours
 					
 					g.drawLine(xPos, 0, xPos, 10);
-					g.drawString(fmt.format(tmpTime), xPos-17, 21);
+					g.drawString(fmt.format(tmpTime.getTime()), xPos-17, 21);
 					
-				} else if(tmpTime.getMinutes()==30) {	// Half hours
+				} else if(tmpTime.get(Calendar.MINUTE)==30) {	// Half hours
 					
 					g.drawLine(xPos, 0, xPos, 7);
-					g.drawString(fmt.format(tmpTime), xPos-17, 21);
+					g.drawString(fmt.format(tmpTime.getTime()), xPos-17, 21);
 					
-				} else if((tmpTime.getMinutes()%10) == 0) {	// 10 mins
+				} else if((tmpTime.get(Calendar.MINUTE)%10) == 0) {	// 10 mins
 					
 					g.drawLine(xPos, 0, xPos, 4);
 					
@@ -93,12 +96,12 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 				
 			
 				// Add another 5 mins
-				tmpTime.setMinutes(tmpTime.getMinutes()+5);
+				tmpTime.add(Calendar.MINUTE, 5);
 		
 			}//while
 			
 			// Draw the "now" line
-			int xPos = (int)((nowTime.getTime() - startTime.getTime())/multiplier);
+			int xPos = getNowScroll();
 			g.fillRect(xPos-1, 0, 3, 25);
 			
 		}//if
@@ -107,7 +110,9 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 
 	public int getNowScroll() {
 		
-		return (int)((nowTime.getTime() - startTime.getTime()) / multiplier);
+		Calendar nowTime = GregorianCalendar.getInstance();
+		
+		return (int)((nowTime.getTimeInMillis() - startTime.getTimeInMillis()) / multiplier);
 		
 	}
 	
@@ -117,11 +122,13 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 		
 	}*/
 	
-	public void setTimes(Date newStartTime, Date newEndTime, Date newNowTime) {
+	public void setTimes(Calendar newStartTime, Calendar newEndTime) {
 				
-		startTime = new Date(newStartTime.getTime());
-		endTime = new Date(newEndTime.getTime());
-		nowTime = new Date(newNowTime.getTime());
+		startTime = GregorianCalendar.getInstance();
+		startTime.setTimeInMillis(newStartTime.getTimeInMillis());
+		
+		endTime = GregorianCalendar.getInstance();
+		endTime.setTimeInMillis(newEndTime.getTimeInMillis());
 		
 		repaint();
 		
@@ -130,9 +137,8 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	// End of variables declaration//GEN-END:variables
 
-	private Date startTime;	// The time on the left hand side of the panel
-	private Date endTime;	// The time on the right hand side of the panel
-	private Date nowTime;	// The time now
+	private Calendar startTime;	// The time on the left hand side of the panel
+	private Calendar endTime;		// The time on the right hand side of the panel
 	private double multiplier;	// The no. millisecs over the no. pixels
 	
 	

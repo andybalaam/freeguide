@@ -14,23 +14,23 @@ import java.util.Vector;
 /**
  * Processes and stores the command line arguments
  * passed to an application.
- * <p>
+ * 
  * Arguments beginning with "--"
  * are treated as word-length flags while arguments
  * beginning with "-" are treated as groups of character-
  * length arguments.
- * <p>
+ * 
  * By default all arguments are treated as if they expect
  * some data.  Arguments which should be treated as boolean
  * flags must be passed to the constructor.
- * <p>
+ * 
  * Flags requiring data must be immediately followed by that
  * data (after a space).
  *
  * @author  Andy Balaam
- * @version 1
+ * @version 2
  */
-public class JoveCmdArgs {
+public class FreeGuideCmdArgs {
 
 	/** 
 	 * Constructs a new set of command line arguments
@@ -38,7 +38,7 @@ public class JoveCmdArgs {
 	 *
 	 * @param args the command line arguments
 	 */
-    public JoveCmdArgs(String[] args) {
+    public FreeGuideCmdArgs(String[] args) {
 		
 		/* Calls the standard constructor stating that
 		 * there are no boolean flags.
@@ -56,7 +56,7 @@ public class JoveCmdArgs {
 	 * @param	booleanFlags the array of names of flags which
 	 *			require no argument since they are boolean
 	 */
-	public JoveCmdArgs(String[] args, Vector booleanFlags) {
+	public FreeGuideCmdArgs(String[] args, Vector booleanFlags) {
 		
 		// Initialise the vector that will hold the info
 		names = new Vector();
@@ -113,9 +113,24 @@ public class JoveCmdArgs {
 			
 		}//for
 		
-	}//JoveCmdArgs
+	}//FreeGuideCmdArgs
 
 	//------------------------------------------------------------------------
+	
+	/**
+	 * noErrors
+	 *
+	 * Reports on whether argument processing was successful.
+	 *
+	 * @returns true unless errors were encountered in the course of argument
+	 * processing
+	 */
+	public boolean noErrors() {
+		
+		// FIXME - always returns true as assumes nothing can go wrong.
+		return true;
+		
+	}
 	
 	/**
 	 * Returns the data associated with a given flag

@@ -37,7 +37,7 @@ public class FreeGuideChannelDay {
 	 prog.setStart(new Date(year-1900,month-1,day,hour,minute));*/
 	
 	// Capture the start time
-	SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMddHH:mm:ss");
+	SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMddHHmmss z");
 	
 	ParsePosition pos = new ParsePosition(0);
 
