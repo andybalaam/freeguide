@@ -566,7 +566,6 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
                     mbtConfigureActionPerformed(evt);
                 }
             });
-		//mbtConfigure.setEnabled(false);
 
         toolsMenu.add(mbtConfigure);
 

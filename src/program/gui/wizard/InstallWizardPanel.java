@@ -48,12 +48,12 @@ public class InstallWizardPanel extends WizardPanel {
 		
 		readmeCheckBox = new JCheckBox( "Display the README", true );
 		readmeCheckBox.setMnemonic(KeyEvent.VK_R);
+		readmeCheckBox.setSelected( true );
 		
 		configgrabberCheckBox = new JCheckBox( "Configure the listings grabber",
 			true );
 		configgrabberCheckBox.setMnemonic(KeyEvent.VK_G);
-		configgrabberCheckBox.setEnabled( false );
-		configgrabberCheckBox.setSelected( false );
+		configgrabberCheckBox.setSelected( true );
 		
         JLabel bottomLabel = new JLabel();
 

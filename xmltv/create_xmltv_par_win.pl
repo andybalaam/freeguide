@@ -10,7 +10,7 @@ use File::Remove qw(remove);
 # where it's installed, so it will require a little work to make it work
 # on a different machine.
 
-chdir "C:/BuildXMLTV/xmltv-0.5.25-tkgui";
+chdir "C:/BuildXMLTV/xmltv-0.5.27-tkgui";
 
 remove \1, "tmp"; 
 mkdir "tmp";

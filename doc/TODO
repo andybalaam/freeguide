@@ -136,14 +136,17 @@ e  means done by Ewan Harrow
 - ProgrammeJLabel shows which programme is selected
 - Keyboard navigation of programme scrollpane
 - Full test of keyboard navigation
+- Reduce the size of the XMLTV exe by removing unnecessary Tk files
+- Fix unable to move "View Command" box bug on Windows
 
 - Release 0.7 (xmltv-tk)
 
-- Update docs
+- Update docs, including saying you need to set TZ
 - Include a modified XMLTV for configuration.
 - Enable configuration options in ViewerFrame and InstallWizardPanel
 - Add scripts in xmltv dir to CVS and source zips.
 - Add stats handling code to CVS and source zips.
+- Credit new contributor
 + Fix the bug in updateBoolean in FGPreferences
 
 + Release 0.6.3 (version checking, reminders, links)
