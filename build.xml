@@ -38,6 +38,7 @@
 			<fileset dir="${build}/program">
 				<include name="FreeGuideAbstractFileWizardPanel*.class"/>
 				<include name="FreeGuideConfigGuesser.class"/>
+				<include name="FreeGuideChoiceWizardPanel*.class"/>
 				<include name="FreeGuideDirectoryWizardPanel*.class"/>
 				<include name="FreeGuideEnvironmentChecker.class"/>
 				<include name="FreeGuideLabelWizardPanel*.class"/>
@@ -45,6 +46,7 @@
 				<include name="FreeGuidePreferencesGroup.class"/>
 				<include name="FreeGuidePreferences.class"/>
 				<include name="FreeGuideTime.class"/>
+				<include name="FreeGuideUtils.class"/>
 				<include name="FreeGuideWizard*.class"/>
 				<include name="FreeGuideWizardPanel*.class"/>
 			</fileset>
@@ -79,6 +81,46 @@
   
   	</target>
 
+	<target name="FreeGuide-Win-Install" depends="FreeGuide" 
+  		description="generate the windows installer jar" >
+		
+		<mkdir dir="${build}/install-win"/>
+		
+		<!-- Copy the program jar, installer clases and docs -->
+		<copy todir="${build}/install-win">
+			<fileset dir="${dist}/">
+				<include name="FreeGuide.jar"/>
+			</fileset>
+			<fileset dir="${doc}/">
+				<exclude name="*.sh"/>
+			</fileset>
+			<fileset dir="${build}/install"/>
+		</copy>
+		
+		<!-- Copy the XMLTV DTD -->
+		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-win/"/>
+		
+		<!-- Copy the XMLTV exe -->
+		<copy file="${xmltv}/xmltv.exe" todir="${build}/install-win"/>
+		
+		<!-- copy in the shared files -->
+		<mkdir dir="${build}/install-win/share"/>
+		<copy todir="${build}/install-win/share">
+			<fileset dir="${share}/" />
+		</copy>
+		
+		<!-- copy in the install.props file for the jar -->
+		<copy file="${src}/install/install-win-uk.props" tofile="${build}/install-win/install-0.props" />
+		<copy file="${src}/install/install-win-na.props" tofile="${build}/install-win/install-1.props" />
+		<copy file="${src}/install/install-win-sn.props" tofile="${build}/install-win/install-2.props" />
+		
+		<!-- Make the jar installer file -->
+		<jar 	jarfile="${dist}/${freeguideversion}-Win-Install.jar"
+				basedir="${build}/install-win"
+				manifest="${src}/manifests/FreeGuideInstall.mf"/>
+  
+  	</target>
+  
   
   	<target name="FreeGuide-Win-UK-Install" depends="FreeGuide" 
   		description="generate the windows uk installer jar" >
@@ -146,6 +188,36 @@
 				manifest="${src}/manifests/FreeGuideInstall.mf"/>
   
   	</target>
+	
+	<target name="FreeGuide-Linux-Install" depends="FreeGuide" 
+  		description="generate the linux installer jar" >
+		
+		<!-- Copy the program file and docs -->
+		<copy todir="${build}/install-lin">
+			<fileset dir="${dist}/">
+				<include name="FreeGuide.jar"/>
+			</fileset>
+			<fileset dir="${doc}/">
+				<exclude name="*.sh"/>
+			</fileset>
+			<fileset dir="${build}/install"/>
+		</copy>
+		
+		<!-- Copy the XMLTV DTD -->
+		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-lin/"/>
+		
+		<!-- copy in the install.props file for the jar -->
+		<copy file="${src}/install/install-lin-uk.props" tofile="${build}/install-lin/install-0.props" overwrite="true" />
+		<copy file="${src}/install/install-lin-na.props" tofile="${build}/install-lin/install-1.props" overwrite="true" />
+		<copy file="${src}/install/install-lin-sn.props" tofile="${build}/install-lin/install-2.props" overwrite="true" />
+		
+		<!-- Make the jar installer file -->
+		<jar 	jarfile="${dist}/${freeguideversion}-Linux-Install.jar"
+				basedir="${build}/install-lin"
+				manifest="${src}/manifests/FreeGuideInstall.mf"/>
+  
+  	</target>
+  
   
   	<target name="FreeGuide-Linux-UK-Install" depends="FreeGuide" 
   		description="generate the linux uk installer jar" >
@@ -212,7 +284,8 @@
   
   	</target>
   
-  	<target name="main" depends="FreeGuide-Source,FreeGuide-Win-UK-Install,FreeGuide-Win-NA-Install,FreeGuide-Linux-UK-Install,FreeGuide-Linux-NA-Install"
+  	<!--<target name="main" depends="FreeGuide-Source,FreeGuide-Win-UK-Install,FreeGuide-Win-NA-Install,FreeGuide-Linux-UK-Install,FreeGuide-Linux-NA-Install">-->
+  	<target name="main" depends="FreeGuide-Source,FreeGuide-Win-Install,FreeGuide-Linux-Install" 
 		description="generate all the installers" >
   
 	</target>
