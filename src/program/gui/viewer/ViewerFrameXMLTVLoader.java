@@ -14,6 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Vector;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -329,6 +331,7 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
      */
     public void startDocument() {
         saxLoc = new String();
+        channelIcons = new Hashtable();
     }
 
 
@@ -426,6 +429,12 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
             String id = attrs.getValue("id");
 
             tmpChannelID = id;
+
+        } else if (saxLoc.equals(":tv:channel:icon")) {
+
+        	String URL = attrs.getValue("src");
+        	if (URL != null)
+        		channelIcons.put(tmpChannelID,URL);
 
         } else if (saxLoc.equals(":tv:programme:previously-shown")) {
 
@@ -727,6 +736,16 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
         }
 
     }
+    
+    /**
+     * to get the Icon URL of the channel
+     * @param channelID the Id of the channel to get URL for
+     * @return the URL as a string;
+     */
+    public String getChannelIcon(String channelID){
+    	if (channelID == null) return null;
+    	return (String)channelIcons.get(channelID);
+    }
 
 
     /**
@@ -765,6 +784,7 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
     // The IDs of the channels
     private Vector channelNames;
     // The names of the channels
+    private Hashtable channelIcons;
 
     /**
      *  Description of the Field

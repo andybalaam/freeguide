@@ -120,6 +120,9 @@ m  means done by Mike Dean
 - Programme info panel (and ability to turn off tooltips)
 - Advertise for beta testers
 - Make a standard email form for beta test results
+- Add icons to UK and US listings
++ Merge Yann's icons patch
++ Added "starts in x mins"/"started x mins ago" to tooltip
 + Fix problem with tv_split line left from old configurations
 + Allow manual changing of browser command
 + Fix crash on tv-%Y%m%d.xmltv file in data dir

@@ -18,7 +18,10 @@ import java.lang.*;
 import java.net.*;
 import java.text.*;
 import java.util.*;
+import java.util.regex.Pattern;
+
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.text.*;
 
 //}}}
@@ -194,6 +197,9 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         popMenuProgramme = new javax.swing.JPopupMenu();
         mbtAddFavourite = new javax.swing.JMenuItem();
 		mbtGoToWebSite = new javax.swing.JMenuItem();
+        popMenuChannel = new JPopupMenu();
+        mbtChangeIcon = new JMenuItem();
+        mbtResetIcon = new JMenuItem();
         topButtonsPanel = new javax.swing.JPanel();
         butGoToNow = new javax.swing.JButton();
         butPreviousDay = new javax.swing.JButton();
@@ -263,6 +269,44 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     mbtGoToWebSiteActionPerformed(evt);
+                }
+            });
+		
+		
+		//}}}
+
+		//{{{ popMenuChannel
+		
+        popMenuChannel.addPopupMenuListener(
+            new javax.swing.event.PopupMenuListener() {
+                public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                    popMenuChannelPopupMenuWillBecomeVisible(evt);
+                }
+
+
+                public void popupMenuWillBecomeInvisible(
+                        javax.swing.event.PopupMenuEvent evt) { }
+
+
+                public void popupMenuCanceled(
+                        javax.swing.event.PopupMenuEvent evt) { }
+            });
+
+        mbtChangeIcon.setText("Change Icon");
+        mbtChangeIcon.addActionListener(
+            new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    mbtChangeIconActionPerformed(evt);
+                }
+            });
+
+        popMenuChannel.add( mbtChangeIcon);
+
+		mbtResetIcon.setText("Reset to default icon");
+		mbtResetIcon.addActionListener(
+            new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    mbtResetIconActionPerformed(evt);
                 }
             });
 		
@@ -958,10 +1002,10 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
 			progressor.setProgress( 10 + (c*10) / num_chans );
 			
-            JLabel ctxt = new JLabel(
-				currentChannelSet.getChannelName(c) );
+			ChannelJLabel ctxt = new ChannelJLabel((String)currentChannelSet.getChannelIDs().get(c),
+					currentChannelSet.getChannelName(c));
 
-            ctxt.setBackground( channelColour );
+			ctxt.setBackground( channelColour );
             ctxt.setFont( font );
             ctxt.setBorder( javax.swing.BorderFactory.createLineBorder(
 				java.awt.Color.BLACK ) );
@@ -976,6 +1020,79 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
                 maxChannelWidth,
                 channelHeight - (halfVerGap * 4) );
 
+            // Get the URL of this channel icon
+			String iconURLstr = xmltvLoader.getChannelIcon(ctxt.getId());
+            if (iconURLstr != null || FreeGuide.prefs.screen.get("customIcon."+ctxt.getId()) != null) {
+				try {
+					ImageIcon iconImg = null;
+					// If a custom icon is set use it !
+					File iconFile = null;
+					ImageIcon tmpImg;
+					if (FreeGuide.prefs.screen.get("customIcon."+ctxt.getId()) != null)
+						iconFile = new File(FreeGuide.prefs.screen.get("customIcon."+ctxt.getId()));
+					else {
+						// First convert the id to a suitable (and safe!!) filename
+						File cache = new File(ctxt.getCacheIconPath());
+						// then verify if the file is in the cache
+						if (!cache.canRead()) {
+							// if not, we try to fetch it from the url
+							URL iconURL = new URL(iconURLstr);
+							InputStream i = iconURL.openStream();
+							FileOutputStream o = new FileOutputStream(cache);
+							byte buffer[] = new byte[4096];
+							int bCount;
+							while ((bCount = i.read(buffer)) != -1)
+								o.write(buffer, 0, bCount);
+							o.close();
+							i.close();
+						}
+						iconFile = cache;
+					}
+					/* We then try to read the file which should be in the cache
+					 * If it's not, it doesn't matter, either the URL is not valid or the file couldn't be read
+					 * and we should have left the try anyway, or we will when we try to read it
+					 * Thus the icon will still be equal to null and we won't show one
+					 */					
+					ctxt.setIcon(iconFile.getCanonicalPath());
+					
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+            }
+			
+            ctxt.addMouseListener(new MouseListener() {
+				public void mouseClicked(MouseEvent e) {
+				}
+
+				public void mouseEntered(MouseEvent e) {
+				}
+
+				public void mouseExited(MouseEvent e) {
+				}
+
+				public void mousePressed(MouseEvent e) {
+                    maybeShowPopup( e );
+				}
+
+				public void mouseReleased(MouseEvent e) {
+                    maybeShowPopup( e );
+				}
+				private void maybeShowPopup( java.awt.event.MouseEvent evt ) {
+					
+					if( evt.isPopupTrigger() ) {
+						
+						rightClickedChannel
+						= (ChannelJLabel)evt.getComponent();
+						
+						
+						popMenuChannel.show(
+								evt.getComponent(), evt.getX(), evt.getY() );
+					}
+				}
+				
+            });
             channelNamePanel.add( ctxt );
         }
         
@@ -1228,6 +1345,28 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 			popMenuProgramme.remove( popMenuProgrammeSize-1 );
 		}
 			
+		
+    }
+
+	/**
+     *  Event handler when the popup menu of a channel is going to be displayed
+     *
+     *@param  evt  The event object
+     */
+    public void popMenuChannelPopupMenuWillBecomeVisible(
+			javax.swing.event.PopupMenuEvent evt ) {
+
+    	String customIcon = FreeGuide.prefs.screen.get("customIcon."+rightClickedChannel.getId());
+    	
+		int menuLength = popMenuChannel.getSubElements().length;
+    	
+    	if(customIcon != null && menuLength == 1 ) {
+			popMenuChannel.add( mbtResetIcon );
+		}
+		
+		if(customIcon == null && menuLength > 1) {
+			popMenuChannel.remove( menuLength-1);
+		}
 		
     }
 
@@ -1610,6 +1749,46 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         quit();
 
     }
+    
+    /**
+     * Event handler for the channel -> change icon menu entry
+     * @param evt
+     */
+    
+    public void mbtChangeIconActionPerformed(ActionEvent evt) {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter(new FileFilter () {
+        	
+        	private Pattern images = null;
+
+			public boolean accept(File f) {
+				if (images == null)
+					images = Pattern.compile("\\.(?i)(?:jpe?g|gif|png|JPG)$");
+				return f.isDirectory() || images.matcher(f.getName()).find();
+			}
+
+			public String getDescription() {
+				return "Images (GIF, JPEG, PNG)";
+			}
+        	
+        });
+        int returnVal = chooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+	    	FreeGuide.prefs.screen.put("customIcon."+rightClickedChannel.getId(),chooser.getSelectedFile().getAbsolutePath());
+	    	rightClickedChannel.setIcon(chooser.getSelectedFile().getAbsolutePath());
+        }
+    	
+    }
+
+    /**
+     * Event handler for the channel -> reset icon menu entry
+     * @param evt
+     */
+    
+    public void mbtResetIconActionPerformed(ActionEvent evt) {
+    	FreeGuide.prefs.screen.remove("customIcon."+rightClickedChannel.getId());
+    	rightClickedChannel.setDefaultIcon();
+    }
 
     /**
      *  Event handler for when the "Print" button is pressed
@@ -1886,6 +2065,11 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
      *  The programme the user last right clicked on
      */
     public ProgrammeJLabel rightClickedProg;
+    
+    /**
+     * The channel the user last right clicked on
+     */
+    public ChannelJLabel rightClickedChannel;
 
     /**
      *  A list of dates that have data worked out from the filenames in the data
@@ -1985,6 +2169,10 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
      *  The popup menu when you right-click a programme
      */
     public javax.swing.JPopupMenu popMenuProgramme;
+    /**
+     * The popup menu when a channel label is right-clicked
+     */
+    public JPopupMenu popMenuChannel;
 	
 	//}}}
 	
@@ -2010,6 +2198,14 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
      *  The menu item to view a link
      */
 	public javax.swing.JMenuItem mbtGoToWebSite;
+	/**
+	 * The menu item to change the icon
+	 */
+	public JMenuItem mbtChangeIcon;
+	/**
+	 * The menu item to reset to the default icon
+	 */
+	public JMenuItem mbtResetIcon;
     private javax.swing.JPanel topButtonsPanel;
     private javax.swing.JButton butPrint;
     private javax.swing.JButton butDownload;

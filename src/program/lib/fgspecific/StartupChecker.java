@@ -55,6 +55,12 @@ public class StartupChecker {
 			FreeGuide.die("Failed to set up configuration.");
 		}
 		
+        // Make an icon cache dir if it doesn't exist
+        File iconcache = new File( ChannelJLabel.getIconCacheDir().toString() );
+        if( !iconcache.isDirectory() ) {
+            iconcache.mkdirs();
+        }
+        
 		// --------------------------------------------------------------------
 		// Checks that need correction
 
