@@ -1,0 +1,16 @@
+- means to do
++ means done
+number following means priority (1 for important, 10 for unimportant)
+
+- 10 Internationalisation
+- 1  Fix favourites (loss of info when re-enter screen)
+- 1  Options wizard when starting for first time
+- 5  About screen
+- 5  Help manual
+- 8  --configure support for tv_grab_na and uk
+- 1  Update README
+- 9  --days support
+- 5  Other properties of a programme and other DTD features
+- 5  Terms and conditions of listings
+- 6  Channels editor (needed for german listings)
+- 2  Right-click on a prog to make a favourite

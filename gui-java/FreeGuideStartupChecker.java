@@ -158,7 +158,7 @@ public class FreeGuideStartupChecker {
 		
 		if(win) {
 			// Some kind of windows
-			guess = "C:/Program Files/XMLTV/";
+			guess = "C:/Program Files/xmltv/";
 		} else {
 			// Some kind of Unix, hopefully
 			guess = "/usr/bin/";

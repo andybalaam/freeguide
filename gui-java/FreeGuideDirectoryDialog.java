@@ -34,7 +34,7 @@ public class FreeGuideDirectoryDialog extends javax.swing.JDialog {
 		labMsg.setText(msg);
 		
 		// Set the filename to the right thing
-		txtFilename.setText(suggested.getAbsolutePath());
+		txtFilename.setText(suggested.getPath());
 		
 		setVisible(true);
 		

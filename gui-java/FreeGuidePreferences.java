@@ -227,10 +227,16 @@ public class FreeGuidePreferences {
 	
 	public void putStrings(String key, String[] values) {
 		
-		for(int i=0;i<values.length;i++) {
+		int i;
+		for(i=0;i<values.length;i++) {
 			
 			put(key+"."+(i+1), values[i]);
 			
+		}
+		
+		while(get(key+"."+(i+1), null) != null) {
+			remove(key+"."+(i+1));
+			i++;
 		}
 		
 	}

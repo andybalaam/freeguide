@@ -548,9 +548,7 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 	
 	private void quit() {
 		
-		System.out.println("Ed " + favourite);
-		
-		hide();
+		setVisible(false);
 		launcher.reShow();
 		dispose();
 	}

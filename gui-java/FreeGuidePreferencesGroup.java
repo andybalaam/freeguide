@@ -303,8 +303,32 @@ public class FreeGuidePreferencesGroup {
 		return new String[0];
 		
 	}
+
+	/**
+	 * Has the user chosen any programmes for today?
+	 */
+	public boolean chosenAnything(Calendar date) {
+		return chosen_progs.getBoolean( "day-" + date.get(Calendar.YEAR) + "-" + date.get(Calendar.MONTH) + "-" + date.get(Calendar.DAY_OF_MONTH), false );
+	}
 	
-	public FreeGuideProgramme[] getChosenProgs() {
+	/**
+	 * Remember that we have made a choice for today.
+	 */
+	public void chosenSomething(Calendar date) {chosenSomething(date, true);}
+	public void chosenSomething(Calendar date, boolean yes) {
+		chosen_progs.putBoolean( "day-" + date.get(Calendar.YEAR) + "-" + date.get(Calendar.MONTH) + "-" + date.get(Calendar.DAY_OF_MONTH), yes );
+	}
+	
+	/**
+	 * Returns all the choices the user has made.
+	 *
+	 * @return	null if there are no choices for today, or all chosen programmes
+	 */
+	public Vector getChosenProgs(Calendar date) {
+		
+		if(!chosenAnything(date)) {
+			return null;
+		}
 		
 		Vector ans = new Vector();
 		
@@ -321,7 +345,7 @@ public class FreeGuidePreferencesGroup {
 		}
 		
 		if(ans.size()>0) {
-			return FreeGuideUtils.arrayFromVector_FreeGuideProgramme(ans);
+			return ans;
 		} else {
 			return null;
 		}
@@ -329,6 +353,9 @@ public class FreeGuidePreferencesGroup {
 	}
 	
 	public void addChoice(FreeGuideProgramme prog) {
+		if(!chosenAnything(prog.getStart())) {
+			chosenSomething(prog.getStart());
+		}
 		chosen_progs.appendFreeGuideProgramme(prog);
 	}
 	
@@ -486,7 +513,11 @@ public class FreeGuidePreferencesGroup {
 				if(channelPrefix == null) {
 					int i = trimmed.indexOf(' ');
 					if(i==-1) { i=trimmed.length(); }
-					channelPrefix = trimmed.substring( 0, i );
+					if(trimmed.charAt(0)=='#') {
+						channelPrefix = trimmed.substring( 1, i );
+					} else {
+						channelPrefix = trimmed.substring( 0, i );
+					}
 				}
 			} else {
 				oldConfigFile.add(line);

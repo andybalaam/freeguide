@@ -27,7 +27,7 @@ import javax.swing.JTextField;
  * The Options Screen for FreeGuide
  *
  * @author  Andy Balaam
- * @version 1
+ * @version 2
  */
 
 public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLauncher  {
@@ -61,6 +61,8 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
 	}
 
 	private void fillTextAreaFromArray(JTextArea txt, String[] cmds) {
+	
+		txt.setText("");
 		
 		String lb = System.getProperty("line.separator");
 		
@@ -108,6 +110,8 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
 	
 	private void initChannels() {
 		
+		panChannels.removeAll();
+		
 		java.awt.GridBagConstraints gridBagConstraints;
 		JCheckBox box;
 		
@@ -128,7 +132,7 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
 			gridBagConstraints.gridx = 0;
 			gridBagConstraints.gridy = i;
 			gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-			gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+			gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
 			panChannels.add(box, gridBagConstraints);
 			
 		}
@@ -212,9 +216,13 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
 
         tabbedPanel = new javax.swing.JTabbedPane();
         panDefaults = new javax.swing.JPanel();
-        labDefaultChoose = new javax.swing.JLabel();
-        cmbDefaultChoose = new javax.swing.JComboBox();
-        btuDefaultDoIt = new javax.swing.JButton();
+        labDefaultChooseOS = new javax.swing.JLabel();
+        cmbDefaultChooseOS = new javax.swing.JComboBox();
+        butDefaultDoIt = new javax.swing.JButton();
+        labDefaultChooseCountry = new javax.swing.JLabel();
+        cmbDefaultChooseCountry = new javax.swing.JComboBox();
+        labDefaultChooseBrowser = new javax.swing.JLabel();
+        cmbDefaultChooseBrowser = new javax.swing.JComboBox();
         tabChannels = new javax.swing.JPanel();
         scrChannels = new javax.swing.JScrollPane();
         panChannels = new javax.swing.JPanel();
@@ -272,35 +280,68 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
 
         panDefaults.setLayout(new java.awt.GridBagLayout());
 
-        labDefaultChoose.setText("Choose default setting:");
+        labDefaultChooseOS.setText("Choose OS:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        panDefaults.add(labDefaultChoose, gridBagConstraints);
+        panDefaults.add(labDefaultChooseOS, gridBagConstraints);
 
-        cmbDefaultChoose.addItem("UK, Windows");
-        cmbDefaultChoose.addItem("UK, Linux");
-        cmbDefaultChoose.addItem("North America, Windows");
-        cmbDefaultChoose.addItem("North America, Linux");
-        cmbDefaultChoose.addItem("Germany, Windows");
-        cmbDefaultChoose.addItem("Germany, Linux");
+        FreeGuideUtils.addOSsToComboBox(cmbDefaultChooseOS);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        panDefaults.add(cmbDefaultChoose, gridBagConstraints);
+        panDefaults.add(cmbDefaultChooseOS, gridBagConstraints);
 
-        btuDefaultDoIt.setText("Do it!");
+        butDefaultDoIt.setText("Set default options");
+        butDefaultDoIt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butDefaultDoItActionPerformed(evt);
+            }
+        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 11;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        panDefaults.add(btuDefaultDoIt, gridBagConstraints);
+        panDefaults.add(butDefaultDoIt, gridBagConstraints);
+
+        labDefaultChooseCountry.setText("Choose Browser:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panDefaults.add(labDefaultChooseCountry, gridBagConstraints);
+
+        FreeGuideUtils.addCountriesToComboBox(cmbDefaultChooseCountry);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panDefaults.add(cmbDefaultChooseCountry, gridBagConstraints);
+
+        labDefaultChooseBrowser.setText("Choose Region:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panDefaults.add(labDefaultChooseBrowser, gridBagConstraints);
+
+        FreeGuideUtils.addBrowsersToComboBox(cmbDefaultChooseBrowser);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panDefaults.add(cmbDefaultChooseBrowser, gridBagConstraints);
 
         tabbedPanel.addTab("Defaults", panDefaults);
 
@@ -322,68 +363,68 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panMisc.add(labXmltvDirectory, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panMisc.add(txtXmltvDirectory, gridBagConstraints);
 
         labWorkingDirectory.setText("Working Directory");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panMisc.add(labWorkingDirectory, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panMisc.add(txtWorkingDirectory, gridBagConstraints);
 
         labCssFile.setText("Stylesheet file");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panMisc.add(labCssFile, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panMisc.add(txtCssFile, gridBagConstraints);
 
         labGrabberConfig.setText("Grabber Config File");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panMisc.add(labGrabberConfig, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panMisc.add(txtGrabberConfig, gridBagConstraints);
 
         scrMisc.setViewportView(panMisc);
@@ -400,8 +441,8 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(labChannelColour, gridBagConstraints);
 
         txtChannelColour.setEditable(false);
@@ -416,17 +457,17 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(txtChannelColour, gridBagConstraints);
 
         labProgrammeNormalColour.setText("Programme Background Colour");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(labProgrammeNormalColour, gridBagConstraints);
 
         txtProgrammeNormalColour.setEditable(false);
@@ -441,17 +482,17 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(txtProgrammeNormalColour, gridBagConstraints);
 
         labProgrammeChosenColour.setText("Chosen Programme Colour");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(labProgrammeChosenColour, gridBagConstraints);
 
         txtProgrammeChosenColour.setEditable(false);
@@ -466,94 +507,94 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(txtProgrammeChosenColour, gridBagConstraints);
 
         labChannelHeight.setText("Channel Height");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(labChannelHeight, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(txtChannelHeight, gridBagConstraints);
 
         labVerticalGap.setText("Vertical Gap");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(labVerticalGap, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(txtVerticalGap, gridBagConstraints);
 
         labHorizontalGap.setText("Horizontal Gap");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(labHorizontalGap, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(txtHorizontalGap, gridBagConstraints);
 
         labPanelWidth.setText("Panel Width");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(labPanelWidth, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(txtPanelWidth, gridBagConstraints);
 
         labChannelPanelWidth.setText("Channel Panel Width");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(labChannelPanelWidth, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panScreen.add(txtChannelPanelWidth, gridBagConstraints);
 
         scrScreen.setViewportView(panScreen);
@@ -566,44 +607,57 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
 
         panCommandLine.setLayout(new java.awt.GridBagLayout());
 
+        panCommandLine.setMaximumSize(new java.awt.Dimension(0, 0));
+        panCommandLine.setMinimumSize(new java.awt.Dimension(0, 0));
+        panCommandLine.setPreferredSize(new java.awt.Dimension(0, 0));
         labTvGrab.setText("Grab TV listings");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panCommandLine.add(labTvGrab, gridBagConstraints);
 
-        txaTvGrab.setPreferredSize(new java.awt.Dimension(0, 48));
+        scrTvGrab.setMaximumSize(new java.awt.Dimension(200, 75));
+        scrTvGrab.setMinimumSize(new java.awt.Dimension(0, 0));
+        scrTvGrab.setPreferredSize(new java.awt.Dimension(200, 75));
+        txaTvGrab.setColumns(1000);
+        txaTvGrab.setRows(10);
+        txaTvGrab.setMinimumSize(new java.awt.Dimension(0, 0));
+        txaTvGrab.setPreferredSize(new java.awt.Dimension(11000, 1600));
         scrTvGrab.setViewportView(txaTvGrab);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panCommandLine.add(scrTvGrab, gridBagConstraints);
 
         labBrowserCommand.setText("Launch web browser");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panCommandLine.add(labBrowserCommand, gridBagConstraints);
 
-        txaBrowserCommand.setPreferredSize(new java.awt.Dimension(0, 48));
+        scrBrowserCommand.setMaximumSize(new java.awt.Dimension(200, 75));
+        scrBrowserCommand.setPreferredSize(new java.awt.Dimension(200, 75));
+        txaBrowserCommand.setColumns(1000);
+        txaBrowserCommand.setRows(10);
+        txaBrowserCommand.setMinimumSize(new java.awt.Dimension(0, 0));
         scrBrowserCommand.setViewportView(txaBrowserCommand);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panCommandLine.add(scrBrowserCommand, gridBagConstraints);
 
         scrCommandLine.setViewportView(panCommandLine);
@@ -659,6 +713,13 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
         setSize(new java.awt.Dimension(400, 300));
         setLocation((screenSize.width-400)/2,(screenSize.height-300)/2);
     }//GEN-END:initComponents
+
+	private void butDefaultDoItActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butDefaultDoItActionPerformed
+		
+		FreeGuideUtils.setDefaultOptions( (String)cmbDefaultChooseOS.getSelectedItem(), (String)cmbDefaultChooseCountry.getSelectedItem(), (String)cmbDefaultChooseBrowser.getSelectedItem() );
+		initMyComponents();
+		
+	}//GEN-LAST:event_butDefaultDoItActionPerformed
 
 	private void txtChannelColourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtChannelColourMouseClicked
 		doColorDialog(txtChannelColour);
@@ -785,55 +846,59 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
 	
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel labDefaultChooseBrowser;
     private javax.swing.JLabel labChannelHeight;
     private javax.swing.JTextField txtChannelHeight;
     private javax.swing.JLabel labChannelPanelWidth;
     private javax.swing.JTextField txtChannelPanelWidth;
-    private javax.swing.JLabel labBrowserCommand;
     private javax.swing.JTextField txtVerticalGap;
+    private javax.swing.JLabel labBrowserCommand;
+    private javax.swing.JLabel labDefaultChooseCountry;
     private javax.swing.JLabel labWorkingDirectory;
     private javax.swing.JPanel panScreen;
     private javax.swing.JPanel tabScreen;
-    private javax.swing.JComboBox cmbDefaultChoose;
     private javax.swing.JScrollPane scrCommandLine;
     private javax.swing.JButton butCancel;
     private javax.swing.JLabel labTvGrab;
     private javax.swing.JLabel labGrabberConfig;
     private javax.swing.JTextField txtGrabberConfig;
     private javax.swing.JLabel labCssFile;
+    private javax.swing.JLabel labDefaultChooseOS;
     private javax.swing.JTextField txtWorkingDirectory;
     private javax.swing.JScrollPane scrBrowserCommand;
+    private javax.swing.JComboBox cmbDefaultChooseOS;
     private javax.swing.JLabel labProgrammeNormalColour;
     private javax.swing.JTextArea txaBrowserCommand;
     private javax.swing.JTextField txtProgrammeNormalColour;
+    private javax.swing.JButton butDefaultDoIt;
     private javax.swing.JLabel labVerticalGap;
     private javax.swing.JTextField txtPanelWidth;
     private javax.swing.JScrollPane scrTvGrab;
     private javax.swing.JScrollPane scrMisc;
     private javax.swing.JScrollPane scrScreen;
-    private javax.swing.JLabel labDefaultChoose;
     private javax.swing.JTextArea txaTvGrab;
     private javax.swing.JPanel panMisc;
-    private javax.swing.JTextField txtXmltvDirectory;
+    private javax.swing.JComboBox cmbDefaultChooseBrowser;
     private javax.swing.JPanel panButtons;
+    private javax.swing.JTextField txtXmltvDirectory;
     private javax.swing.JLabel labChannelColour;
     private javax.swing.JPanel tabMisc;
     private javax.swing.JTextField txtChannelColour;
     private javax.swing.JButton butOK;
     private javax.swing.JTabbedPane tabbedPanel;
-    private javax.swing.JButton btuDefaultDoIt;
+    private javax.swing.JComboBox cmbDefaultChooseCountry;
     private javax.swing.JScrollPane scrChannels;
     private javax.swing.JPanel panDefaults;
     private javax.swing.JTextField txtCssFile;
     private javax.swing.JLabel labPanelWidth;
-    private javax.swing.JLabel labProgrammeChosenColour;
     private javax.swing.JPanel panChannels;
+    private javax.swing.JLabel labProgrammeChosenColour;
     private javax.swing.JTextField txtProgrammeChosenColour;
     private javax.swing.JPanel tabCommandLine;
     private javax.swing.JPanel tabChannels;
     private javax.swing.JLabel labHorizontalGap;
-    private javax.swing.JPanel panCommandLine;
     private javax.swing.JTextField txtHorizontalGap;
+    private javax.swing.JPanel panCommandLine;
     private javax.swing.JLabel labXmltvDirectory;
     // End of variables declaration//GEN-END:variables
 	
