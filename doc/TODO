@@ -26,8 +26,8 @@ e  means done by Ewan Harrow
 
 - Release 2.0 (blue sky)
 
-- Think about ports to wxWindows, Python, ...
-- Convert to SWT and compile natively with GCJ
+- Think about ports to Gnome, wxPython, ...
+- Convert to SWT and compile natively with GCJ?
 - Search for programmes, different views on data.
 
 - Release 1.0 (the destination)
@@ -50,8 +50,8 @@ e  means done by Ewan Harrow
 - Automated bug reporting e.g. when the grabber fails.
 - Automate upgrading XMLTV without upgrading FreeGuide?
 - rpm/deb/proper Linux installer
-- Integration with PIMs (http://www.imc.org/pdi/) and cron to alert when
-	programmes are going to start
+- Integration with PIMs (http://www.imc.org/pdi/)
+- Use cron to alert when programmes are going to start
 - Generate crontab file for downloading listings.
 
 - Release 0.8
@@ -65,7 +65,6 @@ e  means done by Ewan Harrow
 
 - Fix feature that if you reinstall to a new dir the old install can't be
 	uninstalled (well, you have to delete the directory instead...)
-- Properties box for a programme showing longer descriptions, other DTD stuff
 - Further visual enhancements and customisability
 - Facilitating the download of listings outside of FreeGuide
 	(e.g. via a cron job, or at ppp connect)
@@ -77,56 +76,61 @@ e  means done by Ewan Harrow
 	after download?)
 - Install in a more Unix-y way.
 - Move default and common preferences to the System prefs instead of user.
-- Merge the installer into the startup sequence of the main program?
-- Allow sorting of favourites list
 - Remember last hit-time of favourites
+- Allow sorting of favourites list on name, hit-time and filter by category
+- Save today's choices to xmltv format.
+- Make installer install shortcuts for Windows, Gnome and KDE
+- Make installer launch xmltv configure
 
-- Release 0.6.4 (non-urgent minor features)
+- Release 0.6.7 (preferences creep)
 
-- Multiline tooltips if too long
+- Multiline tooltips if too long (if possible)
 - Choose how old files are before you delete them
-- Terms and conditions of listings
 - Ability to save and load preferences (using Java's ability to save to XML)
-- Make a subclass of JLabel that represents the visual display of a programme
-	and record e.g. is it a favourite, is it ticked?
-- Hence rewrite FreeGuideViewer much better
-- Shortcut keys for everything
-- Scroll to the programme you've just added in the list view
 - Check that the grabber is installer by calling tv_grab_* --help?
-- Progress bar when downloading listings (by day)
 - Option to jump to a specific time on program start
-- Add sub-title handling, plus other useful tags.
-- Ability to highlight a channel to make it easier to read
-- Go To Now scrolls the personalised listing panel as well as the main panel
-- Hovering over a programme scrolls the personalised listing to show it
 - Separate reminders from chosenness?  If so, need a new set of preferences
 	which need to be scanned on startup (in fact that is a better way to do
 	it in even if we stick with choices.).
-- Improve accessibility, specifically keyboard shortcuts
 
-- Release 0.6.3 (consolidation and code tidying)
+- Release 0.6.6 (code tidying)
 
+- Refactor FreeGuideViewer into a sort of MVC setup
 - Separate classes into packages
+- Make installer launch FreeGuide (if XMLTV is configured)
+- Make installer launch a README file (useful to check browser works, as well)
+- Terms and conditions of listings
+
+- Release 0.6.5 (aesthetics)
+
+- Apply different fonts to every screen?
+- Hovering over a programme scrolls the personalised listing to show it
+- Go To Now scrolls the personalised listing panel as well as the main panel
+- Handle other XMLTV tags (Programme Details box?)
 - Coloured favourites categories (text and/or background)
-- Apply different fonts to every screen.
 - Highlight a given channel
-- GUI to deal with --configure step and any other post-install, pre-use stuff
-	(part of installer)
-- Make installer launch FreeGuide and/or a README file (what about configuring
-	on Windows?)
 - Process programmes in another thread so we can see a progress display.
 - Download happens without leaving ViewerFrame
 - Add a status bar to ViewerFrame
-- Make installer install shortcuts for Windows, Gnome and KDE
 - Make options and customise screens nicer
 - Sort out themes in some way
 - Make the About box a _lot_ nicer.
-- Choose browser on startup
-- Nice browser chooser in options
-- Document reminder system and/or incorporate into Options screen
+
+- Release 0.6.4 (accessibility, accessibility, accessibility)
+
+- Improve accessibility, specifically keyboard shortcuts
+- Shortcut keys for everything
+- Programme info panel (and ability to turn off tooltips)
 - Scroll to the most recently selected programme (and highlight it?)
-- Link to more info
-- Check version on startup
+
+- Release 0.6.3 (version checking, reminders, links)
+
+- Choose browser on install and in options
+- Privacy preferences in installer
+- Document reminder system and incorporate into Options screen
+- Check that all prefs are covered in Options screen
++ Link to more info on right-click on programme
++ Check version on startup
 e Make the "now" line a thing of beauty (using anti-aliasing)
 
 + Release 0.6.2 (new XMLTV version 0.5.23)
