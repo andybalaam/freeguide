@@ -114,6 +114,10 @@ m  means done by Mike Dean
 - Add "contact" page to the docs (and/or as a footer to each page)
 - Update web site saying what countries are supported etc.
 - Add firefox to the possible browsers.
+- Copy in updated XMLTV DTD
+- Make a list of beta testers
+- Advertise for beta testers
+- Make a bit of PHP for test reports
 + Fix bug with ", ends" in tooltip when "Show programme times" is "No"
 
 + Release 0.7.2
