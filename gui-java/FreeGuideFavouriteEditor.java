@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Vector;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.regex.Pattern;
 
 /*
  * FreeGuideFavouriteEditor
@@ -46,11 +47,14 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 		channelIDs = ((FreeGuideViewer)launcher.getLauncher()).getChannelIDs();
 		channelNames = ((FreeGuideViewer)launcher.getLauncher()).getChannelNames();
 		
-		cmbChannels.add("");
-		cmbChannels.addAll(Arrays.asList(channelNames));
+		cmbChannel.addItem("");
+		for(int i=0;i<channelNames.length;i++) {	
+			cmbChannel.addItem(channelNames[i]);
+		}
 		
 		Calendar cal = GregorianCalendar.getInstance();
 		
+		cmbDayOfWeek.addItem( "" );
 		cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 		cmbDayOfWeek.addItem( dayOfWeekFormat.format(cal.getTime()) );
 		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
@@ -94,7 +98,7 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 			if(tmp.equals("")) {
 				favourite.setTitleRegex( null );
 			} else {
-				favourite.setTitleRegex( tmp );
+				favourite.setTitleRegex( Pattern.compile(tmp) );
 			}
 			
 			favourite.setTitleString( null );
@@ -102,7 +106,7 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 		}
 		
 		// Set the channel
-		String tmp = txtChannel.getText();
+		String tmp = (String)cmbChannel.getSelectedItem();
 		if( tmp.equals("") ) {
 			favourite.setChannelID( null );
 		} else {
@@ -114,10 +118,10 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 		if( !tmp.equals("") && (tmp.length()==5) && tmp.charAt(2)==':') {
 			
 			String hhmm = tmp.substring(0,2) + tmp.substring(3);
-			favourite.setAfter( new FreeGuideTime(hhmm) );
+			favourite.setAfterTime( new FreeGuideTime(hhmm) );
 			
 		} else {
-			favourite.setAfter( null );
+			favourite.setAfterTime( null );
 		}
 		
 		// Set the before time
@@ -125,24 +129,75 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 		if( !tmp.equals("") && (tmp.length()==5) && tmp.charAt(2)==':') {
 			
 			String hhmm = tmp.substring(0,2) + tmp.substring(3);
-			favourite.setBefore( new FreeGuideTime(hhmm) );
+			favourite.setBeforeTime( new FreeGuideTime(hhmm) );
 			
 		} else {
-			favourite.setBefore( null );
+			favourite.setBeforeTime( null );
 		}
 		
 		// Set the day of the week
-		tmp = cmbDayOfWeek.getSelectedItem();
+		tmp = (String)cmbDayOfWeek.getSelectedItem();
 		
 		if(!tmp.equals("")) {
 			Calendar cal = GregorianCalendar.getInstance();
-			cal.setTime( dayOfWeekFormat.format(tmp) );
+			try {
+				cal.setTime( dayOfWeekFormat.parse(tmp) );
+				favourite.setDayOfWeek( new Integer(cal.get(Calendar.DAY_OF_WEEK)) );
+			} catch(java.text.ParseException e) {
+				e.printStackTrace();
+				favourite.setDayOfWeek( null );
+			}
 		
-			favourite.setDayOfWeek( cal.get(Calendar.DAY_OF_WEEK) );
 		} else {
 			favourite.setDayOfWeek(null);
 		}
 		
+	}
+	
+	private void calcTxtName() {
+		
+		if(txtName.getText().equals("")) {
+			
+			String name = "";
+			
+			String title = txtTitle.getText();
+			if(!title.equals("")) {
+				
+				if(cmbTitle.getSelectedItem().equals("Exactly")) {
+					name += "Title=\""+title+"\" ";
+				} else {
+					name += "Title~/"+title+"/ ";
+				}
+				
+			}
+			
+			String channel = (String)cmbChannel.getSelectedItem();
+			if(!channel.equals("")) {
+				name += "Channel=\"" + channel + "\" ";
+			}
+			
+			String after = txtAfter.getText();
+			if(!after.equals("")) {
+				name += "After " + after + " ";
+			}
+			
+			String before = txtBefore.getText();
+			if(!before.equals("")) {
+				name += "Before " + before + " ";
+			}
+			
+			String dayOfWeek = (String)cmbDayOfWeek.getSelectedItem();
+			if(!dayOfWeek.equals("")) {
+				name += "On " + dayOfWeek + " ";
+			}
+			
+			if(name.equals("")) {
+				name="All Programmes";
+			}
+			
+			
+			txtName.setText(name);
+		}//if
 	}
 	
 	/** This method is called from within the constructor to

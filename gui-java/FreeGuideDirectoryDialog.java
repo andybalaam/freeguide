@@ -104,6 +104,7 @@ public class FreeGuideDirectoryDialog extends javax.swing.JDialog {
 
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Choose Directory");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -119,9 +120,9 @@ public class FreeGuideDirectoryDialog extends javax.swing.JDialog {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         gridBagConstraints.weightx = 0.9;
         gridBagConstraints.weighty = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         getContentPane().add(labMsg, gridBagConstraints);
 
         txtFilename.setMinimumSize(new java.awt.Dimension(4, 24));
@@ -139,8 +140,8 @@ public class FreeGuideDirectoryDialog extends javax.swing.JDialog {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         getContentPane().add(txtFilename, gridBagConstraints);
 
         butOK.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -173,9 +174,9 @@ public class FreeGuideDirectoryDialog extends javax.swing.JDialog {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(panOKCancel, gridBagConstraints);
 
         butBrowse.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -209,11 +210,14 @@ public class FreeGuideDirectoryDialog extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(butQuit, gridBagConstraints);
 
         pack();
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(new java.awt.Dimension(400, 300));
+        setLocation((screenSize.width-400)/2,(screenSize.height-300)/2);
     }//GEN-END:initComponents
 
 	private void butCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCancelActionPerformed

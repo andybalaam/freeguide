@@ -12,7 +12,6 @@
  */
 
 import java.io.File;
-//import java.io.FileFilter;
 import java.util.regex.Pattern;
 
 /**
@@ -25,7 +24,7 @@ import java.util.regex.Pattern;
  * @author  Andy Balaam
  * @version 1
  */
-public class FreeGuideFilenameFilter implements java.io.FileFilter {
+public class FreeGuideFilenameFilter extends javax.swing.filechooser.FileFilter implements java.io.FileFilter {
 
 	/** Blank constructor matches anything */
     public FreeGuideFilenameFilter() {

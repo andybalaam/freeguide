@@ -301,7 +301,7 @@ public class FreeGuideStartupChecker {
 		String home = System.getProperty("user.home");
 		String fs = System.getProperty("file.separator");
 		
-		return home + ".xmltv" + fs +"freeguide-tv";
+		return home + fs + ".xmltv" + fs +"freeguide-tv";
 		
 	}
 	
