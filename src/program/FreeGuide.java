@@ -205,7 +205,7 @@ public class FreeGuide {
     /**
 	 *  The current version of the programme
 	 */
-    public final static Version version = new Version( 0, 8, 2 );
+    public final static Version version = new Version( 0, 8, 3 );
 	
 	/**
 	 *  Default colour of a normal programme
