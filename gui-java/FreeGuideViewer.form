@@ -92,7 +92,7 @@
     </Menu>
   </NonVisualComponents>
   <Properties>
-    <Property name="title" type="java.lang.String" value="FreeGuide J2 0.1"/>
+    <Property name="title" postCode="setTitle(&quot;FreeGuide J2 &quot; + FreeGuide.version);"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar2"/>
@@ -173,7 +173,7 @@
     </Container>
     <Container class="javax.swing.JSplitPane" name="splitPane">
       <Properties>
-        <Property name="dividerLocation" type="int" value="250"/>
+        <Property name="dividerLocation" type="int" value="180"/>
         <Property name="dividerSize" type="int" value="5"/>
         <Property name="orientation" type="int" value="0"/>
       </Properties>

@@ -31,10 +31,41 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 	/** Creates new form FreeGuideFavouriteEditor */
 	public FreeGuideFavouriteEditor(FreeGuideLauncher launcher, FreeGuideFavourite favourite) {
 		this.launcher = launcher;
-		this.favourite= favourite;
+		this.favourite = favourite;
 		
 		initComponents();
 		fillLists();
+		getDetails();
+		
+	}
+	
+	private void getDetails() {
+		
+		if(favourite.getTitleString() !=null) {
+			txtTitle.setText( favourite.getTitleString() );
+			cmbTitle.setSelectedItem("Exactly");
+		} else if (favourite.getTitleRegex() !=null) {
+			txtTitle.setText( favourite.getTitleRegex().pattern() );
+			cmbTitle.setSelectedItem("Regular Expression");
+		}
+		
+		if(favourite.getChannelID() != null) {
+			cmbChannel.setSelectedItem(favourite.getChannelID());
+		}
+		
+		if(favourite.getAfterTime() != null) {
+			txtAfter.setText(favourite.getAfterTime().getHHMMString());
+		}
+		
+		if(favourite.getAfterTime() != null) {
+			txtAfter.setText(favourite.getAfterTime().getHHMMString());
+		}
+		
+		if(favourite.getDayOfWeek() !=null) {
+			cmbDayOfWeek.setSelectedIndex( favourite.getDayOfWeek().intValue()+1 );
+		}
+		
+		calcTxtName();
 		
 	}
 	
@@ -156,7 +187,7 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 	
 	private void calcTxtName() {
 		
-		if(txtName.getText().equals("")) {
+		//if(txtName.getText().equals("All Programmes")) {
 			
 			String name = "";
 			
@@ -164,31 +195,31 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 			if(!title.equals("")) {
 				
 				if(cmbTitle.getSelectedItem().equals("Exactly")) {
-					name += "Title=\""+title+"\" ";
+					name += ""+title+" ";
 				} else {
-					name += "Title~/"+title+"/ ";
+					name += "/"+title+"/ ";
 				}
 				
 			}
 			
 			String channel = (String)cmbChannel.getSelectedItem();
-			if(!channel.equals("")) {
-				name += "Channel=\"" + channel + "\" ";
+			if(channel!=null && !channel.equals("")) {
+				name += "on " + channel + " ";
 			}
 			
 			String after = txtAfter.getText();
 			if(!after.equals("")) {
-				name += "After " + after + " ";
+				name += "after " + after + " ";
 			}
 			
 			String before = txtBefore.getText();
 			if(!before.equals("")) {
-				name += "Before " + before + " ";
+				name += "before " + before + " ";
 			}
 			
 			String dayOfWeek = (String)cmbDayOfWeek.getSelectedItem();
-			if(!dayOfWeek.equals("")) {
-				name += "On " + dayOfWeek + " ";
+			if(dayOfWeek!=null && !dayOfWeek.equals("")) {
+				name += "on " + dayOfWeek + " ";
 			}
 			
 			if(name.equals("")) {
@@ -197,7 +228,8 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 			
 			
 			txtName.setText(name);
-		}//if
+			
+		//}//if
 	}
 	
 	/** This method is called from within the constructor to
@@ -211,7 +243,6 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
         labTitle = new javax.swing.JLabel();
         txtTitle = new javax.swing.JTextField();
         cmbTitle = new javax.swing.JComboBox();
-        cmbTitle.addItem("Exactly"); cmbTitle.addItem("Regular Expression");
         labChannel = new javax.swing.JLabel();
         cmbChannel = new javax.swing.JComboBox();
         labAfter = new javax.swing.JLabel();
@@ -227,6 +258,7 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         butOK = new javax.swing.JButton();
         butCancel = new javax.swing.JButton();
+        labTimeFormat1 = new javax.swing.JLabel();
 
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -247,20 +279,33 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
         getContentPane().add(labTitle, gridBagConstraints);
 
         txtTitle.setPreferredSize(new java.awt.Dimension(200, 25));
+        txtTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTitleActionPerformed(evt);
+            }
+        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(txtTitle, gridBagConstraints);
 
         cmbTitle.setPreferredSize(new java.awt.Dimension(150, 25));
+        cmbTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTitleActionPerformed(evt);
+            }
+        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 10);
         getContentPane().add(cmbTitle, gridBagConstraints);
 
         labChannel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -273,9 +318,16 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
         getContentPane().add(labChannel, gridBagConstraints);
 
         cmbChannel.setPreferredSize(new java.awt.Dimension(200, 25));
+        cmbChannel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbChannelActionPerformed(evt);
+            }
+        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.weightx = 0.9;
@@ -290,7 +342,15 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(labAfter, gridBagConstraints);
 
+        txtAfter.setMinimumSize(new java.awt.Dimension(50, 25));
+        txtAfter.setName("null");
         txtAfter.setPreferredSize(new java.awt.Dimension(50, 25));
+        txtAfter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAfterActionPerformed(evt);
+            }
+        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -299,7 +359,14 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.9;
         getContentPane().add(txtAfter, gridBagConstraints);
 
+        txtBefore.setMinimumSize(new java.awt.Dimension(50, 25));
         txtBefore.setPreferredSize(new java.awt.Dimension(50, 25));
+        txtBefore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBeforeActionPerformed(evt);
+            }
+        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
@@ -323,19 +390,21 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         getContentPane().add(labBlankFields, gridBagConstraints);
 
         labTimeFormat.setFont(new java.awt.Font("Dialog", 0, 12));
-        labTimeFormat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labTimeFormat.setText("Times should be entered as \"hh:mm\"");
+        labTimeFormat.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labTimeFormat.setText("(Times should be entered");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 0.4;
         getContentPane().add(labTimeFormat, gridBagConstraints);
 
         labDayOfWeek.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -357,25 +426,37 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
         getContentPane().add(labName, gridBagConstraints);
 
         cmbDayOfWeek.setPreferredSize(new java.awt.Dimension(200, 25));
+        cmbDayOfWeek.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDayOfWeekActionPerformed(evt);
+            }
+        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.weightx = 0.9;
         getContentPane().add(cmbDayOfWeek, gridBagConstraints);
 
+        txtName.setEditable(false);
         txtName.setText("All Programmes");
         txtName.setPreferredSize(new java.awt.Dimension(200, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.weightx = 0.9;
         getContentPane().add(txtName, gridBagConstraints);
 
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
         butOK.setText("OK");
+        butOK.setMinimumSize(new java.awt.Dimension(87, 26));
         butOK.setPreferredSize(new java.awt.Dimension(87, 26));
         butOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -383,9 +464,12 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.add(butOK);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel1.add(butOK, gridBagConstraints);
 
         butCancel.setText("Cancel");
+        butCancel.setMinimumSize(new java.awt.Dimension(87, 26));
         butCancel.setPreferredSize(new java.awt.Dimension(87, 26));
         butCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -393,17 +477,59 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.add(butCancel);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 10);
+        jPanel1.add(butCancel, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridwidth = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         getContentPane().add(jPanel1, gridBagConstraints);
 
+        labTimeFormat1.setFont(new java.awt.Font("Dialog", 0, 12));
+        labTimeFormat1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labTimeFormat1.setText("as \"hh:mm\")");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 0.4;
+        getContentPane().add(labTimeFormat1, gridBagConstraints);
+
         pack();
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(new java.awt.Dimension(400, 300));
+        setLocation((screenSize.width-400)/2,(screenSize.height-300)/2);
     }//GEN-END:initComponents
+
+	private void txtTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitleActionPerformed
+		calcTxtName();
+	}//GEN-LAST:event_txtTitleActionPerformed
+
+	private void cmbDayOfWeekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDayOfWeekActionPerformed
+		calcTxtName();
+	}//GEN-LAST:event_cmbDayOfWeekActionPerformed
+
+	private void txtBeforeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBeforeActionPerformed
+		calcTxtName();
+	}//GEN-LAST:event_txtBeforeActionPerformed
+
+	private void txtAfterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAfterActionPerformed
+		calcTxtName();
+	}//GEN-LAST:event_txtAfterActionPerformed
+
+	private void cmbChannelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbChannelActionPerformed
+		calcTxtName();
+	}//GEN-LAST:event_cmbChannelActionPerformed
+
+	private void cmbTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTitleActionPerformed
+		calcTxtName();
+	}//GEN-LAST:event_cmbTitleActionPerformed
 
 	private void butCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCancelActionPerformed
 		quit();
@@ -421,6 +547,9 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 	}//GEN-LAST:event_exitForm
 	
 	private void quit() {
+		
+		System.out.println("Ed " + favourite);
+		
 		hide();
 		launcher.reShow();
 		dispose();
@@ -445,6 +574,7 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
     private javax.swing.JTextField txtAfter;
     private javax.swing.JLabel labTitle;
     private javax.swing.JTextField txtTitle;
+    private javax.swing.JLabel labTimeFormat1;
     private javax.swing.JComboBox cmbTitle;
     // End of variables declaration//GEN-END:variables
 	

@@ -1,5 +1,5 @@
 /*
- *FreeGuide J2
+ * FreeGuide J2
  *
  * Copyright (c) 2001 by Andy Balaam
  *
@@ -12,412 +12,425 @@
  */
 
 import java.awt.Color;
-import java.util.Date;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.prefs.Preferences;
-import java.util.Vector;
+import java.util.prefs.*;
 import java.util.regex.Pattern;
+import java.util.Vector;
 
 /**
  * FreeGuidePreferences
  *
- * Provides a place to hold the various Preferences objects needed for FreeGuide, and some
- * convenience methods for dealing with them.
+ * A wrapper around the java.util.prefs.Preferences class to extend its
+ * capabilities in ways useful for FreeGuide.
+ *
+ * This includes accessor functions for objects such as Dates, FreeGuideTimes
+ * and even complex ones like FreeGuideFavourites.  The way this is
+ * implemented is with keys structured as dot-separated lists 
+ * (e.g. 1.name, 1.after_time, 2.name, 2.after_time etc. for favourites and
+ * tv_grab.1, tv_grab.2 etc. for commandline options.)
  *
  * @author  Andy Balaam
- * @version 1
+ * @version 2
  */
-public class FreeGuidePreferences {
 
-	/** The constructor */
-    public FreeGuidePreferences() {
-		
-		screenPrefs = Preferences.userRoot().node("/org/freeguide-tv/screen");
-		grabberPrefs = Preferences.userRoot().node("/org/freeguide-tv/grabber");
-		miscPrefs = Preferences.userRoot().node("/org/freeguide-tv/misc");
-		favouritesPrefs = Preferences.userRoot().node("/org/freeguide-tv/favourites");
-		chosenPrefs = Preferences.userRoot().node("/org/freeguide-tv/chosen");
-		channelsPrefs = Preferences.userRoot().node("/org/freeguide-tv/channels");
-		
-    }
+public class FreeGuidePreferences {
 	
-	/**
-	 * noErrors
-	 *
-	 * Reports on whether setting up preferences was successful.
-	 *
-	 * @returns true unless errors were encountered in the course of
-	 * configuration processing
+	/** 
+	 * Creates a new instance of FreeGuidePreferences, putting the information
+	 * in the user node "/org/freeguide-tv/" + subNode
 	 */
-	public boolean noErrors() {
+	public FreeGuidePreferences(String subNode) {
 		
-		// FIXME - always returns true as assumes nothing can go wrong.
-		return true;
+		prefs = Preferences.userRoot().node("/org/freeguide-tv/"+subNode);
 		
 	}
 	
 	// ------------------------------------------------------------------------
-	// Special convenience accessor methods
+	// Convenience methods
 	
 	/**
-	 * getChannels
-	 *
-	 * @returns an array of size 2 with each element being arrays of Strings,
-	 * the first being the channel ids, and the second the names.
+	 * Return all keys that are not commented out with a # as the name.
 	 */
-	public String[] getChannelIDs() {
+	public String[] noncommentedKeys() throws BackingStoreException {
 		
-		// If there's a config file for the grabber, get its info
-		String grabberConfig = channelsPrefs.get("grabber_config_file", null);
-		if( grabberConfig != null) {
-			return getChannelIDsFromConfigFile( grabberConfig );
+		String[] allKeys = keys();
+		Vector ans = new Vector();
+		
+		for(int i=0;i<allKeys.length;i++) {
+			// If not commented, remember it
+			if(!get(allKeys[i]).equals("#")) {
+				ans.add(allKeys[i]);
+			}
 		}
 		
-		// Otherwise we'll get it from channelsPrefs
+		return FreeGuideUtils.arrayFromVector_String(ans);
 		
-		String[] ans = new String[0];
+	}
+	
+	/*public void onlyTheseNoncommented(String[] setKeys) {
 		
 		try {
 		
-			return channelsPrefs.keys();
-			
-		} catch(java.util.prefs.BackingStoreException e) {
-			
-			FreeGuide.log.warning(e.getMessage());
-			
-		}
+			Vector vKeys = new Vector(Arrays.asList(setKeys));
 		
-		return new String[0];
+			String[] keys = keys();
 		
-	}		
-	
-	public void putChannelIDs(String[] channelIDs) {
-		
-		// If there's a config file for the grabber, write to it
-		String grabberConfig = channelsPrefs.get("grabber_config_file", null);
-		if( grabberConfig != null) {
-			putChannelIDsToConfigFile( channelIDs );
-		} else {
-		
-			try {
+			for(int i=0;i<keys.length;i++) {
 			
-				// Otherwise we'll put it to channelsPrefs;
-				channelsPrefs.clear();
-				for(int i=0;i<channelIDs.length;i++) {
-			
-					channelsPrefs.put( channelIDs[i], "" );
-			
+				int j = vKeys.indexOf(keys[i]);
+				if(j!=-1) {
+					put(keys[i], "");
+					vKeys.remove(j);
+				} else {
+					// Comment it out if it's not in our list of keys to show
+					put(keys[i], "#");
 				}
-				
-			} catch(java.util.prefs.BackingStoreException e) {
 			
-				FreeGuide.log.warning(e.getMessage());
-			
-			}//try			
-		}//if
-	}//putChannelIDs
-	
-	public FreeGuideProgramme[] getChoices() {
-		
-		Vector ans = new Vector();
-		
-		int i = 1;
-		
-		String title = chosenPrefs.get( i + ".title", null );
-		
-		while( title != null ) {
-			
-			FreeGuideProgramme prog = new FreeGuideProgramme();
-			prog.setTitle( title );
-			Calendar cal = GregorianCalendar.getInstance();
-			cal.setTime(getChosenDate( i + ".start", null ));
-			prog.setStart( cal );
-			prog.setChannelID( chosenPrefs.get( i + ".channel_id", "" ) );
-			ans.add( prog );
-			
-			i++;
-			title = chosenPrefs.get( i + ".title", null );
-		}
-		
-		return (FreeGuideProgramme[])ans.toArray();
-		
-	}
-	
-	public void addChoice(FreeGuideProgramme prog) {
-		
-		// Find the first unoccupied spot
-		int i = 1;
-		String title = chosenPrefs.get( i + ".title", null );
-		while( title != null ) {
-			i++;
-			title = chosenPrefs.get( i + ".title", null );
-		}
-		
-		// And put our programme in it
-		chosenPrefs.put( i + ".title", prog.getTitle() );
-		putChosenDate( i + ".start", prog.getStart().getTime() );
-		chosenPrefs.put( i + ".channel_id", prog.getChannelID() );
-		
-	}
-	
-	public void removeChoice(FreeGuideProgramme prog) {
-		
-		// Search for our programme, remove it and shift the others down
-		int i = 1;
-		boolean shiftDown = false;
-		String title = chosenPrefs.get( i + ".title", null );
-		while( title != null ) {
-			
-			String titleKey = i + ".title";
-			String startKey = i + ".start";
-			String channelIDKey = i + ".channel_id";
-			
-			if(shiftDown) {
-				
-				// Copy down
-				chosenPrefs.put( (i-1) + ".title", chosenPrefs.get( titleKey, "") );
-				putChosenDate( (i-1) + ".start", getChosenDate( startKey, null) );
-				chosenPrefs.put( (i-1) + ".channel_id", chosenPrefs.get( channelIDKey, "") );
-				chosenPrefs.remove(titleKey);
-				chosenPrefs.remove(startKey);
-				chosenPrefs.remove(channelIDKey);
-				
-			} else if(title.equals(prog.getTitle()) && 
-				getChosenDate(i + ".start", null).equals(prog.getStart().getTime()) &&
-				chosenPrefs.get(i + ".channel_id", "").equals(prog.getChannelID())) {
-				// If this is the programme to be removed
-				
-				// Remove it
-				chosenPrefs.remove( titleKey );
-				chosenPrefs.remove( startKey );
-				chosenPrefs.remove( channelIDKey );
-				
-				// And start shifting the others down
-				shiftDown = true;
-				
 			}
+		
+			// assert(vKeys.size()==0);
 			
-			i++;
-			title = chosenPrefs.get( titleKey, null );
-		}
-	}
-		
-	public FreeGuideFavourite[] getFavourites() {
-		
-		Vector ans = new Vector();
-		
-		int i = 1;
-		String name = favouritesPrefs.get( i + ".name", null );
-		
-		while( name != null ) {
-			
-			FreeGuideFavourite fav = new FreeGuideFavourite();
-			
-			fav.setName( name );
-			fav.setTitleString( favouritesPrefs.get( i + ".title_string", null ) );
-			fav.setTitleRegex( getFavouritePattern( i + ".title_regex", null ) );
-			fav.setChannelID( favouritesPrefs.get( i + ".channel_id", null ) );
-			fav.setAfterTime( getFavouriteTime( i + ".after_time", null ) );
-			fav.setBeforeTime( getFavouriteTime( i + ".before_time", null ) );
-			fav.setDayOfWeek( getFavouriteInteger( i + "day_of_week", null ) );
-			
-			ans.add( fav );
-			
-			i++;
-			name = favouritesPrefs.get( i + ".name", null );
-		}
-		
-		return (FreeGuideFavourite[])ans.toArray();
-		
-	}
-	
-	public void putFavourites(FreeGuideFavourite[] favs) {
-		
-		try {
-		
-			favouritesPrefs.clear();
-		
-			for(int i=1;i<=favs.length;i++) {
-			
-				FreeGuideFavourite f = favs[i-1];
-			
-				putFavourite( i+".name", f.getName() );
-				putFavourite( i+".title_string", f.getTitleString() );
-				putFavouritePattern( i+".title_regex", f.getTitleRegex() );
-				putFavourite( i+".channel_id", f.getChannelID() );
-				putFavouriteTime( i+".after_time", f.getAfterTime() );
-				putFavouriteTime( i+".before_time", f.getBeforeTime() );
-				putFavouriteInteger( i+".day_of_week", f.getDayOfWeek() );
-				
-			}
-			
-		} catch(java.util.prefs.BackingStoreException e) {
+		} catch(BackingStoreException e) {
 			e.printStackTrace();
 		}
 		
+	}*/
+	
+	/**
+	 * Remove all key-value pairs in this node and replace them with the keys
+	 * in keys and the values in values.
+	 */
+	public void replaceAll(String[] keys, String[] values) throws BackingStoreException {
+		clear();
+		for(int i=0;i<keys.length;i++) {
+			put( keys[i], values[i] );
+		}
+	}
+	
+	/**
+	 * Remove all key-value pairs in this node and replace them with the keys
+	 * in keys and the FreeGuideFavourites in values.
+	 */
+	public void replaceAllFreeGuideFavourite(String[] keys, FreeGuideFavourite[] values) throws BackingStoreException {
+		clear();
+		for(int i=0;i<keys.length;i++) {
+			putFreeGuideFavourite( keys[i], values[i] );
+		}
+	}
+	
+	/**
+	 * Adds the given FreeGuideProgramme to the end of the list stored in this
+	 * node.  See the notes for getFreeGuideProgramme about the amount of
+	 * information stored.
+	 */
+	public void appendFreeGuideProgramme(FreeGuideProgramme prog) {
+		
+		// Find the first unoccupied spot
+		int i = 1;
+		String title = get( i + ".title" );
+		while( title != null ) {
+			i++;
+			title = get( i + ".title" );
+		}
+		
+		// And put our programme in it
+		put( i + ".title", prog.getTitle() );
+		putDate( i + ".start", prog.getStart().getTime() );
+		put( i + ".channel_id", prog.getChannelID() );
+		
+	}
+	
+	public int findFreeGuideProgramme(FreeGuideProgramme prog) {
+		
+		int i = 1;
+		
+		String title = get( i + ".title" );
+		
+		while( title != null ) {
+			
+			String startKey = i + ".start";
+			String channelIDKey = i + ".channel_id";
+			
+			if(title.equals(prog.getTitle()) && 
+				getDate(startKey, null).equals(prog.getStart().getTime()) &&
+				get(channelIDKey, "").equals(prog.getChannelID())) {
+			
+				// If this is the programme, return
+				return i;
+			}
+			
+			// Otherwise look at the next one
+			i++;
+			title = get( i + ".title" );
+			
+		}
+		
+		// Nothing found: return -1
+		return -1;
+		
+	}
+	
+	public void removeCompoundObject(int index) {
+		
+		// Remove these even though they will be over-written in a minute
+		// (just for neatness)
+		remove(index + ".title");
+		remove(index + ".start");
+		remove(index + ".channel_id");
+		
+		// Shift everything down
+		index++;
+		String title = get( index + ".title" );
+		while( title != null ) {
+			
+			put( (index-1) + ".title", title );
+			putDate( (index-1) + ".start", getDate(index + ".start", null) );
+			put( (index-1) + ".channel_id", get(index + ".channel_id", "") );
+			
+			index++;
+			title = get( index + ".title" );
+			
+		}
+		
+		// Remove the last one in the list
+		// (so that it's 1 shorter than what we started with)
+		remove((index-1) + ".title");
+		remove((index-1) + ".start");
+		remove((index-1) + ".channel_id");
+		
+	}
+	
+	/**
+	 * Return an array of strings with keys key+".1", key+".2" etc.
+	 */
+	public String[] getStrings(String key) {
+		
+		Vector ans = new Vector();
+		
+		int i=1;
+		String line = get(key+"."+i);
+		
+		while(line != null) {
+			ans.add(line);
+			i++;
+			line = get(key+"."+i);
+		}
+		
+		return FreeGuideUtils.arrayFromVector_String(ans);
+		
+	}
+	
+	public void putStrings(String key, String[] values) {
+		
+		for(int i=0;i<values.length;i++) {
+			
+			put(key+"."+(i+1), values[i]);
+			
+		}
+		
 	}
 	
 	// ------------------------------------------------------------------------
-	// Standard accessor methods
 	
-	// No default
-	public String getScreen		(String key) {return screenPrefs.get(key, null);}
-	public String getGrabber	(String key) {return grabberPrefs.get(key, null);}
-	public String getMisc		(String key) {return miscPrefs.get(key, null);}
-	public String getFavourite	(String key) {return favouritesPrefs.get(key, null);}
-	public String getChosen		(String key) {return chosenPrefs.get(key, null);}
-	public String getChannel	(String key) {return channelsPrefs.get(key, null);}
+	/**
+	 * Performs a get using a default value of null
+	 */
+	public String get(String key) {
+		return get(key, null);
+	}
 	
-	// With default
-	public String getScreen		(String key, String def) {return screenPrefs.get(key, def);}
-	public String getGrabber	(String key, String def) {return grabberPrefs.get(key, def);}
-	public String getMisc		(String key, String def) {return miscPrefs.get(key, def);}
-	public String getFavourite	(String key, String def) {return favouritesPrefs.get(key, def);}
-	public String getChosen		(String key, String def) {return chosenPrefs.get(key, def);}
-	public String getChannel	(String key, String def) {return channelsPrefs.get(key, def);}
+	// ------------------------------------------------------------------------
+	// Special pseudo-wrappers
 	
-	// ints
-	public int getScreenInt		(String key, int def){return screenPrefs.getInt(key, def);}
-	public int getGrabberInt	(String key, int def){return grabberPrefs.getInt(key, def);}
-	public int getMiscInt		(String key, int def){return miscPrefs.getInt(key, def);}
-	
-	// Integers
-	public Integer getFavouriteInteger(String key, Integer def) {
-				
-		String ans = favouritesPrefs.get(key, null);
-		
+	public Integer getInteger(String key, Integer def) {
+		String ans = get(key);	
 		if(ans==null) {
 			return def;
 		} else {
 			return Integer.valueOf(ans);
 		}
 	}
-	
-	// Dates
-	public Date getMiscDate		(String key, Date def) {
-		String ans = miscPrefs.get(key, null);
-		if(ans!=null) {
-			// Doesn't matter what the default is as this exists
-			return new Date( miscPrefs.getLong( key, 0 ) );
+	public void putInteger(String key, Integer value) {
+		if(value!=null) {
+			putInt(key, value.intValue());
 		} else {
-			return def;
-		}
-	}
-	public Date getChosenDate		(String key, Date def) {
-		String ans = chosenPrefs.get(key, null);
-		if(ans!=null) {
-			// Doesn't matter what the default is as this exists
-			return new Date( chosenPrefs.getLong( key, 0 ) );
-		} else {
-			return def;
+			remove(key);
 		}
 	}
 	
+	public Date getDate(String key, Date def) {
+		String ans = get(key);
+		if(ans==null) {
+			return def;
+		} else {
+			return new Date( getLong( key, 0 ) );
+		}
+	}
+	public void putDate(String key, Date value) {
+		if(value!=null) {
+			putLong( key, value.getTime() );
+		} else {
+			remove(key);
+		}
+	}
 	
-	// Colours
-	public Color getScreenColor	(String key, Color def) {
-		int r = screenPrefs.getInt( key + ".r", def.getRed() );
-		int g = screenPrefs.getInt( key + ".g", def.getGreen() );
-		int b = screenPrefs.getInt( key + ".b", def.getBlue() );
+	public Color getColor(String key, Color def) {
+		int r = getInt( key + ".r", def.getRed() );
+		int g = getInt( key + ".g", def.getGreen() );
+		int b = getInt( key + ".b", def.getBlue() );
 		return new Color( r, g, b );
 	}
+	public void putColor(String key, Color value) {
+		if(value!=null) {
+			putInt( key + ".r", value.getRed() );
+			putInt( key + ".g", value.getGreen() );
+			putInt( key + ".b", value.getBlue() );
+		} else {
+			remove(key + ".r");
+			remove(key + ".g");
+			remove(key + ".b");
+		}
+	}
 	
-	// Patterns
-	public Pattern getFavouritePattern(String key, Pattern def) {
-		
-		String ans = favouritesPrefs.get(key, null);
-		
-		if(ans!=null) {
-			
+	public Pattern getPattern(String key, Pattern def) {
+		String ans = get(key);
+		if(ans==null) {
+			return def;
+		} else {
 			return Pattern.compile( ans );
-			
+		}
+	}
+	public void putPattern(String key, Pattern value) {
+		if(value!=null) {
+			put( key, value.pattern() );
 		} else {
-			return def;
+			remove(key);
 		}
 	}
 	
-	// FreeGuideTimes
-	public FreeGuideTime getFavouriteTime(String key, FreeGuideTime def) {
-		
-		String ans = favouritesPrefs.get(key, null);
-		
-		if(ans!=null) {
+	public FreeGuideTime getFreeGuideTime(String key, FreeGuideTime def) {
+		String ans = get(key);
+		if(ans==null) {
+			return def;
+		} else {
 			return new FreeGuideTime( ans );
+		}
+	}
+	public void putFreeGuideTime(String key, FreeGuideTime value) {
+		if(value!=null) {
+			put(key, value.getHHMMString());
 		} else {
+			remove(key);
+		}
+	}
+	
+	/**
+	 * Gets enough info from the preferences to identify a programme reliably.
+	 * Note: does not store all the info about a programme, just enough to
+	 * identify it i.e. title, start time, channel id.
+	 */
+	public FreeGuideProgramme getFreeGuideProgramme(String key, FreeGuideProgramme def) {
+		
+		String title = get(key+".title");
+		
+		// If the title isn't there, the programme isn't there (by convention)
+		if(title==null) {
 			return def;
+		} else {	// If it is there, fill in the details
+			FreeGuideProgramme prog = new FreeGuideProgramme();
+			prog.setTitle(title);
+			
+			Calendar cal = GregorianCalendar.getInstance();
+			cal.setTime(getDate( key+".start", null ));
+			prog.setStart( cal );
+			
+			prog.setChannelID( get(key+".channel_id", "" ) );
+			
+			return prog;
 		}
 		
 	}
 	
-	// ----
-	
-	public void putScreen		(String key, String value) {screenPrefs.put(key, value);}
-	public void putGrabber		(String key, String value) {grabberPrefs.put(key, value);}
-	public void putMisc			(String key, String value) {miscPrefs.put(key, value);}
-	public void putFavourite	(String key, String value) {favouritesPrefs.put(key, value);}
-	public void putChosen		(String key, String value) {chosenPrefs.put(key, value);}
-	public void putChannel		(String key, String value) {channelsPrefs.put(key, value);}
-	
-	// ints
-	public void putScreenInt	(String key, int value){screenPrefs.putInt(key, value);}
-	public void putGrabberInt	(String key, int value){grabberPrefs.putInt(key, value);}
-	public void putMiscInt		(String key, int value){miscPrefs.putInt(key, value);}
-	
-	// Integers
-	public void putFavouriteInteger(String key, Integer value) {
-		favouritesPrefs.putInt(key, value.intValue());
-	}
-	
-	// Dates
-	public void putMiscDate		(String key, Date value) {
-		miscPrefs.putLong( key, value.getTime() );
-	}
-	public void putChosenDate	(String key, Date value) {
-		chosenPrefs.putLong( key, value.getTime() );
-	}
-	
-	// Colours
-	public void putScreenColor	(String key, Color value) {
-		screenPrefs.putInt( key + ".r", value.getRed() );
-		screenPrefs.putInt( key + ".g", value.getGreen() );
-		screenPrefs.putInt( key + ".b", value.getBlue() );
-	}
-	
-	// Patterns
-	public void putFavouritePattern(String key, Pattern value) {
-		favouritesPrefs.put( key, value.pattern() );
-	}
-	
-	// FreeGuideTimes
-	public void putFavouriteTime(String key, FreeGuideTime value) {
-		favouritesPrefs.put(key, value.getHHMMString());
-	}
-	
-	// ------------------------------------------------------------------------
-	// Private functions
-	
-	private String[] getChannelIDsFromConfigFile( String confFilename ) {
+	/**
+	 * Gets a FreeGuideFavourite object from this preferences store.
+	 */
+	public FreeGuideFavourite getFreeGuideFavourite(String key, FreeGuideFavourite def) {
 		
-		// FIXME - write this
+		String name = get(key+".name");
 		
-		return new String[0];
+		// If the title isn't there, the programme isn't there (by convention)
+		if(name==null) {
+			return def;
+		} else {	// If it is there, fill in the details
+			FreeGuideFavourite fav = new FreeGuideFavourite();
+			
+			fav.setName( name );
+			fav.setTitleString( get( key+".title_string" ) );
+			fav.setTitleRegex( getPattern( key+".title_regex", null ) );
+			fav.setChannelID( get( key+".channel_id" ) );
+			fav.setAfterTime( getFreeGuideTime( key+".after_time", null ) );
+			fav.setBeforeTime( getFreeGuideTime( key+".before_time", null ) );
+			fav.setDayOfWeek( getInteger( key+"day_of_week", null ) );
+			
+			return fav;
+		}
+	}
+	/**
+	 * Puts a FreeGuideFavourite object into this preferences store.
+	 */
+	public void putFreeGuideFavourite(String key, FreeGuideFavourite value) {
+		
+		put( key+".name", value.getName() );
+		put( key+".title_string", value.getTitleString() );
+		putPattern( key+".title_regex", value.getTitleRegex() );
+		put( key+".channel_id", value.getChannelID() );
+		putFreeGuideTime( key+".after_time", value.getAfterTime() );
+		putFreeGuideTime( key+".before_time", value.getBeforeTime() );
+		putInteger( key+".day_of_week", value.getDayOfWeek() );
 		
 	}
-	
-	private void putChannelIDsToConfigFile( String[] channelIDs ) {
-		
-		// FIXME - write this
-		
-	}
-	
-	// ------------------------------------------------------------------------
-	
-	private Preferences screenPrefs;		// The screen dimensions etc.
-	private Preferences grabberPrefs;		// Grabber commands and options
-	private Preferences miscPrefs;			// Other prefs
-	private Preferences favouritesPrefs;	// The user's favourite progs
-	private Preferences chosenPrefs;		// The selected progs
-	private Preferences channelsPrefs;		// The selected channels
 
+	// ------------------------------------------------------------------------
+	// Wrapper methods
+	
+	public String get(String key, String def) {return prefs.get(key, def);}
+	public boolean getBoolean(String key, boolean def) {return prefs.getBoolean(key, def);}
+	public byte[] getByteArray(String key, byte[] def) {return prefs.getByteArray(key, def);}
+	public double getDouble(String key, double def) {return prefs.getDouble(key, def);}
+	public float getFloat(String key, float def) {return prefs.getFloat(key, def);}
+	public int getInt(String key, int def) {return prefs.getInt(key, def);}
+	public long getLong(String key, long def) {return prefs.getLong(key, def);}
+	
+	public void put(String key, String value) {
+		if(value!=null) {
+			prefs.put(key, value);
+		} else {
+			remove(key);
+		}
+	}
+	public void putBoolean(String key, boolean value) {prefs.putBoolean(key, value);}
+	public void putByteArray(String key, byte[] value) {prefs.putByteArray(key, value);}
+	public void putDouble(String key, double value) {prefs.putDouble(key, value);}
+	public void putFloat(String key, float value) {prefs.putFloat(key, value);}
+	public void putInt(String key, int value) {prefs.putInt(key, value);}
+	public void putLong(String key, long value)	 {prefs.putLong(key, value);}
+	
+	public void clear() throws BackingStoreException {prefs.clear();}
+	public void flush() throws BackingStoreException {prefs.flush();}
+	public void remove(String key) {prefs.remove(key);}
+	public String[] keys() throws BackingStoreException {return prefs.keys();}
+	public void sync() throws BackingStoreException {prefs.sync();}
+	
+	public void exportNode(OutputStream os) throws java.io.IOException, BackingStoreException {prefs.exportNode(os);}
+	public void importPreferences(InputStream is) throws java.io.IOException, BackingStoreException, InvalidPreferencesFormatException {prefs.importPreferences(is);}
+	
+	// ------------------------------------------------------------------------
+	
+	private Preferences prefs;
+	
 }

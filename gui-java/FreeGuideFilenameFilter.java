@@ -28,30 +28,40 @@ public class FreeGuideFilenameFilter extends javax.swing.filechooser.FileFilter 
 
 	/** Blank constructor matches anything */
     public FreeGuideFilenameFilter() {
-		this(".*", "All Files");
+		this(".*", "All Files", true);
     }
 	
 	// Construct an unnamed filter
 	public FreeGuideFilenameFilter(String regex) {
-		
-		this.pattern = Pattern.compile(regex);
-		this.description = "Filenames matching /" + regex + "/";
-		
+		this(regex, "Filenames matching /" + regex + "/", true);
 	}
 	
 	// Construct a named filter
 	public FreeGuideFilenameFilter(String regex, String description) {
-		
-		this.pattern = Pattern.compile(regex);
-		this.description = description;
-		
+		this(regex, description, true);
 	}
 
+	// Construct an unnamed filter specifying whether to include dirs
+	public FreeGuideFilenameFilter(String regex, boolean allowDirectories) {
+		this(regex, "Filenames matching /" + regex + "/", allowDirectories);
+	}
+	
+	// Construct a named filter specifying whether to include dirs
+	public FreeGuideFilenameFilter(String regex, String description, boolean allowDirectories) {
+		this.pattern = Pattern.compile(regex);
+		this.description = description;
+		this.allowDirectories = allowDirectories;
+	}
+	
 	// Accept all directories and files matching the pattern
 	public boolean accept(File f) {
 		
 		if(f.isDirectory()) {
-			return true;
+			if(allowDirectories) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 		
 		return pattern.matcher(f.getName()).matches();
@@ -68,5 +78,6 @@ public class FreeGuideFilenameFilter extends javax.swing.filechooser.FileFilter 
 	
 	private Pattern pattern;
 	private String description;
+	private boolean allowDirectories;
 	
 }

@@ -26,54 +26,24 @@ import javax.swing.JFileChooser;
 public class FreeGuideDirectoryDialog extends javax.swing.JDialog {
 	
 	/** Creates new form FreeGuideDirectoryDialog */
-	public FreeGuideDirectoryDialog(java.awt.Frame parent, String msg) {
+	public FreeGuideDirectoryDialog(java.awt.Frame parent, String msg, File suggested) {
 		super(parent, true);
 		initComponents();
+		
+		// Show the given message
 		labMsg.setText(msg);
-	}
-	
-	// ------------------------------------------------------------------------
-	
-	public String getDirectory(String suggested) {
-		return getDirectory(new File(suggested)).getPath();
-	}
-	
-	public File getDirectory(File suggested) {
 		
 		// Set the filename to the right thing
 		txtFilename.setText(suggested.getAbsolutePath());
 		
 		setVisible(true);
 		
-		okclicked = false;
-		cancelclicked = false;
-		quitclicked = false;
-		
-		try {
-			
-			wait();
-			
-		} catch(InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		/*while(okClicked == false && cancelClicked == false && quitClicked == false) {
-			
-			try {
-				
-				Thread.sleep(100);
-				
-			} catch(InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-		}*/
-		
-		setVisible(false);
-		dispose();
-		
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	public File getDirectory() {
 		return new File(txtFilename.getText());
-		
 	}
 	
 	public boolean okClicked() {
@@ -94,36 +64,24 @@ public class FreeGuideDirectoryDialog extends javax.swing.JDialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labMsg = new javax.swing.JLabel();
         txtFilename = new javax.swing.JTextField();
         panOKCancel = new javax.swing.JPanel();
         butOK = new javax.swing.JButton();
         butCancel = new javax.swing.JButton();
         butBrowse = new javax.swing.JButton();
         butQuit = new javax.swing.JButton();
+        labMsg = new javax.swing.JTextArea();
 
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Choose Directory");
+        setModal(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
             }
         });
-
-        labMsg.setFont(new java.awt.Font("Dialog", 0, 12));
-        labMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labMsg.setText("Please choose a directory:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.9;
-        gridBagConstraints.weighty = 0.9;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
-        getContentPane().add(labMsg, gridBagConstraints);
 
         txtFilename.setMinimumSize(new java.awt.Dimension(4, 24));
         txtFilename.setPreferredSize(new java.awt.Dimension(69, 24));
@@ -214,10 +172,22 @@ public class FreeGuideDirectoryDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(butQuit, gridBagConstraints);
 
+        labMsg.setBackground(new java.awt.Color(204, 204, 204));
+        labMsg.setEditable(false);
+        labMsg.setText("Please choose a directory:");
+        labMsg.setWrapStyleWord(true);
+        labMsg.setPreferredSize(new java.awt.Dimension(1000, 1000));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.weighty = 0.9;
+        getContentPane().add(labMsg, gridBagConstraints);
+
         pack();
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(new java.awt.Dimension(400, 300));
-        setLocation((screenSize.width-400)/2,(screenSize.height-300)/2);
+        setSize(new java.awt.Dimension(500, 250));
+        setLocation((screenSize.width-500)/2,(screenSize.height-250)/2);
     }//GEN-END:initComponents
 
 	private void butCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCancelActionPerformed
@@ -257,22 +227,27 @@ public class FreeGuideDirectoryDialog extends javax.swing.JDialog {
 	
 	private void cancel() {
 		cancelclicked = true;
-		notify();
+		setVisible(false);
+		dispose();
 	}
 	private void ok() {
 		okclicked = true;
-		notify();
+		setVisible(false);
+		dispose();
 	}
 	private void quit() {
 		quitclicked = true;
-		notify();
+		setVisible(false);
+		dispose();
 	}
+	
 	private void browse() {
 		
 		JFileChooser chooser = new JFileChooser();
     
-		FreeGuideFilenameFilter filter = new FreeGuideFilenameFilter("^$");
-		chooser.setFileFilter(filter);
+		chooser.setCurrentDirectory( new File(txtFilename.getText()) );
+		chooser.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
+		
 		int returnVal = chooser.showDialog(this, "Choose Directory");
 		if(returnVal == JFileChooser.APPROVE_OPTION) {
 			
@@ -284,7 +259,7 @@ public class FreeGuideDirectoryDialog extends javax.swing.JDialog {
 	
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel labMsg;
+    private javax.swing.JTextArea labMsg;
     private javax.swing.JButton butQuit;
     private javax.swing.JButton butBrowse;
     private javax.swing.JButton butOK;

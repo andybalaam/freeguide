@@ -13,6 +13,7 @@
 
 import java.util.Arrays;
 import java.util.Vector;
+import javax.swing.DefaultListModel;
 
 /*
  * FreeGuideFavouritesList
@@ -29,25 +30,41 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
 	public FreeGuideFavouritesList(FreeGuideLauncher launcher) {
 		
 		this.launcher = launcher;
-		this.favourite = favourite;
+		
+		favouritesModel = new DefaultListModel();
 		
 		initComponents();
+		
+		loadFavourites();
 		
 		fillList();
 		
 	}
 	
+	private void loadFavourites() {
+		
+		favourites = new Vector(Arrays.asList(FreeGuide.prefs.getFavourites()));
+		
+	}
+	
 	private void fillList() {
 		
-		list.removeAll();
-		favourites = new Vector(Arrays.asList(FreeGuide.prefs.getFavourites()));
-		list = new javax.swing.JList(favourites);
+		//list.removeAll();
+		favouritesModel.removeAllElements();
+		
+		for(int i=0;i<favourites.size();i++) {
+			favouritesModel.addElement( ((FreeGuideFavourite)favourites.get(i)).getName() );
+		}
+		
+		//list = new javax.swing.JList(titles);
 		
 	}
 	
 	private void saveFavourites() {
 		
-		FreeGuide.prefs.putFavourites((FreeGuideFavourite[])favourites.toArray());
+		// Write out our favourites to the config file
+		FreeGuide.prefs.replaceFavourites(FreeGuideUtils.arrayFromVector_FreeGuideFavourite(favourites));
+		FreeGuide.prefs.flushAll();
 		
 	}
 	
@@ -64,7 +81,7 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
         butEdit = new javax.swing.JButton();
         butRemove = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
+        list = new javax.swing.JList(favouritesModel);
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         butOK = new javax.swing.JButton();
@@ -135,7 +152,7 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
         gridBagConstraints.weightx = 0.9;
         gridBagConstraints.weighty = 0.9;
         getContentPane().add(jScrollPane1, gridBagConstraints);
@@ -147,7 +164,7 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(jLabel1, gridBagConstraints);
 
-        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
+        jPanel2.setLayout(new java.awt.GridBagLayout());
 
         butOK.setText("OK");
         butOK.setPreferredSize(new java.awt.Dimension(83, 26));
@@ -157,7 +174,9 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
             }
         });
 
-        jPanel2.add(butOK);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 5);
+        jPanel2.add(butOK, gridBagConstraints);
 
         butCancel.setText("Cancel");
         butCancel.setPreferredSize(new java.awt.Dimension(83, 26));
@@ -167,7 +186,9 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
             }
         });
 
-        jPanel2.add(butCancel);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 10);
+        jPanel2.add(butCancel, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -177,6 +198,9 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
         getContentPane().add(jPanel2, gridBagConstraints);
 
         pack();
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(new java.awt.Dimension(400, 300));
+        setLocation((screenSize.width-400)/2,(screenSize.height-300)/2);
     }//GEN-END:initComponents
 
 	private void butRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRemoveActionPerformed
@@ -185,10 +209,11 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
 		
 		for(int i=0;i<sel.length;i++) {
 			
-			list.remove(i);
-			favourites.remove(i);
+			favourites.remove(sel[i]);
 			
 		}
+		
+		fillList();
 		
 	}//GEN-LAST:event_butRemoveActionPerformed
 
@@ -224,7 +249,7 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
 	}//GEN-LAST:event_butAddActionPerformed
 	
 	private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
-		quit();	
+		quit();
 	}//GEN-LAST:event_exitForm
 	
 	/** 
@@ -243,8 +268,12 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
 	}
 	
 	public void reShow() {
+		
+		/*for(int i=0;i<favourites.size();i++) {
+			System.out.println("fav " +i+ " " + favourites.get(i));
+		}*/
+		
 		fillList();
-		show();
 	}
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -263,5 +292,7 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
 	private Vector favourites;	// The favourites
 	private FreeGuideLauncher launcher;
 	private FreeGuideFavourite favourite;
+	
+	private DefaultListModel favouritesModel;
 	
 }

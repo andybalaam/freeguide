@@ -12,6 +12,7 @@
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.beans.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,6 +29,8 @@ import javax.swing.JOptionPane;
 public class FreeGuideTimePanel extends javax.swing.JPanel {
 	
     public FreeGuideTimePanel() {
+		
+		display = false;
 		
         initComponents();
 		
@@ -46,63 +49,73 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 
 	public void paintComponent(Graphics g) {
 		
-		super.paintComponent(g);
+		//FreeGuide.log.info("Painting Time Panel.");
+		
+		if(display) {
+		
+			super.paintComponent(g);
 			
-		int wid = this.getPreferredSize().width;
+			int wid = this.getPreferredSize().width;
 		
-		SimpleDateFormat fmt = new SimpleDateFormat("HH:mm");
+			SimpleDateFormat fmt = new SimpleDateFormat("HH:mm");
 		
-		if(wid>0) {
+			if(wid>0) {
 		
-			multiplier = (double)(endTime.getTimeInMillis() - startTime.getTimeInMillis()) / (double)(wid);
-		
-			Calendar tmpTime = GregorianCalendar.getInstance();
-			tmpTime.setTimeInMillis( startTime.getTimeInMillis() );
-		
-			// Forget about seconds and milliseconds
-			tmpTime.set( Calendar.SECOND, 0);
-			tmpTime.set( Calendar.MILLISECOND, 0);
-		
-			// Round to the nearest 5 mins
-			tmpTime.set( Calendar.MINUTE, ((int)(tmpTime.get(Calendar.MINUTE)/5)) * 5 );
-		
-			// Step through each 5 mins
-			while(tmpTime.before(endTime)) {
-			
-				int xPos = (int)((tmpTime.getTimeInMillis() - startTime.getTimeInMillis())/multiplier);
-			
-				// Make a mark
+				Rectangle viewable = new Rectangle();
+				computeVisibleRect(viewable);
 				
-				if(tmpTime.get(Calendar.MINUTE)==0) {	// Hours
-					
-					g.drawLine(xPos, 0, xPos, 10);
-					g.drawString(fmt.format(tmpTime.getTime()), xPos-17, 21);
-					
-				} else if(tmpTime.get(Calendar.MINUTE)==30) {	// Half hours
-					
-					g.drawLine(xPos, 0, xPos, 7);
-					g.drawString(fmt.format(tmpTime.getTime()), xPos-17, 21);
-					
-				} else if((tmpTime.get(Calendar.MINUTE)%10) == 0) {	// 10 mins
-					
-					g.drawLine(xPos, 0, xPos, 4);
-					
-				} else {
-					
-					g.drawLine(xPos, 0, xPos, 1);
-					
-				}
-				
-				
-			
-				// Add another 5 mins
-				tmpTime.add(Calendar.MINUTE, 5);
+				multiplier = (double)(endTime.getTimeInMillis() - startTime.getTimeInMillis()) / (double)(wid);
 		
-			}//while
+				Calendar tmpTime = GregorianCalendar.getInstance();
+				tmpTime.setTimeInMillis( startTime.getTimeInMillis() );
+		
+				// Forget about seconds and milliseconds
+				tmpTime.set( Calendar.SECOND, 0);
+				tmpTime.set( Calendar.MILLISECOND, 0);
+		
+				// Round to the nearest 5 mins
+				tmpTime.set( Calendar.MINUTE, ((int)(tmpTime.get(Calendar.MINUTE)/5)) * 5 );
+		
+				// Step through each 5 mins
+				while(tmpTime.before(endTime)) {
 			
-			// Draw the "now" line
-			int xPos = getNowScroll();
-			g.fillRect(xPos-1, 0, 3, 25);
+					int xPos = (int)((tmpTime.getTimeInMillis() - startTime.getTimeInMillis())/multiplier);
+			
+					// If this time is on screen, draw a mark
+					if(xPos>=viewable.x && xPos<=(viewable.x+viewable.width)) {
+					
+						// Make a mark
+						if(tmpTime.get(Calendar.MINUTE)==0) {	// Hours
+					
+							g.drawLine(xPos, 0, xPos, 10);
+							g.drawString(fmt.format(tmpTime.getTime()), xPos-17, 21);
+					
+						} else if(tmpTime.get(Calendar.MINUTE)==30) {	// Half hours
+					
+							g.drawLine(xPos, 0, xPos, 7);
+							g.drawString(fmt.format(tmpTime.getTime()), xPos-17, 21);
+					
+						} else if((tmpTime.get(Calendar.MINUTE)%10) == 0) {	// 10 mins
+					
+							g.drawLine(xPos, 0, xPos, 4);
+					
+						} else {
+					
+							g.drawLine(xPos, 0, xPos, 1);
+					
+						}
+					}
+			
+					// Add another 5 mins
+					tmpTime.add(Calendar.MINUTE, 5);
+		
+				}//while
+			
+				// Draw the "now" line
+				int xPos = getNowScroll();
+				g.fillRect(xPos-1, 0, 3, 25);
+			
+			}//if
 			
 		}//if
 			
@@ -110,9 +123,13 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 
 	public int getNowScroll() {
 		
-		Calendar nowTime = GregorianCalendar.getInstance();
+		if(display) {
+			
+			Calendar nowTime = GregorianCalendar.getInstance();
+			return (int)((nowTime.getTimeInMillis() - startTime.getTimeInMillis()) / multiplier);
+		}
 		
-		return (int)((nowTime.getTimeInMillis() - startTime.getTimeInMillis()) / multiplier);
+		return 0;
 		
 	}
 	
@@ -123,12 +140,17 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 	}*/
 	
 	public void setTimes(Calendar newStartTime, Calendar newEndTime) {
-				
+		
 		startTime = GregorianCalendar.getInstance();
 		startTime.setTimeInMillis(newStartTime.getTimeInMillis());
 		
 		endTime = GregorianCalendar.getInstance();
 		endTime.setTimeInMillis(newEndTime.getTimeInMillis());
+		
+		int wid = this.getPreferredSize().width;
+		multiplier = (double)(endTime.getTimeInMillis() - startTime.getTimeInMillis()) / (double)(wid);
+		
+		display = true;
 		
 		repaint();
 		
@@ -141,5 +163,6 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 	private Calendar endTime;		// The time on the right hand side of the panel
 	private double multiplier;	// The no. millisecs over the no. pixels
 	
+	private boolean display=false;
 	
 }

@@ -14,6 +14,7 @@
 import java.io.File;
 import java.io.FileFilter;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,16 +30,17 @@ public class FreeGuideStartupChecker {
 
 	public static void runChecks(String[] args) {
 		
+		if(!setupLog()) {
+			System.err.println("Failed to create log file.");
+			System.exit(1);
+		}
+		
 		if(!checkJavaVersion()){
 			FreeGuide.die("Halted due to wrong Java version.");
 		}
 		
 		if(!processArgs(args)) {
 			FreeGuide.die("Argument processing failed.");
-		}
-		
-		if(!setupLog()) {
-			FreeGuide.die("Failed to create log file.");
 		}
 		
 		if(!setupPrefs()) {
@@ -65,10 +67,38 @@ public class FreeGuideStartupChecker {
 	private static boolean checkJavaVersion() {
 		
 		// Check for Java 1.4 +
-		String version = System.getProperty("java.version");
-		System.out.println(version);
+		return isJavaVersionAtLeast(1, 4, 0);
 		
-		return true;
+	}
+	
+	private static boolean isJavaVersionAtLeast(int wantedMajor, int wantedMinor, int wantedRevision) {
+		
+		// Find out the version from the system
+		String versionString = System.getProperty("java.version");
+		
+		// Split it
+		Pattern dot = Pattern.compile("\\.");
+		String[] splitVersion = dot.split(versionString);
+		
+		// If we've got something unexpected, say it's wrong
+		if(splitVersion.length<3) {
+			return false;
+		}
+		
+		// Parse the bits
+		int actualMajor = Integer.parseInt(splitVersion[0]);
+		int actualMinor = Integer.parseInt(splitVersion[1]);
+		int actualRevision = Integer.parseInt(splitVersion[2]);
+		
+		// Check we have the required version
+		if(actualMajor > wantedMajor ||
+			(actualMajor == wantedMajor && actualMinor > wantedMinor) ||
+			(actualMajor == wantedMajor && actualMinor == wantedMinor && actualRevision >= wantedRevision)) {
+			return true;
+		}
+		
+		// If not, we fail
+		return false;
 		
 	}
 	
@@ -107,7 +137,7 @@ public class FreeGuideStartupChecker {
 	private static boolean setupPrefs() {
 	
 		// Make the object that holds all the Preferences objects
-		FreeGuide.prefs = new FreeGuidePreferences();
+		FreeGuide.prefs = new FreeGuidePreferencesGroup();
 		
 		return FreeGuide.prefs.noErrors();
 		
@@ -135,7 +165,8 @@ public class FreeGuideStartupChecker {
 		}
 		
 		// Get the preference using the guess as a default
-		File xmltvDir = new File(FreeGuide.prefs.getMisc("xmltv_directory", guess));
+		String fname = FreeGuide.prefs.performSubstitutions( FreeGuide.prefs.misc.get("xmltv_directory", guess) );
+		File xmltvDir = new File(fname);
 		
 		// Check the chosen directory
 		while(!testXMLTV(xmltvDir)) {
@@ -146,8 +177,8 @@ public class FreeGuideStartupChecker {
 				"where XMLTV is installed.\n"+
 				"If you have not installed XMLTV please download it from\n"+
 				"http://www.doc.ic.ac.uk/~epa98/work/apps/xmltv/";
-			FreeGuideDirectoryDialog dirDialog = new FreeGuideDirectoryDialog(null, msg);
-			xmltvDir = dirDialog.getDirectory(xmltvDir);
+			FreeGuideDirectoryDialog dirDialog = new FreeGuideDirectoryDialog(null, msg, xmltvDir);
+			xmltvDir = dirDialog.getDirectory();
 
 			// This has buttons OK (choose dir), Cancel (forget dir)
 			// and Quit (exit program - done immediately)
@@ -164,6 +195,7 @@ public class FreeGuideStartupChecker {
 			}
 			
 			// Otherwise we have chosen a new possibility to test
+			FreeGuide.prefs.misc.put("xmltv_directory", xmltvDir.getPath());
 			
 		}
 		
@@ -177,11 +209,13 @@ public class FreeGuideStartupChecker {
 		
 		// Check the dir exists
 		if(xmltvDir.exists()) {
+
+			File[] tmp = xmltvDir.listFiles(new FreeGuideFilenameFilter("^tv_split", false));
 			
 			// Check a file starting with tv_split exists in this dir
 			// (tv_split is used because that's the one I wrote to make
 			// FreeGuide work.)
-			if( xmltvDir.listFiles(new FreeGuideFilenameFilter("^tv_split")).length > 0 ) {
+			if( tmp.length > 0 ) {
 				// All is ok
 				return true;
 			}
@@ -200,7 +234,7 @@ public class FreeGuideStartupChecker {
 	private static boolean checkWorkingDir() {
 	
 		// Find out what the config file says the working dir is
-		String possWorkDir = FreeGuide.prefs.getMisc("working_directory");
+		String possWorkDir = FreeGuide.prefs.performSubstitutions(FreeGuide.prefs.misc.get("working_directory"));
 		
 		// Check the chosen directory
 		while(!testWorkDir(possWorkDir)) {
@@ -220,10 +254,10 @@ public class FreeGuideStartupChecker {
 			possWorkDir = findPossWorkDir();
 			
 			// And ask the user
-			String msg = "Working directory does not exist or is not writeable.\n"+
+			String msg = "Working directory does not exist or is not writeable.\n" + 
 				"Please choose a location to be your working directory for FreeGuide.";
-			FreeGuideDirectoryDialog dirDialog = new FreeGuideDirectoryDialog(null, msg);
-			possWorkDir = dirDialog.getDirectory(possWorkDir);
+			FreeGuideDirectoryDialog dirDialog = new FreeGuideDirectoryDialog(null, msg, new File(possWorkDir));
+			possWorkDir = dirDialog.getDirectory().getPath();
 
 			// This has buttons OK (choose dir), Cancel (forget dir)
 			// and Quit (exit program - done immediately)
@@ -246,6 +280,8 @@ public class FreeGuideStartupChecker {
 			if(!fileWorkDir.exists()) {
 				fileWorkDir.mkdirs();
 			}
+			
+			FreeGuide.prefs.misc.put("working_directory", possWorkDir);
 			
 		}//while
 		

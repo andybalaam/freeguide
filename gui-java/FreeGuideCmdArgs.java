@@ -127,7 +127,10 @@ public class FreeGuideCmdArgs {
 	 */
 	public boolean noErrors() {
 		
-		// FIXME - always returns true as assumes nothing can go wrong.
+		// Always returns true as errors are handled by mis-processing input
+		// rather than halting (e.g. "--fr og 3" will say that there is an
+		// option --fr with value og, and 3 is an argument, rather than
+		// noticing that --fr is unrecognised and quitting.
 		return true;
 		
 	}
