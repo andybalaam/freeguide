@@ -85,6 +85,7 @@ x means done by Sagar Shah
 - Include tv_split in Linux installer
 - Dynamic update of command output window
 - Fix bug that means favourites sometimes aren't chosen
+- Dynamic population of the date list comboBox based on available data
 * Fix bug that causes exception if running release candidate jvm (1.4.0-rc1)
 + Fix bug where you get asked twice whether you want to download new listings
 * Put list of "missing listings" channels in a scroll pane...
