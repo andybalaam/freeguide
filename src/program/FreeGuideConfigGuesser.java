@@ -393,8 +393,8 @@ public class FreeGuideConfigGuesser {
 			case DAY_START_TIME:
 				return checkValidTime((String)val);
 			
-			case GRABBER_CONFIG:
-				return checkXMLTVConfigFile((File)val);
+			//case GRABBER_CONFIG:
+			//	return checkXMLTVConfigFile((File)val);
 
 			case INSTALL_DIRECTORY:
 				return checkDirWriteable((File)val, "installation");
@@ -450,7 +450,8 @@ public class FreeGuideConfigGuesser {
 		}
 	}
 	
-	private static String checkXMLTVConfigFile(File grabber_config) {
+	// Removed since no longer require an XMLTV config file
+	/*private static String checkXMLTVConfigFile(File grabber_config) {
 		
 		FreeGuidePreferencesGroup prefs = new FreeGuidePreferencesGroup();
 		
@@ -487,7 +488,7 @@ public class FreeGuideConfigGuesser {
 		// channel entries
 		return "The chosen channels file either doesn't exist or contains no channels.";
 		
-	}
+	}*/
 	
 	/** 
 	 * Find whether a proposed XMLTV directory is correct.  Checks this

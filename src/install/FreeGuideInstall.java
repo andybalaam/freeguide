@@ -50,32 +50,32 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		
 		} else {
 			
-			String msg = "There is a version of FreeGuide installed.  Would";
-			msg += " you like to uninstall it, or install the new version?";
+			String txt = "There is a version of FreeGuide installed.";
+			txt += System.getProperty( "line.separator" );
+			txt += "Would  you like to uninstall it, or install the new version?";
 			
 			String[] options = { 
-				"Cancel",
-				"Install but keep old preferences",
-				"Complete re-install (recommended)", 
-				"Uninstall" };
+				"Complete Install (overwrite prefs - recommended)",
+				"Lite Install (keep old preferences)",
+				"Uninstall"};
 			
-			int response = JOptionPane.showOptionDialog(null, msg,
-				"Install question", 0, JOptionPane.QUESTION_MESSAGE, null,
-				options, "Complete re-install (recommended)" );
+			Object response = JOptionPane.showInputDialog(null,
+				txt,
+                "Install question",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+				"Complete Install (overwrite prefs - recommended)");
 			
-			switch(response) {
-				case 1:
-					install(install_directory, true);
-					break;
-				case 2:
-					install(install_directory, false);
-					break;
-				case 3:
-					uninstall(install_directory);
-					break;
-				default:
-					System.err.println("Exiting installer without doing anything.");
-					System.exit(0);
+			if(response==null) {
+				System.err.println("Exiting installer without doing anything.");
+				System.exit(0);
+			} else if(response.equals("Complete Install (overwrite prefs - recommended)")) {
+				install(install_directory, false);
+			} else if(response.equals("Lite Install (keep old preferences)")) {
+				install(install_directory, true);
+			} else {
+				uninstall(install_directory);
 			}
 			
 		}
@@ -91,7 +91,7 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 	}
 	
 	public void setVisible(boolean show) {
-		// Do nothing
+		System.exit(0);
 	}
 	
 	private void install(String install_directory, boolean keepOldPrefs) {

@@ -178,12 +178,16 @@ public class FreeGuidePreferencesGroup {
 	// ------------------------------------------------------------------------
 	// Convenience methods
 	
+	/* Channel stuff has been removed because we no longer need it, but is
+	 * only commented in case we want it for channel ordering in the future.
+	 */
+	
 	/**
 	 * Get the selected channel IDs.
 	 *
 	 * @returns an array containing the channel ids of the selected channels.
 	 */
-	public String[] getChannelIDs() {
+	/*public String[] getChannelIDs() {
 		
 		try {
 		
@@ -204,13 +208,13 @@ public class FreeGuidePreferencesGroup {
 		
 		return new String[0];
 		
-	}
+	}*/
 	
 	/**
 	 * Set the channel list, with commented array containing '#' for an
 	 * inactive channel and '' for an active one.
 	 */
-	public void putAllChannelIDs(String[] channelIDs, String[] commented) {
+	/*public void putAllChannelIDs(String[] channelIDs, String[] commented) {
 		
 		try {
 		
@@ -232,7 +236,7 @@ public class FreeGuidePreferencesGroup {
 			e.printStackTrace();
 		}//try
 		
-	}//putChannelIDs
+	}//putChannelIDs*/
 	
 	/**
 	 * Gets a list of all channel IDs, selected or not.  The unselected ones may
@@ -243,7 +247,7 @@ public class FreeGuidePreferencesGroup {
 	 *
 	 * @returns an array containing the channel ids of all the known channels.
 	 */
-	public String[] getAllChannelIDs() {
+	/*public String[] getAllChannelIDs() {
 		
 		try {
 		
@@ -264,7 +268,7 @@ public class FreeGuidePreferencesGroup {
 		
 		return new String[0];
 		
-	}
+	}*/
 
 	/**
 	 * Has the user chosen any programmes for today?
@@ -460,7 +464,7 @@ public class FreeGuidePreferencesGroup {
 	 * Gets all the lines from the config file that start with "channel", and
 	 * strips off the "channel " or "channel: " and returns the rest.
 	 */
-	private String[] getChannelIDsFromConfigFile( String confFilename ) throws java.io.IOException {
+	/*private String[] getChannelIDsFromConfigFile( String confFilename ) throws java.io.IOException {
 		
 		Vector ans = new Vector();
 	
@@ -482,13 +486,13 @@ public class FreeGuidePreferencesGroup {
 		
 		return FreeGuideUtils.arrayFromVector_String(ans);
 		
-	}
+	}*/
 	
 	/**
 	 * Gets all the lines from the config file that start with "channel"  or
 	 * "#channel", strips off the "channel" bit and returns the rest.
 	 */
-	private String[] getAllChannelIDsFromConfigFile( String confFilename ) throws java.io.IOException {
+	/*private String[] getAllChannelIDsFromConfigFile( String confFilename ) throws java.io.IOException {
 		
 		Vector ans = new Vector();
 	
@@ -512,9 +516,9 @@ public class FreeGuidePreferencesGroup {
 		
 		return FreeGuideUtils.arrayFromVector_String(ans);
 		
-	}
+	}*/
 	
-	private String commentTrim(String ans) {
+	/*private String commentTrim(String ans) {
 		
 		//String ans = new String(in);
 		
@@ -527,22 +531,22 @@ public class FreeGuidePreferencesGroup {
 		// Trim and return
 		return ans.trim();
 		
-	}
+	}*/
 	
-	private String getChannelIDFromConfigLine(String line) {
+	/*private String getChannelIDFromConfigLine(String line) {
 		int i = line.indexOf(' ');		
 		if(i!=-1) {
 			return(line.substring(i+1));		
 		}
 		return "";
 		
-	}
+	}*/
 	
 	/**
 	 * Parse the given config file to comment out channels we don't want, and
 	 * add ones we do.
 	 */
-	private void putAllChannelIDsToConfigFile( String confFilename, String[] channelIDs, String[] commented ) throws java.io.IOException {
+	/*private void putAllChannelIDsToConfigFile( String confFilename, String[] channelIDs, String[] commented ) throws java.io.IOException {
 		
 		Vector oldConfigFile = new Vector();	// Holds the old config file
 		String channelPrefix = null;
@@ -591,7 +595,7 @@ public class FreeGuidePreferencesGroup {
 		
 		buffyw.close();
 		
-	}
+	}*/
 	
 	// ------------------------------------------------------------------------
 	

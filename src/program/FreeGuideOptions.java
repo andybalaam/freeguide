@@ -64,7 +64,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		titles[5] = "Day Start";
 		
 		panels[6] = new FreeGuideFileWizardPanel();
-		panels[6].setMessages("Choose the XMLTV tool's configuration file.", "This should contain a list of channels you want to watch.");
+		panels[6].setMessages("Choose the XMLTV tool's configuration file.", "");
 		panels[6].setConfig("misc", "grabber_config");
 		titles[6] = "Channels File";
 	
@@ -140,14 +140,20 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 				panels[panelNo].setConfig("misc", "day_start_time");
 				titles[panelNo] = "Day Start";
 				
-			} else if(what.equals("misc.grabber_config")) {
+			} else {
+				FreeGuide.log.severe("An unknown check went wrong!");
+				System.exit(1);
+			}
+			
+			
+			/* else if(what.equals("misc.grabber_config")) {
 		
 				panels[panelNo] = new FreeGuideFileWizardPanel();
 				panels[panelNo].setMessages("Choose the XMLTV tool's configuration file.", "This should contain a list of channels you want to watch.");
 				panels[panelNo].setConfig("misc", "grabber_config");
 				titles[panelNo] = "Channels File";
 		
-			}
+			}*/
 			panelNo++;
 		}
 		

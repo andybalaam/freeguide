@@ -77,19 +77,17 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		FreeGuide.prefs.flushAll();
 
 		// Find what channels the user has chosen
-		getSelectedChannels();
+		//getSelectedChannels();
 
 		// Load the data
 		loadProgrammeData();
-	
-
 		
 		// Error if we're missing programme info
 		if(missingFiles) {
 			
 			if(!dontDownload) {
 				
-				String msg = "";
+				/*String msg = "";
 				for(int i=0; i<channelLoaded.size(); i++) {
 					if(channelLoaded.get(i).equals(Boolean.FALSE)) {
 						msg += channelNames.get(i) + "\n";
@@ -103,8 +101,16 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 				oa[0]="There are missing listings for this day:";
 				oa[1]=sp;
 				oa[2]="Do you want to download more?";
-				int r = JOptionPane.showConfirmDialog(this, oa, "Download listings?", JOptionPane.YES_NO_OPTION );
+				int r = JOptionPane.showConfirmDialog(this, oa, "Download listings?", JOptionPane.YES_NO_OPTION );*/
 
+				// Sorry Sajal, but we don't know the channels any more so your
+				// code is no longer needed...
+				
+				Object[] oa = new Object[2];
+				oa[0]="There are missing listings for this day:";
+				oa[1]="Do you want to download more?";
+				int r = JOptionPane.showConfirmDialog(this, oa, "Download listings?", JOptionPane.YES_NO_OPTION );
+				
 				if(r==0) {
 
 					downloadListings();
@@ -173,7 +179,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         menQuit = new javax.swing.JMenuItem();
         optionsMenu = new javax.swing.JMenu();
         menCustomiser = new javax.swing.JMenuItem();
-        menChannels = new javax.swing.JMenuItem();
+        menConfigure = new javax.swing.JMenuItem();
         menFavourites = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JSeparator();
         menOptions = new javax.swing.JMenuItem();
@@ -432,14 +438,16 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         });
 
         optionsMenu.add(menCustomiser);
-        menChannels.setText("Channels");
-        menChannels.addActionListener(new java.awt.event.ActionListener() {
+		
+        menConfigure.setText("Configure Grabber");
+        menConfigure.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menChannelsActionPerformed(evt);
+                menConfigureActionPerformed(evt);
             }
         });
 
-        optionsMenu.add(menChannels);
+        optionsMenu.add(menConfigure);
+	
         menFavourites.setText("Favourites");
         menFavourites.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -523,11 +531,17 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 	}//GEN-LAST:event_butDownloadActionPerformed
 
-	private void menChannelsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menChannelsActionPerformed
-		setVisible(false);
+	private void menConfigureActionPerformed(java.awt.event.ActionEvent evt) {
+		/*setVisible(false);
 		new FreeGuideChannelsChooser(this).setVisible(true);
-		dispose();
-	}//GEN-LAST:event_menChannelsActionPerformed
+		dispose();*/
+		
+		String[] cmds = new String[1];
+		cmds[0] = "bash 'tv_grab_na --configure'";
+		
+		FreeGuideUtils.execNoWait( cmds );
+		
+	}
 
 	private void menCustomiserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menCustomiserActionPerformed
 		setVisible(false);
@@ -968,6 +982,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		updateDaySpan();
 		
 		programmes = new Vector();
+		channelLoaded = new Vector();
+		channelIDs = new Vector();
+		channelNames = new Vector();
 
 		String wkDir = FreeGuide.prefs.performSubstitutions(
 			FreeGuide.prefs.misc.get("working_directory") );
@@ -1538,7 +1555,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	 * Gets the channels required from the config file and puts them
 	 * in the channelNames array
 	 */
-    private void getSelectedChannels() {
+    /*private void getSelectedChannels() {
 		
 		// Get the channel IDs from config file or prefs
 		channelIDs = new Vector();
@@ -1554,7 +1571,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			channelLoaded.add(new Boolean("false"));
 		}
 		
-    }
+    }*/
 	
 	//public String[] getChannelIDs() {
 	public Vector getChannelIDs() {
@@ -1606,7 +1623,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private javax.swing.JPopupMenu popProg;
     //private javax.swing.JPanel outerPanel;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem menChannels;
+    private javax.swing.JMenuItem menConfigure;
     private javax.swing.JScrollPane printedGuideScrollPane;
     private javax.swing.JMenuItem menQuit;
     //private javax.swing.JScrollPane timeScrollPane;

@@ -77,7 +77,9 @@ x means done by Sagar Shah
 - Separate classes into packages
 - Allow "file" in installer to use wildcards (for win-uk share stuff)
 - Custom channel ordering
-  
+- Dynamic population of the date list comboBox based on available data
+- Scroll to the programme you've just added in the list view
+
 - Release 0.4.4 (Features - especially use of many grabbers, and bug fixes)
 
 - Coloured programme categories and favourites
@@ -85,9 +87,9 @@ x means done by Sagar Shah
 - Make it work with the new XMLTV grabbers
 - Stop it from grabbing stuff that's already been done.
 - Make installer install shortcuts for Windows, Gnome and KDE
-- Make installer launch FreeGuide and/or a README file.
+- Make installer launch FreeGuide and/or a README file (what about configuring
+	on Windows?)
 - Fix bug that means favourites sometimes aren't chosen
-- Dynamic population of the date list comboBox based on available data
 - Allow for the fact that a grabber may use dates without seconds, and other
 	differences (e.g. tv_grab_de).
 + Make installer understand file>location syntax of props files including
