@@ -53,6 +53,7 @@ public class InstallWizardPanel extends WizardPanel {
 			true );
 		configgrabberCheckBox.setMnemonic(KeyEvent.VK_G);
 		configgrabberCheckBox.setEnabled( false );
+		configgrabberCheckBox.setSelected( false );
 		
         JLabel bottomLabel = new JLabel();
 
