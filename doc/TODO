@@ -165,6 +165,7 @@ w  means done by William Ballard
 - Allow resizing fonts in HTML displays
 - Delete all registry entries on Windows uninstall
 - Check whether you really need to set the timezone.
+- Fix bug with multiple reminders if you enter a page multiple times.
 
 + Release 0.8.3 (Java 1.4)
 
