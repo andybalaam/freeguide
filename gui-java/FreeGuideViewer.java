@@ -89,7 +89,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			if(r==0) {
 				
 				setVisible(false);
-				new FreeGuideOptions(this).setVisible(true);
+				new FreeGuideOptionsWizard(this).setVisible(true);
 				
 			}
 			
@@ -136,7 +136,10 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         menDownload = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JSeparator();
         menFavourites = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JSeparator();
         menOptions = new javax.swing.JMenuItem();
+        menCustomiser = new javax.swing.JMenuItem();
+        menChannels = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         menUserGuide = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JSeparator();
@@ -363,6 +366,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         });
 
         toolsMenu.add(menFavourites);
+        toolsMenu.add(jSeparator1);
         menOptions.setText("Options...");
         menOptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -371,6 +375,22 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         });
 
         toolsMenu.add(menOptions);
+        menCustomiser.setText("Customise...");
+        menCustomiser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menCustomiserActionPerformed(evt);
+            }
+        });
+
+        toolsMenu.add(menCustomiser);
+        menChannels.setText("Channels...");
+        menChannels.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menChannelsActionPerformed(evt);
+            }
+        });
+
+        toolsMenu.add(menChannels);
         jMenuBar2.add(toolsMenu);
         helpMenu.setText("Help");
         menUserGuide.setText("User Guide...");
@@ -393,6 +413,18 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         setSize(new java.awt.Dimension(615, 345));
         setLocation((screenSize.width-615)/2,(screenSize.height-345)/2);
     }//GEN-END:initComponents
+
+	private void menChannelsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menChannelsActionPerformed
+		setVisible(false);
+		new FreeGuideChannelsChooser(this).setVisible(true);
+		dispose();
+	}//GEN-LAST:event_menChannelsActionPerformed
+
+	private void menCustomiserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menCustomiserActionPerformed
+		setVisible(false);
+		new FreeGuideCustomiser(this).setVisible(true);
+		dispose();
+	}//GEN-LAST:event_menCustomiserActionPerformed
 
 	private void menAddFavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menAddFavActionPerformed
 		
@@ -470,15 +502,17 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 	private void menOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menOptionsActionPerformed
 		
-		hide();
-		new FreeGuideOptions(this).setVisible(true);
+		setVisible(false);
+		new FreeGuideOptionsWizard(this).setVisible(true);
+		dispose();
 		
 	}//GEN-LAST:event_menOptionsActionPerformed
 
 	private void menFavouritesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menFavouritesActionPerformed
 				
-		hide();
+		setVisible(false);
 		new FreeGuideFavouritesList(this).setVisible(true);
+		dispose();
 		
 	}//GEN-LAST:event_menFavouritesActionPerformed
 
@@ -1406,6 +1440,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem menCustomiser;
     private javax.swing.JComboBox comTheDate;
     private javax.swing.JMenuItem menDownload;
     private javax.swing.JEditorPane printedGuideArea;
@@ -1416,6 +1451,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private javax.swing.JSeparator jSeparator3;
     private FreeGuideTimePanel timePanel;
     private javax.swing.JMenuItem menPrint;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel channelNamePanel;
     private javax.swing.JMenuItem menAddFav;
     private javax.swing.JPanel topPanel;
@@ -1438,6 +1474,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private javax.swing.JPopupMenu popProg;
     private javax.swing.JPanel outerPanel;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem menChannels;
     private javax.swing.JScrollPane printedGuideScrollPane;
     private javax.swing.JMenuItem menQuit;
     private javax.swing.JScrollPane timeScrollPane;

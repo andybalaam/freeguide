@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.0" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+<Form version="1.0" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="title" type="java.lang.String" value="FreeGuide Options Wizard"/>
   </Properties>
@@ -254,7 +254,7 @@
               </Properties>
 
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="FreeGuideUtils.addCountriesToComboBox(cmbCountry);"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value=""/>
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -305,7 +305,7 @@
               </Properties>
 
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="FreeGuideUtils.addBrowsersToComboBox(cmbBrowser);"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value=""/>
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -469,7 +469,6 @@
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Choose the command to download listings:"/>
-                <Property name="toolTipText" type="java.lang.String" value="null"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -514,7 +513,6 @@
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Choose the command to launch your web browser:"/>
-                <Property name="toolTipText" type="java.lang.String" value="null"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane11">
@@ -565,7 +563,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextField" name="txtWorkingDir1">
+                <Component class="javax.swing.JTextField" name="txtDayStartTime">
                   <Properties>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[4, 26]"/>
@@ -622,7 +620,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextField" name="txtXMLTVCfg1">
+                <Component class="javax.swing.JTextField" name="txtStyleSheet">
                   <Properties>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[4, 26]"/>

@@ -63,7 +63,7 @@ public class FreeGuide implements FreeGuideLauncher {
 	}
 	
 	public void reShow() {	
-		die("I don't think it should ever get here!");
+		FreeGuide.log.info("FreeGuide finished.");
 	}
 	
 	//------------------------------------------------------------------------

@@ -14,6 +14,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileReader;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -81,10 +82,10 @@ public class FreeGuideStartupChecker {
 			new FreeGuideOptionsWizard(launcher, 
 				FreeGuideOptionsWizard.SCREEN_FIRST_TIME, failOS, failCountry, 
 				failBrowserName, failXMLTVCmdDir, failWorkingDir, failGrabber, 
-				failBrowser, failDayStartTime, failStyleSheet, failXMLTVCfg);
+				failBrowser, failDayStartTime, failStyleSheet, failXMLTVCfg).setVisible(true);
 		} else {
 			// All is ok, so begin with viewer
-			new FreeGuideViewer(launcher);
+			new FreeGuideViewer(launcher).setVisible(true);
 		}
 		
 		/*if(!checkXMLTV()) {
@@ -323,20 +324,26 @@ public class FreeGuideStartupChecker {
 		// Check the dir exists
 		if(grabber_config.exists()) {
 
-			BufferedReader buffy = new BufferedReader(new FileReader(grabber_config));
+			try {
 			
-			String line;
-			while( (line = buffy.readLine()) != null ) {
-				line = line.trim();
-				// If we found a channel entry, the file is good
-				if(line.startsWith("channel") || line.startsWith("#channel")) {
-					buffy.close();
-					return true;
+				BufferedReader buffy = new BufferedReader(new FileReader(grabber_config));
+			
+				String line;
+				while( (line = buffy.readLine()) != null ) {
+					line = line.trim();
+					// If we found a channel entry, the file is good
+					if(line.startsWith("channel") || line.startsWith("#channel")) {
+						buffy.close();
+						return true;
+					}
 				}
+				
+				buffy.close();
+				
+			} catch (java.io.IOException e) {
+				e.printStackTrace();
 			}
-			
-			buffy.close();
-			
+
 		}
 		
 		// Something went wrong: either file doesn't exist or it has no
@@ -425,7 +432,7 @@ public class FreeGuideStartupChecker {
 			// Check it exists and you can write a file to it
 			File testFile = new File(working_directory.getPath() + "test.tmp");
 			testFile.createNewFile();
-			if(new File(working_directory).exists() && testFile.canWrite()) {
+			if(working_directory.exists() && testFile.canWrite()) {
 				
 				testFile.delete();
 				return true;
