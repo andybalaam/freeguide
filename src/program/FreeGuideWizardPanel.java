@@ -204,7 +204,9 @@ public class FreeGuideWizardPanel extends javax.swing.JPanel {
 	 * Returns an error if this value if faulty, or null it's ok
 	 */
 	private String checkValue() {
-		return FreeGuideConfigGuesser.checkValue(configGroup, configEntry, this.getBoxValue());
+		
+		return FreeGuideConfigGuesser.checkValue(configGroup, configEntry,
+			this.getBoxValue() );
 	}
 	
 	/**

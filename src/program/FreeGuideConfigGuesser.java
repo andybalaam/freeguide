@@ -419,6 +419,10 @@ public class FreeGuideConfigGuesser {
 	
 	private static String checkDirWriteable(File dir, String whatFor) {
 		
+		FreeGuidePreferencesGroup prefs = new FreeGuidePreferencesGroup();
+		
+		dir = new File( prefs.performSubstitutions( dir.toString() ) );
+		
 		try {
 		
 			if(!dir.exists()) {
@@ -445,6 +449,11 @@ public class FreeGuideConfigGuesser {
 	}
 	
 	private static String checkXMLTVConfigFile(File grabber_config) {
+		
+		FreeGuidePreferencesGroup prefs = new FreeGuidePreferencesGroup();
+		
+		grabber_config = new File( 
+			prefs.performSubstitutions( grabber_config.toString() ) );
 		
 		// Check the dir exists
 		if(grabber_config.exists()) {
@@ -483,6 +492,10 @@ public class FreeGuideConfigGuesser {
 	 * by looking for the files xmltv.exe or tv_grab* in it.
 	 */
 	private static String checkXMLTVDir(File dir) {
+		
+		FreeGuidePreferencesGroup prefs = new FreeGuidePreferencesGroup();
+		
+		dir = new File( prefs.performSubstitutions( dir.toString() ) );
 		
 		// Check the dir exists
 		if(dir.exists()) {

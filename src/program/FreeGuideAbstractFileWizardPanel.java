@@ -145,7 +145,7 @@ public abstract class FreeGuideAbstractFileWizardPanel extends FreeGuideWizardPa
 	// -----------------------------------
 	
 	protected Object getBoxValue() {
-		return new File(textfield.getText());
+		return new File( textfield.getText() );
 	}
 	
 	protected void setBoxValue(Object val) {

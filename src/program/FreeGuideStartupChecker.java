@@ -78,9 +78,13 @@ public class FreeGuideStartupChecker {
 		System.exit(1);
 	}
 	
-	private static void checkTextFailure(FreeGuidePreferences pref, String entry, Vector failedWhat) {
+	private static void checkTextFailure(FreeGuidePreferences pref,
+			String entry, Vector failedWhat) {
 	
-		if(FreeGuideConfigGuesser.checkValue("misc", entry, pref.get(entry))!=null) {
+		if(FreeGuideConfigGuesser.checkValue("misc", entry, 
+				FreeGuide.prefs.performSubstitutions( 
+				pref.get(entry)) ) != null ) {
+			
 			failedWhat.add("misc." + entry);
 		}
 		
@@ -88,7 +92,7 @@ public class FreeGuideStartupChecker {
 	
 	private static void checkFileFailure(FreeGuidePreferences pref, String entry, Vector failedWhat) {
 	
-		String pr = pref.get(entry);
+		String pr = FreeGuide.prefs.performSubstitutions( pref.get(entry) );
 		
 		if( (pr==null) || 
 				(FreeGuideConfigGuesser.checkValue("misc", entry, new File(pr))!=null) ) {

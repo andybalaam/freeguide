@@ -1,8 +1,3 @@
-os=Linux/Unix/Other
-browser_name=Netscape
-browser_exe=netscape
-working_dir=data
-xmltv_dir=/usr/bin
 file.1=FreeGuide.jar
 file.2=data/xmltv.dtd
 file.3=contributors.html
@@ -18,8 +13,13 @@ file.12=shot1.gif
 file.13=shot2.gif
 file.14=shot3.gif
 file.15=TODO
-grabber_exe=tv_grab_na
-grabber_config=tv_grab_na
-country=North America
-full_paths=false
-default_dir=
+
+prefs.1=misc.install_directory=%home%/freeguide-tv
+prefs.2=misc.working_directory=%home%/.freeguide-tv
+prefs.3=misc.xmltv_directory=/usr/bin
+prefs.4=misc.grabber_config=%home%/.xmltv/tv_grab_na
+prefs.5=misc.days_to_grab=7
+prefs.6=misc.day_start_time=06:00
+prefs.7=commandline.browser_command.1=netscape %string%
+prefs.8=commandline.tv_grab.1=tv_grab_na --config-file %misc.grabber_config% --offset %offset% --days 1 --output %misc.working_directory%/tv-%date%.xmltv
+

@@ -36,22 +36,37 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		
 		// Branch into Reinstall or first time
 		String install_directory = prefs.misc.get("install_directory");
-		if( install_directory==null || !(new File(install_directory + File.separator + "FreeGuide.jar").exists()) ) {
+		if( install_directory==null || 
+			!(new File(install_directory + File.separator + 
+			"FreeGuide.jar").exists()) ) {
+			
 			// First time install
 		
-			install(install_directory);
+			install(install_directory, false);
 		
 		} else {
 			
-			String msg = "There is a version of FreeGuide installed.  Would you like to uninstall it, or install a new version?";
-			String[] options = { "Cancel", "Install", "Uninstall" };
-			int response = JOptionPane.showOptionDialog(null, msg, "Install question", 0, JOptionPane.QUESTION_MESSAGE, null, options, "Install" );
+			String msg = "There is a version of FreeGuide installed.  Would";
+			msg += " you like to uninstall it, or install the new version?";
+			
+			String[] options = { 
+				"Cancel",
+				"Install but keep old preferences",
+				"Complete re-install (recommended)", 
+				"Uninstall" };
+			
+			int response = JOptionPane.showOptionDialog(null, msg,
+				"Install question", 0, JOptionPane.QUESTION_MESSAGE, null,
+				options, "Complete re-install (recommended)" );
 			
 			switch(response) {
 				case 1:
-					install(install_directory);
+					install(install_directory, true);
 					break;
 				case 2:
+					install(install_directory, false);
+					break;
+				case 3:
 					uninstall(install_directory);
 					break;
 				default:
@@ -75,32 +90,47 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		// Do nothing
 	}
 	
-	private void install(String install_directory) {
+	private void install(String install_directory, boolean keepOldPrefs) {
 		
 		try {
 		
 			// Load the install.props file
 			props = new Properties();
-			props.load(new BufferedInputStream(getClass().getResourceAsStream("/install.props")));
+			props.load(new BufferedInputStream(getClass().getResourceAsStream(
+				"/install.props")));
 		
-			if(install_directory==null) {
+			// Do all the preferences in the properties file - set the defaults
+			// to them, and set the real values too if we're not keeping old
+			// ones.
+			int i=1;
+			String prefString="";
+			while( (prefString=props.getProperty("prefs."+i)) != null ) {
+				
+				doPref(prefString, keepOldPrefs);
+				i++;
+				
+			}
+		
+			/*if(install_directory==null) {
 		
 				install_directory = props.getProperty("default_dir");
 				if(install_directory.equals("")) {
 					install_directory = System.getProperty("user.home") + fs + "freeguide-tv" + fs;
 				}
 				
-			}
+			}*/
 		
-			prefs.misc.put("install_directory", install_directory);
+			//prefs.misc.put("install_directory", install_directory);
 		
 			FreeGuideWizardPanel[] panels = new FreeGuideWizardPanel[3];
 			
 			panels[0] = new FreeGuideLabelWizardPanel("");
-			panels[0].setMessages("You are about to install FreeGuide.", "Click \"Next\" to continue.");
+			panels[0].setMessages("You are about to install FreeGuide.",
+				"Click \"Next\" to continue.");
 		
 			panels[1] = new FreeGuideDirectoryWizardPanel();
-			panels[1].setMessages("Choose your installation directory.", "This will be created if it doesn't exist.");
+			panels[1].setMessages("Choose your installation directory.",
+				"This will be created if it doesn't exist.");
 			panels[1].setConfig("misc", "install_directory");
 		
 			panels[2] = new FreeGuideLabelWizardPanel("Now you need to configure your grabber before you can start using it.");
@@ -139,7 +169,8 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 			e.printStackTrace();
 		}
 		
-		JOptionPane.showMessageDialog(null, "FreeGuide has been successfully uninstalled.");
+		JOptionPane.showMessageDialog(null,
+			"FreeGuide has been successfully uninstalled.");
 		
 		System.err.println("Finished uninstall.");
 		System.exit(0);
@@ -174,11 +205,12 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		
 		try {
 		
-			String install_directory = prefs.misc.get("install_directory");
+			String install_directory = prefs.performSubstitutions( 
+					prefs.misc.get("install_directory") );
 		
-			FreeGuidePreferencesGroup prefs = new FreeGuidePreferencesGroup();
+			//FreeGuidePreferencesGroup prefs = new FreeGuidePreferencesGroup();
 		
-			if(!install_directory.endsWith(fs)) {
+			/*if(!install_directory.endsWith(fs)) {
 				install_directory += fs;
 			}
 			String working_directory = install_directory + props.getProperty("working_dir") + fs;
@@ -190,12 +222,14 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 				xmltv_directory = install_directory + props.getProperty("xmltv_dir") + fs;
 			} else {
 				xmltv_directory = props.getProperty("xmltv_dir") + fs;
-			}
+			}*/
 		
 			// Make the required directories
-			new File(install_directory).mkdirs();
-			new File(xmltv_directory).mkdirs();
-			new File(working_directory).mkdirs();
+			new File( install_directory ).mkdirs();
+			new File( prefs.performSubstitutions( 
+				prefs.misc.get("xmltv_directory") ) ).mkdirs();
+			new File( prefs.performSubstitutions( 
+				prefs.misc.get("working_directory") ) ).mkdirs();
 		
 			// Copy in the files
 			int i=1;
@@ -209,12 +243,13 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 			i=1;
 			filename="";
 			while( (filename=props.getProperty("share."+i)) != null ) {
+				// FIXME this is a hack!
 				installFile(filename, "C:\\Perl\\");
 				i++;
 			}
 		
 			// Set up registry
-			prefs.misc.put("os", props.getProperty("os"));
+			/*refs.misc.put("os", props.getProperty("os"));
 			prefs.misc.put("country", props.getProperty("country"));
 			prefs.misc.put("browser_name", props.getProperty("browser_name"));
 			prefs.misc.put("working_directory", working_directory);
@@ -252,6 +287,7 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 			prefs.commandline.putStrings("tv_grab", grabber);
 			prefs.commandline.putStrings("browser_command", browser);
 			prefs.misc.putFreeGuideTime("day_start_time", new FreeGuideTime(6,0));
+			*/
 		
 			System.err.println("Finished install.");
 			System.exit(0);
@@ -273,14 +309,14 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		byte[] buf = new byte[32768];
 		
 		// make the directory if it doesn't exist
-		String s = destDir + name;
+		String s = destDir + fs + name;
 		int i = s.lastIndexOf('/');
 		if(i>-1) { 
 			new File(s.substring(0, i)).mkdirs();
 		}
 		
 		BufferedInputStream in = new BufferedInputStream(getClass().getResourceAsStream("/" + name));
-		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(destDir + name));
+		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(destDir + fs + name));
 
 		int count;
 		while((count = in.read(buf, 0, buf.length)) > -1) {
@@ -289,6 +325,42 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 			
 		in.close();
 		out.close();
+		
+	}
+	
+	private void doPref(String prefString, boolean keepOldPrefs) {
+		
+		// Split this string into its constituent parts
+		
+		int i = prefString.indexOf('=');
+		String key = prefString.substring(0, i);
+		String value = prefString.substring(i+1);
+		
+		i = key.indexOf('.');
+		String keyCategory = key.substring(0, i);
+		key = key.substring(i+1);
+				
+		// Find out what preferences category we're dealing with
+		FreeGuidePreferences pr;
+		if(keyCategory.equals("misc")) {
+			pr = prefs.misc;
+		} else if(keyCategory.equals("commandline")) {
+			pr = prefs.commandline;
+		} else {
+			// Following is to make it compile ok.
+			pr = prefs.misc;
+			System.err.println("Unknown preferences group: " + keyCategory
+				+ " - Aborting");
+			System.exit(1);
+		}
+		
+		// Set the default value always
+		pr.put("default-" + key, value);
+		
+		// Only set the real value if we're not keeping old prefs
+		if(!keepOldPrefs) {
+			pr.put(key, value);
+		}
 		
 	}
 	
