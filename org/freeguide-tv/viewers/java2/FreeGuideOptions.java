@@ -55,20 +55,37 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		butRefresh = new javax.swing.JButton();
 		labNote = new javax.swing.JLabel();
 		panView = new javax.swing.JPanel();
-		labNone = new javax.swing.JLabel();
+		labChannelHeight = new javax.swing.JLabel();
+		txtChannelHeight = new javax.swing.JTextField();
+		labVerGap = new javax.swing.JLabel();
+		txtVerGap = new javax.swing.JTextField();
+		labHorGap = new javax.swing.JLabel();
+		txtHorGap = new javax.swing.JTextField();
+		labPanelWidth = new javax.swing.JLabel();
+		txtPanelWidth = new javax.swing.JTextField();
+		labPixels = new javax.swing.JLabel();
 		panAdvanced = new javax.swing.JPanel();
 		labDLCmdLine = new javax.swing.JLabel();
 		jScrollPane1 = new javax.swing.JScrollPane();
 		txaDLCmdLine = new javax.swing.JTextArea();
-		labChCmdLine = new javax.swing.JLabel();
 		jScrollPane2 = new javax.swing.JScrollPane();
 		txaChCmdLine = new javax.swing.JTextArea();
+		labProgHTML = new javax.swing.JLabel();
+		jScrollPane4 = new javax.swing.JScrollPane();
+		texProgHTML = new javax.swing.JTextArea();
 		labChFile = new javax.swing.JLabel();
 		txtChFile = new javax.swing.JTextField();
 		labFGHomeDir = new javax.swing.JLabel();
 		txtFGHomeDir = new javax.swing.JTextField();
 		labLogFile = new javax.swing.JLabel();
 		txtLogFile = new javax.swing.JTextField();
+		labBrowserCmdLine = new javax.swing.JLabel();
+		txtBrowserCmdLine = new javax.swing.JTextField();
+		labCSSFile = new javax.swing.JLabel();
+		txtCSSFile = new javax.swing.JTextField();
+		labMaxFilenameLength = new javax.swing.JLabel();
+		txtMaxFilenameLength = new javax.swing.JTextField();
+		labChCmdLine = new javax.swing.JLabel();
 		panBottom = new javax.swing.JPanel();
 		butOK = new javax.swing.JButton();
 		butCancel = new javax.swing.JButton();
@@ -188,27 +205,130 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		
 		tabPane.addTab("Download", panDownload);
 		
-		panView.setLayout(new java.awt.BorderLayout());
+		panView.setLayout(new java.awt.GridBagLayout());
+		java.awt.GridBagConstraints gridBagConstraints9;
 		
-		labNone.setText("[No Settings]");
-		labNone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		panView.add(labNone, java.awt.BorderLayout.CENTER);
+		labChannelHeight.setText("Channel height:");
+		gridBagConstraints9 = new java.awt.GridBagConstraints();
+		gridBagConstraints9.gridx = 0;
+		gridBagConstraints9.gridy = 1;
+		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints9.anchor = java.awt.GridBagConstraints.EAST;
+		panView.add(labChannelHeight, gridBagConstraints9);
+		
+		txtChannelHeight.setPreferredSize(new java.awt.Dimension(10000, 20));
+		txtChannelHeight.setMaximumSize(new java.awt.Dimension(10000, 20));
+		txtChannelHeight.setMinimumSize(new java.awt.Dimension(200, 20));
+		txtChannelHeight.addFocusListener(new java.awt.event.FocusAdapter() {
+			public void focusLost(java.awt.event.FocusEvent evt) {
+				txtChannelHeightFocusLost(evt);
+			}
+		});
+		
+		gridBagConstraints9 = new java.awt.GridBagConstraints();
+		gridBagConstraints9.gridx = 1;
+		gridBagConstraints9.gridy = 1;
+		gridBagConstraints9.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints9.weightx = 0.9;
+		panView.add(txtChannelHeight, gridBagConstraints9);
+		
+		labVerGap.setText("Ver. gap between channels:");
+		gridBagConstraints9 = new java.awt.GridBagConstraints();
+		gridBagConstraints9.gridx = 0;
+		gridBagConstraints9.gridy = 2;
+		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints9.anchor = java.awt.GridBagConstraints.EAST;
+		panView.add(labVerGap, gridBagConstraints9);
+		
+		txtVerGap.setPreferredSize(new java.awt.Dimension(10000, 20));
+		txtVerGap.setMaximumSize(new java.awt.Dimension(10000, 20));
+		txtVerGap.setMinimumSize(new java.awt.Dimension(200, 20));
+		txtVerGap.addFocusListener(new java.awt.event.FocusAdapter() {
+			public void focusLost(java.awt.event.FocusEvent evt) {
+				txtVerGapFocusLost(evt);
+			}
+		});
+		
+		gridBagConstraints9 = new java.awt.GridBagConstraints();
+		gridBagConstraints9.gridx = 1;
+		gridBagConstraints9.gridy = 2;
+		gridBagConstraints9.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints9.weightx = 0.9;
+		panView.add(txtVerGap, gridBagConstraints9);
+		
+		labHorGap.setText("Hor. gap betweeen programmes:");
+		gridBagConstraints9 = new java.awt.GridBagConstraints();
+		gridBagConstraints9.gridx = 0;
+		gridBagConstraints9.gridy = 3;
+		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints9.anchor = java.awt.GridBagConstraints.EAST;
+		panView.add(labHorGap, gridBagConstraints9);
+		
+		txtHorGap.setPreferredSize(new java.awt.Dimension(10000, 20));
+		txtHorGap.setMaximumSize(new java.awt.Dimension(10000, 20));
+		txtHorGap.setMinimumSize(new java.awt.Dimension(200, 20));
+		txtHorGap.addFocusListener(new java.awt.event.FocusAdapter() {
+			public void focusLost(java.awt.event.FocusEvent evt) {
+				txtHorGapFocusLost(evt);
+			}
+		});
+		
+		gridBagConstraints9 = new java.awt.GridBagConstraints();
+		gridBagConstraints9.gridx = 1;
+		gridBagConstraints9.gridy = 3;
+		gridBagConstraints9.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints9.weightx = 0.9;
+		panView.add(txtHorGap, gridBagConstraints9);
+		
+		labPanelWidth.setText("Width of full listings:");
+		gridBagConstraints9 = new java.awt.GridBagConstraints();
+		gridBagConstraints9.gridx = 0;
+		gridBagConstraints9.gridy = 4;
+		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints9.anchor = java.awt.GridBagConstraints.EAST;
+		panView.add(labPanelWidth, gridBagConstraints9);
+		
+		txtPanelWidth.setPreferredSize(new java.awt.Dimension(10000, 20));
+		txtPanelWidth.setMaximumSize(new java.awt.Dimension(10000, 20));
+		txtPanelWidth.setMinimumSize(new java.awt.Dimension(200, 20));
+		txtPanelWidth.addFocusListener(new java.awt.event.FocusAdapter() {
+			public void focusLost(java.awt.event.FocusEvent evt) {
+				txtPanelWidthFocusLost(evt);
+			}
+		});
+		
+		gridBagConstraints9 = new java.awt.GridBagConstraints();
+		gridBagConstraints9.gridx = 1;
+		gridBagConstraints9.gridy = 4;
+		gridBagConstraints9.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints9.weightx = 0.9;
+		panView.add(txtPanelWidth, gridBagConstraints9);
+		
+		labPixels.setText("(pixels)");
+		gridBagConstraints9 = new java.awt.GridBagConstraints();
+		gridBagConstraints9.gridx = 1;
+		gridBagConstraints9.gridy = 0;
+		panView.add(labPixels, gridBagConstraints9);
 		
 		tabPane.addTab("View", panView);
 		
 		panAdvanced.setLayout(new java.awt.GridBagLayout());
-		java.awt.GridBagConstraints gridBagConstraints3;
+		java.awt.GridBagConstraints gridBagConstraints8;
 		
 		panAdvanced.setPreferredSize(new java.awt.Dimension(100, 20));
 		panAdvanced.setMinimumSize(new java.awt.Dimension(100, 20));
 		panAdvanced.setMaximumSize(new java.awt.Dimension(100, 20));
 		labDLCmdLine.setText("Downloading command line:");
-		gridBagConstraints3 = new java.awt.GridBagConstraints();
-		gridBagConstraints3.gridx = 0;
-		gridBagConstraints3.gridy = 0;
-		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints3.anchor = java.awt.GridBagConstraints.NORTHEAST;
-		panAdvanced.add(labDLCmdLine, gridBagConstraints3);
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 0;
+		gridBagConstraints8.gridy = 0;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.anchor = java.awt.GridBagConstraints.NORTHEAST;
+		panAdvanced.add(labDLCmdLine, gridBagConstraints8);
 		
 		txaDLCmdLine.setRows(3);
 		txaDLCmdLine.setPreferredSize(new java.awt.Dimension(5000, 39));
@@ -222,20 +342,12 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		
 		jScrollPane1.setViewportView(txaDLCmdLine);
 		
-		gridBagConstraints3 = new java.awt.GridBagConstraints();
-		gridBagConstraints3.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints3.weightx = 0.9;
-		gridBagConstraints3.weighty = 0.1;
-		panAdvanced.add(jScrollPane1, gridBagConstraints3);
-		
-		labChCmdLine.setText("Channels command line:");
-		gridBagConstraints3 = new java.awt.GridBagConstraints();
-		gridBagConstraints3.gridx = 0;
-		gridBagConstraints3.gridy = 1;
-		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints3.anchor = java.awt.GridBagConstraints.NORTHEAST;
-		panAdvanced.add(labChCmdLine, gridBagConstraints3);
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.fill = java.awt.GridBagConstraints.BOTH;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.weightx = 0.9;
+		gridBagConstraints8.weighty = 0.1;
+		panAdvanced.add(jScrollPane1, gridBagConstraints8);
 		
 		txaChCmdLine.setRows(3);
 		txaChCmdLine.setPreferredSize(new java.awt.Dimension(5000, 39));
@@ -249,22 +361,46 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		
 		jScrollPane2.setViewportView(txaChCmdLine);
 		
-		gridBagConstraints3 = new java.awt.GridBagConstraints();
-		gridBagConstraints3.gridx = 1;
-		gridBagConstraints3.gridy = 1;
-		gridBagConstraints3.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints3.weightx = 0.9;
-		gridBagConstraints3.weighty = 0.1;
-		panAdvanced.add(jScrollPane2, gridBagConstraints3);
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 1;
+		gridBagConstraints8.gridy = 1;
+		gridBagConstraints8.fill = java.awt.GridBagConstraints.BOTH;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.weightx = 0.9;
+		gridBagConstraints8.weighty = 0.1;
+		panAdvanced.add(jScrollPane2, gridBagConstraints8);
+		
+		labProgHTML.setText("Programme HTML:");
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 0;
+		gridBagConstraints8.gridy = 2;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.anchor = java.awt.GridBagConstraints.NORTHEAST;
+		panAdvanced.add(labProgHTML, gridBagConstraints8);
+		
+		texProgHTML.setRows(3);
+		texProgHTML.setPreferredSize(new java.awt.Dimension(5000, 39));
+		texProgHTML.setMaximumSize(new java.awt.Dimension(5000, 200));
+		texProgHTML.setMinimumSize(new java.awt.Dimension(5000, 200));
+		texProgHTML.setEnabled(false);
+		jScrollPane4.setViewportView(texProgHTML);
+		
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 1;
+		gridBagConstraints8.gridy = 2;
+		gridBagConstraints8.fill = java.awt.GridBagConstraints.BOTH;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.weightx = 0.9;
+		gridBagConstraints8.weighty = 0.1;
+		panAdvanced.add(jScrollPane4, gridBagConstraints8);
 		
 		labChFile.setText("Channels file name:");
-		gridBagConstraints3 = new java.awt.GridBagConstraints();
-		gridBagConstraints3.gridx = 0;
-		gridBagConstraints3.gridy = 2;
-		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints3.anchor = java.awt.GridBagConstraints.EAST;
-		panAdvanced.add(labChFile, gridBagConstraints3);
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 0;
+		gridBagConstraints8.gridy = 3;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.anchor = java.awt.GridBagConstraints.EAST;
+		panAdvanced.add(labChFile, gridBagConstraints8);
 		
 		txtChFile.setPreferredSize(new java.awt.Dimension(10000, 20));
 		txtChFile.setMaximumSize(new java.awt.Dimension(10000, 20));
@@ -275,21 +411,21 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			}
 		});
 		
-		gridBagConstraints3 = new java.awt.GridBagConstraints();
-		gridBagConstraints3.gridx = 1;
-		gridBagConstraints3.gridy = 2;
-		gridBagConstraints3.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints3.weightx = 0.9;
-		panAdvanced.add(txtChFile, gridBagConstraints3);
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 1;
+		gridBagConstraints8.gridy = 3;
+		gridBagConstraints8.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.weightx = 0.9;
+		panAdvanced.add(txtChFile, gridBagConstraints8);
 		
 		labFGHomeDir.setText("FreeGuide home directory:");
-		gridBagConstraints3 = new java.awt.GridBagConstraints();
-		gridBagConstraints3.gridx = 0;
-		gridBagConstraints3.gridy = 3;
-		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints3.anchor = java.awt.GridBagConstraints.EAST;
-		panAdvanced.add(labFGHomeDir, gridBagConstraints3);
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 0;
+		gridBagConstraints8.gridy = 4;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.anchor = java.awt.GridBagConstraints.EAST;
+		panAdvanced.add(labFGHomeDir, gridBagConstraints8);
 		
 		txtFGHomeDir.setPreferredSize(new java.awt.Dimension(10000, 20));
 		txtFGHomeDir.setMaximumSize(new java.awt.Dimension(10000, 20));
@@ -300,21 +436,21 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			}
 		});
 		
-		gridBagConstraints3 = new java.awt.GridBagConstraints();
-		gridBagConstraints3.gridx = 1;
-		gridBagConstraints3.gridy = 3;
-		gridBagConstraints3.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints3.weightx = 0.9;
-		panAdvanced.add(txtFGHomeDir, gridBagConstraints3);
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 1;
+		gridBagConstraints8.gridy = 4;
+		gridBagConstraints8.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.weightx = 0.9;
+		panAdvanced.add(txtFGHomeDir, gridBagConstraints8);
 		
 		labLogFile.setText("Log file:");
-		gridBagConstraints3 = new java.awt.GridBagConstraints();
-		gridBagConstraints3.gridx = 0;
-		gridBagConstraints3.gridy = 4;
-		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints3.anchor = java.awt.GridBagConstraints.EAST;
-		panAdvanced.add(labLogFile, gridBagConstraints3);
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 0;
+		gridBagConstraints8.gridy = 5;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.anchor = java.awt.GridBagConstraints.EAST;
+		panAdvanced.add(labLogFile, gridBagConstraints8);
 		
 		txtLogFile.setPreferredSize(new java.awt.Dimension(10000, 20));
 		txtLogFile.setMaximumSize(new java.awt.Dimension(10000, 20));
@@ -325,13 +461,96 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			}
 		});
 		
-		gridBagConstraints3 = new java.awt.GridBagConstraints();
-		gridBagConstraints3.gridx = 1;
-		gridBagConstraints3.gridy = 4;
-		gridBagConstraints3.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints3.weightx = 0.9;
-		panAdvanced.add(txtLogFile, gridBagConstraints3);
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 1;
+		gridBagConstraints8.gridy = 5;
+		gridBagConstraints8.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.weightx = 0.9;
+		panAdvanced.add(txtLogFile, gridBagConstraints8);
+		
+		labBrowserCmdLine.setText("Browser command:");
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 0;
+		gridBagConstraints8.gridy = 6;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.anchor = java.awt.GridBagConstraints.EAST;
+		panAdvanced.add(labBrowserCmdLine, gridBagConstraints8);
+		
+		txtBrowserCmdLine.setPreferredSize(new java.awt.Dimension(10000, 20));
+		txtBrowserCmdLine.setMaximumSize(new java.awt.Dimension(10000, 20));
+		txtBrowserCmdLine.setMinimumSize(new java.awt.Dimension(200, 20));
+		txtBrowserCmdLine.addFocusListener(new java.awt.event.FocusAdapter() {
+			public void focusLost(java.awt.event.FocusEvent evt) {
+				txtBrowserCmdLineFocusLost(evt);
+			}
+		});
+		
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 1;
+		gridBagConstraints8.gridy = 6;
+		gridBagConstraints8.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.weightx = 0.9;
+		panAdvanced.add(txtBrowserCmdLine, gridBagConstraints8);
+		
+		labCSSFile.setText("CSS File:");
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 0;
+		gridBagConstraints8.gridy = 7;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.anchor = java.awt.GridBagConstraints.EAST;
+		panAdvanced.add(labCSSFile, gridBagConstraints8);
+		
+		txtCSSFile.setPreferredSize(new java.awt.Dimension(10000, 20));
+		txtCSSFile.setMaximumSize(new java.awt.Dimension(10000, 20));
+		txtCSSFile.setMinimumSize(new java.awt.Dimension(200, 20));
+		txtCSSFile.addFocusListener(new java.awt.event.FocusAdapter() {
+			public void focusLost(java.awt.event.FocusEvent evt) {
+				txtCSSFileFocusLost(evt);
+			}
+		});
+		
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 1;
+		gridBagConstraints8.gridy = 7;
+		gridBagConstraints8.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.weightx = 0.9;
+		panAdvanced.add(txtCSSFile, gridBagConstraints8);
+		
+		labMaxFilenameLength.setText("Max. filename length:");
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 0;
+		gridBagConstraints8.gridy = 8;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.anchor = java.awt.GridBagConstraints.EAST;
+		panAdvanced.add(labMaxFilenameLength, gridBagConstraints8);
+		
+		txtMaxFilenameLength.setPreferredSize(new java.awt.Dimension(10000, 20));
+		txtMaxFilenameLength.setMaximumSize(new java.awt.Dimension(10000, 20));
+		txtMaxFilenameLength.setMinimumSize(new java.awt.Dimension(200, 20));
+		txtMaxFilenameLength.addFocusListener(new java.awt.event.FocusAdapter() {
+			public void focusLost(java.awt.event.FocusEvent evt) {
+				txtMaxFilenameLengthFocusLost(evt);
+			}
+		});
+		
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 1;
+		gridBagConstraints8.gridy = 8;
+		gridBagConstraints8.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.weightx = 0.9;
+		panAdvanced.add(txtMaxFilenameLength, gridBagConstraints8);
+		
+		labChCmdLine.setText("Channels command line:");
+		gridBagConstraints8 = new java.awt.GridBagConstraints();
+		gridBagConstraints8.gridx = 0;
+		gridBagConstraints8.gridy = 1;
+		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints8.anchor = java.awt.GridBagConstraints.NORTHEAST;
+		panAdvanced.add(labChCmdLine, gridBagConstraints8);
 		
 		tabPane.addTab("Advanced", panAdvanced);
 		
@@ -370,6 +589,48 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		setSize(new java.awt.Dimension(450, 400));
 		setLocation((screenSize.width-450)/2,(screenSize.height-400)/2);
 	}//GEN-END:initComponents
+
+	private void txtPanelWidthFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPanelWidthFocusLost
+		
+		FreeGuide.config.setValue("panelWidth", String.valueOf(Integer.parseInt(txtPanelWidth.getText())));
+		
+	}//GEN-LAST:event_txtPanelWidthFocusLost
+
+	private void txtHorGapFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHorGapFocusLost
+		
+		FreeGuide.config.setValue("horizontalGap", String.valueOf(Integer.parseInt(txtHorGap.getText())));
+		
+	}//GEN-LAST:event_txtHorGapFocusLost
+
+	private void txtVerGapFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVerGapFocusLost
+		
+		FreeGuide.config.setValue("verticalGap", String.valueOf(Integer.parseInt(txtVerGap.getText())));
+		
+	}//GEN-LAST:event_txtVerGapFocusLost
+
+	private void txtChannelHeightFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtChannelHeightFocusLost
+		
+		FreeGuide.config.setValue("channelHeight", String.valueOf(Integer.parseInt(txtChannelHeight.getText())));
+		
+	}//GEN-LAST:event_txtChannelHeightFocusLost
+
+	private void txtMaxFilenameLengthFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaxFilenameLengthFocusLost
+		
+		FreeGuide.config.setValue("maxFilenameLength", String.valueOf(Integer.parseInt(txtMaxFilenameLength.getText())));
+		
+	}//GEN-LAST:event_txtMaxFilenameLengthFocusLost
+
+	private void txtCSSFileFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCSSFileFocusLost
+
+		FreeGuide.config.setValue("cssFile", txtCSSFile.getText());
+		
+	}//GEN-LAST:event_txtCSSFileFocusLost
+
+	private void txtBrowserCmdLineFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBrowserCmdLineFocusLost
+		
+		FreeGuide.config.setValue("browserCommandLine", txtBrowserCmdLine.getText());
+		
+	}//GEN-LAST:event_txtBrowserCmdLineFocusLost
 
 	private void radDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radDayActionPerformed
 		
@@ -501,10 +762,13 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			
 		}
 		
-		// Do the channels file, FreeGuide home directory and log boxes
+		// Do the channels file, FreeGuide home directory and log boxes, etc
 		txtChFile.setText(FreeGuide.config.getValue("channelsFile"));
 		txtFGHomeDir.setText(FreeGuide.config.getValue("freeguideDir"));
 		txtLogFile.setText(FreeGuide.config.getValue("logFile"));
+		txtBrowserCmdLine.setText(FreeGuide.config.getValue("browserCommandLine"));
+		txtCSSFile.setText(FreeGuide.config.getValue("cssFile"));
+		txtMaxFilenameLength.setText(FreeGuide.config.getValue("maxFilenameLength"));
 		
 	}//showAdvanced
 	
@@ -513,7 +777,10 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 	 */
 	private void showView() {
 		
-		// Do nothing
+		txtChannelHeight.setText(FreeGuide.config.getValue("channelHeight"));
+		txtVerGap.setText(FreeGuide.config.getValue("verticalGap"));
+		txtHorGap.setText(FreeGuide.config.getValue("horizontalGap"));
+		txtPanelWidth.setText(FreeGuide.config.getValue("panelWidth"));
 		
 	}//showView
 	
@@ -617,29 +884,6 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		
 	}
 	
-	/**
-	 * Alters the config file because one of the download amount
-	 * check boxes has been changed
-	 */
-	/*
-	 * not needed - done in event procedures
-	 *
-	private void dlAmountChanged() {
-		
-		String newAmt;
-		
-		if(grpDLAmount.getSelection()==radDay) {
-			newAmt="Day";
-		} else if(grpDLAmount.getSelection()==radWeek) {
-			newAmt="Week";
-		} else {
-			newAmt="All";
-		}//if
-		
-		FreeGuide.config.setValue("downloadAmount", newAmt);
-		
-	}*/
-	
 	/** 
 	 * Puts each line of a JTestArea into a vector.
 	 *
@@ -741,20 +985,37 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 	private javax.swing.JButton butRefresh;
 	private javax.swing.JLabel labNote;
 	private javax.swing.JPanel panView;
-	private javax.swing.JLabel labNone;
+	private javax.swing.JLabel labChannelHeight;
+	private javax.swing.JTextField txtChannelHeight;
+	private javax.swing.JLabel labVerGap;
+	private javax.swing.JTextField txtVerGap;
+	private javax.swing.JLabel labHorGap;
+	private javax.swing.JTextField txtHorGap;
+	private javax.swing.JLabel labPanelWidth;
+	private javax.swing.JTextField txtPanelWidth;
+	private javax.swing.JLabel labPixels;
 	private javax.swing.JPanel panAdvanced;
 	private javax.swing.JLabel labDLCmdLine;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JTextArea txaDLCmdLine;
-	private javax.swing.JLabel labChCmdLine;
 	private javax.swing.JScrollPane jScrollPane2;
 	private javax.swing.JTextArea txaChCmdLine;
+	private javax.swing.JLabel labProgHTML;
+	private javax.swing.JScrollPane jScrollPane4;
+	private javax.swing.JTextArea texProgHTML;
 	private javax.swing.JLabel labChFile;
 	private javax.swing.JTextField txtChFile;
 	private javax.swing.JLabel labFGHomeDir;
 	private javax.swing.JTextField txtFGHomeDir;
 	private javax.swing.JLabel labLogFile;
 	private javax.swing.JTextField txtLogFile;
+	private javax.swing.JLabel labBrowserCmdLine;
+	private javax.swing.JTextField txtBrowserCmdLine;
+	private javax.swing.JLabel labCSSFile;
+	private javax.swing.JTextField txtCSSFile;
+	private javax.swing.JLabel labMaxFilenameLength;
+	private javax.swing.JTextField txtMaxFilenameLength;
+	private javax.swing.JLabel labChCmdLine;
 	private javax.swing.JPanel panBottom;
 	private javax.swing.JButton butOK;
 	private javax.swing.JButton butCancel;

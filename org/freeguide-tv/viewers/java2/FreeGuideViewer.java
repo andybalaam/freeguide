@@ -85,6 +85,12 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		
 		fileMenu.setText("File");
 		menPrint.setText("Print Listing");
+		menPrint.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				menPrintActionPerformed(evt);
+			}
+		});
+		
 		fileMenu.add(menPrint);
 		fileMenu.add(jSeparator5);
 		menQuit.setText("Quit");
@@ -302,6 +308,12 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		setLocation((screenSize.width-600)/2,(screenSize.height-400)/2);
 	}//GEN-END:initComponents
 
+	private void menPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menPrintActionPerformed
+		
+		writeOutAsHTML();
+		
+	}//GEN-LAST:event_menPrintActionPerformed
+
 	private void butGoToNowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butGoToNowActionPerformed
 		
 		goToNow();
@@ -354,7 +366,7 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 
 	private void butPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butPrintActionPerformed
 		
-		
+		writeOutAsHTML();
 		
 	}//GEN-LAST:event_butPrintActionPerformed
 
@@ -494,21 +506,6 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	 * in the channelNames array
 	 */
     private void getChannelNames() {
-
-		/*
-        // Alter to exact names of required channels with underscore
-        // instead of space
-        
-        // Will be replaced with reading a config file.
-		channelNames = new String[7];
-        channelNames[0]="BBC1";
-		channelNames[1]="BBC2";
-        channelNames[2]="Channel_4";
-		channelNames[3]="Sky_One";
-		channelNames[4]="FilmFour";
-		channelNames[5]="ITV2";
-        channelNames[6]="BBC_Choice";
-		 */
 		
 		Vector tmpChannels = FreeGuide.config.getListValue("channels");
 		
@@ -534,8 +531,6 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 			channels[curChan] = new FreeGuideChannelDay(channelNames[curChan]);
         
 			freeGuideHomeDir = FreeGuide.config.getValue("freeguideDir");
-	
-			int hMFNL = (int)(MAX_FILENAME_LENGTH/2);
 	
 			SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
 			String datestr = fmt.format(theDate);
@@ -665,17 +660,15 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	/**
 	 * Does the main work of displaying the stored programems on screen.
 	 */
-
 	private void drawChannels() {
 
 		String lineBreak = System.getProperty("line.separator");
 		
-		//NOTE: MUST CHANGE
-		// Read from options file
-		int channelHeight = 60;
-		int halfVerGap = 1;
-		int halfHorGap=1;
-		int panelWidth = 7500;
+		// Read in viewing options
+		int channelHeight = Integer.parseInt(FreeGuide.config.getValue("channelHeight"));
+		int halfVerGap = Integer.parseInt(FreeGuide.config.getValue("verticalGap"));
+		int halfHorGap= Integer.parseInt(FreeGuide.config.getValue("horizontalGap"));
+		int panelWidth= Integer.parseInt(FreeGuide.config.getValue("panelWidth"));
 	
 		SimpleDateFormat fmt = new SimpleDateFormat("HH:mm");
 	
@@ -867,23 +860,7 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		printedGuideArea.setText("Your TV Guide for "+fmt.format(theDate)+":"+lineBreak);
 	
 		// Get all ticked programmes into a vector
-		// ---------------------------------------
-	
-		Vector listedProgs = new Vector();
-	
-		for(int i=0;i<chks.size();i++) {
-	    
-			if(((JCheckBox)chks.get(i)).isSelected()) {
-		
-			listedProgs.add((FreeGuideProgramme)progRefs.get(i));
-		
-			}
-	    
-		}
-	
-		// Sort by start time
-		// ------------------
-		Collections.sort(listedProgs, new FreeGuideProgrammeStartTimeComparator());
+		Vector listedProgs = getTickedProgrammes();
 	
 		// Add them to the printer list
 		// ----------------------------
@@ -901,13 +878,79 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	
     }
     
+	/*
+	 * Saves out the listings as an HTML file to be printed.
+	 */
+	private void writeOutAsHTML() {
+		
+		// Prepare a file dialog for the user to say where the HTML file goes
+		/*JFileChooser chooser = new JFileChooser();
+		chooser.setDialogTitle("Save listing as HTML file");
+		chooser.setSelectedFile(new File("guide.html"));
+	
+		// Open the dialog
+		int opt = chooser.showSaveDialog(this);
+		
+		// Find what file they chose
+		File f = chooser.getSelectedFile();*/
+		
+		// Make a file in the default location
+		File f = new File(FreeGuide.config.getValue("freeguideDir")+"guide.html");
+		
+		try {//IOException
+			
+			BufferedWriter buffy = new BufferedWriter(new FileWriter(f));
+			
+			// Set up some constants
+			SimpleDateFormat fmt = new SimpleDateFormat("EEEE dd MMMM yyyy");
+
+			buffy.write("<html>");	buffy.newLine();
+			buffy.write("<head>");	buffy.newLine();
+			buffy.write("  <title>TV Guide for "+fmt.format(theDate)+"</title>");	buffy.newLine();
+			buffy.write("  <link rel='StyleSheet' href='"+FreeGuide.config.getValue("cssFile")+"' type='text/css'");	buffy.newLine();
+			buffy.write("</head>");	buffy.newLine();
+			buffy.write("<body>");	buffy.newLine();
+			buffy.write("  <h1>TV Guide for "+fmt.format(theDate)+"</h1>");	buffy.newLine();
+
+			// Get the programmes
+			Vector listedProgs = getTickedProgrammes();
+
+			// Add them to the HTML list
+			// ----------------------------
+
+			for(int i=0;i<listedProgs.size();i++) {
+
+				FreeGuideProgramme prog = (FreeGuideProgramme)listedProgs.get(i);
+
+				fmt = new SimpleDateFormat("HH:mm");
+    
+				buffy.write("  <p><b>"+fmt.format(prog.getStart())+" - "+prog.getTitle()+"</b><br />"+prog.getChannel()+", ends "+fmt.format(prog.getSomeEnd())+"<br />"+prog.getDesc()+"</p>");
+    
+			}//for
+
+			buffy.write("<hr />");	buffy.newLine();
+			buffy.write("<address>FreeGuide Copyright &copy;2001 by Andy Balaam<br />http://www.sourceforge.net/projects/freeguide-tv/<br />freeguide@artificialworlds.net</address>");	buffy.newLine();
+			
+			buffy.write("</body>");	buffy.newLine();
+			buffy.write("</html>");	buffy.newLine();
+		
+			buffy.close();
+		
+			FreeGuide.execExternal(FreeGuide.config.getValue("browserCommandLine")+" "+f.getAbsolutePath());
+		
+		} catch(IOException e) {
+			e.printStackTrace();
+		}//try
+		
+	}//writeOutAsHTML
+	
     public void startDocument() {  
 		saxLoc = new String();
-	}
+	}//startDocument
     
     public void endDocument() {
 		saxLoc=null;
-    }
+    }//endDocument
     
     public void startElement(String name, org.xml.sax.Attributes attrs) {
 		saxLoc+=":"+name;
@@ -925,10 +968,11 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 
 			channels[curChan].addProgramme(start);
 
-			}
+			}//if
 	    
-		}
-    }
+		}//if
+		
+    }//startElement
     
     public void endElement(String name) {
 	
@@ -938,9 +982,9 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	    
 		} else {
 			parseError();
-		}
+		}//if
 	
-    }
+    }//endElement
     
     public void characters(String data) {
 	
@@ -956,14 +1000,42 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	    
 			channels[curChan].getLatestProg().setCategory(data);
 	    
-		}
+		}//if
 	
-    }
+    }//characters
     
+	//------------------------------------------------------------------------
+	
+	private Vector getTickedProgrammes() {
+	
+		Vector ans = new Vector();
+		
+		// Get all ticked programmes into a vector
+		// ---------------------------------------
+	
+		for(int i=0;i<chks.size();i++) {
+	    
+			if(((JCheckBox)chks.get(i)).isSelected()) {
+		
+				ans.add((FreeGuideProgramme)progRefs.get(i));
+		
+			}//if
+	    
+		}//for
+	
+		// Sort by start time
+		// ------------------
+		Collections.sort(ans, new FreeGuideProgrammeStartTimeComparator());
+		
+		// Return the answer
+		return ans;
+		
+	}//getTickedProgrammes
+	
     private void parseError() {
 		FreeGuide.log.writeLine("FreeGuide - Error parsing XML.");
 		System.exit(1);
-    }
+    }//parseError
 
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1001,8 +1073,6 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	private javax.swing.JLabel labStatus;
 	private javax.swing.JProgressBar progressBar;
 	// End of variables declaration//GEN-END:variables
-
-    private static final int MAX_FILENAME_LENGTH=16;
     
     private String[] channelNames;
 	// The names of the channels the user has chosen

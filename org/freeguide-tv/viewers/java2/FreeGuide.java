@@ -105,15 +105,17 @@ public class FreeGuide {
 
 	/**
 	 * Shortens a filename if necessary to make it shorter than
-	 * MAX_FILENAME_LENGTH
+	 * maxFilenameLength
 	 *
 	 * @param name the string to be shortened
 	 */
 	public static String makeRightFilenameLength(String name) {
 		
-		int hMFNL = (int)(MAX_FILENAME_LENGTH/2);
+		int maxFilenameLength = Integer.parseInt(config.getValue("maxFilenameLength"));
 		
-		if(name.length()>MAX_FILENAME_LENGTH) {
+		int hMFNL = (int)(maxFilenameLength/2);
+		
+		if(name.length()>maxFilenameLength) {
 			name = name.substring(0, hMFNL-1) + "-" + name.substring(name.length()-(hMFNL-1), name.length());
 		}
 		
@@ -156,7 +158,5 @@ public class FreeGuide {
 	public static JoveCmdArgs arguments;	// The command line args
 	public static JoveConfigFile config;	// The config file
 	public static JoveLogFile log;			// The log file
-	
-	public static final int MAX_FILENAME_LENGTH = 16;
 	
 }
