@@ -77,8 +77,12 @@ Release 0.5 (most wanted features)
 - Hence rewrite FreeGuideViewer much better
 - Shortcut keys for everything
 - Fix GoToNow to deal with days dividing at non-midnight times.
+- Fix what happens when you go through to another day then click GoToNow
 - New screenshots for web site, and freshmeat.
 - Rename files with version number on build
+- Fix possible NullPointerException in StartupChecker.checkFileFailure
+- Add the fact that your .jar installer has to be executed by javaw on Windows,
+	not WinRAR, etc.
 
 Release 0.4.2 (mainly bug fixes)
 
@@ -93,7 +97,6 @@ Release 0.4.2 (mainly bug fixes)
 + Right-click on a favourite gives option to remove from favs
 + Fix bug where options screen wipes out what you chose for grabber command on entry
 + Fix bug with "&" in programme name (is this tv_grab_na?)
-+ Fix what happens when you go through to another day then click GoToNow
 + Make draggable bars look draggable
 + Make Options screen ask you its first 3 questions, then present you with all
 	other options simultaneously. Each option has a "Guess" button
