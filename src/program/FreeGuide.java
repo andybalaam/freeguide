@@ -126,11 +126,11 @@ public class FreeGuide {
 	/**
 	 *  The minor version of FreeGuide
 	 */
-	public final static int version_minor = 6;
+	public final static int version_minor = 7;
 	/**
 	 *  What revision of the version this is
 	 */
-	public final static int version_revision = 3;
+	public final static int version_revision = 0;
 
 	/**
 	 *  Default colour of a normal programme

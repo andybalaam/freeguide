@@ -1,7 +1,7 @@
 /*
  *  FreeGuide J2
  *
- *  Copyright (c) 2001-2003 by Andy Balaam and the FreeGuide contributors
+ *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
  *
  *  freeguide-tv.sourceforge.net
  *
@@ -21,7 +21,7 @@ import javax.swing.event.*;
  *
  * @author     Andy Balaam
  * @created    12 Dec 2003
- * @version    1
+ * @version    2
  */
 
 public class TimeOptionPanel extends OptionPanel {
@@ -107,10 +107,10 @@ public class TimeOptionPanel extends OptionPanel {
 			new Time( dayStartTextField.getText() ) ) || updated;
 		
 		updated = screen.updateBoolean( "display_24hour_time",
-			( twelveHourComboBox.getSelectedIndex() != 0 ) );
+			( twelveHourComboBox.getSelectedIndex() != 0 ) ) || updated;
 		
 		updated = screen.updateBoolean( "display_programme_time",
-			( showTimesComboBox.getSelectedIndex() == 0 ) );
+			( showTimesComboBox.getSelectedIndex() == 0 ) ) || updated;
 		
 		return updated;
 		

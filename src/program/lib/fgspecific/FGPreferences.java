@@ -33,7 +33,7 @@ import java.util.Vector;
  *
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    4
+ *@version    5
  */
 
 public class FGPreferences {
@@ -969,7 +969,7 @@ public class FGPreferences {
      *      updated, otherwise returns <code>false</code>.
      */
     public boolean updateBoolean(String _key, boolean value) {
-        boolean changed = false;        
+        /*boolean changed = false;
         boolean defaultValue = false;
         
         boolean temp = getBoolean(_key, defaultValue);
@@ -978,7 +978,10 @@ public class FGPreferences {
             putBoolean(_key, value);                
         }
         
-        return changed;
+        return changed;*/
+		
+		return update( _key, value ? "true" : "false" );
+		
     }
 
 	/**
@@ -992,7 +995,7 @@ public class FGPreferences {
      *      updated, otherwise returns <code>false</code>.
      */
     public boolean updateTime(String _key, Time value) {
-        boolean changed = false;        
+        /*boolean changed = false;        
         Time defaultValue = new Time();
         
         Time temp = getTime(_key, defaultValue);
@@ -1001,16 +1004,16 @@ public class FGPreferences {
             putTime(_key, value);                
         }
         
-        return changed;
+        return changed;*/
+		
+		return update( _key, value.getHHMMString() );
+		
     }
 	
-	
-    // BEANO - 22/08/03
-
     /**
-     * Updates a colour preference if the value of the preference has changed from
-     * that already stored. Returns a boolean value to indicate if the value has been 
-     * updated.
+     * Updates a colour preference if the value of the preference has changed
+	 * from that already stored. Returns a boolean value to indicate if the
+	 * value has been updated.
      *
      * @param  _key    The name of the preference to update
      * @param  value  The <code>Color</code> value to set
@@ -1018,24 +1021,29 @@ public class FGPreferences {
      *      updated, otherwise returns <code>false</code>.
      */
     public boolean updateColor(String _key, Color value) {
-        boolean changed = false;        
-        Color defaultValue = new Color(0,0,0);
+		boolean changed = false;        
         
-        Color temp = getColor(_key, defaultValue);
-        if (!temp.equals(value)) {
+        String temp = get(_key);
+        
+        if (temp == null ) {
             changed = true;
-            putColor(_key, value);                
+            putColor(_key, value);               
+
+        }
+		
+		if( !temp.equals(value) ) {
+            changed = true;
+            putColor(_key, value);               
         }
         
         return changed;
+		
     }
-
-    // BEANO - 22/08/03
 
     /**
      * Updates an int preference if the value of the preference has changed from
-     * that already stored. Returns a boolean value to indicate if the value has been 
-     * updated.
+     * that already stored. Returns a boolean value to indicate if the value
+	 * has been updated.
      *
      * @param  _key    The name of the preference to update
      * @param  value  The <code>int</code> value to set
@@ -1043,7 +1051,7 @@ public class FGPreferences {
      *      updated, otherwise returns <code>false</code>.
      */
     public boolean updateInt(String _key, int value) {
-        boolean changed = false;        
+        /*boolean changed = false;        
         int defaultValue = -1;
         
         int temp = getInt(_key, defaultValue);
@@ -1052,11 +1060,10 @@ public class FGPreferences {
             putInt(_key, value);               
         }
         
-        return changed;
+        return changed;*/
+		
+		return update( _key, String.valueOf( value ) );
     }
-
-
-    // BEANO - 22/08/03
 
     /**
      * Updates a string preference if the value of the preference has changed from
