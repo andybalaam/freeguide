@@ -45,27 +45,6 @@ public class CommandsWizardPanel extends WizardPanel {
 
         midPanel.setLayout(new java.awt.GridBagLayout());
 
-        // Make the Guess button if required
-        if (configEntry != null) {
-            JButton butGuess = new JButton();
-            butGuess.setFont(new java.awt.Font("Dialog", 0, 12));
-            butGuess.setText("Default");
-            butGuess.setToolTipText("Ask FreeGuide to guess this value for you.");
-            butGuess.addActionListener(
-                new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        guess();
-                    }
-                });
-
-            gridBagConstraints = new java.awt.GridBagConstraints();
-            gridBagConstraints.gridx = 0;
-            gridBagConstraints.gridy = 0;
-            gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
-            gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-            midPanel.add(butGuess, gridBagConstraints);
-        }
-
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;

@@ -62,8 +62,8 @@ public class StartupChecker {
 		Vector failedWhat = new Vector();
 		PreferencesGroup prefs = FreeGuide.prefs;
 
-		checkFileFailure(prefs.misc, "xmltv_directory", failedWhat);
 		checkTextFailure(prefs.misc, "day_start_time", failedWhat);
+		checkTextFailure(prefs.misc, "grabber_start_time", failedWhat);
 		checkTextFailure(prefs.misc, "days_to_grab", failedWhat);
 		checkFileFailure(prefs.misc, "working_directory", failedWhat);
 
@@ -180,13 +180,14 @@ public class StartupChecker {
 	 *@param  failedWhat  Description of the Parameter
 	 */
 	private static void checkTextFailure(FGPreferences pref,
-	                                     String entry, Vector failedWhat) {
+	    	String entry, Vector failedWhat) {
 
-		if (ConfigGuesser.checkValue("misc", entry,
-		                             FreeGuide.prefs.performSubstitutions(
-		                                 pref.get(entry))) != null) {
+		String error = ConfigGuesser.checkValue( "misc", entry,
+			FreeGuide.prefs.performSubstitutions( pref.get( entry ) ) );
+											 
+		if ( error != null) {
 
-			failedWhat.add("misc." + entry);
+			failedWhat.add( error );
 		}
 	}
 
@@ -198,14 +199,22 @@ public class StartupChecker {
 	 *@param  entry       Description of the Parameter
 	 *@param  failedWhat  Description of the Parameter
 	 */
-	private static void checkFileFailure(FGPreferences pref, String entry, Vector failedWhat) {
+	private static void checkFileFailure(FGPreferences pref, String entry,
+			Vector failedWhat) {
 
-		String pr = FreeGuide.prefs.performSubstitutions(pref.get(entry));
+		String pr = FreeGuide.prefs.performSubstitutions(pref.get(entry)); 
+		
+		if(pr == null) {
+			failedWhat.add("Config entry \"misc." + entry
+				+ "\" does not exist");
+			return;
+		}
+		
+		String error = ConfigGuesser.checkValue( "misc", entry, new File(pr) );
+		
+		if( error != null ) {
 
-		if ((pr == null) ||
-		        (ConfigGuesser.checkValue("misc", entry, new File(pr)) != null)) {
-
-			failedWhat.add("misc." + entry);
+			failedWhat.add( error );
 
 		}
 	}

@@ -299,24 +299,42 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 				FreeGuide.prefs.addChoice( programme, viewerFrame.theDate );
 			}
 			
-			if( FreeGuide.prefs.misc.getBoolean( "reminders_on", false ) ) {
+			if( FreeGuide.prefs.misc.getBoolean( "reminders_on", true ) ) {
 			
 				// Set up a reminder here if it's after now
 				Date startTime = programme.getStart().getTime();
 				long warningSecs = FreeGuide.prefs.misc.getLong(
-					"reminders_warning_secs", 30 );
+					"reminders_warning_secs", 300 );
 				long giveUpSecs = FreeGuide.prefs.misc.getLong(
-					"reminders_give_up_secs", 60 );
+					"reminders_give_up_secs", 600 );
 				
 				if( startTime.after( new Date() ) ) {
 				
+					// Find out when we will remind
+					Date reminderStartTime = new Date( startTime.getTime()
+						- warningSecs*1000 );
+					
+					Date nowDate = new Date();
+					
+					// If it's immediately, make it in 10 secs time
+					if( reminderStartTime.before( nowDate ) ) {
+						
+						reminderStartTime.setTime( nowDate.getTime() + 10000 );
+						
+					}
+					
+					// Set the ending time to be a certain time after the
+					// beginning.
+					Date reminderEndTime = new Date( reminderStartTime.getTime()
+							+ giveUpSecs*1000 );
+				
+					if( reminderTimer != null ) {
+						reminderTimer.cancel();
+					}
 					reminderTimer = new MessageDialogTimer();
 					reminderTimer.schedule(
 						programme.getTitle() + " is starting soon.",
-						new Date( startTime.getTime() - warningSecs*1000 ),
-						new Date( startTime.getTime()
-							- (warningSecs-giveUpSecs)*1000 )
-						);
+						reminderStartTime, reminderEndTime );
 				
 				}
 				

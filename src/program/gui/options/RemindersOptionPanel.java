@@ -82,11 +82,11 @@ public class RemindersOptionPanel extends OptionPanel {
 			remindComboBox.setSelectedIndex(1);
 		}
 
-		warningTextField.setText( String.valueOf( misc.getInt( prefix + "reminders_warning_secs",
-			300 ) ) );
+		warningTextField.setText( String.valueOf( misc.getInt( prefix
+			+ "reminders_warning_secs", 300 ) ) );
 		
-		giveupTextField.setText( String.valueOf(misc.getInt( prefix + "reminders_give_up_secs",
-			600 ) ) );
+		giveupTextField.setText( String.valueOf(misc.getInt( prefix
+			+ "reminders_give_up_secs",	600 ) ) );
 		
 	}
 	

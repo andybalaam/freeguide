@@ -59,7 +59,14 @@ public class WizardPanel extends javax.swing.JPanel {
         this.bottomMessage = bottomMessage;
     }
 
-
+	public void setMessages(String topMessage, String bottomMessage,
+			int topMnemonic) {
+				
+        this.topMessage = topMessage;
+        this.bottomMessage = bottomMessage;
+		this.topMnemonic = topMnemonic;
+    }
+	
     /**
      *  Set a configuration option that is linked to this panel.
      *
@@ -216,23 +223,14 @@ public class WizardPanel extends javax.swing.JPanel {
     // -----------------------------------------
 
     /**
-     *  Returns an error if this value if faulty, or null it's ok
+     *  Returns an error if this value is faulty, or null it's ok
      *
-     *@return    The error mesage if something went wrong, or null.
+     *@return    The error message if something went wrong, or null.
      */
     private String checkValue() {
 
         return ConfigGuesser.checkValue( configGroup, configEntry,
                 this.getBoxValue() );
-    }
-
-
-    /**
-     *  Files the box with a guess at the right answer for this panel's config
-     *  entry.
-     */
-    protected void guess() {
-        this.setBoxValue( ConfigGuesser.guess( configGroup, configEntry) );
     }
 
 
@@ -286,15 +284,16 @@ public class WizardPanel extends javax.swing.JPanel {
     // -------------------------------------------
 
     /**
-     *  Description of the Field
+     *  The config group if there is to be a guess
      */
     protected String topMessage;
-    // The config group if there is to be a guess
+	
+	protected int topMnemonic;
+	
     /**
-     *  Description of the Field
+     *  The config entry if there is to be a guess
      */
     protected String bottomMessage;
-    // The config entry if there is to be a guess
 
     /**
      *  Description of the Field

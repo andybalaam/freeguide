@@ -72,6 +72,14 @@ public class DownloadingOptionPanel extends OptionPanel {
 		todayOffsetLabel.setLabelFor(todayOffsetTextField);
 		todayOffsetLabel.setDisplayedMnemonic( KeyEvent.VK_T );
 		
+		options = new Object[2];
+		options[0] = "Yes";
+		options[1] = "No";
+		JLabel modalLabel = newLeftJLabel( "Download in background?" );
+		modalComboBox = newRightJComboBox(options);
+		modalLabel.setLabelFor(modalComboBox);
+		modalLabel.setDisplayedMnemonic( KeyEvent.VK_B );
+		
 		// Lay them out in a GridBag layout
 		
 		GridBagEasy gbe = new GridBagEasy( this );
@@ -95,6 +103,9 @@ public class DownloadingOptionPanel extends OptionPanel {
 		
 		gbe.addFWX  ( todayOffsetLabel    , 0, 4, gbe.FILL_HOR   , 0.2 );
 		gbe.addFWX  ( todayOffsetTextField, 1, 4, gbe.FILL_HOR   , 0.8 );
+		
+		gbe.addFWX  ( modalLabel          , 0, 5, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWX  ( modalComboBox       , 1, 5, gbe.FILL_HOR   , 0.8 );
 		
 		// Load in the values from config
 		load();
@@ -128,6 +139,14 @@ public class DownloadingOptionPanel extends OptionPanel {
 	
 		todayOffsetTextField.setText( misc.get( prefix
 			+ "grabber_today_offset" ) );
+		
+		boolean modalExecutor = screen.getBoolean( prefix + "executor_modal",
+			true );
+		if( modalExecutor ) {
+			modalComboBox.setSelectedIndex( 1 );
+		} else {
+			modalComboBox.setSelectedIndex( 0 );
+		}
 		
 	}
 	
@@ -170,6 +189,12 @@ public class DownloadingOptionPanel extends OptionPanel {
 		misc.putInt( "grabber_today_offset", Integer.parseInt(
 			todayOffsetTextField.getText() ) );
 		
+		if( modalComboBox.getSelectedIndex() == 0 ) {
+			screen.putBoolean( "executor_modal", false );
+		} else {
+			screen.putBoolean( "executor_modal", true );
+		}
+		
 		// Return value is false since none of these options alter the screen
 		// appearance.
 		return false;
@@ -208,6 +233,7 @@ public class DownloadingOptionPanel extends OptionPanel {
 	private JComboBox startTodayComboBox;
 	private JTextField dayStartTextField;
 	private JTextField todayOffsetTextField;
+	private JComboBox modalComboBox;
 	
 	private String lb = System.getProperty("line.separator");	
 	

@@ -12,6 +12,7 @@
  */
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 /**
@@ -44,9 +45,14 @@ public class InstallWizardPanel extends WizardPanel {
 
         JLabel topLabel = new JLabel();
         middlePanel = new JPanel();
+		
 		readmeCheckBox = new JCheckBox( "Display the README", true );
+		readmeCheckBox.setMnemonic(KeyEvent.VK_R);
+		
 		configgrabberCheckBox = new JCheckBox( "Configure the listings grabber",
 			true );
+		configgrabberCheckBox.setMnemonic(KeyEvent.VK_G);
+		
         JLabel bottomLabel = new JLabel();
 
         setLayout(new GridLayout(3, 0));

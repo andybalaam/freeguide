@@ -150,7 +150,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 			TreeSelectionModel.SINGLE_TREE_SELECTION );
 		
 		menuTree.addTreeSelectionListener(this);
-		menuTree.setRootVisible( false );
+		//menuTree.setRootVisible( false );
 		
 		/*for( int i=0; i<menuTree.getRowCount(); i++ ) {
 			menuTree.expandRow(i);

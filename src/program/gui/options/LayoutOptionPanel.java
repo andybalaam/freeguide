@@ -118,8 +118,6 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 	
 	public boolean doSave() {
 
-		FreeGuide.log.info( "Saving" );
-		
 		boolean updated = false;
 		
 		updated = screen.updateInt( "channel_height",

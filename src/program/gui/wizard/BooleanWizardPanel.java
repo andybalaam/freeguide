@@ -1,3 +1,15 @@
+/*
+ *  FreeGuide J2
+ *
+ *  Copyright (c) 2001-2003 by Andy Balaam and the FreeGuide contributors
+ *
+ *  freeguide-tv.sourceforge.net
+ *
+ *  Released under the GNU General Public License
+ *  with ABSOLUTELY NO WARRANTY.
+ *
+ *  See the file COPYING for more information.
+ */
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -40,39 +52,13 @@ public class BooleanWizardPanel extends WizardPanel {
 
         topLabel.setFont(new java.awt.Font("Dialog", 0, 12));
         topLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        //topLabel.setText(topMessage);
+        
         add(topLabel);
 
         midPanel.setLayout(new java.awt.GridBagLayout());
 
-        // Make the Guess button if required
-        if (configEntry != null) {
-            JButton butGuess = new JButton();
-            butGuess.setFont(new java.awt.Font("Dialog", 0, 12));
-            butGuess.setText("Guess");
-            butGuess.setToolTipText("Ask FreeGuide to guess this value for you.");
-            butGuess.addActionListener(
-                new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        guess();
-                    }
-                });
-
-            gridBagConstraints = new java.awt.GridBagConstraints();
-            gridBagConstraints.gridx = 0;
-            gridBagConstraints.gridy = 0;
-            gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-            midPanel.add(butGuess, gridBagConstraints);
-        }
-
-        //checkbox.setMinimumSize(new java.awt.Dimension(4, 26));
-        //checkbox.setPreferredSize(new java.awt.Dimension(69, 26));
-
-        //for(int i=0;i<choices.length;i++) {
-        //	combobox.addItem(choices[i]);
-        //}
-
         checkbox.setText(topMessage);
+		checkbox.setMnemonic( topMnemonic );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;

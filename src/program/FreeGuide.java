@@ -10,10 +10,10 @@
  *
  *  See the file COPYING for more information.
  */
-import java.awt.Color;
-import java.util.Date;
-import java.util.logging.Logger;
-import java.util.Vector;
+import java.awt.*;
+import java.util.*;
+import java.util.logging.*;
+import javax.swing.*;
 
 /**
  *  The main class called to start FreeGuide. Calls the FreeGuideStartupChecker
@@ -37,22 +37,28 @@ public class FreeGuide {
 		pleaseWait.setVisible(true);
 		
 		Vector failedWhat = StartupChecker.runChecks(args);
-
+		
 		if( failedWhat.size() > 0 ) {
 			// Something's wrong, so begin with configuration
 
-			FreeGuide.log.info("Checks failed, going into configuration ...");
+			String message;
+			
+			message = "Some of your configuration appears to be messed up.\n"
+				+ "The following configuration settings are incorrect:\n\n";
+				
+			for( int i=0; i<failedWhat.size(); i++ ) {
+				message += failedWhat.get(i) + "\n";
+			}
+			
+			message += "\nPlease go to the Options screen under the Tools "
+				+ "menu\nTo correct the problems, or re-install.";
+			
+			JOptionPane.showMessageDialog( null, message,
+				"Configuration problems", JOptionPane.WARNING_MESSAGE );
 
-			new OptionsFrame(failedWhat).setVisible(true);
-
-			pleaseWait.dispose();
-
-		} else {
-
-			// All is ok, so begin with viewer (pass the please wait frame
-			// in to be displayed while the viewer starts up)
-			new ViewerFrame( pleaseWait );
 		}
+		
+		ViewerFrame viewerFrame = new ViewerFrame( pleaseWait );
 
 	}
 

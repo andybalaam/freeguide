@@ -1,15 +1,11 @@
 
-import java.awt.Component;
-import java.io.File;
-import java.lang.Class;
-import java.lang.reflect.Method;
-import java.util.Vector;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JOptionPane;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.lang.*;
+import java.lang.reflect.*;
+import java.util.*;
+import javax.swing.*;
 
 /**
  *  A class to produce a wizard interface.
@@ -63,31 +59,32 @@ public class WizardFrame extends javax.swing.JFrame {
      *@param  title  Description of the Parameter
      */
     private void initComponents(String title) {
-        java.awt.GridBagConstraints gridBagConstraints;
+        
+		GridBagConstraints gridBagConstraints;
 
         // Set up the panels ready to be used
         for (int i = 0; i < panels.length; i++) {
             panels[i].construct();
         }
 
-        panButtons = new javax.swing.JPanel();
-        butCancel = new javax.swing.JButton();
-        butBack = new javax.swing.JButton();
-        butNext = new javax.swing.JButton();
-        butFinish = new javax.swing.JButton();
+        panButtons = new JPanel();
+        butCancel = new JButton();
+        butBack = new JButton();
+        butNext = new JButton();
+        butFinish = new JButton();
 
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        getContentPane().setLayout( new GridBagLayout() );
 
         setTitle(title);
         addWindowListener(
-            new java.awt.event.WindowAdapter() {
-                public void windowClosing(java.awt.event.WindowEvent evt) {
+            new WindowAdapter() {
+                public void windowClosing( WindowEvent evt ) {
                     exitForm(evt);
                 }
             });
 
-        butCancel.setFont(new java.awt.Font("Dialog", 0, 12));
         butCancel.setText("Exit");
+		butCancel.setMnemonic(KeyEvent.VK_X);
         butCancel.setMaximumSize(new java.awt.Dimension(85, 26));
         butCancel.setMinimumSize(new java.awt.Dimension(85, 26));
         butCancel.setPreferredSize(new java.awt.Dimension(85, 26));
@@ -100,8 +97,8 @@ public class WizardFrame extends javax.swing.JFrame {
 
         panButtons.add(butCancel);
 
-        butBack.setFont(new java.awt.Font("Dialog", 0, 12));
         butBack.setText("<< Back");
+		butBack.setMnemonic(KeyEvent.VK_B);
         butBack.setEnabled(false);
         butBack.addActionListener(
             new java.awt.event.ActionListener() {
@@ -112,8 +109,8 @@ public class WizardFrame extends javax.swing.JFrame {
 
         panButtons.add(butBack);
 
-        butNext.setFont(new java.awt.Font("Dialog", 0, 12));
         butNext.setText("Next >>");
+		butNext.setMnemonic(KeyEvent.VK_N);
         butNext.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,8 +120,8 @@ public class WizardFrame extends javax.swing.JFrame {
 
         panButtons.add(butNext);
 
-        butFinish.setFont(new java.awt.Font("Dialog", 0, 12));
         butFinish.setText("Finish");
+		butFinish.setMnemonic(KeyEvent.VK_F);
         butFinish.setMaximumSize(new java.awt.Dimension(85, 26));
         butFinish.setMinimumSize(new java.awt.Dimension(85, 26));
         butFinish.setPreferredSize(new java.awt.Dimension(85, 26));
@@ -264,9 +261,10 @@ public class WizardFrame extends javax.swing.JFrame {
 
         refreshButtons();
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setSize(new java.awt.Dimension(500, 350));
-        setLocation((screenSize.width - 500) / 2, (screenSize.height - 350) / 2);
+        setLocation((screenSize.width - 500) / 2,
+			(screenSize.height - 350) / 2);
 
         newPanel.revalidate();
         newPanel.repaint();

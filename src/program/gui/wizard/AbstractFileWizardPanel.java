@@ -1,10 +1,19 @@
+/*
+ *  FreeGuide J2
+ *
+ *  Copyright (c) 2001-2003 by Andy Balaam and the FreeGuide contributors
+ *
+ *  freeguide-tv.sourceforge.net
+ *
+ *  Released under the GNU General Public License
+ *  with ABSOLUTELY NO WARRANTY.
+ *
+ *  See the file COPYING for more information.
+ */
 
-import java.io.File;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.awt.event.*;
+import java.io.*;
+import javax.swing.*;
 
 /**
  *  A JPanel to go on a FreeGuideWizard that alowws you to choose a file.
@@ -42,29 +51,10 @@ public abstract class AbstractFileWizardPanel extends WizardPanel {
         topLabel.setFont(new java.awt.Font("Dialog", 0, 12));
         topLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         topLabel.setText(topMessage);
+		topLabel.setDisplayedMnemonic(topMnemonic);
         add(topLabel);
 
         midPanel.setLayout(new java.awt.GridBagLayout());
-
-        // Make the Guess button if required
-        if (configEntry != null) {
-            JButton butGuess = new JButton();
-            butGuess.setFont(new java.awt.Font("Dialog", 0, 12));
-            butGuess.setText("Default");
-            butGuess.setToolTipText("Ask FreeGuide to guess this value for you.");
-            butGuess.addActionListener(
-                new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        guess();
-                    }
-                });
-
-            gridBagConstraints = new java.awt.GridBagConstraints();
-            gridBagConstraints.gridx = 0;
-            gridBagConstraints.gridy = 0;
-            gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-            midPanel.add(butGuess, gridBagConstraints);
-        }
 
         textfield.setMinimumSize(new java.awt.Dimension(4, 26));
         textfield.setPreferredSize(new java.awt.Dimension(69, 26));
@@ -81,6 +71,7 @@ public abstract class AbstractFileWizardPanel extends WizardPanel {
         // Make the browse button
         butBrowse.setFont(new java.awt.Font("Dialog", 0, 12));
         butBrowse.setText("Browse...");
+		butBrowse.setMnemonic( KeyEvent.VK_B );
         butBrowse.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,6 +92,8 @@ public abstract class AbstractFileWizardPanel extends WizardPanel {
         bottomLabel.setText(bottomMessage);
         add(bottomLabel);
 
+		topLabel.setLabelFor( textfield );
+		
     }
 
 

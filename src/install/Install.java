@@ -10,22 +10,13 @@
  *
  *  See the file COPYING for more information.
  */
-import java.io.File;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.util.Properties;
-import java.util.prefs.Preferences;
-import java.util.Vector;
-import javax.swing.JOptionPane;
 
-/*
- *  
- *
- *  @author  Andy Balaam
- *  @version 7
- */
+import java.awt.event.*;
+import java.io.*;
+import java.util.*;
+import java.util.prefs.*;
+import javax.swing.*;
+
 /**
  *  An installer for FreeGuide
  *
@@ -124,18 +115,21 @@ public class Install extends PrefsHolder {
 			panels[1].setOnExit(this,
                     getClass().getMethod("setProps", clses));
             panels[1].setMessages("Choose your region.",
-                    "This affects which listings grabber will be used.");
+                    "This affects which listings grabber will be used.",
+					KeyEvent.VK_C);
 			panels[1].setConfig("misc", "region");
 					
 			panels[2] = new DirectoryWizardPanel();
             panels[2].setMessages("Choose your installation directory.",
-                    "This will be created if it doesn't exist.");
+                    "This will be created if it doesn't exist.",
+					KeyEvent.VK_C);
             panels[2].setConfig("misc", "install_directory");
 
 			String[] dummyChoices = new String[0];
 			panels[3] = new ChoiceWizardPanel(dummyChoices);
             panels[3].setMessages("What is the name of your web browser?",
-                    "Choose the default if you don't know.");
+                    "Choose the default if you don't know.",
+					KeyEvent.VK_W);
             panels[3].setConfig("misc", "browser");
 			clses = new Class[1];
 			clses[0] = ChoiceWizardPanel.class;

@@ -51,8 +51,8 @@ fi
 # Make a PAR file containing all the XMLTV scripts (still needs perl I think)
 pp -p -o xmltv.par grab/de/tv_grab_de grab/dk/tv_grab_dk grab/es/tv_grab_es grab/fi/tv_grab_fi grab/hu/tv_grab_hu grab/it/tv_grab_it grab/na/tv_grab_na grab/nl/tv_grab_nl grab/uk/tv_grab_uk
 
-# Alternative cross-platform version (not working?)
-#pp --multiarch -B -o xmltv.par grab/de/tv_grab_de grab/dk/tv_grab_dk grab/es/tv_grab_es grab/fi/tv_grab_fi grab/hu/tv_grab_hu grab/it/tv_grab_it grab/na/tv_grab_na grab/nl/tv_grab_nl grab/uk/tv_grab_uk
+# Alternative cross-platform version (exe_wrap needs modifying)
+#pp -B --multiarch -o xmltv.par lib/exe_wrap.pl
 
 echo "Removing main.pl..."
 

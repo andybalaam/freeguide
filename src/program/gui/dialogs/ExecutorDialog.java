@@ -10,6 +10,8 @@
  */
 
 import java.awt.*;
+import java.awt.event.*;
+import java.text.*;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
@@ -21,7 +23,7 @@ import javax.swing.*;
  *
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    8 (Used to be ExecutorFrame)
+ *@version    9 (Used to be ExecutorFrame)
  */
 
 public class ExecutorDialog extends JDialog implements Runnable, Progressor {
@@ -36,13 +38,14 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
     public ExecutorDialog(JFrame owner, String[] cmds, String commandType,
 			Calendar date) {
 		
-		super(owner, true);
+		super( owner, FreeGuide.prefs.screen.getBoolean(
+			"executor_modal", true ) );
 		
 		this.prefs = FreeGuide.prefs;
         this.date = date;
         this.cmds = cmds;
-        java.text.SimpleDateFormat showdate = new java.text.SimpleDateFormat("yyyyMMdd");
-        //System.out.print("executor w/ date "+showdate.format(date.getTime())+"\n");
+        SimpleDateFormat showdate = new SimpleDateFormat("yyyyMMdd");
+        
         initComponents();
 
         // Centre the screen
@@ -83,12 +86,10 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
     public ExecutorDialog(JFrame owner, String[] cmds, String commandType,
 			PreferencesGroup prefs) {
 
-		super(owner, true);
+		super( owner, prefs.screen.getBoolean( "executor_modal", true ) );
 				
 		this.prefs = prefs;
         this.cmds = cmds;
-
-        //System.out.print("executor w/o date\n");
 
         initComponents();
 
@@ -139,6 +140,7 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
         butCancel.setMaximumSize(new java.awt.Dimension(115, 23));
         butCancel.setMinimumSize(new java.awt.Dimension(115, 23));
         butCancel.setPreferredSize(new java.awt.Dimension(115, 23));
+		butCancel.setMnemonic( KeyEvent.VK_C );
         butCancel.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,8 +159,8 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
         butDetails.setText("Show Output");
         butDetails.setMaximumSize(new java.awt.Dimension(115, 23));
         butDetails.setMinimumSize(new java.awt.Dimension(115, 23));
-        butDetails.setName("null");
         butDetails.setPreferredSize(new java.awt.Dimension(115, 23));
+		butDetails.setMnemonic( KeyEvent.VK_S );
         butDetails.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {

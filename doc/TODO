@@ -101,6 +101,8 @@ e  means done by Ewan Harrow
 - Make installer launch a README file (useful to check browser works, as well)
 - Terms and conditions of listings
 - Review usefulness of stuff like ConfigGuesser
+- Change all forms to use GridBagEasy and newXXX methods.
+- Sort out Utils.exec methods so they make sense
 
 - Release 0.7.2 (aesthetics)
 
@@ -121,6 +123,7 @@ e  means done by Ewan Harrow
 - Fix segfault in XMLTV --configure when --config-file is supplied
 - Fix saying there's missing listings after midnight (before 6am) bug
 - Custom web browser option
+- Expand ConfigGuesser's checking capabilities
 
 - Release 0.7.1 (accessibility, accessibility, accessibility)
 
@@ -130,22 +133,20 @@ e  means done by Ewan Harrow
 - Scroll to the most recently selected programme (and highlight it?)
 - ProgrammeJLabel shows which programme is selected
 - Keyboard navigation of programme scrollpane
+- Full test of keyboard navigation
 
 - Release 0.7 (version checking, reminders, links)
 
-- Keep a window open behind grabber config and all out problems go away.
-- Enable configuration option within viewer 
-- Sort out Utils.exec methods so they make sense
-- Fix popups coming up behind window on startup bug (using a later time?)
-- Refresh after download (using dialog?)
-- Fix blank country in Install
-- Include a method to call if you quit out of the wizard, and make it call
-	System.exit in Install
+- Update docs
 - Include a modified XMLTV for configuration.
++ Fix popups coming up behind window on startup bug (using a later time?)
++ Enable configuration option within viewer 
++ Refresh after download (using dialog?)
++ Fix blank country in Install
 + Check that all prefs are covered in Options screen
 + Choose browser in options
 + Privacy choice on reminder screen
-- Document reminder system and incorporate into Options screen
++ Document reminder system and incorporate into Options screen
 + Privacy preferences in installer
 + Choose browser on install
 + Global and specific install-xx.props file for each install type

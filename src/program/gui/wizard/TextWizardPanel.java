@@ -39,29 +39,10 @@ public class TextWizardPanel extends WizardPanel {
         topLabel.setFont(new java.awt.Font("Dialog", 0, 12));
         topLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         topLabel.setText(topMessage);
+		topLabel.setDisplayedMnemonic(topMnemonic);
         add(topLabel);
 
         midPanel.setLayout(new java.awt.GridBagLayout());
-
-        // Make the Guess button if required
-        if (configEntry != null) {
-            JButton butGuess = new JButton();
-            butGuess.setFont(new java.awt.Font("Dialog", 0, 12));
-            butGuess.setText("Default");
-            butGuess.setToolTipText("Ask FreeGuide to guess this value for you.");
-            butGuess.addActionListener(
-                new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        guess();
-                    }
-                });
-
-            gridBagConstraints = new java.awt.GridBagConstraints();
-            gridBagConstraints.gridx = 0;
-            gridBagConstraints.gridy = 0;
-            gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-            midPanel.add(butGuess, gridBagConstraints);
-        }
 
         textfield.setMinimumSize(new java.awt.Dimension(4, 26));
         textfield.setPreferredSize(new java.awt.Dimension(69, 26));
@@ -81,6 +62,8 @@ public class TextWizardPanel extends WizardPanel {
         bottomLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         bottomLabel.setText(bottomMessage);
         add(bottomLabel);
+		
+		topLabel.setLabelFor( textfield );
 
     }
 
