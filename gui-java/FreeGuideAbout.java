@@ -15,7 +15,7 @@
  * A small About box.
   *
  * @author  Andy Balaam
- * @version 1
+ * @version 2
  */
 public class FreeGuideAbout extends javax.swing.JDialog {
 	
@@ -27,13 +27,13 @@ public class FreeGuideAbout extends javax.swing.JDialog {
 		
 		String str = "";
 		
-		str += "<font face='helvetica, helv, arial, sans serif' size=3>";
-		str += "<center>";
-		str += "<h1><font face='helvetica, helv, arial, sans serif' size=4>FreeGuide J2 " + FreeGuide.version + "</font></h1>";
-		str += "<p>by Andy Balaam</p>";
+		str += "<font face='arial, helvetica, helv, sans serif' size=3>";
+		str += "<table width=\"100%\" height=\"100%\" border=\"0\"><tr><td height=\"100%\" align=\"center\">";
+		str += "<h1><font face='arial, helvetica, helv, sans serif' size=\"5\">FreeGuide J2 " + FreeGuide.version + "</font></h1>";
+		str += "<p>Free software by Andy Balaam</p>";
 		str += "<p>Web: <a href=\"http://freeguide-tv.sourceforge.net\">freeguide-tv.sourceforge.net</a></p>";
 		str += "<p>Mail: <a href=\"mailto:freeguide@artificialworlds.net\">freeguide@artificialworlds.net</a></p>";
-		str += "</center>";
+		str += "</td></tr></table>";
 		str += "</font>";
 		
 		jTextPane1.setText(str);
@@ -70,6 +70,7 @@ public class FreeGuideAbout extends javax.swing.JDialog {
 
         getContentPane().add(jButton2, java.awt.BorderLayout.SOUTH);
 
+        jTextPane1.setBackground(new java.awt.Color(225, 255, 255));
         jTextPane1.setEditable(false);
         jTextPane1.setContentType("text/html\n");
         jScrollPane1.setViewportView(jTextPane1);
@@ -78,8 +79,8 @@ public class FreeGuideAbout extends javax.swing.JDialog {
 
         pack();
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(new java.awt.Dimension(400, 300));
-        setLocation((screenSize.width-400)/2,(screenSize.height-300)/2);
+        setSize(new java.awt.Dimension(310, 238));
+        setLocation((screenSize.width-310)/2,(screenSize.height-238)/2);
     }//GEN-END:initComponents
 
 	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

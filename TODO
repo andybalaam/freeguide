@@ -18,21 +18,23 @@ number following means priority (1 for important, 10 for unimportant)
 
 Release 0.3
 
+- 1 Fix non-scrollability of Details box
+- 1 Centre Download Listings box
 - 4 Right-click on a favourite gives option to remove from favs?
     (remove specific favs, but warn if general)
+- 4 Uncheck all button + check all button in channels screen
 - 4 MAKE IT WORK IN WINDOWS!
 - 4 Windows installer (nullsoft installer?)
 - 4 Automatic command execution window to replace download screen
 - 4 Add "Contains" option to title match in favourites
 - 4 Channels should get their own screen
 - 4 New "Redecorate" screen for colours options
-- 4 Find Channels option + fix in tv_split for de's lack of channels
+- 4 fix in tv_split for de's lack of channels (or fix tv_grab_de to use configure and to do channels
 - 5 Choose how old files are when you delete them
-- 5 Generic command execution screen (starts automatically)
 - 5 Help manual
 - 5 Other properties of a programme and other DTD features
 - 5 Terms and conditions of listings
-- 5 --configure support for tv_grab_na and uk
+- 5 --configure support for tv_grab_na and uk (talk to XMLTV people)
 - 5 --days support
 
 Release 0.4

@@ -112,6 +112,17 @@ public class FreeGuideUtils {
 				BufferedReader prErr = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
 				BufferedReader prOut = new BufferedReader(new InputStreamReader(pr.getInputStream()));
 				
+				// Little hack to make Windows wait. Should be better really
+				if(System.getProperty("os.name").startsWith("Windows")) {
+					
+					try {
+						pr.waitFor();
+					} catch(InterruptedException e) {
+						e.printStackTrace();
+					}
+					
+				}
+				
 				String stdLine;
 				String errLine;
 				boolean x = false;
@@ -130,12 +141,11 @@ public class FreeGuideUtils {
 					
 				}
 			
-				// We have automatically waited for the command to end by
-				// capturing its output.  This is fortunate as Windows waits
-				// forever if you call Process.waitFor()
+				if(System.getProperty("os.name").startsWith("Windows")) {
 				
-				// Kill it if windows hasn't
-				//pr.destroy();
+					pr.destroy();
+					
+				}
 				
 				exitCode = pr.exitValue();
 				

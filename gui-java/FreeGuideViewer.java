@@ -1174,7 +1174,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 			ans+="<hr>"+lineBreak;
 			ans+="<address>";
-			ans+="<a href=\"http://freeguide-tv.sourceforge.net\">freeguide-tv.sourceforge.net</a>";
+			ans+="http://freeguide-tv.sourceforge.net";
 			ans+="</address>"+lineBreak;
 			
 		}
