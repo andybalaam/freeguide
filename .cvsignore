@@ -2,3 +2,4 @@ dist
 build
 xmltv
 *.nbattrs
+diffwithwin.sh
