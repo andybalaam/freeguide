@@ -143,6 +143,7 @@ e  means done by Ewan Harrow
 - Include a modified XMLTV for configuration.
 - Enable configuration options in ViewerFrame and InstallWizardPanel
 - Add scripts in xmltv dir to CVS and source zips.
+- Add stats handling code to CVS and source zips.
 + Fix the bug in updateBoolean in FGPreferences
 
 + Release 0.6.3 (version checking, reminders, links)
