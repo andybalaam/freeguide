@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-	<link rel="stylesheet" href="guide.css" type="text/css"> 
-	<title>FreeGuide 0.1 Readme</title>
+	<link rel="stylesheet" href="guide.css" type="text/css">
+	<title>FreeGuide 0.2 Readme</title>
 </head>
   <body>
-<h1>FreeGuide 0.1 Readme</h1>
+<h1>FreeGuide 0.2 Readme</h1>
 <h2>Contents</h2>
 <ul>
   <li><a href="#intro">Introduction</a>
@@ -29,9 +29,9 @@
   </li>
 </ul>
 <h2><a name="intro"></a>Introduction </h2>
-	
-<p>FreeGuide is an offline TV listings programme. It uses parser programmes to extract TV information from web pages and stores them for viewing without the need to connect to the Internet. The viewer allows the user to view television  listings and create customised TV guides by selecting programmes and by building  up a favourites list. For the moment, it only does UK, USA and Canadian listings,   but it is designed to make it very easy to add other countries.</p>
-<p>FreeGuide is copyright&nbsp;&copy;2001 by Andy Balaam. &nbsp;Please do send ideas, bugs and comments to me at <a href="mailto:freeguide@artificialworlds.net"> freeguide@artificialworlds.net</a>. I welcome contributions from others. FreeGuide's home page is at <a href="http://freeguide-tv.sourceforge.net">http://freeguide-tv.sourceforge.net</a>. You can contact me at the Centre for Computational Neuroscience and Robotics (CCNR), University of Sussex, Falmer, Brighton, UK.</p>
+
+<p>FreeGuide is an offline TV listings programme. It uses parser programmes to extract TV information from web pages and stores them for viewing without the need to connect to the Internet. The viewer allows the user to view television  listings and create customised TV guides by selecting programmes and by building  up a favourites list. For the moment, it only does UK listings, but it is designed to make it very easy to add other countries, especially the US and Canada as there are XMLTV scripts for these countries already written.</p>
+<p>FreeGuide is copyright &copy;2001 by Andy Balaam.  Please do send ideas, bugs and comments to me at <a href="mailto:freeguide@artificialworlds.net"> freeguide@artificialworlds.net</a>. I welcome contributions from others. FreeGuide's home page is at <a href="http://freeguide-tv.sourceforge.net">http://freeguide-tv.sourceforge.net</a>. You can contact me at the Centre for Computational Neuroscience and Robotics (CCNR), University of Sussex, Falmer, Brighton, UK.</p>
 <p>FreeGuide uses the XMLTV format and parsers developed by the very friendly people at XMLTV (<a href="http://www.doc.ic.ac.uk/%7Eepa98/work/apps/xmltv/"> http://www.doc.ic.ac.uk/~epa98/work/apps/xmltv/</a> and <a href="http://sourceforge.net/projects/xmltv">http://sourceforge.net/projects/xmltv</a>).  All the XMLTV code, READMEs and copyright notices may be found in the "xmltv" subdirectory of the freeguide programme directory.<br></p>
 <p>FreeGuide contains a little code by Slava Pestov from the Jedit project (<a href="http://www.jedit.org">www.jedit.org</a>).</p>
 
@@ -43,178 +43,64 @@
 
 <h2><a name="installing"></a> Installing FreeGuide</h2>
 
-<p>Please note that v0.1 is an alpha version and thus: a) may not work and  b) is slightly fiddly to install.</p>
+<p>Please note that v0.2 is an alpha version and thus: a) may not work and  b) is slightly fiddly to install.</p>
 
 <h3><a name="installing-windows"></a>Windows Users</h3>
 
-<p>Version 0.1 of FreeGuide is written using Java and Perl, which has all kinds of advantages, but means that you may need to do some work to get it  going. One day I'll write a version that's much easier to install and use. If you email me and tell me you like the program, I'll be encouraged and work faster.</p>
+<p>I'm afraid I haven't been able to get XMLTV working under Windows, but if you can, it should be quite easy to get FreeGuide working on top of it.  Please do let me know if you manage it.</p>
+
+<!--
+<p>Version 0.2 of FreeGuide is written using Java and Perl, which has all kinds of advantages, but means that you may need to do some work to get it going. One day I'll write a version that's much easier to install and use. If you email me and tell me you like the program, I'll be encouraged and work faster.</p>
 <p>For now, follow these instructions, and email me if you get stuck.</p>
 
 <h4>1. Install Java</h4>
 
-<p>The first thing you need to do is install the Java 2 Runtime Enviroment 
+<p>The first thing you need to do is install the Java 2 Runtime Enviroment
   (JRE).  If you've already got Java installed, it might be version 1,
  rather than version 2, which is no good. You can check this by typing...<br>
 </p>
 <pre>java -version<br></pre>
-<p>...in an MS-DOS window.  If you haven't got Java installed, or you've got version 1 instead of version 2, you need to go to <a href="http://java.sun.com/j2se/">java.sun.com/j2se/</a> and download it. You'll need the Java 2 Runtime Environment. At the 
-time of writing version 1.4 is still in beta, so I'd recommend you get version 1.3.  However, when 1.4 is finished, that will make the <i> next</i> step unnecesary. &nbsp;Download the Java installer, run it, and follow the instructions to install Java on your system.</p>
+<p>...in an MS-DOS window.  If you haven't got Java installed, or you've got version 1 instead of version 2, you need to go to <a href="http://java.sun.com/j2se/">java.sun.com/j2se/</a> and download it. You'll need the Java 2 Runtime Environment.  Download the Java installer, run it, and follow the instructions to install Java on your system.</p>
 
-<h4>2. Get an XML Parser</h4>
+<h4>2. Install Perl</h4>
 
-<p>Once you've got Java, you'll need an XML parser for it.  Here's where you'll be glad if you got version 1.4, because it has an XML parser built in, and you don't need to do anything.  If you've got 1.3, though you'll need to go to <a href="http://xml.apache.org/dist/crimson/crimson-1.1.3-bin.zip">xml.apache.org/dist/crimson/crimson-1.1.3-bin.zip</a> and download the crimson XML parser. &nbsp;(For more information about Crimson, or if the link doesn't work, go to <a href="http://xml.apache.org/crimson/index.html">http://xml.apache.org/crimson/index.html</a>).  When you unzip this file, the file you'll be interested in is called crimson.jar.  More about what to do with that later.</p>
+<p>Now you need to get hold of a distribution of Perl from the folks  at Activestate.  This can be obtained by going to <a href="http://www.activestate.com/Products/Download/Get.plex?id=ActivePerl"> http://www.activestate.com/Products/Download/Get.plex?id=ActivePerl</a> where you'll need to follow the relevant links to make sure your system has everything required, before clicking "next" to download Activestate Perl.  Run the installer, and follow the instructions. Make sure you put Perl in your path, so that you can run it by just typing <tt>perl</tt> in an MS_DOS window. (Note: if this works, typing <tt>perl (RETURN)</tt> will not appear to do much, because perl waits for you to give it commands.  However, if this hasn't worked, you'll know, because DOS will respond with "Bad command or file name."</p>
 
-<h4>3. Install Perl</h4>
+<p>Now you need to get all the prerequisites for XMLTV.  Follow the instructions on the <a href="http://www.doc.ic.ac.uk/~epa98/work/apps/xmltv/">XMLTV</a> page under "Prerequisites".  This may take some time.  Persevere: it's intimidating but not difficult really.</p>
 
-     Now you need to get hold of a distribution of Perl from the folks  at
- Activestate. &nbsp;This can be obtained by going to <a href="http://www.activestate.com/Products/Download/Get.plex?id=ActivePerl">
-     http://www.activestate.com/Products/Download/Get.plex?id=ActivePerl</a>
-      where you'll need to follow the relevant links to make sure your system 
-  has everything required, before clicking "next" to download Activestate 
-Perl.  &nbsp;Run the installer, and follow the instructions. Make sure you 
-put Perl in your path, so that you can run it by just typing <tt>perl</tt>
-   in an MS_DOS window. (Note: if this works, typing <tt>perl (RETURN)</tt>
-   will not appear to do much, because perl waits for you to give it commands. 
-&nbsp;However, if this hasn't worked, you'll know, because DOS will respond 
-with "Bad command or file name.")<br>
-<h4>4. Install FreeGuide</h4>
-<p> Download the FreeGuide Java binary uk zip file from <a href="http://www.sourceforge.net/projects/freeguide-tv">
-    http://www.sourceforge.net/projects/freeguide-tv</a>
-     and save it somewhere. &nbsp;Now create a folder in "C:\Program Files" 
- called "FreeGuide". &nbsp;<i>Note: if you can't make a folder in your "C:\Program
-  Files" folder, FreeGuide can be placed in another location, but you'll
-have   to alter the config file and the shortcut file accordingly to make
-everything   point to the new location</i>.</p>
-<p>If you have a Java 2 version that is less than 1.3, follow the instructions
-  labelled "With Crimson". &nbsp;If you have Java 2 version 1.4, or you have
-  an XML Parser in your classpath, follow the instructions labelled "Without
-  Crimson".</p>
-<p><b>With Crimson</b>: Copy the file crimson.jar, which was one of the files
-  that was zipped up in the Crimson file, and put in into this folder: "C:\Program
-  Files\FreeGuide\org\freeguide-tv\viewers\java2\". &nbsp;Copy the shortcut
-  "C:\Program Files\FreeGuide\org\freeguide-tv\freeguide-with-crimson.lnk"
- to your desktop, and you should be able to start FreeGuide by double-clicking
-  on this.</p>
-<p><b>Without Crimson</b>: Copy the shortcut "C:\Program Files\FreeGuide\org\freeguide-tv\freeguide-no-crimson.lnk" 
-  to your desktop, and you should be able to start FreeGuide by double-clicking 
-  on this.</p>
-<p>You have now installed FreeGuide! &nbsp;Follow the instructions in "Running"
-  below to get it working.</p>
-<h3><a name="installing-linux"></a>
-    Linux Users</h3>
-<p>Make sure you have the Java 2 Runtime Environment (from <a href="http://java.sun.com/j2se/">
-     http://java.sun.com/j2se/</a>
-    ). You can check this with <tt>java -version</tt>. &nbsp;If you've got
- version  1.4 you've already got XML support, but otherwise you'll have to
- get Crimson  from <a href="http://xml.apache.org/crimson/index.html"> http://xml.apache.org/crimson/index.html</a>
-    . If you can work it out, put crimson.jar in your classpath, but I couldn't
-  do this, so I put it in my freeguide dir as explained below.</p>
-<p>Most linux users will have Perl, but if you haven't, you'll need to install
-  it. &nbsp;Any fairly recent version should work, I think.<br>
+<h4>3. Install FreeGuide</h4>
+
+<p> Download the FreeGuide Java binary uk tar.gz file from <a href="http://www.sourceforge.net/projects/freeguide-tv">  http://www.sourceforge.net/projects/freeguide-tv</a> and put it in "C:\My Documents\".  Double-click the file so that it opens up with WinZip, and click yes when it asks you whether you want to open the archive within the archive.  In WinZip, click "Extract", make sure the "Use folder names" box is ticked, and then type "C:\My Documents\" in the box at the top right and click "Extract" again.</p>
+<p>Copy the shortcut "C:\My Documents\freeguide-tv\FreeGuide.lnk" to your desktop, and you should be able to start FreeGuide by double-clicking on this.</p>
+<p>You have now installed FreeGuide!  Follow the instructions in "Running" below to get it working.</p>
+-->
+<h3><a name="installing-linux"></a>Linux Users</h3>
+
+<p>Make sure you have the Java 2 Runtime Environment (from <a href="http://java.sun.com/j2se/">http://java.sun.com/j2se/</a>). You can check this with <tt>java -version</tt>.
+<p>Most linux users will have Perl, but if you haven't, you'll need to install it.</p>
+<p>Now you need to get all the prerequisites for XMLTV.  Follow the instructions on the <a href="http://www.doc.ic.ac.uk/~epa98/work/apps/xmltv/">XMLTV</a> page under "Prerequisites".  This may take some time, and you may need to use "force install" sometimes (I don't know why).</p>
+<p>Download the FreeGuide Java binary uk tar.gz file from <a href="http://www.sourceforge.net/projects/freeguide-tv">http://www.sourceforge.net/projects/freeguide-tv</a> and untar it whilst in your home directory.</p>
+<p>Now you'll need to alter the config file. Alter the file <tt>~/.freeguide-tv/freeguiderc.txt</tt> and replace "/home/andy/freeguide-tv" with "/home/yourusername/freeguide-tv" (the "freeguideDirectory" entry) and similarly with "/home/andy/.freeguide-tv" (the "workingDirectory" entry).</p>
+<p>If you want to, you can alter the rest of the config file manually but be careful not to alter any line breaks or blank lines - they all mean something!  You can alter the configuration from within FreeGuide from the Options screen.</p>
+<p>You can now start FreeGuide by running the  shell script "runfreeguide.sh".  Follow the instructions in "Running" below to get it working.</p>
+
+<h3><a name="installing-other"></a>Other Operating Systems</h3>
+<p>FreeGuide should work with your operating system if there are Java 2 and  Perl interpreters for it, but I don't have any other systems so I can't test  it or give detailed instructions.  The Linux instructions will be extremely  relevant to other *nix OS users, and may be useful to others too.</p>
+
+<h2><a name="running"></a>Running FreeGuide</h2>
+
+<p>The first time you run FreeGuide you will need to connect to the Internet and then go to the Options screen (from the Tools menu) and click "Refresh Channels" to download the names of the channels you can get listings for.  Please be patient as this may take a while.  When the channels are downloaded, hold Control on the keyboard and select all the channels you want to see listings for.  When you have finished, click OK and choose Download Listings from the Tools menu.  Click Start Downloading and wait for the listings to download.  When the OK button become clickable again, click it, and you should see today's TV listings.  On this screen time advances from left to right (click "Go To Now" to see what's on now), and the channels are shown one below another.</p>
+<p>The + and - buttons change the day you are looking at, or you can choose a day from the list.</p>
+<p>You can click the tick box at the top left corner of a programme to add it to your personalised TV guide for today, which is shown in the bottom section of the window.</p>
+<p>You can make programmes be ticked automatically by adding them to your favourites list (choose the "Tools" menu and then "Favourites").  Any programme whose title contains some text matching a favourite will be ticked automatically.  You can always un-tick programmes if you wish.</p>
+<p>Clicking "Print Listing" will open up your web browser with your customised TV guide, and you can print it from there by choosing "File" and then "Print".</p>
+<p>To change various options choose the "Tools" menu and then "Options".  To download more listings, choose "Tools" and then "Download Listings".</p>
+<p>Please note that v0.2 does not delete old listings files, so you may wish to remove then from the data directory (".freeguide-tv/data/") if they are filling up you hard disk.<br>
 </p>
-<p>Unzip the FreeGuide Java binary uk file from <a href="http://www.sourceforge.net/projects/freeguide-tv">
-    http://www.sourceforge.net/projects/freeguide-tv</a>
-     into a directory e.g. a subdirectory of your home directory. &nbsp;I've
-  got mine in /home/andy/freeguide-tv, so you'll need to alter the config
-file  to reflect where you've put yours. I'll refer to this directory as
-<tt>%FREEGUIDEDIR%</tt>   .</p>
-<p>Now you'll need to alter the config file. Copy the file <tt>.freeguide</tt>
-     from <tt>%FREEGUIDEDIR% </tt>to your home directory. &nbsp;Now open
-a  terminal  and go to your home directory. &nbsp;Type:<br>
-</p>
-<pre>replace /home/andy/freeguide-tv&nbsp;%FREEGUIDEDIR% -- ~/.freeguide<br></pre>
-<p>For example, my mate dave installed freeguide into a directory in his
-home directory called ThisTVGuideThing so he typed:</p>
-<pre>replace /home/andy/freeguide-tv&nbsp;/home/dave/ThisTVGuideThing -- ~/.freeguide<br></pre>
-<p>If you want to, you can alter the config file manually (the replace command
-  just changes every instance of "/home/andy/freeguide-tv" to "/home/dave/ThisTVGuideThing"),
-  but be careful not to alter any line breaks or blank lines - they all mean
-  something! &nbsp;Your config file is now ready for you.<br>
-</p>
-<p>If you have a Java 2 version that is less than 1.3, and you haven't put
-  Crimson in your classpath, follow the instructions labelled "With Crimson".
-  &nbsp;If you have Java 2 version 1.4, or you have an XML Parser in your
-classpath,  follow the instructions labelled "Without Crimson".<br>
-</p>
-<p><b>With Crimson</b>: Copy the file crimson.jar from the Crimson zip file
-  into the directory <tt>%FREEGUIDEDIR%/org/freeguide-tv/viewers/java2/</tt>
-    . You can now start freeguide by cd-ing into this directory and typing: 
- </p>
-<pre>java -classpath crimson.jar:FreeGuide.jar FreeGuide --config-file ~/.freeguide</pre>
-<p><b>Without Crimson</b>: You can start freeguide by cd-ing into the&nbsp;<tt>
-    %FREEGUIDEDIR%/org/freeguide-tv/viewers/java2/</tt> directory and typing:
-  </p>
-<pre>java -jar FreeGuide.jar --config-file ~/.freeguide<br></pre>
-<p>You have now installed FreeGuide! &nbsp;Of course, you may wish to make
-  yourself a shell script to start it, and make some shortcuts for your desktop,
-  but I'll leave this up to you. Follow the instructions in "Running" below
-  to get it working.</p>
-<h3><a name="installing-other"></a>
-    Other Operating Systems</h3>
-<p>FreeGuide should work with your operating system if there are Java 2 and
-  Perl interpreters for it, but I don't have any other systems so I can't
-test  it or give detailed instructions. &nbsp;The Linux instructions will
-be extremely  relevant to other *nix OS users, and may be useful to others
-too.</p>
-<h2><a name="running"></a>
-    Running FreeGuide</h2>
-<p>The first time you run FreeGuide you will be confronted with the download
-  screen, because no programmes have been downloaded. &nbsp;Click on "Options"
-  to choose your channels. &nbsp;In the list box on the Options screen you
- may choose your required channels by clicking on them while holding down
-the Ctrl button on the keyboard. &nbsp;You'll notice that some channels are
-already selected - these are some ones I watch. You can start with these
-if you like, or get rid of them all by clicking on a channel without using
-Ctrl, and then carrying on with Ctrl held down. When you have finished choosing
-your channels, click "OK". &nbsp;Make sure you're connected to the Internet,
-and then click on "Download...".</p>
-<p>After a short wait, you should see today's listings of the channels you
-  selected. &nbsp;On this screen time advances from left to right (click
-"Go   To Now" to see what's on now), and the channels are shown one below
-another.   &nbsp;</p>
-<p>The + and - buttons change the day you are looking at, or you can choose
-  a day from the list.</p>
-<p>You can click the tick box at the top left corner of a programme to add
-  it to your personalised TV guide for today, which is shown in the bottom
- section of the window. &nbsp;</p>
-<p>You can make programmes be ticked automatically by adding them to your
-  favourites list (choose the "Tools" menu and then "Favourites"). &nbsp;Any
-  programme whose title contains some text matching a favourite will be ticked
-  automatically. &nbsp;You can always un-tick programmes if you wish.</p>
-<p>Clicking "Print Listing" will open up your web browser with your customised
-  TV guide, and you can print it from there by choosing "File" and then "Print".</p>
-<p>To change various options choose the "Tools" menu and then "Options".
-&nbsp;To download more listings, choose "Tools" and then "Download Listings"
-(FreeGuide will take you to this screen automatically when you run out of
-listings).</p>
-<p>Please note that v0.1 does not delete old listings files, so you may wish
-  to remove then from the data directory ("C:\Program Files\FreeGuide\org\freeguide-tv\data\")
-  if they are filling up you hard disk.<br>
-</p>
-<h2><a name="notes"></a>
-  Notes</h2>
-<p>There are lots of things you can fiddle with on the Advanced and View
-tabs of the Options screen. &nbsp;I haven't bothered to document them here
-because they are intended primarily to be set up before distribution. What
-I mean is that they give me the flexibility to distribute viewers with different
- parsers etc. without the need to recompile or alter the program.</p>
-<p>There are some bugs in this release, most notably the strange fast scrolling
- behaviour that happens when you re-enter the listings view screen from somewhere
- else (or when you change the day). Any advice, help or code on this problem
- would be gratefully received. Other bugs include&nbsp;generally  not dealing
- well with unexpected things, and doubtless many things I don't know about.</p>
-<p>If FreeGuide used to work for you and has now stopped, it is probably
-because the web site it grabs listings from has changed its format. &nbsp;Check
-back at <a href="http://www.sourceforge.net/projects/freeguide-tv">http://www.sourceforge.net/projects/freeguide-tv</a>
-   for updated parsers.<br>
-</p>
-<p>My immediate plans are to make one more Java version with a proper installer
- that make lifes very easy, especially for Windows users. However, the Java/Perl
- setup is really a prototype for a final version, which I hope to write in
- C++ using wxWindows. This version will have standard easy installation and
- will allow seamless downloading of new parsers when required. The first
-thing  I need to do for this is learn C++, so don't hold your breath. &nbsp;Again,
- any help appreciated.<br>
-</p>
+<h2><a name="notes"></a>Notes</h2>
+<p>There are lots of things you can fiddle with on the Advanced and View tabs of the Options screen.  I haven't bothered to document them here because they are intended primarily to be set up before distribution. What I mean is that they give me the flexibility to distribute viewers with different parsers etc. without the need to recompile or alter the program.</p>
+<p>There are some bugs in this release, most notably the strange fast scrolling behaviour that happens when you re-enter the listings view screen from somewhere else (or when you change the day). Any advice, help or code on this problem would be gratefully received. Other bugs include generally not dealing well with unexpected things, and doubtless many things I don't know about.</p>
+<p>If FreeGuide used to work for you and has now stopped, it is probably because the web site it grabs listings from has changed its format.  Check the XMLTV page for updated parsers.</p>
+<p>It should be quite easy to get FreeGuide working with US and Canadian listings using the getlistings_na script.  The syntax of the download and get channels commands in the config file is fairly self-explanatory.</p>
 </body>
 </html>

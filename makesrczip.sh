@@ -5,13 +5,13 @@
 find -name "*.java"        > tmp
 find -name "*.form"       >> tmp
 find -name "*.css"        >> tmp
-find -name "sort_listings_freeguide.pl"         >> tmp
+echo "./xmltv/sort_listings_freeguide"         >> tmp
 find -name "*.sh"         >> tmp
 find -name "*.lnk"         >> tmp
-find -name "./README.html"  >> tmp
-find -name "./README"       >> tmp
-find -name "./COPYING"      >> tmp
-find -name "./INSTALL"      >> tmp
+echo "./README.html"  >> tmp
+echo "./README"       >> tmp
+echo "./COPYING"      >> tmp
+echo "./INSTALL"      >> tmp
 
 tar -czf freeguide-src.tar.gz -T tmp
 

@@ -9,7 +9,7 @@ cd $HOME
 
 find freeguide-tv/ -name "*.jar"        		>  mkbintmp
 find freeguide-tv/ -name "*.css"        		>> mkbintmp
-find freeguide-tv/xmltv -name "*.*"				>> mkbintmp
+find freeguide-tv/xmltv -path "*"				>> mkbintmp
 find freeguide-tv/ -name "runfreeguide.sh"		>> mkbintmp
 find freeguide-tv/ -name "*.lnk"         		>> mkbintmp
 find freeguide-tv/ -name "README.html"  		>> mkbintmp
