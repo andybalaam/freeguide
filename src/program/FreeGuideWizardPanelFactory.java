@@ -4,7 +4,7 @@ public class FreeGuideWizardPanelFactory {
 	/**
 	 * Constructs a FreeGuideWizardPanel that is linked to a config entry.
 	 */
-	public static FreeGuideWizardPanel createFreeGuideWizardPanel(
+	/*public static FreeGuideWizardPanel createFreeGuideWizardPanel(
 			String configGroup, String configEntry) {
 		
 		// Get the type of this config entry expects
@@ -38,7 +38,7 @@ public class FreeGuideWizardPanelFactory {
 		
 		return ans;
 		
-	}
+	}*/
 	
 	
 

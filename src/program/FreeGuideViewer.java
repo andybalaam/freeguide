@@ -51,6 +51,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     public FreeGuideViewer(FreeGuideLauncher newLauncher, FreeGuidePleaseWait pleaseWait) {
 
 		launcher = newLauncher;
+
+		//ddl = new DataDateList(FreeGuide.prefs.misc.get("working_directory"),
+		//	"^tv-.*\\.xmltv$");
 		
 		doingProgs = false;
 		dontDownload = false;
@@ -851,12 +854,13 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	}
 	// causes strange(tm) refresh
 	private void makeDatesList1() {
-		comTheDate.removeAllItems();
+		/*comTheDate.removeAllItems();
 		ddl.updateDates();
 		for (int i=0;i<ddl.size();i++) {
 			comTheDate.addItem(comboBoxDateFormat.format((Date)ddl.get(i)));
 		}		
 		comTheDate.setSelectedItem(comboBoxDateFormat.format(theDate.getTime()));
+		*/
 	}
 	// utility function for makeDatesList
 	private static Date parseComboItem(JComboBox cbox, int i) {
@@ -901,7 +905,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		comTheDate.setSelectedItem(comTheDate.getSelectedItem());
 		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
 		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
-		ddl.updateDates();
+		/*ddl.updateDates();
 		Date d1;
 		Date d2;
 		String s1;
@@ -917,7 +921,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		comTheDate.setSelectedItem(comboBoxDateFormat.format(theDate.getTime()));
 		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
 		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
-				
+		*/
 	}
 	
 	/**
@@ -1764,7 +1768,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	private FreeGuideProgramme rightClickedProg;
 		// The programme the user last right clicked on
 		
-	private DataDateList ddl = new DataDateList("/home/wduncan/freeguide-tv/data","^tv-.*\\.xmltv$");
+	private DataDateList ddl;
 
 }
 

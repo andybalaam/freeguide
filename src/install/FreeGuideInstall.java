@@ -15,15 +15,17 @@ import java.io.File;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.Properties;
 import java.util.prefs.Preferences;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 
 /*
  * An installer for FreeGuide
  *
  * @author  Andy Balaam
- * @version 4
+ * @version 5
  */
 public class FreeGuideInstall implements FreeGuideLauncher {
 	
@@ -38,14 +40,11 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		String install_directory = prefs.performSubstitutions(
 			prefs.misc.get("install_directory") );
 		
-		//System.out.println(install_directory);
-		
 		if( install_directory==null || 
 			!(new File(install_directory + File.separator + 
 			"FreeGuide.jar").exists()) ) {
 			
-			// First time install
-		
+			// First time install	
 			install(install_directory, false);
 		
 		} else {
@@ -94,61 +93,107 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		System.exit(0);
 	}
 	
-	private void install(String install_directory, boolean keepOldPrefs) {
+	private void install(String install_directory, boolean keepOldPreferences) {
+		
+		keepOldPrefs = keepOldPreferences;
 		
 		try {
 		
-			// Load the install.props file
-			props = new Properties();
-			props.load(new BufferedInputStream(getClass().getResourceAsStream(
-				"/install.props")));
+			getAllRegions();
 		
-			// Do all the preferences in the properties file - set the defaults
-			// to them, and set the real values too if we're not keeping old
-			// ones.
-			int i=1;
-			String prefString="";
-			while( (prefString=props.getProperty("prefs."+i)) != null ) {
-				
-				doPref(prefString, keepOldPrefs);
-				i++;
-				
-			}
-		
-			/*if(install_directory==null) {
-		
-				install_directory = props.getProperty("default_dir");
-				if(install_directory.equals("")) {
-					install_directory = System.getProperty("user.home") + fs + "freeguide-tv" + fs;
-				}
-				
-			}*/
-		
-			//prefs.misc.put("install_directory", install_directory);
-		
-			FreeGuideWizardPanel[] panels = new FreeGuideWizardPanel[3];
+			FreeGuideWizardPanel[] panels = new FreeGuideWizardPanel[4];
 			
 			panels[0] = new FreeGuideLabelWizardPanel("");
 			panels[0].setMessages("You are about to install FreeGuide.",
 				"Click \"Next\" to continue.");
 		
-			panels[1] = new FreeGuideDirectoryWizardPanel();
-			panels[1].setMessages("Choose your installation directory.",
-				"This will be created if it doesn't exist.");
-			panels[1].setConfig("misc", "install_directory");
+			panels[1] = new FreeGuideChoiceWizardPanel( allRegions );
+			Class[] clses = new Class[1];
+			clses[0] = Object.class;
+			panels[1].setOnExit( this, 
+				getClass().getMethod( "SetProps", clses ) );
+			panels[1].setMessages("Choose your region.",
+				"This affects which listings grabber will be used.");
 		
-			panels[2] = new FreeGuideLabelWizardPanel("Now you need to configure your grabber before you can start using it.");
-			panels[2].setMessages("FreeGuide will be installed when you click \"Finish\".", "Read the README in the directory you chose to find out how.");
+			panels[2] = new FreeGuideDirectoryWizardPanel();
+			panels[2].setMessages("Choose your installation directory.",
+				"This will be created if it doesn't exist.");
+			panels[2].setConfig("misc", "install_directory");
+		
+			panels[3] = new FreeGuideLabelWizardPanel("Now you need to configure your grabber before you can start using it.");
+			panels[3].setMessages("FreeGuide will be installed when you click \"Finish\".", "Read the README in the directory you chose to find out how.");
 	
 			new FreeGuideWizard("FreeGuide Setup Wizard", panels ,this, this, getClass().getMethod("doInstall", new Class[0])).setVisible(true);
 		
-		} catch(java.io.IOException e) {
-			e.printStackTrace();
 		} catch(java.lang.NoSuchMethodException e) {
 			e.printStackTrace();
 		} catch(java.lang.SecurityException e) {
 			e.printStackTrace();
 		}
+		
+	}
+	
+	public void SetProps( Object boxValue ) {
+	
+		String region = (String)boxValue;
+		
+		for( int i=0; i<allRegions.length; i++ ) {
+			
+			if( allRegions[i].equals(region) ) {
+				
+				// Load the install.props file
+				props = new Properties();
+				
+				try{
+					
+					props.load(new BufferedInputStream(getClass().getResourceAsStream(
+					"/install-" + i + ".props")));		
+
+				} catch(java.io.IOException e) {
+					e.printStackTrace();
+				}
+					
+				return;
+				
+			}
+			
+		}
+		
+		System.err.println(
+			"FreeGuideInstall.SetProps - Invalid region chosen." );
+	
+	}
+	
+	private void getAllRegions() {
+		
+		int i=0;
+		
+		Vector regs = new Vector();
+		
+		Properties pr = new Properties();
+		InputStream is;
+		
+		is = getClass().getResourceAsStream( "/install-" + i + ".props" );
+
+		while( is!=null ) {
+			
+			try {
+				pr.load( new BufferedInputStream(is) );
+			
+			} catch(java.io.IOException e) {
+				e.printStackTrace();
+				return;
+			}
+
+			regs.add( pr.getProperty("region") );
+			
+			i++;
+			
+			is = getClass().getResourceAsStream( "/install-" + i + ".props" );
+			
+		}
+		
+		allRegions = FreeGuideUtils.arrayFromVector_String( regs );
 		
 	}
 	
@@ -207,26 +252,22 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 	
 	public void doInstall() {
 		
+		// Do all the preferences in the properties file - set the defaults
+		// to them, and set the real values too if we're not keeping old
+		// ones.
+		int i=1;
+		String prefString="";
+		while( (prefString=props.getProperty("prefs."+i)) != null ) {
+			
+			doPref(prefString);
+			i++;
+				
+		}
+		
 		try {
 		
 			String install_directory = prefs.performSubstitutions( 
 					prefs.misc.get("install_directory") );
-		
-			//FreeGuidePreferencesGroup prefs = new FreeGuidePreferencesGroup();
-		
-			/*if(!install_directory.endsWith(fs)) {
-				install_directory += fs;
-			}
-			String working_directory = install_directory + props.getProperty("working_dir") + fs;
-		
-			boolean full_paths = props.getProperty("full_paths").equals("true");
-		
-			String xmltv_directory;
-			if(full_paths) {
-				xmltv_directory = install_directory + props.getProperty("xmltv_dir") + fs;
-			} else {
-				xmltv_directory = props.getProperty("xmltv_dir") + fs;
-			}*/
 		
 			// Make the required directories
 			new File( install_directory ).mkdirs();
@@ -236,62 +277,12 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 				prefs.misc.get("working_directory") ) ).mkdirs();
 		
 			// Copy in the files
-			int i=1;
+			i=1;
 			String filename="";
 			while( (filename=props.getProperty("file."+i)) != null ) {
 				installFile(filename);
 				i++;
 			}
-		
-			// Do the shared files (Win only)
-			/*i=1;
-			filename="";
-			while( (filename=props.getProperty("share."+i)) != null ) {
-				// FIXME this is a hack!
-				installFile(filename, "C:\\Perl\\");
-				i++;
-			}*/
-		
-			// Set up registry
-			/*refs.misc.put("os", props.getProperty("os"));
-			prefs.misc.put("country", props.getProperty("country"));
-			prefs.misc.put("browser_name", props.getProperty("browser_name"));
-			prefs.misc.put("working_directory", working_directory);
-			prefs.misc.putInt("days_to_grab", 7);
-			prefs.misc.put("xmltv_directory", xmltv_directory);
-		
-			String grabber_exe = props.getProperty("grabber_exe");
-			String grabber_config = props.getProperty("grabber_config");
-			String splitter_exe = props.getProperty("splitter_exe");
-			String browser_exe = props.getProperty("browser_exe");
-		
-			String[] grabber = new String[2];
-			String[] browser = new String[1];
-		
-			if(full_paths) {
-		
-				grabber[0] = "\"" + xmltv_directory + grabber_exe + "\" --config-file \"" + xmltv_directory + grabber_config + "\"" + " --output \"" + working_directory + "tv-unprocessed.xmltv\"";
-				grabber[1] = "\"" + xmltv_directory + splitter_exe + "\" --output \"" + working_directory + "tv-%%Y%%m%%d.xmltv\" --day_start_time 00:00 \"" + working_directory + "tv-unprocessed.xmltv\"";
-			
-				browser[0] = "\"" + browser_exe +"\" \"%filename%\"";
-			
-				prefs.misc.put("grabber_config", xmltv_directory + grabber_config );
-			
-			} else {
-			
-				grabber[0] = grabber_exe + " --config-file " + System.getProperty("user.home") + fs + ".xmltv" + fs + grabber_config + " --output " + working_directory + "tv-unprocessed.xmltv";
-				grabber[1] = splitter_exe + " --output " + working_directory + "tv-%%Y%%m%%d.fgd --day_start_time 00:00 " + working_directory + "tv-unprocessed.xmltv";
-			
-				browser[0] = browser_exe + " %filename%";
-			
-				prefs.misc.put("grabber_config", System.getProperty("user.home") + fs + ".xmltv" + fs + grabber_config );
-			
-			}
-		
-			prefs.commandline.putStrings("tv_grab", grabber);
-			prefs.commandline.putStrings("browser_command", browser);
-			prefs.misc.putFreeGuideTime("day_start_time", new FreeGuideTime(6,0));
-			*/
 		
 			System.err.println("Finished install.");
 			System.exit(0);
@@ -301,10 +292,6 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		}
 		
 	}
-	
-	/*private void installFile(String name) throws java.io.IOException {
-		installFile(name, install_directory);
-	}*/
 		
 	private void installFile(String command) throws java.io.IOException {
 
@@ -336,7 +323,7 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		
 	}
 	
-	private void doPref(String prefString, boolean keepOldPrefs) {
+	private void doPref(String prefString) {
 		
 		// Split this string into its constituent parts
 		
@@ -372,6 +359,8 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		
 	}
 	
+	private boolean keepOldPrefs;
+	private String[] allRegions;
 	private Properties props;
 	private FreeGuidePreferencesGroup prefs;
 	private String fs = System.getProperty("file.separator");

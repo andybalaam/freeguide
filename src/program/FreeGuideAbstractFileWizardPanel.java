@@ -60,7 +60,7 @@ public abstract class FreeGuideAbstractFileWizardPanel extends FreeGuideWizardPa
 		if(configEntry!=null) {
 			JButton butGuess = new JButton();
 			butGuess.setFont(new java.awt.Font("Dialog", 0, 12));
-			butGuess.setText("Guess");
+			butGuess.setText("Default");
 			butGuess.setToolTipText("Ask FreeGuide to guess this value for you.");
 			butGuess.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent evt) {

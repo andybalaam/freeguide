@@ -31,47 +31,43 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 	public FreeGuideOptions(FreeGuideLauncher launcher) {
 		this.launcher = launcher;
 		
-		panels = new FreeGuideWizardPanel[8];
-		titles = new String[8];
+		panels = new FreeGuideWizardPanel[7];
+		titles = new String[7];
 		
-		panels[0] = new FreeGuidePreConfigWizardPanel();
-		panels[0].setMessages("Click the button to change your fundamental info.", "This is what most of the \"Guess\" buttons use.");
-		titles[0] = "Locale";
+		panels[0] = new FreeGuideDirectoryWizardPanel();
+		panels[0].setMessages("Choose the working directory FreeGuide will use.", "A new directory will be made if necessary.");
+		panels[0].setConfig("misc", "working_directory");
+		titles[0] = "Working Directory";
 		
 		panels[1] = new FreeGuideDirectoryWizardPanel();
-		panels[1].setMessages("Choose the working directory FreeGuide will use.", "A new directory will be made if necessary.");
-		panels[1].setConfig("misc", "working_directory");
-		titles[1] = "Working Directory";
+		panels[1].setMessages("Choose the directory that contains the XMLTV tools.", "This must contain the xmltv executable(s).");
+		panels[1].setConfig("misc", "xmltv_directory");
+		titles[1] = "XMLTV Directory";
 		
-		panels[2] = new FreeGuideDirectoryWizardPanel();
-		panels[2].setMessages("Choose the directory that contains the XMLTV tools.", "This must contain the xmltv executable(s).");
-		panels[2].setConfig("misc", "xmltv_directory");
-		titles[2] = "XMLTV Directory";
+		panels[2] = new FreeGuideCommandsWizardPanel();
+		panels[2].setMessages("Enter the command used to grab listings.", "");
+		panels[2].setConfig("commandline", "tv_grab");
+		titles[2] = "Grabber Command";
 		
 		panels[3] = new FreeGuideCommandsWizardPanel();
-		panels[3].setMessages("Enter the command used to grab listings.", "");
-		panels[3].setConfig("commandline", "tv_grab");
-		titles[3] = "Grabber Command";
+		panels[3].setMessages("Enter the command used to launch a web browser.", "");
+		panels[3].setConfig("commandline", "browser_command");
+		titles[3] = "Browser Command";
 		
-		panels[4] = new FreeGuideCommandsWizardPanel();
-		panels[4].setMessages("Enter the command used to launch a web browser.", "");
-		panels[4].setConfig("commandline", "browser_command");
-		titles[4] = "Browser Command";
+		panels[4] = new FreeGuideTextWizardPanel();
+		panels[4].setMessages("Enter the time that each day starts.", "Use hh:mm format e.g.06:00 for 6am.");
+		panels[4].setConfig("misc", "day_start_time");
+		titles[4] = "Day Start";
 		
-		panels[5] = new FreeGuideTextWizardPanel();
-		panels[5].setMessages("Enter the time that each day starts.", "Use hh:mm format e.g.06:00 for 6am.");
-		panels[5].setConfig("misc", "day_start_time");
-		titles[5] = "Day Start";
-		
-		panels[6] = new FreeGuideFileWizardPanel();
-		panels[6].setMessages("Choose the XMLTV tool's configuration file.", "");
-		panels[6].setConfig("misc", "grabber_config");
-		titles[6] = "Channels File";
+		panels[5] = new FreeGuideFileWizardPanel();
+		panels[5].setMessages("Choose the XMLTV tool's configuration file.", "");
+		panels[5].setConfig("misc", "grabber_config");
+		titles[5] = "Channels File";
 	
-		panels[7] = new FreeGuideTextWizardPanel();
-		panels[7].setMessages("Choose how many days to download at once.", "");
-		panels[7].setConfig("misc", "days_to_grab");
-		titles[7] = "Days to Download";
+		panels[6] = new FreeGuideTextWizardPanel();
+		panels[6].setMessages("Choose how many days to download at once.", "");
+		panels[6].setConfig("misc", "days_to_grab");
+		titles[6] = "Days to Download";
 	
 		// Draw the screen
 		initComponents();

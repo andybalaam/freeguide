@@ -131,6 +131,8 @@ public class FreeGuideWizard extends javax.swing.JFrame {
 
 		displayPanel(panels[panelCounter]);
 		
+		
+		
     }
 
 	private void butCancelActionPerformed(java.awt.event.ActionEvent evt) {
