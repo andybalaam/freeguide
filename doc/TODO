@@ -95,6 +95,7 @@ y  means done by Yann 'PoV' Coupin
 - Delete some preferences when doing a complete install?
 - Fix bug in Italian grabber GUI config
 - Fix bugs in Windows grabber config for Netherlands, Sweden and Germany
+- Error dialog when there's an XML parsing error.
 
 - Release 0.7.7 (aesthetics)
 
