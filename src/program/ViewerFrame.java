@@ -46,7 +46,7 @@ import javax.swing.text.JTextComponent;
  *
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    16
+ *@version    17
  */
 public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 		Progressor {
@@ -69,11 +69,13 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 		findChannelSets();
 		setupAndFindDates();
 
+		// Get the channel set from preferences
+		findInitialChannelSet();
+		
 		// Find out what date it is today
 		findInitialDate();
 		
-		// Get the channel set from preferences
-		findInitialChannelSet();
+		
 
 		// Set the progress meter to 5%
 		progressor.setProgress( 5 );
@@ -1018,6 +1020,10 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 
 		// Redraw the channel sets combo
 		findChannelSets();
+		
+		// Get a reference to the current channel set
+		currentChannelSet = getChannelSetInterfaceFromName(
+			currentChannelSet.getChannelSetName() );
 		
 		// Redraw the dates combo
 		findDates();

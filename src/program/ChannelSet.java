@@ -67,19 +67,25 @@ public class ChannelSet implements ChannelSetInterface {
 
     /**
      *  convenience function, since channel set names are not available when
-     *  retreiving from the Preferences
+     *  retrieving from the Preferences
      *
      *@param  nameprovider  Description of the Parameter
      */
     public void updateChannelNames(ChannelSetInterface nameprovider) {
+		
+		//System.out.println( this + " . updateChannelNames" );
+		
         if (nameprovider == null) {
             return;
         }
         channelNames = new Vector();
         for (int i = 0; i < channelIDs.size(); i++) {
+			
             String id = (String) channelIDs.elementAt(i);
             String name = nameprovider.getChannelName(id);
-            channelNames.add(name);
+			
+			channelNames.add( i, name );
+				
         }
 
     }
@@ -124,6 +130,7 @@ public class ChannelSet implements ChannelSetInterface {
      *@return    The channelName value
      */
     public String getChannelName(int i) {
+		//System.out.println( "getChannelName(" + i + ") = " +  channelNames.get(i));
         return (String) channelNames.get(i);
     }
 
