@@ -152,7 +152,14 @@ public class FreeGuideTime {
 			FreeGuide.log.warning("Invalid time string \"" + hhmm + "\"");
 		} else {
 			
-			setTime( Integer.parseInt(hhmm.substring(0, 2)), Integer.parseInt(hhmm.substring(3)) );
+			try {
+				setTime( Integer.parseInt(hhmm.substring(0, 2)), 
+					Integer.parseInt(hhmm.substring(3)) );
+			} catch (NumberFormatException e) {
+				FreeGuide.log.severe("FGTime.setTimeHHMMString("+hhmm+
+					"): NumberFormatException...");
+				setTime(0);
+			}
 			
 		}
 	}
