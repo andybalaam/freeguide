@@ -1,4 +1,4 @@
-                             FreeGuide 0.2 Readme
+                             FreeGuide 0.3 Readme
 
 Contents
 
@@ -32,17 +32,10 @@ Introduction
    FreeGuide uses the XMLTV format and parsers developed by the very
    friendly people at XMLTV ([11]
    http://www.doc.ic.ac.uk/~epa98/work/apps/xmltv/ and
-   [12]http://sourceforge.net/projects/xmltv). All the XMLTV code,
-   READMEs and copyright notices may be found in the "xmltv" subdirectory
-   of the freeguide programme directory.
+   [12]http://sourceforge.net/projects/xmltv).
 
    FreeGuide contains a little code by Slava Pestov from the Jedit
    project ([13]www.jedit.org).
-
-   Referring to the crimson XML parser (crimson.jar): This product
-   includes software developed by the Apache Software Foundation
-   (http://www.apache.org/). See the file gui-java/crimsonlicence.txt for
-   details.
 
 Licence
 
@@ -63,30 +56,39 @@ Licence
 
 Installing FreeGuide
 
-   Please note that v0.2 is an alpha version and thus: a) may not work
-   and b) is slightly fiddly to install.
-
   Windows Users
 
-   I'm afraid I haven't been able to get XMLTV working under Windows, but
-   if you can, it should be quite easy to get FreeGuide working on top of
-   it. Please do let me know if you manage it.
+     * Install XMLTV for Windows from
+       [15]http://sourceforge.net/projects/xmltv. You'll need version
+       0.4.5 or later if you want the listings grabber to work. Put it
+       into the directory "C:\Program Files\xmltv". You'll also need the
+       file tv_split.exe from the FreeGuide download site if it's not
+       included with XMLTV. Put it in the same directory as the other
+       XMLTV .exe files.
+     * Get FreeGuide from
+       [16]http://sourceforge.net/projects/freeguide-tv. Unzip the zip
+       file into "C:\My Documents\".
+
+   Double-click on the "FreeGuide" link in C:\My Doucments\freeguide-tv
+   to start FreeGuide and read the instructions under Running below.
+
+   FreeGuide still needs a little fiddling to get it working under
+   Windows. Please [17]email me if you have problems.
 
   Linux Users
 
    Make sure you have the Java 2 Runtime Environment (from
-   [15]http://java.sun.com/j2se/). You can check this with java -version.
+   [18]http://java.sun.com/j2se/). You can check this with java -version.
 
    Most linux users will have Perl, but if you haven't, you'll need to
    install it.
 
-   Now you need to get all the prerequisites for XMLTV. Follow the
-   instructions on the [16]XMLTV page under "Prerequisites". This may
-   take some time, and you may need to use "force install" sometimes (I
-   don't know why).
+   Now you need install XMLTV. Follow the instructions on the [19]XMLTV..
+   You'll also need the file tv_split from the FreeGuide download site if
+   it's not included with XMLTV.
 
    Download the FreeGuide Java binary uk tar.gz file from
-   [17]http://www.sourceforge.net/projects/freeguide-tv and untar it
+   [20]http://www.sourceforge.net/projects/freeguide-tv and untar it
    whilst in your home directory.
 
    Now you'll need to alter the config file. Alter the file
@@ -193,6 +195,9 @@ References
   12. http://sourceforge.net/projects/xmltv
   13. http://www.jedit.org/
   14. file://localhost/home/andy/freeguide-tv/COPYING
-  15. http://java.sun.com/j2se/
-  16. http://www.doc.ic.ac.uk/~epa98/work/apps/xmltv/
-  17. http://www.sourceforge.net/projects/freeguide-tv
+  15. http://sourceforge.net/projects/xmltv
+  16. http://sourceforge.net/projects/freeguide-tv
+  17. mailto:freeguide@artificialworlds.net
+  18. http://java.sun.com/j2se/
+  19. http://www.doc.ic.ac.uk/~epa98/work/apps/xmltv/
+  20. http://www.sourceforge.net/projects/freeguide-tv

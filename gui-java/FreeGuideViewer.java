@@ -406,13 +406,13 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		FreeGuide.prefs.favourites.appendFreeGuideFavourite(fav);
 		
 		// Tick this programme
-		JLabel txt = (JLabel)evt.getSource();
-		FreeGuideProgramme prog = getProgFromJLabel(txt);
+		JLabel txt = getJLabelFromProg(rightClickedProg);
+		//FreeGuideProgramme prog = getProgFromJLabel(txt);
 		
 		txt.setBackground( FreeGuide.prefs.screen.getColor("programme_chosen_colour", FreeGuide.PROGRAMME_CHOSEN_COLOUR) );
-		tickedProgrammes.add(prog);
+		tickedProgrammes.add(rightClickedProg);
 			
-		FreeGuide.prefs.addChoice(prog);
+		FreeGuide.prefs.addChoice(rightClickedProg);
 			
 		// Update the guide
 		updatePrintedGuide();
@@ -772,6 +772,17 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 	}//loadProgrammeData
     
+	/**
+	 * Given the programme, returns the jlabel displaying it.
+	 *
+	 * @param prg the FreeGuideProgramme for a programme
+	 * @returns  the programme referred to
+	 */
+	private JLabel getJLabelFromProg(FreeGuideProgramme prg) {
+		int i = programmes.indexOf(prg);
+		return (JLabel)textAreas.get(i);
+	}//getJLabelFromPrpg
+	
 	/**
 	 * Given the JLabel displaying it, returns the programme.
 	 *
