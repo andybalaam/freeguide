@@ -36,7 +36,7 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		
 		// Branch into Reinstall or first time
 		String install_directory = prefs.misc.get("install_directory");
-		if(install_directory==null) {
+		if( install_directory==null || !(new File(install_directory + File.separator + "FreeGuide.jar").exists()) ) {
 			// First time install
 		
 			install(install_directory);
@@ -44,13 +44,18 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		} else {
 			
 			String msg = "There is a version of FreeGuide installed.  Would you like to uninstall it, or install a new version?";
-			String[] options = { "Install", "Uninstall" };
+			String[] options = { "Cancel", "Install", "Uninstall" };
 			int response = JOptionPane.showOptionDialog(null, msg, "Install question", 0, JOptionPane.QUESTION_MESSAGE, null, options, "Install" );
 			
-			if(response==0) {
-				install(install_directory);
-			} else {
-				uninstall(install_directory);
+			switch(response) {
+				case 1:
+					install(install_directory);
+					break;
+				case 2:
+					uninstall(install_directory);
+					break;
+				default:
+					System.exit(0);
 			}
 			
 		}
@@ -58,13 +63,15 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 	}
 	
 	public void reShow() {
-		try {
+		/*try {
+			
 			doInstall();
 			System.exit(0);
+			
 		} catch(java.io.IOException e) {
 			e.printStackTrace();
 			System.exit(1);
-		}
+		}*/
 		
 	}
 	
@@ -104,12 +111,16 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 			panels[1].setMessages("Choose your installation directory.", "This will be created if it doesn't exist.");
 			panels[1].setConfig("misc", "install_directory");
 		
-			panels[2] = new FreeGuideLabelWizardPanel("You are now ready to start using FreeGuide.");
-			panels[2].setMessages("Congratulations!", "Click \"Finish\" and read the README in the directory you chose.");
-			
-			new FreeGuideWizard("FreeGuide Setup Wizard", panels ,this).setVisible(true);
+			panels[2] = new FreeGuideLabelWizardPanel("Now you need to configure your grabber before you can start using it.");
+			panels[2].setMessages("FreeGuide will be installed when you click \"Finish\".", "Read the README in the directory you chose to find out how.");
+	
+			new FreeGuideWizard("FreeGuide Setup Wizard", panels ,this, this, getClass().getMethod("doInstall", new Class[0])).setVisible(true);
 		
 		} catch(java.io.IOException e) {
+			e.printStackTrace();
+		} catch(java.lang.NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch(java.lang.SecurityException e) {
 			e.printStackTrace();
 		}
 		
@@ -118,10 +129,13 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 	private void uninstall(String install_directory) {
 		
 		File inst = new File(install_directory);
-		File work = new File(prefs.misc.get("working_directory"));
-		
 		deleteDir(inst);
-		deleteDir(work);
+		
+		String w = prefs.misc.get("working_directory");
+		if(w!=null) {
+			File work = new File(w);
+			deleteDir(work);
+		}
 		
 		Preferences node = Preferences.userRoot().node("/org/freeguide-tv");
 		
@@ -163,85 +177,93 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		
 	}
 	
-	private void doInstall() throws java.io.IOException {
+	public void doInstall() {
 		
-		String install_directory = prefs.misc.get("install_directory");
+		try {
 		
-		FreeGuidePreferencesGroup prefs = new FreeGuidePreferencesGroup();
+			String install_directory = prefs.misc.get("install_directory");
 		
-		if(!install_directory.endsWith(fs)) {
-			install_directory += fs;
+			FreeGuidePreferencesGroup prefs = new FreeGuidePreferencesGroup();
+		
+			if(!install_directory.endsWith(fs)) {
+				install_directory += fs;
+			}
+			String working_directory = install_directory + props.getProperty("working_dir") + fs;
+		
+			boolean full_paths = props.getProperty("full_paths").equals("true");
+		
+			String xmltv_directory;
+			if(full_paths) {
+				xmltv_directory = install_directory + props.getProperty("xmltv_dir") + fs;
+			} else {
+				xmltv_directory = props.getProperty("xmltv_dir") + fs;
+			}
+		
+			// Make the required directories
+			new File(install_directory).mkdirs();
+			new File(xmltv_directory).mkdirs();
+			new File(working_directory).mkdirs();
+		
+			// Copy in the files
+			int i=1;
+			String filename="";
+			while( (filename=props.getProperty("file."+i)) != null ) {
+				installFile(filename, install_directory);
+				i++;
+			}
+		
+			// Do the shared files (Win only)
+			i=1;
+			filename="";
+			while( (filename=props.getProperty("share."+i)) != null ) {
+				installFile(filename, "C:\\Perl\\");
+				i++;
+			}
+		
+			// Set up registry
+			prefs.misc.put("os", props.getProperty("os"));
+			prefs.misc.put("country", props.getProperty("country"));
+			prefs.misc.put("browser_name", props.getProperty("browser_name"));
+			prefs.misc.put("working_directory", working_directory);
+			prefs.misc.put("xmltv_directory", xmltv_directory);
+		
+			String grabber_exe = props.getProperty("grabber_exe");
+			String grabber_config = props.getProperty("grabber_config");
+			String splitter_exe = props.getProperty("splitter_exe");
+			String browser_exe = props.getProperty("browser_exe");
+		
+			String[] grabber = new String[2];
+			String[] browser = new String[1];
+		
+			if(full_paths) {
+		
+				grabber[0] = "\"" + xmltv_directory + grabber_exe + "\" --config-file \"" + xmltv_directory + grabber_config + "\"" + " --output \"" + working_directory + "listings_unprocessed.xml\"";
+				grabber[1] = "\"" + xmltv_directory + splitter_exe + "\" --output \"" + working_directory + "%%channel-%%Y%%m%%d.fgd\" --day_start_time 06:00 \"" + working_directory + "listings_unprocessed.xml\"";
+			
+				browser[0] = "\"" + browser_exe +"\" \"%filename%\"";
+			
+				prefs.misc.put("grabber_config", xmltv_directory + grabber_config );
+			
+			} else {
+			
+				grabber[0] = grabber_exe + " --config-file " + System.getProperty("user.home") + fs + ".xmltv" + fs + grabber_config + " --output " + working_directory + "listings_unprocessed.xml";
+				grabber[1] = splitter_exe + " --output " + working_directory + "%%channel-%%Y%%m%%d.fgd --day_start_time 06:00 " + working_directory + "listings_unprocessed.xml";
+			
+				browser[0] = browser_exe + " %filename%";
+			
+				prefs.misc.put("grabber_config", System.getProperty("user.home") + fs + ".xmltv" + fs + grabber_config );
+			
+			}
+		
+			prefs.commandline.putStrings("tv_grab", grabber);
+			prefs.commandline.putStrings("browser_command", browser);
+			prefs.misc.putFreeGuideTime("day_start_time", new FreeGuideTime(6,0));
+		
+			System.exit(0);
+			
+		} catch(java.io.IOException e) {
+			e.printStackTrace();
 		}
-		String working_directory = install_directory + props.getProperty("working_dir") + fs;
-		
-		boolean full_paths = props.getProperty("full_paths").equals("true");
-		
-		String xmltv_directory;
-		if(full_paths) {
-			xmltv_directory = install_directory + props.getProperty("xmltv_dir") + fs;
-		} else {
-			xmltv_directory = props.getProperty("xmltv_dir") + fs;
-		}
-		
-		// Make the required directories
-		new File(install_directory).mkdirs();
-		new File(xmltv_directory).mkdirs();
-		new File(working_directory).mkdirs();
-		
-		// Copy in the files
-		int i=1;
-		String filename="";
-		while( (filename=props.getProperty("file."+i)) != null ) {
-			installFile(filename, install_directory);
-			i++;
-		}
-		
-		// Do the shared files (Win only)
-		i=1;
-		filename="";
-		while( (filename=props.getProperty("share."+i)) != null ) {
-			installFile(filename, "C:\\Perl\\");
-			i++;
-		}
-		
-		// Set up registry
-		prefs.misc.put("os", props.getProperty("os"));
-		prefs.misc.put("country", props.getProperty("country"));
-		prefs.misc.put("browser_name", props.getProperty("browser_name"));
-		prefs.misc.put("working_directory", working_directory);
-		prefs.misc.put("xmltv_directory", xmltv_directory);
-		
-		String grabber_exe = props.getProperty("grabber_exe");
-		String grabber_config = props.getProperty("grabber_config");
-		String splitter_exe = props.getProperty("splitter_exe");
-		String browser_exe = props.getProperty("browser_exe");
-		
-		String[] grabber = new String[2];
-		String[] browser = new String[1];
-		
-		if(full_paths) {
-		
-			grabber[0] = "\"" + xmltv_directory + grabber_exe + "\" --config-file \"" + xmltv_directory + grabber_config + "\"" + " --output \"" + working_directory + "listings_unprocessed.xml\"";
-			grabber[1] = "\"" + xmltv_directory + splitter_exe + "\" --output \"" + working_directory + "%%channel-%%Y%%m%%d.fgd\" --day_start_time 06:00 \"" + working_directory + "listings_unprocessed.xml\"";
-			
-			browser[0] = "\"" + browser_exe +"\" \"%filename%\"";
-			
-			prefs.misc.put("grabber_config", xmltv_directory + grabber_config );
-			
-		} else {
-			
-			grabber[0] = grabber_exe + " --config-file " + System.getProperty("user.home") + fs + ".xmltv" + fs + grabber_config + " --output " + working_directory + "listings_unprocessed.xml";
-			grabber[1] = splitter_exe + " --output " + working_directory + "%%channel-%%Y%%m%%d.fgd --day_start_time 06:00 " + working_directory + "listings_unprocessed.xml";
-			
-			browser[0] = browser_exe + " %filename%";
-			
-			prefs.misc.put("grabber_config", System.getProperty("user.home") + fs + ".xmltv" + fs + grabber_config );
-			
-		}
-		
-		prefs.commandline.putStrings("tv_grab", grabber);
-		prefs.commandline.putStrings("browser_command", browser);
-		prefs.misc.putFreeGuideTime("day_start_time", new FreeGuideTime(6,0));
 		
 	}
 	

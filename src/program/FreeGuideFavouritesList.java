@@ -22,7 +22,7 @@ import javax.swing.DefaultListModel;
  * them by launching a FreeGuideFavouriteEditor.
  *
  * @author  Andy Balaam
- * @version 1
+ * @version 2
  */
 public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeGuideLauncher {
 	
@@ -38,6 +38,15 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
 		loadFavourites();
 		
 		fillList();
+		
+		latestIndex = 0;
+		selectLatest();
+		
+	}
+	
+	private void selectLatest() {
+		
+		list.setSelectedIndex(latestIndex);
 		
 	}
 	
@@ -152,9 +161,9 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
         gridBagConstraints.weightx = 0.9;
         gridBagConstraints.weighty = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 5);
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -205,6 +214,11 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
 
 	private void butRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRemoveActionPerformed
 		
+		latestIndex = list.getSelectedIndex();
+		if(latestIndex==favouritesModel.size()-1) {
+			latestIndex--;
+		}
+		
 		int[] sel = list.getSelectedIndices();
 		
 		for(int i=0;i<sel.length;i++) {
@@ -214,6 +228,7 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
 		}
 		
 		fillList();
+		selectLatest();
 		
 	}//GEN-LAST:event_butRemoveActionPerformed
 
@@ -232,6 +247,7 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
 
 	private void butEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butEditActionPerformed
 		
+		latestIndex = list.getSelectedIndex();
 		int i = list.getSelectedIndex();
 		if(i != -1 ) {
 			FreeGuideFavourite fav = (FreeGuideFavourite)favourites.get( i );
@@ -245,6 +261,7 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
 		FreeGuideFavourite newFav = new FreeGuideFavourite();
 		favourites.add( newFav );
 		new FreeGuideFavouriteEditor(this, newFav).show();
+		latestIndex = favouritesModel.size();
 		
 	}//GEN-LAST:event_butAddActionPerformed
 	
@@ -274,6 +291,7 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
 		}*/
 		
 		fillList();
+		selectLatest();
 	}
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -294,5 +312,7 @@ public class FreeGuideFavouritesList extends javax.swing.JFrame implements FreeG
 	private FreeGuideFavourite favourite;
 	
 	private DefaultListModel favouritesModel;
+	
+	private int latestIndex;
 	
 }

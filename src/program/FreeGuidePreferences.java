@@ -164,7 +164,7 @@ public class FreeGuidePreferences {
 		
 	}
 	
-	public void removeCompoundObject(int index) {
+	public void removeChoice(int index) {
 		
 		// Remove these even though they will be over-written in a minute
 		// (just for neatness)
@@ -191,6 +191,48 @@ public class FreeGuidePreferences {
 		remove((index-1) + ".title");
 		remove((index-1) + ".start");
 		remove((index-1) + ".channel_id");
+		
+	}
+	
+	public void removeFreeGuideFavourite(int index) {
+		
+		// Remove these even though they will be over-written in a minute
+		// (just for neatness)
+		remove(index + ".name");
+		remove(index + ".title_string");
+		remove(index + ".title_regex");
+		remove(index + ".channel_id");
+		remove(index + ".after_time");
+		remove(index + ".before_time");
+		remove(index + ".day_of_week");
+		
+		// Shift everything down
+		index++;
+		String name = get( index + ".name" );
+		while( name != null ) {
+			
+			put((index-1) + ".name", get(index+".name"));
+			put((index-1) + ".title_string", get(index+".title_string"));
+			put((index-1) + ".title_regex", get(index+".title_regex"));
+			put((index-1) + ".channel_id", get(index+".channel_id"));
+			put((index-1) + ".after_time", get(index+".after_time"));
+			put((index-1) + ".before_time", get(index+".before_time"));
+			put((index-1) + ".day_of_week", get(index+".day_of_week"));
+			
+			index++;
+			name = get( index + ".name" );
+			
+		}
+		
+		// Remove the last one in the list
+		// (so that it's 1 shorter than what we started with)
+		remove((index-1) + ".name");
+		remove((index-1) + ".title_string");
+		remove((index-1) + ".title_regex");
+		remove((index-1) + ".channel_id");
+		remove((index-1) + ".after_time");
+		remove((index-1) + ".before_time");
+		remove((index-1) + ".day_of_week");
 		
 	}
 	
@@ -341,7 +383,7 @@ public class FreeGuidePreferences {
 			return def;
 		} else {	// If it is there, fill in the details
 			FreeGuideProgramme prog = new FreeGuideProgramme();
-			prog.setTitle(title);
+			prog.addToTitle(title);
 			
 			Calendar cal = GregorianCalendar.getInstance();
 			cal.setTime(getDate( key+".start", null ));

@@ -33,12 +33,12 @@ public class FreeGuidePleaseWait extends javax.swing.JFrame {
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("FreeGuide is loading, please wait...");
+        jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(jLabel1, java.awt.BorderLayout.CENTER);
 
         pack();
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
- 
-       setSize(new java.awt.Dimension(263, 64));
+        setSize(new java.awt.Dimension(263, 64));
         setLocation((screenSize.width-263)/2,(screenSize.height-64)/2);
     }//GEN-END:initComponents
 

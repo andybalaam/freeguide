@@ -86,8 +86,8 @@ public class FreeGuide implements FreeGuideLauncher {
 	public static Logger log;					// The log file
 	
 	public static final int version_major = 0;
-	public static final int version_minor = 5;
-	public static final int version_revision = 0;
+	public static final int version_minor = 4;
+	public static final int version_revision = 2;
 	
 	// Defaults - can be overridden by user preferences
 	public static final Color PROGRAMME_NORMAL_COLOUR = Color.white;

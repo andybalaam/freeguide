@@ -27,7 +27,7 @@ public class FreeGuideAbout extends javax.swing.JDialog {
 		
 		String str = "";
 		
-		str += "<font face='arial, helvetica, helv, sans serif' size=3>";
+		str += "<font face='verdana, arial, helvetica, helv, sans serif' size=3>";
 		str += "<table width=\"100%\" height=\"100%\" border=\"0\"><tr><td height=\"100%\" align=\"center\">";
 		str += "<h1><font face='arial, helvetica, helv, sans serif' size=\"5\">FreeGuide " + FreeGuide.getVersion() + "</font></h1>";
 		str += "<p>Free software by the FreeGuide contributors.</p>";

@@ -13,6 +13,8 @@
 
 import java.awt.Component;
 import java.io.File;
+import java.lang.Class;
+import java.lang.reflect.Method;
 import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -29,12 +31,20 @@ import javax.swing.JOptionPane;
  */
 public class FreeGuideWizard extends javax.swing.JFrame {
 	
-	
 	// The user passes in a title and an array of FreeGuideWizardPanels
 	public FreeGuideWizard(String title, FreeGuideWizardPanel[] panels, FreeGuideLauncher launcher) {
+
+		this(title, panels, launcher, null, null);
+		
+	}
+	
+	// The user passes in a title and an array of FreeGuideWizardPanels
+	public FreeGuideWizard(String title, FreeGuideWizardPanel[] panels, FreeGuideLauncher launcher, Object finishObject, Method finishMethod) {
 		
 		this.launcher = launcher;
 		this.panels = panels;
+		this.finishObject = finishObject;
+		this.finishMethod = finishMethod;
 		
 		panelCounter=0;
 		
@@ -128,6 +138,21 @@ public class FreeGuideWizard extends javax.swing.JFrame {
 	}
 
 	private void butFinishActionPerformed(java.awt.event.ActionEvent evt) {
+		
+		if(finishMethod!=null) {
+		
+			try {
+			
+				finishMethod.invoke(finishObject, new Class[0]);
+			
+			} catch(java.lang.IllegalAccessException e) {
+				e.printStackTrace();
+			} catch(java.lang.reflect.InvocationTargetException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
 		quit();
 	}
 	
@@ -235,5 +260,8 @@ public class FreeGuideWizard extends javax.swing.JFrame {
     
 	private FreeGuideLauncher launcher;
 	private int panelCounter;
+	
+	private Object finishObject;
+	private Method finishMethod;
 	
 }

@@ -81,14 +81,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// Error if we're missing programme info
 		if(missingFiles) {
 			
-			if(dontDownload) {
+			if(!dontDownload) {
 				
-				// Clear the screen if we're not supposed to download
-				innerPanel.removeAll();
-				setVisible(true);
-				
-			} else {
-			
 				String msg = "There are missing listings for this day.\n"+
 					"Do you want to download more?";
 				
@@ -97,26 +91,22 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 				if(r==0) {
 				
 					downloadListings();
+					
+					return;
 				
 				} else {
-					
-					// Clear the screen if we're not supposed to downlaod
-					innerPanel.removeAll();
-					setVisible(true);
-					
+				
+					dontDownload = true;
+				
 				}
-				
-				dontDownload = true;
-				
+			
 			}
-
-		} else {
-			
-			drawProgrammes();
-			updatePrintedGuide();
-			setVisible(true);
-			
 		}
+		
+		drawProgrammes();
+		updatePrintedGuide();
+		setVisible(true);
+		
 		
     }
 	
@@ -166,7 +156,17 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         jSeparator4 = new javax.swing.JSeparator();
         menAbout = new javax.swing.JMenuItem();
 
-        menAddFav.setText("Add to Favourites");
+        popProg.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                popProgPopupMenuWillBecomeVisible(evt);
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
+
+        menAddFav.setText("Add to favourites");
         menAddFav.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menAddFavActionPerformed(evt);
@@ -316,7 +316,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         getContentPane().add(splitPane, gridBagConstraints);
 
         butRevertFavs.setFont(new java.awt.Font("Dialog", 0, 10));
-        butRevertFavs.setText("Untick non-favourites");
+        butRevertFavs.setText("Reset choices");
         butRevertFavs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butRevertFavsActionPerformed(evt);
@@ -443,6 +443,31 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         setLocation((screenSize.width-615)/2,(screenSize.height-345)/2);
     }//GEN-END:initComponents
 
+	private void popProgPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_popProgPopupMenuWillBecomeVisible
+		
+		// Find the current favourites
+		FreeGuideFavourite[] favourites = FreeGuide.prefs.getFavourites();
+		
+		boolean isFav = false;
+		
+		// Find out whether the programme is a favourite
+		for(int i=0;i<favourites.length;i++) {
+						
+			if(favourites[i].matches(rightClickedProg)) {
+				isFav = true;
+				break;
+			}
+						
+		}//for
+		
+		if(isFav) {
+			menAddFav.setText("Remove from favourites");
+		} else {
+			menAddFav.setText("Add to favourites");
+		}
+		
+	}//GEN-LAST:event_popProgPopupMenuWillBecomeVisible
+
 	private void butDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butDownloadActionPerformed
 		
 		downloadListings();
@@ -463,26 +488,73 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 	private void menAddFavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menAddFavActionPerformed
 		
-		// Make a favourite
-		FreeGuideFavourite fav = new FreeGuideFavourite();
-		String title = rightClickedProg.getTitle();
-		fav.setTitleString( title );
-		fav.setName( title );
+		if(menAddFav.getText().equals("Add to favourites")) {
 		
-		// Remember the favourite
-		FreeGuide.prefs.favourites.appendFreeGuideFavourite(fav);
+			// Make a favourite
+			FreeGuideFavourite fav = new FreeGuideFavourite();
+			String title = rightClickedProg.getTitle();
+			fav.setTitleString( title );
+			fav.setName( title );
 		
-		// Tick this programme
-		JLabel txt = getJLabelFromProg(rightClickedProg);
-		//FreeGuideProgramme prog = getProgFromJLabel(txt);
+			// Remember the favourite
+			FreeGuide.prefs.favourites.appendFreeGuideFavourite(fav);
 		
-		txt.setBackground( FreeGuide.prefs.screen.getColor("programme_chosen_colour", FreeGuide.PROGRAMME_CHOSEN_COLOUR) );
-		tickedProgrammes.add(rightClickedProg);
+			// Tick this programme
+			if(!tickedProgrammes.contains(rightClickedProg)) {
+		
+				JLabel txt = getJLabelFromProg(rightClickedProg);
+				//FreeGuideProgramme prog = getProgFromJLabel(txt);
+		
+				txt.setBackground( FreeGuide.prefs.screen.getColor("programme_chosen_colour", FreeGuide.PROGRAMME_CHOSEN_COLOUR) );
+				tickedProgrammes.add(rightClickedProg);
 			
-		FreeGuide.prefs.addChoice(rightClickedProg);
+				FreeGuide.prefs.addChoice(rightClickedProg);
 			
-		// Update the guide
-		updatePrintedGuide();
+				// Update the guide
+				updatePrintedGuide();
+			
+			}
+			
+		} else {
+			
+			// Find the current favourites
+			FreeGuideFavourite[] favourites = FreeGuide.prefs.getFavourites();
+		
+			// Find out whether the programme is a favourite
+			for(int i=0;i<favourites.length;i++) {
+						
+				if(favourites[i].matches(rightClickedProg)) {
+					
+					int	r = JOptionPane.showConfirmDialog(this, "Remove favourite \"" + favourites[i].getName() + "\"?", "Remove favourite?", JOptionPane.YES_NO_OPTION );
+			
+					if(r==0) {
+				
+						//System.out.println(i);
+						
+						FreeGuide.prefs.favourites.removeFreeGuideFavourite(i+1);
+					
+						// Untick this programme
+						if(tickedProgrammes.contains(rightClickedProg)) {
+		
+							JLabel txt = getJLabelFromProg(rightClickedProg);
+		
+							txt.setBackground( FreeGuide.prefs.screen.getColor("programme_colour", FreeGuide.PROGRAMME_NORMAL_COLOUR) );
+							tickedProgrammes.remove(rightClickedProg);
+			
+							FreeGuide.prefs.removeChoice(rightClickedProg);
+			
+							// Update the guide
+							updatePrintedGuide();
+			
+						}
+				
+					}
+					
+				}
+		
+			}//for
+			
+		}
 		
 	}//GEN-LAST:event_menAddFavActionPerformed
 
@@ -628,6 +700,18 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 	}
 	
+	private void makeDatesList() {
+		Calendar tmpDate = GregorianCalendar.getInstance();
+		tmpDate.setTimeInMillis( theDate.getTimeInMillis() );
+		
+		for(int i=0;i<14;i++) {
+			
+			comTheDate.addItem(comboBoxDateFormat.format(tmpDate.getTime()));
+			tmpDate.add( Calendar.DAY_OF_YEAR, 1 );
+			
+		}
+	}
+	
 	/**
 	 * Add listeners to the two scrollbars in the GUI and put the relevant
 	 * dates in the date list
@@ -638,15 +722,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		addInnerScrollPaneAdjustmentListeners();
 
 		// Make the dates list
-		Calendar tmpDate = GregorianCalendar.getInstance();
-		tmpDate.setTimeInMillis( theDate.getTimeInMillis() );
-		
-		for(int i=0;i<14;i++) {
-			
-			comTheDate.addItem(comboBoxDateFormat.format(tmpDate.getTime()));
-			tmpDate.add( Calendar.DAY_OF_YEAR, 1 );
-			
-		}
+		makeDatesList();
 		
 		// Choose the current date
 		String datestr = comboBoxDateFormat.format(theDate.getTime());
@@ -664,6 +740,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     }//initMyComponents
     
 	private void goToNow() {
+	
+		makeDatesList();
 	
 		comTheDate.setSelectedIndex(0);
 		
@@ -794,8 +872,10 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 					// Will be a different name for each channel and whatever
 					// date we're on obviously
 					saxParser.parse(xmlFilename, handler);
-					
+
 					doingProgs=false;
+					
+					channelLoaded[curChan] = true;
 	    
 				} catch(ParserConfigurationException e) {
 					e.printStackTrace();
@@ -811,6 +891,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	    
 				FreeGuide.log.warning("Listings file not found: "+xmlFilename);
 				
+				channelLoaded[curChan] = false;
 				missingFiles = true;
 				
 			}//if
@@ -931,16 +1012,20 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	
 		for(int c=0;c<channelIDs.length;c++) {
 			
-			JLabel ctxt = new JLabel(channelNames[c]);
-			ctxt.setBounds(0, timeScrollPane.getHeight()+(halfVerGap*2)+(c*channelHeight)-1, channelNamePanel.getPreferredSize().width-1, channelHeight-(halfVerGap*4));
+			if(channelLoaded[c]) {
+			
+				JLabel ctxt = new JLabel(channelNames[c]);
+				ctxt.setBounds(0, timeScrollPane.getHeight()+(halfVerGap*2)+(c*channelHeight)-1, channelNamePanel.getPreferredSize().width-1, channelHeight-(halfVerGap*4));
 	    
-		    ctxt.setBackground(channelColour);
-			ctxt.setFont(new java.awt.Font("Dialog", 1, 12));
-			ctxt.setBorder(new javax.swing.border.LineBorder(java.awt.Color.black));
-			ctxt.setHorizontalAlignment(JLabel.LEFT);
-			ctxt.setOpaque(true);
+		    	ctxt.setBackground(channelColour);
+				ctxt.setFont(new java.awt.Font("Dialog", 1, 12));
+				ctxt.setBorder(new javax.swing.border.LineBorder(java.awt.Color.black));
+				ctxt.setHorizontalAlignment(JLabel.LEFT);
+				ctxt.setOpaque(true);
 		
-			channelNamePanel.add(ctxt);
+				channelNamePanel.add(ctxt);
+				
+			}
 			
 		}
 		
@@ -951,7 +1036,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			Calendar st = prog.getStart();
 			Calendar ed = prog.getEnd();
 		
-			String progDesc = prog.getDesc();
+			String progDesc = prog.getLongDesc();
 			String progTitle = prog.getTitle();
 			
 			// Find the channel number
@@ -974,7 +1059,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			if( progDesc == null ) {
 				txt.setToolTipText(progTitle);
 			} else {
-				txt.setToolTipText(progTitle + " - " + progDesc);
+				txt.setToolTipText(progTitle + " - " + prog.getShortDesc());
 			}
 		
 			int left = halfHorGap+(int)((st.getTimeInMillis()-earliest.getTimeInMillis())*widthMultiplier);
@@ -1097,6 +1182,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	}
 	
 	private void updateIfDateChanged() {
+		
+		//System.out.println(comboBoxDateFormat.format(theDate.getTime()) + " \n" +  comTheDate.getSelectedItem());
 		
 		if(!doingProgs && !comboBoxDateFormat.format(theDate.getTime()).equals((String)comTheDate.getSelectedItem())) {
 		
@@ -1233,10 +1320,10 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 			//fmt = new SimpleDateFormat("HH:mm");
     
-			if(prog.getDesc() == null) {
+			if(prog.getLongDesc() == null) {
 				ans+="  <p><b>"+timeFormat.format(prog.getStart().getTime())+" - "+prog.getTitle()+"</b><br>"+prog.getChannelName()+", ends "+timeFormat.format(prog.getEnd().getTime())+"</p>"+lineBreak;
 			} else {
-				ans+="  <p><b>"+timeFormat.format(prog.getStart().getTime())+" - "+prog.getTitle()+"</b><br>"+prog.getChannelName()+", ends "+timeFormat.format(prog.getEnd().getTime())+"<br>"+prog.getDesc()+"</p>"+lineBreak;
+				ans+="  <p><b>"+timeFormat.format(prog.getStart().getTime())+" - "+prog.getTitle()+"</b><br>"+prog.getChannelName()+", ends "+timeFormat.format(prog.getEnd().getTime())+"<br>"+prog.getLongDesc()+"</p>"+lineBreak;
 			}
     
 		}//for
@@ -1292,7 +1379,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			// Assume it has a channel
 			String channelID = attrs.getValue("channel");
 			currentProgramme.setChannelID(channelID);
-			currentProgramme.setChannelName(getChannelName(channelID));
+			currentProgramme.addToChannelName(getChannelName(channelID));
 			
 			try {
 			
@@ -1365,15 +1452,17 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 		if(doingProgs && saxLoc.equals(":tv:programme:title")) {
 	    
-			currentProgramme.setTitle(data);
+			//System.out.println(data);
+		
+			currentProgramme.addToTitle(data);
 	    
 		} else if (doingProgs && saxLoc.equals(":tv:programme:desc")) {
 	    
-			currentProgramme.setDesc(data);
+			currentProgramme.addDesc(data);
 	    
 		} else if (doingProgs && saxLoc.equals(":tv:programme:category")) {
 	    
-			currentProgramme.setCategory(data);
+			currentProgramme.addCategory(data);
 	    
 		} else if (saxLoc.equals(":tv:channel:display-name")) {
 			
@@ -1421,6 +1510,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// Set default channel names, same as IDs
 		channelNames = new String[channelIDs.length];
 		channelNamed = new boolean[channelIDs.length];
+		channelLoaded = new boolean[channelIDs.length];
 		for(int i=0;i<channelIDs.length;i++) {
 			channelNames[i] = channelIDs[i];
 			channelNamed[i] = false;
@@ -1515,6 +1605,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// The names of the channels the user has chosen
 	private boolean[] channelNamed;
 		// Has this channel had its name set?
+	private boolean[] channelLoaded;
     
     private String saxLoc;  // Holds our current pos in the XML hierarchy
 
@@ -1535,7 +1626,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	
 	private String tmpChannelID;	// A temporary variable storing the channel ID
 	
-	private static final SimpleDateFormat comboBoxDateFormat = new SimpleDateFormat("dd MMMM yyyy");
+	private static final SimpleDateFormat comboBoxDateFormat = new SimpleDateFormat("EEEE d MMM yy");
 	private static final SimpleDateFormat htmlDateFormat = new SimpleDateFormat("EEEE dd MMMM yyyy");
 	private static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 	private static final SimpleDateFormat fileDateFormat = new SimpleDateFormat("yyyyMMdd");

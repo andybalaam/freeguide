@@ -10,6 +10,7 @@
  */
 
 import java.util.Calendar;
+import java.util.Vector;
 
 /**
  * FreeGuideProgramme
@@ -17,7 +18,7 @@ import java.util.Calendar;
  * A class that holds info about a particular programme.
  *
  * @author Andy Balaam
- * @version 2
+ * @version 3
  */
 
 public class FreeGuideProgramme {
@@ -31,20 +32,54 @@ public class FreeGuideProgramme {
     public void setEnd(Calendar end) {this.end=end;}
     public Calendar getEnd() {return end;}
     
-    public void setTitle(String title) {this.title=title;}
+    public void addToTitle(String title) {
+		if(this.title==null) {
+			this.title = new String();
+		}
+		this.title += title;
+	}
     public String getTitle() {return title;}
     
-    public void setDesc(String desc) {this.desc=desc;}
-    public String getDesc() {return desc;}
+    public void addDesc(String desc) {
+		if(longDesc==null || desc.length() > longDesc.length()) {
+			longDesc = desc;
+		}
+		if(shortDesc==null || desc.length() < shortDesc.length()) {
+			shortDesc = desc;
+		}
+	}
+    public String getLongDesc() {
+		return longDesc;
+	}
+	public String getShortDesc() {
+		return shortDesc;
+	}
     
-    public void setChannelName(String channelName) {this.channelName=channelName;}
+    public void addToChannelName(String channelName) {
+		if(this.channelName==null) {
+			this.channelName = new String();
+		}
+		this.channelName+=channelName;
+	}
     public String getChannelName() {return channelName;}
     
 	public void setChannelID(String channelID) {this.channelID=channelID;}
 	public String getChannelID() {return channelID;}
 	
-    public void setCategory(String category) {this.category=category;}
-    public String getCategory() {return category;}
+    public void addCategory(String newCategory) {
+		if(category==null) {
+			category = new Vector();
+		}
+		category.add(newCategory);
+	}
+    public String getCategory() {
+		// FIXME just returns first one
+		if(category.size() > 0) {
+			return (String)category.get(0);
+		} else {
+			return null;
+		}
+	}
     
 	/**
 	 * Decides whether two programme objects refer to the same programme
@@ -79,7 +114,7 @@ public class FreeGuideProgramme {
 	/**
 	 * Returns a hashcode for the programme.
 	 *
-	 * Implemented to keep consistency since the equals methid was overridden.
+	 * Implemented to keep consistency since the equals method was overridden.
 	 */
 	public int hashCode() {
 		
@@ -103,10 +138,11 @@ public class FreeGuideProgramme {
 	
     private Calendar start;		// The start time
     private Calendar end;		// The end time
-    private String title;	// The programme title
-    private String desc;	// The programme description
+    private String title;		// The programme title
+    private String shortDesc;	// The programme descriptions
+	private String longDesc;	// The programme descriptions
     private String channelName;	// The name of the channel the prog's on
 	private String channelID;	// The ID of the channel the prog's on
-    private String category;	// The category it fits into
-    
+    private Vector category;	// The categories it fits into
+	
 }

@@ -88,6 +88,9 @@ public class FreeGuideChannelsChooser extends javax.swing.JFrame {
         panButtons = new javax.swing.JPanel();
         butOK = new javax.swing.JButton();
         butCancel = new javax.swing.JButton();
+        panTop = new javax.swing.JPanel();
+        butAll = new javax.swing.JButton();
+        butNone = new javax.swing.JButton();
 
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -103,6 +106,8 @@ public class FreeGuideChannelsChooser extends javax.swing.JFrame {
         scrChannels.setViewportView(panChannels);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.9;
         gridBagConstraints.weighty = 0.9;
@@ -138,9 +143,34 @@ public class FreeGuideChannelsChooser extends javax.swing.JFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         getContentPane().add(panButtons, gridBagConstraints);
+
+        butAll.setFont(new java.awt.Font("Dialog", 0, 12));
+        butAll.setText("Choose all");
+        butAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butAllActionPerformed(evt);
+            }
+        });
+
+        panTop.add(butAll);
+
+        butNone.setFont(new java.awt.Font("Dialog", 0, 12));
+        butNone.setText("Choose none");
+        butNone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butNoneActionPerformed(evt);
+            }
+        });
+
+        panTop.add(butNone);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        getContentPane().add(panTop, gridBagConstraints);
 
         pack();
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -148,6 +178,36 @@ public class FreeGuideChannelsChooser extends javax.swing.JFrame {
         setLocation((screenSize.width-400)/2,(screenSize.height-300)/2);
     }//GEN-END:initComponents
 
+	private void butNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butNoneActionPerformed
+		
+		selectAll(false);
+		
+	}//GEN-LAST:event_butNoneActionPerformed
+
+	private void butAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAllActionPerformed
+		
+		selectAll(true);
+		
+	}//GEN-LAST:event_butAllActionPerformed
+
+	private void selectAll(boolean tick) {
+		
+		Component[] chks = panChannels.getComponents();
+		
+		for(int i=0;i<chks.length;i++) {
+			
+			if(chks[i] instanceof JCheckBox) {
+			
+				JCheckBox bx = (JCheckBox)chks[i];
+			
+				bx.setSelected(tick);
+			
+			}//for
+		
+		}
+		
+	}
+	
 	private void butOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butOKActionPerformed
 		saveChannels();
 		quit();
@@ -202,9 +262,12 @@ public class FreeGuideChannelsChooser extends javax.swing.JFrame {
 	}
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel panTop;
     private javax.swing.JPanel panButtons;
+    private javax.swing.JButton butAll;
     private javax.swing.JButton butOK;
     private javax.swing.JButton butCancel;
+    private javax.swing.JButton butNone;
     private javax.swing.JScrollPane scrChannels;
     private javax.swing.JPanel panChannels;
     // End of variables declaration//GEN-END:variables

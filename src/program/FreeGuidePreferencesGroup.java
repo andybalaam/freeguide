@@ -299,7 +299,7 @@ public class FreeGuidePreferencesGroup {
 			// Remove the choices for this day
 			int[] chosenProgKeys = getChosenProgKeys(date);
 			for(int i=0;i<chosenProgKeys.length;i++) {
-				chosen_progs.removeCompoundObject(chosenProgKeys[i]);
+				chosen_progs.removeChoice(chosenProgKeys[i]);
 			}
 			// Remove the fact that this day is chosen
 			chosen_progs.remove(dateStr);
@@ -389,7 +389,7 @@ public class FreeGuidePreferencesGroup {
 		int i = chosen_progs.findFreeGuideProgramme(prog);
 		
 		if(i!=-1) {
-			chosen_progs.removeCompoundObject(i);	
+			chosen_progs.removeChoice(i);	
 		}
 		
 	}

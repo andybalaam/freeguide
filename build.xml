@@ -31,8 +31,6 @@
   		<!-- compile the program -->
 		<javac srcdir="${src}/program" destdir="${build}/program"/>  
   
-  		
-  
   		<!-- copy the program classes that are needed by each installer -->
     	<copy todir="${build}/install">
 			<fileset dir="${build}/program">

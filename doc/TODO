@@ -32,7 +32,7 @@ Release 1.0 (the destination)
 - FAQ?
 - Other platforms - investigate Mac, BSD, others
 
-Release 0.7 (less urgent or harder features)
+Release 0.6 (less urgent or harder features)
 
 - Alert me when my programme starts
 - coloured programme categories and favourites
@@ -40,65 +40,71 @@ Release 0.7 (less urgent or harder features)
 - Option to turn off non-quarter-hour times in programme box.
 - Filter what appears in the grid e.g. only movies
 - Do some profiling and algorithm thinking and get startup time down if poss.
+- Fix bug with long tooltips not wrapping on Linux. How?
+- Fix feature that if you reinstall to a new dir the old install can't be
+	uninstalled (well, you have to delete the directory instead...)
+- Help manual
 
-Release 0.6 (most wanted features)
+Release 0.5 (most wanted features)
 
 - Why do numbers disappear from the time line (Linux only?)
 - Multiline tooltips if too long
 - Remember window sizes and positions between uses
-- Dynamic update of command output window
 - Add "Contains" option to title match in favourites
 - fix in tv_split for de's lack of channels (or fix tv_grab_de to use configure and to do channels
-- Deal with grabber that doesn't use a config file? (aka get tv_grab_de working)
+- Remove capability to support grabber without --configure step if that's the way it's going.
+- OR deal with grabber that doesn't use a config file? (aka get tv_grab_de working)
 - Choose how old files are before you delete them
-- Help manual
 - Properties box for a programme showing longer descriptions, other DTD stuff
 - Terms and conditions of listings
-- Use Slava's Console plugin to execute commands
 - --configure support for tv_grab_na and uk (talk to XMLTV people) (this should be in the installer probably)
+- Dynamic update of command output window
 - --days support
 - Further visual enhancements and customisability
 - Ability to save and load preferences (using Java's ability to save to XML)
 - Ability to turn off listing at bottom of screen.
-- Move XML stuff to a separate object
+- Move XML stuff to a separate object from FreeGuideViewer
 - Other code rationalisation, FIXMEs, remove commented sections
-- Tidy up FreeGuideOptionsWizard - make it not a wizard
+- Separate classes into packages
+- Refactor to rename losing FreeGuide prefix to most classes
++ Tidy up FreeGuideOptionsWizard - make it not a wizard
+- Make FreeGuideInstaller not implement FreeGuideLauncher
 - Make installer install shortcuts for Windows, Gnome and KDE
 - Make installer launcher FreeGuide and/or a README file.
 - Other installer features?
+- Make a subclass of JLabel that represents the visual display of a programme
+	and record e.g. is it a favourite, is it ticked?
+- Hence rewrite FreeGuideViewer much better
+- Shortcut keys for everything
+- Fix GoToNow to deal with days dividing at non-midnight times.
 
-Release 0.5 (mainly bug fixes)
+Release 0.4.2 (mainly bug fixes)
 
-- Test clean install several times on each platform
-- Test messing up config and see how it deals
-- Test installing in odd places
-- Test changing various options
-	- Linux
-		+ Bad xmltv dir
-		+ Bad working dir
-		
-- "Choose all" button + "Choose none" button in channels screen
-- When some channels aren't found, still display the others.
-- Add days of week to dropdown and take out year
-- Fix bug with adding an already-selected programme to favourites.
-- Right-click on a favourite gives option to remove from favs?
-    (remove specific favs, but warn if general)
-- Fix bug with favourites not being ticked when you enter a day - can't recreate now
+- Developer docs
+- Thorough testing
++ Use long descriptions in the printed guide
++ box round Please Wait screen
++ "Choose all" button + "Choose none" button in channels screen
++ When some channels aren't found, still display the others.
++ Add days of week to dropdown
++ Fix bug with adding an already-selected programme to favourites.
++ Right-click on a favourite gives option to remove from favs
 + Fix bug where options screen wipes out what you chose for grabber command on entry
-- Fix bug with "&" in programme name (is this tv_grab_na?)
-- Investigate what happens when you go through to another day then click GoToNow
++ Fix bug with "&" in programme name (is this tv_grab_na?)
++ Fix what happens when you go through to another day then click GoToNow
 + Make draggable bars look draggable
 + Make Options screen ask you its first 3 questions, then present you with all
 	other options simultaneously. Each option has a "Guess" button
 + Make options screen better
 + Convert installer to FreeGuideWizard
 + make installer check your java version, (and other things?)
-- Delete these classes?: OptionsWizard, DirectoryDialog, others?
++ Delete these classes: OptionsWizard, DirectoryDialog
 + Add a question to the beginning of the installer: install or uninstall (if
 	the misc.install_directory pref exists) - if click uninstall, delete the
 	whole installation directory, and the working directory if there is one,
 	and the preferences group for FreeGuide.
-
++ Make the selected fav on the favourites list presistent 
+	
 Release 0.4
 
 + Make downloading work on Windows, from within FreeGuide (requires XMLTV 0.5)
