@@ -8,9 +8,9 @@ prefs.5=misc.days_to_grab=7
 prefs.6=misc.day_start_time=06:00
 prefs.7=commandline.browser_command.1=netscape %filename%
 prefs.8=commandline.tv_grab.1=tv_grab_na --config-file %misc.grabber_config% --offset %offset% --days 1 --output %misc.working_directory%/tv-%date%.xmltv
-prefs.9=misc.grabber_start_offset=0
+prefs.9=misc.grabber_today_offset=0
 prefs.10=misc.grabber_start_time=00:00
-prefs.11=misc.grabber_start_today=Today
+prefs.11=misc.grabber_start_today=true
 
 file.1=FreeGuide.jar>%misc.install_directory%/FreeGuide.jar
 file.2=contributors.html>%misc.install_directory%/contributors.html

@@ -95,6 +95,7 @@ W  means work in progress by Walter Duncan
 
 - Release 0.5 (Features - especially use of many grabbers, and bug fixes)
 
+- Stop it from grabbing stuff that's already been done.
 * Dynamic population of the date list comboBox based on available data
 * Add configurable option for default grabber_today_offset (uk=1, NA=0)
 * Add configurable option to set grabber day start (na=00:00, uk=06:00)
@@ -106,41 +107,11 @@ W  means work in progress by Walter Duncan
 * Add configurable option grabber_start_today with "today", or current showing day
 * Add configurable Choice (checkbox) option (convert grabber_start_today? option)
 	(do we need/want a CheckboxWizard?)
--* Fix bug with different day start times on grabber and FG.
-	(same as grabber day start above I think. -- Should be fixed.)
--* Fix bug with NullPointerException when you start and there's no listings
-	(This will overlap the Dynamic ComboBox population I suspect... See if I've
-	fixed it).
-- Fix concept of missing time.  (Huh?)
-- Stop it from grabbing stuff that's already been done.
-- Endles (if you only select "yes") loop (Download Listings? Dialog --> Yes -->
-	execute grabber for someDate --> Download listings? Dialog --> Yes ->
-	execute grabber for same someDate --> etc.)
-	when No data files,
-		Viewer.theDate is yesterday,
-		now is today(the day after yesterday), and
-		days_to_download = 1
-	(see FIXMEs in SAXHandler)  Another possible solution:
-		make missingFiles be of Calendar type
-		and pass the missing date to downloadListings() (if we do this beware
-		grabber_start_today option)
-- Executor.exec() recursive call to FreeGuide.prefs.performSubstitutions()
+* Fix bug with NullPointerException when you start and there's no listings
++ Fix concept of missing time.  (Huh?) lol
++ Endless (if you only select "yes") loop - fixed, sorry :-)
++ Executor.exec() recursive call to FreeGuide.prefs.performSubstitutions()
 	causes %% substitution to misbehave.
-		Case 1:  Not critical
-			exec: true # %%date%% %date%
-			exec: true # %date% 20021210
-			exec: true # 20021210 20021210
-		Case 2:  Need to catch/handle this one.
-					Maybe preserve %%, and handle in FGUtils.parseCommand()...
-			exec: true # %%date %date%
-			exec: true # %date 20021210
-			java.lang.StringIndexOutOfBoundsException: String index out of range: -9
-				at java.lang.String.substring(String.java:1476)
-				at FreeGuidePreferencesGroup.performSubstitutions(Unknown Source)
-				at FreeGuideExecutor.exec(Unknown Source)
-				at FreeGuideExecutor.exec(Unknown Source)
-				at FreeGuideExecutor.run(Unknown Source)
-				at java.lang.Thread.run(Thread.java:536)
 + Seems to be a bug where only first grabber command executes.
 + Ability to control how many days are downloaded
 + Support for new grabbers

@@ -7,11 +7,11 @@ prefs.4=misc.grabber_config=%misc.xmltv_directory%\\tv_grab_uk
 prefs.5=misc.days_to_grab=7
 prefs.6=misc.day_start_time=06:00
 prefs.7=commandline.browser_command.1=\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" \"%filename%\"
-prefs.8=commandline.tv_grab.1=\"%misc.xmltv_directory%\\xmltv.exe\" tv_grab_uk --config-file \"%misc.grabber_config%\" --days %misc.days_to_grab% --output \"%misc.working_directory%\\tv-unprocessed.xmltv\"
+prefs.8=commandline.tv_grab.1=\"%misc.xmltv_directory%\\xmltv.exe\" tv_grab_uk --config-file \"%misc.grabber_config%\" --offset %offset% --days 1 --output \"%misc.working_directory%\\tv-%date%.xmltv\"
 prefs.9=misc.share_directory=C:\\Perl
-prefs.10=misc.grabber_start_offset=1
+prefs.10=misc.grabber_today_offset=0
 prefs.11=misc.grabber_start_time=06:00
-prefs.12=misc.grabber_start_today=Today
+prefs.12=misc.grabber_start_today=true
 
 file.1=FreeGuide.jar>%misc.install_directory%/FreeGuide.jar
 file.2=contributors.html>%misc.install_directory%/contributors.html
@@ -55,3 +55,9 @@ file.36=share/xmltv/tv_grab_uk/channel_pkgs/scifi>%misc.share_directory%/share/x
 file.37=share/xmltv/tv_grab_uk/channel_pkgs/shop>%misc.share_directory%/share/xmltv/tv_grab_uk/channel_pkgs/shop
 file.38=share/xmltv/tv_grab_uk/channel_pkgs/sport>%misc.share_directory%/share/xmltv/tv_grab_uk/channel_pkgs/sport
 file.39=share/xmltv/tv_grab_uk/channel_pkgs/travel>%misc.share_directory%/share/xmltv/tv_grab_uk/channel_pkgs/travel
+file.40=share/xmltv/tv_grab_uk/channel_pkgs/ireland>%misc.share_directory%/share/xmltv/tv_grab_uk/channel_pkgs/ireland
+file.41=share/xmltv/tv_grab_uk/channel_pkgs/national>%misc.share_directory%/share/xmltv/tv_grab_uk/channel_pkgs/national
+file.42=share/xmltv/tv_grab_uk/channel_pkgs/not_england>%misc.share_directory%/share/xmltv/tv_grab_uk/channel_pkgs/not_england
+file.43=share/xmltv/tv_grab_uk/channel_pkgs/regional>%misc.share_directory%/share/xmltv/tv_grab_uk/channel_pkgs/regional
+file.44=share/xmltv/tv_grab_uk/channel_pkgs/scotland>%misc.share_directory%/share/xmltv/tv_grab_uk/channel_pkgs/scotland
+file.45=share/xmltv/tv_grab_uk/channel_pkgs/wales>%misc.share_directory%/share/xmltv/tv_grab_uk/channel_pkgs/wales

@@ -15,7 +15,7 @@
 	<property name="build" location="build"/>
 	<property name="dist"  location="dist"/>
 
-	<property name="freeguideversion"  value="FreeGuide-0_4_4"/>
+	<property name="freeguideversion"  value="FreeGuide-0_5"/>
 	
   	<target name="init">
   
@@ -38,19 +38,15 @@
   		<!-- copy the program classes that are needed by each installer -->
     	<copy todir="${build}/install">
 			<fileset dir="${build}/program">
-				<include name="FreeGuideAbstractFileWizardPanel*.class"/>
+				<include name="FreeGuide*WizardPanel*.class"/>
 				<include name="FreeGuideConfigGuesser.class"/>
-				<include name="FreeGuideChoiceWizardPanel*.class"/>
-				<include name="FreeGuideDirectoryWizardPanel*.class"/>
 				<include name="FreeGuideEnvironmentChecker.class"/>
-				<include name="FreeGuideLabelWizardPanel*.class"/>
 				<include name="FreeGuideLauncher.class"/>
 				<include name="FreeGuidePreferencesGroup.class"/>
 				<include name="FreeGuidePreferences.class"/>
 				<include name="FreeGuideTime.class"/>
 				<include name="FreeGuideUtils.class"/>
 				<include name="FreeGuideWizard*.class"/>
-				<include name="FreeGuideWizardPanel*.class"/>
 			</fileset>
 		</copy>
 	
