@@ -26,10 +26,12 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 		channelNamed = new boolean[channelIDs.length];
     }
 */
-    public FreeGuideSAXHandler(Vector programmes, Vector channelIDs, Vector channelNames, Calendar earliest, Calendar latest) {
+    public FreeGuideSAXHandler(Vector programmes, Vector channelIDs, Vector channelNames, Vector channelLoaded,
+    	Calendar earliest, Calendar latest) {
 		this.programmes = programmes;
 		this.channelIDs = channelIDs;
 		this.channelNames = channelNames;
+		this.channelLoaded = channelLoaded;
 		this.earliest=earliest;
 		this.latest=latest;
 		channelNamed = new Vector();
@@ -69,7 +71,7 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 			String channelID = attrs.getValue("channel");
 			currentProgramme.setChannelID(channelID);
 			currentProgramme.addToChannelName(getChannelName(channelID));
-			
+
 			try {
 			
 				// Assume it has a start time
@@ -95,7 +97,7 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 		} else if(saxLoc.equals(":tv:channel")) {
 			
 			String id = attrs.getValue("id");
-			
+
 			tmpChannelID = id;
 			
 		}//if
@@ -148,41 +150,50 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 		} else if (saxLoc.equals(":tv:programme:category")) {
 	    
 			currentProgramme.addCategory(data);
-	    
+
 		} else if (saxLoc.equals(":tv:channel:display-name")) {
-			
+
 			// Remember the name of the channel we're looking at
-			
+
 			// If it's a channel we're interested in
 			// and it's not been named already, remember the name
 			int i = channelIDs.indexOf(tmpChannelID);
 			//System.out.println(i + " - " +tmpChannelID+" - "+data);
-			if(i!=-1 && channelNamed.get(i).equals(Boolean.FALSE)) {
-				channelNames.set(channelIDs.indexOf(tmpChannelID),new String(data));
-				channelNamed.set(channelIDs.indexOf(tmpChannelID),new Boolean("true"));
-				//System.out.println("set: "+channelNames.get(channelIDs.indexOf(tmpChannelID)));
+			if(i!=-1) {
+				if (channelNamed.get(i).equals(Boolean.FALSE)) {
+					channelNames.set(channelIDs.indexOf(tmpChannelID),new String(data));
+					channelNamed.set(channelIDs.indexOf(tmpChannelID),new Boolean("true"));
+					//System.out.println("set: "+channelNames.get(channelIDs.indexOf(tmpChannelID)));
+				}
+				// What are the channelLoaded criteria?
+				// For now if it's in the file, it's loaded.
+				// WCD
+				if (false) {
+				channelLoaded.set(i,Boolean.TRUE);
+				}
 			}
 			// if it's a new channel, we can add it here
-			//if(i==-1) {
-			//	channelIDs.add(tmpChannelID);
-			//	channelNames.add(new String(data));
-			//	channelNamed.add(new Boolean("true"));
-			//	//System.out.println("add: "+channelNames.get(channelIDs.indexOf(tmpChannelID)));
-			//}
-			
+			if(i==-1) {
+				channelIDs.add(tmpChannelID);
+				channelNames.add(new String(data));
+				channelNamed.add(new Boolean("true"));
+				//System.out.println("add: "+channelNames.get(channelIDs.indexOf(tmpChannelID)));
+				channelLoaded.add(new Boolean("true"));
+			}
+
 		}//if
-	
+
 		//FreeGuide.log.info("characters END");
-		
+
     }//characters
 
 	// ------------------------------
-	
+
 	/**
 	 * Returns the name of the channel whose ID is supplied.
 	 */
 	private String getChannelName(String channelID) {
-		
+
 		// If the ID exists
 		int i = channelIDs.indexOf(channelID);
 		if(i != -1) {
@@ -191,23 +202,23 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 			FreeGuide.log.warning("Unknown channel ID in request for channel name.");
 			return "Unknown Channel";
 		}
-		
+
 	}
-	
+
 	private void parseError() {
 		FreeGuide.log.severe("FreeGuideViewer - Error parsing XML.");
 		System.exit(1);
     }
-	
+
 	// ----------------------------------
-	
+
 	private String saxLoc;  // Holds our current pos in the XML hierarchy
-	
+
 	private String tmpChannelID;	// A temporary variable storing the channel ID
-	
+
 	private FreeGuideProgramme currentProgramme;
 		// The programme we're loading in now
-		
+
 	private Vector programmes;	// The vector of programmes we're filling
 	//private String[] channelIDs;
 	private Vector channelIDs;
@@ -219,6 +230,8 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 	private Vector channelNamed;
 		// Has this channel had its name set?
 	//private boolean[] channelLoaded;
+	private Vector channelLoaded;
+
 	Calendar earliest;
 	Calendar latest;
 }
