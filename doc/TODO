@@ -108,6 +108,7 @@ m  means done by Mike Dean
 - Go To Now scrolls the personalised listing panel as well as the main panel
 - Handle other XMLTV tags (Programme Details box?)
 - Coloured favourites categories (text and/or background)
+- Coloured categories
 - Highlight a given channel
 - Process programmes in another thread so we can see a progress display.
 - Download happens without leaving ViewerFrame
@@ -134,6 +135,7 @@ m  means done by Mike Dean
 - Add config file location to Options
 - Fix mentions of "C" drive in Windows versions
 - Change "configure grabber" labels to "choose channels" everywhere
+- Add "contact" page to the docs (and/or as a footer to each page)
 
 + Release 0.7 (xmltv-tk)
 
