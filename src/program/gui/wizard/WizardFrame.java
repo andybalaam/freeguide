@@ -1,3 +1,17 @@
+/*
+ *  FreeGuide J2
+ *
+ *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
+ *
+ *  freeguide-tv.sourceforge.net
+ *
+ *  Released under the GNU General Public License
+ *  with ABSOLUTELY NO WARRANTY.
+ *
+ *  See the file COPYING for more information.
+ */
+
+package freeguidetv.gui.wizard;
 
 import java.awt.*;
 import java.awt.event.*;

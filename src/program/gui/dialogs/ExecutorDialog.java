@@ -9,13 +9,20 @@
  *  See the file COPYING for more information.
  */
 
+package freeguidetv.gui.dialogs;
+
+import freeguidetv.*;
+import freeguidetv.gui.*;
+import freeguidetv.gui.viewer.*;
+import freeguidetv.lib.fgspecific.*;
+import freeguidetv.lib.general.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.text.*;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
-
 
 /**
  *  Provides facilities for executing external commands with a GUI for user

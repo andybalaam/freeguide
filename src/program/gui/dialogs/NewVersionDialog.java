@@ -11,8 +11,10 @@
  *  See the file COPYING for more information.
  */
 
-import java.awt.Color;
-import java.awt.Font;
+package freeguidetv.gui.dialogs;
+
+import freeguidetv.*;
+import freeguidetv.lib.general.*;
 import java.awt.*;
 import javax.swing.*;
 

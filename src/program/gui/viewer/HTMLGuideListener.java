@@ -9,13 +9,14 @@
  *  See the file COPYING for more information.
  */
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
+package freeguidetv.gui.viewer;
+
+import freeguidetv.lib.fgspecific.*;
+import java.io.*;
+import java.net.*;
+import java.text.*;
+import java.util.*;
+import javax.swing.event.*;
 
 /**
  * Handles HyperlinkEvents created by the HTML document displayed in the
@@ -25,7 +26,7 @@ import javax.swing.event.HyperlinkListener;
  *@created    08 January 2004
  *@version    1
  */
-class HTMLGuideListener implements HyperlinkListener {
+public class HTMLGuideListener implements HyperlinkListener {
 
 /**
  * Format used for dates in the HTML links.

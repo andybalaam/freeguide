@@ -10,12 +10,19 @@
  *
  *  See the file COPYING for more information.
  */
+
 /*
  *  parseCommand() method Copyright (c) by Slava Pestov
  *
  *  from the Jedit project: www.jedit.org
  *
  */
+
+package freeguidetv.lib.general;
+
+import freeguidetv.*;
+import freeguidetv.gui.dialogs.*;
+import freeguidetv.lib.fgspecific.*;
 import java.awt.*;
 import java.lang.reflect.*;
 import java.io.*;

@@ -10,7 +10,12 @@
  *
  *  See the file COPYING for more information.
  */
- 
+
+package freeguidetv.gui.dialogs;
+
+import freeguidetv.*;
+import freeguidetv.gui.*;
+
 /**
  *  A window saying "Please Wait", displayed while FreeGuide loads.
  * 

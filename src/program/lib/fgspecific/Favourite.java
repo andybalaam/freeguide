@@ -10,6 +10,10 @@
  *
  *  See the file COPYING for more information.
  */
+
+package freeguidetv.lib.fgspecific;
+
+import freeguidetv.lib.general.*;
 import java.util.regex.Pattern;
 import java.util.Calendar;
 import java.util.Date;

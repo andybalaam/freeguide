@@ -10,13 +10,14 @@
  *
  *  See the file COPYING for more information.
  */
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Vector;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.regex.Pattern;
+package freeguidetv.gui.dialogs;
 
+import freeguidetv.gui.viewer.*;
+import freeguidetv.lib.fgspecific.*;
+import freeguidetv.lib.general.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
 import javax.swing.*;
 import java.awt.*;
 

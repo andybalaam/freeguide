@@ -11,6 +11,9 @@
  *  See the file COPYING for more information.
  */
 
+package freeguidetv.gui.dialogs;
+
+import freeguidetv.lib.fgspecific.*;
 import java.util.*;
 import javax.swing.DefaultListModel;
 import javax.swing.*;

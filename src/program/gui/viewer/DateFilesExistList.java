@@ -17,13 +17,11 @@
  *
  *  See the file COPYING for more information.
  */
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.Vector;
-import java.util.Date;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Collections;
+
+package freeguidetv.gui.viewer;
+
+import java.io.*;
+import java.util.*;
 
 /**
  *  This class provides an object that contains, and maintains a vector of dates

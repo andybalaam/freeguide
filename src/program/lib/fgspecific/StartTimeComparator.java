@@ -1,20 +1,26 @@
 /*
- *  FreeGuide
+ *  FreeGuide J2
  *
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
+ *
+ *  freeguide-tv.sourceforge.net
  *
  *  Released under the GNU General Public License
  *  with ABSOLUTELY NO WARRANTY.
  *
  *  See the file COPYING for more information.
  */
+
+package freeguidetv.lib.fgspecific;
+
 import java.util.*;
 
 /**
- *  Description of the Class
+ *  Compares 2 programmes by theit start time
  *
- *@author     andy
+ *@author     Andy Balaam
  *@created    28 June 2003
+ *@version    1
  */
 public class StartTimeComparator implements Comparator {
 

@@ -11,6 +11,11 @@
  *  See the file COPYING for more information.
  */
 
+package freeguidetv.gui.options;
+
+import freeguidetv.*;
+import freeguidetv.gui.dialogs.*;
+import freeguidetv.lib.fgspecific.*;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;

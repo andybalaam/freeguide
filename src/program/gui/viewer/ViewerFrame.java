@@ -11,17 +11,36 @@
  
 //{{{ Imports
 
+package freeguidetv.gui.viewer;
+
+import freeguidetv.*;
+import freeguidetv.gui.*;
+import freeguidetv.gui.dialogs.*;
+import freeguidetv.gui.options.*;
+import freeguidetv.gui.wizard.*;
+import freeguidetv.lib.fgspecific.*;
+import freeguidetv.lib.general.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
+import java.io.File;
+import java.io.InputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.*;
 import java.net.*;
 import java.text.*;
 import java.util.*;
-import java.util.regex.Pattern;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
+import java.util.regex.*;
+import javax.swing.JOptionPane; // No * - clash
+import javax.swing.KeyStroke;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
+import javax.swing.SwingUtilities;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.*;
 import javax.swing.text.*;
 
 //}}}
@@ -158,7 +177,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         theDate = GregorianCalendar.getInstance();
         Time nowTime = new Time(theDate);
         Time day_start_time = FreeGuide.prefs.misc.getTime(
-                "day_start_time");
+                "day_start_time", new Time( 0, 0 ));
 
         if (nowTime.before(day_start_time, new Time(0, 0))) {
 
@@ -199,9 +218,9 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         popMenuProgramme = new javax.swing.JPopupMenu();
         mbtAddFavourite = new javax.swing.JMenuItem();
 		mbtGoToWebSite = new javax.swing.JMenuItem();
-        popMenuChannel = new JPopupMenu();
-        mbtChangeIcon = new JMenuItem();
-        mbtResetIcon = new JMenuItem();
+        popMenuChannel = new javax.swing.JPopupMenu();
+        mbtChangeIcon = new javax.swing.JMenuItem();
+        mbtResetIcon = new javax.swing.JMenuItem();
         topButtonsPanel = new javax.swing.JPanel();
         butGoToNow = new javax.swing.JButton();
         butPreviousDay = new javax.swing.JButton();
@@ -233,7 +252,9 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         mbtFavourites = new javax.swing.JMenuItem();
         mbtChannelSets = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
         mbtOptions = new javax.swing.JMenuItem();
+        mbtFirstTime = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         mbtUserGuide = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JSeparator();
@@ -321,7 +342,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        setTitle( "FreeGuide " + FreeGuide.getVersion() );
+        setTitle( "FreeGuide " + FreeGuide.version.getDotFormat() );
         addWindowListener(
             new java.awt.event.WindowAdapter() {
                 public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -670,8 +691,22 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
             });
 
         toolsMenu.add(mbtChannelSets);
-        toolsMenu.add(jSeparator1);
+        toolsMenu.add(jSeparator2);
 
+        mbtFirstTime.setText("First Time Wizard...");
+		mbtFirstTime.setMnemonic(KeyEvent.VK_F);
+        mbtOptions.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_W,
+			InputEvent.CTRL_MASK ) );
+        mbtFirstTime.addActionListener(
+            new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    mbtFirstTimeActionPerformed(evt);
+                }
+            });
+        
+        toolsMenu.add(mbtFirstTime);
+        toolsMenu.add(jSeparator1);
+        
         mbtOptions.setText("Options...");
 		mbtOptions.setMnemonic(KeyEvent.VK_O);
 		mbtOptions.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_O,
@@ -1674,7 +1709,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         String[] cmds = Utils.substitute(
 			FreeGuide.prefs.commandline.getStrings( "browser_command" ),
 			"%filename%",
-			"%misc.install_directory%" + fs + "userguide.html" );
+			"%misc.doc_directory%" + fs + "userguide.html" );
 			
         Utils.execNoWait(cmds);
 
@@ -1691,7 +1726,17 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
     }
 
+    /**
+     *  Event handler for when the "First Time Wizard" menu option is chosen 
+     *
+     *@param  evt  The event object
+     */
+    public void mbtFirstTimeActionPerformed(java.awt.event.ActionEvent evt) {
 
+		new FirstTimeWizard( null, true );
+		
+    }
+    
 
     /**
      *  Event handler for when the "Options" menu option is chosen 
@@ -2223,7 +2268,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
     /**
      * The popup menu when a channel label is right-clicked
      */
-    public JPopupMenu popMenuChannel;
+    public javax.swing.JPopupMenu popMenuChannel;
 	
 	//}}}
 	
@@ -2241,6 +2286,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     /**
      *  The menu item to add a favourite
      */
@@ -2252,14 +2298,15 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 	/**
 	 * The menu item to change the icon
 	 */
-	public JMenuItem mbtChangeIcon;
+	public javax.swing.JMenuItem mbtChangeIcon;
 	/**
 	 * The menu item to reset to the default icon
 	 */
-	public JMenuItem mbtResetIcon;
+	public javax.swing.JMenuItem mbtResetIcon;
     private javax.swing.JPanel topButtonsPanel;
     private javax.swing.JButton butPrint;
     private javax.swing.JButton butDownload;
+    private javax.swing.JMenuItem mbtFirstTime;
     private javax.swing.JMenuItem mbtOptions;
     /**
      * The splitpane splitting the main panel from the printed guide and

@@ -10,6 +10,11 @@
  *
  *  See the file COPYING for more information.
  */
+
+package freeguidetv.gui.dialogs;
+
+import freeguidetv.*;
+
 /**
  *  A small About box.
  *
@@ -35,7 +40,8 @@ public class AboutFrame extends javax.swing.JDialog {
 
         str += "<font face='verdana, arial, helvetica, helv, sans serif' size=3>";
         str += "<table width=\"100%\" height=\"100%\" border=\"0\"><tr><td height=\"100%\" align=\"center\">";
-        str += "<h1><font face='arial, helvetica, helv, sans serif' size=\"5\">FreeGuide " + FreeGuide.getVersion() + "</font></h1>";
+        str += "<h1><font face='arial, helvetica, helv, sans serif' size=\"5\">FreeGuide " + FreeGuide.version.getDotFormat()
+            + "</font></h1>";
         str += "<p>Free software by the FreeGuide contributors.</p>";
         str += "<p>Web: <a href=\"http://freeguide-tv.sourceforge.net\">freeguide-tv.sourceforge.net</a></p>";
         str += "<p>Mail: <a href=\"mailto:freeguide-tv-devel@lists.sourceforge.net\">freeguide-tv-devel@lists.sourceforge.net</a></p>";

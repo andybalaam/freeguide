@@ -11,6 +11,8 @@
  *  See the file COPYING for more information.
  */
 
+package freeguidetv.lib.general;
+
 import java.awt.*;
 
 /*
@@ -18,12 +20,12 @@ import java.awt.*;
  *
  * @author     Andy Balaam
  * @created    10 Dec 2003
- * @version    1
+ * @version    2
  */
 
 public class GridBagEasy {
 
-	GridBagEasy( Container container ) {
+	public GridBagEasy( Container container ) {
 		
 		this.container = container;
 		
@@ -35,7 +37,7 @@ public class GridBagEasy {
 	
 	// ----------------------------------------------
 	
-	protected void add( Component comp, int gridx, int gridy ) {
+	public void add( Component comp, int gridx, int gridy ) {
 		
 		setDefaults();
 		
@@ -46,7 +48,7 @@ public class GridBagEasy {
 		
 	}
 	
-	protected void addAWXWY( Component comp, int gridx, int gridy, int anchor,
+	public void addAWXWY( Component comp, int gridx, int gridy, int anchor,
 			double weightx, double weighty ) {
 		
 		setDefaults();
@@ -61,7 +63,7 @@ public class GridBagEasy {
 		
 	}
 	
-	protected void addAWX( Component comp, int gridx, int gridy,
+	public void addAWX( Component comp, int gridx, int gridy,
 			int anchor, double weightx ) {
 		
 		setDefaults();
@@ -75,7 +77,7 @@ public class GridBagEasy {
 		
 	}
 	
-	protected void addFWX( Component comp, int gridx, int gridy, int fill,
+	public void addFWX( Component comp, int gridx, int gridy, int fill,
 			double weightx ) {
 		
 		setDefaults();
@@ -89,7 +91,7 @@ public class GridBagEasy {
 		
 	}
 	
-	protected void addAWXGW( Component comp, int gridx,
+	public void addAWXGW( Component comp, int gridx,
 			int gridy, int anchor, double weightx, int gridwidth ) {
 		
 		setDefaults();
@@ -104,7 +106,7 @@ public class GridBagEasy {
 		
 	}
 		
-	protected void addWXWYGW( Component comp, int gridx,
+	public void addWXWYGW( Component comp, int gridx,
 			int gridy, double weightx, double weighty, int gridwidth ) {
 		
 		setDefaults();
@@ -119,7 +121,7 @@ public class GridBagEasy {
 		
 	}
 	
-	protected void addWXWY( Component comp, int gridx, int gridy,
+	public void addWXWY( Component comp, int gridx, int gridy,
 			double weightx, double weighty ) {
 		
 		setDefaults();
@@ -133,7 +135,7 @@ public class GridBagEasy {
 		
 	}
 	
-	protected void addFWXWYGW( Component comp, int gridx, int gridy, int fill,
+	public void addFWXWYGW( Component comp, int gridx, int gridy, int fill,
 			double weightx, double weighty, int gridwidth ) {
 		
 		setDefaults();
@@ -149,7 +151,7 @@ public class GridBagEasy {
 		
 	}
 	
-	protected void addAWXPXPY( Component comp, int gridx, int gridy, int anchor,
+	public void addAWXPXPY( Component comp, int gridx, int gridy, int anchor,
 			double weightx, int ipadx, int ipady ) {
 		
 		setDefaults();
@@ -165,7 +167,7 @@ public class GridBagEasy {
 		
 	}
 	
-	protected void addFWXWY( Component comp, int gridx, int gridy, int fill,
+	public void addFWXWY( Component comp, int gridx, int gridy, int fill,
 			double weightx, double weighty ) {
 		
 		setDefaults();
@@ -180,7 +182,7 @@ public class GridBagEasy {
 		
 	}
 	
-	protected void addWY( Component comp, int gridx, int gridy,
+	public void addWY( Component comp, int gridx, int gridy,
 			double weighty ) {
 		
 		setDefaults();
@@ -193,7 +195,7 @@ public class GridBagEasy {
 		
 	}
 	
-	protected void addAFWX( Component comp, int gridx, int gridy,
+	public void addAFWX( Component comp, int gridx, int gridy,
 			int anchor, int fill, double weightx ) {
 		
 		setDefaults();
@@ -241,15 +243,15 @@ public class GridBagEasy {
 	
 	// ----------------------------------------
 	
-	protected final static int FILL_NONE = GridBagConstraints.NONE;
-	protected final static int FILL_BOTH = GridBagConstraints.BOTH;
-	protected final static int FILL_HOR = GridBagConstraints.HORIZONTAL;
-	protected final static int FILL_VER = GridBagConstraints.VERTICAL;
+	public final static int FILL_NONE = GridBagConstraints.NONE;
+	public final static int FILL_BOTH = GridBagConstraints.BOTH;
+	public final static int FILL_HOR = GridBagConstraints.HORIZONTAL;
+	public final static int FILL_VER = GridBagConstraints.VERTICAL;
 	
-	protected final static int ANCH_CENTER = GridBagConstraints.CENTER;
-	protected final static int ANCH_NORTH = GridBagConstraints.NORTH;
-	protected final static int ANCH_EAST = GridBagConstraints.EAST;
-	protected final static int ANCH_SOUTH = GridBagConstraints.SOUTH;
-	protected final static int ANCH_WEST = GridBagConstraints.WEST;
+	public final static int ANCH_CENTER = GridBagConstraints.CENTER;
+	public final static int ANCH_NORTH = GridBagConstraints.NORTH;
+	public final static int ANCH_EAST = GridBagConstraints.EAST;
+	public final static int ANCH_SOUTH = GridBagConstraints.SOUTH;
+	public final static int ANCH_WEST = GridBagConstraints.WEST;
 	
 }

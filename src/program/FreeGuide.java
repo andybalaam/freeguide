@@ -10,9 +10,19 @@
  *
  *  See the file COPYING for more information.
  */
+
+package freeguidetv;
+
+import freeguidetv.gui.dialogs.*;
+import freeguidetv.gui.viewer.*;
+import freeguidetv.gui.wizard.*;
+import freeguidetv.lib.fgspecific.*;
+import freeguidetv.lib.general.*;
 import java.awt.*;
+import java.io.*;
 import java.util.*;
 import java.util.logging.*;
+import java.util.prefs.*;
 import javax.swing.*;
 
 /**
@@ -24,19 +34,72 @@ import javax.swing.*;
  *@version    9
  */
 public class FreeGuide {
+    
+    public FreeGuide(String[] args) {
+        
+        // Check Java version.  If wrong, exit with error
+        // Also set up a log and the preferences classes.
+        StartupChecker.basicSetup( args );
+        
+        if( arguments.isSet( "install" ) ) {
+            setSettings();
+            System.exit( 0 );
+        } else if( arguments.isSet( "uninstall" ) ) {
+            removeSettings();
+            System.exit( 0 );
+        } else if( arguments.isSet( "prefs" ) ) {
+            setSettings();
+        }
+        
+        String install_version = FreeGuide.prefs.misc.get( "install_version" );
+        if( install_version == null ) {
+            
+            launchFirstTime();
+            
+        } else {
+            
+            // If the installed version number is lower than the version we are
+            // running, we need to upgrade
+            if( new Version( install_version ).lessThan( version ) ) {
+                
+                launchUpgrade();
+                
+            } else {
+                
+                normalStartup();
+                
+            }
+            
+        }
+        
 
-	/**
-	 * The constructor for the class that starts it all.
-	 *
-	 * @param  args  The commandline arguments
-	 */
-	public FreeGuide(String[] args) {
-
-		// Show the Please Wait frame
+        // [Note: upgrade question just notifies you that your custom settings
+        // will be over-written and lets you cancel.]
+        //
+        
+    }
+    
+    
+    private void launchFirstTime() {
+        
+        new FirstTimeWizard( this, false );
+        
+    }
+    
+    private void launchUpgrade() {
+        
+        new FirstTimeWizard( this, true );
+        
+    }
+    
+    
+    public void normalStartup() {
+        
+        // Show the Please Wait frame
 		PleaseWaitFrame pleaseWait = new PleaseWaitFrame();
 		pleaseWait.setVisible(true);
 		
-		Vector failedWhat = StartupChecker.runChecks(args);
+		Vector failedWhat = StartupChecker.runChecks();
 		
 		if( failedWhat.size() > 0 ) {
 			// Something's wrong, so begin with configuration
@@ -59,10 +122,75 @@ public class FreeGuide {
 		}
 		
 		ViewerFrame viewerFrame = new ViewerFrame( pleaseWait );
+        
+    }
+    
+    /**
+     * Called when we've received some preference settings on the command line,
+     * either during installation or in normal use.
+     */
+    private void setSettings() {
 
-	}
+        Vector prefsToSet = arguments.getBlankValues();
+        
+        for( int i = 0; i < prefsToSet.size(); i++ ) {
+            
+            prefs.putSystem( (String)prefsToSet.get(i) );
 
+        }
+        
+    }
+    
+    /**
+     * Called on uninstall on some systems to clear the junk out of the Java
+     * preferences.
+     */
+    private void removeSettings() {
+        
+        // FIXME does not remove the user's preferences node, only the system's
+        
+        String w = prefs.performSubstitutions(
+            prefs.misc.get( "working_directory" ) );
+                                                                                
+        if (w != null) {
+            File work = new File(w);
+            deleteDir(work);
+        }
+                                                                                
+        Preferences node = Preferences.systemRoot().node("/org/freeguide-tv");
+                                                                                
+        try {
+                                                                                
+            node.removeNode();
+                                                                                
+        } catch (java.util.prefs.BackingStoreException e) {
+            e.printStackTrace();
+        }
+        
+    }
 
+    /**
+     *  Deletes a whole directory recursively (also deletes a single file).
+     *
+     *@param  dir  The directory to delete
+     */
+    private void deleteDir(File dir) {
+
+        if (!dir.exists()) {
+            return;
+        }
+
+        if (dir.isDirectory()) {
+            String[] list = dir.list();
+            for (int i = 0; i < list.length; i++) {
+                deleteDir(new File(dir.getPath() + File.separator + list[i]));
+            }
+        }
+
+        dir.delete();
+
+    }
+    
 	/**
 	 *  The method called when FreeGuide is run.
 	 *
@@ -88,27 +216,13 @@ public class FreeGuide {
 
 	}
 
-	/**
-	 *  Gets the version attribute of the FreeGuide class
-	 *
-	 *@return    The version value
-	 */
-	public static String getVersion() {
-		if (version_revision == 0) {
-			return version_major + "." + version_minor;
-		} else {
-			return version_major + "." + version_minor + "." + version_revision;
-		}
-	}
-
-
 	//------------------------------------------------------------------------
 
-	/**
-	 *  The command line args
+    /**
+	 *  Holds all commandline arguments
 	 */
-	public static CmdArgs arguments;
-
+    public static CmdArgs arguments;
+    
 	/**
 	 *  Holds all preferences info
 	 */
@@ -119,19 +233,11 @@ public class FreeGuide {
 	 */
 	public static Logger log;
 
-	/**
-	 *  The major version of FreeGuide
+    /**
+	 *  The current version of the programme
 	 */
-	public final static int version_major = 0;
-	/**
-	 *  The minor version of FreeGuide
-	 */
-	public final static int version_minor = 7;
-	/**
-	 *  What revision of the version this is
-	 */
-	public final static int version_revision = 5;
-
+    public final static Version version = new Version( 0, 8, 0 );
+	
 	/**
 	 *  Default colour of a normal programme
 	 */
@@ -140,7 +246,7 @@ public class FreeGuide {
 	 *  Default colour of a clicked programme
 	 */
 	public final static Color PROGRAMME_CHOSEN_COLOUR
-	= new Color(204, 255, 204);
+	    = new Color(204, 255, 204);
 	/**
 	    *  Default colour of a heart that indicates a favourite
 	    */

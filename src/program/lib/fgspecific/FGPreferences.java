@@ -10,18 +10,15 @@
  *
  *  See the file COPYING for more information.
  */
-import java.awt.Color;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Vector;
+
+package freeguidetv.lib.fgspecific;
+
+import freeguidetv.lib.general.*;
+import java.awt.Color;  // Not * since List conflicts with util.List
+import java.io.*;
+import java.util.*;
 import java.util.prefs.*;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 
 /**
  *  FreeGuidePreferences A sort of wrapper around the
@@ -48,7 +45,9 @@ public class FGPreferences {
      */
     public FGPreferences(String subNode) {
 
-        prefs = Preferences.userRoot().node("/org/freeguide-tv/" + subNode);
+        prefs = Preferences.userRoot().node( "/org/freeguide-tv/" + subNode );
+        system_prefs = Preferences.systemRoot().node(
+            "/org/freeguide-tv/" + subNode);
 
     }
 
@@ -409,7 +408,13 @@ public class FGPreferences {
      *@return      Description of the Return Value
      */
     public String get(String key) {
-        return get(key, null);
+        
+        String value = prefs.get( key, null );
+        if( value == null ) {
+            value = system_prefs.get( key, null );
+        }
+        return value;
+        
     }
 
 
@@ -488,10 +493,41 @@ public class FGPreferences {
      *@return      The color value
      */
     public Color getColor(String key, Color def) {
-        int r = getInt(key + ".r", def.getRed());
-        int g = getInt(key + ".g", def.getGreen());
-        int b = getInt(key + ".b", def.getBlue());
-        return new Color(r, g, b);
+
+        try {
+        
+            int r, g, b;
+        
+            String r_str = get( key + ".r" );
+            if( r_str == null ) {
+                r = def.getRed();
+            } else {
+                r = Integer.parseInt( r_str );
+            }
+        
+            String g_str = get( key + ".g" );
+            if( g_str == null ) {
+                g = def.getGreen();
+            } else {
+                g = Integer.parseInt( g_str );
+            }
+        
+            String b_str = get( key + ".b" );
+            if( b_str == null ) {
+                b = def.getBlue();
+            } else {
+                b = Integer.parseInt( b_str );
+            }
+
+            return new Color(r, g, b);
+            
+        } catch( NumberFormatException e ) {
+            
+            e.printStackTrace();
+            return new Color(0, 0, 0);
+            
+        }
+            
     }
 
 
@@ -723,7 +759,14 @@ public class FGPreferences {
      *@return      Description of the Return Value
      */
     public String get(String key, String def) {
-        return prefs.get(key, def);
+        
+        String value = get(key);
+        if( value == null ) {
+            return def;  
+        } else {
+            return value;
+        }
+        
     }
 
 
@@ -735,7 +778,14 @@ public class FGPreferences {
      *@return      The boolean value
      */
     public boolean getBoolean(String key, boolean def) {
-        return prefs.getBoolean(key, def);
+        
+        String value = get(key);
+        if( value == null ) {
+            return def;  
+        } else {
+            return value.equals("true");
+        }
+        
     }
 
 
@@ -746,9 +796,9 @@ public class FGPreferences {
      *@param  def  Description of the Parameter
      *@return      The byteArray value
      */
-    public byte[] getByteArray(String key, byte[] def) {
+    /*public byte[] getByteArray(String key, byte[] def) {
         return prefs.getByteArray(key, def);
-    }
+    }*/
 
 
     /**
@@ -759,7 +809,20 @@ public class FGPreferences {
      *@return      The double value
      */
     public double getDouble(String key, double def) {
-        return prefs.getDouble(key, def);
+        
+        try {
+            String value = get(key);
+            if( value == null ) {
+                return def;
+            } else {
+                return Double.parseDouble( value );
+            }
+        } catch( NumberFormatException e ) {
+            e.printStackTrace();
+            return 0;
+        }
+        
+        
     }
 
 
@@ -771,7 +834,19 @@ public class FGPreferences {
      *@return      The float value
      */
     public float getFloat(String key, float def) {
-        return prefs.getFloat(key, def);
+        
+        try {
+            String value = get(key);
+            if( value == null ) {
+                return def;
+            } else {
+                return Float.parseFloat( value );
+            }
+        } catch( NumberFormatException e ) {
+            e.printStackTrace();
+            return 0;
+        }
+        
     }
 
 
@@ -783,7 +858,19 @@ public class FGPreferences {
      *@return      The int value
      */
     public int getInt(String key, int def) {
-        return prefs.getInt(key, def);
+        
+        try {
+            String value = get(key);
+            if( value == null ) {
+                return def;
+            } else {
+                return Integer.parseInt( value );
+            }
+        } catch( NumberFormatException e ) {
+            e.printStackTrace();
+            return 0;
+        }
+
     }
 
 
@@ -795,7 +882,19 @@ public class FGPreferences {
      *@return      The long value
      */
     public long getLong(String key, long def) {
-        return prefs.getLong(key, def);
+        
+        try {
+            String value = get(key);
+            if( value == null ) {
+                return def;
+            } else {
+                return Long.parseLong( value );
+            }
+        } catch( NumberFormatException e ) {
+            e.printStackTrace();
+            return 0;
+        }
+        
     }
 
 
@@ -813,7 +912,11 @@ public class FGPreferences {
         }
     }
 
-
+    public void putSystem(String key, String value) {
+        system_prefs.put(key, value);
+    }
+    
+    
     /**
      *  Description of the Method
      *
@@ -1101,6 +1204,7 @@ public class FGPreferences {
     // ------------------------------------------------------------------------
 
     private Preferences prefs;
+    private Preferences system_prefs;
 
 }
 

@@ -9,29 +9,20 @@
  *  See the file COPYING for more information.
  */
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.GeneralPath;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Vector;
+package freeguidetv.gui.viewer;
+
+import freeguidetv.*;
+import freeguidetv.lib.fgspecific.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.*;
+import java.net.*;
+import java.text.*;
+import java.util.*;
 import javax.swing.BorderFactory;
-/* Also using (but can't import because of java.util.Timer)
-import javax.swing.Timer;
- */
+//import javax.swing.Timer;   can't import because of java.util.Timer
 import javax.swing.ToolTipManager;
-import javax.swing.border.Border;
+import javax.swing.border.*;
 
 /**
  * A JLabel that displays a TV programme

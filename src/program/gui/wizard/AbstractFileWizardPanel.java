@@ -11,6 +11,9 @@
  *  See the file COPYING for more information.
  */
 
+package freeguidetv.gui.wizard;
+
+import freeguidetv.lib.fgspecific.*;
 import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;

@@ -1,5 +1,5 @@
-prefs.1=misc.install_directory=%home%/freeguide-tv
-prefs.2=misc.working_directory=%home%/.freeguide-tv
+prefs.1=misc.working_directory=%home%/.freeguide-tv
+prefs.2=misc.doc_directory=%misc.install_directory%/doc
 prefs.3=misc.xmltv_directory=%misc.install_directory%/xmltv
 prefs.4=misc.day_start_time=06:00
 prefs.5=misc.share_directory=%misc.xmltv_directory%/share/xmltv
@@ -20,26 +20,7 @@ prefs.17=commandline.browser_command.5.1=epiphany \"%filename%\"
 prefs.18=misc.browser.6=Netscape
 prefs.19=commandline.browser_command.6.1=netscape \"%filename%\"
 
-prefs.20=commandline.tv_config.2=
-
-file.1=FreeGuide.jar>%misc.install_directory%/FreeGuide.jar
-
-file.2=contributors.html>%misc.install_directory%/contributors.html
-file.3=COPYING>%misc.install_directory%/COPYING
-file.4=design.html>%misc.install_directory%/design.html
-file.5=developers.html>%misc.install_directory%/developers.html
-file.6=FAQ.html>%misc.install_directory%/FAQ.html
-file.7=index.html>%misc.install_directory%/index.html
-file.8=INSTALL-linux-noxmltv.html>%misc.install_directory%/INSTALL-linux-noxmltv.html
-file.9=INSTALL-windows.html>%misc.install_directory%/INSTALL-windows.html
-file.10=LookAndFeel.html>%misc.install_directory%/LookAndFeel.html
-file.11=README.html>%misc.install_directory%/README.html
-file.12=stylesheet.css>%misc.install_directory%/stylesheet.css
-file.13=timezone.html>%misc.install_directory%/timezone.html
-file.14=TODO>%misc.install_directory%/TODO
-file.15=userguide.html>%misc.install_directory%/userguide.html
-
-file.16=xmltv.dtd>%misc.working_directory%/xmltv.dtd
+file.1=xmltv.dtd>%misc.working_directory%/xmltv.dtd
 
 
 

@@ -11,10 +11,18 @@
  *  See the file COPYING for more information.
  */
 
-import java.awt.*;
+package freeguidetv.gui.options;
+
+import freeguidetv.*;
+import freeguidetv.gui.dialogs.*;
+import freeguidetv.gui.jcommon.*;
+import freeguidetv.lib.general.*;
+import java.awt.Dimension;   // No * since Lists clash
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.Point;
 import java.awt.event.*;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import javax.swing.*;
 import javax.swing.event.*;
 

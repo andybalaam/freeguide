@@ -10,6 +10,9 @@
  *
  *  See the file COPYING for more information.
  */
+package freeguidetv.lib.general;
+
+import freeguidetv.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;

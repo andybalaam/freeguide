@@ -1,3 +1,16 @@
+/*
+ *  FreeGuide J2
+ *
+ *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
+ *
+ *  Released under the GNU General Public License
+ *  with ABSOLUTELY NO WARRANTY.
+ *
+ *  See the file COPYING for more information.
+ */
+
+package freeguidetv.gui.viewer;
+
 import javax.swing.JPanel;
 import javax.swing.Scrollable;
 import java.awt.Rectangle;
@@ -9,7 +22,7 @@ import java.awt.Dimension;
  *@author     andy
  *@created    28 June 2003
  */
-class InnerPanel extends JPanel implements Scrollable {
+public class InnerPanel extends JPanel implements Scrollable {
 
     /**
      *  Gets the scrollableUnitIncrement attribute of the InnerPanel object

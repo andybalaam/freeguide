@@ -10,11 +10,14 @@
  *
  *  See the file COPYING for more information.
  */
-import java.util.Arrays;
-import java.util.Vector;
-import java.util.HashMap;
-import javax.swing.DefaultListModel;
+package freeguidetv.gui.dialogs;
 
+import freeguidetv.*;
+import freeguidetv.gui.viewer.*;
+import freeguidetv.lib.fgspecific.*;
+import freeguidetv.lib.general.*;
+import java.util.*;
+import javax.swing.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

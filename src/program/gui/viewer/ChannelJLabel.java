@@ -10,6 +10,9 @@
  *  Created on Jun 24, 2004
  */
 
+package freeguidetv.gui.viewer;
+
+import freeguidetv.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;

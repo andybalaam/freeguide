@@ -9,10 +9,14 @@
  *  See the file COPYING for more information.
  */
 
+package freeguidetv.gui.viewer;
+
+import freeguidetv.*;
+import freeguidetv.lib.fgspecific.*;
 import java.awt.*;
 import java.text.*;
 import javax.swing.*;
- 
+
 /**
  * A class that displays the details of a single programme
  *

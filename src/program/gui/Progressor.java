@@ -15,6 +15,10 @@
  *@author     Andy Balaam
  *@created    08 July 2003
  */
+
+package freeguidetv.gui;
+
+ 
 public interface Progressor {
 	
     /**

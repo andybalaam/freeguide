@@ -11,6 +11,10 @@
  *  See the file COPYING for more information.
  */
 
+package freeguidetv.gui.wizard;
+
+import freeguidetv.*;
+import freeguidetv.gui.wizard.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -28,9 +32,8 @@ public class InstallWizardPanel extends WizardPanel {
     /**
      *
      */
-    public InstallWizardPanel( PrefsHolder caller ) {
+    public InstallWizardPanel() {
         super();
-		this.caller = caller;
     }
 
 
@@ -78,7 +81,7 @@ public class InstallWizardPanel extends WizardPanel {
 	public void onEnter() {
 		super.onEnter();
 		
-		boolean showConfigCheck = ( caller.prefs.commandline.get(
+		boolean showConfigCheck = ( FreeGuide.prefs.commandline.get(
 			"tv_config.1", null ) != null );
 			
 		if( !showConfigCheck ) {
@@ -105,7 +108,5 @@ public class InstallWizardPanel extends WizardPanel {
     public JCheckBox configgrabberCheckBox;
 
 	private JPanel middlePanel;
-	private PrefsHolder caller;
-	
 	
 }

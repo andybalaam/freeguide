@@ -11,6 +11,11 @@
  *  See the file COPYING for more information.
  */
 
+package freeguidetv.gui.wizard;
+
+import freeguidetv.*;
+import freeguidetv.lib.fgspecific.*;
+import freeguidetv.lib.general.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
@@ -18,85 +23,26 @@ import java.util.prefs.*;
 import javax.swing.*;
 
 /**
- *  An installer for FreeGuide
+ *  A first time wizard for FreeGuide
  *
  *  @author  Andy Balaam
  *  @created 02 July 2003
- *  @version 9
+ *  @version 10 (used to be called Install)
  */
-public class Install extends PrefsHolder {
+public class FirstTimeWizard {
 
     /**
-     *  Constructor for the Install object
+     *  Constructor for the FirstTimeWizard object
      */
-    public Install() {
+    public FirstTimeWizard( FreeGuide launcher, boolean upgrade ) {
 
-        // Make sure we have the right Java version etc.
-        StartupChecker.doJavaVersionCheck();
-
-        prefs = new PreferencesGroup();
-
-        // Branch into Reinstall or first time
-        String install_directory = prefs.performSubstitutions(
-                prefs.misc.get("install_directory"));
-				
-        if (install_directory == null ||
-                !(new File(install_directory + File.separator +
-                "FreeGuide.jar").exists())) {
-
-            // First time install
-            install(install_directory, false);
-
-        } else {
-
-            String txt = "There is a version of FreeGuide installed.";
-            txt += System.getProperty("line.separator");
-            txt += "Would  you like to uninstall it, or install the new version?";
-
-            String[] options = {
-                    "Complete Install (overwrite prefs - recommended)",
-                    "Lite Install (keep old preferences)",
-                    "Uninstall"};
-
-            Object response = JOptionPane.showInputDialog( null,
-                    txt,
-                    "Install question",
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    options,
-                    "Complete Install (overwrite prefs - recommended)");
-
-            if (response == null) {
-                System.err.println("Exiting installer without doing anything.");
-                System.exit(0);
-            } else if (response.equals("Complete Install (overwrite prefs - recommended)")) {
-                install(install_directory, false);
-            } else if (response.equals("Lite Install (keep old preferences)")) {
-                install(install_directory, true);
-            } else {
-                uninstall(install_directory);
-            }
-
-        }
-
-    }
-
-
-    /**
-     *  Description of the Method
-     *
-     *@param  install_directory   Description of the Parameter
-     *@param  keepOldPreferences  Description of the Parameter
-     */
-    private void install(String install_directory, boolean keepOldPreferences) {
-
-        keepOldPrefs = keepOldPreferences;
-
+        this.launcher = launcher;
+        
 		setStandardProps();
 		
 		// If we haven't got a region, assume it's UK.
-		if( prefs.misc.get( "region" ) == null ) {
-			prefs.misc.get( "region", "UK" );
+		if( FreeGuide.prefs.misc.get( "region" ) == null ) {
+			FreeGuide.prefs.misc.put( "region", "UK" );
 		}
 		
         try {
@@ -105,9 +51,19 @@ public class Install extends PrefsHolder {
 
             WizardPanel[] panels = new WizardPanel[6];
 
-            panels[0] = new LabelWizardPanel("");
-            panels[0].setMessages("You are about to install FreeGuide.",
+            if( upgrade ) {
+                
+                panels[0] = new LabelWizardPanel("<html>Advanced settings like grabber commands will be overwritten,<br>but your preferences, favourites and programme<br>choices will be kept.<html>");
+                panels[0].setMessages("You are about to upgrade FreeGuide.",
+                    "Click \"Next\" to continue, or \"Exit\" to quit.");
+                
+            } else {
+            
+                panels[0] = new LabelWizardPanel("I need to ask you a few questions before we begin.");
+                panels[0].setMessages("Welcome to FreeGuide.",
                     "Click \"Next\" to continue.");
+                
+            }
 
 			panels[1] = new ChoiceWizardPanel(allRegions);
 			Class[] clses = new Class[1];
@@ -120,10 +76,10 @@ public class Install extends PrefsHolder {
 			panels[1].setConfig("misc", "region");
 					
 			panels[2] = new DirectoryWizardPanel();
-            panels[2].setMessages("Choose your installation directory.",
+            panels[2].setMessages("Choose your working directory.",
                     "This will be created if it doesn't exist.",
 					KeyEvent.VK_C);
-            panels[2].setConfig("misc", "install_directory");
+            panels[2].setConfig("misc", "working_directory");
 
 			String[] dummyChoices = new String[0];
 			panels[3] = new ChoiceWizardPanel(dummyChoices);
@@ -146,10 +102,10 @@ public class Install extends PrefsHolder {
 			panels[4].setOnExit( this, getClass().getMethod( "exitPrivacy",
 				clses ) );*/
             
-            panels[5] = new InstallWizardPanel( this );
+            panels[5] = new InstallWizardPanel();
             panels[5].setMessages(
-				"FreeGuide will be installed when you click \"Finish\".",
-			   "If you chooose to configure your grabber, please connect to "
+				"You are about to start using FreeGuide.",
+			   "If you choose to configure your grabber, please connect to "
 			   + "the Internet now.");
 			clses = new Class[1];
 			clses[0] = InstallWizardPanel.class;
@@ -159,8 +115,8 @@ public class Install extends PrefsHolder {
 			clses = new Class[0];
             
             wizardFrame = new WizardFrame("FreeGuide Setup Wizard", panels,
-				this, getClass().getMethod("doInstall", clses),
-				this, getClass().getMethod("quitInstall", clses)
+				this, getClass().getMethod("doFirstTime", clses),
+				this, getClass().getMethod("quitFirstTimeWizard", clses)
 					);
             
             wizardFrame.setVisible(true);
@@ -175,24 +131,24 @@ public class Install extends PrefsHolder {
 
 	public String enterBrowser( ChoiceWizardPanel panel ) {
 		
-		String[] choices = prefs.getBrowsers();
+		String[] choices = FreeGuide.prefs.getBrowsers();
 		
 		panel.setChoices( choices );
 		
-		return prefs.misc.get( "browser", choices[0] );
+		return FreeGuide.prefs.misc.get( "browser", choices[0] );
 		
 	}
 	
 	public void exitBrowser( String choice ) {
 		
-		String[] choices = prefs.getBrowsers();
+		String[] choices = FreeGuide.prefs.getBrowsers();
 		
 		for( int i=0; i<choices.length; i++ ) {
 			
 			if( choices[i].equals( choice ) ) {
 				
-				prefs.commandline.putStrings( "browser_command",
-					prefs.getCommands( "browser_command." + (i+1) ) );
+				FreeGuide.prefs.commandline.putStrings( "browser_command",
+					FreeGuide.prefs.getCommands( "browser_command." + (i+1) ) );
 				return;
 				
 			}
@@ -242,7 +198,7 @@ public class Install extends PrefsHolder {
      *@param  boxValue  The name of the region chosen by the user.
      */
     public void setProps(Object boxValue) {
-		
+        
         String region = (String) boxValue;
 		
         for (int i = 0; i < allRegions.length; i++) {
@@ -270,31 +226,31 @@ public class Install extends PrefsHolder {
         }
 
         System.err.println(
-                "Install.setProps - Invalid region chosen.");
+                "FirstTimeWizard.setProps - Invalid region chosen.");
 
     }
 
 	/**
 	 * Given a properties file real in all the preferences listed and store
-	 * them.  Store them as defaults always, and possibly overwrite actual
-	 * values if keepOldPrefs is false.
+	 * them.
 	 */
 	private void readPrefsFromProps( Properties iProps ) {
 		
         String prefString = "";
 		
         for ( 	int j = 1;
-				( prefString = iProps.getProperty( "prefs." + j ) ) != null;
+				( prefString = iProps.getProperty( "prefs." + j ) )
+                    != null;
 				j++ ) {
 
-			doPref(prefString);
+            FreeGuide.prefs.put( prefString );
 
         }
 		
 	}
 
     /**
-     *  Gets the allRegions attribute of the Install object
+     *  Gets the allRegions attribute of the FirstTimeWizard object
      */
     private void getAllRegions() {
 
@@ -331,48 +287,11 @@ public class Install extends PrefsHolder {
 
 
     /**
-     *  Remove FreeGuide and all the stuff it uses
-     *
-     *@param  install_directory  The directory from which to uninstall it
-     */
-    private void uninstall(String install_directory) {
-
-		String w = prefs.performSubstitutions(
-			prefs.misc.get( "working_directory" ) );
-		
-        if (w != null) {
-            File work = new File(w);
-            deleteDir(work);
-        }
-		
-        File inst = new File(install_directory);
-        deleteDir(inst);
-
-        Preferences node = Preferences.userRoot().node("/org/freeguide-tv");
-
-        try {
-
-            node.removeNode();
-
-        } catch (java.util.prefs.BackingStoreException e) {
-            e.printStackTrace();
-        }
-
-        JOptionPane.showMessageDialog(null,
-                "FreeGuide has been successfully uninstalled.");
-
-        System.err.println("Finished uninstall.");
-        System.exit(0);
-
-    }
-
-
-    /**
      *  Deletes a whole directory recursively (also deletes a single file).
      *
      *@param  dir  The directory to delete
      */
-    private void deleteDir(File dir) {
+    /*private void deleteDir(File dir) {
 
         if (!dir.exists()) {
             return;
@@ -387,24 +306,12 @@ public class Install extends PrefsHolder {
 
         dir.delete();
 
-    }
+    }*/
 
 
-    /**
-     *  The main program for the Install class
-     *
-     *@param  args  The command line arguments
-     */
-    public static void main(String[] args) {
-
-        new Install();
-
-    }
-
-
-	public void quitInstall() {
+	public void quitFirstTimeWizard() {
 		
-		System.err.println("The user quit the install before it completed.");
+		FreeGuide.log.info( "The user quit the install before it completed." );
 		System.exit(0);
 		
 	}
@@ -412,44 +319,44 @@ public class Install extends PrefsHolder {
     /**
      *  Description of the Method
      */
-    public void doInstall() {
+    public void doFirstTime() {
 
         try {
 
-            String install_directory = prefs.performSubstitutions(
-                    prefs.misc.get("install_directory"));
+            new File(FreeGuide.prefs.performSubstitutions(
+                    FreeGuide.prefs.misc.get("xmltv_directory"))).mkdirs();
+            new File(FreeGuide.prefs.performSubstitutions(
+                    FreeGuide.prefs.misc.get("working_directory"))).mkdirs();
 
-            // Make the required directories
-            new File(install_directory).mkdirs();
-            new File(prefs.performSubstitutions(
-                    prefs.misc.get("xmltv_directory"))).mkdirs();
-            new File(prefs.performSubstitutions(
-                    prefs.misc.get("working_directory"))).mkdirs();
-
+            // Remember what version is installed
+            FreeGuide.prefs.misc.put( "install_version",
+                FreeGuide.version.getDotFormat() );
+            
+            // Put all the required files in the required places
 			installFilesFromProps( standardProps );
 			installFilesFromProps( specificProps );
 
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
-		
+        
 		if(configGrabber) {
 			
-            String preconfig_message = prefs.misc.get( "preconfig_message" );
+            String preconfig_message = FreeGuide.prefs.misc.get( "preconfig_message" );
             if( preconfig_message != null ) {
                 
                 JOptionPane.showMessageDialog( wizardFrame, preconfig_message );
                 
             }
             
-			Utils.execAndWait( null, prefs.getCommands(
-				"tv_config" ), "Configuring", prefs );
+			Utils.execAndWait( null, FreeGuide.prefs.getCommands(
+				"tv_config" ), "Configuring", FreeGuide.prefs );
                 
         }
 		
         if(configGrabber) {
         
-            String pw_file = prefs.misc.get( "password_file" );
+            String pw_file = FreeGuide.prefs.misc.get( "password_file" );
             
             if( pw_file != null ) {
             
@@ -459,7 +366,7 @@ public class Install extends PrefsHolder {
                 try {
             
                     BufferedWriter out = new BufferedWriter( new 
-                        FileWriter( prefs.performSubstitutions( pw_file ) ) );
+                        FileWriter( FreeGuide.prefs.performSubstitutions( pw_file ) ) );
 
                     out.write( pw );
                 
@@ -478,19 +385,22 @@ public class Install extends PrefsHolder {
 		if( showREADME ) {
 			
 			String[] cmds = Utils.substitute(
-				prefs.commandline.getStrings( "browser_command" ),
-				"%filename%", prefs.performSubstitutions( 
-					"%misc.install_directory%"
+				FreeGuide.prefs.commandline.getStrings( "browser_command" ),
+				"%filename%", FreeGuide.prefs.performSubstitutions( 
+					"%misc.doc_directory%"
 					+ System.getProperty( "file.separator" )
 					+ "README.html" ) );
 			
-			Utils.execNoWait( cmds, prefs );
+			Utils.execNoWait( cmds, FreeGuide.prefs );
 			
 		}
 		
-		System.err.println("Finished install.");
-		System.exit(0);
-		
+        wizardFrame.dispose();
+        
+        if( launcher != null ) {
+            launcher.normalStartup();
+        }
+        
     }
 	
 	private void installFilesFromProps( Properties iProps )
@@ -521,11 +431,11 @@ public class Install extends PrefsHolder {
         String[] srcdest = command.split(">");
 
         doInstallFile(srcdest[0],
-                prefs.performSubstitutions(srcdest[1]));
+                FreeGuide.prefs.performSubstitutions(srcdest[1]));
 
 		if( exec != null ) {
 			
-			Utils.execNoWait( exec, prefs );
+			Utils.execNoWait( exec, FreeGuide.prefs );
 			
 			// Give it a second to actually change.
 			try {
@@ -576,7 +486,7 @@ public class Install extends PrefsHolder {
      *
      *@param  prefString  Description of the Parameter
      */
-    private void doPref(String prefString) {
+    /*private void doPref(String prefString) {
 
         // Split this string into its constituent parts
 
@@ -591,33 +501,26 @@ public class Install extends PrefsHolder {
         // Find out what preferences category we're dealing with
         FGPreferences pr;
         if (keyCategory.equals("misc")) {
-            pr = prefs.misc;
+            pr = FreeGuide.prefs.misc;
         } else if (keyCategory.equals("commandline")) {
-            pr = prefs.commandline;
+            pr = FreeGuide.prefs.commandline;
         } else {
             // Following is to make it compile ok.
-            pr = prefs.misc;
-            System.err.println("Unknown preferences group: " + keyCategory
+            pr = FreeGuide.prefs.misc;
+            FreeGuide.die("Unknown preferences group: " + keyCategory
                     + " - Aborting");
-            System.exit(1);
         }
 
-        // Set the default value always
+        // Set the default value
         pr.put("default-" + key, value);
 
-		// Only set the real value if we're not keeping old prefs
-		// and this isn't the install dir or region (unless these are null)
-		boolean overwritePref = !keepOldPrefs
-			&& ( !(key.equals( "install_directory" ) )
-				|| prefs.misc.get( "install_directory" ) == null );
-		
-        if( overwritePref ) {
-            pr.put(key, value);
-        }
-    }
+        // And the real value
+        pr.put(key, value);
+        
+    }*/
 
+    private FreeGuide launcher;
 
-    private boolean keepOldPrefs;
     private String[] allRegions;
     private Properties standardProps;
 	private Properties specificProps;

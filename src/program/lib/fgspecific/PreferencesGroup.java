@@ -10,17 +10,15 @@
  *
  *  See the file COPYING for more information.
  */
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.text.SimpleDateFormat;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Vector;
+
+package freeguidetv.lib.fgspecific;
+
+import freeguidetv.*;
+import freeguidetv.gui.viewer.*;
+import freeguidetv.lib.general.*;
+import java.text.*;
+import java.io.*;
+import java.util.*;
 import java.util.prefs.Preferences;
 
 /**
@@ -618,6 +616,101 @@ public class PreferencesGroup {
         return commandline.getStrings(key);
     }
 
+    
+    /**
+     * Given a line cat.key=value, returns an FGPreferences object representing
+     * the category, a string for the key and a string for the value.
+     */
+    private Vector processPrefLine( String line ) {
+        
+        // Split this string into its constituent parts
+        int i = line.indexOf('=');
+        if( i == -1 ) {
+            FreeGuide.die( "Invalid preference string applied - no '='." );
+        }
+        String key = line.substring(0, i);
+        String value = line.substring(i + 1);
+
+        i = key.indexOf('.');
+        if( i == -1 ) {
+            FreeGuide.die( "Invalid preference string applied - no '.'." );
+        }
+        String keyCategory = key.substring(0, i);
+        key = key.substring(i + 1);
+
+        // Find out what preferences category we're dealing with
+        FGPreferences pr;
+        if( keyCategory.equals("misc") ) {
+            pr = misc;
+        } else if( keyCategory.equals("commandline") ) {
+            pr = commandline;
+        } else {
+            // If needed we could add the other categories here, but for now...
+            pr = misc;
+            FreeGuide.die("Unknown preferences group: " + keyCategory
+                + " - Aborting");
+        }
+        
+        Vector ans = new Vector();
+        ans.add( pr );
+        ans.add( key );
+        ans.add( value );
+        
+        return ans;
+        
+    }
+
+    /**
+     * Takes a line in a form like this:
+     *
+     * misc.install_directory=C:\Program Files\freeguide-tv
+     *
+     * and translates that to place the relevant entry into the correct
+     * user preferences node..
+     *
+     *@param line    the String line to interpret
+     */
+    public void put( String line) {
+        
+        Vector ans = processPrefLine( line );
+        
+        FGPreferences pr = (FGPreferences)ans.get(0);
+        String key = (String)ans.get(1);
+        String value = (String)ans.get(2);
+        
+        pr.put( key, value );
+        
+    }
+    
+    /**
+     * Takes a line in a form like this:
+     *
+     * misc.install_directory=C:\Program Files\freeguide-tv
+     *
+     * and translates that to place the relevant entry into the correct
+     * system preferences node.  Also places a default value using the key with
+     * "default-" prepended to it.
+     *
+     *@param line    the String line to interpret
+     */
+    public void putSystem( String line) {
+        
+        Vector ans = processPrefLine( line );
+        
+        FGPreferences pr = (FGPreferences)ans.get(0);
+        String key = (String)ans.get(1);
+        String value = (String)ans.get(2);
+        
+        pr.put( key, value );
+        
+        // Set the default value
+        pr.putSystem("default-" + key, value);
+
+        // And the real value
+        pr.putSystem(key, value);
+        
+    }
+    
     public FGPreferences screen;
     // The screen dimensions etc.
     /**

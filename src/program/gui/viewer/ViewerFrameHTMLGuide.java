@@ -9,15 +9,14 @@
  *  See the file COPYING for more information.
  */
  
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.GregorianCalendar;
-import java.util.Date;
-import java.util.Vector;
+package freeguidetv.gui.viewer;
+
+import freeguidetv.*;
+import freeguidetv.lib.fgspecific.*;
+import freeguidetv.lib.general.*;
+import java.io.*;
+import java.text.*;
+import java.util.*;
 
 /**
  * A class that deals with the HTML listings guide displayed in a scroll panel

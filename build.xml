@@ -11,12 +11,13 @@
 	<property name="doc"  location="doc"/>
 	<property name="xmltv"  location="xmltv"/>
 	<property name="share"  location="xmltv/share"/>
-
 	<property name="build" location="build"/>
-	<property name="package" location="package"/>
 	<property name="dist"  location="dist"/>
 
-	<property name="freeguideversion"  value="FreeGuide-0.7.5"/>
+    <!-- the install_share_dir property is passed in if we are doing an install -->
+    <property name="install_doc_dir" location="${install_share_dir}/doc" />
+    
+	<property name="freeguideversion"  value="FreeGuide-0.8"/>
 
   	<target name="init">
 
@@ -25,13 +26,44 @@
     	<!-- Create the build directory structure used by compile -->
     	<mkdir dir="${build}"/>
 		<mkdir dir="${build}/program"/>
-		<mkdir dir="${build}/install"/>
 		<mkdir dir="${build}/doc"/>
-		<mkdir dir="${package}"/>
 		<mkdir dir="${dist}"/>
 
 	</target>
+    
+    <target name="install-Linux-NoXMLTV-files"
+            description="install all the files for linux"
+            depends="FreeGuide-Linux-NoXMLTV" >
+        
+        <mkdir dir="${install_share_dir}"/>
+        
+        <copy file="${dist}/${freeguideversion}-Linux-NoXMLTV.jar"
+            tofile="${install_share_dir}/FreeGuide.jar" />
 
+        <mkdir dir="${install_doc_dir}" />
+        
+        <copy todir="${install_doc_dir}/" >
+            <fileset dir="${doc}">
+                <include name="*.html" />
+            </fileset>
+        </copy>
+        
+        <copy file="${doc}/COPYING" todir="${install_doc_dir}/" />
+        <copy file="${doc}/FreeGuide-0_7-Linux-MetalLookAndFeel.png" todir="${install_doc_dir}/" />
+        <copy file="${doc}/stylesheet.css" todir="${install_doc_dir}/" />
+        <copy file="${doc}/TODO" todir="${install_doc_dir}/" />
+
+        <mkdir dir="${install_bin_dir}" />
+        
+        <echo file="${install_bin_dir}/freeguide-tv" >
+            #!/bin/bash
+            java -jar ${real_install_share_dir}/FreeGuide.jar --prefs "misc.install_directory=${real_install_share_dir}"
+        </echo>
+        
+        <chmod file="${install_bin_dir}/freeguide-tv" perm="a+x" />
+        
+    </target>
+    
   	<target name="compile" depends="init" description="compile the source " >
 
   		<!-- compile the program -->
@@ -45,14 +77,14 @@
 		</copy>
 
   		<!-- copy the program classes that are needed by each installer -->
-    	<copy todir="${build}/install">
+    	<!--<copy todir="${build}/install">
 			<fileset dir="${build}/program">
 				<include name="*.class"/>
 			</fileset>
-		</copy>
+		</copy>-->
 
 		<!-- compile the installer -->
-    	<javac srcdir="${src}/install" destdir="${build}/install"/>
+    	<!--<javac srcdir="${src}/install" destdir="${build}/install"/>-->
 
 		<!-- so we can overwrite files outside the doc tree -->
 		<copy todir="${build}/doc">
@@ -60,215 +92,169 @@
 		</copy>
 	</target>
 
-  	<target name="FreeGuide" depends="compile"
+  	<!--<target name="FreeGuide" depends="compile"
 			description="generate the program jar file" >
 
 		<jar 	jarfile="${build}/FreeGuide.jar"
 				basedir="${build}/program"
 				manifest="${src}/manifests/FreeGuide.mf"/>
 
-  	</target>
+  	</target>-->
 
-	<target name="FreeGuide-Win-Install" depends="FreeGuide"
-  		description="generate the windows installer jar" >
+    <target name="FreeGuide-Win" depends="compile"
+			description="generate the windows jar file" >
 
-		<mkdir dir="${package}/windows" />
-
-		<!-- Copy the program jar, installer clases and docs -->
-		<copy todir="${package}/windows">
-			<fileset dir="${build}/">
-				<include name="FreeGuide.jar"/>
-			</fileset>
+        <mkdir dir="${build}/windows" />
+        
+        <!-- Copy the program jar, installer clases and docs -->
+		<copy todir="${build}/windows">
+            <fileset dir="${build}/program" />
 			<fileset dir="${build}/doc/" excludes="nonlocal/" />
-			<fileset dir="${build}/install"/>
 		</copy>
 
 		<!-- Copy the XMLTV DTD -->
-		<copy file="${xmltv}/xmltv.dtd" todir="${package}/windows"/>
+		<copy file="${xmltv}/xmltv.dtd" todir="${build}/windows"/>
 
 		<!-- Copy the XMLTV exe -->
-		<copy file="${xmltv}/xmltv.exe" todir="${package}/windows"/>
+		<copy file="${xmltv}/xmltv.exe" todir="${build}/windows"/>
 
 		<!-- copy in the shared files -->
-		<mkdir dir="${package}/windows/share"/>
-		<copy todir="${package}/windows/share">
+		<mkdir dir="${build}/windows/share"/>
+		<copy todir="${build}/windows/share">
 			<fileset dir="${share}/" />
 		</copy>
 
 		<!-- copy in the install.props file for the jar -->
-		<copy file="${src}/install/windows/install-win-all.props" tofile="${package}/windows/install-all.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-all.props" tofile="${build}/windows/install-all.props" overwrite="true" />
         
         <!-- Denmark -->
-		<copy file="${src}/install/windows/install-win-dk.props" tofile="${package}/windows/install-0.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-dk.props" tofile="${build}/windows/install-0.props" overwrite="true" />
         
         <!-- Finland -->
-		<copy file="${src}/install/windows/install-win-fi.props" tofile="${package}/windows/install-1.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-fi.props" tofile="${build}/windows/install-1.props" overwrite="true" />
         
         <!-- France -->
-        <copy file="${src}/install/windows/install-win-fr.props" tofile="${package}/windows/install-2.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-fr.props" tofile="${build}/windows/install-2.props" overwrite="true" />
         
         <!-- Germany -->
-        <copy file="${src}/install/windows/install-win-de_tvtoday.props" tofile="${package}/windows/install-3.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-de_tvtoday.props" tofile="${build}/windows/install-3.props" overwrite="true" />
         
         <!-- Hungary and Romania -->
-		<copy file="${src}/install/windows/install-win-huro.props" tofile="${package}/windows/install-4.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-huro.props" tofile="${build}/windows/install-4.props" overwrite="true" />
         
         <!-- Italy -->
-		<copy file="${src}/install/windows/install-win-it.props" tofile="${package}/windows/install-5.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-it.props" tofile="${build}/windows/install-5.props" overwrite="true" />
         
         <!-- Japan -->
-        <copy file="${src}/install/windows/install-win-jp.props" tofile="${package}/windows/install-6.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-jp.props" tofile="${build}/windows/install-6.props" overwrite="true" />
         
         <!-- Netherlands -->
-        <copy file="${src}/install/windows/install-win-nl.props" tofile="${package}/windows/install-7.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-nl.props" tofile="${build}/windows/install-7.props" overwrite="true" />
         <copy file="${src}/install/windows/install-win-nl_wolf.props"
-        tofile="${package}/windows/install-8.props" overwrite="true" />
+        tofile="${build}/windows/install-8.props" overwrite="true" />
         
         <!-- North America -->
-        <copy file="${src}/install/windows/install-win-na_dd.props" tofile="${package}/windows/install-9.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-na_dd.props" tofile="${build}/windows/install-9.props" overwrite="true" />
         
         <!-- Norway -->
-        <copy file="${src}/install/windows/install-win-no.props" tofile="${package}/windows/install-10.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-no.props" tofile="${build}/windows/install-10.props" overwrite="true" />
         
         <!-- Portugal -->
-        <copy file="${src}/install/windows/install-win-pt.props" tofile="${package}/windows/install-11.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-pt.props" tofile="${build}/windows/install-11.props" overwrite="true" />
         
         <!-- Spain -->
-		<copy file="${src}/install/windows/install-win-es.props" tofile="${package}/windows/install-12.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-es_digital.props" tofile="${package}/windows/install-13.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-es.props" tofile="${build}/windows/install-12.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-es_digital.props" tofile="${build}/windows/install-13.props" overwrite="true" />
         
         <!-- Sweden -->
-        <copy file="${src}/install/windows/install-win-se.props" tofile="${package}/windows/install-14.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-se.props" tofile="${build}/windows/install-14.props" overwrite="true" />
         
         <!-- UK -->
-        <copy file="${src}/install/windows/install-win-uk_bleb.props" tofile="${package}/windows/install-15.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${package}/windows/install-16.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-uk_rt-slow.props" tofile="${package}/windows/install-17.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-uk_bleb.props" tofile="${build}/windows/install-15.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${build}/windows/install-16.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-uk_rt-slow.props" tofile="${build}/windows/install-17.props" overwrite="true" />
 
 		<!-- Make the jar installer file -->
-		<jar 	jarfile="${dist}/${freeguideversion}-Win-Install.jar"
-				basedir="${package}/windows"
-				manifest="${src}/manifests/Install.mf"/>
-
+		<jar 	jarfile="${dist}/${freeguideversion}-Win.jar"
+				basedir="${build}/windows"
+				manifest="${src}/manifests/FreeGuide.mf"/>
+        
   	</target>
 
+	<target name="FreeGuide-Linux-NoXMLTV" depends="compile"
+  		description="generate the linux jar" >
 
-
-	<target name="FreeGuide-Linux-NoXMLTV-Install" depends="FreeGuide"
-  		description="generate the linux installer jar" >
-
-		<mkdir dir="${package}/linux" />
+		<mkdir dir="${build}/linux" />
 
 		<!-- Copy the program file and docs -->
-		<copy todir="${package}/linux">
-			<fileset dir="${build}/">
-				<include name="FreeGuide.jar"/>
-			</fileset>
+		<copy todir="${build}/linux">
+            <fileset dir="${build}/program"/>
 			<fileset dir="${build}/doc/" excludes="nonlocal/" />
-			<fileset dir="${build}/install"/>
 		</copy>
 
 		<!-- Copy the XMLTV DTD -->
-		<copy file="${xmltv}/xmltv.dtd" todir="${package}/linux" />
+		<copy file="${xmltv}/xmltv.dtd" todir="${build}/linux" />
 
 		<!-- copy in the install.props file for the jar -->
-		<copy file="${src}/install/linux/install-lin-all.props" tofile="${package}/linux/install-all.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-all.props" tofile="${build}/linux/install-all.props" overwrite="true" />
         
         <!-- Denmark -->
-		<copy file="${src}/install/linux/install-lin-dk.props" tofile="${package}/linux/install-0.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-dk.props" tofile="${build}/linux/install-0.props" overwrite="true" />
         
-        <!-- Finaland -->
-		<copy file="${src}/install/linux/install-lin-fi.props" tofile="${package}/linux/install-1.props" overwrite="true" />
+        <!-- Finland -->
+		<copy file="${src}/install/linux/install-lin-fi.props" tofile="${build}/linux/install-1.props" overwrite="true" />
         
         <!-- France -->
-        <copy file="${src}/install/linux/install-lin-fr.props" tofile="${package}/linux/install-2.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-fr.props" tofile="${build}/linux/install-2.props" overwrite="true" />
         
         <!-- Germany -->
-        <copy file="${src}/install/linux/install-lin-de_tvtoday.props" tofile="${package}/linux/install-3.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-de_tvtoday.props" tofile="${build}/linux/install-3.props" overwrite="true" />
         
         <!-- Hungary and Romania -->
-		<copy file="${src}/install/linux/install-lin-huro.props" tofile="${package}/linux/install-4.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-huro.props" tofile="${build}/linux/install-4.props" overwrite="true" />
         
         <!-- Italy -->
-		<copy file="${src}/install/linux/install-lin-it.props" tofile="${package}/linux/install-5.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-it.props" tofile="${build}/linux/install-5.props" overwrite="true" />
         
         <!-- Japan -->
-        <copy file="${src}/install/linux/install-lin-jp.props" tofile="${package}/linux/install-6.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-jp.props" tofile="${build}/linux/install-6.props" overwrite="true" />
         
         <!-- Netherlands -->
-		<copy file="${src}/install/linux/install-lin-nl.props" tofile="${package}/linux/install-7.props" overwrite="true" />
-        <copy file="${src}/install/linux/install-lin-nl_wolf.props" tofile="${package}/linux/install-8.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-nl.props" tofile="${build}/linux/install-7.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-nl_wolf.props" tofile="${build}/linux/install-8.props" overwrite="true" />
         
         <!-- North America -->
-		<copy file="${src}/install/linux/install-lin-na_dd.props" tofile="${package}/linux/install-9.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-na_dd.props" tofile="${build}/linux/install-9.props" overwrite="true" />
         
         <!-- Norway -->
-		<copy file="${src}/install/linux/install-lin-no.props" tofile="${package}/linux/install-10.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-no.props" tofile="${build}/linux/install-10.props" overwrite="true" />
         
         <!-- Portugal -->
-        <copy file="${src}/install/linux/install-lin-pt.props" tofile="${package}/linux/install-11.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-pt.props" tofile="${build}/linux/install-11.props" overwrite="true" />
         
         <!-- Spain -->
-		<copy file="${src}/install/linux/install-lin-es.props" tofile="${package}/linux/install-12.props" overwrite="true" />
-        <copy file="${src}/install/linux/install-lin-es_digital.props" tofile="${package}/linux/install-13.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-es.props" tofile="${build}/linux/install-12.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-es_digital.props" tofile="${build}/linux/install-13.props" overwrite="true" />
         
         <!-- Sweden -->
-        <copy file="${src}/install/linux/install-lin-se.props" tofile="${package}/linux/install-14.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-se.props" tofile="${build}/linux/install-14.props" overwrite="true" />
         
         <!-- UK -->
-        <copy file="${src}/install/linux/install-lin-uk_bleb.props" tofile="${package}/linux/install-15.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-uk_rt.props" tofile="${package}/linux/install-16.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-uk_rt-slow.props" tofile="${package}/linux/install-17.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-uk_bleb.props" tofile="${build}/linux/install-15.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-uk_rt.props" tofile="${build}/linux/install-16.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-uk_rt-slow.props" tofile="${build}/linux/install-17.props" overwrite="true" />
 
 		<!-- Make the jar installer file -->
-		<jar 	jarfile="${dist}/${freeguideversion}-Linux-NoXMLTV-Install.jar"
-				basedir="${package}/linux"
-				manifest="${src}/manifests/Install.mf"/>
-
-  	</target>
-
-	<target name="FreeGuide-Linux-Install" depends="FreeGuide"
-  		description="generate the linux installer including the PAR version of XMLTV" >
-
-		<mkdir dir="${package}/linux-par" />
-
-		<!-- Copy the program file and docs -->
-		<copy todir="${package}/linux-par">
-			<fileset dir="${build}/">
-				<include name="FreeGuide.jar"/>
-			</fileset>
-			<fileset dir="${build}/doc/" excludes="nonlocal/" />
-			<fileset dir="${build}/install"/>
-		</copy>
-
-		<!-- Copy the XMLTV DTD -->
-		<copy file="${xmltv}/xmltv.dtd" todir="${package}/linux-par" />
-
-		<!-- Copy the XMLTV PAR-compiled executable -->
-		<copy file="${xmltv}/xmltv" todir="${package}/linux-par"/>
-
-		<!-- copy in the shared files -->
-		<mkdir dir="${package}/linux-par/share"/>
-		<copy todir="${package}/linux-par/share">
-			<fileset dir="${share}/" />
-		</copy>
-
-		<!-- copy in the install.props file for the jar -->
-		<copy file="${src}/install/linux-par/install-lin-all.props" tofile="${package}/linux-par/install-all.props" overwrite="true" />
-		<copy file="${src}/install/linux-par/install-lin-dk.props" tofile="${package}/linux-par/install-0.props" overwrite="true" />
-
-		<!-- Make the jar installer file -->
-		<jar 	jarfile="${dist}/${freeguideversion}-Linux-Install.jar"
-				basedir="${package}/linux-par"
-				manifest="${src}/manifests/Install.mf"/>
+		<jar 	jarfile="${dist}/${freeguideversion}-Linux-NoXMLTV.jar"
+				basedir="${build}/linux"
+				manifest="${src}/manifests/FreeGuide.mf"/>
 
   	</target>
 
 	<target name="FreeGuide-Source"
   		description="generate the source zips"
-			depends="FreeGuide-Win-Install,
-					 FreeGuide-Linux-NoXMLTV-Install">
-					 <!--FreeGuide-Linux-Install,-->
+			depends="FreeGuide-Win,
+					 FreeGuide-Linux-NoXMLTV">
 
 		<zip zipfile="${dist}/${freeguideversion}.zip">
 			<zipfileset dir="${src}" prefix="${freeguideversion}/src">
@@ -280,26 +266,26 @@
 			<zipfileset dir="." includes="build.xml" prefix="${freeguideversion}" />
 			<zipfileset dir="xmltv"
 				includes="*"
-				excludes="CVS/**,xmltv,xmltv.exe,xmltv.dtd,*-bin-*"
+				excludes="CVS/**"
 				prefix="${freeguideversion}/xmltv" />
 			<zipfileset dir="stats"
 				includes="*.sh,*.pl"
 				prefix="${freeguideversion}/stats" />
 		</zip>
 
-		<tar tarfile="${package}/fg.tar"
+		<tar tarfile="${build}/fg.tar"
 			 basedir="."
 			 includes="build.xml,src/**,doc/**,xmltv/*,stats/*.sh,stats/*.pl"
-			 excludes="**/.xvpics/**,**/CVS/**,xmltv/xmltv,xmltv/xmltv.exe,xmltv/xmltv.dtd,xmltv/**-bin-**" />
+			 excludes="**/.xvpics/**,**/CVS/**" />
 
-		<mkdir dir="${package}/${freeguideversion}" />
+		<mkdir dir="${build}/${freeguideversion}" />
 
-		<untar dest="${package}/${freeguideversion}" src="${package}/fg.tar"/>
+		<untar dest="${build}/${freeguideversion}" src="${build}/fg.tar"/>
 
-		<tar tarfile="${package}/${freeguideversion}.tar" basedir="${package}"
+		<tar tarfile="${build}/${freeguideversion}.tar" basedir="${build}"
 			includes="${freeguideversion}/**" />
 
-  		<gzip src="${package}/${freeguideversion}.tar" zipfile="${dist}/${freeguideversion}.tar.gz" />
+  		<gzip src="${build}/${freeguideversion}.tar" zipfile="${dist}/${freeguideversion}.tar.gz" />
 
 	</target>
 
@@ -321,10 +307,9 @@
 
 	<target name="clean"
         description="clean up" >
-		<!-- Delete the ${build}, ${dist} and ${package} directory trees -->
+		<!-- Delete the ${build} and ${dist} directory trees -->
 		<delete dir="${build}" />
 		<delete dir="${dist}" />
-		<delete dir="${package}" />
 	</target>
 
 </project>

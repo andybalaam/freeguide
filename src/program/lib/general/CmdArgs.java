@@ -8,6 +8,9 @@
  *
  *  See the file COPYING for more information.
  */
+
+package freeguidetv.lib.general;
+
 import java.util.Vector;
 
 /**
@@ -64,7 +67,7 @@ public class CmdArgs {
         for (int i = 0; i < args.length; i++) {
 
             String arg = args[i];
-
+            
             if (arg.startsWith("--")) {
                 // a word flag
 
@@ -141,9 +144,8 @@ public class CmdArgs {
      *  Returns the data associated with a given flag
      *
      *@param  name  the String name of the flag required
-     *@return       The value value
-     *@returns      the data for a flag or null if the flag was omitted or had
-     *      no data associated with it
+     *@return the data for a flag or null if the flag was omitted or had
+     *        no data associated with it
      */
     public String getValue(String name) {
 

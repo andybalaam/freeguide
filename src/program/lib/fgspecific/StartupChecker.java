@@ -11,6 +11,12 @@
  *  See the file COPYING for more information.
  */
 
+package freeguidetv.lib.fgspecific;
+
+import freeguidetv.*;
+import freeguidetv.gui.viewer.*;
+import freeguidetv.lib.fgspecific.*;
+import freeguidetv.lib.general.*;
 import java.io.File;
 import java.util.logging.Logger;
 import java.util.Vector;
@@ -33,7 +39,7 @@ public class StartupChecker {
 	 *@param  args        Description of the Parameter
 	 *@return             Description of the Return Value
 	 */
-	public static Vector runChecks(String[] args) {
+	public static void basicSetup( String[] args ) {
 
 		// ------------------------------------------------------
 		// Check the version of Java that we are running in
@@ -54,7 +60,11 @@ public class StartupChecker {
 		if (!setupPrefs()) {
 			FreeGuide.die("Failed to set up configuration.");
 		}
-		
+        
+    }
+	
+    public static Vector runChecks() {
+	
         // Make an icon cache dir if it doesn't exist
         File iconcache = new File( ChannelJLabel.getIconCacheDir().toString() );
         if( !iconcache.isDirectory() ) {
@@ -91,6 +101,9 @@ public class StartupChecker {
 	public static void doJavaVersionCheck() {
 		
 		if (!checkJavaVersion()) {
+            
+            // FIXME should be a Java 1 compatible dialog box
+            
 			die("Halted due to wrong Java version - should be 1.4.0 or " +
 			    "greater but you are using "
 			    + System.getProperty("java.version") + ".");
@@ -233,8 +246,14 @@ public class StartupChecker {
 	 *@return       true if all is well, false otherwise.
 	 */
 	private static boolean processArgs(String[] args) {
+        
+        Vector boolArgs = new Vector();
+        boolArgs.add( "--install" );
+        boolArgs.add( "--uninstall" );
+        boolArgs.add( "--prefs" );
+        
 		// Process the command line arguments and store them
-		FreeGuide.arguments = new CmdArgs(args);
+		FreeGuide.arguments = new CmdArgs( args, boolArgs );
 
 		return FreeGuide.arguments.noErrors();
 	}

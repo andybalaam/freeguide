@@ -11,23 +11,19 @@
  *  See the file COPYING for more information.
  */
 
-import java.awt.Component;
-import java.io.File;
-import java.lang.reflect.Method;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+package freeguidetv.gui.wizard;
+
+import freeguidetv.lib.fgspecific.*;
+import java.awt.*;
+import java.io.*;
+import java.lang.reflect.*;
+import javax.swing.*;
 
 /**
- *  A JPanel to go on a FreeGuideWizard. It is subclassed by
- *  FreeGuideTextWizardPanel, FreeGuideFileWizardPanel,
- *  FreeGuideDirectoryWizardPanel, FreeGuideCommandsWizardPanel, or
- *  FreeGuideChoiceWizardPanel. The above classes may be used to link to a
+ *  A JPanel to go on a WizardFrame. It is subclassed by
+ *  TextWizardPanel, FileWizardPanel,
+ *  DirectoryWizardPanel, CommandsWizardPanel, or
+ *  ChoiceWizardPanel. The above classes may be used to link to a
  *  config entry by calling the setConfig method. If this is done, the onExit
  *  and onEnter methods are useful as they save and load the value respectively.
  *  You can also provide a custom onEnter and/or onExit method to be executed
@@ -36,12 +32,12 @@ import javax.swing.JTextField;
  *
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    1
+ *@version    2
  */
 public class WizardPanel extends javax.swing.JPanel {
 
     /**
-     *  Constructor for the FreeGuideWizardPanel superclass. This panel can be
+     *  Constructor for the WizardPanel superclass. This panel can be
      *  linked to a config entry, or it can have an onExit Method, or both.
      */
     public WizardPanel() { }

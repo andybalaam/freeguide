@@ -9,15 +9,10 @@
  *  See the file COPYING for more information.
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
+package freeguidetv.lib.general;
+
+import java.util.*;
+import javax.swing.*;
 
 public class LookAndFeelManager {
 

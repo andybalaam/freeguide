@@ -8,13 +8,18 @@
  *
  *  See the file COPYING for more information.
  */
-import java.io.File;
-import java.net.URL;
-import java.text.SimpleDateFormat;
+package freeguidetv.gui.viewer;
+
+import freeguidetv.*;
+import freeguidetv.lib.fgspecific.*;
+import freeguidetv.lib.general.*;
+import java.io.*;
+import java.net.*;
+import java.text.*;
 import java.util.*;
 import java.util.regex.*;
 import javax.xml.parsers.*;
-import org.xml.sax.helpers.DefaultHandler;
+import org.xml.sax.helpers.*;
 import org.xml.sax.*;
 
 /**
@@ -26,7 +31,7 @@ import org.xml.sax.*;
  *@version    4
  */
 
-class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterface {
+public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterface {
 
     /**
      *  Loads the programme data from a file and stores it in a class structure

@@ -1,9 +1,20 @@
+/*
+ *  FreeGuide J2
+ *
+ *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
+ *
+ *  freeguide-tv.sourceforge.net
+ *
+ *  Released under the GNU General Public License
+ *  with ABSOLUTELY NO WARRANTY.
+ *
+ *  See the file COPYING for more information.
+ */
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+package freeguidetv.gui.wizard;
+
+import freeguidetv.lib.fgspecific.*;
+import javax.swing.*;
 
 /**
  *  A JPanel containing JTextArea for system commands to go on a

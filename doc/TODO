@@ -96,6 +96,8 @@ y  means done by Yann 'PoV' Coupin
 - Fix bug in Italian grabber GUI config
 - Fix bugs in Windows grabber config for Netherlands, Sweden and Germany
 - Error dialog when there's an XML parsing error.
+- Investigate little squares appearing instead of chars during grabber config
+  on Windows (na_dd - timezone screen).
 
 - Release 0.7.7 (aesthetics)
 
@@ -122,6 +124,15 @@ y  means done by Yann 'PoV' Coupin
 - ProgrammeJLabel shows which programme is selected
 - Keyboard navigation of programme scrollpane
 - Full test of keyboard navigation
+
+- Release 0.8 (first time wizard)
+
+- design icons
+- write manual install instructions (using ant?)
+- write rpm --rebuild instructions
+- create native windows installer (NSIS)
++ create native linux installer (RPM)
++ Convert the installer into a first time wizard
 
 + Release 0.7.5 (minor features)
 

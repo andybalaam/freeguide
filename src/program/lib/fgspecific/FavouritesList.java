@@ -11,9 +11,10 @@
  *  See the file COPYING for more information.
  */
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+package freeguidetv.lib.fgspecific;
+
+import freeguidetv.*;
+import java.util.*;
 
 /**
  * Maintains a List of favourites and provides methods for matching programmes

@@ -11,6 +11,11 @@
  *  See the file COPYING for more information.
  */
 
+package freeguidetv.gui.options;
+
+import freeguidetv.*;
+import freeguidetv.gui.dialogs.*;
+import freeguidetv.lib.general.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -73,19 +78,19 @@ public class ColoursOptionPanel extends OptionPanel implements MouseListener,
 		gbe.default_ipadx = 5;
 		gbe.default_ipady = 5;
 		
-		gbe.addFWX  ( normalButton        , 0, 0, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWX  ( normalButton       , 0, 0, gbe.FILL_HOR   , 0.2 );
 		gbe.addFWX  ( normalTextField    , 1, 0, gbe.FILL_HOR   , 0.8 );
 		
-		gbe.addFWX  ( chosenButton        , 0, 1, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWX  ( chosenButton       , 0, 1, gbe.FILL_HOR   , 0.2 );
 		gbe.addFWX  ( chosenTextField    , 1, 1, gbe.FILL_HOR   , 0.8 );
 		
-		gbe.addFWX  ( movieButton         , 0, 2, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWX  ( movieButton        , 0, 2, gbe.FILL_HOR   , 0.2 );
 		gbe.addFWX  ( movieTextField     , 1, 2, gbe.FILL_HOR   , 0.8 );
 		
-		gbe.addFWX  ( channelButton       , 0, 3, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWX  ( channelButton      , 0, 3, gbe.FILL_HOR   , 0.2 );
 		gbe.addFWX  ( channelTextField   , 1, 3, gbe.FILL_HOR   , 0.8 );
 		
-		gbe.addFWX  ( heartButton         , 0, 4, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWX  ( heartButton        , 0, 4, gbe.FILL_HOR   , 0.2 );
 		gbe.addFWX  ( heartTextField     , 1, 4, gbe.FILL_HOR   , 0.8 );
 		
 		// Set up events

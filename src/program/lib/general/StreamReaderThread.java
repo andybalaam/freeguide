@@ -9,6 +9,9 @@
  * See the file COPYING for more information.
  */
 
+package freeguidetv.lib.general;
+
+import freeguidetv.gui.dialogs.*;
 import java.io.BufferedReader;
 import javax.swing.JTextArea;
 import java.awt.Container;

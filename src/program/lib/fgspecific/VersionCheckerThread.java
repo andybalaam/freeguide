@@ -1,14 +1,21 @@
 /*
- * FreeGuide J2
+ *  FreeGuide J2
  *
- * Copyright (c) 2001-2003 by Andy Balaam and the FreeGuide contributors
+ *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
  *
- * Released under the GNU General Public License
- * with ABSOLUTELY NO WARRANTY.
+ *  freeguide-tv.sourceforge.net
  *
- * See the file COPYING for more information.
+ *  Released under the GNU General Public License
+ *  with ABSOLUTELY NO WARRANTY.
+ *
+ *  See the file COPYING for more information.
  */
 
+package freeguidetv.lib.fgspecific;
+
+import freeguidetv.*;
+import freeguidetv.gui.dialogs.*;
+import freeguidetv.lib.general.*;
 import java.io.*;
 import java.net.*;
 import javax.swing.*;
@@ -44,7 +51,7 @@ public class VersionCheckerThread implements Runnable {
 		try {
 		
 			String url = "http://freeguide-tv.sourceforge.net/"
-				+ "VERSION.php?version=" + FreeGuide.getVersion();
+				+ "VERSION.php?version=" + FreeGuide.version.getDotFormat();
 				
 			String privacy = FreeGuide.prefs.misc.get( "privacy", "no" );
 			
@@ -81,22 +88,16 @@ public class VersionCheckerThread implements Runnable {
 			return;
 		}
 		
-		// Check the loaded version number against the current version
-		if( major < FreeGuide.version_major ) {
-			warnFutureVersion();
-		} else if( major > FreeGuide.version_major ) {
-			warnOldVersion();
-		} else if( minor < FreeGuide.version_minor ) {
-			warnFutureVersion();
-		} else if( minor > FreeGuide.version_minor ) {
-			warnOldVersion();
-		} else if( revision < FreeGuide.version_revision ) {
-			warnFutureVersion();
-		} else if( revision > FreeGuide.version_revision ) {
-			warnOldVersion();
-		}
-		
-
+        Version online_version = new Version( major, minor, revision );
+        
+        int comp = online_version.compareTo( FreeGuide.version );
+        
+        if( comp == 1 ) {
+            warnOldVersion();
+        } else if( comp == -1 ) {
+            warnFutureVersion();
+        }
+        
     }
 
 	/**
@@ -105,7 +106,8 @@ public class VersionCheckerThread implements Runnable {
 	 */
 	private void warnFutureVersion() {
 		
-		FreeGuide.log.info( "You are using a development version of FreeGuide." );
+		FreeGuide.log.info(
+            "You are using a development version of FreeGuide." );
 		
 	}
 

@@ -10,6 +10,8 @@
  *
  *  See the file COPYING for more information.
  */
+package freeguidetv.lib.general;
+
 import java.io.File;
 import java.util.regex.Pattern;
 
