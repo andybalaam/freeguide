@@ -1,0 +1,8 @@
+region=Hungary and Romania
+
+prefs.1=misc.days_to_grab=7
+prefs.2=commandline.tv_grab.1=tv_grab_huro --config-file \"%misc.grabber_config%\" --offset %offset% --days 1 --output \"%misc.working_directory%/tv-%date%.xmltv\"
+prefs.3=misc.grabber_start_time=00:00
+prefs.4=misc.grabber_config=%home%/.xmltv/tv_grab_huro.conf
+prefs.5=commandline.tv_config.1=tv_grab_huro --config-file \"%misc.grabber_config%\" --configure --gui
+

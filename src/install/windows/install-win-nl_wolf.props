@@ -1,4 +1,4 @@
-region=Nederland (alternative)
+region=Netherlands (alternative)
 
 prefs.1=misc.days_to_grab=7
 prefs.2=commandline.tv_grab.1=\"%misc.xmltv_directory%\\xmltv.exe\" tv_grab_nl_wolf --offset %offset% --days 1 --output \"%misc.working_directory%\\tv-%date%.xmltv\"

@@ -75,7 +75,7 @@ m  means done by Mike Dean
 	KEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command
 	(actually that looks like the HTML editor, but anyway)
 
-- Release 0.7.6 (preferences creep)
+- Release 0.7.7 (preferences creep)
 
 - Choose how old files are before you delete them
 - Ability to save and load preferences (using Java's ability to save to XML)
@@ -90,7 +90,7 @@ m  means done by Mike Dean
   settings.
 - A grid or "now" line that helps see what time programmes are on
 
-- Release 0.7.5 (aesthetics)
+- Release 0.7.6 (aesthetics)
 
 - Go To Now scrolls the personalised listing panel as well as the main panel
 - Coloured favourites categories (text and/or background)
@@ -104,7 +104,7 @@ m  means done by Mike Dean
 - Allow to un-choose programmes from Personalised Listing pane
 - Checkbox to stay at now time
 
-- Release 0.7.4 (accessibility, accessibility, accessibility)
+- Release 0.7.5 (accessibility, accessibility, accessibility)
 
 - Improve accessibility, specifically keyboard shortcuts
 - Shortcut keys for everything
@@ -116,16 +116,21 @@ m  means done by Mike Dean
 - Full test of keyboard navigation
 - Fix mentions of "C" drive in Windows versions
 - Add "contact" page to the docs (and/or as a footer to each page)
-- Update web site saying what countries are supported etc.
 - Add firefox to the possible browsers.
-- Copy in updated XMLTV DTD
 - Make a list of beta testers
 - Advertise for beta testers
 - Make a bit of PHP for test reports
-- Fix problems with accented characters in main programme window reported by
-  Rob Stewart
-- Upgrade to XMLTV 0.5.34
-- Upgrade XMLTV Tk patch to use Tk804 instead of Tk800
+
+- Release 0.7.4 (bug fixes)
+
+- Beta testing
++ Update web site saying what countries are supported etc.
++ Copy in updated XMLTV DTD
++ Fix problems with accented characters in main programme window reported by
+  Rob Stewart (delagated to XMLTV people)
++ Upgrade to XMLTV 0.5.34
++ Upgrade XMLTV Tk patch to use Tk804 instead of Tk800
++ Fix newly-introduced uk_bleb timezone problem
 + Fix bug with linebreaks in commandline entries
 + Update FAQ about listings from 2 sources
 + Deal with &amp;#8212; type entities in programme names

@@ -28,14 +28,6 @@ public class Programme {
      */
     public Programme() {
 	
-		/*try {
-			
-			setLink( new URL("http://www.ananova.com" ) );
-			
-		} catch(java.net.MalformedURLException e) {
-			e.printStackTrace();
-		}*/
-	
 	}
 
 

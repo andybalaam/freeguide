@@ -1,4 +1,4 @@
-region=Nederland
+region=Netherlands
 
 prefs.1=misc.days_to_grab=7
 prefs.2=commandline.tv_grab.1=\"%misc.xmltv_directory%\\xmltv.exe\" tv_grab_nl --config-file \"%misc.grabber_config%\" --offset %offset% --days 1 --output \"%misc.working_directory%\\tv-%date%.xmltv\" --share \"%misc.share_directory%\"
@@ -7,4 +7,3 @@ prefs.4=misc.grabber_config=%misc.xmltv_directory%\\tv_grab_nl.conf
 prefs.5=commandline.tv_config.1=\"%misc.xmltv_directory%\\xmltv.exe\" tv_grab_nl --config-file \"%misc.grabber_config%\" --share \"%misc.share_directory%\" --configure --gui
 
 file.1=share/xmltv/tv_grab_nl/channels>%misc.share_directory%/tv_grab_nl/channels
-
