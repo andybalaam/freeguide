@@ -69,6 +69,7 @@ ant clean
 %{_datadir}/freeguide/doc/timezone.html
 %{_datadir}/freeguide/doc/TODO
 %{_datadir}/freeguide/doc/userguide.html
+%{_datadir}/pixmaps/freeguide.png
 %{_datadir}/pixmaps/freeguide/logo-16x16.png
 %{_datadir}/pixmaps/freeguide/logo-32x32.png
 %{_datadir}/pixmaps/freeguide/logo-48x48.png

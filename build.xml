@@ -52,6 +52,7 @@
             </fileset>
         </copy>
 
+        <!-- Copy the different-sized icons to the freeguide pixmaps dir -->
         <mkdir dir="${install_pixmap_dir}" />
         <copy todir="${install_pixmap_dir}/" >
             <fileset dir="${src}/images">
@@ -61,29 +62,14 @@
             </fileset>
         </copy>
         
+        <copy tofile="${install_share_dir}/pixmaps/freeguide.png" file="${src}/images/logo-32x32.png" />
+        
         <mkdir dir="${install_bin_dir}" />
-        <echo file="${install_bin_dir}/freeguide" >
-#!/bin/bash
-java -jar ${real_install_share_dir}/freeguide/FreeGuide.jar --prefs "misc.install_directory=${real_install_share_dir}/freeguide"
-        </echo>
+        <copy file="${src}/install/linux/freeguide" todir="${install_bin_dir}" />
         
         <mkdir dir="${install_share_dir}/applications" />
-        <echo file="${install_share_dir}/applications/freeguide.desktop" >
-[Desktop Entry]
-Name=FreeGuide
-Comment=Download a TV guide from the Internet and view it
-GenericName=TV Guide
+        <copy file="${src}/install/linux/freeguide.desktop" todir="${install_share_dir}/applications/" />
 
-Encoding=UTF-8
-
-Type=Application
-Categories=Application;Utility
-
-Exec=freeguide
-
-Icon=${real_install_share_dir}/pixmaps/freeguide/logo-16x16.png
-        </echo>
-        
         <chmod file="${install_bin_dir}/freeguide" perm="a+x" />
         
     </target>

@@ -1,0 +1,11 @@
+#!/bin/sh
+FREEGUIDE_JAR=/usr/share/freeguide/FreeGuide.jar
+# Load default settings from config file (if it exists)
+if [ -f "$HOME/.freeguiderc" ]; then
+	. "$HOME/.freeguiderc"
+fi
+if [ -z "$JAVACMD" ]; then
+	JAVACMD=java
+fi
+$JAVACMD $FREEGUIDE_OPTS -jar $FREEGUIDE_JAR "$@"
+
