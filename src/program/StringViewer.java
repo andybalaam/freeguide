@@ -19,6 +19,7 @@ import java.io.StringReader;
 import java.util.Vector;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import java.awt.Graphics;
 
 /**
  * A little frame that shows a string, used to show the output of a command
@@ -32,9 +33,11 @@ public class StringViewer extends javax.swing.JFrame {
 	
 	public StringViewer(String outputText, String errorText) {
 		initComponents();
-		txaOutput.setText(outputText);
-		txaError.setText(errorText);
-		setVisible(true);
+		//txaOutput.setText(outputText);
+		//txaError.setText(errorText);
+		bufOut.append(outputText);
+		bufErr.append(errorText);
+		setVisible(false);
 	}
 	
     private void initComponents() {
@@ -72,17 +75,29 @@ public class StringViewer extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(365, 300));
         setLocation((screenSize.width-365)/2,(screenSize.height-300)/2);
     }
-	
-	
+
+	public void paint(Graphics g) {
+		txaOutput.setText(bufOut.toString());
+		txaError.setText(bufErr.toString());
+		super.paint(g);
+	}
+
 	private void exitForm(java.awt.event.WindowEvent evt) {
 		dispose();
 	}
-	
+
+	public StringBuffer getOutput() {
+		return(bufOut);
+	}
+	public StringBuffer getError() {
+		return(bufErr);
+	}
 
     private javax.swing.JTextArea txaOutput;
     private javax.swing.JTextArea txaError;
     private javax.swing.JScrollPane scrError;
     private javax.swing.JScrollPane scrOutput;
     private javax.swing.JSplitPane splitpane;
-	
+	private StringBuffer bufOut = new StringBuffer();
+	private StringBuffer bufErr = new StringBuffer();
 }

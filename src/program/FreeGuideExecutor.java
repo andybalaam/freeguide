@@ -13,6 +13,7 @@ import java.awt.Frame;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import javax.swing.JTextArea;
+import java.awt.Container;
 
 /**
  * Provides facilities for executing external commands with a GUI
@@ -32,22 +33,24 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 	 * @param a description of the command, e.g. "Downloading"
 	 */
     public FreeGuideExecutor(FreeGuideLauncher launcher, String[] cmds, String commandType) {
-		
+
 		this.launcher = launcher;
 		this.cmds = cmds;
-		
+
         initComponents();
 
 		// Centre the screen
 		java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation((screenSize.width-getWidth())/2,(screenSize.height-getHeight())/2);
-		
+
 		// Set the please wait message
 		labPleaseWait.setText(commandType + ", please wait...");
 		setTitle(commandType);
-		
+
+		viewer = new StringViewer("Command Output (stdout):" + lb, "Command Output (stderr):" + lb);
+
 		start();
-		
+
     }
 
     /** This method is called from within the constructor to
@@ -130,7 +133,7 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 		showDetails();
 		
 	}//GEN-LAST:event_butDetailsActionPerformed
-	
+
 	/**
 	 * Dump the contents of both textareas to standard output.
 	 */
@@ -147,10 +150,11 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 	
 	private void showDetails() {
 		
-		new StringViewer("Command Output (stdout):" + lb + readOutput.getStoredOutput(), "Command Output (stderr):" + lb + readError.getStoredOutput());
-		
+		//update = new StringViewer("Command Output (stdout):" + lb + readOutput.getStoredOutput(), "Command Output (stderr):" + lb + readError.getStoredOutput());
+
+		viewer.setVisible(true);
 		/*if(labCmdOutput.isVisible()) {
-			
+
 			jScrollPane1.setVisible(false);
 			labCmdOutput.setVisible(false);
 			jScrollPane2.setVisible(false);
@@ -159,9 +163,9 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 			labCmdInput.setVisible(false);
 			butDetails.setText("Details >>");
 			pack();
-			
+
 		} else {
-			
+
 			jScrollPane1.setVisible(true);
 			labCmdOutput.setVisible(true);
 			jScrollPane2.setVisible(true);
@@ -170,9 +174,9 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 			labCmdInput.setVisible(true);
 			butDetails.setText("<< Details");
 			pack();
-			
+
 		}*/
-		
+
 	}
 	
 	private void butCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCancelActionPerformed
@@ -187,7 +191,7 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 	//------------------------------------------------------------------------
 	
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
-        
+
 		stop();
 		setVisible(false);
 		launcher.reShow();
@@ -230,7 +234,7 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 		Thread thisThread = Thread.currentThread();
 		readOutput = new StreamReaderThread();
 		readError = new StreamReaderThread();
-		
+
 		// Remember whether all commands succeeded
 		boolean allSuccessful = true;
 		
@@ -273,7 +277,7 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 		
 		// Log what we're about to do
 		FreeGuide.log.info("FreeGuide - Executing system command: "+cmdstr+" ...");
-		
+
 		try {
 					
 			// Execute the command (after parsing it into tokens)
@@ -286,14 +290,14 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 			// Get the input and output streams of this process
 			BufferedReader prOut = new BufferedReader(new InputStreamReader(pr.getInputStream()));
 			BufferedReader prErr = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
-			
+
 			//prIn = new BufferedWriter(new OutputStreamWriter(pr.getOutputStream()));
-		
+
 			// Suck the output from the command
-			readOutput.begin(prOut, cmdstr);
-			readError.begin(prErr);
-			readOutput.start();
-			readError.start();
+			readOutput.begin(prOut, cmdstr, viewer, viewer.getOutput());
+			readError.begin(prErr, viewer, viewer.getError());
+			//readOutput.start();
+			//readError.start();
 				
 			// Actually wait for it to finish (in another thread)
 			int exitCode = pr.waitFor();
@@ -323,7 +327,7 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 		} catch(java.lang.InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		labPleaseWait.setText("Execution Error.");
 
 		FreeGuide.log.warning("Command Output (stdout):" + lb + readOutput.getStoredOutput());
@@ -347,6 +351,7 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 	//private FreeGuideExecutorDialog dialog;
 	//private boolean cancelled;
 	//private boolean running;
+	private StringViewer viewer;
 	
 	
 	//------------------------------------------------------------------------
