@@ -40,6 +40,7 @@
 			<fileset dir="${build}/program">
 				<include name="FreeGuide*WizardPanel*.class"/>
 				<include name="FreeGuideConfigGuesser.class"/>
+				<include name="FreeGuideChannelSet*.class"/>
 				<include name="FreeGuideEnvironmentChecker.class"/>
 				<include name="FreeGuideLauncher.class"/>
 				<include name="FreeGuidePreferencesGroup.class"/>
