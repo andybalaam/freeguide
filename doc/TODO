@@ -5,10 +5,13 @@ This document is at risk of radical change whenever I
 feel like it.
 
 -  means to do (unclaimed)
+
 +  means done by Andy Balaam
 A  means work in progress by Andy Balaam
+
 x  means done by Sagar Shah
 S  means work in progress by Sagar Shah
+
 *  means done by Walter Duncan
 W  means work in progress by Walter Duncan
 
@@ -95,6 +98,7 @@ W Dynamic population of the date list comboBox based on available data
 - Fix bug that means favourites sometimes aren't chosen
 - Allow for the fact that a grabber may use dates without seconds, and other
 	differences (e.g. tv_grab_de).
+A Get rid of config guessing and use defaults instead.
 - Seems to be a bug where only first grabber command executes.
 W Add configurable option to set default "today" offset (uk=1, NA=0)
 W Add configurable option to set grabber day start (na=00:00, uk=06:00)
