@@ -35,7 +35,11 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		prefs = new FreeGuidePreferencesGroup(); 
 		
 		// Branch into Reinstall or first time
-		String install_directory = prefs.misc.get("install_directory");
+		String install_directory = prefs.performSubstitutions(
+			prefs.misc.get("install_directory") );
+		
+		//System.out.println(install_directory);
+		
 		if( install_directory==null || 
 			!(new File(install_directory + File.separator + 
 			"FreeGuide.jar").exists()) ) {
@@ -235,18 +239,18 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 			int i=1;
 			String filename="";
 			while( (filename=props.getProperty("file."+i)) != null ) {
-				installFile(filename, install_directory);
+				installFile(filename);
 				i++;
 			}
 		
 			// Do the shared files (Win only)
-			i=1;
+			/*i=1;
 			filename="";
 			while( (filename=props.getProperty("share."+i)) != null ) {
 				// FIXME this is a hack!
 				installFile(filename, "C:\\Perl\\");
 				i++;
-			}
+			}*/
 		
 			// Set up registry
 			/*refs.misc.put("os", props.getProperty("os"));
@@ -302,21 +306,25 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		installFile(name, install_directory);
 	}*/
 		
-	private void installFile(String name, String destDir) throws java.io.IOException {
+	private void installFile(String command) throws java.io.IOException {
 
-		System.out.println("Installing file: " + name);
+		//System.out.println("Installing file: " + name);
+		
+		String[] srcdest = command.split(">");
+		String src = srcdest[0];
+		String dest = prefs.performSubstitutions( srcdest[1] );
 		
 		byte[] buf = new byte[32768];
 		
 		// make the directory if it doesn't exist
-		String s = destDir + fs + name;
-		int i = s.lastIndexOf('/');
+		
+		int i = dest.lastIndexOf('/');
 		if(i>-1) { 
-			new File(s.substring(0, i)).mkdirs();
+			new File(dest.substring(0, i)).mkdirs();
 		}
 		
-		BufferedInputStream in = new BufferedInputStream(getClass().getResourceAsStream("/" + name));
-		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(destDir + fs + name));
+		BufferedInputStream in = new BufferedInputStream(getClass().getResourceAsStream("/" + src));
+		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(dest));
 
 		int count;
 		while((count = in.read(buf, 0, buf.length)) > -1) {

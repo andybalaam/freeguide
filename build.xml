@@ -97,18 +97,10 @@
 		</copy>
 		
 		<!-- Copy the XMLTV DTD -->
-		<mkdir dir="${build}/install-win-uk/data"/>
-		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-win-uk/data"/>
+		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-win-uk/"/>
 		
-		<!-- Copy the XMLTV exes -->
-		<mkdir dir="${build}/install-win-uk/xmltv"/>
-		<copy todir="${build}/install-win-uk/xmltv">
-			<fileset dir="${xmltv}/">
-				<include name="tv_split.exe"/>
-				<include name="tv_grab_uk.exe"/>
-				<include name="perl56.dll"/>
-			</fileset>
-		</copy>
+		<!-- Copy the XMLTV exe -->
+		<copy file="${xmltv}/xmltv.exe" todir="${build}/install-win-uk"/>
 		
 		<!-- copy in the shared files -->
 		<mkdir dir="${build}/install-win-uk/share"/>
@@ -141,18 +133,10 @@
 		</copy>
 		
 		<!-- Copy the XMLTV DTD -->
-		<mkdir dir="${build}/install-win-na/data"/>
-		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-win-na/data"/>
+		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-win-na/"/>
 		
-		<!-- Copy the XMLTV exes -->
-		<mkdir dir="${build}/install-win-na/xmltv"/>
-		<copy todir="${build}/install-win-na/xmltv">
-			<fileset dir="${xmltv}/">
-				<include name="tv_split.exe"/>
-				<include name="tv_grab_na.exe"/>
-				<include name="perl56.dll"/>
-			</fileset>
-		</copy>
+		<!-- Copy the XMLTV exe -->
+		<copy file="${xmltv}/xmltv.exe" todir="${build}/install-win-na"/>
 		
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/install-win-na.props" tofile="${build}/install-win-na/install.props" />
@@ -178,8 +162,7 @@
 		</copy>
 		
 		<!-- Copy the XMLTV DTD -->
-		<mkdir dir="${build}/install-lin-uk/data"/>
-		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-lin-uk/data"/>
+		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-lin-uk/"/>
 		
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/install-lin-uk.props" tofile="${build}/install-lin-uk/install.props" overwrite="true" />
@@ -206,8 +189,7 @@
 		</copy>
 		
 		<!-- Copy the XMLTV DTD -->
-		<mkdir dir="${build}/install-lin-na/data"/>
-		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-lin-na/data"/>
+		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-lin-na/"/>
 		
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/install-lin-na.props" tofile="${build}/install-lin-na/install.props" overwrite="true" />

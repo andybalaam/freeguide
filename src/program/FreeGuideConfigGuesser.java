@@ -218,12 +218,14 @@ public class FreeGuideConfigGuesser {
 
 			
 			
-		case XMLTV_DIRECTORY:	// Returns a subdir of the installdir on Windows, or /usr/bin
+		case XMLTV_DIRECTORY:	
+			// Returns a subdir of the installdir on Windows, or
+			// /usr/local/bin
 			os = prefs.misc.get("os");
 			if(os.equals(os_Windows)) {
 				return new File(prefs.misc.get("install_directory") + fs  + "xmltv" + fs);
 			} else {
-				return new File("/usr/bin/");
+				return new File("/usr/local/bin/");
 			}
 
 			
