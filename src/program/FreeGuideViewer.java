@@ -237,8 +237,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         topPanel.add(butPrev, gridBagConstraints);
 
         comTheDate.setEditable(true);
-        comTheDate.setMinimumSize(new java.awt.Dimension(170, 25));
-        comTheDate.setPreferredSize(new java.awt.Dimension(170, 25));
+		comTheDate.setFont(new java.awt.Font("Dialog", 0, 10));
+        comTheDate.setMinimumSize(new java.awt.Dimension(120, 25));
+        comTheDate.setPreferredSize(new java.awt.Dimension(120, 25));
         comTheDate.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comTheDateItemStateChanged(evt);
@@ -274,8 +275,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         getContentPane().add(topPanel, gridBagConstraints);
 
         comChannelSet.setEditable(false);
+		comChannelSet.setFont(new java.awt.Font("Dialog", 0, 10));
         comChannelSet.setMinimumSize(new java.awt.Dimension(170, 25));
-        comChannelSet.setPreferredSize(new java.awt.Dimension(170, 25));
+        comChannelSet.setPreferredSize(new java.awt.Dimension(140, 25));
         comChannelSet.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comChannelSetItemStateChanged(evt);
@@ -315,11 +317,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
         jSplitPane1.setLeftComponent(channelNameScrollPane);
 
-        //outerPanel.setLayout(new java.awt.GridBagLayout());
-
 		timePanel.setPreferredSize(new java.awt.Dimension(24, 24));
 		
-        //outerPanel.setBackground(new java.awt.Color(245, 245, 255));
         innerScrollPane.setBorder(null);
         innerScrollPane.setColumnHeaderView(timePanel);
         innerPanel.setLayout(null);
@@ -327,33 +326,10 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         innerPanel.setBackground(new java.awt.Color(245, 245, 255));
         innerScrollPane.setViewportView(innerPanel);
 
-        //gridBagConstraints = new java.awt.GridBagConstraints();
-        //gridBagConstraints.gridx = 0;
-        //gridBagConstraints.gridy = 2;
-        //gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        //gridBagConstraints.weightx = 0.9;
-        //gridBagConstraints.weighty = 0.9;
-        //outerPanel.add(innerScrollPane, gridBagConstraints);
-
-        //timeScrollPane.setBorder(null);
-	    //timeScrollPane.setHorizontalScrollBarPolicy(javax.swing.JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        //timeScrollPane.setVerticalScrollBarPolicy(javax.swing.JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        //timeScrollPane.setMaximumSize(new java.awt.Dimension(24, 24));
-        //timeScrollPane.setMinimumSize(new java.awt.Dimension(24, 24));
-        //timeScrollPane.setPreferredSize(new java.awt.Dimension(24, 24));
         timePanel.setLayout(null);
 
         timePanel.setBackground(new java.awt.Color(245, 245, 255));
-        //timeScrollPane.setViewportView(timePanel);
 
-        //gridBagConstraints = new java.awt.GridBagConstraints();
-        //gridBagConstraints.gridx = 0;
-        //gridBagConstraints.gridy = 0;
-        //gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        //gridBagConstraints.weightx = 0.9;
-        //outerPanel.add(timeScrollPane, gridBagConstraints);
-
-        //jSplitPane1.setRightComponent(outerPanel);
 		jSplitPane1.setRightComponent(innerScrollPane);
 
         splitPane.setLeftComponent(jSplitPane1);
@@ -520,12 +496,12 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// Load the window size and position etc.
 		// --------------------------------------
 		setSize(
-			FreeGuide.prefs.screen.getInt("viewer_width", 615),
-			FreeGuide.prefs.screen.getInt("viewer_height", 345) );
+			FreeGuide.prefs.screen.getInt("viewer_width", 640),
+			FreeGuide.prefs.screen.getInt("viewer_height", 400) );
 		
 		setLocation(
-			FreeGuide.prefs.screen.getInt("viewer_left", (screenSize.width-615)/2 ),
-			FreeGuide.prefs.screen.getInt("viewer_top", (screenSize.height-345)/2 ) );
+			FreeGuide.prefs.screen.getInt("viewer_left", (screenSize.width-640)/2 ),
+			FreeGuide.prefs.screen.getInt("viewer_top", (screenSize.height-400)/2 ) );
 			
 		jSplitPane1.setDividerLocation(FreeGuide.prefs.screen.getInt("viewer_splitpane_vertical", 100));
 		splitPane.setDividerLocation(FreeGuide.prefs.screen.getInt("viewer_splitpane_horizontal", 150));

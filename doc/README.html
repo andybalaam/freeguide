@@ -16,7 +16,7 @@
   </li>
   <li><a href="#running">Using FreeGuide</a>
   </li>
-  <li><a href="#notes">Notes</a>
+  <li><a href="#notes">Notes and Troubleshooting</a>
     <br>
   </li>
 </ul>
@@ -70,46 +70,78 @@
 
 <p>Check out the "Tools" menu to customise FreeGuide and alter various options.</p>
 
-<h2><a name="notes"></a>Notes</h2>
+<h2><a name="notes"></a>Notes and Troubleshooting</h2>
 
-<p>If FreeGuide used to work for you and has now stopped, it is probably because the web site it grabs listings from has changed its format.  Check the XMLTV page for updated parsers.  To replace your XMLTV version:</p>
+<h3>Replacing your XMLTV grabber</h3>
+
+<p>If FreeGuide used to work for you and has now stopped, it is probably because the web site it grabs listings from has changed its format.  Check the <a href="http://sourceforge.net/projects/xmltv">XMLTV page</a> for updated parsers.  To replace your XMLTV version:</p>
 <ul>
 <li>Under Windows unzip the xmltv-x_x_x-win32.zip file and copy the file xmltv.exe over your file "C:\Program Files\freeguide-tv\xmltv\xmltv.exe"</li>
 <li>Under Linux, just install it as usual.</li>
 </ul>
 
-<p>FreeGuide may benefit from setting your environment variable "TZ" to your time zone. ("EST5EDT" refers to New York timezone, so you'll need to adjust it, e.g to "GMT" for London.)  Here's how:</li>
-	<p><b>With Windows 2000/XP:</b>
-	<ul>
-	<li>Right Click "My Computer" -> Properties</li>
-	<li>Choose the Advanced Tab and click the Environment Variables button at the bottom middle of the window.</li>
-	<li>Click the "New" button in the Global Variables section.</li>
-	<li>Variable Name: TZ</li>
-	<li>Variable Value: EST5EDT</li>
-	<li>Click OK</li>
-	<li>Click OK</li>
-	</ul></p>
-	<p><b>With Windows 95/98/ME:</b>
-	<ul>
-	<li>Add a line "set TZ=EST5EDT" to the file c:\autoexec.bat</li>
-	<li>Restart your computer</li>
-	</ul></p>
-	<p><b>With Linux:</b>
-	<ul>
-	<li>Bash users: Add a line "export TZ=EST5EDT" to the file ~/.bash_profile</li>
-	</ul></p>
+<h3>Can't configure the grabber</h3>
 
-<p>If FreeGuide won't work for you, why not make it work?  If you're having trouble, ask us and we'll be glad to help.</p>
+<p>If your grabber fails to configure or run because it can't seem to get any data from the Internet, it may be because you need to use a proxy server.  In the following replace "proxy.uni.ac.uk" with your proxy server address, and "8080" with the port it uses.  On Windows you can find these out from the "Tools" menu on Internet Explorer by choosing "Options", going to the "Connections" tab and clicking "LAN Settings":</p>
 
-<p>Check out our <a href="TODO">TODO</a> list.</p>
+<h4>With Windows 2000/XP:</h4>
+<ul>
+<li>Right Click "My Computer" -> Properties</li>
+<li>Choose the Advanced Tab and click the Environment Variables button at the bottom middle of the window.</li>
+<li>Click the "New" button in the Global Variables section.</li>
+<li>Variable Name: http_proxy</li>
+<li>Variable Value: http://proxy.uni.ac.uk:8080</li>
+<li>Click OK</li>
+<li>Click OK</li>
+</ul>
+<h4>With Windows 95/98/ME:</h4>
+<ul>
+<li>Add a line "set http_proxy=http://proxy.uni.ac.uk:8080" to the file C:\Autoexec.bat</li>
+<li>Restart your computer</li>
+</ul>
+<h4>With Linux:</h4>
+<ul>
+<li>Bash users: Add a line "export http_proxy=http://proxy.uni.ac.uk:8080" to the file ~/.bash_profile</li>
+</ul>
+
+<h3>Timezones</h3>
+	
+<p>FreeGuide may benefit from setting your environment variable "TZ" to your time zone. ("EST5EDT" refers to New York timezone, so you'll need to adjust it, e.g to "GMT" for London.)  Here's how:</p>
+<h4>With Windows 2000/XP:</h4>
+<ul>
+<li>Right Click "My Computer" -> Properties</li>
+<li>Choose the Advanced Tab and click the Environment Variables button at the bottom middle of the window.</li>
+<li>Click the "New" button in the Global Variables section.</li>
+<li>Variable Name: TZ</li>
+<li>Variable Value: EST5EDT</li>
+<li>Click OK</li>
+<li>Click OK</li>
+</ul>
+<h4>With Windows 95/98/ME:</h4>
+<ul>
+<li>Add a line "set TZ=EST5EDT" to the file c:\autoexec.bat</li>
+<li>Restart your computer</li>
+</ul>
+<h4>With Linux:</h4>
+<ul>
+<li>Bash users: Add a line "export TZ=EST5EDT" to the file ~/.bash_profile</li>
+</ul>
 
 <!--<p>Support for New Zealand listings doesn't appear to work as far as I can tell, so I'm calling it "experimental".  Let me know if you have any success with this.  I <i>think</i> the grabber provided with XMLTV 0.5.7 just doesn't work for some reason.  If you do use the nz grabber, you'll have to leave the preference setting for grabber config file location as %home%/.xmltv/tv_grab_nz since the grabber is unable to use a file in a different location.</p>-->
 
-<p>If you use the North American grabber on Linux it will never overwrite listings files that already exist.  If you want it to overwrite a particular file, delete it from ~/.freeguide-tv/.</p>
+<h3>Missing listings after a successful download</h3>
 
 <p>If you grab some listings late in a day, nearing the grabber's idea of the end of a day (e.g. close to 6am for the UK grabber) then you may be told that there are missing listings for that day even though you've just grabbed new listings.  This is because the grabbing has started from tomorrow, so what's left of today doesn't have a full set of listings.  Don't worry about this - just say "No" and you should be able to see what you need.</p>
 
+<h3>Other Notes</h3>
+
+<p>You may like to check out our <a href="TODO">TODO</a> list.</p>
+
+<p>If you use the North American grabber on Linux it will never overwrite listings files that already exist.  If you want it to overwrite a particular file, delete it from ~/.freeguide-tv/.</p>
+
 <p>If you install the Windows version and choose UK as your region, and then uninstall FreeGuide at a later date, some files will not be removed from C:\Perl\share\xmltv.  You may remove the directory manually if you like.</p>
+
+<p>If FreeGuide won't work for you, why not make it work?  If you're having trouble, ask us and we'll be glad to help.</p>
 
 </body>
 </html>
