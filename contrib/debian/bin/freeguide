@@ -1,0 +1,31 @@
+#!/bin/sh
+
+FREEGUIDE_JAR=/usr/share/java/FreeGuide.jar
+
+examplesdir=/usr/share/doc/freeguide/examples
+prefsdir=$HOME/.java/.userPrefs/org/freeguide-tv
+commandlinedir=$prefsdir/commandline
+miscdir=$prefsdir/misc
+
+# Load default settings from config file (if it exists)
+if [ -f "$HOME/.freeguiderc" ]; then
+	. "$HOME/.freeguiderc"
+fi
+
+if [ -z "$JAVACMD" ]; then
+	JAVACMD=java
+fi
+
+if [ ! -e $commandlinedir/prefs.xml ]; then
+	echo freeguide: Setting default command-line preferences.
+	mkdir -p $commandlinedir
+	cp $examplesdir/commandline-prefs.xml $commandlinedir/prefs.xml
+fi
+
+if [ ! -e $miscdir/prefs.xml ]; then
+	echo freeguide: Setting default miscellaneous preferences.
+	mkdir -p $miscdir
+	cp $examplesdir/misc-prefs.xml $miscdir/prefs.xml
+fi
+
+$JAVACMD $FREEGUIDE_OPTS -jar $FREEGUIDE_JAR "$@"

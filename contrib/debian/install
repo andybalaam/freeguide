@@ -1,0 +1,4 @@
+build/FreeGuide.jar usr/share/java
+debian/bin/freeguide usr/bin
+debian/freeguide.desktop usr/share/applications
+freeguide.png usr/share/pixmaps

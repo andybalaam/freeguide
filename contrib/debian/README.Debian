@@ -1,0 +1,10 @@
+2004-06-07  Shaun Jackman  <sjackman@debian.org>
+
+To use Zap2It's DataDirect service, the "Grabber Command" must be
+changed.
+
+Go to "Tools", "Options", "Advanced" and "Downloading", and change the 
+Grabber Command to be:
+
+tv_grab_na_dd --config-file "%misc.grabber_config%" --offset %offset% 
+--days 1 --output "%misc.working_directory%/tv-%date%.xmltv"

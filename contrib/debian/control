@@ -1,0 +1,21 @@
+Source: freeguide
+Section: contrib/misc
+Priority: optional
+Maintainer: Shaun Jackman <sjackman@debian.org>
+Build-Depends: debhelper (>> 4.0.0)
+Build-Depends-Indep: j2sdk1.4 | java2-compiler, ant
+Standards-Version: 3.6.1.0
+
+Package: freeguide
+Architecture: all
+Depends: j2sdk1.4 | java2-runtime, j2sdk1.4 | java-virtual-machine
+Recommends: xmltv-util
+Description: Displays TV listings
+ FreeGuide displays TV listings. It extracts the TV listing
+ information from web pages and stores them for off-line viewing.
+ The user can create a list of favourite programmes and a customised
+ TV guide.
+ .
+ It works for British, American, Canadian, German, Swedish and
+ Norwegian listings, and has experimental support for listings for New
+ Zealand.

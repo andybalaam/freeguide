@@ -1,0 +1,74 @@
+freeguide (0.7.5-1) unstable; urgency=low
+
+  * New upstream release.
+  * Updated the watch file.
+
+ -- Shaun Jackman <sjackman@debian.org>  Wed, 14 Jul 2004 15:54:45 -0700
+
+freeguide (0.7.4-2) unstable; urgency=low
+
+  * Include commandline-prefs.xml and misc-prefs.xml as examples. 
+
+ -- Shaun Jackman <sjackman@debian.org>  Tue,  6 Jul 2004 11:30:09 -0700
+
+freeguide (0.7.4-1) unstable; urgency=low
+
+  * New upstream release.
+  * Add an icon.
+  * Add README.Debian explaining how to change "Grabber Command".
+  * Move freeguide.desktop to /usr/share/applications.
+  * Add Recommends: xmltv-util.
+
+ -- Shaun Jackman <sjackman@debian.org>  Tue,  8 Jun 2004 08:54:31 -0700
+
+freeguide (0.7.3-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Shaun Jackman <sjackman@debian.org>  Fri,  4 Jun 2004 17:02:04 -0700
+
+freeguide (0.7.2-2) unstable; urgency=low
+
+  * Add FreeGuide.desktop.
+  * Move Build-Depends-Indep: debhelper (>> 4.0.0) to Build-Depends.
+
+ -- Shaun Jackman <sjackman@debian.org>  Fri, 16 Apr 2004 18:02:02 -0700
+
+freeguide (0.7.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Add Build-Depends-Indep: debhelper (>> 4.0.0).
+
+ -- Shaun Jackman <sjackman@debian.org>  Thu, 15 Apr 2004 15:55:17 -0700
+
+freeguide (0.7-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Shaun Jackman <sjackman@debian.org>  Mon,  9 Feb 2004 15:56:10 -0800
+
+freeguide (0.6.3-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Shaun Jackman <sjackman@debian.org>  Tue,  6 Jan 2004 15:21:11 -0800
+
+freeguide (0.6.2-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Shaun Jackman <sjackman@debian.org>  Sat, 29 Nov 2003 11:44:57 -0800
+
+freeguide (0.6.1-2) unstable; urgency=low
+
+  * Edited the description.
+  * Added debian/watch.
+
+ -- Shaun Jackman <sjackman@debian.org>  Tue, 25 Nov 2003 10:03:42 -0800
+
+freeguide (0.6.1-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Shaun Jackman <sjackman@debian.org>  Fri, 10 Oct 2003 18:33:36 -0700
+

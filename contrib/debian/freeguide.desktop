@@ -1,0 +1,9 @@
+[Desktop Entry]
+Categories=Java;AudioVideo;Video;TV
+Comment=Download a TV guide from the Internet and view it
+Encoding=UTF-8
+Exec=freeguide
+GenericName=TV Guide
+Icon=freeguide
+Name=FreeGuide
+Type=Application
