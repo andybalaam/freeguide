@@ -97,6 +97,8 @@ W Add configurable option to set grabber day start (na=00:00, uk=06:00)
 W Add configurable option to set grabber starting day 
   checkbox with "today", or current showing day
 - Fix bug with different day start times on grabber and FG.
+- Fix bug with NullPointerException when you start and there's no listings
+- Fix concept of missing time.
 - Stop it from grabbing stuff that's already been done.
 + Seems to be a bug where only first grabber command executes.
 + Ability to control how many days are downloaded
