@@ -15,7 +15,7 @@
 	<property name="build" location="build"/>
 	<property name="dist"  location="dist"/>
 
-	<property name="freeguideversion"  value="FreeGuide-0_6"/>
+	<property name="freeguideversion"  value="FreeGuide-0_5_2"/>
 	
   	<target name="init">
   

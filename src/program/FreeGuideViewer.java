@@ -1584,7 +1584,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		if(onScreen) {
 			ans += "<font face='helvetica, helv, arial, sans serif' size=3>";
 			ans += "<p>Select programmes above by clicking on them, and they";
-			ans += "will be highlighted and appear below.</p>";
+			ans += " will be highlighted and appear below.</p>";
 			ans += "</font>";
 		}
 		
@@ -1662,6 +1662,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	 */
 	public void reShow() {
 
+		updateChannelSet();
 		updatePanel();
 
 	}//reShow

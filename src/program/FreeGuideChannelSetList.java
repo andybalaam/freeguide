@@ -103,7 +103,7 @@ public class FreeGuideChannelSetList extends javax.swing.JFrame implements FreeG
 
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        setTitle("ChannelSet List");
+        setTitle("List of channel sets");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
@@ -172,7 +172,7 @@ public class FreeGuideChannelSetList extends javax.swing.JFrame implements FreeG
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Your channelset:");
+        jLabel1.setText("Channel sets:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);

@@ -100,7 +100,6 @@ D  means work in progress by Dave Torok
 	always captured (intermittent linux java 1.4.1_01).  Maybe add a
 	permanent (not always visible) viewer w/ a clear button, or
 	timestamped output...
-- Add notes about how to upgrade XMLTV without upgrading FreeGuide
 - Also add notes about authenticating proxies:
 	export http_proxy='http://user:password@server:port' 
 - Fix bug where "Reset Choices" on one day messes up choices for another day.
@@ -110,7 +109,19 @@ D  means work in progress by Dave Torok
 	(part of installer)
 - Custom channel ordering - default channel set
 - Write java version check in Java 1.0-compatible code, obviously!
-- Default to grab 4 days in uk as provider only provides 4 days' worth
+- "Create a new channel set..." option in the channel sets menu
+- Remember last channel set on exit.
+- Fix severe errors when a channel is missing from a channel set
+
++ Release 0.5.2 (interim release for new xmltv version 0.5.7)
+
++ Test with new xmltv on Linux and Windows clean installs - check NZ and update
+	README as required.
++ Fix no-refresh bug in channel sets
++ Include xmltv.exe 0.5.7
++ Tidy channel sets screen
++ Add notes about how to upgrade XMLTV without upgrading FreeGuide
++ Default to grab 4 days in uk as provider only provides 4 days' worth
 + Remove the big binaries from CVS and add to the developers' doc about how to
 	do a build from CVS checkout + a couple of other files.
 + Add new fi grabber
