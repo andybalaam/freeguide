@@ -73,13 +73,17 @@ public class DataDateList {
 		
 		dates = new Vector();
 		Calendar cdt;
+		String[] dir = {};
 		
 		File f = new File(path);
 		FilenameFilter NameFilter = new fgdNFilter(filter);
-		String[] dir = f.list(NameFilter);
+		dir = f.list(NameFilter);
+		if (dir==null) {
+			dir = new String[0];
+		}
 		
 		int ndx;
-
+		
 		// loop through all files in the directory
 		// collect the unique date portions of the names
 		for(int i=0; i < dir.length;i++) {
@@ -156,16 +160,22 @@ public class DataDateList {
 	}
 	
 	public Date get(int i) {
-		return ((Date)dates.get(i));
+		if (dates.size() > 0) {
+			return ((Date)dates.get(i));
+		} else {
+			return null;
+		}
 	}
 	
 	/** Debugging output the date list to standard output.
 	*/
 	public void toConsole() {
 		if (dirty) { updateDates(); }
+		if (dates.size() > 0) {
 		for(int i=0;i<dates.size();i++) {
 			//System.out.println(dates.get(i));
 			System.out.println(((Date)dates.get(i)).toString());
+		}
 		}
 	}
 
