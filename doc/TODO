@@ -124,6 +124,7 @@ m  means done by Mike Dean
 - Make a bit of PHP for test reports
 - Fix problems with accented characters in main programme window reported by
   Rob Stewart
++ Fix timezone problems for na_dd
 + Fix bug with ", ends" in tooltip when "Show programme times" is "No"
 
 + Release 0.7.2
