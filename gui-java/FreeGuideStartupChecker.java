@@ -246,7 +246,7 @@ public class FreeGuideStartupChecker {
 		// Check the dir exists
 		if(xmltvDir.exists()) {
 
-			File[] tmp = xmltvDir.listFiles(new FreeGuideFilenameFilter("^tv_split", false));
+			File[] tmp = xmltvDir.listFiles(new FreeGuideFilenameFilter("^tv_split.*", false));
 			
 			// Check a file starting with tv_split exists in this dir
 			// (tv_split is used because that's the one I wrote to make

@@ -37,7 +37,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * A form that displays and prints TV listings.
  *
  * @author  Andy Balaam
- * @version 10
+ * @version 11
  */
 public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLauncher, FreeGuideSAXInterface {
 
@@ -80,9 +80,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			updatePrintedGuide();
 		} else if(!missingFiles) {
 			
-			String msg = "No programmes loaded.\n"+
-				"You need to adjust your options.\n"+
-				"Would you like to go to the options screen?";
+			String msg = "No programmes loaded, probably because you\n"+
+				"haven't chosen any channels on the Options screen..\n"+
+				"Would you like to go to the Options screen now?";
 				
 			int r = JOptionPane.showConfirmDialog(this, msg, "Go to Options?", JOptionPane.YES_NO_OPTION );
 			
@@ -112,8 +112,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         butPrev = new javax.swing.JButton();
         comTheDate = new javax.swing.JComboBox();
         butNext = new javax.swing.JButton();
-        butPrint = new javax.swing.JButton();
-        butRevertFavs = new javax.swing.JButton();
         splitPane = new javax.swing.JSplitPane();
         printedGuideScrollPane = new javax.swing.JScrollPane();
         printedGuideArea = new javax.swing.JEditorPane();
@@ -125,6 +123,10 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         innerPanel = new javax.swing.JPanel();
         timeScrollPane = new javax.swing.JScrollPane();
         timePanel = new FreeGuideTimePanel();
+        bottomPanel = new javax.swing.JPanel();
+        butPrint = new javax.swing.JButton();
+        topLeftPanel = new javax.swing.JPanel();
+        butRevertFavs = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         menPrint = new javax.swing.JMenuItem();
@@ -215,39 +217,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         topPanel.add(butNext, gridBagConstraints);
 
-        butPrint.setFont(new java.awt.Font("Dialog", 0, 10));
-        butPrint.setText("Print Listing");
-        butPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butPrintActionPerformed(evt);
-            }
-        });
-
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        topPanel.add(butPrint, gridBagConstraints);
-
-        butRevertFavs.setFont(new java.awt.Font("Dialog", 0, 10));
-        butRevertFavs.setText("Reapply Favourites");
-        butRevertFavs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butRevertFavsActionPerformed(evt);
-            }
-        });
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        topPanel.add(butRevertFavs, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
         getContentPane().add(topPanel, gridBagConstraints);
 
@@ -321,6 +293,39 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(splitPane, gridBagConstraints);
 
+        butPrint.setFont(new java.awt.Font("Dialog", 0, 10));
+        butPrint.setText("Print this personalised listing...");
+        butPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butPrintActionPerformed(evt);
+            }
+        });
+
+        bottomPanel.add(butPrint);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        getContentPane().add(bottomPanel, gridBagConstraints);
+
+        butRevertFavs.setFont(new java.awt.Font("Dialog", 0, 10));
+        butRevertFavs.setText("Show Favourites Only");
+        butRevertFavs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butRevertFavsActionPerformed(evt);
+            }
+        });
+
+        topLeftPanel.add(butRevertFavs);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        getContentPane().add(topLeftPanel, gridBagConstraints);
+
         fileMenu.setText("File");
         menPrint.setText("Print Listing");
         menPrint.addActionListener(new java.awt.event.ActionListener() {
@@ -369,9 +374,16 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         jMenuBar2.add(toolsMenu);
         helpMenu.setText("Help");
         menUserGuide.setText("User Guide...");
+        menUserGuide.setEnabled(false);
         helpMenu.add(menUserGuide);
         helpMenu.add(jSeparator4);
         menAbout.setText("About...");
+        menAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menAboutActionPerformed(evt);
+            }
+        });
+
         helpMenu.add(menAbout);
         jMenuBar2.add(helpMenu);
         setJMenuBar(jMenuBar2);
@@ -384,12 +396,26 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 	private void menAddFavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menAddFavActionPerformed
 		
+		// Make a favourite
 		FreeGuideFavourite fav = new FreeGuideFavourite();
 		String title = rightClickedProg.getTitle();
 		fav.setTitleString( title );
 		fav.setName( title );
 		
+		// Remember the favourite
 		FreeGuide.prefs.favourites.appendFreeGuideFavourite(fav);
+		
+		// Tick this programme
+		JLabel txt = (JLabel)evt.getSource();
+		FreeGuideProgramme prog = getProgFromJLabel(txt);
+		
+		txt.setBackground( FreeGuide.prefs.screen.getColor("programme_chosen_colour", FreeGuide.PROGRAMME_CHOSEN_COLOUR) );
+		tickedProgrammes.add(prog);
+			
+		FreeGuide.prefs.addChoice(prog);
+			
+		// Update the guide
+		updatePrintedGuide();
 		
 	}//GEN-LAST:event_menAddFavActionPerformed
 
@@ -432,7 +458,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 	private void menAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menAboutActionPerformed
 		
-		
+		new FreeGuideAbout(this, true).setVisible(true);
 		
 	}//GEN-LAST:event_menAboutActionPerformed
 
@@ -535,8 +561,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	 * dates in the date list
 	 */
     private void initMyComponents() {
-	
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		
 		//  Do the listeners
 		addInnerScrollPaneAdjustmentListeners();
@@ -1095,14 +1119,22 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		ans+="<body>"+lineBreak;
 		ans+="  <h1>";
 		
-		if(onScreen) {ans+="<font face='helvetica, helv, arial, sans serif' size=4>";}
-		
-		ans+="TV Guide for "+htmlDateFormat.format(theDate.getTime());
-		
-		if(onScreen) {ans+="</font>";}
+		if(onScreen) {
+			ans+="<font face='helvetica, helv, arial, sans serif' size=4>";
+			ans+="Your Personalised TV Guide for "+htmlDateFormat.format(theDate.getTime());
+			ans+="</font>";
+		} else {
+			ans+="TV Guide for "+htmlDateFormat.format(theDate.getTime());
+		}
 		
 		ans+="</h1>"+lineBreak;
 
+		if(onScreen) {
+			ans+="<font face='helvetica, helv, arial, sans serif' size=3>";
+			ans+="<p>Select programmes above by clicking on them, and they will turn grey and appear below.</p>";
+			ans+="</font>";
+		}
+		
 		// Sort the programmes
 		Collections.sort(tickedProgrammes, new FreeGuideProgrammeStartTimeComparator());
 
@@ -1127,16 +1159,14 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 		if(onScreen) {ans+="</font>";}
 		
-		ans+="<hr>"+lineBreak;
-		ans+="<address>";
+		if(!onScreen) {
 		
-		if(onScreen) {ans+="<font face='helvetica, helv, arial, sans serif' size=2>";}
-		
-		ans+="FreeGuide J2 " + FreeGuide.version + " Copyright &copy;2001-2002 by Andy Balaam<br>Free software released under the GNU General Public Licence<br>http://freeguide-tv.sourceforge.net<br>freeguide@artificialworlds.net";
-		
-		if(onScreen) {ans+="</font>";}
-		
-		ans+="</address>"+lineBreak;
+			ans+="<hr>"+lineBreak;
+			ans+="<address>";
+			ans+="<a href=\"http://freeguide-tv.sourceforge.net\">freeguide-tv.sourceforge.net</a>";
+			ans+="</address>"+lineBreak;
+			
+		}
 			
 		ans+="</body>"+lineBreak;
 		ans+="</html>"+lineBreak;
@@ -1371,20 +1401,22 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private javax.swing.JMenuItem menAddFav;
     private javax.swing.JPanel topPanel;
     private javax.swing.JButton butPrint;
+    private javax.swing.JPanel topLeftPanel;
     private javax.swing.JMenuItem menOptions;
     private javax.swing.JScrollPane channelNameScrollPane;
     private javax.swing.JSplitPane splitPane;
     private javax.swing.JMenuItem menFavourites;
     private javax.swing.JButton butRevertFavs;
     private javax.swing.JMenu toolsMenu;
+    private javax.swing.JPanel bottomPanel;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JMenuItem menAbout;
     private javax.swing.JButton butNext;
     private javax.swing.JButton butPrev;
     private javax.swing.JButton butGoToNow;
     private javax.swing.JPanel innerPanel;
-    private javax.swing.JPopupMenu popProg;
     private javax.swing.JScrollPane innerScrollPane;
+    private javax.swing.JPopupMenu popProg;
     private javax.swing.JPanel outerPanel;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JScrollPane printedGuideScrollPane;
@@ -1420,7 +1452,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	
 	private String tmpChannelID;	// A temporary variable storing the channel ID
 	
-	private static final SimpleDateFormat comboBoxDateFormat = new SimpleDateFormat("EEE dd MMMM yyyy");
+	private static final SimpleDateFormat comboBoxDateFormat = new SimpleDateFormat("dd MMMM yyyy");
 	private static final SimpleDateFormat htmlDateFormat = new SimpleDateFormat("EEEE dd MMMM yyyy");
 	private static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 	private static final SimpleDateFormat fileDateFormat = new SimpleDateFormat("yyyyMMdd");
