@@ -41,8 +41,8 @@ public class InstallWizardPanel extends WizardPanel
     private JPanel middlePanel;
 
     /**
-                             *
-                             */
+                                         *
+                                         */
     public InstallWizardPanel(  )
     {
         super(  );

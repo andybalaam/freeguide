@@ -839,7 +839,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
 
         //}}}
         //{{{ Menus
-        fileMenu.setText( "File" );
+        fileMenu.setText( FreeGuide.msg.getString( "file" ) );
         fileMenu.setMnemonic( KeyEvent.VK_F );
         mbtDownload.setText( FreeGuide.msg.getString( "download_listings" ) );
         mbtDownload.setMnemonic( KeyEvent.VK_D );

@@ -63,8 +63,8 @@ public class TimeOptionPanel extends OptionPanel
         JLabel twelveHourLabel =
             newLeftJLabel( FreeGuide.msg.getString( "time_format" ) + ":" );
         Object[] options = new Object[2];
-        options[0] = "12 hour";
-        options[1] = "24 hour";
+        options[0] = FreeGuide.msg.getString( "12_hour" );
+        options[1] = FreeGuide.msg.getString( "24_hour" );
         twelveHourComboBox = newRightJComboBox( options );
 
         JLabel showTimesLabel =
