@@ -682,7 +682,6 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
             Programme prog = (Programme)(iter.next());
             
             if( prog.equals( programme ) ) {
-                FreeGuide.log.info( programme.getTitle() );
                 return false;
             }
             
