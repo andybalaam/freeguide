@@ -16,10 +16,12 @@ import java.text.SimpleDateFormat;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.prefs.Preferences;
+import java.util.List;
 import java.util.Vector;
+import java.util.prefs.Preferences;
 
 /**
  *  FreeGuidePreferencesGroup Provides a place to hold the various
@@ -497,21 +499,20 @@ public class PreferencesGroup {
      *
      *@return    The favourites value
      */
-    public Favourite[] getFavourites() {
+    public List getFavourites() {
 
-        Vector ans = new Vector();
+        ArrayList ans = new ArrayList();
 
         int i = 1;
-        Favourite fav = favourites.getFavourite(String.valueOf(i), null);
+        Favourite fav;
 
-        while (fav != null) {
+        while ((fav = favourites.getFavourite(String.valueOf(i), null)) != null) {
 
             ans.add(fav);
             i++;
-            fav = favourites.getFavourite(String.valueOf(i), null);
         }
 
-        return Utils.arrayFromVector_Favourite(ans);
+        return ans;
     }
 
 	/**
@@ -565,11 +566,11 @@ public class PreferencesGroup {
      *
      *@param  favs  Description of the Parameter
      */
-    public void replaceFavourites(Favourite[] favs) {
+    public void replaceFavourites(List favs) {
 
         try {
 
-            int size = favs.length;
+            int size = favs.size();
             String[] keys = new String[size];
             for (int i = 0; i < size; i++) {
                 keys[i] = String.valueOf(i + 1);

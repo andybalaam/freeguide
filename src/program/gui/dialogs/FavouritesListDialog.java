@@ -38,7 +38,7 @@ public class FavouritesListDialog extends FGDialog {
     private javax.swing.JButton butCancel;
     private javax.swing.JLabel jLabel1;
 
-    private Vector favourites;
+    private List favourites;
     private Favourite favourite;
     private DefaultListModel favouritesModel;
     private int latestIndex;
@@ -85,7 +85,7 @@ public class FavouritesListDialog extends FGDialog {
      */
     private void loadFavourites() {
 
-        favourites = new Vector(Arrays.asList(FreeGuide.prefs.getFavourites()));
+        favourites = FavouritesList.getInstance().getFavourites();
 
     }
 
@@ -112,10 +112,7 @@ public class FavouritesListDialog extends FGDialog {
      */
     private void saveFavourites() {
 
-        // Write out our favourites to the config file
-        FreeGuide.prefs.replaceFavourites(
-			Utils.arrayFromVector_Favourite( favourites ) );
-        FreeGuide.prefs.flushAll();
+	    FavouritesList.getInstance().setFavourites( favourites );
 
     }
 

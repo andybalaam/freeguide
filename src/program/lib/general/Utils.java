@@ -245,19 +245,6 @@ public class Utils {
 
 
     /**
-     *  Convert a Vector of FreeGuideFavourites to an array.
-     *
-     *@param  vector  Description of the Parameter
-     *@return         Description of the Return Value
-     */
-    public static Favourite[] arrayFromVector_Favourite(Vector vector) {
-        Favourite[] ans = new Favourite[vector.size()];
-        vector.copyInto(ans);
-        return ans;
-    }
-
-
-    /**
      *  Description of the Method
      *
      *@param  vector  Description of the Parameter

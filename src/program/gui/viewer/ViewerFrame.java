@@ -1235,25 +1235,23 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		ProgrammeJLabel programmeJLabel = rightClickedProg;
 		Programme programme = programmeJLabel.programme;
 		
+		FavouritesList favouritesList = FavouritesList.getInstance();
 
         if( programmeJLabel.isFavourite ) {
 			// Remove from favourites
 			
-			Favourite[] favourites = FreeGuide.prefs.getFavourites();
 			
             // Find out which favourite the programme matches
-            for (int i = 0; i < favourites.length; i++) {
-
-                if ( favourites[i].matches( programme ) ) {
+			Favourite theFavourite = favouritesList.getFavourite( programme );
 
                     int r = JOptionPane.showConfirmDialog( this,
 						"Remove favourite \""
-						+ favourites[i].getName() + "\"?",
+				+ theFavourite.getName() + "\"?",
 						"Remove favourite?", JOptionPane.YES_NO_OPTION );
 
                     if (r == 0) {
 
-                        FreeGuide.prefs.favourites.removeFavourite(	i + 1 );
+				favouritesList.removeFavourite( theFavourite );
 
 						programmeJLabel.isFavourite = false;
 						programmeJLabel.setSelected( false );
@@ -1262,8 +1260,6 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
                         printedGuideArea.update();
 
                     }
-                }
-            }
         } else {
 			// Add to favourites
 		
@@ -1275,7 +1271,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
             fav.setName( title );
 
             // Remember the favourite
-            FreeGuide.prefs.favourites.appendFavourite( fav );
+			favouritesList.appendFavourite( fav );
 
 			programmeJLabel.isFavourite = true;
 			programmeJLabel.setSelected( true );

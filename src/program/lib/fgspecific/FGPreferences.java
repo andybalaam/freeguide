@@ -17,9 +17,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
 import java.util.prefs.*;
 import java.util.regex.Pattern;
-import java.util.Vector;
 
 /**
  *  FreeGuidePreferences A sort of wrapper around the
@@ -100,10 +102,12 @@ public class FGPreferences {
      *@param  values                     Description of the Parameter
      *@exception  BackingStoreException  Description of the Exception
      */
-    public void replaceAllFavourites(String[] keys, Favourite[] values) throws BackingStoreException {
+    public void replaceAllFavourites(String[] keys, List values) throws BackingStoreException {
         clear();
-        for (int i = 0; i < keys.length; i++) {
-            putFavourite(keys[i], values[i]);
+	Iterator favouritesIterator = values.iterator();
+	int i = 0;
+	while (favouritesIterator.hasNext()) {
+            putFavourite(keys[i++], (Favourite)favouritesIterator.next());
         }
     }
 

@@ -180,21 +180,8 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 	 */
 	public void findOutSelectedness( Vector choices ) {
 		
-		Favourite[] favourites =
-            FreeGuide.prefs.getFavourites();
-			
-        if( favourites != null ) {
-    
-			for( int i = 0; i < favourites.length; i++ ) {
-
-				if( favourites[i].matches( programme ) ) {
-
-                    isFavourite = true;
-                    break;
-                }
-            }
-                    
-        }
+		FavouritesList favouritesList = FavouritesList.getInstance();
+		isFavourite = favouritesList.isFavourite( programme );
 		
 		if( choices == null ) {
 			// Use the favourites to work out whether we're selected
@@ -215,8 +202,8 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
                     break;
 					
                 } 
-             }
 			 
+			}
 			 setSelected( isChoice, false );
 		}
 	
