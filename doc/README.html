@@ -135,6 +135,16 @@
 
 <!--<p>Support for New Zealand listings doesn't appear to work as far as I can tell, so I'm calling it "experimental".  Let me know if you have any success with this.  I <i>think</i> the grabber provided with XMLTV 0.5.7 just doesn't work for some reason.  If you do use the nz grabber, you'll have to leave the preference setting for grabber config file location as %home%/.xmltv/tv_grab_nz since the grabber is unable to use a file in a different location.</p>-->
 
+<h3>Grabbing from 2 listings sources</h3>
+
+<p>It is possible to make FreeGuide grab the listings from two different listings providers and merge the results for you to view.  This might be useful if you want to see listings for 2 different zip codes, for example.  To do this you will need to configure your grabber twice, and save the config files as (e.g.) tv_grab_na_1.conf and tv_grab_na_2.conf in the normal directory for XMLTV config files.  Then you'll need to go to FreeGuide's "Advanced Options" screen and the "Grabber Command" tab.  Instead of what's there you'll need these 3 lines:</p>
+
+<p><tt>"%misc.xmltv_directory%\xmltv.exe" tv_grab_na --config-file "%misc.xmltv_directory%\tv_grab_na_1.conf" --offset %offset% --days 1 --output "%misc.working_directory%\tv-%date%-1.xmltv.tmp"<br /><br />
+"%misc.xmltv_directory%\xmltv.exe" tv_grab_na --config-file "%misc.xmltv_directory%\tv_grab_na_2.conf" --offset %offset% --days 1 --output "%working_directory%\tv-%date%-2.xmltv.tmp"<br /><br />
+"%misc.xmltv_directory%\xmltv.exe" tv_cat --output "%misc.working_directory%\tv-%date%.xmltv" "%misc.working_directory%\tv-%date%-1.xmltv.tmp" "%misc.working_directory%\tv-%date%-2.xmltv.tmp"</tt></p>
+
+<p>(On Linux you'll need the equivalent.  Ask if you need help.)</p>
+
 <h3>Missing listings after a successful download</h3>
 
 <p>If you grab some listings late in a day, nearing the grabber's idea of the end of a day (e.g. close to 6am for the UK grabber) then you may be told that there are missing listings for that day even though you've just grabbed new listings.  This is because the grabbing has started from tomorrow, so what's left of today doesn't have a full set of listings.  Don't worry about this - just say "No" and you should be able to see what you need.</p>
