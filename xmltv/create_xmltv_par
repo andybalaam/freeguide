@@ -12,7 +12,7 @@
 echo "Creating patched XMLTV..."
 
 # Find out the version of XMLTV we're working with
-XMLTV_VERSION=xmltv-0.5.27
+XMLTV_VERSION=xmltv-0.5.28
 
 # Remove any old directories
 rm -rf $XMLTV_VERSION
@@ -31,6 +31,12 @@ mv $XMLTV_VERSION $XMLTV_VERSION-tkgui
 rm -rf $XMLTV_VERSION-tkgui.tar.bz2
 tar -cjf $XMLTV_VERSION-tkgui.tar.bz2 $XMLTV_VERSION-tkgui
 
+if [ "$1" == "--just-patch" ]; then
+
+	exit
+	
+fi
+
 echo "Making PAR file..."
 
 # Go into the new patched directory
@@ -41,12 +47,6 @@ echo "Compiling the patched sources..."
 # Compile it
 echo | perl Makefile.PL
 make
-
-if [ "$1" == "--just-patch" ]; then
-
-	exit
-	
-fi
 
 # Make a PAR file containing all the XMLTV scripts (still needs perl I think)
 pp -p -o xmltv.par grab/de/tv_grab_de grab/dk/tv_grab_dk grab/es/tv_grab_es grab/fi/tv_grab_fi grab/hu/tv_grab_hu grab/it/tv_grab_it grab/na/tv_grab_na grab/nl/tv_grab_nl grab/uk/tv_grab_uk

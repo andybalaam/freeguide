@@ -10,13 +10,13 @@
 	<property name="src" location="src"/>
 	<property name="doc"  location="doc"/>
 	<property name="xmltv"  location="xmltv"/>
-	<property name="share"  location="share"/>
+	<property name="share"  location="xmltv/share"/>
 	
 	<property name="build" location="build"/>
 	<property name="package" location="package"/>
 	<property name="dist"  location="dist"/>
 
-	<property name="freeguideversion"  value="FreeGuide-0.7-pre2"/>
+	<property name="freeguideversion"  value="FreeGuide-0.7-pre3"/>
 	
   	<target name="init">
   
@@ -104,7 +104,7 @@
 		<copy file="${src}/install/windows/install-win-it.props" tofile="${package}/windows/install-4.props" overwrite="true" />
 		<copy file="${src}/install/windows/install-win-nl.props" tofile="${package}/windows/install-5.props" overwrite="true" />
 		<copy file="${src}/install/windows/install-win-na.props" tofile="${package}/windows/install-6.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-uk.props" tofile="${package}/windows/install-7.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${package}/windows/install-7.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Win-Install.jar"
@@ -142,7 +142,7 @@
 		<copy file="${src}/install/linux/install-lin-nl.props" tofile="${package}/linux/install-5.props" overwrite="true" />
 		<copy file="${src}/install/linux/install-lin-nz.props" tofile="${package}/linux/install-6.props" overwrite="true" />
 		<copy file="${src}/install/linux/install-lin-na.props" tofile="${package}/linux/install-7.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-uk.props" tofile="${package}/linux/install-8.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-uk_rt.props" tofile="${package}/linux/install-8.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Linux-NoXMLTV-Install.jar"
@@ -186,7 +186,7 @@
 		<copy file="${src}/install/linux-par/install-lin-it.props" tofile="${package}/linux-par/install-4.props" overwrite="true" />
 		<copy file="${src}/install/linux-par/install-lin-nl.props" tofile="${package}/linux-par/install-5.props" overwrite="true" />
 		<copy file="${src}/install/linux-par/install-lin-na.props" tofile="${package}/linux-par/install-6.props" overwrite="true" />
-		<copy file="${src}/install/linux-par/install-lin-uk.props" tofile="${package}/linux-par/install-7.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-uk_rt.props" tofile="${package}/linux-par/install-7.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Linux-Install.jar"
@@ -198,8 +198,8 @@
 	<target name="FreeGuide-Source"
   		description="generate the source zips"
 			depends="FreeGuide-Win-Install,
-					 FreeGuide-Linux-Install,
 					 FreeGuide-Linux-NoXMLTV-Install">
+					 <!--FreeGuide-Linux-Install,-->
 		
 		<zip zipfile="${dist}/${freeguideversion}.zip">
 			<zipfileset dir="${src}" prefix="${freeguideversion}/src">

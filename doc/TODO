@@ -126,10 +126,13 @@ m  means done by Mike Dean
 - ProgrammeJLabel shows which programme is selected
 - Keyboard navigation of programme scrollpane
 - Full test of keyboard navigation
+- Write tv_grab_uk_bleb2?
+- Add config file location to Options
 
 - Release 0.7 (xmltv-tk)
 
-- Add config file location to Options
+- Compile working xmltv with tk gui
+- Alter docs to reflect which grabbers are available
 m JProgrammeLabel Border workaround for GTK+ theme bug
 m Cache favourites to prevent re-reading from prefs
 m Multiline tooltips if too long

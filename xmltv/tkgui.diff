@@ -1,10 +1,10 @@
 Index: MANIFEST
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/MANIFEST,v
-retrieving revision 1.85
-diff -u -B -b -w -r1.85 MANIFEST
---- MANIFEST	3 Jan 2004 22:15:18 -0000	1.85
-+++ MANIFEST	9 Jan 2004 01:13:12 -0000
+retrieving revision 1.87
+diff -u -B -b -w -r1.87 MANIFEST
+--- MANIFEST	1 Feb 2004 21:40:45 -0000	1.87
++++ MANIFEST	4 Feb 2004 17:47:15 -0000
 @@ -4,8 +4,14 @@
  Uninstall.pm
  README
@@ -25,11 +25,11 @@ diff -u -B -b -w -r1.85 MANIFEST
 Index: Makefile.PL
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/Makefile.PL,v
-retrieving revision 1.173
-diff -u -B -b -w -r1.173 Makefile.PL
---- Makefile.PL	4 Jan 2004 13:17:39 -0000	1.173
-+++ Makefile.PL	9 Jan 2004 01:13:13 -0000
-@@ -106,9 +106,16 @@
+retrieving revision 1.180
+diff -u -B -b -w -r1.180 Makefile.PL
+--- Makefile.PL	1 Feb 2004 21:42:30 -0000	1.180
++++ Makefile.PL	4 Feb 2004 17:47:16 -0000
+@@ -107,9 +107,16 @@
       'lib/Usage.pm'               => '$(INST_LIBDIR)/XMLTV/Usage.pm',
       'lib/Date.pm'                => '$(INST_LIBDIR)/XMLTV/Date.pm',
       'lib/Version.pm'             => '$(INST_LIBDIR)/XMLTV/Version.pm',
@@ -48,7 +48,7 @@ diff -u -B -b -w -r1.173 Makefile.PL
       'lib/Summarize.pm'           => '$(INST_LIBDIR)/XMLTV/Summarize.pm',
       'lib/IMDB.pm'                => '$(INST_LIBDIR)/XMLTV/IMDB.pm',
       'lib/Gunzip.pm'              => '$(INST_LIBDIR)/XMLTV/Gunzip.pm',
-@@ -183,8 +190,8 @@
+@@ -179,8 +186,8 @@
      *ask = sub { print "$_[0] yes\n"; 1 };
  }
  else {
@@ -59,7 +59,7 @@ diff -u -B -b -w -r1.173 Makefile.PL
  }
  
  # Weird shit happens when you change things like PREFIX without
-@@ -198,7 +205,7 @@
+@@ -194,7 +201,7 @@
  
  END
    ;
@@ -68,7 +68,7 @@ diff -u -B -b -w -r1.173 Makefile.PL
  	exit(1);
      }
  }
-@@ -402,7 +409,7 @@
+@@ -386,7 +393,7 @@
  		  "\n");
  }
  print STDERR "\n";
@@ -77,7 +77,7 @@ diff -u -B -b -w -r1.173 Makefile.PL
      # Need to set {install} for each component by prompting.
      foreach my $info (@opt_components) {
  	my $missing = $info->{missing};
-@@ -432,7 +439,7 @@
+@@ -416,7 +423,7 @@
  	else { die }
  	
  	$info->{install} =
@@ -89,10 +89,10 @@ diff -u -B -b -w -r1.173 Makefile.PL
 Index: grab/dk/tv_grab_dk
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/dk/tv_grab_dk,v
-retrieving revision 1.11
-diff -u -B -b -w -r1.11 tv_grab_dk
---- grab/dk/tv_grab_dk	3 Jan 2004 21:24:22 -0000	1.11
-+++ grab/dk/tv_grab_dk	9 Jan 2004 01:13:13 -0000
+retrieving revision 1.12
+diff -u -B -b -w -r1.12 tv_grab_dk
+--- grab/dk/tv_grab_dk	10 Jan 2004 10:47:08 -0000	1.12
++++ grab/dk/tv_grab_dk	4 Feb 2004 17:47:16 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_dk --help
@@ -239,7 +239,7 @@ RCS file: /cvsroot/xmltv/xmltv/grab/es/tv_grab_es,v
 retrieving revision 1.22
 diff -u -B -b -w -r1.22 tv_grab_es
 --- grab/es/tv_grab_es	1 Jan 2004 12:39:15 -0000	1.22
-+++ grab/es/tv_grab_es	9 Jan 2004 01:13:13 -0000
++++ grab/es/tv_grab_es	4 Feb 2004 17:47:16 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_es --help
@@ -355,10 +355,10 @@ diff -u -B -b -w -r1.22 tv_grab_es
 Index: grab/fi/tv_grab_fi
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/fi/tv_grab_fi,v
-retrieving revision 1.29
-diff -u -B -b -w -r1.29 tv_grab_fi
---- grab/fi/tv_grab_fi	1 Jan 2004 12:31:03 -0000	1.29
-+++ grab/fi/tv_grab_fi	9 Jan 2004 01:13:14 -0000
+retrieving revision 1.30
+diff -u -B -b -w -r1.30 tv_grab_fi
+--- grab/fi/tv_grab_fi	1 Feb 2004 20:38:07 -0000	1.30
++++ grab/fi/tv_grab_fi	4 Feb 2004 17:47:17 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_fi --help
@@ -433,7 +433,7 @@ diff -u -B -b -w -r1.29 tv_grab_fi
  			     $opt_list_channels => 'list-channels',
 @@ -266,14 +277,15 @@
  # This progress bar is for both downloading and parsing.  Maybe
- # they could be separate, as with tv_grab_uk.
+ # they could be separate stages.
  #
 -my $bar = new Term::ProgressBar('getting listings', scalar @to_get)
 -  if Have_bar && not $opt_quiet;
@@ -474,10 +474,10 @@ diff -u -B -b -w -r1.29 tv_grab_fi
 Index: grab/hu/tv_grab_hu
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/hu/tv_grab_hu,v
-retrieving revision 1.11
-diff -u -B -b -w -r1.11 tv_grab_hu
---- grab/hu/tv_grab_hu	1 Jan 2004 12:31:03 -0000	1.11
-+++ grab/hu/tv_grab_hu	9 Jan 2004 01:13:14 -0000
+retrieving revision 1.12
+diff -u -B -b -w -r1.12 tv_grab_hu
+--- grab/hu/tv_grab_hu	1 Feb 2004 20:38:07 -0000	1.12
++++ grab/hu/tv_grab_hu	4 Feb 2004 17:47:17 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_hu --help
@@ -561,7 +561,7 @@ diff -u -B -b -w -r1.11 tv_grab_hu
  			     $opt_list_channels => 'list-channels',
 @@ -265,8 +277,8 @@
  # This progress bar is for both downloading and parsing.  Maybe
- # they could be separate, as with tv_grab_uk.
+ # they could be separate stages.
  #
 -my $bar = new Term::ProgressBar('getting listings', @days * @channels)
 -  if Have_bar && not $opt_quiet;
@@ -611,10 +611,10 @@ diff -u -B -b -w -r1.11 tv_grab_hu
 Index: grab/it/tv_grab_it.in
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/it/tv_grab_it.in,v
-retrieving revision 1.22
-diff -u -B -b -w -r1.22 tv_grab_it.in
---- grab/it/tv_grab_it.in	3 Jan 2004 21:55:45 -0000	1.22
-+++ grab/it/tv_grab_it.in	9 Jan 2004 01:13:16 -0000
+retrieving revision 1.23
+diff -u -B -b -w -r1.23 tv_grab_it.in
+--- grab/it/tv_grab_it.in	1 Feb 2004 20:38:07 -0000	1.23
++++ grab/it/tv_grab_it.in	4 Feb 2004 17:47:19 -0000
 @@ -11,7 +11,7 @@
  
  tv_grab_it --help
@@ -695,7 +695,7 @@ diff -u -B -b -w -r1.22 tv_grab_it.in
  # share/ directory for storing the list of dud channels.  This next line
  # is altered by processing through tv_grab_it.PL.  But we can use the
  # current directory instead of share/tv_grab_it for development.
-@@ -208,11 +218,11 @@
+@@ -206,11 +216,11 @@
  		}
      open(CONF, ">$config_file") or die "cannot write to $config_file: $!";
      # find list of available channels
@@ -710,7 +710,7 @@ diff -u -B -b -w -r1.22 tv_grab_it.in
  
      # Ask about each channel.
      my @chs = sort keys %channels;
-@@ -232,6 +242,7 @@
+@@ -230,6 +240,7 @@
  	# TODO don't store display-name in config file.
      }
  
@@ -718,7 +718,7 @@ diff -u -B -b -w -r1.22 tv_grab_it.in
      close CONF or warn "cannot close $config_file: $!";
      say("Finished configuration.");
  
-@@ -299,8 +310,8 @@
+@@ -297,8 +308,8 @@
  }
  t "will get $days2get days from $opt_offset onwards";
  
@@ -729,7 +729,7 @@ diff -u -B -b -w -r1.22 tv_grab_it.in
  foreach my $ch_id (@channels) {
      my $ch_xid=id_to_xid($ch_id);
  
-@@ -318,11 +329,12 @@
+@@ -316,11 +327,12 @@
  		       'display-name' => [ [ $channels{$ch_id} ] ],
  		       icon => [{src => get_icon($url)}]
  		      });
@@ -745,7 +745,7 @@ diff -u -B -b -w -r1.22 tv_grab_it.in
  foreach (@to_get) {
      my $canale= $_->[1];
      $url   = $_->[0];
-@@ -349,9 +361,10 @@
+@@ -347,9 +359,10 @@
  	$w->write_programme($_) foreach @dati;
      }
      #			else {warn "skipping $canale \n";}
@@ -763,7 +763,7 @@ RCS file: /cvsroot/xmltv/xmltv/grab/na/tv_grab_na,v
 retrieving revision 1.97
 diff -u -B -b -w -r1.97 tv_grab_na
 --- grab/na/tv_grab_na	1 Jan 2004 12:31:03 -0000	1.97
-+++ grab/na/tv_grab_na	9 Jan 2004 01:13:18 -0000
++++ grab/na/tv_grab_na	4 Feb 2004 17:47:21 -0000
 @@ -8,7 +8,7 @@
  
  =head1 SYNOPSIS
@@ -1006,10 +1006,10 @@ diff -u -B -b -w -r1.97 tv_grab_na
 Index: grab/nl/tv_grab_nl.in
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/nl/tv_grab_nl.in,v
-retrieving revision 1.2
-diff -u -B -b -w -r1.2 tv_grab_nl.in
---- grab/nl/tv_grab_nl.in	2 Jan 2004 20:41:46 -0000	1.2
-+++ grab/nl/tv_grab_nl.in	9 Jan 2004 01:13:19 -0000
+retrieving revision 1.3
+diff -u -B -b -w -r1.3 tv_grab_nl.in
+--- grab/nl/tv_grab_nl.in	7 Jan 2004 19:55:26 -0000	1.3
++++ grab/nl/tv_grab_nl.in	4 Feb 2004 17:47:22 -0000
 @@ -82,6 +82,8 @@
  use Date::Manip;
  use XMLTV;
@@ -1144,11 +1144,11 @@ diff -u -B -b -w -r1.2 tv_grab_nl.in
      @to_write = @summary_programmes;
 Index: grab/uk/tv_grab_uk.in
 ===================================================================
-RCS file: /cvsroot/xmltv/xmltv/grab/uk/tv_grab_uk.in,v
+RCS file: /cvsroot/xmltv/xmltv/grab/uk/Attic/tv_grab_uk.in,v
 retrieving revision 1.96
 diff -u -B -b -w -r1.96 tv_grab_uk.in
 --- grab/uk/tv_grab_uk.in	3 Jan 2004 14:37:43 -0000	1.96
-+++ grab/uk/tv_grab_uk.in	9 Jan 2004 01:13:21 -0000
++++ grab/uk/tv_grab_uk.in	4 Feb 2004 17:47:24 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_uk --help
@@ -1320,13 +1320,122 @@ diff -u -B -b -w -r1.96 tv_grab_uk.in
      die if (keys %r) != $num_pages;
      return \%r;
  }
+Index: grab/uk_rt/tv_grab_uk_rt.in
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/grab/uk_rt/tv_grab_uk_rt.in,v
+retrieving revision 1.48
+diff -u -B -b -w -r1.48 tv_grab_uk_rt.in
+--- grab/uk_rt/tv_grab_uk_rt.in	1 Feb 2004 20:11:02 -0000	1.48
++++ grab/uk_rt/tv_grab_uk_rt.in	4 Feb 2004 17:47:26 -0000
+@@ -82,6 +82,8 @@
+ use Getopt::Long;
+ use XMLTV;
+ use XMLTV::Memoize;
++use XMLTV::GUI;
++use XMLTV::ProgressBar;
+ use XMLTV::Ask;
+ use XMLTV::Europe_TZ;
+ use XMLTV::Config_file;
+@@ -159,6 +161,7 @@
+     $opt_share,
+     $opt_configure,
+     $opt_config_file,
++    $opt_gui,
+     $opt_offset,
+     $opt_quiet,
+     $opt_slow,
+@@ -171,6 +174,7 @@
+ 	   'help'          => \$opt_help,
+ 	   'configure'     => \$opt_configure,
+ 	   'config-file=s' => \$opt_config_file,
++           'gui:s'         => \$opt_gui,
+ 	   'output=s'      => \$opt_output,
+ 	   'share=s'       => \$opt_share, # also undocumented
+            'offset=i'      => \$opt_offset,
+@@ -184,6 +188,12 @@
+     usage(1);
+ }
+ 
++# Ask the XMLTV::GUI module for the graphics type we will use  
++my $gui_type = XMLTV::GUI::get_gui_type($opt_gui);
++
++XMLTV::Ask::init($gui_type);
++XMLTV::ProgressBar::init($gui_type);
++
+ # Date::Manip has a bug where 'now' will be wrong if you change the
+ # timezone.  It won't be correctly converted from the system timezone
+ # to the new one.  So we call parse_date('today midnight') _before_
+@@ -330,8 +340,11 @@
+ 	}
+     }
+     my $days = @dates_to_get > 1 ? 'days' : 'day';
+-    say('getting ' . (scalar @dates_to_get) . " $days of listings\n")
++    
++    my $bar = new XMLTV::ProgressBar('getting ' . (scalar @dates_to_get)
++        . " $days of listings", 1)
+       unless $opt_quiet;
++    
+     t 'getting dates:' . d \@dates_to_get;
+ 
+     $writer->start({ 'source-info-url'     => "$BASE_URL/",
+@@ -439,6 +452,9 @@
+ 	  unless $seen{$_->{channel}}{$_->{start}}{$_->{stop} || ''}++;
+     }
+     $writer->end();
++    
++    $bar->finish();
++    
+ }
+ 
+ 
+@@ -1525,24 +1541,26 @@
+ sub configure() {
+ #    local $Log::TraceMessages::On = 1;
+ 
+-    if (not askBooleanQuestion( <<END
+-Warning: this grabber requires a large number of page fetches from a
+-human-readable website.  It is normally better to run tv_grab_uk,
+-which has its own data source.
+-
+-Proceed with configuration?
+-END
+-        , 0)) {
+-	say("Exiting.\n");
+-	exit 0;
+-    }
++#    if (not askBooleanQuestion( <<END
++#Warning: this grabber requires a large number of page fetches from a
++#human-readable website.  It is normally better to run tv_grab_uk,
++#which has its own data source.
++
++#Proceed with configuration?
++#END
++#        , 0)) {
++#	say("Exiting.\n");
++#	exit 0;
++#    }
+ 
+     XMLTV::Config_file::check_no_overwrite($config_file);
+ 
+-    # FIXME turn into progress bar.
+-    print STDERR "finding channels:\t";
++    my $bar = new XMLTV::ProgressBar('finding channels', 1)
++	  if not $opt_quiet;
++    
+     my %channels = get_channels();
+-    print STDERR "got ". (scalar keys %channels) . " done.\n" unless $opt_quiet;
++    
++    $bar->finish();
+ 
+     # FIXME need to make directory
+     open(CONF, ">$config_file") or die "cannot write to $config_file: $!";
 Index: lib/Ask.pm
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/lib/Ask.pm,v
 retrieving revision 1.12
 diff -u -B -b -w -r1.12 Ask.pm
 --- lib/Ask.pm	3 Jan 2004 14:52:53 -0000	1.12
-+++ lib/Ask.pm	9 Jan 2004 01:13:21 -0000
++++ lib/Ask.pm	4 Feb 2004 17:47:26 -0000
 @@ -7,9 +7,18 @@
  
  package XMLTV::Ask;

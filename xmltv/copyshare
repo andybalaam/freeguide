@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rm -rf share/xmltv
+cp -r /usr/share/xmltv ./share/

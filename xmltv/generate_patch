@@ -3,7 +3,7 @@
 # A script to generate a patch from a release of XMLTV to my customised
 # tkgui version.
 
-# Don't forget to run e.g. "cvs update -r V0_5_25" first and resolve any
+# Don't forget to run e.g. "cvs update -r V0_5_28" first and resolve any
 # conflicts.
 
 INITIAL_DIR=`pwd`

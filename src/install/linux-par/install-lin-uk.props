@@ -1,9 +1,10 @@
 region=UK
 
 prefs.1=misc.days_to_grab=4
-prefs.2=commandline.tv_grab.1=\"%misc.xmltv_directory%/xmltv\" tv_grab_uk --offset %offset% --days 1 --output \"%misc.working_directory%/tv-%date%.xmltv\" --share \"%misc.share_directory%\"
+prefs.2=commandline.tv_grab.1=\"%misc.xmltv_directory%/xmltv\" tv_grab_uk --config-file \"%misc.grabber_config%\" --offset %offset% --days 1 --output \"%misc.working_directory%/tv-%date%.xmltv\" --share \"%misc.share_directory%\"
 prefs.3=misc.grabber_start_time=06:00
-prefs.4=commandline.tv_config.1=\"%misc.xmltv_directory%/xmltv\" tv_grab_uk --configure --gui --share \"%misc.share_directory%\"
+prefs.4=misc.grabber_config=%home%/.xmltv/tv_grab_uk.conf
+prefs.5=commandline.tv_config.1=\"%misc.xmltv_directory%/xmltv\" tv_grab_uk --config-file \"%misc.grabber_config%\" --configure --gui --share \"%misc.share_directory%\"
 
 file.1=share/xmltv/tv_grab_uk/channel_ids>%misc.share_directory%/tv_grab_uk/channel_ids
 file.2=share/xmltv/tv_grab_uk/channel_pkgs/adult>%misc.share_directory%/tv_grab_uk/channel_pkgs/adult
