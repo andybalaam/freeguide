@@ -58,6 +58,7 @@ m  means done by Mike Dean
 
 - Release 0.8 (nice features)
 
+- Add firefox to the possible browsers.
 - Facilitating the download of listings outside of FreeGuide
 	(e.g. via a cron job, or at ppp connect)
 - Error message on RegExp error in Favourite editor
@@ -75,7 +76,7 @@ m  means done by Mike Dean
 	KEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command
 	(actually that looks like the HTML editor, but anyway)
 
-- Release 0.7.7 (preferences creep)
+- Release 0.7.8 (preferences creep)
 
 - Choose how old files are before you delete them
 - Ability to save and load preferences (using Java's ability to save to XML)
@@ -90,36 +91,36 @@ m  means done by Mike Dean
   settings.
 - A grid or "now" line that helps see what time programmes are on
 
-- Release 0.7.6 (aesthetics)
+- Release 0.7.7 (aesthetics)
 
 - Go To Now scrolls the personalised listing panel as well as the main panel
 - Coloured favourites categories (text and/or background)
 - Highlight a given channel
 - Make the About box a _lot_ nicer.
 - Show whether a tab has been altered on the Options Dialog
-- Custom web browser option
 - Channel icons
 - Icon to show you can jump to the web site
 - Allow to adjust display time of tooltips
 - Allow to un-choose programmes from Personalised Listing pane
 - Checkbox to stay at now time
 
-- Release 0.7.5 (accessibility, accessibility, accessibility)
+- Release 0.7.6 (accessibility, accessibility, accessibility)
 
+- Fix bug in Italian grabber GUI config
 - Improve accessibility, specifically keyboard shortcuts
 - Shortcut keys for everything
-- Programme info panel (and ability to turn off tooltips)
 - Handle other XMLTV tags
 - Scroll to the most recently selected programme (and highlight it?)
 - ProgrammeJLabel shows which programme is selected
 - Keyboard navigation of programme scrollpane
 - Full test of keyboard navigation
-- Add "contact" page to the docs (and/or as a footer to each page)
-- Add firefox to the possible browsers.
-- Make a list of beta testers
+
+- Release 0.7.5 (minor features)
+
+- Programme info panel (and ability to turn off tooltips)
 - Advertise for beta testers
-- Make a bit of PHP for test reports
-- Fix bug in Italian grabber GUI config
+- Make a standard email form for beta test results
++ Fix problem with tv_split line left from old configurations
 + Allow manual changing of browser command
 + Fix crash on tv-%Y%m%d.xmltv file in data dir
 + Disable Choose Channels button when the grabber command is blank

@@ -16,6 +16,8 @@ prefs.13=commandline.browser_command.3.1=\"C:\\Program Files\\K-Meleon\\k-meleon
 prefs.14=misc.browser.4=Opera
 prefs.15=commandline.browser_command.4.1=\"C:\\Program Files\\Opera7\\opera.exe" \"%filename%\"
 
+prefs.16=commandline.tv_config.2=
+
 file.1=FreeGuide.jar>%misc.install_directory%/FreeGuide.jar
 
 file.2=contributors.html>%misc.install_directory%/contributors.html

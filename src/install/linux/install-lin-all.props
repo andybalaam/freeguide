@@ -20,6 +20,8 @@ prefs.17=commandline.browser_command.5.1=epiphany \"%filename%\"
 prefs.18=misc.browser.6=Netscape
 prefs.19=commandline.browser_command.6.1=netscape \"%filename%\"
 
+prefs.20=commandline.tv_config.2=
+
 file.1=FreeGuide.jar>%misc.install_directory%/FreeGuide.jar
 
 file.2=contributors.html>%misc.install_directory%/contributors.html
