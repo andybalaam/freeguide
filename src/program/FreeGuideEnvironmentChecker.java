@@ -58,7 +58,7 @@ public class FreeGuideEnvironmentChecker {
 		String versionString = System.getProperty("java.version");
 		
 		// Split it
-		Pattern dot = Pattern.compile("\\.|_");
+		Pattern dot = Pattern.compile("\\.|_-");
 		String[] splitVersion = dot.split(versionString);
 		
 		// If we've got something unexpected, say it's wrong
