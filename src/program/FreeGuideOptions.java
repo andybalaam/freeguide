@@ -92,7 +92,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		
 		for(int i=0;i<failedWhat.size();i++) {
 		
-			String what = (String)failedWhat.get(1);
+			String what = (String)failedWhat.get(i);
 			if(what.equals("misc.working_directory")) {
 		
 				panels[panelNo] = new FreeGuideDirectoryWizardPanel();

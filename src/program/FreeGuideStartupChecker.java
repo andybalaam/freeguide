@@ -26,7 +26,7 @@ import java.util.Vector;
  */
 public class FreeGuideStartupChecker {
 
-	public static void runChecks(FreeGuideLauncher launcher, String[] args) {
+	public static void runChecks(FreeGuideLauncher launcher, String[] args, FreeGuidePleaseWait pleaseWait) {
 		
 		// Check the environment is right
 		FreeGuideEnvironmentChecker.runChecks();
@@ -60,13 +60,14 @@ public class FreeGuideStartupChecker {
 		checkFileFailure(prefs.misc, "working_directory", failedWhat);		
 		
 		if(failedWhat.size()>0) {
+			pleaseWait.dispose();
 			// Something's wrong, so begin with configuration
 			FreeGuide.log.info("Checks failed, going into configuration ...");
 			new FreeGuideOptions(launcher, failedWhat).setVisible(true);
 		} else {
 			// All is ok, so begin with viewer
 			FreeGuide.log.info("Checks ok, starting FreeGuide " + FreeGuide.getVersion() + " ...");
-			new FreeGuideViewer(launcher);
+			new FreeGuideViewer(launcher, pleaseWait);
 		}
 		
 	}

@@ -39,6 +39,7 @@ Release 0.7 (less urgent or harder features)
 - am/pm time
 - Option to turn off non-quarter-hour times in programme box.
 - Filter what appears in the grid e.g. only movies
+- Do some profiling and algorithm thinking and get startup time down if poss.
 
 Release 0.6 (most wanted features)
 
@@ -72,6 +73,10 @@ Release 0.5 (mainly bug fixes)
 - Test messing up config and see how it deals
 - Test installing in odd places
 - Test changing various options
+	- Linux
+		+ Bad xmltv dir
+		+ Bad working dir
+		
 - "Choose all" button + "Choose none" button in channels screen
 - When some channels aren't found, still display the others.
 - Add days of week to dropdown and take out year

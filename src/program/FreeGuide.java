@@ -29,8 +29,13 @@ public class FreeGuide implements FreeGuideLauncher {
 	 * The constructor for the class that starts it all.
 	 */
 	public FreeGuide(String[] args) {
+		
+		// Show the Please Wait screen
+		FreeGuidePleaseWait pleaseWait = new FreeGuidePleaseWait();
+		pleaseWait.setVisible(true);
+		
 		// Check various things and then begin
-		FreeGuideStartupChecker.runChecks(this, args);
+		FreeGuideStartupChecker.runChecks(this, args, pleaseWait);
 	}
 
     /**
@@ -63,7 +68,7 @@ public class FreeGuide implements FreeGuideLauncher {
 	}
 	
 	public void reShow() {	
-		new FreeGuideViewer(this);
+		new FreeGuideViewer(this, null);
 	}
 	
 	public static String getVersion() {

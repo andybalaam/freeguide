@@ -41,11 +41,8 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLauncher, FreeGuideSAXInterface {
 
-    public FreeGuideViewer(FreeGuideLauncher newLauncher) {
-		
-		FreeGuidePleaseWait pleaseWait = new FreeGuidePleaseWait();
-		pleaseWait.setVisible(true);
-		
+    public FreeGuideViewer(FreeGuideLauncher newLauncher, FreeGuidePleaseWait pleaseWait) {
+
 		launcher = newLauncher;
 		
 		doingProgs = false;
@@ -63,7 +60,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// Draw the programmes on the screen
         updatePanel();
 
-		pleaseWait.dispose();
+		if(pleaseWait!=null) {
+			pleaseWait.dispose();
+		}
 		
     }
 
@@ -714,19 +713,21 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		Calendar cal = GregorianCalendar.getInstance();
 		
 		File wd = new File(FreeGuide.prefs.performSubstitutions(FreeGuide.prefs.misc.get("working_directory")));
-		String[] files = wd.list();
-		for(int i=0;i<files.length;i++) {
-			// If it's a fgd file, we may want to delete it
-			if(files[i].endsWith(".fgd")) {
-				int len = files[i].length();
-				String dateStr = files[i].substring(len-12, len-4);
-				try {
-					cal.setTime( fileDateFormat.parse(dateStr) );
-					if(cal.before(lastWeek)) {
-						new File(wd + fs + files[i]).delete();
+		if(wd.isDirectory()) {
+			String[] files = wd.list();
+			for(int i=0;i<files.length;i++) {
+				// If it's a fgd file, we may want to delete it
+				if(files[i].endsWith(".fgd")) {
+					int len = files[i].length();
+					String dateStr = files[i].substring(len-12, len-4);
+					try {
+						cal.setTime( fileDateFormat.parse(dateStr) );
+						if(cal.before(lastWeek)) {
+							new File(wd + fs + files[i]).delete();
+						}
+					} catch(java.text.ParseException e) {
+						e.printStackTrace();
 					}
-				} catch(java.text.ParseException e) {
-					e.printStackTrace();
 				}
 			}
 		}
