@@ -79,8 +79,8 @@ public class FreeGuideAbout extends javax.swing.JDialog {
 
         pack();
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(new java.awt.Dimension(310, 238));
-        setLocation((screenSize.width-310)/2,(screenSize.height-238)/2);
+        setSize(new java.awt.Dimension(416, 245));
+        setLocation((screenSize.width-416)/2,(screenSize.height-245)/2);
     }//GEN-END:initComponents
 
 	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

@@ -41,14 +41,14 @@ tools, signal provider + channels)</li>
 this file must be in the same location as the tv_grab_na executable.</li>
 	</ol>
 <li>Type <tt>tv_grab_na --output 
-c:\xmltv\freeguide-tv\unprocessed_listings.xml</tt> [enter]  (this will 
+c:\xmltv\.xmltv\freeguide-tv\unprocessed_listings.xml</tt> [enter]  (this will 
 download our channel listings)</li>
 	<ol>
 	<li>Downloading can take 20 mins if your updating ~40 channels - it is 
 fetching 7 days of listings</li>
 	</ol>
-<li>Type <tt>tv_split --output c:\xmltv\freeguide-tv\%%channel-%Y%m%d.fgd 
-c:\xmltv\freeguide-tv\unprocessed_listings.xml</tt></li>
+<li>Type <tt>tv_split --output c:\xmltv\.xmltv\freeguide-tv\%%channel-%Y%m%d.fgd 
+c:\xmltv\.xmltv\freeguide-tv\unprocessed_listings.xml</tt></li>
  	<ol>
 	<li>Like usual parsing text takes a little time, be patient, if you see a 
 few "unexpected" error messages you can ignore them</li>
