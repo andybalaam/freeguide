@@ -12,10 +12,13 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.GeneralPath;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
@@ -154,26 +157,6 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 
         setBounds(left, top, width, bottom - top);
 
-		// FIXME - put this somewhere where there only needs to be one of it.
-		int noPoints = 8;
-			
-		int[] x = new int[noPoints];
-		int[] y = new int[noPoints];
-			
-		x[0] = width - 8;		y[0] = 14;
-		
-		x[1] = width -13;		y[1] =  6;
-		x[2] = width -13;		y[2] =  4;
-		x[3] = width -10;		y[3] =  2;
-			
-		x[4] = width - 8;		y[4] =  6;
-			
-		x[5] = width - 6;		y[5] =  2;
-		x[6] = width - 3;		y[6] =  4;
-		x[7] = width - 3;		y[7] =  6;
-		
-		heartShape = new Polygon( x, y, noPoints );
-		
 		findOutSelectedness( choices );
 		
         addMouseListener(
@@ -302,12 +285,21 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 	 */
 	protected void drawFavouriteIcon(final Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
+	AffineTransform originalTransform = g2.getTransform();
+
         g2.setColor( viewerFrame.heartColour );
         
         // switch on anti-aliasing
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                              RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.fillPolygon( heartShape );
+	
+	Rectangle bounds = heartShape.getBounds();
+	double scale = 0.5 * (getHeight()/bounds.getHeight());
+	double right = getWidth() - (scale *bounds.getWidth());
+	g2.translate(right, 0);
+	g2.scale(scale, scale);
+	g2.fill( heartShape );
+	g2.setTransform(originalTransform);
     }
 
 
@@ -406,7 +398,17 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 	 */
 	public boolean isFavourite;
 	
-	private Polygon heartShape;
+	private final static Shape heartShape;
+
+	static {
+		GeneralPath path = new GeneralPath();
+		path.moveTo(300, 200);
+		path.curveTo(100, 0, 0, 400, 300, 580);
+		path.moveTo(300, 580);
+		path.curveTo(600, 400, 500, 0, 300, 200);
+		heartShape = path;
+	}
+		
 	private ViewerFrame viewerFrame;
 	private MessageDialogTimer reminderTimer;
 	
