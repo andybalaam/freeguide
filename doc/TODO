@@ -204,6 +204,7 @@ c  means done by Christian Weiske
 - Split the different MVC objects apart as per Risto's email of 28/02/05
 - Increase the sizes of buttons in Channel Sets, Options and First Time Wizard
   so that they fit under the German translation.
+- Use latest XMLTV
 
 + 0.9pre2 (Stabilising MVC work)
 

@@ -68,7 +68,7 @@ public class ChannelSetEditorDialog extends FGDialog
      * @param loader DOCUMENT ME!
      * @param chset DOCUMENT ME!
      */
-    public ChannelSetEditorDialog(
+    public ChannelSetEditorDialog( 
         FGDialog owner, String title, ViewerFrameXMLTVLoader loader,
         ChannelSet chset )
     {
@@ -158,10 +158,10 @@ public class ChannelSetEditorDialog extends FGDialog
         jScrollPane2.setMinimumSize( new java.awt.Dimension( 100, 600 ) );
         channelsetJList.setMinimumSize( new java.awt.Dimension( 100, 600 ) );
         channelsetJList.setVisibleRowCount( 20 );
-        channelsetJList.addListSelectionListener(
+        channelsetJList.addListSelectionListener( 
             new javax.swing.event.ListSelectionListener(  )
             {
-                public void valueChanged(
+                public void valueChanged( 
                     javax.swing.event.ListSelectionEvent evt )
                 {
                     channelsetListChanged( evt );
@@ -184,7 +184,7 @@ public class ChannelSetEditorDialog extends FGDialog
         addButton.setText( FreeGuide.msg.getString( "add_to_set" ) + " >>" );
         addButton.setMaximumSize( new java.awt.Dimension( 135, 26 ) );
         addButton.setMinimumSize( new java.awt.Dimension( 135, 26 ) );
-        addButton.addActionListener(
+        addButton.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -199,13 +199,12 @@ public class ChannelSetEditorDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 0, 5, 0, 5 );
         jPanel1.add( addButton, gridBagConstraints );
 
-        removeButton.setText( "<< " + FreeGuide.msg.getString( "remove" ) );
-        removeButton.setActionCommand(
-            "<<  " + FreeGuide.msg.getString( "remove_from_set" ) );
+        removeButton.setText( 
+            "<< " + FreeGuide.msg.getString( "remove_from_set" ) );
         removeButton.setMaximumSize( new java.awt.Dimension( 135, 26 ) );
         removeButton.setMinimumSize( new java.awt.Dimension( 135, 26 ) );
         removeButton.setPreferredSize( new java.awt.Dimension( 172, 26 ) );
-        removeButton.addActionListener(
+        removeButton.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -225,7 +224,7 @@ public class ChannelSetEditorDialog extends FGDialog
         moveUpButton.setMaximumSize( new java.awt.Dimension( 115, 26 ) );
         moveUpButton.setMinimumSize( new java.awt.Dimension( 115, 26 ) );
         moveUpButton.setPreferredSize( new java.awt.Dimension( 115, 26 ) );
-        moveUpButton.addActionListener(
+        moveUpButton.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -244,7 +243,7 @@ public class ChannelSetEditorDialog extends FGDialog
         moveDownButton.setMaximumSize( new java.awt.Dimension( 115, 26 ) );
         moveDownButton.setMinimumSize( new java.awt.Dimension( 115, 26 ) );
         moveDownButton.setPreferredSize( new java.awt.Dimension( 115, 26 ) );
-        moveDownButton.addActionListener(
+        moveDownButton.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -260,29 +259,45 @@ public class ChannelSetEditorDialog extends FGDialog
         jPanel1.add( moveDownButton, gridBagConstraints );
 
         //make same width
-        int nWidthAdd      = (int)addButton     .getPreferredSize().getWidth();
-        int nWidthRemove   = (int)removeButton  .getPreferredSize().getWidth();
-        int nWidthMoveUp   = (int)moveUpButton  .getPreferredSize().getWidth();
-        int nWidthMoveDown = (int)moveDownButton.getPreferredSize().getWidth();
+        int nWidthAdd = (int)addButton.getPreferredSize(  ).getWidth(  );
+        int nWidthRemove = (int)removeButton.getPreferredSize(  ).getWidth(  );
+        int nWidthMoveUp = (int)moveUpButton.getPreferredSize(  ).getWidth(  );
+        int nWidthMoveDown =
+            (int)moveDownButton.getPreferredSize(  ).getWidth(  );
 
-        if (nWidthRemove > nWidthAdd) {
+        if( nWidthRemove > nWidthAdd )
+        {
             nWidthAdd = nWidthRemove;
         }
-        if (nWidthMoveUp > nWidthAdd) {
+
+        if( nWidthMoveUp > nWidthAdd )
+        {
             nWidthAdd = nWidthMoveUp;
         }
-        if (nWidthMoveDown > nWidthAdd) {
+
+        if( nWidthMoveDown > nWidthAdd )
+        {
             nWidthAdd = nWidthMoveDown;
         }
-        addButton     .setMinimumSize(new Dimension(nWidthAdd, (int)addButton     .getPreferredSize().getHeight()));
-        removeButton  .setMinimumSize(new Dimension(nWidthAdd, (int)removeButton  .getPreferredSize().getHeight()));
-        moveUpButton  .setMinimumSize(new Dimension(nWidthAdd, (int)moveUpButton  .getPreferredSize().getHeight()));
-        moveDownButton.setMinimumSize(new Dimension(nWidthAdd, (int)moveDownButton.getPreferredSize().getHeight()));
 
-        addButton     .setPreferredSize(addButton     .getMinimumSize());
-        removeButton  .setPreferredSize(removeButton  .getMinimumSize());
-        moveUpButton  .setPreferredSize(moveUpButton  .getMinimumSize());
-        moveDownButton.setPreferredSize(moveDownButton.getMinimumSize());
+        addButton.setMinimumSize( 
+            new Dimension( 
+                nWidthAdd, (int)addButton.getPreferredSize(  ).getHeight(  ) ) );
+        removeButton.setMinimumSize( 
+            new Dimension( 
+                nWidthAdd, (int)removeButton.getPreferredSize(  ).getHeight(  ) ) );
+        moveUpButton.setMinimumSize( 
+            new Dimension( 
+                nWidthAdd, (int)moveUpButton.getPreferredSize(  ).getHeight(  ) ) );
+        moveDownButton.setMinimumSize( 
+            new Dimension( 
+                nWidthAdd,
+                (int)moveDownButton.getPreferredSize(  ).getHeight(  ) ) );
+
+        addButton.setPreferredSize( addButton.getMinimumSize(  ) );
+        removeButton.setPreferredSize( removeButton.getMinimumSize(  ) );
+        moveUpButton.setPreferredSize( moveUpButton.getMinimumSize(  ) );
+        moveDownButton.setPreferredSize( moveDownButton.getMinimumSize(  ) );
 
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 1;
@@ -293,7 +308,7 @@ public class ChannelSetEditorDialog extends FGDialog
 
         jPanel3.setMinimumSize( new java.awt.Dimension( 400, 80 ) );
         nameLabel.setHorizontalAlignment( javax.swing.SwingConstants.LEFT );
-        nameLabel.setText(
+        nameLabel.setText( 
             FreeGuide.msg.getString( "channel_set_name" ) + ":" );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
@@ -328,7 +343,7 @@ public class ChannelSetEditorDialog extends FGDialog
         saveButton.setMaximumSize( new java.awt.Dimension( 83, 26 ) );
         saveButton.setMinimumSize( new java.awt.Dimension( 83, 26 ) );
         saveButton.setPreferredSize( new java.awt.Dimension( 83, 26 ) );
-        saveButton.addActionListener(
+        saveButton.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -342,7 +357,7 @@ public class ChannelSetEditorDialog extends FGDialog
         jPanel4.add( saveButton, gridBagConstraints );
 
         cancelButton.setText( FreeGuide.msg.getString( "cancel" ) );
-        cancelButton.addActionListener(
+        cancelButton.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -361,7 +376,7 @@ public class ChannelSetEditorDialog extends FGDialog
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         getContentPane(  ).add( jPanel4, gridBagConstraints );
 
-        jLabel1.setText(
+        jLabel1.setText( 
             FreeGuide.msg.getString( "available_channels" ) + ":" );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
@@ -381,7 +396,7 @@ public class ChannelSetEditorDialog extends FGDialog
         java.awt.Dimension screenSize =
             java.awt.Toolkit.getDefaultToolkit(  ).getScreenSize(  );
         setSize( new java.awt.Dimension( 400, 300 ) );
-        setLocation(
+        setLocation( 
             ( screenSize.width - 400 ) / 2, ( screenSize.height - 300 ) / 2 );
 
     }
@@ -391,7 +406,7 @@ public class ChannelSetEditorDialog extends FGDialog
      *
      * @param evt Description of the Parameter
      */
-    private void channelsetListChanged(
+    private void channelsetListChanged( 
         javax.swing.event.ListSelectionEvent evt )
     {
         checkUpAndDownButtons(  );
@@ -416,7 +431,7 @@ public class ChannelSetEditorDialog extends FGDialog
             {
 
                 int newIndex = oldIndex + 1;
-                csetModel.insertElementAt(
+                csetModel.insertElementAt( 
                     csetModel.remove( oldIndex ), newIndex );
                 channelsetJList.setSelectedIndex( newIndex );
             }
@@ -444,7 +459,7 @@ public class ChannelSetEditorDialog extends FGDialog
             {
 
                 int newIndex = oldIndex - 1;
-                csetModel.insertElementAt(
+                csetModel.insertElementAt( 
                     csetModel.remove( oldIndex ), newIndex );
                 channelsetJList.setSelectedIndex( newIndex );
             }
