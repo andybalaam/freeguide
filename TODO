@@ -46,8 +46,8 @@ Release 0.6
 + Automatic command execution window to replace download screen
 - Dynamic update of command output window
 - Add "Contains" option to title match in favourites
-- Channels should get their own screen
-- New "Redecorate" screen for colours options
++ Channels should get their own screen
++ New "Redecorate" screen for colours options
 - fix in tv_split for de's lack of channels (or fix tv_grab_de to use configure and to do channels
 - Deal with grabber that doesn't use a config file?
 - Choose how old files are before you delete them
@@ -62,20 +62,21 @@ Release 0.6
 
 Release 0.5
 
-- [Wait for XMLTV 0.5]
++ [Wait for XMLTV 0.5]
 - Right-click on a favourite gives option to remove from favs?
     (remove specific favs, but warn if general)
-- Make a jar file that saves out the css file when needed
 - Make downloading work on Windows, from within FreeGuide (requires XMLTV 0.5)
 - Move XML stuff to a separate object
 - Other code rationalisation, FIXMEs, remove commented sections
 - Tidy up FreeGuideOptionsWizard, especially entering and leaving tabs
+- Store the stylesheet CSS code instead of the location of a file (delete css_file option if it's there)
+- Don't confront the user with all the difficult options when they first start
 
 Release 0.4
 
-- Alter Options wizard so focuslost events are replaced with custom thing that works
++ Alter Options wizard so focuslost events are replaced with custom thing that works
 	+ Create directory if it doesn't exist
-	- Do browse buttons
+	+ Do browse buttons
 + Separate channels and customisation screens
 + Setup wizard sets up every param explicitly and subsumes checks.
 + Fix tv_split so it gives a better error when no programmes are found.

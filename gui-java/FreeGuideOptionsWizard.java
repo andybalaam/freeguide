@@ -967,7 +967,7 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 		
 		JFileChooser chooser = new JFileChooser();
     
-		chooser.setCurrentDirectory( new File(txtFilename.getText()) );
+		chooser.setCurrentDirectory( new File(FreeGuide.prefs.performSubstitutions(txtFilename.getText())) );
 		
 		int returnVal;
 		

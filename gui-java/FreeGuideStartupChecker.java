@@ -110,10 +110,14 @@ public class FreeGuideStartupChecker {
 	private static boolean checkRunBefore() {
 		
 		int version_major = FreeGuide.prefs.misc.getInt("version_major", -1);
-		//int version_minor = FreeGuide.prefs.misc.getInt("version_minor", -1);
-		//int version_revision = FreeGuide.prefs.misc.getInt("version_revision", -1);
+		int version_minor = FreeGuide.prefs.misc.getInt("version_minor", -1);
+		int version_revision = FreeGuide.prefs.misc.getInt("version_revision", -1);
 		
-		if(version_major == -1) {
+		// If we'return using an old version, update it here and let return false
+		// so that the first time wizard runs.
+		if(	version_major != FreeGuide.version_major ||
+			version_minor != FreeGuide.version_minor ||
+			version_revision != FreeGuide.version_revision) {
 			FreeGuide.prefs.misc.putInt("version_major", FreeGuide.version_major);
 			FreeGuide.prefs.misc.putInt("version_minor", FreeGuide.version_minor);
 			FreeGuide.prefs.misc.putInt("version_revision", FreeGuide.version_revision);
