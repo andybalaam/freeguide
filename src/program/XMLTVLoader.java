@@ -323,6 +323,13 @@ class XMLTVLoader extends DefaultHandler implements FreeGuideChannelSet{
 				} else {
 					
 					end = parseDate( attrs.getValue("stop") );
+                                        //Watch out for missing end dates!
+                                        if (end.before(start))
+                                        {
+                                         // Give it a fake end time, half an hour after the start
+					end.setTimeInMillis(start.getTimeInMillis());
+					end.add(Calendar.MINUTE, 30);
+                                        }
 					
 				}
 			
