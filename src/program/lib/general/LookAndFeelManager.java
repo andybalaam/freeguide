@@ -36,6 +36,14 @@ public class LookAndFeelManager {
 	static {
 		knownLAFs.put("GTK+",
 			"com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+		// Will need to provide additional information for loading the
+		// configuration file for Synth, but Sun hasn't yet finished
+		// the documentation for the configuration file format. :)
+		// Will incorporate a dynamic contol for specifying Synth
+		// configuration file when Synth is selected or Metal Themes
+		// when Metal is selected.
+		knownLAFs.put("Synth",
+			"javax.swing.plaf.synth.SynthLookAndFeel");
 		knownLAFs.put("MacOS",
 			"com.sun.java.swing.plaf.mac.MacLookAndFeel");
 		knownLAFs.put("Metal",
@@ -44,6 +52,8 @@ public class LookAndFeelManager {
 			"com.sun.java.swing.plaf.motif.MotifLookAndFeel");
 		knownLAFs.put("Windows",
 			"com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		knownLAFs.put("Windows Classic",
+		  "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
 		// LGPL - http://www.incors.org/
 		knownLAFs.put("Kunststoff",
 			"com.incors.plaf.kunststoff.KunststoffLookAndFeel");
@@ -57,11 +67,9 @@ public class LookAndFeelManager {
 		// LGPL - http://gtkswing.sourceforge.net/
 		knownLAFs.put("GTK/Swing",
 			"org.gtk.java.swing.plaf.gtk.GtkLookAndFeel");
-		/* What's the class name?
 		// HippoLF Software Lic - http://www.diod.se/
 		knownLAFs.put("HippoLF",
-			"");
-		*/
+			"se.diod.hippo.plaf.HippoLookAndFeel");
 		// BSD License - http://looks.dev.java.net/
 		knownLAFs.put("JGoodies Plastic",
 			"com.jgoodies.plaf.plastic.PlasticLookAndFeel");
