@@ -47,49 +47,49 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 		doingProgs = false;
 		dontDownload = false;
-		
+
 		// Set up UI
-        initComponents();
-		
+		initComponents();
+
 		// Set the date to today
 		theDate = GregorianCalendar.getInstance();
-		
+
 		// Set up custom UI elements
 		initMyComponents();
-		
-		// Draw the programmes on the screen
-        updatePanel();
 
-		goToNow();
+		// Draw the programmes on the screen
+		updatePanel();
+
+		goToNow(true);
 
 		if(pleaseWait!=null) {
 			pleaseWait.dispose();
 		}
-		
+
     }
 
 	private void updatePanel() {
 		
 		FreeGuide.prefs.flushAll();
-		
+
 		// Find what channels the user has chosen
 		getSelectedChannels();
 
 		// Load the data
 		loadProgrammeData();
 	
-		
+
 		
 		// Error if we're missing programme info
 		if(missingFiles) {
 			
 			if(!dontDownload) {
 				
-			    
+
 			    String msg = "There are missing listings for this day:\n";
-			    for(int i=0; i<channelLoaded.length; i++) {
-				if(!channelLoaded[i]) {
-				    msg += channelNames[i] + "\n";
+			    for(int i=0; i<channelLoaded.size(); i++) {
+				if(channelLoaded.get(i).equals(Boolean.FALSE)) {
+				    msg += channelNames.get(i) + "\n";
 				}
 			    }
 			    msg += "\nDo you want to download more?";
@@ -753,13 +753,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		//  Do the listeners
 		addInnerScrollPaneAdjustmentListeners();
 
-		// Make the dates list
-		makeDatesList();
-		
-		// Choose the current date
-		String datestr = comboBoxDateFormat.format(theDate.getTime());
-		comTheDate.setSelectedItem(datestr);
-	
 		/*JMenuItem menuItem;
 		popProg = new JPopupMenu();
 		menuItem = new JMenuItem("A popup menu item");
@@ -772,18 +765,40 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     }//initMyComponents
     
 	private void goToNow() {
-	
+		goToNow(false);
+	}
+
+	private void goToNow(boolean update) {
 		makeDatesList();
-	
-		comTheDate.setSelectedIndex(0);
-		
-		int tmpScr = timePanel.getNowScroll() - 100;
-		
+
+		int oldDay = theDate.get(Calendar.DAY_OF_YEAR);
+		int oldYear = theDate.get(Calendar.YEAR);
+
+		Calendar now = GregorianCalendar.getInstance();
+		theDate.setTime(now.getTime());
+		updateDaySpan();
+		if (theDate.before(earliest)) theDate.add(Calendar.DAY_OF_YEAR,-1);
+		comTheDate.setSelectedItem(comboBoxDateFormat.format(theDate.getTime()));
+		//comTheDate.setSelectedIndex(0);
+
+		// update now pointer
+		updateDaySpan();
+		timePanel.setTimes(earliest, latest);
+
+		// I suspect, panel is not updated before scroll position is set
+		// This seems to fix things in the case of a day change
+		if (!(oldDay == theDate.get(Calendar.DAY_OF_YEAR) &&
+			oldYear == theDate.get(Calendar.YEAR)) || update) {
+			updatePanel();
+		}
+		//updatePrintedGuide();
+
 		//timeScrollPane.getHorizontalScrollBar().setValue(tmpScr);
-		innerScrollPane.getHorizontalScrollBar().setValue(tmpScr);
+		innerScrollPane.getHorizontalScrollBar().
+			setValue(timePanel.getNowScroll() - 100);
 		
 	}
-	
+
 	/**
 	 * The event procedure for the horizontal scrollpane listener - just
 	 * calls the scrollTime method.
@@ -877,34 +892,31 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// Are we missing any channel files?
 		missingFiles = false;
 		
-		// Find the day's start and end
-		FreeGuideTime divideTime = FreeGuide.prefs.misc.getFreeGuideTime("day_start_time");
-		earliest = GregorianCalendar.getInstance();
-		earliest.setTimeInMillis( theDate.getTimeInMillis() );
-		divideTime.adjustCalendar(earliest);
-		latest = GregorianCalendar.getInstance();
-		latest.setTimeInMillis( theDate.getTimeInMillis() );
-		latest.add( Calendar.DAY_OF_YEAR, 1);
-		divideTime.adjustCalendar(latest);
+		updateDaySpan();
 		
 		programmes = new Vector();
 		
-		for(int curChan=0;curChan<channelNames.length;curChan++) {
+		for(int curChan=0;curChan<channelNames.size();curChan++) {
 		        
 			String wkDir = FreeGuide.prefs.performSubstitutions(FreeGuide.prefs.misc.get("working_directory"));
 	
 			String datestr = fileDateFormat.format(theDate.getTime());
+			Calendar tomorrow = (Calendar)theDate.clone();
+			tomorrow.add(Calendar.DAY_OF_YEAR,1);
+			String datestr2 = fileDateFormat.format(tomorrow.getTime());
 	
-			String xmlFilename = wkDir+fs+channelIDs[curChan]+"-"+datestr+".fgd";
+			String xmlFilename = wkDir+fs+channelIDs.get(curChan)+"-"+datestr+".fgd";
+			String xmlFilename2 = wkDir+fs+channelIDs.get(curChan)+"-"+datestr2+".fgd";
 			
-			if((new File(xmlFilename).exists())) {	// If the file exists
+			if((new File(xmlFilename).exists()) && 
+				(new File(xmlFilename2).exists())) {	// If the file exists
 				
 				//FreeGuide.log.info("Opening programmes file "+xmlFilename);
 				
 				// Load it into memory and process it
 				try {//ParserExceptions etc
 	    
-					DefaultHandler handler = new FreeGuideSAXHandler(programmes, channelIDs, channelNames);
+					DefaultHandler handler = new FreeGuideSAXHandler(programmes, channelIDs, channelNames,earliest,latest);
 					SAXParserFactory factory = SAXParserFactory.newInstance();
 					
 					SAXParser saxParser = factory.newSAXParser();
@@ -914,10 +926,11 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 					// Will be a different name for each channel and whatever
 					// date we're on obviously
 					saxParser.parse(xmlFilename, handler);
+					saxParser.parse(xmlFilename2, handler);
 
 					doingProgs=false;
 					
-					channelLoaded[curChan] = true;
+					channelLoaded.set(curChan,Boolean.TRUE);
 	    
 				} catch(ParserConfigurationException e) {
 					e.printStackTrace();
@@ -931,17 +944,36 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 				
 				// Do nothing because no file exists
 	    
-				FreeGuide.log.warning("Listings file not found: "+xmlFilename);
+				if (!new File(xmlFilename).exists()) {
+					FreeGuide.log.warning("Listings file not found: "+xmlFilename);
+				}
+				if (!new File(xmlFilename2).exists()) {
+					FreeGuide.log.warning("Listings file not found: "+xmlFilename2);
+				}
 				
-				channelLoaded[curChan] = false;
+				channelLoaded.set(curChan,Boolean.FALSE);
 				missingFiles = true;
 				
 			}//if
-			
+
 		}//for
 		
 	}//loadProgrammeData
     
+    private void updateDaySpan() {
+
+		// Find the day's start and end
+		FreeGuideTime divideTime = FreeGuide.prefs.misc.getFreeGuideTime("day_start_time");
+		earliest = GregorianCalendar.getInstance();
+		earliest.setTimeInMillis( theDate.getTimeInMillis() );
+		divideTime.adjustCalendar(earliest);
+		latest = GregorianCalendar.getInstance();
+		latest.setTimeInMillis( theDate.getTimeInMillis() );
+		latest.add( Calendar.DAY_OF_YEAR, 1);
+		divideTime.adjustCalendar(latest);
+
+    }
+	
 	/**
 	 * Given the programme, returns the jlabel displaying it.
 	 *
@@ -1027,7 +1059,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// Delete all the old textareas
 		innerPanel.removeAll();
 		
-		int tmpH = channelIDs.length*channelHeight;
+		int tmpH = channelIDs.size()*channelHeight;
 		innerPanel.setPreferredSize(new java.awt.Dimension(panelWidth, tmpH));
 		innerPanel.setMinimumSize(new java.awt.Dimension(panelWidth, tmpH));
 		innerPanel.setMaximumSize(new java.awt.Dimension(panelWidth, tmpH));
@@ -1050,13 +1082,13 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// Find the multiplier to help us position programmes
 		double widthMultiplier = (double)panelWidth/(double)temporalWidth;
 	
-		channelNamePanel.setPreferredSize(new Dimension(channelPanelWidth, channelIDs.length*channelHeight+50));
+		channelNamePanel.setPreferredSize(new Dimension(channelPanelWidth, channelIDs.size()*channelHeight+50));
 	
-		for(int c=0;c<channelIDs.length;c++) {
+		for(int c=0;c<channelIDs.size();c++) {
 			
-			if(channelLoaded[c]) {
+			if(channelLoaded.get(c).equals(Boolean.TRUE)) {
 			
-				JLabel ctxt = new JLabel(channelNames[c]);
+				JLabel ctxt = new JLabel(channelNames.get(c).toString());
 				//ctxt.setBounds(0, timeScrollPane.getHeight()+(halfVerGap*2)+(c*channelHeight)-1, channelNamePanel.getPreferredSize().width-1, channelHeight-(halfVerGap*4));
 				ctxt.setBounds(0, (halfVerGap*2)+(c*channelHeight)-1, channelNamePanel.getPreferredSize().width-1, channelHeight-(halfVerGap*4));
 	    
@@ -1084,9 +1116,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			
 			// Find the channel number
 			String channelID = prog.getChannelID();
-			Vector tmpChannelIDs = new Vector();
-			tmpChannelIDs.addAll(Arrays.asList(channelIDs));
-			int ch = tmpChannelIDs.indexOf(channelID);
+			int ch = channelIDs.indexOf(channelID);
 			
 			if(ch == -1) {
 				FreeGuide.log.severe("Channel ID " + channelID + "not found when drawing channels.");
@@ -1144,10 +1174,10 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		tickFavsOrChoices();
 				
 		timePanel.setTimes(earliest, latest);
-		
+
 		timePanel.revalidate();
 		timePanel.repaint();
-		
+
 		innerPanel.revalidate();
 		innerPanel.repaint();
 		
@@ -1411,23 +1441,28 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private void getSelectedChannels() {
 		
 		// Get the channel IDs from config file or prefs
-		channelIDs = FreeGuide.prefs.getChannelIDs();
+		channelIDs = new Vector();
+		channelIDs.addAll(Arrays.asList(FreeGuide.prefs.getChannelIDs()));
 		
-		channelLoaded = new boolean[channelIDs.length];
+		channelLoaded = new Vector(channelIDs.size());
 		
 		// Set default channel names, same as IDs
-		channelNames = new String[channelIDs.length];
-		for(int i=0;i<channelIDs.length;i++) {
-			channelNames[i] = channelIDs[i];
+		channelNames = new Vector(channelIDs.size());
+		for(int i=0;i<channelIDs.size();i++) {
+			//System.out.println(channelIDs.get(i).toString());
+			channelNames.add(channelIDs.get(i));
+			channelLoaded.add(new Boolean("false"));
 		}
 		
     }
 	
-	public String[] getChannelIDs() {
+	//public String[] getChannelIDs() {
+	public Vector getChannelIDs() {
 		return channelIDs;
 	}
 	
-	public String[] getChannelNames() {
+	//public String[] getChannelNames() {
+	public Vector getChannelNames() {
 		return channelNames;
 	}
 	
@@ -1479,13 +1514,16 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     // End of variables declaration//GEN-END:variables
     
 	
-	private String[] channelIDs;
+	//private String[] channelIDs;
+	private Vector channelIDs;
 		// The IDs of the channels the user has chosen
-    private String[] channelNames;
+	//private String[] channelNames;
+	private Vector channelNames;
 		// The names of the channels the user has chosen
 	//private boolean[] channelNamed;
 		// Has this channel had its name set?
-	private boolean[] channelLoaded;
+	//private boolean[] channelLoaded;
+	private Vector channelLoaded;
     
     
 

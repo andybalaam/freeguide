@@ -18,12 +18,24 @@ import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class FreeGuideSAXHandler extends DefaultHandler {
-
+/*
     public FreeGuideSAXHandler(Vector programmes, String[] channelIDs, String[] channelNames) {
 		this.programmes = programmes;
 		this.channelIDs = channelIDs;
 		this.channelNames = channelNames;
 		channelNamed = new boolean[channelIDs.length];
+    }
+*/
+    public FreeGuideSAXHandler(Vector programmes, Vector channelIDs, Vector channelNames, Calendar earliest, Calendar latest) {
+		this.programmes = programmes;
+		this.channelIDs = channelIDs;
+		this.channelNames = channelNames;
+		this.earliest=earliest;
+		this.latest=latest;
+		channelNamed = new Vector();
+		for(int i=0;i<channelIDs.size();i++) {
+			channelNamed.add(new Boolean("false"));
+		}
     }
 
     public void startDocument() {  
@@ -97,7 +109,11 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 		//FreeGuide.log.info(name);
 		
 		if(saxLoc.equals(":tv:programme")) {
-			programmes.add(currentProgramme);
+			if (currentProgramme.getEnd().after(earliest) &&
+			currentProgramme.getStart().before(latest)) {
+				programmes.add(currentProgramme);
+				//System.out.println("Programme Channel Name: "+currentProgramme.getChannelName());
+			}
 			currentProgramme = null;
 		}
 		
@@ -137,16 +153,22 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 			
 			// Remember the name of the channel we're looking at
 			
-			// Get the channelIDs into a Vector
-			Vector tmpChannelIDs = new Vector(Arrays.asList(channelIDs));
-			
 			// If it's a channel we're interested in
 			// and it's not been named already, remember the name
-			int i = tmpChannelIDs.indexOf(tmpChannelID);
-			if(i!=-1 && !channelNamed[i]) {
-				channelNames[i] = data;
-				channelNamed[i] = true;
+			int i = channelIDs.indexOf(tmpChannelID);
+			//System.out.println(i + " - " +tmpChannelID+" - "+data);
+			if(i!=-1 && channelNamed.get(i).equals(Boolean.FALSE)) {
+				channelNames.set(channelIDs.indexOf(tmpChannelID),new String(data));
+				channelNamed.set(channelIDs.indexOf(tmpChannelID),new Boolean("true"));
+				//System.out.println("set: "+channelNames.get(channelIDs.indexOf(tmpChannelID)));
 			}
+			// if it's a new channel, we can add it here
+			//if(i==-1) {
+			//	channelIDs.add(tmpChannelID);
+			//	channelNames.add(new String(data));
+			//	channelNamed.add(new Boolean("true"));
+			//	//System.out.println("add: "+channelNames.get(channelIDs.indexOf(tmpChannelID)));
+			//}
 			
 		}//if
 	
@@ -161,14 +183,10 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 	 */
 	private String getChannelName(String channelID) {
 		
-		// Get the channelIDs into a Vector
-		Vector tmpChannelIDs = new Vector();
-		tmpChannelIDs.addAll(Arrays.asList(channelIDs));
-		
 		// If the ID exists
-		int i = tmpChannelIDs.indexOf(tmpChannelID);
+		int i = channelIDs.indexOf(channelID);
 		if(i != -1) {
-			return channelNames[i];
+			return channelNames.get(i).toString();
 		} else {
 			FreeGuide.log.warning("Unknown channel ID in request for channel name.");
 			return "Unknown Channel";
@@ -191,11 +209,16 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 		// The programme we're loading in now
 		
 	private Vector programmes;	// The vector of programmes we're filling
-	private String[] channelIDs;
+	//private String[] channelIDs;
+	private Vector channelIDs;
 		// The IDs of the channels the user has chosen
-    private String[] channelNames;
+	//private String[] channelNames;
+	private Vector channelNames;
 		// The names of the channels the user has chosen
-	private boolean[] channelNamed;
+	//private boolean[] channelNamed;
+	private Vector channelNamed;
 		// Has this channel had its name set?
-	
+	//private boolean[] channelLoaded;
+	Calendar earliest;
+	Calendar latest;
 }

@@ -14,7 +14,7 @@
 <ol>
 <li>Download and install the Java Runtime Environment, Version 1.4 at least.  To find out whether you've got this, open a CMD Window (MS-DOS window), and type <tt>java -version</tt>.  If it says you've got an earlier version, or if you get an error, you need to get an upgrade from <a href="http://java.sun.com/j2se/">http://java.sun.com/j2se/</a>.</li>
 
-<li>Set your environment variable "TZ" to your time zone. ("EST5EDT" refers to New York timezone, so you'll need to adjust it, e.g to GMT0EDT for London.)  Here's how:</li>
+<li>Set your environment variable "TZ" to your time zone. ("EST5EDT" refers to New York timezone, so you'll need to adjust it, e.g to "GMT" for London.)  Here's how:</li>
 	<p><b>With Windows 2000/XP:</b>
 	<ul>
 	<li>Right Click "My Computer" --> Properties</li>
@@ -40,9 +40,13 @@ if you're from the UK, or<br>
 <tt>tv_grab_na --configure</tt><br>
 if you're from North America</p>
 
+<p>Note: if you have the HOME environment variable set (if you don't know, you almost certainly haven't) you'll need e.g. <br> <tt>cd "c:\Program Files\freeguide-tv\xmltv"<br />
+tv_grab_uk --config-file tv_grab_uk --configure</tt><br>
+to ensure the channels file appears in the right place.</p>
+
 <p>Now follow the instructions and provide the info you're asked for.  This will configure your listings grabber.  Now you can run FreeGuide.</p>
 
-<p><b>Note for UK users (using tv_grab_uk): don't use the regional analogue TV settings.  Instead, say no to the various options and then at the end name each channel you want individually.  FreeGuide doesn't support the regional way of working as it needs to know the name of each channel explicitly.</b></p>
+<p><b>Note for UK users (using tv_grab_uk): don't use the regional analogue TV settings, or the radio option.  Instead, say no to the various options and then at the end name each channel you want individually.  FreeGuide doesn't support the regional way of working as it needs to know the name of each channel explicitly.</b></p>
 
 <li>To start FreeGuide, double-click on "FreeGuide.jar" in "C:\Program Files\freeguide-tv\" from Windows Explorer.  You can create a shortcut by right-clicking on it, and then drag this onto your desktop if you want.</li>
 

@@ -7,6 +7,7 @@ feel like it.
 - means to do
 + means done by Andy Balaam
 x means done by Sagar Shah
++ means done by Walter Duncan
 
 --------------------------------------------
 
@@ -35,53 +36,66 @@ x means done by Sagar Shah
 - Consider a C++ installer that just checks for the right java version before
   running the Java installer.
 
-- Release 0.5 (less urgent or harder features)
+- Release 0.6 (nice features)
 
 - Alert me when my programme starts
-- coloured programme categories and favourites
 - am/pm time
-- Option to turn off non-quarter-hour times in programme box.
-- Filter what appears in the grid e.g. only movies
 - Do some profiling and algorithm thinking and get startup time down if poss.
-- Fix bug with long tooltips not wrapping on Linux. How?
 - Fix feature that if you reinstall to a new dir the old install can't be
 	uninstalled (well, you have to delete the directory instead...)
 - Help manual
-- Multiline tooltips if too long
-- Remove capability to support grabber without --configure step if that's the way it's going.
-- OR deal with grabber that doesn't use a config file? (aka get tv_grab_de working)
-- Choose how old files are before you delete them
 - Properties box for a programme showing longer descriptions, other DTD stuff
-- Terms and conditions of listings
-- --configure support for tv_grab_na and uk (talk to XMLTV people) (this should be in the installer probably)
-- --days support
 - Further visual enhancements and customisability
+- Other installer features? e.g. single installer for Linux that
+	lets you choose your location
+- single channel view
+- Facilitating the download of listings outside of FreeGuide
+	(e.g. via a cron job, or at ppp connect)
+	
+- Release 0.5.1 (non-urgent minor features)
+
+- Multiline tooltips if too long
+- Choose how old files are before you delete them
+- Terms and conditions of listings
+- Option to turn off non-quarter-hour times in programme box.
 - Ability to save and load preferences (using Java's ability to save to XML)
-- Other code rationalisation, FIXMEs, remove commented sections
+- Make a subclass of JLabel that represents the visual display of a programme
+	and record e.g. is it a favourite, is it ticked?
+- Hence rewrite FreeGuideViewer much better
+- Shortcut keys for everything
+	
+- Release 0.5 (overhaul of interaction between FreeGuide and xmltv)
+
+- GUI to deal with --configure step and any other post-install, pre-use stuff
+	(part of installer)
+- Which channels appear depends entirely on what listings have been downloaded
+- Support for new grabbers 
+- Ability to control how many days are downloaded
+- Don't bother over-writing already-downloaded info (unless user wants it)
+  
+- Release 0.4.4 (minor features and bug fixes)
+
+- coloured programme categories and favourites
+- Allow changing of font sizes from customise screen
 - Separate classes into packages
+- Code rationalisation, FIXMEs, remove commented sections
 - Refactor to rename losing FreeGuide prefix to most classes
 - Make FreeGuideInstaller not implement FreeGuideLauncher
 - Make installer install shortcuts for Windows, Gnome and KDE
 - Make installer launch FreeGuide and/or a README file.
-- Other installer features? e.g. one installer for Linux that lets you choose.
-- Make a subclass of JLabel that represents the visual display of a programme
-	and record e.g. is it a favourite, is it ticked?
-- Hence rewrite FreeGuideViewer much better
-- Fix GoToNow to deal with days dividing at non-midnight times.
-- Fix what happens when you go through to another day then click GoToNow
-- Allow changing of font sizes from customise screen
-- fix in tv_split for de's lack of channels (or fix tv_grab_de to use configure and to do channels
+- Include tv_split in Linux installer
 - Dynamic update of command output window
 - Fix possible NullPointerException in StartupChecker.checkFileFailure
-- Shortcut keys for everything
-- single channel view
-- Facilitating the download of listings outside of FreeGuideTv (e.g. via a cron job, or at ppp connect)
-x When FreeGuide starts, automatically "GoToNow" rather than staying at start of day
-x GoToNow shouldn't put the "now" arrow right at the edge of the screen
-x Display which channels are missing when some listings are missing.
 - Change READMEs etc to point to http://java.sun.com/getjava/
   and point users to this with the installer too.
 - Make the command output screen on the downloader less confusing for newbies
+* Fix GoToNow to deal with days dividing at non-midnight times.
+* Fix what happens when you go through to another day then click GoToNow
+x When FreeGuide starts, automatically "GoToNow" rather than staying at start of day
+x GoToNow shouldn't put the "now" arrow right at the edge of the screen
+x Display which channels are missing when some listings are missing.
+* Fix bug that means you don't see "now" when FreeGuide starts
+* Load today's and tomorrow's listings to allow GoToNow to work
 
 + Release 0.4.3 (most wanted features)
 

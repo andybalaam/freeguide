@@ -83,8 +83,8 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 		channelNames = ((FreeGuideViewer)launcher.getLauncher()).getChannelNames();
 		
 		cmbChannel.addItem("");
-		for(int i=0;i<channelNames.length;i++) {	
-			cmbChannel.addItem(channelNames[i]);
+		for(int i=0;i<channelNames.size();i++) {
+			cmbChannel.addItem(channelNames.get(i));
 		}
 		
 		Calendar cal = GregorianCalendar.getInstance();
@@ -204,15 +204,13 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 	}
 	
 	private String getChannelNameFromID(String id) {
-		Vector ids = new Vector(Arrays.asList(channelIDs));
-		int i = ids.indexOf(id);
-		return channelNames[i];
+		int i = channelIDs.indexOf(id);
+		return channelNames.get(i).toString();
 	}
 	
 	private String getChannelIDFromName(String name) {
-		Vector names = new Vector(Arrays.asList(channelNames));
-		int i = names.indexOf(name);
-		return channelIDs[i];
+		int i = channelNames.indexOf(name);
+		return channelIDs.get(i).toString();
 	}
 	
 	private void calcTxtName() {
@@ -608,8 +606,8 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbTitle;
     // End of variables declaration//GEN-END:variables
 	
-	String[] channelIDs;
-	String[] channelNames;
+	Vector channelIDs;
+	Vector channelNames;
 	
 	FreeGuideFavourite favourite;
 	FreeGuideLauncher launcher;
