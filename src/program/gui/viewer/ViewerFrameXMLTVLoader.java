@@ -596,7 +596,9 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
 
             if (currentProgramme != null) {
                 currentProgramme.addCategory( data );
-                if (data.equalsIgnoreCase("Film")) {
+                if( data.equalsIgnoreCase("Film")
+                    || data.equalsIgnoreCase("CINE") )
+                {
                     currentProgramme.setIsMovie(true);
                 }
             }
