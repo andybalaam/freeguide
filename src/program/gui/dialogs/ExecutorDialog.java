@@ -63,8 +63,9 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
                 (screenSize.height - getHeight()) / 2);
 
         // Set the please wait message
-        labPleaseWait.setText(commandType
-            + FreeGuide.msg.getString( "comma_please_wait" ) );
+        Object[] messageArguments = { commandType };
+        labPleaseWait.setText( FreeGuide.getCompoundMessage(
+            "comma_please_wait_template", messageArguments ) );
         setTitle(commandType);
 
         viewer = new StringViewer( this,
@@ -110,8 +111,9 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
                 (screenSize.height - getHeight()) / 2);
 
         // Set the please wait message
-        labPleaseWait.setText(commandType
-            + FreeGuide.msg.getString( "comma_please_wait" ) );
+        Object[] messageArguments = { commandType };
+        labPleaseWait.setText( FreeGuide.getCompoundMessage(
+            "comma_please_wait_template", messageArguments ) );
         setTitle(commandType);
 
         viewer = new StringViewer( this,

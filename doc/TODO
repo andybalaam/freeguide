@@ -77,6 +77,22 @@ c  means done by Christian Weiske
 - Make hearts appear on favourites.
 - Make it internationalised
 - Fix the flickering personalised guide when you exit the favourites list
+- If a link for a program in the "personalized tv guide" is clicked, the
+  program view scrolls to it. It would be also nice if the detail view
+  would change to it. 
+- after clicking on the "Edit channel sets" item in the channel set
+  dropdown, it stays selected. It would be nice if the previous selected
+  item would be selected again.
+- Personalised guide for the next X days.
+- Brief summary for the next few days.
+- Automatically make a channel set when you right-click a channel and choose
+  "Move up" (or even drag!)
+- Support --xxx=yyy style options on the command line
+- Unsplit (Times should be entered as "hh:mm") strings in favourite editor
+- Sometimes you can't click on certain programmes, but you can navigate to them
+  with the keyboard 
++ Merge with HEAD
++ Fix favourites behaviour to get back what it did before
 + Rename things so "selected" means cursor is on you, "in guide" means chosen/
   highlighted/shown in personalised guide, and "favourite" mean is a favourite.
   (Later, "reminder" will mean you will be reminded, and "recorded" will

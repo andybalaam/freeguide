@@ -42,21 +42,21 @@ public class FreeGuide {
         // Also set up a log and the preferences classes.
         StartupChecker.basicSetup( args );
 
-        String language;
-        String country;
         if( arguments.isSet( "language" ) ) {
+
+            String country = arguments.getValue( "country" );
+            if( country == null ) {
+                country = "";
+            }
             
-            language = arguments.getValue( "language" );
-            country  = arguments.getValue( "country" );
+            locale = new Locale( arguments.getValue( "language" ), country );
             
         } else {
             
-            language = "en";
-            country  = "GB";
+            locale = Locale.getDefault();
             
         }
         
-        locale = new Locale( language, country );
         msg = ResourceBundle.getBundle( "resources/MessagesBundle", locale );
         
         // Find out what the documents directory is from the command line

@@ -352,9 +352,11 @@ public class ProgrammeFormat {
         }
             
         if (dateFormat != null) {
-            toAppendTo.append( " ends " )
-                .append( dateFormat.format(
-                    programme.getEnd().getTime() ) );
+            toAppendTo.append( " " );
+            Object[] messageArguments = { dateFormat.format(
+                programme.getEnd().getTime() ) };
+            toAppendTo.append( FreeGuide.getCompoundMessage( "ends_template",
+                messageArguments ) );
         }
         
         if (programmeCategory != null) {
@@ -455,15 +457,16 @@ public class ProgrammeFormat {
      * @param startTime starting time of the program
      * @param toAppend StringBuffer the resulting string gets added to
      */
-    private void calcTimeDelta(Calendar startTime, StringBuffer toAppend) {
-        // Get the current time and calculates the difference in minutes from the starting time
-        // >0 in future
+    private void calcTimeDelta( Calendar startTime, StringBuffer toAppend ) {
+        // Get the current time and calculates the difference in minutes
+        // from the starting time.  >0 means in the future
         GregorianCalendar now = new GregorianCalendar();
         long delta = startTime.getTimeInMillis() - now.getTimeInMillis();
         delta /= 60000;
 
-        // If delta = 0 then it starts now and we leave as there's nothing else to do
-        if (delta == 0) {
+        // If delta = 0 then it starts now and we leave as there's
+        // nothing else to do
+        if( delta == 0 ) {
             toAppend.append( FreeGuide.msg.getString( "starts_now" ) );
             return;
         }
@@ -473,59 +476,58 @@ public class ProgrammeFormat {
         int hours = (int)((delta / 60) % 60);
         int minutes = (int)(delta %60);
         
-        if (delta>0) {
-            toAppend.append( FreeGuide.msg.getString( "starts_in" ) );
-            toAppend.append( " " );
-        }
-        if (delta<0) {
-            toAppend.append( FreeGuide.msg.getString( "started" ) );
-            toAppend.append( " " );
+        if( delta > 0 ) {
+            
+            if( days == 1 ) {
+                toAppend.append( FreeGuide.msg.getString(
+                    "starts_in_1_day" ) );
+            } else if( days > 1 ) {
+                Object[] messageArguments = { new Integer( days ) };
+                toAppend.append( FreeGuide.getCompoundMessage(
+                    "starts_in_days_template", messageArguments ) );
+            } else if( hours == 1 ) {
+                toAppend.append( FreeGuide.msg.getString(
+                    "starts_in_1_hour" ) );
+            } else if( hours > 1 ) {
+                Object[] messageArguments = { new Integer( hours ) };
+                toAppend.append( FreeGuide.getCompoundMessage(
+                    "starts_in_hours_template", messageArguments ) );
+            } else if( minutes == 1 ) {
+                toAppend.append( FreeGuide.msg.getString(
+                    "starts_in_1_minute" ) );
+            } else {
+                Object[] messageArguments = { new Integer( minutes ) };
+                toAppend.append( FreeGuide.getCompoundMessage(
+                    "starts_in_minutes_template", messageArguments ) );
+            }
+
+        } else {
+            
+            if( days == -1 ) {
+                toAppend.append( FreeGuide.msg.getString(
+                    "started_1_day_ago" ) );
+            } else if( days < -1 ) {
+                Object[] messageArguments = { new Integer( -days ) };
+                toAppend.append( FreeGuide.getCompoundMessage(
+                    "started_days_ago_template", messageArguments ) );
+            } else if( hours == -1 ) {
+                toAppend.append( FreeGuide.msg.getString(
+                    "started_1_hour_ago" ) );
+            } else if( hours < -1 ) {
+                Object[] messageArguments = { new Integer( -hours ) };
+                toAppend.append( FreeGuide.getCompoundMessage(
+                    "started_hours_ago_template", messageArguments ) );
+            } else if( minutes == -1 ) {
+                toAppend.append( FreeGuide.msg.getString(
+                    "started_1_minute_ago" ) );
+            } else {
+                Object[] messageArguments = { new Integer( -minutes ) };
+                toAppend.append( FreeGuide.getCompoundMessage(
+                    "started_minutes_ago_template", messageArguments ) );
+            }
+            
         }
         
-        switch (days) {
-            case 0: break;
-            case 1:
-            case -1:
-                toAppend.append( FreeGuide.msg.getString( "1_day" ) );
-                break;
-            default:
-                toAppend.append( Math.abs( days) );
-                toAppend.append( " " );
-                toAppend.append( FreeGuide.msg.getString( "days" ) );
-        }
-        if (days != 0 && hours != 0)
-            toAppend.append(" ");
-        switch (hours) {
-            case 0: break;
-            case 1:
-            case -1:
-                toAppend.append( FreeGuide.msg.getString( "1_hour" ) );
-                break;
-            default:
-                toAppend.append( Math.abs(hours) );
-                toAppend.append( " " );
-                toAppend.append( FreeGuide.msg.getString( "hours" ) );
-        }
-        if ((days != 0 || hours != 0) && minutes != 0)
-            toAppend.append(" ");
-        switch (minutes) {
-            case 0: break;
-            case 1:
-            case -1:
-                toAppend.append( FreeGuide.msg.getString( "1_minute" ) );
-                break;
-            default:
-                toAppend.append( Math.abs( minutes ) );
-                toAppend.append( " " );
-                toAppend.append( FreeGuide.msg.getString( "minutes" ) );
-        }
-        if (delta<0) {
-            toAppend.append( " " );
-            toAppend.append( FreeGuide.msg.getString( "ago" ) );
-        }
     }
 }
 
-/* Old ToolTip format:
- * StartTime Title: Subtitle - ShortDescription (StarString) (PreviouslyShown)
- */

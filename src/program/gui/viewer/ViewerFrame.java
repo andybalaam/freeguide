@@ -1938,7 +1938,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
     public void downloadListings() {
         
         Utils.execAndWait(this, FreeGuide.prefs.getCommands("tv_grab"),
-            FreeGuide.msg.getString( "downloading" ), theDate);
+            FreeGuide.msg.getString( "downloading_vf" ), theDate);
 
         reShow();
             

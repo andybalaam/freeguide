@@ -138,9 +138,10 @@ public class ProgrammeRenderer
                         viewerFrame.reminderTimer.cancel();
                     }
                     viewerFrame.reminderTimer = new MessageDialogTimer();
+                    Object[] messageArguments = { programme.getTitle() };
                     viewerFrame.reminderTimer.schedule(
-                        programme.getTitle() + " " +
-                            FreeGuide.msg.getString( "is_starting_soon" ),
+                        FreeGuide.getCompoundMessage(
+                            "is_starting_soon_template", messageArguments ),
                         reminderStartTime,
                         reminderEndTime
                     );

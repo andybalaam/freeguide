@@ -73,8 +73,9 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         
         gbe.addFWXWYGW( splitPane    , 0, 0, gbe.FILL_BOTH, 1, 1, 3 );
         gbe.addAWXWY  ( defaultButton, 0, 1, gbe.ANCH_WEST, 1, 0 );
-        gbe.addWXWY   ( cancelButton , 1, 1,                0, 0 );
-        gbe.addWXWY   ( okButton     , 2, 1,                0, 0 );
+        gbe.addWXWY   ( okButton     , 1, 1,                0, 0 );
+        gbe.addWXWY   ( cancelButton , 2, 1,                0, 0 );
+        
         
         splitPane.setLeftComponent( menuScrollPane );
         splitPane.setRightComponent( optionsScrollPane );

@@ -139,10 +139,10 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
         ans.append( "<html>" ).append( lineBreak );
         ans.append( "<head>").append( lineBreak );
         ans.append( "  <title>" );
-        ans.append( FreeGuide.msg.getString( "tv_guide_for" ) );
-        ans.append( " " );
-        ans.append( parentViewerFrame.htmlDateFormat.format(
-                parentViewerFrame.theDate.getTime() ) );
+        Object[] messageArguments = { parentViewerFrame.htmlDateFormat.format(
+            parentViewerFrame.theDate.getTime() ) };
+        ans.append( FreeGuide.getCompoundMessage(
+            "tv_guide_for_template", messageArguments ) );
         ans.append( "</title>" ).append( lineBreak );
         ans.append( "  <style type='text/css'>").append( lineBreak );
         ans.append( "    h1 {").append( lineBreak );
@@ -184,23 +184,25 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
         ans.append( "<body>").append( lineBreak );
         ans.append( "  <h1>" );
         
-        if (onScreen) {
+        if( onScreen ) {
             
             ans.append(
-                "<font face='helvetica, helv, arial, sans serif' size=4>" );
-            ans.append( FreeGuide.msg.getString(
-                "your_personalised_tv_guide_for" ) );
-            ans.append( " " );
-            ans.append( parentViewerFrame.htmlDateFormat.format(
-                    parentViewerFrame.theDate.getTime() ) );
+                "<font face='helvetica, helv, arial, sans serif' size='4'>" );
+            Object[] messageArguments2 = {
+                parentViewerFrame.htmlDateFormat.format(
+                    parentViewerFrame.theDate.getTime() ) };
+            ans.append( FreeGuide.getCompoundMessage(
+                "your_personalised_tv_guide_for_template",
+                messageArguments2 ) );
             ans.append( "</font>" );
             
         } else {
             
-            ans.append( FreeGuide.msg.getString( "tv_guide_for" ) );
-            ans.append( " " );
-            ans.append( parentViewerFrame.htmlDateFormat.format(
-                parentViewerFrame.theDate.getTime() ) );
+            Object[] messageArguments2 = {
+                parentViewerFrame.htmlDateFormat.format( 
+                    parentViewerFrame.theDate.getTime() ) };
+            ans.append( FreeGuide.getCompoundMessage(
+            "tv_guide_for_template", messageArguments2 ) );
                 
         }
 
