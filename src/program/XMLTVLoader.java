@@ -452,7 +452,7 @@ class XMLTVLoader extends DefaultHandler implements FreeGuideChannelSet{
 			if(currentProgramme!=null) {
 				currentProgramme.addCategory(data);
                                 //DMT handle UK Movie
-                                if (data.equalsIgnoreCase("Film") || data.equalsIgnoreCase("Movie/Drama"))
+                                if (data.equalsIgnoreCase("Film"))
                                 {
                                     currentProgramme.setIsMovie(true);
                                 }

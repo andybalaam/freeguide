@@ -1621,11 +1621,13 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 				prog.getChannelName() + ", ends " + 
 				usetimeformat.format( prog.getEnd().getTime() ) + "<br>" + 
 				prog.getLongDesc();
-                                if (prog.getPreviouslyShown())
-                                    ans += "(Repeat)" + "<br>";
-                                if (prog.getIsMovie())
-                                       ans += "Rating: " + prog.getStarRating() + "<br>";
-                                ans += "</p>" + lineBreak;
+                if (prog.getPreviouslyShown()) {
+					ans += "(Repeat)" + "<br>";
+				}
+                if (prog.getIsMovie() && prog.getStarRating() != null ) {
+					ans += " Rating: " + prog.getStarRating() + "<br>";
+				}
+                ans += "</p>" + lineBreak;
 				
 			}
     

@@ -39,7 +39,6 @@ D  means work in progress by Dave Torok
 	- How to print on Windows?
 	- Use Java's printing capabilities?
 - Use JNI for grabber etc?
-- Facilitate community devt of default settings in each situation (how?)
 - FAQ?
 - Other platforms - investigate Mac, BSD, others
 - Consider a C++ installer that just checks for the right java version before
@@ -47,6 +46,8 @@ D  means work in progress by Dave Torok
 - Automated bug reporting e.g. when the grabber fails.
 - Automate upgrading XMLTV without upgrading FreeGuide?
 - rpm/deb/proper Linux installer
+- Integration with PIMs (http://www.imc.org/pdi/) and cron to alert when
+	programmes are going to start
   
 - Release 0.7 (nice features)
 
