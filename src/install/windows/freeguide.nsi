@@ -111,7 +111,6 @@ Section "FreeGuide program"
   File /oname=doc\FreeGuide-0_7-Linux-MetalLookAndFeel.png ..\..\..\doc\FreeGuide-0_7-Linux-MetalLookAndFeel.png
   File /oname=doc\index.html ..\..\..\doc\index.html
   File /oname=doc\INSTALL-linux-noxmltv.html ..\..\..\doc\INSTALL-linux-noxmltv.html
-  File /oname=doc\INSTALL-windows.html ..\..\..\doc\INSTALL-windows.html
   File /oname=doc\LookAndFeel.html ..\..\..\doc\LookAndFeel.html
   File /oname=doc\README.html ..\..\..\doc\README.html
   File /oname=doc\stylesheet.css ..\..\..\doc\stylesheet.css

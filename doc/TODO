@@ -57,7 +57,7 @@ w  means done by William Ballard
 - Search for programmes
 - Fix Debian bug #285715 http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=285715
 
-- Release 0.8.6 (nice features)
+- Release 0.8.7 (nice features)
 
 - Run an exe when a programme is about to start and/or end
 - Make scrollbar increment in fractions of hours on mouse wheel or click.
@@ -80,7 +80,7 @@ w  means done by William Ballard
 - x-dist icon support in RPM http://www.hyperborea.org/software/dillo/dillo.spec
 - Look into SQL engines: http://www.mckoi.com/database/
 	
-- Release 0.8.5 (preferences creep)
+- Release 0.8.6 (preferences creep)
 
 - Choose how old files are before you delete them
 - Ability to save and load preferences (using Java's ability to save to XML)
@@ -99,7 +99,7 @@ w  means done by William Ballard
 - Allow selection only of programmes on channels that are currently displayed
 - Fix bug with favourites creating multiple chosen programmes
 
-- Release 0.8.4 (aesthetics)
+- Release 0.8.5 (aesthetics)
 
 - Go To Now scrolls the personalised listing panel as well as the main panel
 - Coloured favourites categories (text and/or background)
@@ -118,7 +118,7 @@ w  means done by William Ballard
 - Display programme categories, and allow colours to indicate category.
 - Add firefox to the possible browsers.
 
-- Release 0.8.3 (accessibility, accessibility, accessibility)
+- Release 0.8.4 (accessibility, accessibility, accessibility)
 
 - Improve accessibility, specifically keyboard shortcuts
 - Shortcut keys for everything
@@ -165,6 +165,11 @@ w  means done by William Ballard
 - Allow resizing fonts in HTML displays
 - Delete all registry entries on Windows uninstall
 - Check whether you really need to set the timezone.
+
++ Release 0.8.3 (Java 1.4)
+
++ Make it work with Java 1.4
++ Remove INSTALL-windows.html from docs.
 
 + Release 0.8.2 (new xmltv + minor stuff)
 

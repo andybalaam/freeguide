@@ -71,7 +71,6 @@ ant clean
 %{_datadir}/doc/freeguide/FreeGuide-0_7-Linux-MetalLookAndFeel.png
 %{_datadir}/doc/freeguide/index.html
 %{_datadir}/doc/freeguide/INSTALL-linux-noxmltv.html
-%{_datadir}/doc/freeguide/INSTALL-windows.html
 %{_datadir}/doc/freeguide/LookAndFeel.html
 %{_datadir}/doc/freeguide/README.html
 %{_datadir}/doc/freeguide/stylesheet.css

@@ -90,7 +90,7 @@
   	<target name="compile" depends="init" description="compile the source " >
 
   		<!-- compile all the .java files -->
-		<javac srcdir="${src}/program" destdir="${build}/program" deprecation="on" />
+		<javac srcdir="${src}/program" destdir="${build}/program" deprecation="on" source="1.4" target="1.4" />
 
   		<!-- copy in the required images (flash screen) -->
   		<copy todir="${build}/program" file="${src}/images/logo-256x256.png" />
