@@ -94,6 +94,7 @@ W  means work in progress by Walter Duncan
 - Only parse one input file if day_start_time == grabber_start_time
 - Fix the fact that the build process never overwrites README and INSTALL even
 when they've changed.
+- Add the XMLTV source distribution to the source package (good GPL practice)
 
 - Release 0.5 (Features - especially use of many grabbers, and bug fixes)
 
