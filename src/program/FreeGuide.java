@@ -21,9 +21,9 @@ import java.util.Vector;
  *
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    8
+ *@version    9
  */
-public class FreeGuide implements Launcher {
+public class FreeGuide {
 
 	/**
 	 * The constructor for the class that starts it all.
@@ -36,14 +36,14 @@ public class FreeGuide implements Launcher {
 		PleaseWaitFrame pleaseWait = new PleaseWaitFrame();
 		pleaseWait.setVisible(true);
 		
-		Vector failedWhat = StartupChecker.runChecks(this, args);
+		Vector failedWhat = StartupChecker.runChecks(args);
 
 		if( failedWhat.size() > 0 ) {
 			// Something's wrong, so begin with configuration
 
 			FreeGuide.log.info("Checks failed, going into configuration ...");
 
-			new OptionsFrame(this, failedWhat).setVisible(true);
+			new OptionsFrame(failedWhat).setVisible(true);
 
 			pleaseWait.dispose();
 
@@ -51,7 +51,7 @@ public class FreeGuide implements Launcher {
 
 			// All is ok, so begin with viewer (pass the please wait frame
 			// in to be displayed while the viewer starts up)
-			new ViewerFrame( this, pleaseWait );
+			new ViewerFrame( pleaseWait );
 		}
 
 	}
@@ -81,37 +81,6 @@ public class FreeGuide implements Launcher {
 		System.exit(1);
 
 	}
-
-
-	// -----------------------------------------------------------------------
-
-	/**
-	 *  Gets the launcher attribute of the FreeGuide object
-	 *
-	 *@return    The launcher value
-	 */
-	public Launcher getLauncher() {
-		return null;
-	}
-
-
-	/**
-	 *  Sets the visible attribute of the FreeGuide object
-	 *
-	 *@param  show  The new visible value
-	 */
-	public void setVisible(boolean show) {
-		// Nothing - not used
-	}
-
-
-	/**
-	 *  Description of the Method
-	 */
-	public void reShow() {
-		new ViewerFrame(this, null);
-	}
-
 
 	/**
 	 *  Gets the version attribute of the FreeGuide class
@@ -151,11 +120,11 @@ public class FreeGuide implements Launcher {
 	/**
 	 *  The minor version of FreeGuide
 	 */
-	public final static int version_minor = 6;
+	public final static int version_minor = 7;
 	/**
 	 *  What revision of the version this is
 	 */
-	public final static int version_revision = 3;
+	public final static int version_revision = 0;
 
 	/**
 	 *  Default colour of a normal programme

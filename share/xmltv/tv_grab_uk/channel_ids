@@ -50,26 +50,17 @@
 # its own XMLTV ids if necessary).  Defining your own packages of
 # channels is done with the files in the channel_pkgs/ directory.
 #
-
-# The Sky movie and cinema channels should be marked 'transient' if
-# they ever disappear again.
-#
-1.movies.sky.com:50::
-2.movies.sky.com:68::
-3.movies.sky.com:125::
-4.movies.sky.com:69::
-5.movies.sky.com:143::
-6.movies.sky.com:70::
-7.movies.sky.com:144::
-8.movies.sky.com:124::
-9.movies.sky.com:145::
-
-1.cinema.sky.com:178::Sky Cinema
-2.cinema.sky.com:174::Sky Cinema 2
-
-#moviemax.sky.com:68::    # change to 1.moviemax if it ever returns
-#sky-premier.sky.com:50:: # likewise 1.premier
-
+cinema.sky.com:178::Sky Cinema
+2.cinema.sky.com:174::
+2.moviemax.sky.com:69::
+2.premier.sky.com:125::
+2.sports.sky.com:433,438::
+3.moviemax.sky.com:70::
+3.premier.sky.com:143::
+3.sports.sky.com:435,436::
+4.moviemax.sky.com:175::
+4.premier.sky.com:144::
+5.moviemax.sky.com:124::
 anglia.tv.co.uk:43::3
 artsworld.com:602::
 ary-digital.ary-group.com:617::
@@ -143,6 +134,7 @@ men.granadatv.co.uk:119::Men & Motors
 meridian.tv.co.uk:42::3
 midlands.bbc1.bbc.co.uk:11::1
 midlands.bbc2.bbc.co.uk:24::2
+moviemax.sky.com:68::
 mutv.manutd.com:229::
 nationalgeographic.co.uk:177::
 europe.nationalgeographic.com:133::
@@ -187,9 +179,8 @@ setindia.com:186::SETI
 shop-america.tv-listings.ananova.com:121::
 sky-news.sky.com:114::
 sky-one.sky.com:222::S1
+sky-premier.sky.com:50::
 1.sports.sky.com:431::
-2.sports.sky.com:433,438::
-3.sports.sky.com:435,436::
 south-east.bbc1.bbc.co.uk:16::1
 south-east.bbc2.bbc.co.uk:30::2
 south-west.bbc1.bbc.co.uk:17::1
@@ -321,13 +312,7 @@ thebox.co.uk:93::
 amateur.redhottv.co.uk:644::
 films.redhottv.co.uk:225::
 all-girl.redhottv.co.uk:723::
-
-# This channel seems to flit between two numbers.  Could have some
-# special logic to check that only one of the two exists but can't be
-# bothered just for this channel.  Even though it is my favourite ;-).
-#
-a.40-plus-wives.redhottv.co.uk:224:transient:
-b.40-plus-wives.redhottv.co.uk:963:transient:
+40-plus-wives.redhottv.co.uk:224::
 
 # TODO check that invest-tv.com is correct and move these to it
 simplyshoppingtv.co.uk:203::
@@ -472,8 +457,8 @@ mw.radio-guernsey.bbc.co.uk:527::R Guernsey MW
 # TV Travel Shop, its terrestrial digital variant, and TV Travel Shop
 # 2 are endless advertising I think.
 #
-tvtravelshop.co.uk:219:transient:
-ondigital.tvtravelshop.co.uk:738:transient:
+tvtravelshop.co.uk:219::
+ondigital.tvtravelshop.co.uk:738::
 2.tvtravelshop.co.uk:422::
 
 # Called either 'Landmark Travel' or 'travelchannel'.  Seems to be

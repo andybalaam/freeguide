@@ -1,0 +1,1432 @@
+Index: MANIFEST
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/MANIFEST,v
+retrieving revision 1.80
+diff -u -B -b -w -r1.80 MANIFEST
+--- MANIFEST	6 Dec 2003 11:54:33 -0000	1.80
++++ MANIFEST	11 Dec 2003 16:09:59 -0000
+@@ -4,8 +4,14 @@
+ Uninstall.pm
+ README
+ lib/Ask.pm
+-lib/AskTerm.pm
+-lib/AskTk.pm
++lib/Ask/GDialog.pm
++lib/Ask/Term.pm
++lib/Ask/Tk.pm
++lib/ProgressBar.pm
++lib/ProgressBar/GDialog.pm
++lib/ProgressBar/None.pm
++lib/ProgressBar/Term.pm
++lib/ProgressBar/Tk.pm
+ lib/XMLTV.pm.PL
+ lib/XMLTV.pm.in
+ lib/TZ.pm
+Index: Makefile.PL
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/Makefile.PL,v
+retrieving revision 1.162
+diff -u -B -b -w -r1.162 Makefile.PL
+--- Makefile.PL	7 Dec 2003 22:31:53 -0000	1.162
++++ Makefile.PL	11 Dec 2003 16:10:00 -0000
+@@ -93,9 +93,16 @@
+      'lib/Clumps.pm'              => '$(INST_LIBDIR)/XMLTV/Clumps.pm',
+      'lib/Usage.pm'               => '$(INST_LIBDIR)/XMLTV/Usage.pm',
+      'lib/Version.pm'             => '$(INST_LIBDIR)/XMLTV/Version.pm',
++     'lib/GUI.pm'                 => '$(INST_LIBDIR)/XMLTV/GUI.pm',
+      'lib/Ask.pm'                 => '$(INST_LIBDIR)/XMLTV/Ask.pm',
+-     'lib/AskTk.pm'               => '$(INST_LIBDIR)/XMLTV/AskTk.pm',
+-     'lib/AskTerm.pm'             => '$(INST_LIBDIR)/XMLTV/AskTerm.pm',
++     'lib/Ask/GDialog.pm'         => '$(INST_LIBDIR)/XMLTV/Ask/GDialog.pm',
++     'lib/Ask/Term.pm'            => '$(INST_LIBDIR)/XMLTV/Ask/Term.pm',
++     'lib/Ask/Tk.pm'              => '$(INST_LIBDIR)/XMLTV/Ask/Tk.pm',
++     'lib/ProgressBar.pm'         => '$(INST_LIBDIR)/XMLTV/ProgressBar.pm',
++     'lib/ProgressBar/GDialog.pm' => '$(INST_LIBDIR)/XMLTV/ProgressBar/GDialog.pm',
++     'lib/ProgressBar/None.pm'    => '$(INST_LIBDIR)/XMLTV/ProgressBar/None.pm',
++     'lib/ProgressBar/Term.pm'    => '$(INST_LIBDIR)/XMLTV/ProgressBar/Term.pm',
++     'lib/ProgressBar/Tk.pm'      => '$(INST_LIBDIR)/XMLTV/ProgressBar/Tk.pm',
+      'lib/Summarize.pm'           => '$(INST_LIBDIR)/XMLTV/Summarize.pm',
+      'lib/IMDB.pm'                => '$(INST_LIBDIR)/XMLTV/IMDB.pm',
+      'lib/Gunzip.pm'              => '$(INST_LIBDIR)/XMLTV/Gunzip.pm',
+@@ -170,8 +177,8 @@
+     *ask = sub { print "$_[0] yes\n"; 1 };
+ }
+ else {
+-    do 'lib/AskTerm.pm' or die 'could not load lib/AskTerm.pm, aborting';
+-    *ask = \&XMLTV::AskTerm::askBooleanQuestion;
++    do 'lib/Ask/Term.pm' or die 'could not load lib/Ask/Term.pm, aborting';
++    *ask = \&XMLTV::Ask::Term::askBooleanQuestion;
+ }
+ 
+ # Weird shit happens when you change things like PREFIX without
+@@ -185,7 +192,7 @@
+ 
+ END
+   ;
+-    if (! ask("Do you wish to continue anyway?", 0)) {
++    if (! ask(0, "Do you wish to continue anyway?", 0)) {
+ 	exit(1);
+     }
+ }
+@@ -379,7 +386,7 @@
+ 		  "\n");
+ }
+ print STDERR "\n";
+-if (not ask('Do you want to proceed with this configuration?', 1)) {
++if (not ask(0,'Do you want to proceed with this configuration?', 1)) {
+     # Need to set {install} for each component by prompting.
+     foreach my $info (@opt_components) {
+ 	my $missing = $info->{missing};
+@@ -409,7 +416,7 @@
+ 	else { die }
+ 	
+ 	$info->{install} =
+-	  ask($msg, not $missing);
++	  ask(0, $msg, not $missing);
+     }
+ }
+ 
+Index: grab/dk/tv_grab_dk
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/grab/dk/tv_grab_dk,v
+retrieving revision 1.7
+diff -u -B -b -w -r1.7 tv_grab_dk
+--- grab/dk/tv_grab_dk	7 Dec 2003 22:08:05 -0000	1.7
++++ grab/dk/tv_grab_dk	11 Dec 2003 16:10:00 -0000
+@@ -10,7 +10,7 @@
+ 
+ tv_grab_dk --help
+ 
+-tv_grab_dk [--config-file FILE] --configure
++tv_grab_dk [--config-file FILE] --configure [--gui OPTION]
+ 
+ tv_grab_dk [--config-file FILE] [--output FILE] [--days N]
+            [--offset N] [--quiet]
+@@ -32,6 +32,11 @@
+ default is B<~/.xmltv/tv_grab_dk.conf>.  This is the file written by
+ B<--configure> and read when grabbing.
+ 
++B<--gui OPTION> Use this option to enable a graphical interface to be used.
++OPTION may be 'Tk' or 'GDialog', or left blank for the best available choice.
++Additional allowed values of OPTION are 'Term' for normal terminal output
++(default) and 'TermNoProgressBar' to disable the use of Term::ProgressBar.
++
+ B<--output FILE> write to FILE rather than standard output.
+ 
+ B<--days N> grab N days.  The default is one week.
+@@ -80,6 +85,8 @@
+ 
+ use XMLTV;
+ use XMLTV::Memoize;
++use XMLTV::GUI;
++use XMLTV::ProgressBar;
+ use XMLTV::Ask;
+ use XMLTV::Mode;
+ use XMLTV::Config_file;
+@@ -107,8 +114,7 @@
+     }
+ }
+ 
+-# Use Term::ProgressBar if installed.
+-use constant Have_bar => eval { require Term::ProgressBar; 1 };
++
+ 
+ # Whether zero-length programmes should be included in the output.
+ my $WRITE_ZERO_LENGTH = 0;
+@@ -128,8 +134,8 @@
+ # Get options
+ XMLTV::Memoize::check_argv('get_courteous_aux');
+ my ($opt_days, $opt_offset, $opt_help, $opt_output,
+-    $opt_configure, $opt_config_file, $opt_quiet,
+-    $opt_list_channels);
++    $opt_configure, $opt_config_file, $opt_gui,
++    $opt_quiet, $opt_list_channels);
+ $opt_days   = 7; # default
+ $opt_offset = 0; # default
+ GetOptions('days=i'        => \$opt_days,
+@@ -137,6 +143,7 @@
+ 	   'help'          => \$opt_help,
+ 	   'configure'     => \$opt_configure,
+ 	   'config-file=s' => \$opt_config_file,
++           'gui:s'         => \$opt_gui,
+ 	   'output=s'      => \$opt_output,
+ 	   'quiet'         => \$opt_quiet,
+ 	   'list-channels' => \$opt_list_channels,
+@@ -146,6 +153,12 @@
+   if (defined $opt_days && $opt_days < 0);
+ usage(1) if $opt_help;
+ 
++# Ask the XMLTV::GUI module for the graphics type we will use  
++my $gui_type = XMLTV::GUI::get_gui_type($opt_gui);
++
++XMLTV::Ask::init($gui_type);
++XMLTV::ProgressBar::init($gui_type);
++
+ my $mode = XMLTV::Mode::mode('grab', # default
+ 			     $opt_configure => 'configure',
+ 			     $opt_list_channels => 'list-channels',
+@@ -159,11 +172,11 @@
+     XMLTV::Config_file::check_no_overwrite($config_file);
+     open(CONF, ">$config_file") or die "cannot write to $config_file: $!";
+     # find list of available channels
+-    my $bar = new Term::ProgressBar('getting list of channels', 1)
+-      if Have_bar && not $opt_quiet;
++    my $bar = new XMLTV::ProgressBar('getting list of channels', 1)
++      if not $opt_quiet;
+     my %channels = get_channels();
+     die 'no channels could be found' if (scalar(keys(%channels)) == 0);
+-    update $bar if Have_bar && not $opt_quiet;
++    update $bar if not $opt_quiet;
+ 
+     # Ask about each channel.
+     my @chs = sort keys %channels;
+@@ -183,6 +196,8 @@
+ 	# TODO don't store display-name in config file.
+     }
+ 
++    $bar->finish() if not $opt_quiet;
++    
+     close CONF or warn "cannot close $config_file: $!";
+     say("Finished configuration.");
+ 
+@@ -217,11 +232,11 @@
+    });
+ 
+ if ($opt_list_channels) {
+-    my $bar = new Term::ProgressBar('getting list of channels', 1)
+-      if Have_bar && not $opt_quiet;
++    my $bar = new XMLTV::ProgressBar('getting list of channels', 1)
++      if not $opt_quiet;
+     my %channels = get_channels();
+     die 'no channels could be found' if (scalar(keys(%channels)) == 0);
+-    update $bar if Have_bar && not $opt_quiet;
++    update $bar if not $opt_quiet;
+ 
+     foreach my $ch_did (sort(keys %channels)) {
+ 	my $ch_name = $channels{$ch_did};
+@@ -229,6 +244,7 @@
+ 	$writer->write_channel({ id => $ch_xid,
+ 				 'display-name' => [ [ $ch_name ] ] });
+     }
++    $bar->finish() if not $opt_quiet;
+     $writer->end();
+     exit();
+ }
+@@ -285,15 +301,16 @@
+ 
+ my %warned_ch_name; # suppress duplicate warnings
+ 
+-my $bar = new Term::ProgressBar('fetching data', scalar @to_get)
+-  if Have_bar && not $opt_quiet;
++my $bar = new XMLTV::ProgressBar('fetching data', scalar @to_get)
++  if not $opt_quiet;
+ my @to_get_detailed;
+ my $num_detailed = 0;
+ foreach (@to_get) {
+ 	my ($url, $date, $ch_xmltv_id, $ch_tvgids_id) = @$_;
+ 	process_listings_page($writer, $ch_xmltv_id, $url, $date);
+-	update $bar if Have_bar && not $opt_quiet;
++	update $bar if not $opt_quiet;
+ }
++$bar->finish() if not $opt_quiet;
+ $writer->end();
+ 
+ ######################################################################
+Index: grab/es/tv_grab_es
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/grab/es/tv_grab_es,v
+retrieving revision 1.20
+diff -u -B -b -w -r1.20 tv_grab_es
+--- grab/es/tv_grab_es	8 Nov 2003 13:57:18 -0000	1.20
++++ grab/es/tv_grab_es	11 Dec 2003 16:10:00 -0000
+@@ -10,7 +10,7 @@
+ 
+ tv_grab_es --help
+ 
+-tv_grab_es [--config-file FILE] --configure
++tv_grab_es [--config-file FILE] --configure [--gui OPTION]
+ 
+ tv_grab_es [--config-file FILE] [--output FILE] [--days N]
+            [--offset N] [--quiet]
+@@ -38,6 +38,11 @@
+ default is B<~/.xmltv/tv_grab_es.conf>.  This is the file written by
+ B<--configure> and read when grabbing.
+ 
++B<--gui OPTION> Use this option to enable a graphical interface to be used.
++OPTION may be 'Tk' or 'GDialog', or left blank for the best available choice.
++Additional allowed values of OPTION are 'Term' for normal terminal output
++(default) and 'TermNoProgressBar' to disable the use of XMLTV::ProgressBar.
++
+ B<--output FILE> write to FILE rather than standard output.
+ 
+ B<--days N> grab N days.  The default is 3.
+@@ -107,6 +112,8 @@
+ 
+ use XMLTV;
+ use XMLTV::Memoize;
++use XMLTV::GUI;
++use XMLTV::ProgressBar;
+ use XMLTV::Ask;
+ use XMLTV::Config_file;
+ use XMLTV::Europe_TZ;
+@@ -122,9 +129,6 @@
+ END
+   ;
+ 
+-# Use Term::ProgressBar if installed.
+-use constant Have_bar => eval { require Term::ProgressBar; 1 };
+-
+ # Attributes of the root element in output.
+ my $HEAD = { 'source-info-url'     => 'http://www.elpais.es/parrillatv/portada.html',
+ 	     'source-data-url'     => "http://www.elpais.es/parrillatv/resultados.html",
+@@ -147,8 +151,8 @@
+ # Get options, including undocumented --cache option.
+ XMLTV::Memoize::check_argv('XMLTV::Get_nice::get_nice_aux');
+ my ($opt_days, $opt_offset, $opt_help, $opt_output,
+-    $opt_configure, $opt_config_file, $opt_quiet,
+-    $opt_list_channels);
++    $opt_configure, $opt_config_file, $opt_gui,
++    $opt_quiet, $opt_list_channels);
+ $opt_days  = 3; # default
+ $opt_offset = 0; # default
+ $opt_quiet  = 0; # default
+@@ -157,6 +161,7 @@
+ 	   'help'          => \$opt_help,
+ 	   'configure'     => \$opt_configure,
+ 	   'config-file=s' => \$opt_config_file,
++           'gui:s'         => \$opt_gui,
+ 	   'output=s'      => \$opt_output,
+ 	   'quiet'         => \$opt_quiet,
+ 	   'list-channels' => \$opt_list_channels
+@@ -166,6 +171,12 @@
+   if (defined $opt_days && $opt_days < 0);
+ usage(1) if $opt_help;
+ 
++# Ask the XMLTV::GUI module for the graphics type we will use  
++my $gui_type = XMLTV::GUI::get_gui_type($opt_gui);
++
++XMLTV::Ask::init($gui_type);
++XMLTV::ProgressBar::init($gui_type);
++
+ my $mode = XMLTV::Mode::mode('grab', # default
+ 			     $opt_configure => 'configure',
+ 			     $opt_list_channels => 'list-channels',
+@@ -292,14 +303,15 @@
+ # This progress bar is for both downloading and parsing.  Maybe
+ # they could be separate.
+ #
+-my $bar = new Term::ProgressBar('getting listings', scalar @to_get)
+-  if Have_bar && not $opt_quiet;
++my $bar = new XMLTV::ProgressBar('getting listings', scalar @to_get)
++  if not $opt_quiet;
+ foreach (@to_get) {
+ 	foreach (process_table($_->[0], $_->[1], $_->[2])) {
+ 		$writer->write_programme($_);
+ 	}
+-	update $bar if Have_bar && not $opt_quiet;
++	update $bar if not $opt_quiet;
+ }
++$bar->finish() if not $opt_quiet;
+ $writer->end();
+ 
+ ######################################################################
+@@ -490,8 +502,8 @@
+ 
+ # get channel listing
+ sub get_channels {
+-    my $bar = new Term::ProgressBar('getting list of channels', 1)
+-	if Have_bar && not $opt_quiet;
++    my $bar = new XMLTV::ProgressBar('getting list of channels', 1)
++	if not $opt_quiet;
+     my %channels;
+     my $url="http://www.elpais.es/parrillatv/portada.html";
+     t $url;
+@@ -525,7 +537,8 @@
+ 	}
+     }
+     die "no channels could be found" if not keys %channels;
+-    update $bar if Have_bar && not $opt_quiet;
++    update $bar if not $opt_quiet;
++    $bar->finish() if not $opt_quiet;
+     return %channels;
+ }
+ 
+Index: grab/fi/tv_grab_fi
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/grab/fi/tv_grab_fi,v
+retrieving revision 1.27
+diff -u -B -b -w -r1.27 tv_grab_fi
+--- grab/fi/tv_grab_fi	8 Nov 2003 13:57:18 -0000	1.27
++++ grab/fi/tv_grab_fi	11 Dec 2003 16:10:01 -0000
+@@ -10,7 +10,7 @@
+ 
+ tv_grab_fi --help
+ 
+-tv_grab_fi [--config-file FILE] --configure
++tv_grab_fi [--config-file FILE] --configure [--gui OPTION]
+ 
+ tv_grab_fi [--config-file FILE] [--output FILE] [--days N]
+            [--offset N] [--quiet]
+@@ -35,6 +35,11 @@
+ default is B<~/.xmltv/tv_grab_fi.conf>.  This is the file written by
+ B<--configure> and read when grabbing.
+ 
++B<--gui OPTION> Use this option to enable a graphical interface to be used.
++OPTION may be 'Tk' or 'GDialog', or left blank for the best available choice.
++Additional allowed values of OPTION are 'Term' for normal terminal output
++(default) and 'TermNoProgressBar' to disable the use of XMLTV::ProgressBar.
++
+ B<--output FILE> write to FILE rather than standard output.
+ 
+ B<--days N> grab N days.  The default is ten.
+@@ -77,6 +82,8 @@
+ 
+ use XMLTV;
+ use XMLTV::Memoize;
++use XMLTV::GUI;
++use XMLTV::ProgressBar;
+ use XMLTV::Ask;
+ use XMLTV::Config_file;
+ use XMLTV::Europe_TZ;
+@@ -92,9 +99,6 @@
+ END
+   ;
+ 
+-# Use Term::ProgressBar if installed.
+-use constant Have_bar => eval { require Term::ProgressBar; 1 };
+-
+ # Attributes of the root element in output.
+ my $HEAD = { 'source-info-url'     => 'http://www.katso.fi/',
+ 	     'source-data-url'     => "http://www.katso.fi/tvopas",
+@@ -121,8 +125,8 @@
+ # Get options, including undocumented --cache option.
+ XMLTV::Memoize::check_argv('XMLTV::Get_nice::get_nice_aux');
+ my ($opt_days, $opt_offset, $opt_help, $opt_output,
+-    $opt_configure, $opt_config_file, $opt_quiet,
+-    $opt_list_channels);
++    $opt_configure, $opt_config_file, $opt_gui,
++    $opt_quiet, $opt_list_channels);
+ $opt_days  = 10; # default
+ $opt_offset = 0; # default
+ $opt_quiet  = 0; # default
+@@ -131,6 +135,7 @@
+ 	   'help'          => \$opt_help,
+ 	   'configure'     => \$opt_configure,
+ 	   'config-file=s' => \$opt_config_file,
++           'gui:s'         => \$opt_gui,
+ 	   'output=s'      => \$opt_output,
+ 	   'quiet'         => \$opt_quiet,
+ 	   'list-channels' => \$opt_list_channels,
+@@ -140,6 +145,12 @@
+   if (defined $opt_days && $opt_days < 0);
+ usage(1) if $opt_help;
+ 
++# Ask the XMLTV::GUI module for the graphics type we will use  
++my $gui_type = XMLTV::GUI::get_gui_type($opt_gui);
++
++XMLTV::Ask::init($gui_type);
++XMLTV::ProgressBar::init($gui_type);
++
+ my $mode = XMLTV::Mode::mode('grab', # default
+ 			     $opt_configure => 'configure',
+ 			     $opt_list_channels => 'list-channels',
+@@ -265,14 +276,15 @@
+ # This progress bar is for both downloading and parsing.  Maybe
+ # they could be separate, as with tv_grab_uk.
+ #
+-my $bar = new Term::ProgressBar('getting listings', scalar @to_get)
+-  if Have_bar && not $opt_quiet;
++my $bar = new XMLTV::ProgressBar('getting listings', scalar @to_get)
++  if not $opt_quiet;
+ foreach (@to_get) {
+     foreach (process_table($_->[0], $_->[1], $_->[2])) {
+ 	$writer->write_programme($_);
+     }
+-    update $bar if Have_bar && not $opt_quiet;
++    update $bar if not $opt_quiet;
+ }
++$bar->finish() if not $opt_quiet;
+ $writer->end();
+ 
+ ######################################################################
+@@ -486,8 +498,8 @@
+ 
+ # get channel listing
+ sub get_channels {
+-    my $bar = new Term::ProgressBar('getting list of channels', 1)
+-      if Have_bar && not $opt_quiet;
++    my $bar = new XMLTV::ProgressBar('getting list of channels', 1)
++      if not $opt_quiet;
+     my %channels;
+     my $url="http://www.katso.fi/tvopas";
+     my $local_data=get_nice($url);
+@@ -529,7 +541,8 @@
+ 	}
+     }
+     die "no channels could be found" if not keys %channels;
+-    update $bar if Have_bar && not $opt_quiet;
++    update $bar if not $opt_quiet;
++    $bar->finish() if not $opt_quiet;
+     return %channels;
+ }
+ 
+Index: grab/hu/tv_grab_hu
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/grab/hu/tv_grab_hu,v
+retrieving revision 1.10
+diff -u -B -b -w -r1.10 tv_grab_hu
+--- grab/hu/tv_grab_hu	8 Nov 2003 13:57:19 -0000	1.10
++++ grab/hu/tv_grab_hu	11 Dec 2003 16:10:01 -0000
+@@ -10,7 +10,7 @@
+ 
+ tv_grab_hu --help
+ 
+-tv_grab_hu [--config-file FILE] --configure
++tv_grab_hu [--config-file FILE] --configure [--gui OPTION]
+ 
+ tv_grab_hu [--config-file FILE] [--output FILE] [--days N]
+            [--offset N] [--quiet]
+@@ -33,6 +33,11 @@
+ default is B<~/.xmltv/tv_grab_hu.conf>.  This is the file written by
+ B<--configure> and read when grabbing.
+ 
++B<--gui OPTION> Use this option to enable a graphical interface to be used.
++OPTION may be 'Tk' or 'GDialog', or left blank for the best available choice.
++Additional allowed values of OPTION are 'Term' for normal terminal output
++(default) and 'TermNoProgressBar' to disable the use of XMLTV::ProgressBar.
++
+ B<--output FILE> write to FILE rather than standard output.
+ 
+ B<--days N> grab N days.  The default is eight.
+@@ -76,6 +81,8 @@
+ 
+ use XMLTV;
+ use XMLTV::Memoize;
++use XMLTV::GUI;
++use XMLTV::ProgressBar;
+ use XMLTV::Ask;
+ use XMLTV::Europe_TZ;
+ use XMLTV::Get_nice;
+@@ -84,16 +91,13 @@
+ # Todo: perhaps we should internationalize messages and docs?
+ use XMLTV::Usage <<END
+ $0: get Hungarian television listings in XMLTV format
+-To configure: $0 --configure [--config-file FILE]
++To configure: $0 --configure [--config-file FILE] [--gui]
+ To grab listings: $0 [--config-file FILE] [--output FILE] [--days N]
+         [--offset N] [--quiet]
+ To list channels: $0 --list-channels
+ END
+   ;
+ 
+-# Use Term::ProgressBar if installed.
+-use constant Have_bar => eval { require Term::ProgressBar; 1 };
+-
+ # Attributes of the root element in output.
+ my $HEAD = { 'source-info-url'     => 'http://www.port.hu/',
+ 	     'source-data-url'     => "http://www.port.hu/tv/",
+@@ -119,8 +123,8 @@
+ # Get options, including undocumented --cache option.
+ XMLTV::Memoize::check_argv('XMLTV::Get_nice::get_nice_aux');
+ my ($opt_days, $opt_offset, $opt_help, $opt_output,
+-    $opt_configure, $opt_config_file, $opt_quiet,
+-    $opt_list_channels);
++    $opt_configure, $opt_config_file, $opt_gui,,
++    $opt_quiet, $opt_list_channels);
+ $opt_days = 8; # default
+ $opt_offset = 0; # default
+ $opt_quiet = 0; # default
+@@ -129,6 +133,7 @@
+ 	   'help'          => \$opt_help,
+ 	   'configure'     => \$opt_configure,
+ 	   'config-file=s' => \$opt_config_file,
++           'gui:s'         => \$opt_gui,
+ 	   'output=s'      => \$opt_output,
+ 	   'quiet'         => \$opt_quiet,
+ 	   'list-channels' => \$opt_list_channels,
+@@ -137,6 +142,13 @@
+ die 'number of days must not be negative'
+   if (defined $opt_days && $opt_days < 0);
+ usage(1) if $opt_help;
++
++# Ask the XMLTV::GUI module for the graphics type we will use  
++my $gui_type = XMLTV::GUI::get_gui_type($opt_gui);
++
++XMLTV::Ask::init($gui_type);
++XMLTV::ProgressBar::init($gui_type);
++
+ my $mode = XMLTV::Mode::mode('grab', # default
+ 			     $opt_configure => 'configure',
+ 			     $opt_list_channels => 'list-channels',
+@@ -264,8 +276,8 @@
+ # This progress bar is for both downloading and parsing.  Maybe
+ # they could be separate, as with tv_grab_uk.
+ #
+-my $bar = new Term::ProgressBar('getting listings', @days * @channels)
+-  if Have_bar && not $opt_quiet;
++my $bar = new XMLTV::ProgressBar('getting listings', @days * @channels)
++  if not $opt_quiet;
+ foreach my $d (@days) {
+     my ($day, $i) = @$d;
+     my $some_success = 0;
+@@ -273,13 +285,15 @@
+ 	my @ps = process_table($day, xid($ch_did), $ch_did, $i);
+ 	$some_success = 1 if @ps;
+ 	$writer->write_programme($_) foreach @ps;
+-	update $bar if Have_bar && not $opt_quiet;
++	update $bar if not $opt_quiet;
+     }
+     if (@channels and not $some_success) {
+ 	warn "failed to get any listings for day $i, stopping\n";
+ 	last;
+     }
++    
+ }
++$bar->finish() if not $opt_quiet;
+ $writer->end();
+ 
+ ######################################################################
+@@ -481,8 +495,8 @@
+ 
+ # get channel listing
+ sub get_channels {
+-    my $bar = new Term::ProgressBar('getting list of channels', 1)
+-	if Have_bar && not $opt_quiet;
++    my $bar = new XMLTV::ProgressBar('getting list of channels', 1)
++	if not $opt_quiet;
+     my %channels;
+     my $url="http://www.port.hu/pls/tv/tv.prog";
+     my $local_data=get_nice($url);
+@@ -518,7 +532,8 @@
+ 	}
+     }
+     die "no channels could be found" if not keys %channels;
+-    update $bar if Have_bar && not $opt_quiet;
++    update $bar if not $opt_quiet;
++    $bar->finish() if not $opt_quiet;
+     return %channels;
+ }
+ 
+Index: grab/it/tv_grab_it.in
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/grab/it/tv_grab_it.in,v
+retrieving revision 1.21
+diff -u -B -b -w -r1.21 tv_grab_it.in
+--- grab/it/tv_grab_it.in	8 Nov 2003 13:57:19 -0000	1.21
++++ grab/it/tv_grab_it.in	11 Dec 2003 16:10:02 -0000
+@@ -11,7 +11,7 @@
+ 
+ tv_grab_it --help
+ 
+-tv_grab_it [--config-file FILE] --configure
++tv_grab_it [--config-file FILE] --configure [--gui OPTION]
+ 
+ tv_grab_it [--config-file FILE] [--output FILE] [--days N]
+            [--offset N] [--quiet] [--slow]
+@@ -33,6 +33,11 @@
+ default is B<~/.xmltv/tv_grab_it.conf>.  This is the file written
+ by B<--configure> and read when grabbing.
+ 
++B<--gui OPTION> Use this option to enable a graphical interface to be used.
++OPTION may be 'Tk' or 'GDialog', or left blank for the best available choice.
++Additional allowed values of OPTION are 'Term' for normal terminal output
++(default) and 'TermNoProgressBar' to disable the use of XMLTV::ProgressBar.
++
+ B<--output FILE> write to FILE rather than standard output.
+ 
+ B<--days N> grab N days.  The default is 7.
+@@ -79,6 +84,8 @@
+ use Memoize;
+ use XMLTV;
+ use XMLTV::Memoize;
++use XMLTV::GUI;
++use XMLTV::ProgressBar;
+ use XMLTV::Ask;
+ use XMLTV::Config_file;
+ use XMLTV::Europe_TZ;
+@@ -86,7 +93,7 @@
+ # Todo: perhaps we should internationalize messages and docs?
+ use XMLTV::Usage <<END
+ $0: get Italian television listings in XMLTV format
+-To configure: $0 --configure [--config-file FILE]
++To configure: $0 --configure [--config-file FILE] [--gui OPTION]
+ To grab listings: $0 [--config-file FILE] [--output FILE] [--days N]
+         [--offset N] [--quiet] [--slow]
+ END
+@@ -101,11 +108,6 @@
+ my $base="http://$domain/canali.phtml";
+ my $rturl="http://$domain/";
+ 
+-######################################################################
+-# Use Term::ProgressBar if installed.
+-use constant Have_bar => eval { require Term::ProgressBar; 1 };
+-
+-######################################################################
+ # get options
+ # Get options, including undocumented --cache option.
+ 
+@@ -121,6 +123,7 @@
+     $opt_slow,
+     $opt_configure,
+     $opt_config_file,
++    $opt_gui,
+     $opt_quiet,
+     $opt_share,
+    );
+@@ -136,6 +139,7 @@
+ 	   'help'          => \$opt_help,
+ 	   'configure'     => \$opt_configure,
+ 	   'config-file=s' => \$opt_config_file,
++           'gui:s'         => \$opt_gui,
+ 	   'output=s'      => \$opt_output,
+ 	   'quiet'         => \$opt_quiet,
+ 	   'slow'	   => \$opt_slow,
+@@ -146,6 +150,12 @@
+   if (defined $opt_days && $opt_days < 0);
+ usage(1) if $opt_help;
+ 
++# Ask the XMLTV::GUI module for the graphics type we will use  
++my $gui_type = XMLTV::GUI::get_gui_type($opt_gui);
++
++XMLTV::Ask::init($gui_type);
++XMLTV::ProgressBar::init($gui_type);
++
+ # share/ directory for storing the list of dud channels.  This next line
+ # is altered by processing through tv_grab_it.PL.  But we can use the
+ # current directory instead of share/tv_grab_it for development.
+@@ -194,11 +204,11 @@
+ 		}
+     open(CONF, ">$config_file") or die "cannot write to $config_file: $!";
+     # find list of available channels
+-    my $bar = new Term::ProgressBar('getting list of channels', 1)
+-      if Have_bar && not $opt_quiet;
++    my $bar = new XMLTV::ProgressBar('getting list of channels', 1)
++      if not $opt_quiet;
+ 	my %channels=get_channels_list($content);
+     die "no channels could be found" if (scalar(keys(%channels))==0);
+-    update $bar if Have_bar && not $opt_quiet;
++    update $bar if not $opt_quiet;
+ 
+     # Ask about each channel.
+     my @chs = sort keys %channels;
+@@ -218,6 +228,7 @@
+ 	# TODO don't store display-name in config file.
+     }
+ 
++    $bar->finish() if not $opt_quiet;
+     close CONF or warn "cannot close $config_file: $!";
+     say("Finished configuration.");
+ 
+@@ -285,8 +296,8 @@
+ }
+ 
+ 
+-my $bar2 = new Term::ProgressBar('getting icons', scalar @channels)
+-  if Have_bar && not $opt_quiet;
++my $bar2 = new XMLTV::ProgressBar('getting icons', scalar @channels)
++  if not $opt_quiet;
+ foreach my $ch_id (@channels) {
+     my $ch_xid=id_to_xid($ch_id);
+ 
+@@ -303,11 +314,12 @@
+ 		       'display-name' => [ [ $channels{$ch_id} ] ],
+ 		       icon => [{src => get_icon($url)}]
+ 		      });
+-    update $bar2 if Have_bar && not $opt_quiet;
++    update $bar2 if not $opt_quiet;
+ }
++$bar2->finish() if not $opt_quiet;
+ 
+-my $bar = new Term::ProgressBar('getting listings', scalar @to_get)
+-  if Have_bar && not $opt_quiet;
++my $bar = new XMLTV::ProgressBar('getting listings', scalar @to_get)
++  if not $opt_quiet;
+ foreach (@to_get) {
+     my $canale= $_->[1];
+     $url   = $_->[0];
+@@ -334,9 +346,10 @@
+ 	$w->write_programme($_) foreach @dati;
+     }
+     #			else {warn "skipping $canale \n";}
+-    update $bar if Have_bar && not $opt_quiet;
++    update $bar if not $opt_quiet;
+ }
+ $w->end;
++$bar->finish() if not $opt_quiet;
+ 
+ ######################################################################
+ # subroutines
+Index: grab/na/tv_grab_na
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/grab/na/tv_grab_na,v
+retrieving revision 1.94
+diff -u -B -b -w -r1.94 tv_grab_na
+--- grab/na/tv_grab_na	6 Dec 2003 20:00:00 -0000	1.94
++++ grab/na/tv_grab_na	11 Dec 2003 16:10:05 -0000
+@@ -8,7 +8,7 @@
+ 
+ =head1 SYNOPSIS
+ 
+-tv_grab_na [--help] [--debug] [--config-file FILE] [--output FILE] --configure CONFIG_OPTIONS
++tv_grab_na [--help] [--debug] [--config-file FILE] [--output FILE] [--gui OPTION] --configure CONFIG_OPTIONS
+ 
+ tv_grab_na [--help] [--debug] [--config-file FILE] [--output FILE] GRAB_OPTIONS
+ 
+@@ -45,6 +45,11 @@
+ written in configure mode and read in grab mode.  The default location
+ is B<~/.xmltv/tv_grab_na.conf>.
+ 
++B<--gui OPTION> Use this option to enable a graphical interface to be used.
++OPTION may be 'Tk' or 'GDialog', or left blank for the best available choice.
++Additional allowed values of OPTION are 'Term' for normal terminal output
++(default) and 'TermNoProgressBar' to disable the use of Term::ProgressBar.
++
+ B<--output FILE> Write output to FILE rather than standard output.
+ 
+ Configuration is normally interactive, but it can be run
+@@ -509,6 +514,8 @@
+ use Date::Manip;
+ 
+ use XMLTV::ZapListings;
++use XMLTV::GUI;
++use XMLTV::ProgressBar;
+ use XMLTV::Ask;
+ use XMLTV::Config_file;
+ use XMLTV;
+@@ -519,6 +526,15 @@
+ 
+ our ($opt_debug, $opt_quiet, $opt_stats);
+ 
++sub termStatusMessage($)
++{
++    my $msg = shift;
++    die 'expected a message' if not defined $msg;
++    if ( !$opt_quiet ) {
++	print STDERR $msg;
++    }
++}
++
+ sub statusMessage($)
+ {
+     my $msg = shift;
+@@ -684,6 +700,9 @@
+     print $fp "   --config-file <file>\n";
+     print $fp "     use <file> as config file\n";
+     print $fp "\n";
++    print $fp "   --gui <option>\n";
++    print $fp "     Use a GUI to ask questions\n";
++    print $fp "\n";
+     print $fp "   --output <file>\n";
+     print $fp "     redirect output to <file> rather than stdout. Currently only effects\n";
+     print $fp "      --list-providers or --list-channels\n";
+@@ -847,6 +866,7 @@
+ 	 $opt_zipcode,
+ 	 $opt_provider,
+ 	 $opt_config_file,
++         $opt_gui,
+ 	 $opt_output,
+ 	 $opt_retry_limit,
+ 	 $opt_retry_delay,
+@@ -868,6 +888,7 @@
+ 			 quiet
+ 			 release-check=s
+ 			 config-file=s
++                         gui:s
+ 			 output=s
+ 			 postalcode=s
+ 			 zipcode=s
+@@ -889,6 +910,12 @@
+ 
+     warn "ignoring --cache option\n" if defined $opt_cache;
+ 
++    # Ask the XMLTV::GUI module for the graphics type we will use  
++    my $gui_type = XMLTV::GUI::get_gui_type($opt_gui);
++
++    XMLTV::Ask::init($gui_type);
++    XMLTV::ProgressBar::init($gui_type);
++    
+     $opt_release_check=($opt_release_check=~m;^t;i);
+ 
+     $opt_quiet=(defined($opt_quiet));
+@@ -1087,9 +1114,14 @@
+ );
+   
+     if ( $opt_release_check ) {
+-	statusMessage("checking XMLTV release information..\n");
++            
++        my $bar = new XMLTV::ProgressBar('checking XMLTV release information..', 1);
+ 
+ 	my $retval=XMLTV::ZapListings::getCurrentReleaseInfo($xmltvSourceForgeURL, $opt_debug);
++        
++        $bar->update();
++        $bar->finish();
++        
+ 	if ( !defined($retval) ) {
+ 	    statusMessage( <<END
+ Warning: failed to get current release information from:
+@@ -1110,7 +1142,7 @@
+ 	}
+     }
+ 
+-    statusMessage("\nstarting manual configuration process..\n\n");
++    termStatusMessage("\nstarting manual configuration process..\n\n");
+ 
+     while ( !defined($config->{option_retry_limit}) ) {
+ 	my $res=ask('how many times do you want to retry on www site failures ? (default=2)');
+@@ -1174,7 +1206,7 @@
+ 	$code=$config->{option_postalcode} if ( defined($config->{option_postalcode}) );
+ 	$code=$config->{option_zipcode} if ( defined($config->{option_zipcode}) );
+ 
+-	statusMessage("\ngetting list of providers for postal/zip code $code, be patient..\n");
++        my $bar = new XMLTV::ProgressBar("getting list of providers for postal/zip code $code, be patient..", 1);
+ 
+ 	my @providers;
+ 	my $failed=0;
+@@ -1212,11 +1244,11 @@
+ 		if ( $p->{id} eq $config->{option_provider} ) {
+ 		    if ( $config->{option_provider_desc} ne $p->{description} ) {
+ 			if ( $opt_auto_fail_on_provider_changes ) {
+-			    statusMessage("provider:\n\t".$config->{option_provider}." \# ".$config->{option_provider_desc}.
++			    termStatusMessage("provider:\n\t".$config->{option_provider}." \# ".$config->{option_provider_desc}.
+ 					  "\nhas new description (".$p->{description}."), exiting\n");
+ 			    exit(1);
+ 			}
+-			statusMessage("updating provider description to: $p->{description}\n");
++			termStatusMessage("updating provider description to: $p->{description}\n");
+ 			$config->{option_provider_desc}=$p->{description};
+ 		    }
+ 		    $still_valid=1;
+@@ -1236,7 +1268,7 @@
+ 				exit(1);
+ 			    }
+ 			}
+-			statusMessage("updating provider id to: $p->{id}\n");
++			termStatusMessage("updating provider id to: $p->{id}\n");
+ 			$config->{option_provider}=$p->{id};
+ 			$still_valid=1;
+ 		    }
+@@ -1263,6 +1295,9 @@
+ 	    }
+ 	}
+ 
++        $bar->update();
++        $bar->finish();
++        
+ 	while ( !$config->{option_provider} ) {
+ 	    my @providersWithIds;
+ 
+@@ -1304,18 +1339,19 @@
+ 	    my $id = $1; die if not defined $id;
+ 	    $config->{option_provider}=$id;
+ 	    $config->{option_provider_desc}=$res;
+-	    statusMessage("\nyou chose $id \# $res\n");
++	    termStatusMessage("\nyou chose $id \# $res\n");
+ 	}
+     }
+ 
+     # if we're in the configure step, lets refresh the list of channels
+     # being careful to warn about additions and deletions
+     
++    my $bar;
+     if ( $config->haveAnyChannels() ) {
+-	statusMessage("\nchecking for changes to channel list, be patient..\n");
++        $bar = new XMLTV::ProgressBar('checking for changes to channel list, be patient..', 1);
+     }
+     else {
+-	statusMessage("\ngetting channel list, be patient..\n");
++        $bar = new XMLTV::ProgressBar('getting channel list, be patient..', 1);
+     }
+ 
+     my @channels;
+@@ -1327,7 +1363,7 @@
+ 	}
+ 
+ 	@channels=$zl->getChannelList($config->{option_provider});
+-	statusMessage("got channel list\n");
++	termStatusMessage("got channel list\n");
+ 	if ( ! @channels || !defined($channels[0]) ) {
+ 	    $failed=1;
+ 	}
+@@ -1336,6 +1372,8 @@
+ 	    last;
+ 	}
+     }
++    $bar->update();
++    $bar->finish();
+ 
+     if ( $failed ) {
+ 	#errorMessage("$0: failed to get list of channels for postal/zip code $config->{option_postalzipcode}\n");
+@@ -1363,11 +1401,11 @@
+     if ( defined($opt_auto_new_channels) ) {
+ 	if ( $opt_auto_new_channels eq "ignore" ) {
+ 	    @r = map { 0 } @toAsk;
+-	    statusMessage("ignoring new channel $_\n") foreach @toAsk;
++	    termStatusMessage("ignoring new channel $_\n") foreach @toAsk;
+ 	}
+ 	elsif ( $opt_auto_new_channels eq "add" ) {
+ 	    @r = map { 1 } @toAsk;
+-	    statusMessage("adding new channel $_\n") foreach @toAsk;
++	    termStatusMessage("adding new channel $_\n") foreach @toAsk;
+ 	}
+ 	else {
+ 	    die "invalid auto_new_channels $opt_auto_new_channels\n";
+@@ -1403,11 +1441,11 @@
+     if ( defined($opt_auto_missing_channels) ) {
+ 	if ( $opt_auto_missing_channels eq "ignore" ) {
+ 	    @r = map { 0 } @toAsk;
+-	    statusMessage("ignoring missing channel $_...\n") foreach @toAsk;
++	    termStatusMessage("ignoring missing channel $_...\n") foreach @toAsk;
+ 	}
+ 	elsif ( $opt_auto_missing_channels eq "remove" ) {
+ 	    @r = map { 1 } @toAsk;
+-	    statusMessage("removing channel $_..\n") foreach @toAsk;
++	    termStatusMessage("removing channel $_..\n") foreach @toAsk;
+ 	}
+ 	else {
+ 	    die "invalid auto_missing_channels $opt_auto_missing_channels\n";
+@@ -1430,15 +1468,15 @@
+ 
+     if ( $channelsUpdated == 0 ) {
+ 	if ( $config->haveAnyChannels() ) {
+-	    statusMessage("\nchannel line-up hasn't changed\n");
++	    termStatusMessage("\nchannel line-up hasn't changed\n");
+ 	}
+ 	else {
+-	    statusMessage("\nno channels added\n");
++	    termStatusMessage("\nno channels added\n");
+ 	}
+     } 
+ 
+     # write out config file
+-    statusMessage("\nupdating $configfile..\n");
++    termStatusMessage("\nupdating $configfile..\n");
+     if ( $config->save($configfile) != 0 ) {
+ 	errorMessage("$0: $configfile save failed\n");
+ 	exit(1);
+Index: grab/nl/tv_grab_nl
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/grab/nl/tv_grab_nl,v
+retrieving revision 1.50
+diff -u -B -b -w -r1.50 tv_grab_nl
+--- grab/nl/tv_grab_nl	14 Sep 2003 17:43:02 -0000	1.50
++++ grab/nl/tv_grab_nl	11 Dec 2003 16:10:06 -0000
+@@ -10,7 +10,7 @@
+ 
+ tv_grab_nl --help
+ 
+-tv_grab_nl [--config-file FILE] --configure
++tv_grab_nl [--config-file FILE] --configure [--gui OPTION]
+ 
+ tv_grab_nl [--config-file FILE] [--output FILE] [--days N]
+            [--offset N] [--quiet] [--slow]
+@@ -32,6 +32,11 @@
+ default is B<~/.xmltv/tv_grab_nl.conf>.  This is the file written by
+ B<--configure> and read when grabbing.
+ 
++B<--gui OPTION> Use this option to enable a graphical interface to be used.
++OPTION may be 'Tk' or 'GDialog', or left blank for the best available choice.
++Additional allowed values of OPTION are 'Term' for normal terminal output
++(default) and 'TermNoProgressBar' to disable the use of XMLTV::ProgressBar.
++
+ B<--output FILE> write to FILE rather than standard output.
+ 
+ B<--days N> grab N days.  The default is one week.
+@@ -82,6 +87,8 @@
+ use Date::Manip;
+ use XMLTV;
+ use XMLTV::Memoize;
++use XMLTV::GUI;
++use XMLTV::ProgressBar;
+ use XMLTV::Ask;
+ use XMLTV::Config_file;
+ use XMLTV::Europe_TZ;
+@@ -110,9 +117,6 @@
+     }
+ }
+ 
+-# Use Term::ProgressBar if installed.
+-use constant Have_bar => eval { require Term::ProgressBar; 1 };
+-
+ # Function prototypes.
+ sub time_tot_str( $ );
+ sub time_van_str( $ );
+@@ -138,8 +142,8 @@
+ # Get options, including undocumented --cache option.
+ XMLTV::Memoize::check_argv('XMLTV::Get_nice::get_nice_aux');
+ my ($opt_days, $opt_offset, $opt_help, $opt_output,
+-    $opt_configure, $opt_config_file, $opt_quiet,
+-    $opt_list_channels, $opt_slow);
++    $opt_configure, $opt_config_file, $opt_gui,
++    $opt_quiet, $opt_list_channels, $opt_slow);
+ $opt_days   = 7; # default
+ $opt_offset = 0; # default
+ GetOptions('days=i'        => \$opt_days,
+@@ -147,6 +151,7 @@
+ 	   'help'          => \$opt_help,
+ 	   'configure'     => \$opt_configure,
+ 	   'config-file=s' => \$opt_config_file,
++           'gui:s'         => \$opt_gui,
+ 	   'output=s'      => \$opt_output,
+ 	   'quiet'         => \$opt_quiet,
+ 	   'slow'	   => \$opt_slow,
+@@ -157,6 +162,12 @@
+   if (defined $opt_days && $opt_days < 0);
+ usage(1) if $opt_help;
+ 
++# Ask the XMLTV::GUI module for the graphics type we will use  
++my $gui_type = XMLTV::GUI::get_gui_type($opt_gui);
++
++XMLTV::Ask::init($gui_type);
++XMLTV::ProgressBar::init($gui_type);
++
+ my $mode = XMLTV::Mode::mode('grab', # default
+ 			     $opt_configure => 'configure',
+ 			     $opt_list_channels => 'list-channels',
+@@ -170,11 +181,12 @@
+     XMLTV::Config_file::check_no_overwrite($config_file);
+     open(CONF, ">$config_file") or die "cannot write to $config_file: $!";
+     # find list of available channels
+-    my $bar = new Term::ProgressBar('getting list of channels', 1)
+-      if Have_bar && not $opt_quiet;
++    my $bar = new XMLTV::ProgressBar('getting list of channels', 1)
++      if not $opt_quiet;
+     my %channels = get_channels();
+     die 'no channels could be found' if (scalar(keys(%channels)) == 0);
+-    update $bar if Have_bar && not $opt_quiet;
++    update $bar if not $opt_quiet;
++    $bar->finish() if not $opt_quiet;
+ 
+     # Ask about each channel.
+     my @chs = sort keys %channels;
+@@ -228,11 +240,11 @@
+    });
+ 
+ if ($mode eq 'list-channels') {
+-    my $bar = new Term::ProgressBar('getting list of channels', 1)
+-      if Have_bar && not $opt_quiet;
++    my $bar = new XMLTV::ProgressBar('getting list of channels', 1)
++      if not $opt_quiet;
+     my %channels = get_channels();
+     die 'no channels could be found' if (scalar(keys(%channels)) == 0);
+-    update $bar if Have_bar && not $opt_quiet;
++    update $bar if not $opt_quiet;
+ 
+     foreach my $ch_did (sort(keys %channels)) {
+ 	my $ch_name = $channels{$ch_did};
+@@ -241,6 +253,7 @@
+ 				 'display-name' => [ [ $ch_name ] ] });
+     }
+     $writer->end();
++    $bar->finish() if not $opt_quiet;
+     exit();
+ }
+ 
+@@ -303,15 +316,16 @@
+ my %warned_ch_name; # suppress duplicate warnings
+ 
+ my @summary_page_data;
+-my $bar = new Term::ProgressBar('downloading summary', scalar @to_get)
+-  if Have_bar && not $opt_quiet;
++my $bar = new XMLTV::ProgressBar('downloading summary', scalar @to_get)
++  if not $opt_quiet;
+ foreach (@to_get) {
+     my ($url, $day, $ch_xmltv_id, $ch_tvgids_id) = @$_;
+     die if ref $url;
+     push @summary_page_data,
+       [ $url, $ch_xmltv_id, [ process_summary_page($url, $day, $day) ] ];
+-    update $bar if Have_bar and not $opt_quiet;
++    update $bar if not $opt_quiet;
+ }
++$bar->finish() if not $opt_quiet;
+ 
+ my @summary_programmes;
+ my %detail_url_to_summary_url;
+@@ -424,8 +438,8 @@
+ 
+ my @to_write;
+ if ($opt_slow) {
+-    $bar = new Term::ProgressBar('getting details', scalar @summary_programmes)
+-      if Have_bar && not $opt_quiet;
++    $bar = new XMLTV::ProgressBar('getting details', scalar @summary_programmes)
++      if not $opt_quiet;
+     foreach my $s (@summary_programmes) {
+ 	my $urls = delete $s->{url};
+ 	if (not defined $urls) {
+@@ -520,6 +534,7 @@
+ 	push @to_write, $detailed;
+ 	update $bar if $bar;
+     }
++    $bar->finish() if $bar;
+ }
+ else {
+     @to_write = @summary_programmes;
+Index: grab/uk/tv_grab_uk.in
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/grab/uk/tv_grab_uk.in,v
+retrieving revision 1.92
+diff -u -B -b -w -r1.92 tv_grab_uk.in
+--- grab/uk/tv_grab_uk.in	8 Nov 2003 13:54:47 -0000	1.92
++++ grab/uk/tv_grab_uk.in	11 Dec 2003 16:10:08 -0000
+@@ -10,7 +10,7 @@
+ 
+ tv_grab_uk --help
+ 
+-tv_grab_uk [--config-file FILE] --configure
++tv_grab_uk [--config-file FILE] --configure [--gui OPTION]
+ 
+ tv_grab_uk [--config-file FILE] [--output FILE] [--days N]
+            [--offset N] [--quiet]
+@@ -36,6 +36,11 @@
+ default is B<~/.xmltv/tv_grab_uk.conf>.  This is the file written by
+ B<--configure> and read when grabbing.
+ 
++B<--gui OPTION> Use this option to enable a graphical interface to be used.
++OPTION may be 'Tk' or 'GDialog', or left blank for the best available choice.
++Additional allowed values of OPTION are 'Term' for normal terminal output
++(default) and 'TermNoProgressBar' to disable the use of Term::ProgressBar.
++
+ B<--output FILE> When grabbing, write output to FILE rather than
+ standard output.
+ 
+@@ -89,9 +94,6 @@
+     }
+ }
+ 
+-# Use Term::ProgressBar if installed.
+-use constant Have_bar => eval { require Term::ProgressBar; 1 };
+-
+ use XMLTV;
+ # We modify the XMLTV module's tables to add a <distribution> element
+ # to <channel>s.  We assume each channel has exactly one distribution
+@@ -106,6 +108,8 @@
+ use XMLTV::TZ qw(gettz tz_to_num);
+ use XMLTV::Europe_TZ;
+ use XMLTV::Memoize;
++use XMLTV::GUI;
++use XMLTV::ProgressBar;
+ use XMLTV::Ask;
+ use XMLTV::Config_file;
+ use XMLTV::Usage <<END
+@@ -146,6 +150,7 @@
+     $opt_share,
+     $opt_configure,
+     $opt_config_file,
++    $opt_gui,
+     $opt_offset,
+     $opt_quiet,
+    );
+@@ -156,6 +161,7 @@
+ 	   'help'          => \$opt_help,
+ 	   'configure'     => \$opt_configure,
+ 	   'config-file=s' => \$opt_config_file,
++           'gui:s'         => \$opt_gui,
+ 	   'output=s'      => \$opt_output,
+ 	   'share=s'       => \$opt_share, # also undocumented
+            'offset=i'      => \$opt_offset,
+@@ -168,6 +174,12 @@
+     usage(1);
+ }
+ 
++# Ask the XMLTV::GUI module for the graphics type we will use  
++my $gui_type = XMLTV::GUI::get_gui_type($opt_gui);
++
++XMLTV::Ask::init($gui_type);
++XMLTV::ProgressBar::init($gui_type);
++
+ # share/ directory for storing channel mapping files.  This next line
+ # is altered by processing through tv_grab_uk.PL.  But we can use the
+ # current directory instead of share/tv_grab_uk for development.
+@@ -334,7 +346,7 @@
+ 	    my @k = sort keys %to_choose;
+ 	    my $default = $k[0];
+ 	    my $chosen = askQuestion('Package to add: ',
+-				     $default, @k, $finished_option);
++				     $default, $finished_option, @k);
+ 	    last if $chosen eq $finished_option;
+ 
+ 	    # Now prompt about individual channels in this package.
+@@ -577,8 +589,8 @@
+         foreach (@urls_for_day) {
+ 	    $num_to_get += scalar @$_ if defined;
+ 	}
+-        my $bar = new Term::ProgressBar('downloading listings', $num_to_get)
+-	  if Have_bar && not $opt_quiet;
++        my $bar = new XMLTV::ProgressBar('downloading listings', $num_to_get)
++	  if not $opt_quiet;
+ 
+       DAY: foreach my $day ($first_day..$last_day) {
+ 	    my (@success, @get_failed, @no_content);
+@@ -594,7 +606,7 @@
+ 		else {
+ 		    push @success, [ $got, $_ ];
+ 		}
+-		update $bar if Have_bar && not $opt_quiet;
++		update $bar if not $opt_quiet;
+ 	    }
+ 	    if (not @success) {
+ 		if (not @get_failed and not @no_content) {
+@@ -632,13 +644,14 @@
+ 	    }
+ 	    push @to_parse, @success;
+ 	}
++        $bar->finish() if not $opt_quiet;
+     }
+     else {
+ 	warn "apparently nothing to download\n";
+     }
+ 
+-    my $bar = new Term::ProgressBar('parsing', scalar @to_parse)
+-      if Have_bar && not $opt_quiet;
++    my $bar = new XMLTV::ProgressBar('parsing', scalar @to_parse)
++      if not $opt_quiet;
+     my ($encoding, $credits, %ch, @prog_lists);
+     my $w;
+     my %written_xid;
+@@ -768,11 +781,13 @@
+ 	}
+ 
+ 	push @prog_lists, $prog_list;
+-	update $bar if Have_bar && not $opt_quiet;
++	update $bar if not $opt_quiet;
++        
+     }
++    $bar->finish() if not $opt_quiet;
+ 
+-    $bar = new Term::ProgressBar('writing', scalar @prog_lists)
+-      if Have_bar && not $opt_quiet;
++    $bar = new XMLTV::ProgressBar('writing', scalar @prog_lists)
++      if not $opt_quiet;
+     $w->write_channels(\%ch);
+     foreach (@prog_lists) {
+ 	# Remove the occasional zero-length programmes which pop up.  NB
+@@ -782,10 +797,11 @@
+ #	fix_zero_length($_);
+ 
+ 	$w->write_programme($_) foreach @$_;
+-	update $bar if Have_bar && not $opt_quiet;
++	update $bar if not $opt_quiet;
+     }
+ 
+     $w->end() if defined $w;
++    $bar->finish() if not $opt_quiet;
+ }
+ 
+ 
+@@ -1328,8 +1344,8 @@
+     my %r;
+     my $num_pages = scalar @pages;
+     t "initializing progress bar with $num_pages items";
+-    my $bar = new Term::ProgressBar($text, $num_pages)
+-      if Have_bar && not $opt_quiet;
++    my $bar = new XMLTV::ProgressBar($text, $num_pages)
++      if not $opt_quiet;
+ 
+     # FIXME currently multiple pages are not supported.
+     my $max_at_once = 1;
+@@ -1368,12 +1384,13 @@
+ 		die "really cannot fetch $url, giving up\n";
+ 	    }
+ 	}
+-	update $bar if Have_bar && not $opt_quiet;
++	update $bar if not $opt_quiet;
+ 	foreach (@this_fetch) {
+ 	    die "page $_ requested twice" if defined $r{$_}->{content};
+ 	    $r{$_}->{content} = shift @got;
+ 	}
+     }
++    $bar->finish() if not $opt_quiet;
+     die if (keys %r) != $num_pages;
+     return \%r;
+ }
+Index: lib/Ask.pm
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/lib/Ask.pm,v
+retrieving revision 1.11
+diff -u -B -b -w -r1.11 Ask.pm
+--- lib/Ask.pm	10 Sep 2003 19:49:45 -0000	1.11
++++ lib/Ask.pm	11 Dec 2003 16:10:08 -0000
+@@ -5,9 +5,18 @@
+ 
+ package XMLTV::Ask;
+ use strict;
+-use Carp qw(croak carp);
+ 
+-# Use Log::TraceMessages if installed, and choose graphical or not.
++use vars qw(@ISA @EXPORT);
++use Exporter;
++@ISA = qw(Exporter);
++@EXPORT = qw(ask
++             askQuestion
++             askBooleanQuestion
++             askManyBooleanQuestions
++             say
++             );
++
++# Use Log::TraceMessages if installed.
+ BEGIN {
+     eval { require Log::TraceMessages };
+     if ($@) {
+@@ -19,21 +28,51 @@
+ 	*d = \&Log::TraceMessages::d;
+     }
+ 
+-    # For now we do graphical configuration only if the undocumented
+-    # XMLTV_TK environment variable is set to a true value.
+-    #
+-    if ($ENV{XMLTV_TK}
+-	and (defined($ENV{DISPLAY}) || $^O eq 'MSWin32')
+-	and eval { require Tk }) {
+-	require XMLTV::AskTk; XMLTV::AskTk->import;
+-	*XMLTV::Ask:: = *XMLTV::AskTk::;
+-    }
+-    else {
+-	require XMLTV::AskTerm; XMLTV::AskTerm->import;
+-	*XMLTV::Ask:: = *XMLTV::AskTerm::;
++
++    
+     }
++
++my $real_class = 'XMLTV::Ask::Term';
++
++sub AUTOLOAD {
++        
++        use vars qw($AUTOLOAD);
++        
++        (my $method_name = $AUTOLOAD) =~ s/.*::(.*?)/$1/;
++        
++        (my $real_class_path = $real_class.".pm") =~ s/::/\//g;
++        
++        require $real_class_path;
++        import $real_class_path;
++        
++        $real_class->$method_name(@_);
++        
+ }
+ 
+ 
++# Must be called before we use this module if we want to use a gui.
++sub init( $ ) {
++        
++        my $gui_type = shift;
++        
++        if($gui_type =~ /^term/) {
++                
++                $real_class = 'XMLTV::Ask::Term';
++                
++        } elsif($gui_type eq 'tk') {
++                
++                $real_class = 'XMLTV::Ask::Tk';
++                
++        } elsif($gui_type eq 'gdialog') {
++                
++                $real_class = 'XMLTV::Ask::GDialog';
++                
++        } else {
++                
++                die "Unknown gui type: '$gui_type'.";
++                
++        }
++        
++}
+ 
+ 1;

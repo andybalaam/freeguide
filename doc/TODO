@@ -100,6 +100,7 @@ e  means done by Ewan Harrow
 - Make installer launch FreeGuide (if XMLTV is configured)
 - Make installer launch a README file (useful to check browser works, as well)
 - Terms and conditions of listings
+- Review usefulness of stuff like ConfigGuesser
 
 - Release 0.6.5 (aesthetics)
 
@@ -115,6 +116,9 @@ e  means done by Ewan Harrow
 - Make options and customise screens nicer
 - Sort out themes in some way
 - Make the About box a _lot_ nicer.
+- Fix the "Execution Error" on success problem in Windows.
+- Show whether a tab has been altered on the Options Dialog
+- Fix segfault in XMLTV --configure when --config-file is supplied
 
 - Release 0.6.4 (accessibility, accessibility, accessibility)
 
@@ -122,16 +126,28 @@ e  means done by Ewan Harrow
 - Shortcut keys for everything
 - Programme info panel (and ability to turn off tooltips)
 - Scroll to the most recently selected programme (and highlight it?)
+- ProgrammeJLabel shows which programme is selected
+- Keyboard navigation of programme scrollpane
 
 - Release 0.6.3 (version checking, reminders, links)
 
-- Choose browser on install and in options
-- Privacy preferences in installer
-- Document reminder system and incorporate into Options screen
+- Fix popups coming up behind window on startup bug (using a later time?)
+- Refresh after download (using dialog?)
+- Fix blank country in Install
+- Include a method to call if you quit out of the wizard, and make it call
+	System.exit in Install
+- Include a modified XMLTV for configuration.
 - Check that all prefs are covered in Options screen
+- Choose browser in options
++ Privacy choice on reminder screen
+- Document reminder system and incorporate into Options screen
++ Privacy preferences in installer
++ Choose browser on install
++ Global and specific install-xx.props file for each install type
 + Link to more info on right-click on programme
 + Check version on startup
 e Make the "now" line a thing of beauty (using anti-aliasing)
+e Anti-alias heart icon for Favourites
 
 + Release 0.6.2 (new XMLTV version 0.5.23)
 

@@ -1,33 +1,7 @@
 region=North America (US & Canada)
 
-prefs.1=misc.install_directory=%home%/freeguide-tv
-prefs.2=misc.working_directory=%home%/.freeguide-tv
-prefs.3=misc.xmltv_directory=/usr/local/bin
-prefs.4=misc.grabber_config=%home%/.xmltv/tv_grab_na.conf
-prefs.5=misc.days_to_grab=7
-prefs.6=misc.day_start_time=06:00
-prefs.7=commandline.browser_command.1=netscape \"%filename%\"
-prefs.8=commandline.tv_grab.1=tv_grab_na --config-file \"%misc.grabber_config%\" --days %misc.days_to_grab% --listings \"%misc.working_directory%/tv-%%Y%%m%%d.xmltv\" --release-check false
-prefs.9=misc.grabber_today_offset=0
-prefs.10=misc.grabber_start_time=00:00
-prefs.11=misc.grabber_start_today=true
+prefs.1=misc.days_to_grab=7
+prefs.2=commandline.tv_grab.1=\"%misc.xmltv_directory%/xmltv\" tv_grab_na --days %misc.days_to_grab% --listings \"%misc.working_directory%/tv-%%Y%%m%%d.xmltv\" --release-check false
+prefs.3=misc.grabber_start_time=00:00
+prefs.4=commandline.tv_config.1=\"%misc.xmltv_directory%/xmltv\" tv_grab_na --configure --gui --release-check false
 
-file.1=FreeGuide.jar>%misc.install_directory%/FreeGuide.jar
-file.2=contributors.html>%misc.install_directory%/contributors.html
-file.3=COPYING>%misc.install_directory%/COPYING
-file.4=design.html>%misc.install_directory%/design.html
-file.5=index.html>%misc.install_directory%/index.html
-file.6=INSTALL>%misc.install_directory%/INSTALL
-file.7=INSTALL-linux.html>%misc.install_directory%/INSTALL-linux.html
-file.8=INSTALL-windows.html>%misc.install_directory%/INSTALL-windows.html
-file.9=README>%misc.install_directory%/README
-file.10=README.html>%misc.install_directory%/README.html
-file.11=channels.png>%misc.install_directory%/channels.png
-file.12=customise.png>%misc.install_directory%/customise.png
-file.13=favourites.png>%misc.install_directory%/favourites.png
-file.14=options.png>%misc.install_directory%/options.png
-file.15=viewer.png>%misc.install_directory%/viewer.png
-file.16=TODO>%misc.install_directory%/TODO
-file.17=developers.html>%misc.install_directory%/developers.html
-
-file.18=xmltv.dtd>%misc.working_directory%/xmltv.dtd

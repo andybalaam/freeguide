@@ -31,9 +31,9 @@ import javax.swing.JOptionPane;
  *
  *  @author  Andy Balaam
  *  @created 02 July 2003
- *  @version 8
+ *  @version 9
  */
-public class Install implements Launcher {
+public class Install extends PrefsHolder {
 
     /**
      *  Constructor for the Install object
@@ -48,7 +48,7 @@ public class Install implements Launcher {
         // Branch into Reinstall or first time
         String install_directory = prefs.performSubstitutions(
                 prefs.misc.get("install_directory"));
-
+				
         if (install_directory == null ||
                 !(new File(install_directory + File.separator +
                 "FreeGuide.jar").exists())) {
@@ -93,34 +93,6 @@ public class Install implements Launcher {
 
     /**
      *  Description of the Method
-     */
-    public void reShow() {
-        System.exit(0);
-    }
-
-
-    /**
-     *  Gets the launcher attribute of the Install object
-     *
-     *@return    The launcher value
-     */
-    public Launcher getLauncher() {
-        return null;
-    }
-
-
-    /**
-     *  Sets the visible attribute of the Install object
-     *
-     *@param  show  The new visible value
-     */
-    public void setVisible(boolean show) {
-
-    }
-
-
-    /**
-     *  Description of the Method
      *
      *@param  install_directory   Description of the Parameter
      *@param  keepOldPreferences  Description of the Parameter
@@ -129,13 +101,15 @@ public class Install implements Launcher {
 
         keepOldPrefs = keepOldPreferences;
 
+		setStandardProps();
+		
 		// If we haven't got a region, assume it's UK.
 		if( prefs.misc.get( "region" ) == null ) {
 			prefs.misc.get( "region", "UK" );
 		}
 		
         try {
-
+			
             getAllRegions();
 
             WizardPanel[] panels = new WizardPanel[6];
@@ -148,7 +122,7 @@ public class Install implements Launcher {
 			Class[] clses = new Class[1];
             clses[0] = Object.class;
 			panels[1].setOnExit(this,
-                    getClass().getMethod("SetProps", clses));
+                    getClass().getMethod("setProps", clses));
             panels[1].setMessages("Choose your region.",
                     "This affects which listings grabber will be used.");
 			panels[1].setConfig("misc", "region");
@@ -174,11 +148,17 @@ public class Install implements Launcher {
 			panels[4] = new PrivacyWizardPanel();
 			panels[4].setConfig( "misc", "privacy" );
 			
-			clses = new Class[0];
-            panels[5] = new LabelWizardPanel("Now you need to configure your grabber before you can start using it.");
-            panels[5].setMessages("FreeGuide will be installed when you click \"Finish\".", "Read the README in the directory you chose to find out how.");
+            panels[5] = new InstallWizardPanel( this );
+            panels[5].setMessages(
+				"FreeGuide will be installed when you click \"Finish\".",
+			   "Now you will be asked some questions about grabbing listings.");
+			clses = new Class[1];
+			clses[0] = InstallWizardPanel.class;
+			panels[5].setOnExit( this, getClass().getMethod( "exitFinal",
+				clses ) );
 
-            new WizardFrame("FreeGuide Setup Wizard", panels, this, this,
+			clses = new Class[0];
+            new WizardFrame("FreeGuide Setup Wizard", panels, this,
                     getClass().getMethod("doInstall", clses)).setVisible(true);
 
         } catch (java.lang.NoSuchMethodException e) {
@@ -219,12 +199,41 @@ public class Install implements Launcher {
 		
 	}
 	
+	public void exitFinal( InstallWizardPanel panel ) {
+		
+		showREADME = panel.readmeCheckBox.isSelected();
+		configGrabber = panel.configgrabberCheckBox.isSelected();
+		
+	}
+	
+	/**
+     * Load in the standard properties file.  Note this method just stores the
+	 * preferences listed in this file and then forgets anything else.
+     *
+     */
+    private void setStandardProps() {  
+		
+		standardProps = new Properties();
+		
+		try {
+			
+			standardProps.load( new BufferedInputStream(
+				getClass().getResourceAsStream( "/install-all.props") ) );
+							
+        } catch (java.io.IOException e) {
+			e.printStackTrace();
+        }
+        
+		readPrefsFromProps( standardProps );
+
+    }
+	
     /**
      *  Load in the properties file for the chosen region
      *
      *@param  boxValue  The name of the region chosen by the user.
      */
-    public void SetProps(Object boxValue) {
+    public void setProps(Object boxValue) {
 		
         String region = (String) boxValue;
 		
@@ -233,11 +242,11 @@ public class Install implements Launcher {
             if (allRegions[i].equals(region)) {
 
                 // Load the install.props file
-                props = new Properties();
+                specificProps = new Properties();
 
                 try {
 
-                    props.load(
+                    specificProps.load(
                             new BufferedInputStream(
                             getClass().getResourceAsStream(
                             "/install-" + i + ".props")));
@@ -246,28 +255,35 @@ public class Install implements Launcher {
                     e.printStackTrace();
                 }
 
-                // Do all the preferences in the properties file - set the
-                // defaults to them, and set the real values too if we're
-                // not keeping old ones.
-                int j = 1;
-                String prefString = "";
-                while ((prefString = props.getProperty(
-                        "prefs." + j)) != null) {
-
-                    doPref(prefString);
-                    j++;
-
-                }
+                readPrefsFromProps( specificProps );
 
                 return;
             }
         }
 
         System.err.println(
-                "Install.SetProps - Invalid region chosen.");
+                "Install.setProps - Invalid region chosen.");
 
     }
 
+	/**
+	 * Given a properties file real in all the preferences listed and store
+	 * them.  Store them as defaults always, and possibly overwrite actual
+	 * values if keepOldPrefs is false.
+	 */
+	private void readPrefsFromProps( Properties iProps ) {
+		
+        String prefString = "";
+		
+        for ( 	int j = 1;
+				( prefString = iProps.getProperty( "prefs." + j ) ) != null;
+				j++ ) {
+
+			doPref(prefString);
+
+        }
+		
+	}
 
     /**
      *  Gets the allRegions attribute of the Install object
@@ -346,7 +362,7 @@ public class Install implements Launcher {
     /**
      *  Deletes a whole directory recursively (also deletes a single file).
      *
-     *@param  dir  Description of the Parameter
+     *@param  dir  The directory to delete
      */
     private void deleteDir(File dir) {
 
@@ -395,37 +411,85 @@ public class Install implements Launcher {
             new File(prefs.performSubstitutions(
                     prefs.misc.get("working_directory"))).mkdirs();
 
-            // Copy in the files
-            int i = 1;
-            String filename = "";
-            while ((filename = props.getProperty("file." + i)) != null) {
-                installFile(filename);
-                i++;
-            }
-
-            System.err.println("Finished install.");
-            System.exit(0);
+			installFilesFromProps( standardProps );
+			installFilesFromProps( specificProps );
 
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
-
+		
+		if(configGrabber) {
+			
+			ExecutorFrame ef = Utils.execAndWait( prefs.getCommands(
+				"tv_config" ), "Configuring", prefs );
+			
+			while( ef.isVisible() ) {
+				
+				Thread.currentThread().yield();
+				
+			}
+			
+		}
+		
+		if( showREADME ) {
+			
+			String[] cmds = Utils.substitute(
+				prefs.commandline.getStrings( "browser_command" ),
+				"%filename%", prefs.performSubstitutions( 
+					"%misc.install_directory%/README.html" ) );
+			
+			Utils.execNoWait( cmds, prefs );
+			
+		}
+		
+		System.err.println("Finished install.");
+		System.exit(0);
+		
     }
-
-
+	
+	private void installFilesFromProps( Properties iProps )
+			throws java.io.IOException {
+	
+		String filename = "";
+		String exec = "";
+		
+		for( int i=1;
+			 	( filename = iProps.getProperty("file." + i) ) != null;
+			 	i++ ) {
+			
+			exec = iProps.getProperty("file." + i + ".exec");
+			
+			installFile(filename, exec);
+            
+        }
+		
+	}
+	
     /**
-     *  Description of the Method
+     * Given a String "src>dest", copies a file in this jar (path=src) to the
+	 * location given in dest.
      *
-     *@param  command                  Description of the Parameter
-     *@exception  java.io.IOException  Description of the Exception
      */
-    private void installFile(String command) throws java.io.IOException {
+    private void installFile(String command, String exec) throws java.io.IOException {
 
         String[] srcdest = command.split(">");
 
         doInstallFile(srcdest[0],
                 prefs.performSubstitutions(srcdest[1]));
 
+		if( exec != null ) {
+			
+			Utils.execNoWait( exec, prefs );
+			
+			// Give it a second to actually change.
+			try {
+				Thread.currentThread().sleep( 1000 );
+			} catch( InterruptedException e ) {
+				e.printStackTrace();
+			}
+						
+		}
+				
     }
 
 
@@ -438,7 +502,7 @@ public class Install implements Launcher {
      */
     private void doInstallFile(String src, String dest)
              throws java.io.IOException {
-
+				 
         byte[] buf = new byte[32768];
 
         // make the directory if it doesn't exist
@@ -509,9 +573,12 @@ public class Install implements Launcher {
 
     private boolean keepOldPrefs;
     private String[] allRegions;
-    private Properties props;
-    private PreferencesGroup prefs;
+    private Properties standardProps;
+	private Properties specificProps;
     private String fs = System.getProperty("file.separator");
     private String lb = System.getProperty("line.separator");
+	
+	private boolean showREADME;
+	private boolean configGrabber;
 
 }

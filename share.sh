@@ -44,7 +44,7 @@ for FILE in $FILES; do {
 
 		}; else {
 
-			COUNT=20
+			COUNT=1
 
 		}; fi
 	

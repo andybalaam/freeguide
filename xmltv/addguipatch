@@ -1,0 +1,20 @@
+#!/bin/bash
+
+cd $1
+
+# Remove extra files
+rm -f lib/AskTk.pm lib/AskTerm.pm
+
+# Patch the existing source
+patch -p0 < ../tkgui.diff
+
+# Add in new source files
+mkdir lib/Ask/
+mkdir lib/ProgressBar/
+
+cp ~/code/xmltv-tkgui/lib/Ask/*.pm lib/Ask/
+cp ~/code/xmltv-tkgui/lib/ProgressBar/*.pm lib/ProgressBar/
+cp ~/code/xmltv-tkgui/lib/GUI.pm lib/
+cp ~/code/xmltv-tkgui/lib/ProgressBar.pm lib/
+
+

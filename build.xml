@@ -13,9 +13,10 @@
 	<property name="share"  location="share"/>
 	
 	<property name="build" location="build"/>
+	<property name="package" location="package"/>
 	<property name="dist"  location="dist"/>
 
-	<property name="freeguideversion"  value="FreeGuide-0.6.3"/>
+	<property name="freeguideversion"  value="FreeGuide-0.7"/>
 	
   	<target name="init">
   
@@ -26,6 +27,7 @@
 		<mkdir dir="${build}/program"/>
 		<mkdir dir="${build}/install"/>
 		<mkdir dir="${build}/doc"/>
+		<mkdir dir="${package}"/>
 		<mkdir dir="${dist}"/>
 	
 	</target>
@@ -45,16 +47,7 @@
   		<!-- copy the program classes that are needed by each installer -->
     	<copy todir="${build}/install">
 			<fileset dir="${build}/program">
-				<include name="*WizardPanel*.class"/>
-				<include name="ConfigGuesser.class"/>
-				<include name="ChannelSet*.class"/>
-				<include name="StartupChecker.class"/>
-				<include name="Launcher.class"/>
-				<include name="PreferencesGroup.class"/>
-				<include name="FGPreferences.class"/>
-				<include name="Time.class"/>
-				<include name="Utils.class"/>
-				<include name="WizardFrame*.class"/>
+				<include name="*.class"/>
 			</fileset>
 		</copy>
 	
@@ -63,35 +56,14 @@
 	
 		<!-- so we can overwrite files outside the doc tree -->
 		<copy todir="${build}/doc">
-			<fileset dir="${doc}/">
-				<exclude name="*.sh"/>
-			</fileset>
+			<fileset dir="${doc}/" excludes="*.sh,*.php,.xvpics/" />
 		</copy>
 	</target>
-	
-	<target name="linux_doc" description="Convert HTML to text" >
-	
-		<!-- process the documentation -->
-		<!-- FIXME - this makes the build process imperfect on Windows as these
-			text files are not created -->
-		<exec executable="lynx" dir="${build}/doc" os="Linux" output="${build}/doc/README">
-			<arg value="-dump"/>
-			<arg value="-nolist"/>
-			<arg value="README.html"/>
-		</exec>
-		<exec executable="lynx" dir="${build}/doc" os="Linux" output="${build}/doc/INSTALL">
-			<arg value="-dump"/>
-			<arg value="-nolist"/>
-			<arg value="INSTALL-linux.html"/>
-		</exec>
-	
-	</target>
 
-  	<target name="FreeGuide" depends="compile" description="generate the program jar file" >
-  
-  		<mkdir dir="${dist}"/>
+  	<target name="FreeGuide" depends="compile"
+			description="generate the program jar file" >
 				
-		<jar 	jarfile="${dist}/FreeGuide.jar"
+		<jar 	jarfile="${build}/FreeGuide.jar"
 				basedir="${build}/program"
 				manifest="${src}/manifests/FreeGuide.mf"/>
   
@@ -100,92 +72,137 @@
 	<target name="FreeGuide-Win-Install" depends="FreeGuide" 
   		description="generate the windows installer jar" >
 		
-		<mkdir dir="${build}/install-win"/>
+		<mkdir dir="${package}/windows" />
 		
 		<!-- Copy the program jar, installer clases and docs -->
-		<copy todir="${build}/install-win">
-			<fileset dir="${dist}/">
+		<copy todir="${package}/windows">
+			<fileset dir="${build}/">
 				<include name="FreeGuide.jar"/>
 			</fileset>
-			<fileset dir="${build}/doc/">
-				<exclude name="*.sh"/>
-			</fileset>
+			<fileset dir="${build}/doc/" />
 			<fileset dir="${build}/install"/>
 		</copy>
 		
 		<!-- Copy the XMLTV DTD -->
-		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-win/"/>
+		<copy file="${xmltv}/xmltv.dtd" todir="${package}/windows"/>
 		
 		<!-- Copy the XMLTV exe -->
-		<copy file="${xmltv}/xmltv.exe" todir="${build}/install-win"/>
+		<copy file="${xmltv}/xmltv.exe" todir="${package}/windows"/>
 		
 		<!-- copy in the shared files -->
-		<mkdir dir="${build}/install-win/share"/>
-		<copy todir="${build}/install-win/share">
+		<mkdir dir="${package}/windows/share"/>
+		<copy todir="${package}/windows/share">
 			<fileset dir="${share}/" />
 		</copy>
 		
 		<!-- copy in the install.props file for the jar -->
-		<copy file="${src}/install/install-win-dk.props" tofile="${build}/install-win/install-0.props" overwrite="true" />
-		<copy file="${src}/install/install-win-de.props" tofile="${build}/install-win/install-1.props" overwrite="true" />
-		<copy file="${src}/install/install-win-es.props" tofile="${build}/install-win/install-2.props" overwrite="true" />
-		<copy file="${src}/install/install-win-fi.props" tofile="${build}/install-win/install-3.props" overwrite="true" />
-		<copy file="${src}/install/install-win-hu.props" tofile="${build}/install-win/install-4.props" overwrite="true" />
-		<copy file="${src}/install/install-win-it.props" tofile="${build}/install-win/install-5.props" overwrite="true" />
-		<copy file="${src}/install/install-win-nl.props" tofile="${build}/install-win/install-6.props" overwrite="true" />
-		<copy file="${src}/install/install-win-na.props" tofile="${build}/install-win/install-7.props" overwrite="true" />
-		<copy file="${src}/install/install-win-sn.props" tofile="${build}/install-win/install-8.props" overwrite="true" />
-		<copy file="${src}/install/install-win-uk.props" tofile="${build}/install-win/install-9.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-all.props" tofile="${package}/windows/install-all.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-dk.props" tofile="${package}/windows/install-0.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-de.props" tofile="${package}/windows/install-1.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-es.props" tofile="${package}/windows/install-2.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-fi.props" tofile="${package}/windows/install-3.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-hu.props" tofile="${package}/windows/install-4.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-it.props" tofile="${package}/windows/install-5.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-nl.props" tofile="${package}/windows/install-6.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-na.props" tofile="${package}/windows/install-7.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-uk.props" tofile="${package}/windows/install-8.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Win-Install.jar"
-				basedir="${build}/install-win"
+				basedir="${package}/windows"
 				manifest="${src}/manifests/Install.mf"/>
   
   	</target>
   
   
 	
-	<target name="FreeGuide-Linux-Install" depends="FreeGuide,linux_doc"
+	<target name="FreeGuide-Linux-NoXMLTV-Install" depends="FreeGuide"
   		description="generate the linux installer jar" >
 		
+		<mkdir dir="${package}/linux" />
+		
 		<!-- Copy the program file and docs -->
-		<copy todir="${build}/install-lin">
-			<fileset dir="${dist}/">
+		<copy todir="${package}/linux">
+			<fileset dir="${build}/">
 				<include name="FreeGuide.jar"/>
 			</fileset>
-			<fileset dir="${build}/doc/">
-				<exclude name="*.sh"/>
-			</fileset>
+			<fileset dir="${build}/doc/" />
 			<fileset dir="${build}/install"/>
 		</copy>
 		
 		<!-- Copy the XMLTV DTD -->
-		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-lin/"/>
+		<copy file="${xmltv}/xmltv.dtd" todir="${package}/linux" />
 		
 		<!-- copy in the install.props file for the jar -->
-		<copy file="${src}/install/install-lin-dk.props" tofile="${build}/install-lin/install-0.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-de.props" tofile="${build}/install-lin/install-1.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-es.props" tofile="${build}/install-lin/install-2.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-fi.props" tofile="${build}/install-lin/install-3.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-hu.props" tofile="${build}/install-lin/install-4.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-it.props" tofile="${build}/install-lin/install-5.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-nl.props" tofile="${build}/install-lin/install-6.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-nz.props" tofile="${build}/install-lin/install-7.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-na.props" tofile="${build}/install-lin/install-8.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-sn.props" tofile="${build}/install-lin/install-9.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-uk.props" tofile="${build}/install-lin/install-10.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-all.props" tofile="${package}/linux/install-all.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-dk.props" tofile="${package}/linux/install-0.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-de.props" tofile="${package}/linux/install-1.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-es.props" tofile="${package}/linux/install-2.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-fi.props" tofile="${package}/linux/install-3.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-hu.props" tofile="${package}/linux/install-4.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-it.props" tofile="${package}/linux/install-5.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-nl.props" tofile="${package}/linux/install-6.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-nz.props" tofile="${package}/linux/install-7.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-na.props" tofile="${package}/linux/install-8.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-uk.props" tofile="${package}/linux/install-9.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
-		<jar 	jarfile="${dist}/${freeguideversion}-Linux-Install.jar"
-				basedir="${build}/install-lin"
+		<jar 	jarfile="${dist}/${freeguideversion}-Linux-NoXMLTV-Install.jar"
+				basedir="${package}/linux"
 				manifest="${src}/manifests/Install.mf"/>
   
   	</target>
   
+	<target name="FreeGuide-Linux-Install" depends="FreeGuide"
+  		description="generate the linux installer including the PAR version of XMLTV" >
+		
+		<mkdir dir="${package}/linux-par" />
+		
+		<!-- Copy the program file and docs -->
+		<copy todir="${package}/linux-par">
+			<fileset dir="${build}/">
+				<include name="FreeGuide.jar"/>
+			</fileset>
+			<fileset dir="${build}/doc/" />
+			<fileset dir="${build}/install"/>
+		</copy>
+		
+		<!-- Copy the XMLTV DTD -->
+		<copy file="${xmltv}/xmltv.dtd" todir="${package}/linux-par" />
+		
+		<!-- Copy the XMLTV PAR-compiled executable -->
+		<copy file="${xmltv}/xmltv" todir="${package}/linux-par"/>
+		
+		<!-- copy in the shared files -->
+		<mkdir dir="${package}/linux-par/share"/>
+		<copy todir="${package}/linux-par/share">
+			<fileset dir="${share}/" />
+		</copy>
+		
+		<!-- copy in the install.props file for the jar -->
+		<copy file="${src}/install/linux-par/install-lin-all.props" tofile="${package}/linux-par/install-all.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-dk.props" tofile="${package}/linux-par/install-0.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-de.props" tofile="${package}/linux-par/install-1.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-es.props" tofile="${package}/linux-par/install-2.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-fi.props" tofile="${package}/linux-par/install-3.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-hu.props" tofile="${package}/linux-par/install-4.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-it.props" tofile="${package}/linux-par/install-5.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-nl.props" tofile="${package}/linux-par/install-6.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-na.props" tofile="${package}/linux-par/install-7.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-uk.props" tofile="${package}/linux-par/install-8.props" overwrite="true" />
+		
+		<!-- Make the jar installer file -->
+		<jar 	jarfile="${dist}/${freeguideversion}-Linux-Install.jar"
+				basedir="${package}/linux-par"
+				manifest="${src}/manifests/Install.mf"/>
+  
+  	</target>
 	
 	<target name="FreeGuide-Source"
-  		description="generate the source zips" depends="init">
+  		description="generate the source zips"
+			depends="FreeGuide-Win-Install,
+					 FreeGuide-Linux-Install,
+					 FreeGuide-Linux-NoXMLTV-Install">
 		
 		<zip zipfile="${dist}/${freeguideversion}.zip">
 			<zipfileset dir="${src}" prefix="${freeguideversion}/src">
@@ -198,27 +215,25 @@
 			<zipfileset dir="xmltv" includes="xmltv-*.tar.bz2" prefix="${freeguideversion}/xmltv" />
 		</zip>
   
-  		<unzip src="${dist}/${freeguideversion}.zip" dest="${dist}/zipfile/" />
+  		<unzip src="${dist}/${freeguideversion}.zip" dest="${package}/source/" />
   
-  		<tar tarfile="${dist}/${freeguideversion}.tar" basedir="${dist}/zipfile" />
+  		<tar tarfile="${package}/${freeguideversion}.tar" basedir="${package}/source" />
   
-  		<gzip src="${dist}/${freeguideversion}.tar" zipfile="${dist}/${freeguideversion}.tar.gz" />
-
-		<delete dir="${dist}/zipfile" />
-		<delete file="${dist}/${freeguideversion}.tar" />
+  		<gzip src="${package}/${freeguideversion}.tar" zipfile="${dist}/${freeguideversion}.tar.gz" />
 		
   	</target>
   
-  	<target name="main" depends="FreeGuide-Source,FreeGuide-Win-Install,FreeGuide-Linux-Install" 
+  	<target name="main" depends="FreeGuide-Source" 
 		description="generate all the installers" >
   
 	</target>
 
 	<target name="clean"
         description="clean up" >
-		<!-- Delete the ${build} and ${dist} directory trees -->
-		<delete dir="${build}"/>
-		<delete dir="${dist}"/>
+		<!-- Delete the ${build}, ${dist} and ${package} directory trees -->
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+		<delete dir="${package}" />
 	</target>
 		
 </project>

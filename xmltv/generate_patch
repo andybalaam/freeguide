@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# A script to generate a patch from a release of XMLTV to my customised
+# tkgui version.
+
+# Don't forget to run e.g. "cvs update -r V0_5_25" first and resolve any
+# conflicts.
+
+INITIAL_DIR=`pwd`
+
+# Go into the directory that contains the tkgui code
+cd ~/code/xmltv-tkgui
+
+# Remove the extra files if they exist
+rm -f lib/AskTerm.pm lib/AskTk.pm
+
+# Create the patch file in the previous current directory
+cvs diff -uBbw | grep --invert-match ^\? > $INITIAL_DIR/tkgui.diff
+
+
