@@ -64,7 +64,7 @@ All dates and times in this DTD follow the same format, loosely based
 on ISO 8601.  They can be 'YYYYMMDDhhmmss' or some initial
 substring, for example if you only know the year and month you can
 have 'YYYYMM'.  You can also append a timezone to the end; if no
-explicit timezone is given, UT is assumed.  Examples:
+explicit timezone is given, UTC is assumed.  Examples:
 '200007281733 BST', '200209', '19880523083000 +0300'.  (BST == +0100.)
 
 Unless specified otherwise, textual element content may not contain
@@ -363,6 +363,12 @@ they can be given in the form 'X/Y' to show series X out of Y series
 made, or episode X out of Y episodes in this series, or part X of a
 Y-part episode.  If any of these aren't known they can be omitted.
 You can put spaces whereever you like to make things easier to read.
+
+(NB 'part number' is not used when a whole programme is split in two
+for purely scheduling reasons; it's intended for cases where there
+really is a 'Part One' and 'Part Two'.  The format doesn't currently
+have a way to represent a whole programme that happens to be split
+across two or more timeslots.)
 
 Some examples will make things clearer.  The first episode of the
 second series is '1.0.0/1' .  If it were a two-part episode, then the

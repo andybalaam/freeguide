@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# A convenience script I use under Cygwin to generate the list of shared files
+# A convenience script I use to generate the list of shared files
 # for tv_grab_uk's install-win-uk.props file
 
 # Example:
@@ -14,7 +14,7 @@
 COUNTRY=$1
 
 #DIR="/cygdrive/c/Documents and Settings/root/My Documents/cvs-freeguide-tv/build/install-win/share/xmltv/$COUNTRY"
-DIR="/home/andy/cvs-freeguide-tv/build/install-win/share/xmltv/$COUNTRY"
+DIR="/home/andy/code/freeguide-tv/build/install-win/share/xmltv/$COUNTRY"
 
 SUBDIR=$2
 

@@ -275,22 +275,26 @@ public class WizardFrame extends javax.swing.JFrame {
 
 
     /**
-     *  Description of the Method
+     *  Enable the buttons according to where we are in the wizard: beginning,
+	 *  middle, or end.
      */
     private void refreshButtons() {
 
-        if (panelCounter == 0) {
+        if (panelCounter == 0) {	// Beginning
             butBack.setEnabled(false);
             butNext.setEnabled(true);
             butFinish.setEnabled(false);
-        } else if (panelCounter == panels.length - 1) {
+			getRootPane().setDefaultButton( butNext );
+        } else if (panelCounter == panels.length - 1) {	// End
             butBack.setEnabled(true);
             butNext.setEnabled(false);
             butFinish.setEnabled(true);
-        } else {
+			getRootPane().setDefaultButton( butFinish );
+        } else {	// Middle
             butBack.setEnabled(true);
             butNext.setEnabled(true);
             butFinish.setEnabled(false);
+			getRootPane().setDefaultButton( butNext );
         }
 
     }

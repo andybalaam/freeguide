@@ -59,6 +59,8 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 
         String programmeDescription = programme.getLongDesc();
         String programmeTitle = programme.getTitle();
+		String programmeSubTitle = programme.getSubTitle();
+		String programmeStarString =  programme.getStarString();
 
         // Find the channel number
         String channelID = programme.getChannelID();
@@ -78,6 +80,7 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
         int bottom = ((channelNo + 1) * channelHeight) - (halfVerGap * 2);
 		
         StringBuffer labelText = new StringBuffer();
+		StringBuffer tooltip = new StringBuffer();
 		
         if( drawTime ) {
             labelText
@@ -87,27 +90,34 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
         }
 
         labelText.append( programmeTitle );
-		StringBuffer tooltip = new StringBuffer();
 		
-		if (programmeDescription == null) {
-			
-            tooltip.append ( timeFormat.format( programmeStart.getTime() ) )
+		tooltip.append ( timeFormat.format( programmeStart.getTime() ) )
 				.append( " " )
 				.append( programmeTitle );
-				
-        } else {
+		
+		if( programmeSubTitle != null ) {
 			
-			tooltip.append( timeFormat.format( programmeStart.getTime() ) )
-				.append( " " )
-				.append( programmeTitle )
-				.append( " - " )
+			labelText.append( ": " )
+				.append( programmeSubTitle );
+			
+			tooltip.append( ": " )
+				.append( programmeSubTitle );
+			
+		}
+		
+		if (programmeDescription != null) {
+			
+				tooltip.append( " - " )
 				.append( programme.getShortDesc() );
 		}
 		
-        if ( programme.getIsMovie() ) {
+        if ( programme.getIsMovie() && programmeStarString!=null ) {
 			
-            labelText.append(" ").append( programme.getStarString() );
-			tooltip.append( " " ).append( programme.getStarString() );
+            labelText.append(" ")
+				.append( programmeStarString );
+			
+			tooltip.append( " " )
+				.append( programmeStarString );
 			
         }
 			

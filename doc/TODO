@@ -25,6 +25,7 @@ b  means done by Brendan Corrigan
 - Release 2.0 (blue sky)
 
 - Think about ports to wxWindows, Python, ...
+- Search for programmes, different views on data.
 
 - Release 1.0 (the destination)
 
@@ -40,7 +41,6 @@ b  means done by Brendan Corrigan
 	- Support tv_to_latex tool, viewing and printing (what about windows?)
 	- How to print on Windows?
 	- Use Java's printing capabilities?
-- FAQ and manual
 - Other platforms - investigate Mac, BSD, others
 - Consider a C++ installer that just checks for the right java version before
   running the Java installer.
@@ -50,23 +50,30 @@ b  means done by Brendan Corrigan
 - Integration with PIMs (http://www.imc.org/pdi/) and cron to alert when
 	programmes are going to start
 - Generate crontab file for downloading listings.
-  
+
+- Release 0.8
+
+- Manual
+- FAQ
+- Do some profiling and algorithm thinking and get startup time down if poss.
+- single channel view
+
 - Release 0.7 (nice features)
 
 - Alert me when my programme starts
-- Do some profiling and algorithm thinking and get startup time down if poss.
 - Fix feature that if you reinstall to a new dir the old install can't be
 	uninstalled (well, you have to delete the directory instead...)
-- Help manual
 - Properties box for a programme showing longer descriptions, other DTD stuff
 - Further visual enhancements and customisability
-- Other installer features? e.g. 
-- single channel view
 - Facilitating the download of listings outside of FreeGuide
 	(e.g. via a cron job, or at ppp connect)
 - Error message on RegExp error in Favourite editor
 - Snap to nearest half hour in timeline on click
-	
+- Easy access to different channel ordering - perhaps through right-click menu
+- Make favourites work even immediately after a download halfway through a day
+	(this will probably mean working out choices from favourites straight
+	after download?)
+
 - Release 0.6.3 (non-urgent minor features)
 
 - Multiline tooltips if too long
@@ -87,13 +94,11 @@ b  means done by Brendan Corrigan
 - Ability to highlight a channel to make it easier to read
 
 - Release 0.6.2 (consolidation and code tidying)
- 
-- Allow "file" in installer to use wildcards (for win-uk share stuff)
+
 - Separate classes into packages
 - Coloured programme categories and favourites
 - Apply different fonts to every screen.
 - Highlight a given channel
-- Custom channel ordering - default channel set
 - GUI to deal with --configure step and any other post-install, pre-use stuff
 	(part of installer)
 - Make installer launch FreeGuide and/or a README file (what about configuring
@@ -102,12 +107,17 @@ b  means done by Brendan Corrigan
 - Download happens without leaving ViewerFrame
 - Add a status bar to ViewerFrame
 - Make installer install shortcuts for Windows, Gnome and KDE
-- Remember what country you are from in installer, and where installed.
 - Make options and customise screens nicer
 - Sort out themes in some way
+- Make the About box a _lot_ nicer.
+- Choose browser on startup
+- Nice browser chooser in options
 
-- Release 0.6.1 (gradual improvements to GUI begin)
++ Release 0.6.1 (gradual improvements to GUI begin)
 
++ Implement sub-titles properly to avoid favourites-not-working regression
++ Latest XMLTV version
++ Remember what country you are from in installer, and where installed.
 + Add subtitles to programmes
 b Change Favourites, Customiser, Channel Sets frames to JDialogs
 + Remove .xvpics from Source package

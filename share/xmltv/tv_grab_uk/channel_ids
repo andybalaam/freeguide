@@ -99,10 +99,10 @@ europe.cnn.com:95:
 eurosport.sky.com:274:
 extra.sports.sky.com:437:
 extreme.com:663:
-extreme.filmfour.channel4.com:656:
 fantasy.televisionx.co.uk:139:Fantasy
 ondigital.televisionx.co.uk:139:Fantasy
 filmfour.channel4.com:220:FilmFour
+weekly.filmfour.channel4.com:953:
 foxkids.co.uk:190:Fox Kids
 front-row.ntl.com:214:
 ftv.com:682:Fashion
@@ -165,7 +165,7 @@ europe.musicchoice.co.uk:411:
 rte-1.rte.ie:81:
 s4c.co.uk:76:S4C
 digital.s4c.co.uk:645:S4C
-#s4c2.s4c.co.uk:658:
+s4c2.s4c.co.uk:658:
 scotland.bbc1.bbc.co.uk:2:1
 scotland.bbc2.bbc.co.uk:20:2
 scottishtv.co.uk:40:3
@@ -197,6 +197,7 @@ uk-drama.flextech.telewest.co.uk:154:
 uk-gold-2.flextech.telewest.co.uk:74:
 uk-gold.flextech.telewest.co.uk:134:
 uk-horizons.flextech.telewest.co.uk:112:
+plus-1.uk-horizons.flextech.telewest.co.uk:704:
 uk-style.flextech.telewest.co.uk:89:
 plus-1.uk.cartoonnetwork.com:705:
 boomerang.cartoonnetwork.com:215:
@@ -210,10 +211,8 @@ wales.htv.co.uk:45:3
 west.bbc1.bbc.co.uk:18:1
 west.bbc2.bbc.co.uk:32:2
 west.htv.co.uk:46:3
-widescreen.premier.sky.com:145:Sky Premier
 world-svc.bbc.com:588:
 world-tv.bbc.com:138:
-world.filmfour.channel4.com:655:
 yorkshire.granadatv.co.uk:36:3
 asia1tv.com:612:
 radio-wales.bbc.co.uk:633:
@@ -306,9 +305,9 @@ thebox.co.uk:93:
 # Something for Q
 
 amateur.redhottv.co.uk:644:
-euro.redhottv.co.uk:224:
 films.redhottv.co.uk:225:
 all-girl.redhottv.co.uk:723:
+40-plus-wives.redhottv.co.uk:963
 
 # TODO check that invest-tv.com is correct and move these to it
 simplyshoppingtv.co.uk:203:
@@ -316,6 +315,10 @@ simplyshoppingtv.co.uk:203:
 # What can this be?
 multi-channel.tv-listings.ananova.com:62:
 
+theamp.tv:959:
+southamptontv.co.uk:911:
+flaunt.tv:957:
+scuzz.tv:958:
 
 radio-orkney.bbc.co.uk:637:R Orkney
 east-midlands.asian-network.bbc.co.uk:502:Asian

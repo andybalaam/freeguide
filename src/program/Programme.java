@@ -164,15 +164,27 @@ public class Programme {
 
 
     /**
-     *  Adds a feature to the ToTitle attribute of the Programme object
+     *  Adds to the title attribute of the Programme object
      *
-     *@param  title  The feature to be added to the ToTitle attribute
+     *@param  title  The title of the programme
      */
     public void addToTitle(String title) {
         if (this.title == null) {
             this.title = new String();
         }
         this.title += title;
+    }
+	
+	/**
+     *  Adds more to the subtitle of the programme
+     *
+     *@param  subtitle  The subtitle of the programme
+     */
+    public void addToSubTitle(String subtitle) {
+        if (this.subtitle == null) {
+            this.subtitle = new String();
+        }
+        this.subtitle += subtitle;
     }
 
 
@@ -183,6 +195,15 @@ public class Programme {
      */
     public String getTitle() {
         return title;
+    }
+	
+	/**
+     *  Gets the subtitle attribute of the Programme object
+     *
+     *@return    The subtitle value
+     */
+    public String getSubTitle() {
+        return subtitle;
     }
 
 
@@ -382,6 +403,11 @@ public class Programme {
 	 * The programme title
 	 */
     private String title;
+	
+	/**
+	 * The programme subtitle
+	 */
+    private String subtitle;
     
 	/**
 	 * The programme description (short)

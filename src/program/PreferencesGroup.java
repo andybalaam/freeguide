@@ -330,7 +330,7 @@ public class PreferencesGroup {
     /**
      *  Remember that we have made a choice for today.
      *
-     *@param  date  Description of the Parameter
+     *@param  date  The date for which we have made a choice
      */
     public void chosenSomething(Calendar date) {
         chosenSomething(date, true);
@@ -338,10 +338,10 @@ public class PreferencesGroup {
 
 
     /**
-     *  Description of the Method
+     *  Remember that we have or have not made a choice for today.
      *
-     *@param  date  Description of the Parameter
-     *@param  yes   Description of the Parameter
+     *@param  date  The date we are interested in
+     *@param  yes   Whether we are saying we have, or have not, made a choice
      */
     public void chosenSomething(Calendar date, boolean yes) {
 		

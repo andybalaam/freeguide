@@ -138,15 +138,16 @@ public class Install implements Launcher {
             panels[0].setMessages("You are about to install FreeGuide.",
                     "Click \"Next\" to continue.");
 
-            panels[1] = new ChoiceWizardPanel(allRegions);
-            Class[] clses = new Class[1];
+			panels[1] = new ChoiceWizardPanel(allRegions);
+			Class[] clses = new Class[1];
             clses[0] = Object.class;
-            panels[1].setOnExit(this,
+			panels[1].setOnExit(this,
                     getClass().getMethod("SetProps", clses));
             panels[1].setMessages("Choose your region.",
                     "This affects which listings grabber will be used.");
-
-            panels[2] = new DirectoryWizardPanel();
+			panels[1].setConfig("misc", "region");
+					
+			panels[2] = new DirectoryWizardPanel();
             panels[2].setMessages("Choose your installation directory.",
                     "This will be created if it doesn't exist.");
             panels[2].setConfig("misc", "install_directory");
@@ -168,16 +169,16 @@ public class Install implements Launcher {
 
 
     /**
-     *  Description of the Method
+     *  Load in the properties file for the chosen region
      *
-     *@param  boxValue  Description of the Parameter
+     *@param  boxValue  The name of the region chosen by the user.
      */
     public void SetProps(Object boxValue) {
-
+		
         String region = (String) boxValue;
-
+		
         for (int i = 0; i < allRegions.length; i++) {
-
+			
             if (allRegions[i].equals(region)) {
 
                 // Load the install.props file
@@ -443,8 +444,15 @@ public class Install implements Launcher {
         // Set the default value always
         pr.put("default-" + key, value);
 
-        // Only set the real value if we're not keeping old prefs
-        if (!keepOldPrefs) {
+		// Only set the real value if we're not keeping old prefs
+		// and this isn't the install dir or region (unless these are null)
+		boolean overwritePref = !keepOldPrefs
+			&& ( !(key.equals( "install_directory" ) )
+				|| prefs.misc.get( "install_directory" ) == null )
+			&& ( !(key.equals( "region" ) )
+				|| prefs.misc.get( "region" ) == null );
+		
+        if( overwritePref ) {
             pr.put(key, value);
         }
     }

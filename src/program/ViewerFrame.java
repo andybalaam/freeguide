@@ -1858,49 +1858,52 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 				"<font face='helvetica, helv, arial, sans serif' size=3>" );
         }
 
+		String progSubTitle;
+		String progLongDesc;
+		
         for (int i = 0; i < tickedProgrammes.size(); i++) {
+			
             Programme prog = (Programme)tickedProgrammes.get(i);
+			
+			progSubTitle = prog.getSubTitle();
+			progLongDesc = prog.getLongDesc();
+			
+			ans.append( "  <p><b>" )
+				.append( timeFormat.format( prog.getStart().getTime() ) )
+				.append( " - " )
+				.append( prog.getTitle() );
+			
+			if( progSubTitle != null ) {
+				
+				ans.append( ": " + progSubTitle );
+				
+			}
+			
+			ans.append( "</b><br>" )
+				.append( prog.getChannelName() )
+				.append( ", ends " )
+				.append( timeFormat.format( prog.getEnd().getTime() ) );
+			
+            if ( progLongDesc == null) {
 
-            if (prog.getLongDesc() == null) {
-
-                ans.append( "  <p><b>" )
-					.append( timeFormat.format(
-						prog.getStart().getTime() ) )
-					.append( " - " )
-					.append( prog.getTitle() )
-					.append( "</b><br>" )
-					.append( prog.getChannelName() )
-					.append( ", ends " )
-					.append( timeFormat.format(
-						prog.getEnd().getTime() ) )
-					.append( "</p>" )
-					.append( lineBreak );
+					ans.append( "</p>" )
+						.append( lineBreak );
 
             } else {
 
-                ans.append( "  <p><b>" )
-				.append( timeFormat.format(
-                    prog.getStart().getTime() ) )
-				.append( " - " )
-				.append( prog.getTitle() )
-				.append( "</b><br>" )
-				.append( prog.getChannelName() )
-				.append( ", ends " )
-				.append( timeFormat.format(
-					prog.getEnd().getTime() ) )
-				.append( "<br>" )
-				.append( prog.getLongDesc() );
+				ans.append( "<br>" )
+					.append( progLongDesc );
 				
-                if (prog.getPreviouslyShown()) {
-                    ans.append( "(Repeat)" ).append( "<br>" );
-                }
-                if (prog.getIsMovie() && prog.getStarRating() != null) {
-                    ans.append( " Rating: ")
-						.append( prog.getStarRating() ).append( "<br>" );
-                }
-                ans.append( "</p>" ).append( lineBreak );
-
+			}
+				
+            if (prog.getPreviouslyShown()) {
+                ans.append( " (Repeat)" ).append( "<br>" );
             }
+            if ( prog.getIsMovie() && prog.getStarRating() != null ) {
+                ans.append( " Rating: ")
+					.append( prog.getStarRating() ).append( "<br>" );
+            }
+            ans.append( "</p>" ).append( lineBreak );
 
         }
 		

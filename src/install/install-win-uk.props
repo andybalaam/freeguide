@@ -71,10 +71,8 @@ file.52=share/xmltv/tv_grab_uk/channel_pkgs/Sky/Movies_World>%misc.share_directo
 file.53=share/xmltv/tv_grab_uk/channel_pkgs/Sky/Sports>%misc.share_directory%/tv_grab_uk/channel_pkgs/Sky/Sports
 file.54=share/xmltv/tv_grab_uk/channel_pkgs/Sky/Value>%misc.share_directory%/tv_grab_uk/channel_pkgs/Sky/Value
 file.55=share/xmltv/tv_grab_uk/channel_pkgs/sport>%misc.share_directory%/tv_grab_uk/channel_pkgs/sport
-file.56=share/xmltv/tv_grab_uk/channel_pkgs/Telewest/Entry>%misc.share_directory%/tv_grab_uk/channel_pkgs/Telewest/Entry
-file.57=share/xmltv/tv_grab_uk/channel_pkgs/Telewest/Essential>%misc.share_directory%/tv_grab_uk/channel_pkgs/Telewest/Essential
-file.58=share/xmltv/tv_grab_uk/channel_pkgs/Telewest/Essential_Plus>%misc.share_directory%/tv_grab_uk/channel_pkgs/Telewest/Essential_Plus
-file.59=share/xmltv/tv_grab_uk/channel_pkgs/Telewest/Supreme>%misc.share_directory%/tv_grab_uk/channel_pkgs/Telewest/Supreme
-file.60=share/xmltv/tv_grab_uk/channel_pkgs/travel>%misc.share_directory%/tv_grab_uk/channel_pkgs/travel
-file.61=share/xmltv/tv_grab_uk/channel_pkgs/wales>%misc.share_directory%/tv_grab_uk/channel_pkgs/wales
+file.56=share/xmltv/tv_grab_uk/channel_pkgs/Telewest/Essential>%misc.share_directory%/tv_grab_uk/channel_pkgs/Telewest/Essential
+file.57=share/xmltv/tv_grab_uk/channel_pkgs/Telewest/Supreme>%misc.share_directory%/tv_grab_uk/channel_pkgs/Telewest/Supreme
+file.58=share/xmltv/tv_grab_uk/channel_pkgs/travel>%misc.share_directory%/tv_grab_uk/channel_pkgs/travel
+file.59=share/xmltv/tv_grab_uk/channel_pkgs/wales>%misc.share_directory%/tv_grab_uk/channel_pkgs/wales
 

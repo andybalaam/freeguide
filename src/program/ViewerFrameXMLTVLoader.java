@@ -552,7 +552,7 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
 		} else if (saxLoc.equals(":tv:programme:sub-title")) {
 
             if (currentProgramme != null) {
-                currentProgramme.addToTitle( ": " + data );
+                currentProgramme.addToSubTitle( data );
             }
         } else if (saxLoc.equals(":tv:programme:desc")) {
 

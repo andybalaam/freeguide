@@ -49,10 +49,12 @@ public class ConfigGuesser {
                 return TEXT_TYPE;
             } else if (entry.equals("grabber_start_time")) {
                 return TEXT_TYPE;
+			} else if (entry.equals("region")) {
+                return TEXT_TYPE;
             }
         }
 
-        System.out.println("Unknown option asked for - " + group + ", "
+        System.out.println("guessType: Unknown option asked for - " + group + ", "
                 + entry);
         return -1;
     }
@@ -67,7 +69,11 @@ public class ConfigGuesser {
      */
     public static Object guess(String group, String entry) {
         FGPreferences gp = new FGPreferences(group);
-
+		
+		if( group.equals("misc") && entry.equals("region") ) {
+			return "UK";
+		}
+		
         switch (guessType(group, entry)) {
 
             case TEXT_TYPE:
@@ -128,10 +134,12 @@ public class ConfigGuesser {
                 return GRABBER_START_TODAY;
             } else if (entry.equals("grabber_start_time")) {
                 return GRABBER_START_TIME;
+			} else if (entry.equals("region")) {
+                return REGION;
             }
         }
 
-        System.out.println("Unknown option asked for - " + group + ", "
+        System.out.println("prefToInt: Unknown option asked for - " + group + ", "
                 + entry);
         return -1;
     }
@@ -168,6 +176,9 @@ public class ConfigGuesser {
 
             case GRABBER_START_TIME:
                 return checkValidTime((String) val, "the grabber start time");
+				
+			//case REGION:
+
             default:
                 // E.g. a country or a grabber command, just say it's right
                 return null;
@@ -226,68 +237,24 @@ public class ConfigGuesser {
     }
 
     public final static int BROWSER_COMMAND = 0;
-    /**
-     *  Description of the Field
-     */
     public final static int TV_GRAB = 1;
-    /**
-     *  Description of the Field
-     */
     public final static int DAY_START_TIME = 2;
-    /**
-     *  Description of the Field
-     */
     public final static int GRABBER_CONFIG = 3;
-    /**
-     *  Description of the Field
-     */
     public final static int INSTALL_DIRECTORY = 4;
-    /**
-     *  Description of the Field
-     */
     public final static int WORKING_DIRECTORY = 5;
-    /**
-     *  Description of the Field
-     */
     public final static int XMLTV_DIRECTORY = 6;
-    /**
-     *  Description of the Field
-     */
     public final static int DAYS_TO_GRAB = 7;
-    /**
-     *  Description of the Field
-     */
     public final static int GRABBER_TODAY_OFFSET = 8;
-    /**
-     *  Description of the Field
-     */
     public final static int GRABBER_START_TODAY = 9;
-    /**
-     *  Description of the Field
-     */
     public final static int GRABBER_START_TIME = 10;
-
+	public final static int REGION = 11;
+	
     // -------------------------------------------
 
-    /**
-     *  Description of the Field
-     */
     public final static int COMMANDS_TYPE = 0;
-    /**
-     *  Description of the Field
-     */
     public final static int TEXT_TYPE = 1;
-    /**
-     *  Description of the Field
-     */
     public final static int FILE_TYPE = 2;
-    /**
-     *  Description of the Field
-     */
     public final static int DIRECTORY_TYPE = 3;
-    /**
-     *  Description of the Field
-     */
     public final static int BOOLEAN_TYPE = 4;
 
     // -------------------------------------------
