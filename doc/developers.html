@@ -2,16 +2,20 @@
 <html>
 <head>
 	<link rel="stylesheet" href="stylesheet.css" type="text/css">
-	<title>FreeGuide Developers' Page</title>
+	<title>FreeGuide developers' home</title>
 </head>
 
 <body>
 
-<address class="backlink"><a href="index.html">Home</a> | <a href="README.html">README</a> | <a href="FAQ.html">FAQ</a> | <a href="userguide.html">User Guide</a> | <a href="LookAndFeel.html">Look and Feel Guide</a> | <a href="timezone.html">Timezones</a> | <a href="developers.html">Developers</a> | <a href="design.html">Design Document</a> | <a href="INSTALL-linux-noxmltv.html">Linux XMLTV Install</a> | <a href="contributors.html">Contributors</a></address>
+<address><a href="index.html">Home</a> | <a href="README.html">README</a> | <a href="FAQ.html">FAQ</a> | <a href="userguide.html">User Guide</a> | <a href="LookAndFeel.html">Look and Feel Guide</a> | <a href="timezone.html">Timezones</a> | <a href="developers.html">Developers</a> | <a href="design.html">Design Document</a> | <a href="INSTALL-linux-noxmltv.html">Linux XMLTV Install</a> | <a href="contributors.html">Contributors</a></address>
+
+<address class="submenu"><a class="submenu" href="developers.html">Developers' home</a> | <a class="submenu" href="developers-translating.html">Translating FreeGuide</a> | <a class="submenu" href="developers-compiling.html">Compiling FreeGuide</a> | <a class="submenu" href="developers-cvs.html">CVS rules</a></address>
 
 <div style="float:right"><a href="http://sourceforge.net/projects/freeguide-tv/"><img src="http://sourceforge.net/sflogo.php?group_id=35309&type=1" width="88" height="31" border="0" alt="SourceForge Logo"></a></div>
 
-<h1>FreeGuide Developers' Page</h1>
+<h1>FreeGuide developers' home</h1>
+
+<p>Welcome to the FreeGuide developers' site.  Use the navigation links at the top to find what you need.</p>
 
 <h2>Patches</h2>
 
@@ -25,32 +29,7 @@
 
 <p>The releases are built using Apache's superb <a href="http://jakarta.apache.org/ant/">Ant</a> build tool.  In fact, I use the <a href="http://plugins.jedit.org/plugins/AntFarm">AntFarm</a> plugin in <a href="http://www.jedit.org/">JEdit</a>, but this isn't necessary.</p>
 
-<h2>Building FreeGuide from CVS</h2>
-
-<p>Do a checkout with:</p>
-
-<p><tt>cvs -d:cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/freeguide-tv login</tt></p>
- 
-<p><tt>cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/freeguide-tv co freeguide-tv</tt></p>
-
-<p>Then download the modified XMLTV windows binary and source code packages from <a href="http://sourceforge.net/project/showfiles.php?group_id=35309&package_id=103744">Sourceforge</a> and do the following:</p>
-
-<p>(Assuming you checked out the sources into ~/freeguide-tv/)</p>
-
-<p>Place the source file xmltv-x.x.x-tkgui.tar.bz2 into ~/freeguide-tv/xmltv/</p>
-
-<p>Unzip the Windows binary file xmltv-x.x.x-tkgui-bin-windows.zip to a temporary file and copy the file xmltv.exe to ~/freeguide-tv/xmltv/</p>
-
-<p>Unzip the Linux binary file xmltv-x.x.x-tkgui-bin-linux.tar.bz2 to a temporary file and copy the file xmltv to ~/freeguide-tv/xmltv/</p>
-
-<p>You should now be able to build a the source tarballs and the Windows and Linux jars using Ant like so:</p>
-
-<p><tt>cd ~/freeguide-tv<br />
-ant</tt></p>
-
-<p>To build the Linux RPM, cd into freeguide-tv/src/install/linux and modify the file buildrpm to use your own home directory instead of /home/andy.  Now running that file with ./buildrpm should build the entire project and create the noarch and src RPMs in freeguide-tv/installers.  The RPM spec file is in freeguide-tv/src/install/linux/freeguide-tv.spec</p>
-
-<p>To build the Windows installer you need NSIS from here: http://nsis.sourceforge.net/.  Install NSIS v2 and right-click on the file freeguide-tv/src/install/windows/freeguide-tv.nsi.  That should build the Windows EXE installer in freeguide-tv/installers.</p>
+<p>All the code is formatted using <a href="http://jalopy.sourceforge.net">Jalopy</a> before being committed to CVS to ensure consistency of style.</p>
 
 <h2>Help and questions</h2>
 

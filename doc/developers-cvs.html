@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<link rel="stylesheet" href="stylesheet.css" type="text/css">
+	<title>FreeGuide Developers: CVS rules</title>
+</head>
+
+<body>
+
+<address><a href="index.html">Home</a> | <a href="README.html">README</a> | <a href="FAQ.html">FAQ</a> | <a href="userguide.html">User Guide</a> | <a href="LookAndFeel.html">Look and Feel Guide</a> | <a href="timezone.html">Timezones</a> | <a href="developers.html">Developers</a> | <a href="design.html">Design Document</a> | <a href="INSTALL-linux-noxmltv.html">Linux XMLTV Install</a> | <a href="contributors.html">Contributors</a></address>
+
+<address class="submenu"><a class="submenu" href="developers.html">Developers' home</a> | <a class="submenu" href="developers-translating.html">Translating FreeGuide</a> | <a class="submenu" href="developers-compiling.html">Compiling FreeGuide</a> | <a class="submenu" href="developers-cvs.html">CVS rules</a></address>
+
+<div style="float:right"><a href="http://sourceforge.net/projects/freeguide-tv/"><img src="http://sourceforge.net/sflogo.php?group_id=35309&type=1" width="88" height="31" border="0" alt="SourceForge Logo"></a></div>
+
+<h1>FreeGuide Developers: CVS rules</h1>
+
+<p>If you have developer access to the CVS repository, don't commit anything unless you have explicit permission from Andy Balaam.  Instead, send a patch file to the <a href="mailto:freeguide-tv-devel@lists.sourceforge.net">developers' mailing list</a> and wait for permission to apply it.  The exception to this is when someone has been given control of a particular file or files, for example if you have made a translation - in that case you may modify your translation file freely.</p>
+
+<p>When you do a cvs commit, run <a href="http://jalopy.sourceforge.net">Jalopy</a> on all the .java files first.  You may do this using the Ant task provided in build.xml, or a plugin for your IDE, or via the console.  The required freeguide-jalopy.xml convention file is in the src directory in CVS.  Please remember to do this to prevent CVS noise with changes to layout after the event.</p>
+
+<p>Under normal circumstances, you will be given CVS access when you have demonstrated an understanding of the code by submitting some good patches to the developers' mailing list.</p>
+
+</body>
+</html>

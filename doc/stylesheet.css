@@ -36,10 +36,15 @@ li {
 
 address {
 	font-family: arial, sans-serif;
-	font-size: x-small;		
+	font-size: x-small;
+    padding: 3px;
 }
-address.backlink {
-	
+address.submenu {
+    padding: 3px;
+    background-color: #EEEEEE;
+}
+a.submenu {
+    color: red;
 }
 td.form_question {
     text-align: right;
