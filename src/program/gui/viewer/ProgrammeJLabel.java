@@ -41,7 +41,7 @@ import javax.swing.border.CompoundBorder;
  *
  *@author     Andy Balaam
  *@created    3 July 2003
- *@version    4
+ *@version    5
  */
 public class ProgrammeJLabel extends javax.swing.JLabel {
 
@@ -211,10 +211,38 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 	
 	}
 	
-	protected void paintComponent(Graphics g) {
-		
-		super.paintComponent(g);
-	  
+	protected void paintComponent( Graphics g ) {
+
+        if( alignTextToLeftOfScreen ) {
+        
+            // Paint our own text, aligning to the left of the screen
+            g.setClip(this.getVisibleRect());
+
+            g.setColor(this.getBackground());
+            g.fillRect(0,0,this.getWidth(), this.getHeight());
+
+            g.setFont(this.getFont());
+            g.setColor(this.getForeground());
+
+            int fontX = 0;
+            if (this.getBorder() != null) {
+                fontX = this.getBorder().getBorderInsets(this).left;
+            }
+
+            if (g.getClipBounds() != null && fontX<g.getClipBounds().x) {
+                fontX = g.getClipBounds().x;
+            }
+
+            g.drawString( getText(), fontX + 1,
+                getInsets().top + g.getFontMetrics().getAscent() );
+        
+        } else {
+            
+            // Just ask the parent to paint the text
+            super.paintComponent(g);
+            
+        }
+        
 	  	if( isFavourite ) {	  
 			drawFavouriteIcon(g);			
 		}
@@ -368,6 +396,8 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 	private ViewerFrame viewerFrame;
 	private MessageDialogTimer reminderTimer;
 
+    private static boolean alignTextToLeftOfScreen;
+    
 	private static Color nonTickedColour;
 	private static Color tickedColour;
 	private static Color movieColour;
@@ -376,6 +406,10 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 	private static Border tickedBorder;
 	private static Border movieBorder;
 
+    public static void setAlignTextToLeftOfScreen( boolean align ) {
+        ProgrammeJLabel.alignTextToLeftOfScreen = align;
+    }
+    
 	public static void setNonTickedColour(Color nonTickedColour) {
 		ProgrammeJLabel.nonTickedColour = nonTickedColour;
 		nonTickedBorder = BorderFactory.createCompoundBorder(

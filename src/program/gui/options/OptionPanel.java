@@ -55,6 +55,22 @@ public abstract class OptionPanel extends JPanel {
 		
 	}
 	
+    protected String lineBreakise( String[] lines ) {
+		
+		String withLineBreaks = new String();
+        for (int i = 0; i < lines.length; i++) {
+            withLineBreaks += lines[i] + lb;
+        }
+		
+		return withLineBreaks;
+	}
+	
+	protected String[] unlineBreakise( String withLineBreaks ) {
+		
+		return withLineBreaks.split("\n");
+		
+	}
+    
 	protected abstract boolean doSave();
 	protected abstract void doLoad( String prefix );
 	protected abstract void doConstruct();
@@ -154,6 +170,8 @@ public abstract class OptionPanel extends JPanel {
 	
 	protected FGDialog parent;
 	
+    private String lb = System.getProperty("line.separator");
+    
 }
 
 

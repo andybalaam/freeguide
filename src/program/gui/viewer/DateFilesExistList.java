@@ -33,7 +33,7 @@ import java.util.Collections;
  *
  *@author     Walter Duncan
  *@created    07 July 2003
- *@version    0
+ *@version    2
  */
 public class DateFilesExistList {
     private Vector dates;
@@ -121,6 +121,11 @@ public class DateFilesExistList {
             int e = dir[i].indexOf('.');
             String d = dir[i].substring(s, e);
 
+            // Ignore this file if it doesn't look like a date.
+            if( d.length() < 8 ) {
+                continue;
+            }
+            
             ndx = dates.indexOf(d);
 
             if (ndx < 0) {
@@ -132,12 +137,6 @@ public class DateFilesExistList {
                     cdt.setTime(ViewerFrame.fileDateFormat.parse(
                             d.substring(0, 8)));
 
-                    /*
-                     *  cdt.set(Integer.parseInt(d.substring(0,4)),
-                     *  Integer.parseInt(d.substring(4,6))-1,
-                     *  Integer.parseInt(d.substring(6,8)),
-                     *  0,0,0);
-                     */
                     dates.add(new Date(cdt.getTimeInMillis()));
 
                 } catch (java.text.ParseException ex) {
@@ -259,7 +258,7 @@ public class DateFilesExistList {
         }
         DateFilesExistList ddl = new DateFilesExistList(
                 "/home/wduncan/freeguide-tv/data/",
-                "^tv-.*\\.xmltv$");
+                "^tv-\\d{8}\\.xmltv$");
         ddl.toConsole();
     }
 }

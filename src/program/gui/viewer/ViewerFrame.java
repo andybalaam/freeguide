@@ -29,7 +29,7 @@ import javax.swing.text.*;
  *
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    21
+ *@version    22
  */
 public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
@@ -140,7 +140,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         dateFilesExistList = new DateFilesExistList(
 			FreeGuide.prefs.performSubstitutions(
 					FreeGuide.prefs.misc.get( "working_directory" ) ),
-                "^tv-.*\\.xmltv$" );
+                "^tv-\\d{8}\\.xmltv$" );
 		
 	}
 
@@ -563,12 +563,27 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		mbtConfigure.setMnemonic(KeyEvent.VK_C);
 		mbtConfigure.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_C,
 			InputEvent.CTRL_MASK ) );
-        mbtConfigure.addActionListener(
-            new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    mbtConfigureActionPerformed(evt);
-                }
-            });
+        
+        // If we have a grabber command, add a listener, otherwise dull the
+        // button.
+        if( FreeGuide.prefs.commandline.get(
+            "tv_config.1", null ) != null ) {
+        
+            mbtConfigure.addActionListener(
+            
+                new java.awt.event.ActionListener() {
+                    public void actionPerformed(
+                        java.awt.event.ActionEvent evt )
+                    {
+                        mbtConfigureActionPerformed(evt);
+                    }
+                });
+                
+            } else {
+                
+                mbtConfigure.setEnabled( false );
+                
+            }
 
         toolsMenu.add(mbtConfigure);
 
@@ -681,8 +696,28 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
             });
 
         comChannelSet.addItemListener( comChannelSetItemListener );
-
-		//}}}
+  
+        boolean alignTextToLeftOfScreen = FreeGuide.prefs.screen.getBoolean(
+            "align_text_to_left", true );
+            
+        if( alignTextToLeftOfScreen ) {
+  
+            /**
+            * Listen for scroll events to make programmes off the left still
+            * visible.
+            */
+            comProgramScrollListener = new AdjustmentListener() {
+                public void adjustmentValueChanged(AdjustmentEvent e) {
+                    programScrolled(e);
+                }
+            };
+            
+            programmesScrollPane.getHorizontalScrollBar().addAdjustmentListener(
+                comProgramScrollListener );
+            
+        }
+        
+         //}}}
 		
     }
 
@@ -848,21 +883,21 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         int panelWidth = FreeGuide.prefs.screen.getInt("panel_width",
                 FreeGuide.PANEL_WIDTH);
 
-		tickedColour = FreeGuide.prefs.screen.getColor(
-			"programme_chosen_colour", FreeGuide.PROGRAMME_CHOSEN_COLOUR );
-		ProgrammeJLabel.setTickedColour(tickedColour);
-		movieColour = FreeGuide.prefs.screen.getColor(
-			"programme_movie_colour", FreeGuide.PROGRAMME_MOVIE_COLOUR );
-		ProgrammeJLabel.setMovieColour(movieColour);
+		ProgrammeJLabel.setTickedColour( FreeGuide.prefs.screen.getColor(
+			"programme_chosen_colour", FreeGuide.PROGRAMME_CHOSEN_COLOUR ) );
+		
+		ProgrammeJLabel.setMovieColour( FreeGuide.prefs.screen.getColor(
+			"programme_movie_colour", FreeGuide.PROGRAMME_MOVIE_COLOUR ) );
 			
-		nonTickedColour = FreeGuide.prefs.screen.getColor(
-			"programme_normal_colour", FreeGuide.PROGRAMME_NORMAL_COLOUR );
-		ProgrammeJLabel.setNonTickedColour(nonTickedColour);
+		ProgrammeJLabel.setNonTickedColour( FreeGuide.prefs.screen.getColor(
+			"programme_normal_colour", FreeGuide.PROGRAMME_NORMAL_COLOUR ) );
+        
+		ProgrammeJLabel.setHeartColour( FreeGuide.prefs.screen.getColor(
+			"programme_heart_colour", FreeGuide.PROGRAMME_HEART_COLOUR ) );
 
-		heartColour = FreeGuide.prefs.screen.getColor(
-			"programme_heart_colour", FreeGuide.PROGRAMME_HEART_COLOUR );
-		ProgrammeJLabel.setHeartColour(heartColour);
-
+        ProgrammeJLabel.setAlignTextToLeftOfScreen(
+            FreeGuide.prefs.screen.getBoolean( "align_text_to_left", true ) );
+        
 		Color channelColour = FreeGuide.prefs.screen.getColor(
                 "channel_colour", FreeGuide.CHANNEL_COLOUR);
 		
@@ -1681,6 +1716,15 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 			
     }
 	
+    /**
+     * When a scoll event happens, repaint the main panel, to
+     * allow the text to be adjusted to be visible even if the
+     * programme starts off to the left.
+     */
+    private void programScrolled( AdjustmentEvent e ) {
+        programmesPanel.repaint();
+    }
+    
 	/**
      *  Scroll to now on the time line, and update the screen if this involves
      *  changing the day.
@@ -1883,35 +1927,13 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
      */
     public final static SimpleDateFormat fileDateFormat
              = new SimpleDateFormat("yyyyMMdd");
-
+             
 	//}}}
 
-	//{{{ Colours
-	
-    /**
-     *  The colour of the hearts that indicate favourites
-     */
-    public Color heartColour;
-    /**
-     *  Description of the Field
-     */
-    public Color tickedColour;
-    /**
-     *  Description of the Field
-     */
-    public Color movieColour;
-    /**
-     *  Description of the Field
-     */
-    public Color nonTickedColour;
-	
-	//}}}
-	
-	//{{{ Dynamic GUI
-	
+	//{{{ Dynamic GUI	
 	
 	/**
-     *  The action listener for when the item changes in the channelset combo
+     *  The action listener for when the item changes in the date combo
      */
     public ItemListener comTheDateItemListener;
 	
@@ -1920,6 +1942,11 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
      */
     public ItemListener comChannelSetItemListener;
 	
+    /**
+     * The listener for when a scroll event happens
+     */
+    private AdjustmentListener comProgramScrollListener;
+    
 	/**
      *  Combobox containing the date we are viewing
      */

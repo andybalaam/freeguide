@@ -114,15 +114,18 @@ m  means done by Mike Dean
 - ProgrammeJLabel shows which programme is selected
 - Keyboard navigation of programme scrollpane
 - Full test of keyboard navigation
-- Fix mentions of "C" drive in Windows versions
 - Add "contact" page to the docs (and/or as a footer to each page)
 - Add firefox to the possible browsers.
 - Make a list of beta testers
 - Advertise for beta testers
 - Make a bit of PHP for test reports
-- Fix crash on tv-%Y%m%d.xmltv file in data dir
 - Fix bug in Italian grabber GUI config
-- Disable Choose Channels button when the grabber command is blank
++ Allow manual changing of browser command
++ Fix crash on tv-%Y%m%d.xmltv file in data dir
++ Disable Choose Channels button when the grabber command is blank
++ Incorporate Yann 'PoV' Coupin's patch to move programmes names, making them
+  visible when they've scrolled off the left
++ Fix DateFilesExistList to not choke on bad filenames.
 
 + Release 0.7.4 (bug fixes)
 

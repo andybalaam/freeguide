@@ -217,22 +217,6 @@ public class DownloadingOptionPanel extends OptionPanel {
 		
 	}
 	
-	private String lineBreakise( String[] lines ) {
-		
-		String withLineBreaks = new String();
-        for (int i = 0; i < lines.length; i++) {
-            withLineBreaks += lines[i] + lb;
-        }
-		
-		return withLineBreaks;
-	}
-	
-	private String[] unlineBreakise( String withLineBreaks ) {
-		
-		return withLineBreaks.split("\n");
-		
-	}
-	
 	/**
 	 * Used to find the name of this panel when displayed in a JTree.
 	 */
@@ -250,8 +234,6 @@ public class DownloadingOptionPanel extends OptionPanel {
 	private JComboBox startTodayComboBox;
 	private JTextField dayStartTextField;
 	private JTextField todayOffsetTextField;
-	private JComboBox modalComboBox;
-	
-	private String lb = System.getProperty("line.separator");	
+	private JComboBox modalComboBox;	
 	
 }

@@ -41,8 +41,13 @@ public class BrowserOptionPanel extends OptionPanel {
 		browserLabel.setLabelFor(browserComboBox);
 		browserLabel.setDisplayedMnemonic(KeyEvent.VK_W);
 		
+        JLabel commandLabel = newLeftJLabel( "Full Command:" );
+		commandTextArea = newRightJTextArea();
+		JScrollPane commandScrollPane = new JScrollPane(commandTextArea);
+		commandLabel.setLabelFor( commandTextArea );
+		commandLabel.setDisplayedMnemonic( KeyEvent.VK_F );
+        
 		// Lay them out in a GridBag layout
-		
 		GridBagEasy gbe = new GridBagEasy( this );
 		
 		gbe.default_insets = new Insets( 1, 1, 1, 1 );
@@ -52,9 +57,22 @@ public class BrowserOptionPanel extends OptionPanel {
 		gbe.addFWX  ( browserLabel    , 0, 0, gbe.FILL_HOR   , 0.2 );
 		gbe.addFWX  ( browserComboBox , 1, 0, gbe.FILL_HOR   , 0.8 );
 		
+        gbe.addAFWX ( commandLabel     , 0, 1, gbe.ANCH_NORTH, gbe.FILL_HOR,
+			0.2 );
+		gbe.addFWXWY( commandScrollPane, 1, 1, gbe.FILL_BOTH  , 0.8, 0.5 );
+        
 		// Load in the values from config
 		load();
 		
+        browserComboBoxItemListener = (
+            new java.awt.event.ItemListener() {
+                public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                    browserComboBoxItemStateChanged( evt );
+                }
+            });
+		
+		browserComboBox.addItemListener( browserComboBoxItemListener );
+        
 	}
 	
 	protected void doLoad( String prefix ) {
@@ -62,6 +80,9 @@ public class BrowserOptionPanel extends OptionPanel {
 		browserComboBox.setSelectedItem( misc.get( prefix + "browser",
 			browsers[0] ) );
 
+		commandTextArea.setText( lineBreakise(
+            commandline.getStrings( prefix + "browser_command" ) ) );
+            
 	}
 	
 	
@@ -80,6 +101,11 @@ public class BrowserOptionPanel extends OptionPanel {
 		commandline.putStrings( "browser_command",
 			FreeGuide.prefs.getCommands( "browser_command." + (i+1) ) );
 
+        commandline.putStrings( "browser_command", unlineBreakise(
+			commandTextArea.getText() ) );
+        
+        // Return value is false since none of these options alter the screen
+		// appearance.
 		return false;
 		
 	}
@@ -93,9 +119,23 @@ public class BrowserOptionPanel extends OptionPanel {
 		
 	}
 
+    protected void browserComboBoxItemStateChanged(
+        java.awt.event.ItemEvent evt )
+    {
+        
+        int i = browserComboBox.getSelectedIndex();
+        
+        commandTextArea.setText( lineBreakise(
+            FreeGuide.prefs.getCommands( "browser_command." + (i+1) ) ) );
+        
+    }
+    
 	// ----------------------------------
 	
 	private JComboBox browserComboBox;
+    private JTextArea commandTextArea;
 	private String[] browsers;
 	
+    private ItemListener browserComboBoxItemListener;
+    
 }

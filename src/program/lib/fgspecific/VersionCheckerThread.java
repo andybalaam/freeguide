@@ -77,7 +77,7 @@ public class VersionCheckerThread implements Runnable {
 			e.printStackTrace();
 			return;
 		} catch( java.io.IOException e ) {
-			FreeGuide.log.info( "Unable to check version - couldn't access http://freeguide-tv.sourceforge.net/VERSION" );
+			FreeGuide.log.info( "Unable to check version - couldn't access http://freeguide-tv.sourceforge.net/VERSION.php" );
 			return;
 		}
 		

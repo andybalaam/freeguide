@@ -23,7 +23,7 @@ import javax.swing.event.*;
  *
  * @author     Andy Balaam
  * @created    9 Dec 2003
- * @version    1
+ * @version    2
  */
 
 public class LayoutOptionPanel extends OptionPanel implements ActionListener,
@@ -68,6 +68,12 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 		fontButton = newRightJButton( "Modify..." );
 		fontButton.setMnemonic( KeyEvent.VK_M );
 		
+        JLabel alignLeftLabel = newLeftJLabel( "Moving names?" );
+		Object[] options = new Object[2];
+		options[0] = "Yes";
+		options[1] = "No";
+		alignLeftComboBox = newRightJComboBox( options );
+        
 		// Lay them out in a GridBag layout
 		
 		GridBagEasy gbe = new GridBagEasy( this );
@@ -78,18 +84,22 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 		
 		gbe.addFWX    ( lookAndFeelLabel , 0, 0, gbe.FILL_HOR   , 0.2 );
 		gbe.addFWXWYGW( lookAndFeelCombo , 1, 0, gbe.FILL_HOR   , 0.1, 0, 2 );
+        
 		gbe.addFWX    ( channelHeightLabel , 0, 1, gbe.FILL_HOR   , 0.2 );
-		gbe.addFWX    ( channelHeightText  , 1, 1, gbe.FILL_HOR   , 0.1 );
-		gbe.addFWX    ( channelHeightSlider, 2, 1, gbe.FILL_HOR   , 0.7 );
+		gbe.addFWX    ( channelHeightText  , 1, 1, gbe.FILL_HOR   , 0.4 );
+		gbe.addFWX    ( channelHeightSlider, 2, 1, gbe.FILL_HOR   , 0.4 );
 		
 		gbe.addFWX    ( panelWidthLabel    , 0, 2, gbe.FILL_HOR   , 0.2 );
-		gbe.addFWX    ( panelWidthText     , 1, 2, gbe.FILL_HOR   , 0.1 );
-		gbe.addFWX    ( panelWidthSlider   , 2, 2, gbe.FILL_HOR   , 0.7 );
+		gbe.addFWX    ( panelWidthText     , 1, 2, gbe.FILL_HOR   , 0.4 );
+		gbe.addFWX    ( panelWidthSlider   , 2, 2, gbe.FILL_HOR   , 0.4 );
 		
 		gbe.addFWX    ( fontLabel          , 0, 3, gbe.FILL_HOR   , 0.2 );
-		gbe.addFWX    ( fontDemoText      , 1, 3, gbe.FILL_HOR   , 0.1 );
-		gbe.addAWXPXPY( fontButton         , 2, 3, gbe.ANCH_WEST  , 0.7, 0, 0 );
+		gbe.addFWX    ( fontDemoText      , 1, 3, gbe.FILL_HOR   , 0.4 );
+		gbe.addAWXPXPY( fontButton         , 2, 3, gbe.ANCH_WEST  , 0.4, 0, 0 );
 		
+        gbe.addFWX    ( alignLeftLabel  , 0, 4, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWXWYGW( alignLeftComboBox,1, 4, gbe.FILL_HOR   , 0.8, 0, 2 );
+        
 		// Set up events
 		channelHeightText.addFocusListener(this);
 		channelHeightText.addActionListener(this);
@@ -137,6 +147,13 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 		currentFont = new Font( fontName, fontStyleInt, fontSize );
 		fontDemoText.setText( fontName + " " + fontSize );
 		
+        boolean alignLeft = screen.getBoolean( "align_text_to_left", true);
+		if( alignLeft ) {
+			alignLeftComboBox.setSelectedIndex( 0 );
+		} else {
+			alignLeftComboBox.setSelectedIndex( 1 );
+		}
+        
 	}
 	
 	public boolean doSave() {
@@ -162,6 +179,10 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 		updated = screen.updateInt( "font_size", currentFont.getSize() )
 			|| updated;
 		
+        updated = screen.updateBoolean( "align_text_to_left",
+            ( alignLeftComboBox.getSelectedIndex() == 0 ) )
+			|| updated;
+        
 		return updated;
 		
 	}
@@ -253,6 +274,7 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 	private JTextField panelWidthText;
 	private JTextField fontDemoText;
 	private JButton fontButton;
+    private JComboBox alignLeftComboBox;
 	
 	private FontChooserDialog fontDialog;
 	private Font currentFont;
