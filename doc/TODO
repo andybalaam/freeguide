@@ -144,6 +144,8 @@ r  means done by Rob Stewart
 - Finish the bug report form.
 - Make Exit button in first time wizard exit back to FreeGuide if launched from
   within the programme.
+- Make several actors appear in the extra tags section of the programme details
+- Deal with errors on Windows install (e.g. when Java isn't installed)
 
 + Release 0.8.1 (bug fix)
 
