@@ -58,7 +58,7 @@ r  means done by Rob Stewart
 - Release 0.8.5 (nice features)
 
 - Run an exe when a programme is about to start and/or end
-- Add firefox to the possible browsers.
+- Make scrollbar increment in fractions of hours on mouse wheel or click.
 - Facilitating the download of listings outside of FreeGuide
 	(e.g. via a cron job, or at ppp connect)
 - Error message on RegExp error in Favourite editor
@@ -114,7 +114,7 @@ r  means done by Rob Stewart
 - http://www.memoire.com/guillaume-desnoix/slaf/
 - Remove text from after channel icons
 - Display programme categories, and allow colours to indicate category.
-- Make scrollbar increment in fractions of hours on mouse wheel or click.
+- Add firefox to the possible browsers.
 
 - Release 0.8.2 (accessibility, accessibility, accessibility)
 
@@ -141,6 +141,8 @@ r  means done by Rob Stewart
 - Fix the problem reported by Russell Odom on 24/09/04 to do with the channel
   list not staying up to date when you reconfigure.
 - Finish the bug report form.
+- Make Exit button in first time wizard exit back to FreeGuide if launched from
+  within the programme.
 
 + Release 0.8.1 (bug fix)
 
