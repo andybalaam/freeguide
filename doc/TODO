@@ -18,6 +18,8 @@ W  means work in progress by Walter Duncan
 ^  means work done by Dave Torok
 D  means work in progress by Dave Torok
 
+b  means done by Brendan Corrigan
+
 --------------------------------------------
 
 - Release 2.0 (blue sky)
@@ -65,7 +67,7 @@ D  means work in progress by Dave Torok
 - Error message on RegExp error in Favourite editor
 - Snap to nearest half hour in timeline on click
 	
-- Release 0.6.2 (non-urgent minor features)
+- Release 0.6.3 (non-urgent minor features)
 
 - Multiline tooltips if too long
 - Choose how old files are before you delete them
@@ -84,7 +86,7 @@ D  means work in progress by Dave Torok
 - Add sub-title handling, plus other useful tags.
 - Ability to highlight a channel to make it easier to read
 
-- Release 0.6.1 (consolidation and code tidying)
+- Release 0.6.2 (consolidation and code tidying)
  
 - Allow "file" in installer to use wildcards (for win-uk share stuff)
 - Separate classes into packages
@@ -100,9 +102,14 @@ D  means work in progress by Dave Torok
 - Download happens without leaving ViewerFrame
 - Add a status bar to ViewerFrame
 - Make installer install shortcuts for Windows, Gnome and KDE
-- Remember what country you are from in installer
+- Remember what country you are from in installer, and where installed.
 - Make options and customise screens nicer
 - Sort out themes in some way
+
+- Release 0.6.1 (gradual improvements to GUI begin)
+
++ Add subtitles to programmes
+b Change Favourites, Customiser, Channel Sets frames to JDialogs
 + Remove .xvpics from Source package
 + Add a note about WinRAR to the section about running FG
 + Fix problem with channel names being wrong after initial download
