@@ -114,28 +114,14 @@ public class FreeGuide implements FreeGuideLauncher {
 		String[] vitals = {
 			"logFile=log.txt",
 			"channelsFile=channels.txt",
-			"channels=",
-			"BBC1",
-			"",
-			"downloadAmount=All",
-			"downloadCommandLine=",
-			"perl parsers/perl-uktvguide/uktvguide.pl",
-			"",
-			"downloadCommandLine=",
-			"perl parsers/perl-uktvguide/uktvguide.pl",
-			"",
-			"channelsCommandLine=",
-			"perl /home/andy/freeguide-tv/org/freeguide-tv/parsers/perl-uktvguide/uktvguide.pl --listchannels",
-			"",
+			"downloadAmount=Day",
 			"browserCommandLine=netscape",
 			"cssFile=guide.css",
 			"maxFilenameLength=16",
-			"channelHeight=32",
+			"channelHeight=28",
 			"verticalGap=1",
 			"horizontalGap=1",
-			"panelWidth=6000",
-			"favourites=",
-			""
+			"panelWidth=6000"
 		};
 		
 		String cfgFilename = arguments.getValue("config-file");
@@ -147,7 +133,7 @@ public class FreeGuide implements FreeGuideLauncher {
 		config = new JoveConfigFile(vitals, cfgFilename);
 		
 		// Open the log file
-		log = new JoveLogFile(config.getValue("logFile"));
+		log = new JoveLogFile(config.getValue("logFile"), true);
 	
 		new FreeGuide();
 		
@@ -175,35 +161,78 @@ public class FreeGuide implements FreeGuideLauncher {
 	
 	/** execExternal
 	 *
-	 * Execute an external application via the command line interface.
+	 * Execute an external application via the command line interface and
+	 * wait for it to end.
 	 *
-	 * @param cmdstr the command to execute
+	 * @param cmdstr  the command to execute
 	 */
 	public static void execExternal(String cmdstr) {
+		execExternal(cmdstr, true);
+	}
+	
+	/** execExternal
+	 *
+	 * Execute an external application via the command line interface.
+	 *
+	 * @param cmdstr  the command to execute
+	 * @param waitFor true wait for this command to end before continuing?
+	 */
+	public static void execExternal(String cmdstr, boolean waitFor) {
 	
 		try {//IOException etc
 			
 			// Log what we're about to do
-			log.writeLine("FreeGuide - Executing system command: "+cmdstr+" ...");
+			if(waitFor) {
+				log.writeLine("FreeGuide - Executing system command: "+cmdstr+" ...");
+			} else {
+				log.writeLine("FreeGuide - Executing system command in background: "+cmdstr);
+			}//if
 			
 			// Execute the command
 			Process pr = Runtime.getRuntime().exec(cmdstr);
 			
-			// Wait for it to finish
-			pr.waitFor();
+			if(waitFor) {
 			
-			BufferedReader prErr = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
+				// Wait for it to finish
+				// pr.waitFor();
+				// Above is no good in Windows!
 			
-			String line = prErr.readLine();
-			while(line!=null) {
+				BufferedReader prErr = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
+			
+				// Read from error stream
+				String line = prErr.readLine();
+			
+				// initialise a timer
+				int secs=0;
+			
+				// wait til thing ends or we run out of time
+				while(line==null || secs>100) {
 				
-				log.writeLine("FreeGuide - execution error - "+line);
+					// Wait a sec (literally)
+					Thread.sleep(1000);
 				
-				line = prErr.readLine();
-			}//while
+					// Read from error stream
+					line = prErr.readLine();
+				
+					// increment timer
+					secs++;
+				}//while
 			
-			// Log it finishing
-			log.writeLine("FreeGuide - Finished execution.");
+				pr.destroy();
+				
+				if(!line.startsWith("Ended normally.")) {
+					log.writeLine("FreeGuide - execution error - "+line);
+					
+				}
+			
+				if(secs>100) {
+					log.writeLine("FreeGuide - execution timed out.");
+				}
+				
+				// Log it finishing
+				log.writeLine("FreeGuide - Finished execution.");
+				
+			}//if
 	    
 		} catch(IOException e) {
 			e.printStackTrace();

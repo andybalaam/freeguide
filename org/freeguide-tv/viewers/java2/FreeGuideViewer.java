@@ -18,7 +18,7 @@ import javax.swing.text.JTextComponent;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.parsers.SAXParser;
-import org.xml.sax.*;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
@@ -32,6 +32,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     public FreeGuideViewer(FreeGuideLauncher newLauncher) {
 		
 		launcher = newLauncher;
+		ready=false;
 		
 		// Set up UI
         initComponents();
@@ -41,6 +42,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 		// Set up custom UI elements
 		initMyComponents();
+		
+		ready=true;
 		
 		// Draw the programmes on the screen
         updatePanel();
@@ -85,8 +88,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		printedGuideScrollPane = new javax.swing.JScrollPane();
 		printedGuideAreaOld = new javax.swing.JTextArea();
 		printedGuideArea = new javax.swing.JEditorPane();
-		labStatus = new javax.swing.JLabel();
-		progressBar = new javax.swing.JProgressBar();
 		
 		fileMenu.setText("File");
 		menPrint.setText("Print Listing");
@@ -171,9 +172,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		topPanel.add(butPrev);
 		
 		comTheDate.setEditable(true);
-		comTheDate.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				comTheDateActionPerformed(evt);
+		comTheDate.addItemListener(new java.awt.event.ItemListener() {
+			public void itemStateChanged(java.awt.event.ItemEvent evt) {
+				comTheDateItemStateChanged(evt);
 			}
 		});
 		
@@ -257,6 +258,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		timeScrollPane.setMinimumSize(new java.awt.Dimension(24, 24));
 		timeScrollPane.setMaximumSize(new java.awt.Dimension(24, 24));
 		timePanel.setBackground(new java.awt.Color(245, 245, 255));
+		timePanel.setEnabled(false);
 		timeScrollPane.setViewportView(timePanel);
 		
 		gridBagConstraints2 = new java.awt.GridBagConstraints();
@@ -291,38 +293,18 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		gridBagConstraints1.weighty = 0.9;
 		getContentPane().add(splitPane, gridBagConstraints1);
 		
-		labStatus.setText("Welcome.");
-		labStatus.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-		labStatus.setFont(new java.awt.Font("Dialog", 0, 12));
-		labStatus.setPreferredSize(new java.awt.Dimension(50, 20));
-		labStatus.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.LOWERED));
-		gridBagConstraints1 = new java.awt.GridBagConstraints();
-		gridBagConstraints1.gridx = 0;
-		gridBagConstraints1.gridy = 4;
-		gridBagConstraints1.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints1.insets = new java.awt.Insets(0, 2, 2, 2);
-		gridBagConstraints1.weightx = 0.9;
-		getContentPane().add(labStatus, gridBagConstraints1);
-		
-		progressBar.setFont(new java.awt.Font("Dialog", 0, 12));
-		progressBar.setPreferredSize(new java.awt.Dimension(100, 20));
-		progressBar.setBorder(new javax.swing.border.LineBorder(java.awt.Color.black));
-		progressBar.setMinimumSize(new java.awt.Dimension(100, 20));
-		progressBar.setMaximumSize(new java.awt.Dimension(100, 20));
-		gridBagConstraints1 = new java.awt.GridBagConstraints();
-		gridBagConstraints1.gridx = 1;
-		gridBagConstraints1.gridy = 4;
-		gridBagConstraints1.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints1.insets = new java.awt.Insets(0, 0, 2, 2);
-		gridBagConstraints1.weightx = 0.1;
-		getContentPane().add(progressBar, gridBagConstraints1);
-		
 		setJMenuBar(jMenuBar2);
 		pack();
 		java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(new java.awt.Dimension(600, 400));
 		setLocation((screenSize.width-600)/2,(screenSize.height-400)/2);
 	}//GEN-END:initComponents
+
+	private void comTheDateItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comTheDateItemStateChanged
+		
+		updateIfDateChanged();
+			
+	}//GEN-LAST:event_comTheDateItemStateChanged
 
 	private void menPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menPrintActionPerformed
 		
@@ -383,46 +365,25 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 	private void butNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butNextActionPerformed
 		
-		theDate.setDate(theDate.getDate()+1);
+		Date tmpDate = new Date(theDate.getTime());
+		tmpDate.setDate(tmpDate.getDate()+1);
 		
 		SimpleDateFormat fmt = new SimpleDateFormat("EEE dd MMMM yyyy");
-		String datestr = fmt.format(theDate);
+		String datestr = fmt.format(tmpDate);
 		
 		comTheDate.setSelectedItem(datestr);
-		
-		updatePanel();
 		
 	}//GEN-LAST:event_butNextActionPerformed
 
-	private void comTheDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comTheDateActionPerformed
-		
-		
-		SimpleDateFormat fmt = new SimpleDateFormat("EEE dd MMMM yyyy");
-				
-		try {
-			
-			theDate = fmt.parse((String)comTheDate.getSelectedItem());
-			
-		} catch(ParseException e) {
-			
-			e.printStackTrace();
-			
-		}//try
-
-		updatePanel();
-		
-	}//GEN-LAST:event_comTheDateActionPerformed
-
 	private void butPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butPrevActionPerformed
 		
-		theDate.setDate(theDate.getDate()-1);
+		Date tmpDate = new Date(theDate.getTime());
+		tmpDate.setDate(tmpDate.getDate()-1);
 		
 		SimpleDateFormat fmt = new SimpleDateFormat("EEE dd MMMM yyyy");
-		String datestr = fmt.format(theDate);
+		String datestr = fmt.format(tmpDate);
 
 		comTheDate.setSelectedItem(datestr);
-		
-		updatePanel();
 		
 	}//GEN-LAST:event_butPrevActionPerformed
 
@@ -483,8 +444,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			String datestr = fmt.format(theDate);
 		
 			comTheDate.setSelectedItem(datestr);
-			
-			updatePanel();
 			
 		}
 		
@@ -570,6 +529,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			String xmlFilename = freeGuideHomeDir+"data/"+tmp+"-"+datestr+".fgd";
 	    
 			if((new File(xmlFilename).exists())) {	// If the file exists
+				
+				//FreeGuide.log.writeLine("Opening programmes file "+xmlFilename);
 				
 				// Load it into memory and process it
 				
@@ -815,7 +776,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 						chkItemStateChanged(evt);
 					}
 				});
-		
+				
 				innerPanel.add(chk);
 				innerPanel.add(txt);
 		
@@ -846,6 +807,28 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 	}//drawChannels
 	
+	private void updateIfDateChanged() {
+		
+		SimpleDateFormat fmt = new SimpleDateFormat("EEE dd MMMM yyyy");
+		
+		if(ready && !fmt.format(theDate).equals((String)comTheDate.getSelectedItem())) {
+		
+			try {
+			
+				theDate = fmt.parse((String)comTheDate.getSelectedItem());
+			
+			} catch(ParseException e) {
+			
+				e.printStackTrace();
+			
+			}//try
+
+			updatePanel();
+		
+		}//if
+		
+	}
+	
     private void updatePanel() {
 	
 		getChannelNames();
@@ -856,17 +839,11 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// Make an array of FreeGuideChannelDay objects
 		channels = new FreeGuideChannelDay[noChans];
 	
-		labStatus.setText("Loading programme info...");
-	
 		loadProgrammeData();
-	
-		labStatus.setText("Drawing...");
 	
 		initForDraw();
 		drawChannels();
 		updatePrintedGuide();
-		
-		labStatus.setText("Done.");
 		
     }
     
@@ -891,8 +868,16 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			buffy.write(constructHTMLGuide(false));
 
 			buffy.close();
-		
-			FreeGuide.execExternal(FreeGuide.config.getValue("browserCommandLine")+" "+f.getAbsolutePath());
+			
+			if(System.getProperty("os.name").equals("Windows")) {
+			
+				FreeGuide.execExternal(FreeGuide.config.getValue("browserCommandLine")+" \""+f.getAbsolutePath()+"\"");
+				
+			} else {
+				
+				FreeGuide.execExternal(FreeGuide.config.getValue("browserCommandLine")+" "+f.getAbsolutePath(), false);
+				
+			}
 		
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -955,7 +940,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 		if(onScreen) {ans+="<font face='helvetica, helv, arial, sans serif' size=1>";}
 		
-		ans+="FreeGuide Copyright &copy;2001 by Andy Balaam<br>http://www.sourceforge.net/projects/freeguide-tv/<br>freeguide@artificialworlds.net";
+		ans+="FreeGuide Copyright &copy;2001 by Andy Balaam<br>Free software released under the GNU Public Licence<br>http://www.sourceforge.net/projects/freeguide-tv/<br>freeguide@artificialworlds.net";
 		
 		if(onScreen) {ans+="</font>";}
 		
@@ -1108,8 +1093,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	private javax.swing.JScrollPane printedGuideScrollPane;
 	private javax.swing.JTextArea printedGuideAreaOld;
 	private javax.swing.JEditorPane printedGuideArea;
-	private javax.swing.JLabel labStatus;
-	private javax.swing.JProgressBar progressBar;
 	// End of variables declaration//GEN-END:variables
     
     private String[] channelNames;
@@ -1133,5 +1116,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private static String freeGuideHomeDir;	// The home dir/root path of this prog
     
 	private FreeGuideLauncher launcher;	// The screen that launched this one
+	
+	private boolean ready;	// Have we prepared the screen yet?
 	
 }

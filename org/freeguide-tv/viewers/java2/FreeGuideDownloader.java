@@ -47,7 +47,6 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 		butCancel = new javax.swing.JButton();
 		butOptions = new javax.swing.JButton();
 		chkOverwrite = new javax.swing.JCheckBox();
-		chkDeleteOld = new javax.swing.JCheckBox();
 		
 		getContentPane().setLayout(new java.awt.GridBagLayout());
 		java.awt.GridBagConstraints gridBagConstraints1;
@@ -69,7 +68,7 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 		gridBagConstraints1.weighty = 0.5;
 		getContentPane().add(prgProgress, gridBagConstraints1);
 		
-		butStart.setText("Start downloading");
+		butStart.setText("Download...");
 		butStart.setSelected(true);
 		butStart.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,7 +84,6 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 		gridBagConstraints1.weighty = 0.25;
 		getContentPane().add(butStart, gridBagConstraints1);
 		
-		butCancel.setFont(new java.awt.Font("Dialog", 0, 12));
 		butCancel.setText("Cancel");
 		butCancel.setPreferredSize(new java.awt.Dimension(97, 23));
 		butCancel.setMaximumSize(new java.awt.Dimension(97, 23));
@@ -115,7 +113,6 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 		gridBagConstraints1 = new java.awt.GridBagConstraints();
 		gridBagConstraints1.gridx = 0;
 		gridBagConstraints1.gridy = 2;
-		gridBagConstraints1.gridheight = 2;
 		gridBagConstraints1.insets = new java.awt.Insets(5, 5, 5, 5);
 		gridBagConstraints1.weightx = 0.1;
 		gridBagConstraints1.weighty = 0.25;
@@ -125,19 +122,9 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 		chkOverwrite.setText("Overwrite existing files");
 		gridBagConstraints1 = new java.awt.GridBagConstraints();
 		gridBagConstraints1.gridx = 1;
-		gridBagConstraints1.gridy = 3;
-		getContentPane().add(chkOverwrite, gridBagConstraints1);
-		
-		chkDeleteOld.setFont(new java.awt.Font("Dialog", 0, 12));
-		chkDeleteOld.setText("Delete old files");
-		chkDeleteOld.setPreferredSize(new java.awt.Dimension(171, 21));
-		chkDeleteOld.setMaximumSize(new java.awt.Dimension(171, 21));
-		chkDeleteOld.setMinimumSize(new java.awt.Dimension(171, 21));
-		chkDeleteOld.setEnabled(false);
-		gridBagConstraints1 = new java.awt.GridBagConstraints();
-		gridBagConstraints1.gridx = 1;
 		gridBagConstraints1.gridy = 2;
-		getContentPane().add(chkDeleteOld, gridBagConstraints1);
+		gridBagConstraints1.insets = new java.awt.Insets(5, 5, 5, 5);
+		getContentPane().add(chkOverwrite, gridBagConstraints1);
 		
 		pack();
 		java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -280,16 +267,14 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 			
 			String channelsFile = FreeGuide.config.getValue("channelsFile");
 			Vector parserCmds = FreeGuide.config.getListValue("downloadCommandLine");
-		
+			
 			// Execute the commands to download and save listings
 			for(int i=0;i<parserCmds.size();i++) {
 		
 				String cmd = ((String)parserCmds.get(i)).trim();
 				
-				System.out.println(cmd);
-				
 				if(!cmd.equals("")) {
-					FreeGuide.execExternal(cmd+" "+channel+" "+datestr+" "+xmlFilename+" "+channelsFile);
+					FreeGuide.execExternal(cmd+" \""+channel+"\" \""+datestr+"\" \""+xmlFilename+"\" \""+channelsFile+"\"");
 				}
 			
 			}
@@ -310,7 +295,6 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 	private javax.swing.JButton butCancel;
 	private javax.swing.JButton butOptions;
 	private javax.swing.JCheckBox chkOverwrite;
-	private javax.swing.JCheckBox chkDeleteOld;
 	// End of variables declaration//GEN-END:variables
 	
 	private Thread thread;	// The thread in which to download

@@ -85,6 +85,8 @@ public class JoveLogFile {
 		
 			buffy.close();
 			
+			//System.out.println(datestr+" - "+line);
+			
 		} catch(IOException e) {
 			
 			quit(e);

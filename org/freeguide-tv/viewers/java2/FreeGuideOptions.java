@@ -748,13 +748,10 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		if(FreeGuide.config.getValue("freeguideDir")==null) {
 			
 			JOptionPane.showMessageDialog(this, 
-			"Your configuration file has not yet been set up."
-			+ System.getProperty("line.separator") +
-			"This should have been set up during installation."
-			+ System.getProperty("line.separator") +
-			"Please consult the file README to find out how to set it up."
-			+ System.getProperty("line.separator") +
-			"Alternatively, you may try re-installing FreeGuide."
+			"Your configuration file has not yet been set up.\n"
+			+"This should have been set up during installation.\n"
+			+"Please consult the file README to find out how to set it up.\n"
+			+"Alternatively, you may try re-installing FreeGuide."
 			, "Incomplete config file", JOptionPane.WARNING_MESSAGE);
 			
 		}
@@ -827,7 +824,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			Vector tmpChannels = new Vector();
 		
 			if(channelsFile.exists()) {
-			
+				
 				try {//IOException
 		
 					BufferedReader buffy = new BufferedReader(new FileReader(channelsFile));
@@ -835,7 +832,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 					String line = buffy.readLine();
 
 					while(line!=null) {
-				
+						
 						tmpChannels.addElement(line.trim());
 				
 						line = buffy.readLine();
@@ -911,9 +908,11 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		// Execute the commands to download channels list
 		for(int i=0;i<channelCmds.size();i++) {
 		
-			FreeGuide.execExternal(((String)channelCmds.get(i))+" "+channelsFile);
+			FreeGuide.execExternal(((String)channelCmds.get(i))+" \""+channelsFile+"\"");
 			
 		}
+		
+		showDownload();
 		
 	}
 	
@@ -941,8 +940,13 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		// Loop until no more line breaks were found
 		while(i>-1) {
 			
-			// Add the first line in the string to the vector
-			ans.add(txt.substring(0, i));
+			// Cut out blank lines
+			if(i>0) {
+			
+				// Add the first line in the string to the vector
+				ans.add(txt.substring(0, i));
+				
+			}//if
 			
 			// Cut this line out of the vector
 			txt = txt.substring(i+lineBreak.length());
@@ -952,7 +956,9 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			
 		}//while
 		
-		ans.add(txt);
+		if(!txt.equals("")) {
+			ans.add(txt);
+		}
 		
 		return ans;
 		
