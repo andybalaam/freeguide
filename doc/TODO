@@ -112,6 +112,7 @@ D  means work in progress by Dave Torok
 - "Create a new channel set..." option in the channel sets menu
 - Remember last channel set on exit.
 - Fix severe errors when a channel is missing from a channel set
+- fi always says Execution Error on Windows
 
 + Release 0.5.2 (interim release for new xmltv version 0.5.7)
 
