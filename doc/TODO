@@ -132,6 +132,7 @@ m  means done by Mike Dean
 - Full test of keyboard navigation
 - Write tv_grab_uk_bleb2?
 - Add config file location to Options
+- Fix mentions of "C" drive in Windows versions
 
 + Release 0.7 (xmltv-tk)
 

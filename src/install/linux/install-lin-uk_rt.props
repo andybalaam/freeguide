@@ -1,4 +1,4 @@
-region=UK (slow)
+region=UK (slow downloads)
 
 prefs.1=misc.days_to_grab=7
 prefs.2=commandline.tv_grab.1=tv_grab_uk_rt --config-file \"%misc.grabber_config%\" --offset %offset% --days 1 --output \"%misc.working_directory%/tv-%date%.xmltv\"

@@ -16,7 +16,7 @@
 	<property name="package" location="package"/>
 	<property name="dist"  location="dist"/>
 
-	<property name="freeguideversion"  value="FreeGuide-0.7"/>
+	<property name="freeguideversion"  value="FreeGuide-0.7.1"/>
 
   	<target name="init">
 
@@ -105,6 +105,7 @@
 		<copy file="${src}/install/windows/install-win-nl.props" tofile="${package}/windows/install-5.props" overwrite="true" />
 		<copy file="${src}/install/windows/install-win-na.props" tofile="${package}/windows/install-6.props" overwrite="true" />
 		<copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${package}/windows/install-7.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-uk_rt-slow.props" tofile="${package}/windows/install-8.props" overwrite="true" />
 
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Win-Install.jar"
@@ -143,6 +144,7 @@
 		<copy file="${src}/install/linux/install-lin-nz.props" tofile="${package}/linux/install-6.props" overwrite="true" />
 		<copy file="${src}/install/linux/install-lin-na.props" tofile="${package}/linux/install-7.props" overwrite="true" />
 		<copy file="${src}/install/linux/install-lin-uk_rt.props" tofile="${package}/linux/install-8.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-uk_rt-slow.props" tofile="${package}/linux/install-9.props" overwrite="true" />
 
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Linux-NoXMLTV-Install.jar"
@@ -187,6 +189,7 @@
 		<copy file="${src}/install/linux-par/install-lin-nl.props" tofile="${package}/linux-par/install-5.props" overwrite="true" />
 		<copy file="${src}/install/linux-par/install-lin-na.props" tofile="${package}/linux-par/install-6.props" overwrite="true" />
 		<copy file="${src}/install/linux-par/install-lin-uk_rt.props" tofile="${package}/linux-par/install-7.props" overwrite="true" />
+		<copy file="${src}/install/linux-par/install-lin-uk_rt-slow.props" tofile="${package}/linux-par/install-8.props" overwrite="true" />
 
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Linux-Install.jar"
