@@ -33,11 +33,9 @@ connect to the Internet. The viewer allows the user to view television listings
 and create customised TV guides by selecting programmes and by building up a
 favourites list.
 
-It works with listings for Canada, Denmark, Finland, France, Germany, Hungary,
-Italy, Japan, the Netherlands, Norway, Portugal, Romania, Spain, Sweden, the UK
-and the US.
+It works with listings for Canada, Denmark, Finland, France, Germany, Hungary, Italy, Japan (Linux only), the Netherlands, Norway, Portugal, Romania, Spain, Sweden, the UK and the US.
 
-FreeGuide requires Java 2 version 1.4.
+FreeGuide requires a recent version of XMLTV and Java 2 version 1.4.
 
 %prep
 %setup
