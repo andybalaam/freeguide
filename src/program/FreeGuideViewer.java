@@ -60,6 +60,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// Draw the programmes on the screen
         updatePanel();
 
+		goToNow();
+
 		if(pleaseWait!=null) {
 			pleaseWait.dispose();
 		}

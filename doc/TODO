@@ -75,6 +75,7 @@ x means done by Sagar Shah
 - Fix possible NullPointerException in StartupChecker.checkFileFailure
 - Shortcut keys for everything
 - single channel view
+x When FreeGuide starts, automatically "GoToNow" rather than staying at start of day
 x GoToNow shouldn't put the "now" arrow right at the edge of the screen
 x Display which channels are missing when some listings are missing.
 - Change READMEs etc to point to http://java.sun.com/getjava/
