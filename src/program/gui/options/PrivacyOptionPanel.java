@@ -59,6 +59,9 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener {
 		nicknameLabel.setLabelFor(nicknameTextField);
 		nicknameLabel.setDisplayedMnemonic(KeyEvent.VK_N);
 		
+		infoButton = newRightJButton( "More Info" );
+		infoButton.setMnemonic(KeyEvent.VK_M);
+		
 		// Lay them out in a GridBag layout
 		GridBagEasy gbe = new GridBagEasy( this );
 		
@@ -72,12 +75,15 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener {
 		gbe.addFWX  ( provideLabel   , 0, 1, gbe.FILL_HOR   , 0.2 );
 		gbe.addFWX  ( provideComboBox, 1, 1, gbe.FILL_HOR   , 0.8 );
 		
-		gbe.addFWX  ( nicknameLabel    , 0, 2, gbe.FILL_HOR   , 0.2 );
-		gbe.addFWX  ( nicknameTextField, 1, 2, gbe.FILL_HOR   , 0.8 );
+		gbe.addFWX  ( nicknameLabel    , 0, 2, gbe.FILL_HOR , 0.2 );
+		gbe.addFWX  ( nicknameTextField, 1, 2, gbe.FILL_HOR , 0.8 );
+		
+		gbe.addAWX  ( infoButton     , 1, 3, gbe.ANCH_WEST  , 0.8 );
 		
 		// Events
 		checkComboBox.addActionListener(this);
 		provideComboBox.addActionListener(this);
+		infoButton.addActionListener(this);
 		
 		// Load in the values from config
 		load();
@@ -138,11 +144,19 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 
-		boolean check = ( checkComboBox.getSelectedIndex() == 0 );
-		boolean provide = ( provideComboBox.getSelectedIndex() == 2 );
+		if( e.getSource() == infoButton ) {
+			
+			new PrivacyInfoDialog().show();
+			
+		} else {
 		
-		provideComboBox.setEnabled( check );
-		nicknameTextField.setFocusable( check && provide );
+			boolean check = ( checkComboBox.getSelectedIndex() == 0 );
+			boolean provide = ( provideComboBox.getSelectedIndex() == 2 );
+		
+			provideComboBox.setEnabled( check );
+			nicknameTextField.setFocusable( check && provide );
+			
+		}
 		
 	}
 	
@@ -159,6 +173,7 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener {
 	
 	private JComboBox checkComboBox;
 	private JComboBox provideComboBox;
+	private JButton infoButton;
 	private JTextField nicknameTextField;
 	
 }

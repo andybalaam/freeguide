@@ -56,14 +56,18 @@ public class PrivacyWizardPanel extends WizardPanel implements ActionListener {
         midPanel.setLayout(new java.awt.GridBagLayout());
 
 		noButton = new JRadioButton("No, I'm quite happy with this version.");
-		yesIPButton 	= new JRadioButton("Yes, and you can show my IP address.");
+		yesIPButton 	= new JRadioButton(
+			"Yes, and you can show my IP address." );
 		yesNothingButton= new JRadioButton("Yes, but don't show anything .");
-		yesNickButton	= new JRadioButton("Yes, and use this nickname for me:");
+		yesNickButton	= new JRadioButton(
+			"Yes, and use this nickname for me:" );
 		
 		noButton.setMnemonic(KeyEvent.VK_N);
 		yesIPButton.setMnemonic(KeyEvent.VK_Y);
 		yesNothingButton.setMnemonic(KeyEvent.VK_E);
 		yesNickButton.setMnemonic(KeyEvent.VK_S);
+		
+		butMoreInfo.setMnemonic(KeyEvent.VK_M);
 		
         ButtonGroup group = new ButtonGroup();
 		group.add(noButton);
@@ -140,7 +144,7 @@ public class PrivacyWizardPanel extends WizardPanel implements ActionListener {
 		gridBagConstraints.gridheight = 3;
 		gridBagConstraints.fill = java.awt.GridBagConstraints.NONE;
 		gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
-		gridBagConstraints.insets = new java.awt.Insets(8, 3, 3, 3);
+		gridBagConstraints.insets = new java.awt.Insets(3, 8, 3, 3);
 		bottomPanel.add( butMoreInfo, gridBagConstraints );
 		
 		gridBagConstraints = new java.awt.GridBagConstraints();

@@ -11,13 +11,11 @@
  *  See the file COPYING for more information.
  */
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.*;
 import javax.swing.*;
 
 /**
- *  Tell the about their privacy in FreeGuide
+ *  Tell the user about their privacy in FreeGuide
  *
  *@author     Andy Balaam
  *@created    5th December 2003
@@ -48,34 +46,98 @@ public class PrivacyInfoDialog extends JDialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
 		JEditorPane infoPane;
+		JScrollPane scrollPane;
 		JButton OKButton;
 		
-		infoPane = new JEditorPane();
+		String privacyInfo =
+			  "<head>"
+			+ "<title>Privacy Information</title>"
+			+ "</head>"
+			+ "<body>"
+			+ "<h1>Privacy Information</h1>"
+			+ "<h2>Contents</h2>"
+			+ "<ul>"
+			+ "<li>Summary</li>"
+			+ "<li>What is the information used for?</li>"
+			+ "<li>What are the technical details?</li>"
+			+ "</ul>"
+			+ "<h2>Summary</h2>"
+			+ "<p>When FreeGuide starts, it can check on the FreeGuide web "
+			+ "site whether there is a new release available.  It is useful "
+			+ "to know how many people are using FreeGuide, so a log is kept "
+			+ "of the checks that are made each day.</p>"
+			+ "<p>You can choose either to disable the check completely "
+			+ "(choose \"No\"), "
+			+ "or you can enable the check and customise what information "
+			+ "about you is stored.</p>"
+			+ "<p>The most useful information for us is if you choose a "
+			+ "nickname for yourself that will uniquely identify you. "
+			+ "This will mean we can count the number of separate people who "
+			+ "use FreeGuide.  Alternatively, you can allow your IP address "
+			+ "to be logged (this happens whenever you visit a web site). "
+			+ "This will allow us to get some idea of how many people are "
+			+ "using the program, but it will be less accurate since some "
+			+ "ISPs give you a different IP every time you dial in.  Finally, "
+			+ "if you would like to perform the check but not give away any "
+			+ "information at all, you can choose to do that.  A \"hit\" will "
+			+ "still be logged, but nothing that refers to you will be "
+			+ "recorded.</p>"
+			+ "<p>If you have any questions about this, please do contact "
+			+ "freeguide-tv-devel@lists.sourceforge.net.</p>"
+			+ "<h2>What is the information used for?</h2>"
+			+ "<p>At the moment the information isn't used for anything.  In "
+			+ "the future it may be used for some of the following purposes: "
+			+ "</p>"
+			+ "<ul>"
+			+ "<li>To give the FreeGuide developers a warm glow.</li>"
+			+ "<li>To convince a company to give us money for some reason "
+			+ "because we've got lots of users.</li>"
+			+ "</ul>"
+			+ "<p>It will never be used to identify individuals.  It will "
+			+ "never be sold to or given away to anyone who wants to use it "
+			+ "for commercial purposes.  It will never be used to send "
+			+ "marketing information to you.</p>"
+			+ "<p>Basically FreeGuide is done out of love.  One day there "
+			+ "might be a small amount of money in it for me (Andy Balaam), "
+			+ "and this might be a way of convincing someone that e.g. "
+			+ "they want to pay to be the listings provider for a country "
+			+ "because they'll get a lot of hits to their web site from "
+			+ "people wanting more info on a programme.  To do something "
+			+ "like this they'd need to know that lots of people use "
+			+ "FreeGuide, and this is a way of proving that.</p>"
+			+ "<h2>What are the technical details?</h2>"
+			+ "<p>When it starts, if you have enabled version checking, "
+			+ "FreeGuide checks this URL: "
+			+ "http://freeguide-tv.sourceforge.net/VERSION.php."
+			+ "The code for this is in "
+			+ "src/program/lib/fgspecific/VersionCheckerThread.java in the "
+			+ "source package.  According to your privacy preferences, some "
+			+ "GET options are added to the URL, giving either your nickname "
+			+ "or a \"fake\" IP of 0.0.0.0 if you chose to give no "
+			+ "information. If you chose to give your IP, the URL is left "
+			+ "unchanged and the IP is found automatically.  The version of "
+			+ "FreeGuide you are using is then added to the URL.</p>"
+			+ "<p>The date, identifier (nickname, IP or fake IP) and version "
+			+ "are written to a file stored on the server.  The PHP script "
+			+ "that does this is stored in doc/VERSION.php in the source "
+			+ "package.</p>";
+			
+		
+		infoPane = new JEditorPane( "text/html", privacyInfo );
+		infoPane.setEditable( false );
+		
+		scrollPane = new JScrollPane( infoPane );
+		
 		OKButton = new JButton();
-		
-		infoPane.setText( "<title>Hello</title><p>Hello para</p>" );
-		
 		OKButton.setText( "OK" );
 		
-		Container pane = getContentPane();
-		
-		pane.setLayout( new java.awt.GridBagLayout() );
+		GridBagEasy gbe = new GridBagEasy( getContentPane() );
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints.weighty = 1;
-        pane.add(infoPane, gridBagConstraints);
+		gbe.default_insets = new java.awt.Insets(5, 5, 5, 5);
 		
-		gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints.anchor = GridBagConstraints.EAST;
-		gridBagConstraints.weighty = 0;
-        pane.add(OKButton, gridBagConstraints);
+		gbe.addFWXWY( scrollPane, 0, 0, gbe.FILL_BOTH, 1, 1 );
+
+		gbe.addAWXWY( OKButton, 0, 1, gbe.ANCH_EAST, 1, 0 );
 		
         OKButton.addActionListener(
             new java.awt.event.ActionListener() {
@@ -88,8 +150,14 @@ public class PrivacyInfoDialog extends JDialog {
 			
 		pack();  // pack comes before the size instructions or they get ignored.
 		
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();		
-        setLocation((screenSize.width - getWidth()) / 2, (screenSize.height - getHeight()) / 2);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension dialogSize = new Dimension( 600, 400 );
+		
+		setSize( dialogSize );
+		
+        setLocation(
+			( screenSize.width  - dialogSize.width  ) / 2,
+			( screenSize.height - dialogSize.height ) / 2 );
 		
   }
 

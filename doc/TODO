@@ -29,6 +29,7 @@ e  means done by Ewan Harrow
 - Think about ports to Gnome, wxPython, ...
 - Convert to SWT and compile natively with GCJ?
 - Search for programmes, different views on data.
+- Custom component for displaying programmes.
 
 - Release 1.0 (the destination)
 
@@ -124,6 +125,7 @@ e  means done by Ewan Harrow
 - Fix saying there's missing listings after midnight (before 6am) bug
 - Custom web browser option
 - Expand ConfigGuesser's checking capabilities
+- Channel icons
 
 - Release 0.7.1 (accessibility, accessibility, accessibility)
 
@@ -139,7 +141,7 @@ e  means done by Ewan Harrow
 
 - Update docs
 - Include a modified XMLTV for configuration.
-- Finish privacy dialogue
++ Finish privacy dialogue
 + Fix popups coming up behind window on startup bug (using a later time?)
 + Enable configuration option within viewer 
 + Refresh after download (using dialog?)
