@@ -14,7 +14,8 @@
 COUNTRY=$1
 
 #DIR="/cygdrive/c/Documents and Settings/root/My Documents/cvs-freeguide-tv/build/install-win/share/xmltv/$COUNTRY"
-DIR="/home/andy/code/freeguide-tv/package/windows/share/xmltv/$COUNTRY"
+#DIR="/home/andy/code/freeguide-tv/package/windows/share/xmltv/$COUNTRY"
+DIR="/home/andy/code/freeguide-tv/xmltv/share/xmltv/$COUNTRY"
 
 SUBDIR=$2
 

@@ -76,7 +76,7 @@ m  means done by Mike Dean
 - Make installer launch xmltv configure
 - Set up bochs test machines for vanilla Win98 and Linux
 
-- Release 0.7.4 (preferences creep)
+- Release 0.7.5 (preferences creep)
 
 - Choose how old files are before you delete them
 - Ability to save and load preferences (using Java's ability to save to XML)
@@ -91,7 +91,7 @@ m  means done by Mike Dean
 - Movie and/or category matching in favourites
 - Subtitle matches in favourites
 
-- Release 0.7.3 (code tidying)
+- Release 0.7.4 (code tidying)
 
 - Refactor FreeGuideViewer into a sort of MVC setup
 - Separate classes into packages
@@ -102,7 +102,7 @@ m  means done by Mike Dean
 - Change all forms to use GridBagEasy and newXXX methods.
 - Sort out Utils.exec methods so they make sense
 
-- Release 0.7.2 (aesthetics)
+- Release 0.7.3 (aesthetics)
 
 - Apply different fonts to every screen?
 - Go To Now scrolls the personalised listing panel as well as the main panel
@@ -122,7 +122,7 @@ m  means done by Mike Dean
 - Expand ConfigGuesser's checking capabilities
 - Channel icons
 
-- Release 0.7.1 (accessibility, accessibility, accessibility)
+- Release 0.7.2 (accessibility, accessibility, accessibility)
 
 - Improve accessibility, specifically keyboard shortcuts
 - Shortcut keys for everything
@@ -135,13 +135,19 @@ m  means done by Mike Dean
 - Fix mentions of "C" drive in Windows versions
 - Add "contact" page to the docs (and/or as a footer to each page)
 
-- Release 0.7.1
++ Release 0.7.1
 
-- Respond to the needs of tv_grab_na_dd including
-	- update docs about overwriting listings
-	- tell user they need to get an account before they continue
-	- tell user to make a password file
-- Use XMLTV 0.5.31 grabbers (modified)
++ Write a config setup for bleb
++ Do share files for those grabbers that need them
++ Get Robert to do a windows version of the grabbers.
++ Respond to the needs of tv_grab_na_dd including:
+	+ update docs saying you need a Zap2it account
+	+ update docs about overwriting listings
+	+ tell user they need to get an account before they continue
+	+ automatically make a password file
++ Write uk_bleb grabber
++ Accept dates with seconds but no timezone
++ Use XMLTV 0.5.31 grabbers (modified)
 + Add config file location to Options
 + Change "configure grabber" labels to "choose channels" everywhere
 

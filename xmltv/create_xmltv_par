@@ -31,7 +31,7 @@ mv $XMLTV_VERSION $XMLTV_VERSION-tkgui
 rm -rf $XMLTV_VERSION-tkgui.tar.bz2
 tar -cjf $XMLTV_VERSION-tkgui.tar.bz2 $XMLTV_VERSION-tkgui
 
-if [ "$1" == "--just-patch" ]; then
+if [ "$1" != "--make-par" ]; then
 
 	exit
 	

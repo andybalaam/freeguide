@@ -141,7 +141,11 @@ public class Install extends PrefsHolder {
 			
 			panels[4] = new PrivacyWizardPanel();
 			panels[4].setConfig( "misc", "privacy" );
-			
+            clses = new Class[1];
+            clses[0] = String.class;
+			panels[4].setOnExit( this, getClass().getMethod( "exitPrivacy",
+				clses ) );
+            
             panels[5] = new InstallWizardPanel( this );
             panels[5].setMessages(
 				"FreeGuide will be installed when you click \"Finish\".",
@@ -196,13 +200,22 @@ public class Install extends PrefsHolder {
 		
 	}
 	
+    public void exitPrivacy( String unused ) {
+		
+        String preconfig_message = prefs.misc.get( "preconfig_message" );
+		if( preconfig_message != null ) {
+            JOptionPane.showMessageDialog( null, preconfig_message );
+        }
+		
+	}
+    
 	public void exitFinal( InstallWizardPanel panel ) {
 		
 		showREADME = panel.readmeCheckBox.isSelected();
 		configGrabber = panel.configgrabberCheckBox.isSelected();
 		
 	}
-	
+    
 	/**
      * Load in the standard properties file.  Note this method just stores the
 	 * preferences listed in this file and then forgets anything else.
@@ -426,7 +439,35 @@ public class Install extends PrefsHolder {
 			
 			Utils.execAndWait( null, prefs.getCommands(
 				"tv_config" ), "Configuring", prefs );
-			
+                
+        }
+		
+        if(configGrabber) {
+        
+            String pw_file = prefs.misc.get( "password_file" );
+            
+            if( pw_file != null ) {
+            
+                String pw = JOptionPane.showInputDialog(
+                    "Enter your password:" );
+                    
+                try {
+            
+                    BufferedWriter out = new BufferedWriter( new 
+                        FileWriter( prefs.performSubstitutions( pw_file ) ) );
+
+                    out.write( pw );
+                
+                    out.close();
+                    
+                } catch( java.io.IOException e ) {
+                    
+                    e.printStackTrace();
+                    
+                }
+                
+            }
+            
 		}
 		
 		if( showREADME ) {

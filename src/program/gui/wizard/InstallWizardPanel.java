@@ -92,7 +92,7 @@ public class InstallWizardPanel extends WizardPanel {
 	// ----------------------------------
 	
 	/**
-	 * A little cheat here - we return a refernece to this Panel so that
+	 * A little cheat here - we return a reference to this Panel so that
 	 * observers can access the values of the checkboxes.
 	 */
 	protected Object getBoxValue() {

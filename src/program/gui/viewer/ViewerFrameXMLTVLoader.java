@@ -469,23 +469,32 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
         SimpleDateFormat normalFmt = new SimpleDateFormat("yyyyMMddHHmmss z");
         SimpleDateFormat deFmt = new SimpleDateFormat("yyyyMMddHHmm Z");
         SimpleDateFormat nzFmt = new SimpleDateFormat("yyyyMMddHHmm");
+        SimpleDateFormat uk_blebFmt = new SimpleDateFormat("yyyyMMddHHmmss");
 
         Calendar ans = GregorianCalendar.getInstance();
 
         try {
-
-            ans.setTime(normalFmt.parse(strDate));
-
+            
+            ans.setTime(uk_blebFmt.parse(strDate));
+            
         } catch (java.text.ParseException e) {
-
+            
             try {
-
-                ans.setTime(deFmt.parse(strDate));
+            
+                ans.setTime(normalFmt.parse(strDate));
 
             } catch (java.text.ParseException f) {
 
-                ans.setTime(nzFmt.parse(strDate));
+                try {
 
+                    ans.setTime(deFmt.parse(strDate));
+
+                } catch (java.text.ParseException g) {
+
+                    ans.setTime(nzFmt.parse(strDate));
+
+                }
+                
             }
 
         }

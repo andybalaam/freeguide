@@ -9,12 +9,16 @@ rm -f lib/AskTk.pm lib/AskTerm.pm
 patch -p0 < ../tkgui.diff
 
 # Add in new source files
-mkdir lib/Ask/
-mkdir lib/ProgressBar/
+mkdir lib/Ask
+mkdir lib/ProgressBar
+mkdir grab/uk_bleb
 
-cp ~/code/xmltv-tkgui/lib/Ask/*.pm lib/Ask/
-cp ~/code/xmltv-tkgui/lib/ProgressBar/*.pm lib/ProgressBar/
-cp ~/code/xmltv-tkgui/lib/GUI.pm lib/
-cp ~/code/xmltv-tkgui/lib/ProgressBar.pm lib/
+XMLTVTKGUIDIR=~/code/xmltv-tkgui-bleb
+
+cp $XMLTVTKGUIDIR/lib/Ask/*.pm lib/Ask/
+cp $XMLTVTKGUIDIR/lib/ProgressBar/*.pm lib/ProgressBar/
+cp $XMLTVTKGUIDIR/lib/GUI.pm lib/
+cp $XMLTVTKGUIDIR/lib/ProgressBar.pm lib/
+cp $XMLTVTKGUIDIR/grab/uk_bleb/tv_grab_uk_bleb grab/uk_bleb/
 
 

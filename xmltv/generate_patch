@@ -9,7 +9,7 @@
 INITIAL_DIR=`pwd`
 
 # Go into the directory that contains the tkgui code
-cd ~/code/xmltv-tkgui
+cd ~/code/xmltv-tkgui-bleb
 
 # Remove the extra files if they exist
 rm -f lib/AskTerm.pm lib/AskTk.pm

@@ -105,12 +105,11 @@
         <copy file="${src}/install/windows/install-win-fr.props" tofile="${package}/windows/install-5.props" overwrite="true" />
 		<copy file="${src}/install/windows/install-win-hu.props" tofile="${package}/windows/install-6.props" overwrite="true" />
 		<copy file="${src}/install/windows/install-win-it.props" tofile="${package}/windows/install-7.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-nl.props" tofile="${package}/windows/install-8.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-nl_wolf.props" tofile="${package}/windows/install-9.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-se.props" tofile="${package}/windows/install-10.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-na_dd.props" tofile="${package}/windows/install-11.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${package}/windows/install-12.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-uk_rt-slow.props" tofile="${package}/windows/install-13.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-nl_wolf.props" tofile="${package}/windows/install-8.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-na_dd.props" tofile="${package}/windows/install-9.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-uk_bleb.props" tofile="${package}/windows/install-10.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${package}/windows/install-11.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-uk_rt-slow.props" tofile="${package}/windows/install-12.props" overwrite="true" />
 
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Win-Install.jar"
