@@ -95,6 +95,7 @@ r  means done by Rob Stewart
 - Investigate little squares appearing instead of chars during grabber config
   on Windows (na_dd - timezone screen).
 - Allow selection only of programmes on channels that are currently displayed
+- Fix bug with favourites creating multiple chosen programmes
 
 - Release 0.8.3 (aesthetics)
 
