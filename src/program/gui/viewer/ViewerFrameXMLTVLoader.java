@@ -367,7 +367,7 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
     public void startElement(String namespaceURI, String sName, String name,
             Attributes attrs) {
 
-        saxLoc += ":" + name;
+    	saxLoc += ":" + name;
 		
 		data = "";
 
@@ -485,7 +485,7 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
             //FreeGuide.log.info( saxLoc );
             
             // Remember any unrecognised data
-            if (currentProgramme != null) {
+            if (currentProgramme != null && attrs.getLength() > 0) {
                 
                 currentProgramme.startElement( name, attrs );
                 
@@ -553,7 +553,7 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
 
         //FreeGuide.log.info(name);
 
-        if (saxLoc.equals(":tv:programme")) {
+    	if (saxLoc.equals(":tv:programme")) {
 
             if (currentProgramme.getEnd().after(earliest) &&
                     currentProgramme.getStart().before(latest)) {
@@ -593,8 +593,8 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
                 currentProgramme.setStarRating( data );
             }
 		
-        //} else if (saxLoc.equals(":tv:programme:episode-num")) {
-        // FIXME - fill in here
+		//} else if (saxLoc.equals(":tv:programme:episode-num")) {
+			// FIXME - fill in here
 
         } else if (saxLoc.equals(":tv:programme:url")) {
 
@@ -635,7 +635,7 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
             Matcher mat  = patt.matcher( saxLoc );
             
             // If we're looking at an unknown tag of a programme
-            if( mat.matches() && currentProgramme != null ) {
+            if (mat.matches() && currentProgramme != null && data != null && !data.equals("")) {
                     // Ending an unknown subtag
                 
                 String mainTag = mat.group( 1 );
