@@ -78,6 +78,10 @@ D  means work in progress by Dave Torok
 - Scroll to the programme you've just added in the list view
 - Remember what country you're from when you re-install.
 - Check that the grabber is installer by calling tv_grab_* --help?
+- Progress bar when downloading listings (by day)
+- Option to jump to a specific time on program start
+- Add sub-title handling, plus other useful tags.
+- Ability to highlight a channel to make it easier to read
 
 - Release 0.6.1 (consolidation and code tidying)
  
