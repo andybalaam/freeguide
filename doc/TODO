@@ -194,7 +194,6 @@ c  means done by Christian Weiske
 - Personalised guide for the next X days.
 - Brief summary for the next few days.
 - Support --xxx=yyy style options on the command line
-- Unsplit (Times should be entered as "hh:mm") strings in favourite editor
 - Sometimes you can't click on certain programmes, but you can navigate to them
   with the keyboard
 - Make it repaint correctly when you press "f" on a programme
@@ -202,12 +201,16 @@ c  means done by Christian Weiske
   once for every time it needs to be called.
 - Implement in_guide, remind and record for chosen progs and favourites
 - Implement the actual reminders and recording functionality
+- Split the different MVC objects apart as per Risto's email of 28/02/05
+- Increase the sizes of buttons in Channel Sets, Options and First Time Wizard
+  so that they fit under the German translation.
 
-- 0.9pre2 (Stabilising MVC work)
++ 0.9pre2 (Stabilising MVC work)
 
-- Get rid of all the comments left by NetBeans etc.
-- Incorporate an automatic code formatter into the build process
-- Rename "program" dir to "freeguide"
++ Unsplit (Times should be entered as "hh:mm") strings in favourite editor
++ Get rid of all the comments left by NetBeans etc.
++ Incorporate an automatic code formatter into the build process
++ Rename "program" dir to "freeguide"
 + Sometimes deleting a favourite makes everything a favourite.  It does this
   by blanking the title of a "contains" favourite.
 + Favourite names need an extra space - internationalise these names properly
