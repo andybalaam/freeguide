@@ -18,8 +18,14 @@ number following means priority (1 for important, 10 for unimportant)
 
 Release 0.3
 
+- 1 Fix bug that means favourites aren't chosen
 - 1 Fix non-scrollability of Details box
 - 1 Centre Download Listings box
+- 1 Make downloading work on Windows, from within FreeGuide
+- x [Wait for XMLTV 0.5]
+
+Release 0.3.1
+
 - 4 Right-click on a favourite gives option to remove from favs?
     (remove specific favs, but warn if general)
 - 4 Uncheck all button + check all button in channels screen
