@@ -70,36 +70,43 @@ public class DataDateList {
 	*   internal date list.
 	*/
 	public void updateDates() {
+		
 		dates = new Vector();
 		Calendar cdt;
-		Date dt;
+		
 		File f = new File(path);
 		FilenameFilter NameFilter = new fgdNFilter(filter);
 		String[] dir = f.list(NameFilter);
-		//System.out.println("f.getName() : "+f.getName());
+		
 		int ndx;
 
 		// loop through all files in the directory
 		// collect the unique date portions of the names
 		for(int i=0; i < dir.length;i++) {
-		//	System.out.println("  " + dir[i]);
+			
 			int s=dir[i].indexOf('-')+1;
 			int e=dir[i].indexOf('.');
 			String d=dir[i].substring(s,e);
-		//	System.out.println("  Datestr: "+d);
+			
 			ndx = dates.indexOf(d);
+			
 			if (ndx < 0) {
-				cdt = new GregorianCalendar();
-				//dt = new Calendar();
-				//dt = new Date();
+				
+				cdt = GregorianCalendar.getInstance();
+
 				try {
-				cdt.set(Integer.parseInt(d.substring(0,4)),
-					Integer.parseInt(d.substring(4,6))-1,
-					Integer.parseInt(d.substring(6,8)),
-					0,0,0);
-				//dates.add(new String(d));
-				dates.add(new Date(cdt.getTimeInMillis()));
-				} catch(NumberFormatException ex) {
+					
+					cdt.setTime( FreeGuideViewer.fileDateFormat.parse(
+						d.substring( 0, 8 ) ) );
+					
+					/*cdt.set(Integer.parseInt(d.substring(0,4)),
+						Integer.parseInt(d.substring(4,6))-1,
+						Integer.parseInt(d.substring(6,8)),
+						0,0,0);*/
+
+						dates.add(new Date(cdt.getTimeInMillis()));
+						
+				} catch(java.text.ParseException ex) {
 					// add nothing
 				}
 			}

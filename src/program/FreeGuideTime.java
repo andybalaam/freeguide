@@ -324,7 +324,6 @@ public class FreeGuideTime {
 	 * A convenience method which sets a Calendar object to this time.
 	 */
 	public void adjustCalendar(Calendar cal) {
-		// FIXME - does this work by reference?
 		cal.set( Calendar.HOUR_OF_DAY, getHours() );
 		cal.set( Calendar.MINUTE, getMinutes() );
 		cal.set( Calendar.SECOND, getSeconds() );
@@ -419,7 +418,7 @@ public class FreeGuideTime {
 	 *
 	 * @param other the other time to compare to
 	 * @param divideTime the time at which the day is said to start and end.
-	 * @returns 0 if the other is equal to this time; -1 if this time is before
+	 * @return 0 if the other is equal to this time; -1 if this time is before
 	 * the other time; +1 0 if this time is after the other time.
 	 */
 	public int compareTo(FreeGuideTime other, FreeGuideTime divideTime) {

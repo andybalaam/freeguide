@@ -30,7 +30,7 @@ import java.util.Vector;
  * FreeGuide, and some convenience methods for dealing with them.
  *
  * @author  Andy Balaam
- * @version 2
+ * @version 3
  */
 public class FreeGuidePreferencesGroup {
 
@@ -111,20 +111,43 @@ public class FreeGuidePreferencesGroup {
 		//return(offset+misc.getInt("grabber_today_offset",1)); // _uk
 		return(offset+misc.getInt("grabber_today_offset",0)); // _na
 	}
+	
+	
+	public String performSubstitutions(String in) {
+		return performSubstitutions(in, false);
+	}
+	
 	/**
 	 * Substitute any preference values within the string in and return the
 	 * result.  Assumes any dates should be today, and any "offset" is 1.
+	 * 
+	 * @param preserveDoublePercents if this is true any %%'s we encounter
+	 *                               remain %%'s instead of being changed to a
+	 *                               single %.
 	 */
-	public String performSubstitutions(String in) {
-		return performSubstitutions(in, GregorianCalendar.getInstance());
+	public String performSubstitutions(String in,
+			boolean preserveDoublePercents) {
+		return performSubstitutions(in, GregorianCalendar.getInstance(), 
+			preserveDoublePercents);
+	}
+	
+	public String performSubstitutions(String in, Calendar date) {
+		
+		return performSubstitutions(in, date, false);
+		
 	}
 	
 	/**
 	 * Substitute any preference values within the string in and return the
 	 * result.  Replaces "date" with the date given (formatted as
 	 * FreeGuideViewer.fileDateFormat) and "offset" with the number given.
+	 *
+	 * @param preserveDoublePercents if this is true any %%'s we encounter
+	 *                               remain %%'s instead of being changed to a
+	 *                               single %.
 	 */
-	public String performSubstitutions(String in, Calendar date) {
+	public String performSubstitutions(String in, Calendar date,
+			boolean preserveDoublePercents) {
 		
 		if(in==null) {
 			return null;
@@ -199,7 +222,14 @@ public class FreeGuidePreferencesGroup {
 		i = ans.indexOf("---FREEGUIDE_PERCENT---");
 		while(i!=-1) {
 			
-			ans = ans.substring(0, i) + "%" + ans.substring(i+23);
+			String newPercent;
+			if(preserveDoublePercents) {
+				newPercent = "%%";
+			} else {
+				newPercent = "%";
+			}
+			
+			ans = ans.substring(0, i) + newPercent + ans.substring(i+23);
 			
 			i = ans.indexOf("---FREEGUIDE_PERCENT---");
 			

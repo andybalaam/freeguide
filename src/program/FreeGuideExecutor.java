@@ -285,10 +285,13 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 			return true;
 		}
 		Calendar thisDate=GregorianCalendar.getInstance();
-		if ( ! "Today".equals(FreeGuide.prefs.misc.get("grabber_start_today")) ) {
-			thisDate.setTime(date.getTime());
+
+		if( !FreeGuide.prefs.misc.getBoolean( "grabber_start_today", true ) ) {
+			
+			thisDate.setTime( date.getTime() ); 
+			
 		}
-		//System.out.print("exec: "+cmdstr+"\n");
+
 		// Check for any elements that mean this command must be called multiple
 		// times, once for each day.
 		if( (cmdstr.indexOf("%date%")!=-1)
@@ -304,9 +307,8 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 				// What about files that are half empty?
 				
 				// Recursive call to this function
-				// FIXME - this will cause the %% construct to misbehave
 				if( !exec(FreeGuide.prefs.performSubstitutions(
-					cmdstr, thisDate) ) ) {
+					cmdstr, thisDate, true) ) ) {
 
 					didOK=false;
 				}

@@ -85,8 +85,9 @@ public class FreeGuideConfigGuesser {
 
 			case COMMANDS_TYPE:
 				return gp.getStrings( "default-" + entry );
-
-
+				
+			case BOOLEAN_TYPE:
+				return new Boolean( gp.getBoolean( "default-" + entry, true ) );
 		}
 
 		System.err.println("Unknown config type - " + entry);
@@ -233,7 +234,7 @@ public class FreeGuideConfigGuesser {
 		}
 
 		// Something went wrong
-		return "The chosen XMLTV directory either doesn't exist or doesn't contain the xmltv executable(s) and a grabber.";
+		return "The chosen XMLTV directory either doesn't exist or doesn't contain the xmltv executable(s).";
 	}
 
 	// -------------------------------------------
@@ -256,6 +257,7 @@ public class FreeGuideConfigGuesser {
 	public static final int TEXT_TYPE = 1;
 	public static final int FILE_TYPE = 2;
 	public static final int DIRECTORY_TYPE = 3;
+	public static final int BOOLEAN_TYPE = 4;
 
 	// -------------------------------------------
 

@@ -214,7 +214,8 @@ public class FreeGuideWizardPanel extends javax.swing.JPanel {
 	 * panel's config entry.
 	 */
 	protected void guess() {
-		this.setBoxValue( FreeGuideConfigGuesser.guess(configGroup, configEntry) );
+		this.setBoxValue( FreeGuideConfigGuesser.guess(
+			configGroup, configEntry ) );
 	}
 	
 	// -------------------------------
