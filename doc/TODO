@@ -122,6 +122,7 @@ m  means done by Mike Dean
 - Make a bit of PHP for test reports
 - Fix crash on tv-%Y%m%d.xmltv file in data dir
 - Fix bug in Italian grabber GUI config
+- Disable Choose Channels button when the grabber command is blank
 
 + Release 0.7.4 (bug fixes)
 
