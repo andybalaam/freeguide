@@ -152,6 +152,10 @@ r  means done by Rob Stewart
 - Add a small offset to move the channel name away from the far left when there
   is no icon.
 - Create a standard "icon missing" icon
+- Fix uninstall not deleting all registry entries
+- Fix bad characters being displayed in Tk GUI of XMLTV (entering username).
+- Complain when the system prefs are not installed because installation went
+  wrong.
 
 + Release 0.8.1 (bug fix)
 
