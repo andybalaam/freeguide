@@ -137,6 +137,7 @@ r  means done by Rob Stewart
 - Views: details only, guide only, both layout 1, both layout 2, neither
 - View menu - show tooltips
 - Check whether setting the timezone is really necessary.
+- Check for correct Java version with GUI response.
 
 - Release 0.8 (first time wizard)
 

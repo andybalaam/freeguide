@@ -25,7 +25,7 @@ Page instfiles
 
 Section "un.Uninstaller Section"
 
-    ExecWait 'java -jar "$INSTDIR\FreeGuide-0.8-Win.jar" --uninstall'
+    ExecWait 'javaw -jar "$INSTDIR\FreeGuide.jar" --uninstall'
 
     RMDir /r $INSTDIR
 
@@ -48,7 +48,7 @@ Section "Installer Section"
   
   ; ------------ remember install dir in Java prefs -------------
   
-  ExecWait 'java -jar "$INSTDIR\FreeGuide-0.8-Win.jar" --install "misc.install_directory=$INSTDIR"'
+  ExecWait 'javaw -jar "$INSTDIR\FreeGuide.jar" --install "misc.install_directory=$INSTDIR"'
   
   ; --------------------- make uninstaller ---------------------
   

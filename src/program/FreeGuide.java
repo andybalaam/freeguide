@@ -49,6 +49,7 @@ public class FreeGuide {
             System.exit( 0 );
         } else if( arguments.isSet( "prefs" ) ) {
             setSystemSettings();
+            System.exit( 0 );
         } else if( arguments.isSet( "wipeprefs" ) ) {
             removeSettings();
             System.exit( 0 );
