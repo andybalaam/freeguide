@@ -88,9 +88,9 @@ W  means work in progress by Walter Duncan
 - Make installer install shortcuts for Windows, Gnome and KDE
 - Make installer launch FreeGuide and/or a README file (what about configuring
 	on Windows?)
-- If there is more than one grabber command to execute, the output isn't 
+- If there is more than one grabber command to execute, the output isn't
 	allways captured (intermittent linux java 1.4.1_01).  Maybe add a
-	permanent (not always visible) viewer w/ a clear button, or 
+	permanent (not always visible) viewer w/ a clear button, or
 	timestamped output...
 
 - Release 0.5 (Features - especially use of many grabbers, and bug fixes)
@@ -104,7 +104,8 @@ W  means work in progress by Walter Duncan
 		else if FG_day_start < Grabber_day_start (reverse) get "today"-1 & "today"
 		else (equal) get "today" (only one file necessary)
 * Add configurable option grabber_start_today with "today", or current showing day
-W Add configurable checkbox option (convert grabber_start_today? option)
+* Add configurable Choice (checkbox) option (convert grabber_start_today? option)
+	(do we need/want a CheckboxWizard?)
 -* Fix bug with different day start times on grabber and FG.
 	(same as grabber day start above I think. -- Should be fixed.)
 -* Fix bug with NullPointerException when you start and there's no listings
