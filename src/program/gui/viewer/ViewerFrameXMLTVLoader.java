@@ -622,7 +622,8 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
 		} else if( saxLoc.equals(":tv:programme:subtitles") 
                 || saxLoc.equals(":tv:programme:previously-shown")
                 || saxLoc.startsWith(":tv:programme:rating")
-                || saxLoc.equals(":tv:programme:star-rating") )
+                || saxLoc.equals(":tv:programme:star-rating")
+				|| saxLoc.equals(":tv:programme:icon") )
         {
             
             // Do nothing - dealt with in startElement or elsewhere
