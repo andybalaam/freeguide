@@ -113,6 +113,7 @@ D  means work in progress by Dave Torok
 - Remember last channel set on exit.
 - Fix severe errors when a channel is missing from a channel set
 - fi always says Execution Error on Windows
+- Deal with change to XMLTV config file naming to *.conf
 
 + Release 0.5.2 (interim release for new xmltv version 0.5.7)
 
