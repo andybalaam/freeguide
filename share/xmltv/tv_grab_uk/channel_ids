@@ -50,23 +50,31 @@
 # its own XMLTV ids if necessary).  Defining your own packages of
 # channels is done with the files in the channel_pkgs/ directory.
 #
-cinema.sky.com:178::Sky Cinema
-2.cinema.sky.com:174::
-2.moviemax.sky.com:69::
-2.premier.sky.com:125::
-2.sports.sky.com:433,438::
-3.moviemax.sky.com:70::
-3.premier.sky.com:143::
-3.sports.sky.com:435,436::
-4.moviemax.sky.com:175::
-4.premier.sky.com:144::
-5.moviemax.sky.com:124::
+
+# The Sky movie and cinema channels should be marked 'transient' if
+# they ever disappear again.
+#
+1.movies.sky.com:50::
+2.movies.sky.com:68::
+3.movies.sky.com:125::
+4.movies.sky.com:69::
+5.movies.sky.com:143::
+6.movies.sky.com:70::
+7.movies.sky.com:144::
+8.movies.sky.com:124::
+9.movies.sky.com:145::
+
+1.cinema.sky.com:178::Sky Cinema
+2.cinema.sky.com:174::Sky Cinema 2
+
+#moviemax.sky.com:68::    # change to 1.moviemax if it ever returns
+#sky-premier.sky.com:50:: # likewise 1.premier
+
 anglia.tv.co.uk:43::3
 artsworld.com:602::
 ary-digital.ary-group.com:617::
 asianet-tv.com:91::
 b4utv.com:619::
-banglatv.com:613::
 bbc1.bbc.co.uk:4::1
 bbc2.bbc.co.uk:52::2
 beti.tv:58::
@@ -105,7 +113,6 @@ eurosport.sky.com:274::
 extra.sports.sky.com:437::
 extreme.com:663::
 fantasy.televisionx.co.uk:139::Fantasy
-ondigital.televisionx.co.uk:139::Fantasy
 filmfour.channel4.com:220::FilmFour
 weekly.filmfour.channel4.com:953::
 foxkids.co.uk:190::Fox Kids
@@ -134,7 +141,6 @@ men.granadatv.co.uk:119::Men & Motors
 meridian.tv.co.uk:42::3
 midlands.bbc1.bbc.co.uk:11::1
 midlands.bbc2.bbc.co.uk:24::2
-moviemax.sky.com:68::
 mutv.manutd.com:229::
 nationalgeographic.co.uk:177::
 europe.nationalgeographic.com:133::
@@ -179,8 +185,9 @@ setindia.com:186::SETI
 shop-america.tv-listings.ananova.com:121::
 sky-news.sky.com:114::
 sky-one.sky.com:222::S1
-sky-premier.sky.com:50::
 1.sports.sky.com:431::
+2.sports.sky.com:433,438::
+3.sports.sky.com:435,436::
 south-east.bbc1.bbc.co.uk:16::1
 south-east.bbc2.bbc.co.uk:30::2
 south-west.bbc1.bbc.co.uk:17::1
@@ -228,7 +235,6 @@ euronews.com:614::
 uk-food.flextech.telewest.co.uk:722::
 oxfordchannel.com:197::Oxford
 bid-up.tv:485::Bid-up
-teleg.co.uk:691::
 hellenic.tv-listings.ananova.com:100::
 webcam.tv-listings.ananova.com:104::
 tve-internacional.rtve.es:123::
@@ -312,7 +318,13 @@ thebox.co.uk:93::
 amateur.redhottv.co.uk:644::
 films.redhottv.co.uk:225::
 all-girl.redhottv.co.uk:723::
-40-plus-wives.redhottv.co.uk:224::
+
+# This channel seems to flit between two numbers.  Could have some
+# special logic to check that only one of the two exists but can't be
+# bothered just for this channel.  Even though it is my favourite ;-).
+#
+a.40-plus-wives.redhottv.co.uk:224:transient:
+b.40-plus-wives.redhottv.co.uk:963:transient:
 
 # TODO check that invest-tv.com is correct and move these to it
 simplyshoppingtv.co.uk:203::
@@ -325,7 +337,6 @@ southamptontv.co.uk:911:transient:
 flaunt.tv:957:transient:
 scuzz.tv:958:transient:
 
-radio-orkney.bbc.co.uk:637::R Orkney
 east-midlands.asian-network.bbc.co.uk:502::Asian
 juice.fm:607::Juice # 107.6
 1548.magic.emapadvertising.com:592::Magic # 1548
@@ -358,7 +369,7 @@ traxfm.co.uk:399:: # unknown if Bassetlaw or Doncaster or both
 radio-hospitals-blackburn.tv-listings.ananova.com:306::Blackburn Hospitals
 ram-fm.musicradio.com:350
 rookwoodsound.co.uk:355::Rookwood Sound
-freshradio.co.uk:297::Fresh
+clyde1.com:297::
 radio-norfolk.bbc.co.uk:546::R Norfolk
 thewolf.co.uk:439::
 mw.radio-norfolk.bbc.co.uk:547::R Norfolk MW
@@ -367,12 +378,10 @@ swindon.radio-wiltshire.bbc.co.uk:567::R Wiltshire Swindon
 alt.999.magic.emapadvertising.com:316::Magic # weird, almost same as 654
 powerfm.com:336::
 ghrgrimsby.co.uk:303::GHR
-mw.2fm.ie:479::2FM MW # heh
 marcher-coast-fm.musicradio.com:459::
 west-midlands.beacon.musicradio.com:247::Beacon
 klfm967.co.uk:311::
 star1071.co.uk:393::Star
-clyde-1.radioclyde.co.uk:297::
 star1079.co.uk:255::Star
 fm.radio-shropshire.bbc.co.uk:556::R Shropshire FM
 clyde-2.radioclyde.co.uk:280
@@ -433,8 +442,6 @@ mw.radio-merseyside.bbc.co.uk:543::R Merseyside MW
 fm.radio-lincolnshire.bbc.co.uk:540::R Lincolnshire FM
 mw.radio-lincolnshire.bbc.co.uk:541::R Lincolnshire MW
 mw.three-counties.bbc.co.uk:506::BBC Three Counties MW
-radio-kerry.bbc.co.uk:245::R Kerry
-mw.radio-kerry.bbc.co.uk:505::R Kerry MW
 fm.radio-suffolk.bbc.co.uk:564::R Suffolk FM
 mw.radio-suffolk.bbc.co.uk:565::R Suffolk MW
 radio-wiltshire.bbc.co.uk:569::R Wiltshire
@@ -450,6 +457,10 @@ mw.radio-jersey.bbc.co.uk:531::R Jersey MW
 fm.radio-guernsey.bbc.co.uk:526::R Guernsey FM
 mw.radio-guernsey.bbc.co.uk:527::R Guernsey MW
 
+# For some strange reason this originally got id'd as a BBC channel.
+radiokerry.ie:245::R Kerry
+mw.radiokerry.ie:505::R Kerry MW
+
 ####
 # Confusing mess of travel channels.
 #
@@ -457,9 +468,8 @@ mw.radio-guernsey.bbc.co.uk:527::R Guernsey MW
 # TV Travel Shop, its terrestrial digital variant, and TV Travel Shop
 # 2 are endless advertising I think.
 #
-tvtravelshop.co.uk:219::
-ondigital.tvtravelshop.co.uk:738::
-2.tvtravelshop.co.uk:422::
+tvtravelshop.co.uk:219:transient:
+ondigital.tvtravelshop.co.uk:738:transient:
 
 # Called either 'Landmark Travel' or 'travelchannel'.  Seems to be
 # real programming.
@@ -476,11 +486,27 @@ travelchannel.co.uk:172::
 # 'Travel Channel' but the logo is clearly Discovery.
 travel.discoveryeurope.com:130::
 
-
 # Big AM Radio (250)
 # CNE (73)
 # South City FM (714)
-# Cork Campus 97.4FM (283)
+
+# Some Irish radio stations.
+ccr.ucc.ie:283::
+fm104.ie:295::
+southeastradio.ie:359::
+95-8.galwaybayfm.ie:717::
+96-8.galwaybayfm.ie:712::
+tipperarymidwestradio.com:375::
+eastcoastradio.tinet.ie:292::
+radio-1.rte.ie:79::RTE R1
+wlrfm.com:383::
+annaliviafm.com:241::
+# Two 'County Sound' channels, but that station seems to be called
+# 103FM now.
+#
+103fm.ie:286::
+alt.103fm.ie:285::
+
 # Classic Gold 1260 (96.3FM) (647)
 # Centre FM (259)
 # Tay AM (425)
@@ -488,7 +514,6 @@ travel.discoveryeurope.com:130::
 # Pulse (454)
 # Radio nan Gaidheal (641)
 # Red Dragon Radio (455)
-# FM 104 (295)
 # Wessex FM (387)
 # Galaxy Radio (405)
 # York Hospital Radio (395)
@@ -496,7 +521,6 @@ travel.discoveryeurope.com:130::
 # Classic Gold 954 & 1530 (268)
 # Gemini FM (96.4FM) (650)
 # Borders Radio (251)
-# South East Radio (359)
 # Fusion 107.9 (329)
 # Lantern (574)
 # Marcher Gold (458)
@@ -504,9 +528,7 @@ travel.discoveryeurope.com:130::
 # Nene Valley (323)
 # Radio 1 (Scotland) (78)
 # Sat 1 (221)
-# Galway Bay FM (95.8) (717)
 # Radio 1 (Wales) (80)
-# Tipperary Mid West FM Radio (375)
 # SGR FM Radio (442)
 # Durham Hospital Radio (290)
 # Gem AM (999) (649)
@@ -514,7 +536,6 @@ travel.discoveryeurope.com:130::
 # Radio Shetland (638)
 # Compass FM (673)
 # Waves 101.2 (385)
-# East Coast Radio (292)
 # Westsound Dumfries 97 FM (388)
 # Magic 105.4 (589)
 # Valleys Radio (604)
@@ -526,7 +547,6 @@ travel.discoveryeurope.com:130::
 # GMTV2 (331)
 # Trent FM (378)
 # Radio Ulster (Radio Foyle) (632)
-# County Sound 103FM West Cork (286)
 # Manchester's BIG 1458AM (594)
 # Tay FM (424)
 # Prince Charles Hospital Radio (338)
@@ -535,7 +555,6 @@ travel.discoveryeurope.com:130::
 # Sunrise Radio (368)
 # Radio Aberdeen (635)
 # X FM (394)
-# Radio 1 (Ireland) (79)
 # Orchard FM (328)
 # National Geographic (Europe) (133)
 # Mercury (319)
@@ -556,7 +575,6 @@ travel.discoveryeurope.com:130::
 # Wave 96.4FM (441)
 # Wish FM (390)
 # Radio City 96.7 (476)
-# County Sound Radio (285)
 # Southern FM (361)
 # Yorkshire Coast 96.2 FM (396)
 # Multi Channel (62)
@@ -564,12 +582,10 @@ travel.discoveryeurope.com:130::
 # MFM 103.4 FM (595)
 # Northsound Two (326)
 # Mercia FM (318)
-# Galway Bay FM (96.8) (712)
 # ITV Select (ITV Select 2) (447)
 # TEAMtalk252 LW (732)
 # Connect FM (107.4) (281)
 # Galaxy 102.2 (578)
-# Waterford (383)
 # Ceredigion (261)
 # Tower 107.4 FM (377)
 # Breeze (1359/1431AM) (252)
@@ -682,7 +698,6 @@ travel.discoveryeurope.com:130::
 # Classic Gold Amber (Ipswich) (488)
 # Moray Firth (MW) (621)
 # Home 107.9 (579)
-# Anna Livia FM Radio (241)
 # Radio XL (349)
 # Rai Uno (141)
 # Radio 5 Live Extra (745)
@@ -698,7 +713,6 @@ travel.discoveryeurope.com:130::
 # Southampton Hospital Radio (358)
 # Buzz 97.1 (253)
 # Minster FM (321)
-# Teleg (691)
 # Radio Wave (348)
 # Classic Gold WABC (277)
 # County Sound 103FM North Cork (287)

@@ -12,7 +12,7 @@
 echo "Creating patched XMLTV..."
 
 # Find out the version of XMLTV we're working with
-XMLTV_VERSION=xmltv-0.5.25
+XMLTV_VERSION=xmltv-0.5.27
 
 # Remove any old directories
 rm -rf $XMLTV_VERSION

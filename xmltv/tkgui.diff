@@ -1,10 +1,10 @@
 Index: MANIFEST
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/MANIFEST,v
-retrieving revision 1.80
-diff -u -B -b -w -r1.80 MANIFEST
---- MANIFEST	6 Dec 2003 11:54:33 -0000	1.80
-+++ MANIFEST	11 Dec 2003 16:09:59 -0000
+retrieving revision 1.85
+diff -u -B -b -w -r1.85 MANIFEST
+--- MANIFEST	3 Jan 2004 22:15:18 -0000	1.85
++++ MANIFEST	9 Jan 2004 01:13:12 -0000
 @@ -4,8 +4,14 @@
  Uninstall.pm
  README
@@ -25,13 +25,13 @@ diff -u -B -b -w -r1.80 MANIFEST
 Index: Makefile.PL
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/Makefile.PL,v
-retrieving revision 1.162
-diff -u -B -b -w -r1.162 Makefile.PL
---- Makefile.PL	7 Dec 2003 22:31:53 -0000	1.162
-+++ Makefile.PL	11 Dec 2003 16:10:00 -0000
-@@ -93,9 +93,16 @@
-      'lib/Clumps.pm'              => '$(INST_LIBDIR)/XMLTV/Clumps.pm',
+retrieving revision 1.173
+diff -u -B -b -w -r1.173 Makefile.PL
+--- Makefile.PL	4 Jan 2004 13:17:39 -0000	1.173
++++ Makefile.PL	9 Jan 2004 01:13:13 -0000
+@@ -106,9 +106,16 @@
       'lib/Usage.pm'               => '$(INST_LIBDIR)/XMLTV/Usage.pm',
+      'lib/Date.pm'                => '$(INST_LIBDIR)/XMLTV/Date.pm',
       'lib/Version.pm'             => '$(INST_LIBDIR)/XMLTV/Version.pm',
 +     'lib/GUI.pm'                 => '$(INST_LIBDIR)/XMLTV/GUI.pm',
       'lib/Ask.pm'                 => '$(INST_LIBDIR)/XMLTV/Ask.pm',
@@ -48,7 +48,7 @@ diff -u -B -b -w -r1.162 Makefile.PL
       'lib/Summarize.pm'           => '$(INST_LIBDIR)/XMLTV/Summarize.pm',
       'lib/IMDB.pm'                => '$(INST_LIBDIR)/XMLTV/IMDB.pm',
       'lib/Gunzip.pm'              => '$(INST_LIBDIR)/XMLTV/Gunzip.pm',
-@@ -170,8 +177,8 @@
+@@ -183,8 +190,8 @@
      *ask = sub { print "$_[0] yes\n"; 1 };
  }
  else {
@@ -59,7 +59,7 @@ diff -u -B -b -w -r1.162 Makefile.PL
  }
  
  # Weird shit happens when you change things like PREFIX without
-@@ -185,7 +192,7 @@
+@@ -198,7 +205,7 @@
  
  END
    ;
@@ -68,7 +68,7 @@ diff -u -B -b -w -r1.162 Makefile.PL
  	exit(1);
      }
  }
-@@ -379,7 +386,7 @@
+@@ -402,7 +409,7 @@
  		  "\n");
  }
  print STDERR "\n";
@@ -77,7 +77,7 @@ diff -u -B -b -w -r1.162 Makefile.PL
      # Need to set {install} for each component by prompting.
      foreach my $info (@opt_components) {
  	my $missing = $info->{missing};
-@@ -409,7 +416,7 @@
+@@ -432,7 +439,7 @@
  	else { die }
  	
  	$info->{install} =
@@ -89,10 +89,10 @@ diff -u -B -b -w -r1.162 Makefile.PL
 Index: grab/dk/tv_grab_dk
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/dk/tv_grab_dk,v
-retrieving revision 1.7
-diff -u -B -b -w -r1.7 tv_grab_dk
---- grab/dk/tv_grab_dk	7 Dec 2003 22:08:05 -0000	1.7
-+++ grab/dk/tv_grab_dk	11 Dec 2003 16:10:00 -0000
+retrieving revision 1.11
+diff -u -B -b -w -r1.11 tv_grab_dk
+--- grab/dk/tv_grab_dk	3 Jan 2004 21:24:22 -0000	1.11
++++ grab/dk/tv_grab_dk	9 Jan 2004 01:13:13 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_dk --help
@@ -114,7 +114,7 @@ diff -u -B -b -w -r1.7 tv_grab_dk
  B<--output FILE> write to FILE rather than standard output.
  
  B<--days N> grab N days.  The default is one week.
-@@ -80,6 +85,8 @@
+@@ -79,6 +84,8 @@
  
  use XMLTV;
  use XMLTV::Memoize;
@@ -123,7 +123,7 @@ diff -u -B -b -w -r1.7 tv_grab_dk
  use XMLTV::Ask;
  use XMLTV::Mode;
  use XMLTV::Config_file;
-@@ -107,8 +114,7 @@
+@@ -109,8 +116,7 @@
      }
  }
  
@@ -133,9 +133,9 @@ diff -u -B -b -w -r1.7 tv_grab_dk
  
  # Whether zero-length programmes should be included in the output.
  my $WRITE_ZERO_LENGTH = 0;
-@@ -128,8 +134,8 @@
+@@ -130,8 +136,8 @@
  # Get options
- XMLTV::Memoize::check_argv('get_courteous_aux');
+ XMLTV::Memoize::check_argv('XMLTV::Get_nice::get_nice_aux');
  my ($opt_days, $opt_offset, $opt_help, $opt_output,
 -    $opt_configure, $opt_config_file, $opt_quiet,
 -    $opt_list_channels);
@@ -144,7 +144,7 @@ diff -u -B -b -w -r1.7 tv_grab_dk
  $opt_days   = 7; # default
  $opt_offset = 0; # default
  GetOptions('days=i'        => \$opt_days,
-@@ -137,6 +143,7 @@
+@@ -139,6 +145,7 @@
  	   'help'          => \$opt_help,
  	   'configure'     => \$opt_configure,
  	   'config-file=s' => \$opt_config_file,
@@ -152,7 +152,7 @@ diff -u -B -b -w -r1.7 tv_grab_dk
  	   'output=s'      => \$opt_output,
  	   'quiet'         => \$opt_quiet,
  	   'list-channels' => \$opt_list_channels,
-@@ -146,6 +153,12 @@
+@@ -148,6 +155,12 @@
    if (defined $opt_days && $opt_days < 0);
  usage(1) if $opt_help;
  
@@ -165,7 +165,7 @@ diff -u -B -b -w -r1.7 tv_grab_dk
  my $mode = XMLTV::Mode::mode('grab', # default
  			     $opt_configure => 'configure',
  			     $opt_list_channels => 'list-channels',
-@@ -159,11 +172,11 @@
+@@ -161,11 +174,11 @@
      XMLTV::Config_file::check_no_overwrite($config_file);
      open(CONF, ">$config_file") or die "cannot write to $config_file: $!";
      # find list of available channels
@@ -180,7 +180,7 @@ diff -u -B -b -w -r1.7 tv_grab_dk
  
      # Ask about each channel.
      my @chs = sort keys %channels;
-@@ -183,6 +196,8 @@
+@@ -185,6 +198,8 @@
  	# TODO don't store display-name in config file.
      }
  
@@ -189,7 +189,7 @@ diff -u -B -b -w -r1.7 tv_grab_dk
      close CONF or warn "cannot close $config_file: $!";
      say("Finished configuration.");
  
-@@ -217,11 +232,11 @@
+@@ -219,11 +234,11 @@
     });
  
  if ($opt_list_channels) {
@@ -204,7 +204,7 @@ diff -u -B -b -w -r1.7 tv_grab_dk
  
      foreach my $ch_did (sort(keys %channels)) {
  	my $ch_name = $channels{$ch_did};
-@@ -229,6 +244,7 @@
+@@ -231,6 +246,7 @@
  	$writer->write_channel({ id => $ch_xid,
  				 'display-name' => [ [ $ch_name ] ] });
      }
@@ -212,7 +212,7 @@ diff -u -B -b -w -r1.7 tv_grab_dk
      $writer->end();
      exit();
  }
-@@ -285,15 +301,16 @@
+@@ -290,16 +306,17 @@
  
  my %warned_ch_name; # suppress duplicate warnings
  
@@ -223,10 +223,11 @@ diff -u -B -b -w -r1.7 tv_grab_dk
  my @to_get_detailed;
  my $num_detailed = 0;
  foreach (@to_get) {
- 	my ($url, $date, $ch_xmltv_id, $ch_tvgids_id) = @$_;
- 	process_listings_page($writer, $ch_xmltv_id, $url, $date);
--	update $bar if Have_bar && not $opt_quiet;
-+	update $bar if not $opt_quiet;
+     my ($url, $date, $ch_xmltv_id, $ch_tvgids_id) = @$_;
+     t "going to get $ch_xmltv_id for $date";
+     process_listings_page($writer, $ch_xmltv_id, $url, $date);
+-    update $bar if Have_bar && not $opt_quiet;
++    update $bar if not $opt_quiet;
  }
 +$bar->finish() if not $opt_quiet;
  $writer->end();
@@ -235,10 +236,10 @@ diff -u -B -b -w -r1.7 tv_grab_dk
 Index: grab/es/tv_grab_es
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/es/tv_grab_es,v
-retrieving revision 1.20
-diff -u -B -b -w -r1.20 tv_grab_es
---- grab/es/tv_grab_es	8 Nov 2003 13:57:18 -0000	1.20
-+++ grab/es/tv_grab_es	11 Dec 2003 16:10:00 -0000
+retrieving revision 1.22
+diff -u -B -b -w -r1.22 tv_grab_es
+--- grab/es/tv_grab_es	1 Jan 2004 12:39:15 -0000	1.22
++++ grab/es/tv_grab_es	9 Jan 2004 01:13:13 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_es --help
@@ -269,7 +270,7 @@ diff -u -B -b -w -r1.20 tv_grab_es
  use XMLTV::Ask;
  use XMLTV::Config_file;
  use XMLTV::Europe_TZ;
-@@ -122,9 +129,6 @@
+@@ -123,9 +130,6 @@
  END
    ;
  
@@ -279,7 +280,7 @@ diff -u -B -b -w -r1.20 tv_grab_es
  # Attributes of the root element in output.
  my $HEAD = { 'source-info-url'     => 'http://www.elpais.es/parrillatv/portada.html',
  	     'source-data-url'     => "http://www.elpais.es/parrillatv/resultados.html",
-@@ -147,8 +151,8 @@
+@@ -148,8 +152,8 @@
  # Get options, including undocumented --cache option.
  XMLTV::Memoize::check_argv('XMLTV::Get_nice::get_nice_aux');
  my ($opt_days, $opt_offset, $opt_help, $opt_output,
@@ -290,7 +291,7 @@ diff -u -B -b -w -r1.20 tv_grab_es
  $opt_days  = 3; # default
  $opt_offset = 0; # default
  $opt_quiet  = 0; # default
-@@ -157,6 +161,7 @@
+@@ -158,6 +162,7 @@
  	   'help'          => \$opt_help,
  	   'configure'     => \$opt_configure,
  	   'config-file=s' => \$opt_config_file,
@@ -298,7 +299,7 @@ diff -u -B -b -w -r1.20 tv_grab_es
  	   'output=s'      => \$opt_output,
  	   'quiet'         => \$opt_quiet,
  	   'list-channels' => \$opt_list_channels
-@@ -166,6 +171,12 @@
+@@ -167,6 +172,12 @@
    if (defined $opt_days && $opt_days < 0);
  usage(1) if $opt_help;
  
@@ -311,7 +312,7 @@ diff -u -B -b -w -r1.20 tv_grab_es
  my $mode = XMLTV::Mode::mode('grab', # default
  			     $opt_configure => 'configure',
  			     $opt_list_channels => 'list-channels',
-@@ -292,14 +303,15 @@
+@@ -295,14 +306,15 @@
  # This progress bar is for both downloading and parsing.  Maybe
  # they could be separate.
  #
@@ -330,7 +331,7 @@ diff -u -B -b -w -r1.20 tv_grab_es
  $writer->end();
  
  ######################################################################
-@@ -490,8 +502,8 @@
+@@ -492,8 +504,8 @@
  
  # get channel listing
  sub get_channels {
@@ -341,7 +342,7 @@ diff -u -B -b -w -r1.20 tv_grab_es
      my %channels;
      my $url="http://www.elpais.es/parrillatv/portada.html";
      t $url;
-@@ -525,7 +537,8 @@
+@@ -528,7 +540,8 @@
  	}
      }
      die "no channels could be found" if not keys %channels;
@@ -354,10 +355,10 @@ diff -u -B -b -w -r1.20 tv_grab_es
 Index: grab/fi/tv_grab_fi
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/fi/tv_grab_fi,v
-retrieving revision 1.27
-diff -u -B -b -w -r1.27 tv_grab_fi
---- grab/fi/tv_grab_fi	8 Nov 2003 13:57:18 -0000	1.27
-+++ grab/fi/tv_grab_fi	11 Dec 2003 16:10:01 -0000
+retrieving revision 1.29
+diff -u -B -b -w -r1.29 tv_grab_fi
+--- grab/fi/tv_grab_fi	1 Jan 2004 12:31:03 -0000	1.29
++++ grab/fi/tv_grab_fi	9 Jan 2004 01:13:14 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_fi --help
@@ -388,7 +389,7 @@ diff -u -B -b -w -r1.27 tv_grab_fi
  use XMLTV::Ask;
  use XMLTV::Config_file;
  use XMLTV::Europe_TZ;
-@@ -92,9 +99,6 @@
+@@ -93,9 +100,6 @@
  END
    ;
  
@@ -398,7 +399,7 @@ diff -u -B -b -w -r1.27 tv_grab_fi
  # Attributes of the root element in output.
  my $HEAD = { 'source-info-url'     => 'http://www.katso.fi/',
  	     'source-data-url'     => "http://www.katso.fi/tvopas",
-@@ -121,8 +125,8 @@
+@@ -122,8 +126,8 @@
  # Get options, including undocumented --cache option.
  XMLTV::Memoize::check_argv('XMLTV::Get_nice::get_nice_aux');
  my ($opt_days, $opt_offset, $opt_help, $opt_output,
@@ -409,7 +410,7 @@ diff -u -B -b -w -r1.27 tv_grab_fi
  $opt_days  = 10; # default
  $opt_offset = 0; # default
  $opt_quiet  = 0; # default
-@@ -131,6 +135,7 @@
+@@ -132,6 +136,7 @@
  	   'help'          => \$opt_help,
  	   'configure'     => \$opt_configure,
  	   'config-file=s' => \$opt_config_file,
@@ -417,7 +418,7 @@ diff -u -B -b -w -r1.27 tv_grab_fi
  	   'output=s'      => \$opt_output,
  	   'quiet'         => \$opt_quiet,
  	   'list-channels' => \$opt_list_channels,
-@@ -140,6 +145,12 @@
+@@ -141,6 +146,12 @@
    if (defined $opt_days && $opt_days < 0);
  usage(1) if $opt_help;
  
@@ -430,7 +431,7 @@ diff -u -B -b -w -r1.27 tv_grab_fi
  my $mode = XMLTV::Mode::mode('grab', # default
  			     $opt_configure => 'configure',
  			     $opt_list_channels => 'list-channels',
-@@ -265,14 +276,15 @@
+@@ -266,14 +277,15 @@
  # This progress bar is for both downloading and parsing.  Maybe
  # they could be separate, as with tv_grab_uk.
  #
@@ -449,7 +450,7 @@ diff -u -B -b -w -r1.27 tv_grab_fi
  $writer->end();
  
  ######################################################################
-@@ -486,8 +498,8 @@
+@@ -488,8 +500,8 @@
  
  # get channel listing
  sub get_channels {
@@ -460,7 +461,7 @@ diff -u -B -b -w -r1.27 tv_grab_fi
      my %channels;
      my $url="http://www.katso.fi/tvopas";
      my $local_data=get_nice($url);
-@@ -529,7 +541,8 @@
+@@ -531,7 +543,8 @@
  	}
      }
      die "no channels could be found" if not keys %channels;
@@ -473,10 +474,10 @@ diff -u -B -b -w -r1.27 tv_grab_fi
 Index: grab/hu/tv_grab_hu
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/hu/tv_grab_hu,v
-retrieving revision 1.10
-diff -u -B -b -w -r1.10 tv_grab_hu
---- grab/hu/tv_grab_hu	8 Nov 2003 13:57:19 -0000	1.10
-+++ grab/hu/tv_grab_hu	11 Dec 2003 16:10:01 -0000
+retrieving revision 1.11
+diff -u -B -b -w -r1.11 tv_grab_hu
+--- grab/hu/tv_grab_hu	1 Jan 2004 12:31:03 -0000	1.11
++++ grab/hu/tv_grab_hu	9 Jan 2004 01:13:14 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_hu --help
@@ -507,7 +508,7 @@ diff -u -B -b -w -r1.10 tv_grab_hu
  use XMLTV::Ask;
  use XMLTV::Europe_TZ;
  use XMLTV::Get_nice;
-@@ -84,16 +91,13 @@
+@@ -85,16 +92,13 @@
  # Todo: perhaps we should internationalize messages and docs?
  use XMLTV::Usage <<END
  $0: get Hungarian television listings in XMLTV format
@@ -525,7 +526,7 @@ diff -u -B -b -w -r1.10 tv_grab_hu
  # Attributes of the root element in output.
  my $HEAD = { 'source-info-url'     => 'http://www.port.hu/',
  	     'source-data-url'     => "http://www.port.hu/tv/",
-@@ -119,8 +123,8 @@
+@@ -120,8 +124,8 @@
  # Get options, including undocumented --cache option.
  XMLTV::Memoize::check_argv('XMLTV::Get_nice::get_nice_aux');
  my ($opt_days, $opt_offset, $opt_help, $opt_output,
@@ -536,7 +537,7 @@ diff -u -B -b -w -r1.10 tv_grab_hu
  $opt_days = 8; # default
  $opt_offset = 0; # default
  $opt_quiet = 0; # default
-@@ -129,6 +133,7 @@
+@@ -130,6 +134,7 @@
  	   'help'          => \$opt_help,
  	   'configure'     => \$opt_configure,
  	   'config-file=s' => \$opt_config_file,
@@ -544,7 +545,7 @@ diff -u -B -b -w -r1.10 tv_grab_hu
  	   'output=s'      => \$opt_output,
  	   'quiet'         => \$opt_quiet,
  	   'list-channels' => \$opt_list_channels,
-@@ -137,6 +142,13 @@
+@@ -138,6 +143,13 @@
  die 'number of days must not be negative'
    if (defined $opt_days && $opt_days < 0);
  usage(1) if $opt_help;
@@ -558,7 +559,7 @@ diff -u -B -b -w -r1.10 tv_grab_hu
  my $mode = XMLTV::Mode::mode('grab', # default
  			     $opt_configure => 'configure',
  			     $opt_list_channels => 'list-channels',
-@@ -264,8 +276,8 @@
+@@ -265,8 +277,8 @@
  # This progress bar is for both downloading and parsing.  Maybe
  # they could be separate, as with tv_grab_uk.
  #
@@ -569,7 +570,7 @@ diff -u -B -b -w -r1.10 tv_grab_hu
  foreach my $d (@days) {
      my ($day, $i) = @$d;
      my $some_success = 0;
-@@ -273,13 +285,15 @@
+@@ -274,13 +286,15 @@
  	my @ps = process_table($day, xid($ch_did), $ch_did, $i);
  	$some_success = 1 if @ps;
  	$writer->write_programme($_) foreach @ps;
@@ -586,7 +587,7 @@ diff -u -B -b -w -r1.10 tv_grab_hu
  $writer->end();
  
  ######################################################################
-@@ -481,8 +495,8 @@
+@@ -465,8 +479,8 @@
  
  # get channel listing
  sub get_channels {
@@ -597,7 +598,7 @@ diff -u -B -b -w -r1.10 tv_grab_hu
      my %channels;
      my $url="http://www.port.hu/pls/tv/tv.prog";
      my $local_data=get_nice($url);
-@@ -518,7 +532,8 @@
+@@ -502,7 +516,8 @@
  	}
      }
      die "no channels could be found" if not keys %channels;
@@ -610,10 +611,10 @@ diff -u -B -b -w -r1.10 tv_grab_hu
 Index: grab/it/tv_grab_it.in
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/it/tv_grab_it.in,v
-retrieving revision 1.21
-diff -u -B -b -w -r1.21 tv_grab_it.in
---- grab/it/tv_grab_it.in	8 Nov 2003 13:57:19 -0000	1.21
-+++ grab/it/tv_grab_it.in	11 Dec 2003 16:10:02 -0000
+retrieving revision 1.22
+diff -u -B -b -w -r1.22 tv_grab_it.in
+--- grab/it/tv_grab_it.in	3 Jan 2004 21:55:45 -0000	1.22
++++ grab/it/tv_grab_it.in	9 Jan 2004 01:13:16 -0000
 @@ -11,7 +11,7 @@
  
  tv_grab_it --help
@@ -653,7 +654,7 @@ diff -u -B -b -w -r1.21 tv_grab_it.in
  To grab listings: $0 [--config-file FILE] [--output FILE] [--days N]
          [--offset N] [--quiet] [--slow]
  END
-@@ -101,11 +108,6 @@
+@@ -115,11 +122,6 @@
  my $base="http://$domain/canali.phtml";
  my $rturl="http://$domain/";
  
@@ -665,7 +666,7 @@ diff -u -B -b -w -r1.21 tv_grab_it.in
  # get options
  # Get options, including undocumented --cache option.
  
-@@ -121,6 +123,7 @@
+@@ -135,6 +137,7 @@
      $opt_slow,
      $opt_configure,
      $opt_config_file,
@@ -673,7 +674,7 @@ diff -u -B -b -w -r1.21 tv_grab_it.in
      $opt_quiet,
      $opt_share,
     );
-@@ -136,6 +139,7 @@
+@@ -150,6 +153,7 @@
  	   'help'          => \$opt_help,
  	   'configure'     => \$opt_configure,
  	   'config-file=s' => \$opt_config_file,
@@ -681,7 +682,7 @@ diff -u -B -b -w -r1.21 tv_grab_it.in
  	   'output=s'      => \$opt_output,
  	   'quiet'         => \$opt_quiet,
  	   'slow'	   => \$opt_slow,
-@@ -146,6 +150,12 @@
+@@ -160,6 +164,12 @@
    if (defined $opt_days && $opt_days < 0);
  usage(1) if $opt_help;
  
@@ -694,7 +695,7 @@ diff -u -B -b -w -r1.21 tv_grab_it.in
  # share/ directory for storing the list of dud channels.  This next line
  # is altered by processing through tv_grab_it.PL.  But we can use the
  # current directory instead of share/tv_grab_it for development.
-@@ -194,11 +204,11 @@
+@@ -208,11 +218,11 @@
  		}
      open(CONF, ">$config_file") or die "cannot write to $config_file: $!";
      # find list of available channels
@@ -709,7 +710,7 @@ diff -u -B -b -w -r1.21 tv_grab_it.in
  
      # Ask about each channel.
      my @chs = sort keys %channels;
-@@ -218,6 +228,7 @@
+@@ -232,6 +242,7 @@
  	# TODO don't store display-name in config file.
      }
  
@@ -717,9 +718,9 @@ diff -u -B -b -w -r1.21 tv_grab_it.in
      close CONF or warn "cannot close $config_file: $!";
      say("Finished configuration.");
  
-@@ -285,8 +296,8 @@
+@@ -299,8 +310,8 @@
  }
- 
+ t "will get $days2get days from $opt_offset onwards";
  
 -my $bar2 = new Term::ProgressBar('getting icons', scalar @channels)
 -  if Have_bar && not $opt_quiet;
@@ -728,7 +729,7 @@ diff -u -B -b -w -r1.21 tv_grab_it.in
  foreach my $ch_id (@channels) {
      my $ch_xid=id_to_xid($ch_id);
  
-@@ -303,11 +314,12 @@
+@@ -318,11 +329,12 @@
  		       'display-name' => [ [ $channels{$ch_id} ] ],
  		       icon => [{src => get_icon($url)}]
  		      });
@@ -744,7 +745,7 @@ diff -u -B -b -w -r1.21 tv_grab_it.in
  foreach (@to_get) {
      my $canale= $_->[1];
      $url   = $_->[0];
-@@ -334,9 +346,10 @@
+@@ -349,9 +361,10 @@
  	$w->write_programme($_) foreach @dati;
      }
      #			else {warn "skipping $canale \n";}
@@ -759,10 +760,10 @@ diff -u -B -b -w -r1.21 tv_grab_it.in
 Index: grab/na/tv_grab_na
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/na/tv_grab_na,v
-retrieving revision 1.94
-diff -u -B -b -w -r1.94 tv_grab_na
---- grab/na/tv_grab_na	6 Dec 2003 20:00:00 -0000	1.94
-+++ grab/na/tv_grab_na	11 Dec 2003 16:10:05 -0000
+retrieving revision 1.97
+diff -u -B -b -w -r1.97 tv_grab_na
+--- grab/na/tv_grab_na	1 Jan 2004 12:31:03 -0000	1.97
++++ grab/na/tv_grab_na	9 Jan 2004 01:13:18 -0000
 @@ -8,7 +8,7 @@
  
  =head1 SYNOPSIS
@@ -784,7 +785,7 @@ diff -u -B -b -w -r1.94 tv_grab_na
  B<--output FILE> Write output to FILE rather than standard output.
  
  Configuration is normally interactive, but it can be run
-@@ -509,6 +514,8 @@
+@@ -510,6 +515,8 @@
  use Date::Manip;
  
  use XMLTV::ZapListings;
@@ -793,7 +794,7 @@ diff -u -B -b -w -r1.94 tv_grab_na
  use XMLTV::Ask;
  use XMLTV::Config_file;
  use XMLTV;
-@@ -519,6 +526,15 @@
+@@ -522,6 +529,15 @@
  
  our ($opt_debug, $opt_quiet, $opt_stats);
  
@@ -809,7 +810,7 @@ diff -u -B -b -w -r1.94 tv_grab_na
  sub statusMessage($)
  {
      my $msg = shift;
-@@ -684,6 +700,9 @@
+@@ -687,6 +703,9 @@
      print $fp "   --config-file <file>\n";
      print $fp "     use <file> as config file\n";
      print $fp "\n";
@@ -819,7 +820,7 @@ diff -u -B -b -w -r1.94 tv_grab_na
      print $fp "   --output <file>\n";
      print $fp "     redirect output to <file> rather than stdout. Currently only effects\n";
      print $fp "      --list-providers or --list-channels\n";
-@@ -847,6 +866,7 @@
+@@ -850,6 +869,7 @@
  	 $opt_zipcode,
  	 $opt_provider,
  	 $opt_config_file,
@@ -827,7 +828,7 @@ diff -u -B -b -w -r1.94 tv_grab_na
  	 $opt_output,
  	 $opt_retry_limit,
  	 $opt_retry_delay,
-@@ -868,6 +888,7 @@
+@@ -871,6 +891,7 @@
  			 quiet
  			 release-check=s
  			 config-file=s
@@ -835,9 +836,9 @@ diff -u -B -b -w -r1.94 tv_grab_na
  			 output=s
  			 postalcode=s
  			 zipcode=s
-@@ -889,6 +910,12 @@
+@@ -892,6 +913,12 @@
  
-     warn "ignoring --cache option\n" if defined $opt_cache;
+     checkCache(); # make sure $opt_cache is a dir or undef
  
 +    # Ask the XMLTV::GUI module for the graphics type we will use  
 +    my $gui_type = XMLTV::GUI::get_gui_type($opt_gui);
@@ -848,23 +849,22 @@ diff -u -B -b -w -r1.94 tv_grab_na
      $opt_release_check=($opt_release_check=~m;^t;i);
  
      $opt_quiet=(defined($opt_quiet));
-@@ -1087,9 +1114,14 @@
+@@ -1094,9 +1121,13 @@
  );
-   
+ 
      if ( $opt_release_check ) {
 -	statusMessage("checking XMLTV release information..\n");
 +            
 +        my $bar = new XMLTV::ProgressBar('checking XMLTV release information..', 1);
  
- 	my $retval=XMLTV::ZapListings::getCurrentReleaseInfo($xmltvSourceForgeURL, $opt_debug);
-+        
+ 	my $retval=XMLTV::ZapListings::getCurrentReleaseInfo($xmltvFreshmeatRecord, $opt_debug);
 +        $bar->update();
 +        $bar->finish();
-+        
++
  	if ( !defined($retval) ) {
  	    statusMessage( <<END
  Warning: failed to get current release information from:
-@@ -1110,7 +1142,7 @@
+@@ -1117,7 +1148,7 @@
  	}
      }
  
@@ -873,7 +873,7 @@ diff -u -B -b -w -r1.94 tv_grab_na
  
      while ( !defined($config->{option_retry_limit}) ) {
  	my $res=ask('how many times do you want to retry on www site failures ? (default=2)');
-@@ -1174,7 +1206,7 @@
+@@ -1181,7 +1212,7 @@
  	$code=$config->{option_postalcode} if ( defined($config->{option_postalcode}) );
  	$code=$config->{option_zipcode} if ( defined($config->{option_zipcode}) );
  
@@ -882,7 +882,7 @@ diff -u -B -b -w -r1.94 tv_grab_na
  
  	my @providers;
  	my $failed=0;
-@@ -1212,11 +1244,11 @@
+@@ -1220,11 +1251,11 @@
  		if ( $p->{id} eq $config->{option_provider} ) {
  		    if ( $config->{option_provider_desc} ne $p->{description} ) {
  			if ( $opt_auto_fail_on_provider_changes ) {
@@ -896,7 +896,7 @@ diff -u -B -b -w -r1.94 tv_grab_na
  			$config->{option_provider_desc}=$p->{description};
  		    }
  		    $still_valid=1;
-@@ -1236,7 +1268,7 @@
+@@ -1244,7 +1275,7 @@
  				exit(1);
  			    }
  			}
@@ -905,7 +905,7 @@ diff -u -B -b -w -r1.94 tv_grab_na
  			$config->{option_provider}=$p->{id};
  			$still_valid=1;
  		    }
-@@ -1263,6 +1295,9 @@
+@@ -1271,6 +1302,9 @@
  	    }
  	}
  
@@ -915,7 +915,7 @@ diff -u -B -b -w -r1.94 tv_grab_na
  	while ( !$config->{option_provider} ) {
  	    my @providersWithIds;
  
-@@ -1304,18 +1339,19 @@
+@@ -1312,18 +1346,19 @@
  	    my $id = $1; die if not defined $id;
  	    $config->{option_provider}=$id;
  	    $config->{option_provider_desc}=$res;
@@ -938,7 +938,7 @@ diff -u -B -b -w -r1.94 tv_grab_na
      }
  
      my @channels;
-@@ -1327,7 +1363,7 @@
+@@ -1335,7 +1370,7 @@
  	}
  
  	@channels=$zl->getChannelList($config->{option_provider});
@@ -947,7 +947,7 @@ diff -u -B -b -w -r1.94 tv_grab_na
  	if ( ! @channels || !defined($channels[0]) ) {
  	    $failed=1;
  	}
-@@ -1336,6 +1372,8 @@
+@@ -1344,6 +1379,8 @@
  	    last;
  	}
      }
@@ -956,7 +956,7 @@ diff -u -B -b -w -r1.94 tv_grab_na
  
      if ( $failed ) {
  	#errorMessage("$0: failed to get list of channels for postal/zip code $config->{option_postalzipcode}\n");
-@@ -1363,11 +1401,11 @@
+@@ -1371,11 +1408,11 @@
      if ( defined($opt_auto_new_channels) ) {
  	if ( $opt_auto_new_channels eq "ignore" ) {
  	    @r = map { 0 } @toAsk;
@@ -970,7 +970,7 @@ diff -u -B -b -w -r1.94 tv_grab_na
  	}
  	else {
  	    die "invalid auto_new_channels $opt_auto_new_channels\n";
-@@ -1403,11 +1441,11 @@
+@@ -1411,11 +1448,11 @@
      if ( defined($opt_auto_missing_channels) ) {
  	if ( $opt_auto_missing_channels eq "ignore" ) {
  	    @r = map { 0 } @toAsk;
@@ -984,7 +984,7 @@ diff -u -B -b -w -r1.94 tv_grab_na
  	}
  	else {
  	    die "invalid auto_missing_channels $opt_auto_missing_channels\n";
-@@ -1430,15 +1468,15 @@
+@@ -1438,15 +1475,15 @@
  
      if ( $channelsUpdated == 0 ) {
  	if ( $config->haveAnyChannels() ) {
@@ -1003,35 +1003,14 @@ diff -u -B -b -w -r1.94 tv_grab_na
      if ( $config->save($configfile) != 0 ) {
  	errorMessage("$0: $configfile save failed\n");
  	exit(1);
-Index: grab/nl/tv_grab_nl
+Index: grab/nl/tv_grab_nl.in
 ===================================================================
-RCS file: /cvsroot/xmltv/xmltv/grab/nl/tv_grab_nl,v
-retrieving revision 1.50
-diff -u -B -b -w -r1.50 tv_grab_nl
---- grab/nl/tv_grab_nl	14 Sep 2003 17:43:02 -0000	1.50
-+++ grab/nl/tv_grab_nl	11 Dec 2003 16:10:06 -0000
-@@ -10,7 +10,7 @@
- 
- tv_grab_nl --help
- 
--tv_grab_nl [--config-file FILE] --configure
-+tv_grab_nl [--config-file FILE] --configure [--gui OPTION]
- 
- tv_grab_nl [--config-file FILE] [--output FILE] [--days N]
-            [--offset N] [--quiet] [--slow]
-@@ -32,6 +32,11 @@
- default is B<~/.xmltv/tv_grab_nl.conf>.  This is the file written by
- B<--configure> and read when grabbing.
- 
-+B<--gui OPTION> Use this option to enable a graphical interface to be used.
-+OPTION may be 'Tk' or 'GDialog', or left blank for the best available choice.
-+Additional allowed values of OPTION are 'Term' for normal terminal output
-+(default) and 'TermNoProgressBar' to disable the use of XMLTV::ProgressBar.
-+
- B<--output FILE> write to FILE rather than standard output.
- 
- B<--days N> grab N days.  The default is one week.
-@@ -82,6 +87,8 @@
+RCS file: /cvsroot/xmltv/xmltv/grab/nl/tv_grab_nl.in,v
+retrieving revision 1.2
+diff -u -B -b -w -r1.2 tv_grab_nl.in
+--- grab/nl/tv_grab_nl.in	2 Jan 2004 20:41:46 -0000	1.2
++++ grab/nl/tv_grab_nl.in	9 Jan 2004 01:13:19 -0000
+@@ -82,6 +82,8 @@
  use Date::Manip;
  use XMLTV;
  use XMLTV::Memoize;
@@ -1040,7 +1019,7 @@ diff -u -B -b -w -r1.50 tv_grab_nl
  use XMLTV::Ask;
  use XMLTV::Config_file;
  use XMLTV::Europe_TZ;
-@@ -110,9 +117,6 @@
+@@ -111,9 +113,6 @@
      }
  }
  
@@ -1050,18 +1029,16 @@ diff -u -B -b -w -r1.50 tv_grab_nl
  # Function prototypes.
  sub time_tot_str( $ );
  sub time_van_str( $ );
-@@ -138,8 +142,8 @@
+@@ -139,7 +138,7 @@
  # Get options, including undocumented --cache option.
  XMLTV::Memoize::check_argv('XMLTV::Get_nice::get_nice_aux');
  my ($opt_days, $opt_offset, $opt_help, $opt_output,
 -    $opt_configure, $opt_config_file, $opt_quiet,
--    $opt_list_channels, $opt_slow);
-+    $opt_configure, $opt_config_file, $opt_gui,
-+    $opt_quiet, $opt_list_channels, $opt_slow);
++    $opt_configure, $opt_config_file, $opt_gui, $opt_quiet,
+     $opt_list_channels, $opt_slow, $opt_share);
  $opt_days   = 7; # default
  $opt_offset = 0; # default
- GetOptions('days=i'        => \$opt_days,
-@@ -147,6 +151,7 @@
+@@ -148,6 +147,7 @@
  	   'help'          => \$opt_help,
  	   'configure'     => \$opt_configure,
  	   'config-file=s' => \$opt_config_file,
@@ -1069,9 +1046,9 @@ diff -u -B -b -w -r1.50 tv_grab_nl
  	   'output=s'      => \$opt_output,
  	   'quiet'         => \$opt_quiet,
  	   'slow'	   => \$opt_slow,
-@@ -157,6 +162,12 @@
-   if (defined $opt_days && $opt_days < 0);
- usage(1) if $opt_help;
+@@ -172,6 +172,12 @@
+ my $OUR_SHARE_DIR = (defined $SHARE_DIR) ? "$SHARE_DIR/tv_grab_nl" : '.';
+ (my $CHANNELS_FILE = "$OUR_SHARE_DIR/channels") =~ tr!/!/!s;
  
 +# Ask the XMLTV::GUI module for the graphics type we will use  
 +my $gui_type = XMLTV::GUI::get_gui_type($opt_gui);
@@ -1082,23 +1059,23 @@ diff -u -B -b -w -r1.50 tv_grab_nl
  my $mode = XMLTV::Mode::mode('grab', # default
  			     $opt_configure => 'configure',
  			     $opt_list_channels => 'list-channels',
-@@ -170,11 +181,12 @@
-     XMLTV::Config_file::check_no_overwrite($config_file);
-     open(CONF, ">$config_file") or die "cannot write to $config_file: $!";
-     # find list of available channels
+@@ -189,11 +195,12 @@
+     # configuring it's useful to download at least something as a
+     # check that the site is reachable etc.
+     #
 -    my $bar = new Term::ProgressBar('getting list of channels', 1)
 -      if Have_bar && not $opt_quiet;
 +    my $bar = new XMLTV::ProgressBar('getting list of channels', 1)
 +      if not $opt_quiet;
-     my %channels = get_channels();
+     my %channels = get_channels(1);
      die 'no channels could be found' if (scalar(keys(%channels)) == 0);
 -    update $bar if Have_bar && not $opt_quiet;
 +    update $bar if not $opt_quiet;
-+    $bar->finish() if not $opt_quiet;
++    $bar->finish();
  
      # Ask about each channel.
-     my @chs = sort keys %channels;
-@@ -228,11 +240,11 @@
+     my @chs = sort { $a <=> $b } keys %channels;
+@@ -246,15 +253,15 @@
     });
  
  if ($mode eq 'list-channels') {
@@ -1106,22 +1083,26 @@ diff -u -B -b -w -r1.50 tv_grab_nl
 -      if Have_bar && not $opt_quiet;
 +    my $bar = new XMLTV::ProgressBar('getting list of channels', 1)
 +      if not $opt_quiet;
-     my %channels = get_channels();
+ 
+     # Don't do any page fetches - assume the contents of the channels
+     # file has already been checked enough.
+     #
+     my %channels = get_channels(0);
      die 'no channels could be found' if (scalar(keys(%channels)) == 0);
 -    update $bar if Have_bar && not $opt_quiet;
 +    update $bar if not $opt_quiet;
  
      foreach my $ch_did (sort(keys %channels)) {
  	my $ch_name = $channels{$ch_did};
-@@ -241,6 +253,7 @@
+@@ -263,6 +270,7 @@
  				 'display-name' => [ [ $ch_name ] ] });
      }
      $writer->end();
-+    $bar->finish() if not $opt_quiet;
++    $bar->finish();
      exit();
  }
  
-@@ -303,15 +316,16 @@
+@@ -335,16 +343,17 @@
  my %warned_ch_name; # suppress duplicate warnings
  
  my @summary_page_data;
@@ -1133,15 +1114,16 @@ diff -u -B -b -w -r1.50 tv_grab_nl
      my ($url, $day, $ch_xmltv_id, $ch_tvgids_id) = @$_;
      die if ref $url;
      push @summary_page_data,
-       [ $url, $ch_xmltv_id, [ process_summary_page($url, $day, $day) ] ];
+       [ $url, $ch_xmltv_id,
+ 	[ process_summary_page($url, $day, $day, \$channels{$ch_tvgids_id}) ] ];
 -    update $bar if Have_bar and not $opt_quiet;
 +    update $bar if not $opt_quiet;
  }
-+$bar->finish() if not $opt_quiet;
++$bar->finish();
  
- my @summary_programmes;
- my %detail_url_to_summary_url;
-@@ -424,8 +438,8 @@
+ # Now we've fetched the descriptions, we know the channel names.
+ foreach $ch_did (@channels) {
+@@ -467,8 +476,8 @@
  
  my @to_write;
  if ($opt_slow) {
@@ -1152,21 +1134,21 @@ diff -u -B -b -w -r1.50 tv_grab_nl
      foreach my $s (@summary_programmes) {
  	my $urls = delete $s->{url};
  	if (not defined $urls) {
-@@ -520,6 +534,7 @@
+@@ -563,6 +572,7 @@
  	push @to_write, $detailed;
  	update $bar if $bar;
      }
-+    $bar->finish() if $bar;
++    $bar->finish();
  }
  else {
      @to_write = @summary_programmes;
 Index: grab/uk/tv_grab_uk.in
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/uk/tv_grab_uk.in,v
-retrieving revision 1.92
-diff -u -B -b -w -r1.92 tv_grab_uk.in
---- grab/uk/tv_grab_uk.in	8 Nov 2003 13:54:47 -0000	1.92
-+++ grab/uk/tv_grab_uk.in	11 Dec 2003 16:10:08 -0000
+retrieving revision 1.96
+diff -u -B -b -w -r1.96 tv_grab_uk.in
+--- grab/uk/tv_grab_uk.in	3 Jan 2004 14:37:43 -0000	1.96
++++ grab/uk/tv_grab_uk.in	9 Jan 2004 01:13:21 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_uk --help
@@ -1188,7 +1170,7 @@ diff -u -B -b -w -r1.92 tv_grab_uk.in
  B<--output FILE> When grabbing, write output to FILE rather than
  standard output.
  
-@@ -89,9 +94,6 @@
+@@ -88,9 +93,6 @@
      }
  }
  
@@ -1198,16 +1180,16 @@ diff -u -B -b -w -r1.92 tv_grab_uk.in
  use XMLTV;
  # We modify the XMLTV module's tables to add a <distribution> element
  # to <channel>s.  We assume each channel has exactly one distribution
-@@ -106,6 +108,8 @@
+@@ -104,6 +106,8 @@
+ 
  use XMLTV::TZ qw(gettz tz_to_num);
- use XMLTV::Europe_TZ;
  use XMLTV::Memoize;
 +use XMLTV::GUI;
 +use XMLTV::ProgressBar;
  use XMLTV::Ask;
  use XMLTV::Config_file;
- use XMLTV::Usage <<END
-@@ -146,6 +150,7 @@
+ use XMLTV::Get_nice;
+@@ -147,6 +151,7 @@
      $opt_share,
      $opt_configure,
      $opt_config_file,
@@ -1215,15 +1197,15 @@ diff -u -B -b -w -r1.92 tv_grab_uk.in
      $opt_offset,
      $opt_quiet,
     );
-@@ -156,6 +161,7 @@
+@@ -157,6 +162,7 @@
  	   'help'          => \$opt_help,
  	   'configure'     => \$opt_configure,
  	   'config-file=s' => \$opt_config_file,
 +           'gui:s'         => \$opt_gui,
  	   'output=s'      => \$opt_output,
- 	   'share=s'       => \$opt_share, # also undocumented
+ 	   'share=s'       => \$opt_share, # undocumented
             'offset=i'      => \$opt_offset,
-@@ -168,6 +174,12 @@
+@@ -169,6 +175,12 @@
      usage(1);
  }
  
@@ -1236,7 +1218,7 @@ diff -u -B -b -w -r1.92 tv_grab_uk.in
  # share/ directory for storing channel mapping files.  This next line
  # is altered by processing through tv_grab_uk.PL.  But we can use the
  # current directory instead of share/tv_grab_uk for development.
-@@ -334,7 +346,7 @@
+@@ -335,7 +347,7 @@
  	    my @k = sort keys %to_choose;
  	    my $default = $k[0];
  	    my $chosen = askQuestion('Package to add: ',
@@ -1245,7 +1227,7 @@ diff -u -B -b -w -r1.92 tv_grab_uk.in
  	    last if $chosen eq $finished_option;
  
  	    # Now prompt about individual channels in this package.
-@@ -577,8 +589,8 @@
+@@ -578,8 +590,8 @@
          foreach (@urls_for_day) {
  	    $num_to_get += scalar @$_ if defined;
  	}
@@ -1256,7 +1238,7 @@ diff -u -B -b -w -r1.92 tv_grab_uk.in
  
        DAY: foreach my $day ($first_day..$last_day) {
  	    my (@success, @get_failed, @no_content);
-@@ -594,7 +606,7 @@
+@@ -595,7 +607,7 @@
  		else {
  		    push @success, [ $got, $_ ];
  		}
@@ -1265,7 +1247,7 @@ diff -u -B -b -w -r1.92 tv_grab_uk.in
  	    }
  	    if (not @success) {
  		if (not @get_failed and not @no_content) {
-@@ -632,13 +644,14 @@
+@@ -633,13 +645,14 @@
  	    }
  	    push @to_parse, @success;
  	}
@@ -1282,7 +1264,7 @@ diff -u -B -b -w -r1.92 tv_grab_uk.in
      my ($encoding, $credits, %ch, @prog_lists);
      my $w;
      my %written_xid;
-@@ -768,11 +781,13 @@
+@@ -771,11 +784,13 @@
  	}
  
  	push @prog_lists, $prog_list;
@@ -1299,7 +1281,7 @@ diff -u -B -b -w -r1.92 tv_grab_uk.in
      $w->write_channels(\%ch);
      foreach (@prog_lists) {
  	# Remove the occasional zero-length programmes which pop up.  NB
-@@ -782,10 +797,11 @@
+@@ -785,10 +800,11 @@
  #	fix_zero_length($_);
  
  	$w->write_programme($_) foreach @$_;
@@ -1312,7 +1294,7 @@ diff -u -B -b -w -r1.92 tv_grab_uk.in
  }
  
  
-@@ -1328,8 +1344,8 @@
+@@ -1346,8 +1362,8 @@
      my %r;
      my $num_pages = scalar @pages;
      t "initializing progress bar with $num_pages items";
@@ -1323,7 +1305,7 @@ diff -u -B -b -w -r1.92 tv_grab_uk.in
  
      # FIXME currently multiple pages are not supported.
      my $max_at_once = 1;
-@@ -1368,12 +1384,13 @@
+@@ -1386,12 +1402,13 @@
  		die "really cannot fetch $url, giving up\n";
  	    }
  	}
@@ -1341,11 +1323,11 @@ diff -u -B -b -w -r1.92 tv_grab_uk.in
 Index: lib/Ask.pm
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/lib/Ask.pm,v
-retrieving revision 1.11
-diff -u -B -b -w -r1.11 Ask.pm
---- lib/Ask.pm	10 Sep 2003 19:49:45 -0000	1.11
-+++ lib/Ask.pm	11 Dec 2003 16:10:08 -0000
-@@ -5,9 +5,18 @@
+retrieving revision 1.12
+diff -u -B -b -w -r1.12 Ask.pm
+--- lib/Ask.pm	3 Jan 2004 14:52:53 -0000	1.12
++++ lib/Ask.pm	9 Jan 2004 01:13:21 -0000
+@@ -7,9 +7,18 @@
  
  package XMLTV::Ask;
  use strict;
@@ -1366,7 +1348,7 @@ diff -u -B -b -w -r1.11 Ask.pm
  BEGIN {
      eval { require Log::TraceMessages };
      if ($@) {
-@@ -19,21 +28,51 @@
+@@ -21,21 +30,51 @@
  	*d = \&Log::TraceMessages::d;
      }
  
