@@ -8,7 +8,7 @@
 <h1>FreeGuide Design Documents</h1>
 <p>This is a collection of thoughts about FreeGuide's design.  Contributions, disagreements and comments are <a href="mailto:freeguide@artificialworlds.net">welcome</a>.</p>
 <h2>Target Audience</h2>
-<p>A TV guide is a very simple thing.  In fact, my main reason for writing this application is that TV listings magazines are far, far too complicated for their purposes.  This is brought about partly by the number of adverts and inane articles they contain, and partly because they try to list all the programs everyone wants to see.  FreeGuide attacks this problem on three fronts.  First, it only shows the channels you ask for, second, it highlights programmes you are likely to want to watch, and third, it lets you produce a guide containing only relevant information.</p>
+<p>A TV guide is a very simple thing.  In fact, my main reason for writing this application is that TV listings magazines are far, far too complicated for their purposes.  This is brought about partly by the number of adverts and inane articles they contain, and partly because they try to list all the programmes everyone wants to see.  FreeGuide attacks this problem on three fronts.  First, it only shows the channels you ask for, second, it highlights programmes you are likely to want to watch, and third, it lets you produce a guide containing only relevant information.</p>
 <p>So I want FreeGuide to be a simple thing to use.  That means that any advanced configuration and so on should be in a place where the average user won't find it.</p>
 
 <h2>Example Users</h2>
@@ -34,6 +34,17 @@
 <p>Of course, the user will encounter these tasks in this order: downloading channels, downloading listings, then viewing listings.</p>
 
 <h2>Progress so far</h2>
+
+<h3>0.3</h3>
+<p>0.3 still has a long way to go if it's going to be usable by the "my Mum" category of users, but it does have some improvements.  For example, it notices when there are no listings and asks whether you want to go and download more.  A lot of the wording has been made clearer, and the tick-boxes have been replaced with clickable programmes.</p>
+
+<p>The UI generally has been improved, and makes it clearer (I think) what everything is for, and what you might like to do.</p>
+
+<p>The major problem at the moment is installation.  Java 1.4's Preferences features mean that a configuration file is no longer a problem, but I've made it very difficult for myself by using external tools through a command-line interface - this causes any number of problems, and there is still no decent installer which would sort some of these out.</p>
+
+<p>When XMLTV gets a little maturer, and settles on an installation method (especially on Windows), then FreeGuide should follow and become easier on this front.  The necessity of running the grabber configuration puts FreeGuide well out of reach of loads of users at the moment.  I really don't know what to do about this - to wrap configuration with a GUI the XMLTV tools will need to have a consistent interface, which is difficult as different grabbers have different requirements.</p>
+
+<p>Hackers are quite well served by 0.3, as the ability to have favourites selected using regular expressions has been added, thanks to Sun finally adding regexp support to Java.  In fact loads of great things come from requiring Java 1.4 - you get XML parsing without an external library, the fantastic Preferences stuff, and regular expressions.  And because this is an open source project, I can just decide that I want to require Java 1.4, and no-one can argue!</p>
 
 <h3>0.2</h3>
 <p>0.2 retreats slightly from my most strict ease of use requirements, as an acknowledgement that most users will be experts, mainly because it only works under Linux.  It provides lots of unnecessary feedback from its downloading operations, because it is expected to encounter problems that I would like the user to be aware of and report to me.  It also expects you to go to Tools and then Options just to download the listings the first time you use it, which is basically a mistake in the design brought about by a complicated system of checking whether it needs to jump you to here or there got a bit annoying and I took it out.</p>
