@@ -16,12 +16,14 @@
   <li><a href="#settinglafs">How do I set the L&F used by FreeGuide?</a></li>
   <li><a href="#installinglafs">How do I install new L&F's?</a></li>
   <li><a href="#whatisgtk+">What about the GTK+ L&F?</a></li>
+  <li><a href="#installgtk+">Do I need to install GTK+ to use the GTK+ L&F?</a></li>
   <li><a href="#whereisgtk+">The GTK+ L&F sounds great, but it's not listed as available.  Why not?</a></li>
   <li><a href="#windowsgtk+">I have Java 2 version 1.4.2 or above and I still don't see GTK+.  What's wrong?</a></li>
   <li><a href="#moregtk+themes">Where can I get more GTK+ themes?</a></li>
   <li><a href="#supportedgtk+themes">My GTK+ theme doesn't look right (or doesn't work).  What's wrong?</a></li>
   <li><a href="#issupportedgtk+theme">So, how do I know if a GTK+ theme is supported?</a></li>
   <li><a href="#gtk+themes">You said the GTK+ L&F supports themes.  How do I change my theme?</a></li>
+  <li><a href="#gtk+changedtheme">Why doesn't FreeGuide notice when I change my System GTK+ theme?</a></li>
   <li><a href="#slow">Since I changed my L&F, FreeGuide seems slow.  Why?</a></li>
   <li><a href="#slowerstartup">Since I changed my L&F, FreeGuide seems to take 4.5ms longer to start up.  Why?</a></li>
   <li><a href="#morelafs">Where can I find more L&F's?</a></li>
@@ -63,6 +65,10 @@ java -classpath "/path/to/my/LookAndFeel.jar" -jar "${HOME}/freeguide-tv/FreeGui
 
 <p>The GTK+ L&F was designed to provide the look and feel of a native application developed with the <a href="http://www.gtk.org/">GTK+</a> toolkit (as are many applications for Unix-like operating systems--such as GNU/Linux--and even some applications that run on Windows).  Since the GTK+ toolkit provides support for themes (which are functionally equivalent to skins), the GTK+ L&F provides theme/skin support.</p>
 
+<h2><a name="installgtk+">Do I need to install GTK+ to use the GTK+ L&F?</a></h2>
+
+<p>No.  The GTK+ L&F performs the work normally accomplished by GTK+ theme engines to allow its use on any system--regardless of whether the system uses (or even supports) GTK+.  Therefore, as long as you have the GTK+ L&F <a href="#whereisgtk+">available</a>, you can use the GTK+ L&F. Note that you will also need to <a href="#gtk+themes">make GTK+ themes available</a> to use different GTK+ themes.</p>
+
 <h2><a name="whereisgtk+">The GTK+ L&F sounds great, but it's not listed as available.  Why not?</a></h2>
 
 <p>The GTK+ L&F is a brand-new addition to Java.  It is only included in Java 2 version 1.4.2 and above.  Make sure you have the right version of Java.  You can determine your Java version by executing the following command from the Command Prompt or shell:</p>
@@ -93,7 +99,7 @@ java -version
 
 <h2><a name="gtk+themes">You said the GTK+ L&F supports themes.  How do I change my theme?</a></h2>
 
-<p>First, you'll need <a href="#moregtk+themes">some themes</a>.  Once you've downloaded one or more themes to try, install the theme.</p>
+<p>First, you'll need <a href="#moregtk+themes">some themes</a>.  Once you've downloaded one or more themes to try, install the theme (as described in the next two paragraphs).</p>
 
 <p>If you're using a Unix-like operating system, use the tool provided by your distribution vendor to install and select the theme.  Now, simply start FreeGuide and, if you haven't already done so, select the GTK+ L&F and enjoy the new look.  In general, themes are installed by extracting their files into the <tt>${USER}/.themes</tt> directory.  If you do not have a tool for working with GTK+ themes, <a href="http://www.muhri.net/nav.php3?node=gts">GTK Theme Switch 2</a> is a nice lightweight program for installing and selecting themes.  Note:  If you do not want to install and/or select the theme, you may follow the Windows instructions below.</p>
 
@@ -111,6 +117,11 @@ javaw -Dswing.gtkthemefile="C:\gtk\Theme Name\gtk-2.0\gtkrc" -jar "C:\Program Fi
 <pre>
 java -Dswing.gtkthemefile="${HOME}/.themes/Theme Name/gtk-2.0/gtkrc" -jar "${HOME}/freeguide-tv/FreeGuide.jar"
 </pre>
+
+<li><a href="#"></a></li>
+<h2><a name="gtk+changedtheme">Why doesn't FreeGuide notice when I change my System GTK+ theme?</a></h2>
+
+<p>The GTK+ L&F is not actually using the GTK+ theme engine to draw components of FreeGuide.  Instead, it performs the work normally done by the theme engine itself, but does not detect changes to the system-define theme.  Therefore, to get FreeGuide to notice the change to your theme, simply restart FreeGuide.  Note that future versions of the GTK+ L&F may support detection of changes to the system theme, but until then restarting FreeGuide is the only way to change themes.</p>
 
 <h2><a name="slow">Since I changed my L&F, FreeGuide seems slow.  Why?</a></h2>
 
