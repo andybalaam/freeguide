@@ -13,6 +13,7 @@
 
 package freeguide.gui.wizard;
 
+import freeguide.*;
 import freeguide.lib.fgspecific.*;
 import java.awt.*;
 import java.io.*;
@@ -55,14 +56,14 @@ public class WizardPanel extends javax.swing.JPanel {
         this.bottomMessage = bottomMessage;
     }
 
-	public void setMessages(String topMessage, String bottomMessage,
-			int topMnemonic) {
-				
+    public void setMessages(String topMessage, String bottomMessage,
+            int topMnemonic) {
+                
         this.topMessage = topMessage;
         this.bottomMessage = bottomMessage;
-		this.topMnemonic = topMnemonic;
+        this.topMnemonic = topMnemonic;
     }
-	
+    
     /**
      *  Set a configuration option that is linked to this panel.
      *
@@ -139,7 +140,7 @@ public class WizardPanel extends javax.swing.JPanel {
             try {
 
                 Object[] args = new Object[1];
-				args[0] = this;
+                args[0] = this;
                 setBoxValue(onEnterMethod.invoke(onEnterObject, args));
 
             } catch (java.lang.IllegalAccessException e) {
@@ -159,7 +160,7 @@ public class WizardPanel extends javax.swing.JPanel {
      *@return    Description of the Return Value
      */
     public boolean onExit() {
-		
+        
         // Save the config entry if there is one
         if (configEntry != null) {
 
@@ -169,12 +170,13 @@ public class WizardPanel extends javax.swing.JPanel {
 
                 if (error != null) {
                     // If we have an error, ask the user if they want
-					// to continue
+                    // to continue
 
                     String lb = System.getProperty("line.separator");
                     int ignore = JOptionPane.showConfirmDialog(this, error + lb
-						+ "Do you want to continue?", "Error",
-						JOptionPane.YES_NO_OPTION);
+                        + FreeGuide.msg.getString( "do_you_want_to_continue" ),
+                        FreeGuide.msg.getString( "error" ),
+                        JOptionPane.YES_NO_OPTION);
 
                     if (ignore == JOptionPane.NO_OPTION) {
                         // If not, go back
@@ -182,11 +184,11 @@ public class WizardPanel extends javax.swing.JPanel {
                     }
                     // Otherwise, go on with saving the value
                 }
-				
-                FGPreferences pref = (FGPreferences)( PreferencesGroup.class
-					.getField(configGroup).get( new PreferencesGroup() ) );
                 
-				saveToPrefs(pref);
+                FGPreferences pref = (FGPreferences)( PreferencesGroup.class
+                    .getField(configGroup).get( new PreferencesGroup() ) );
+                
+                saveToPrefs(pref);
 
             } catch (java.lang.NoSuchFieldException e) {
                 e.printStackTrace();
@@ -283,9 +285,9 @@ public class WizardPanel extends javax.swing.JPanel {
      *  The config group if there is to be a guess
      */
     protected String topMessage;
-	
-	protected int topMnemonic;
-	
+    
+    protected int topMnemonic;
+    
     /**
      *  The config entry if there is to be a guess
      */

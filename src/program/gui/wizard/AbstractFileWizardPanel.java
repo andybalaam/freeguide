@@ -13,6 +13,7 @@
 
 package freeguide.gui.wizard;
 
+import freeguide.*;
 import freeguide.lib.fgspecific.*;
 import java.awt.event.*;
 import java.io.*;
@@ -54,7 +55,7 @@ public abstract class AbstractFileWizardPanel extends WizardPanel {
         topLabel.setFont(new java.awt.Font("Dialog", 0, 12));
         topLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         topLabel.setText(topMessage);
-		topLabel.setDisplayedMnemonic(topMnemonic);
+        topLabel.setDisplayedMnemonic(topMnemonic);
         add(topLabel);
 
         midPanel.setLayout(new java.awt.GridBagLayout());
@@ -73,8 +74,8 @@ public abstract class AbstractFileWizardPanel extends WizardPanel {
 
         // Make the browse button
         butBrowse.setFont(new java.awt.Font("Dialog", 0, 12));
-        butBrowse.setText("Browse...");
-		butBrowse.setMnemonic( KeyEvent.VK_B );
+        butBrowse.setText( FreeGuide.msg.getString( "browse" ) );
+        butBrowse.setMnemonic( KeyEvent.VK_B );
         butBrowse.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,8 +96,8 @@ public abstract class AbstractFileWizardPanel extends WizardPanel {
         bottomLabel.setText(bottomMessage);
         add(bottomLabel);
 
-		topLabel.setLabelFor( textfield );
-		
+        topLabel.setLabelFor( textfield );
+        
     }
 
 

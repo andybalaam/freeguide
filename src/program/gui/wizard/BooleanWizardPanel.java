@@ -61,7 +61,7 @@ public class BooleanWizardPanel extends WizardPanel {
         midPanel.setLayout(new java.awt.GridBagLayout());
 
         checkbox.setText(topMessage);
-		checkbox.setMnemonic( topMnemonic );
+        checkbox.setMnemonic( topMnemonic );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;

@@ -28,30 +28,33 @@ import java.util.*;
  */
 public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
 
-	/**
+    /**
      *
      *@param  parentViewerFrame  The screen on which this is displayed
      */
     public ViewerFrameHTMLGuide( ViewerFrame parentViewerFrame ) {
-		
-		super();
-		
-		this.parentViewerFrame = parentViewerFrame;
-		
+        
+        super();
+        this.parentViewerFrame = parentViewerFrame;
+        
                 // Scrolls the program guide to show the program when
                 // the user clicks the program name in the HTML Guide
                 addHyperlinkListener(new HTMLGuideListener(parentViewerFrame));
     }
-	
-	//{{{ Printed Guide
-	
-	/**
+    
+    public void setModel(ProgrammeStripModel model) {
+        this.model = model;
+    }
+
+    //{{{ Printed Guide
+    
+    /**
      *  Get the HTML version of the listing and show it in the printed guide
      */
     public void update() {
-
+        
         setText( constructHTMLGuide(true) );
-	setCaretPosition(0);
+        setCaretPosition(0);
 
     }
 
@@ -68,8 +71,8 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
 
         // Make a file in the default location
         File f = new File( FreeGuide.prefs.performSubstitutions(
-			FreeGuide.prefs.misc.get("working_directory") + fs
-				+ "guide.html" ) );
+            FreeGuide.prefs.misc.get("working_directory") + fs
+                + "guide.html" ) );
 
         try {
             //IOException
@@ -81,10 +84,10 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
             buffy.close();
 
             String[] cmds = Utils.substitute(
-				FreeGuide.prefs.commandline.getStrings( "browser_command" ),
-				"%filename%",
-				f.getPath() );
-			
+                FreeGuide.prefs.commandline.getStrings( "browser_command" ),
+                "%filename%",
+                f.getPath() );
+            
             Utils.execNoWait(cmds);
 
         } catch (java.io.IOException e) {
@@ -104,32 +107,29 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
      *@return           the TV guide as a string of html
      */
     private String constructHTMLGuide( boolean onScreen ) {
-		
-		// Find out whether we're in the 24 hour clock
+        
+        // Find out whether we're in the 24 hour clock
         boolean draw24time = FreeGuide.prefs.screen.getBoolean(
-			"display_24hour_time", true );
-		
-		SimpleDateFormat timeFormat = (
-			draw24time ? parentViewerFrame.timeFormat24Hour :
-				parentViewerFrame.timeFormat12Hour );
-		
-		// Construct a list of selected programmes
-		Vector tickedProgrammes = new Vector();
-		ProgrammeJLabel programmeJLabel;
-		
-		for( int i=0; i<parentViewerFrame.programmeJLabels.size(); i++ ) {
-			
-			programmeJLabel =
-				(ProgrammeJLabel)parentViewerFrame.programmeJLabels.get(i);
-			
-			if( programmeJLabel.isSelected ) {
-				
-				tickedProgrammes.add( programmeJLabel.programme );
-				
-			}
-			
-		}
-		
+            "display_24hour_time", true );
+        
+        SimpleDateFormat timeFormat = (
+            draw24time ? parentViewerFrame.timeFormat24Hour :
+                parentViewerFrame.timeFormat12Hour );
+        
+        Vector tickedProgrammes = new Vector();
+        Programme programme;
+
+        Iterator i = model.getAll().iterator();        
+        while( i.hasNext() ) {
+            
+            programme = (Programme)( i.next() );
+            
+            if( programme.isInGuide() ) {
+                tickedProgrammes.add( programme );
+            }
+            
+        }
+        
         // The string we shall return
         StringBuffer ans = new StringBuffer();
 
@@ -138,68 +138,81 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
 
         ans.append( "<html>" ).append( lineBreak );
         ans.append( "<head>").append( lineBreak );
-        ans.append( "  <title>TV Guide for "
-			+ parentViewerFrame.htmlDateFormat.format(
-				parentViewerFrame.theDate.getTime() )
-			+ "</title>").append( lineBreak );
+        ans.append( "  <title>" );
+        ans.append( FreeGuide.msg.getString( "tv_guide_for" ) );
+        ans.append( " " );
+        ans.append( parentViewerFrame.htmlDateFormat.format(
+                parentViewerFrame.theDate.getTime() ) );
+        ans.append( "</title>" ).append( lineBreak );
         ans.append( "  <style type='text/css'>").append( lineBreak );
-        ans.append( "	h1 {").append( lineBreak );
-        ans.append( "		font-family: helvetica, helv, arial;").append( lineBreak );
-        ans.append( "		font-weight: bold;").append( lineBreak );
-        ans.append( "		font-size: x-large;").append( lineBreak );
-        ans.append( "	}").append( lineBreak );
-        ans.append( "	h2 {").append( lineBreak );
-        ans.append( "		font-family: helvetica, helv, arial;").append( lineBreak );
-        ans.append( "		font-weight: bold;").append( lineBreak );
-        ans.append( "		font-size: large;").append( lineBreak );
-        ans.append( "	}").append( lineBreak );
-        ans.append( "	h3 {").append( lineBreak );
-        ans.append( "		font-family: helvetica, helv, arial;").append( lineBreak );
-        ans.append( "		font-weight: bold;").append( lineBreak );
-        ans.append( "		font-size: medium;").append( lineBreak );
-        ans.append( "	}").append( lineBreak );
-        ans.append( "	h4 {").append( lineBreak );
-        ans.append( "		font-family: helvetica, helv, arial;").append( lineBreak );
-        ans.append( "		font-weight: bold;").append( lineBreak );
-        ans.append( "		font-size: small;").append( lineBreak );
-        ans.append( "	}").append( lineBreak );
-        ans.append( "	body {").append( lineBreak );
-        ans.append( "		font-family: helvetica, helv, arial;").append( lineBreak );
-        ans.append( "		font-size: small;").append( lineBreak );
-        ans.append( "	}").append( lineBreak );
-        ans.append( "	address {").append( lineBreak );
-        ans.append( "		font-family: helvetica, helv, arial;").append( lineBreak );
-        ans.append( "		font-size: xx-small;").append( lineBreak );
-        ans.append( "	}").append( lineBreak );
+        ans.append( "    h1 {").append( lineBreak );
+        ans.append( "        font-family: helvetica, helv, arial;").append(
+            lineBreak );
+        ans.append( "        font-weight: bold;").append( lineBreak );
+        ans.append( "        font-size: x-large;").append( lineBreak );
+        ans.append( "    }").append( lineBreak );
+        ans.append( "    h2 {").append( lineBreak );
+        ans.append( "        font-family: helvetica, helv, arial;").append(
+            lineBreak );
+        ans.append( "        font-weight: bold;").append( lineBreak );
+        ans.append( "        font-size: large;").append( lineBreak );
+        ans.append( "    }").append( lineBreak );
+        ans.append( "    h3 {").append( lineBreak );
+        ans.append( "        font-family: helvetica, helv, arial;").append(
+            lineBreak );
+        ans.append( "        font-weight: bold;").append( lineBreak );
+        ans.append( "        font-size: medium;").append( lineBreak );
+        ans.append( "    }").append( lineBreak );
+        ans.append( "    h4 {").append( lineBreak );
+        ans.append( "        font-family: helvetica, helv, arial;").append(
+            lineBreak );
+        ans.append( "        font-weight: bold;").append( lineBreak );
+        ans.append( "        font-size: small;").append( lineBreak );
+        ans.append( "    }").append( lineBreak );
+        ans.append( "    body {").append( lineBreak );
+        ans.append( "        font-family: helvetica, helv, arial;").append(
+            lineBreak );
+        ans.append( "        font-size: small;").append( lineBreak );
+        ans.append( "    }").append( lineBreak );
+        ans.append( "    address {").append( lineBreak );
+        ans.append( "        font-family: helvetica, helv, arial;").append(
+            lineBreak );
+        ans.append( "        font-size: xx-small;").append( lineBreak );
+        ans.append( "    }").append( lineBreak );
         ans.append( "  </style>").append( lineBreak );
         ans.append( "</head>").append( lineBreak );
         ans.append( "<body>").append( lineBreak );
         ans.append( "  <h1>" );
-		
+        
         if (onScreen) {
-			
+            
             ans.append(
-				"<font face='helvetica, helv, arial, sans serif' size=4>" );
-            ans.append( "Your Personalised TV Guide for " )
-				.append( parentViewerFrame.htmlDateFormat.format(
-					parentViewerFrame.theDate.getTime() ) );
+                "<font face='helvetica, helv, arial, sans serif' size=4>" );
+            ans.append( FreeGuide.msg.getString(
+                "your_personalised_tv_guide_for" ) );
+            ans.append( " " );
+            ans.append( parentViewerFrame.htmlDateFormat.format(
+                    parentViewerFrame.theDate.getTime() ) );
             ans.append( "</font>" );
-			
+            
         } else {
-			
-            ans.append( "TV Guide for ").append(
-				parentViewerFrame.htmlDateFormat.format(
-					parentViewerFrame.theDate.getTime() ) );
-				
+            
+            ans.append( FreeGuide.msg.getString( "tv_guide_for" ) );
+            ans.append( " " );
+            ans.append( parentViewerFrame.htmlDateFormat.format(
+                parentViewerFrame.theDate.getTime() ) );
+                
         }
 
         ans.append( "</h1>").append( lineBreak );
 
         if (onScreen) {
             ans.append(
-				"<font face='helvetica, helv, arial, sans serif' size=3>" );
-            ans.append( "<p>Select programmes above by clicking on them, " );
-			ans.append( "and they will be highlighted and appear below.</p>" );
+                "<font face='helvetica, helv, arial, sans serif' size=3>" );
+            ans.append( "<p>" );
+            ans.append( FreeGuide.msg.getString(
+                "select_programmes_by_clicking_on_them" ) );
+            ans.append( "</p>" );
             ans.append( "</font>" );
         }
 
@@ -211,18 +224,21 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
 
         if (onScreen) {
             ans.append(
-				"<font face='helvetica, helv, arial, sans serif' size=3>" );
+                "<font face='helvetica, helv, arial, sans serif' size=3>" );
         }
 
-	ProgrammeFormat pf = new ProgrammeFormat(
-			ProgrammeFormat.HTML_FRAGMENT_FORMAT, timeFormat, false);
-	pf.setOnScreen(onScreen);
-        for (int i = 0; i < tickedProgrammes.size(); i++) {
-			
-            Programme prog = (Programme)tickedProgrammes.get(i);
-		ans.append(pf.longFormat(prog));
+        ProgrammeFormat pf = new ProgrammeFormat(
+        ProgrammeFormat.HTML_FRAGMENT_FORMAT, timeFormat, false);
+        pf.setOnScreen(onScreen);
+    
+        i = tickedProgrammes.iterator();
+        while( i.hasNext() ) {
+    
+            Programme prog = (Programme)( i.next() );
+            ans.append( pf.longFormat( prog ) );
+            
         }
-		
+        
         if (onScreen) {
             ans.append( "</font>" );
         }
@@ -233,7 +249,7 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
             ans.append( "<address>" );
             ans.append( "http://freeguide-tv.sourceforge.net" );
             ans.append( "</address>" )
-				.append( lineBreak );
+                .append( lineBreak );
 
         }
 
@@ -242,12 +258,13 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
 
         return ans.toString();
     }
-	
-	
-	/**
-	 * This object's parent window.
-	 */
-	private ViewerFrame parentViewerFrame;
-	
+    
+    
+    /**
+     * This object's parent window.
+     */
+    private ViewerFrame parentViewerFrame;
+    private ProgrammeStripModel model;
+    
 }
 

@@ -13,6 +13,7 @@
 
 package freeguide.lib.fgspecific;
 
+import freeguide.*;
 import freeguide.lib.general.*;
 import java.util.regex.Pattern;
 import java.util.Calendar;
@@ -56,51 +57,40 @@ public class Favourite {
 
         // Match the title exactly
         if ((titleString != null) && !titleString.equals(progTitle)) {
-            //FreeGuide.log.info(progTitle + " Title match failed");
             return false;
         }
 
         // Match the title to containing a string
         if ((titleContains != null) && (progTitle.indexOf(titleContains) == -1)) {
-            //FreeGuide.log.info(progTitle + " Title contains failed");
             return false;
         }
 
         // Match the title to a regular expression
         if ((titleRegex != null) && !titleRegex.matcher(progTitle).matches()) {
-            //FreeGuide.log.info(progTitle + " Title regex failed");
             return false;
         }
 
         // Match the channel ID
-        if ((channelID != null) && !channelID.equals(prog.getChannelID())) {
-            //FreeGuide.log.info(progTitle + " '" + channelID + "' '" + prog.getChannelID()+"'");
+        if ((channel != null) && !channel.equals(prog.getChannel())) {
             return false;
         }
         Time progStartTime = new Time(prog.getStart());
 
-        //FreeGuide.log.info(progTitle + " " + afterTime + " must be after " + progStartTime);
-
         // Match the time it must be after
         if (afterTime != null && afterTime.after(progStartTime)) {
-            //FreeGuide.log.info(progTitle + " afterTime failed");
             return false;
         }
 
         // Match the time it must be before
         if (beforeTime != null && beforeTime.before(progStartTime)) {
-            //FreeGuide.log.info(progTitle + " beforeTime failed");
             return false;
         }
 
         // Match the day of the week
         if (dayOfWeek != null && (dayOfWeek.intValue() != prog.getStart().get(Calendar.DAY_OF_WEEK))) {
-            //FreeGuide.log.info(progTitle + " Day of week failed");
             return false;
         }
 
-        //FreeGuide.log.info(progTitle + " Passed");
-        // Passed all the tests!
         return true;
     }
 
@@ -149,14 +139,28 @@ public class Favourite {
 
 
     /**
-     *  Gets the channelID attribute of the Favourite object
+     *  Gets the channel attribute of the Favourite object
+     *
+     *@return    The channel value
+     */
+    public Channel getChannel() {
+        FreeGuide.log.info( "channel=" + channel );
+        return channel;
+    }
+
+    /**
+     * Returns the ID of the channel for this favourite, or an empty string
+     * if the channel is null.
      *
      *@return    The channelID value
      */
     public String getChannelID() {
-        return channelID;
+        if( channel == null ) {
+            return null;
+        } else {
+            return channel.getID();
+        }
     }
-
 
     /**
      *  Gets the afterTime attribute of the Favourite object
@@ -233,8 +237,8 @@ public class Favourite {
      *
      *@param  channelID  The new channelID value
      */
-    public void setChannelID(String channelID) {
-        this.channelID = channelID;
+    public void setChannel(Channel channel) {
+        this.channel = channel;
     }
 
 
@@ -278,7 +282,7 @@ public class Favourite {
     // Exact match for the title
     private Pattern titleRegex;
     // Regular expression to match the title
-    private String channelID;
+    private Channel channel;
     // The channel it must be on
     private Time afterTime;
     // The time it must be on after

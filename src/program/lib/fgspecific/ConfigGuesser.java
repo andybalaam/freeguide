@@ -38,40 +38,63 @@ public class ConfigGuesser {
      */
     public static String checkValue(String group, String entry, Object val) {
 
-		if( group.equals( "misc" ) ) {
-			
-			if( entry.equals("day_start_time") ) {
-				return checkValidTime( (String)val, "the FreeGuide day start" );
-			} else if( entry.equals( "grabber_start_time" ) ) {
-				return checkValidTime( (String)val, "the grabber start time" );
-			} else if( entry.equals( "days_to_grab" ) ) {
-				return checkNumeric( (String)val, "the number of days to grab");
-			} else if( entry.equals( "working_directory" ) ) {
-				return checkDirWriteable( (File)val, "a working directory");
-			} else if( entry.equals( "install_directory" ) ) {
-				return checkDirWriteable( (File)val, "the install directory");
-			} else if( entry.equals( "region" ) ) {
-				return checkNonEmpty( (String)val, "region" );
-			} else if( entry.equals( "browser" ) ) {
-				return null;
-			} else if( entry.equals( "privacy" ) ) {
-				return null;
-			}
-			
-		}
-		
-		String msg = "Check asked for on an unknown option \"" + group + "."
-			+ entry + "\".";
-		
-		if( FreeGuide.log != null ) {
-			FreeGuide.log.info( msg );
-		} else {
-			System.err.println( msg );
-		}
-		
-		// If it's not one of these, don't check , just say it's good.
-		return null;
-		
+        if( group.equals( "misc" ) ) {
+            
+            if( entry.equals("day_start_time") ) {
+                
+                return checkValidTime( (String)val,
+                    FreeGuide.msg.getString( "the_freeguide_day_start" ) );
+                    
+            } else if( entry.equals( "grabber_start_time" ) ) {
+                
+                return checkValidTime( (String)val,
+                    FreeGuide.msg.getString( "the_grabber_start_time" ) );
+                
+            } else if( entry.equals( "days_to_grab" ) ) {
+                
+                return checkNumeric( (String)val,
+                    FreeGuide.msg.getString( "the_number_of_days_to_grab" ) );
+                
+            } else if( entry.equals( "working_directory" ) ) {
+                
+                return checkDirWriteable( (File)val,
+                    FreeGuide.msg.getString( "a_working_directory" ) );
+                
+            } else if( entry.equals( "install_directory" ) ) {
+                
+                return checkDirWriteable( (File)val,
+                    FreeGuide.msg.getString( "the_install_directory" ) );
+                
+            } else if( entry.equals( "region" ) ) {
+                
+                return checkNonEmpty( (String)val,
+                    FreeGuide.msg.getString( "region" ) );
+                
+            } else if( entry.equals( "browser" ) ) {
+                
+                return null;
+                
+            } else if( entry.equals( "privacy" ) ) {
+                
+                return null;
+                
+            }
+            
+        }
+        
+        String msg = FreeGuide.msg.getString(
+            "check_asked_for_on_an_unknown_option" )
+            + " \"" + group + "." + entry + "\".";
+        
+        if( FreeGuide.log != null ) {
+            FreeGuide.log.info( msg );
+        } else {
+            System.err.println( msg );
+        }
+        
+        // If it's not one of these, don't check , just say it's good.
+        return null;
+        
     }
 
 
@@ -83,16 +106,18 @@ public class ConfigGuesser {
      *@return         Description of the Return Value
      */
     private static String checkValidTime(String time, String whatFor) {
-		
+        
         if (time != null && time.length() == 5 && time.charAt(2) == ':') {
             return null;
         }
-        return "The time you gave for " + whatFor
-			+ " is not in valid hh:mm format.";
+        Object[] messageArguments = { whatFor };
+        return FreeGuide.getCompoundMessage(
+            FreeGuide.msg.getString( "the_time_you_gave_not_hhmm_template" ),
+             messageArguments );
     }
 
 
-	/**
+    /**
      *  Description of the Method
      *
      *@param  number  Description of the Parameter
@@ -100,23 +125,29 @@ public class ConfigGuesser {
      *@return         Description of the Return Value
      */
     private static String checkNumeric(String number, String whatFor) {
-		
-		if( number == null ) {
-			return "The option for " + whatFor + " is blank.";
-		}
-		
-		try {
-			Integer.parseInt( number );
-		} catch( NumberFormatException e ) {
-			
-			return "The option for " + whatFor + " is not a valid number.";
-			
-		}
-		
+        
+        if( number == null ) {
+            Object[] messageArguments = { whatFor };
+            return FreeGuide.getCompoundMessage(
+                FreeGuide.msg.getString( "option_is_blank_template" ),
+                messageArguments );
+        }
+        
+        try {
+            Integer.parseInt( number );
+        } catch( NumberFormatException e ) {
+            
+            Object[] messageArguments = { whatFor };
+            return FreeGuide.getCompoundMessage(
+                FreeGuide.msg.getString( "option_not_numeric" ),
+                messageArguments );
+            
+        }
+        
         return null;
     }
-	
-	/**
+    
+    /**
      *  Description of the Method
      *
      *@param  number  Description of the Parameter
@@ -124,14 +155,17 @@ public class ConfigGuesser {
      *@return         Description of the Return Value
      */
     private static String checkNonEmpty(String number, String whatFor) {
-		
-		if( number == null || number.equals("") ) {
-			return "The option for " + whatFor + " is blank.";
-		}
-		
+        
+        if( number == null || number.equals("") ) {
+            Object[] messageArguments = { whatFor };
+            return FreeGuide.getCompoundMessage(
+                FreeGuide.msg.getString( "option_blank" ),
+                messageArguments );
+        }
+        
         return null;
     }
-	
+    
     /**
      *  Description of the Method
      *
@@ -159,13 +193,18 @@ public class ConfigGuesser {
                 return null;
             }
             testFile.delete();
-            return "The directory you chose for " + whatFor
-				+ " can't be created or isn't writeable.";
-			
+
+            Object[] messageArguments = { whatFor };
+            return FreeGuide.getCompoundMessage(
+                FreeGuide.msg.getString( "dir_isnt_writeable" ),
+                messageArguments );
+            
         } catch (java.io.IOException e) {
 
-            return "There was an error trying to create the directory you "
-				+ "chose for " + whatFor + ".";
+            Object[] messageArguments = { whatFor };
+            return FreeGuide.getCompoundMessage(
+                FreeGuide.msg.getString( "error_creating_dir" ),
+                messageArguments );
         }
     }
 

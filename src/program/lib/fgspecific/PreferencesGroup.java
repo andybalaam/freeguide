@@ -192,7 +192,8 @@ public class PreferencesGroup {
 
             // If this was a %% to escape a %, deal with it
             if (j == i + 1) {
-                ans = ans.substring(0, i) + "---FREEGUIDE_PERCENT---" + ans.substring(j + 1);
+                ans = ans.substring(0, i) + "---FREEGUIDE_PERCENT---"
+                    + ans.substring(j + 1);
             } else {
                 // Otherwise this is a keyword
                 String ref = ans.substring(i + 1, j);
@@ -284,7 +285,7 @@ public class PreferencesGroup {
      *@param  date  Description of the Parameter
      *@return       Description of the Return Value
      */
-    public boolean chosenAnything(Calendar date) {
+    public boolean anythingInGuide(Calendar date) {
         String dateStr = "day-" + chosenDateFormat.format(date.getTime());
         return chosen_progs.getBoolean(dateStr, false);
         //date.get(Calendar.YEAR) + "-" + date.get(Calendar.MONTH) + "-" + date.get(Calendar.DAY_OF_MONTH), false );
@@ -296,7 +297,7 @@ public class PreferencesGroup {
      *
      *@return    The allChosenDays value
      */
-    public Calendar[] getAllChosenDays() {
+    public Calendar[] getAllInGuideDays() {
         Vector ans = new Vector();
 
         try {
@@ -328,8 +329,8 @@ public class PreferencesGroup {
      *
      *@param  date  The date for which we have made a choice
      */
-    public void chosenSomething(Calendar date) {
-        chosenSomething(date, true);
+    public void somethingInGuide(Calendar date) {
+        somethingInGuide(date, true);
     }
 
 
@@ -339,34 +340,34 @@ public class PreferencesGroup {
      *@param  date  The date we are interested in
      *@param  yes   Whether we are saying we have, or have not, made a choice
      */
-    public void chosenSomething(Calendar date, boolean yes) {
-		
-		//FreeGuide.log.info( "begin" );
-		
+    public void somethingInGuide(Calendar date, boolean yes) {
+        
+        //FreeGuide.log.info( "begin" );
+        
         String dateStr = "day-" + chosenDateFormat.format(date.getTime());
         if (yes) {
-			
+            
             chosen_progs.putBoolean(dateStr, true);
-			
+            
         } else {
-			
-			//FreeGuide.log.info( "1" );
-			
+            
+            //FreeGuide.log.info( "1" );
+            
             // Remove the choices for this day
-            int[] chosenProgKeys = getChosenProgKeys( date );
-			
-			//FreeGuide.log.info( "length=" + chosenProgKeys.length );
-			
-			chosen_progs.removeChoices( chosenProgKeys );
-			
+            int[] chosenProgKeys = getInGuideProgrammeKeys( date );
+            
+            //FreeGuide.log.info( "length=" + chosenProgKeys.length );
+            
+            chosen_progs.removeFromGuides( chosenProgKeys );
+            
             // Remove the fact that this day is chosen
             chosen_progs.remove(dateStr);
-			
-			//FreeGuide.log.info( "4" );
+            
+            //FreeGuide.log.info( "4" );
         }
 
-		//FreeGuide.log.info( "end" );
-		
+        //FreeGuide.log.info( "end" );
+        
     }
 
 
@@ -378,9 +379,9 @@ public class PreferencesGroup {
      *@return       null if there are no choices for today, or all chosen
      *      programmes
      */
-    public Vector getChosenProgs(Calendar date) {
+    public Vector getInGuideProgrammes(Calendar date) {
 
-        if (!chosenAnything(date)) {
+        if (!anythingInGuide(date)) {
             return null;
         }
 
@@ -416,46 +417,46 @@ public class PreferencesGroup {
      *@return       null if there are no choices for today, or all chosen
      *      programmes
      */
-    public int[] getChosenProgKeys(Calendar date) {
+    public int[] getInGuideProgrammeKeys(Calendar date) {
 
         Vector ans = new Vector();
 
-        if ( chosenAnything(date) ) {
+        if ( anythingInGuide(date) ) {
 
             int i = 1;
             Programme prog = chosen_progs.getProgramme(String.valueOf(i), null);
-			Calendar progStart;
-			Time progTime;
-			Time day_start_time = FreeGuide.prefs.misc.getTime(
-				"day_start_time" );
-			
-			
+            Calendar progStart;
+            Time progTime;
+            Time day_start_time = FreeGuide.prefs.misc.getTime(
+                "day_start_time" );
+            
+            
             while (prog != null) {
 
                 progStart = prog.getStart();
-				progTime = new Time( progStart );
-				
-				if ( progTime.before( day_start_time, new Time(0, 0) ) ) {
-					
-					progStart.add( Calendar.DAY_OF_YEAR, -1 );
+                progTime = new Time( progStart );
+                
+                if ( progTime.before( day_start_time, new Time(0, 0) ) ) {
+                    
+                    progStart.add( Calendar.DAY_OF_YEAR, -1 );
 
-				} 
-				
+                } 
+                
                 if ( (progStart.get( Calendar.DAY_OF_YEAR )
-						== date.get( Calendar.DAY_OF_YEAR ) ) 
-					&& (progStart.get( Calendar.YEAR )
-						== date.get( Calendar.YEAR ) ) ) {
-							
+                        == date.get( Calendar.DAY_OF_YEAR ) ) 
+                    && (progStart.get( Calendar.YEAR )
+                        == date.get( Calendar.YEAR ) ) ) {
+                            
                     ans.add( new Integer(i) );
                     
                 }
-				
-				i++;
+                
+                i++;
                 prog = chosen_progs.getProgramme( String.valueOf(i), null );
             }
-			
+            
         }
-		
+        
         return Utils.arrayFromVector_int(ans);
     }
 
@@ -467,13 +468,13 @@ public class PreferencesGroup {
      *@param  prog  The feature to be added to the Choice attribute
      *@param  date  The feature to be added to the Choice attribute
      */
-    public void addChoice(Programme prog, Calendar date) {
+    public void addInGuide(Programme prog, Calendar date) {
 
-        if (!chosenAnything(date)) {
-            chosenSomething(date);
+        if( !anythingInGuide( date ) ) {
+            somethingInGuide( date );
         }
 
-        chosen_progs.appendProgramme(prog);
+        chosen_progs.appendProgramme( prog );
     }
 
 
@@ -482,12 +483,12 @@ public class PreferencesGroup {
      *
      *@param  prog  Description of the Parameter
      */
-    public void removeChoice(Programme prog) {
+    public void removeFromGuide(Programme prog) {
 
         int i = chosen_progs.findProgramme(prog);
 
         if (i != -1) {
-            chosen_progs.removeChoice(i);
+            chosen_progs.removeFromGuide(i);
         }
     }
 
@@ -513,16 +514,16 @@ public class PreferencesGroup {
         return ans;
     }
 
-	/**
+    /**
      *  Gets the possible browsers the user may choose
      *
      *@return    An array of the possible browsers available
      */
-	public String[] getBrowsers() {
-		
-		Vector ans = new Vector();
-		
-		int i = 1;
+    public String[] getBrowsers() {
+        
+        Vector ans = new Vector();
+        
+        int i = 1;
         String browser = misc.get("browser." + i, null );
 
         while (browser != null) {
@@ -533,8 +534,8 @@ public class PreferencesGroup {
         }
 
         return Utils.arrayFromVector_String( ans );
-		
-	}
+        
+    }
 
     /**
      *  
@@ -546,7 +547,7 @@ public class PreferencesGroup {
 
         int i = 1;
         ChannelSet cset = channelsets.getChannelSet( String.valueOf(i),
-			null );
+            null );
 
         while (cset != null) {
 
@@ -626,14 +627,15 @@ public class PreferencesGroup {
         // Split this string into its constituent parts
         int i = line.indexOf('=');
         if( i == -1 ) {
-            FreeGuide.die( "Invalid preference string applied - no '='." );
+            FreeGuide.die( FreeGuide.msg.getString(
+                "invalid_preference_string_applied_no_eq" ) );
         }
         String key = line.substring(0, i);
         String value = line.substring(i + 1);
 
         i = key.indexOf('.');
         if( i == -1 ) {
-            FreeGuide.die( "Invalid preference string applied - no '.'." );
+            FreeGuide.die( FreeGuide.msg.getString( "invalid_preference_string_applied_no_dot" ) );
         }
         String keyCategory = key.substring(0, i);
         key = key.substring(i + 1);
@@ -647,8 +649,8 @@ public class PreferencesGroup {
         } else {
             // If needed we could add the other categories here, but for now...
             pr = misc;
-            FreeGuide.die("Unknown preferences group: " + keyCategory
-                + " - Aborting");
+            Object[] messageArguments = { keyCategory };
+            FreeGuide.die( FreeGuide.getCompoundMessage( "unknown_preferences_group_template", messageArguments ) );
         }
         
         Vector ans = new Vector();
@@ -679,37 +681,8 @@ public class PreferencesGroup {
         String value = (String)ans.get(2);
         
         pr.put( key, value );
-        
-        //FreeGuide.log.info( "-" + key + "---" + value + "-" );
-        
-    }
-    
-    /**
-     * Takes a line in a form like this:
-     *
-     * misc.install_directory=C:\Program Files\FreeGuide
-     *
-     * and translates that to place the relevant entry into the correct
-     * system preferences node.  Also places a default value using the key with
-     * "default-" prepended to it.
-     *
-     *@param line    the String line to interpret
-     */
-    /*public void putSystem( String line) {
-        
-        Vector ans = processPrefLine( line );
-        
-        FGPreferences pr = (FGPreferences)ans.get(0);
-        String key = (String)ans.get(1);
-        String value = (String)ans.get(2);
-        
-        // Set the default value
-        pr.putSystem("default-" + key, value);
 
-        // And the real value
-        pr.putSystem(key, value);
-        
-    }*/
+    }
     
     public FGPreferences screen;
     // The screen dimensions etc.

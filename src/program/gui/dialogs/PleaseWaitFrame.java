@@ -27,27 +27,28 @@ public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor {
 
     /**
      * Creates this form, makes it visible, and starts the StartupChecker
-	 * - called on launching the program
+     * - called on launching the program
      */
     public PleaseWaitFrame() {
-		
-		super( "Please Wait" );
-		
+        
+        super( FreeGuide.msg.getString( "please_wait" ) );
+        
         initComponents();
-		
+        
     }
-	
+    
     private void initComponents() {
         
-		imageLabel = new javax.swing.JLabel();
-		progressBar = new javax.swing.JProgressBar( 0, 100 );
-		
-		java.net.URL imgURL = getClass().getResource( "/logo-256x256.png" );
-		
-		image = new javax.swing.ImageIcon(imgURL, "Please Wait");
+        imageLabel = new javax.swing.JLabel();
+        progressBar = new javax.swing.JProgressBar( 0, 100 );
+        
+        java.net.URL imgURL = getClass().getResource( "/logo-256x256.png" );
+        
+        image = new javax.swing.ImageIcon( imgURL,
+            FreeGuide.msg.getString( "please_wait" ) );
 
         setResizable( false );
-		
+        
         addWindowListener(
             new java.awt.event.WindowAdapter() {
                 public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -55,21 +56,21 @@ public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor {
                 }
             });
 
-		imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imageLabel.setIcon( image );
         imageLabel.setBorder( javax.swing.BorderFactory.createLineBorder( 
-			java.awt.Color.BLACK ) );
+            java.awt.Color.BLACK ) );
         getContentPane().add( imageLabel, java.awt.BorderLayout.CENTER );
-		
+        
         getContentPane().add( progressBar, java.awt.BorderLayout.SOUTH );
-		
+        
         pack();
         java.awt.Dimension screenSize =
-			java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-		java.awt.Dimension windowSize = getSize();
-		
+            java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        java.awt.Dimension windowSize = getSize();
+        
         setLocation((screenSize.width - windowSize.width) / 2,
-			(screenSize.height - windowSize.height) / 2);
+            (screenSize.height - windowSize.height) / 2);
     }
 
     /**
@@ -78,18 +79,19 @@ public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor {
      *@param  evt  Description of the Parameter
      */
     private void exitForm(java.awt.event.WindowEvent evt) {
-		FreeGuide.log.info( "Halting due to user closing Please Wait dialog." );
-		System.exit( 0 );
+        FreeGuide.log.info( FreeGuide.msg.getString( 
+            "halting_due_to_please_wait_closed" ) );
+        System.exit( 0 );
     }
 
-	public void setProgress( int percent ) {
-		
-		progressBar.setValue( percent );
-		
-	}
-	
-	private javax.swing.JLabel imageLabel;
-	private javax.swing.ImageIcon image;
-	private javax.swing.JProgressBar progressBar;
+    public void setProgress( int percent ) {
+        
+        progressBar.setValue( percent );
+        
+    }
+    
+    private javax.swing.JLabel imageLabel;
+    private javax.swing.ImageIcon image;
+    private javax.swing.JProgressBar progressBar;
 
 }

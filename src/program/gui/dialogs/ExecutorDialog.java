@@ -43,12 +43,12 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
      *@param  date         Description of the Parameter
      */
     public ExecutorDialog(JFrame owner, String[] cmds, String commandType,
-			Calendar date) {
-		
-		super( owner, FreeGuide.prefs.screen.getBoolean(
-			"executor_modal", true ) );
-		
-		this.prefs = FreeGuide.prefs;
+            Calendar date) {
+        
+        super( owner, FreeGuide.prefs.screen.getBoolean(
+            "executor_modal", true ) );
+        
+        this.prefs = FreeGuide.prefs;
         this.date = date;
         this.cmds = cmds;
         SimpleDateFormat showdate = new SimpleDateFormat("yyyyMMdd");
@@ -63,27 +63,29 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
                 (screenSize.height - getHeight()) / 2);
 
         // Set the please wait message
-        labPleaseWait.setText(commandType + ", please wait...");
+        labPleaseWait.setText(commandType
+            + FreeGuide.msg.getString( "comma_please_wait" ) );
         setTitle(commandType);
 
-        viewer = new StringViewer( this, "Commands:" + lb,
-                "Output:" + lb);
+        viewer = new StringViewer( this,
+            FreeGuide.msg.getString( "commands" ) + ":" + lb,
+            FreeGuide.msg.getString( "output" )   + ":" + lb );
 
         start();
     }
 
 
-	/**
+    /**
      *  Constructor for the Executor object
      *
      *@param  cmds         Description of the Parameter
      *@param  commandType  Description of the Parameter
      */
     public ExecutorDialog(JFrame owner, String[] cmds, String commandType) {
-		this(owner, cmds, commandType, FreeGuide.prefs);
-			
-	}
-	
+        this(owner, cmds, commandType, FreeGuide.prefs);
+            
+    }
+    
     /**
      *  Constructor for the Executor object
      *
@@ -91,11 +93,11 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
      *@param  commandType  Description of the Parameter
      */
     public ExecutorDialog(JFrame owner, String[] cmds, String commandType,
-			PreferencesGroup prefs) {
+            PreferencesGroup prefs) {
 
-		super( owner, prefs.screen.getBoolean( "executor_modal", true ) );
-				
-		this.prefs = prefs;
+        super( owner, prefs.screen.getBoolean( "executor_modal", true ) );
+                
+        this.prefs = prefs;
         this.cmds = cmds;
 
         initComponents();
@@ -108,11 +110,13 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
                 (screenSize.height - getHeight()) / 2);
 
         // Set the please wait message
-        labPleaseWait.setText(commandType + ", please wait...");
+        labPleaseWait.setText(commandType
+            + FreeGuide.msg.getString( "comma_please_wait" ) );
         setTitle(commandType);
 
-        viewer = new StringViewer(this, "Commands:" + lb,
-                "Output:" + lb);
+        viewer = new StringViewer( this,
+            FreeGuide.msg.getString( "commands" ) + ":" + lb,
+            FreeGuide.msg.getString( "output" )   + ":" + lb );
 
         start();
 
@@ -131,11 +135,11 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
         butCancel = new javax.swing.JButton();
         butDetails = new javax.swing.JButton();
         labPleaseWait = new javax.swing.JLabel();
-		progressBar = new javax.swing.JProgressBar( 0, 100 );
+        progressBar = new javax.swing.JProgressBar( 0, 100 );
 
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        setTitle("Executing Command");
+        setTitle( FreeGuide.msg.getString( "executing_command" ) );
         addWindowListener(
             new java.awt.event.WindowAdapter() {
                 public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -143,11 +147,11 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
                 }
             });
 
-        butCancel.setText("Cancel");
+        butCancel.setText( FreeGuide.msg.getString( "cancel" ) );
         butCancel.setMaximumSize(new java.awt.Dimension(115, 23));
         butCancel.setMinimumSize(new java.awt.Dimension(115, 23));
         butCancel.setPreferredSize(new java.awt.Dimension(115, 23));
-		butCancel.setMnemonic( KeyEvent.VK_C );
+        butCancel.setMnemonic( KeyEvent.VK_C );
         butCancel.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,11 +167,11 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
         getContentPane().add(butCancel, gridBagConstraints);
 
         butDetails.setFont(new java.awt.Font("Dialog", 0, 12));
-        butDetails.setText("Show Details");
+        butDetails.setText( FreeGuide.msg.getString( "show_output" ) );
         butDetails.setMaximumSize(new java.awt.Dimension(115, 23));
         butDetails.setMinimumSize(new java.awt.Dimension(115, 23));
         butDetails.setPreferredSize(new java.awt.Dimension(115, 23));
-		butDetails.setMnemonic( KeyEvent.VK_S );
+        butDetails.setMnemonic( KeyEvent.VK_S );
         butDetails.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,9 +187,9 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
         getContentPane().add(butDetails, gridBagConstraints);
 
         labPleaseWait.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labPleaseWait.setText("Please Wait");
+        labPleaseWait.setText( FreeGuide.msg.getString( "please_wait" ) );
         labPleaseWait.setBorder( javax.swing.BorderFactory.createBevelBorder(
-			javax.swing.border.BevelBorder.LOWERED ) );
+            javax.swing.border.BevelBorder.LOWERED ) );
         labPleaseWait.setMaximumSize(new java.awt.Dimension(400, 22));
         labPleaseWait.setMinimumSize(new java.awt.Dimension(400, 22));
         labPleaseWait.setPreferredSize(new java.awt.Dimension(400, 22));
@@ -198,14 +202,14 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(labPleaseWait, gridBagConstraints);
 
-		gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-		gridBagConstraints.gridwidth = 2;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(progressBar, gridBagConstraints);
-		
+        
         pack();
     }
 
@@ -225,8 +229,7 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
 
     private void showDetails() {
 
-        //viewer.setVisible(true);
-		viewer.setVisible( true );
+        viewer.setVisible( true );
 
     }
 
@@ -353,27 +356,27 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
             thisDate.setTime(date.getTime());
 
         }
-		
+        
         // Check for any elements that mean this command must be called multiple
         // times, once for each day.
         if ((cmdstr.indexOf("%date%") != -1)
                 || (cmdstr.indexOf("%offset%") != -1)) {
 
-			ViewerFrameXMLTVLoader loader = new ViewerFrameXMLTVLoader();
+            ViewerFrameXMLTVLoader loader = new ViewerFrameXMLTVLoader();
             
-			int alwaysDownload = FreeGuide.prefs.misc.getInt( "re_download",
+            int alwaysDownload = FreeGuide.prefs.misc.getInt( "re_download",
                 REDOWNLOAD_ASK );
-			
+            
             boolean didOK = true;
 
             //Calendar date = GregorianCalendar.getInstance();
 
-			int days_to_grab = prefs.misc.getInt("days_to_grab", 7);
+            int days_to_grab = prefs.misc.getInt("days_to_grab", 7);
             for (int i = 0; i < days_to_grab;
-					i++) {
+                    i++) {
 
-				setProgress( 5 + (i*95) / days_to_grab );
-						
+                setProgress( 5 + (i*95) / days_to_grab );
+                        
                 String subbedCmd = prefs.performSubstitutions(
                         cmdstr, thisDate, true);
 
@@ -391,15 +394,18 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
                     // Only load a new lot if we haven't got any for this date
                     if (loader.hasData()) {
 
-                        // If we not have chosen already, ask the user whether
+                        // If we not have chsen already, ask the user whether
                         // to re-download
                         if (alwaysDownload == REDOWNLOAD_ASK) {
-                            Object[] options = {"Re-download", "Skip"};
+                            Object[] options = {
+                                FreeGuide.msg.getString( "redownload" ),
+                                FreeGuide.msg.getString( "skip" )
+                            };
                             int ans = JOptionPane.showOptionDialog(
                                     this,
-                                    "There are already some days' listings "
-                                    + "downloaded.  Do you want to re-download "
-                                    + "them or skip?", "Re-download?",
+                                    FreeGuide.msg.getString(
+                                        "some_listings_already_downloaded" ),
+                                    FreeGuide.msg.getString( "redownload_q" ),
                                     JOptionPane.DEFAULT_OPTION,
                                     JOptionPane.QUESTION_MESSAGE,
                                     null,
@@ -447,15 +453,15 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
         // It won't hurt to call it an extra time at this point if the
         // above condition does match.  The date is needed though.
         cmdstr = prefs.performSubstitutions(cmdstr, thisDate);
-		
+        
         // Log what we're about to do
-		if( FreeGuide.log != null ) {
-			FreeGuide.log.info(
-                "FreeGuide - Executing system command: " + cmdstr + " ...");
-		} else {
-			System.err.println("FreeGuide - Executing system command: "
-				+ cmdstr + " ..." );
-		}
+        String message = FreeGuide.msg.getString( "executing_system_command" )
+            + ": " + cmdstr + " ...";
+        if( FreeGuide.log != null ) {
+            FreeGuide.log.info( message );
+        } else {
+            System.err.println( message );
+        }
 
         try {
 
@@ -477,13 +483,13 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
             boolean retVal = (exitCode == 0);
 
             // Log it finishing
-			if( FreeGuide.log != null) {
-				FreeGuide.log.info("FreeGuide - Finished execution with exit"
-				+ " code " + exitCode + ".");
-			} else {
-				System.err.println("FreeGuide - Finished execution with exit"
-					+ " code " + exitCode + ".");
-			}
+            message = FreeGuide.msg.getString( "finished_execution" )
+                + exitCode + ".";
+            if( FreeGuide.log != null) {
+                FreeGuide.log.info( message );
+            } else {
+                System.err.println( message );
+            }
 
             return retVal;
         } catch (java.io.IOException e) {
@@ -512,29 +518,31 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
             e.printStackTrace();
         }
 
-        labPleaseWait.setText("Execution Error.");
-        butCancel.setText("Continue");
+        labPleaseWait.setText( FreeGuide.msg.getString( "execution_error" ) );
+        butCancel.setText( FreeGuide.msg.getString( "continue" ) );
 
-		if( FreeGuide.log != null ) {
-			FreeGuide.log.warning( "Command Output (stdout):" + lb
-				+ readOutput.getStoredOutput() );
-			FreeGuide.log.warning("Command Error (stderr):" + lb
-				+ readError.getStoredOutput() );
-		} else {
-			System.err.println( "Command Output (stdout):" + lb
-				+ readOutput.getStoredOutput() );
-			System.err.println("Command Error (stderr):" + lb
-				+ readError.getStoredOutput() );
-		}
+        String output_message = FreeGuide.msg.getString(
+                "command_output_stdout" )
+            + ":" + lb + readOutput.getStoredOutput();
+        String error_message = FreeGuide.msg.getString(
+                "command_output_stderr" )
+            + ":" + lb + readError.getStoredOutput();
+        if( FreeGuide.log != null ) {
+            FreeGuide.log.warning( output_message );
+            FreeGuide.log.warning( error_message );
+        } else {
+            System.err.println( output_message );
+            System.err.println(error_message );
+        }
 
     }
 
-	public void setProgress( int percent ) {
-		
-		progressBar.setValue( percent );
-		
-	}
-	
+    public void setProgress( int percent ) {
+        
+        progressBar.setValue( percent );
+        
+    }
+    
 
     private Process pr;
 
@@ -554,8 +562,8 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
     public final static int REDOWNLOAD_ALWAYS = 0;
     public final static int REDOWNLOAD_NEVER = 1;
     public final static int REDOWNLOAD_ASK = 2;
-	
-	private PreferencesGroup prefs;
+    
+    private PreferencesGroup prefs;
 
     //------------------------------------------------------------------------
 

@@ -41,37 +41,28 @@ public interface ChannelSetInterface {
 
 
     /**
-     *  Gets the channelIDs attribute of the ChannelSet object
+     *  Gets the channels of the ChannelSet object
      *
-     *@return    The channelIDs value
+     *@return    The channels objects
      */
-    public Vector getChannelIDs();
-
+    public Vector getChannels();
 
     /**
-     *  Gets the channelNames attribute of the ChannelSet object
-     *
-     *@return    The channelNames value
-     */
-    public Vector getChannelNames();
-
-
-    /**
-     *  Gets the channelName attribute of the ChannelSet object
+     *  Gets one of the ChannelSet object
      *
      *@param  channelID  Description of the Parameter
-     *@return            The channelName value
+     *@return            The channel object
      */
-    public String getChannelName(String channelID);
+    public Channel getChannel(String channelID);
 
 
     /**
-     *  Gets the channelName attribute of the ChannelSet object
+     *  Gets one of the ChannelSet object
      *
-     *@param  i  Description of the Parameter
-     *@return    The channelName value
+     *@param  i  indicia of the channel
+     *@return    The channel object
      */
-    public String getChannelName(int i);
+     public Channel getChannel(int i);
 
 
     /**
@@ -85,8 +76,8 @@ public interface ChannelSetInterface {
     /**
      *  Gets the channelNo attribute of the ChannelSet object
      *
-     *@param  channelID  Description of the Parameter
+     *@param  channel  The channel to get the pos for
      *@return            The channelNo value
      */
-    public int getChannelNo(String channelID);
+    public int getChannelNo(Channel channel);
 }

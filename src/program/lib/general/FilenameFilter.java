@@ -12,6 +12,7 @@
  */
 package freeguide.lib.general;
 
+import freeguide.*;
 import java.io.File;
 import java.util.regex.Pattern;
 
@@ -30,7 +31,7 @@ public class FilenameFilter extends javax.swing.filechooser.FileFilter implement
      *  Blank constructor matches anything
      */
     public FilenameFilter() {
-        this(".*", "All Files", true);
+        this( ".*", FreeGuide.msg.getString( "all_files" ), true );
     }
 
 
@@ -40,8 +41,9 @@ public class FilenameFilter extends javax.swing.filechooser.FileFilter implement
      *
      *@param  regex  Description of the Parameter
      */
-    public FilenameFilter(String regex) {
-        this(regex, "Filenames matching /" + regex + "/", true);
+    public FilenameFilter( String regex ) {
+        this( regex, FreeGuide.msg.getString( "filenames_matching" )
+            + " /" + regex + "/", true );
     }
 
 
@@ -52,8 +54,8 @@ public class FilenameFilter extends javax.swing.filechooser.FileFilter implement
      *@param  regex        Description of the Parameter
      *@param  description  Description of the Parameter
      */
-    public FilenameFilter(String regex, String description) {
-        this(regex, description, true);
+    public FilenameFilter( String regex, String description ) {
+        this( regex, description, true );
     }
 
 
@@ -65,7 +67,8 @@ public class FilenameFilter extends javax.swing.filechooser.FileFilter implement
      *@param  allowDirectories  Description of the Parameter
      */
     public FilenameFilter(String regex, boolean allowDirectories) {
-        this(regex, "Filenames matching /" + regex + "/", allowDirectories);
+        this( regex, FreeGuide.msg.getString( "filenames_matching" )
+            + " /" + regex + "/", allowDirectories );
     }
 
 

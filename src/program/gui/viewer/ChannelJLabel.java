@@ -13,6 +13,7 @@
 package freeguide.gui.viewer;
 
 import freeguide.*;
+import freeguide.lib.fgspecific.Channel;
 import freeguide.lib.fgspecific.FGPreferences;
 
 import java.awt.*;
@@ -28,47 +29,43 @@ import javax.swing.*;
  */
 public class ChannelJLabel extends JLabel implements ComponentListener{
 
-	private String id;
-	private String name;
-	private String cacheFileName;
-	private String currentIconFileName;
+    private Channel chan;
 
-	/**
-	 * Reset the icon to the default one of the channel (or none if no default icon)
-	 */
-	public void setDefaultIcon() {
-    	setIcon(cacheFileName);
-    	currentIconFileName = cacheFileName;
-	}
-	
-	/**
-	 * Get the cache file path that stores the default icon
-	 * @return the path to the cache file
-	 */
-	public String getCacheIconPath() {
-		return cacheFileName;
-	}
-	
-	/**
-	 * Set the icon of the channel
-	 * @param fileName the path to the image to use as an icon
-	 */
-	public void setIcon( String fileName ) {
+    /**
+     * Reset the icon to the default one of the channel (or none if no default icon)
+     */
+    public void setDefaultIcon() {
+        chan.deleteCustomIcon();
+        setIcon(chan.getIconFileName());
+    }
+    
+    /**
+     * Get the cache file path that stores the default icon
+     * @return the path to the cache file
+     */
+/*	public String getCacheIconPath() {
+        return chan.getIconFileName();
+    }*/
+    
+    /**
+     * Set the icon of the channel
+     * @param fileName the path to the image to use as an icon
+     */
+    public void setIcon(String fileName) {
+        chan.setCustomIcon(fileName);
         
-		currentIconFileName = fileName;
-        
-		// Create the icon from the file
-		ImageIcon icon = new ImageIcon( fileName );
+        // Create the icon from the file
+        ImageIcon icon = new ImageIcon( fileName );
         
         // Force the icon to have proportions 1.36 x 1
         
-		int icon_width  = icon.getIconWidth();
+        int icon_width  = icon.getIconWidth();
         int icon_height = icon.getIconHeight();
         
         int new_icon_width  = -1;
         int new_icon_height = -1;
         
-		int max_height = getHeight() - getInsets().top - getInsets().bottom;
+        int max_height = getHeight() - getInsets().top - getInsets().bottom;
         int max_width = (int)( 1.37 * (double)max_height );
         
         double new_over_old = (double)max_width / (double)icon_width;
@@ -87,72 +84,65 @@ public class ChannelJLabel extends JLabel implements ComponentListener{
         
         super.setIcon( new ImageIcon( icon.getImage().getScaledInstance(
             new_icon_width, new_icon_height, Image.SCALE_AREA_AVERAGING ) ) );
-        
     }
-	
-	/**
-	 * @param id the Id of the channel
-	 * @param name the displayed name of the channel
-	 */
-	public ChannelJLabel(String id, String name) {
-		super(name);
-		this.id = id;
-		this.name = name;
-		
-		// Compute the cache fileName
-		StringBuffer sb = FGPreferences.getIconCacheDir();
-		sb.append( id.replace( '.', '_' ).replaceAll( "[^a-zA-Z0-9_]","-" ) );
-		cacheFileName = sb.toString();
-		addComponentListener(this);
-	}
-        
-	/**
-	 * @return Returns the id.
-	 */
-	public String getId() {
-		return id;
-	}
     
-	/**
-	 * @return Returns the name.
-	 */
-	public String toString() {
-		return name;
-	}
+    /**
+     * @param id the Id of the channel
+     * @param name the displayed name of the channel
+     */
+    public ChannelJLabel(Channel chan) {
+        super(chan.getName());
+        this.chan = chan;
+        addComponentListener(this);
+    }
+        
+    /**
+     * @return Returns the channel object.
+     */
+    public Channel getChannel() {
+        return chan;
+    }
+    
+    /**
+     * @return Returns the name.
+     */
+    public String toString() {
+        return chan.toString();
+    }
 
-	/* (non-Javadoc)
-	 * @see java.awt.event.ComponentListener#componentHidden(java.awt.event.ComponentEvent)
-	 */
-	public void componentHidden(ComponentEvent e) {
-	}
+    /* (non-Javadoc)
+     * @see java.awt.event.ComponentListener#componentHidden(java.awt.event.ComponentEvent)
+     */
+    public void componentHidden(ComponentEvent e) {
+    }
 
-	/* (non-Javadoc)
-	 * @see java.awt.event.ComponentListener#componentMoved(java.awt.event.ComponentEvent)
-	 */
-	public void componentMoved(ComponentEvent e) {
-	}
+    /* (non-Javadoc)
+     * @see java.awt.event.ComponentListener#componentMoved(java.awt.event.ComponentEvent)
+     */
+    public void componentMoved(ComponentEvent e) {
+    }
 
-	/* (non-Javadoc)
-	 * @see java.awt.event.ComponentListener#componentResized(java.awt.event.ComponentEvent)
-	 */
-	public void componentResized(ComponentEvent e) {
-		if( currentIconFileName != null )
-			setIcon( currentIconFileName );
-	}
+    /* (non-Javadoc)
+     * @see java.awt.event.ComponentListener#componentResized(java.awt.event.ComponentEvent)
+     */
+    public void componentResized(ComponentEvent e) {
+        if( chan.getIconFileName() != null ) {
+            setIcon( chan.getIconFileName() );
+        }
+    }
 
-	/* (non-Javadoc)
-	 * @see java.awt.event.ComponentListener#componentShown(java.awt.event.ComponentEvent)
-	 */
-	public void componentShown(ComponentEvent e) {
-	}
+    /* (non-Javadoc)
+     * @see java.awt.event.ComponentListener#componentShown(java.awt.event.ComponentEvent)
+     */
+    public void componentShown(ComponentEvent e) {
+    }
 
-	/* (non-Javadoc)
-	 * @see javax.swing.JLabel#setIcon(javax.swing.Icon)
-	 */
-	public void setIcon(Icon icon) {
-		currentIconFileName = null;
-		super.setIcon(icon);
-	}
+    /* (non-Javadoc)
+     * @see javax.swing.JLabel#setIcon(javax.swing.Icon)
+     */
+    public void setIcon(Icon icon) {
+        super.setIcon(icon);
+    }
     
     public int getRequiredWidth() {
         

@@ -40,22 +40,22 @@ import javax.swing.tree.*;
 
 public class Utils {
 
-	public static void execNoWait( String cmd, PreferencesGroup prefs ) {
-		
-		String[] cmds = new String[1];
-		cmds[0] = cmd;
-		execNoWait( cmds, prefs );
-		
-	}
-	
-	/**
+    public static void execNoWait( String cmd, PreferencesGroup prefs ) {
+        
+        String[] cmds = new String[1];
+        cmds[0] = cmd;
+        execNoWait( cmds, prefs );
+        
+    }
+    
+    /**
      *  Execute an external command, without waiting for it to finish.
      *
      *@param  cmds  Description of the Parameter
      */
     public static void execNoWait(String[] cmds) {
-		execNoWait( cmds, FreeGuide.prefs );
-	}
+        execNoWait( cmds, FreeGuide.prefs );
+    }
     /**
      *  Execute an external command, without waiting for it to finish.
      *
@@ -68,15 +68,17 @@ public class Utils {
 
             // Substitute in any system variables for this command
             String cmdstr = prefs.performSubstitutions(cmds[i]);
-			
+            
             // Log what we're doing
-			if( FreeGuide.log != null ) {
-				FreeGuide.log.info("Executing system command in background: "
-					+ cmdstr);
-			} else {
-				System.err.println( "Executing system command in background: "
-					+ cmdstr );
-			}
+            if( FreeGuide.log != null ) {
+                FreeGuide.log.info( FreeGuide.msg.getString(
+                    "executing_system_command_in_background" ) + ": "
+                    + cmdstr );
+            } else {
+                System.err.println( FreeGuide.msg.getString(
+                    "executing_system_command_in_background" ) + ": "
+                     + cmdstr );
+            }
 
             try {
 
@@ -101,10 +103,10 @@ public class Utils {
      *@param  date         Description of the Parameter
      */
     public static void execAndWait(JFrame owner, String[] cmds,
-			String commandType, Calendar date) {
+            String commandType, Calendar date) {
 
         ExecutorDialog executor = new ExecutorDialog(owner, cmds, commandType,
-			date);
+            date);
         executor.setVisible(true);
 
     }
@@ -118,7 +120,7 @@ public class Utils {
      *@param  launcher     Description of the Parameter
      */
     public static void execAndWait(JFrame owner, String[] cmds,
-			String commandType) {
+            String commandType) {
 
         // Show the command execution window
         ExecutorDialog executor = new ExecutorDialog(owner, cmds, commandType);
@@ -126,12 +128,12 @@ public class Utils {
 
     }
 
-	public static void execAndWait(JFrame owner, String[] cmds, String commandType,
-			PreferencesGroup prefs) {
+    public static void execAndWait(JFrame owner, String[] cmds, String commandType,
+            PreferencesGroup prefs) {
 
         // Show the command execution window
         ExecutorDialog executor = new ExecutorDialog(owner, cmds, commandType,
-			prefs);
+            prefs);
         executor.setVisible(true);
 
     }
@@ -303,8 +305,8 @@ public class Utils {
         }
         return ans;
     }
-	
-	
+    
+    
     // ----------------------------------------------
 
     private final static char dosSlash = 127;

@@ -80,10 +80,10 @@ public class TimePanel extends javax.swing.JPanel {
                 //Rectangle viewable = new Rectangle();
                 //computeVisibleRect(viewable);
 
-                multiplier = (double) (endTime.getTimeInMillis() - startTime.getTimeInMillis()) / (double) (wid);
+                multiplier = (double) (endTime - startTime) / (double) (wid);
 
                 Calendar tmpTime = GregorianCalendar.getInstance();
-                tmpTime.setTimeInMillis(startTime.getTimeInMillis());
+                tmpTime.setTimeInMillis(startTime);
 
                 // Forget about seconds and milliseconds
                 tmpTime.set(Calendar.SECOND, 0);
@@ -93,9 +93,9 @@ public class TimePanel extends javax.swing.JPanel {
                 tmpTime.set(Calendar.MINUTE, ((int) (tmpTime.get(Calendar.MINUTE) / 5)) * 5);
 
                 // Step through each 5 mins
-                while (tmpTime.before(endTime)) {
+                while (tmpTime.getTimeInMillis() < endTime) {
 
-                    int xPos = (int) ((tmpTime.getTimeInMillis() - startTime.getTimeInMillis()) / multiplier);
+                    int xPos = (int) ((tmpTime.getTimeInMillis() - startTime) / multiplier);
 
                     // If this time is on screen, draw a mark
                     if (xPos + 50 >= drawHere.x && xPos - 50 <= (drawHere.x + drawHere.width)) {
@@ -134,7 +134,7 @@ public class TimePanel extends javax.swing.JPanel {
 
                 // Draw the "now" line
                 int xPos = getNowScroll();
-				drawNowLine(g, xPos);
+                drawNowLine(g, xPos);
 
             }
             //if
@@ -146,7 +146,7 @@ public class TimePanel extends javax.swing.JPanel {
     //paintComponent
 
 
-	/** Draws the "now line" on this panel as a black triangle.
+    /** Draws the "now line" on this panel as a black triangle.
      * 
      * @param g The graphics context to draw on.
      * @param xPos The x coordinate
@@ -161,7 +161,7 @@ public class TimePanel extends javax.swing.JPanel {
                              RenderingHints.VALUE_ANTIALIAS_ON);
         g2.fillPolygon(xPoints, yPoints, nPoints);
     }
-	
+    
     /**
      *  Gets the nowScroll attribute of the TimePanel object
      *
@@ -173,21 +173,22 @@ public class TimePanel extends javax.swing.JPanel {
 
     }
 
+    public int getScrollValue(long showMillis) {
+        if (display) {
+            if (showMillis >= startTime && showMillis <= endTime) {
+                return (int) ((showMillis - startTime) / multiplier);
+            }
+        }
+
+        return 0;
+    }
     /**
      *  Gets the value to use to scroll the to a specified time.
      *
      *@return    The value to use to scroll to showTime
      */
     public int getScrollValue(Calendar showTime) {
-
-        if (display) {
-
-            if (showTime.after(startTime) && showTime.before(endTime)) {
-                return (int) ((showTime.getTimeInMillis() - startTime.getTimeInMillis()) / multiplier);
-            }
-        }
-
-        return 0;
+        return getScrollValue(showTime.getTimeInMillis());
     }
 
     /**
@@ -198,14 +199,12 @@ public class TimePanel extends javax.swing.JPanel {
      */
     public void setTimes(Calendar newStartTime, Calendar newEndTime) {
 
-        startTime = GregorianCalendar.getInstance();
-        startTime.setTimeInMillis(newStartTime.getTimeInMillis());
+        startTime = newStartTime.getTimeInMillis();
 
-        endTime = GregorianCalendar.getInstance();
-        endTime.setTimeInMillis(newEndTime.getTimeInMillis());
+        endTime = newEndTime.getTimeInMillis();
 
         int wid = this.getPreferredSize().width;
-        multiplier = (double) (endTime.getTimeInMillis() - startTime.getTimeInMillis()) / (double) (wid);
+        multiplier = (double) (endTime - startTime) / (double) (wid);
 
         display = true;
 
@@ -217,9 +216,9 @@ public class TimePanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
-    private Calendar startTime;
+    private long startTime;
     // The time on the left hand side of the panel
-    private Calendar endTime;
+    private long endTime;
     // The time on the right hand side of the panel
     private double multiplier;
     // The no. millisecs over the no. pixels

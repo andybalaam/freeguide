@@ -32,7 +32,8 @@ public class NewVersionDialog extends JDialog {
      *
      */
     public NewVersionDialog( JFrame parent ) {
-        super( parent, "New Version Available", true);
+        super( parent, FreeGuide.msg.getString( "new_version_available" ),
+            true );
         
         initComponents();
     }
@@ -47,41 +48,44 @@ public class NewVersionDialog extends JDialog {
         
         java.awt.GridBagConstraints gridBagConstraints;
 
-		JLabel labTopMessage = new javax.swing.JLabel(
-			"There is a new version of FreeGuide available at:" );
-		
-		butURL = new javax.swing.JButton( "http://freeguide-tv.sourceforge.net" );
-		chkTellMeAgain = new javax.swing.JCheckBox( "Check this every time FreeGuide starts", true );
-        butOK = new javax.swing.JButton( "OK" );
-		
-		Container pane = getContentPane();
-		
+        JLabel labTopMessage = new javax.swing.JLabel(
+            FreeGuide.msg.getString( "new_version_available_at" ) + ":" );
+        
+        butURL = new javax.swing.JButton(
+            "http://freeguide-tv.sourceforge.net" );
+            
+        chkTellMeAgain = new javax.swing.JCheckBox(
+            FreeGuide.msg.getString( "check_new_version_every_time" ), true );
+        butOK = new javax.swing.JButton( FreeGuide.msg.getString( "ok" ) );
+        
+        Container pane = getContentPane();
+        
         pane.setLayout(new java.awt.GridBagLayout());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pane.add(labTopMessage, gridBagConstraints);
-		
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pane.add(butURL, gridBagConstraints);
-		butURL.addActionListener(
+        butURL.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     butURLActionPerformed(evt);
                 }
             });
-		
+        
         gridBagConstraints.gridy = 2;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
         pane.add(chkTellMeAgain, gridBagConstraints);
-		
-		gridBagConstraints.gridy = 3;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.NONE;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.NONE;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         pane.add(butOK, gridBagConstraints);
 
         butOK.addActionListener(
@@ -91,13 +95,13 @@ public class NewVersionDialog extends JDialog {
                 }
             });
 
-		getRootPane().setDefaultButton( butOK );
-			
-		pack();  // pack comes before the size instructions or they get ignored.
-		
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();		
+        getRootPane().setDefaultButton( butOK );
+            
+        pack();  // pack comes before the size instructions or they get ignored.
+        
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();        
         setLocation((screenSize.width - getWidth()) / 2, (screenSize.height - getHeight()) / 2);
-		
+        
   }
 
     /**
@@ -106,29 +110,29 @@ public class NewVersionDialog extends JDialog {
      *@param  evt  Description of the Parameter
      */
     private void butOKActionPerformed(java.awt.event.ActionEvent evt) {
-		
-		if( !chkTellMeAgain.isSelected() ) {
-			
-			FreeGuide.prefs.misc.put( "privacy", "no" );
-			
-		}
+        
+        if( !chkTellMeAgain.isSelected() ) {
+            
+            FreeGuide.prefs.misc.put( "privacy", "no" );
+            
+        }
 
         quit();
     }
-	
-	/**
+    
+    /**
      *  Description of the Method
      *
      *@param  evt  Description of the Parameter
      */
     private void butURLActionPerformed(java.awt.event.ActionEvent evt) {
-		
-		String[] cmds = Utils.substitute(
-			FreeGuide.prefs.commandline.getStrings( "browser_command" ),
-			"%filename%",
-			butURL.getText() );
+        
+        String[] cmds = Utils.substitute(
+            FreeGuide.prefs.commandline.getStrings( "browser_command" ),
+            "%filename%",
+            butURL.getText() );
             Utils.execNoWait(cmds);
-		
+        
     }
   
     /**
@@ -150,7 +154,7 @@ public class NewVersionDialog extends JDialog {
     }
 
 
-	private JButton butURL;
+    private JButton butURL;
     private JCheckBox chkTellMeAgain;
     private JButton butOK;
 

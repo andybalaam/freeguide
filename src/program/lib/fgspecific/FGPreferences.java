@@ -47,9 +47,9 @@ public class FGPreferences {
     public FGPreferences(String subNode) {
 
         prefs = Preferences.userRoot().node( "/org/freeguide-tv/" + subNode );
-        /*system_prefs = Preferences.systemRoot().node(
-            "/org/freeguide-tv/" + subNode);*/
-
+        
+        listeners = new Vector();
+        
     }
 
 
@@ -86,11 +86,14 @@ public class FGPreferences {
      *@param  values                     Description of the Parameter
      *@exception  BackingStoreException  Description of the Exception
      */
-    public void replaceAll(String[] keys, String[] values) throws BackingStoreException {
-        clear();
+    public void replaceAll( String[] keys, String[] values )
+        throws BackingStoreException
+    {
+        clear( false );
         for (int i = 0; i < keys.length; i++) {
-            put(keys[i], values[i]);
+            put( keys[i], values[i], false );
         }
+        notifyListeners( "-all-", "replaceAll" );
     }
 
 
@@ -102,13 +105,18 @@ public class FGPreferences {
      *@param  values                     Description of the Parameter
      *@exception  BackingStoreException  Description of the Exception
      */
-    public void replaceAllFavourites(String[] keys, List values) throws BackingStoreException {
-        clear();
-	Iterator favouritesIterator = values.iterator();
-	int i = 0;
-	while (favouritesIterator.hasNext()) {
-            putFavourite(keys[i++], (Favourite)favouritesIterator.next());
+    public void replaceAllFavourites(String[] keys, List values)
+        throws BackingStoreException
+    {
+        clear( false );
+        Iterator favouritesIterator = values.iterator();
+        int i = 0;
+        while (favouritesIterator.hasNext()) {
+            putFavourite( keys[i++],
+                (Favourite)favouritesIterator.next(), false );
         }
+        notifyListeners( "-all-", "replaceAllFavourites" );
+        
     }
 
 
@@ -119,11 +127,14 @@ public class FGPreferences {
      *@param  values                     Description of the Parameter
      *@exception  BackingStoreException  Description of the Exception
      */
-    public void replaceAllChannelSets(String[] keys, ChannelSetInterface[] values) throws BackingStoreException {
-        clear();
+    public void replaceAllChannelSets(String[] keys,
+        ChannelSetInterface[] values) throws BackingStoreException
+    {
+        clear( false );
         for (int i = 0; i < keys.length; i++) {
-            putChannelSet(keys[i], values[i]);
+            putChannelSet( keys[i], values[i], false );
         }
+        notifyListeners( "-all-", "replaceAllFavourites" );
     }
 
 
@@ -134,7 +145,7 @@ public class FGPreferences {
      *
      *@param  prog  Description of the Parameter
      */
-    public void appendProgramme(Programme prog) {
+    public void appendProgramme( Programme prog ) {
 
         // Find the first unoccupied spot
         int i = 1;
@@ -145,9 +156,11 @@ public class FGPreferences {
         }
 
         // And put our programme in it
-        put(i + ".title", prog.getTitle());
-        putDate(i + ".start", prog.getStart().getTime());
-        put(i + ".channel_id", prog.getChannelID());
+        put( i + ".title", prog.getTitle(), false );
+        putDate( i + ".start", prog.getStart().getTime(), false );
+        put( i + ".channel_id", prog.getChannel().getID(), false );
+        
+        notifyListeners( String.valueOf( i ), prog );
 
     }
 
@@ -159,7 +172,7 @@ public class FGPreferences {
      *@param  fav  Description of the Parameter
      */
     public void appendFavourite(Favourite fav) {
-
+        
         // Find the first unoccupied spot
         int i = 1;
         String title = get(i + ".name");
@@ -167,32 +180,33 @@ public class FGPreferences {
             i++;
             title = get(i + ".name");
         }
-
-        putFavourite(String.valueOf(i), fav);
-
+        
+        putFavourite( String.valueOf( i ), fav );
     }
 
 
     /**
-     *  Description of the Method
+     * Return the index number of a programme, if it is stored in the
+     * preferences, or -1 if it is not.  Uses the title, start time and
+     * channel id to identify a match.
      *
-     *@param  prog  Description of the Parameter
-     *@return       Description of the Return Value
+     *@param  prog  The programme to search for
+     *@return       The index number of the programme, or -1 if not found
      */
-    public int findProgramme(Programme prog) {
+    public int findProgramme( Programme prog ) {
 
         int i = 1;
 
-        String title = get(i + ".title");
+        String title = get( i + ".title" );
 
-        while (title != null) {
+        while( title != null ) {
 
             String startKey = i + ".start";
             String channelIDKey = i + ".channel_id";
 
             if (title.equals(prog.getTitle()) &&
                     getDate(startKey, null).equals(prog.getStart().getTime()) &&
-                    get(channelIDKey, "").equals(prog.getChannelID())) {
+                    get(channelIDKey, "").equals(prog.getChannel().getID())) {
 
                 // If this is the programme, return
                 return i;
@@ -200,7 +214,7 @@ public class FGPreferences {
 
             // Otherwise look at the next one
             i++;
-            title = get(i + ".title");
+            title = get( i + ".title" );
 
         }
 
@@ -214,96 +228,98 @@ public class FGPreferences {
      *
      *@param  index  The index number in the list of the programme to remove
      */
-    public void removeChoice( int index ) {
+    public void removeFromGuide( int index ) {
 
-		//FreeGuide.log.info( "begin" );
-		
+        int orig_index = index;
+        
         // Remove these even though they will be over-written in a minute
         // (just for neatness)
-        remove(index + ".title");
-        remove(index + ".start");
-        remove(index + ".channel_id");
+        remove( index + ".title", false );
+        remove( index + ".start", false );
+        remove( index + ".channel_id", false );
 
         // Shift everything down
         index++;
         String title = get(index + ".title");
         while (title != null) {
 
-            put((index - 1) + ".title", title);
-            putDate((index - 1) + ".start", getDate(index + ".start", null));
-            put((index - 1) + ".channel_id", get(index + ".channel_id", ""));
+            put( (index - 1) + ".title", title, false );
+            putDate( (index - 1) + ".start", getDate( index + ".start", null ), 
+                false );
+            put( (index - 1) + ".channel_id", get( index + ".channel_id", "" ),
+                false);
 
             index++;
-            title = get(index + ".title");
+            title = get( index + ".title" );
 
         }
 
         // Remove the last one in the list
         // (so that it's 1 shorter than what we started with)
-        remove((index - 1) + ".title");
-        remove((index - 1) + ".start");
-        remove((index - 1) + ".channel_id");
+        remove( (index - 1) + ".title", false );
+        remove( (index - 1) + ".start", false );
+        remove( (index - 1) + ".channel_id", false );
 
-		//FreeGuide.log.info( "end" );
-		
+        notifyListeners( String.valueOf( orig_index ), null );
+        
     }
 
-	
-	/**
+    
+    /**
      *  Remove some chosen programmes from the list of choices
      *
      *@param  indices  The indices of the programmes to remove
      */
-    public void removeChoices( int[] indices ) {
+    public void removeFromGuides( int[] indices ) {
 
-		//FreeGuide.log.info( "indices.length=" + indices.length );
-		
-		Vector oldIndices = new Vector();
-		Vector newTitles = new Vector();
-		Vector newStarts = new Vector();
-		Vector newChannelIDs = new Vector();
-		
-		// Get the indices into a vector
-		for( int i = 0; i<indices.length; i++ ) {
-			
-			oldIndices.add( new Integer( indices[i] ) );
-			
-		}
-		
-		String title;
-		int index;
-		
-		index = 1;
-		title = get( index + ".title" );
-		while( title != null ) {
-			
-			// Unless this index is to be deleted, add this choice to new vector
-			if( oldIndices.indexOf( new Integer(index) ) == -1 ) {
-			
-				newTitles.add( title );
-				newStarts.add( getDate( index + ".start", null ) );
-				newChannelIDs.add( get( index + ".channel_id", "" ) );
-				
-			}
-			
-			// And delete it from the preferences
-			remove( index + ".title" );
-			remove( index + ".start" );
-			remove( index + ".channel_id" );
-			
-			index++;
-			title = get( index + ".title" );
-			
-		}
-		
-		for( int i=0; i<newTitles.size(); i++ ) {
-			
-			put( (i+1) + ".title", (String)newTitles.get(i) );
-			putDate( (i+1) + ".start", (Date)newStarts.get(i) );
-			put( (i+1) + ".channel_id", (String)newChannelIDs.get(i) );
-			
-		}
-		
+        Vector oldIndices = new Vector();
+        Vector newTitles = new Vector();
+        Vector newStarts = new Vector();
+        Vector newChannelIDs = new Vector();
+        
+        // Get the indices into a vector
+        for( int i = 0; i<indices.length; i++ ) {
+            
+            oldIndices.add( new Integer( indices[i] ) );
+            
+        }
+        
+        String title;
+        int index;
+        
+        index = 1;
+        title = get( index + ".title" );
+        while( title != null ) {
+            
+            // Unless this index is to be deleted, add this choice to new vector
+            if( oldIndices.indexOf( new Integer(index) ) == -1 ) {
+            
+                newTitles.add( title );
+                newStarts.add( getDate( index + ".start", null ) );
+                newChannelIDs.add( get( index + ".channel_id", "" ) );
+                
+            }
+            
+            // And delete it from the preferences
+            remove( index + ".title", false );
+            remove( index + ".start", false );
+            remove( index + ".channel_id", false );
+            
+            index++;
+            title = get( index + ".title" );
+            
+        }
+        
+        for( int i=0; i<newTitles.size(); i++ ) {
+            
+            put( (i+1) + ".title", (String)newTitles.get(i), false );
+            putDate( (i+1) + ".start", (Date)newStarts.get(i), false );
+            put( (i+1) + ".channel_id", (String)newChannelIDs.get(i), false );
+            
+        }
+        
+        notifyListeners( "-several-", null );
+        
     }
 
     /**
@@ -311,30 +327,37 @@ public class FGPreferences {
      *
      *@param  index  Description of the Parameter
      */
-    public void removeFavourite(int index) {
+    public void removeFavourite( int index ) {
 
+        int orig_index = index;
+        
         // Remove these even though they will be over-written in a minute
         // (just for neatness)
-        remove(index + ".name");
-        remove(index + ".title_string");
-        remove(index + ".title_regex");
-        remove(index + ".channel_id");
-        remove(index + ".after_time");
-        remove(index + ".before_time");
-        remove(index + ".day_of_week");
+        remove(index + ".name", false);
+        remove(index + ".title_string", false);
+        remove(index + ".title_regex", false);
+        remove(index + ".channel_id", false);
+        remove(index + ".after_time", false);
+        remove(index + ".before_time",false);
+        remove(index + ".day_of_week", false);
 
         // Shift everything down
         index++;
         String name = get(index + ".name");
         while (name != null) {
 
-            put((index - 1) + ".name", get(index + ".name"));
-            put((index - 1) + ".title_string", get(index + ".title_string"));
-            put((index - 1) + ".title_regex", get(index + ".title_regex"));
-            put((index - 1) + ".channel_id", get(index + ".channel_id"));
-            put((index - 1) + ".after_time", get(index + ".after_time"));
-            put((index - 1) + ".before_time", get(index + ".before_time"));
-            put((index - 1) + ".day_of_week", get(index + ".day_of_week"));
+            put((index - 1) + ".name", get(index + ".name"), false);
+            put((index - 1) + ".title_string", get(index + ".title_string"),
+                false);
+            put((index - 1) + ".title_regex", get(index + ".title_regex"),
+                false);
+            put((index - 1) + ".channel_id", get(index + ".channel_id"),
+                false);
+            put((index - 1) + ".after_time", get(index + ".after_time"), false);
+            put((index - 1) + ".before_time", get(index + ".before_time"),
+                false);
+            put((index - 1) + ".day_of_week", get(index + ".day_of_week"),
+                false);
 
             index++;
             name = get(index + ".name");
@@ -343,14 +366,16 @@ public class FGPreferences {
 
         // Remove the last one in the list
         // (so that it's 1 shorter than what we started with)
-        remove((index - 1) + ".name");
-        remove((index - 1) + ".title_string");
-        remove((index - 1) + ".title_regex");
-        remove((index - 1) + ".channel_id");
-        remove((index - 1) + ".after_time");
-        remove((index - 1) + ".before_time");
-        remove((index - 1) + ".day_of_week");
+        remove((index - 1) + ".name", false);
+        remove((index - 1) + ".title_string", false);
+        remove((index - 1) + ".title_regex", false);
+        remove((index - 1) + ".channel_id", false);
+        remove((index - 1) + ".after_time", false);
+        remove((index - 1) + ".before_time", false);
+        remove((index - 1) + ".day_of_week", false);
 
+        notifyListeners( "-several-", null );
+        
     }
 
 
@@ -388,15 +413,17 @@ public class FGPreferences {
         int i;
         for (i = 0; i < values.length; i++) {
 
-            put(key + "." + (i + 1), values[i]);
+            put(key + "." + (i + 1), values[i], false);
 
         }
 
         while (get(key + "." + (i + 1), null) != null) {
-            remove(key + "." + (i + 1));
+            remove(key + "." + (i + 1), false);
             i++;
         }
 
+        notifyListeners( key, values );
+        
     }
 
 
@@ -412,18 +439,7 @@ public class FGPreferences {
         
         return prefs.get( key, null );
         
-        /*String value = prefs.get( key, null );
-        if( value == null ) {
-            value = getSystem( key );
-        }
-        return value;*/
-        
     }
-
-    /*public String getSystem(String key) {
-        return system_prefs.get( key, null );
-    }*/
-    
 
     // ------------------------------------------------------------------------
     // Special pseudo-wrappers
@@ -452,10 +468,16 @@ public class FGPreferences {
      *@param  value  Description of the Parameter
      */
     public void putInteger(String key, Integer value) {
-        if (value != null) {
-            putInt(key, value.intValue());
+        putInteger( key, value, true );
+    }
+    public void putInteger(String key, Integer value, boolean notify) {
+        if( value != null ) {
+            putInt(key, value.intValue(), false);
         } else {
-            remove(key);
+            remove( key, false );
+        }
+        if( notify ) {
+            notifyListeners( key, value );
         }
     }
 
@@ -484,10 +506,16 @@ public class FGPreferences {
      *@param  value  Description of the Parameter
      */
     public void putDate(String key, Date value) {
+        putDate( key, value, true );
+    }
+    public void putDate(String key, Date value, boolean notify) {
         if (value != null) {
-            putLong(key, value.getTime());
+            putLong(key, value.getTime(), false);
         } else {
-            remove(key);
+            remove(key, false);
+        }
+        if( notify ) {
+            notifyListeners( key, value );
         }
     }
 
@@ -545,15 +573,21 @@ public class FGPreferences {
      *@param  value  Description of the Parameter
      */
     public void putColor(String key, Color value) {
+        putColor( key, value, true );
+    }
+    public void putColor(String key, Color value, boolean notify) {
 
         if (value != null) {
-            putInt(key + ".r", value.getRed());
-            putInt(key + ".g", value.getGreen());
-            putInt(key + ".b", value.getBlue());
+            putInt(key + ".r", value.getRed(), false);
+            putInt(key + ".g", value.getGreen(), false);
+            putInt(key + ".b", value.getBlue(), false);
         } else {
-            remove(key + ".r");
-            remove(key + ".g");
-            remove(key + ".b");
+            remove(key + ".r", false);
+            remove(key + ".g", false);
+            remove(key + ".b", false);
+        }
+        if( notify ) {
+            notifyListeners( key, value );
         }
     }
 
@@ -580,10 +614,16 @@ public class FGPreferences {
      *@param  value  Description of the Parameter
      */
     public void putPattern(String key, Pattern value) {
+        putPattern( key, value, true );
+    }
+    public void putPattern(String key, Pattern value, boolean notify) {
         if (value != null) {
-            put(key, value.pattern());
+            put(key, value.pattern(), false);
         } else {
-            remove(key);
+            remove(key, false);
+        }
+        if( notify ) {
+            notifyListeners( key, value );
         }
     }
 
@@ -623,10 +663,16 @@ public class FGPreferences {
      *@param  value  Description of the Parameter
      */
     public void putTime(String key, Time value) {
+        putTime( key, value, true );
+    }
+    public void putTime(String key, Time value, boolean notify) {
         if (value != null) {
-            put(key, value.getHHMMString());
+            put(key, value.getHHMMString(), false);
         } else {
-            remove(key);
+            remove(key, false);
+        }
+        if( notify ) {
+            notifyListeners( key, value );
         }
     }
 
@@ -654,8 +700,7 @@ public class FGPreferences {
             Calendar cal = GregorianCalendar.getInstance();
             cal.setTime(getDate(key + ".start", null));
             prog.setStart(cal);
-
-            prog.setChannelID(get(key + ".channel_id", ""));
+            prog.setChannel( new Channel( get( key + ".channel_id", "" ) ) );
 
             return prog;
         }
@@ -684,7 +729,12 @@ public class FGPreferences {
             fav.setTitleString(get(key + ".title_string"));
             fav.setTitleContains(get(key + ".title_contains"));
             fav.setTitleRegex(getPattern(key + ".title_regex", null));
-            fav.setChannelID(get(key + ".channel_id"));
+            String channel_id = get( key + ".channel_id" );
+            if( channel_id == null || channel_id.equals( "" ) ) {
+                fav.setChannel( null );
+            } else {
+                fav.setChannel( new Channel( channel_id ) );
+            }
             fav.setAfterTime(getTime(key + ".after_time", null));
             fav.setBeforeTime(getTime(key + ".before_time", null));
             fav.setDayOfWeek(getInteger(key + ".day_of_week", null));
@@ -701,16 +751,23 @@ public class FGPreferences {
      *@param  value  Description of the Parameter
      */
     public void putFavourite(String key, Favourite value) {
+        putFavourite( key, value, true );
+    }
+    public void putFavourite( String key, Favourite value, boolean notify ) {
 
-        put(key + ".name", value.getName());
-        put(key + ".title_string", value.getTitleString());
-        put(key + ".title_contains", value.getTitleContains());
-        putPattern(key + ".title_regex", value.getTitleRegex());
-        put(key + ".channel_id", value.getChannelID());
-        putTime(key + ".after_time", value.getAfterTime());
-        putTime(key + ".before_time", value.getBeforeTime());
-        putInteger(key + ".day_of_week", value.getDayOfWeek());
+        put(key + ".name", value.getName(), false);
+        put(key + ".title_string", value.getTitleString(), false);
+        put(key + ".title_contains", value.getTitleContains(), false);
+        putPattern(key + ".title_regex", value.getTitleRegex(), false);
+        put(key + ".channel_id", value.getChannelID(), false);
+        putTime(key + ".after_time", value.getAfterTime(), false);
+        putTime(key + ".before_time", value.getBeforeTime(), false);
+        putInteger(key + ".day_of_week", value.getDayOfWeek(), false);
 
+        if( notify ) {
+            notifyListeners( key, value );
+        }
+        
     }
 
 
@@ -749,9 +806,18 @@ public class FGPreferences {
      *@param  key    Description of the Parameter
      *@param  value  Description of the Parameter
      */
-    public void putChannelSet(String key, ChannelSetInterface value) {
-        put(key + ".name", value.getChannelSetName());
-        put(key + ".channelids", ChannelSet.toString(value.getChannelIDs()));
+    public void putChannelSet( String key, ChannelSetInterface value ) {
+        putChannelSet( key, value, true );
+    }
+    public void putChannelSet( String key, ChannelSetInterface value,
+        boolean notify )
+    {
+        put(key + ".name", value.getChannelSetName(), false);
+        put(key + ".channelids", ChannelSet.toString(value.getChannels()),
+            false);
+        if( notify ) {
+            notifyListeners( key, value );
+        }
     }
 
 
@@ -911,18 +977,19 @@ public class FGPreferences {
      *@param  key    Description of the Parameter
      *@param  value  Description of the Parameter
      */
-    public void put(String key, String value) {
-        if (value != null) {
-            prefs.put(key, value);
+    public void put( String key, String value ) {
+        put( key, value, true );
+    }
+    public void put( String key, String value, boolean notify ) {
+        if( value != null ) {
+            prefs.put( key, value );
         } else {
-            remove(key);
+            remove( key, false );
+        }
+        if( notify ) {
+            notifyListeners( key, value );
         }
     }
-
-    /*public void putSystem(String key, String value) {
-        system_prefs.put(key, value);
-    }*/
-    
     
     /**
      *  Description of the Method
@@ -930,8 +997,14 @@ public class FGPreferences {
      *@param  key    Description of the Parameter
      *@param  value  Description of the Parameter
      */
-    public void putBoolean(String key, boolean value) {
-        prefs.putBoolean(key, value);
+    public void putBoolean( String key, boolean value ) {
+        putBoolean( key, value, true );
+    }
+    public void putBoolean( String key, boolean value, boolean notify ) {
+        prefs.putBoolean( key, value );
+        if( notify ) {
+            notifyListeners( key, new Boolean( value ) );
+        }
     }
 
 
@@ -942,7 +1015,13 @@ public class FGPreferences {
      *@param  value  Description of the Parameter
      */
     public void putByteArray(String key, byte[] value) {
-        prefs.putByteArray(key, value);
+        putByteArray( key, value, true );
+    }
+    public void putByteArray( String key, byte[] value, boolean notify ) {
+        prefs.putByteArray( key, value );
+        if( notify ) {
+            notifyListeners( key, value );
+        }
     }
 
 
@@ -953,7 +1032,13 @@ public class FGPreferences {
      *@param  value  Description of the Parameter
      */
     public void putDouble(String key, double value) {
+        putDouble( key, value, true );
+    }
+    public void putDouble( String key, double value, boolean notify ) {
         prefs.putDouble(key, value);
+        if( notify ) {
+            notifyListeners( key, new Double( value ) );
+        }
     }
 
 
@@ -964,7 +1049,13 @@ public class FGPreferences {
      *@param  value  Description of the Parameter
      */
     public void putFloat(String key, float value) {
+        putFloat( key, value, true );
+    }
+    public void putFloat( String key, float value, boolean notify ) {
         prefs.putFloat(key, value);
+        if( notify ) {
+            notifyListeners( key, new Float( value ) );
+        }
     }
 
 
@@ -975,7 +1066,13 @@ public class FGPreferences {
      *@param  value  Description of the Parameter
      */
     public void putInt(String key, int value) {
+        putInt( key, value, true );
+    }
+    public void putInt( String key, int value, boolean notify ) {
         prefs.putInt(key, value);
+        if( notify ) {
+            notifyListeners( key, new Integer( value ) );
+        }
     }
 
 
@@ -986,7 +1083,13 @@ public class FGPreferences {
      *@param  value  Description of the Parameter
      */
     public void putLong(String key, long value) {
+        putLong( key, value, true );
+    }
+    public void putLong(String key, long value, boolean notify) {
         prefs.putLong(key, value);
+        if( notify ) {
+            notifyListeners( key, new Long( value ) );
+        }
     }
 
 
@@ -996,7 +1099,13 @@ public class FGPreferences {
      *@exception  BackingStoreException  Description of the Exception
      */
     public void clear() throws BackingStoreException {
+        clear( true );
+    }
+    public void clear( boolean notify ) throws BackingStoreException {
         prefs.clear();
+        if( notify ) {
+            notifyListeners( "", null );
+        }
     }
 
 
@@ -1016,7 +1125,13 @@ public class FGPreferences {
      *@param  key  Description of the Parameter
      */
     public void remove(String key) {
+        remove( key, true );
+    }
+    public void remove( String key, boolean notify ) {
         prefs.remove(key);
+        if( notify ) {
+            notifyListeners( key, null );
+        }
     }
 
 
@@ -1065,12 +1180,15 @@ public class FGPreferences {
      *@exception  InvalidPreferencesFormatException  Description of the
      *      Exception
      */
-    public void importPreferences(InputStream is) throws java.io.IOException, BackingStoreException, InvalidPreferencesFormatException {
-        prefs.importPreferences(is);
+    public void importPreferences( InputStream is )
+        throws java.io.IOException,
+               BackingStoreException,
+               InvalidPreferencesFormatException
+    {
+        prefs.importPreferences( is );
+        notifyListeners( "", null );
     }
 
-
-    // BEANO - 22/08/03
 
     /**
      * Updates a boolean preference if the value of the preference has changed from
@@ -1082,26 +1200,24 @@ public class FGPreferences {
      * @return Returns <code>true</code> if the values has been 
      *      updated, otherwise returns <code>false</code>.
      */
-    public boolean updateBoolean(String _key, boolean value) {
-        /*boolean changed = false;
-        boolean defaultValue = false;
+    public boolean updateBoolean( String _key, boolean value ) {
         
-        boolean temp = getBoolean(_key, defaultValue);
-        if (temp != value) {
-            changed = true;
-            putBoolean(_key, value);                
+        String val_str = value ? "true" : "false";
+        String temp = get( _key );
+        
+        if ( temp == null || !temp.equals( val_str ) ) {
+            putBoolean( _key, value );               
+            return true;
         }
         
-        return changed;*/
-		
-		return update( _key, value ? "true" : "false" );
-		
+        return false;
+        
     }
 
-	/**
+    /**
      * Updates a time preference if the value of the preference has changed from
      * that already stored. Returns a boolean value to indicate if the value
-	 * has been updated.
+     * has been updated.
      *
      * @param  _key    The name of the preference to update
      * @param  value  The <code>Time</code> value to set
@@ -1109,53 +1225,45 @@ public class FGPreferences {
      *      updated, otherwise returns <code>false</code>.
      */
     public boolean updateTime(String _key, Time value) {
-        /*boolean changed = false;        
-        Time defaultValue = new Time();
         
-        Time temp = getTime(_key, defaultValue);
-        if (!temp.equals(value)) {
-            changed = true;
-            putTime(_key, value);                
+        String temp = get( _key );
+        
+        if ( temp == null || !temp.equals( value ) ) {
+            putTime( _key, value );               
+            return true;
         }
         
-        return changed;*/
-		
-		return update( _key, value.getHHMMString() );
-		
+        return false;
+
     }
-	
+    
     /**
      * Updates a colour preference if the value of the preference has changed
-	 * from that already stored. Returns a boolean value to indicate if the
-	 * value has been updated.
+     * from that already stored. Returns a boolean value to indicate if the
+     * value has been updated.
      *
      * @param  _key    The name of the preference to update
      * @param  value  The <code>Color</code> value to set
      * @return Returns <code>true</code> if the value has been 
      *      updated, otherwise returns <code>false</code>.
      */
-    public boolean updateColor(String _key, Color value) {        
+    public boolean updateColor( String _key, Color value ) {        
         
-        String temp = get(_key);
+        String temp = get( _key );
         
-        if ( temp == null ) {
-            putColor(_key, value);               
-			return true;
-        }
-		
-		if( !temp.equals(value) ) {
-            putColor(_key, value);
-            return true;  
+        if ( temp == null || !temp.equals( value ) ) {
+            putColor( _key, value );               
+            return true;
         }
         
         return false;
-		
+        
     }
 
     /**
      * Updates an int preference if the value of the preference has changed from
      * that already stored. Returns a boolean value to indicate if the value
-	 * has been updated.
+     * has been updated.
      *
      * @param  _key    The name of the preference to update
      * @param  value  The <code>int</code> value to set
@@ -1163,18 +1271,7 @@ public class FGPreferences {
      *      updated, otherwise returns <code>false</code>.
      */
     public boolean updateInt(String _key, int value) {
-        /*boolean changed = false;        
-        int defaultValue = -1;
-        
-        int temp = getInt(_key, defaultValue);
-        if (temp != value) {
-            changed = true;
-            putInt(_key, value);               
-        }
-        
-        return changed;*/
-		
-		return update( _key, String.valueOf( value ) );
+        return update( _key, String.valueOf( value ) );
     }
 
     /**
@@ -1195,12 +1292,12 @@ public class FGPreferences {
         if (temp == null ) {
             if (value != null) {
                 changed = true;
-                put(_key, value);               
+                put( _key, value );
             }
 
         } else if (value == null || !temp.equals(value)) {
             changed = true;
-            put(_key, value);               
+            put( _key, value );
         }
         
         return changed;
@@ -1210,19 +1307,40 @@ public class FGPreferences {
         
         StringBuffer ans = new StringBuffer(
             FreeGuide.prefs.performSubstitutions(
-				FreeGuide.prefs.misc.get("working_directory") ) );
-		ans.append(File.separatorChar).append("iconcache")
+                FreeGuide.prefs.misc.get("working_directory") ) );
+        ans.append(File.separatorChar).append("iconcache")
             .append(File.separatorChar);
         
         return ans;
         
     }
 
+    public void addFGPreferenceChangeListener(
+        FGPreferenceChangeListener listener )
+    {
+        listeners.add( listener );
+    }
+    
+    public void removeFGPreferenceChangeListener(
+        FGPreferenceChangeListener listener )
+    {
+        listeners.remove( listener );
+    }
+    
+    private void notifyListeners( String key, Object value ) {
+        
+        Iterator iter = listeners.iterator();
+        while( iter.hasNext() ) {
+            ( (FGPreferenceChangeListener)( iter.next() ) ).preferenceChange(
+                new FGPreferenceChangeEvent( key, value, this ) );
+        }
+        
+    }
 
     // ------------------------------------------------------------------------
 
     private Preferences prefs;
-    //private Preferences system_prefs;
+    private Vector listeners;
 
 }
 

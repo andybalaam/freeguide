@@ -42,9 +42,13 @@ public class AboutFrame extends javax.swing.JDialog {
         str += "<table width=\"100%\" height=\"100%\" border=\"0\"><tr><td height=\"100%\" align=\"center\">";
         str += "<h1><font face='arial, helvetica, helv, sans serif' size=\"5\">FreeGuide " + FreeGuide.version.getDotFormat()
             + "</font></h1>";
-        str += "<p>Free software by the FreeGuide contributors.</p>";
-        str += "<p>Web: <a href=\"http://freeguide-tv.sourceforge.net\">freeguide-tv.sourceforge.net</a></p>";
-        str += "<p>Mail: <a href=\"mailto:freeguide-tv-devel@lists.sourceforge.net\">freeguide-tv-devel@lists.sourceforge.net</a></p>";
+        str += "<p>";
+        str += FreeGuide.msg.getString( "free_software_by_contributors" );
+        str += "</p><p>";
+        str += FreeGuide.msg.getString( "web" );
+        str += ": <a href=\"http://freeguide-tv.sourceforge.net\">freeguide-tv.sourceforge.net</a></p><p>";
+        str += FreeGuide.msg.getString( "mail" );
+        str += ": <a href=\"mailto:freeguide-tv-devel@lists.sourceforge.net\">freeguide-tv-devel@lists.sourceforge.net</a></p>";
         str += "</td></tr></table>";
         str += "</font>";
 
@@ -133,8 +137,9 @@ public class AboutFrame extends javax.swing.JDialog {
      *@param  args  the command line arguments
      */
     public static void main(String args[]) {
-		
-        new AboutFrame(new javax.swing.JFrame(), true).setVisible( true );
+
+        new AboutFrame( new javax.swing.JFrame(), true ).setVisible( true );
+
     }
 
 

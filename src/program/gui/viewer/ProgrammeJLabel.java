@@ -10,6 +10,7 @@
  */
 
 package freeguide.gui.viewer;
+import freeguide.lib.general.*;
 
 import freeguide.*;
 import freeguide.lib.fgspecific.*;
@@ -23,10 +24,18 @@ import java.io.InputStream;
 import java.net.*;
 import java.text.*;
 import java.util.*;
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
-//import javax.swing.Timer;   can't import because of java.util.Timer
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JToolTip;
+import javax.swing.KeyStroke;
 import javax.swing.ToolTipManager;
 import javax.swing.border.*;
+
+import javax.swing.JPopupMenu;
+import javax.swing.event.PopupMenuEvent;
 
 /**
  * A JLabel that displays a TV programme
@@ -35,95 +44,110 @@ import javax.swing.border.*;
  *@created    3 July 2003
  *@version    5
  */
-public class ProgrammeJLabel extends javax.swing.JLabel {
+public class ProgrammeJLabel extends JLabel {
 
-	/**
-	 * Construct a ProgrammeJLabel make it selected, favourite, etc as
-	 * appropriate.
-	 *
-	 * @param programme  the programme shown in this label
-	 * @param timeFormat the format in which to display the time
-	 * @param drawTime   Do we draw the prog's start time in the label?
-	 * @param halfHorGap Half the gap to be left between programmes
-	 * @param widthMultiplier How much top multiply time by to get position
-	 * @param channelHeight   How high each channel is
-	 * @param font            The font to use
-	 * @param viewerFrame     The originating ViewerFrame
-	 * @param choices    a vector of the chosen programmes for this day.  NOTE:
-	 *                   this vector will be altered - if this programmeJLabel
-	 *                   is for a program included in this vector, it will be
-	 *                   removed from it.
-	 */
-	ProgrammeJLabel( Programme prog, SimpleDateFormat timeFormat,
-			boolean drawTime, int halfHorGap, double widthMultiplier,
-			int halfVerGap, int channelHeight, Font font,
-			final ViewerFrame viewerFrame, Vector choices ) {
-		
-		super();
-		
-		this.viewerFrame = viewerFrame;
-		this.programme = prog;
-		
-		ToolTipManager tipManager = ToolTipManager.sharedInstance();
-		/* Register this component for tooltip management.
-		   This is normally done when by setting the tooltip text,
-		   but we want to "lazily" evaluate tooltip text--we defer
-		   creation of the tip text until the tip is actually needed.
-		   (see the getToolTipText() method below) */
-		
-        tipManager.registerComponent(this);
-            /* Create a timer to scroll the HTML guide when the user
-               hovers over the selected program.
-               Using the same timeout as ToolTips so that if we add an
-               option, one setting will apply to both. */
+    static public interface Model {
+        Programme getValue();
+        boolean isInGuide();
+        boolean isFavourite();
+        void setInGuide(boolean state);
+        void setFavourite(boolean state);
+        StripView getStripView();
+
+        void isHovering();
+    }
+    
+    private Model model;
+    final private ProgrammeFormat textFormat;
+    final private ProgrammeFormat htmlFormat;
+
+    // Cached model data
+    private String tooltip;
+    private Programme programme;
+    private boolean isInGuide;
+    private boolean isFavourite;
+
+    ProgrammeJLabel(
+        java.text.SimpleDateFormat timeFormat,
+        java.awt.Font font
+    ) {
+        this( null, timeFormat, font );
+    }
+
+    /**
+     * Construct a ProgrammeJLabel make it selected, favourite, etc as
+     * appropriate.
+     *
+     * @param model      the model giving the programme shown in this label
+     * @param timeFormat the format in which to display the time, or
+     *                   null to not display the time
+     * @param font            The font to use
+     */
+    ProgrammeJLabel(
+        Model model,
+        SimpleDateFormat timeFormat,
+        Font font )
+    {
+        super();
         
-        scrollHTMLTimer = new javax.swing.Timer(
-            tipManager.getInitialDelay(), new ScrollHTMLAction() );
-        scrollHTMLTimer.setRepeats(false);
-		
-		Calendar programmeStart = programme.getStart();
-        Calendar programmeEnd = programme.getEnd();
 
-        // Find the channel number
-        String channelID = programme.getChannelID();
-        int channelNo = viewerFrame.currentChannelSet.getChannelNo( channelID );
+        boolean printDelta = FreeGuide.prefs.screen.getBoolean(
+            "display_time_delta", true);
 
-		int left = halfHorGap + (int)( (programmeStart.getTimeInMillis() -
-            viewerFrame.xmltvLoader.earliest.getTimeInMillis() )
-				* widthMultiplier );
+        textFormat = new ProgrammeFormat(
+            ProgrammeFormat.HTML_FORMAT, timeFormat, printDelta);
+        htmlFormat = new ProgrammeFormat(
+            ProgrammeFormat.HTML_FORMAT, timeFormat, printDelta);
+        
+        ToolTipManager tipManager = ToolTipManager.sharedInstance();
+        
+        // Register this component for tooltip management.
+        // This is normally done by setting the tooltip text,
+        // but we want to "lazily" evaluate tooltip text--we defer
+        // creation of the tip text until the tip is actually needed.
+        // (see the getToolTipText() method below)
+        tipManager.registerComponent(this);
 
-        int right = ( (int)( (programmeEnd.getTimeInMillis() -
-            viewerFrame.xmltvLoader.earliest.getTimeInMillis() )
-				* widthMultiplier) ) - (halfHorGap * 2);
-		
-		int width = right - left;
-		
-		int top = halfVerGap + (channelNo * channelHeight);
-        int bottom = ((channelNo + 1) * channelHeight) - (halfVerGap * 2);
-		
-		ProgrammeFormat pf;
-        if( drawTime ) {
-			pf = new ProgrammeFormat(ProgrammeFormat.TEXT_FORMAT,
-						 timeFormat, false);
-		} else {
-			pf = new ProgrammeFormat(ProgrammeFormat.TEXT_FORMAT);
-        }
-		String labelText = pf.shortFormat(programme);
+        setFont( font );
 
-		setFont( font );
-
-		setBorder( nonTickedBorder );
-		
+        setBorder( nonTickedBorder );
+        
         setOpaque(true);
 
-        setBounds(left, top, width, bottom - top);
+        getActionMap().put("select", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                toggleSelection();
+            }
+        });
 
-		findOutSelectedness( choices );
-		
+        getActionMap().put("favourite", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                setFavourite( !getModel().isFavourite() );
+            }
+        });
+        
+        getActionMap().put("menu", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                ProgrammePopupMenu menu = getPopupMenu();
+                menu.label = ProgrammeJLabel.this;
+                menu.show(
+                    ProgrammeJLabel.this,
+                    0, getHeight()
+                );
+            }
+        });
+
+        InputMap map = getInputMap(JComponent.WHEN_FOCUSED);
+        map.put(KeyStroke.getKeyStroke("SPACE"), "select");
+        map.put(KeyStroke.getKeyStroke("typed f"), "favourite");
+        map.put(KeyStroke.getKeyStroke("shift F10"), "menu");
+        
         addMouseListener(
             new java.awt.event.MouseListener() {
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    viewerFrame.programmeJLabelClicked(evt);
+                    if( evt.getClickCount() == 2 ) {
+                        toggleSelection();
+                    }
                 }
 
                 public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -134,87 +158,67 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
                     maybeShowPopup( evt );
                 }
 
+                    
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    
-                    viewerFrame.detailsPanel.updateProgramme( programme );
-                    
-                    if (scrollHTMLTimer.isRunning()) {
-                        scrollHTMLTimer.restart();
-                    } else {
-                        scrollHTMLTimer.start();
-                    }
                 }
 
                 public void mouseExited(java.awt.event.MouseEvent evt) {
-                  if (scrollHTMLTimer.isRunning()) {
-                    scrollHTMLTimer.stop();
-                  }
                 }
 
                 private void maybeShowPopup( java.awt.event.MouseEvent evt ) {
-					
                     if( evt.isPopupTrigger() ) {
-						
-                        viewerFrame.rightClickedProg
-							= (ProgrammeJLabel)evt.getSource();
-
-							
-                        viewerFrame.popMenuProgramme.show(
-							evt.getComponent(), evt.getX(), evt.getY() );
+                        ProgrammePopupMenu menu = getPopupMenu();
+                        menu.label = ProgrammeJLabel.this;
+                        menu.show(evt.getComponent(), evt.getX(), evt.getY());
                     }
                 }
-            });
-		
-		this.setText( labelText );
-	}
+            }
+        );
 
-	/**
-	 * Work out whether or not this programme should be selected.
-	 *
-	 * @param choices a vector of the chosen programmes for this day.  NOTE:
-	 *                this vector will be altered - if this programmeJLabel
-	 *                is for a program included in this vector, it will be
-	 *                removed from it.
-	 */
-	public void findOutSelectedness( Vector choices ) {
-		
-		FavouritesList favouritesList = FavouritesList.getInstance();
-		isFavourite = favouritesList.isFavourite( programme );
-		
-		if( choices == null ) {
-			// Use the favourites to work out whether we're selected
-						
-			setSelected( isFavourite );
-			
-		} else {
-            // Normally, we use the choices
+        setModel(model);
+    }
+            
+    public void setComponentPopupMenu(JPopupMenu popup) {
+        // TODO: 1.5 has this method, we could emulate it for previous versions
+    }
 
-			boolean isChoice = false;
-			
-            for (int i = 0; i < choices.size(); i++) {
+    public Model getModel() {
+        return model;
+    }
+            
+    public void setModel(Model model) {
+        this.model = model;
 
-                if ( choices.get(i).equals( programme ) ) {
-					
-                    isChoice = true;
-					choices.remove( i );
-                    break;
-					
-                } 
-			 
-			}
-			 setSelected( isChoice, false );
-		}
-	
-	}
-	
-	protected void paintComponent( Graphics g ) {
-
+        // Reset tooltip to trigger new one on demand
+        this.tooltip = null;
+                    
+                    
+        if (model == null) {
+            
+            programme = null;
+            isInGuide = false;
+            isFavourite = false;
+            setText("(null)");
+            
+        } else {
+        
+            // Cache model data
+            programme = model.getValue();
+            updateIsInGuide( model.isInGuide() );
+            updateIsFavourite( model.isFavourite() );
+            setText( textFormat.shortFormat(programme) );
+        }
+        
+    }
+    
+    protected void paintComponent( Graphics g ) {
+        
         if( alignTextToLeftOfScreen ) {
         
             // Paint our own text, aligning to the left of the screen
-        	g.setClip(this.getVisibleRect());
-        	
-        	// First paint background
+            g.setClip(this.getVisibleRect());
+            
+            // First paint background
             g.setColor(this.getBackground());
             g.fillRect(0,0,this.getWidth(), this.getHeight());
 
@@ -242,252 +246,368 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
             super.paintComponent(g);
             
         }
+
+        if( isFavourite ) {
+            drawFavouriteIcon(g);            
+        }
         
-	  	if( isFavourite ) {	  
-			drawFavouriteIcon(g);			
-		}
-		
-		URL link = programme.getLink();
-		if( link != null ) {
-			
-			g.setColor( Color.BLUE );
-			
-			int width = getWidth();
-			int height = getHeight();
-			
-			g.fillRect( width-4, height-4, width-1, height-1 );
-			
-		}
+        URL link = programme.getLink();
+        if( link != null ) {
+            
+            g.setColor( Color.BLUE );
+            
+            int width = getWidth();
+            int height = getHeight();
+            
+            g.fillRect( width-4, height-4, width-1, height-1 );
+            
+        }
     }
-	
-	/** Draws the favourite icon on this panel.
-	 * @param g The Graphics context to draw on.
-	 */
-	protected void drawFavouriteIcon(final Graphics g) {
+    
+    /** Draws the favourite icon on this panel.
+     * @param g The Graphics context to draw on.
+     */
+    protected void drawFavouriteIcon(final Graphics g) {
+        
         Graphics2D g2 = (Graphics2D) g;
-	AffineTransform originalTransform = g2.getTransform();
+        AffineTransform originalTransform = g2.getTransform();
 
         g2.setColor( heartColour );
         
         // switch on anti-aliasing
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                             RenderingHints.VALUE_ANTIALIAS_ON);
-	
-	// Scale and position appropriately--taking into account the borders
-	Rectangle bounds = heartShape.getBounds();
-	double scale = 0.45 * (getHeight()/bounds.getHeight());
-	double right = getWidth() - 2 - (scale * bounds.getWidth());
-	g2.translate(right, 2);
-	g2.scale(scale, scale);
-	g2.fill( heartShape );
-	g2.setTransform(originalTransform);
+        g2.setRenderingHint(
+            RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON
+        );
+    
+        // Scale and position appropriately--taking into account the borders
+        Rectangle bounds = heartShape.getBounds();
+        double scale = 0.45 * (getHeight()/bounds.getHeight());
+        double right = getWidth() - 2 - (scale * bounds.getWidth());
+        g2.translate(right, 2);
+        g2.scale(scale, scale);
+        g2.fill( heartShape );
+        g2.setTransform(originalTransform);
+        
     }
 
 
-    public void setSelected( boolean isSelected ) {
-		setSelected( isSelected, true );
-	}
-		
-	public void setSelected( boolean isSelected, boolean updatePrefs ) {
-		
-		this.isSelected = isSelected;
-			
-		if( isSelected ) {
-			
-			if( updatePrefs ) {
-				FreeGuide.prefs.addChoice( programme, viewerFrame.theDate );
-			}
-			
-			if( FreeGuide.prefs.misc.getBoolean( "reminders_on", true ) ) {
-			
-				// Set up a reminder here if it's after now
-				Date startTime = programme.getStart().getTime();
-				long warningSecs = FreeGuide.prefs.misc.getLong(
-					"reminders_warning_secs", 300 );
-				long giveUpSecs = FreeGuide.prefs.misc.getLong(
-					"reminders_give_up_secs", 600 );
-				
-				if( startTime.after( new Date() ) ) {
-				
-					// Find out when we will remind
-					Date reminderStartTime = new Date( startTime.getTime()
-						- warningSecs*1000 );
-					
-					Date nowDate = new Date();
-					
-					// If it's immediately, make it in 10 secs time
-					if( reminderStartTime.before( nowDate ) ) {
-						
-						reminderStartTime.setTime( nowDate.getTime() + 10000 );
-						
-					}
-					
-					// Set the ending time to be a certain time after the
-					// beginning.
-					Date reminderEndTime = new Date( reminderStartTime.getTime()
-							+ giveUpSecs*1000 );
-				
-					if( reminderTimer != null ) {
-						reminderTimer.cancel();
-					}
-					reminderTimer = new MessageDialogTimer();
-					reminderTimer.schedule(
-						programme.getTitle() + " is starting soon.",
-						reminderStartTime, reminderEndTime );
-				
-				}
-				
-			}
-			
-			setBorder ( tickedBorder );
-			setBackground( tickedColour );
-			
-		} else {
-			
-			if( updatePrefs ) {
-				FreeGuide.prefs.removeChoice( programme );
-			}
-			
-			if( reminderTimer != null ) {
-				
-				reminderTimer.cancel();
-				
-			}
-			
-			if( programme.getIsMovie() ) {
-				setBorder ( movieBorder );
-				setBackground( movieColour );
-			} else {
-				setBorder ( nonTickedBorder );
-				setBackground( nonTickedColour );
-			}
-		}
-		
-		repaint();
-		
-	}
-	
-	/**
-	 * The programme that is displayed in this JLabel
-	 */
-	public Programme programme;
-	
-	/**
-	 * Is this programme selected (ticked)?
-	 */
-	public boolean isSelected;
-	
-	/**
-	 * Is this programme a favourite?
-	 */
-	public boolean isFavourite;
-	
-	private final static Shape heartShape;
+    private void toggleSelection() {
+        setSelected( !isInGuide );
+    }
+            
+    private void setSelected( boolean isInGuide ) {
+        
+        if( model != null ) {
+            model.setInGuide( isInGuide );
+        }
+                        
+        updateIsInGuide( isInGuide );
+        
+        // FIXME - repaint only this strip?
+        model.getStripView().repaint();
+        
+    }
+                    
+    public void setFavourite( boolean isFavourite ) {
 
-	static {
-		GeneralPath path = new GeneralPath();
-		path.moveTo(300, 200);
-		path.curveTo(100, 0, 0, 400, 300, 580);
-		path.moveTo(300, 580);
-		path.curveTo(600, 400, 500, 0, 300, 200);
-		heartShape = path;
-	}
+        if( model != null ) {
+            model.setFavourite( isFavourite );
+        }
 
-	private ViewerFrame viewerFrame;
-	private MessageDialogTimer reminderTimer;
+    }
+                
+    private void updateIsInGuide( boolean isInGuide ) {
+        
+        this.isInGuide = isInGuide;
+            
+        if( isInGuide ) {
+            setBorder ( tickedBorder );
+            setBackground( tickedColour );
+        } else if( programme.getIsMovie() ) {
+            setBorder ( movieBorder );
+            setBackground( movieColour );
+        } else {
+            setBorder ( nonTickedBorder );
+            setBackground( nonTickedColour );
+        }
+        
+    }
+    
+    
+    protected void updateIsFavourite( boolean isFavourite ) {
+        this.isFavourite = isFavourite;
+    }
+    
+    private final static Shape heartShape;
+
+    static {
+        GeneralPath path = new GeneralPath();
+        path.moveTo(300, 200);
+        path.curveTo(100, 0, 0, 400, 300, 580);
+        path.moveTo(300, 580);
+        path.curveTo(600, 400, 500, 0, 300, 200);
+        heartShape = path;
+    }
+
 
     private static boolean alignTextToLeftOfScreen;
     
-	private static Color nonTickedColour;
-	private static Color tickedColour;
-	private static Color movieColour;
-	private static Color heartColour;
-	private static Border nonTickedBorder;
-	private static Border tickedBorder;
-	private static Border movieBorder;
+    private static Color nonTickedColour;
+    private static Color tickedColour;
+    private static Color movieColour;
+    private static Color heartColour;
+    private static Border nonTickedBorder;
+    private static Border tickedBorder;
+    private static Border movieBorder;
 
     public static void setAlignTextToLeftOfScreen( boolean align ) {
         ProgrammeJLabel.alignTextToLeftOfScreen = align;
     }
     
-	public static void setNonTickedColour(Color nonTickedColour) {
-		ProgrammeJLabel.nonTickedColour = nonTickedColour;
-		nonTickedBorder = BorderFactory.createCompoundBorder(
-			BorderFactory.createLineBorder(Color.BLACK),
-			BorderFactory.createLineBorder(nonTickedColour, 2));
-	}
+    public static void setNonTickedColour(Color nonTickedColour) {
+        ProgrammeJLabel.nonTickedColour = nonTickedColour;
+        nonTickedBorder = BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.BLACK),
+            BorderFactory.createLineBorder(nonTickedColour, 2));
+    }
 
-	public static void setTickedColour(Color tickedColour) {
-		ProgrammeJLabel.tickedColour = tickedColour;
-		tickedBorder = BorderFactory.createCompoundBorder(
-			BorderFactory.createLineBorder(Color.BLACK),
-			BorderFactory.createLineBorder(tickedColour, 2));
-	}
+    public static void setTickedColour(Color tickedColour) {
+        ProgrammeJLabel.tickedColour = tickedColour;
+        tickedBorder = BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.BLACK),
+            BorderFactory.createLineBorder(tickedColour, 2));
+    }
 
-	public static void setMovieColour(Color movieColour) {
-		ProgrammeJLabel.movieColour = movieColour;
-		movieBorder = BorderFactory.createCompoundBorder(
-			BorderFactory.createLineBorder(Color.BLACK),
-			BorderFactory.createLineBorder(movieColour, 2));
-	}
-	
-	public static void setHeartColour(Color heartColour) {
-		ProgrammeJLabel.heartColour = heartColour;
-	}
+    public static void setMovieColour(Color movieColour) {
+        ProgrammeJLabel.movieColour = movieColour;
+        movieBorder = BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.BLACK),
+            BorderFactory.createLineBorder(movieColour, 2));
+    }
+    
+    public static void setHeartColour(Color heartColour) {
+        ProgrammeJLabel.heartColour = heartColour;
+    }
 
-	/**
-	 * Timer to determine when to scroll the HTML Guide if the user
-         * hovers over a programme.
-	 */
-        private javax.swing.Timer scrollHTMLTimer;
-	
-        class ScrollHTMLAction implements ActionListener {
+    public String getToolTipText() {
+        if (model != null)
+            model.isHovering();
+
+        // If the prefs say no tooltips, just return null
+        if( !FreeGuide.prefs.screen.getBoolean( "display_tooltips", false ))
+            return null;
+
+        String tooltip = super.getToolTipText();
+        if (tooltip != null)
+            return tooltip;
+
+        boolean printDelta = FreeGuide.prefs.screen.getBoolean(
+            "display_time_delta", true);
+
+        if (this.tooltip != null && !printDelta)
+            return this.tooltip;
+
+        htmlFormat.setWrap(true);
+        htmlFormat.setOnScreen(false);
+        this.tooltip = htmlFormat.longFormat(programme).toString();
+
+        return this.tooltip;
+    }
+
+    // --- Static popup menu stuff ---
+
+    static private abstract class ToggleAction extends AbstractAction {
+        String off;
+        String on;
+        boolean state = false;
+        ToggleAction(String off, String on) {
+            super(off);
+            this.off = off;
+            this.on = on;
+        }
+
+        public void setToggle( boolean state ) {
+            if( this.state == state ) {
+                return;
+            }
+            this.state = state;
+
+            firePropertyChange(
+                AbstractAction.NAME,
+                state ? off : on,
+                state ? on : off
+            );
+        }
+        
+        /* (non-Javadoc)
+         * @see javax.swing.Action#getValue(java.lang.String)
+         */
+        public Object getValue( String key ) {
+            if( key.equals( AbstractAction.NAME ) ) {
+                return state ? on : off;
+            }
+            return super.getValue( key );
+        }
+        
+        /* (non-Javadoc)
+         * @see javax.swing.Action#putValue(java.lang.String, java.lang.Object)
+         */
+        public void putValue( String key, Object newValue ) {
+            if( key.equals( AbstractAction.NAME ) ) {
+                if( state )
+                    on = (String)newValue;
+                else
+                    off = (String)newValue;
+            }
+            super.putValue( key, newValue );
+        }
+    }
+
+    /**
+     *  The popup menu when you right-click a programme
+     */
+    static protected class ProgrammePopupMenu extends JPopupMenu {
+        public ProgrammeJLabel label;
+    }
+
+    static private ProgrammePopupMenu popMenuProgramme;
+
+    static private ToggleAction selectAction;
+    static private ToggleAction favouriteAction;
+    /**
+     *  The menu item to view a link
+     */
+    static private javax.swing.JMenuItem mbtGoToWebSite;
+
+    
+    static protected ProgrammePopupMenu getPopupMenu() {
+        
+        if (popMenuProgramme != null) {
+            return popMenuProgramme;
+        }
+        
+        popMenuProgramme = new ProgrammePopupMenu();
+        
+        mbtGoToWebSite = new javax.swing.JMenuItem();
+        
+        popMenuProgramme.addPopupMenuListener(
+            new javax.swing.event.PopupMenuListener() {
+                public void popupMenuWillBecomeVisible( PopupMenuEvent evt ) {
+                    popMenuProgrammePopupMenuWillBecomeVisible(
+                        evt, favouriteAction );
+                }
+                    
+                public void popupMenuWillBecomeInvisible(PopupMenuEvent evt) {
+                }
+                    
+                public void popupMenuCanceled(PopupMenuEvent evt) {
+                }
+            }
+        );
+        
+        selectAction = new ToggleAction(
+            FreeGuide.msg.getString( "add_to_guide" ),
+            FreeGuide.msg.getString( "remove_from_guide" )
+        ) {
           public void actionPerformed(ActionEvent e) {
-            viewerFrame.scrollToReference(
-                                  HTMLGuideListener.createLinkReference(
-                                             ProgrammeJLabel.this.programme));
+                ProgrammeJLabel label = (
+                    (ProgrammePopupMenu)((java.awt.Component)
+                    e.getSource()).getParent()).label;
+                label.toggleSelection();
+                setToggle(!state);
+            }
+        };
+        popMenuProgramme.add(selectAction);
+        
+        favouriteAction = new ToggleAction(
+            FreeGuide.msg.getString( "add_to_favourites" ),
+            FreeGuide.msg.getString( "remove_from_favourites" )
+        ) {
+            public void actionPerformed(ActionEvent e) {
+                setToggle(!state);
+                mbtAddFavouriteActionPerformed(e);
+            }
+        };
+        popMenuProgramme.add( favouriteAction );
+        
+        mbtGoToWebSite.setText( FreeGuide.msg.getString( "go_to_web_site" ) );
+        mbtGoToWebSite.addActionListener(
+            new java.awt.event.ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    mbtGoToWebSiteActionPerformed(evt);
           }
         }
+        );
 
-	public String getToolTipText() {
+        return popMenuProgramme;
+    }
         
-        // If the prefs say no tooltips, just return null
-        if( FreeGuide.prefs.screen.getBoolean( "display_tooltips", false )
-                == false )
-        {
-            return null;
+    /**
+     *  Event handler when the popup menu is going to be displayed
+     *
+     *@param  evt  The event object
+     */
+    static protected void popMenuProgrammePopupMenuWillBecomeVisible(
+        PopupMenuEvent evt,
+        ToggleAction favouriteAction )
+    {
+        ProgrammeJLabel label = ( (ProgrammePopupMenu)evt.getSource() ).label;
+        
+        selectAction.setToggle(    label.isInGuide );
+        favouriteAction.setToggle( label.getModel().isFavourite() );
+
+        int popMenuProgrammeSize = popMenuProgramme.getSubElements().length;
+        URL link = label.getModel().getValue().getLink();
+        
+        if( link != null && popMenuProgrammeSize < 3 ) {
+            popMenuProgramme.add( mbtGoToWebSite );
         }
         
-		String tooltip = super.getToolTipText();
-		boolean printDelta = FreeGuide.prefs.screen.getBoolean(
-				"display_time_delta", true);
-		if (tooltip == null || printDelta) {
-			boolean drawTime = FreeGuide.prefs.screen.getBoolean(
-					"display_programme_time", true);
-			boolean draw24time = FreeGuide.prefs.screen.getBoolean(
-					"display_24hour_time", true);
-			SimpleDateFormat timeFormat = ( draw24time ?
-						ViewerFrame.timeFormat24Hour :
-						ViewerFrame.timeFormat12Hour );
-			ProgrammeFormat pf;
-			if( drawTime ) {
-				pf = new ProgrammeFormat(
-						ProgrammeFormat.HTML_FORMAT,
-					 	timeFormat, printDelta);
-			} else {
-				pf = new ProgrammeFormat(
-						ProgrammeFormat.HTML_FORMAT);
-			}
-			pf.setWrap(true);
-			pf.setOnScreen(false);
-			tooltip = pf.longFormat(programme).toString();
-			// so we don't have to create it next time
-			// we can't call setToolTipText(...) because it calls
-			// getToolTipText()
-			putClientProperty(TOOL_TIP_TEXT_KEY, tooltip);
-		}
-		return tooltip;
-	}
-	
-}
+        if( link == null && popMenuProgrammeSize > 2 ) {
+            popMenuProgramme.remove( popMenuProgrammeSize-1 );
+        }
+            
+    }
 
+    /**
+     *  Event handler for when the Add to Favourites popup menu item is clicked
+     *
+     *@param  evt  The event object
+     */
+    static protected void mbtAddFavouriteActionPerformed(
+        java.awt.event.ActionEvent evt )
+    {
+
+        // Find out which ProgrammeJLabel was right-clicked, and call its
+        // setFavourite method.
+        
+        ProgrammeJLabel label =
+            ( (ProgrammePopupMenu)(
+                (java.awt.Component)evt.getSource()
+            ).getParent() ).label;
+
+        label.setFavourite( !label.getModel().isFavourite() );
+        
+    }
+    
+    /**
+     *  Event handler for when the Go to web site popup menu item is clicked
+     *
+     *@param  evt  The event object
+     */
+    static protected void mbtGoToWebSiteActionPerformed(
+        java.awt.event.ActionEvent evt )
+    {
+        Programme programme = ((ProgrammePopupMenu)((java.awt.Component)
+            evt.getSource()).getParent()).label.getModel().getValue();
+        
+        String[] cmds = Utils.substitute(
+            FreeGuide.prefs.commandline.getStrings( "browser_command" ),
+            "%filename%",
+            programme.getLink().toString().replace( "%", "%%" ) );
+            
+        Utils.execNoWait(cmds);
+    }
+
+}

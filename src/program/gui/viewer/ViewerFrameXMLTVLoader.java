@@ -21,6 +21,7 @@ import java.util.regex.*;
 import javax.xml.parsers.*;
 import org.xml.sax.helpers.*;
 import org.xml.sax.*;
+import java.util.HashMap;
 
 /**
  *  XMLTVLoader Loads the required XMLTV files for a given date into a Vector of
@@ -33,6 +34,9 @@ import org.xml.sax.*;
 
 public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterface {
 
+    private HashMap programmesMap = new HashMap();
+    private HashMap channelsMap = new HashMap();
+
     /**
      *  Loads the programme data from a file and stores it in a class structure
      *  ready for display on the screen.
@@ -41,6 +45,8 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
      */
     public void loadProgrammeData( Calendar nowDate ) {
 
+        inGuideProgs = FreeGuide.prefs.getInGuideProgrammes( nowDate );
+        
         thereAreEarlyProgs = false;
         thereAreLateProgs = false;
 
@@ -53,8 +59,8 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
 
         // Prepare the vectors that will contain the parsed data
         programmes = new Vector();
-        channelIDs = new Vector();
-        channelNames = new Vector();
+        channels = new Vector();
+        channelsAccell = new Hashtable();
 
         // Now date is the actual date we want (not the time) so we can work out
         // what days we need to ask for from the grabber
@@ -71,7 +77,7 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
         String date2str;
 
         //FreeGuide.log.info( "grabber_start_time=" + grabber_start_time +
-        //	" day_start_time=" + day_start_time );
+        //    " day_start_time=" + day_start_time );
 
         // See whether we need to grab yesterday or tomorrow
         if ( grabber_start_time.before( day_start_time,
@@ -102,40 +108,40 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
             //FreeGuide.log.info( "Getting yesterday data" );
 
         } else {
-			
-			// The days are perfectly matched so only parse one day.
-			
-			date1str = null;
-			date2str = ViewerFrame.fileDateFormat.format(
+            
+            // The days are perfectly matched so only parse one day.
+            
+            date1str = null;
+            date2str = ViewerFrame.fileDateFormat.format(
                     date.getTime() );
-			
-		}
+            
+        }
 
-		String day1Filename;
-		String day2Filename;
-		
-		if( date1str != null ) {
-			day1Filename = working_directory + fs + "tv-" +
+        String day1Filename;
+        String day2Filename;
+        
+        if( date1str != null ) {
+            day1Filename = working_directory + fs + "tv-" +
                 date1str + ".xmltv";
-		} else {
-			day1Filename = null;
-		}
+        } else {
+            day1Filename = null;
+        }
 
         day2Filename = working_directory + fs + "tv-" +
                 date2str + ".xmltv";
 
         String unprocFilename = working_directory + fs + "tv-unprocessed.xmltv";
 
-		File day1File;
-		File day2File;
-		File unprocFile;
-		
-		if( day1Filename != null ) {
-			day1File = new File(day1Filename);
-		} else {
-			day1File = null;
-		}
-		
+        File day1File;
+        File day2File;
+        File unprocFile;
+        
+        if( day1Filename != null ) {
+            day1File = new File(day1Filename);
+        } else {
+            day1File = null;
+        }
+        
         day2File = new File(day2Filename);
         unprocFile = new File(unprocFilename);
 
@@ -150,15 +156,15 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
 
             SAXParser saxParser = factory.newSAXParser();
 
-			boolean day1FileExists;
-			boolean day2FileExists;
-			
-			if( day1File != null ) {
-				day1FileExists = day1File.exists();
-			} else {
-				day1FileExists = false;
-			}
-			
+            boolean day1FileExists;
+            boolean day2FileExists;
+            
+            if( day1File != null ) {
+                day1FileExists = day1File.exists();
+            } else {
+                day1FileExists = false;
+            }
+            
             day2FileExists = day2File.exists();
 
             // If either day file exists (or both), parse it/them.  Otherwise
@@ -166,18 +172,30 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
 
             if (day1FileExists) {
 
-				//FreeGuide.log.info( "Parsing " + day1Filename );
-				
+                //FreeGuide.log.info( "Parsing " + day1Filename );
+                if (programmesMap.containsKey(day1Filename)) {
+                    programmes = (Vector)((Vector)programmesMap.get(
+                        day1Filename)).clone();
+                    channels = (Vector)((Vector)channelsMap.get(
+                        day1Filename)).clone();
+                } else {
                 saxParser.parse(day1Filename, this);
-
+                        programmesMap.put(day1Filename, programmes.clone());
+                        channelsMap.put(day1Filename, channels.clone());
+                }
             }
 
             if (day2FileExists) {
 
-				//FreeGuide.log.info( "Parsing " + day2Filename );
-				
+                //FreeGuide.log.info( "Parsing " + day2Filename );
+                if (programmesMap.containsKey(day2Filename)) {
+                    programmes.addAll((Vector)((Vector)programmesMap.get(
+                        day2Filename)).clone());
+                    channels.addAll((Vector)((Vector)channelsMap.get(
+                        day2Filename)).clone());
+                } else {
                 saxParser.parse(day2Filename, this);
-
+                }
             }
 
             if ((!day1FileExists) && (!day2FileExists) && unprocFile.exists()) {
@@ -246,11 +264,11 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
 
         // If we need to adjust because our day start is before our grabber's
         //if( day_start_time.before(
-        //		grabber_start_time, new FreeGuideTime( 0, 0 ) ) ) {
+        //        grabber_start_time, new FreeGuideTime( 0, 0 ) ) ) {
 
         // Set the time to the previous day, 1 hour after the day start time
-        //	date.add( Calendar.DATE, -1 );
-        //	date.set( Calendar.HOUR, day_start_time.getHours() + 1 );
+        //    date.add( Calendar.DATE, -1 );
+        //    date.set( Calendar.HOUR, day_start_time.getHours() + 1 );
 
         //}
 
@@ -345,7 +363,6 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
      */
     public void startDocument() {
         saxLoc = new String();
-        channelIcons = new Hashtable();
     }
 
 
@@ -372,24 +389,25 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
     public void startElement(String namespaceURI, String sName, String name,
             Attributes attrs) {
 
-    	saxLoc += ":" + name;
-		
-		data = "";
+        saxLoc += ":" + name;
+        
+        data.setLength(0);
 
         //FreeGuide.log.info( saxLoc );
 
         if (saxLoc.equals(":tv:programme")) {
-
-            currentProgramme = new Programme();
 
             // Prepare GregorianCalendars for start and end
             Calendar start = GregorianCalendar.getInstance();
             Calendar end = GregorianCalendar.getInstance();
 
             // Assume it has a channel
-            String channelID = attrs.getValue("channel");
-            currentProgramme.setChannelID(channelID);
-            currentProgramme.addToChannelName(getChannelName(channelID));
+            Channel tmpChan = getChannel(attrs.getValue("channel"));
+            if (tmpChan == null) return;
+                
+            currentProgramme = new Programme();
+
+            currentProgramme.setChannel(tmpChan);
 
             try {
 
@@ -446,9 +464,9 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
 
         } else if (saxLoc.equals(":tv:channel:icon")) {
 
-        	String URL = attrs.getValue("src");
-        	if (URL != null)
-        		channelIcons.put(tmpChannelID,URL);
+            String URL = attrs.getValue("src");
+            if (URL != null)
+                tmpChannelIconURL = URL;
 
         } else if (saxLoc.equals(":tv:programme:previously-shown")) {
 
@@ -465,7 +483,7 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
                 }
             }
             
-		} else if (saxLoc.equals(":tv:programme:subtitles")) {
+        } else if (saxLoc.equals(":tv:programme:subtitles")) {
 
             if (currentProgramme != null) {
                 
@@ -473,12 +491,12 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
                 
             }
         
-		} else if (saxLoc.equals(":tv:programme:icon")) {
-			
-			if (currentProgramme != null && attrs.getValue("src") != null)
-				currentProgramme.setIconURL(attrs.getValue("src"));
-			
-		} else if ( saxLoc.equals(":tv:programme:desc")
+        } else if (saxLoc.equals(":tv:programme:icon")) {
+            
+            if (currentProgramme != null && attrs.getValue("src") != null)
+                currentProgramme.setIconURL(attrs.getValue("src"));
+            
+        } else if ( saxLoc.equals(":tv:programme:desc")
             || saxLoc.equals(":tv:programme:title")
             || saxLoc.equals(":tv:programme:sub-title")
             || saxLoc.equals(":tv:programme:category")
@@ -505,7 +523,6 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
         //if
 
     }
-
 
     //startElement
 
@@ -559,30 +576,38 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
      *@param  sName         Description of the Parameter
      *@param  name          Description of the Parameter
      */
-    public void endElement(String namespaceURI, String sName, String name) {
+    public void endElement( String namespaceURI, String sName, String name ) {
+        
+        String data = this.data.toString();
 
         //FreeGuide.log.info(name);
 
-    	if (saxLoc.equals(":tv:programme")) {
+        if( saxLoc.equals( ":tv:programme" ) ) {
 
-            if (currentProgramme.getEnd().after(earliest) &&
-                    currentProgramme.getStart().before(latest))
-            {
+            if( currentProgramme.getEnd().after( earliest ) &&
+                    currentProgramme.getStart().before( latest ) ) {
 
                 if( programmeNotAlreadyEntered( currentProgramme ) ) {
-                    programmes.add(currentProgramme);
+                        
+                    programmes.add( currentProgramme );
+                
+                    if( isInGuide( currentProgramme ) ) {
+                        currentProgramme.setInGuide( true );
+                    }
+                    
                 }
+                
             }
 
             currentProgramme = null;
-			
+            
         } else if (saxLoc.equals(":tv:programme:title")) {
 
             if (currentProgramme != null) {
                 currentProgramme.setTitle( data );
             }
             
-		} else if (saxLoc.equals(":tv:programme:sub-title")) {
+        } else if (saxLoc.equals(":tv:programme:sub-title")) {
 
             if (currentProgramme != null) {
                 currentProgramme.setSubTitle( data );
@@ -607,28 +632,28 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
             if (currentProgramme != null) {
                 currentProgramme.setStarRating( data );
             }
-		
-		//} else if (saxLoc.equals(":tv:programme:episode-num")) {
-			// FIXME - fill in here
+        
+        //} else if (saxLoc.equals(":tv:programme:episode-num")) {
+            // FIXME - fill in here
 
         } else if (saxLoc.equals(":tv:programme:url")) {
 
-			if (currentProgramme != null) {
-				
-				try {
-					
-                	currentProgramme.setLink(new URL(data));
-				
-				} catch(java.net.MalformedURLException e) {
-					e.printStackTrace();
-				}
+            if (currentProgramme != null) {
+                
+                try {
+                    
+                    currentProgramme.setLink(new URL(data));
+                
+                } catch(java.net.MalformedURLException e) {
+                    e.printStackTrace();
+                }
             }
 
-		} else if( saxLoc.equals(":tv:programme:subtitles") 
+        } else if( saxLoc.equals(":tv:programme:subtitles") 
                 || saxLoc.equals(":tv:programme:previously-shown")
                 || saxLoc.startsWith(":tv:programme:rating")
                 || saxLoc.equals(":tv:programme:star-rating")
-				|| saxLoc.equals(":tv:programme:icon") )
+                || saxLoc.equals(":tv:programme:icon") )
         {
             
             // Do nothing - dealt with in startElement or elsewhere
@@ -636,9 +661,14 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
         } else if( saxLoc.equals(":tv:channel:display-name") ) {
 
             // Remember the name of the channel we're looking at
-            addChannelName(tmpChannelID, data);
+            tmpChannelName = data;
+        } else if( saxLoc.equals(":tv:channel")) {
+            addChannel(tmpChannelID, tmpChannelName, tmpChannelIconURL);
+            tmpChannelID = null;
+            tmpChannelName = null;
+            tmpChannelIconURL = null;
 
-		} else if( saxLoc.matches( ":tv:programme:[^:]*" ) ) {
+        } else if( saxLoc.matches( ":tv:programme:[^:]*" ) ) {
                 // Ending an unknown main tag
             
             if( currentProgramme != null ) {
@@ -661,8 +691,8 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
             }
             
         }
-		
-		if (saxLoc.endsWith(name)) {
+        
+        if (saxLoc.endsWith(name)) {
 
             saxLoc = saxLoc.substring(0, saxLoc.length() - (name.length() + 1));
 
@@ -692,7 +722,28 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
         return true;
     }
     
+    private boolean isInGuide( Programme programme ) {
+        
+        if( inGuideProgs == null ) {
+            
+            FavouritesList favs = FavouritesList.getInstance();
+            if( favs.isFavourite( programme ) ) {
+                FreeGuide.prefs.addInGuide( programme, date );
+                return true;
+            }
+            
+        } else if( inGuideProgs.contains( programme ) ) {
+            
+            return true;
+            
+        }
+        
+        return false;
+        
+    }
     
+    //endElement
+
     /**
      *  Description of the Method
      *
@@ -701,7 +752,7 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
      *@param  length  Description of the Parameter
      */
     public void characters(char[] ch, int start, int length) {
-        data += new String(ch, start, length);
+        data.append(ch, start, length);
     }
 
 
@@ -710,24 +761,13 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
     // -----------------------------------------------------------------------
 
     /**
-     *  Gets the channelIDs attribute of the XMLTVLoader object
+     *  Gets the channels attribute of the XMLTVLoader object
      *
-     *@return    The channelIDs value
+     *@return    The channels value
      */
-    public Vector getChannelIDs() {
-        return channelIDs;
+    public Vector getChannels() {
+        return channels;
     }
-
-
-    /**
-     *  Gets the channelNames attribute of the XMLTVLoader object
-     *
-     *@return    The channelNames value
-     */
-    public Vector getChannelNames() {
-        return channelNames;
-    }
-
 
     /**
      *  Adds a feature to the ChannelName attribute of the XMLTVLoader object
@@ -735,28 +775,49 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
      *@param  channelID    The feature to be added to the ChannelName attribute
      *@param  channelName  The feature to be added to the ChannelName attribute
      */
-    private void addChannelName(String channelID, String channelName) {
+    private void addChannel(String chanID, String chanName, String chanIc) {
 
-		int i = channelIDs.indexOf(channelID);
-		
-        if ( i == -1) {
-
-            channelIDs.add(channelID);
-            channelNames.add(channelName);
-
+        if (!channelsAccell.containsKey(chanID)) {
+            Channel tmpChan = new Channel(chanID, chanName, chanIc);
+            channelsAccell.put(chanID, tmpChan);
+            channels.add(tmpChan);
         }
+        else if(!chanID.equals(chanName)){
+            Channel tmpChan = (Channel)channelsAccell.get(chanID);
+            if (tmpChan.getID().equals(tmpChan.getName())) {
+                Channel chan = new Channel(chanID, chanName, chanIc);
+                channelsAccell.put(chanID, chan);
+                channels.set(channels.indexOf(tmpChan),chan);
+            }
+        }
+    }
+    
+    private void addChannel(Channel chan) {
+        
+        if (!channelsAccell.containsKey(chan.getID())) {
+            channels.add(chan);
+            channelsAccell.put(chan.getID(),chan);
+        }
+        else if(!chan.getID().equals(chan.getName())){
+            Channel tmpChan = (Channel)channelsAccell.get(chan.getID());
+            if (tmpChan.getID().equals(tmpChan.getName())) {
+                channelsAccell.put(chan.getID(), chan);
+                channels.set(channels.indexOf(tmpChan),chan);
+            }
+        }
+        
     }
 
 
     /**
-     *  Gets the channelName attribute of the XMLTVLoader object
+     *  Gets the channel attribute of the XMLTVLoader object
      *
-     *@param  i  Description of the Parameter
-     *@return    The channelName value
+     *@param  i  Indicia of the channel in the vector
+     *@return    The channel Object
      */
-    public String getChannelName(int i) {
+    public Channel getChannel(int i) {
 
-        return (String) channelNames.get(i);
+        return (Channel) channels.get(i);
     }
 
 
@@ -767,7 +828,7 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
      */
     public int getNoChannels() {
 
-        return channelIDs.size();
+        return channels.size();
     }
 
 
@@ -777,9 +838,9 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
      *@param  channelID  Description of the Parameter
      *@return            The channelNo value
      */
-    public int getChannelNo(String channelID) {
+    public int getChannelNo(Channel channel) {
 
-        return channelIDs.indexOf(channelID);
+        return channels.indexOf(channel);
     }
 
 
@@ -809,47 +870,30 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
      *@param  channelID  Description of the Parameter
      *@return            The channelName value
      */
-    public String getChannelName(String channelID) {
-		
-        int ch = channelIDs.indexOf(channelID);
+    public Channel getChannel(String channelID) {
+        
+        Channel c = (Channel)channelsAccell.get(channelID);
 
-        if (ch == -1) {
+        if (c == null) {
 
-            addChannelName(channelID, channelID);
+            c = new Channel(channelID, channelID, null);
+            
+            addChannel(c);
 
-            return channelID;
+            return c;
         } else {
 
-            String chName = (String) channelNames.get(ch);
-
-            if (chName == null) {
-
-                return channelID;
-            } else {
-
-                return chName;
-            }
+            return c;
 
         }
 
     }
     
     /**
-     * to get the Icon URL of the channel
-     * @param channelID the Id of the channel to get URL for
-     * @return the URL as a string;
-     */
-    public String getChannelIcon(String channelID){
-    	if (channelID == null || channelIcons == null) return null;
-    	return (String)channelIcons.get(channelID);
-    }
-
-
-    /**
      *  Description of the Method
      */
     private void parseError() {
-        FreeGuide.log.severe("ViewerFrame - Error parsing XML.");
+        FreeGuide.log.severe( FreeGuide.msg.getString( "error_parsing_xml" ) );
         System.exit(1);
     }
 
@@ -859,7 +903,9 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
     private String saxLoc = "";
     // Holds our current pos in the XML hierarchy
     private String tmpChannelID;
-	private String data;
+    private String tmpChannelName;
+    private String tmpChannelIconURL;
+    private StringBuffer data = new StringBuffer();
 
     private Programme currentProgramme;
     // The programme we're loading in now
@@ -877,12 +923,12 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
      */
     public Vector programmes;
     // Vector of loaded FreeGuideProgrammes
-    private Vector channelIDs;
-    // The IDs of the channels
-    private Vector channelNames;
-    // The names of the channels
-    private Hashtable channelIcons;
+    private Vector channels;
+    private Hashtable channelsAccell;
+    // The channels
 
+    private Vector inGuideProgs;
+    
     /**
      *  Description of the Field
      */

@@ -104,10 +104,10 @@ public class FontChooserDialog extends StandardDialog {
         L1R2ButtonPanel buttons = createButtonPanel();
         buttons.setBorder(BorderFactory.createEmptyBorder(4, 0, 0, 0));
         content.add(buttons, BorderLayout.SOUTH);
-		
-		getRootPane().setDefaultButton( buttons.getRightButton2() );
-		
+        
+        getRootPane().setDefaultButton( buttons.getRightButton2() );
+        
         return content;
     }
-	
+    
 }

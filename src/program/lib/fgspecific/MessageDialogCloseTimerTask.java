@@ -26,26 +26,26 @@ import javax.swing.JOptionPane;
  */
 public class MessageDialogCloseTimerTask extends TimerTask {
 
-	public MessageDialogCloseTimerTask( MessageDialogTimerTask taskToClose ) {
-		
-		this.taskToClose = taskToClose;
-		
-	}
-	
-	/**
-	 * Displays a message dialog.
-	 */
-	public void run() {
-		
-		taskToClose.stop();
-		
-	}
-	
-	/**
-	 * The MessageDialogTimerTask we want to cancel when we are triggered
-	 */
-	private MessageDialogTimerTask taskToClose;
-	
+    public MessageDialogCloseTimerTask( MessageDialogTimerTask taskToClose ) {
+        
+        this.taskToClose = taskToClose;
+        
+    }
+    
+    /**
+     * Displays a message dialog.
+     */
+    public void run() {
+        
+        taskToClose.stop();
+        
+    }
+    
+    /**
+     * The MessageDialogTimerTask we want to cancel when we are triggered
+     */
+    private MessageDialogTimerTask taskToClose;
+    
 }
 
 

@@ -56,17 +56,17 @@ public class ChoiceWizardPanel extends WizardPanel {
         topLabel.setFont(new java.awt.Font("Dialog", 0, 12));
         topLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         topLabel.setText(topMessage);
-		topLabel.setDisplayedMnemonic(topMnemonic);
+        topLabel.setDisplayedMnemonic(topMnemonic);
         add(topLabel);
 
         midPanel.setLayout(new java.awt.GridBagLayout());
 
         combobox.setMinimumSize(new java.awt.Dimension(4, 26));
         combobox.setPreferredSize(new java.awt.Dimension(69, 26));
-		combobox.setMaximumRowCount( 20 );
+        combobox.setMaximumRowCount( 20 );
 
         updateChoices();
-		
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -83,42 +83,42 @@ public class ChoiceWizardPanel extends WizardPanel {
         bottomLabel.setText(bottomMessage);
         add(bottomLabel);
 
-		topLabel.setLabelFor(combobox);
-		
+        topLabel.setLabelFor(combobox);
+        
     }
-	
+    
     // --------------------------------------------
 
-	/**
-	 * Change the choices available in the combobox
-	 *
-	 * @param choices the new choices in an array of String.
-	 */
-	 public void setChoices( String[] choices ) {
-		 
-		 this.choices = choices;
-		 updateChoices();
-		 
-	 }
-	 
-	 /**
-	  * Make the combobox reflect the choices available.
-	  */
-	 private void updateChoices() {
-		 
-		 combobox.removeAllItems();
-		 
-		 for (int i = 0; i < choices.length; i++) {
+    /**
+     * Change the choices available in the combobox
+     *
+     * @param choices the new choices in an array of String.
+     */
+     public void setChoices( String[] choices ) {
+         
+         this.choices = choices;
+         updateChoices();
+         
+     }
+     
+     /**
+      * Make the combobox reflect the choices available.
+      */
+     private void updateChoices() {
+         
+         combobox.removeAllItems();
+         
+         for (int i = 0; i < choices.length; i++) {
             combobox.addItem(choices[i]);
         }
-		
-		/*if( choices.length > 0 ) {
-			combobox.setSelectedItem( choices[0] );
-			System.err.println( choices[0] );
-		}*/
-		 
-	 }
-	
+        
+        /*if( choices.length > 0 ) {
+            combobox.setSelectedItem( choices[0] );
+            System.err.println( choices[0] );
+        }*/
+         
+     }
+    
     /**
      *  Description of the Method
      *
@@ -157,9 +157,9 @@ public class ChoiceWizardPanel extends WizardPanel {
      *@param  val  The new boxValue value
      */
     protected void setBoxValue(Object val) {
-		if( val != null ) {
-			combobox.setSelectedItem(val);
-		}
+        if( val != null ) {
+            combobox.setSelectedItem(val);
+        }
     }
 
 

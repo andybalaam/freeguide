@@ -13,6 +13,7 @@
 
 package freeguide.lib.fgspecific;
 
+import freeguide.*;
 import java.util.*;
 
 /**
@@ -24,10 +25,7 @@ import java.util.*;
  */
 public class ChannelSet implements ChannelSetInterface {
 
-    private Vector channelIDs;
-    // The IDs of the channels
-    private Vector channelNames;
-    // The names of the channels
+    private Vector channels;
     private String name;
 
 
@@ -35,9 +33,8 @@ public class ChannelSet implements ChannelSetInterface {
      *  Constructor for the FreeGuideChannelSetImpl object
      */
     public ChannelSet() {
-        channelIDs = new Vector();
-        channelNames = new Vector();
-        name = "(New Channel Set)";
+        channels = new Vector();
+        name = FreeGuide.msg.getString( "new_channel_set" );
     }
 
 
@@ -62,24 +59,13 @@ public class ChannelSet implements ChannelSetInterface {
 
 
     /**
-     *  Gets the channelIDs attribute of the FreeGuideChannelSetImpl object
+     *  Gets the channels attribute of the FreeGuideChannelSetImpl object
      *
-     *@return    The channelIDs value
+     *@return    The channels value
      */
-    public Vector getChannelIDs() {
-        return channelIDs;
+    public Vector getChannels() {
+        return channels;
     }
-
-
-    /**
-     *  Gets the channelNames attribute of the FreeGuideChannelSetImpl object
-     *
-     *@return    The channelNames value
-     */
-    public Vector getChannelNames() {
-        return channelNames;
-    }
-
 
     /**
      *  convenience function, since channel set names are not available when
@@ -88,76 +74,58 @@ public class ChannelSet implements ChannelSetInterface {
      *@param  nameprovider  Description of the Parameter
      */
     public void updateChannelNames(ChannelSetInterface nameprovider) {
-		
-		//System.out.println( this + " . updateChannelNames" );
-		
         if (nameprovider == null) {
             return;
         }
-        channelNames = new Vector();
-        for (int i = 0; i < channelIDs.size(); i++) {
-			
-            String id = (String) channelIDs.elementAt(i);
-            String name = nameprovider.getChannelName(id);
-			
-			channelNames.add( i, name );
-				
+        for (int i = 0; i < channels.size(); i++) {
+            Channel anonChan = (Channel) channels.elementAt(i);
+            Channel namedChan = nameprovider.getChannel(anonChan.getID());
+            if (anonChan.getID().equals(anonChan.getName()) && namedChan != null
+                    && ! namedChan.getID().equals(namedChan.getName())) {
+                channels.set(i, namedChan);
+            }
         }
-
     }
 
-
     /**
-     *  Gets the channelName attribute of the FreeGuideChannelSetImpl object
+     *  Gets the channel attribute of the FreeGuideChannelSetImpl object
      *
      *@param  channelID  Description of the Parameter
      *@return            The channelName value
      */
-    public String getChannelName(String channelID) {
-
-        int ch = channelIDs.indexOf(channelID);
-
+    public Channel getChannel(String channelID) {
+        int ch = channels.indexOf(channelID);
         if (ch == -1) {
-
-            addChannelName(channelID, channelID);
-
-            return channelID;
+            Channel c = new Channel(channelID, channelID, null);
+            addChannel(c);
+            return c;
         } else {
-
-            String chName = (String) channelNames.get(ch);
-
-            if (chName == null) {
-
-                return channelID;
+            Channel c = (Channel) channels.get(ch);
+            
+            if (c == null) {
+                return new Channel(channelID, channelID, null);
             } else {
-
-                return chName;
+                return c;
             }
-
         }
-
     }
-
-
     /**
      *  Gets the channelName attribute of the FreeGuideChannelSetImpl object
      *
      *@param  i  Description of the Parameter
      *@return    The channelName value
      */
-    public String getChannelName(int i) {
-		//System.out.println( "getChannelName(" + i + ") = " +  channelNames.get(i));
-        return (String) channelNames.get(i);
+    public Channel getChannel(int i) {
+        //System.out.println( "getChannelName(" + i + ") = " +  channelNames.get(i));
+        return (Channel) channels.get(i);
     }
-
-
     /**
      *  Gets the noChannels attribute of the FreeGuideChannelSetImpl object
      *
      *@return    The noChannels value
      */
     public int getNoChannels() {
-        return channelIDs.size();
+        return channels.size();
     }
 
 
@@ -167,9 +135,9 @@ public class ChannelSet implements ChannelSetInterface {
      *@param  channelID  Description of the Parameter
      *@return            The channelNo value
      */
-    public int getChannelNo(String channelID) {
+    public int getChannelNo(Channel channel) {
 
-        return channelIDs.indexOf(channelID);
+        return channels.indexOf(channel);
     }
 
 
@@ -177,17 +145,13 @@ public class ChannelSet implements ChannelSetInterface {
      *  Adds a feature to the ChannelName attribute of the
      *  FreeGuideChannelSetImpl object
      *
-     *@param  channelID    The feature to be added to the ChannelName attribute
-     *@param  channelName  The feature to be added to the ChannelName attribute
+     *@param  channel    The feature to be added to the Channels attribute
      */
-    public void addChannelName(String channelID, String channelName) {
-
-        if (channelIDs.indexOf(channelID) == -1) {
-            channelIDs.add(channelID);
-            channelNames.add(channelName);
+    public void addChannel(Channel channel) {
+        if (channels.indexOf(channel) == -1) {
+            channels.add(channel);
         }
     }
-
 
     /**
      *  add a set of channels and channel names from a pipe-separated String. A
@@ -207,9 +171,9 @@ public class ChannelSet implements ChannelSetInterface {
         while (st.hasMoreTokens()) {
             String id = st.nextToken();
             if (nameprovider != null) {
-                this.addChannelName(id, nameprovider.getChannelName(id));
+                this.addChannel(nameprovider.getChannel(id));
             } else {
-                this.addChannelName(id, id);
+                this.addChannel(new Channel(id, id, null));
             }
         }
 
@@ -223,21 +187,22 @@ public class ChannelSet implements ChannelSetInterface {
      *@return    Description of the Return Value
      */
     public String toString() {
-        return toString(channelIDs);
+        return toString(channels);
     }
 
 
     /**
-     *  Description of the Method
+     *  Convert a Vector of channels to a string of channel IDs
      *
-     *@param  channelids  Description of the Parameter
-     *@return             Description of the Return Value
+     *@param  channels  a vector of channels
+     *@return           a string of channel IDs
      */
-    public static String toString(Vector channelids) {
+    public static String toString(Vector channels) {
         StringBuffer sb = new StringBuffer();
-        Iterator it = channelids.iterator();
+        Iterator it = channels.iterator();
         while (it.hasNext()) {
-            sb.append((String) it.next()).append("|");
+            sb.append( ( (Channel)( it.next() ) ).getID() );
+            sb.append( "|" );
         }
         return sb.toString();
     }
@@ -247,8 +212,7 @@ public class ChannelSet implements ChannelSetInterface {
      *  Description of the Method
      */
     public void clearChannels() {
-        this.channelIDs = new Vector();
-        this.channelNames = new Vector();
+        this.channels = new Vector();
     }
 
 }

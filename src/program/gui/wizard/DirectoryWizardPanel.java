@@ -13,6 +13,7 @@
 
 package freeguide.gui.wizard;
 
+import freeguide.*;
 import javax.swing.JFileChooser;
 
 /**
@@ -52,7 +53,7 @@ public class DirectoryWizardPanel extends AbstractFileWizardPanel {
      *@return    The fileChooserMessage value
      */
     protected String getFileChooserMessage() {
-        return "Choose Directory";
+        return FreeGuide.msg.getString( "choose_directory" );
     }
 
 }

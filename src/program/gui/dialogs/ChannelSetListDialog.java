@@ -48,8 +48,8 @@ public class ChannelSetListDialog extends FGDialog {
     private javax.swing.JLabel jLabel1;
 
     private Vector channelsets;
-    	// The channelsets
-	
+        // The channelsets
+    
     private ViewerFrameXMLTVLoader loader;
 
     private DefaultListModel channelsetModel;
@@ -69,7 +69,7 @@ public class ChannelSetListDialog extends FGDialog {
      */
                     
     public ChannelSetListDialog(JFrame owner, ViewerFrameXMLTVLoader loader) {
-        super(owner, "Channel Sets");
+        super( owner, FreeGuide.msg.getString( "channel_sets" ) );
 
 
         this.loader = loader;
@@ -101,8 +101,8 @@ public class ChannelSetListDialog extends FGDialog {
     private void loadChannelSet() {
 
         channelsets = new Vector(
-			Arrays.asList( FreeGuide.prefs.getChannelSets() ) );
-	
+            Arrays.asList( FreeGuide.prefs.getChannelSets() ) );
+    
     }
 
 
@@ -129,8 +129,8 @@ public class ChannelSetListDialog extends FGDialog {
 
         // Write out our channelsets to the config file
         // DMT TODO
-		FreeGuide.prefs.replaceChannelSets(
-			Utils.arrayFromVector_ChannelSet( channelsets ) );
+        FreeGuide.prefs.replaceChannelSets(
+            Utils.arrayFromVector_ChannelSet( channelsets ) );
 
         updatedFlag = true;
         FreeGuide.prefs.flushAll();
@@ -157,7 +157,7 @@ public class ChannelSetListDialog extends FGDialog {
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        butAdd.setText("Add");
+        butAdd.setText( FreeGuide.msg.getString( "add" ) );
         butAdd.setPreferredSize(new java.awt.Dimension(83, 26));
         butAdd.addActionListener(
             new java.awt.event.ActionListener() {
@@ -172,7 +172,7 @@ public class ChannelSetListDialog extends FGDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 10);
         jPanel1.add(butAdd, gridBagConstraints);
 
-        butEdit.setText("Edit");
+        butEdit.setText( FreeGuide.msg.getString( "edit" ) );
         butEdit.setPreferredSize(new java.awt.Dimension(83, 26));
         butEdit.addActionListener(
             new java.awt.event.ActionListener() {
@@ -187,7 +187,7 @@ public class ChannelSetListDialog extends FGDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 10);
         jPanel1.add(butEdit, gridBagConstraints);
 
-        butRemove.setText("Remove");
+        butRemove.setText( FreeGuide.msg.getString( "remove" ) );
         butRemove.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,7 +220,7 @@ public class ChannelSetListDialog extends FGDialog {
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Channel sets:");
+        jLabel1.setText( FreeGuide.msg.getString( "channel_sets" ) + ":" );
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
@@ -228,7 +228,7 @@ public class ChannelSetListDialog extends FGDialog {
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        butOK.setText("OK");
+        butOK.setText( FreeGuide.msg.getString( "ok" ) );
         butOK.setPreferredSize(new java.awt.Dimension(83, 26));
         butOK.addActionListener(
             new java.awt.event.ActionListener() {
@@ -241,7 +241,7 @@ public class ChannelSetListDialog extends FGDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 5);
         jPanel2.add(butOK, gridBagConstraints);
 
-        butCancel.setText("Cancel");
+        butCancel.setText( FreeGuide.msg.getString( "cancel" ) );
         butCancel.setPreferredSize(new java.awt.Dimension(83, 26));
         butCancel.addActionListener(
             new java.awt.event.ActionListener() {
@@ -261,8 +261,8 @@ public class ChannelSetListDialog extends FGDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         getContentPane().add(jPanel2, gridBagConstraints);
 
-		getRootPane().setDefaultButton( butOK );
-		
+        getRootPane().setDefaultButton( butOK );
+        
         pack();
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setSize(new java.awt.Dimension(400, 300));
@@ -336,8 +336,9 @@ public class ChannelSetListDialog extends FGDialog {
             fav.updateChannelNames(loader);
 
             ChannelSetEditorDialog channels = 
-                new ChannelSetEditorDialog( this, "Edit Channel Set", loader,
-					fav );
+                new ChannelSetEditorDialog( this,
+                    FreeGuide.msg.getString( "edit_channel_set"),
+                    loader, fav );
 
             boolean changed = channels.showDialog();
             
@@ -361,13 +362,14 @@ public class ChannelSetListDialog extends FGDialog {
         channelsets.add(newCset);
                 
         ChannelSetEditorDialog channels = 
-            new ChannelSetEditorDialog( this, "Add a new Channel Set", loader,
-				newCset );
+            new ChannelSetEditorDialog( this,
+                FreeGuide.msg.getString( "add_a_new_channel_set" ),
+                loader, newCset );
   
         boolean changed = channels.showDialog();      
         
-		updatedFlag = true;
-		
+        updatedFlag = true;
+        
         latestIndex = channelsetModel.size();
         reShow();
 

@@ -50,24 +50,24 @@ public class Version {
     public Version( String version_string ) throws NumberFormatException {
         
         String[] split_version = new String[3];
-		int pos = 0;
-		int oldpos = 0;
+        int pos = 0;
+        int oldpos = 0;
 
-		for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
 
-			pos = version_string.indexOf('.', oldpos);
+            pos = version_string.indexOf('.', oldpos);
 
-			if (pos == -1) {
-				pos = version_string.indexOf('_', oldpos);
-			}
+            if (pos == -1) {
+                pos = version_string.indexOf('_', oldpos);
+            }
 
-			if (pos == -1) {
-				pos = version_string.indexOf('-', oldpos);
-			}
+            if (pos == -1) {
+                pos = version_string.indexOf('-', oldpos);
+            }
 
-			if (pos == -1) {
-				pos = version_string.length();
-			}
+            if (pos == -1) {
+                pos = version_string.length();
+            }
             
             // If we've ended the string
             if( oldpos > pos ) {
@@ -77,10 +77,10 @@ public class Version {
                 split_version[i] = version_string.substring(oldpos, pos);
                 
             }
-			
-			oldpos = pos + 1;
+            
+            oldpos = pos + 1;
 
-		}
+        }
         
         major    = Integer.parseInt(split_version[0]);
         minor    = Integer.parseInt(split_version[1]);

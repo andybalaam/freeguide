@@ -13,6 +13,7 @@
 
 package freeguide.lib.fgspecific;
 
+import freeguide.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,8 +37,8 @@ public class Programme {
      *  Constructor for the Programme object
      */
     public Programme() {
-	
-	}
+    
+    }
 
 
     /**
@@ -161,7 +162,7 @@ public class Programme {
             try {
                 double num = Double.parseDouble(rating.substring(0, i));
                 if (num == 0) {
-                    return "(No Stars)";
+                    return FreeGuide.msg.getString( "no_stars" );
                 }
                 if (Math.floor(num) == num) {
                     return "(" + stars.substring(0, (int) Math.round(Math.floor(num))) + ")";
@@ -191,8 +192,8 @@ public class Programme {
         }// FIXME else use the one with the correct lang tag
         
     }
-	
-	/**
+    
+    /**
      *  Adds more to the subtitle of the programme
      *
      *@param  subtitle  The subtitle of the programme
@@ -217,8 +218,8 @@ public class Programme {
     public String getTitle() {
         return title;
     }
-	
-	/**
+    
+    /**
      *  Gets the subtitle attribute of the Programme object
      *
      *@return    The subtitle value
@@ -262,68 +263,45 @@ public class Programme {
         return shortDesc;
     }
 
-
     /**
-     *  Adds a feature to the ToChannelName attribute of the Programme object
+     *  Gets the channel attribute of the Programme object
      *
-     *@param  channelName  The feature to be added to the ToChannelName
-     *      attribute
+     *@return    The channel Object
      */
-    public void addToChannelName(String channelName) {
-        if (this.channelName == null) {
-            this.channelName = new String();
-        }
-        this.channelName += channelName;
+    public Channel getChannel() {
+        return channel;
     }
 
 
     /**
-     *  Gets the channelName attribute of the Programme object
+     *  Sets the channel attribute of the Programme object
      *
-     *@return    The channelName value
+     *@param  channel  The new channel value
      */
-    public String getChannelName() {
-        return channelName;
+    public void setChannel(Channel channel) {
+        this.channel = channel;
     }
 
 
     /**
-     *  Sets the channelID attribute of the Programme object
-     *
-     *@param  channelID  The new channelID value
+
+     * Sets whether the programme has subtitles
      */
-    public void setChannelID(String channelID) {
-        this.channelID = channelID;
+    public void setSubtitled( boolean isSubtitled ) {
+        
+        this.isSubtitled = isSubtitled;
+        
     }
-
-
+    
     /**
-     *  Gets the channelID attribute of the Programme object
-     *
-     *@return    The channelID value
+     *@return true if this programme has subtitles
      */
-    public String getChannelID() {
-        return channelID;
+    public boolean isSubtitled() {
+        
+        return isSubtitled;
+        
     }
-
-	/**
-	 * Sets whether the programme has subtitles
-	 */
-	public void setSubtitled( boolean isSubtitled ) {
-		
-		this.isSubtitled = isSubtitled;
-		
-	}
-	
-	/**
-	 *@return true if this programme has subtitles
-	 */
-	public boolean isSubtitled() {
-		
-		return isSubtitled;
-		
-	}
-	
+    
 
     /**
      *  Adds a feature to the Category attribute of the Programme object
@@ -352,29 +330,29 @@ public class Programme {
         }
     }
 
-	
-	/**
-	 * Sets a URL with more info about this programme
-	 *
-	 * @param link the URL to follow for more info
-	 */
-	public void setLink(URL link) {
+    
+    /**
+     * Sets a URL with more info about this programme
+     *
+     * @param link the URL to follow for more info
+     */
+    public void setLink(URL link) {
         
-		this.link = link;
-		
+        this.link = link;
+        
     }
 
-	/**
+    /**
      *  Gets a link to follow for more info about this programme
      *
      *@return    The URL of more info about the programme
      */
     public URL getLink() {
         
-		return link;
-		
+        return link;
+        
     }
-	
+    
     /**
      *  Decides whether two programme objects refer to the same programme
      *  Programmes are assumed to be uniquely identified by their title, start
@@ -383,20 +361,20 @@ public class Programme {
      *@param  obj  Description of the Parameter
      *@return      Description of the Return Value
      */
-    public boolean equals(Object obj) {
+    public boolean equals( Object obj ) {
 
-        if (obj == null) {
+        if( obj == null ) {
             return false;
         }
 
-        if (!(obj instanceof Programme)) {
+        if( !( obj instanceof Programme ) ) {
             return false;
         }
-        Programme other = (Programme) obj;
+        Programme other = (Programme)obj;
 
         if (title.equals(other.getTitle()) &&
                 start.equals(other.getStart()) &&
-                channelID.equals(other.getChannelID())) {
+                channel.equals(other.getChannel())) {
 
             return true;
         }
@@ -416,7 +394,7 @@ public class Programme {
         // Just add up 3 values - stupid?
         byte[] titleBytes = title.getBytes();
         long startMS = start.getTimeInMillis();
-        byte[] channelBytes = channelID.getBytes();
+        byte[] channelBytes = channel.getID().getBytes();
 
         int ans = 0;
         for (int i = 0; i < titleBytes.length; i++) {
@@ -473,128 +451,136 @@ public class Programme {
         hashOfAttrs.put(subTag, newData);
         
     }
-	/**
-	 * @return Returns the iconURL from the cache.
-	 */
-	public String getIconURL() {
-		if (iconURL == null) return null;
-		StringBuffer path = FGPreferences.getIconCacheDir();
-		path.append(iconURL.replaceAll("[^0-9A-Za-z_-]|^http://|^ftp://", ""));
-		// First convert the id to a suitable (and safe!!) filename
-		File cache = new File(path.toString());
-		// then verify if the file is in the cache
-		if (!cache.canRead()) {
-			// if not, we try to fetch it from the url
-			try {
-				URL iconURL;
-				iconURL = new URL(this.iconURL);
-				InputStream i = iconURL.openStream();
-				FileOutputStream o = new FileOutputStream(cache);
-				byte buffer[] = new byte[4096];
-				int bCount;
-				while ((bCount = i.read(buffer)) != -1)
-					o.write(buffer, 0, bCount);
-				o.close();
-				i.close();
-			} catch (MalformedURLException e) {
-				return null;
-			} catch (IOException e) {
-				return null;
-			}
-		}
-		try {
-			return cache.toURL().toString();
-		} catch (MalformedURLException e) {
-			return null;
-		}
-	}
-	
-	/**
-	 * @param iconURL The iconURL to set.
-	 */
-	public void setIconURL(String iconURL) {
-		this.iconURL = iconURL;
-	}
+    /**
+     * @return Returns the iconURL from the cache.
+     */
+    public String getIconURL() {
+        if (iconURL == null) return null;
+        StringBuffer path = FGPreferences.getIconCacheDir();
+        path.append(iconURL.replaceAll("[^0-9A-Za-z_-]|^http://|^ftp://", ""));
+        // First convert the id to a suitable (and safe!!) filename
+        File cache = new File(path.toString());
+        // then verify if the file is in the cache
+        if (!cache.canRead()) {
+            // if not, we try to fetch it from the url
+            try {
+                URL iconURL;
+                iconURL = new URL(this.iconURL);
+                InputStream i = iconURL.openStream();
+                FileOutputStream o = new FileOutputStream(cache);
+                byte buffer[] = new byte[4096];
+                int bCount;
+                while ((bCount = i.read(buffer)) != -1)
+                    o.write(buffer, 0, bCount);
+                o.close();
+                i.close();
+            } catch (MalformedURLException e) {
+                return null;
+            } catch (IOException e) {
+                return null;
+            }
+        }
+        try {
+            return cache.toURL().toString();
+        } catch (MalformedURLException e) {
+            return null;
+        }
+    }
+    
+    /**
+     * @param iconURL The iconURL to set.
+     */
+    public void setIconURL(String iconURL) {
+        this.iconURL = iconURL;
+    }
 
     public Hashtable getExtraTags() {
         return extraTags;
     }
     
-	/**
-	 * The start time
-	 */
+    public boolean isInGuide() {
+        return inGuide;
+    }
+    
+    public void setInGuide( boolean inGuide ) {
+        this.inGuide = inGuide;
+    }
+    
+    /**
+     * Is this programme displayed in the personalised guide?
+     */
+    private boolean inGuide;
+    
+    /**
+     * The start time
+     */
     private Calendar start;
     
-	/**
-	 * The end time
-	 */
+    /**
+     * The end time
+     */
     private Calendar end;
     
-	/**
-	 * The programme title
-	 */
+    /**
+     * The programme title
+     */
     private String title;
-	
-	/**
-	 * The programme subtitle
-	 */
+    
+    /**
+     * The programme subtitle
+     */
     private String subtitle;
     
-	/**
-	 * The programme description (short)
-	 */
-	private String shortDesc;
+    /**
+     * The programme description (short)
+     */
+    private String shortDesc;
     
-	/**
-	 * The programme description (long)
-	 */
+    /**
+     * The programme description (long)
+     */
     private String longDesc;
     
-	/**
-	 * The name of the channel the prog's on
-	 */
-    private String channelName;
-    
-	/**
-	 * The ID of the channel the prog's on
-	 */
-    private String channelID;
+    /**
+     * The channel the prog's on
+     */
+    private Channel channel;
     
     /**
      * The URL of the programme's icon
      */
     private String iconURL;
     
-	/**
-	 * The categories it fits into
-	 */
+    /**
+     * The categories it fits into
+     */
     private Vector category;
     
-	/**
-	 * Is it a movie?
-	 */
+    /**
+     * Is it a movie?
+     */
     private boolean isMovie;
     
-	/**
-	 * Is it a repeat?
-	 */
+    /**
+     * Is it a repeat?
+     */
     private boolean previouslyShown;
     
-	/**
-	 * Its star rating if it's a movie
-	 */
+    /**
+     * Its star rating if it's a movie
+     */
     private String starRating;
     
-	/**
-	 * Does it have subtitles?
-	 */
-	private boolean isSubtitled;
+    /**
+     * Does it have subtitles?
+     */
+    private boolean isSubtitled;
 
-	/**
-	 * A URL to more info about the programme
-	 */
-	private URL link;
-	
+    /**
+     * A URL to more info about the programme
+     */
+    private URL link;
+    
     /**
      * Any unrecognised tags go in here.
      */

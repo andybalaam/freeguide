@@ -30,40 +30,40 @@ public class FGDialog extends JDialog {
      *
      *@param owner the <code>JFrame</code> from which the dialog is displayed 
      *@param title the <code>String</code> to display in the dialog's title
-	 * 			   bar
-	 *
+     *                bar
+     *
      */
     public FGDialog(JFrame owner, String title) {
         super(owner, title, true);
 
-		init();
-	}
-	
-	/**
+        init();
+    }
+    
+    /**
      * Constructor - just creates a modal dialog with the given title and owner
      *
      *@param owner the <code>JDialog</code> from which the dialog is displayed 
      *@param title the <code>String</code> to display in the dialog's title
-	 * 			   bar
-	 *
+     *                bar
+     *
      */
     public FGDialog(JDialog owner, String title) {
         super(owner, title, true);
 
-		init();
-		
+        init();
+        
     }
 
-	private void init() {
-		
-		addWindowListener(
+    private void init() {
+        
+        addWindowListener(
             new java.awt.event.WindowAdapter() {
                 public void windowClosing(java.awt.event.WindowEvent evt) {
                     exitForm(evt);
                 }
             });
     }
-	
+    
     /**
      *  Description of the Method
      *
@@ -80,7 +80,7 @@ public class FGDialog extends JDialog {
      *
      * @returns Returns <code>true</code> if any of the settings in the
      *                 dialog have been changed, and <code>false</code>
-	 *                 otherwise.
+     *                 otherwise.
      */
     
     public boolean showDialog() {

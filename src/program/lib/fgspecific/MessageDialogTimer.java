@@ -31,30 +31,30 @@ public class MessageDialogTimer {
     public MessageDialogTimer() {
 
     }
-	
-	public void schedule( String message, Date startTime, Date giveUpTime ) {
-		
-		timer = new Timer();
-		timer_closer = new Timer();
-		
-		MessageDialogTimerTask task = new MessageDialogTimerTask( message );
-		MessageDialogCloseTimerTask task_closer
-			= new MessageDialogCloseTimerTask( task );
-		
-		timer.schedule( task, startTime );
-		timer_closer.schedule( task_closer, giveUpTime );
-		
-	}
-
-	public void cancel() {
-		
-		timer_closer.cancel();
-		timer.cancel();
-		
-	}
     
-	Timer timer;
-	Timer timer_closer;
-	
+    public void schedule( String message, Date startTime, Date giveUpTime ) {
+        
+        timer = new Timer();
+        timer_closer = new Timer();
+        
+        MessageDialogTimerTask task = new MessageDialogTimerTask( message );
+        MessageDialogCloseTimerTask task_closer
+            = new MessageDialogCloseTimerTask( task );
+        
+        timer.schedule( task, startTime );
+        timer_closer.schedule( task_closer, giveUpTime );
+        
+    }
+
+    public void cancel() {
+        
+        timer_closer.cancel();
+        timer.cancel();
+        
+    }
+    
+    Timer timer;
+    Timer timer_closer;
+    
 }
 

@@ -13,6 +13,7 @@
 
 package freeguide.lib.fgspecific;
 
+import freeguide.*;
 import java.util.Date;
 import java.util.TimerTask;
 import javax.swing.JDialog;
@@ -27,45 +28,46 @@ import javax.swing.JOptionPane;
  */
 public class MessageDialogTimerTask extends TimerTask {
 
-	public MessageDialogTimerTask( String message ) {
-		
-		this.message = message;
-		
-	}
-	
-	/**
-	 * Displays a message dialog.
-	 */
-	public void run() {
-		
-		 //JOptionPane.showMessageDialog( null, message, "Reminder",
-		 //	JOptionPane.INFORMATION_MESSAGE ); 
-		
-		JOptionPane optionPane = new JOptionPane( message,
-			JOptionPane.INFORMATION_MESSAGE );
-			
-		dialog = optionPane.createDialog( null, "FreeGuide Reminder" );
-		
-		dialog.setVisible( true );
-		
-	}
-	
-	public void stop() {
-		
-		dialog.dispose();
-		
-	}
-	
-	/**
-	 * The message to display on screen at the scheduled time.
-	 */
-	private String message;
-	
-	/**
-	 * The message box which displays the message
-	 */
-	private JDialog dialog;
-	
+    public MessageDialogTimerTask( String message ) {
+        
+        this.message = message;
+        
+    }
+    
+    /**
+     * Displays a message dialog.
+     */
+    public void run() {
+        
+         //JOptionPane.showMessageDialog( null, message, "Reminder",
+         //    JOptionPane.INFORMATION_MESSAGE ); 
+        
+        JOptionPane optionPane = new JOptionPane( message,
+            JOptionPane.INFORMATION_MESSAGE );
+            
+        dialog = optionPane.createDialog( null,
+            FreeGuide.msg.getString( "freeguide_reminder" ) );
+        
+        dialog.setVisible( true );
+        
+    }
+    
+    public void stop() {
+        
+        dialog.dispose();
+        
+    }
+    
+    /**
+     * The message to display on screen at the scheduled time.
+     */
+    private String message;
+    
+    /**
+     * The message box which displays the message
+     */
+    private JDialog dialog;
+    
 }
 
 

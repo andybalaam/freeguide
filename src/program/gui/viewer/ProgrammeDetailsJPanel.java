@@ -61,12 +61,12 @@ public class ProgrammeDetailsJPanel extends javax.swing.JPanel {
         
         // Find out whether we're in the 24 hour clock
         boolean draw24time = FreeGuide.prefs.screen.getBoolean(
-			"display_24hour_time", true );
-		
+            "display_24hour_time", true );
+        
         // And get the time format from that
-		SimpleDateFormat timeFormat = (
-			draw24time ? parentViewerFrame.timeFormat24Hour :
-				parentViewerFrame.timeFormat12Hour );
+        SimpleDateFormat timeFormat = (
+            draw24time ? parentViewerFrame.timeFormat24Hour :
+                parentViewerFrame.timeFormat12Hour );
         
         ProgrammeFormat programmeFormat = new ProgrammeFormat(
             ProgrammeFormat.HTML_FORMAT, timeFormat, true );
@@ -79,7 +79,15 @@ public class ProgrammeDetailsJPanel extends javax.swing.JPanel {
             
         } else {
             
-            editorPane.setText( "<html><body><p>No programme selected.</p></body></html>" );
+            StringBuffer buff = new StringBuffer();
+            
+            ProgrammeFormat.appendStyleSheet( buff );
+            
+            buff.append( "<p>" );
+            buff.append( FreeGuide.msg.getString( "no_programme_selected" ) );
+            buff.append( "</p></body></html>" );
+            
+            editorPane.setText( buff.toString() );
             
         }
 
@@ -88,9 +96,9 @@ public class ProgrammeDetailsJPanel extends javax.swing.JPanel {
     }
     
     /**
-	 * This object's parent window.
-	 */
-	private ViewerFrame parentViewerFrame;
+     * This object's parent window.
+     */
+    private ViewerFrame parentViewerFrame;
     
     /**
      * The JEditorPane showing the actual programme description.

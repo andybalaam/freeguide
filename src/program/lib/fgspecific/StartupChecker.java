@@ -33,259 +33,262 @@ import javax.swing.JOptionPane;
  */
 public class StartupChecker {
 
-	/**
-	 *  Description of the Method
-	 *
-	 *@param  args        Description of the Parameter
-	 *@return             Description of the Return Value
-	 */
-	public static void basicSetup( String[] args ) {
+    /**
+     *  Description of the Method
+     *
+     *@param  args        Description of the Parameter
+     *@return             Description of the Return Value
+     */
+    public static void basicSetup( String[] args ) {
 
-		// ------------------------------------------------------
-		// Check the version of Java that we are running in
-		doJavaVersionCheck();
-		
-		// ------------------------------------------------------
-		// Check we can make a log file
-		if (!setupLog()) {
-			die("FreeGuide - Failed to create log file.");
-		}
+        // ------------------------------------------------------
+        // Check the version of Java that we are running in
+        doJavaVersionCheck();
+        
+        // ------------------------------------------------------
+        // Check we can make a log file
+        if (!setupLog()) {
+            die( FreeGuide.msg.getString( "failed_to_create_log_file" ) );
+        }
 
-		// Check any arguments that were passed in are ok
-		if (!processArgs(args)) {
-			FreeGuide.die("Argument processing failed.");
-		}
+        // Check any arguments that were passed in are ok
+        if (!processArgs(args)) {
+            FreeGuide.die( FreeGuide.msg.getString(
+                "argument_processing_failed" ) );
+        }
 
-		// Set up the Preferences clases
-		if (!setupPrefs()) {
-			FreeGuide.die("Failed to set up configuration.");
-		}
+        // Set up the Preferences clases
+        if (!setupPrefs()) {
+            FreeGuide.die( FreeGuide.msg.getString( 
+                "failed_to_set_up_configuration" ) );
+        }
         
     }
-	
+    
     public static Vector runChecks() {
-	
+    
         // Make an icon cache dir if it doesn't exist
         File iconcache = new File( FGPreferences.getIconCacheDir().toString() );
         if( !iconcache.isDirectory() ) {
             iconcache.mkdirs();
         }
         
-		// --------------------------------------------------------------------
-		// Checks that need correction
+        // --------------------------------------------------------------------
+        // Checks that need correction
 
-		// Variables that will be true if something needs correcting
-		Vector failedWhat = new Vector();
-		PreferencesGroup prefs = FreeGuide.prefs;
+        // Variables that will be true if something needs correcting
+        Vector failedWhat = new Vector();
+        PreferencesGroup prefs = FreeGuide.prefs;
 
-		checkTextFailure(prefs.misc, "day_start_time", failedWhat);
-		checkTextFailure(prefs.misc, "grabber_start_time", failedWhat);
-		checkTextFailure(prefs.misc, "days_to_grab", failedWhat);
-		checkFileFailure(prefs.misc, "working_directory", failedWhat);
+        checkTextFailure(prefs.misc, "day_start_time", failedWhat);
+        checkTextFailure(prefs.misc, "grabber_start_time", failedWhat);
+        checkTextFailure(prefs.misc, "days_to_grab", failedWhat);
+        checkFileFailure(prefs.misc, "working_directory", failedWhat);
 
-		return failedWhat;
-	}
+        return failedWhat;
+    }
 
 
-	/**
-	 *  Stop the program with an error
-	 *
-	 *@param  message  The error message to display
-	 */
-	private static void die(String message) {
-		System.err.println(message);
-		System.exit(1);
-	}
-	
-	
-	public static void doJavaVersionCheck() {
-		
-		if (!checkJavaVersion()) {
+    /**
+     *  Stop the program with an error
+     *
+     *@param  message  The error message to display
+     */
+    private static void die(String message) {
+        System.err.println(message);
+        System.exit(1);
+    }
+    
+    
+    public static void doJavaVersionCheck() {
+        
+        if (!checkJavaVersion()) {
             
             // FIXME should be a Java 1 compatible dialog box
             
-			die("Halted due to wrong Java version - should be 1.4.0 or " +
-			    "greater but you are using "
-			    + System.getProperty("java.version") + ".");
-		}
-		
-	}
-	
-	/**
-	 *  Checks we have at least Java 1.4.
-	 *
-	 *@return    true if the Java virtual machine is version 1.4.0 or above
-	 */
-	private static boolean checkJavaVersion() {
+            die( FreeGuide.msg.getString( "halted_wrong_java_version" )
+                + System.getProperty( "java.version" ) + "." );
+        }
+        
+    }
+    
+    /**
+     *  Checks we have at least Java 1.4.
+     *
+     *@return    true if the Java virtual machine is version 1.4.0 or above
+     */
+    private static boolean checkJavaVersion() {
 
-		// Check for Java 1.4 +
-		return isJavaVersionAtLeast(1, 4, 0);
-	}
-
-
-	/**
-	 *  Checks whether the Java virtual machine is of the required version
-	 *
-	 *@param  wantedMajor     The major version number of Java required e.g. 1
-	 *@param  wantedMinor     The minor version number of Java required e.g. 4
-	 *@param  wantedRevision  The revision number of Java required e.g. 0
-	 *@return                 true if the Java version is above that specified
-	 */
-	private static boolean isJavaVersionAtLeast(int wantedMajor,
-			int wantedMinor, int wantedRevision) {
-
-		// Find out the version from the system
-		String versionString = System.getProperty("java.version");
-
-		String[] splitVersion = new String[3];
-		int pos = 0;
-		int oldpos = 0;
-
-		for (int i = 0; i < 3; i++) {
-
-			pos = versionString.indexOf('.', oldpos);
-
-			if (pos == -1) {
-				pos = versionString.indexOf('_', oldpos);
-			}
-
-			if (pos == -1) {
-				pos = versionString.indexOf('-', oldpos);
-			}
-
-			if (pos == -1) {
-				pos = versionString.length();
-			}
-
-			splitVersion[i] = versionString.substring(oldpos, pos);
-			oldpos = pos + 1;
-
-		}
-
-		int actualMajor;
-		int actualMinor;
-		int actualRevision;
-
-		// Parse the bits
-		try {
-
-			actualMajor = Integer.parseInt(splitVersion[0]);
-			actualMinor = Integer.parseInt(splitVersion[1]);
-			actualRevision = Integer.parseInt(splitVersion[2]);
-
-		} catch (NumberFormatException e) {
-
-			e.printStackTrace();
-			return false;
-		}
-
-		// Check we have the required version
-		if (actualMajor > wantedMajor ||
-		        (actualMajor == wantedMajor && actualMinor > wantedMinor) ||
-		        (actualMajor == wantedMajor && actualMinor == wantedMinor && actualRevision >= wantedRevision)) {
-			return true;
-		}
-
-		// If not, we fail
-		return false;
-	}
+        // Check for Java 1.4 +
+        return isJavaVersionAtLeast(1, 4, 0);
+    }
 
 
-	/**
-	 *  Check that there is a config entry of text type
-	 *
-	 *@param  pref        Description of the Parameter
-	 *@param  entry       Description of the Parameter
-	 *@param  failedWhat  Description of the Parameter
-	 */
-	private static void checkTextFailure(FGPreferences pref,
-	    	String entry, Vector failedWhat) {
+    /**
+     *  Checks whether the Java virtual machine is of the required version
+     *
+     *@param  wantedMajor     The major version number of Java required e.g. 1
+     *@param  wantedMinor     The minor version number of Java required e.g. 4
+     *@param  wantedRevision  The revision number of Java required e.g. 0
+     *@return                 true if the Java version is above that specified
+     */
+    private static boolean isJavaVersionAtLeast(int wantedMajor,
+            int wantedMinor, int wantedRevision) {
 
-		String error = ConfigGuesser.checkValue( "misc", entry,
-			FreeGuide.prefs.performSubstitutions( pref.get( entry ) ) );
-											 
-		if ( error != null) {
+        // Find out the version from the system
+        String versionString = System.getProperty("java.version");
 
-			failedWhat.add( error );
-		}
-	}
+        String[] splitVersion = new String[3];
+        int pos = 0;
+        int oldpos = 0;
+
+        for (int i = 0; i < 3; i++) {
+
+            pos = versionString.indexOf('.', oldpos);
+
+            if (pos == -1) {
+                pos = versionString.indexOf('_', oldpos);
+            }
+
+            if (pos == -1) {
+                pos = versionString.indexOf('-', oldpos);
+            }
+
+            if (pos == -1) {
+                pos = versionString.length();
+            }
+
+            splitVersion[i] = versionString.substring(oldpos, pos);
+            oldpos = pos + 1;
+
+        }
+
+        int actualMajor;
+        int actualMinor;
+        int actualRevision;
+
+        // Parse the bits
+        try {
+
+            actualMajor = Integer.parseInt(splitVersion[0]);
+            actualMinor = Integer.parseInt(splitVersion[1]);
+            actualRevision = Integer.parseInt(splitVersion[2]);
+
+        } catch (NumberFormatException e) {
+
+            e.printStackTrace();
+            return false;
+        }
+
+        // Check we have the required version
+        if (actualMajor > wantedMajor ||
+                (actualMajor == wantedMajor && actualMinor > wantedMinor) ||
+                (actualMajor == wantedMajor && actualMinor == wantedMinor && actualRevision >= wantedRevision)) {
+            return true;
+        }
+
+        // If not, we fail
+        return false;
+    }
 
 
-	/**
-	 *  Check that there is a config entry of file type
-	 *
-	 *@param  pref        Description of the Parameter
-	 *@param  entry       Description of the Parameter
-	 *@param  failedWhat  Description of the Parameter
-	 */
-	private static void checkFileFailure(FGPreferences pref, String entry,
-			Vector failedWhat) {
+    /**
+     *  Check that there is a config entry of text type
+     *
+     *@param  pref        Description of the Parameter
+     *@param  entry       Description of the Parameter
+     *@param  failedWhat  Description of the Parameter
+     */
+    private static void checkTextFailure(FGPreferences pref,
+            String entry, Vector failedWhat) {
 
-		String pr = FreeGuide.prefs.performSubstitutions(pref.get(entry)); 
-		
-		if(pr == null) {
-			failedWhat.add("Config entry \"misc." + entry
-				+ "\" does not exist");
-			return;
-		}
-		
-		String error = ConfigGuesser.checkValue( "misc", entry, new File(pr) );
-		
-		if( error != null ) {
+        String error = ConfigGuesser.checkValue( "misc", entry,
+            FreeGuide.prefs.performSubstitutions( pref.get( entry ) ) );
+                                             
+        if ( error != null) {
 
-			failedWhat.add( error );
-
-		}
-	}
+            failedWhat.add( error );
+        }
+    }
 
 
-	/**
-	 *  processArgs Processes the commandline arguments and stores them.
-	 *
-	 *@param  args  The commandline arguments
-	 *@return       true if all is well, false otherwise.
-	 */
-	private static boolean processArgs(String[] args) {
+    /**
+     *  Check that there is a config entry of file type
+     *
+     *@param  pref        Description of the Parameter
+     *@param  entry       Description of the Parameter
+     *@param  failedWhat  Description of the Parameter
+     */
+    private static void checkFileFailure(FGPreferences pref, String entry,
+            Vector failedWhat) {
+
+        String pr = FreeGuide.prefs.performSubstitutions(pref.get(entry)); 
+        
+        if(pr == null) {
+            Object[] messageArguments = { entry };
+            failedWhat.add( FreeGuide.getCompoundMessage(
+                "config_entry_misc_does_not_exist_template",
+                messageArguments ) );
+            return;
+        }
+        
+        String error = ConfigGuesser.checkValue( "misc", entry, new File(pr) );
+        
+        if( error != null ) {
+
+            failedWhat.add( error );
+
+        }
+    }
+
+
+    /**
+     *  processArgs Processes the commandline arguments and stores them.
+     *
+     *@param  args  The commandline arguments
+     *@return       true if all is well, false otherwise.
+     */
+    private static boolean processArgs(String[] args) {
         
         Vector boolArgs = new Vector();
         boolArgs.add( "--install" );
         boolArgs.add( "--uninstall" );
         boolArgs.add( "--prefs" );
         
-		// Process the command line arguments and store them
-		FreeGuide.arguments = new CmdArgs( args, boolArgs );
+        // Process the command line arguments and store them
+        FreeGuide.arguments = new CmdArgs( args, boolArgs );
 
-		return FreeGuide.arguments.noErrors();
-	}
-
-
-	/**
-	 *  setupLog Creates a log file.
-	 *
-	 *@return    true if all is well, false otherwise
-	 */
-	private static boolean setupLog() {
-
-		// Set up the logger
-		FreeGuide.log = Logger.getLogger("org.freeguide-tv");
-
-		return true;
-	}
+        return FreeGuide.arguments.noErrors();
+    }
 
 
-	/**
-	 *  setupPrefs Creates the preferences object that holds the configuration
-	 *  info
-	 *
-	 *@return    true if all is well, false otherwise
-	 */
-	private static boolean setupPrefs() {
+    /**
+     *  setupLog Creates a log file.
+     *
+     *@return    true if all is well, false otherwise
+     */
+    private static boolean setupLog() {
 
-		// Make the object that holds all the Preferences objects
-		FreeGuide.prefs = new PreferencesGroup();
+        // Set up the logger
+        FreeGuide.log = Logger.getLogger("org.freeguide-tv");
 
-		return FreeGuide.prefs.noErrors();
-	}
-	
-	
+        return true;
+    }
+
+
+    /**
+     *  setupPrefs Creates the preferences object that holds the configuration
+     *  info
+     *
+     *@return    true if all is well, false otherwise
+     */
+    private static boolean setupPrefs() {
+
+        // Make the object that holds all the Preferences objects
+        FreeGuide.prefs = new PreferencesGroup();
+
+        return FreeGuide.prefs.noErrors();
+    }
+    
+    
 }

@@ -41,21 +41,24 @@ public class InstallWizardPanel extends WizardPanel {
      *  Construct the GUI of this Wizard Panel.
      */
     public void construct() {
-		
+        
         java.awt.GridBagConstraints gridBagConstraints;
 
         JLabel topLabel = new JLabel();
         middlePanel = new JPanel();
-		
-		readmeCheckBox = new JCheckBox( "Display the README", true );
-		readmeCheckBox.setMnemonic(KeyEvent.VK_R);
-		readmeCheckBox.setSelected( true );
-		
-		configgrabberCheckBox = new JCheckBox( "Choose channels now (connect to the Internet first)",
-			true );
-		configgrabberCheckBox.setMnemonic(KeyEvent.VK_G);
-		configgrabberCheckBox.setSelected( true );
-		
+        
+        readmeCheckBox = new JCheckBox(
+            FreeGuide.msg.getString( "display_the_readme" ),
+            true );
+        readmeCheckBox.setMnemonic(KeyEvent.VK_R);
+        readmeCheckBox.setSelected( true );
+        
+        configgrabberCheckBox = new JCheckBox(
+            FreeGuide.msg.getString( "choose_channels_now" ),
+            true );
+        configgrabberCheckBox.setMnemonic(KeyEvent.VK_G);
+        configgrabberCheckBox.setSelected( true );
+        
         JLabel bottomLabel = new JLabel();
 
         setLayout(new GridLayout(3, 0));
@@ -66,9 +69,9 @@ public class InstallWizardPanel extends WizardPanel {
         add(topLabel);
 
         middlePanel.setLayout( new GridLayout( 2, 0 ) );
-		middlePanel.add( readmeCheckBox );
-		middlePanel.add( configgrabberCheckBox );
-		
+        middlePanel.add( readmeCheckBox );
+        middlePanel.add( configgrabberCheckBox );
+        
         add(middlePanel);
 
         bottomLabel.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -78,35 +81,35 @@ public class InstallWizardPanel extends WizardPanel {
 
     }
 
-	public void onEnter() {
-		super.onEnter();
-		
-		boolean showConfigCheck = ( FreeGuide.prefs.commandline.get(
-			"tv_config.1", null ) != null );
-			
-		if( !showConfigCheck ) {
-			configgrabberCheckBox.setSelected( false );
-			middlePanel.remove( configgrabberCheckBox );
-		}
-		
-		
-	}
-	
-	// ----------------------------------
-	
-	/**
-	 * A little cheat here - we return a reference to this Panel so that
-	 * observers can access the values of the checkboxes.
-	 */
-	protected Object getBoxValue() {
+    public void onEnter() {
+        super.onEnter();
+        
+        boolean showConfigCheck = ( FreeGuide.prefs.commandline.get(
+            "tv_config.1", null ) != null );
+            
+        if( !showConfigCheck ) {
+            configgrabberCheckBox.setSelected( false );
+            middlePanel.remove( configgrabberCheckBox );
+        }
+        
+        
+    }
+    
+    // ----------------------------------
+    
+    /**
+     * A little cheat here - we return a reference to this Panel so that
+     * observers can access the values of the checkboxes.
+     */
+    protected Object getBoxValue() {
         return this;
     }
 
     // -------------------------------------------
 
-	public JCheckBox readmeCheckBox;
+    public JCheckBox readmeCheckBox;
     public JCheckBox configgrabberCheckBox;
 
-	private JPanel middlePanel;
-	
+    private JPanel middlePanel;
+    
 }

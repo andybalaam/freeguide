@@ -33,6 +33,8 @@
 
 package freeguide.gui.jcommon;
 
+import freeguide.*;
+
 import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.GraphicsEnvironment;
@@ -81,8 +83,10 @@ public class FontChooserPanel extends JPanel {
         JPanel right = new JPanel(new BorderLayout());
 
         JPanel fontPanel = new JPanel(new BorderLayout());
-        fontPanel.setBorder(BorderFactory.createTitledBorder(
-                            BorderFactory.createEtchedBorder(), "Font:"));
+        fontPanel.setBorder(
+            BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder(),
+                FreeGuide.msg.getString( "font" ) + ":" ) );
         fontlist = new JList(fonts);
         JScrollPane fontpane = new JScrollPane(fontlist);
         fontpane.setBorder(BorderFactory.createEtchedBorder());
@@ -90,20 +94,23 @@ public class FontChooserPanel extends JPanel {
         add(fontPanel);
 
         JPanel sizePanel = new JPanel(new BorderLayout());
-        sizePanel.setBorder(BorderFactory.createTitledBorder(
-                            BorderFactory.createEtchedBorder(), "Size:"));
+        sizePanel.setBorder( BorderFactory.createTitledBorder(
+            BorderFactory.createEtchedBorder(),
+            FreeGuide.msg.getString( "size" ) + ":" ) );
         sizelist = new JList(SIZES);
         JScrollPane sizepane = new JScrollPane(sizelist);
         sizepane.setBorder(BorderFactory.createEtchedBorder());
         sizePanel.add(sizepane);
 
         JPanel attributes = new JPanel(new GridLayout(1, 2));
-        bold = new JCheckBox("Bold");
-        italic = new JCheckBox("Italic");
+        bold = new JCheckBox( FreeGuide.msg.getString( "bold" ) );
+        italic = new JCheckBox( FreeGuide.msg.getString( "italic" ) );
         attributes.add(bold);
         attributes.add(italic);
-        attributes.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
-                             "Attributes:"));
+        attributes.setBorder(
+            BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder(),
+                FreeGuide.msg.getString( "attributes" ) + ":" ) );
 
         right.add(sizePanel, BorderLayout.CENTER);
         right.add(attributes, BorderLayout.SOUTH);

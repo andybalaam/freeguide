@@ -13,6 +13,7 @@
 
 package freeguide.gui.wizard;
 
+import freeguide.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -37,17 +38,17 @@ public class WizardFrame extends javax.swing.JFrame {
      *@param  panels        an array of WizardPanels to be displayed
      *@param  finishObject  the object on which to call finishMethod
      *@param  finishMethod  a method to call when the wizard finishes
-	 *                      successfully
-	 *@param  exitObject    the object on which to call exitMethod
+     *                      successfully
+     *@param  exitObject    the object on which to call exitMethod
      *@param  exitMethod    a method to call when the user prematurely exited
      */
     public WizardFrame(String title, WizardPanel[] panels, Object finishObject,
-			Method finishMethod, Object exitObject, Method exitMethod) {
+            Method finishMethod, Object exitObject, Method exitMethod) {
 
         this.panels = panels;
         this.finishObject = finishObject;
         this.finishMethod = finishMethod;
-		this.exitObject = exitObject;
+        this.exitObject = exitObject;
         this.exitMethod = exitMethod;
 
         panelCounter = 0;
@@ -64,7 +65,7 @@ public class WizardFrame extends javax.swing.JFrame {
      */
     private void initComponents(String title) {
         
-		GridBagConstraints gridBagConstraints;
+        GridBagConstraints gridBagConstraints;
 
         // Set up the panels ready to be used
         for (int i = 0; i < panels.length; i++) {
@@ -87,8 +88,8 @@ public class WizardFrame extends javax.swing.JFrame {
                 }
             });
 
-        butCancel.setText("Exit");
-		butCancel.setMnemonic(KeyEvent.VK_X);
+        butCancel.setText( FreeGuide.msg.getString( "exit" ) );
+        butCancel.setMnemonic(KeyEvent.VK_X);
         butCancel.setMaximumSize(new java.awt.Dimension(85, 26));
         butCancel.setMinimumSize(new java.awt.Dimension(85, 26));
         butCancel.setPreferredSize(new java.awt.Dimension(85, 26));
@@ -101,8 +102,8 @@ public class WizardFrame extends javax.swing.JFrame {
 
         panButtons.add(butCancel);
 
-        butBack.setText("<< Back");
-		butBack.setMnemonic(KeyEvent.VK_B);
+        butBack.setText( "<< " + FreeGuide.msg.getString( "back" ) );
+        butBack.setMnemonic(KeyEvent.VK_B);
         butBack.setEnabled(false);
         butBack.addActionListener(
             new java.awt.event.ActionListener() {
@@ -113,8 +114,8 @@ public class WizardFrame extends javax.swing.JFrame {
 
         panButtons.add(butBack);
 
-        butNext.setText("Next >>");
-		butNext.setMnemonic(KeyEvent.VK_N);
+        butNext.setText( FreeGuide.msg.getString( "next" ) + " >>");
+        butNext.setMnemonic(KeyEvent.VK_N);
         butNext.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,8 +125,8 @@ public class WizardFrame extends javax.swing.JFrame {
 
         panButtons.add(butNext);
 
-        butFinish.setText("Finish");
-		butFinish.setMnemonic(KeyEvent.VK_F);
+        butFinish.setText( FreeGuide.msg.getString( "finish" ) );
+        butFinish.setMnemonic(KeyEvent.VK_F);
         butFinish.setMaximumSize(new java.awt.Dimension(85, 26));
         butFinish.setMinimumSize(new java.awt.Dimension(85, 26));
         butFinish.setPreferredSize(new java.awt.Dimension(85, 26));
@@ -169,13 +170,13 @@ public class WizardFrame extends javax.swing.JFrame {
 
         butFinish.setEnabled( false );
         
-		panels[panelCounter].onExit();
-		
+        panels[panelCounter].onExit();
+        
         if (finishMethod != null) {
 
             try {
 
-                finishMethod.invoke(finishObject, (Object[])new Class[0]);
+                finishMethod.invoke( finishObject, (Object[])( new Class[0] ) );
 
             } catch (java.lang.IllegalAccessException e) {
                 e.printStackTrace();
@@ -271,7 +272,7 @@ public class WizardFrame extends javax.swing.JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setSize(new java.awt.Dimension(500, 350));
         setLocation((screenSize.width - 500) / 2,
-			(screenSize.height - 350) / 2);
+            (screenSize.height - 350) / 2);
 
         newPanel.revalidate();
         newPanel.repaint();
@@ -281,28 +282,28 @@ public class WizardFrame extends javax.swing.JFrame {
 
     /**
      *  Enable the buttons according to where we are in the wizard: beginning,
-	 *  middle, or end.
+     *  middle, or end.
      */
     private void refreshButtons() {
 
-        if (panelCounter == 0) {	// Beginning
+        if (panelCounter == 0) {    // Beginning
             butBack.setEnabled(false);
             butNext.setEnabled(true);
             butFinish.setEnabled(false);
-			getRootPane().setDefaultButton( butNext );
-			butNext.requestFocus();
-        } else if (panelCounter == panels.length - 1) {	// End
+            getRootPane().setDefaultButton( butNext );
+            butNext.requestFocus();
+        } else if (panelCounter == panels.length - 1) {    // End
             butBack.setEnabled(true);
             butNext.setEnabled(false);
             butFinish.setEnabled(true);
-			getRootPane().setDefaultButton( butFinish );
-			butBack.requestFocus();
-        } else {	// Middle
+            getRootPane().setDefaultButton( butFinish );
+            butBack.requestFocus();
+        } else {    // Middle
             butBack.setEnabled(true);
             butNext.setEnabled(true);
             butFinish.setEnabled(false);
-			getRootPane().setDefaultButton( butNext );
-			butBack.requestFocus();
+            getRootPane().setDefaultButton( butNext );
+            butBack.requestFocus();
         }
 
     }
@@ -310,18 +311,18 @@ public class WizardFrame extends javax.swing.JFrame {
 
     /**
      * Close this wizard and invoke the method given to be invoked
-	 * when the user prematurely stops the wizard.
+     * when the user prematurely stops the wizard.
      */
     private void quit() {
         setVisible(false);
         dispose();
-		try {
-			exitMethod.invoke(exitObject, (Object[])new Class[0]);
-		} catch( IllegalAccessException e ) {
-			e.printStackTrace();
-		} catch( InvocationTargetException e ) {
-			e.printStackTrace();
-		}
+        try {
+            exitMethod.invoke( exitObject, (Object[])( new Class[0] ) );
+        } catch( IllegalAccessException e ) {
+            e.printStackTrace();
+        } catch( InvocationTargetException e ) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -337,8 +338,8 @@ public class WizardFrame extends javax.swing.JFrame {
 
     private Object finishObject;
     private Method finishMethod;
-	private Object exitObject;
+    private Object exitObject;
     private Method exitMethod;
-	
+    
 
 }

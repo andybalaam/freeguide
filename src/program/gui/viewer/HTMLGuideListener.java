@@ -62,7 +62,7 @@ public class HTMLGuideListener implements HyperlinkListener {
     String reference = null;
     // According to HTML spec, name must be unique and use only ASCII chars
     StringBuffer ref = new StringBuffer(HTMLGuideListener.LinkDateFormat.format(programme.getStart().getTime()));
-    ref.append(programme.getChannelID());
+    ref.append(programme.getChannel().getID());
     ref.append(programme.getTitle());
     ref.append(programme.getSubTitle());
     try {

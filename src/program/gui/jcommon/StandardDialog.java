@@ -33,6 +33,8 @@
 
 package freeguide.gui.jcommon;
 
+import freeguide.*;
+
 import java.awt.Frame;
 import java.awt.Dialog;
 import java.awt.event.ActionEvent;
@@ -97,7 +99,7 @@ public class StandardDialog extends JDialog implements ActionListener {
         } else if (command.equals("okButton")) {
             this.cancelled = false;
             setVisible( false );
-        } else if (command.equals("cancelButton")) {
+        } else if( command.equals( "cancelButton" ) ) {
             this.cancelled = true;
             setVisible( false );
         }
@@ -111,16 +113,19 @@ public class StandardDialog extends JDialog implements ActionListener {
      */
     protected L1R2ButtonPanel createButtonPanel() {
 
-        L1R2ButtonPanel buttons = new L1R2ButtonPanel("Help", "Cancel", "OK");
+        L1R2ButtonPanel buttons = new L1R2ButtonPanel(
+            FreeGuide.msg.getString( "help" ),
+            FreeGuide.msg.getString( "cancel" ),
+            FreeGuide.msg.getString( "ok" ) );
 
         JButton helpButton = buttons.getLeftButton();
         helpButton.setActionCommand("helpButton");
         helpButton.addActionListener(this);
 
-		JButton cancelButton = buttons.getRightButton1();
+        JButton cancelButton = buttons.getRightButton1();
         cancelButton.setActionCommand("cancelButton");
         cancelButton.addActionListener(this);
-		
+        
         JButton okButton = buttons.getRightButton2();
         okButton.setActionCommand("okButton");
         okButton.addActionListener(this);

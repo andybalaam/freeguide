@@ -16,6 +16,7 @@ m  means done by Mike Dean
 y  means done by Yann 'PoV' Coupin
 r  means done by Rob Stewart
 w  means done by William Ballard
+c  means done by Christian Weiske
 
 --------------------------------------------
 
@@ -75,6 +76,7 @@ w  means done by William Ballard
   dialog
 - Make hearts appear on favourites.
 - Make it internationalised
+- Fix the flickering personalised guide when you exit the favourites list
 + Rename things so "selected" means cursor is on you, "in guide" means chosen/
   highlighted/shown in personalised guide, and "favourite" mean is a favourite.
   (Later, "reminder" will mean you will be reminded, and "recorded" will
@@ -92,6 +94,8 @@ w  means done by William Ballard
 	  middle of this programme.  During all up/down presses, jump to the
 	  programme that best matches this horizontal position.  When left or right
 	  is pressed, forget this value and find another one.
++ Internationalise it
+c Translate into German
 
 - Release 0.8.7 (nice features)
 
@@ -158,6 +162,7 @@ w  means done by William Ballard
 - Remove text from after channel icons
 - Display programme categories, and allow colours to indicate category.
 - Add firefox to the possible browsers.
+- Double-clicks should move items in the channel set editor
 
 - Release 0.8.4 (accessibility, accessibility, accessibility)
 

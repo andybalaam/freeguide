@@ -13,6 +13,7 @@
 
 package freeguide.gui.dialogs;
 
+import freeguide.*;
 import freeguide.lib.fgspecific.*;
 import java.util.*;
 import javax.swing.DefaultListModel;
@@ -59,7 +60,7 @@ public class FavouritesListDialog extends FGDialog {
      *@param owner - the <code>JFrame</code> from which the dialog is displayed
      */
     public FavouritesListDialog(JFrame owner) {
-        super(owner, "Favourites");
+        super(owner, FreeGuide.msg.getString( "favourites" ) );
 
         this.owner = owner;
         
@@ -98,14 +99,12 @@ public class FavouritesListDialog extends FGDialog {
      */
     private void fillList() {
 
-        //list.removeAll();
         favouritesModel.removeAllElements();
 
         for (int i = 0; i < favourites.size(); i++) {
-            favouritesModel.addElement(((Favourite) favourites.get(i)).getName());
+            favouritesModel.addElement( 
+                ( (Favourite)( favourites.get(i) ) ).getName() );
         }
-
-        //list = new javax.swing.JList(titles);
 
     }
 
@@ -115,7 +114,8 @@ public class FavouritesListDialog extends FGDialog {
      */
     private void saveFavourites() {
 
-	    FavouritesList.getInstance().setFavourites( favourites );
+        FavouritesList.getInstance().setFavourites( favourites );
+        updatedFlag = true;
 
     }
 
@@ -144,7 +144,7 @@ public class FavouritesListDialog extends FGDialog {
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        butAdd.setText("Add");
+        butAdd.setText( FreeGuide.msg.getString( "add" ) );
         butAdd.setPreferredSize(new java.awt.Dimension(83, 26));
         butAdd.addActionListener(
             new java.awt.event.ActionListener() {
@@ -159,7 +159,7 @@ public class FavouritesListDialog extends FGDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 10);
         jPanel1.add(butAdd, gridBagConstraints);
 
-        butEdit.setText("Edit");
+        butEdit.setText( FreeGuide.msg.getString( "edit" ) );
         butEdit.setPreferredSize(new java.awt.Dimension(83, 26));
         butEdit.addActionListener(
             new java.awt.event.ActionListener() {
@@ -174,7 +174,7 @@ public class FavouritesListDialog extends FGDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 10);
         jPanel1.add(butEdit, gridBagConstraints);
 
-        butRemove.setText("Remove");
+        butRemove.setText( FreeGuide.msg.getString( "remove" ) );
         butRemove.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,7 +207,7 @@ public class FavouritesListDialog extends FGDialog {
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Your favourites:");
+        jLabel1.setText( FreeGuide.msg.getString( "your_favourites" ) + ":");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
@@ -215,7 +215,7 @@ public class FavouritesListDialog extends FGDialog {
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        butOK.setText("OK");
+        butOK.setText( FreeGuide.msg.getString( "ok" ) );
         butOK.setPreferredSize(new java.awt.Dimension(83, 26));
         butOK.addActionListener(
             new java.awt.event.ActionListener() {
@@ -228,7 +228,7 @@ public class FavouritesListDialog extends FGDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 5);
         jPanel2.add(butOK, gridBagConstraints);
 
-        butCancel.setText("Cancel");
+        butCancel.setText( FreeGuide.msg.getString( "cancel" ) );
         butCancel.setPreferredSize(new java.awt.Dimension(83, 26));
         butCancel.addActionListener(
             new java.awt.event.ActionListener() {
@@ -248,11 +248,9 @@ public class FavouritesListDialog extends FGDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         getContentPane().add(jPanel2, gridBagConstraints);
 
-		getRootPane().setDefaultButton( butOK );
-		
-        pack();
+        getRootPane().setDefaultButton( butOK );
         
-        //setSize(new java.awt.Dimension(400, 300));
+        pack();
         
     }
 
@@ -316,7 +314,9 @@ public class FavouritesListDialog extends FGDialog {
         int i = list.getSelectedIndex();
         if (i != -1) {
             Favourite fav = (Favourite) favourites.get(i);
-            new FavouriteEditorDialog(this, "Edit Favourite", fav).setVisible( true );
+            new FavouriteEditorDialog( this,
+                FreeGuide.msg.getString( "edit_favourite" ),
+                fav ).setVisible( true );
         }
         
                 
@@ -329,10 +329,12 @@ public class FavouritesListDialog extends FGDialog {
      *@param  evt  Description of the Parameter
      */
     private void butAddActionPerformed(java.awt.event.ActionEvent evt) {
-		
+        
         Favourite newFav = new Favourite();
         favourites.add(newFav);
-        new FavouriteEditorDialog(this, "Add a new Favourite", newFav).setVisible( true );
+        new FavouriteEditorDialog(this,
+            FreeGuide.msg.getString( "add_a_new_favourite" ),
+            newFav ).setVisible( true );
         latestIndex = favouritesModel.size();
 
         reShow();

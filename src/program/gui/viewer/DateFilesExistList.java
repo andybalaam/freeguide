@@ -249,7 +249,7 @@ public class DateFilesExistList {
      *
      *@param  args  The command line arguments
      */
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         System.out.println("Date List");
         for (int i = 0; i < args.length; i++) {
             System.out.println("Arg[" + i + "]: " + args[i]);
@@ -258,6 +258,6 @@ public class DateFilesExistList {
                 "/home/wduncan/freeguide-tv/data/",
                 "^tv-\\d{8}\\.xmltv$");
         ddl.toConsole();
-    }
+    }*/
 }
 
