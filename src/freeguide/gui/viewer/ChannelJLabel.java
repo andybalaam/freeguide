@@ -181,7 +181,6 @@ public class ChannelJLabel extends JLabel implements ComponentListener
      */
     public int getRequiredWidth(  )
     {
-
         FontMetrics myFM = this.getFontMetrics( getFont(  ) );
         int ans = myFM.stringWidth( getText(  ) );
 
@@ -192,7 +191,11 @@ public class ChannelJLabel extends JLabel implements ComponentListener
             ans += ic.getIconWidth(  );
         }
 
+        if( ans < 10 )
+        {
+            ans = 10;
+        }
+        
         return ans;
-
     }
 }
