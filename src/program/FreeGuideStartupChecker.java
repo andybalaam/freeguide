@@ -66,7 +66,7 @@ public class FreeGuideStartupChecker {
 			new FreeGuideOptions(launcher, failedWhat).setVisible(true);
 		} else {
 			// All is ok, so begin with viewer
-			FreeGuide.log.info("Checks ok, starting FreeGuide " + FreeGuide.getVersion() + " ...");
+			//FreeGuide.log.info("Checks ok, starting FreeGuide " + FreeGuide.getVersion() + " ...");
 			new FreeGuideViewer(launcher, pleaseWait);
 		}
 		

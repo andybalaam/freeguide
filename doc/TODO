@@ -9,11 +9,11 @@ feel like it.
 
 --------------------------------------------
 
-Release 2.0 (blue sky)
+- Release 2.0 (blue sky)
 
 - Think about ports to wxWindows, Python, ...
 
-Release 1.0 (the destination)
+- Release 1.0 (the destination)
 
 - Get it all right
 - Integration with e.g. tv card software 
@@ -32,7 +32,7 @@ Release 1.0 (the destination)
 - FAQ?
 - Other platforms - investigate Mac, BSD, others
 
-Release 0.6 (less urgent or harder features)
+- Release 0.6 (less urgent or harder features)
 
 - Alert me when my programme starts
 - coloured programme categories and favourites
@@ -45,9 +45,9 @@ Release 0.6 (less urgent or harder features)
 	uninstalled (well, you have to delete the directory instead...)
 - Help manual
 
-Release 0.5 (most wanted features)
+- Release 0.5 (most wanted features)
 
-- Why do numbers disappear from the time line (Linux only?)
++ Why do numbers disappear from the time line (Linux only?)
 - Multiline tooltips if too long
 - Remember window sizes and positions between uses
 - Add "Contains" option to title match in favourites
@@ -62,8 +62,8 @@ Release 0.5 (most wanted features)
 - --days support
 - Further visual enhancements and customisability
 - Ability to save and load preferences (using Java's ability to save to XML)
-- Ability to turn off listing at bottom of screen.
-- Move XML stuff to a separate object from FreeGuideViewer
++ Ability to turn off listing at bottom of screen. (added one-touch buttons)
++ Move XML stuff to a separate object from FreeGuideViewer
 - Other code rationalisation, FIXMEs, remove commented sections
 - Separate classes into packages
 - Refactor to rename losing FreeGuide prefix to most classes
@@ -82,10 +82,12 @@ Release 0.5 (most wanted features)
 - Rename files with version number on build
 - Fix possible NullPointerException in StartupChecker.checkFileFailure
 - Add the fact that your .jar installer has to be executed by javaw on Windows,
-	not WinRAR, etc.
+	not WinRAR, etc. to the readmes
 - Allow changing of font sizes from customise screen
+- Fix scrollbar arrows only moving display a tiny bit
++ Use columnHeaderView of scrollpane for time panel (doh!)
 
-Release 0.4.2 (mainly bug fixes)
++ Release 0.4.2 (mainly bug fixes)
 
 + Developer docs
 + Thorough testing
@@ -111,7 +113,7 @@ Release 0.4.2 (mainly bug fixes)
 	and the preferences group for FreeGuide.
 + Make the selected fav on the favourites list presistent 
 	
-Release 0.4
++ Release 0.4
 
 + Make downloading work on Windows, from within FreeGuide (requires XMLTV 0.5)
 + Make output and error stream boxes in Executor not have huge scroll range.
@@ -136,7 +138,7 @@ Release 0.4
 + Make download screen display command output during download, not just after
 + Fix download screen to enter and exit automatically (and generally make better)
 
-Release 0.3
++ Release 0.3
 
 + More flexible favourites
 + Fixed fast scrolling bug

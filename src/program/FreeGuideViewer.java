@@ -28,18 +28,18 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParserFactory;
 import javax.xml.parsers.SAXParser;
-import org.xml.sax.SAXException;
+import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.helpers.DefaultHandler;
+import org.xml.sax.SAXException;
 
 /**
  * A form that displays and prints TV listings.
  *
  * @author  Andy Balaam
- * @version 11
+ * @version 12
  */
-public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLauncher, FreeGuideSAXInterface {
+public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLauncher {
 
     public FreeGuideViewer(FreeGuideLauncher newLauncher, FreeGuidePleaseWait pleaseWait) {
 
@@ -131,10 +131,10 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         jSplitPane1 = new javax.swing.JSplitPane();
         channelNameScrollPane = new javax.swing.JScrollPane();
         channelNamePanel = new javax.swing.JPanel();
-        outerPanel = new javax.swing.JPanel();
+        //outerPanel = new javax.swing.JPanel();
         innerScrollPane = new javax.swing.JScrollPane();
         innerPanel = new javax.swing.JPanel();
-        timeScrollPane = new javax.swing.JScrollPane();
+        //timeScrollPane = new javax.swing.JScrollPane();
         timePanel = new FreeGuideTimePanel();
         butRevertFavs = new javax.swing.JButton();
         butPrint = new javax.swing.JButton();
@@ -248,6 +248,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         getContentPane().add(topPanel, gridBagConstraints);
 
         splitPane.setDividerLocation(180);
+		splitPane.setOneTouchExpandable(true);
         splitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         printedGuideArea.setEditable(false);
         printedGuideArea.setContentType("text/html");
@@ -262,46 +263,56 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         channelNamePanel.setLayout(null);
 
         channelNamePanel.setBackground(new java.awt.Color(245, 245, 255));
+		
+		javax.swing.JPanel tmpJPanel = new javax.swing.JPanel();
+		tmpJPanel.setPreferredSize(new java.awt.Dimension(24,24));
+		tmpJPanel.setBackground(new java.awt.Color(245, 245, 255));
+		channelNameScrollPane.setColumnHeaderView(tmpJPanel);
+		
         channelNameScrollPane.setViewportView(channelNamePanel);
 
         jSplitPane1.setLeftComponent(channelNameScrollPane);
 
-        outerPanel.setLayout(new java.awt.GridBagLayout());
+        //outerPanel.setLayout(new java.awt.GridBagLayout());
 
-        outerPanel.setBackground(new java.awt.Color(245, 245, 255));
+		timePanel.setPreferredSize(new java.awt.Dimension(24, 24));
+		
+        //outerPanel.setBackground(new java.awt.Color(245, 245, 255));
         innerScrollPane.setBorder(null);
+        innerScrollPane.setColumnHeaderView(timePanel);
         innerPanel.setLayout(null);
 
         innerPanel.setBackground(new java.awt.Color(245, 245, 255));
         innerScrollPane.setViewportView(innerPanel);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.9;
-        gridBagConstraints.weighty = 0.9;
-        outerPanel.add(innerScrollPane, gridBagConstraints);
+        //gridBagConstraints = new java.awt.GridBagConstraints();
+        //gridBagConstraints.gridx = 0;
+        //gridBagConstraints.gridy = 2;
+        //gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        //gridBagConstraints.weightx = 0.9;
+        //gridBagConstraints.weighty = 0.9;
+        //outerPanel.add(innerScrollPane, gridBagConstraints);
 
-        timeScrollPane.setBorder(null);
-        timeScrollPane.setHorizontalScrollBarPolicy(javax.swing.JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        timeScrollPane.setVerticalScrollBarPolicy(javax.swing.JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        timeScrollPane.setMaximumSize(new java.awt.Dimension(24, 24));
-        timeScrollPane.setMinimumSize(new java.awt.Dimension(24, 24));
-        timeScrollPane.setPreferredSize(new java.awt.Dimension(24, 24));
+        //timeScrollPane.setBorder(null);
+	    //timeScrollPane.setHorizontalScrollBarPolicy(javax.swing.JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        //timeScrollPane.setVerticalScrollBarPolicy(javax.swing.JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        //timeScrollPane.setMaximumSize(new java.awt.Dimension(24, 24));
+        //timeScrollPane.setMinimumSize(new java.awt.Dimension(24, 24));
+        //timeScrollPane.setPreferredSize(new java.awt.Dimension(24, 24));
         timePanel.setLayout(null);
 
         timePanel.setBackground(new java.awt.Color(245, 245, 255));
-        timeScrollPane.setViewportView(timePanel);
+        //timeScrollPane.setViewportView(timePanel);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.9;
-        outerPanel.add(timeScrollPane, gridBagConstraints);
+        //gridBagConstraints = new java.awt.GridBagConstraints();
+        //gridBagConstraints.gridx = 0;
+        //gridBagConstraints.gridy = 0;
+        //gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        //gridBagConstraints.weightx = 0.9;
+        //outerPanel.add(timeScrollPane, gridBagConstraints);
 
-        jSplitPane1.setRightComponent(outerPanel);
+        //jSplitPane1.setRightComponent(outerPanel);
+		jSplitPane1.setRightComponent(innerScrollPane);
 
         splitPane.setLeftComponent(jSplitPane1);
 
@@ -673,11 +684,11 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 	private void addInnerScrollPaneAdjustmentListeners() {
 		
-		innerScrollPane.getHorizontalScrollBar().addAdjustmentListener(new java.awt.event.AdjustmentListener() {
-			public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
-				innerScrollPaneHorAdjust(evt);
-			}
-		});
+		//innerScrollPane.getHorizontalScrollBar().addAdjustmentListener(new java.awt.event.AdjustmentListener() {
+			//public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
+				//innerScrollPaneHorAdjust(evt);
+			//}
+		//});
 	
 		innerScrollPane.getVerticalScrollBar().addAdjustmentListener(new java.awt.event.AdjustmentListener() {
 			public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
@@ -747,7 +758,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 		int tmpScr = timePanel.getNowScroll();
 		
-		timeScrollPane.getHorizontalScrollBar().setValue(tmpScr);
+		//timeScrollPane.getHorizontalScrollBar().setValue(tmpScr);
 		innerScrollPane.getHorizontalScrollBar().setValue(tmpScr);
 		
 	}
@@ -756,9 +767,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	 * The event procedure for the horizontal scrollpane listener - just
 	 * calls the scrollTime method.
 	 */
-    private void innerScrollPaneHorAdjust(java.awt.event.AdjustmentEvent evt) {
-		scrollTime();
-    }//innerScrollPaneHorAdjust
+    //private void innerScrollPaneHorAdjust(java.awt.event.AdjustmentEvent evt) {
+		//scrollTime();
+    //}//innerScrollPaneHorAdjust
     
 	/**
 	 * The event procedure for the vertical scrollpane listener - just
@@ -857,12 +868,12 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			
 			if((new File(xmlFilename).exists())) {	// If the file exists
 				
-				FreeGuide.log.info("Opening programmes file "+xmlFilename);
+				//FreeGuide.log.info("Opening programmes file "+xmlFilename);
 				
 				// Load it into memory and process it
 				try {//ParserExceptions etc
 	    
-					DefaultHandler handler = new FreeGuideSAXHandler(this);
+					DefaultHandler handler = new FreeGuideSAXHandler(programmes, channelIDs, channelNames);
 					SAXParserFactory factory = SAXParserFactory.newInstance();
 					
 					SAXParser saxParser = factory.newSAXParser();
@@ -956,9 +967,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	/**
 	 * Scrolls the time panel to the same x-position as the main panel.
 	 */
-    private void scrollTime() {
-		timeScrollPane.getHorizontalScrollBar().setValue(innerScrollPane.getHorizontalScrollBar().getValue());
-    }//scrollTime
+    //private void scrollTime() {
+//		timeScrollPane.getHorizontalScrollBar().setValue(innerScrollPane.getHorizontalScrollBar().getValue());
+    //}//scrollTime
     
 	/**
 	 * Scrolls the channel names to the same y-position as the main panel.
@@ -1015,7 +1026,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			if(channelLoaded[c]) {
 			
 				JLabel ctxt = new JLabel(channelNames[c]);
-				ctxt.setBounds(0, timeScrollPane.getHeight()+(halfVerGap*2)+(c*channelHeight)-1, channelNamePanel.getPreferredSize().width-1, channelHeight-(halfVerGap*4));
+				//ctxt.setBounds(0, timeScrollPane.getHeight()+(halfVerGap*2)+(c*channelHeight)-1, channelNamePanel.getPreferredSize().width-1, channelHeight-(halfVerGap*4));
+				ctxt.setBounds(0, (halfVerGap*2)+(c*channelHeight)-1, channelNamePanel.getPreferredSize().width-1, channelHeight-(halfVerGap*4));
 	    
 		    	ctxt.setBackground(channelColour);
 				ctxt.setFont(new java.awt.Font("Dialog", 1, 12));
@@ -1052,10 +1064,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			JLabel txt = new JLabel(timeFormat.format(st.getTime())+ " " + progTitle);
 			
 			textAreas.add(txt);
-			
-			// FEATURE: option to add editor pane styled text with description
-			//JEditorPane txt = new JEditorPane("text/html", "    " + fmt.format(st)+ " " + prog.getTitle() + lineBreak + prog.getDesc());
-				
+
 			if( progDesc == null ) {
 				txt.setToolTipText(progTitle);
 			} else {
@@ -1349,141 +1358,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	//------------------------------------------------------------------------
 	// XML stuff
 	
-    public void startDocument() {  
-		saxLoc = new String();
-	}//startDocument
-    
-    public void endDocument() {
-		saxLoc=null;
-    }//endDocument
-    
-    public void startElement(String name, org.xml.sax.Attributes attrs) {
-		
-		//FreeGuide.log.info("startElement " + name + " START");
-		
-		saxLoc+=":"+name;
-	
-		if(doingProgs && saxLoc.equals(":tv:programme")) {
-	    
-			//assert currentProgramme == null;
-			
-			currentProgramme = new FreeGuideProgramme();
-			
-			// Prepare a date formatter
-			SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMddHHmmss z");
-			
-			// Prepare GregorianCalendars for start and end
-			Calendar start = GregorianCalendar.getInstance();
-			Calendar end = GregorianCalendar.getInstance();
-			
-			// Assume it has a channel
-			String channelID = attrs.getValue("channel");
-			currentProgramme.setChannelID(channelID);
-			currentProgramme.addToChannelName(getChannelName(channelID));
-			
-			try {
-			
-				// Assume it has a start time
-				start.setTime(fmt.parse(attrs.getValue("start")));
-						
-				// Could really assume it has an end time, since it's gone through
-				// tv_split, but anyway, don't.
-				if(attrs.getIndex("stop") != -1) {
-					end.setTime(fmt.parse(attrs.getValue("stop")));
-				} else {
-					// Give it a fake end time, half an hour after the start
-					end.setTimeInMillis(start.getTimeInMillis());
-					end.add(Calendar.MINUTE, 30);
-				}
-				
-			} catch(java.text.ParseException e) {
-				e.printStackTrace();
-			}
-			
-			// Check whether the time is outside our time range
-			/*
-			 * No longer allow programmes to affect start/end times
-			if(earliest.after(start)) {
-				earliest.setTimeInMillis(start.getTimeInMillis());
-			}
-			if(latest.before(end)) {
-				latest.setTimeInMillis(end.getTimeInMillis());
-			}*/
-			
-			currentProgramme.setStart(start);
-			currentProgramme.setEnd(end);
-	    
-		} else if(saxLoc.equals(":tv:channel")) {
-			
-			String id = attrs.getValue("id");
-			
-			tmpChannelID = id;
-			
-		}//if
-		
-		//FreeGuide.log.info("startElement END");
-		
-    }//startElement
-    
-    public void endElement(String name) {
-		
-		//FreeGuide.log.info("endElement " + name + " START");
-		
-		if(saxLoc.equals(":tv:programme")) {
-			programmes.add(currentProgramme);
-			currentProgramme = null;
-		}
-		
-		if(saxLoc.endsWith(name)) {
-	    
-			saxLoc=saxLoc.substring(0, saxLoc.length()-(name.length()+1));
-	    
-		} else {
-			parseError();
-		}//if
-	
-		//FreeGuide.log.info("endElement END");
-		
-    }//endElement
-    
-    public void characters(String data) {
-	
-		//FreeGuide.log.info("characters "+ data + " START");
-		
-		if(doingProgs && saxLoc.equals(":tv:programme:title")) {
-	    
-			//System.out.println(data);
-		
-			currentProgramme.addToTitle(data);
-	    
-		} else if (doingProgs && saxLoc.equals(":tv:programme:desc")) {
-	    
-			currentProgramme.addDesc(data);
-	    
-		} else if (doingProgs && saxLoc.equals(":tv:programme:category")) {
-	    
-			currentProgramme.addCategory(data);
-	    
-		} else if (saxLoc.equals(":tv:channel:display-name")) {
-			
-			// Remember the name of the channel we're looking at
-			
-			// Get the channelIDs into a Vector
-			Vector tmpChannelIDs = new Vector(Arrays.asList(channelIDs));
-			
-			// If it's a channel we're interested in
-			// and it's not been named already, remember the name
-			int i = tmpChannelIDs.indexOf(tmpChannelID);
-			if(i!=-1 && !channelNamed[i]) {
-				channelNames[i] = data;
-				channelNamed[i] = true;
-			}
-			
-		}//if
-	
-		//FreeGuide.log.info("characters END");
-		
-    }//characters
+
     
 	/**
 	 * Unhides this window after being hidden while launching another
@@ -1507,36 +1382,15 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// Get the channel IDs from config file or prefs
 		channelIDs = FreeGuide.prefs.getChannelIDs();
 		
+		channelLoaded = new boolean[channelIDs.length];
+		
 		// Set default channel names, same as IDs
 		channelNames = new String[channelIDs.length];
-		channelNamed = new boolean[channelIDs.length];
-		channelLoaded = new boolean[channelIDs.length];
 		for(int i=0;i<channelIDs.length;i++) {
 			channelNames[i] = channelIDs[i];
-			channelNamed[i] = false;
 		}
 		
     }
-	
-	/**
-	 * Returns the name of the channel whose ID is supplied.
-	 */
-	private String getChannelName(String channelID) {
-		
-		// Get the channelIDs into a Vector
-		Vector tmpChannelIDs = new Vector();
-		tmpChannelIDs.addAll(Arrays.asList(channelIDs));
-		
-		// If the ID exists
-		int i = tmpChannelIDs.indexOf(tmpChannelID);
-		if(i != -1) {
-			return channelNames[i];
-		} else {
-			FreeGuide.log.warning("Unknown channel ID in request for channel name.");
-			return "Unknown Channel";
-		}
-		
-	}
 	
 	public String[] getChannelIDs() {
 		return channelIDs;
@@ -1545,11 +1399,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	public String[] getChannelNames() {
 		return channelNames;
 	}
-	
-    private void parseError() {
-		FreeGuide.log.severe("FreeGuideViewer - Error parsing XML.");
-		System.exit(1);
-    }
 	
 	public FreeGuideLauncher getLauncher() {
 		return launcher;
@@ -1589,12 +1438,12 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private javax.swing.JPanel innerPanel;
     private javax.swing.JScrollPane innerScrollPane;
     private javax.swing.JPopupMenu popProg;
-    private javax.swing.JPanel outerPanel;
+    //private javax.swing.JPanel outerPanel;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem menChannels;
     private javax.swing.JScrollPane printedGuideScrollPane;
     private javax.swing.JMenuItem menQuit;
-    private javax.swing.JScrollPane timeScrollPane;
+    //private javax.swing.JScrollPane timeScrollPane;
     private javax.swing.JMenu helpMenu;
     // End of variables declaration//GEN-END:variables
     
@@ -1603,11 +1452,11 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// The IDs of the channels the user has chosen
     private String[] channelNames;
 		// The names of the channels the user has chosen
-	private boolean[] channelNamed;
+	//private boolean[] channelNamed;
 		// Has this channel had its name set?
 	private boolean[] channelLoaded;
     
-    private String saxLoc;  // Holds our current pos in the XML hierarchy
+    
 
 	private boolean doingProgs;	// Are we loading the programmes?
     
@@ -1617,14 +1466,11 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private Calendar theDate;   // The date for which we are listing programmes
     
     private Vector textAreas;	// Stores references to all the textareas shown
-    private Vector programmes;	// The programmes to which each checkbox refers
+    private Vector programmes;	// The programmes being displayed
 	private Vector tickedProgrammes;	// Which programmes are chosen?
-	private FreeGuideProgramme currentProgramme;
-		// The programme we're loading in now
+	
     
 	private FreeGuideLauncher launcher;	// The screen that launched this one
-	
-	private String tmpChannelID;	// A temporary variable storing the channel ID
 	
 	private static final SimpleDateFormat comboBoxDateFormat = new SimpleDateFormat("EEEE d MMM yy");
 	private static final SimpleDateFormat htmlDateFormat = new SimpleDateFormat("EEEE dd MMMM yyyy");

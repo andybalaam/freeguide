@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
  * A panel that displays a ruler-like time line.
  *
  * @author  Andy Balaam
- * @version 3
+ * @version 4
  */
 public class FreeGuideTimePanel extends javax.swing.JPanel {
 	
@@ -61,8 +61,10 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 		
 			if(wid>0) {
 		
-				Rectangle viewable = new Rectangle();
-				computeVisibleRect(viewable);
+				Rectangle drawHere = g.getClipBounds();
+		
+				//Rectangle viewable = new Rectangle();
+				//computeVisibleRect(viewable);
 				
 				multiplier = (double)(endTime.getTimeInMillis() - startTime.getTimeInMillis()) / (double)(wid);
 		
@@ -82,7 +84,7 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 					int xPos = (int)((tmpTime.getTimeInMillis() - startTime.getTimeInMillis())/multiplier);
 			
 					// If this time is on screen, draw a mark
-					if(xPos>=viewable.x && xPos<=(viewable.x+viewable.width)) {
+					if(xPos+50>=drawHere.x && xPos-50<=(drawHere.x+drawHere.width)) {
 					
 						// Make a mark
 						if(tmpTime.get(Calendar.MINUTE)==0) {	// Hours
