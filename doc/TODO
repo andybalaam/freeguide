@@ -110,6 +110,8 @@ r  means done by Rob Stewart
 - Change font for "No programme selected" in programme details pane
 - Add icons to UK and US listings
 - Fix that BackingStoreException
+- http://www.memoire.com/guillaume-desnoix/slaf/
+- Remove text from after channel icons
 
 - Release 0.8.2 (accessibility, accessibility, accessibility)
 
