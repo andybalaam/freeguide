@@ -360,7 +360,9 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
                 || (cmdstr.indexOf("%offset%") != -1)) {
 
 			ViewerFrameXMLTVLoader loader = new ViewerFrameXMLTVLoader();
-			int alwaysDownload = MAYBE;		
+            
+			int alwaysDownload = FreeGuide.prefs.misc.getInt( "re_download",
+                REDOWNLOAD_ASK );
 			
             boolean didOK = true;
 
@@ -375,7 +377,7 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
                 String subbedCmd = prefs.performSubstitutions(
                         cmdstr, thisDate, true);
 
-                if (alwaysDownload == TRUE) {
+                if (alwaysDownload == REDOWNLOAD_ALWAYS) {
 
                     // Recursive call to this function
                     if (!exec(subbedCmd)) {
@@ -391,7 +393,7 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
 
                         // If we not have chosen already, ask the user whether
                         // to re-download
-                        if (alwaysDownload == MAYBE) {
+                        if (alwaysDownload == REDOWNLOAD_ASK) {
                             Object[] options = {"Re-download", "Skip"};
                             int ans = JOptionPane.showOptionDialog(
                                     this,
@@ -406,20 +408,20 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
 
                             if (ans == 0) {
 
-                                alwaysDownload = TRUE;
+                                alwaysDownload = REDOWNLOAD_ALWAYS;
                                 // Recursive call to this function
                                 if (!exec(subbedCmd)) {
                                     didOK = false;
                                 }
                             } else {
 
-                                alwaysDownload = FALSE;
+                                alwaysDownload = REDOWNLOAD_NEVER;
 
                             }
                             //if( ans == 0 )
 
                         }
-                        //if( alwaysDownload == MAYBE ) {
+                        //if( alwaysDownload == REDOWNLOAD_ASK ) {
 
                     } else {
 
@@ -431,7 +433,7 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
                     //if( !loader.hasData() ) {
 
                 }
-                //if( alwaysDownload == TRUE ) {
+                //if( alwaysDownload == REDOWNLOAD_ALWAYS ) {
 
                 thisDate.add(Calendar.DATE, 1);
 
@@ -549,9 +551,9 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
 
     private Calendar date;
 
-    private final static int MAYBE = 0;
-    private final static int TRUE = 1;
-    private final static int FALSE = 2;
+    public final static int REDOWNLOAD_ALWAYS = 0;
+    public final static int REDOWNLOAD_NEVER = 1;
+    public final static int REDOWNLOAD_ASK = 2;
 	
 	private PreferencesGroup prefs;
 

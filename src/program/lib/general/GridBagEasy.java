@@ -182,6 +182,24 @@ public class GridBagEasy {
 		
 	}
 	
+    public void addFWXWYGWGH( Component comp, int gridx, int gridy,
+			int fill, double weightx, double weighty,
+			int gridwidth, int gridheight ) {
+		
+		setDefaults();
+		
+		gbc.gridx = gridx;
+		gbc.gridy = gridy;
+		gbc.fill = fill;
+		gbc.weightx = weightx;
+		gbc.weighty = weighty;
+		gbc.gridwidth = gridwidth;
+		gbc.gridheight = gridheight;
+		
+		container.add( comp, gbc );
+		
+	}
+    
 	public void addWY( Component comp, int gridx, int gridy,
 			double weighty ) {
 		

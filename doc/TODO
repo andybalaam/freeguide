@@ -14,6 +14,7 @@ b  means done by Brendan Corrigan
 e  means done by Ewan Harrow
 m  means done by Mike Dean
 y  means done by Yann 'PoV' Coupin
+r  means done by Rob Stewart
 
 --------------------------------------------
 
@@ -125,6 +126,7 @@ y  means done by Yann 'PoV' Coupin
 - ProgrammeJLabel shows which programme is selected
 - Keyboard navigation of programme scrollpane
 - Full test of keyboard navigation
+- Fix programme icons as per my email to Yann
 
 - Release 0.8 (first time wizard)
 
@@ -133,6 +135,8 @@ y  means done by Yann 'PoV' Coupin
 - write rpm --rebuild instructions
 - Document where the icons go on win and lin
 - Discuss installers on the developers' page
+r Re-arrange download options panel and add permanent re-download option
+y Display programme icons
 + create native windows installer (NSIS)
 + create native linux installer (RPM)
 + Convert the installer into a first time wizard
