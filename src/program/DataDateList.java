@@ -92,12 +92,16 @@ public class DataDateList {
 				cdt = new GregorianCalendar();
 				//dt = new Calendar();
 				//dt = new Date();
+				try {
 				cdt.set(Integer.parseInt(d.substring(0,4)),
 					Integer.parseInt(d.substring(4,6))-1,
 					Integer.parseInt(d.substring(6,8)),
 					0,0,0);
 				//dates.add(new String(d));
 				dates.add(new Date(cdt.getTimeInMillis()));
+				} catch(NumberFormatException ex) {
+					// add nothing
+				}
 			}
 		}
 		Collections.sort(dates);

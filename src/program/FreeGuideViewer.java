@@ -51,8 +51,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 		launcher = newLauncher;
 
-		//ddl = new DataDateList(FreeGuide.prefs.misc.get("working_directory"),
-		//	"^tv-.*\\.xmltv$");
+		ddl = new DataDateList(FreeGuide.prefs.misc.get("working_directory"),
+			"^tv-.*\\.xmltv$");
 		
 		doingProgs = false;
 		dontDownload = false;
@@ -700,104 +700,38 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	}//GEN-LAST:event_menDownloadActionPerformed
 
 	private void downloadListings() {
-	
-		// here we flag to load starting today, or starting on the visible day
-		// theDate is the visible date.  A new calendar instance may need adjusting for day start.
-		// FIXME -- WCD
 		FreeGuideUtils.execAndWait(FreeGuide.prefs.getCommands("tv_grab"), "Downloading", this, theDate);
-			
 		// We assume the list of files has changed
 		makeDatesList();
-
 	}
-	
-	/* WCD Walter's substitution code - better done in performSubstitutions
-	private int downloadListings() {
-		
-		// 1=success
-		// 0=failure
-		
-		//  get today so we can calculate grabber offset
-		Calendar realToday = GregorianCalendar.getInstance();	
-		int realDOY = realToday.get(Calendar.DAY_OF_YEAR);
-		int realY = realToday.get(Calendar.YEAR);
-		
-		//  Get freeguide visible day (this is the one we will grab)
-		int visibleDOY = theDate.get(Calendar.DAY_OF_YEAR);
-		int visibleY = theDate.get(Calendar.YEAR);
-		
-		// if today, and freeguideDay are in different years compensate
-		if (Math.abs(visibleY-realY)>1) {
-			FreeGuide.log.severe("downloadListings(): Trying to fetch a date greater than\n" +
-				"    1 year from the present day is not supported.");
-			return(0);
-		}
-		if ( visibleY>realY) {
-			// add a real year number of days to the visible day of year
-			// to compensate for the change in year
-			visibleDOY+=realToday.getActualMaximum(Calendar.DAY_OF_YEAR);
-		} else if ( visibleY<realY) {
-			// add a visible year number of days to the real day of year
-			// to compensate for the change in year
-			realDOY+=theDate.getActualMaximum(Calendar.DAY_OF_YEAR);
-		}
-		
-		// visible day after real day is future offset (positive)
-		// visible day before real day is past offset (negative)
-		int offset = visibleDOY - realDOY;
-	
-		String[] cmd = FreeGuide.prefs.getCommands("tv_grab");
-		Pattern p_offset = Pattern.compile("%OFFSET");
-		Pattern p_date = Pattern.compile("%DATE");
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		StringBuffer date_buffer = sdf.format(theDate.getTime(), new StringBuffer(), new FieldPosition(0));
-		String date_string = date_buffer.toString();
-		
-		for(int i=0;i<cmd.length;i++) {
-			//System.out.println("Before["+i+"]: "+cmd[i]);
-			//cmd[i].replaceAll("TODAY", new Integer(offset).toString());
-			//cmd[i].replaceAll("TODAY", new Integer(2).toString());
-			cmd[i]=p_offset.matcher(cmd[i]).replaceAll(new Integer(offset).toString());
-			cmd[i]=p_date.matcher(cmd[i]).replaceAll(date_string);
-			//System.out.println("After["+i+"]: "+cmd[i]);
-		}
-		FreeGuideUtils.execAndWait(cmd, "Downloading", this);
-		
-		// Update the combo box since we potentially have new files
-		makeDatesList();
-		
-		// FIXME -- we should return, and process the command status here.
-		return(1);
-	}*/
-	
+
 	private void menQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menQuitActionPerformed
-		
+
 		quit();
-		
+
 	}//GEN-LAST:event_menQuitActionPerformed
 
 	private void butPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butPrintActionPerformed
-		
+
 		writeOutAsHTML();
-		
+
 	}//GEN-LAST:event_butPrintActionPerformed
 
 	private void butNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butNextActionPerformed
-		
+
 		Calendar tmpDate = GregorianCalendar.getInstance();
 		tmpDate.setTimeInMillis( theDate.getTimeInMillis() );
 
 		tmpDate.add( Calendar.DAY_OF_YEAR, 1 );
-		
+
 		String datestr = comboBoxDateFormat.format(tmpDate.getTime());
-		
+
 		comTheDate.setSelectedItem(datestr);
-		
+
 	}//GEN-LAST:event_butNextActionPerformed
 
 	private void butPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butPrevActionPerformed
-		
+
 		Calendar tmpDate = GregorianCalendar.getInstance();
 		tmpDate.setTimeInMillis( theDate.getTimeInMillis() );
 
@@ -806,48 +740,48 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		String datestr = comboBoxDateFormat.format(tmpDate.getTime());
 
 		comTheDate.setSelectedItem(datestr);
-		
+
 	}//GEN-LAST:event_butPrevActionPerformed
 
 	private void addInnerScrollPaneAdjustmentListeners() {
-		
+
 		//innerScrollPane.getHorizontalScrollBar().addAdjustmentListener(new java.awt.event.AdjustmentListener() {
 			//public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
 				//innerScrollPaneHorAdjust(evt);
 			//}
 		//});
-	
+
 		innerScrollPane.getVerticalScrollBar().addAdjustmentListener(new java.awt.event.AdjustmentListener() {
 			public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
 				innerScrollPaneVerAdjust(evt);
 			}
 		});
 	}
-	
+
 	private void removeInnerScrollPaneAdjustmentListeners() {
-		
+
 		java.awt.event.AdjustmentListener[] l = innerScrollPane.getHorizontalScrollBar().getAdjustmentListeners();
 		for(int i=0;i<l.length;i++) {
 			innerScrollPane.getHorizontalScrollBar().removeAdjustmentListener(l[i]);
 		}
-		
+
 		l = innerScrollPane.getVerticalScrollBar().getAdjustmentListeners();
 		for(int i=0;i<l.length;i++) {
 			innerScrollPane.getVerticalScrollBar().removeAdjustmentListener(l[i]);
 		}
-		
+
 	}
-	
+
 	// Original
-	private void makeDatesList() {
+	private void makeDatesList0() {
 		Calendar tmpDate = GregorianCalendar.getInstance();
 		tmpDate.setTimeInMillis( theDate.getTimeInMillis() );
-		
+
 		for(int i=0;i<14;i++) {
-			
+
 			comTheDate.addItem(comboBoxDateFormat.format(tmpDate.getTime()));
 			tmpDate.add( Calendar.DAY_OF_YEAR, 1 );
-			
+
 		}
 		comTheDate.setSelectedItem(comboBoxDateFormat.format(theDate.getTime()));
 	}
@@ -857,7 +791,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		ddl.updateDates();
 		for (int i=0;i<ddl.size();i++) {
 			comTheDate.addItem(comboBoxDateFormat.format((Date)ddl.get(i)));
-		}		
+		}
 		comTheDate.setSelectedItem(comboBoxDateFormat.format(theDate.getTime()));
 		*/
 	}
@@ -877,13 +811,14 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		}
 		return(d1);
 	}
-	// Might actually work if we can get it to wait for the grabber to complete
-	// FIXME -- WCD
-	private void makeDatesList2() {
+	// FIXME -- WCD -- makeDatesList()  Dynamic operation
+	// FIXME -- Might actually work if we can get it to wait for the grabber to complete
+	private void makeDatesList() {
 		boolean debug=false;
-		//debug=true;
+		debug=true;
 		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
 		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
+		comTheDate.addItem(comTheDate.getSelectedItem());
 		while (comTheDate.getItemCount() > 1) {
 			if (comTheDate.getItemAt(0) == comTheDate.getSelectedItem() ) {
 				if (debug) System.out.print("remove1\n");
@@ -897,14 +832,13 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
 		// now we should have only one item in the list.  Check to see if theDate is it.
 		// If not, fix the situation.
-		if ( ! parseComboItem(comTheDate, 0).equals(theDate.getTime())) {
-				comTheDate.addItem(comTheDate.getSelectedItem());
-				comTheDate.removeItemAt(0);
-		}
+		//if ( ! parseComboItem(comTheDate, 0).equals(theDate.getTime())) {
+		//		comTheDate.removeItemAt(0);
+		//}
 		comTheDate.setSelectedItem(comTheDate.getSelectedItem());
 		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
 		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
-		/*ddl.updateDates();
+		ddl.updateDates();
 		Date d1;
 		Date d2;
 		String s1;
@@ -920,7 +854,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		comTheDate.setSelectedItem(comboBoxDateFormat.format(theDate.getTime()));
 		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
 		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
-		*/
+
 	}
 	
 	/**
