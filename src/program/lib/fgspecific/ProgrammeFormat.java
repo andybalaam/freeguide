@@ -109,8 +109,9 @@ public class ProgrammeFormat {
      * @exception NullPointerException if the given Programme or
      *                                 StringBuffer is null
      */
-    public StringBuffer shortFormat(Programme programme,
-                            StringBuffer toAppendTo) {
+    public StringBuffer formatForMainGuide( Programme programme,
+                            StringBuffer toAppendTo )
+    {
         Calendar programmeStart = programme.getStart();
         String programmeTitle = programme.getTitle();
         String programmeSubTitle = programme.getSubTitle();
@@ -131,30 +132,23 @@ public class ProgrammeFormat {
 
         }
 
-        if ( programme.getIsMovie() && programmeStarString!=null ) {
+        if( programme.getIsMovie() && programmeStarString!=null ) {
 
             toAppendTo.append(" ")
                 .append( programmeStarString );
 
         }
 
-        if ( programme.getPreviouslyShown() ) {
+        if( programme.getPreviouslyShown() ) {
             toAppendTo.append( " " );
             toAppendTo.append( FreeGuide.msg.getString( "r" ) );
         }
-        
-        
-//        if (printTimeDelta) {
-//            toAppendTo.append("(");
-//            calcTimeDelta(programme.getStart(), toAppendTo);
-//            toAppendTo.append(")");
-//        }
 
         return toAppendTo;
     }
 
-    public String shortFormat(Programme programme) {
-        return shortFormat(programme, new StringBuffer(75)).toString();
+    public String formatForMainGuide(Programme programme) {
+        return formatForMainGuide(programme, new StringBuffer(75)).toString();
     }
 
     /**
@@ -180,14 +174,14 @@ public class ProgrammeFormat {
      * @exception NullPointerException if the given Programme or
      *                                 StringBuffer is null
      */
-    public StringBuffer longFormat(Programme programme,
-                           StringBuffer toAppendTo) {
+    public StringBuffer formatLong( Programme programme,
+                           StringBuffer toAppendTo ) {
 
-        if (HTML_FRAGMENT_FORMAT != outputFormat) {
+        if( HTML_FRAGMENT_FORMAT != outputFormat ) {
             toAppendTo.append( "<html><body>" ).append( LINE_FEED );
         }
         
-        doLongFormat( programme, toAppendTo, false);
+        do_formatLong( programme, toAppendTo );
         
         if (HTML_FRAGMENT_FORMAT != outputFormat) {
             toAppendTo.append( "</body></html>" ).append( LINE_FEED );
@@ -197,8 +191,8 @@ public class ProgrammeFormat {
         
     }
     
-    public String longFormat(Programme programme) {
-        return longFormat(programme, new StringBuffer(200)).toString();
+    public String formatLong( Programme programme ) {
+        return formatLong( programme, new StringBuffer( 200 ) ).toString();
     }
 
     public static void appendStyleSheet( StringBuffer buff ) {
@@ -219,7 +213,7 @@ public class ProgrammeFormat {
         
     }
     
-    public String extraLongFormat( Programme programme ) {
+    public String formatForProgrammeDetailsJPanel( Programme programme ) {
         
         StringBuffer buff = new StringBuffer();
         
@@ -228,14 +222,16 @@ public class ProgrammeFormat {
             appendStyleSheet( buff );
             
         }
+
+        buff.append( "<table width='100%' height='100%' cellpadding='0' cellspacing='0' border='0'><tr height='100%'><td height='100%' colspan='2'>" );
         
-        doLongFormat( programme, buff, true);
+        do_formatLong( programme, buff );
         
         Hashtable extraTags = (Hashtable)programme.getExtraTags();
         
         if( extraTags != null ) {
         
-            buff.append( "<br><hr><table cellpadding='1' cellspacing='0' border='0'>" ).append( LINE_FEED );
+            buff.append( "<br><table cellpadding='1' cellspacing='0' border='0'>" ).append( LINE_FEED );
         
             for( Iterator it = extraTags.entrySet().iterator();
                 it.hasNext(); )
@@ -253,7 +249,6 @@ public class ProgrammeFormat {
                 if( key != null ) { buff.append( key ); }
                 
                 buff.append( "</td></tr>" );
-                    //.append( LINE_FEED );
                 
                 for( Iterator it2 = hashOfAttrs.entrySet().iterator();
                     it2.hasNext(); )
@@ -268,7 +263,6 @@ public class ProgrammeFormat {
                             .append( ": " )
                             .append( entry2.getValue() )
                             .append( "</td></tr>" );
-                            //.append( LINE_FEED );
                     }
                     
                 }
@@ -279,7 +273,42 @@ public class ProgrammeFormat {
             
         }
         
-        if (HTML_FRAGMENT_FORMAT != outputFormat) {
+        buff.append( "</td></tr><tr><td align=\"left\" width='100%'>" );
+            
+        String programmeIconUrl = null;
+        String channelIconURL = null;
+        
+        programmeIconUrl = programme.getIconURL();
+        
+        if( programmeIconUrl != null ) {
+            buff.append( "<img src=\"" )
+                .append( programmeIconUrl )
+                .append( "\" alt=\"" )
+                .append( programme.getTitle() ).append( "\">" );
+        }
+        
+        buff.append( "</td><td>" );
+        
+        if( programme.getChannel().getIconFileName() != null ) {
+            try {
+                channelIconURL = new File(
+                    programme.getChannel().getIconFileName()
+                ).toURL().toString();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        if( channelIconURL != null ) {
+            buff.append( "<img src=\"" )
+                .append( channelIconURL )
+                .append( "\" alt=\"" )
+                .append( programme.getChannel().getName() ).append( "\">" );
+        }
+        
+        buff.append( "</td></tr></table>" );
+        
+        if( HTML_FRAGMENT_FORMAT != outputFormat ) {
             buff.append( "</body></html>" )
                   .append( LINE_FEED );
         }
@@ -289,11 +318,11 @@ public class ProgrammeFormat {
     
     // -----------------------------------------------------------------------
     
-    private StringBuffer doLongFormat( Programme programme,
-        StringBuffer toAppendTo, boolean showIcon )
+    private StringBuffer do_formatLong( Programme programme,
+        StringBuffer toAppendTo )
     {
         
-        toAppendTo.append( "<p clear=\"both\"><b>" ).append( LINE_FEED );
+        toAppendTo.append( "<p><b>" ).append( LINE_FEED );
         
         Calendar programmeStart = programme.getStart();
         String programmeDescription = programme.getLongDesc();
@@ -304,20 +333,8 @@ public class ProgrammeFormat {
         String programmeTitle = programme.getTitle();
         String programmeSubTitle = programme.getSubTitle();
         String programmeStarString =  programme.getStarString();
-        String programmeIconUrl = null;
         String programmeCategory = programme.getCategory();
-        String channelIconURL = null;
-        if (showIcon) {
-            programmeIconUrl = programme.getIconURL();
-            if (programme.getChannel().getIconFileName() != null) {
-                try {
-                    channelIconURL = new File(programme.getChannel().getIconFileName()).toURL().toString();
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        
+                
         if (dateFormat != null) {
             toAppendTo.append(dateFormat.format(
                 programme.getStart().getTime()));
@@ -335,23 +352,17 @@ public class ProgrammeFormat {
             toAppendTo.append( ": " + programmeSubTitle );
 
         }
-        if (onScreen) {
+        if( onScreen ) {
             toAppendTo.append( "</a>" );
         }
 
         toAppendTo.append( "</b><br>" );
-        if (channelIconURL != null){
-            toAppendTo
-            .append("<img src=\"")
-            .append(channelIconURL)
-            .append("\" alt=\"").append(programme.getChannel().getName()).append("\">");
-        }
-        else {
-            toAppendTo.append( programme.getChannel().getName() );
-            if (dateFormat != null) toAppendTo.append(",");
+        toAppendTo.append( programme.getChannel().getName() );
+        if( dateFormat != null ) {
+            toAppendTo.append( "," );
         }
             
-        if (dateFormat != null) {
+        if( dateFormat != null ) {
             toAppendTo.append( " " );
             Object[] messageArguments = { dateFormat.format(
                 programme.getEnd().getTime() ) };
@@ -359,11 +370,11 @@ public class ProgrammeFormat {
                 messageArguments ) );
         }
         
-        if (programmeCategory != null) {
+        if( programmeCategory != null ) {
             toAppendTo.append(" ").append(programmeCategory);
         }
         
-        if (printTimeDelta) {
+        if( printTimeDelta ) {
             toAppendTo.append(" <i>(");
             calcTimeDelta(programme.getStart(), toAppendTo);
             toAppendTo.append(")</i>");
@@ -371,12 +382,6 @@ public class ProgrammeFormat {
         
         toAppendTo.append( "<br>" )
             .append( LINE_FEED );
-        
-        if (programmeIconUrl != null) {
-            toAppendTo.append("<img align=\"right\" src=\"")
-            .append(programmeIconUrl)
-            .append("\"><br>");
-        }
 
         if ( programmeDescription != null) {
 
@@ -395,14 +400,14 @@ public class ProgrammeFormat {
             toAppendTo.append( programme.getStarRating() );
         }
         
-        toAppendTo.append("<br clear=\"both\">");
+        toAppendTo.append("<br>");
 
         toAppendTo.append( "</p>" ).append( LINE_FEED );
         
         return toAppendTo;
     }
     
-    public void setFormat(int outputFormat) {
+    public void setFormat( int outputFormat ) {
         this.outputFormat = outputFormat;
         if (HTML_FORMAT == outputFormat) {
             newline = "<br>" + LINE_FEED;

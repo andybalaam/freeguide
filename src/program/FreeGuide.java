@@ -36,7 +36,15 @@ import javax.swing.*;
  */
 public class FreeGuide {
     
-    public FreeGuide(String[] args) {
+    /**
+     * Run FreeGuide.  Command line arguments are:
+     *     --language lang     Set the language FreeGuide uses, e.g. "en" for
+     *                         English, "de" for German
+     *     --country  ctry     Set the country variant for localisation, e.g.
+     *                         "GB" for Great Britain
+     *     --log-prefs         Write every Java Preferences change to the log.
+     */
+    public FreeGuide( String[] args ) {
         
         // Check Java version.  If wrong, exit with error
         // Also set up a log and the preferences classes.

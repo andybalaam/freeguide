@@ -41,11 +41,6 @@ public class ProgrammeDetailsJPanel extends javax.swing.JPanel {
         
         setLayout( new BorderLayout() );
         
-        /*JPanel topPanel = new JPanel( new BorderLayout() );
-        topPanel.add( new JButton( "Close" ), BorderLayout.WEST );
-        
-        add( topPanel, BorderLayout.NORTH );*/
-        
         editorPane = new JEditorPane();
         editorPane.setEditable(false);
         editorPane.setContentType("text/html");
@@ -75,7 +70,8 @@ public class ProgrammeDetailsJPanel extends javax.swing.JPanel {
         
         if( programme != null ) {
         
-            editorPane.setText( programmeFormat.extraLongFormat( programme ) );
+            editorPane.setText(
+                programmeFormat.formatForProgrammeDetailsJPanel( programme ) );
             
         } else {
             

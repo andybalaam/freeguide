@@ -53,8 +53,8 @@ public class ProgrammeJLabel extends JLabel {
         void setInGuide(boolean state);
         void setFavourite(boolean state);
         StripView getStripView();
-
         void isHovering();
+        void onFocus();
     }
 
     private Model model;
@@ -206,7 +206,7 @@ public class ProgrammeJLabel extends JLabel {
             programme = model.getValue();
             updateIsInGuide( model.isInGuide() );
             updateIsFavourite( model.isFavourite() );
-            setText( textFormat.shortFormat(programme) );
+            setText( textFormat.formatForMainGuide( programme  ) );
         }
 
     }
@@ -390,9 +390,14 @@ public class ProgrammeJLabel extends JLabel {
         ProgrammeJLabel.heartColour = heartColour;
     }
 
+    public void onFocus() {
+        model.onFocus();
+    }
+    
     public String getToolTipText() {
-        if (model != null)
+        if( model != null ) {
             model.isHovering();
+        }
 
         // If the prefs say no tooltips, just return null
         if( !FreeGuide.prefs.screen.getBoolean( "display_tooltips", false ))
@@ -410,7 +415,7 @@ public class ProgrammeJLabel extends JLabel {
 
         htmlFormat.setWrap(true);
         htmlFormat.setOnScreen(false);
-        this.tooltip = htmlFormat.longFormat(programme).toString();
+        this.tooltip = htmlFormat.formatLong( programme ).toString();
 
         return this.tooltip;
     }

@@ -69,9 +69,9 @@ public class FavouritesList {
         return value;
     }
 
-    public void removeFavourite(Favourite theFavourite) {
+    public void removeFavourite( Favourite theFavourite ) {
         int index = favourites.indexOf( theFavourite );
-        if ( index > -1 ) {
+        if( index > -1 ) {
             FreeGuide.prefs.favourites.removeFavourite( index + 1 );
         }
         readFavourites();

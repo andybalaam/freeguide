@@ -54,67 +54,16 @@ c  means done by Christian Weiske
 	Perhaps just add an option - remind of chosen programmes?  If that's
 	unselected then need to add explicit reminders.
 
-- Release 0.10
+- Release 0.9.5
 
 - Manual
 - Use serialization to reduce startup time
 - Search for programmes, different views on data.
 - Fix Debian bug #285715 http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=285715
-
-- MVC Branch (0.9)
-
-- Fix bug where vertical scrolling makes the cursor disappear
-- Make the StripView focussed when you click on a programme
-- Stop it from changing what's in the programme panel when you hover for a
-  couple of seconds.
-- When you enter a day that hasn't been entered before, mark favourites as
-  inguide
-- Rename "program" dir to "freeguide"
-- Implement in_guide, remind and record for chosen progs and favourites
-- Implement the actual reminders and recording functionality
-- Fix the problem with flickering guide after clicking OK in the Favourites
-  dialog
-- Make hearts appear on favourites.
-- Make it internationalised
-- Fix the flickering personalised guide when you exit the favourites list
-- If a link for a program in the "personalized tv guide" is clicked, the
-  program view scrolls to it. It would be also nice if the detail view
-  would change to it. 
-- after clicking on the "Edit channel sets" item in the channel set
-  dropdown, it stays selected. It would be nice if the previous selected
-  item would be selected again.
-- Personalised guide for the next X days.
-- Brief summary for the next few days.
 - Automatically make a channel set when you right-click a channel and choose
   "Move up" (or even drag!)
-- Support --xxx=yyy style options on the command line
-- Unsplit (Times should be entered as "hh:mm") strings in favourite editor
-- Sometimes you can't click on certain programmes, but you can navigate to them
-  with the keyboard
-+ Support firefox, and implement this in the stable branch too.
-+ Merge with HEAD
-+ Fix favourites behaviour to get back what it did before
-+ Rename things so "selected" means cursor is on you, "in guide" means chosen/
-  highlighted/shown in personalised guide, and "favourite" mean is a favourite.
-  (Later, "reminder" will mean you will be reminded, and "recorded" will
-  mean it will be recorded.)
-+ Fix whatever is using 100% of CPU whenever FreeGuide is running
-+ Make non-favourites appear in personalised guide: make Programmes themselves
-  know whether or not they are inguide.
-+ Rename m to model in StripView.java
-+ Fix problem with the selected programme appearing in the top left
-+ Make the selected programme appear selected after a SPACE-press/dbl-click
-+ Make 'f' keyboard shortcut work and refresh screen
-+ Make keyboard navigation more natural:
-	+ jump several channels up/down if the intermediate channel is blank
-	+ when left or right is pressed, remember the horizontal position of the
-	  middle of this programme.  During all up/down presses, jump to the
-	  programme that best matches this horizontal position.  When left or right
-	  is pressed, forget this value and find another one.
-+ Internationalise it
-c Translate into German
 
-- Release 0.8.7 (nice features)
+- Release 0.9.4 (nice features)
 
 - Run an exe when a programme is about to start and/or end
 - Make scrollbar increment in fractions of hours on mouse wheel or click.
@@ -138,7 +87,7 @@ c Translate into German
 - x-dist icon support in RPM http://www.hyperborea.org/software/dillo/dillo.spec
 - Look into SQL engines: http://www.mckoi.com/database/
 	
-- Release 0.8.6 (preferences creep)
+- Release 0.9.3 (preferences creep)
 
 - Choose how old files are before you delete them
 - Ability to save and load preferences (using Java's ability to save to XML)
@@ -162,7 +111,7 @@ c Translate into German
 - Fix bug with favourites creating multiple chosen programmes (happens when you
   re-enter a day several times)
 
-- Release 0.8.5 (aesthetics)
+- Release 0.9.2 (aesthetics)
 
 - Go To Now scrolls the personalised listing panel as well as the main panel
 - Coloured favourites categories (text and/or background)
@@ -181,7 +130,7 @@ c Translate into German
 - Add firefox to the possible browsers.
 - Double-clicks should move items in the channel set editor
 
-- Release 0.8.4 (accessibility, accessibility, accessibility)
+- Release 0.9.1 (accessibility, accessibility, accessibility)
 
 - Improve accessibility, specifically keyboard shortcuts
 - Shortcut keys for everything
@@ -229,6 +178,71 @@ c Translate into German
 - Delete all registry entries on Windows uninstall
 - Check whether you really need to set the timezone.
 - Fix bug with multiple reminders if you enter a page multiple times.
+  
+- Release 0.9 (Keyboard navigation, internationalisation, recording) 
+
+- Fix bug where vertical scrolling makes the cursor disappear
+- Make the StripView focussed when you click on a programme
+- Check that upgrading on Windows doesn't leave 2 Add/Remove program entries.
+- Automate building with swingwt to an exe
+- If a link for a program in the "personalized tv guide" is clicked, the
+  program view scrolls to it. It would be also nice if the detail view
+  would change to it. 
+- after clicking on the "Edit channel sets" item in the channel set
+  dropdown, it stays selected. It would be nice if the previous selected
+  item would be selected again.
+- Personalised guide for the next X days.
+- Brief summary for the next few days.
+- Support --xxx=yyy style options on the command line
+- Unsplit (Times should be entered as "hh:mm") strings in favourite editor
+- Sometimes you can't click on certain programmes, but you can navigate to them
+  with the keyboard
+- Make it repaint correctly when you press "f" on a programme
+- Check where each repaint event comes from and make sure it is only called
+  once for every time it needs to be called.
+- Implement in_guide, remind and record for chosen progs and favourites
+- Implement the actual reminders and recording functionality
+
+- 0.9pre2 (Stabilising MVC work)
+
+- Incorporate an automatic code formatter into the build process
+- Rename "program" dir to "freeguide"
++ Sometimes deleting a favourite makes everything a favourite.  It does this
+  by blanking the title of a "contains" favourite.
++ Favourite names need an extra space - internationalise these names properly
++ Stop it from changing what's in the programme panel when you hover for a
+  couple of seconds.
++ When you enter a day that hasn't been entered before, mark favourites as
+  inguide
++ Fix the problem with flickering guide after clicking OK in the Favourites
+  dialog
++ Make hearts appear on favourites.
++ Make it internationalised
++ Fix the flickering personalised guide when you exit the favourites list
++ Put channel icons at the bottom of the programme details panel
++ Move channel and programme icons to the bottom of the details panel
++ Support firefox, and implement this in the stable branch too.
++ Merge MVC with HEAD
++ Fix favourites behaviour to get back what it did before
++ Rename things so "selected" means cursor is on you, "in guide" means chosen/
+  highlighted/shown in personalised guide, and "favourite" mean is a favourite.
+  (Later, "reminder" will mean you will be reminded, and "recorded" will
+  mean it will be recorded.)
++ Fix whatever is using 100% of CPU whenever FreeGuide is running
++ Make non-favourites appear in personalised guide: make Programmes themselves
+  know whether or not they are inguide.
++ Rename m to model in StripView.java
++ Fix problem with the selected programme appearing in the top left
++ Make the selected programme appear selected after a SPACE-press/dbl-click
++ Make 'f' keyboard shortcut work and refresh screen
++ Make keyboard navigation more natural:
+	+ jump several channels up/down if the intermediate channel is blank
+	+ when left or right is pressed, remember the horizontal position of the
+	  middle of this programme.  During all up/down presses, jump to the
+	  programme that best matches this horizontal position.  When left or right
+	  is pressed, forget this value and find another one.
++ Internationalise it
+c Translate into German
 
 + Release 0.8.3 (Java 1.4)
 

@@ -485,8 +485,9 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
             boolean retVal = (exitCode == 0);
 
             // Log it finishing
-            message = FreeGuide.msg.getString( "finished_execution" )
-                + exitCode + ".";
+            Object[] messageArguments = { String.valueOf( exitCode ) };
+            message = FreeGuide.getCompoundMessage(
+                "finished_execution_template", messageArguments );
             if( FreeGuide.log != null) {
                 FreeGuide.log.info( message );
             } else {

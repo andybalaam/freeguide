@@ -144,7 +144,6 @@ public class Favourite {
      *@return    The channel value
      */
     public Channel getChannel() {
-        FreeGuide.log.info( "channel=" + channel );
         return channel;
     }
 

@@ -1,6 +1,7 @@
 package freeguide.lib.general;
 
 import freeguide.*;
+import freeguide.gui.viewer.*;
 import freeguide.lib.fgspecific.*;
 
 import java.awt.Color;
@@ -581,13 +582,15 @@ public class StripView extends JPanel implements Scrollable {
             return;
 
         // repositions the editor component at the given strip
-        Component c = getEditorAt(s, row);
+        Component c = getEditorAt( s, row );
         Point middle = new Point(
             c.getX() + c.getWidth() / 2,
             c.getY() + c.getHeight() / 2
         );
-        if (c instanceof JComponent)
-            ((JComponent)c).getToolTipText();
+        if( c instanceof ProgrammeJLabel ) {
+            ( (ProgrammeJLabel)c ).onFocus();
+        }
+        
         setDispatchComponent(middle);
 
         Rectangle r1 = getStripRect(currentRow, currentStrip);

@@ -33,7 +33,7 @@ import java.util.regex.*;
  *
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    5
+ *@version    6
  */
 
 public class FGPreferences {
@@ -44,8 +44,11 @@ public class FGPreferences {
      *
      *@param  subNode  Description of the Parameter
      */
-    public FGPreferences(String subNode) {
+    public FGPreferences( String subNode, boolean log_prefs ) {
 
+        this.subNode = subNode;
+        this.log_prefs = log_prefs;
+        
         prefs = Preferences.userRoot().node( "/org/freeguide-tv/" + subNode );
         
         listeners = new Vector();
@@ -231,23 +234,19 @@ public class FGPreferences {
     public void removeFromGuide( int index ) {
 
         int orig_index = index;
-        
-        // Remove these even though they will be over-written in a minute
-        // (just for neatness)
-        remove( index + ".title", false );
-        remove( index + ".start", false );
-        remove( index + ".channel_id", false );
 
         // Shift everything down
         index++;
         String title = get(index + ".title");
         while (title != null) {
 
-            put( (index - 1) + ".title", title, false );
-            putDate( (index - 1) + ".start", getDate( index + ".start", null ), 
-                false );
-            put( (index - 1) + ".channel_id", get( index + ".channel_id", "" ),
-                false);
+            put(        (index-1) + ".title", title, false );
+            
+            putDate(    (index-1) + ".start",
+                getDate( index    + ".start", null ), false );
+                
+            put(        (index-1) + ".channel_id",
+                get(     index    + ".channel_id", "" ), false);
 
             index++;
             title = get( index + ".title" );
@@ -330,51 +329,53 @@ public class FGPreferences {
     public void removeFavourite( int index ) {
 
         int orig_index = index;
-        
-        // Remove these even though they will be over-written in a minute
-        // (just for neatness)
-        remove(index + ".name", false);
-        remove(index + ".title_string", false);
-        remove(index + ".title_regex", false);
-        remove(index + ".channel_id", false);
-        remove(index + ".after_time", false);
-        remove(index + ".before_time",false);
-        remove(index + ".day_of_week", false);
 
         // Shift everything down
         index++;
-        String name = get(index + ".name");
-        while (name != null) {
+        String name = get( index + ".name" );
+        while( name != null ) {
 
-            put((index - 1) + ".name", get(index + ".name"), false);
-            put((index - 1) + ".title_string", get(index + ".title_string"),
-                false);
-            put((index - 1) + ".title_regex", get(index + ".title_regex"),
-                false);
-            put((index - 1) + ".channel_id", get(index + ".channel_id"),
-                false);
-            put((index - 1) + ".after_time", get(index + ".after_time"), false);
-            put((index - 1) + ".before_time", get(index + ".before_time"),
-                false);
-            put((index - 1) + ".day_of_week", get(index + ".day_of_week"),
-                false);
+            put(    (index-1) + ".name",
+                get( index    + ".name" ),          false );
+                              
+            put(    (index-1) + ".title_string",
+                get( index    + ".title_string" ),  false );
+                              
+            put(    (index-1) + ".title_contains",
+                get( index    + ".title_contains" ), false);
+                              
+            put(    (index-1) + ".title_regex",
+                get( index    + ".title_regex" ),    false );
+                              
+            put(    (index-1) + ".channel_id",
+                get( index    + ".channel_id" ),     false );
+                              
+            put(    (index-1) + ".after_time",
+                get( index    + ".after_time" ),     false );
+                
+            put(    (index-1) + ".before_time",
+                get( index    + ".before_time" ),    false );
+                
+            put(    (index-1)  + ".day_of_week",
+                get( index     + ".day_of_week" ),   false );
 
             index++;
-            name = get(index + ".name");
+            name = get( index + ".name" );
 
         }
 
         // Remove the last one in the list
         // (so that it's 1 shorter than what we started with)
-        remove((index - 1) + ".name", false);
-        remove((index - 1) + ".title_string", false);
-        remove((index - 1) + ".title_regex", false);
-        remove((index - 1) + ".channel_id", false);
-        remove((index - 1) + ".after_time", false);
-        remove((index - 1) + ".before_time", false);
-        remove((index - 1) + ".day_of_week", false);
+        remove( (index - 1) + ".name",          false );
+        remove( (index - 1) + ".title_string",  false );
+        remove( (index - 1) + ".title_contains",false );
+        remove( (index - 1) + ".title_regex",   false );
+        remove( (index - 1) + ".channel_id",    false );
+        remove( (index - 1) + ".after_time",    false );
+        remove( (index - 1) + ".before_time",   false );
+        remove( (index - 1) + ".day_of_week",   false );
 
-        notifyListeners( "-several-", null );
+        notifyListeners( "" + orig_index, null );
         
     }
 
@@ -983,11 +984,14 @@ public class FGPreferences {
     public void put( String key, String value, boolean notify ) {
         if( value != null ) {
             prefs.put( key, value );
+            if( notify ) {
+                notifyListeners( key, value );
+            }
+            if( log_prefs ) {
+                logPref( key + "=" + value );
+            }
         } else {
             remove( key, false );
-        }
-        if( notify ) {
-            notifyListeners( key, value );
         }
     }
     
@@ -1004,6 +1008,9 @@ public class FGPreferences {
         prefs.putBoolean( key, value );
         if( notify ) {
             notifyListeners( key, new Boolean( value ) );
+        }
+        if( log_prefs ) {
+            logPref( key + "=" + value );
         }
     }
 
@@ -1022,6 +1029,9 @@ public class FGPreferences {
         if( notify ) {
             notifyListeners( key, value );
         }
+        if( log_prefs ) {
+            logPref( key + "=" + value );
+        }
     }
 
 
@@ -1038,6 +1048,9 @@ public class FGPreferences {
         prefs.putDouble(key, value);
         if( notify ) {
             notifyListeners( key, new Double( value ) );
+        }
+        if( log_prefs ) {
+            logPref( key + "=" + value );
         }
     }
 
@@ -1056,6 +1069,9 @@ public class FGPreferences {
         if( notify ) {
             notifyListeners( key, new Float( value ) );
         }
+        if( log_prefs ) {
+            logPref( key + "=" + value );
+        }
     }
 
 
@@ -1072,6 +1088,9 @@ public class FGPreferences {
         prefs.putInt(key, value);
         if( notify ) {
             notifyListeners( key, new Integer( value ) );
+        }
+        if( log_prefs ) {
+            logPref( key + "=" + value );
         }
     }
 
@@ -1090,6 +1109,9 @@ public class FGPreferences {
         if( notify ) {
             notifyListeners( key, new Long( value ) );
         }
+        if( log_prefs ) {
+            logPref( key + "=" + value );
+        }
     }
 
 
@@ -1106,6 +1128,9 @@ public class FGPreferences {
         if( notify ) {
             notifyListeners( "", null );
         }
+        if( log_prefs ) {
+            logPref( " Cleared." );
+        }
     }
 
 
@@ -1116,6 +1141,9 @@ public class FGPreferences {
      */
     public void flush() throws BackingStoreException {
         prefs.flush();
+        if( log_prefs ) {
+            logPref( " Flushed." );
+        }
     }
 
 
@@ -1124,13 +1152,16 @@ public class FGPreferences {
      *
      *@param  key  Description of the Parameter
      */
-    public void remove(String key) {
+    public void remove( String key ) {
         remove( key, true );
     }
     public void remove( String key, boolean notify ) {
         prefs.remove(key);
         if( notify ) {
             notifyListeners( key, null );
+        }
+        if( log_prefs ) {
+            logPref( key + " Removed." );
         }
     }
 
@@ -1153,6 +1184,9 @@ public class FGPreferences {
      */
     public void sync() throws BackingStoreException {
         prefs.sync();
+        if( log_prefs ) {
+            logPref( " Synced." );
+        }
     }
 
 
@@ -1337,10 +1371,16 @@ public class FGPreferences {
         
     }
 
+    private void logPref( String str ) {
+        FreeGuide.log.info( "prefs: " + subNode + "." + str );
+    }
+    
     // ------------------------------------------------------------------------
 
     private Preferences prefs;
     private Vector listeners;
+    private boolean log_prefs;
+    private String subNode;
 
 }
 

@@ -237,7 +237,7 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
         while( i.hasNext() ) {
     
             Programme prog = (Programme)( i.next() );
-            ans.append( pf.longFormat( prog ) );
+            ans.append( pf.formatLong( prog ) );
             
         }
         

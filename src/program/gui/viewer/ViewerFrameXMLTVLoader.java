@@ -493,8 +493,9 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
         
         } else if (saxLoc.equals(":tv:programme:icon")) {
             
-            if (currentProgramme != null && attrs.getValue("src") != null)
-                currentProgramme.setIconURL(attrs.getValue("src"));
+            if( currentProgramme != null && attrs.getValue( "src" ) != null ) {
+                currentProgramme.setIconURL( attrs.getValue( "src" ) );
+            }
             
         } else if ( saxLoc.equals(":tv:programme:desc")
             || saxLoc.equals(":tv:programme:title")
@@ -579,8 +580,6 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
     public void endElement( String namespaceURI, String sName, String name ) {
         
         String data = this.data.toString();
-
-        //FreeGuide.log.info(name);
 
         if( saxLoc.equals( ":tv:programme" ) ) {
 
@@ -681,8 +680,10 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
             Matcher mat  = patt.matcher( saxLoc );
             
             // If we're looking at an unknown tag of a programme
-            if (mat.matches() && currentProgramme != null && data != null && !data.equals("")) {
-                    // Ending an unknown subtag
+            if( mat.matches() && currentProgramme != null && data != null
+                && !data.equals( "" ) )
+            {
+                // Ending an unknown subtag
                 
                 String mainTag = mat.group( 1 );
                     
@@ -692,16 +693,14 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
             
         }
         
-        if (saxLoc.endsWith(name)) {
+        if( saxLoc.endsWith( name ) ) {
 
-            saxLoc = saxLoc.substring(0, saxLoc.length() - (name.length() + 1));
+            saxLoc = saxLoc.substring( 0, saxLoc.length()
+                - ( name.length() + 1 ) );
 
         } else {
             parseError();
         }
-        //if
-
-        //FreeGuide.log.info("endElement END");
 
     }
 
@@ -752,7 +751,7 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
      *@param  length  Description of the Parameter
      */
     public void characters(char[] ch, int start, int length) {
-        data.append(ch, start, length);
+        data.append( ch, start, length );
     }
 
 

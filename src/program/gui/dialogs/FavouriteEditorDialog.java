@@ -237,58 +237,92 @@ public class FavouriteEditorDialog extends FGDialog {
     }
 
     /**
-     *  Description of the Method
+     *  Give the favourite a name depending on its properties
      */
     private void calcTxtName() {
         
-        String name = "";
-        
+        // Find the properties of the favourite
         String title = txtTitle.getText();
+        String channel = cmbChannel.getSelectedItem().toString();
+        String after = txtAfter.getText();
+        String before = txtBefore.getText();
+        String dayOfWeek = cmbDayOfWeek.getSelectedItem().toString();
+        
+        // Prepare strings that will be substituted into the name template
+        String equalsString = "";
+        Object[] equalsArray = { title };
+        
+        String containsString = "";
+        Object[] containsArray = { title };
+        
+        String regexpString = "";
+        Object[] regexpArray = { title };
+        
+        String channelString = "";
+        Object[] channelArray = { channel };
+        
+        String afterString = "";
+        Object[] afterArray = { after };
+        
+        String beforeString = "";
+        Object[] beforeArray = { before };
+        
+        String dayOfWeekString = "";
+        Object[] dayOfWeekArray = { dayOfWeek };
+        
         if( !title.equals( "" ) ) {
-
+            
             if( cmbTitle.getSelectedItem().equals( 
                 FreeGuide.msg.getString( "exactly" ) ) )
             {
-                name += "" + title + " ";
+                equalsString = FreeGuide.getCompoundMessage(
+                    "favourite_name_equals_template", equalsArray );
             } else if (cmbTitle.getSelectedItem().equals(
                 FreeGuide.msg.getString( "contains" ) ) )
             {
-                name += FreeGuide.msg.getString( "contains_s" ) + title + " ";
+                containsString = FreeGuide.getCompoundMessage(
+                    "favourite_name_contains_template", containsArray );
             } else {
-                name += "/" + title + "/ ";
+                regexpString = FreeGuide.getCompoundMessage(
+                    "favourite_name_regexp_template", regexpArray );
             }
-
+            
         }
         
-        String channel = cmbChannel.getSelectedItem().toString();
+        if( !channel.equals("") ) {
+            channelString = FreeGuide.getCompoundMessage(
+                "favourite_name_channel_template", channelArray );
+        }
+
+        if( !after.equals("") ) {
+            afterString = FreeGuide.getCompoundMessage(
+                "favourite_name_after_template", afterArray );
+        }
+
+        if( !before.equals("") ) {
+            beforeString = FreeGuide.getCompoundMessage(
+                "favourite_name_before_template", beforeArray );
+        }
+
+        if( !dayOfWeek.equals("") ) {
+            dayOfWeekString = FreeGuide.getCompoundMessage(
+                "favourite_name_day_of_week_template", dayOfWeekArray );
+        }
+
+        Object[] nameArgs = { equalsString, containsString, regexpString,
+            channelString, beforeString, afterString, dayOfWeekString };
         
-        if( channel != null && !channel.equals("") ) {
-            name += FreeGuide.msg.getString( "on_chan" ) + " " + channel + " ";
-        }
-
-        FreeGuide.log.info( "name2.5=" + name );
+        String name = FreeGuide.getCompoundMessage( "favourite_name_template",
+            nameArgs );
         
-        String after = txtAfter.getText();
-        if (!after.equals("")) {
-            name += FreeGuide.msg.getString( "after" ) + " " + after + " ";
-        }
-
-        String before = txtBefore.getText();
-        if (!before.equals("")) {
-            name += FreeGuide.msg.getString( "before" ) + " " + before + " ";
-        }
-
-        String dayOfWeek = (String) cmbDayOfWeek.getSelectedItem();
-        if (dayOfWeek != null && !dayOfWeek.equals("")) {
-            name += FreeGuide.msg.getString( "on_day" ) + " " + dayOfWeek + " ";
-        }
-
-        if ( name.equals( "" ) ) {
+        name = name.replaceAll( "\\s+", " " ).trim();
+            
+        if( name.equals( "" ) ) {
             name = FreeGuide.msg.getString( "all_programmes" );
         }
 
-        txtName.setText(name);
-
+        txtName.setText( name );
+        
     }
 
 

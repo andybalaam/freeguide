@@ -36,13 +36,15 @@ public class PreferencesGroup {
      *  The constructor
      */
     public PreferencesGroup() {
-
-        screen = new FGPreferences("screen");
-        commandline = new FGPreferences("commandline");
-        misc = new FGPreferences("misc");
-        favourites = new FGPreferences("favourites");
-        chosen_progs = new FGPreferences("chosenprogs");
-        channelsets = new FGPreferences("channelsets");
+        
+        boolean log_prefs = FreeGuide.arguments.isSet( "log-prefs" );
+        
+        screen       = new FGPreferences( "screen",      log_prefs);
+        commandline  = new FGPreferences( "commandline", log_prefs);
+        misc         = new FGPreferences( "misc",        log_prefs);
+        favourites   = new FGPreferences( "favourites",  log_prefs);
+        chosen_progs = new FGPreferences( "chosenprogs", log_prefs);
+        channelsets  = new FGPreferences( "channelsets", log_prefs);
 
     }
 
