@@ -36,17 +36,17 @@
   		<!-- copy the program classes that are needed by each installer -->
     	<copy todir="${build}/install">
 			<fileset dir="${build}/program">
-				<include name="FreeGuideAbstractFileWizardPanel$*.class"/>
+				<include name="FreeGuideAbstractFileWizardPanel*.class"/>
 				<include name="FreeGuideConfigGuesser.class"/>
-				<include name="FreeGuideDirectoryWizardPanel$*.class"/>
+				<include name="FreeGuideDirectoryWizardPanel*.class"/>
 				<include name="FreeGuideEnvironmentChecker.class"/>
-				<include name="FreeGuideLabelWizardPanel$*.class"/>
+				<include name="FreeGuideLabelWizardPanel*.class"/>
 				<include name="FreeGuideLauncher.class"/>
 				<include name="FreeGuidePreferencesGroup.class"/>
 				<include name="FreeGuidePreferences.class"/>
 				<include name="FreeGuideTime.class"/>
-				<include name="FreeGuideWizard$*.class"/>
-				<include name="FreeGuideWizardPanel$*.class"/>
+				<include name="FreeGuideWizard*.class"/>
+				<include name="FreeGuideWizardPanel*.class"/>
 			</fileset>
 		</copy>
 	
