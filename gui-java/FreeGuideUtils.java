@@ -541,16 +541,16 @@ loop:			while(true)
 			
 			
 			if(country.equals(country_UK)) {
-				ans = "\"%misc.xmltv_directory%\\tv_grab_uk\" --config-file \"%misc.grabber_config%\" --output \"%misc.working_directory%\\listings_unprocessed.xml\"";
+				ans = "\"%misc.xmltv_directory%\\tv_grab_uk.exe\" --config-file \"%misc.grabber_config%\" --output \"%misc.working_directory%\\listings_unprocessed.xml\"";
 			} else if(country.equals(country_NA)) {
-				ans = "\"%misc.xmltv_directory%\\tv_grab_na\" --config-file \"%misc.grabber_config%\" --output \"%misc.working_directory%\\listings_unprocessed.xml\"";
+				ans = "\"%misc.xmltv_directory%\\tv_grab_na.exe\" --config-file \"%misc.grabber_config%\" --output \"%misc.working_directory%\\listings_unprocessed.xml\"";
 			} else if(country.equals(country_Germany)) {
-				ans = "\"%misc.xmltv_directory%\\tv_grab_de\" --config-file \"%misc.grabber_config%\" --output \"%misc.working_directory%\\listings_unprocessed.xml\"";
+				ans = "\"%misc.xmltv_directory%\\tv_grab_de.exe\" --config-file \"%misc.grabber_config%\" --output \"%misc.working_directory%\\listings_unprocessed.xml\"";
 			} else {
 				FreeGuide.log.warning("Invalid country chosen!");
 				ans = "";
 			}
-			ans += lb + "\"%misc.xmltv_directory%\\tv_split\" --output \"%misc.working_directory%\\%%channel-%%Y%%m%%d.fgd\" --day_start_time %misc.day_start_time% \"%misc.working_directory%\\listings_unprocessed.xml\"";
+			ans += lb + "\"%misc.xmltv_directory%\\tv_split.exe\" --output \"%misc.working_directory%\\%%channel-%%Y%%m%%d.fgd\" --day_start_time %misc.day_start_time% \"%misc.working_directory%\\listings_unprocessed.xml\"";
 			
 		} else if(os.equals(os_Other)) {
 			

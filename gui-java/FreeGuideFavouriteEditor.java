@@ -148,8 +148,8 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 		tmp = txtAfter.getText();
 		if( !tmp.equals("") && (tmp.length()==5) && tmp.charAt(2)==':') {
 			
-			String hhmm = tmp.substring(0,2) + tmp.substring(3);
-			favourite.setAfterTime( new FreeGuideTime(hhmm) );
+			//String hhmm = tmp.substring(0,2) + tmp.substring(3);
+			favourite.setAfterTime( new FreeGuideTime(tmp) );
 			
 		} else {
 			favourite.setAfterTime( null );
@@ -159,8 +159,8 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 		tmp = txtBefore.getText();
 		if( !tmp.equals("") && (tmp.length()==5) && tmp.charAt(2)==':') {
 			
-			String hhmm = tmp.substring(0,2) + tmp.substring(3);
-			favourite.setBeforeTime( new FreeGuideTime(hhmm) );
+			//String hhmm = tmp.substring(0,2) + tmp.substring(3);
+			favourite.setBeforeTime( new FreeGuideTime(tmp) );
 			
 		} else {
 			favourite.setBeforeTime( null );
