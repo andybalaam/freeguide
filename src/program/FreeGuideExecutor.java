@@ -288,7 +288,7 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 		if ( FreeGuide.prefs.misc.getInt("grabber_start_today",1) == 0 ) {
 			thisDate.setTime(date.getTime());
 		}
-		System.out.print("exec: "+cmdstr+"\n");
+		//System.out.print("exec: "+cmdstr+"\n");
 		// Check for any elements that mean this command must be called multiple
 		// times, once for each day.
 		if( (cmdstr.indexOf("%date%")!=-1)
@@ -304,13 +304,13 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 				// What about files that are half empty?
 				
 				// Recursive call to this function
-				if(	!exec(FreeGuide.prefs.performSubstitutions(
-						cmdstr, thisDate) ) ) {
-						
-						didOK=false;
-					}
-						
-				
+				// FIXME - this will cause the %% construct to misbehave
+				if( !exec(FreeGuide.prefs.performSubstitutions(
+					cmdstr, thisDate) ) ) {
+
+					didOK=false;
+				}
+
 				thisDate.add(Calendar.DATE, 1);
 				
 			}
