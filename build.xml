@@ -16,7 +16,7 @@
 	<property name="package" location="package"/>
 	<property name="dist"  location="dist"/>
 
-	<property name="freeguideversion"  value="FreeGuide-0.7-pre3"/>
+	<property name="freeguideversion"  value="FreeGuide-0.7"/>
 	
   	<target name="init">
   
