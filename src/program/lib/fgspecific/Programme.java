@@ -460,14 +460,17 @@ public class Programme {
         if( hashOfAttrs == null ) {
             
             hashOfAttrs = new Hashtable();
-            hashOfAttrs.put(subTag, data);
             extraTags.put( mainTag, hashOfAttrs );
             
-        } else {
-            
-            hashOfAttrs.put( subTag, data );
-            
         }
+
+        String newData = (String)hashOfAttrs.get( subTag );
+        if (newData == null) {
+            newData = data;
+        } else {
+            newData += "; " + data;
+        }
+        hashOfAttrs.put(subTag, newData);
         
     }
 	/**
