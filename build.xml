@@ -7,25 +7,28 @@
     </description>
 
     <!-- set global properties for this build -->
-    <property name="src" location="src"/>
-    <property name="doc"  location="doc"/>
-    <property name="xmltv"  location="xmltv"/>
-    <property name="share"  location="xmltv/share"/>
-    <property name="build" location="build"/>
-    <property name="dist"  location="dist"/>
-    <property name="resources"  location="src/resources"/>
+    <property name="src" location="src" />
+    <property name="doc"  location="doc" />
+    <property name="xmltv"  location="xmltv" />
+    <property name="share"  location="xmltv/share" />
+    <property name="build" location="build" />
+    <property name="dist"  location="dist" />
+    <property name="resources"  location="src/resources" />
+    <!--
+    <property name="ANT_HOME" location="${env.ANT_HOME}/" />
+    -->
     
-    <property name="freeguideversion"  value="FreeGuide-0.9"/>
+    <property name="freeguideversion"  value="FreeGuide-0.9" />
 
     <target name="init">
 
         <!-- Create the time stamp -->
         <tstamp/>
         <!-- Create the build directory structure used by compile -->
-        <mkdir dir="${build}"/>
-        <mkdir dir="${build}/program"/>
-        <mkdir dir="${build}/doc"/>
-        <mkdir dir="${dist}"/>
+        <mkdir dir="${build}" />
+        <mkdir dir="${build}/freeguide" />
+        <mkdir dir="${build}/doc" />
+        <mkdir dir="${dist}" />
 
     </target>
     
@@ -45,7 +48,7 @@
 
         <property name="install_pixmap_dir" location="${install_share_dir}/pixmaps/freeguide" />
         
-        <mkdir dir="${install_jar_dir}"/>
+        <mkdir dir="${install_jar_dir}" />
         <copy file="${dist}/${freeguideversion}-Linux-NoXMLTV.jar"
             tofile="${install_jar_dir}/FreeGuide.jar" />
 
@@ -91,13 +94,13 @@
     <target name="compile" depends="init" description="compile the source " >
 
         <!-- compile all the .java files -->
-        <javac srcdir="${src}/program" destdir="${build}/program" deprecation="on" source="1.4" target="1.4" />
+        <javac srcdir="${src}/freeguide" destdir="${build}/freeguide" deprecation="on" source="1.4" target="1.4" />
 
         <!-- copy in the required images (flash screen) -->
-        <copy todir="${build}/program" file="${src}/images/logo-256x256.png" />
+        <copy todir="${build}/freeguide" file="${src}/images/logo-256x256.png" />
         
         <!-- gzip the man page -->
-        <gzip src="${src}/install/linux/freeguide.1" zipfile="${build}/freeguide.1.gz"/>
+        <gzip src="${src}/install/linux/freeguide.1" zipfile="${build}/freeguide.1.gz" />
         
         <!-- generate the fake resource file -->
         <exec executable="python" dir="${resources}">
@@ -113,7 +116,7 @@
     
         <!-- copy in the required images (flash screen) -->
         <copy todir="${build}/swingwt/freeguide">
-            <fileset dir="${src}/program" />
+            <fileset dir="${src}/freeguide" />
         </copy>
         
         <!-- replace all the java imports with swingwt -->
@@ -130,17 +133,17 @@
         
         <!-- Copy the program jar -->
         <copy todir="${build}/windows">
-            <fileset dir="${build}/program" />
+            <fileset dir="${build}/freeguide" />
         </copy>
 
         <!-- Copy the XMLTV DTD -->
-        <copy file="${xmltv}/xmltv.dtd" todir="${build}/windows"/>
+        <copy file="${xmltv}/xmltv.dtd" todir="${build}/windows" />
 
         <!-- Copy the internationalisation resources files -->
-        <mkdir dir="${build}/windows/resources"/>
+        <mkdir dir="${build}/windows/resources" />
         <copy todir="${build}/windows/resources">
             <fileset dir="${resources}">
-                <include name="**/*.properties"/>
+                <include name="**/*.properties" />
             </fileset>
         </copy>
         
@@ -198,7 +201,7 @@
         <!-- Make the jar file -->
         <jar 	jarfile="${dist}/${freeguideversion}-Win.jar"
                 basedir="${build}/windows"
-                manifest="${src}/manifests/FreeGuide.mf"/>
+                manifest="${src}/manifests/FreeGuide.mf" />
         
     </target>
 
@@ -209,7 +212,7 @@
 
         <!-- Copy the program file -->
         <copy todir="${build}/linux">
-            <fileset dir="${build}/program"/>
+            <fileset dir="${build}/freeguide" />
         </copy>
         
         <!-- no longer included in JAR
@@ -221,10 +224,10 @@
         <copy file="${xmltv}/xmltv.dtd" todir="${build}/linux" />
 
         <!-- Copy the internationalisation resources files -->
-        <mkdir dir="${build}/linux/resources"/>
+        <mkdir dir="${build}/linux/resources" />
         <copy todir="${build}/linux/resources">
             <fileset dir="${resources}">
-                <include name="**/*.properties"/>
+                <include name="**/*.properties" />
             </fileset>
         </copy>
         
@@ -281,7 +284,7 @@
         <!-- Make the jar installer file -->
         <jar 	jarfile="${dist}/${freeguideversion}-Linux-NoXMLTV.jar"
                 basedir="${build}/linux"
-                manifest="${src}/manifests/FreeGuide.mf"/>
+                manifest="${src}/manifests/FreeGuide.mf" />
 
     </target>
 
@@ -314,7 +317,7 @@
 
         <mkdir dir="${build}/${freeguideversion}" />
 
-        <untar dest="${build}/${freeguideversion}" src="${build}/fg.tar"/>
+        <untar dest="${build}/${freeguideversion}" src="${build}/fg.tar" />
 
         <tar tarfile="${build}/${freeguideversion}.tar" basedir="${build}"
             includes="${freeguideversion}/**" />
@@ -334,5 +337,24 @@
         <delete dir="${dist}" />
     </target>
 
+  <!-- 
+  <taskdef name="jalopy" classname="de.hunsicker.jalopy.plugin.ant.AntPlugin">
+    <classpath>
+      <fileset dir="${ANT_HOME}/lib">
+        <include name="*.jar" />
+      </fileset>
+    </classpath>
+  </taskdef>
+  
+  <target name="jalopy-format">
+    <jalopy fileformat="dos" loglevel="info" 
+        convention="${src}/freeguide-jalopy.xml">
+      <fileset dir="${src}/program">
+        <include name="**/*.java" />
+      </fileset>
+    </jalopy>
+  </target>
+  -->
+    
 </project>
 
