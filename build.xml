@@ -85,7 +85,22 @@
   	<target name="windows-install-init" depends="install-init"
   		description="set up ready for creation of windows installer jar" >
 		
+		<!-- nothing at the moment -->
+		
+	</target>
+  
+  	<target name="linux-install-init" depends="install-init"
+  		description="set up ready for creation of linux installer jar" >
+		
+		<!-- nothing at the moment -->
+		
+	</target>
+  
+  	<target name="FreeGuide-Win-UK-Install" depends="windows-install-init" 
+  		description="generate the windows uk installer jar" >
+		
 		<!-- Copy always-used XMLTV exes -->
+		<delete dir="${build}/install/xmltv"/>
 		<mkdir dir="${build}/install/xmltv"/>
 		<copy todir="${build}/install/xmltv">
 			<fileset dir="${xmltv}/">
@@ -93,18 +108,6 @@
 				<include name="perl56.dll"/>
 			</fileset>
 		</copy>
-		
-	</target>
-  
-  	<target name="linux-install-init" depends="install-init"
-  		description="set up ready for creation of linux installer jar" >
-			
-		<!-- does nothing at the moment -->
-		
-	</target>
-  
-  	<target name="FreeGuide-Win-UK-Install" depends="windows-install-init" 
-  		description="generate the windows uk installer jar" >
 		
 		<!-- copy in the uk grabber -->
 		<copy file="${xmltv}/tv_grab_uk.exe" todir="${build}/install/xmltv"/>
@@ -122,6 +125,16 @@
   	<target name="FreeGuide-Win-NA-Install" depends="windows-install-init" 
   		description="generate the windows north american installer jar" >
 
+		<!-- Copy always-used XMLTV exes -->
+		<delete dir="${build}/install/xmltv"/>
+		<mkdir dir="${build}/install/xmltv"/>
+		<copy todir="${build}/install/xmltv">
+			<fileset dir="${xmltv}/">
+				<include name="tv_split.exe"/>
+				<include name="perl56.dll"/>
+			</fileset>
+		</copy>
+		
 		<!-- copy in the na grabber -->
 		<copy file="${xmltv}/tv_grab_na.exe" todir="${build}/install/xmltv"/>
 		
@@ -140,6 +153,9 @@
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/install-lin-uk.props" tofile="${build}/install/install.props" overwrite="true" />
 		
+		<!-- delete XMLTV windows exes -->
+		<delete dir="${build}/install/xmltv"/>
+		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/FreeGuide-Linux-UK-Install.jar"
 				basedir="${build}/install"
@@ -152,6 +168,9 @@
 		
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/install-lin-na.props" tofile="${build}/install/install.props" overwrite="true" />
+		
+		<!-- delete XMLTV windows exes -->
+		<delete dir="${build}/install/xmltv"/>
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/FreeGuide-Linux-NA-Install.jar"
