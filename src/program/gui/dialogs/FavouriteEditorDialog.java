@@ -531,7 +531,7 @@ public class FavouriteEditorDialog extends FGDialog {
         getContentPane().add(labTimeFormat, gridBagConstraints);
 
         labDayOfWeek.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        labDayOfWeek.setText( FreeGuide.msg.getString( "on_day" ) + ":" );
+        labDayOfWeek.setText( FreeGuide.msg.getString( "on_day_label" ) + ":" );
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
