@@ -6,6 +6,7 @@ find -name "*.java"        > tmp
 find -name "*.form"       >> tmp
 find -name "*.css"        >> tmp
 echo "./xmltv/sort_listings_freeguide"         >> tmp
+echo "./xmltv/getlistings_uk_ananova"	>> tmp
 find -name "*.sh"         >> tmp
 find -name "*.lnk"         >> tmp
 echo "./README.html"  >> tmp

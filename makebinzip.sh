@@ -9,7 +9,11 @@ cd $HOME
 
 find freeguide-tv/ -name "*.jar"        		>  mkbintmp
 find freeguide-tv/ -name "*.css"        		>> mkbintmp
-find freeguide-tv/xmltv -path "*"			>> mkbintmp
+
+echo freeguide-tv/xmltv/getlistings_uk_ananova		>> mkbintmp
+echo freeguide-tv/xmltv/sort_listings_freeguide		>> mkbintmp
+echo freeguide-tv/xmltv/getlistings_na			>> mkbintmp
+
 find freeguide-tv/ -name "runfreeguide.sh"		>> mkbintmp
 find freeguide-tv/ -name "crimsonlicence.txt"		>> mkbintmp
 find freeguide-tv/ -name "*.lnk"         		>> mkbintmp
