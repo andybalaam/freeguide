@@ -127,6 +127,9 @@ r  means done by Rob Stewart
 - Keyboard navigation of programme scrollpane
 - Full test of keyboard navigation
 - Fix programme icons as per my email to Yann
+- Views: details only, guide only, both layout 1, both layout 2, neither
+- View menu - show tooltips
+- Check whether setting the timezone is really necessary.
 
 - Release 0.8 (first time wizard)
 
@@ -138,6 +141,7 @@ y Display programme icons
 + create native windows installer (NSIS)
 + create native linux installer (RPM)
 + Convert the installer into a first time wizard
++ Arrange classes into packages
 
 + Release 0.7.5 (minor features)
 
