@@ -40,31 +40,30 @@ public class FreeGuide {
         // Check Java version.  If wrong, exit with error
         // Also set up a log and the preferences classes.
         StartupChecker.basicSetup( args );
-        
+
         // Find out what the documents directory is from the command line
         if( arguments.isSet( "doc_directory" ) ) {
             
             prefs.misc.put( "doc_directory",
                 arguments.getValue( "doc_directory" ) );
-                
-        } else {
             
+            log.warning( "doc_directory="
+                + arguments.getValue( "doc_directory" ) );
+            
+        } else {
             log.warning( "No documents directory supplied on the command line!"
                 + "  Documentation will not be available." );
+        }
+        
+        if( arguments.isSet( "install_directory" ) ) {
             
-        }/* else if( arguments.isSet( "install" ) ) {
-            setSystemSettings();
-            System.exit( 0 );
-        } else if( arguments.isSet( "uninstall" ) ) {
-            removeSystemSettings();
-            System.exit( 0 );
-        } else if( arguments.isSet( "prefs" ) ) {
-            setSystemSettings();
-            System.exit( 0 );
-        } else if( arguments.isSet( "wipeprefs" ) ) {
-            removeSettings();
-            System.exit( 0 );
-        }*/
+            prefs.misc.put( "install_directory",
+                arguments.getValue( "install_directory" ) );
+                
+        } else if( System.getProperty( "os.name" ).startsWith( "Windows" ) ) {
+            log.warning( "No install directory supplied on the command line!"
+                + "  Several things won't work." );
+        }
         
         String install_version = FreeGuide.prefs.misc.get( "install_version" );
         if( install_version == null ) {
@@ -138,69 +137,7 @@ public class FreeGuide {
 		ViewerFrame viewerFrame = new ViewerFrame( pleaseWait );
         
     }
-    
-    /**
-     * Called when we've received some preference settings on the command line,
-     * either during installation or in normal use.
-     */
-    /*private void setSystemSettings() {
-
-        Vector prefsToSet = arguments.getBlankValues();
         
-        for( int i = 0; i < prefsToSet.size(); i++ ) {
-            
-            prefs.putSystem( (String)prefsToSet.get(i) );
-
-        }
-        
-    }*/
-    
-    /**
-     * Called on uninstall on some systems to clear the junk out of the Java
-     * preferences.
-     */
-    /*private void removeSystemSettings() {
-        
-        // FIXME does not remove the user's preferences node, only the system's
-        
-        String w = prefs.performSubstitutions(
-            prefs.misc.get( "working_directory" ) );
-                                                                                
-        if (w != null) {
-            File work = new File(w);
-            deleteDir(work);
-        }
-                                                                                
-        Preferences node = Preferences.systemRoot().node("/org/freeguide-tv");
-                                                                                
-        try {
-                                                                                
-            node.removeNode();
-                                                                                
-        } catch (java.util.prefs.BackingStoreException e) {
-            e.printStackTrace();
-        }
-        
-    }*/
-
-    /**
-     * Convenient way to clear out all the settings when we're experimenting
-     * with different installations of FreeGuide.
-     */
-    /*private void removeSettings() {
-                                                                 
-        Preferences node = Preferences.userRoot().node("/org/freeguide-tv");
-                                                                                
-        try {
-                                                                                
-            node.removeNode();
-                                                                                
-        } catch (java.util.prefs.BackingStoreException e) {
-            e.printStackTrace();
-        }
-        
-    }*/
-    
     /**
      *  Deletes a whole directory recursively (also deletes a single file).
      *

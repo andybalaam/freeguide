@@ -8,8 +8,10 @@
 ; The name of the installer
 Name "FreeGuide"
 
+!define VERSION "0.8.2"
+
 ; The file to write
-OutFile "..\..\..\installer\FreeGuide-0.8.1-Windows.exe"
+OutFile ..\..\..\installer\FreeGuide-${VERSION}-Windows.exe
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\FreeGuide 
@@ -19,36 +21,79 @@ InstallDir $PROGRAMFILES\FreeGuide
 ; Pages
 
 Page directory
+Page components
 Page instfiles
 
 ;--------------------------------
 
 Section "un.Uninstaller Section"
-
-    ExecWait 'javaw -jar "$INSTDIR\FreeGuide.jar" --uninstall'
+    
+    ; Remove the installation directory
 
     RMDir /r $INSTDIR
 
+    ; Remove the shortcuts
+    
     Delete "$SMPROGRAMS\FreeGuide\FreeGuide TV Guide.lnk"
+    
+    RMDir /r $SMPROGRAMS\FreeGuide
   
     Delete "$QUICKLAUNCH\FreeGuide TV Guide.lnk"
   
     Delete "$DESKTOP\FreeGuide TV Guide.lnk"
     
+    ; Remove the registry entries for the Add/remove programs dialogue
+    
+    DeleteRegValue HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "DisplayName"
+    
+    DeleteRegValue HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "UninstallString"
+    
+    DeleteRegValue HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "DisplayIcon"
+  
+    DeleteRegValue HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "DisplayVersion"
+    
+    ; Remove the Java Preferences registry keys
+    
+    DeleteRegKey HKU "S-1-5-21-1254056498-3042452539-1974565712-1005\Software\JavaSoft\Prefs\org\freeguide-tv"
+    
 SectionEnd
 
+;--------------------------------
+
+Section "Desktop icon"
+
+    CreateShortCut "$DESKTOP\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\FreeGuide.jar" --doc_directory "$INSTDIR\doc" --install_directory "$INSTDIR"' $INSTDIR\icons\logo.ico
+
+SectionEnd
+
+;--------------------------------
+
+Section "Start menu folder"
+
+    CreateDirectory $SMPROGRAMS\FreeGuide
+  
+    CreateShortCut "$SMPROGRAMS\FreeGuide\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\FreeGuide.jar" --doc_directory "$INSTDIR\doc" --install_directory "$INSTDIR"' $INSTDIR\icons\logo.ico
+
+SectionEnd
+
+;--------------------------------
+
+Section "Quicklaunch icon"
+
+    CreateShortCut "$QUICKLAUNCH\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\FreeGuide.jar" --doc_directory "$INSTDIR\doc" --install_directory "$INSTDIR"' $INSTDIR\icons\logo.ico
+
+SectionEnd
+
+;--------------------------------
+
 ; The stuff to install
-Section "Installer Section"
+Section "FreeGuide program"
 
   ; -------------------- main jar --------------------
 
   SetOutPath $INSTDIR
   
-  File /oname=FreeGuide.jar ..\..\..\dist\FreeGuide-0.8.1-Win.jar
-  
-  ; ------------ remember install dir in Java prefs -------------
-  
-  ExecWait 'javaw -jar "$INSTDIR\FreeGuide.jar" --install "misc.install_directory=$INSTDIR"'
+  File /oname=FreeGuide.jar ..\..\..\dist\FreeGuide-${VERSION}-Win.jar
   
   ; --------------------- make uninstaller ---------------------
   
@@ -86,30 +131,36 @@ Section "Installer Section"
   
   File /oname=$INSTDIR\xmltv\share\xmltv\tv_grab_de_tvtoday\channel_ids ..\..\..\xmltv\share\xmltv\tv_grab_de_tvtoday\channel_ids
   
-  CreateDirectory $INSTDIR\xmltv\share\xmltv\\tv_grab_it
+  CreateDirectory $INSTDIR\xmltv\share\xmltv\tv_grab_it_lt
   
-  File /oname=$INSTDIR\xmltv\share\xmltv\tv_grab_it\channel_ids ..\..\..\xmltv\share\xmltv\tv_grab_it\channel_ids
+  File /oname=$INSTDIR\xmltv\share\xmltv\tv_grab_it_lt\channel_ids ..\..\..\xmltv\share\xmltv\tv_grab_it_lt\channel_ids
   
-  CreateDirectory $INSTDIR\xmltv\share\xmltv\\tv_grab_nl
+  CreateDirectory $INSTDIR\xmltv\share\xmltv\tv_grab_nl
   
   File /oname=$INSTDIR\xmltv\share\xmltv\tv_grab_nl\channels ..\..\..\xmltv\share\xmltv\tv_grab_nl\channels
   
-  CreateDirectory $INSTDIR\xmltv\share\xmltv\\tv_grab_uk_rt\
+  CreateDirectory $INSTDIR\xmltv\share\xmltv\tv_grab_uk_bleb\
+  
+  File /oname=$INSTDIR\xmltv\share\xmltv\tv_grab_uk_bleb\icon_urls ..\..\..\xmltv\share\xmltv\tv_grab_uk_bleb\icon_urls
+  
+  CreateDirectory $INSTDIR\xmltv\share\xmltv\tv_grab_uk_rt\
   
   File /oname=$INSTDIR\xmltv\share\xmltv\tv_grab_uk_rt\channel_ids ..\..\..\xmltv\share\xmltv\tv_grab_uk_rt\channel_ids
   
-  ; ---------------- menu shortcuts and icons ------------------
+  ; --------------------------- icons --------------------------
   
   CreateDirectory $INSTDIR\icons\
   
   File /oname=$INSTDIR\icons\logo.ico ..\..\..\src\images\logo.ico
   
-  CreateDirectory $SMPROGRAMS\FreeGuide
+  ; ---------------- add/remove programs entry ------------------
   
-  CreateShortCut "$SMPROGRAMS\FreeGuide\FreeGuide TV Guide.lnk" $INSTDIR\FreeGuide.jar x $INSTDIR\icons\logo.ico
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "DisplayName" "FreeGuide ${VERSION}"
   
-  CreateShortCut "$QUICKLAUNCH\FreeGuide TV Guide.lnk" $INSTDIR\FreeGuide.jar x $INSTDIR\icons\logo.ico
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "UninstallString" "$INSTDIR\uninstall.exe"
   
-  CreateShortCut "$DESKTOP\FreeGuide TV Guide.lnk" $INSTDIR\FreeGuide.jar x $INSTDIR\icons\logo.ico
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "DisplayIcon" "$INSTDIR\icons\logo.ico"
+  
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Product" "DisplayVersion" "${VERSION}"
   
 SectionEnd ; end the section

@@ -137,7 +137,7 @@
 		<copy file="${src}/install/windows/install-win-huro.props" tofile="${build}/windows/install-4.props" overwrite="true" />
         
         <!-- Italy -->
-		<copy file="${src}/install/windows/install-win-it.props" tofile="${build}/windows/install-5.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-it_lt.props" tofile="${build}/windows/install-5.props" overwrite="true" />
         
         <!-- Japan -->
         <copy file="${src}/install/windows/install-win-jp.props" tofile="${build}/windows/install-6.props" overwrite="true" />
@@ -213,7 +213,7 @@
 		<copy file="${src}/install/linux/install-lin-huro.props" tofile="${build}/linux/install-4.props" overwrite="true" />
         
         <!-- Italy -->
-		<copy file="${src}/install/linux/install-lin-it.props" tofile="${build}/linux/install-5.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-it_lt.props" tofile="${build}/linux/install-5.props" overwrite="true" />
         
         <!-- Japan -->
         <copy file="${src}/install/linux/install-lin-jp.props" tofile="${build}/linux/install-6.props" overwrite="true" />

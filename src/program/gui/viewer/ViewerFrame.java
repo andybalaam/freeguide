@@ -1727,7 +1727,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 			FreeGuide.prefs.commandline.getStrings( "browser_command" ),
 			"%filename%",
 			"%misc.doc_directory%" + fs + "userguide.html" );
-			
+            
         Utils.execNoWait(cmds);
 
     }
