@@ -113,7 +113,7 @@ public class ChannelSetListDialog extends FGDialog
         //DMT: iterate over keys()
         for( int i = 0; i < channelsets.size(  ); i++ )
         {
-            channelsetModel.addElement( 
+            channelsetModel.addElement(
                 ( (ChannelSetInterface)channelsets.get( i ) )
                 .getChannelSetName(  ) );
         }
@@ -129,7 +129,7 @@ public class ChannelSetListDialog extends FGDialog
 
         // Write out our channelsets to the config file
         // DMT TODO
-        FreeGuide.prefs.replaceChannelSets( 
+        FreeGuide.prefs.replaceChannelSets(
             Utils.arrayFromVector_ChannelSet( channelsets ) );
 
         updatedFlag = true;
@@ -158,8 +158,7 @@ public class ChannelSetListDialog extends FGDialog
         jPanel1.setLayout( new java.awt.GridBagLayout(  ) );
 
         butAdd.setText( FreeGuide.msg.getString( "add" ) );
-        butAdd.setPreferredSize( new java.awt.Dimension( 83, 26 ) );
-        butAdd.addActionListener( 
+        butAdd.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -175,8 +174,7 @@ public class ChannelSetListDialog extends FGDialog
         jPanel1.add( butAdd, gridBagConstraints );
 
         butEdit.setText( FreeGuide.msg.getString( "edit" ) );
-        butEdit.setPreferredSize( new java.awt.Dimension( 83, 26 ) );
-        butEdit.addActionListener( 
+        butEdit.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -192,7 +190,7 @@ public class ChannelSetListDialog extends FGDialog
         jPanel1.add( butEdit, gridBagConstraints );
 
         butRemove.setText( FreeGuide.msg.getString( "remove" ) );
-        butRemove.addActionListener( 
+        butRemove.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -213,6 +211,21 @@ public class ChannelSetListDialog extends FGDialog
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         getContentPane(  ).add( jPanel1, gridBagConstraints );
+
+        //make same width for all add/edit/remove buttons
+        int nWidthAdd    = (int)butAdd   .getPreferredSize().getWidth();
+        int nWidthEdit   = (int)butEdit  .getPreferredSize().getWidth();
+        int nWidthRemove = (int)butRemove.getPreferredSize().getWidth();
+        if (nWidthEdit > nWidthAdd) {
+            nWidthAdd = nWidthEdit;
+        }
+        if (nWidthRemove > nWidthAdd) {
+            nWidthAdd = nWidthRemove;
+        }
+        butAdd   .setPreferredSize(new Dimension(nWidthAdd, (int)butAdd   .getPreferredSize().getHeight()));
+        butEdit  .setPreferredSize(new Dimension(nWidthAdd, (int)butEdit  .getPreferredSize().getHeight()));
+        butRemove.setPreferredSize(new Dimension(nWidthAdd, (int)butRemove.getPreferredSize().getHeight()));
+
 
         jScrollPane1.setViewportView( list );
 
@@ -236,7 +249,7 @@ public class ChannelSetListDialog extends FGDialog
 
         butOK.setText( FreeGuide.msg.getString( "ok" ) );
         butOK.setPreferredSize( new java.awt.Dimension( 83, 26 ) );
-        butOK.addActionListener( 
+        butOK.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -250,8 +263,7 @@ public class ChannelSetListDialog extends FGDialog
         jPanel2.add( butOK, gridBagConstraints );
 
         butCancel.setText( FreeGuide.msg.getString( "cancel" ) );
-        butCancel.setPreferredSize( new java.awt.Dimension( 83, 26 ) );
-        butCancel.addActionListener( 
+        butCancel.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -278,7 +290,7 @@ public class ChannelSetListDialog extends FGDialog
         java.awt.Dimension screenSize =
             java.awt.Toolkit.getDefaultToolkit(  ).getScreenSize(  );
         setSize( new java.awt.Dimension( 400, 300 ) );
-        setLocation( 
+        setLocation(
             ( screenSize.width - 400 ) / 2, ( screenSize.height - 300 ) / 2 );
     }
 
@@ -353,7 +365,7 @@ public class ChannelSetListDialog extends FGDialog
             fav.updateChannelNames( loader );
 
             ChannelSetEditorDialog channels =
-                new ChannelSetEditorDialog( 
+                new ChannelSetEditorDialog(
                     this, FreeGuide.msg.getString( "edit_channel_set" ), loader,
                     fav );
 
@@ -379,7 +391,7 @@ public class ChannelSetListDialog extends FGDialog
         channelsets.add( newCset );
 
         ChannelSetEditorDialog channels =
-            new ChannelSetEditorDialog( 
+            new ChannelSetEditorDialog(
                 this, FreeGuide.msg.getString( "add_a_new_channel_set" ),
                 loader, newCset );
 
