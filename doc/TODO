@@ -88,6 +88,7 @@ m  means done by Mike Dean
 - Terms and conditions of listings
 - A default favourite, so when you add a new favourite it comes with preset
   settings.
+- A grid or "now" line that helps see what time programmes are on
 
 - Release 0.7.4 (aesthetics)
 
@@ -99,6 +100,9 @@ m  means done by Mike Dean
 - Custom web browser option
 - Channel icons
 - Icon to show you can jump to the web site
+- Allow to adjust display time of tooltips
+- Allow to un-choose programmes from Personalised Listing pane
+- Checkbox to stay at now time
 
 - Release 0.7.3 (accessibility, accessibility, accessibility)
 
@@ -118,6 +122,8 @@ m  means done by Mike Dean
 - Make a list of beta testers
 - Advertise for beta testers
 - Make a bit of PHP for test reports
+- Fix problems with accented characters in main programme window reported by
+  Rob Stewart
 + Fix bug with ", ends" in tooltip when "Show programme times" is "No"
 
 + Release 0.7.2
