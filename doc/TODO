@@ -62,6 +62,7 @@ D  means work in progress by Dave Torok
 - single channel view
 - Facilitating the download of listings outside of FreeGuide
 	(e.g. via a cron job, or at ppp connect)
+- Error message on RegExp error in Favourite editor
 	
 - Release 0.6.2 (non-urgent minor features)
 
@@ -100,6 +101,8 @@ D  means work in progress by Dave Torok
 	permanent (not always visible) viewer w/ a clear button, or
 	timestamped output...
 - Add notes about how to upgrade XMLTV without upgrading FreeGuide
+- Also add notes about authenticating proxies:
+	export http_proxy='http://user:password@server:port' 
 - Fix bug where "Reset Choices" on one day messes up choices for another day.
 - Resolve problem with %%s on Windows with _na
 - The button captions on the downloader should change when there's an error	
