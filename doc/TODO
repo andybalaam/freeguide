@@ -107,6 +107,8 @@ D  means work in progress by Dave Torok
 - "Create a new channel set..." option in the channel sets menu
 - Fix severe errors when a channel is missing from a channel set
 - Feedback during download process
+- Test new tv_grab_nl for errors on Windows.
+- Make movies go back to movie colour after being de-favourited
 + Talk to XMLTV people about non-zero exit codes under Windows (all but na, sn)
 + Talk to XMLTV people about tv_grab_nl errors
 + Talk to XMLTV people about xmltv.exe tv_grab_na --listings "tv-%Y%m%d.xml" works

@@ -841,8 +841,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
                     comChannelSet.setSelectedItem( FreeGuide.prefs.screen.get(
 						"viewer_channel_set", "All Channels" ) );
 						
-					System.out.println( FreeGuide.prefs.screen.get(
-						"viewer_channel_set", "All Channels" ) );
 				}
      		
 	}
@@ -1011,8 +1009,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			splitPane.getDividerLocation());
 		FreeGuide.prefs.screen.put("viewer_channel_set",
 			(String)comChannelSet.getSelectedItem() );
-			
-		System.out.println( (String)comChannelSet.getSelectedItem() );
 		
 		// Delete old .xmltv files
 		// ---------------------
