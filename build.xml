@@ -5,21 +5,21 @@
     <description>
         Ant build file for freeguide-tv
     </description>
-	
+
 	<!-- set global properties for this build -->
 	<property name="src" location="src"/>
 	<property name="doc"  location="doc"/>
 	<property name="xmltv"  location="xmltv"/>
 	<property name="share"  location="xmltv/share"/>
-	
+
 	<property name="build" location="build"/>
 	<property name="package" location="package"/>
 	<property name="dist"  location="dist"/>
 
 	<property name="freeguideversion"  value="FreeGuide-0.7"/>
-	
+
   	<target name="init">
-  
+
     	<!-- Create the time stamp -->
     	<tstamp/>
     	<!-- Create the build directory structure used by compile -->
@@ -29,72 +29,72 @@
 		<mkdir dir="${build}/doc"/>
 		<mkdir dir="${package}"/>
 		<mkdir dir="${dist}"/>
-	
+
 	</target>
 
   	<target name="compile" depends="init" description="compile the source " >
-  
+
   		<!-- compile the program -->
-		<javac srcdir="${src}/program" destdir="${build}/program"/>  
-  
+		<javac srcdir="${src}/program" destdir="${build}/program"/>
+
   		<!-- Copy in the required images -->
   		<copy todir="${build}/program">
 			<fileset dir="${src}/images">
 				<include name="*.png" />
 			</fileset>
 		</copy>
-  
+
   		<!-- copy the program classes that are needed by each installer -->
     	<copy todir="${build}/install">
 			<fileset dir="${build}/program">
 				<include name="*.class"/>
 			</fileset>
 		</copy>
-	
+
 		<!-- compile the installer -->
     	<javac srcdir="${src}/install" destdir="${build}/install"/>
-	
+
 		<!-- so we can overwrite files outside the doc tree -->
 		<copy todir="${build}/doc">
-			<fileset dir="${doc}/" excludes="*.sh,*.php,.xvpics/" />
+			<fileset dir="${doc}/" excludes="*.sh,*.php,.xvpics/,nonlocal/" />
 		</copy>
 	</target>
 
   	<target name="FreeGuide" depends="compile"
 			description="generate the program jar file" >
-				
+
 		<jar 	jarfile="${build}/FreeGuide.jar"
 				basedir="${build}/program"
 				manifest="${src}/manifests/FreeGuide.mf"/>
-  
+
   	</target>
 
-	<target name="FreeGuide-Win-Install" depends="FreeGuide" 
+	<target name="FreeGuide-Win-Install" depends="FreeGuide"
   		description="generate the windows installer jar" >
-		
+
 		<mkdir dir="${package}/windows" />
-		
+
 		<!-- Copy the program jar, installer clases and docs -->
 		<copy todir="${package}/windows">
 			<fileset dir="${build}/">
 				<include name="FreeGuide.jar"/>
 			</fileset>
-			<fileset dir="${build}/doc/" />
+			<fileset dir="${build}/doc/" excludes="nonlocal/" />
 			<fileset dir="${build}/install"/>
 		</copy>
-		
+
 		<!-- Copy the XMLTV DTD -->
 		<copy file="${xmltv}/xmltv.dtd" todir="${package}/windows"/>
-		
+
 		<!-- Copy the XMLTV exe -->
 		<copy file="${xmltv}/xmltv.exe" todir="${package}/windows"/>
-		
+
 		<!-- copy in the shared files -->
 		<mkdir dir="${package}/windows/share"/>
 		<copy todir="${package}/windows/share">
 			<fileset dir="${share}/" />
 		</copy>
-		
+
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/windows/install-win-all.props" tofile="${package}/windows/install-all.props" overwrite="true" />
 		<copy file="${src}/install/windows/install-win-dk.props" tofile="${package}/windows/install-0.props" overwrite="true" />
@@ -105,33 +105,33 @@
 		<copy file="${src}/install/windows/install-win-nl.props" tofile="${package}/windows/install-5.props" overwrite="true" />
 		<copy file="${src}/install/windows/install-win-na.props" tofile="${package}/windows/install-6.props" overwrite="true" />
 		<copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${package}/windows/install-7.props" overwrite="true" />
-		
+
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Win-Install.jar"
 				basedir="${package}/windows"
 				manifest="${src}/manifests/Install.mf"/>
-  
+
   	</target>
-  
-  
-	
+
+
+
 	<target name="FreeGuide-Linux-NoXMLTV-Install" depends="FreeGuide"
   		description="generate the linux installer jar" >
-		
+
 		<mkdir dir="${package}/linux" />
-		
+
 		<!-- Copy the program file and docs -->
 		<copy todir="${package}/linux">
 			<fileset dir="${build}/">
 				<include name="FreeGuide.jar"/>
 			</fileset>
-			<fileset dir="${build}/doc/" />
+			<fileset dir="${build}/doc/" excludes="nonlocal/" />
 			<fileset dir="${build}/install"/>
 		</copy>
-		
+
 		<!-- Copy the XMLTV DTD -->
 		<copy file="${xmltv}/xmltv.dtd" todir="${package}/linux" />
-		
+
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/linux/install-lin-all.props" tofile="${package}/linux/install-all.props" overwrite="true" />
 		<copy file="${src}/install/linux/install-lin-dk.props" tofile="${package}/linux/install-0.props" overwrite="true" />
@@ -143,40 +143,40 @@
 		<copy file="${src}/install/linux/install-lin-nz.props" tofile="${package}/linux/install-6.props" overwrite="true" />
 		<copy file="${src}/install/linux/install-lin-na.props" tofile="${package}/linux/install-7.props" overwrite="true" />
 		<copy file="${src}/install/linux/install-lin-uk_rt.props" tofile="${package}/linux/install-8.props" overwrite="true" />
-		
+
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Linux-NoXMLTV-Install.jar"
 				basedir="${package}/linux"
 				manifest="${src}/manifests/Install.mf"/>
-  
+
   	</target>
-  
+
 	<target name="FreeGuide-Linux-Install" depends="FreeGuide"
   		description="generate the linux installer including the PAR version of XMLTV" >
-		
+
 		<mkdir dir="${package}/linux-par" />
-		
+
 		<!-- Copy the program file and docs -->
 		<copy todir="${package}/linux-par">
 			<fileset dir="${build}/">
 				<include name="FreeGuide.jar"/>
 			</fileset>
-			<fileset dir="${build}/doc/" />
+			<fileset dir="${build}/doc/" excludes="nonlocal/" />
 			<fileset dir="${build}/install"/>
 		</copy>
-		
+
 		<!-- Copy the XMLTV DTD -->
 		<copy file="${xmltv}/xmltv.dtd" todir="${package}/linux-par" />
-		
+
 		<!-- Copy the XMLTV PAR-compiled executable -->
 		<copy file="${xmltv}/xmltv" todir="${package}/linux-par"/>
-		
+
 		<!-- copy in the shared files -->
 		<mkdir dir="${package}/linux-par/share"/>
 		<copy todir="${package}/linux-par/share">
 			<fileset dir="${share}/" />
 		</copy>
-		
+
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/linux-par/install-lin-all.props" tofile="${package}/linux-par/install-all.props" overwrite="true" />
 		<copy file="${src}/install/linux-par/install-lin-dk.props" tofile="${package}/linux-par/install-0.props" overwrite="true" />
@@ -187,20 +187,20 @@
 		<copy file="${src}/install/linux-par/install-lin-nl.props" tofile="${package}/linux-par/install-5.props" overwrite="true" />
 		<copy file="${src}/install/linux-par/install-lin-na.props" tofile="${package}/linux-par/install-6.props" overwrite="true" />
 		<copy file="${src}/install/linux-par/install-lin-uk_rt.props" tofile="${package}/linux-par/install-7.props" overwrite="true" />
-		
+
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Linux-Install.jar"
 				basedir="${package}/linux-par"
 				manifest="${src}/manifests/Install.mf"/>
-  
+
   	</target>
-	
+
 	<target name="FreeGuide-Source"
   		description="generate the source zips"
 			depends="FreeGuide-Win-Install,
 					 FreeGuide-Linux-NoXMLTV-Install">
 					 <!--FreeGuide-Linux-Install,-->
-		
+
 		<zip zipfile="${dist}/${freeguideversion}.zip">
 			<zipfileset dir="${src}" prefix="${freeguideversion}/src">
 				<exclude name="**/.xvpics/**" />
@@ -222,22 +222,33 @@
 			 basedir="."
 			 includes="build.xml,src/**,doc/**,xmltv/*,stats/*.sh,stats/*.pl"
 			 excludes="**/.xvpics/**,**/CVS/**,xmltv/xmltv,xmltv/xmltv.exe,xmltv/xmltv.dtd,xmltv/**-bin-**" />
-  		
+
 		<mkdir dir="${package}/${freeguideversion}" />
-		
+
 		<untar dest="${package}/${freeguideversion}" src="${package}/fg.tar"/>
-		
+
 		<tar tarfile="${package}/${freeguideversion}.tar" basedir="${package}"
 			includes="${freeguideversion}/**" />
-		
+
   		<gzip src="${package}/${freeguideversion}.tar" zipfile="${dist}/${freeguideversion}.tar.gz" />
-		
-  	</target>
-  
-  	<target name="main" depends="FreeGuide-Source" 
-		description="generate all the installers" >
-  
+
 	</target>
+
+	<target name="main" depends="FreeGuide-Source"
+		description="generate all the installers" >
+
+	</target>
+
+	<target name="doc-nonlocal" depends="init"
+		description="generate the website documentation" >
+                <copy todir="${build}/doc/nonlocal">
+			<fileset dir="${doc}/" excludes="*.sh,*.php,.xvpics/,nonlocal/" />
+		</copy>
+                <copy todir="${build}/doc/nonlocal">
+			<fileset dir="${doc}/nonlocal" excludes="*.sh,*.php,.xvpics/" />
+		</copy>
+	</target>
+
 
 	<target name="clean"
         description="clean up" >
@@ -246,6 +257,6 @@
 		<delete dir="${dist}" />
 		<delete dir="${package}" />
 	</target>
-		
+
 </project>
 
