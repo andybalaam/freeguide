@@ -38,17 +38,17 @@
 
 <h2><a name="settinglafs"></a>How do I set the L&F used by FreeGuide?</h2>
 
-<p>Select <code>Tools|Options</code> from the FreeGuide menu.  The options for <code>Layout</code> include a combo box (drop down list) that lists all of the L&F's available on your system.  Select the L&F you want to use and click the <code>OK</code> button.</p>
+<p>Select <tt>Tools|Options</tt> from the FreeGuide menu.  The options for <tt>Layout</tt> include a combo box (drop down list) that lists all of the L&F's available on your system.  Select the L&F you want to use and click the <tt>OK</tt> button.</p>
 
-<p>If you have installed a L&F that FreeGuide was unable to identify, you may type its class name into the combo box.  Note that you must provide the fully-qualified classname--one that includes several words separated by periods, such as <code>javax.swing.plaf.metal.MetalLookAndFeel</code>.  The fully qualified classname should be given in the L&F's documentation.</p>
+<p>If you have installed a L&F that FreeGuide was unable to identify, you may type its class name into the combo box.  Note that you must provide the fully-qualified classname--one that includes several words separated by periods, such as <tt>javax.swing.plaf.metal.MetalLookAndFeel</tt>.  The fully qualified classname should be given in the L&F's documentation.</p>
 
 <p>If you type in the class name and nothing happens, FreeGuide is unable to find the specified class.  Make sure you spelled the class name correctly.  If everything is spelled correctly, make sure you <a href="#installinglafs">installed the L&F</a> correctly.</p>
 
 <h2><a name="installinglafs">How do I install new L&F's.</a></h2>
 
-<p>When you <a href="#morelafs">download</a> a L&F, it should include instructions for installing the L&F.  Some may have requirements that other do not; for example, some will require you to specify additional information on the command line to use the L&F.  Therefore, it is important that you read the instructions that came with your L&F.</p>
+<p>When you <a href="#morelafs">download</a> a L&F, it should include instructions for installing the L&F.  Some may have requirements that others do not; for example, some will require you to specify additional information on the command line to use the L&F.  Therefore, it is important that you read the instructions that came with your L&F.</p>
 
-<p>In all cases, however, the L&F must appear in FreeGuide's classpath.  To include the L&F in the classpath, modify the shortcut you are using to start FreeGuide to include the <code>-classpath</code> command-line option.  The command line should look something like those shown below (make sure you use the correct locations for your files):</p>
+<p>In all cases, however, the L&F must appear in FreeGuide's classpath.  To include the L&F in the classpath, modify the shortcut you are using to start FreeGuide to include the <tt>-classpath</tt> command-line option.  The command line should look something like those shown below (make sure you use the correct locations for your files):</p>
 
 <p>For Windows</p>
 <pre>
@@ -77,7 +77,7 @@ java -version
 
 <p>Sun decided not to include the GTK+ L&F with the Java 2 Runtime Environment (JRE) for Windows.  Currently, the only available option is to install the <a href="http://java.sun.com/j2se/1.4.2/download.html">Java 2 Software Development Kit (SDK)</a> for Windows.  NOTE:  You do not need the J2EE with J2SE package or the NetBeans IDE with J2SE COBUNDLE.  You want J2SE SDK.</p>
 
-<p>If you're not using Windows, you may be using an implementation of Java that was created by a vendor other than Sun Microsystems.  If that's the case, you will need to <a href="http://java.sun.com/j2se/1.4.2/download.html">download</a>Sun's implementation of Java to get the GTK+ theme.  If Sun doesn't provide a version for your platform, you're out of (legal) options.</p>
+<p>If you're not using Windows, you may be using an implementation of Java that was created by a vendor other than Sun Microsystems.  If that's the case, you will need to <a href="http://java.sun.com/j2se/1.4.2/download.html">download</a> Sun's implementation of Java to get the GTK+ theme.  If Sun doesn't provide a version for your platform, you're out of (legal) options.</p>
 
 <h2><a name="moregtk+themes">Where can I get more GTK+ themes?</a></h2>
 
@@ -95,13 +95,13 @@ java -version
 
 <p>First, you'll need <a href="#moregtk+themes">some themes</a>.  Once you've downloaded one or more themes to try, install the theme.</p>
 
-<p>If you're using a Unix-like operating system, use the tool provided by your distribution vendor to install and select the theme.  Now, simply start FreeGuide and, if you haven't already done so, select the GTK+ L&F and enjoy, the new look.  In general, themes are installed by extracting their files into the <code>${USER}/.themes</code> directory.  If you do not have a tool for working with GTK+ themes, <a href="http://www.muhri.net/nav.php3?node=gts">GTK Theme Switch 2</a> is a nice lightweight program for installing and selecting themes.  Note:  If you do not want to install and/or select the theme, you may follow the Windows instructions below.</p>
+<p>If you're using a Unix-like operating system, use the tool provided by your distribution vendor to install and select the theme.  Now, simply start FreeGuide and, if you haven't already done so, select the GTK+ L&F and enjoy the new look.  In general, themes are installed by extracting their files into the <tt>${USER}/.themes</tt> directory.  If you do not have a tool for working with GTK+ themes, <a href="http://www.muhri.net/nav.php3?node=gts">GTK Theme Switch 2</a> is a nice lightweight program for installing and selecting themes.  Note:  If you do not want to install and/or select the theme, you may follow the Windows instructions below.</p>
 
-<p>If you're using Windows (or you don't want to install the theme on your Unix-like operating system), it's not necessary to install the theme.  Extract the theme files to a directory, keeping each theme in its own directory, and keep all the theme directories together in a single directory to make them easy to find (I recommend using <code>C:\gtk</code> since it's short and easy to type).</p>
+<p>If you're using Windows (or you don't want to install the theme on your Unix-like operating system), it's not necessary to install the theme.  Extract the theme files to a directory, keeping each theme in its own directory, and keep all the theme directories together in a single directory to make them easy to find (I recommend using <tt>C:\gtk</tt> since it's short and easy to type).</p>
 
 <p>Since most of the themes will be distributed in "tarballs" (a common way to distribute software for Unix-like operating systems), you will need an extraction tool that can handle tape archive files (tar files) and GZIP and/or BZIP2 compression.  One such tool for Windows is <a href="http://www.7-zip.org/">7-Zip</a>.</p>
 
-<p>Once you've extracted the themes, you're ready to use them.  To do so, just specify the location of the <code>gtkrc</code> file in the <code>swing.gtkthemefile</code> system property on the command line, as shown below:</p>
+<p>Once you've extracted the themes, you're ready to use them.  To do so, just specify the location of the <tt>gtkrc</tt> file in the <tt>swing.gtkthemefile</tt> system property on the command line, as shown below:</p>
 
 <p>For Windows</p>
 <pre>
@@ -120,13 +120,13 @@ java -Dswing.gtkthemefile="${HOME}/.themes/Theme Name/gtk-2.0/gtkrc" -jar "${HOM
 
 <p>The Java installation on your system specifies a default L&F to use when none is specifically requested.  Therefore, when you start FreeGuide, Java uses its default L&F until FreeGuide changes the L&F to the one you specified in your preferences.  If you tell Java to use your preferred L&F, FreeGuide won't need to change the L&F after startup.</p>
 
-<p>To specify the L&F, you may either change your installation's default L&F (which will affect <strong>all</strong> Java programs you use) or specify the default L&F on the command line.  To change your installation's default, edit the file<code>%JAVA_HOME%/lib/swing.properties</code> (you may have to create the file) and add the line (or edit the one starting with swing.defaultlaf to look like the following):</p>
+<p>To specify the L&F, you may either change your installation's default L&F (which will affect <strong>all</strong> Java programs you use) or specify the default L&F on the command line.  To change your installation's default, edit the file <tt>%JAVA_HOME%/lib/swing.properties</tt> (you may have to create the file) and add the line (or edit the one starting with swing.defaultlaf to look like the following):</p>
 
 <pre>
 swing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel
 </pre>
 
-<p>To change the default L&F for FreeGuide only, specify the L&F classname as the value for the <code>swing.defaultlaf</code> system property on the command line.  The command line should look something like those shown below (make sure you use the correct locations for your files):</p>
+<p>To change the default L&F for FreeGuide only, specify the L&F classname as the value for the <tt>swing.defaultlaf</tt> system property on the command line.  The command line should look something like those shown below (make sure you use the correct locations for your files):</p>
 
 <p>For Windows</p>
 <pre>
@@ -142,6 +142,8 @@ java -classpath "/path/to/my/LookAndFeel.jar" -Dswing.defaultlaf="javax.swing.pl
 <h2><a name="morelafs"></a>Where can I find more L&F's?</h2>
 
 <p>Some sites, such as <a href="http://www.javootoo.com/">javootoo.com</a> provide links to many different L&F's that are available for download under licenses varying from open source to proprietary commercial.  You may also want to try a search on your favorite search engine, for example on <a href="http://www.google.com/search?q=%2B%22Java%22+%2B%22Look+and+Feel%22+%2B%22download%22&start=0&ie=utf-8&oe=utf-8">Google</a>.</p>
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
 </body>
 </html>
