@@ -25,6 +25,7 @@
     	<mkdir dir="${build}"/>
 		<mkdir dir="${build}/program"/>
 		<mkdir dir="${build}/install"/>
+		<mkdir dir="${build}/doc"/>
 		<mkdir dir="${dist}"/>
 	
 	</target>
@@ -56,15 +57,25 @@
 		<!-- compile the installer -->
     	<javac srcdir="${src}/install" destdir="${build}/install"/>
 	
+		<!-- so we can overwrite files outside the doc tree -->
+		<copy todir="${build}/doc">
+			<fileset dir="${doc}/">
+				<exclude name="*.sh"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="linux_doc" description="Convert HTML to text" >
+	
 		<!-- process the documentation -->
 		<!-- FIXME - this makes the build process fail on Windows as these
 			text files are not created -->
-		<exec executable="lynx" dir="${doc}" os="Linux" output="${doc}/README">
+		<exec executable="lynx" dir="${build}/doc" os="Linux" output="${build}/doc/README">
 			<arg value="-dump"/>
 			<arg value="-nolist"/>
 			<arg value="README.html"/>
 		</exec>
-		<exec executable="lynx" dir="${doc}" os="Linux" output="${doc}/INSTALL">
+		<exec executable="lynx" dir="${build}/doc" os="Linux" output="${build}/doc/INSTALL">
 			<arg value="-dump"/>
 			<arg value="-nolist"/>
 			<arg value="INSTALL-linux.html"/>
@@ -92,7 +103,7 @@
 			<fileset dir="${dist}/">
 				<include name="FreeGuide.jar"/>
 			</fileset>
-			<fileset dir="${doc}/">
+			<fileset dir="${build}/doc/">
 				<exclude name="*.sh"/>
 			</fileset>
 			<fileset dir="${build}/install"/>
@@ -125,7 +136,7 @@
   
   
 	
-	<target name="FreeGuide-Linux-Install" depends="FreeGuide" 
+	<target name="FreeGuide-Linux-Install" depends="FreeGuide,linux_doc"
   		description="generate the linux installer jar" >
 		
 		<!-- Copy the program file and docs -->
@@ -133,7 +144,7 @@
 			<fileset dir="${dist}/">
 				<include name="FreeGuide.jar"/>
 			</fileset>
-			<fileset dir="${doc}/">
+			<fileset dir="${build}/doc/">
 				<exclude name="*.sh"/>
 			</fileset>
 			<fileset dir="${build}/install"/>
