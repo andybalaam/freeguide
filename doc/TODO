@@ -54,6 +54,7 @@ r  means done by Rob Stewart
 - Manual
 - Use serialization to reduce startup time
 - Search for programmes
+- Fix Debian bug #285715 http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=285715
 
 - Release 0.8.5 (nice features)
 
