@@ -28,76 +28,44 @@
     <br>
   </li>
 </ul>
-<h2><a name="intro"></a>
-    Introduction </h2>
-
-	<font color="red">
-	<p>Please note that this readme is out of date since I have removed the uktvguide parser from the 0.1 release due to a possible legal problem.  A new release using a different parser will be available soon.</p>
-	</font>
+<h2><a name="intro"></a>Introduction </h2>
 	
-<p>FreeGuide is an offline TV listings programme. It uses parser programmes
-   to extract TV information from web pages and stores them for viewing without
-   the need to connect to the Internet. The viewer allows the user to view
- television  listings and create customised TV guides by selecting programmes
- and by building  up a favourites list. For the moment, it only does UK listings,
-  but it is designed to make it very easy to add other countries.</p>
-<p>FreeGuide is copyright&nbsp;&copy;2001 by Andy Balaam. &nbsp;Please do
-   send ideas, bugs and comments to me at <a href="mailto:freeguide@artificialworlds.net">
-      freeguide@artificialworlds.net</a>. I welcome contributions from others. FreeGuide's home page is at 
-<a href="http://freeguide-tv.sourceforge.net">http://freeguide-tv.sourceforge.net</a>. You can contact me at the Centre for Computational Neuroscience and Robotics (CCNR), University of Sussex, Falmer, Brighton, UK.</p>
-<p>FreeGuide uses (a small subset of) the XMLTV format developed by the very
-  friendly people at XMLTV (<a href="http://www.doc.ic.ac.uk/%7Eepa98/work/apps/xmltv/">
-    http://www.doc.ic.ac.uk/~epa98/work/apps/xmltv/</a>
-     and <a href="http://sourceforge.net/projects/xmltv">http://sourceforge.net/projects/xmltv</a>
-    ). In theory, FreeGuide should be able to work with the XMLTV grabbers
- as  parsers, but this hasn't quite happened yet. &nbsp;Again, any help would
- be greatly appreciated.<br></p>
+<p>FreeGuide is an offline TV listings programme. It uses parser programmes to extract TV information from web pages and stores them for viewing without the need to connect to the Internet. The viewer allows the user to view television  listings and create customised TV guides by selecting programmes and by building  up a favourites list. For the moment, it only does UK, USA and Canadian listings,   but it is designed to make it very easy to add other countries.</p>
+<p>FreeGuide is copyright&nbsp;&copy;2001 by Andy Balaam. &nbsp;Please do send ideas, bugs and comments to me at <a href="mailto:freeguide@artificialworlds.net"> freeguide@artificialworlds.net</a>. I welcome contributions from others. FreeGuide's home page is at <a href="http://freeguide-tv.sourceforge.net">http://freeguide-tv.sourceforge.net</a>. You can contact me at the Centre for Computational Neuroscience and Robotics (CCNR), University of Sussex, Falmer, Brighton, UK.</p>
+<p>FreeGuide uses the XMLTV format and parsers developed by the very friendly people at XMLTV (<a href="http://www.doc.ic.ac.uk/%7Eepa98/work/apps/xmltv/"> http://www.doc.ic.ac.uk/~epa98/work/apps/xmltv/</a> and <a href="http://sourceforge.net/projects/xmltv">http://sourceforge.net/projects/xmltv</a>).  All the XMLTV code, READMEs and copyright notices may be found in the "xmltv" subdirectory of the freeguide programme directory.<br></p>
+<p>FreeGuide contains a little code by Slava Pestov from the Jedit project (<a href="http://www.jedit.org">www.jedit.org</a>).</p>
+
 <h2><a name="licence"></a>Licence</h2>
+
 <p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.  This licence is contained in the file <a href="COPYING">COPYING</a></p>
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</p>
 <p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US</p>
-<h2><a name="installing"></a>
-    Installing FreeGuide</h2>
-    Please note that v0.1 is an alpha version and thus: a) may not work and 
- b) is slightly fiddly to install.<br>
-<h3><a name="installing-windows"></a>
-    Windows Users</h3>
-<p>Version 0.1 of FreeGuide is written using Java and Perl, which has all
-   kinds of advantages, but means that you may need to do some work to get
- it  going. One day I'll write a version that's much easier to install  and
- use. If you email me and tell me you like the program, I'll be encouraged
-  and work faster.</p>
-<p>For now, follow these instructions, and email me if you get stuck.<br>
-</p>
+
+<h2><a name="installing"></a> Installing FreeGuide</h2>
+
+<p>Please note that v0.1 is an alpha version and thus: a) may not work and  b) is slightly fiddly to install.</p>
+
+<h3><a name="installing-windows"></a>Windows Users</h3>
+
+<p>Version 0.1 of FreeGuide is written using Java and Perl, which has all kinds of advantages, but means that you may need to do some work to get it  going. One day I'll write a version that's much easier to install and use. If you email me and tell me you like the program, I'll be encouraged and work faster.</p>
+<p>For now, follow these instructions, and email me if you get stuck.</p>
+
 <h4>1. Install Java</h4>
+
 <p>The first thing you need to do is install the Java 2 Runtime Enviroment 
-  (JRE). &nbsp;If you've already got Java installed, it might be version 1,
- rather than version 2, which is no good. &nbsp;You can check this by typing...<br>
+  (JRE).  If you've already got Java installed, it might be version 1,
+ rather than version 2, which is no good. You can check this by typing...<br>
 </p>
 <pre>java -version<br></pre>
-<p>...in an MS-DOS window. &nbsp;If you haven't got Java installed, or you've 
-  got version 1 instead of version 2, you need to go to <a href="http://java.sun.com/j2se/">
-     http://java.sun.com/j2se/</a>
-      and download it. You'll need the Java 2 Runtime Environment. At the 
-time   of writing version 1.4 is still in beta, so I'd recommend you get version
-  1.3. &nbsp;However, when 1.4 is finished, that will make the <i> next</i>
-   step unnecesary. &nbsp;Download the Java installer, run it, and follow
-the instructions to install Java on your system.<br>
-</p>
-<h4>2. Get an XML Parser<br>
-</h4>
-<p>Once you've got Java, you'll need an XML parser for it. &nbsp;Here's where 
-  you'll be glad if you got version 1.4, because it has an XML parser built 
-  in, and you don't need to do anything. &nbsp;If you've got 1.3, though you'll
-  need to go to <a href="http://xml.apache.org/dist/crimson/crimson-1.1.3-bin.zip">
-     http://xml.apache.org/dist/crimson/crimson-1.1.3-bin.zip</a>
-      and download the crimson XML parser. &nbsp;(For more information about
-  Crimson, or if the link doesn't work, go to <a href="http://xml.apache.org/crimson/index.html">
-     http://xml.apache.org/crimson/index.html</a>
-     ). &nbsp;When you unzip this file, the file you'll be interested in
-is  called  crimson.jar. &nbsp;More about what to do with that later.<br>
-</p>
+<p>...in an MS-DOS window.  If you haven't got Java installed, or you've got version 1 instead of version 2, you need to go to <a href="http://java.sun.com/j2se/">java.sun.com/j2se/</a> and download it. You'll need the Java 2 Runtime Environment. At the 
+time of writing version 1.4 is still in beta, so I'd recommend you get version 1.3.  However, when 1.4 is finished, that will make the <i> next</i> step unnecesary. &nbsp;Download the Java installer, run it, and follow the instructions to install Java on your system.</p>
+
+<h4>2. Get an XML Parser</h4>
+
+<p>Once you've got Java, you'll need an XML parser for it.  Here's where you'll be glad if you got version 1.4, because it has an XML parser built in, and you don't need to do anything.  If you've got 1.3, though you'll need to go to <a href="http://xml.apache.org/dist/crimson/crimson-1.1.3-bin.zip">xml.apache.org/dist/crimson/crimson-1.1.3-bin.zip</a> and download the crimson XML parser. &nbsp;(For more information about Crimson, or if the link doesn't work, go to <a href="http://xml.apache.org/crimson/index.html">http://xml.apache.org/crimson/index.html</a>).  When you unzip this file, the file you'll be interested in is called crimson.jar.  More about what to do with that later.</p>
+
 <h4>3. Install Perl</h4>
+
      Now you need to get hold of a distribution of Perl from the folks  at
  Activestate. &nbsp;This can be obtained by going to <a href="http://www.activestate.com/Products/Download/Get.plex?id=ActivePerl">
      http://www.activestate.com/Products/Download/Get.plex?id=ActivePerl</a>

@@ -25,7 +25,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * A form that displays and prints TV listings.
  *
  * @author  Andy Balaam
- * @version 7
+ * @version 8
  */
 public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLauncher, FreeGuideSAXInterface {
 
@@ -483,9 +483,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	private void quit() {
 		
 		// Ask the user whether to quit or not
-		if(JOptionPane.showConfirmDialog(this, "Are you sure you want to quit FreeGuide?", "Quit?", JOptionPane.YES_NO_OPTION)==0) {
+		//if(JOptionPane.showConfirmDialog(this, "Are you sure you want to quit FreeGuide?", "Quit?", JOptionPane.YES_NO_OPTION)==0) {
 			System.exit(0);
-		}
+		//}
 		
 	}//quit
 	
@@ -498,6 +498,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		Vector tmpChannels = FreeGuide.config.getListValue("channels");
 		
 		channelNames = new String[tmpChannels.size()];
+		channelIDs = new String[tmpChannels.size()];
 		
 		// INSERT HERE a better algorithm
 		
@@ -506,6 +507,37 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			channelNames[i] = (String)tmpChannels.get(i);
 			
 		}
+		
+		// Get the channel IDs from the channels file
+		String xmlFilename = FreeGuide.config.getValue("channelsFile");		
+		if((new File(xmlFilename).exists())) {	// If the file exists
+				
+				// Load it into memory and process it
+			
+				try {//ParserExceptions etc
+	    
+					//FreeGuide.log.writeLine("channels file is "+xmlFilename);
+					
+					DefaultHandler handler = new FreeGuideSAXHandler(this);
+					SAXParserFactory factory = SAXParserFactory.newInstance();
+					SAXParser saxParser = factory.newSAXParser();
+					saxParser.parse(xmlFilename, handler);
+	    
+				} catch(ParserConfigurationException e) {
+					e.printStackTrace();
+				} catch(SAXException e) {
+					e.printStackTrace();
+				} catch(IOException e) {
+					e.printStackTrace();
+				}//try
+				
+		} else { // If no file exists
+				
+			// No channels file exists!
+			FreeGuide.log.writeLine("Channels file not found: "+xmlFilename);
+				
+		}//if
+
     }
      
 	/**
@@ -526,7 +558,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			// Find what the filename ought to be		
 			//String tmp = channelNames[curChan].toLowerCase().replace(' ', '_');
 			//tmp = FreeGuide.makeRightFilenameLength(tmp);
-			String xmlFilename = wkDir+"data/"+channelNames[curChan]+"-"+datestr+".fgd";
+			String xmlFilename = wkDir+"data/"+channelIDs[curChan]+"-"+datestr+".fgd";
 	    
 			if((new File(xmlFilename).exists())) {	// If the file exists
 				
@@ -541,9 +573,13 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 					
 					SAXParser saxParser = factory.newSAXParser();
 		
+					doingProgs=true;
+		
 					// Will be a different name for each channel and whatever
 					// date we're on obviously
 					saxParser.parse(xmlFilename, handler);
+					
+					doingProgs=false;
 	    
 				} catch(ParserConfigurationException e) {
 					e.printStackTrace();
@@ -872,13 +908,15 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 			buffy.close();
 			
+			JTextArea fb = new JTextArea();
+			
 			if(System.getProperty("os.name").equals("Windows")) {
 			
-				FreeGuide.execExternal(FreeGuide.config.getValue("browserCommandLine")+" \""+f.getAbsolutePath()+"\"");
+				FreeGuide.execExternal(FreeGuide.config.getValue("browserCommandLine")+" \""+f.getAbsolutePath()+"\"", true, fb);
 				
 			} else {
 				
-				FreeGuide.execExternal(FreeGuide.config.getValue("browserCommandLine")+" "+f.getAbsolutePath(), false);
+				FreeGuide.execExternal(FreeGuide.config.getValue("browserCommandLine")+" "+f.getAbsolutePath(), false, fb);
 				
 			}
 		
@@ -969,7 +1007,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     public void startElement(String name, org.xml.sax.Attributes attrs) {
 		saxLoc+=":"+name;
 	
-		if(saxLoc.equals(":tv:programme")) {
+		if(doingProgs && saxLoc.equals(":tv:programme")) {
 	    
 			String start = attrs.getValue("start");
 	    
@@ -988,6 +1026,12 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 			}//if
 	    
+		} else if(saxLoc.equals(":tv:channel")) {
+			
+			String id = attrs.getValue("id");
+			//FreeGuide.log.writeLine("ID "+id);
+			tmpID = id;
+			
 		}//if
 		
     }//startElement
@@ -1006,18 +1050,28 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     
     public void characters(String data) {
 	
-		if(saxLoc.equals(":tv:programme:title")) {
+		if(doingProgs && saxLoc.equals(":tv:programme:title")) {
 	    
 			channels[curChan].getLatestProg().setTitle(data);
 	    
-		} else if (saxLoc.equals(":tv:programme:desc")) {
+		} else if (doingProgs && saxLoc.equals(":tv:programme:desc")) {
 	    
 			channels[curChan].getLatestProg().setDesc(data);
 	    
-		} else if (saxLoc.equals(":tv:programme:category")) {
+		} else if (doingProgs && saxLoc.equals(":tv:programme:category")) {
 	    
 			channels[curChan].getLatestProg().setCategory(data);
 	    
+		} else if (saxLoc.equals(":tv:channel:display-name")) {
+			
+			// If this has a name we know, store its id
+			for(int i=0;i<channelNames.length;i++) {
+				if(channelNames[i].equals(data)) {
+					//FreeGuide.log.writeLine("Data "+data);
+					channelIDs[i] = tmpID;
+				}
+			}
+			
 		}//if
 	
     }//characters
@@ -1102,6 +1156,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	private javax.swing.JEditorPane printedGuideArea;
 	// End of variables declaration//GEN-END:variables
     
+	
+	private String[] channelIDs;
+	// The IDs of the channels the user has chosen
     private String[] channelNames;
 	// The names of the channels the user has chosen
     private FreeGuideChannelDay[] channels;
@@ -1110,6 +1167,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private String saxLoc;  // Holds our current pos in the XML hierarchy
 
     private int curChan;    // The channel we're doing now
+	private boolean doingProgs=false;	// Are we loading the programmes?
     
     private Date earliest;  // The beginning of this day
     private Date latest;    // The end of this day
@@ -1125,5 +1183,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	private FreeGuideLauncher launcher;	// The screen that launched this one
 	
 	private boolean ready;	// Have we prepared the screen yet?
+	
+	String tmpID;	// A temporary variable storing the channel ID
 	
 }

@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  * Provides a standard interface to an application's configuration file.
  *
  * @author  Andy Balaam
- * @version 3
+ * @version 4
  */
 public class JoveConfigFile {
 
@@ -381,12 +381,18 @@ public class JoveConfigFile {
 				return null;
 				
 			} else {	// Otherwise it must be a vector
-					
 				// Return it after substitutions
-				Vector vobj =  (Vector)obj;
+				
+				// Get a new vector that contains what is in obj.
+				// (can't just cast it as that will make the changes
+				//  affect obj permanently).
+				Vector vobj =  new Vector();
+				for(int j=0;j<((Vector)obj).size();j++) {
+					vobj.add((String)((Vector)obj).get(j));
+				}
 				
 				if(!literal) {
-				
+					
 					for(int j=0;j<vobj.size();j++) {	
 						// Substitute any variables
 						vobj.set(j, stringSubstitutions((String)vobj.get(j)));
@@ -545,7 +551,7 @@ public class JoveConfigFile {
 		
 		int i = names.indexOf(name);
 		
-		if(i>-1) {	// If the property waa already present
+		if(i>-1) {	// If the property was already present
 			
 			// Change it
 			values.set(i, newValue);
@@ -596,7 +602,7 @@ public class JoveConfigFile {
 	 */
 	String stringSubstitutions(String input){
 	
-		String ans = input;
+		String ans = new String(input);
 		
 		int j = ans.indexOf("$$");
 		while(j>-1){	// If there is a substitution to do
@@ -623,7 +629,7 @@ public class JoveConfigFile {
 				
 			//}
 			
-			postsub = this.getValue(presub);
+			postsub = getValue(presub);
 			
 			// Replace the variable name with its value
 			ans = ans.substring(0,j) + postsub + ans.substring(k+2, ans.length());
@@ -644,7 +650,7 @@ public class JoveConfigFile {
 	 */
 	String vectorSubstitutions(String input){
 	
-		String ans = input;
+		String ans = new String(input);
 		
 		int j = ans.indexOf("%%");
 		while(j>-1){	// If there is a substitution to do
@@ -666,13 +672,15 @@ public class JoveConfigFile {
 			Vector tmpList = this.getListValue(presub);
 			
 			for(int i=0;i<tmpList.size();i++){
-				postsub += tmpList.get(i)+" ";
+				//postsub += FreeGuide.noSpaces((String)tmpList.get(i))+" ";
+				//postsub += "\"" + FreeGuide.noSpaces((String)tmpList.get(i)) + "\" ";
+				postsub += "\"" + (String)tmpList.get(i) + "\" ";
 			}
 					
 			// Replace the variable name with its value
 			ans = ans.substring(0,j) + postsub + ans.substring(k+2, ans.length());
 			
-			j = ans.indexOf("$$");
+			j = ans.indexOf("%%");
 		}//while
 		
 		return ans;
