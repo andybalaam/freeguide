@@ -42,6 +42,9 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
      */
     public ViewerFrame(PleaseWaitFrame pleaseWait) {
 
+		// Set the look and feel
+		setLookAndFeel(); 
+
 		// Set up basic variables
 		progressor = pleaseWait;
 		xmltvLoader 	= new ViewerFrameXMLTVLoader();
@@ -687,6 +690,34 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
 	//{{{ (re)-Initialisation methods
 	
+	private void setLookAndFeel() {
+		LookAndFeel currentLAF = UIManager.getLookAndFeel();
+		String requestedLookAndFeel = FreeGuide.prefs.screen.get(
+			"look_and_feel",
+			UIManager.getCrossPlatformLookAndFeelClassName() );
+		if ((!requestedLookAndFeel.equals(currentLAF.getName())) &&
+			(!(requestedLookAndFeel.equals(
+					currentLAF.getClass().getName())))) {
+			String className = LookAndFeelManager
+						.getLookAndFeelClassName(
+							requestedLookAndFeel);
+			if (className == null) {
+				// Assume that the pref specifies the classname
+				// and do our best
+				className = requestedLookAndFeel; 
+			}
+			try {
+				UIManager.setLookAndFeel(className);
+				SwingUtilities.updateComponentTreeUI(this);
+			} catch (ClassNotFoundException e) {
+			} catch (InstantiationException e) {
+			} catch (IllegalAccessException e) {
+			} catch (UnsupportedLookAndFeelException e) {
+			}
+
+		}
+	}
+
 	/**
 	 * Find the list of channel sets available
 	 */
@@ -1432,6 +1463,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		boolean updated = centreDialogAndRun( new OptionsDialog( this ) );
 
 		if( updated ) {
+			// Set the look and feel - Don't want this in reShow()
+			setLookAndFeel(); 
 			reShow();
 		}
 		

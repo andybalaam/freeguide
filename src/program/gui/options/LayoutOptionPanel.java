@@ -13,6 +13,8 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Iterator;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -35,6 +37,15 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 		
 		// Make the objects
 		
+		JLabel lookAndFeelLabel = newLeftJLabel( "Look And Feel:" );
+		lookAndFeelCombo = new JComboBox();
+		lookAndFeelCombo.setEditable(true);
+		List lafs = LookAndFeelManager.getAvailableLooksAndFeels();
+		Iterator lafsIterator = lafs.iterator();
+		while (lafsIterator.hasNext()) {
+			lookAndFeelCombo.addItem(lafsIterator.next());
+		}
+
 		JLabel channelHeightLabel = newLeftJLabel( "Channel Height:" );
 		channelHeightText = newMiddleJTextField();
 		channelHeightSlider = newRightJSlider( 10, 100 );
@@ -65,17 +76,19 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 		gbe.default_ipadx = 5;
 		gbe.default_ipady = 5;
 		
-		gbe.addFWX    ( channelHeightLabel , 0, 0, gbe.FILL_HOR   , 0.2 );
-		gbe.addFWX    ( channelHeightText  , 1, 0, gbe.FILL_HOR   , 0.1 );
-		gbe.addFWX    ( channelHeightSlider, 2, 0, gbe.FILL_HOR   , 0.7 );
+		gbe.addFWX    ( lookAndFeelLabel , 0, 0, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWXWYGW( lookAndFeelCombo , 1, 0, gbe.FILL_HOR   , 0.1, 0, 2 );
+		gbe.addFWX    ( channelHeightLabel , 0, 1, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWX    ( channelHeightText  , 1, 1, gbe.FILL_HOR   , 0.1 );
+		gbe.addFWX    ( channelHeightSlider, 2, 1, gbe.FILL_HOR   , 0.7 );
 		
-		gbe.addFWX    ( panelWidthLabel    , 0, 1, gbe.FILL_HOR   , 0.2 );
-		gbe.addFWX    ( panelWidthText     , 1, 1, gbe.FILL_HOR   , 0.1 );
-		gbe.addFWX    ( panelWidthSlider   , 2, 1, gbe.FILL_HOR   , 0.7 );
+		gbe.addFWX    ( panelWidthLabel    , 0, 2, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWX    ( panelWidthText     , 1, 2, gbe.FILL_HOR   , 0.1 );
+		gbe.addFWX    ( panelWidthSlider   , 2, 2, gbe.FILL_HOR   , 0.7 );
 		
-		gbe.addFWX    ( fontLabel          , 0, 2, gbe.FILL_HOR   , 0.2 );
-		gbe.addFWX    ( fontDemoText      , 1, 2, gbe.FILL_HOR   , 0.1 );
-		gbe.addAWXPXPY( fontButton         , 2, 2, gbe.ANCH_WEST  , 0.7, 0, 0 );
+		gbe.addFWX    ( fontLabel          , 0, 3, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWX    ( fontDemoText      , 1, 3, gbe.FILL_HOR   , 0.1 );
+		gbe.addAWXPXPY( fontButton         , 2, 3, gbe.ANCH_WEST  , 0.7, 0, 0 );
 		
 		// Set up events
 		channelHeightText.addFocusListener(this);
@@ -100,6 +113,11 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 		
 	protected void doLoad( String prefix ) {
 		
+		
+		String lookAndFeelName = screen.get( prefix + "look_and_feel",
+			UIManager.getCrossPlatformLookAndFeelClassName() );
+		lookAndFeelCombo.setSelectedItem(lookAndFeelName);
+
 		int channelHeight = screen.getInt( prefix + "channel_height", 28 );
 		channelHeightSlider.setValue( channelHeight );
 		channelHeightText.setText( String.valueOf( channelHeight ) );
@@ -119,6 +137,10 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 	public boolean doSave() {
 
 		boolean updated = false;
+		
+		updated = screen.update( "look_and_feel",
+			lookAndFeelCombo.getSelectedItem().toString())
+			|| updated;
 		
 		updated = screen.updateInt( "channel_height",
 			channelHeightSlider.getValue() ) || updated;
@@ -219,6 +241,7 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 	
 	// ----------------------------------
 	
+	private JComboBox lookAndFeelCombo;
 	private JSlider channelHeightSlider;
 	private JTextField channelHeightText;
 	private JSlider panelWidthSlider;
