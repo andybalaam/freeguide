@@ -12,7 +12,7 @@ for (option, value) in options_list:
 
 if "--help" in options_dict:
         print """Usage:
-./processstats.py [--help] [--hits] [--unique_hits] stats_file
+./processstats.py [--help] [--hits | --unique_hits | --anon_hits] stats_file
 """
         sys.exit( 0 )
 
@@ -29,7 +29,12 @@ hits_anon_monthly = {}
 # Split the data into months
 for line in statsfile.readlines():
     
-    (datetime, ip, version) = line.split( " - " )
+    split_line = line.split( " - " ) 
+    if len( split_line ) != 3:
+        print "Ignoring line '%s'." % line
+        continue
+        
+    (datetime, ip, version) = split_line
     
     tmp = re.search( "(.*)\n", version );
     version = tmp.group(1)
