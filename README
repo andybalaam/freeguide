@@ -96,8 +96,9 @@ Installing FreeGuide
    the Options screen.
 
    You can now start FreeGuide by running the shell script
-   "runfreeguide.sh". Follow the instructions in "Running" below to get
-   it working.
+   "runfreeguide.sh" in the gui-java subdirectory of the freeguide-tv
+   directory. Follow the instructions in "Running" below to get it
+   working.
 
   Other Operating Systems
 
