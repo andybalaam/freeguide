@@ -126,6 +126,9 @@ m  means done by Mike Dean
   Rob Stewart
 - Upgrade to XMLTV 0.5.34
 - Upgrade XMLTV Tk patch to use Tk804 instead of Tk800
++ Fix bug with linebreaks in commandline entries
++ Update FAQ about listings from 2 sources
++ Deal with &amp;#8212; type entities in programme names
 
 + Release 0.7.3
 

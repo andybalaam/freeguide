@@ -518,7 +518,7 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
         } else if (saxLoc.equals(":tv:programme:title")) {
 
             if (currentProgramme != null) {
-                currentProgramme.setTitle(data);
+                currentProgramme.setTitle( data );
             }
 		} else if (saxLoc.equals(":tv:programme:sub-title")) {
 
@@ -528,12 +528,12 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
         } else if (saxLoc.equals(":tv:programme:desc")) {
 
             if (currentProgramme != null) {
-                currentProgramme.addDesc(data);
+                currentProgramme.addDesc( data );
             }
         } else if (saxLoc.equals(":tv:programme:category")) {
 
             if (currentProgramme != null) {
-                currentProgramme.addCategory(data);
+                currentProgramme.addCategory( data );
                 if (data.equalsIgnoreCase("Film")) {
                     currentProgramme.setIsMovie(true);
                 }
@@ -541,7 +541,7 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
         } else if (saxLoc.equals(":tv:programme:star-rating:value")) {
 
             if (currentProgramme != null) {
-                currentProgramme.setStarRating(data);
+                currentProgramme.setStarRating( data );
             }
 		//} else if (saxLoc.equals(":tv:programme:episode-num")) {
 			// FIXME - fill in here
