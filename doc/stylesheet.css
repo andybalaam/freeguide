@@ -43,6 +43,7 @@ address.backlink {
 }
 td.form_question {
     text-align: right;
+    font-size: medium;
 }
 td.form_answer {
     

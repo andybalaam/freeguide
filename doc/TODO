@@ -113,6 +113,7 @@ r  means done by Rob Stewart
 - http://www.memoire.com/guillaume-desnoix/slaf/
 - Remove text from after channel icons
 - Display programme categories, and allow colours to indicate category.
+- Make scrollbar increment in fractions of hours on mouse wheel or click.
 
 - Release 0.8.2 (accessibility, accessibility, accessibility)
 
