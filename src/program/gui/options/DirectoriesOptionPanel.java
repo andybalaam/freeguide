@@ -42,8 +42,13 @@ public class DirectoriesOptionPanel extends OptionPanel {
 		JLabel xmltvLabel = newLeftJLabel( "XMLTV dir:" );
 		xmltvTextField = newRightJTextField();
 		xmltvLabel.setLabelFor(xmltvTextField);
-		workingLabel.setDisplayedMnemonic(KeyEvent.VK_X);
+		xmltvLabel.setDisplayedMnemonic(KeyEvent.VK_X);
 		
+        JLabel configLabel = newLeftJLabel( "Grabber config:" );
+        configTextField = newRightJTextField();
+        configLabel.setLabelFor(configTextField);
+		configLabel.setDisplayedMnemonic(KeyEvent.VK_O);
+        
 		// Lay them out in a GridBag layout
 		
 		GridBagEasy gbe = new GridBagEasy( this );
@@ -58,6 +63,9 @@ public class DirectoriesOptionPanel extends OptionPanel {
 		gbe.addFWX  ( xmltvLabel      , 0, 1, gbe.FILL_HOR   , 0.2 );
 		gbe.addFWX  ( xmltvTextField  , 1, 1, gbe.FILL_HOR   , 0.8 );
 		
+        gbe.addFWX  ( configLabel      , 0, 2, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWX  ( configTextField  , 1, 2, gbe.FILL_HOR   , 0.8 );
+        
 		// Load in the values from config
 		load();
 		
@@ -68,6 +76,8 @@ public class DirectoriesOptionPanel extends OptionPanel {
 		xmltvTextField.setText( misc.get( prefix + "xmltv_directory" ) );
 		
 		workingTextField.setText( misc.get( prefix + "working_directory" ) );
+        
+        configTextField.setText( misc.get( prefix + "grabber_config" ) );
 		
 	}
 	
@@ -83,6 +93,8 @@ public class DirectoriesOptionPanel extends OptionPanel {
 		misc.put( "xmltv_directory", xmltvTextField.getText() );
 		
 		misc.put( "working_directory", workingTextField.getText() );
+        
+        misc.put( "grabber_config", configTextField.getText() );
 		
 		return false;
 		
@@ -102,5 +114,6 @@ public class DirectoriesOptionPanel extends OptionPanel {
 	
 	private JTextField workingTextField;
 	private JTextField xmltvTextField;
+    private JTextField configTextField;
 	
 }

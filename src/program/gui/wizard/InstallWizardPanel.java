@@ -48,7 +48,7 @@ public class InstallWizardPanel extends WizardPanel {
 		readmeCheckBox.setMnemonic(KeyEvent.VK_R);
 		readmeCheckBox.setSelected( true );
 		
-		configgrabberCheckBox = new JCheckBox( "Configure the listings grabber",
+		configgrabberCheckBox = new JCheckBox( "Choose channels now (connect to the Internet first)",
 			true );
 		configgrabberCheckBox.setMnemonic(KeyEvent.VK_G);
 		configgrabberCheckBox.setSelected( true );

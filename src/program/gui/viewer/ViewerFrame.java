@@ -559,7 +559,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         toolsMenu.setText("Tools");
 		toolsMenu.setMnemonic(KeyEvent.VK_T);
 
-        mbtConfigure.setText("Configure Grabber...");
+        mbtConfigure.setText("Choose Channels...");
 		mbtConfigure.setMnemonic(KeyEvent.VK_C);
 		mbtConfigure.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_C,
 			InputEvent.CTRL_MASK ) );
