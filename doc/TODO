@@ -81,6 +81,7 @@ r  means done by Rob Stewart
 	(actually that looks like the HTML editor, but anyway)
 - Deal with programme ratings
 - x-dist icon support in RPM http://www.hyperborea.org/software/dillo/dillo.spec
+- Look into SQL engines: http://www.mckoi.com/database/
 	
 - Release 0.8.3 (preferences creep)
 
