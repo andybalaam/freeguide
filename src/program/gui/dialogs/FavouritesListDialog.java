@@ -42,13 +42,6 @@ public class FavouritesListDialog extends FGDialog {
     private Favourite favourite;
     private DefaultListModel favouritesModel;
     private int latestIndex;
-    
-    /**
-     * This flag indicated whether any of the parameters on the
-     * CustomiserDialog have been updated during this session.
-     *
-     */
-    boolean updatedFlag = false;
 
 
     /**

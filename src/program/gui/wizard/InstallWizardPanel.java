@@ -52,6 +52,7 @@ public class InstallWizardPanel extends WizardPanel {
 		configgrabberCheckBox = new JCheckBox( "Configure the listings grabber",
 			true );
 		configgrabberCheckBox.setMnemonic(KeyEvent.VK_G);
+		configgrabberCheckBox.setEnabled( false );
 		
         JLabel bottomLabel = new JLabel();
 

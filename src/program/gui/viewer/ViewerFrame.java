@@ -566,6 +566,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
                     mbtConfigureActionPerformed(evt);
                 }
             });
+		mbtConfigure.setEnabled(false);
 
         toolsMenu.add(mbtConfigure);
 
@@ -1445,9 +1446,12 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
     
     	boolean updated = centreDialogAndRun( new ChannelSetListDialog(this,
 			xmltvLoader) );
-            	
+         
     	if (updated) {
+			
+			channelSetsList = FreeGuide.prefs.getChannelSets();
 			drawChannelSetComboList();        	        	
+			
         }
         		
     }

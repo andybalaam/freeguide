@@ -452,7 +452,8 @@ public class ChannelSetEditorDialog extends FGDialog {
             String chname = (String) chosen[i];
             int ind = chnames.indexOf(chname);
             if (ind >= 0) {
-                this.channelset.addChannelName((String) chids.elementAt(ind), chname);
+                this.channelset.addChannelName((String) chids.elementAt(ind),
+					chname);
             }
         }
 

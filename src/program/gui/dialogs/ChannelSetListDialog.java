@@ -51,8 +51,6 @@ public class ChannelSetListDialog extends FGDialog {
 
     private DefaultListModel channelsetModel;
     private int latestIndex;
-    
-    private boolean updatedFlag = false;
 
      
     /**
@@ -365,10 +363,8 @@ public class ChannelSetListDialog extends FGDialog {
   
         boolean changed = channels.showDialog();      
         
-        if (changed) {
-            updatedFlag = true;
-        }
-        
+		updatedFlag = true;
+		
         latestIndex = channelsetModel.size();
         reShow();
 
