@@ -15,7 +15,7 @@
 Summary: A TV Guide
 Name: FreeGuide
 Version: 0.8
-Release: 1
+Release: 2
 # REMINDER: bump this with each RPM;
 Copyright: GPL
 Group: Accessories/
@@ -46,7 +46,7 @@ FreeGuide requires Java 2 version 1.4.
 ant FreeGuide-Linux-NoXMLTV
 
 %install
-ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir}/freeguide-tv -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dreal_install_share_dir=%{_datadir}/freeguide-tv install-Linux-NoXMLTV-files
+ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dreal_install_share_dir=%{_datadir} install-Linux-NoXMLTV-files
 
 %clean
 ant clean
@@ -69,6 +69,12 @@ ant clean
 %{_datadir}/freeguide-tv/doc/timezone.html
 %{_datadir}/freeguide-tv/doc/TODO
 %{_datadir}/freeguide-tv/doc/userguide.html
-
+%{_datadir}/pixmaps/freeguide-tv/logo-16x16.png
+%{_datadir}/pixmaps/freeguide-tv/logo-32x32.png
+%{_datadir}/pixmaps/freeguide-tv/logo-48x48.png
+%{_datadir}/pixmaps/freeguide-tv/logo-64x64.png
+%{_datadir}/pixmaps/freeguide-tv/logo-72x72.png
+%{_datadir}/pixmaps/freeguide-tv/logo-96x96.png
+%{_datadir}/applications/freeguide-tv.desktop
 
 

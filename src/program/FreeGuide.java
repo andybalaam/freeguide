@@ -42,13 +42,16 @@ public class FreeGuide {
         StartupChecker.basicSetup( args );
         
         if( arguments.isSet( "install" ) ) {
-            setSettings();
+            setSystemSettings();
             System.exit( 0 );
         } else if( arguments.isSet( "uninstall" ) ) {
-            removeSettings();
+            removeSystemSettings();
             System.exit( 0 );
         } else if( arguments.isSet( "prefs" ) ) {
-            setSettings();
+            setSystemSettings();
+        } else if( arguments.isSet( "wipeprefs" ) ) {
+            removeSettings();
+            System.exit( 0 );
         }
         
         String install_version = FreeGuide.prefs.misc.get( "install_version" );
@@ -129,7 +132,7 @@ public class FreeGuide {
      * Called when we've received some preference settings on the command line,
      * either during installation or in normal use.
      */
-    private void setSettings() {
+    private void setSystemSettings() {
 
         Vector prefsToSet = arguments.getBlankValues();
         
@@ -145,7 +148,7 @@ public class FreeGuide {
      * Called on uninstall on some systems to clear the junk out of the Java
      * preferences.
      */
-    private void removeSettings() {
+    private void removeSystemSettings() {
         
         // FIXME does not remove the user's preferences node, only the system's
         
@@ -169,6 +172,24 @@ public class FreeGuide {
         
     }
 
+    /**
+     * Convenient way to vlear out all the settings when we're experimenting
+     * with different installations of FreeGuide.
+     */
+    private void removeSettings() {
+                                                                 
+        Preferences node = Preferences.userRoot().node("/org/freeguide-tv");
+                                                                                
+        try {
+                                                                                
+            node.removeNode();
+                                                                                
+        } catch (java.util.prefs.BackingStoreException e) {
+            e.printStackTrace();
+        }
+        
+    }
+    
     /**
      *  Deletes a whole directory recursively (also deletes a single file).
      *

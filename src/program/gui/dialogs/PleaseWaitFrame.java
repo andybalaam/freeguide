@@ -42,7 +42,7 @@ public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor {
 		imageLabel = new javax.swing.JLabel();
 		progressBar = new javax.swing.JProgressBar( 0, 100 );
 		
-		java.net.URL imgURL = getClass().getResource( "/pleasewait.png" );
+		java.net.URL imgURL = getClass().getResource( "/logo-256x256.png" );
 		
 		image = new javax.swing.ImageIcon(imgURL, "Please Wait");
 

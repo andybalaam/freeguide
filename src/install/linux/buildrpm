@@ -11,7 +11,7 @@ ant clean
 ant FreeGuide-Source
 
 # Clean up any old RPMs
-rm -f ../../../installer/FreeGuide-*.rpm
+rm -f installer/FreeGuide-*.rpm
 
 rm -f $RPM_TOPDIR/RPMS/noarch/FreeGuide-*.rpm
 rm -f $RPM_TOPDIR/SRPMS/FreeGuide-*.rpm

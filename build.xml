@@ -13,9 +13,6 @@
 	<property name="share"  location="xmltv/share"/>
 	<property name="build" location="build"/>
 	<property name="dist"  location="dist"/>
-
-    <!-- the install_share_dir property is passed in if we are doing an install -->
-    <property name="install_doc_dir" location="${install_share_dir}/doc" />
     
 	<property name="freeguideversion"  value="FreeGuide-0.8"/>
 
@@ -35,29 +32,55 @@
             description="install all the files for linux"
             depends="FreeGuide-Linux-NoXMLTV" >
         
-        <mkdir dir="${install_share_dir}"/>
+        <!-- the install_share_dir property is passed in if we are doing
+            an install - this will be /usr/share or equivalent -->
+        <property name="install_jar_dir"
+            location="${install_share_dir}/freeguide-tv" />
+        <property name="install_doc_dir" location="${install_jar_dir}/doc" />
+        <property name="install_pixmap_dir" location="${install_share_dir}/pixmaps/freeguide-tv" />
         
+        <mkdir dir="${install_jar_dir}"/>
         <copy file="${dist}/${freeguideversion}-Linux-NoXMLTV.jar"
-            tofile="${install_share_dir}/FreeGuide.jar" />
+            tofile="${install_jar_dir}/FreeGuide.jar" />
 
-        <mkdir dir="${install_doc_dir}" />
-        
+        <mkdir dir="${install_doc_dir}" />        
         <copy todir="${install_doc_dir}/" >
             <fileset dir="${doc}">
-                <include name="*.html" />
+                <include name="*" />
+                <exclude name="uploadweb.sh" />
+                <exclude name="VERSION.php" />
+            </fileset>
+        </copy>
+
+        <mkdir dir="${install_pixmap_dir}" />
+        <copy todir="${install_pixmap_dir}/" >
+            <fileset dir="${src}/images">
+                <include name="logo-*.png" />
+                <exclude name="logo-192x192.png" />
+                <exclude name="logo-256x256.png" />
             </fileset>
         </copy>
         
-        <copy file="${doc}/COPYING" todir="${install_doc_dir}/" />
-        <copy file="${doc}/FreeGuide-0_7-Linux-MetalLookAndFeel.png" todir="${install_doc_dir}/" />
-        <copy file="${doc}/stylesheet.css" todir="${install_doc_dir}/" />
-        <copy file="${doc}/TODO" todir="${install_doc_dir}/" />
-
         <mkdir dir="${install_bin_dir}" />
-        
         <echo file="${install_bin_dir}/freeguide-tv" >
-            #!/bin/bash
-            java -jar ${real_install_share_dir}/FreeGuide.jar --prefs "misc.install_directory=${real_install_share_dir}"
+#!/bin/bash
+java -jar ${real_install_share_dir}/freeguide-tv/FreeGuide.jar --prefs "misc.install_directory=${real_install_share_dir}/freeguide-tv"
+        </echo>
+        
+        <mkdir dir="${install_share_dir}/applications" />
+        <echo file="${install_share_dir}/applications/freeguide-tv.desktop" >
+[Desktop Entry]
+Name=FreeGuide TV Guide
+
+Encoding=UTF-8
+Version=1.0
+
+Type=Application
+Categories=Application;Utility
+
+Exec=freeguide-tv
+
+Icon=${real_install_share_dir}/pixmaps/freeguide-tv/logo-16x16.png
         </echo>
         
         <chmod file="${install_bin_dir}/freeguide-tv" perm="a+x" />
@@ -70,11 +93,7 @@
 		<javac srcdir="${src}/program" destdir="${build}/program"/>
 
   		<!-- Copy in the required images -->
-  		<copy todir="${build}/program">
-			<fileset dir="${src}/images">
-				<include name="*.png" />
-			</fileset>
-		</copy>
+  		<copy todir="${build}/program" file="${src}/images/logo-256x256.png" />
 
   		<!-- copy the program classes that are needed by each installer -->
     	<!--<copy todir="${build}/install">

@@ -57,7 +57,7 @@ y  means done by Yann 'PoV' Coupin
 - Manual
 - Use serialization to reduce startup time
 
-- Release 0.8 (nice features)
+- Release 0.8.4 (nice features)
 
 - Add firefox to the possible browsers.
 - Facilitating the download of listings outside of FreeGuide
@@ -77,8 +77,9 @@ y  means done by Yann 'PoV' Coupin
 	KEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command
 	(actually that looks like the HTML editor, but anyway)
 - Deal with programme ratings
+- x-dist icon support in RPM http://www.hyperborea.org/software/dillo/dillo.spec
 	
-- Release 0.7.8 (preferences creep)
+- Release 0.8.3 (preferences creep)
 
 - Choose how old files are before you delete them
 - Ability to save and load preferences (using Java's ability to save to XML)
@@ -99,7 +100,7 @@ y  means done by Yann 'PoV' Coupin
 - Investigate little squares appearing instead of chars during grabber config
   on Windows (na_dd - timezone screen).
 
-- Release 0.7.7 (aesthetics)
+- Release 0.8.2 (aesthetics)
 
 - Go To Now scrolls the personalised listing panel as well as the main panel
 - Coloured favourites categories (text and/or background)
@@ -115,7 +116,7 @@ y  means done by Yann 'PoV' Coupin
 - Scroll to the top of the ProgrammeJLabel whenever its contents change
 - Add icons to UK and US listings
 
-- Release 0.7.6 (accessibility, accessibility, accessibility)
+- Release 0.8.1 (accessibility, accessibility, accessibility)
 
 - Improve accessibility, specifically keyboard shortcuts
 - Shortcut keys for everything
@@ -130,7 +131,8 @@ y  means done by Yann 'PoV' Coupin
 - design icons
 - write manual install instructions (using ant?)
 - write rpm --rebuild instructions
-- create native windows installer (NSIS)
+- Document where the icons go on win and lin
++ create native windows installer (NSIS)
 + create native linux installer (RPM)
 + Convert the installer into a first time wizard
 
