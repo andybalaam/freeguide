@@ -133,9 +133,9 @@ Section "FreeGuide program"
   
   File /oname=$INSTDIR\xmltv\share\xmltv\tv_grab_de_tvtoday\channel_ids ..\..\..\xmltv\share\xmltv\tv_grab_de_tvtoday\channel_ids
   
-  CreateDirectory $INSTDIR\xmltv\share\xmltv\tv_grab_it_lt
+  ;CreateDirectory $INSTDIR\xmltv\share\xmltv\tv_grab_it_lt
   
-  File /oname=$INSTDIR\xmltv\share\xmltv\tv_grab_it_lt\channel_ids ..\..\..\xmltv\share\xmltv\tv_grab_it_lt\channel_ids
+  ;File /oname=$INSTDIR\xmltv\share\xmltv\tv_grab_it_lt\channel_ids ..\..\..\xmltv\share\xmltv\tv_grab_it_lt\channel_ids
   
   CreateDirectory $INSTDIR\xmltv\share\xmltv\tv_grab_nl
   
