@@ -251,7 +251,7 @@ public class FreeGuideConfigGuesser {
 			} else if(country.equals(country_Germany)) {
 				ans[0] = "\"" + xmltv_directory + fs + "tv_grab_de.exe\" --config-file \"" + grabber_config + "\" --output \"" + working_directory + fs +"listings_unprocessed.xml\"";
 			}
-			ans[1] = "\"" + xmltv_directory + fs + "tv_split.exe\" --output \"" + working_directory + fs + "%%channel-%%Y%%m%%d.fgd\" --day_start_time " + day_start_time + " \"" + working_directory + fs + "listings_unprocessed.xml\"";
+			ans[1] = "\"" + xmltv_directory + fs + "tv_split.exe\" --output \"" + working_directory + fs + "%%channel-%%Y%%m%%d.fgd\" --day_start_time 00:00 \"" + working_directory + fs + "listings_unprocessed.xml\"";
 			
 		} else if(os.equals(os_Other)) {
 			
@@ -262,7 +262,7 @@ public class FreeGuideConfigGuesser {
 			} else if(country.equals(country_Germany)) {
 				ans[0] = "tv_grab_de --config-file " + grabber_config + " --output " + working_directory + fs + "listings_unprocessed.xml";
 			}
-			ans[1] = "tv_split --output " + working_directory + fs + "%%channel-%%Y%%m%%d.fgd --day_start_time " + day_start_time + " " + working_directory + fs + "listings_unprocessed.xml";
+			ans[1] = "tv_split --output " + working_directory + fs + "%%channel-%%Y%%m%%d.fgd --day_start_time 00:00 " + working_directory + fs + "listings_unprocessed.xml";
 		
 		}
 		return ans;
