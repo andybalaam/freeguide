@@ -61,7 +61,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 		// Set up UI
 		initComponents();
-
+		
 		// Set the date to today
 		theDate = GregorianCalendar.getInstance();
 
@@ -72,13 +72,13 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// FIXME Apparently on linux(java 1.4.0-b92), the goto now is broken w/o this
 		//   If it is used, we wind up prompting twice for missing data if that case is true.
 		//updatePanel();
-
+		
 		goToNow(true);
 
 		if(pleaseWait!=null) {
 			pleaseWait.dispose();
 		}
-
+		
     }
 
 	private void updatePanel() {
@@ -278,11 +278,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		comChannelSet.setFont(new java.awt.Font("Dialog", 0, 10));
         comChannelSet.setMinimumSize(new java.awt.Dimension(170, 25));
         comChannelSet.setPreferredSize(new java.awt.Dimension(140, 25));
-        comChannelSet.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comChannelSetItemStateChanged(evt);
-            }
-        });
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -841,8 +836,14 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
                     if ( noneSelected || ( !(((String)selItem).equals( csets[j].getChannelSetName()))))
                         comChannelSet.insertItemAt( csets[j].getChannelSetName(), j+1);
                 }
-                if (noneSelected)
-                    comChannelSet.setSelectedItem("All Channels");
+				
+                if (noneSelected) {
+                    comChannelSet.setSelectedItem( FreeGuide.prefs.screen.get(
+						"viewer_channel_set", "All Channels" ) );
+						
+					System.out.println( FreeGuide.prefs.screen.get(
+						"viewer_channel_set", "All Channels" ) );
+				}
      		
 	}
 
@@ -908,6 +909,12 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 		//  Do the listeners
 		addInnerScrollPaneAdjustmentListeners();
+		
+		comChannelSet.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comChannelSetItemStateChanged(evt);
+            }
+        });
 		
     }//initMyComponents
     
@@ -998,8 +1005,14 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		FreeGuide.prefs.screen.putInt("viewer_top", getY());
 		FreeGuide.prefs.screen.putInt("viewer_width", getWidth());
 		FreeGuide.prefs.screen.putInt("viewer_height", getHeight());
-		FreeGuide.prefs.screen.putInt("viewer_splitpane_vertical", jSplitPane1.getDividerLocation());
-		FreeGuide.prefs.screen.putInt("viewer_splitpane_horizontal", splitPane.getDividerLocation());
+		FreeGuide.prefs.screen.putInt("viewer_splitpane_vertical",
+			jSplitPane1.getDividerLocation());
+		FreeGuide.prefs.screen.putInt("viewer_splitpane_horizontal",
+			splitPane.getDividerLocation());
+		FreeGuide.prefs.screen.put("viewer_channel_set",
+			(String)comChannelSet.getSelectedItem() );
+			
+		System.out.println( (String)comChannelSet.getSelectedItem() );
 		
 		// Delete old .xmltv files
 		// ---------------------

@@ -28,7 +28,11 @@ public class FreeGuideEnvironmentChecker {
 	public static void runChecks() {
 		
 		// Check the user has the right version of Java
-		if(!checkJavaVersion()){die("Halted due to wrong Java version.");}
+		if(!checkJavaVersion()){
+			die( "Halted due to wrong Java version - should be 1.4.0 or " +
+			"greater but you are using " + System.getProperty("java.version")
+			+ "." );
+		}
 		
 	}
 
@@ -57,6 +61,33 @@ public class FreeGuideEnvironmentChecker {
 		// Find out the version from the system
 		String versionString = System.getProperty("java.version");
 		
+		String[] splitVersion = new String[3];
+		int pos=0;
+		int oldpos=0;
+		
+		for( int i=0; i<3; i++ ) {
+			
+			
+			pos = versionString.indexOf( '.', oldpos );
+			
+			if( pos == -1 ) {
+				pos = versionString.indexOf( '_', oldpos );
+			}
+			
+			if( pos == -1 ) {
+				pos = versionString.indexOf( '-', oldpos );
+			}
+			
+			if( pos == -1 ) {
+				pos = versionString.length();
+			}
+			
+			splitVersion[i] = versionString.substring( oldpos, pos );
+			oldpos = pos + 1;
+			
+		}
+		
+		/* Uses Java 1.4 regular expressions!
 		// Split it
 		Pattern dot = Pattern.compile("\\.|_|-");
 		String[] splitVersion = dot.split(versionString);
@@ -64,12 +95,25 @@ public class FreeGuideEnvironmentChecker {
 		// If we've got something unexpected, say it's wrong
 		if(splitVersion.length<3) {
 			return false;
-		}
+		}*/
+		
+		int actualMajor;
+		int actualMinor;
+		int actualRevision;
 		
 		// Parse the bits
-		int actualMajor = Integer.parseInt(splitVersion[0]);
-		int actualMinor = Integer.parseInt(splitVersion[1]);
-		int actualRevision = Integer.parseInt(splitVersion[2]);
+		try {
+			
+			actualMajor = Integer.parseInt(splitVersion[0]);
+			actualMinor = Integer.parseInt(splitVersion[1]);
+			actualRevision = Integer.parseInt(splitVersion[2]);
+			
+		} catch( NumberFormatException e ) {
+			
+			e.printStackTrace();
+			return false;
+			
+		}
 		
 		// Check we have the required version
 		if(actualMajor > wantedMajor ||
