@@ -103,7 +103,7 @@
         <gzip src="${src}/install/linux/freeguide.1" zipfile="${build}/freeguide.1.gz" />
         
         <!-- generate the fake resource file -->
-        <exec executable="python" dir="${resources}">
+        <exec executable="python" os="linux" dir="${resources}">
             <arg line="generate_REVERSECAPS.py" />
         </exec>
         

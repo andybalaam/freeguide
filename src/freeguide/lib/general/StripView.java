@@ -168,9 +168,13 @@ public class StripView extends JPanel implements Scrollable
         {
             channelHeight = getHeight(  );
         }
-        else
+        else if( model.getRowCount(  ) > 0 )
         {
             channelHeight = getHeight(  ) / model.getRowCount(  );
+        }
+        else
+        {
+            channelHeight = 30;
         }
 
         super.doLayout(  );
