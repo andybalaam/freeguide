@@ -14,9 +14,6 @@
     <property name="build" location="build" />
     <property name="dist"  location="dist" />
     <property name="resources"  location="src/resources" />
-    <!--
-    <property name="ANT_HOME" location="${env.ANT_HOME}/" />
-    -->
     
     <property name="freeguideversion"  value="FreeGuide-0.9" />
 
@@ -183,20 +180,19 @@
         <copy file="${src}/install/windows/install-win-no.props" tofile="${build}/windows/install-9.props" overwrite="true" />
         
         <!-- Portugal -->
-        <!-- Not working
-        <copy file="${src}/install/windows/install-win-pt.props" tofile="${build}/windows/install-11.props" overwrite="true" />
-        -->
+        <copy file="${src}/install/windows/install-win-pt.props" tofile="${build}/windows/install-10.props" overwrite="true" />
         
         <!-- Spain -->
-        <copy file="${src}/install/windows/install-win-es.props" tofile="${build}/windows/install-10.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-es_digital.props" tofile="${build}/windows/install-11.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-es.props" tofile="${build}/windows/install-11.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-es_digital.props" tofile="${build}/windows/install-12.props" overwrite="true" />
         
         <!-- Sweden -->
-        <copy file="${src}/install/windows/install-win-se.props" tofile="${build}/windows/install-12.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-se.props" tofile="${build}/windows/install-13.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-se_swedb.props" tofile="${build}/windows/install-14.props" overwrite="true" />
         
         <!-- UK -->
-        <copy file="${src}/install/windows/install-win-uk_bleb.props" tofile="${build}/windows/install-13.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${build}/windows/install-14.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-uk_bleb.props" tofile="${build}/windows/install-15.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${build}/windows/install-16.props" overwrite="true" />
 
         <!-- Make the jar file -->
         <jar 	jarfile="${dist}/${freeguideversion}-Win.jar"
@@ -214,11 +210,6 @@
         <copy todir="${build}/linux">
             <fileset dir="${build}/freeguide" />
         </copy>
-        
-        <!-- no longer included in JAR
-        <copy todir="${build}/linux/doc">
-            <fileset dir="${build}/doc" />
-        </copy>-->
 
         <!-- Copy the XMLTV DTD -->
         <copy file="${xmltv}/xmltv.dtd" todir="${build}/linux" />
@@ -250,25 +241,23 @@
         <copy file="${src}/install/linux/install-lin-huro.props" tofile="${build}/linux/install-4.props" overwrite="true" />
         
         <!-- Italy -->
-        <copy file="${src}/install/linux/install-lin-it_lt.props" tofile="${build}/linux/install-5.props" overwrite="true" />
+        <!--<copy file="${src}/install/linux/install-lin-it_lt.props" tofile="${build}/linux/install-5.props" overwrite="true" />-->
         
         <!-- Japan -->
-        <copy file="${src}/install/linux/install-lin-jp.props" tofile="${build}/linux/install-6.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-jp.props" tofile="${build}/linux/install-5.props" overwrite="true" />
         
         <!-- Netherlands -->
-        <copy file="${src}/install/linux/install-lin-nl.props" tofile="${build}/linux/install-7.props" overwrite="true" />
-        <copy file="${src}/install/linux/install-lin-nl_wolf.props" tofile="${build}/linux/install-8.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-nl.props" tofile="${build}/linux/install-6.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-nl_wolf.props" tofile="${build}/linux/install-7.props" overwrite="true" />
         
         <!-- North America -->
-        <copy file="${src}/install/linux/install-lin-na_dd.props" tofile="${build}/linux/install-9.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-na_dd.props" tofile="${build}/linux/install-8.props" overwrite="true" />
         
         <!-- Norway -->
-        <copy file="${src}/install/linux/install-lin-no.props" tofile="${build}/linux/install-10.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-no.props" tofile="${build}/linux/install-9.props" overwrite="true" />
         
         <!-- Portugal -->
-        <!-- Not working
-        <copy file="${src}/install/linux/install-lin-pt.props" tofile="${build}/linux/install-11.props" overwrite="true" />
-        -->
+        <copy file="${src}/install/linux/install-lin-pt.props" tofile="${build}/linux/install-10.props" overwrite="true" />
         
         <!-- Spain -->
         <copy file="${src}/install/linux/install-lin-es.props" tofile="${build}/linux/install-11.props" overwrite="true" />
