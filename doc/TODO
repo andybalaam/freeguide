@@ -90,7 +90,8 @@ c  means done by Christian Weiske
 - Support --xxx=yyy style options on the command line
 - Unsplit (Times should be entered as "hh:mm") strings in favourite editor
 - Sometimes you can't click on certain programmes, but you can navigate to them
-  with the keyboard 
+  with the keyboard
++ Support firefox, and implement this in the stable branch too.
 + Merge with HEAD
 + Fix favourites behaviour to get back what it did before
 + Rename things so "selected" means cursor is on you, "in guide" means chosen/

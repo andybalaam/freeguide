@@ -7,14 +7,16 @@ prefs.5=misc.share_directory=%misc.xmltv_directory%\\share\\xmltv
 prefs.6=misc.grabber_today_offset=0
 prefs.7=misc.grabber_start_today=true
 
-prefs.8=misc.browser.1=Internet Explorer
-prefs.9=commandline.browser_command.1.1=\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" \"%filename%\"
-prefs.10=misc.browser.2=Mozilla
-prefs.11=commandline.browser_command.2.1=\"C:\\Program Files\\mozilla.org\\Mozilla\\mozilla.exe" \"%filename%\"
-prefs.12=misc.browser.3=K-Meleon
-prefs.13=commandline.browser_command.3.1=\"C:\\Program Files\\K-Meleon\\k-meleon.exe" \"%filename%\"
-prefs.14=misc.browser.4=Opera
-prefs.15=commandline.browser_command.4.1=\"C:\\Program Files\\Opera7\\opera.exe" \"%filename%\"
+prefs.8=misc.browser.1=Firefox
+prefs.9=commandline.browser_command.1.1=\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" \"%filename%\"
+prefs.10=misc.browser.2=Internet Explorer
+prefs.11=commandline.browser_command.1.1=\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" \"%filename%\"
+prefs.12=misc.browser.3=Mozilla
+prefs.13=commandline.browser_command.2.1=\"C:\\Program Files\\mozilla.org\\Mozilla\\mozilla.exe" \"%filename%\"
+prefs.14=misc.browser.4=K-Meleon
+prefs.15=commandline.browser_command.3.1=\"C:\\Program Files\\K-Meleon\\k-meleon.exe" \"%filename%\"
+prefs.16=misc.browser.5=Opera
+prefs.17=commandline.browser_command.4.1=\"C:\\Program Files\\Opera7\\opera.exe" \"%filename%\"
 
 file.1=xmltv.dtd>%misc.working_directory%/xmltv.dtd
 
