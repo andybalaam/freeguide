@@ -15,6 +15,7 @@ e  means done by Ewan Harrow
 m  means done by Mike Dean
 y  means done by Yann 'PoV' Coupin
 r  means done by Rob Stewart
+w  means done by William Ballard
 
 --------------------------------------------
 
@@ -162,6 +163,10 @@ r  means done by Rob Stewart
   of 2005-01-05.
 - Add an FAQ about when Java wasn't installed when FreeGuide was installed.
 - Look into focus/modal bug with About box and reminder: Shaun email 2005-01-06
+- Fix bug with E! icon killing FreeGuide - Jim Konowitz's email of 2005-01-05
+- Stop copying the docs into the user's home directory - find a better way
+w Fix problem with programme URLs which contain % symbols
+w Show all actors for a programme instead of just the last one.
 
 + Release 0.8.1 (bug fix)
 
