@@ -162,6 +162,7 @@ w  means done by William Ballard
     ... maybe this should be fixed in XMLTV.
 - Make tall and thin channel icons wider to line up text
 - Make a default channel icon for channels missing an icon
+- Allow resizing fonts in HTML displays
 
 + Release 0.8.2 (new xmltv + minor stuff)
 
