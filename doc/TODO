@@ -88,6 +88,7 @@ m  means done by Mike Dean
 - Reduce the size of the XMLTV exe by removing unnecessary Tk files
 - Remove programmes you've missed from the guide
 - Resolve duplicate programmes in the guide, so it shows both times it's on
+- Movie and/or category matching in favourites
 
 - Release 0.7.3 (code tidying)
 
