@@ -22,7 +22,7 @@ import java.util.GregorianCalendar;
  * A description of a favourite TV program, vague or specific.
  *
  * @author  Andy Balaam
- * @version 1
+ * @version 2
  */
 public class FreeGuideFavourite {
 	
@@ -47,37 +47,46 @@ public class FreeGuideFavourite {
 		
 		// Match the title exactly
 		if( (titleString != null) && !titleString.equals(progTitle) ) {
+			//FreeGuide.log.info(progTitle + " Title match failed");
 			return false;
 		}
 		
 		// Match the title to a regular expression
 		if( (titleRegex!=null) && !titleRegex.matcher(progTitle).matches() ) {
+			//FreeGuide.log.info(progTitle + " Title regex failed");
 			return false;
 		}
 		
 		// Match the channel ID
 		if( (channelID != null) && !channelID.equals(prog.getChannelID()) ) {
+			//FreeGuide.log.info(progTitle + " '" + channelID + "' '" + prog.getChannelID()+"'");
 			return false;
 		}
 		
 		// Get the start time of the programme
 		FreeGuideTime progStartTime = new FreeGuideTime(prog.getStart());
 		
+		//FreeGuide.log.info(progTitle + " " + afterTime + " must be after " + progStartTime);
+		
 		// Match the time it must be after
 		if(afterTime!=null && afterTime.after(progStartTime)) {
+			//FreeGuide.log.info(progTitle + " afterTime failed");
 			return false;
 		}
 		
 		// Match the time it must be before
 		if(beforeTime!=null && beforeTime.before(progStartTime)) {
+			//FreeGuide.log.info(progTitle + " beforeTime failed");
 			return false;
 		}
 		
 		// Match the day of the week
 		if( dayOfWeek!=null && ( dayOfWeek.intValue() != prog.getStart().get( Calendar.DAY_OF_WEEK ) ) ) {
+			//FreeGuide.log.info(progTitle + " Day of week failed");
 			return false;
 		}
 
+		//FreeGuide.log.info(progTitle + " Passed");
 		// Passed all the tests!
 		return true;
 

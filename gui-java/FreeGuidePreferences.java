@@ -145,6 +145,24 @@ public class FreeGuidePreferences {
 		
 	}
 	
+	/**
+	 * Adds the given FreeGuideFavourite to the end of the list stored in this
+	 * node.
+	 */
+	public void appendFreeGuideFavourite(FreeGuideFavourite fav) {
+		
+		// Find the first unoccupied spot
+		int i = 1;
+		String title = get( i + ".name" );
+		while( title != null ) {
+			i++;
+			title = get( i + ".name" );
+		}
+		
+		putFreeGuideFavourite(String.valueOf(i), fav);
+		
+	}
+	
 	public int findFreeGuideProgramme(FreeGuideProgramme prog) {
 		
 		int i = 1;
@@ -319,6 +337,9 @@ public class FreeGuidePreferences {
 		}
 	}
 	
+	public FreeGuideTime getFreeGuideTime(String key) {
+		return getFreeGuideTime(key, null);
+	}
 	public FreeGuideTime getFreeGuideTime(String key, FreeGuideTime def) {
 		String ans = get(key);
 		if(ans==null) {
@@ -381,7 +402,7 @@ public class FreeGuidePreferences {
 			fav.setChannelID( get( key+".channel_id" ) );
 			fav.setAfterTime( getFreeGuideTime( key+".after_time", null ) );
 			fav.setBeforeTime( getFreeGuideTime( key+".before_time", null ) );
-			fav.setDayOfWeek( getInteger( key+"day_of_week", null ) );
+			fav.setDayOfWeek( getInteger( key+".day_of_week", null ) );
 			
 			return fav;
 		}

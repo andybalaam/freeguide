@@ -105,6 +105,8 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
         txtWorkingDirectory.setText( FreeGuide.prefs.misc.get("working_directory") );
         txtCssFile.setText( FreeGuide.prefs.misc.get("css_file", "") );
 		txtGrabberConfig.setText( FreeGuide.prefs.misc.get("grabber_config") );
+		FreeGuideTime dst = FreeGuide.prefs.misc.getFreeGuideTime("day_start_time");
+		txtDayStartTime.setText( dst.getHHMMString() );
 		
 	}
 	
@@ -237,6 +239,8 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
         txtCssFile = new javax.swing.JTextField();
         labGrabberConfig = new javax.swing.JLabel();
         txtGrabberConfig = new javax.swing.JTextField();
+        txtDayStartTime = new javax.swing.JTextField();
+        labDayStartTime = new javax.swing.JLabel();
         tabScreen = new javax.swing.JPanel();
         scrScreen = new javax.swing.JScrollPane();
         panScreen = new javax.swing.JPanel();
@@ -414,18 +418,35 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         panMisc.add(labGrabberConfig, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panMisc.add(txtGrabberConfig, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 0.9;
+        panMisc.add(txtDayStartTime, gridBagConstraints);
+
+        labDayStartTime.setText("Day Start Time");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        panMisc.add(labDayStartTime, gridBagConstraints);
 
         scrMisc.setViewportView(panMisc);
 
@@ -789,6 +810,7 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
         FreeGuide.prefs.misc.put("working_directory", txtWorkingDirectory.getText());
         FreeGuide.prefs.misc.put("css_file", txtCssFile.getText());
 		FreeGuide.prefs.misc.put("grabber_config", txtGrabberConfig.getText());
+		FreeGuide.prefs.misc.putFreeGuideTime("day_start_time", new FreeGuideTime(txtDayStartTime.getText()));
 		
 	}
 	
@@ -851,8 +873,8 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
     private javax.swing.JTextField txtChannelHeight;
     private javax.swing.JLabel labChannelPanelWidth;
     private javax.swing.JTextField txtChannelPanelWidth;
-    private javax.swing.JTextField txtVerticalGap;
     private javax.swing.JLabel labBrowserCommand;
+    private javax.swing.JTextField txtVerticalGap;
     private javax.swing.JLabel labDefaultChooseCountry;
     private javax.swing.JLabel labWorkingDirectory;
     private javax.swing.JPanel panScreen;
@@ -868,6 +890,7 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
     private javax.swing.JScrollPane scrBrowserCommand;
     private javax.swing.JComboBox cmbDefaultChooseOS;
     private javax.swing.JLabel labProgrammeNormalColour;
+    private javax.swing.JLabel labDayStartTime;
     private javax.swing.JTextArea txaBrowserCommand;
     private javax.swing.JTextField txtProgrammeNormalColour;
     private javax.swing.JButton butDefaultDoIt;
@@ -881,6 +904,7 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
     private javax.swing.JComboBox cmbDefaultChooseBrowser;
     private javax.swing.JPanel panButtons;
     private javax.swing.JTextField txtXmltvDirectory;
+    private javax.swing.JTextField txtDayStartTime;
     private javax.swing.JLabel labChannelColour;
     private javax.swing.JPanel tabMisc;
     private javax.swing.JTextField txtChannelColour;

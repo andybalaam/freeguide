@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
  * A screen for editing a single favourite.
  *
  * @author  Andy Balaam
- * @varion 1
+ * @version 1
  */
 public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 	
@@ -50,19 +50,19 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 		}
 		
 		if(favourite.getChannelID() != null) {
-			cmbChannel.setSelectedItem(favourite.getChannelID());
+			cmbChannel.setSelectedItem(getChannelNameFromID(favourite.getChannelID()));
 		}
 		
 		if(favourite.getAfterTime() != null) {
 			txtAfter.setText(favourite.getAfterTime().getHHMMString());
 		}
 		
-		if(favourite.getAfterTime() != null) {
-			txtAfter.setText(favourite.getAfterTime().getHHMMString());
+		if(favourite.getBeforeTime() != null) {
+			txtBefore.setText(favourite.getBeforeTime().getHHMMString());
 		}
 		
 		if(favourite.getDayOfWeek() !=null) {
-			cmbDayOfWeek.setSelectedIndex( favourite.getDayOfWeek().intValue()+1 );
+			cmbDayOfWeek.setSelectedIndex( favourite.getDayOfWeek().intValue() );
 		}
 		
 		calcTxtName();
@@ -141,7 +141,7 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 		if( tmp.equals("") ) {
 			favourite.setChannelID( null );
 		} else {
-			favourite.setChannelID( tmp );
+			favourite.setChannelID( getChannelIDFromName(tmp) );
 		}
 		
 		// Set the after time
@@ -183,6 +183,18 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 			favourite.setDayOfWeek(null);
 		}
 		
+	}
+	
+	private String getChannelNameFromID(String id) {
+		Vector ids = new Vector(Arrays.asList(channelIDs));
+		int i = ids.indexOf(id);
+		return channelNames[i];
+	}
+	
+	private String getChannelIDFromName(String name) {
+		Vector names = new Vector(Arrays.asList(channelNames));
+		int i = names.indexOf(name);
+		return channelIDs[i];
 	}
 	
 	private void calcTxtName() {

@@ -2,15 +2,32 @@
 + means done
 number following means priority (1 for important, 10 for unimportant)
 
-- 10 Internationalisation
-- 1  Fix favourites (loss of info when re-enter screen)
-- 1  Options wizard when starting for first time
-- 5  About screen
-- 5  Help manual
-- 8  --configure support for tv_grab_na and uk
-- 1  Update README
-- 9  --days support
-- 5  Other properties of a programme and other DTD features
-- 5  Terms and conditions of listings
-- 6  Channels editor (needed for german listings)
-- 2  Right-click on a prog to make a favourite
++ 1 More flexible favourites
++ 1 Fixed fast scrolling bug
++ 1 Cleaner interface
++ 1 Hide details on download screen
++ 1 Better command execution
++ 1 Fix favourites (loss of info when re-enter screen)
++ 1 Options wizard when starting for first time
++ 1 Implement divideTimes for days
++ 2 Right-click on a prog to make a favourite
+- 2 Test in Windows
++ 2 Delete old programme files and old config entries
+- 4 Update README
+
+Release 0.3
+
+- 4 Find Channels option + fix in tv_split for de's lack of channels
+- 5 Choose how old files are when you delete them
+- 5 Generic command execution screen (starts automatically)
+- 5 About screen
+- 5 Help manual
+- 5 Other properties of a programme and other DTD features
+- 5 Terms and conditions of listings
+- 5 --configure support for tv_grab_na and uk
+- 5 --days support
+
+Release 0.4
+
+- 9 Internationalisation
+

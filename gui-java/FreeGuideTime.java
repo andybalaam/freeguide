@@ -76,7 +76,7 @@ public class FreeGuideTime {
 	public FreeGuideTime(Calendar date){setTime(date);}
 	
 	/**
-	 * Create a FreeGuideTime object from this string in the form HHMM.
+	 * Create a FreeGuideTime object from this string in the form HH:MM.
 	 */
 	public FreeGuideTime(String hhmm) {setTimeHHMMString(hhmm);}
 	
@@ -146,12 +146,13 @@ public class FreeGuideTime {
 	 * two digits representing the hour and two digits representing the minute.
 	 */
 	public void setTimeHHMMString(String hhmm) {
-		if(hhmm.length() != 4) {
+		//System.out.println(";klsnf");
+		if(hhmm.length() != 5 || hhmm.charAt(2)!=':') {
 			setMillisecondsSinceMidnight(0);
 			FreeGuide.log.warning("Invalid time string \"" + hhmm + "\"");
 		} else {
 			
-			setTime( Integer.parseInt(hhmm.substring(0, 2)), Integer.parseInt(hhmm.substring(2)) );
+			setTime( Integer.parseInt(hhmm.substring(0, 2)), Integer.parseInt(hhmm.substring(3)) );
 			
 		}
 	}
@@ -240,21 +241,21 @@ public class FreeGuideTime {
 	 * Return the number of hours since midnight 0 to 23.
 	 */
 	public int getHours() {
-		return (int)(milliseconds % oneDay);
+		return (int)(milliseconds / oneHour);
 	}
 	
 	/**
 	 * Return the number of minutes past the hour 0 to 59.
 	 */
 	public int getMinutes() {
-		return (int)(milliseconds % oneHour);
+		return (int)((milliseconds % oneHour)/oneMinute);
 	}
 	
 	/**
 	 * Return the number of seconds past the minute 0 to 59.
 	 */
 	public int getSeconds() {
-		return (int)(milliseconds % oneMinute);
+		return (int)((milliseconds % oneMinute)/oneSecond);
 	}
 	
 	/**
@@ -296,8 +297,11 @@ public class FreeGuideTime {
 		return padded(String.valueOf(getMilliseconds()), 3);
 	}
 	
+	/**
+	 * Return the time formatted as HH:MM
+	 */
 	public String getHHMMString() {
-		return getHoursString() + getMinutesString();
+		return getHoursString() + ":" + getMinutesString();
 	}
 	
 	/**
@@ -331,7 +335,7 @@ public class FreeGuideTime {
 	 */
 	public boolean after(FreeGuideTime other) {
 		
-		return after(other, new FreeGuideTime());
+		return after(other, FreeGuide.prefs.misc.getFreeGuideTime("day_start_time"));
 		
 	}
 	
@@ -370,7 +374,7 @@ public class FreeGuideTime {
 	 */
 	public boolean before(FreeGuideTime other) {
 		
-		return before(other, new FreeGuideTime());
+		return before(other, FreeGuide.prefs.misc.getFreeGuideTime("day_start_time"));
 		
 	}
 	

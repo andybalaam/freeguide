@@ -107,10 +107,10 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(butOptions, gridBagConstraints);
 
         labCmdOutput.setText("Command Output:");
@@ -123,6 +123,8 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 
         jScrollPane1.setVisible(false);
         txaCmdOutput.setEditable(false);
+        txaCmdOutput.setMinimumSize(new java.awt.Dimension(0, 100));
+        txaCmdOutput.setPreferredSize(new java.awt.Dimension(0, 100));
         jScrollPane1.setViewportView(txaCmdOutput);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -163,16 +165,13 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
         });
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(butDetails, gridBagConstraints);
 
         pack();
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(new java.awt.Dimension(400, 300));
-        setLocation((screenSize.width-400)/2,(screenSize.height-300)/2);
     }//GEN-END:initComponents
 
 	private void butDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butDetailsActionPerformed
@@ -182,12 +181,14 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 			jScrollPane1.setVisible(false);
 			labCmdOutput.setVisible(false);
 			butDetails.setText("Details >>");
+			pack();
 			
 		} else {
 			
 			jScrollPane1.setVisible(true);
 			labCmdOutput.setVisible(true);
 			butDetails.setText("<< Details");
+			pack();
 			
 		}
 		

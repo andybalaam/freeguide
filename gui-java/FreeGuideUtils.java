@@ -341,6 +341,8 @@ loop:			for(;;)
 		FreeGuide.prefs.screen.putInt("horizontal_gap", 1);
 		FreeGuide.prefs.screen.putInt("panel_width", 6000);
 		FreeGuide.prefs.screen.putInt("channel_panel_width", 600);
+		
+		FreeGuide.prefs.misc.putFreeGuideTime("day_start_time", new FreeGuideTime(06,00));
 			
 		if(country.equals(country_UK)) {
 			
@@ -370,7 +372,7 @@ loop:			for(;;)
 			} else {
 				tmp[0] = "";
 			}
-			tmp[1] = "\"%misc.xmltv_directory%\\tv_split\" --output \"%misc.working_directory%\\%%channel-%%Y%%m%%d.fgd\" \"%misc.working_directory%/listings_unprocessed.xml\"";
+			tmp[1] = "\"%misc.xmltv_directory%\\tv_split\" --output \"%misc.working_directory%\\%%channel-%%Y%%m%%d.fgd\" --day_start_time %misc.day_start_time% \"%misc.working_directory%/listings_unprocessed.xml\"";
 			commandline.putStrings("tv_grab", tmp);
 			
 			misc.put("xmltv_directory", "C:/Program Files/xmltv");
@@ -402,7 +404,7 @@ loop:			for(;;)
 			} else {
 				tmp[0] = "";
 			}
-			tmp[1] = "tv_split --output %misc.working_directory%/%%channel-%%Y%%m%%d.fgd %misc.working_directory%/listings_unprocessed.xml";
+			tmp[1] = "tv_split --output %misc.working_directory%/%%channel-%%Y%%m%%d.fgd --day_start_time %misc.day_start_time% %misc.working_directory%/listings_unprocessed.xml";
 			commandline.putStrings("tv_grab", tmp);
 			
 			misc.put("xmltv_directory", "/usr/bin");

@@ -76,7 +76,7 @@ public class FreeGuide implements FreeGuideLauncher {
 	public static FreeGuidePreferencesGroup prefs;	// Holds all preferences info
 	public static Logger log;					// The log file
 	
-	public static final String version = "0.3pre1";
+	public static final String version = "0.3";
 	
 	// Defaults - can be overridden by user preferences
 	public static final Color PROGRAMME_NORMAL_COLOUR = Color.white;

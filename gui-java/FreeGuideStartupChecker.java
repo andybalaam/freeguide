@@ -47,6 +47,8 @@ public class FreeGuideStartupChecker {
 			FreeGuide.die("Failed to set up configuration.");
 		}
 		
+		checkFirstTime();
+		
 		if(!checkXMLTV()) {
 			FreeGuide.die("Halted since XMLTV tools not found.");
 		}
@@ -55,10 +57,44 @@ public class FreeGuideStartupChecker {
 			FreeGuide.die("Failed to set up a working directory.");
 		}
 		
+		checkDayStartTime();
+		
 		FreeGuide.log.info("Checks ok, starting FreeGuide " + FreeGuide.version + " ...");
 		
 	}
 
+	/**
+	 * checkDayStartTime
+	 *
+	 * Checks we have a start time for our days, and adds one if not.
+	 */
+	 private static void checkDayStartTime() {
+		 
+		 String ds = FreeGuide.prefs.misc.get("day_start_time");
+		 if(ds == null) {
+			 
+			 FreeGuide.prefs.misc.putFreeGuideTime("day_start_time", new FreeGuideTime(06,00));
+			 
+		 }
+		 
+	 }
+	
+	/**
+	 * checkFirstTime
+	 *
+	 * Check whether this is the first time we've run FreeGuide and if so
+	 * launches the first time wizard.
+	 */
+	private static void checkFirstTime() {
+		// version_major is present if FreeGuide has been used before.
+		String versionMajor = FreeGuide.prefs.misc.get("version_major");
+		if(versionMajor == null) {
+			FreeGuideFirstTimeWizard wiz = new FreeGuideFirstTimeWizard();
+			FreeGuide.prefs.misc.putInt("version_major", 0);
+			FreeGuide.prefs.misc.putInt("version_minor", 3);
+		}
+	}
+	
 	/**
 	* checkJavaVersion
 	*

@@ -80,6 +80,10 @@ public class FreeGuidePreferencesGroup {
 	
 	public String performSubstitutions(String in) {
 		
+		if(in==null) {
+			return null;
+		}
+		
 		String ans = new String(in);
 		
 		int i = ans.indexOf('%');
