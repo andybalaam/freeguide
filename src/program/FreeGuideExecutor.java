@@ -35,7 +35,8 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 	 * @param parent the frame that launched this command
 	 * @param a description of the command, e.g. "Downloading"
 	 */
-    public FreeGuideExecutor(FreeGuideLauncher launcher, String[] cmds, String commandType) {
+    public FreeGuideExecutor(FreeGuideLauncher launcher, String[] cmds,
+			String commandType) {
 
 		this.launcher = launcher;
 		this.cmds = cmds;
@@ -43,14 +44,18 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
         initComponents();
 
 		// Centre the screen
-		java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-		setLocation((screenSize.width-getWidth())/2,(screenSize.height-getHeight())/2);
+		java.awt.Dimension screenSize =
+			java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		
+		setLocation( (screenSize.width-getWidth())/2,
+			(screenSize.height-getHeight())/2 );
 
 		// Set the please wait message
 		labPleaseWait.setText(commandType + ", please wait...");
 		setTitle(commandType);
 
-		viewer = new StringViewer("Command Output (stdout):" + lb, "Command Output (stderr):" + lb);
+		viewer = new StringViewer("Command Output (stdout):" + lb,
+			"Command Output (stderr):" + lb);
 
 		start();
 
@@ -153,41 +158,14 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 	
 	private void showDetails() {
 		
-		//update = new StringViewer("Command Output (stdout):" + lb + readOutput.getStoredOutput(), "Command Output (stderr):" + lb + readError.getStoredOutput());
-
 		viewer.setVisible(true);
-		/*if(labCmdOutput.isVisible()) {
-
-			jScrollPane1.setVisible(false);
-			labCmdOutput.setVisible(false);
-			jScrollPane2.setVisible(false);
-			labCmdError.setVisible(false);
-			txtCmdInput.setVisible(false);
-			labCmdInput.setVisible(false);
-			butDetails.setText("Details >>");
-			pack();
-
-		} else {
-
-			jScrollPane1.setVisible(true);
-			labCmdOutput.setVisible(true);
-			jScrollPane2.setVisible(true);
-			labCmdError.setVisible(true);
-			txtCmdInput.setVisible(true);
-			labCmdInput.setVisible(true);
-			butDetails.setText("<< Details");
-			pack();
-
-		}*/
 
 	}
 	
 	private void butCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCancelActionPerformed
 		
 		stop();
-		setVisible(false);
-		launcher.reShow();
-		dispose();
+		clearUp();
 		
 	}//GEN-LAST:event_butCancelActionPerformed
 	
@@ -196,12 +174,30 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
 
 		stop();
-		setVisible(false);
-		launcher.reShow();
-		dispose();
+		clearUp();
 		
     }//GEN-LAST:event_exitForm
 	
+	private void clearUp() {
+		
+		if(pr!=null) {
+			pr.destroy();
+		}
+		
+		if(readOutput!=null) {
+			readOutput.stop();
+		}
+		
+		if(readError!=null) {
+			readError.stop();
+		}
+		
+		setVisible(false);
+		viewer.dispose();
+		launcher.reShow();
+		dispose();
+		
+	}
 	
 	public void start() {
         runner = new Thread(this);
@@ -209,22 +205,10 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
     }
 
     public void stop() {
-		runner = null;
-		if(pr!=null){pr.destroy();}
-		if(readOutput!=null){readOutput.stop();}
-		if(readError!=null){readError.stop();}
-    }
-
-    /*public void run() {
-
-		exitCode = 1;
-		try {
-			exitCode = pr.waitFor();
-		} catch(java.lang.InterruptedException e) {
-			e.printStackTrace();
-		}
 		
-	}*/
+		runner = null;
+		
+    }
 	
 	/** run
 	 *
@@ -237,28 +221,26 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 		Thread thisThread = Thread.currentThread();
 		readOutput = new StreamReaderThread();
 		readError = new StreamReaderThread();
-
-		// Remember whether all commands succeeded
-		boolean allSuccessful = true;
 		
 		// Step through each command
 		for(int i=0;i<cmds.length;i++) {
 			
 			// Exit if we've been stopped externally
-			if(runner!=thisThread) {break;}
+			if(runner!=thisThread) {
+				break;
+			}
 			
-			boolean thisAns = exec(cmds[i]);
-			
-			if(!thisAns) {
+			// Run the command and exit if there's an error
+			if( !exec(cmds[i]) ) {
+				
 				dumpOutputAndError();
 				return;
+				
 			}
 			
 		}
 		
-		setVisible(false);
-		launcher.reShow();
-		dispose();
+		clearUp();
 		
 	}
 	
@@ -281,7 +263,6 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 		if( (cmdstr.indexOf("%date%")!=-1)
 				|| (cmdstr.indexOf("%offset%")!=-1) ) {
 				
-			
 			boolean didOK = true;
 			
 			Calendar date = GregorianCalendar.getInstance();
@@ -310,35 +291,31 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 		cmdstr = FreeGuide.prefs.performSubstitutions(cmdstr);
 		
 		// Log what we're about to do
-		FreeGuide.log.info("FreeGuide - Executing system command: "+cmdstr+" ...");
+		FreeGuide.log.info(
+			"FreeGuide - Executing system command: "+cmdstr+" ...");
 
 		try {
 					
 			// Execute the command (after parsing it into tokens)
 			pr = Runtime.getRuntime().exec(FreeGuideUtils.parseCommand(cmdstr));
-
-			//dialog = new FreeGuideExecutorDialog(launcherFrame, this, commandType);
-			
-			//cmdOutput.append("$ "+cmdstr+lb);
 				
 			// Get the input and output streams of this process
-			BufferedReader prOut = new BufferedReader(new InputStreamReader(pr.getInputStream()));
-			BufferedReader prErr = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
-
-			//prIn = new BufferedWriter(new OutputStreamWriter(pr.getOutputStream()));
+			BufferedReader prOut = new BufferedReader(
+				new InputStreamReader(pr.getInputStream()));
+			BufferedReader prErr = new BufferedReader(
+				new InputStreamReader(pr.getErrorStream()));
 
 			// Suck the output from the command
 			readOutput.begin(prOut, cmdstr, viewer, viewer.getOutput());
 			readError.begin(prErr, viewer, viewer.getError());
-			//readOutput.start();
-			//readError.start();
 				
-			// Actually wait for it to finish (in another thread)
+			// Actually wait for it to finish
 			int exitCode = pr.waitFor();
 			boolean retVal = (exitCode==0);
 				
 			// Log it finishing
-			FreeGuide.log.info("FreeGuide - Finished execution with exit code "+exitCode+".");
+			FreeGuide.log.info("FreeGuide - Finished execution with exit code "
+				+ exitCode + "." );
 				
 			return retVal;
 		
@@ -370,21 +347,17 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 	}
 	
 	private Process pr;
-	//private BufferedReader prErr;
-	//private BufferedReader prOut;
-	//private BufferedWriter prIn;
+
 	private StreamReaderThread readOutput;
 	private StreamReaderThread readError;
 	private Thread runner;
 	private FreeGuideLauncher launcher;
-	//private int exitCode;
+
 	private String commandType;
-	//private String commandString;
+
 	private static final String lb = System.getProperty("line.separator");
 	private String[] cmds;
-	//private FreeGuideExecutorDialog dialog;
-	//private boolean cancelled;
-	//private boolean running;
+
 	private StringViewer viewer;
 	
 	

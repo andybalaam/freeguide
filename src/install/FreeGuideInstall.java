@@ -268,12 +268,14 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		
 	private void installFile(String name, String destDir) throws java.io.IOException {
 
+		System.out.println("Installing file: " + name);
+		
 		byte[] buf = new byte[32768];
 		
 		// make the directory if it doesn't exist
 		String s = destDir + name;
 		int i = s.lastIndexOf('/');
-		if(i>-1) {
+		if(i>-1) { 
 			new File(s.substring(0, i)).mkdirs();
 		}
 		

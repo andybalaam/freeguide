@@ -81,6 +81,8 @@ x means done by Sagar Shah
 - coloured programme categories and favourites
 - Allow changing of font sizes from customise screen
 - Make it work with the new XMLTV grabbers
++ Grab one day at a time using a %date% %offset% substitution
+- Stop it from grabbing stuff that's already been done.
 - Make installer install shortcuts for Windows, Gnome and KDE
 - Make installer launch FreeGuide and/or a README file.
 - Remove the need for tv_split by calling the grabber once for each day required
@@ -88,8 +90,10 @@ x means done by Sagar Shah
 - Dynamic population of the date list comboBox based on available data
 - Stop hard-coding the directories into the preference values on install, use
 	e.g. %misc.working_directory%, %misc.xmltv_directory%
-- Fix bug in StreamThreadReader (?) that means only the output of the first
++ Fix bug in StreamThreadReader (?) that means only the output of the first
 	command is shown.
+- Allow for the fact that a grabber may use dates without seconds, and other
+	differences (e.g. tv_grab_de).
 * Dynamic update of command output window
 * Fix bug that causes exception if running release candidate jvm (1.4.0-rc1)
 + Fix bug where you get asked twice whether you want to download new listings

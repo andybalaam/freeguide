@@ -22,8 +22,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.Vector;
-import java.util.regex.Pattern;
-import java.text.FieldPosition;
+//import java.util.regex.Pattern;
+//import java.text.FieldPosition;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -41,7 +41,7 @@ import org.xml.sax.SAXException;
  * A form that displays and prints TV listings.
  *
  * @author  Andy Balaam
- * @version 13
+ * @version 14
  */
 public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLauncher {
 
@@ -107,13 +107,17 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 				if(r==0) {
 
+					downloadListings();
+ 					missingFiles=false;
+					
+					/* WCD
 					if (downloadListings()==1) {
 						missingFiles=false;
 					}
 					else {
 						dontDownload = true;
 					}
-					
+					*/
 					return;
 
 				} else {
@@ -674,7 +678,13 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 	}//GEN-LAST:event_menDownloadActionPerformed
 
+	private void downloadListings() {
+		FreeGuideUtils.execAndWait(FreeGuide.prefs.getCommands("tv_grab"), "Downloading", this);
+	}
+	
+	/* WCD Walter's substitution code - better done in performSubstitutions
 	private int downloadListings() {
+		
 		// 1=success
 		// 0=failure
 		
@@ -726,7 +736,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		FreeGuideUtils.execAndWait(cmd, "Downloading", this);
 		// FIXME -- we should return, and process the command status here.
 		return(1);
-	}
+	}*/
 	
 	private void menQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menQuitActionPerformed
 		

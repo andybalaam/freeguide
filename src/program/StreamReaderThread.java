@@ -26,11 +26,14 @@ public class StreamReaderThread implements Runnable {
 		storedOutput = new String();
 	}
 
-	public void begin(BufferedReader reader, StringViewer viewer, StringBuffer viewbuf) {
+	public void begin(BufferedReader reader, StringViewer viewer,
+			StringBuffer viewbuf) {
+		
 		begin(reader, null, viewer, viewbuf);
 	}
 
-	public void begin(BufferedReader reader, String cmdstr, StringViewer viewer, StringBuffer viewbuf) {
+	public void begin(BufferedReader reader, String cmdstr, StringViewer viewer,
+			StringBuffer viewbuf) {
 		
 		this.reader = reader;
 		this.viewer = viewer;
@@ -55,10 +58,11 @@ public class StreamReaderThread implements Runnable {
 	}
 
 	public void start() {
-        if (runner==null) {
-            runner = new Thread(this);
-            runner.start();
-        }
+		System.out.println("test: StreamReaderThread=" + this);
+        //if(runner==null) {
+        runner = new Thread(this);
+		runner.start();
+        //}
     }
 
     public void stop() {
@@ -71,33 +75,33 @@ public class StreamReaderThread implements Runnable {
 		int charsRead;
 
 		try {
+			
 			while( (runner==thisThread)  && ((charsRead=reader.read(buf))>0) ) {
 
 				String tstr = String.copyValueOf(buf, 0, charsRead);
-
+				
 				if (viewer!=null) {
-					//update.getOutput().append(storedOutput+tstr);
+					
 					viewbuf.append(storedOutput+tstr);
 					viewer.repaint();
 					storedOutput="";
-				}
-				else {
+					
+				} else {
+					
 					storedOutput += tstr;
+					
 				}
-				//System.out.println(String.copyValueOf(buf, 0, charsRead));
-
-				//textarea.repaint();
-
+				
 				try {
-					//Thread.yield();
-					//update.repaint();
-					//System.out.println(tstr);
+					
 					Thread.sleep(1);
+					
 				} catch(java.lang.InterruptedException e) {
 					e.printStackTrace();
 				}
 
 			}
+			
 		} catch(java.io.IOException e) {
 			e.printStackTrace();
 		}

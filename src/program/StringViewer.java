@@ -30,11 +30,8 @@ import java.awt.Graphics;
  */
 public class StringViewer extends javax.swing.JFrame {
 	
-	
 	public StringViewer(String outputText, String errorText) {
 		initComponents();
-		//txaOutput.setText(outputText);
-		//txaError.setText(errorText);
 		bufOut.append(outputText);
 		bufErr.append(errorText);
 		setVisible(false);
@@ -71,9 +68,12 @@ public class StringViewer extends javax.swing.JFrame {
         getContentPane().add(splitpane);
 
         pack();
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(new java.awt.Dimension(365, 300));
-        setLocation((screenSize.width-365)/2,(screenSize.height-300)/2);
+		
+        java.awt.Dimension screenSize =
+			java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		
+        setSize(new java.awt.Dimension(450, 400));
+        setLocation((screenSize.width-450)/2,(screenSize.height-400)/2);
     }
 
 	public void paint(Graphics g) {
