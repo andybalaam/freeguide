@@ -5,6 +5,12 @@
 
 RPM_TOPDIR=/home/andy/.rpm
 
+mkdir --parents $RPM_TOPDIR/RPMS/noarch
+mkdir --parents $RPM_TOPDIR/SRPMS
+mkdir --parents $RPM_TOPDIR/SOURCES
+mkdir --parents $RPM_TOPDIR/BUILD
+mkdir --parents $RPM_TOPDIR/tmp
+
 # Clean and build the source package of FreeGuide
 cd ../../../
 ant clean

@@ -90,6 +90,7 @@ c  means done by Christian Weiske
 - Deal with programme ratings
 - x-dist icon support in RPM http://www.hyperborea.org/software/dillo/dillo.spec
 - Look into SQL engines: http://www.mckoi.com/database/
+- Remember where you were in the Options screen
 
 - Release 0.9.3 (preferences creep)
 
@@ -224,76 +225,9 @@ c  means done by Christian Weiske
 - Test whether only channel icons are dispalyed when you use a channel set,
   but icon and name is displayed on All Channels.
 
-+ 0.9pre4
+*** 0.9preX unstable releases are described in the TODO in plugins-branch. ***
 
-- Use new alpha-exe with fixed uk_bleb problem
-- Run Jalopy
-- Fix problem with non-C working dir
-+ Check that upgrading on Windows doesn't leave 2 Add/Remove program entries.
-+ Fix wrong channel names bug.
-+ Change all relevant XMLTV commands to use --quiet
-
-+ 0.9pre3 (xmltv 0.5.39)
-
-+ include xmltv 0.5.39
-+ Fix docs to mention only valid grabbers
-+ Support only grabbers included in xmltv 0.5.39
-+ Make sure the share dir stuff is identical to xmltv 0.5.39
-+ Support --xxx=yyy style options on the command line
-c Channel set editor and channel set list have resizable buttons with the same width now
-
-+ 0.9pre2 (Stabilising MVC work)
-
-+ Unsplit (Times should be entered as "hh:mm") strings in favourite editor
-+ Get rid of all the comments left by NetBeans etc.
-+ Incorporate an automatic code formatter into the build process
-+ Rename "program" dir to "freeguide"
-+ Sometimes deleting a favourite makes everything a favourite.  It does this
-  by blanking the title of a "contains" favourite.
-+ Favourite names need an extra space - internationalise these names properly
-+ Stop it from changing what's in the programme panel when you hover for a
-  couple of seconds.
-+ When you enter a day that hasn't been entered before, mark favourites as
-  inguide
-+ Fix the problem with flickering guide after clicking OK in the Favourites
-  dialog
-+ Fix the flickering personalised guide when you exit the favourites list
-+ Put channel icons at the bottom of the programme details panel
-+ Move channel and programme icons to the bottom of the details panel
-+ Support firefox, and implement this in the stable branch too.
-+ Merge MVC with HEAD
-+ Fix favourites behaviour to get back what it did before
-+ Rename m to model in StripView.java
-+ Make 'f' keyboard shortcut work and refresh screen
-+ Internationalise it
-c Translate into German
-
-+ 0.9pre1 (MVC)
-
-+ Make keyboard navigation more natural:
-    + jump several channels up/down if the intermediate channel is blank
-    + when left or right is pressed, remember the horizontal position of the
-      middle of this programme.  During all up/down presses, jump to the
-      programme that best matches this horizontal position.  When left or right
-      is pressed, forget this value and find another one.
-+ Fix problem with the selected programme appearing in the top left
-+ Make the selected programme appear selected after a SPACE-press/dbl-click
-+ Fix whatever is using 100% of CPU whenever FreeGuide is running
-+ Make non-favourites appear in personalised guide: make Programmes themselves
-  know whether or not they are inguide.
-+ Rename things so "selected" means cursor is on you, "in guide" means chosen/
-  highlighted/shown in personalised guide, and "favourite" mean is a favourite.
-  (Later, "reminder" will mean you will be reminded, and "recorded" will
-  mean it will be recorded.)
-+ Make hearts appear on favourites.
-
-+ Release 0.8.6
-
-- Use new alpha-exe with fixed uk_bleb problem
-- Run Jalopy
-- Fix problem with non-C working dir
-+ Update version to 0.8.6
-+ Change all relevant XMLTV commands to use --quiet
+*** Current work on 0.8.X stable releases is described in the TODO in Stable0_8-branch. ***
 
 + Release 0.8.5
 
