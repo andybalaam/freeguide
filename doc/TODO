@@ -57,7 +57,7 @@ W  means work in progress by Walter Duncan
 - Facilitating the download of listings outside of FreeGuide
 	(e.g. via a cron job, or at ppp connect)
 	
-- Release 0.5.1 (non-urgent minor features)
+- Release 0.5.3 (non-urgent minor features)
 
 - Multiline tooltips if too long
 - Choose how old files are before you delete them
@@ -68,45 +68,46 @@ W  means work in progress by Walter Duncan
 	and record e.g. is it a favourite, is it ticked?
 - Hence rewrite FreeGuideViewer much better
 - Shortcut keys for everything
-	
-- Release 0.5 (overhaul of interaction between FreeGuide and xmltv)
+- Scroll to the programme you've just added in the list view
 
-- GUI to deal with --configure step and any other post-install, pre-use stuff
-	(part of installer)
-- Which channels appear depends entirely on what listings have been downloaded
-- Support for new grabbers 
-- Ability to control how many days are downloaded
-- Don't bother over-writing already-downloaded info (unless user wants it)
+- Release 0.5.2 (consolidation and code tidying)
+ 
 - Allow "file" in installer to use wildcards (for win-uk share stuff)
 - Code rationalisation, FIXMEs, remove commented sections
 - Refactor to rename losing FreeGuide prefix to most classes
 - Separate classes into packages
-- Custom channel ordering
-- Scroll to the programme you've just added in the list view
-- Make installer install shortcuts for Windows, Gnome and KDE
-- Make installer launch FreeGuide and/or a README file (what about configuring
-	on Windows?)
 - Fix bug that means favourites sometimes aren't chosen
 - Coloured programme categories and favourites
 - Apply different fonts to every screen.
 
-- Release 0.4.4 (Features - especially use of many grabbers, and bug fixes)
+- Release 0.5.1 (some features and grabber configuration)
 
-- Fix bug with different day start times on grabber and FG.
-A Allow changing of font sizes from customise screen
-+ Make it work with the new XMLTV grabbers
-+ 2 installers - Win and Linux that let you choose your location during install
-- Stop it from grabbing stuff that's already been done.
-+ Allow for the fact that a grabber may use dates without seconds, and other
-	differences (e.g. tv_grab_de).
-+ Get rid of config guessing and use defaults instead.
+- GUI to deal with --configure step and any other post-install, pre-use stuff
+	(part of installer)
+- Custom channel ordering
+- Make installer install shortcuts for Windows, Gnome and KDE
+- Make installer launch FreeGuide and/or a README file (what about configuring
+	on Windows?)
+
+- Release 0.5 (Features - especially use of many grabbers, and bug fixes)
+
 W Dynamic population of the date list comboBox based on available data
-- Seems to be a bug where only first grabber command executes.
-A I can't reproduce the above
 W Add configurable option to set default "today" offset (uk=1, NA=0)
 W Add configurable option to set grabber day start (na=00:00, uk=06:00)
 W Add configurable option to set grabber starting day 
   checkbox with "today", or current showing day
+- Fix bug with different day start times on grabber and FG.
+- Stop it from grabbing stuff that's already been done.
++ Seems to be a bug where only first grabber command executes.
++ Ability to control how many days are downloaded
++ Support for new grabbers
++ Which channels appear depends entirely on what listings have been downloaded
++ Allow changing of font sizes from customise screen
++ Make it work with the new XMLTV grabbers
++ 2 installers - Win and Linux that let you choose your location during install
++ Allow for the fact that a grabber may use dates without seconds, and other
+	differences (e.g. tv_grab_de).
++ Get rid of config guessing and use defaults instead.
 + Make installer understand file>location syntax of props files including
 	changing share to be included in file stuff.
 + Remove the need for tv_split by calling the grabber once for each day required

@@ -303,10 +303,12 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         getContentPane().add(panButtons, gridBagConstraints);
 
+		changedFont = false;
+		
         pack();
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(new java.awt.Dimension(400, 300));
-        setLocation((screenSize.width-400)/2,(screenSize.height-300)/2);
+        setSize(new java.awt.Dimension(400, 350));
+        setLocation((screenSize.width-400)/2,(screenSize.height-350)/2);
 		
 		FreeGuidePreferences scr = FreeGuide.prefs.screen;
 		
@@ -335,6 +337,7 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
 
 	private void butFontActionPerformed(java.awt.event.ActionEvent evt) {
 		
+		changedFont = true;
 		fontDialog.setVisible(true);
 		
 	}
@@ -368,10 +371,14 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
 		FreeGuide.prefs.screen.putColor("programme_chosen_colour", txtProgrammeChosenColour.getBackground());
 		FreeGuide.prefs.screen.putColor("programme_normal_colour", txtProgrammeNormalColour.getBackground());
 		
-		Font f = fontDialog.getSelectedFont();
-		FreeGuide.prefs.screen.put( "font_name", f.getName() );
-		FreeGuide.prefs.screen.putInt( "font_style", f.getStyle() );
-		FreeGuide.prefs.screen.putInt( "font_size", f.getSize() );
+		if(changedFont) {
+			
+			Font f = fontDialog.getSelectedFont();
+			FreeGuide.prefs.screen.put( "font_name", f.getName() );
+			FreeGuide.prefs.screen.putInt( "font_style", f.getStyle() );
+			FreeGuide.prefs.screen.putInt( "font_size", f.getSize() );
+			
+		}
 		
 	}
 	
@@ -457,5 +464,6 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
 	
 	FreeGuideLauncher launcher;
 	FontChooserDialog fontDialog;
+	boolean changedFont;
 	
 }
