@@ -56,7 +56,7 @@ public class ProgrammeJLabel extends JLabel {
 
         void isHovering();
     }
-    
+
     private Model model;
     final private ProgrammeFormat textFormat;
     final private ProgrammeFormat htmlFormat;
@@ -89,7 +89,7 @@ public class ProgrammeJLabel extends JLabel {
         Font font )
     {
         super();
-        
+
 
         boolean printDelta = FreeGuide.prefs.screen.getBoolean(
             "display_time_delta", true);
@@ -98,9 +98,9 @@ public class ProgrammeJLabel extends JLabel {
             ProgrammeFormat.HTML_FORMAT, timeFormat, printDelta);
         htmlFormat = new ProgrammeFormat(
             ProgrammeFormat.HTML_FORMAT, timeFormat, printDelta);
-        
+
         ToolTipManager tipManager = ToolTipManager.sharedInstance();
-        
+
         // Register this component for tooltip management.
         // This is normally done by setting the tooltip text,
         // but we want to "lazily" evaluate tooltip text--we defer
@@ -111,7 +111,7 @@ public class ProgrammeJLabel extends JLabel {
         setFont( font );
 
         setBorder( nonTickedBorder );
-        
+
         setOpaque(true);
 
         getActionMap().put("select", new AbstractAction() {
@@ -125,7 +125,7 @@ public class ProgrammeJLabel extends JLabel {
                 setFavourite( !getModel().isFavourite() );
             }
         });
-        
+
         getActionMap().put("menu", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 ProgrammePopupMenu menu = getPopupMenu();
@@ -141,7 +141,7 @@ public class ProgrammeJLabel extends JLabel {
         map.put(KeyStroke.getKeyStroke("SPACE"), "select");
         map.put(KeyStroke.getKeyStroke("typed f"), "favourite");
         map.put(KeyStroke.getKeyStroke("shift F10"), "menu");
-        
+
         addMouseListener(
             new java.awt.event.MouseListener() {
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -158,7 +158,7 @@ public class ProgrammeJLabel extends JLabel {
                     maybeShowPopup( evt );
                 }
 
-                    
+
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
                 }
 
@@ -177,7 +177,7 @@ public class ProgrammeJLabel extends JLabel {
 
         setModel(model);
     }
-            
+
     public void setComponentPopupMenu(JPopupMenu popup) {
         // TODO: 1.5 has this method, we could emulate it for previous versions
     }
@@ -185,39 +185,39 @@ public class ProgrammeJLabel extends JLabel {
     public Model getModel() {
         return model;
     }
-            
+
     public void setModel(Model model) {
         this.model = model;
 
         // Reset tooltip to trigger new one on demand
         this.tooltip = null;
-                    
-                    
+
+
         if (model == null) {
-            
+
             programme = null;
             isInGuide = false;
             isFavourite = false;
             setText("(null)");
-            
+
         } else {
-        
+
             // Cache model data
             programme = model.getValue();
             updateIsInGuide( model.isInGuide() );
             updateIsFavourite( model.isFavourite() );
             setText( textFormat.shortFormat(programme) );
         }
-        
+
     }
-    
+
     protected void paintComponent( Graphics g ) {
-        
+
         if( alignTextToLeftOfScreen ) {
-        
+
             // Paint our own text, aligning to the left of the screen
             g.setClip(this.getVisibleRect());
-            
+
             // First paint background
             g.setColor(this.getBackground());
             g.fillRect(0,0,this.getWidth(), this.getHeight());
@@ -236,50 +236,50 @@ public class ProgrammeJLabel extends JLabel {
             if (g.getClipBounds() != null && fontX<g.getClipBounds().x) {
                 fontX = g.getClipBounds().x + ins.left;
             }
-            
+
             // now we now where, draw the text
             g.drawString( getText(), fontX, ins.top + (getHeight() - ins.top - ins.bottom + g.getFontMetrics().getAscent()) >> 1);
-        
+
         } else {
-            
+
             // Just ask the parent to paint the text
             super.paintComponent(g);
-            
+
         }
 
         if( isFavourite ) {
-            drawFavouriteIcon(g);            
+            drawFavouriteIcon(g);
         }
-        
+
         URL link = programme.getLink();
         if( link != null ) {
-            
+
             g.setColor( Color.BLUE );
-            
+
             int width = getWidth();
             int height = getHeight();
-            
+
             g.fillRect( width-4, height-4, width-1, height-1 );
-            
+
         }
     }
-    
+
     /** Draws the favourite icon on this panel.
      * @param g The Graphics context to draw on.
      */
     protected void drawFavouriteIcon(final Graphics g) {
-        
+
         Graphics2D g2 = (Graphics2D) g;
         AffineTransform originalTransform = g2.getTransform();
 
         g2.setColor( heartColour );
-        
+
         // switch on anti-aliasing
         g2.setRenderingHint(
             RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON
         );
-    
+
         // Scale and position appropriately--taking into account the borders
         Rectangle bounds = heartShape.getBounds();
         double scale = 0.45 * (getHeight()/bounds.getHeight());
@@ -288,27 +288,27 @@ public class ProgrammeJLabel extends JLabel {
         g2.scale(scale, scale);
         g2.fill( heartShape );
         g2.setTransform(originalTransform);
-        
+
     }
 
 
     private void toggleSelection() {
         setSelected( !isInGuide );
     }
-            
+
     private void setSelected( boolean isInGuide ) {
-        
+
         if( model != null ) {
             model.setInGuide( isInGuide );
         }
-                        
+
         updateIsInGuide( isInGuide );
-        
+
         // FIXME - repaint only this strip?
         model.getStripView().repaint();
-        
+
     }
-                    
+
     public void setFavourite( boolean isFavourite ) {
 
         if( model != null ) {
@@ -316,11 +316,11 @@ public class ProgrammeJLabel extends JLabel {
         }
 
     }
-                
+
     private void updateIsInGuide( boolean isInGuide ) {
-        
+
         this.isInGuide = isInGuide;
-            
+
         if( isInGuide ) {
             setBorder ( tickedBorder );
             setBackground( tickedColour );
@@ -331,14 +331,14 @@ public class ProgrammeJLabel extends JLabel {
             setBorder ( nonTickedBorder );
             setBackground( nonTickedColour );
         }
-        
+
     }
-    
-    
+
+
     protected void updateIsFavourite( boolean isFavourite ) {
         this.isFavourite = isFavourite;
     }
-    
+
     private final static Shape heartShape;
 
     static {
@@ -352,7 +352,7 @@ public class ProgrammeJLabel extends JLabel {
 
 
     private static boolean alignTextToLeftOfScreen;
-    
+
     private static Color nonTickedColour;
     private static Color tickedColour;
     private static Color movieColour;
@@ -364,7 +364,7 @@ public class ProgrammeJLabel extends JLabel {
     public static void setAlignTextToLeftOfScreen( boolean align ) {
         ProgrammeJLabel.alignTextToLeftOfScreen = align;
     }
-    
+
     public static void setNonTickedColour(Color nonTickedColour) {
         ProgrammeJLabel.nonTickedColour = nonTickedColour;
         nonTickedBorder = BorderFactory.createCompoundBorder(
@@ -385,7 +385,7 @@ public class ProgrammeJLabel extends JLabel {
             BorderFactory.createLineBorder(Color.BLACK),
             BorderFactory.createLineBorder(movieColour, 2));
     }
-    
+
     public static void setHeartColour(Color heartColour) {
         ProgrammeJLabel.heartColour = heartColour;
     }
@@ -439,7 +439,7 @@ public class ProgrammeJLabel extends JLabel {
                 state ? on : off
             );
         }
-        
+
         /* (non-Javadoc)
          * @see javax.swing.Action#getValue(java.lang.String)
          */
@@ -449,7 +449,7 @@ public class ProgrammeJLabel extends JLabel {
             }
             return super.getValue( key );
         }
-        
+
         /* (non-Javadoc)
          * @see javax.swing.Action#putValue(java.lang.String, java.lang.Object)
          */
@@ -480,32 +480,32 @@ public class ProgrammeJLabel extends JLabel {
      */
     static private javax.swing.JMenuItem mbtGoToWebSite;
 
-    
+
     static protected ProgrammePopupMenu getPopupMenu() {
-        
+
         if (popMenuProgramme != null) {
             return popMenuProgramme;
         }
-        
+
         popMenuProgramme = new ProgrammePopupMenu();
-        
+
         mbtGoToWebSite = new javax.swing.JMenuItem();
-        
+
         popMenuProgramme.addPopupMenuListener(
             new javax.swing.event.PopupMenuListener() {
                 public void popupMenuWillBecomeVisible( PopupMenuEvent evt ) {
                     popMenuProgrammePopupMenuWillBecomeVisible(
                         evt, favouriteAction );
                 }
-                    
+
                 public void popupMenuWillBecomeInvisible(PopupMenuEvent evt) {
                 }
-                    
+
                 public void popupMenuCanceled(PopupMenuEvent evt) {
                 }
             }
         );
-        
+
         selectAction = new ToggleAction(
             FreeGuide.msg.getString( "add_to_guide" ),
             FreeGuide.msg.getString( "remove_from_guide" )
@@ -519,7 +519,7 @@ public class ProgrammeJLabel extends JLabel {
             }
         };
         popMenuProgramme.add(selectAction);
-        
+
         favouriteAction = new ToggleAction(
             FreeGuide.msg.getString( "add_to_favourites" ),
             FreeGuide.msg.getString( "remove_from_favourites" )
@@ -530,7 +530,7 @@ public class ProgrammeJLabel extends JLabel {
             }
         };
         popMenuProgramme.add( favouriteAction );
-        
+
         mbtGoToWebSite.setText( FreeGuide.msg.getString( "go_to_web_site" ) );
         mbtGoToWebSite.addActionListener(
             new java.awt.event.ActionListener() {
@@ -542,7 +542,7 @@ public class ProgrammeJLabel extends JLabel {
 
         return popMenuProgramme;
     }
-        
+
     /**
      *  Event handler when the popup menu is going to be displayed
      *
@@ -553,21 +553,21 @@ public class ProgrammeJLabel extends JLabel {
         ToggleAction favouriteAction )
     {
         ProgrammeJLabel label = ( (ProgrammePopupMenu)evt.getSource() ).label;
-        
+
         selectAction.setToggle(    label.isInGuide );
         favouriteAction.setToggle( label.getModel().isFavourite() );
 
         int popMenuProgrammeSize = popMenuProgramme.getSubElements().length;
         URL link = label.getModel().getValue().getLink();
-        
+
         if( link != null && popMenuProgrammeSize < 3 ) {
             popMenuProgramme.add( mbtGoToWebSite );
         }
-        
+
         if( link == null && popMenuProgrammeSize > 2 ) {
             popMenuProgramme.remove( popMenuProgrammeSize-1 );
         }
-            
+
     }
 
     /**
@@ -581,16 +581,16 @@ public class ProgrammeJLabel extends JLabel {
 
         // Find out which ProgrammeJLabel was right-clicked, and call its
         // setFavourite method.
-        
+
         ProgrammeJLabel label =
             ( (ProgrammePopupMenu)(
                 (java.awt.Component)evt.getSource()
             ).getParent() ).label;
 
         label.setFavourite( !label.getModel().isFavourite() );
-        
+
     }
-    
+
     /**
      *  Event handler for when the Go to web site popup menu item is clicked
      *
@@ -601,12 +601,12 @@ public class ProgrammeJLabel extends JLabel {
     {
         Programme programme = ((ProgrammePopupMenu)((java.awt.Component)
             evt.getSource()).getParent()).label.getModel().getValue();
-        
+
         String[] cmds = Utils.substitute(
             FreeGuide.prefs.commandline.getStrings( "browser_command" ),
             "%filename%",
-            programme.getLink().toString().replace( "%", "%%" ) );
-            
+            programme.getLink().toString().replaceAll( "%", "%%" ) );
+
         Utils.execNoWait(cmds);
     }
 
