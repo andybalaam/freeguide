@@ -1,3 +1,4 @@
+
                             FreeGuide 0.4.3 Readme
 
 Contents
@@ -28,8 +29,7 @@ Introduction
    and Robotics (CCNR), University of Sussex, Falmer, Brighton, UK.
 
    FreeGuide uses the XMLTV format and parsers developed by the very
-   friendly people at XMLTV
-   (http://www.doc.ic.ac.uk/~epa98/work/apps/xmltv/ and
+   friendly people at XMLTV (http://membled.com/work/apps/xmltv/ and
    http://sourceforge.net/projects/xmltv). It also contains a little code
    by Slava Pestov from the JEdit project (www.jedit.org).
 

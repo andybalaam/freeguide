@@ -1,0 +1,63 @@
+
+                            FreeGuide INSTALL-linux
+
+   These are Linux installation instructions. For Windows installation
+   instructions see INSTALL-windows.html.
+
+Prerequisites
+
+   To use FreeGuide you need:
+     * The Java 2 Runtime Environment version 1.4 or above. You can check
+       this by typing java -version in a command-line window.
+     * The XMLTV package version 0.5 or above. This in turn needs Perl
+       (which almost everyone already has). XMLTV is a little tricky to
+       install as it has lots of prerequisites you need from CPAN.
+       Persevere with this, using the instructions in the README that
+       comes with XMLTV, and you'll get there in the end (Hint: some
+       versions need Sort::Versions as well as the prerequisites listed
+       on the site). Help is always available from
+       xmltv-devel@lists.sourceforge.net. Once you've got XMLTV
+       installed, the rest is easy.
+     * If the "tv_split" tool isn't included in the XMLTV distribution
+       you got, you need to download it from the FreeGuide download site
+       and put it in the same directory as the XMLTV tools (usually
+       /usr/bin/). Hopefully this will be included in the XMLTV
+       distribution soon. You may also need to do chmod a+x
+       /usr/bin/tv_split to make it executable.
+
+   After installing XMLTV, you need to configure it. Connect to the
+   Internet before doing this. UK people should type (at a command
+   prompt):
+
+   tv_grab_uk --configure
+
+   and US and Canadian people should type:
+
+   tv_grab_na --configure
+
+   Follow the instructions to configure your grabber.
+
+   Note for UK users: don't use the regional analogue TV settings.
+   Instead, say no to the various options and then at the end name each
+   channel you want individually. FreeGuide doesn't support the regional
+   way of working as it needs to know the name of each channel
+   explicitly.
+
+Installation
+
+   When XMLTV is installed and configured, download the
+   FreeGuide-Linux-xx-Install jar file for your region (UK for the UK or
+   NA for North America) and run it with java -jar
+   FreeGuide-Linux-xx-Install.jar. This will install FreeGuide in a
+   directory of your choice..
+
+   You can now run FreeGuide by typing:
+
+   cd ~/freeguide-tv (adapt if you installed it elsewhere)
+   java -jar FreeGuide.jar
+
+   If you've used the default options everywhere, it should just work.
+
+   See the README for info on how to use FreeGuide.
+
+   If you have any problems, contact us and we'll sort you out.
