@@ -10,7 +10,7 @@ prefs.7=commandline.browser_command.1=\"C:\\Program Files\\Internet Explorer\\ie
 prefs.8=commandline.tv_grab.1=\"%misc.xmltv_directory%\\xmltv.exe\" tv_grab_na --config-file \"%misc.grabber_config%\" --offset %offset% --days 1 --output \"%misc.working_directory%\\tv-%date%.xmltv\"
 prefs.9=misc.grabber_start_offset=0
 prefs.10=misc.grabber_start_time=00:00
-prefs.11=misc.grabber_start_today=1
+prefs.11=misc.grabber_start_today=Today
 
 file.1=FreeGuide.jar>%misc.install_directory%/FreeGuide.jar
 file.2=contributors.html>%misc.install_directory%/contributors.html

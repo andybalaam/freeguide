@@ -11,7 +11,7 @@ prefs.8=commandline.tv_grab.1=\"%misc.xmltv_directory%\\xmltv.exe\" tv_grab_uk -
 prefs.9=misc.share_directory=C:\\Perl
 prefs.10=misc.grabber_start_offset=1
 prefs.11=misc.grabber_start_time=06:00
-prefs.12=misc.grabber_start_today=1
+prefs.12=misc.grabber_start_today=Today
 
 file.1=FreeGuide.jar>%misc.install_directory%/FreeGuide.jar
 file.2=contributors.html>%misc.install_directory%/contributors.html
