@@ -138,6 +138,11 @@ c  means done by Christian Weiske
 - Add firefox to the possible browsers.
 - Double-clicks should move items in the channel set editor
 - Update the time panel every minute or so
+- Single reminder pop-up listing all your reminders, instead of lots of pop-ups
+- Automatically run "Choose channels" if config file does not exist, and take
+  it out of the First Time Wizard (Maybe add "Download listings now" to FTW?)
+- Channel names missing when viewing channel sets (Antony Akintewe's email of
+  Mar 24 2005)
 
 - Release 0.9.1 (accessibility, accessibility, accessibility)
 
