@@ -20,16 +20,21 @@ import javax.swing.JTextArea;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.parsers.SAXParser;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
 /**
  * The options screen in FreeGuide with tabs for Download Options,
  * View Options and Advanced Options.
  *
  * @author  Andy Balaam
- * @version 3
+ * @version 4
  */
-public class FreeGuideOptions extends javax.swing.JFrame {
+public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideSAXInterface {
 
-	/** Creates new form FreeGuideOptions */
     public FreeGuideOptions(FreeGuideLauncher newLauncher) {
 		
 		launcher = newLauncher;
@@ -129,6 +134,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		radDay.setPreferredSize(new java.awt.Dimension(116, 21));
 		radDay.setMaximumSize(new java.awt.Dimension(116, 21));
 		radDay.setMinimumSize(new java.awt.Dimension(116, 21));
+		radDay.setEnabled(false);
 		radDay.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				radDayActionPerformed(evt);
@@ -145,6 +151,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		radWeek.setPreferredSize(new java.awt.Dimension(116, 21));
 		radWeek.setMaximumSize(new java.awt.Dimension(116, 21));
 		radWeek.setMinimumSize(new java.awt.Dimension(116, 21));
+		radWeek.setEnabled(false);
 		radWeek.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				radWeekActionPerformed(evt);
@@ -158,6 +165,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		panDownload.add(radWeek, gridBagConstraints2);
 		
 		radAll.setText("All Available");
+		radAll.setEnabled(false);
 		radAll.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				radAllActionPerformed(evt);
@@ -187,6 +195,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		panDownload.add(jScrollPane3, gridBagConstraints2);
 		
 		butRefresh.setText("Refresh Channels List");
+		butRefresh.setEnabled(false);
 		butRefresh.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				butRefreshActionPerformed(evt);
@@ -210,15 +219,15 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		tabPane.addTab("Download", panDownload);
 		
 		panView.setLayout(new java.awt.GridBagLayout());
-		java.awt.GridBagConstraints gridBagConstraints9;
+		java.awt.GridBagConstraints gridBagConstraints3;
 		
 		labChannelHeight.setText("Channel height:");
-		gridBagConstraints9 = new java.awt.GridBagConstraints();
-		gridBagConstraints9.gridx = 0;
-		gridBagConstraints9.gridy = 1;
-		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints9.anchor = java.awt.GridBagConstraints.EAST;
-		panView.add(labChannelHeight, gridBagConstraints9);
+		gridBagConstraints3 = new java.awt.GridBagConstraints();
+		gridBagConstraints3.gridx = 0;
+		gridBagConstraints3.gridy = 1;
+		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints3.anchor = java.awt.GridBagConstraints.EAST;
+		panView.add(labChannelHeight, gridBagConstraints3);
 		
 		txtChannelHeight.setPreferredSize(new java.awt.Dimension(10000, 20));
 		txtChannelHeight.setMaximumSize(new java.awt.Dimension(10000, 20));
@@ -229,21 +238,21 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			}
 		});
 		
-		gridBagConstraints9 = new java.awt.GridBagConstraints();
-		gridBagConstraints9.gridx = 1;
-		gridBagConstraints9.gridy = 1;
-		gridBagConstraints9.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints9.weightx = 0.9;
-		panView.add(txtChannelHeight, gridBagConstraints9);
+		gridBagConstraints3 = new java.awt.GridBagConstraints();
+		gridBagConstraints3.gridx = 1;
+		gridBagConstraints3.gridy = 1;
+		gridBagConstraints3.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints3.weightx = 0.9;
+		panView.add(txtChannelHeight, gridBagConstraints3);
 		
 		labVerGap.setText("Ver. gap between channels:");
-		gridBagConstraints9 = new java.awt.GridBagConstraints();
-		gridBagConstraints9.gridx = 0;
-		gridBagConstraints9.gridy = 2;
-		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints9.anchor = java.awt.GridBagConstraints.EAST;
-		panView.add(labVerGap, gridBagConstraints9);
+		gridBagConstraints3 = new java.awt.GridBagConstraints();
+		gridBagConstraints3.gridx = 0;
+		gridBagConstraints3.gridy = 2;
+		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints3.anchor = java.awt.GridBagConstraints.EAST;
+		panView.add(labVerGap, gridBagConstraints3);
 		
 		txtVerGap.setPreferredSize(new java.awt.Dimension(10000, 20));
 		txtVerGap.setMaximumSize(new java.awt.Dimension(10000, 20));
@@ -254,21 +263,21 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			}
 		});
 		
-		gridBagConstraints9 = new java.awt.GridBagConstraints();
-		gridBagConstraints9.gridx = 1;
-		gridBagConstraints9.gridy = 2;
-		gridBagConstraints9.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints9.weightx = 0.9;
-		panView.add(txtVerGap, gridBagConstraints9);
+		gridBagConstraints3 = new java.awt.GridBagConstraints();
+		gridBagConstraints3.gridx = 1;
+		gridBagConstraints3.gridy = 2;
+		gridBagConstraints3.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints3.weightx = 0.9;
+		panView.add(txtVerGap, gridBagConstraints3);
 		
 		labHorGap.setText("Hor. gap betweeen programmes:");
-		gridBagConstraints9 = new java.awt.GridBagConstraints();
-		gridBagConstraints9.gridx = 0;
-		gridBagConstraints9.gridy = 3;
-		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints9.anchor = java.awt.GridBagConstraints.EAST;
-		panView.add(labHorGap, gridBagConstraints9);
+		gridBagConstraints3 = new java.awt.GridBagConstraints();
+		gridBagConstraints3.gridx = 0;
+		gridBagConstraints3.gridy = 3;
+		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints3.anchor = java.awt.GridBagConstraints.EAST;
+		panView.add(labHorGap, gridBagConstraints3);
 		
 		txtHorGap.setPreferredSize(new java.awt.Dimension(10000, 20));
 		txtHorGap.setMaximumSize(new java.awt.Dimension(10000, 20));
@@ -279,21 +288,21 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			}
 		});
 		
-		gridBagConstraints9 = new java.awt.GridBagConstraints();
-		gridBagConstraints9.gridx = 1;
-		gridBagConstraints9.gridy = 3;
-		gridBagConstraints9.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints9.weightx = 0.9;
-		panView.add(txtHorGap, gridBagConstraints9);
+		gridBagConstraints3 = new java.awt.GridBagConstraints();
+		gridBagConstraints3.gridx = 1;
+		gridBagConstraints3.gridy = 3;
+		gridBagConstraints3.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints3.weightx = 0.9;
+		panView.add(txtHorGap, gridBagConstraints3);
 		
 		labPanelWidth.setText("Width of full listings:");
-		gridBagConstraints9 = new java.awt.GridBagConstraints();
-		gridBagConstraints9.gridx = 0;
-		gridBagConstraints9.gridy = 4;
-		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints9.anchor = java.awt.GridBagConstraints.EAST;
-		panView.add(labPanelWidth, gridBagConstraints9);
+		gridBagConstraints3 = new java.awt.GridBagConstraints();
+		gridBagConstraints3.gridx = 0;
+		gridBagConstraints3.gridy = 4;
+		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints3.anchor = java.awt.GridBagConstraints.EAST;
+		panView.add(labPanelWidth, gridBagConstraints3);
 		
 		txtPanelWidth.setPreferredSize(new java.awt.Dimension(10000, 20));
 		txtPanelWidth.setMaximumSize(new java.awt.Dimension(10000, 20));
@@ -304,35 +313,35 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			}
 		});
 		
-		gridBagConstraints9 = new java.awt.GridBagConstraints();
-		gridBagConstraints9.gridx = 1;
-		gridBagConstraints9.gridy = 4;
-		gridBagConstraints9.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints9.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints9.weightx = 0.9;
-		panView.add(txtPanelWidth, gridBagConstraints9);
+		gridBagConstraints3 = new java.awt.GridBagConstraints();
+		gridBagConstraints3.gridx = 1;
+		gridBagConstraints3.gridy = 4;
+		gridBagConstraints3.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints3.weightx = 0.9;
+		panView.add(txtPanelWidth, gridBagConstraints3);
 		
 		labPixels.setText("(pixels)");
-		gridBagConstraints9 = new java.awt.GridBagConstraints();
-		gridBagConstraints9.gridx = 1;
-		gridBagConstraints9.gridy = 0;
-		panView.add(labPixels, gridBagConstraints9);
+		gridBagConstraints3 = new java.awt.GridBagConstraints();
+		gridBagConstraints3.gridx = 1;
+		gridBagConstraints3.gridy = 0;
+		panView.add(labPixels, gridBagConstraints3);
 		
 		tabPane.addTab("View", panView);
 		
 		panAdvanced.setLayout(new java.awt.GridBagLayout());
-		java.awt.GridBagConstraints gridBagConstraints8;
+		java.awt.GridBagConstraints gridBagConstraints4;
 		
 		panAdvanced.setPreferredSize(new java.awt.Dimension(100, 20));
 		panAdvanced.setMinimumSize(new java.awt.Dimension(100, 20));
 		panAdvanced.setMaximumSize(new java.awt.Dimension(100, 20));
 		labDLCmdLine.setText("Downloading command line:");
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 0;
-		gridBagConstraints8.gridy = 0;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.anchor = java.awt.GridBagConstraints.NORTHEAST;
-		panAdvanced.add(labDLCmdLine, gridBagConstraints8);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 0;
+		gridBagConstraints4.gridy = 0;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.anchor = java.awt.GridBagConstraints.NORTHEAST;
+		panAdvanced.add(labDLCmdLine, gridBagConstraints4);
 		
 		txaDLCmdLine.setRows(3);
 		txaDLCmdLine.setPreferredSize(new java.awt.Dimension(5000, 39));
@@ -346,13 +355,14 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		
 		jScrollPane1.setViewportView(txaDLCmdLine);
 		
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.weightx = 0.9;
-		gridBagConstraints8.weighty = 0.1;
-		panAdvanced.add(jScrollPane1, gridBagConstraints8);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.fill = java.awt.GridBagConstraints.BOTH;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.weightx = 0.9;
+		gridBagConstraints4.weighty = 0.1;
+		panAdvanced.add(jScrollPane1, gridBagConstraints4);
 		
+		jScrollPane2.setEnabled(false);
 		txaChCmdLine.setRows(3);
 		txaChCmdLine.setPreferredSize(new java.awt.Dimension(5000, 39));
 		txaChCmdLine.setMaximumSize(new java.awt.Dimension(5000, 200));
@@ -365,23 +375,25 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		
 		jScrollPane2.setViewportView(txaChCmdLine);
 		
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 1;
-		gridBagConstraints8.gridy = 1;
-		gridBagConstraints8.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.weightx = 0.9;
-		gridBagConstraints8.weighty = 0.1;
-		panAdvanced.add(jScrollPane2, gridBagConstraints8);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 1;
+		gridBagConstraints4.gridy = 1;
+		gridBagConstraints4.fill = java.awt.GridBagConstraints.BOTH;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.weightx = 0.9;
+		gridBagConstraints4.weighty = 0.1;
+		panAdvanced.add(jScrollPane2, gridBagConstraints4);
 		
 		labProgHTML.setText("Programme HTML:");
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 0;
-		gridBagConstraints8.gridy = 2;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.anchor = java.awt.GridBagConstraints.NORTHEAST;
-		panAdvanced.add(labProgHTML, gridBagConstraints8);
+		labProgHTML.setEnabled(false);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 0;
+		gridBagConstraints4.gridy = 2;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.anchor = java.awt.GridBagConstraints.NORTHEAST;
+		panAdvanced.add(labProgHTML, gridBagConstraints4);
 		
+		jScrollPane4.setEnabled(false);
 		texProgHTML.setRows(3);
 		texProgHTML.setPreferredSize(new java.awt.Dimension(5000, 39));
 		texProgHTML.setMaximumSize(new java.awt.Dimension(5000, 200));
@@ -389,22 +401,22 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		texProgHTML.setEnabled(false);
 		jScrollPane4.setViewportView(texProgHTML);
 		
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 1;
-		gridBagConstraints8.gridy = 2;
-		gridBagConstraints8.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.weightx = 0.9;
-		gridBagConstraints8.weighty = 0.1;
-		panAdvanced.add(jScrollPane4, gridBagConstraints8);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 1;
+		gridBagConstraints4.gridy = 2;
+		gridBagConstraints4.fill = java.awt.GridBagConstraints.BOTH;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.weightx = 0.9;
+		gridBagConstraints4.weighty = 0.1;
+		panAdvanced.add(jScrollPane4, gridBagConstraints4);
 		
 		labChFile.setText("Channels file name:");
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 0;
-		gridBagConstraints8.gridy = 3;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.anchor = java.awt.GridBagConstraints.EAST;
-		panAdvanced.add(labChFile, gridBagConstraints8);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 0;
+		gridBagConstraints4.gridy = 3;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.anchor = java.awt.GridBagConstraints.EAST;
+		panAdvanced.add(labChFile, gridBagConstraints4);
 		
 		txtChFile.setPreferredSize(new java.awt.Dimension(10000, 20));
 		txtChFile.setMaximumSize(new java.awt.Dimension(10000, 20));
@@ -415,21 +427,21 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			}
 		});
 		
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 1;
-		gridBagConstraints8.gridy = 3;
-		gridBagConstraints8.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.weightx = 0.9;
-		panAdvanced.add(txtChFile, gridBagConstraints8);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 1;
+		gridBagConstraints4.gridy = 3;
+		gridBagConstraints4.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.weightx = 0.9;
+		panAdvanced.add(txtChFile, gridBagConstraints4);
 		
-		labFGHomeDir.setText("FreeGuide home directory:");
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 0;
-		gridBagConstraints8.gridy = 4;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.anchor = java.awt.GridBagConstraints.EAST;
-		panAdvanced.add(labFGHomeDir, gridBagConstraints8);
+		labFGHomeDir.setText("Working directory:");
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 0;
+		gridBagConstraints4.gridy = 4;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.anchor = java.awt.GridBagConstraints.EAST;
+		panAdvanced.add(labFGHomeDir, gridBagConstraints4);
 		
 		txtFGHomeDir.setPreferredSize(new java.awt.Dimension(10000, 20));
 		txtFGHomeDir.setMaximumSize(new java.awt.Dimension(10000, 20));
@@ -440,21 +452,21 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			}
 		});
 		
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 1;
-		gridBagConstraints8.gridy = 4;
-		gridBagConstraints8.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.weightx = 0.9;
-		panAdvanced.add(txtFGHomeDir, gridBagConstraints8);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 1;
+		gridBagConstraints4.gridy = 4;
+		gridBagConstraints4.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.weightx = 0.9;
+		panAdvanced.add(txtFGHomeDir, gridBagConstraints4);
 		
 		labLogFile.setText("Log file:");
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 0;
-		gridBagConstraints8.gridy = 5;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.anchor = java.awt.GridBagConstraints.EAST;
-		panAdvanced.add(labLogFile, gridBagConstraints8);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 0;
+		gridBagConstraints4.gridy = 5;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.anchor = java.awt.GridBagConstraints.EAST;
+		panAdvanced.add(labLogFile, gridBagConstraints4);
 		
 		txtLogFile.setPreferredSize(new java.awt.Dimension(10000, 20));
 		txtLogFile.setMaximumSize(new java.awt.Dimension(10000, 20));
@@ -465,21 +477,21 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			}
 		});
 		
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 1;
-		gridBagConstraints8.gridy = 5;
-		gridBagConstraints8.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.weightx = 0.9;
-		panAdvanced.add(txtLogFile, gridBagConstraints8);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 1;
+		gridBagConstraints4.gridy = 5;
+		gridBagConstraints4.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.weightx = 0.9;
+		panAdvanced.add(txtLogFile, gridBagConstraints4);
 		
 		labBrowserCmdLine.setText("Browser command:");
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 0;
-		gridBagConstraints8.gridy = 6;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.anchor = java.awt.GridBagConstraints.EAST;
-		panAdvanced.add(labBrowserCmdLine, gridBagConstraints8);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 0;
+		gridBagConstraints4.gridy = 6;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.anchor = java.awt.GridBagConstraints.EAST;
+		panAdvanced.add(labBrowserCmdLine, gridBagConstraints4);
 		
 		txtBrowserCmdLine.setPreferredSize(new java.awt.Dimension(10000, 20));
 		txtBrowserCmdLine.setMaximumSize(new java.awt.Dimension(10000, 20));
@@ -490,21 +502,21 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			}
 		});
 		
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 1;
-		gridBagConstraints8.gridy = 6;
-		gridBagConstraints8.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.weightx = 0.9;
-		panAdvanced.add(txtBrowserCmdLine, gridBagConstraints8);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 1;
+		gridBagConstraints4.gridy = 6;
+		gridBagConstraints4.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.weightx = 0.9;
+		panAdvanced.add(txtBrowserCmdLine, gridBagConstraints4);
 		
 		labCSSFile.setText("CSS File:");
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 0;
-		gridBagConstraints8.gridy = 7;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.anchor = java.awt.GridBagConstraints.EAST;
-		panAdvanced.add(labCSSFile, gridBagConstraints8);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 0;
+		gridBagConstraints4.gridy = 7;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.anchor = java.awt.GridBagConstraints.EAST;
+		panAdvanced.add(labCSSFile, gridBagConstraints4);
 		
 		txtCSSFile.setPreferredSize(new java.awt.Dimension(10000, 20));
 		txtCSSFile.setMaximumSize(new java.awt.Dimension(10000, 20));
@@ -515,46 +527,49 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			}
 		});
 		
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 1;
-		gridBagConstraints8.gridy = 7;
-		gridBagConstraints8.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.weightx = 0.9;
-		panAdvanced.add(txtCSSFile, gridBagConstraints8);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 1;
+		gridBagConstraints4.gridy = 7;
+		gridBagConstraints4.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.weightx = 0.9;
+		panAdvanced.add(txtCSSFile, gridBagConstraints4);
 		
 		labMaxFilenameLength.setText("Max. filename length:");
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 0;
-		gridBagConstraints8.gridy = 8;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.anchor = java.awt.GridBagConstraints.EAST;
-		panAdvanced.add(labMaxFilenameLength, gridBagConstraints8);
+		labMaxFilenameLength.setEnabled(false);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 0;
+		gridBagConstraints4.gridy = 8;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.anchor = java.awt.GridBagConstraints.EAST;
+		panAdvanced.add(labMaxFilenameLength, gridBagConstraints4);
 		
 		txtMaxFilenameLength.setPreferredSize(new java.awt.Dimension(10000, 20));
 		txtMaxFilenameLength.setMaximumSize(new java.awt.Dimension(10000, 20));
 		txtMaxFilenameLength.setMinimumSize(new java.awt.Dimension(200, 20));
+		txtMaxFilenameLength.setEnabled(false);
 		txtMaxFilenameLength.addFocusListener(new java.awt.event.FocusAdapter() {
 			public void focusLost(java.awt.event.FocusEvent evt) {
 				txtMaxFilenameLengthFocusLost(evt);
 			}
 		});
 		
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 1;
-		gridBagConstraints8.gridy = 8;
-		gridBagConstraints8.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.weightx = 0.9;
-		panAdvanced.add(txtMaxFilenameLength, gridBagConstraints8);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 1;
+		gridBagConstraints4.gridy = 8;
+		gridBagConstraints4.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.weightx = 0.9;
+		panAdvanced.add(txtMaxFilenameLength, gridBagConstraints4);
 		
 		labChCmdLine.setText("Channels command line:");
-		gridBagConstraints8 = new java.awt.GridBagConstraints();
-		gridBagConstraints8.gridx = 0;
-		gridBagConstraints8.gridy = 1;
-		gridBagConstraints8.insets = new java.awt.Insets(5, 5, 5, 5);
-		gridBagConstraints8.anchor = java.awt.GridBagConstraints.NORTHEAST;
-		panAdvanced.add(labChCmdLine, gridBagConstraints8);
+		labChCmdLine.setEnabled(false);
+		gridBagConstraints4 = new java.awt.GridBagConstraints();
+		gridBagConstraints4.gridx = 0;
+		gridBagConstraints4.gridy = 1;
+		gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints4.anchor = java.awt.GridBagConstraints.NORTHEAST;
+		panAdvanced.add(labChCmdLine, gridBagConstraints4);
 		
 		tabPane.addTab("Advanced", panAdvanced);
 		
@@ -638,19 +653,19 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 
 	private void radDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radDayActionPerformed
 		
-		FreeGuide.config.setValue("downloadAmount", "Day");
+		//FreeGuide.config.setValue("downloadAmount", "Day");
 		
 	}//GEN-LAST:event_radDayActionPerformed
 
 	private void radAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radAllActionPerformed
 		
-		FreeGuide.config.setValue("downloadAmount", "All");
+		//FreeGuide.config.setValue("downloadAmount", "All");
 		
 	}//GEN-LAST:event_radAllActionPerformed
 
 	private void radWeekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radWeekActionPerformed
 		
-		FreeGuide.config.setValue("downloadAmount", "Week");
+		//FreeGuide.config.setValue("downloadAmount", "Week");
 		
 	}//GEN-LAST:event_radWeekActionPerformed
 
@@ -662,7 +677,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 
 	private void txtFGHomeDirFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFGHomeDirFocusLost
 		
-		FreeGuide.config.setValue("freeguideDir", txtFGHomeDir.getText());
+		FreeGuide.config.setValue("workingDirectory", txtFGHomeDir.getText());
 		
 	}//GEN-LAST:event_txtFGHomeDirFocusLost
 
@@ -674,13 +689,13 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 
 	private void txaChCmdLineFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaChCmdLineFocusLost
 		
-		FreeGuide.config.setListValue("channelsCommandLine", getVectorFromJTextArea(txaChCmdLine));
+		//FreeGuide.config.setListValue("channelsCommandLine", getVectorFromJTextArea(txaChCmdLine));
 		
 	}//GEN-LAST:event_txaChCmdLineFocusLost
 
 	private void txaDLCmdLineFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDLCmdLineFocusLost
 		
-		FreeGuide.config.setListValue("downloadCommandLine", getVectorFromJTextArea(txaDLCmdLine));
+		FreeGuide.config.setListValue("commandLine", getVectorFromJTextArea(txaDLCmdLine));
 		
 	}//GEN-LAST:event_txaDLCmdLineFocusLost
 
@@ -692,7 +707,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 
 	private void butRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRefreshActionPerformed
 
-		downloadChannels();
+		//downloadChannels();
 		
 	}//GEN-LAST:event_butRefreshActionPerformed
 
@@ -744,8 +759,8 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 	 */
 	private void checkConfigFile() {
 		
-		// Use the freeguideDir as an indicator that all is set up
-		if(FreeGuide.config.getValue("freeguideDir")==null) {
+		// Use the workingDirectory as an indicator that all is set up
+		if(FreeGuide.config.getValue("workingDirectory", true)==null) {
 			
 			JOptionPane.showMessageDialog(this, 
 			"Your configuration file has not yet been set up.\n"
@@ -767,7 +782,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		String lineBreak = System.getProperty("line.separator");
 		
 		// Do the download command line
-		Vector tmp = FreeGuide.config.getListValue("downloadCommandLine");
+		Vector tmp = FreeGuide.config.getListValue("commandLine", true);
 		
 		if(tmp!=null) {
 		
@@ -778,23 +793,23 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		}
 		
 		// Do the channels command line
-		tmp = FreeGuide.config.getListValue("channelsCommandLine");
+//		tmp = FreeGuide.config.getListValue("channelsCommandLine", true);
 		
-		if(tmp!=null) {
+//		if(tmp!=null) {
 		
-			for(int i=0;i<tmp.size();i++) {
-				txaChCmdLine.append((String)tmp.get(i)+lineBreak);
-			}
+//			for(int i=0;i<tmp.size();i++) {
+//				txaChCmdLine.append((String)tmp.get(i)+lineBreak);
+//			}
 			
-		}
+//		}
 		
 		// Do the channels file, FreeGuide home directory and log boxes, etc
-		txtChFile.setText(FreeGuide.config.getValue("channelsFile"));
-		txtFGHomeDir.setText(FreeGuide.config.getValue("freeguideDir"));
-		txtLogFile.setText(FreeGuide.config.getValue("logFile"));
-		txtBrowserCmdLine.setText(FreeGuide.config.getValue("browserCommandLine"));
-		txtCSSFile.setText(FreeGuide.config.getValue("cssFile"));
-		txtMaxFilenameLength.setText(FreeGuide.config.getValue("maxFilenameLength"));
+		txtChFile.setText(FreeGuide.config.getValue("channelsFile", true));
+		txtFGHomeDir.setText(FreeGuide.config.getValue("workingDirectory", true));
+		txtLogFile.setText(FreeGuide.config.getValue("logFile", true));
+		txtBrowserCmdLine.setText(FreeGuide.config.getValue("browserCommandLine", true));
+		txtCSSFile.setText(FreeGuide.config.getValue("cssFile", true));
+		txtMaxFilenameLength.setText(FreeGuide.config.getValue("maxFilenameLength", true));
 		
 	}//showAdvanced
 	
@@ -803,10 +818,10 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 	 */
 	private void showView() {
 		
-		txtChannelHeight.setText(FreeGuide.config.getValue("channelHeight"));
-		txtVerGap.setText(FreeGuide.config.getValue("verticalGap"));
-		txtHorGap.setText(FreeGuide.config.getValue("horizontalGap"));
-		txtPanelWidth.setText(FreeGuide.config.getValue("panelWidth"));
+		txtChannelHeight.setText(FreeGuide.config.getValue("channelHeight", true));
+		txtVerGap.setText(FreeGuide.config.getValue("verticalGap", true));
+		txtHorGap.setText(FreeGuide.config.getValue("horizontalGap", true));
+		txtPanelWidth.setText(FreeGuide.config.getValue("panelWidth", true));
 		
 	}//showView
 	
@@ -825,7 +840,29 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		
 			if(channelsFile.exists()) {
 				
-				try {//IOException
+				channelNames = new Vector();
+				channelIDs = new Vector();
+				
+				try {//ParserExceptions etc
+	    
+					DefaultHandler handler = new FreeGuideSAXHandler(this);
+					SAXParserFactory factory = SAXParserFactory.newInstance();
+					
+					SAXParser saxParser = factory.newSAXParser();
+		
+					saxParser.parse(channelsFile, handler);
+	    
+				} catch(ParserConfigurationException e) {
+					e.printStackTrace();
+				} catch(SAXException e) {
+					e.printStackTrace();
+				} catch(IOException e) {
+					e.printStackTrace();
+				}//try
+				
+				tmpChannels.addAll(channelNames);
+				
+				/*try {//IOException
 		
 					BufferedReader buffy = new BufferedReader(new FileReader(channelsFile));
 
@@ -851,38 +888,40 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			
 					e.printStackTrace();
 			
-				}//try
+				}//try*/
 				
 			}//if
 
-			Collections.sort(tmpChannels);
-		
-			for(int i=0;i<tmpChannels.size();i++) {
-				channels.addElement(tmpChannels.get(i));
-			}
-		
-			Vector tmpSelChans = FreeGuide.config.getListValue("channels");
-		
-			if(tmpSelChans!=null) {
+			if(tmpChannels.size()>0) {
 			
-				int[] tmpSelInts = new int[tmpSelChans.size()];
+				Collections.sort(tmpChannels);
 		
-				for(int i=0;i<tmpSelInts.length;i++) {
-			
-					tmpSelInts[i] = tmpChannels.indexOf(tmpSelChans.get(i));
-			
-				}//for
+				for(int i=0;i<tmpChannels.size();i++) {
+					channels.addElement(tmpChannels.get(i));
+				}
 		
-				lisChannels.setSelectedIndices(tmpSelInts);
+				Vector tmpSelChans = FreeGuide.config.getListValue("channels", true);
+		
+				if(tmpSelChans!=null) {
+			
+					int[] tmpSelInts = new int[tmpSelChans.size()];
+		
+					for(int i=0;i<tmpSelInts.length;i++) {
+			
+						tmpSelInts[i] = tmpChannels.indexOf(channelNames.get(channelIDs.indexOf(tmpSelChans.get(i))));
+			
+					}//for
+		
+					lisChannels.setSelectedIndices(tmpSelInts);
 				
-			}
-			
+				}//if
+			}//if
 		}//if
 		
 		//---------------
 		
 		// Do the download amount radio buttons
-		String tmpDLAmt = FreeGuide.config.getValue("downloadAmount");
+		/*String tmpDLAmt = FreeGuide.config.getValue("downloadAmount", true);
 		
 		if(tmpDLAmt==null || tmpDLAmt.equals("All")) {
 			grpDLAmount.setSelected(radAll.getModel(), true);
@@ -890,20 +929,20 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			grpDLAmount.setSelected(radWeek.getModel(), true);
 		} else {
 			grpDLAmount.setSelected(radDay.getModel(), true);
-		}
+		}*/
 
 	}//showDownload
 
 	/**
 	 * Download the list of channels from the web.
 	 */
-	private void downloadChannels() {
+	/*private void downloadChannels() {
 		
 		// Get the name of the channels file
 		String channelsFile = FreeGuide.config.getValue("channelsFile");
 		
 		// Get the commands to download the channels file
-		Vector channelCmds = FreeGuide.config.getListValue("channelsCommandLine");
+		Vector channelCmds = FreeGuide.config.getListValue("channelsCommandLine", true);
 		
 		// Execute the commands to download channels list
 		for(int i=0;i<channelCmds.size();i++) {
@@ -913,8 +952,9 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		}
 		
 		showDownload();
+		 
 		
-	}
+	}*/
 	
 	/** 
 	 * Puts each line of a JTestArea into a vector.
@@ -965,7 +1005,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 	}//getVectorFromJTextArea
 	
 	/** 
-	 * Puts each selected line of a JList into a vector.
+	 * Puts each selected channel into a vector, using its ID.
 	 *
 	 * @param list the list to process
 	 * @return     the Vector composed of individual Strings for each 
@@ -982,7 +1022,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		
 		for(int i=0;i<selectedItems.length;i++) {
 			
-			ans.add(selectedItems[i]);
+			ans.add(channelIDs.get(channelNames.indexOf(selectedItems[i])));
 			
 		}
 		
@@ -1009,6 +1049,65 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		dispose();
 		
 	}
+	
+	//----------------------------------------------------------------------
+	// SAX Interface
+	
+	public void startDocument() {  
+		saxLoc = new String();
+	}//startDocument
+    
+    public void endDocument() {
+		saxLoc=null;
+    }//endDocument
+    
+    public void startElement(String name, org.xml.sax.Attributes attrs) {
+		saxLoc+=":"+name;
+	
+		if(saxLoc.equals(":tv:channel")) {
+	    
+			String id = attrs.getValue("id");
+			
+			//FreeGuide.log.writeLine(id);
+			
+			channelIDs.add(id);
+			
+		}//if
+		
+    }//startElement
+    
+    public void endElement(String name) {
+	
+		if(saxLoc.endsWith(name)) {
+	    
+			saxLoc=saxLoc.substring(0, saxLoc.length()-(name.length()+1));
+	    
+		} else {
+			parseError();
+		}//if
+	
+    }//endElement
+    
+    public void characters(String data) {
+	
+		if(saxLoc.equals(":tv:channel:display-name")) {
+			
+			//FreeGuide.log.writeLine(data);
+			
+			if(channelNames.size()<channelIDs.size()){
+				channelNames.add(channelIDs.size()-1, data);
+			}
+	    
+		}//if
+	
+    }//characters
+	
+	private void parseError() {
+		FreeGuide.log.writeLine("FreeGuideOptions - Error parsing XML.");
+		System.exit(1);
+    }//parseError
+	
+	//----------------------------------------------------------------------
 	
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.ButtonGroup grpDLAmount;
@@ -1062,6 +1161,11 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 
 	DefaultListModel channels;
 		// The ListModel holding the names of channels in the listbox
+
+	Vector channelNames;	// The channel names
+	Vector channelIDs;		// The technical names of the channels
+	
+	private String saxLoc;  // Holds our current pos in the XML hierarchy
 	
 	private FreeGuideLauncher launcher;	// The screen that launched this one
 	

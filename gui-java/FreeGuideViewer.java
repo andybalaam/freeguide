@@ -25,9 +25,9 @@ import org.xml.sax.helpers.DefaultHandler;
  * A form that displays and prints TV listings.
  *
  * @author  Andy Balaam
- * @version 6
+ * @version 7
  */
-public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLauncher {
+public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLauncher, FreeGuideSAXInterface {
 
     public FreeGuideViewer(FreeGuideLauncher newLauncher) {
 		
@@ -518,15 +518,15 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 			channels[curChan] = new FreeGuideChannelDay(channelNames[curChan]);
         
-			freeGuideHomeDir = FreeGuide.config.getValue("freeguideDir");
+			String wkDir = FreeGuide.config.getValue("workingDirectory");
 	
 			SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
 			String datestr = fmt.format(theDate);
 	
 			// Find what the filename ought to be		
-			String tmp = channelNames[curChan].toLowerCase().replace(' ', '_');
-			tmp = FreeGuide.makeRightFilenameLength(tmp);
-			String xmlFilename = freeGuideHomeDir+"data/"+tmp+"-"+datestr+".fgd";
+			//String tmp = channelNames[curChan].toLowerCase().replace(' ', '_');
+			//tmp = FreeGuide.makeRightFilenameLength(tmp);
+			String xmlFilename = wkDir+"data/"+channelNames[curChan]+"-"+datestr+".fgd";
 	    
 			if((new File(xmlFilename).exists())) {	// If the file exists
 				
@@ -538,6 +538,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	    
 					DefaultHandler handler = new FreeGuideSAXHandler(this);
 					SAXParserFactory factory = SAXParserFactory.newInstance();
+					
 					SAXParser saxParser = factory.newSAXParser();
 		
 					// Will be a different name for each channel and whatever
@@ -556,6 +557,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 				
 				// Do nothing because no file exists
 	    
+				FreeGuide.log.writeLine("Listings file not found: "+xmlFilename);
+				
 			}//if
 			
 		}//for
@@ -940,7 +943,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 		if(onScreen) {ans+="<font face='helvetica, helv, arial, sans serif' size=1>";}
 		
-		ans+="FreeGuide Copyright &copy;2001 by Andy Balaam<br>Free software released under the GNU Public Licence<br>http://www.sourceforge.net/projects/freeguide-tv/<br>freeguide@artificialworlds.net";
+		ans+="FreeGuide Copyright &copy;2001 by Andy Balaam<br>Free software released under the GNU General Public Licence<br>http://freeguide-tv.sourceforge.net<br>freeguide@artificialworlds.net";
 		
 		if(onScreen) {ans+="</font>";}
 		
@@ -970,14 +973,18 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	    
 			String start = attrs.getValue("start");
 	    
-			if(attrs.getIndex("end")!=-1) {
+			//FreeGuide.log.writeLine(start);
+			
+			if(attrs.getIndex("stop")!=-1) {
 
-			String end = attrs.getValue("end");
-			channels[curChan].addProgramme(start, end);
+				String end = attrs.getValue("stop");
+				channels[curChan].addProgramme(start, end);
+				
+				//FreeGuide.log.writeLine(end);
 		
 			} else {
 
-			channels[curChan].addProgramme(start);
+				channels[curChan].addProgramme(start);
 
 			}//if
 	    
@@ -1055,7 +1062,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	}//getTickedProgrammes
 	
     private void parseError() {
-		FreeGuide.log.writeLine("FreeGuide - Error parsing XML.");
+		FreeGuide.log.writeLine("FreeGuideViewer - Error parsing XML.");
 		System.exit(1);
     }//parseError
 
@@ -1113,7 +1120,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private Vector txts;	// Stores references to all the textareas shown
     private Vector progRefs;	// The programmes to which each checkbox refers
     
-    private static String freeGuideHomeDir;	// The home dir/root path of this prog
+    //private static String wkDir;	// The home dir/root path of this prog
     
 	private FreeGuideLauncher launcher;	// The screen that launched this one
 	

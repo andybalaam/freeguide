@@ -1,0 +1,29 @@
+XMLTV 0.4
+
+Suite of programs for processing TV listings and organizing your
+viewing.
+
+You can grab TV listings for the USA, Canada and the UK.  They are
+stored in an XML format.  Then you can sort them, filter them and
+print them out.  There is a CGI script to help automate choosing what
+to watch, and a program to track schedule changes and notify when a
+programme isn't in its usual timeslot.
+
+This release has changes to the file format: now there is a single XML
+document containing both channels and programmes.  It has bugfixes and
+enhancements to the two listings-grabbers and the addition of the
+tvcheck script.
+
+There is a known bug in getlistings_na where sometimes the data
+grabbed for some channels (particularly programme stop times) can be
+wrong.  This doesn't happen most of the time.
+
+For documentation, see the web page at
+<http://www.doc.ic.ac.uk/~epa98/work/apps/xmltv/>.
+
+This is free software distributed under the GPL, see COPYING.  But if
+you would like to use the code under some other conditions, please do
+ask.  Most of the code is by Ed Avis, Jerry Veldhuis and Gottfried Szing.
+
+-- Ed Avis, epa98@doc.ic.ac.uk, 2001-12-28
+$Id$

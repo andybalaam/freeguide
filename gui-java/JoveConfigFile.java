@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  * Provides a standard interface to an application's configuration file.
  *
  * @author  Andy Balaam
- * @version 2
+ * @version 3
  */
 public class JoveConfigFile {
 
@@ -294,12 +294,18 @@ public class JoveConfigFile {
 	 * Gets a value from this config file referenced by its name.
 	 *
 	 * @param name  the String name of the property required
+	 * @param literal whether to get literal value (without substitutions)
 	 * @returns     the value of the requested property or the empty string
 	 *              when the property doesn't exist or it's a vector
 	 *              property.  A warning is printed to stdout in the latter 
 	 *              case.
 	 */
+	
 	public String getValue(String name) {
+		return getValue(name, false);
+	}
+	
+	public String getValue(String name, boolean literal) {
 		
 		// Find the requested value
 		int i = names.indexOf(name);
@@ -311,8 +317,18 @@ public class JoveConfigFile {
 			// If it's a simple string value
 			if(obj instanceof String) {
 				
-				// Just pass it back
-				return (String)obj;
+				String ans = (String)obj;
+				
+				if(!literal) {
+				
+					// Substitute any variables
+					ans = stringSubstitutions(ans);
+					ans = vectorSubstitutions(ans);
+					
+				}
+				
+				// Pass back the value of the config entry
+				return ans;
 				
 			} else {	// Otherwise it must be a vector
 				
@@ -343,6 +359,9 @@ public class JoveConfigFile {
 	 *              in the latter case.
 	 */
 	public Vector getListValue(String name) {
+		return getListValue(name, false);
+	}
+	public Vector getListValue(String name, boolean literal) {
 		
 		// Find the requested value
 		int i = names.indexOf(name);
@@ -363,8 +382,20 @@ public class JoveConfigFile {
 				
 			} else {	// Otherwise it must be a vector
 					
-				// Return it
-				return (Vector)obj;
+				// Return it after substitutions
+				Vector vobj =  (Vector)obj;
+				
+				if(!literal) {
+				
+					for(int j=0;j<vobj.size();j++) {	
+						// Substitute any variables
+						vobj.set(j, stringSubstitutions((String)vobj.get(j)));
+						vobj.set(j, vectorSubstitutions((String)vobj.get(j)));
+					
+					}
+				}
+			
+				return vobj;
 				
 			}//if
 			
@@ -557,6 +588,96 @@ public class JoveConfigFile {
 	
 	//------------------------------------------------------------------------
 
+	/*
+	 * Replace any $$xxx$$ entries with the value of the variable named xxx.
+	 *
+	 * @param input the string to be transformed
+	 * @returns the transformed string with all $$..$$ strings replaced
+	 */
+	String stringSubstitutions(String input){
+	
+		String ans = input;
+		
+		int j = ans.indexOf("$$");
+		while(j>-1){	// If there is a substitution to do
+					
+			// Find the end of it
+			int k = ans.indexOf("$$", j+1);
+					
+			// If it is malformed, exit
+			if(k==-1){
+				break;
+			}
+					
+			// Find the name of the variable
+			String presub = ans.substring(j+2, k);
+					
+			// This is where the value of that variable will go
+			String postsub;
+					
+			// Check for any predefined variable names
+			//if(presub.equals("freeguideDirectory")){
+				//postsub = System.getenv(name
+			//	postsub = System.getProperty("user.dir");
+			//} else {	// Otherwise get a config file entry
+				
+			//}
+			
+			postsub = this.getValue(presub);
+			
+			// Replace the variable name with its value
+			ans = ans.substring(0,j) + postsub + ans.substring(k+2, ans.length());
+			
+			j = ans.indexOf("$$");
+		}//while
+		
+		return ans;
+	}
+	
+	/*
+	 * Replace any %%xxx%% entries with the values of the list variable 
+	 * named xxx.
+	 *
+	 * @param input the string to be transformed
+	 * @returns the transformed string with all %%..%% strings replaced by a
+	 *          space-separated list
+	 */
+	String vectorSubstitutions(String input){
+	
+		String ans = input;
+		
+		int j = ans.indexOf("%%");
+		while(j>-1){	// If there is a substitution to do
+					
+			// Find the end of it
+			int k = ans.indexOf("%%", j+1);
+					
+			// If it is malformed, exit
+			if(k==-1){
+				break;
+			}
+					
+			// Find the name of the variable
+			String presub = ans.substring(j+2, k);
+					
+			// This is where the value of that variable will go
+			String postsub="";
+					
+			Vector tmpList = this.getListValue(presub);
+			
+			for(int i=0;i<tmpList.size();i++){
+				postsub += tmpList.get(i)+" ";
+			}
+					
+			// Replace the variable name with its value
+			ans = ans.substring(0,j) + postsub + ans.substring(k+2, ans.length());
+			
+			j = ans.indexOf("$$");
+		}//while
+		
+		return ans;
+	}
+	
 	private Vector names;	// The names of each config entry
 	private Vector values;	// The values of each entry
 	private String path;	// The path where the config file is to be found

@@ -17,31 +17,34 @@ import javax.xml.parsers.SAXParser;
 
 public class FreeGuideSAXHandler extends DefaultHandler {
 
-    public FreeGuideSAXHandler(FreeGuideViewer freeGuide) {
-	// Remember who called us
-	this.freeGuide=freeGuide;
+    public FreeGuideSAXHandler(FreeGuideSAXInterface fgSAXInterface) {
+		// Remember who called us
+		this.fgSAXInterface=fgSAXInterface;
     }
     
-    public void startDocument() throws SAXException {
-	freeGuide.startDocument();
+	public void startDocument() {// throws SAXException
+		fgSAXInterface.startDocument();
     }
 
-    public void endDocument() throws SAXException {
-	freeGuide.endDocument();
+	public void endDocument() { //throws SAXException
+		fgSAXInterface.endDocument();
     }
 
-    public void startElement(String namespaceURI, String sName, String qName, Attributes attrs) throws SAXException {
-        freeGuide.startElement(qName, attrs);
+    public void startElement(String namespaceURI, String sName, String qName, Attributes attrs) {//throws SAXException {
+		//FreeGuide.log.writeLine(qName);
+        fgSAXInterface.startElement(qName, attrs);
     }
 
-    public void endElement(String namespaceURI, String sName, String qName) throws SAXException {
-	freeGuide.endElement(qName);
+    public void endElement(String namespaceURI, String sName, String qName) {// throws SAXException
+		//FreeGuide.log.writeLine("/"+qName);
+		fgSAXInterface.endElement(qName);
     }
 
-    public void characters(char[] ch, int start, int length) throws SAXException {
-	freeGuide.characters(new String(ch, start, length));
+    public void characters(char[] ch, int start, int length) {//throws SAXException
+		//FreeGuide.log.writeLine(" "+new String(ch, start, length));
+		fgSAXInterface.characters(new String(ch, start, length));
     }
 
-    private FreeGuideViewer freeGuide;
+    private FreeGuideSAXInterface fgSAXInterface;
 
 }

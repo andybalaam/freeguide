@@ -18,13 +18,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 /**
  * The main class called to start FreeGuide.  Performs some
  * housekeeping before launching the viewer or downloader.
  *
  * @author  Andy Balaam
- * @version 2
+ * @version 3
  */
 public class FreeGuide implements FreeGuideLauncher {
 
@@ -44,7 +45,7 @@ public class FreeGuide implements FreeGuideLauncher {
 	private void construct() {
 		
 		// If we've not got a proper config file set up
-		if(config.getValue("freeguideDir")==null) {
+		if(config.getValue("workingDirectory")==null) {
 			
 			// Send the user straight to the options screen
 			new FreeGuideOptions(this).show();
@@ -55,43 +56,52 @@ public class FreeGuide implements FreeGuideLauncher {
 			// to the viewer.  Otherwise, go to the downloader.
 
 			// Get the channels
-			Vector channels = config.getListValue("channels");
+			//Vector channels = config.getListValue("channels");
 			
 			// If we've got no channels listed
-			if(channels==null || channels.size()==0) {
+			//if(channels==null || channels.size()==0) {
 				
 				// Send the user straight to the options screen again - 
 				// no channels selected
-				new FreeGuideOptions(this).show();
+			//	new FreeGuideOptions(this).show();
 				
-			} else { // All is still ok - we've got some channels
+			//} else { // All is still ok - we've got some channels
 				
-				SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
-				String datestr = fmt.format(new Date());
+			//SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+			//String datestr = fmt.format(new Date());
 				
-				// Get the first channel name
-				String tmp = (String)channels.get(0);
+			// Get the first channel name
+			//String tmp = (String)channels.get(0);
 				
-				// and get it in the right format
-				tmp = tmp.toLowerCase().replace(' ', '_');
-				tmp = makeRightFilenameLength(tmp);
+			// and get it in the right format
+			//tmp = tmp.toLowerCase().replace(' ', '_');
+			//tmp = makeRightFilenameLength(tmp);
 				
-				// Find the file it ought to be in
-				File xmlFile = new File(config.getValue("freeguideDir")+"data/"+tmp+"-"+datestr+".fgd");
+			// Find the file it ought to be in
+			//File xmlFile = new File(config.getValue("workingDirectory")+"data/"+tmp+"-"+datestr+".fgd");
 				
-				if(xmlFile.exists()) {	// Check if it exists
+			//if(xmlFile.exists()) {	// Check if it exists
 				
-					// If so, display the TV guide for today!
-					new FreeGuideViewer(this).show();
+				// If so, display the TV guide for today!
+				
 					
-				} else {	// If it doesn't exist
-					
-					// Go to the downloader
-					new FreeGuideDownloader(this).show();
-					
+			//} else {	// If it doesn't exist
+				
+				// Create (working and) data directory(ies) if needed
+				File dataDir = new File(config.getValue("workingDirectory")+"/data/");
+				
+				if(!dataDir.exists()){
+					dataDir.mkdirs();
 				}
 				
-			}
+				// Go to the downloader
+				//new FreeGuideDownloader(this).show();
+				
+				new FreeGuideViewer(this).show();
+				
+			//}
+				
+			//}
 		
 		}
 		
@@ -112,11 +122,11 @@ public class FreeGuide implements FreeGuideLauncher {
 		
 		// Load the config file
 		String[] vitals = {
-			"logFile=log.txt",
-			"channelsFile=channels.txt",
-			"downloadAmount=Day",
+			"logFile=$$workingDirectory$$/log.txt",
+//			"channelsFile=channels.txt",
+//			"downloadAmount=Day",
 			"browserCommandLine=netscape",
-			"cssFile=guide.css",
+			"cssFile=$$freeguideDirectory$$/tvguide.css",
 			"maxFilenameLength=16",
 			"channelHeight=28",
 			"verticalGap=1",
@@ -127,7 +137,7 @@ public class FreeGuide implements FreeGuideLauncher {
 		String cfgFilename = arguments.getValue("config-file");
 		
 		if(cfgFilename==null) {
-			cfgFilename=".freeguide";
+			cfgFilename=System.getProperty("user.home")+"/.freeguide-tv/freeguiderc.txt";
 		}
 		
 		config = new JoveConfigFile(vitals, cfgFilename);
@@ -166,8 +176,8 @@ public class FreeGuide implements FreeGuideLauncher {
 	 *
 	 * @param cmdstr  the command to execute
 	 */
-	public static void execExternal(String cmdstr) {
-		execExternal(cmdstr, true);
+	public static void execExternal(String cmdstr, JTextArea feedback) {
+		execExternal(cmdstr, true, feedback);
 	}
 	
 	/** execExternal
@@ -177,8 +187,10 @@ public class FreeGuide implements FreeGuideLauncher {
 	 * @param cmdstr  the command to execute
 	 * @param waitFor true wait for this command to end before continuing?
 	 */
-	public static void execExternal(String cmdstr, boolean waitFor) {
+	public static void execExternal(String cmdstr, boolean waitFor, JTextArea feedback) {
 	
+		String lb = System.getProperty("line.separator");
+		
 		try {//IOException etc
 			
 			// Log what we're about to do
@@ -188,25 +200,31 @@ public class FreeGuide implements FreeGuideLauncher {
 				log.writeLine("FreeGuide - Executing system command in background: "+cmdstr);
 			}//if
 			
+			feedback.append(cmdstr+lb);
+			
 			// Execute the command
 			Process pr = Runtime.getRuntime().exec(cmdstr);
 			
 			if(waitFor) {
+						
+				BufferedReader prErr = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
+				BufferedReader prOut = new BufferedReader(new InputStreamReader(pr.getOutputStream()));
 			
 				// Wait for it to finish
-				// pr.waitFor();
+				//pr.waitFor();
 				// Above is no good in Windows!
-			
-				BufferedReader prErr = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
-			
+				
 				// Read from error stream
 				String line = prErr.readLine();
 			
 				// initialise a timer
 				int secs=0;
+				
+				boolean running = true;
 			
 				// wait til thing ends or we run out of time
-				while(line==null || secs>100) {
+				while(running) {
+				//while(line==null || !line.startsWith("Ended normally.") || secs>100) {
 				
 					// Wait a sec (literally)
 					Thread.sleep(1000);

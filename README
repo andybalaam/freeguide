@@ -28,9 +28,9 @@ Introduction
    FreeGuide is copyright ©2001 by Andy Balaam.  Please do send ideas,
    bugs and comments to me at [9]freeguide@artificialworlds.net. I
    welcome contributions from others. FreeGuide's home page is at
-   [10]http://freeguide-tv.sourceforge.net. You can contact me at 1
-   Winkfield Court, Boltro Road, Haywards Heath, United Kingdom, RH16
-   1BH.
+   [10]http://freeguide-tv.sourceforge.net. You can contact me at the
+   Centre for Computational Neuroscience and Robotics (CCNR), University
+   of Sussex, Falmer, Brighton, UK.
 
    FreeGuide uses (a small subset of) the XMLTV format developed by the
    very friendly people at XMLTV ([11]
@@ -285,19 +285,19 @@ Notes
 
 References
 
-   1. file://localhost/home/andy/freeguide-tv/org/freeguide-tv/README.html#intro
-   2. file://localhost/home/andy/freeguide-tv/org/freeguide-tv/README.html#licence
-   3. file://localhost/home/andy/freeguide-tv/org/freeguide-tv/README.html#installing
-   4. file://localhost/home/andy/freeguide-tv/org/freeguide-tv/README.html#installing-windows
-   5. file://localhost/home/andy/freeguide-tv/org/freeguide-tv/README.html#installing-linux
-   6. file://localhost/home/andy/freeguide-tv/org/freeguide-tv/README.html#installing-other
-   7. file://localhost/home/andy/freeguide-tv/org/freeguide-tv/README.html#running
-   8. file://localhost/home/andy/freeguide-tv/org/freeguide-tv/README.html#notes
+   1. file://localhost/home/andy/freeguide-tv/README.html#intro
+   2. file://localhost/home/andy/freeguide-tv/README.html#licence
+   3. file://localhost/home/andy/freeguide-tv/README.html#installing
+   4. file://localhost/home/andy/freeguide-tv/README.html#installing-windows
+   5. file://localhost/home/andy/freeguide-tv/README.html#installing-linux
+   6. file://localhost/home/andy/freeguide-tv/README.html#installing-other
+   7. file://localhost/home/andy/freeguide-tv/README.html#running
+   8. file://localhost/home/andy/freeguide-tv/README.html#notes
    9. mailto:freeguide@artificialworlds.net
   10. http://freeguide-tv.sourceforge.net/
   11. http://www.doc.ic.ac.uk/%7Eepa98/work/apps/xmltv/
   12. http://sourceforge.net/projects/xmltv
-  13. file://localhost/home/andy/freeguide-tv/org/freeguide-tv/COPYING
+  13. file://localhost/home/andy/freeguide-tv/COPYING
   14. http://java.sun.com/j2se/
   15. http://xml.apache.org/dist/crimson/crimson-1.1.3-bin.zip
   16. http://xml.apache.org/crimson/index.html

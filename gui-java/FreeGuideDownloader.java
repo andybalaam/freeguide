@@ -47,6 +47,9 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 		butCancel = new javax.swing.JButton();
 		butOptions = new javax.swing.JButton();
 		chkOverwrite = new javax.swing.JCheckBox();
+		labCmdOutput = new javax.swing.JLabel();
+		jScrollPane1 = new javax.swing.JScrollPane();
+		txaCmdOutput = new javax.swing.JTextArea();
 		
 		getContentPane().setLayout(new java.awt.GridBagLayout());
 		java.awt.GridBagConstraints gridBagConstraints1;
@@ -58,6 +61,7 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 			}
 		});
 		
+		prgProgress.setEnabled(false);
 		gridBagConstraints1 = new java.awt.GridBagConstraints();
 		gridBagConstraints1.gridx = 0;
 		gridBagConstraints1.gridy = 0;
@@ -78,7 +82,7 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 		
 		gridBagConstraints1 = new java.awt.GridBagConstraints();
 		gridBagConstraints1.gridx = 1;
-		gridBagConstraints1.gridy = 5;
+		gridBagConstraints1.gridy = 6;
 		gridBagConstraints1.insets = new java.awt.Insets(5, 5, 5, 5);
 		gridBagConstraints1.weightx = 0.1;
 		gridBagConstraints1.weighty = 0.25;
@@ -96,7 +100,7 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 		
 		gridBagConstraints1 = new java.awt.GridBagConstraints();
 		gridBagConstraints1.gridx = 0;
-		gridBagConstraints1.gridy = 5;
+		gridBagConstraints1.gridy = 6;
 		gridBagConstraints1.insets = new java.awt.Insets(5, 5, 5, 5);
 		gridBagConstraints1.weightx = 0.1;
 		gridBagConstraints1.weighty = 0.25;
@@ -118,13 +122,33 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 		gridBagConstraints1.weighty = 0.25;
 		getContentPane().add(butOptions, gridBagConstraints1);
 		
+		chkOverwrite.setSelected(true);
 		chkOverwrite.setFont(new java.awt.Font("Dialog", 0, 12));
 		chkOverwrite.setText("Overwrite existing files");
+		chkOverwrite.setEnabled(false);
 		gridBagConstraints1 = new java.awt.GridBagConstraints();
 		gridBagConstraints1.gridx = 1;
 		gridBagConstraints1.gridy = 2;
 		gridBagConstraints1.insets = new java.awt.Insets(5, 5, 5, 5);
 		getContentPane().add(chkOverwrite, gridBagConstraints1);
+		
+		labCmdOutput.setText("Command Output:");
+		gridBagConstraints1 = new java.awt.GridBagConstraints();
+		gridBagConstraints1.gridx = 0;
+		gridBagConstraints1.gridy = 3;
+		gridBagConstraints1.gridwidth = 2;
+		gridBagConstraints1.insets = new java.awt.Insets(5, 5, 0, 5);
+		getContentPane().add(labCmdOutput, gridBagConstraints1);
+		
+		jScrollPane1.setViewportView(txaCmdOutput);
+		
+		gridBagConstraints1 = new java.awt.GridBagConstraints();
+		gridBagConstraints1.gridx = 0;
+		gridBagConstraints1.gridy = 4;
+		gridBagConstraints1.gridwidth = 2;
+		gridBagConstraints1.fill = java.awt.GridBagConstraints.BOTH;
+		gridBagConstraints1.weighty = 0.5;
+		getContentPane().add(jScrollPane1, gridBagConstraints1);
 		
 		pack();
 		java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -168,30 +192,34 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 	
 	public void run() {
 		// Get the current running thread
-		Thread thisThread = Thread.currentThread();
+		//Thread thisThread = Thread.currentThread();
 		
 		// NOTE: insert here removal of old data files.
 		
-		int day=0;	// The counter of what day we'return on
-		int nodays;	// The number of days to download
+		//int day=0;	// The counter of what day we'return on
+		//int nodays;	// The number of days to download
 		
 		// Find out how many days to download
-		String dlAmt = FreeGuide.config.getValue("downloadAmount");
+		/*String dlAmt = FreeGuide.config.getValue("downloadAmount");
 		if(dlAmt.equals("All")) {
 			nodays = 14;
 		} else if(dlAmt.equals("Week")) {
 			nodays = 7;
 		} else {
 			nodays = 1;
-		}
+		}*/
 		
-		Vector channels = FreeGuide.config.getListValue("channels");
+		//Vector channels = FreeGuide.config.getListValue("channels");
 		
-		int channel=0;
-		int nochannels = channels.size();
+		//int channel=0;
+		//int nochannels = channels.size();
+		
+		downloadListings();
+		
+		quit();
 		
 		// While the thread is active and we haven't finished
-		while(thisThread == thread && day<nodays){
+		/*while(thisThread == thread && day<nodays){
 			
 			downloadListings(day, (String)channels.get(channel));
 			
@@ -207,12 +235,12 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 				channel=0;
 			}
 			
-		}//while
+		}//while*/
 		
 		// Close the form if we've finished
-		if(day>=nodays) {
+		/*if(day>=nodays) {
 			quit();
-		}
+		}*/
 		
 	}//run
 	
@@ -246,44 +274,46 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 	 * @param day the number of days after today the required day is
 	 * @param channel the name of the required channel
 	 */
-	private void downloadListings(int day, String channel) {
+	private void downloadListings() {
 
 		// Find the required date: today plus "day" days
-		Date theDate = new Date();
-		theDate.setDate(theDate.getDate()+day);
+		//Date theDate = new Date();
+		//theDate.setDate(theDate.getDate()+day);
 		
 		// Format the date appropriately
-		SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
-		String datestr = fmt.format(theDate);
+		//SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+		//String datestr = fmt.format(theDate);
 		
 		// Format the channel to be a filename
-		String channelFilename = FreeGuide.makeRightFilenameLength(channel.toLowerCase());
+		//String channelFilename = FreeGuide.makeRightFilenameLength(channel.toLowerCase());
 		
 		// Get the configuration options
-		String xmlFilename = FreeGuide.config.getValue("freeguideDir")+"data/"+channelFilename+"-"+datestr+".fgd";	    
+		//String xmlFilename = FreeGuide.config.getValue("workingDirectory")+"data/"+channel+"-"+datestr+".fgd";	    
 		
 		// Check whether exists
-		if(chkOverwrite.isSelected() || !(new File(xmlFilename).exists())) {
+		//if(chkOverwrite.isSelected() || !(new File(xmlFilename).exists())) {
 			
-			String channelsFile = FreeGuide.config.getValue("channelsFile");
-			Vector parserCmds = FreeGuide.config.getListValue("downloadCommandLine");
-			
-			// Execute the commands to download and save listings
-			for(int i=0;i<parserCmds.size();i++) {
 		
-				String cmd = ((String)parserCmds.get(i)).trim();
-				
-				if(!cmd.equals("")) {
-					FreeGuide.execExternal(cmd+" \""+channel+"\" \""+datestr+"\" \""+xmlFilename+"\" \""+channelsFile+"\"");
-				}
+		//String channelsFile = FreeGuide.config.getValue("channelsFile");
+		Vector parserCmds = FreeGuide.config.getListValue("commandLine");
 			
+		// Execute the commands to download and save listings
+		for(int i=0;i<parserCmds.size();i++) {
+		
+			String cmd = ((String)parserCmds.get(i)).trim();
+		
+			if(!cmd.equals("")) {
+				//FreeGuide.execExternal(cmd+" \""+channel+"\" \""+datestr+"\" \""+xmlFilename+"\" \""+channelsFile+"\"");
+				FreeGuide.execExternal(cmd, txaCmdOutput);
 			}
 			
-		} else {
+		}
+			
+/*		} else {
 			
 			FreeGuide.log.writeLine("Freeguide - listings file "+xmlFilename+" already exists.");
 			
-		}
+		}*/
 		
 	}
 	
@@ -295,6 +325,9 @@ public class FreeGuideDownloader extends javax.swing.JFrame implements Runnable,
 	private javax.swing.JButton butCancel;
 	private javax.swing.JButton butOptions;
 	private javax.swing.JCheckBox chkOverwrite;
+	private javax.swing.JLabel labCmdOutput;
+	private javax.swing.JScrollPane jScrollPane1;
+	private javax.swing.JTextArea txaCmdOutput;
 	// End of variables declaration//GEN-END:variables
 	
 	private Thread thread;	// The thread in which to download

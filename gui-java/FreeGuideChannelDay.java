@@ -20,7 +20,7 @@ public class FreeGuideChannelDay {
     }
 
     public void addProgramme(String startTime) {
-	addProgramme(startTime, null);
+		addProgramme(startTime, null);
     }
     
     public void addProgramme(String startTime, String endTime) {
@@ -37,7 +37,7 @@ public class FreeGuideChannelDay {
 	 prog.setStart(new Date(year-1900,month-1,day,hour,minute));*/
 	
 	// Capture the start time
-	SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMddHHmm");
+	SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMddHH:mm:ss");
 	
 	ParsePosition pos = new ParsePosition(0);
 
