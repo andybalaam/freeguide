@@ -2,7 +2,6 @@
 
 # I call this script (_not_ as root) from within this directory
 # to build the FreeGuide RPM and SRPM.  It builds the rpms in /home/andy/.rpm
-# This is specified in the ~/.rpmrc file in this directory, and in this file.
 
 RPM_TOPDIR=/home/andy/.rpm
 
