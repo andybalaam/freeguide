@@ -1,8 +1,8 @@
 <?php
 
 	print "0\n";
-	print "7\n";
-	print "5\n";
+	print "8\n";
+	print "0\n";
 
 	$userlog = fopen( "/home/groups/f/fr/freeguide-tv/userlog/userlog.txt", "a" );
 	

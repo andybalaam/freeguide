@@ -139,14 +139,16 @@ r  means done by Rob Stewart
 - View menu - show tooltips
 - Check whether setting the timezone is really necessary.
 - Check for correct Java version with GUI response.
-
-- Release 0.8 (first time wizard)
-
 - Fix problem with old guide location staying around
 - Tell people they might want to delete their freeguide-tv directory after
   installation
 - inform http://www.radioandtelly.co.uk/guides.html
 - Make icons optional in Windows installer
+- rename program folder to freeguide
+- Update screenshots on sf and freshmeat to show channel and program icons
+
++ Release 0.8 (native installers & first time wizard)
+
 + Merge manpage, start script and desktop entry with debian ones
 + Remove all references to freeguide-tv and replace with freeguide, except:
    * Web address
