@@ -128,6 +128,11 @@ public class Install implements Launcher {
 
         keepOldPrefs = keepOldPreferences;
 
+		// If we haven't got a region, assume it's UK.
+		if( prefs.misc.get( "region" ) == null ) {
+			prefs.misc.get( "region", "UK" );
+		}
+		
         try {
 
             getAllRegions();
@@ -448,9 +453,7 @@ public class Install implements Launcher {
 		// and this isn't the install dir or region (unless these are null)
 		boolean overwritePref = !keepOldPrefs
 			&& ( !(key.equals( "install_directory" ) )
-				|| prefs.misc.get( "install_directory" ) == null )
-			&& ( !(key.equals( "region" ) )
-				|| prefs.misc.get( "region" ) == null );
+				|| prefs.misc.get( "install_directory" ) == null );
 		
         if( overwritePref ) {
             pr.put(key, value);
