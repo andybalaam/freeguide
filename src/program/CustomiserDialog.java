@@ -83,9 +83,6 @@ public class CustomiserDialog extends JDialog {
         timeLabel = new javax.swing.JLabel();
         timeCBLabel = new javax.swing.JLabel();
         timeCheckBox = new javax.swing.JCheckBox();
-        landf = new javax.swing.JLabel();
-        landfCheckBox = new javax.swing.JCheckBox();
-        landfNoteLabel = new javax.swing.JLabel();
 
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -343,32 +340,6 @@ public class CustomiserDialog extends JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panScreen.add(timeCheckBox, gridBagConstraints);
 
-        landf.setText("Use Metal Decoration:");
-        landf.setToolTipText("Use Java Metal Look and Feel Decoration, "
-                + "requires restart.");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 13;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        panScreen.add(landf, gridBagConstraints);
-
-        landfCheckBox.setToolTipText("Use Java Metal Look and Feel Decoration, "
-                + "requires restart.");
-
-        landfNoteLabel.setText("(Requires restart)");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 14;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
-        panScreen.add(landfNoteLabel, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 13;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        panScreen.add(landfCheckBox, gridBagConstraints);
-
         scrScreen.setViewportView(panScreen);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -424,6 +395,8 @@ public class CustomiserDialog extends JDialog {
                 scr.getInt("font_size", 12)));
 
         fontDialog.setSize(new java.awt.Dimension(300, 200));
+		
+		getRootPane().setDefaultButton( butOK );
 		
 		pack();  // pack comes before the size instructions or they get ignored.
 		
@@ -594,9 +567,6 @@ public class CustomiserDialog extends JDialog {
         changed = FreeGuide.prefs.screen.updateBoolean("display_24hour_time", timebuttongroup.getSelection().equals(time24button.getModel()));
         if (changed) updatedFlag = true;
 
-        changed = FreeGuide.prefs.screen.updateBoolean("use_metal_landf", landfCheckBox.isSelected());
-        if (changed) updatedFlag = true;
-
         if (changedFont) {
 
             Font f = fontDialog.getSelectedFont();
@@ -660,9 +630,6 @@ public class CustomiserDialog extends JDialog {
         } else {
             timebuttongroup.setSelected(time12button.getModel(), true);
         }
-
-        boolean metal = FreeGuide.prefs.screen.getBoolean("use_metal_landf", false);
-        landfCheckBox.setSelected(metal);
 
     }
 
@@ -745,10 +712,6 @@ public class CustomiserDialog extends JDialog {
     private javax.swing.JLabel timeCBLabel;
     private javax.swing.JCheckBox timeCheckBox;
 
-    private javax.swing.JLabel landf;
-    private javax.swing.JCheckBox landfCheckBox;
-    private javax.swing.JLabel landfNoteLabel;
-//    Launcher launcher;
     FontChooserDialog fontDialog;
     boolean changedFont;
     

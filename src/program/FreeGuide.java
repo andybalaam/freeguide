@@ -13,6 +13,7 @@
 import java.awt.Color;
 import java.util.Date;
 import java.util.logging.Logger;
+import java.util.Vector;
 
 /**
  *  The main class called to start FreeGuide. Calls the FreeGuideStartupChecker
@@ -20,165 +21,182 @@ import java.util.logging.Logger;
  *
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    7
+ *@version    8
  */
 public class FreeGuide implements Launcher {
 
-    /**
-     * The constructor for the class that starts it all.
-     *
-     * @param  args  The commandline arguments
-     */
-    public FreeGuide(String[] args) {
-		
-        PleaseWaitFrame pleaseWait = new PleaseWaitFrame(this, args);
-		
-    }
-
-
-    /**
-     *  The method called when FreeGuide is run.
-     *
-     *@param  args  the command line arguments
-     */
-    public static void main(String args[]) {
-
-        new FreeGuide(args);
-
-    }
-
-
-    /**
-     *  Description of the Method
-     *
-     *@param  msg  Description of the Parameter
-     */
-    public static void die(String msg) {
-
-        System.err.println(msg);
-		log.severe(msg);
-        System.exit(1);
-
-    }
-
-
-    // -----------------------------------------------------------------------
-
-    /**
-     *  Gets the launcher attribute of the FreeGuide object
-     *
-     *@return    The launcher value
-     */
-    public Launcher getLauncher() {
-        return null;
-    }
-
-
-    /**
-     *  Sets the visible attribute of the FreeGuide object
-     *
-     *@param  show  The new visible value
-     */
-    public void setVisible(boolean show) {
-        // Nothing - not used
-    }
-
-
-    /**
-     *  Description of the Method
-     */
-    public void reShow() {
-        /*if (FreeGuide.prefs.screen.getBoolean("use_metal_landf", false)) {
-            ViewerFrame.setDefaultLookAndFeelDecorated(true);
-        }*/
-        new ViewerFrame(this, null);
-    }
-
-
-    /**
-     *  Gets the version attribute of the FreeGuide class
-     *
-     *@return    The version value
-     */
-    public static String getVersion() {
-        if (version_revision == 0) {
-            return version_major + "." + version_minor;
-        } else {
-            return version_major + "." + version_minor + "." + version_revision;
-        }
-    }
-
-
-    //------------------------------------------------------------------------
-
-    /**
-     *  The command line args
-     */
-    public static CmdArgs arguments;
-
-    /**
-     *  Holds all preferences info
-     */
-    public static PreferencesGroup prefs;
-
-    /**
-     *  The log file
-     */
-    public static Logger log;
-
-    /**
-     *  The major version of FreeGuide
-     */
-    public final static int version_major = 0;
-    /**
-     *  The minor version of FreeGuide
-     */
-    public final static int version_minor = 6;
-    /**
-     *  What revision of the version this is
-     */
-    public final static int version_revision = 2;
-
-    /**
-     *  Default colour of a normal programme
-     */
-    public final static Color PROGRAMME_NORMAL_COLOUR = Color.white;
-    /**
-     *  Default colour of a clicked programme
-     */
-    public final static Color PROGRAMME_CHOSEN_COLOUR
-		= new Color(204, 255, 204);
 	/**
-     *  Default colour of a heart that indicates a favourite
-     */
-    public final static Color PROGRAMME_HEART_COLOUR = Color.red;
-    /**
-     *  Default colour of a movie
-     */
-    public final static Color PROGRAMME_MOVIE_COLOUR = new Color(255, 230, 230);
-    /**
-     *  Default colour of the channel labels
-     */
-    public final static Color CHANNEL_COLOUR = new Color(245, 245, 255);
-    /**
-     *  Default height of each channel row
-     */
-    public final static int CHANNEL_HEIGHT = 28;
-    /**
-     *  Default gap between channel rows
-     */
-    public final static int VERTICAL_GAP = 1;
-    /**
-     *  Default horizontal gap between programmes
-     */
-    public final static int HORIZONTAL_GAP = 1;
-    /**
-     *  Default width of the scrolling panel containign programmes
-     */
-    public final static int PANEL_WIDTH = 8000;
-    /**
-     *  Default width of the channels scrolling panel
-     */
-    public final static int CHANNEL_PANEL_WIDTH = 400;
+	 * The constructor for the class that starts it all.
+	 *
+	 * @param  args  The commandline arguments
+	 */
+	public FreeGuide(String[] args) {
+
+		// Show the Please Wait frame
+		PleaseWaitFrame pleaseWait = new PleaseWaitFrame();
+		pleaseWait.setVisible(true);
+		
+		Vector failedWhat = StartupChecker.runChecks(this, args);
+
+		if( failedWhat.size() > 0 ) {
+			// Something's wrong, so begin with configuration
+
+			FreeGuide.log.info("Checks failed, going into configuration ...");
+
+			new OptionsFrame(this, failedWhat).setVisible(true);
+
+			pleaseWait.dispose();
+
+		} else {
+
+			// All is ok, so begin with viewer (pass the please wait frame
+			// in to be displayed while the viewer starts up)
+			new ViewerFrame( this, pleaseWait );
+		}
+
+	}
+
+
+	/**
+	 *  The method called when FreeGuide is run.
+	 *
+	 *@param  args  the command line arguments
+	 */
+	public static void main(String args[]) {
+
+		new FreeGuide(args);
+
+	}
+
+
+	/**
+	 *  Stop the program and display the supplied error message
+	 *
+	 *@param  msg  The error message string to display
+	 */
+	public static void die( String msg ) {
+
+		System.err.println(msg);
+		log.severe(msg);
+		System.exit(1);
+
+	}
+
+
+	// -----------------------------------------------------------------------
+
+	/**
+	 *  Gets the launcher attribute of the FreeGuide object
+	 *
+	 *@return    The launcher value
+	 */
+	public Launcher getLauncher() {
+		return null;
+	}
+
+
+	/**
+	 *  Sets the visible attribute of the FreeGuide object
+	 *
+	 *@param  show  The new visible value
+	 */
+	public void setVisible(boolean show) {
+		// Nothing - not used
+	}
+
+
+	/**
+	 *  Description of the Method
+	 */
+	public void reShow() {
+		new ViewerFrame(this, null);
+	}
+
+
+	/**
+	 *  Gets the version attribute of the FreeGuide class
+	 *
+	 *@return    The version value
+	 */
+	public static String getVersion() {
+		if (version_revision == 0) {
+			return version_major + "." + version_minor;
+		} else {
+			return version_major + "." + version_minor + "." + version_revision;
+		}
+	}
+
+
+	//------------------------------------------------------------------------
+
+	/**
+	 *  The command line args
+	 */
+	public static CmdArgs arguments;
+
+	/**
+	 *  Holds all preferences info
+	 */
+	public static PreferencesGroup prefs;
+
+	/**
+	 *  The log file
+	 */
+	public static Logger log;
+
+	/**
+	 *  The major version of FreeGuide
+	 */
+	public final static int version_major = 0;
+	/**
+	 *  The minor version of FreeGuide
+	 */
+	public final static int version_minor = 6;
+	/**
+	 *  What revision of the version this is
+	 */
+	public final static int version_revision = 3;
+
+	/**
+	 *  Default colour of a normal programme
+	 */
+	public final static Color PROGRAMME_NORMAL_COLOUR = Color.white;
+	/**
+	 *  Default colour of a clicked programme
+	 */
+	public final static Color PROGRAMME_CHOSEN_COLOUR
+	= new Color(204, 255, 204);
+	/**
+	    *  Default colour of a heart that indicates a favourite
+	    */
+	public final static Color PROGRAMME_HEART_COLOUR = Color.red;
+	/**
+	 *  Default colour of a movie
+	 */
+	public final static Color PROGRAMME_MOVIE_COLOUR = new Color(255, 230, 230);
+	/**
+	 *  Default colour of the channel labels
+	 */
+	public final static Color CHANNEL_COLOUR = new Color(245, 245, 255);
+	/**
+	 *  Default height of each channel row
+	 */
+	public final static int CHANNEL_HEIGHT = 28;
+	/**
+	 *  Default gap between channel rows
+	 */
+	public final static int VERTICAL_GAP = 1;
+	/**
+	 *  Default horizontal gap between programmes
+	 */
+	public final static int HORIZONTAL_GAP = 1;
+	/**
+	 *  Default width of the scrolling panel containign programmes
+	 */
+	public final static int PANEL_WIDTH = 8000;
+	/**
+	 *  Default width of the channels scrolling panel
+	 */
+	public final static int CHANNEL_PANEL_WIDTH = 400;
 
 }

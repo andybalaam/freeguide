@@ -16,11 +16,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.lang.Math;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.lang.Integer;
+import java.lang.Math;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -103,6 +104,14 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 
 		// Show the screen
 		setVisible( true );
+
+		// Check the FreeGuide version
+		if( FreeGuide.prefs.misc.getBoolean( "check_new_versions", true ) ) {
+			
+			// Run the check in a separate thread to avoid blocking.
+			new VersionCheckerThread( this ).start();
+			
+		}
 		
         //Scroll to the correct time
 		scrollToNow();
@@ -202,6 +211,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 		
         popMenuProgramme = new javax.swing.JPopupMenu();
         mbtAddFavourite = new javax.swing.JMenuItem();
+		mbtGoToWebSite = new javax.swing.JMenuItem();
         topButtonsPanel = new javax.swing.JPanel();
         butGoToNow = new javax.swing.JButton();
         butPreviousDay = new javax.swing.JButton();
@@ -267,6 +277,15 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 
         popMenuProgramme.add( mbtAddFavourite );
 
+		mbtGoToWebSite.setText("Go to web site");
+		mbtGoToWebSite.addActionListener(
+            new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    mbtGoToWebSiteActionPerformed(evt);
+                }
+            });
+		
+		
 		//}}}
 
 		//{{{ Main Window
@@ -616,6 +635,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 
         setJMenuBar(mainMenuBar);
 
+		getRootPane().setDefaultButton( butGoToNow );
+		
 		//}}}
 
 		//{{{ Event listeners
@@ -1096,6 +1117,18 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 			
         }
 
+		int popMenuProgrammeSize = popMenuProgramme.getSubElements().length;
+		URL link = rightClickedProg.programme.getLink();
+		
+		if( link != null && popMenuProgrammeSize < 2 ) {
+			popMenuProgramme.add( mbtGoToWebSite );
+		}
+		
+		if(link == null && popMenuProgrammeSize > 1) {
+			popMenuProgramme.remove( popMenuProgrammeSize-1 );
+		}
+			
+		
     }
 
     /**
@@ -1149,6 +1182,25 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 
     }
 
+    /**
+     *  Event handler for when the Go to web site popup menu item is chosen
+     *
+     *@param  evt  The event object
+     */
+    public void mbtGoToWebSiteActionPerformed(java.awt.event.ActionEvent evt) {
+
+		ProgrammeJLabel programmeJLabel = rightClickedProg;
+		Programme programme = programmeJLabel.programme;
+		
+		String[] cmds = Utils.substitute(
+			FreeGuide.prefs.commandline.getStrings( "browser_command" ),
+			"%filename%",
+			programme.getLink().toString() );
+			
+            Utils.execNoWait(cmds);
+
+    }
+	
     /**
      *  Event handler for when the Add to Favourites popup menu item is chosen
      *
@@ -2115,6 +2167,10 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
      *  The menu item to add a favourite
      */
     public javax.swing.JMenuItem mbtAddFavourite;
+	/**
+     *  The menu item to view a link
+     */
+	public javax.swing.JMenuItem mbtGoToWebSite;
     private javax.swing.JPanel topButtonsPanel;
     private javax.swing.JButton butPrint;
     private javax.swing.JButton butDownload;

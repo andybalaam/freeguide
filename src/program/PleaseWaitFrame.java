@@ -11,14 +11,12 @@
  *  See the file COPYING for more information.
  */
  
-import java.util.Vector;
- 
 /**
  *  A window saying "Please Wait", displayed while FreeGuide loads.
  * 
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    3
+ *@version    4
  */
 public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor {
 
@@ -26,54 +24,16 @@ public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor {
      * Creates this form, makes it visible, and starts the StartupChecker
 	 * - called on launching the program
      */
-    public PleaseWaitFrame(Launcher launcher, String[] args) {
+    public PleaseWaitFrame() {
 		
 		super( "Please Wait" );
 		
         initComponents();
-		setVisible(true);
-		
-		Vector failedWhat = StartupChecker.runChecks(launcher, args);
-		
-		if (failedWhat.size() > 0) {
-            
-            // Something's wrong, so begin with configuration
-			
-            FreeGuide.log.info("Checks failed, going into configuration ...");
-			
-            new OptionsFrame(launcher, failedWhat).setVisible(true);
-			
-			dispose();
-			
-        } else {
-			
-            // All is ok, so begin with viewer
-            
-            /*if (FreeGuide.prefs.screen.getBoolean("use_metal_landf", false)) {
-                ViewerFrame.setDefaultLookAndFeelDecorated(true);
-            }*/
-
-            new ViewerFrame(launcher, this);
-        }
 		
     }
-
-	/**
-     * Creates this form and makes it visible - used later in the use of the
-	 * program.
-     */
-    /*public PleaseWaitFrame( Launcher launcher ) {
-		
-		super( "Please Wait" );
-		
-        initComponents();
-		setVisible(true);
-		
-    }*/
 	
     private void initComponents() {
         
-        //textLabel = new javax.swing.JLabel();
 		imageLabel = new javax.swing.JLabel();
 		progressBar = new javax.swing.JProgressBar( 0, 100 );
 		
@@ -82,7 +42,6 @@ public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor {
 		image = new javax.swing.ImageIcon(imgURL, "Please Wait");
 
         setResizable( false );
-        //setUndecorated(true);
 		
         addWindowListener(
             new java.awt.event.WindowAdapter() {
@@ -90,11 +49,6 @@ public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor {
                     exitForm(evt);
                 }
             });
-
-        /*textLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textLabel.setText("FreeGuide is loading, please wait...");
-        textLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textLabel, java.awt.BorderLayout.NORTH);*/
 
 		imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imageLabel.setIcon( image );
@@ -129,7 +83,6 @@ public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor {
 		
 	}
 	
-    //private javax.swing.JLabel textLabel;
 	private javax.swing.JLabel imageLabel;
 	private javax.swing.ImageIcon image;
 	private javax.swing.JProgressBar progressBar;

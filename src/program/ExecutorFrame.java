@@ -373,9 +373,6 @@ public class ExecutorFrame extends javax.swing.JFrame implements Runnable,
                         // to re-download
                         if (alwaysDownload == MAYBE) {
                             Object[] options = {"Re-download", "Skip"};
-                            /*if (FreeGuide.prefs.screen.getBoolean("use_metal_landf", false)) {
-                                javax.swing.JDialog.setDefaultLookAndFeelDecorated(true);
-                            }*/
                             int ans = JOptionPane.showOptionDialog(
                                     this,
                                     "There are already some days' listings "

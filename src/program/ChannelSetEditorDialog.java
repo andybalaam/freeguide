@@ -289,6 +289,8 @@ public class ChannelSetEditorDialog extends JDialog {
         gridBagConstraints.gridy = 1;
         getContentPane().add(jLabel2, gridBagConstraints);
 
+		getRootPane().setDefaultButton( saveButton );
+		
         pack();
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setSize(new java.awt.Dimension(400, 300));

@@ -9,6 +9,7 @@
  *  See the file COPYING for more information.
  */
 import java.io.File;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -535,7 +536,6 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
 
             if (currentProgramme != null) {
                 currentProgramme.addCategory(data);
-                //DMT handle UK Movie
                 if (data.equalsIgnoreCase("Film")) {
                     currentProgramme.setIsMovie(true);
                 }
@@ -548,7 +548,20 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
 		//} else if (saxLoc.equals(":tv:programme:episode-num")) {
 			// FIXME - fill in here
 
-        } else if (saxLoc.equals(":tv:channel:display-name")) {
+        } else if (saxLoc.equals(":tv:programme:url")) {
+
+			if (currentProgramme != null) {
+				
+				try {
+					
+                	currentProgramme.setLink(new URL(data));
+				
+				} catch(java.net.MalformedURLException e) {
+					e.printStackTrace();
+				}
+            }
+
+		} else if (saxLoc.equals(":tv:channel:display-name")) {
 
             // Remember the name of the channel we're looking at
             addChannelName(tmpChannelID, data);

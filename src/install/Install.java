@@ -21,16 +21,17 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 
 /*
+ *  
+ *
+ *  @author  Andy Balaam
+ *  @version 7
+ */
+/**
  *  An installer for FreeGuide
  *
  *  @author  Andy Balaam
- *  @version 6
- */
-/**
- *  Description of the Class
- *
- *@author     andy
- *@created    02 July 2003
+ *  @created 02 July 2003
+ *  @version 7
  */
 public class Install implements Launcher {
 
@@ -40,7 +41,7 @@ public class Install implements Launcher {
     public Install() {
 
         // Make sure we have the right Java version etc.
-        EnvironmentChecker.runChecks();
+        StartupChecker.doJavaVersionCheck();
 
         prefs = new PreferencesGroup();
 

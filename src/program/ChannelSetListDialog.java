@@ -280,6 +280,8 @@ public class ChannelSetListDialog extends JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         getContentPane().add(jPanel2, gridBagConstraints);
 
+		getRootPane().setDefaultButton( butOK );
+		
         pack();
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setSize(new java.awt.Dimension(400, 300));

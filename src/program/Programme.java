@@ -8,6 +8,8 @@
  *
  *  See the file COPYING for more information.
  */
+
+import java.net.URL;
 import java.util.Calendar;
 import java.util.Vector;
 
@@ -16,7 +18,7 @@ import java.util.Vector;
  *
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    4
+ *@version    5
  */
 
 public class Programme {
@@ -24,7 +26,17 @@ public class Programme {
     /**
      *  Constructor for the Programme object
      */
-    public Programme() { }
+    public Programme() {
+	
+		/*try {
+			
+			setLink( new URL("http://www.ananova.com" ) );
+			
+		} catch(java.net.MalformedURLException e) {
+			e.printStackTrace();
+		}*/
+	
+	}
 
 
     /**
@@ -331,7 +343,29 @@ public class Programme {
         }
     }
 
+	
+	/**
+	 * Sets a URL with more info about this programme
+	 *
+	 * @param link the URL to follow for more info
+	 */
+	public void setLink(URL link) {
+        
+		this.link = link;
+		
+    }
 
+	/**
+     *  Gets a link to follow for more info about this programme
+     *
+     *@return    The URL of more info about the programme
+     */
+    public URL getLink() {
+        
+		return link;
+		
+    }
+	
     /**
      *  Decides whether two programme objects refer to the same programme
      *  Programmes are assumed to be uniquely identified by their title, start
@@ -454,4 +488,9 @@ public class Programme {
 	 */
 	private boolean isSubtitled;
 
+	/**
+	 * A URL to more info about the programme
+	 */
+	private URL link;
+	
 }

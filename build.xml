@@ -15,7 +15,7 @@
 	<property name="build" location="build"/>
 	<property name="dist"  location="dist"/>
 
-	<property name="freeguideversion"  value="FreeGuide-0.6.2"/>
+	<property name="freeguideversion"  value="FreeGuide-0.6.3"/>
 	
   	<target name="init">
   
@@ -48,7 +48,7 @@
 				<include name="*WizardPanel*.class"/>
 				<include name="ConfigGuesser.class"/>
 				<include name="ChannelSet*.class"/>
-				<include name="EnvironmentChecker.class"/>
+				<include name="StartupChecker.class"/>
 				<include name="Launcher.class"/>
 				<include name="PreferencesGroup.class"/>
 				<include name="FGPreferences.class"/>

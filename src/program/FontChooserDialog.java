@@ -107,7 +107,7 @@ public class FontChooserDialog extends StandardDialog {
         JPanel buttons = createButtonPanel();
         buttons.setBorder(BorderFactory.createEmptyBorder(4, 0, 0, 0));
         content.add(buttons, BorderLayout.SOUTH);
-
+		
         return content;
     }
 

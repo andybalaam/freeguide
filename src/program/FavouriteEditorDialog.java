@@ -588,6 +588,8 @@ public class FavouriteEditorDialog extends JDialog {
         gridBagConstraints.weightx = 0.4;
         getContentPane().add(labTimeFormat1, gridBagConstraints);
 
+		getRootPane().setDefaultButton( butOK );
+		
         pack();
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setSize(new java.awt.Dimension(400, 300));

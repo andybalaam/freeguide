@@ -260,6 +260,8 @@ public class OptionsFrame extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         getContentPane().add(panButtons, gridBagConstraints);
 
+		getRootPane().setDefaultButton( butOK );
+		
         pack();
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setSize(new java.awt.Dimension(500, 350));

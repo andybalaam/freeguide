@@ -11,7 +11,9 @@
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.beans.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -137,10 +139,7 @@ public class TimePanel extends javax.swing.JPanel {
 
                 // Draw the "now" line
                 int xPos = getNowScroll();
-                int[] xPoints = {xPos - 5, xPos + 5, xPos};
-                int[] yPoints = {0, 0, 25};
-                int nPoints = 3;
-                g.fillPolygon(xPoints, yPoints, nPoints);
+				drawNowLine(g, xPos);
 
             }
             //if
@@ -152,6 +151,22 @@ public class TimePanel extends javax.swing.JPanel {
     //paintComponent
 
 
+	/** Draws the "now line" on this panel as a black triangle.
+     * 
+     * @param g The graphics context to draw on.
+     * @param xPos The x coordinate
+     */
+    protected void drawNowLine(final Graphics g, final int xPos) {
+        int [] xPoints = { xPos - 5, xPos + 5, xPos };
+        int [] yPoints = { 0, 0, 25 };
+        int nPoints = 3;
+
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                             RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.fillPolygon(xPoints, yPoints, nPoints);
+    }
+	
     /**
      *  Gets the nowScroll attribute of the TimePanel object
      *

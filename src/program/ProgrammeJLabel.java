@@ -12,6 +12,7 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Polygon;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
@@ -25,7 +26,7 @@ import java.text.SimpleDateFormat;
  *
  *@author     Andy Balaam
  *@created    3 July 2003
- *@version    2
+ *@version    3
  */
 public class ProgrammeJLabel extends javax.swing.JLabel {
 
@@ -136,6 +137,7 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 
         setBounds(left, top, width, bottom - top);
 
+		// FIXME - put this somewhere where there only needs to be one of it.
 		int noPoints = 8;
 			
 		int[] x = new int[noPoints];
@@ -255,6 +257,18 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 			g.setColor( viewerFrame.heartColour );
 			
 			g.fillPolygon( heartShape );
+			
+		}
+		
+		URL link = programme.getLink();
+		if( link != null ) {
+			
+			g.setColor( Color.BLUE );
+			
+			int width = getWidth();
+			int height = getHeight();
+			
+			g.fillRect( width-4, height-4, width-1, height-1 );
 			
 		}
     }

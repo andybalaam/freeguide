@@ -20,6 +20,8 @@ D  means work in progress by Dave Torok
 
 b  means done by Brendan Corrigan
 
+e  means done by Ewan Harrow
+
 --------------------------------------------
 
 - Release 2.0 (blue sky)
@@ -79,7 +81,7 @@ b  means done by Brendan Corrigan
 - Allow sorting of favourites list
 - Remember last hit-time of favourites
 
-- Release 0.6.3 (non-urgent minor features)
+- Release 0.6.4 (non-urgent minor features)
 
 - Multiline tooltips if too long
 - Choose how old files are before you delete them
@@ -102,7 +104,7 @@ b  means done by Brendan Corrigan
 	it in even if we stick with choices.).
 - Improve accessibility, specifically keyboard shortcuts
 
-- Release 0.6.2 (consolidation and code tidying)
+- Release 0.6.3 (consolidation and code tidying)
 
 - Separate classes into packages
 - Coloured favourites categories (text and/or background)
@@ -123,6 +125,13 @@ b  means done by Brendan Corrigan
 - Nice browser chooser in options
 - Document reminder system and/or incorporate into Options screen
 - Scroll to the most recently selected programme (and highlight it?)
+- Link to more info
+- Check version on startup
+e Make the "now" line a thing of beauty (using anti-aliasing)
+
++ Release 0.6.2 (new XMLTV version 0.5.23)
+
++ Factor HTML guide stuff out of ViewerFrame
 + Fix the bug with spaces in filenames on Linux
 + Alert me when my programme starts
 	(using secret options misc.reminders_on and misc.reminders_warning_secs)
