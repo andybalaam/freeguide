@@ -78,8 +78,8 @@ public class ProgrammeDetailsJPanel extends javax.swing.JPanel {
             editorPane.setText( "<html><body><p>No programme selected.</p></body></html>" );
             
         }
-        
-        editorPane.scrollToReference( "top" );
+
+        editorPane.setCaretPosition(0);
         
     }
     
