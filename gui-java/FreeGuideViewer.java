@@ -812,7 +812,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 					
 					if(choices[i].equals(prog)) {
 						txt.setBackground(tickedColour);
-						//System.out.println(txt.hashCode() + " " + txt.getText() + " " + txt.getBackground());
+						System.out.println(txt.hashCode() + " " + txt.getText() + " " + txt.getBackground());
+						System.out.println(tickedColour.getRed() + ", " + tickedColour.getGreen() + ", " + tickedColour.getBlue());
 						tickedProgrammes.add(prog);
 					} else {
 						txt.setBackground(nonTickedColour);
@@ -845,7 +846,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 				}//if
 			}//if
 			
-			txt.setBackground(tickedColour);
+			//txt.setBackground(tickedColour);
 			
 			innerPanel.add(txt);
 		
