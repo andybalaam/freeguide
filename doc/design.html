@@ -1,0 +1,68 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<link rel="stylesheet" href="stylesheet.css" type="text/css">
+	<title>FreeGuide Design Documents</title>
+</head>
+  <body>
+<h1>FreeGuide Design Documents</h1>
+<p>This is a collection of thoughts about FreeGuide's design.  Contributions, disagreements and comments are <a href="mailto:freeguide-tv-devel@lists.sourceforge.net">welcome</a>.</p>
+<h2>Target Audience</h2>
+<p>A TV guide is a very simple thing.  In fact, my main reason for writing this application is that TV listings magazines are far, far too complicated for their purposes.  This is brought about partly by the number of adverts and inane articles they contain, and partly because they try to list all the programmes everyone wants to see.  FreeGuide attacks this problem on three fronts.  First, it only shows the channels you ask for, second, it highlights programmes you are likely to want to watch, and third, it lets you produce a guide containing only relevant information.</p>
+<p>So I want FreeGuide to be a simple thing to use.  That means that any advanced configuration and so on should be in a place where the average user won't find it.</p>
+
+<h2>Example Users</h2>
+<h3>Newbie</h3>
+<p>My Mum has got the hang of Outlook Express, and uses MS Word slightly tentatively.  She should find it simple to use FreeGuide.  Why not, it's hardly rocket science, is it?</p>
+
+<h3>Hacker</h3>
+<p>FreeGuide is listed on Sourceforge, and therefore is likely to get a lot of its initial audience from people who really know what they're doing.  They should be able to do advanced things like grab listings from a different web site, and search programmes powerfully using clever techniques.  However, these abilities should sail past the basic user without being noticed.  Otherwise we disguise the fundamental fact that listing TV programmes is simple.</p>
+
+<p>It's worth noting that the hacker who just wants to get the TV listings quickly without learning anything will appreciate simplicity just as much as the newbie.</p>
+
+<h2>Tasks</h2>
+<p>In order of frequency of use.</p>
+<h3>Viewing listings</h3>
+<p>The primary use of FreeGuide is expected to be to look at what's on today, and print off a customised guide.  It should also be easy to have a look at what's on tomorrow, and the rest of the week.</p>
+
+<h3>Downloading listings</h3>
+<p>Every week or so the user will need to download new listings, by connecting to the Internet.  This should be almost completely non-interactive, without taking away the user's freedom.</p>
+
+<h3>Downloading channels</h3>
+<p>The user will probably only do this once, but it will be the first thing they ever have to do with FreeGuide, so it must be easy, friendly and non-interactive, again not taking away the user's freedom, particularly because they have to connect to the Internet before they begin.</p>
+
+<p>Of course, the user will encounter these tasks in this order: downloading channels, downloading listings, then viewing listings.</p>
+
+<h2>Progress so far</h2>
+
+<h3>0.4</h3>
+<p>Big steps forward here with a simple installer for each platform and region, which takes almost all of the interesting configuration problems away.</p>
+
+<p>However, there is still much room for improvement.  The user still has to run the configuration step of the grabber from a command line, which is decidedly unfriendly, and windows users have to set up the timezone info as well.</p>
+
+<p>Linux users have still got it very tough with all the problems of installing XMLTV.  We will just have to wait until the XMLTV project solves these problems.  However, I feel I can expect Linux people to be much more clued-up than Windows people, so I'm not too worried about this.</p>
+
+<p>Windows installation has become extremely easy (relative to previous releases) because the required XMLTV tools and Perl runtime are included in the jar file they download.  Of course, they still have to download Java 1.4 first, but there's not a lot I can do about that in the immediate future.</p>
+
+<h3>0.3</h3>
+<p>0.3 still has a long way to go if it's going to be usable by the "my Mum" category of users, but it does have some improvements.  For example, it notices when there are no listings and asks whether you want to go and download more.  A lot of the wording has been made clearer, and the tick-boxes have been replaced with clickable programmes.</p>
+
+<p>The UI generally has been improved, and makes it clearer (I think) what everything is for, and what you might like to do.</p>
+
+<p>The major problem at the moment is installation.  Java 1.4's Preferences features mean that a configuration file is no longer a problem, but I've made it very difficult for myself by using external tools through a command-line interface - this causes any number of problems, and there is still no decent installer which would sort some of these out.</p>
+
+<p>When XMLTV gets a little maturer, and settles on an installation method (especially on Windows), then FreeGuide should follow and become easier on this front.  The necessity of running the grabber configuration puts FreeGuide well out of reach of loads of users at the moment.  I really don't know what to do about this - to wrap configuration with a GUI the XMLTV tools will need to have a consistent interface, which is difficult as different grabbers have different requirements.</p>
+
+<p>Hackers are quite well served by 0.3, as the ability to have favourites selected using regular expressions has been added, thanks to Sun finally adding regexp support to Java.  In fact loads of great things come from requiring Java 1.4 - you get XML parsing without an external library, the fantastic Preferences stuff, and regular expressions.  And because this is an open source project, I can just decide that I want to require Java 1.4, and no-one can argue!</p>
+
+<h3>0.2</h3>
+<p>0.2 retreats slightly from my most strict ease of use requirements, as an acknowledgement that most users will be experts, mainly because it only works under Linux.  It provides lots of unnecessary feedback from its downloading operations, because it is expected to encounter problems that I would like the user to be aware of and report to me.  It also expects you to go to Tools and then Options just to download the listings the first time you use it, which is basically a mistake in the design brought about by a complicated system of checking whether it needs to jump you to here or there got a bit annoying and I took it out.</p>
+<p>Hiding Download listings and Options (which allows you to download channels) away in the Tools menu is bad, but it if jumped to the right place automatically when needed, that might be appropriate as the normal user wouldn't need to know where they were.</p>
+<p>Installation at the moment is fiddly, because you have to alter the config file manually, and I shall work on installers when there is time.  This isn't a priority at the moment, because there are plenty of bugs to fix and basic UI stuff to be done.</p>
+<p>The user doesn't get much feedback that the program is doing something sometimes - the current window disappears, and it can take a while for a new one to appear.</p>
+
+<h3>0.1</h3>
+<p>Version 0.1 didn't really work because I had to withdraw the listings grabber, so it didn't satisfy many of the users' requirements.</p>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+Time flows upward.  Releases happen when all actions
+below them are completed.
+
+This document is at risk of radical change whenever I
+feel like it.
+
+- means to do
++ means done
+
+--------------------------------------------
+
+Release 2.0
+
+- Think about ports to wxWindows, Python, ...
+
+Release 1.0
+
+- Get it all right
+- Alert me when my programme starts
+- Integration with e.g. tv card software 
+	- developed and maintained by a leutenant (i.e. not me)
+	- Needs ability to start/stop viewing and recording
+	- Might use JNI?
+- Internationalisation
+- Printing
+	- Keep the browser option for maximum compatibility
+	- Add save html option
+	- Support tv_to_latex tool, viewing and printing (what about windows?)
+	- How to print on Windows?
+	- Use Java's printing capabilities?
+- Use JNI for grabber etc?
+- Complete single installer for FreeGuide, XMLTV (and Java?) for each platform
+- Facilitate community devt of default settings in each situation (how?)
+- FAQ?
+- Other platforms - investigate Mac, BSD, others
+
+Release 0.6
+
+- Remember window sizes and positions between uses
+- "Uncheck all" button + "check all" button in channels screen
+- Dynamic update of command output window
+- Add "Contains" option to title match in favourites
+- fix in tv_split for de's lack of channels (or fix tv_grab_de to use configure and to do channels
+- Deal with grabber that doesn't use a config file?
+- Choose how old files are before you delete them
+- Help manual
+- Properties box for a programme showing longer descriptions, other DTD stuff
+- Terms and conditions of listings
+- Use Slava's Console plugin to execute commands
+- --configure support for tv_grab_na and uk (talk to XMLTV people) (this should be in the installer probably)
+- --days support
+- Further visual enhancements and customisability
+- Ability to save and load preferences (using Java's ability to save to XML)
+
+Release 0.5
+
+- Fix bug with adding an already-selected programme to favourites.
+- Right-click on a favourite gives option to remove from favs?
+    (remove specific favs, but warn if general)
+- Move XML stuff to a separate object
+- Other code rationalisation, FIXMEs, remove commented sections
+- Tidy up FreeGuideOptionsWizard - make it not a wizard
+- Also make FreeGuideInstaller really a wizard
+- Fix bug with favourites not being shown
+- Fix bug where options screen forgets what you chose for grabber command
+
+Release 0.4
+
++ Make downloading work on Windows, from within FreeGuide (requires XMLTV 0.5)
++ Make output and error stream boxes in Executor not have huge scroll range.
++ Automatic command execution window to replace download screen
++ [Wait for XMLTV 0.5]
++ Store the stylesheet CSS code instead of the location of a file (delete css_file option if it's there)
++ Don't confront the user with all the difficult options when they first start
++ Channels should get their own screen
++ New "Redecorate" screen for colours options
++ Installers on Windows and Linux!
++ Alter Options wizard so focuslost events are replaced with custom thing that works
+	+ Create directory if it doesn't exist
+	+ Do browse buttons
++ Separate channels and customisation screens
++ Setup wizard sets up every param explicitly and subsumes checks.
++ Fix tv_split so it gives a better error when no programmes are found.
++ Fix bug that means favourites aren't chosen
++ Fix non-scrollability of Details box
++ Centre Download Listings box
++ Remove old chosen programmes
++ Add Windows README
++ Make download screen display command output during download, not just after
++ Fix download screen to enter and exit automatically (and generally make better)
+
+Release 0.3
+
++ More flexible favourites
++ Fixed fast scrolling bug
++ Cleaner interface
++ Hide details on download screen
++ Better command execution
++ Fix favourites (loss of info when re-enter screen)
++ Options wizard when starting for first time
++ Implement divideTimes for days
++ Right-click on a prog to make a favourite
++ Delete old programme files and old config entries
++ Update README
++ About screen
