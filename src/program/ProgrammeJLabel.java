@@ -13,6 +13,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Polygon;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
 import java.util.Vector;
 import javax.swing.JLabel;
 import java.awt.Graphics;
@@ -23,7 +25,7 @@ import java.text.SimpleDateFormat;
  *
  *@author     Andy Balaam
  *@created    3 July 2003
- *@version    1
+ *@version    2
  */
 public class ProgrammeJLabel extends javax.swing.JLabel {
 
@@ -271,12 +273,41 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 				FreeGuide.prefs.addChoice( programme, viewerFrame.theDate );
 			}
 			
+			if( FreeGuide.prefs.misc.getBoolean( "reminders_on", false ) ) {
+			
+				// Set up a reminder here if it's after now
+				Date startTime = programme.getStart().getTime();
+				long warningSecs = FreeGuide.prefs.misc.getLong(
+					"reminders_warning_secs", 30 );
+				long giveUpSecs = FreeGuide.prefs.misc.getLong(
+					"reminders_give_up_secs", 60 );
+				
+				if( startTime.after( new Date() ) ) {
+				
+					reminderTimer = new MessageDialogTimer();
+					reminderTimer.schedule(
+						programme.getTitle() + " is starting soon.",
+						new Date( startTime.getTime() - warningSecs*1000 ),
+						new Date( startTime.getTime()
+							- (warningSecs-giveUpSecs)*1000 )
+						);
+				
+				}
+				
+			}
+			
 			setBackground( viewerFrame.tickedColour );
 			
 		} else {
 			
 			if( updatePrefs ) {
 				FreeGuide.prefs.removeChoice( programme );
+			}
+			
+			if( reminderTimer != null ) {
+				
+				reminderTimer.cancel();
+				
 			}
 			
 			if( programme.getIsMovie() ) {
@@ -307,6 +338,7 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 	
 	private Polygon heartShape;
 	private ViewerFrame viewerFrame;
+	private MessageDialogTimer reminderTimer;
 	
 }
 

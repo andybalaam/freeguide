@@ -11,6 +11,7 @@
  *  See the file COPYING for more information.
  */
 import java.awt.Color;
+import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -19,17 +20,21 @@ import java.util.logging.Logger;
  *
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    6
+ *@version    7
  */
 public class FreeGuide implements Launcher {
 
     /**
-     *  The constructor for the class that starts it all.
+     * The constructor for the class that starts it all.
      *
-     *@param  args  The commandline arguments
+     * @param  args  The commandline arguments
      */
     public FreeGuide(String[] args) {
+		
+		timerHandler = new TimerHandler();
+		
         PleaseWaitFrame pleaseWait = new PleaseWaitFrame(this, args);
+		
     }
 
 
@@ -122,6 +127,11 @@ public class FreeGuide implements Launcher {
      *  The log file
      */
     public static Logger log;
+	
+	/**
+     *  Class that handles timers
+     */
+    public static TimerHandler timerHandler;
 
     /**
      *  The major version of FreeGuide

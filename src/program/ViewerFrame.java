@@ -1529,7 +1529,6 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
     public void programmeJLabelClicked( java.awt.event.MouseEvent evt ) {
 
         ProgrammeJLabel programmeJLabel = (ProgrammeJLabel)evt.getSource();
-        Programme programme = programmeJLabel.programme;
 			
 		programmeJLabel.setSelected( !programmeJLabel.isSelected );
 
