@@ -1,4 +1,4 @@
-dist/FreeGuide.jar usr/share/java
+FreeGuide.jar usr/share/java
+freeguide.png usr/share/pixmaps
 src/install/linux/freeguide usr/bin
 src/install/linux/freeguide.desktop usr/share/applications
-freeguide.png usr/share/pixmaps

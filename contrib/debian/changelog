@@ -1,3 +1,10 @@
+freeguide (0.8.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Support j2re 1.4 (closes: #276972).
+
+ -- Shaun Jackman <sjackman@debian.org>  Fri,  5 Nov 2004 09:29:05 -0800
+
 freeguide (0.8-2) unstable; urgency=low
 
   * Add xmltv to dependencies (closes: #276818).

@@ -1,79 +1,31 @@
 #!/usr/bin/make -f
-# Based on the sample debian/rules that uses debhelper.
-# GNU copyright 1997 to 1999 by Joey Hess.
-
-# Turn on verbose mode.
-#export DH_VERBOSE=1
-
-
-ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
-	CFLAGS += -g
-endif
-ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
-	INSTALL_PROGRAM += -s
-endif
-
-configure: configure-stamp
-configure-stamp:
-	dh_testdir
-	touch configure-stamp
 
 build: build-stamp
-build-stamp: configure-stamp 
-	dh_testdir
+build-stamp:
 	ant FreeGuide-Linux-NoXMLTV
-	cp dist/FreeGuide-*.jar dist/FreeGuide.jar
 	touch build-stamp
 
 clean:
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp configure-stamp
+	rm -f build-stamp FreeGuide.jar freeguide.png
 	ant clean
 	dh_clean
-	rm -f freeguide.png
 
-install: build
-	dh_testdir
-	dh_testroot
+binary-indep: build
 	dh_clean -k
-	dh_installdirs
 	cp src/images/logo-256x256.png freeguide.png
+	cp dist/FreeGuide-*.jar FreeGuide.jar
+	dh_install -i
+	dh_installdocs -i
+	dh_installman -i
+	dh_installchangelogs -i
+	dh_compress -i
+	dh_fixperms -i
+	dh_gencontrol -i
+	dh_md5sums -i
+	dh_builddeb -i
 
-# Build architecture-independent files.
-binary-indep: build install
-	dh_testdir
-	dh_testroot
-	dh_install
-#	dh_installdebconf	
-	dh_installdocs
-#	dh_installexamples
-#	dh_installmenu
-#	dh_installlogrotate
-#	dh_installemacsen
-#	dh_installpam
-#	dh_installmime
-#	dh_installinit
-#	dh_installcron
-	dh_installman
-#	dh_installinfo
-#	dh_undocumented
-	dh_installchangelogs 
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms
-#	dh_makeshlibs
-	dh_installdeb
-#	dh_perl
-#	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-# Build architecture-dependent files.
-binary-arch: build install
-# We have nothing to do.
+binary-arch:
 
 binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install configure
+
+.PHONY: build clean install binary-indep binary-arch binary
