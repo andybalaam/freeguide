@@ -1,3 +1,15 @@
+freeguide (0.8-2) unstable; urgency=low
+
+  * Add xmltv to dependencies (closes: #276818).
+
+ -- Shaun Jackman <sjackman@debian.org>  Sat, 16 Oct 2004 10:40:39 -0700
+
+freeguide (0.8-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Shaun Jackman <sjackman@debian.org>  Wed, 18 Aug 2004 08:20:14 -0700
+
 freeguide (0.7.5-1) unstable; urgency=low
 
   * New upstream release.

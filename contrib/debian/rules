@@ -21,7 +21,8 @@ configure-stamp:
 build: build-stamp
 build-stamp: configure-stamp 
 	dh_testdir
-	ant FreeGuide
+	ant FreeGuide-Linux-NoXMLTV
+	cp dist/FreeGuide-*.jar dist/FreeGuide.jar
 	touch build-stamp
 
 clean:
@@ -37,7 +38,7 @@ install: build
 	dh_testroot
 	dh_clean -k
 	dh_installdirs
-	cp src/images/pleasewait.png freeguide.png
+	cp src/images/logo-256x256.png freeguide.png
 
 # Build architecture-independent files.
 binary-indep: build install
@@ -46,7 +47,7 @@ binary-indep: build install
 	dh_install
 #	dh_installdebconf	
 	dh_installdocs
-	dh_installexamples
+#	dh_installexamples
 #	dh_installmenu
 #	dh_installlogrotate
 #	dh_installemacsen
