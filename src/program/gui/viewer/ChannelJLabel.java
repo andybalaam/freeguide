@@ -13,6 +13,8 @@
 package freeguidetv.gui.viewer;
 
 import freeguidetv.*;
+import freeguidetv.lib.fgspecific.FGPreferences;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -79,24 +81,12 @@ public class ChannelJLabel extends JLabel implements ComponentListener{
 		this.name = name;
 		
 		// Compute the cache fileName
-		StringBuffer sb = getIconCacheDir();
+		StringBuffer sb = FGPreferences.getIconCacheDir();
 		sb.append( id.replace( '.', '_' ).replaceAll( "[^a-zA-Z0-9_]","-" ) );
 		cacheFileName = sb.toString();
 		addComponentListener(this);
 	}
-    
-    public static StringBuffer getIconCacheDir() {
         
-        StringBuffer ans = new StringBuffer(
-            FreeGuide.prefs.performSubstitutions(
-				FreeGuide.prefs.misc.get("working_directory") ) );
-		ans.append(File.separatorChar).append("iconcache")
-            .append(File.separatorChar);
-        
-        return ans;
-        
-    }
-    
 	/**
 	 * @return Returns the id.
 	 */

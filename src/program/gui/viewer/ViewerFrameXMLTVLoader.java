@@ -473,6 +473,11 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
                 
             }
         
+		} else if (saxLoc.equals(":tv:programme:icon")) {
+			
+			if (currentProgramme != null && attrs.getValue("src") != null)
+				currentProgramme.setIconURL(attrs.getValue("src"));
+			
 		} else if ( saxLoc.equals(":tv:programme:desc")
             || saxLoc.equals(":tv:programme:title")
             || saxLoc.equals(":tv:programme:sub-title")

@@ -13,6 +13,7 @@
 
 package freeguidetv.lib.fgspecific;
 
+import freeguidetv.FreeGuide;
 import freeguidetv.lib.general.*;
 import java.awt.Color;  // Not * since List conflicts with util.List
 import java.io.*;
@@ -1199,6 +1200,17 @@ public class FGPreferences {
         return changed;
     }
 
+    public static StringBuffer getIconCacheDir() {
+        
+        StringBuffer ans = new StringBuffer(
+            FreeGuide.prefs.performSubstitutions(
+				FreeGuide.prefs.misc.get("working_directory") ) );
+		ans.append(File.separatorChar).append("iconcache")
+            .append(File.separatorChar);
+        
+        return ans;
+        
+    }
 
 
     // ------------------------------------------------------------------------

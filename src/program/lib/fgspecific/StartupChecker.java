@@ -66,7 +66,7 @@ public class StartupChecker {
     public static Vector runChecks() {
 	
         // Make an icon cache dir if it doesn't exist
-        File iconcache = new File( ChannelJLabel.getIconCacheDir().toString() );
+        File iconcache = new File( FGPreferences.getIconCacheDir().toString() );
         if( !iconcache.isDirectory() ) {
             iconcache.mkdirs();
         }

@@ -13,6 +13,11 @@
 
 package freeguidetv.lib.fgspecific;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 import org.xml.sax.Attributes;
@@ -465,6 +470,48 @@ public class Programme {
         }
         
     }
+	/**
+	 * @return Returns the iconURL from the cache.
+	 */
+	public String getIconURL() {
+		if (iconURL == null) return null;
+		StringBuffer path = FGPreferences.getIconCacheDir();
+		path.append(iconURL.replaceAll("[^0-9A-Za-z_-]|^http://|^ftp://", ""));
+		// First convert the id to a suitable (and safe!!) filename
+		File cache = new File(path.toString());
+		// then verify if the file is in the cache
+		if (!cache.canRead()) {
+			// if not, we try to fetch it from the url
+			try {
+				URL iconURL;
+				iconURL = new URL(this.iconURL);
+				InputStream i = iconURL.openStream();
+				FileOutputStream o = new FileOutputStream(cache);
+				byte buffer[] = new byte[4096];
+				int bCount;
+				while ((bCount = i.read(buffer)) != -1)
+					o.write(buffer, 0, bCount);
+				o.close();
+				i.close();
+			} catch (MalformedURLException e) {
+				return null;
+			} catch (IOException e) {
+				return null;
+			}
+		}
+		try {
+			return cache.toURL().toString();
+		} catch (MalformedURLException e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * @param iconURL The iconURL to set.
+	 */
+	public void setIconURL(String iconURL) {
+		this.iconURL = iconURL;
+	}
 
     public Hashtable getExtraTags() {
         return extraTags;
@@ -509,6 +556,11 @@ public class Programme {
 	 * The ID of the channel the prog's on
 	 */
     private String channelID;
+    
+    /**
+     * The URL of the programme's icon
+     */
+    private String iconURL;
     
 	/**
 	 * The categories it fits into

@@ -16,6 +16,10 @@ import freeguidetv.lib.fgspecific.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.*;
 import java.text.*;
 import java.util.*;
@@ -484,5 +488,6 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 		}
 		return tooltip;
 	}
+	
 }
 
