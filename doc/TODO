@@ -25,6 +25,7 @@ b  means done by Brendan Corrigan
 - Release 2.0 (blue sky)
 
 - Think about ports to wxWindows, Python, ...
+- Convert to SWT and compile natively with GCJ
 - Search for programmes, different views on data.
 
 - Release 1.0 (the destination)
@@ -92,6 +93,8 @@ b  means done by Brendan Corrigan
 - Option to jump to a specific time on program start
 - Add sub-title handling, plus other useful tags.
 - Ability to highlight a channel to make it easier to read
+- Go To Now scrolls the personalised listing panel as well as the main panel
+- Hovering over a programme scrolls the personalised listing to show it
 
 - Release 0.6.2 (consolidation and code tidying)
 
@@ -112,6 +115,8 @@ b  means done by Brendan Corrigan
 - Make the About box a _lot_ nicer.
 - Choose browser on startup
 - Nice browser chooser in options
+- Automate creation of tar.gz Source package, and change naming to use . instead
+	of _ and put zip and tar.gz inside a dir called FreeGuide-0.6.1
 
 + Release 0.6.1 (gradual improvements to GUI begin)
 
