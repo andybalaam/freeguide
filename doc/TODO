@@ -115,8 +115,28 @@ D  means work in progress by Dave Torok
 - fi always says Execution Error on Windows
 - Deal with change to XMLTV config file naming to *.conf
 - Feedback during download process
+- Talk to XMLTV people about non-zero exit codes under Windows (all but na, sn)
+- Talk to XMLTV people about tv_grab_nl errors:
+$"C:\Program Files\freeguide-tv\xmltv\xmltv.exe" tv_grab_nl --config-file "C:\Program Files\freeguide-tv\xmltv\tv_grab_nl.conf" --offset 0 --days 1 --output "C:\Program Files\freeguide-tv\data\tv-20030416.xmltv"
+Timezone is +0100
+main::process_summary_page() called too early to check prototype at /PerlApp/grab/nl/tv_grab_nl line 973.
+main::process_summary_page() called too early to check prototype at /PerlApp/grab/nl/tv_grab_nl line 323.
+main::process_summary_page() called too early to check prototype at /PerlApp/grab/nl/tv_grab_nl line 346.
+using config file C:\Program Files\freeguide-tv\xmltv\tv_grab_nl.conf
+downloading listings: tv_grab_nl:Invalid argument http://www.tvgids.nl/zoekprogramma.php?station=1&interval=0: could not fetch http://www.tvgids.nl/zoekprogramma.php?station=1&interval=0, aborting
+- Talk to XMLTV people about xmltv.exe tv_grab_na --listings "tv-%Y%m%d.xml" works
+
+- Release 0.5.4 (Win UK bug fix)
+
++ Fix shared directory bug with UK install
++ Fix bug with fi install not doing all prefs
++ Support for es and it grabbers
++ Experimental support for nl grabber
++ Fix % problem on Windows na
++ Comprehensive Windows testing
 
 + Release 0.5.3 (XMLTV 0.5.8)
+
 + Inc. XMLTV 0.5.8
 
 + Release 0.5.2 (interim release for new xmltv version 0.5.7)

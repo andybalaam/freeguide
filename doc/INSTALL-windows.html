@@ -11,6 +11,8 @@
 
 <h2>Installation Instructions</h2>
 
+<p>Apologies to people in Italy and New Zealand, but you are currently unable to use FreeGuide on Windows.</p>
+
 <ol>
 <li>Download and install the Java Runtime Environment, Version 1.4 at least.  To find out whether you've got this, open a CMD Window (MS-DOS window), and type <span style="background-color: black; color: white;"><tt>java -version</tt></span>.  If it says you've got an earlier version, or if you get an error, you need to get an upgrade from <a href="http://java.sun.com/getjava/">http://java.sun.com/getjava/</a>.</li>
 
@@ -23,17 +25,23 @@
 <p>then type one of the following:</p>
 <table cellspacing="4" cellpadding="1">
 <tr>
-<td>If you're from the UK:</td>
-<td style="background-color: black; color: white;"><tt>xmltv.exe tv_grab_uk --config-file tv_grab_uk --configure</tt></td>
+<td>If you're from the UK (all one line):</td>
+<td style="background-color: black; color: white;"><tt>xmltv.exe tv_grab_uk --config-file tv_grab_uk.conf --share "C:\Program Files\freeguide-tv\xmltv\share\xmltv" --configure</tt></td>
 </tr><tr>
 <td>If you're from the US or Canada:</td>
-<td style="background-color: black; color: white;"><tt>xmltv.exe tv_grab_na --config-file tv_grab_na --configure</tt></td>
+<td style="background-color: black; color: white;"><tt>xmltv.exe tv_grab_na --config-file tv_grab_na.conf --configure</tt></td>
 </tr><tr>
 <td>If you're from the Sweden or Norway:</td>
-<td style="background-color: black; color: white;"><tt>xmltv.exe tv_grab_sn --config-file tv_grab_sn --configure</tt></td>
+<td style="background-color: black; color: white;"><tt>xmltv.exe tv_grab_sn --config-file tv_grab_sn.conf --configure</tt></td>
 </tr><tr>
 <td>If you're from Finland:</td>
-<td style="background-color: black; color: white;"><tt>xmltv.exe tv_grab_fi --config-file tv_grab_fi --configure</tt></td>
+<td style="background-color: black; color: white;"><tt>xmltv.exe tv_grab_fi --config-file tv_grab_fi.conf --configure</tt></td>
+</tr><tr>
+<td>If you're from Spain:</td>
+<td style="background-color: black; color: white;"><tt>xmltv.exe tv_grab_es --config-file tv_grab_es.conf --configure</tt></td>
+</tr><tr>
+<td>If you're from the Netherlands (you may get some errors, but carry on):</td>
+<td style="background-color: black; color: white;"><tt>xmltv.exe tv_grab_nl --config-file tv_grab_nl.conf --configure</tt></td>
 </tr>
 </table>
 

@@ -1,0 +1,62 @@
+# A convenience script I use under Cygwin to generate the list of shared files
+# for tv_grab_uk's install-win-uk.props file
+
+COUNTRY=tv_grab_uk
+#COUNTRY=tv_grab_it
+
+DIR="/cygdrive/c/Documents and Settings/root/My Documents/cvs-freeguide-tv/build/install-win/share/xmltv/$COUNTRY"
+
+SUBDIR=$1
+
+TMPFILE=/tmp/fgshare-sh-count
+
+FILES=`ls "$DIR/$SUBDIR"`
+
+for FILE in $FILES; do {
+	
+	if [ -d "$DIR/$SUBDIR/$FILE" ]; then {
+
+		if [ -z $SUBDIR ]; then {
+
+			bash ./share.sh "$FILE"
+		
+		}; else {
+	
+			bash ./share.sh "$SUBDIR/$FILE"
+	
+		}; fi
+	
+	}; else {
+	
+		if [ -f "$TMPFILE" ]; then {
+
+			COUNT=`cat $TMPFILE`
+
+		}; else {
+
+			COUNT=20
+
+		}; fi
+	
+		if [ -z $SUBDIR ]; then {
+
+			echo "file.$COUNT=share/xmltv/$COUNTRY/$FILE>%misc.share_directory%/$COUNTRY/$FILE"
+		
+		}; else {
+	
+			echo "file.$COUNT=share/xmltv/$COUNTRY/$SUBDIR/$FILE>%misc.share_directory%/$COUNTRY/$SUBDIR/$FILE"
+	
+		}; fi
+	
+		let COUNT++
+		echo $COUNT > $TMPFILE
+	
+	}; fi
+
+}; done
+
+#if [ -z $SUBDIR ]; then {
+
+#	rm -f $TMPFILE
+
+#} fi
