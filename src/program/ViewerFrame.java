@@ -1026,6 +1026,12 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 		// since all dates are allowable.)
 		checkCurrentChannelSet();
 		
+		// Set the progress meter to 5%
+		progressor.setProgress( 5 );
+		
+		// Load in all the XMLTV data into an XMLTVLoader object
+		xmltvLoader.loadProgrammeData( theDate );
+		
 		// Draw the dates and channel sets
 		drawDateComboList();
 		drawChannelSetComboList();

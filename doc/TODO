@@ -100,10 +100,11 @@ D  means work in progress by Dave Torok
 - Download happens without leaving ViewerFrame
 - Make installer install shortcuts for Windows, Gnome and KDE
 - Remember what country you are from in installer
+- Make options and customise screens nicer
 
-- Release 0.6 (some features and grabber configuration)
++ Release 0.6 (some features and grabber configuration)
 
-- Test all grabbers on Windows and Linux
++ Test all grabbers on Windows and Linux
 + Change screenshots on web page and freshmeat
 + Uninstall should remove data directory
 + Progress feedback during download process

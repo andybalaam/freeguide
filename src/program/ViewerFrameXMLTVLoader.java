@@ -487,6 +487,8 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
 
         }
 
+		//FreeGuide.log.info( ans.getTime().toString() );
+		
         return ans;
     }
 
