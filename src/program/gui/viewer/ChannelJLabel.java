@@ -71,8 +71,8 @@ public class ChannelJLabel extends JLabel implements ComponentListener{
             if( width <= 0 ) {
                 width = 5;
             }
-            if( height <= 0 ) {
-                height = 5;
+            if( maxheight <= 0 ) {
+                maxheight = 5;
             }
 			super.setIcon(
                 new ImageIcon( icon.getImage().getScaledInstance(
