@@ -15,29 +15,50 @@
 
 <h1>FreeGuide Developers: Compiling FreeGuide</h1>
 
-<h2>Checking out from CVS</h2>
+<h2>Getting the source</h2>
 
-<p>Do a checkout by typing these two commands in a terminal:</p>
+You can get FreeGuide's source code either by downloading a source release or by checking out from CVS.
 
-<p><tt>cvs -d:cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/freeguide-tv login</tt></p>
+<h3>Downloading a source release</h3>
+
+<p>You can download a source release of FreeGuide from <a href="http://sourceforge.net/project/showfiles.php?group_id=35309&package_id=98881">Sourceforge</a>.</p>
+
+When you've downloaded either the zip or tar.gz file, unzip it, and skip to the <a href="#compiling">Compiling</a> section to compile FreeGuide.
+
+<h3>Checking out from CVS</h3>
+
+<p>To work with the very latest version of FreeGuide you'll need to check it out from CVS.  Do a checkout by typing these two commands in a terminal:</p>
+
+<p><tt>cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/freeguide-tv login</tt></p>
 
 <p>[Press RETURN at password prompt]</p>
 
 <p><tt>cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/freeguide-tv co freeguide-tv</tt></p>
 
-<p>Then download the modified XMLTV windows binary and source code packages from <a href="http://sourceforge.net/project/showfiles.php?group_id=35309&package_id=103744">Sourceforge</a>.</p>
+<p>If you're one of the FreeGuide developers you can do it with a single command:</p>
+
+<p><tt>cvs -z3 -d:ext:user_name@cvs.sourceforge.net:/cvsroot/freeguide-tv co freeguide-tv</tt></p>
+
+<p>(Where user_name is your sourceforge user name.)</p>
+
+<p>The above commands check out the default ("HEAD") branch of FreeGuide, but sometimes various other branches exist.  If you need to check out a different branch, add "-r branch_name" between "co" and "freeguide-tv".  For example:</p>
+
+<p><tt>cvs -z3 -d:ext:user_name@cvs.sourceforge.net:/cvsroot/freeguide-tv co -r Stable0_8-branch freeguide-tv</tt></p>
+
+<p>would check out the stable branches of FreeGuide based on the 0.8 release, rather than the latest code stored in HEAD.</p>
+
+<p>When you've checked out the code from CVS, you need to download the latest XMLTV windows binary and source code packages from <a href="http://sourceforge.net/project/showfiles.php?group_id=39046&package_id=31217">Sourceforge</a>.</p>
 
 <p>(Assuming you checked out the sources into ~/freeguide-tv/)</p>
 
-<p>Place the source file xmltv-x.x.x-tkgui.tar.bz2 into ~/freeguide-tv/xmltv/</p>
+<p>Place the source file xmltv-x.x.x.tar.bz2 into ~/freeguide-tv/xmltv/</p>
 
-<p>Unzip the Windows binary file xmltv-x.x.x-tkgui-bin-windows.zip to a temporary file and copy the file xmltv.exe to ~/freeguide-tv/xmltv/</p>
+<p>Unzip the Windows binary file xmltv-x.x.x-win32.zip to a temporary file and copy the file xmltv.exe to ~/freeguide-tv/xmltv/</p>
 
-<p>Unzip the Linux binary file xmltv-x.x.x-tkgui-bin-linux.tar.bz2 to a temporary file and copy the file xmltv to ~/freeguide-tv/xmltv/</p>
+<!--<p>Unzip the Linux binary file xmltv-x.x.x-tkgui-bin-linux.tar.bz2 to a temporary file and copy the file xmltv to ~/freeguide-tv/xmltv/</p>-->
 
 <h2>Compiling</h2>
-
-<p>Either get the source from CVS as described above, or download a source package from <a href="http://sourceforge.net/project/showfiles.php?group_id=35309&package_id=98881">Sourceforge</a>.</p>
+<a name="compiling"></a>
 
 <p>You should now be able to build the source tarballs and the Windows and Linux jars using Ant like so:</p>
 
