@@ -381,10 +381,6 @@ public class ProgrammeJLabel extends JLabel
         }
 
         updateIsInGuide( isInGuide );
-
-        // FIXME - repaint only this strip?
-        model.getStripView(  ).repaint(  );
-
     }
 
     /**
@@ -399,6 +395,7 @@ public class ProgrammeJLabel extends JLabel
         {
             model.setFavourite( isFavourite );
         }
+        updateIsFavourite( isFavourite );
     }
 
     private void updateIsInGuide( boolean isInGuide )
@@ -420,11 +417,13 @@ public class ProgrammeJLabel extends JLabel
             setBorder( nonTickedBorder );
             setBackground( nonTickedColour );
         }
+        repaint();
     }
 
     protected void updateIsFavourite( boolean isFavourite )
     {
         this.isFavourite = isFavourite;
+        repaint();
     }
 
     /**
@@ -703,8 +702,6 @@ public class ProgrammeJLabel extends JLabel
         void setInGuide( boolean state );
 
         void setFavourite( boolean state );
-
-        StripView getStripView(  );
 
         void isHovering(  );
 

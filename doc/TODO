@@ -53,6 +53,8 @@ c  means done by Christian Weiske
 	it in even if we stick with choices.).
 	Perhaps just add an option - remind of chosen programmes?  If that's
 	unselected then need to add explicit reminders.
+- Notice "Please run --configure" in the command output, cancel downloading
+  and launch "Choose channels".
 
 - Release 0.9.5
 
@@ -181,6 +183,8 @@ c  means done by Christian Weiske
 - Delete all registry entries on Windows uninstall
 - Check whether you really need to set the timezone.
 - Fix bug with multiple reminders if you enter a page multiple times.
+- Make links in About screen work.
+- Deal with a missing .xmltv directory on Choose Channels by making it.
 
 - Release 0.9 (Keyboard navigation, internationalisation, recording)
 

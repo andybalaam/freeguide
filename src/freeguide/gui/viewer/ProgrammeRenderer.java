@@ -27,41 +27,52 @@ import java.util.*;
 import javax.swing.*;
 
 /**
- * Draws a programme on the screen and handles some of the events happening to
- * a programme.
+ * Implements the model for ProgrammeJLabel to get and change
+ * application state according to user interaction with
+ * ProgrammeJLabel
  *
  * @author Risto Kankkunen (split out of ViewerFrame by Andy Balaam).
  * @version 1
  */
-public class ProgrammeRenderer extends ProgrammeJLabel implements StripRenderer,
-    ProgrammeJLabel.Model
+public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
 {
 
-    private StripView stripView;
+    private static class RenderedProgrammeJLabel extends ProgrammeJLabel {
+        
+        RenderedProgrammeJLabel( SimpleDateFormat timeFormat, Font font )
+        {
+            super( timeFormat, font );
+        }
+        
+        RenderedProgrammeJLabel( Model model, SimpleDateFormat timeFormat,
+            Font font )
+        {
+            super( model, timeFormat, font );
+        }
+        
+        /*
+         * Overridden to make sure we get drawn by CellRendererPane
+         *
+         * @see java.awt.Component#isShowing()
+         */
+        public boolean isShowing(  )
+        {
+            return true;
+        }
+    }
+
     private ViewerFrame viewerFrame;
     private Programme programme;
+    private ProgrammeJLabel label;
 
     ProgrammeRenderer( 
-        SimpleDateFormat timeFormat, Font font, StripView stripView,
-        ViewerFrame viewerFrame )
+        SimpleDateFormat timeFormat, Font font, ViewerFrame viewerFrame )
     {
-        super( timeFormat, font );
+        this.label = new RenderedProgrammeJLabel(timeFormat, font );
 
-        this.stripView = stripView;
         this.viewerFrame = viewerFrame;
-
     }
 
-    /*
-     * Overridden to make sure we get drawn by CellRendererPane
-     *
-     * @see java.awt.Component#isShowing()
-     */
-    public boolean isShowing(  )
-    {
-
-        return true;
-    }
 
     // --- StripRenderer interface ---
     public Component getStripRendererComponent( 
@@ -70,25 +81,25 @@ public class ProgrammeRenderer extends ProgrammeJLabel implements StripRenderer,
     {
         programme = (Programme)value;
 
-        setModel( this );
+        label.setModel( this );
 
         if( hasFocus )
         {
 
             if( view.isFocusOwner(  ) )
             {
-                setBorder( 
+                label.setBorder( 
                     BorderFactory.createCompoundBorder( 
                         BorderFactory.createLineBorder( Color.blue, 2 ),
                         BorderFactory.createEmptyBorder( 1, 1, 1, 1 ) ) );
             }
             else
             {
-                setBorder( BorderFactory.createLineBorder( Color.gray, 3 ) );
+                label.setBorder( BorderFactory.createLineBorder( Color.gray, 3 ) );
             }
         }
 
-        return this;
+        return label;
     }
 
     // --- ProgrammeJLabel.Model interface
@@ -249,20 +260,8 @@ public class ProgrammeRenderer extends ProgrammeJLabel implements StripRenderer,
 
         }
 
-        updateIsFavourite( state );
-
     }
 
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public StripView getStripView(  )
-    {
-
-        return stripView;
-    }
 
     /**
      * DOCUMENT_ME!
