@@ -55,6 +55,7 @@ c  means done by Christian Weiske
 	unselected then need to add explicit reminders.
 - Notice "Please run --configure" in the command output, cancel downloading
   and launch "Choose channels".
+- Include Python XMLTV grabbers, and all others available
 
 - Release 0.9.5
 
@@ -191,7 +192,7 @@ c  means done by Christian Weiske
 - Fix cropped channel icons in program details panel
 - Fix bug where vertical scrolling makes the cursor disappear
 - Make the StripView focussed when you click on a programme
-- Check that upgrading on Windows doesn't leave 2 Add/Remove program entries.
++ Check that upgrading on Windows doesn't leave 2 Add/Remove program entries.
 - Automate building with swingwt to an exe
 - If a link for a program in the "personalized tv guide" is clicked, the
   program view scrolls to it. It would be also nice if the detail view
@@ -207,6 +208,7 @@ c  means done by Christian Weiske
 - Implement in_guide, remind and record for chosen progs and favourites
 - Implement the actual reminders and recording functionality
 - Split the different MVC objects apart as per Risto's email of 28/02/05
+  (Applied Risto's patch, but may want to split ProgrammeRenderer more.)
 - Increase the sizes of buttons in Channel Sets, Options and First Time Wizard
   so that they fit under the German translation.
 - Use latest XMLTV
@@ -217,6 +219,11 @@ c  means done by Christian Weiske
 - Make 00:00 starts after time in favourites _either_ late at night _or_ early
   in the morning depending what the starts before time is - see debian bug
   http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=285719
+
++ 0.9pre4
+
+- Fix wrong channel names bug.
+- Change all relevant XMLTV commands to use --brief
 
 + 0.9pre3 (xmltv 0.5.39)
 
@@ -271,6 +278,10 @@ c Translate into German
   (Later, "reminder" will mean you will be reminded, and "recorded" will
   mean it will be recorded.)
 + Make hearts appear on favourites.
+
+- Release 0.8.6
+
+- Change all relevant XMLTV commands to use --brief
 
 + Release 0.8.5
 
