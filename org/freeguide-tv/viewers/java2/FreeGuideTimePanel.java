@@ -28,12 +28,6 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 	
     public FreeGuideTimePanel() {
 		
-/*		Date st = new Date(2000, 11, 27, 0, 0, 0);
-		Date ed = new Date(2000, 11, 27, 23, 59, 59);
-		Date nw = new Date(2000, 11, 27, 12, 0, 0);
-		
-		setTimes(st, ed, nw);*/
-		
         initComponents();
 		
     }
@@ -102,7 +96,11 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 				tmpTime.setMinutes(tmpTime.getMinutes()+5);
 		
 			}//while
-		
+			
+			// Draw the "now" line
+			int xPos = (int)((nowTime.getTime() - startTime.getTime())/multiplier);
+			g.fillRect(xPos-1, 0, 3, 25);
+			
 		}//if
 			
 	}//paintComponent

@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  * Provides a standard interface to an application's configuration file.
  *
  * @author  Andy Balaam
- * @version 1
+ * @version 2
  */
 public class JoveConfigFile {
 
@@ -109,6 +109,10 @@ public class JoveConfigFile {
 		
 		try {//IOException
 			
+			// Blank out the old config file if there was one
+			names = new Vector();
+			values = new Vector();
+			
 			// Open the file for input
 			BufferedReader buffy = new BufferedReader(new FileReader(path));
 			
@@ -117,7 +121,7 @@ public class JoveConfigFile {
 			while(line!=null) {
 			
 				// Check for comments
-				int i = line.lastIndexOf("//");
+				int i = line.indexOf("//");
 			
 				if(i>-1) {	// if we found a comment
 				
@@ -129,7 +133,7 @@ public class JoveConfigFile {
 				line.trim();
 			
 				if(line.endsWith("=")) {	// If we've got a list
-				
+					
 					// Name the list
 					names.add(line.substring(0,line.length()-1).trim());
 					
@@ -152,7 +156,7 @@ public class JoveConfigFile {
 						
 						// Add a value
 						subValues.add(line);
-					
+						
 						// Read in another line
 						line = buffy.readLine();
 					}//while

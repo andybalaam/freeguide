@@ -18,18 +18,22 @@ import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JTextArea;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 /**
  * The options screen in FreeGuide with tabs for Download Options,
  * View Options and Advanced Options.
  *
  * @author  Andy Balaam
- * @version 2
+ * @version 3
  */
 public class FreeGuideOptions extends javax.swing.JFrame {
 
 	/** Creates new form FreeGuideOptions */
-    public FreeGuideOptions() {
+    public FreeGuideOptions(FreeGuideLauncher newLauncher) {
+		
+		launcher = newLauncher;
+		
 		channels = new DefaultListModel();
 		
         initComponents();
@@ -723,12 +727,37 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 	 * on the screen.
 	 */
 	private void initMyComponents() {
+	
+		checkConfigFile();
 		
 		showAdvanced();
 		
 		showView();
 		
 		showDownload();
+		
+	}
+	
+	/**
+	 * Checks whether our config file is properly set up and asks the user
+	 * to do it if it's not.
+	 */
+	private void checkConfigFile() {
+		
+		// Use the freeguideDir as an indicator that all is set up
+		if(FreeGuide.config.getValue("freeguideDir")==null) {
+			
+			JOptionPane.showMessageDialog(this, 
+			"Your configuration file has not yet been set up."
+			+ System.getProperty("line.separator") +
+			"This should have been set up during installation."
+			+ System.getProperty("line.separator") +
+			"Please consult the file README to find out how to set it up."
+			+ System.getProperty("line.separator") +
+			"Alternatively, you may try re-installing FreeGuide."
+			, "Incomplete config file", JOptionPane.WARNING_MESSAGE);
+			
+		}
 		
 	}
 	
@@ -797,33 +826,37 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 				
 			Vector tmpChannels = new Vector();
 		
-			try {
+			if(channelsFile.exists()) {
+			
+				try {//IOException
 		
-				BufferedReader buffy = new BufferedReader(new FileReader(channelsFile));
+					BufferedReader buffy = new BufferedReader(new FileReader(channelsFile));
 
-				String line = buffy.readLine();
+					String line = buffy.readLine();
 
-				while(line!=null) {
+					while(line!=null) {
 				
-					tmpChannels.addElement(line.trim());
+						tmpChannels.addElement(line.trim());
 				
-					line = buffy.readLine();
+						line = buffy.readLine();
 				
-					if(line==null) {
-						break;
-					}
+						if(line==null) {
+							break;
+						}//if
 				
-					line = buffy.readLine();
+						line = buffy.readLine();
 				
-				}
+					}//while
 			
-				buffy.close();
+					buffy.close();
 
-			} catch(IOException e) {
+				} catch(IOException e) {
 			
-				e.printStackTrace();
+					e.printStackTrace();
 			
-			}
+				}//try
+				
+			}//if
 
 			Collections.sort(tmpChannels);
 		
@@ -926,7 +959,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 	}//getVectorFromJTextArea
 	
 	/** 
-	 * Puts each line of a JList into a vector.
+	 * Puts each selected line of a JList into a vector.
 	 *
 	 * @param list the list to process
 	 * @return     the Vector composed of individual Strings for each 
@@ -966,7 +999,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 	private void quit() {
 		
 		hide();
-		new FreeGuideViewer().show();
+		launcher.reShow();
 		dispose();
 		
 	}
@@ -1023,5 +1056,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 
 	DefaultListModel channels;
 		// The ListModel holding the names of channels in the listbox
+	
+	private FreeGuideLauncher launcher;	// The screen that launched this one
 	
 }

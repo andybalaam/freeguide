@@ -14,6 +14,7 @@ import java.io.*;
 import java.text.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.parsers.SAXParser;
@@ -24,11 +25,13 @@ import org.xml.sax.helpers.DefaultHandler;
  * A form that displays and prints TV listings.
  *
  * @author  Andy Balaam
- * @version 3
+ * @version 6
  */
-public class FreeGuideViewer extends javax.swing.JFrame {
+public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLauncher {
 
-    public FreeGuideViewer() {
+    public FreeGuideViewer(FreeGuideLauncher newLauncher) {
+		
+		launcher = newLauncher;
 		
 		// Set up UI
         initComponents();
@@ -41,6 +44,7 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		
 		// Draw the programmes on the screen
         updatePanel();
+
     }
 
     /** This method is called from within the constructor to
@@ -79,7 +83,8 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		timeScrollPane = new javax.swing.JScrollPane();
 		timePanel = new FreeGuideTimePanel();
 		printedGuideScrollPane = new javax.swing.JScrollPane();
-		printedGuideArea = new javax.swing.JTextArea();
+		printedGuideAreaOld = new javax.swing.JTextArea();
+		printedGuideArea = new javax.swing.JEditorPane();
 		labStatus = new javax.swing.JLabel();
 		progressBar = new javax.swing.JProgressBar();
 		
@@ -113,6 +118,12 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		toolsMenu.add(menDownload);
 		toolsMenu.add(jSeparator3);
 		menFavourites.setText("Favourites...");
+		menFavourites.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				menFavouritesActionPerformed(evt);
+			}
+		});
+		
 		toolsMenu.add(menFavourites);
 		menOptions.setText("Options...");
 		menOptions.addActionListener(new java.awt.event.ActionListener() {
@@ -257,10 +268,15 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		
 		splitPane.setLeftComponent(outerPanel);
 		
-		printedGuideArea.setLineWrap(true);
+		printedGuideAreaOld.setLineWrap(true);
+		printedGuideAreaOld.setEditable(false);
+		printedGuideAreaOld.setBackground(new java.awt.Color(230, 230, 230));
+		printedGuideAreaOld.setBorder(new javax.swing.border.LineBorder(java.awt.Color.black));
+		printedGuideScrollPane.setViewportView(printedGuideAreaOld);
+		
 		printedGuideArea.setEditable(false);
-		printedGuideArea.setBackground(new java.awt.Color(230, 230, 230));
-		printedGuideArea.setBorder(new javax.swing.border.LineBorder(java.awt.Color.black));
+		printedGuideArea.setFont(new java.awt.Font("Dialog", 0, 8));
+		printedGuideArea.setContentType("text/html");
 		printedGuideScrollPane.setViewportView(printedGuideArea);
 		
 		splitPane.setRightComponent(printedGuideScrollPane);
@@ -335,26 +351,21 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	private void menOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menOptionsActionPerformed
 		
 		hide();
-		new FreeGuideOptions().show();
-		dispose();
+		new FreeGuideOptions(this).show();
 		
 	}//GEN-LAST:event_menOptionsActionPerformed
 
 	private void menFavouritesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menFavouritesActionPerformed
-		
-		/*
+				
 		hide();
-		new FreeGuideFavourites().show();
-		dispose(); 
-		 */
+		new FreeGuideFavourites(this).show();
 		
 	}//GEN-LAST:event_menFavouritesActionPerformed
 
 	private void menDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menDownloadActionPerformed
 		
 		hide();
-		new FreeGuideDownloader().show();
-		dispose();
+		new FreeGuideDownloader(this).show();
 		
 	}//GEN-LAST:event_menDownloadActionPerformed
 
@@ -421,6 +432,8 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	 */
     private void initMyComponents() {
 	
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		
 		//  Do the listeners
 		
 		innerScrollPane.getHorizontalScrollBar().addAdjustmentListener(new java.awt.event.AdjustmentListener() {
@@ -456,7 +469,24 @@ public class FreeGuideViewer extends javax.swing.JFrame {
     
 	private void goToNow() {
 	
-		// TO ADD: go to today if not already there.
+		// Go to today if not already there.
+		
+		Date now = new Date();
+		
+		// If we're not on today
+		if(theDate.getDate()!=now.getDate() || theDate.getMonth()!=now.getMonth() || theDate.getYear()!=now.getYear()) {
+			
+			// Go to today
+			theDate = now;
+			
+			SimpleDateFormat fmt = new SimpleDateFormat("EEE dd MMMM yyyy");
+			String datestr = fmt.format(theDate);
+		
+			comTheDate.setSelectedItem(datestr);
+			
+			updatePanel();
+			
+		}
 		
 		int tmpScr = timePanel.getNowScroll();
 		
@@ -494,7 +524,6 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	private void quit() {
 		
 		// Ask the user whether to quit or not
-		
 		if(JOptionPane.showConfirmDialog(this, "Are you sure you want to quit FreeGuide?", "Quit?", JOptionPane.YES_NO_OPTION)==0) {
 			System.exit(0);
 		}
@@ -638,8 +667,24 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 
 	/**
 	 * The event procedure for a checkbox - updates the printout
+	 * and sets the textarea's colour
 	 */
 	private void chkItemStateChanged(java.awt.event.ItemEvent evt) {
+		
+		JCheckBox chk = (JCheckBox)evt.getItem();
+		
+		JTextComponent txt = (JTextComponent)txts.get(chks.indexOf(chk));
+		
+		if(chk.isSelected()) {
+		
+			txt.setBackground(new Color(220,220,220));
+			
+		} else {
+			
+			txt.setBackground(new Color(255,255,255));
+			
+		}
+		
 		updatePrintedGuide();
 	}//chkItemStateChanged
     
@@ -672,14 +717,7 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	
 		SimpleDateFormat fmt = new SimpleDateFormat("HH:mm");
 	
-		// Delete any old boxes
-		if(chks!=null) {
-			for(int i=0;i<chks.size();i++) {
-				innerPanel.remove((JCheckBox)chks.get(i));
-				innerPanel.remove((JTextArea)txts.get(i));
-			}//for
-		}//if
-		//timePanel.removeAll();
+		innerPanel.removeAll();
 		channelNamePanel.removeAll();
 	
 		// References which allow us to relate a checkbox to a programme:
@@ -697,28 +735,6 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		channelNamePanel.setMinimumSize(new Dimension(0, channels.length*channelHeight+50));
 		channelNamePanel.setMaximumSize(new Dimension(0, channels.length*channelHeight+50));
 	
-		/*long hourCount = earliest.getTime();
-	
-		hourCount = hourCount - (hourCount % (60*60*1000));
-	
-		for(long h=hourCount;h<latest.getTime();h+=(60*60*1000)) {
-	    
-			JLabel lab = new JLabel(fmt.format(new Date(h)));
-			int tmp = (int)((h-earliest.getTime())*widthMultiplier);
-			lab.setBounds(tmp, 0, tmp+(int)(1000*60*60*widthMultiplier)+1, timePanel.getHeight());
-			lab.setFont(new java.awt.Font("Dialog", 0, 12));
-			lab.setBorder(new javax.swing.border.LineBorder(java.awt.Color.black));
-	    
-		    timePanel.add(lab);
-		    //txts.add(lab);
-	    
-		}
-	
-		timePanel.setPreferredSize(new Dimension((int)((latest.getTime()-earliest.getTime())*widthMultiplier)+50,0));
-		timePanel.setMinimumSize(new Dimension((int)((latest.getTime()-earliest.getTime())*widthMultiplier)+50,0));
-		timePanel.setMaximumSize(new Dimension((int)((latest.getTime()-earliest.getTime())*widthMultiplier)+50,0));
-		 */
-	
 		for(int ch=0;ch<channels.length;ch++) {
 	    
 			Vector progs = channels[ch].getProgrammes();
@@ -726,9 +742,7 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 			JLabel ctxt = new JLabel(channels[ch].getName());
 			ctxt.setBounds(0, (halfVerGap*2)+(ch*channelHeight), channelNamePanel.getWidth()-1, channelHeight-(halfVerGap*4));
 	    
-		    ctxt.setBackground(Color.yellow);
-		    //ctxt.setLineWrap(true);
-		    //ctxt.setEditable(false);
+		    ctxt.setBackground(new Color(245,245,255));
 			ctxt.setFont(new java.awt.Font("Dialog", 1, 12));
 			ctxt.setBorder(new javax.swing.border.LineBorder(java.awt.Color.black));
 			//ctxt.setSelectionColor(java.awt.Color.yellow);
@@ -736,7 +750,6 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 			ctxt.setOpaque(true);
 	    
 			channelNamePanel.add(ctxt);
-			//txts.add(ctxt);
 	    
 			for(int pr=0;pr<progs.size();pr++) {
 		
@@ -745,10 +758,39 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 				Date st = prog.getStart();
 				Date ed = prog.getSomeEnd();
 		
+				String progDesc = prog.getDesc();
+				String progTitle = prog.getTitle();
+				
 				JCheckBox chk = new JCheckBox("");
-				JTextArea txt = new JTextArea("    " + fmt.format(st)+ " " + prog.getTitle() + lineBreak + prog.getDesc());
-				txt.setToolTipText(fmt.format(st)+"-"+fmt.format(ed) + " " + prog.getChannel() + " - " + prog.getTitle() + " - " + prog.getDesc());
-				chk.setToolTipText(fmt.format(st)+"-"+fmt.format(ed) + " " + prog.getChannel() + " - " + prog.getTitle() + " - " + prog.getDesc());
+				JTextArea txt = new JTextArea("    " + fmt.format(st)+ " " + progTitle);
+				
+				// TO DO: option to add editor pane styled text with description
+				//JEditorPane txt = new JEditorPane("text/html", "    " + fmt.format(st)+ " " + prog.getTitle() + lineBreak + prog.getDesc());
+				
+				txt.setBackground(Color.white);
+				chk.setBackground(Color.white);
+				
+				// Check if this is a favourite and tick it if so
+				Vector favourites = FreeGuide.config.getListValue("favourites");
+				if(favourites!=null) {
+					
+					for(int i=0;i<favourites.size();i++) {
+						
+						if(progTitle.toLowerCase().indexOf(((String)favourites.get(i)).toLowerCase())>-1) {
+							
+							chk.setSelected(true);
+							txt.setBackground(new Color(220,220,220));
+							
+							break;
+							
+						}
+						
+					}
+					
+				}
+				
+				txt.setToolTipText(progTitle + " - " + progDesc);
+				chk.setToolTipText(progTitle + " - " + progDesc);
 		
 				int left = halfHorGap+(int)((st.getTime()-earliest.getTime())*widthMultiplier);
 				int right = ((int)((ed.getTime()-earliest.getTime())*widthMultiplier)) - (halfHorGap*2);
@@ -758,22 +800,13 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 				txt.setBounds(left, top, right-left, bottom-top);
 				
 				chk.setBounds(left, top, 12, 12);
-				//txt.setText(lineBreak + txt.getText());
-				
-/*				if(right-left<54) {
-					chk.setBounds(left+((right-left)/2)-6, top+4, 12, 12);
-					txt.setText(lineBreak + txt.getText());
-				} else {
-					chk.setBounds(left+41, top+4, 12, 12);
-				}*/
-				txt.setBackground(Color.white);
-				chk.setBackground(Color.white);
 		
 				txt.setLineWrap(true);
 				txt.setEditable(false);
-				txt.setFont(new java.awt.Font("Dialog", 0, 12));
+				txt.setFont(new java.awt.Font("Dialog", 0, 10));
 				txt.setBorder(new javax.swing.border.LineBorder(Color.black));
 				txt.setSelectionColor(Color.white);
+				txt.setOpaque(true);
 		
 				chk.setBorder(new javax.swing.border.LineBorder(Color.black));
 				
@@ -789,21 +822,8 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 				chks.add(chk);
 				txts.add(txt);
 				progRefs.add(prog);
-		
+				
 		    }
-	    
-			// Following code is supposed to scroll us to the time now.
-		
-			/*Date h = new Date();
-		
-			int tmp = (int)((h.getTime()-earliest.getTime())*widthMultiplier);
-		
-			timeScrollPane.getHorizontalScrollBar().setValue(tmp);
-			innerScrollPane.getHorizontalScrollBar().setValue(tmp);
-		
-			timeScrollPane.getHorizontalScrollBar().setValue(100);*/
-		
-		    //lab.setBounds(tmp, 0, tmp+(int)(1000*60*60*widthMultiplier)+1, timePanel.getHeight());
 		
 		}
 	
@@ -819,15 +839,14 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		
 		timePanel.setTimes(earliest, latest, new Date());
 		
-		timePanel.repaint();
+		updatePrintedGuide();
 		
-		goToNow();
+		timePanel.revalidate();
+		timePanel.repaint();
 		
 	}//drawChannels
 	
     private void updatePanel() {
-		
-		SimpleDateFormat fmt = new SimpleDateFormat("EEE yyyy-MM-dd");
 	
 		getChannelNames();
 	
@@ -853,28 +872,7 @@ public class FreeGuideViewer extends javax.swing.JFrame {
     
     private void updatePrintedGuide() {
 
-		String lineBreak = System.getProperty("line.separator");
-		
-		SimpleDateFormat fmt = new SimpleDateFormat("EEEE dd MMMM yyyy");
-	
-		printedGuideArea.setText("Your TV Guide for "+fmt.format(theDate)+":"+lineBreak);
-	
-		// Get all ticked programmes into a vector
-		Vector listedProgs = getTickedProgrammes();
-	
-		// Add them to the printer list
-		// ----------------------------
-	
-		for(int i=0;i<listedProgs.size();i++) {
-	
-			FreeGuideProgramme prog = (FreeGuideProgramme)listedProgs.get(i);
-	
-			fmt = new SimpleDateFormat("HH:mm");
-	    
-			printedGuideArea.append(lineBreak+fmt.format(prog.getStart())+"-"+fmt.format(prog.getSomeEnd())+" "+prog.getChannel()+" - "+prog.getTitle()+lineBreak);
-			printedGuideArea.append(prog.getDesc()+lineBreak);
-	    
-		}
+		printedGuideArea.setText(constructHTMLGuide(true));
 	
     }
     
@@ -883,57 +881,15 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	 */
 	private void writeOutAsHTML() {
 		
-		// Prepare a file dialog for the user to say where the HTML file goes
-		/*JFileChooser chooser = new JFileChooser();
-		chooser.setDialogTitle("Save listing as HTML file");
-		chooser.setSelectedFile(new File("guide.html"));
-	
-		// Open the dialog
-		int opt = chooser.showSaveDialog(this);
-		
-		// Find what file they chose
-		File f = chooser.getSelectedFile();*/
-		
 		// Make a file in the default location
 		File f = new File(FreeGuide.config.getValue("freeguideDir")+"guide.html");
 		
 		try {//IOException
 			
 			BufferedWriter buffy = new BufferedWriter(new FileWriter(f));
-			
-			// Set up some constants
-			SimpleDateFormat fmt = new SimpleDateFormat("EEEE dd MMMM yyyy");
 
-			buffy.write("<html>");	buffy.newLine();
-			buffy.write("<head>");	buffy.newLine();
-			buffy.write("  <title>TV Guide for "+fmt.format(theDate)+"</title>");	buffy.newLine();
-			buffy.write("  <link rel='StyleSheet' href='"+FreeGuide.config.getValue("cssFile")+"' type='text/css'");	buffy.newLine();
-			buffy.write("</head>");	buffy.newLine();
-			buffy.write("<body>");	buffy.newLine();
-			buffy.write("  <h1>TV Guide for "+fmt.format(theDate)+"</h1>");	buffy.newLine();
+			buffy.write(constructHTMLGuide(false));
 
-			// Get the programmes
-			Vector listedProgs = getTickedProgrammes();
-
-			// Add them to the HTML list
-			// ----------------------------
-
-			for(int i=0;i<listedProgs.size();i++) {
-
-				FreeGuideProgramme prog = (FreeGuideProgramme)listedProgs.get(i);
-
-				fmt = new SimpleDateFormat("HH:mm");
-    
-				buffy.write("  <p><b>"+fmt.format(prog.getStart())+" - "+prog.getTitle()+"</b><br />"+prog.getChannel()+", ends "+fmt.format(prog.getSomeEnd())+"<br />"+prog.getDesc()+"</p>");
-    
-			}//for
-
-			buffy.write("<hr />");	buffy.newLine();
-			buffy.write("<address>FreeGuide Copyright &copy;2001 by Andy Balaam<br />http://www.sourceforge.net/projects/freeguide-tv/<br />freeguide@artificialworlds.net</address>");	buffy.newLine();
-			
-			buffy.write("</body>");	buffy.newLine();
-			buffy.write("</html>");	buffy.newLine();
-		
 			buffy.close();
 		
 			FreeGuide.execExternal(FreeGuide.config.getValue("browserCommandLine")+" "+f.getAbsolutePath());
@@ -943,6 +899,76 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		}//try
 		
 	}//writeOutAsHTML
+	
+	/**
+	 * Makes a TV Guide in HTML format and returns it as a string.
+	 *
+	 * @return the TV guide as a string of html
+	 */
+	private String constructHTMLGuide(boolean onScreen) {
+		
+		// The string we shall return
+		String ans = "";
+		
+		// Set up some constants
+		SimpleDateFormat fmt = new SimpleDateFormat("EEEE dd MMMM yyyy");
+		String lineBreak = System.getProperty("line.separator");
+
+		ans+="<html>"+lineBreak;
+		ans+="<head>"+lineBreak;
+		ans+="  <title>TV Guide for "+fmt.format(theDate)+"</title>"+lineBreak;
+		ans+="  <link rel='StyleSheet' href='"+FreeGuide.config.getValue("cssFile")+"' type='text/css'"+lineBreak;
+		ans+="</head>"+lineBreak;
+		ans+="<body>"+lineBreak;
+		ans+="  <h1>";
+		
+		if(onScreen) {ans+="<font face='helvetica, helv, arial, sans serif' size=3>";}
+		
+		ans+="TV Guide for "+fmt.format(theDate);
+		
+		if(onScreen) {ans+="</font>";}
+		
+		ans+="</h1>"+lineBreak;
+
+		// Get the programmes
+		Vector listedProgs = getTickedProgrammes();
+
+		// Add them to the HTML list
+		// ----------------------------
+
+		if(onScreen) {ans+="<font face='helvetica, helv, arial, sans serif' size=1>";}
+		
+		for(int i=0;i<listedProgs.size();i++) {
+
+			FreeGuideProgramme prog = (FreeGuideProgramme)listedProgs.get(i);
+
+			fmt = new SimpleDateFormat("HH:mm");
+    
+			ans+="  <p><b>"+fmt.format(prog.getStart())+" - "+prog.getTitle()+"</b><br>"+prog.getChannel()+", ends "+fmt.format(prog.getSomeEnd())+"<br>"+prog.getDesc()+"</p>"+lineBreak;
+    
+		}//for
+
+		if(onScreen) {ans+="</font>";}
+		
+		ans+="<hr>"+lineBreak;
+		ans+="<address>";
+		
+		if(onScreen) {ans+="<font face='helvetica, helv, arial, sans serif' size=1>";}
+		
+		ans+="FreeGuide Copyright &copy;2001 by Andy Balaam<br>http://www.sourceforge.net/projects/freeguide-tv/<br>freeguide@artificialworlds.net";
+		
+		if(onScreen) {ans+="</font>";}
+		
+		ans+="</address>"+lineBreak;
+			
+		ans+="</body>"+lineBreak;
+		ans+="</html>"+lineBreak;
+
+		return ans;
+		
+	}
+	
+	//------------------------------------------------------------------------
 	
     public void startDocument() {  
 		saxLoc = new String();
@@ -1004,6 +1030,17 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	
     }//characters
     
+	/**
+	 * Unhides this window after being hidden while launching another
+	 * screen.
+	 */
+	public void reShow() {
+		
+		updatePanel();
+		show();
+		
+	}//reShow
+	
 	//------------------------------------------------------------------------
 	
 	private Vector getTickedProgrammes() {
@@ -1069,7 +1106,8 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	private javax.swing.JScrollPane timeScrollPane;
 	private FreeGuideTimePanel timePanel;
 	private javax.swing.JScrollPane printedGuideScrollPane;
-	private javax.swing.JTextArea printedGuideArea;
+	private javax.swing.JTextArea printedGuideAreaOld;
+	private javax.swing.JEditorPane printedGuideArea;
 	private javax.swing.JLabel labStatus;
 	private javax.swing.JProgressBar progressBar;
 	// End of variables declaration//GEN-END:variables
@@ -1094,4 +1132,6 @@ public class FreeGuideViewer extends javax.swing.JFrame {
     
     private static String freeGuideHomeDir;	// The home dir/root path of this prog
     
+	private FreeGuideLauncher launcher;	// The screen that launched this one
+	
 }

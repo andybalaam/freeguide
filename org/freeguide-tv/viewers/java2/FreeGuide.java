@@ -10,50 +10,44 @@
  */
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 
 /**
  * The main class called to start FreeGuide.  Performs some
  * housekeeping before launching the viewer or downloader.
  *
  * @author  Andy Balaam
- * @version 1
+ * @version 2
  */
-public class FreeGuide {
+public class FreeGuide implements FreeGuideLauncher {
 
-    /**
-	 * The method called when FreeGuide is run.  Processes
-	 * command line arguments, loads a config file, creates
-	 * a log file, and starts the viewer or downloader.
-	 *
-     * @param args the command line arguments
-     */
-    public static void main (String args[]) {
+	/** 
+	 * The constructor for a particular FreeGuide instance.
+	 */
+	public FreeGuide() {
+	
+		construct();
 		
-		// Process the command line arguments
-		arguments = new JoveCmdArgs(args);
-		
-		// Load the config file
-		String[] vitals = {"logFile=.freeguidelog"};
-		String cfgFilename = arguments.getValue("config-file");
-		
-		if(cfgFilename==null) {
-			cfgFilename=".freeguide";
-		}
-		
-		config = new JoveConfigFile(vitals, cfgFilename);
-		
-		// Open the log file
-		log = new JoveLogFile(config.getValue("logFile"));
+	}
+	
+	/**
+	 * Start the viewer unless we are not properly set up, in which case, 
+	 * go to the options or downloader screen.
+	 */
+	private void construct() {
 		
 		// If we've not got a proper config file set up
 		if(config.getValue("freeguideDir")==null) {
 			
 			// Send the user straight to the options screen
-			new FreeGuideOptions().show();
+			new FreeGuideOptions(this).show();
 			
 		} else {	// Start the program proper
 			
@@ -68,7 +62,7 @@ public class FreeGuide {
 				
 				// Send the user straight to the options screen again - 
 				// no channels selected
-				new FreeGuideOptions().show();
+				new FreeGuideOptions(this).show();
 				
 			} else { // All is still ok - we've got some channels
 				
@@ -88,18 +82,74 @@ public class FreeGuide {
 				if(xmlFile.exists()) {	// Check if it exists
 				
 					// If so, display the TV guide for today!
-					new FreeGuideViewer().show();
+					new FreeGuideViewer(this).show();
 					
 				} else {	// If it doesn't exist
 					
 					// Go to the downloader
-					new FreeGuideDownloader().show();
+					new FreeGuideDownloader(this).show();
 					
 				}
 				
 			}
 		
 		}
+		
+		
+	}
+	
+    /**
+	 * The method called when FreeGuide is run.  Processes
+	 * command line arguments, loads a config file, creates
+	 * a log file, and starts the viewer or downloader.
+	 *
+     * @param args the command line arguments
+     */
+    public static void main (String args[]) {
+		
+		// Process the command line arguments
+		arguments = new JoveCmdArgs(args);
+		
+		// Load the config file
+		String[] vitals = {
+			"logFile=log.txt",
+			"channelsFile=channels.txt",
+			"channels=",
+			"BBC1",
+			"",
+			"downloadAmount=All",
+			"downloadCommandLine=",
+			"perl parsers/perl-uktvguide/uktvguide.pl",
+			"",
+			"downloadCommandLine=",
+			"perl parsers/perl-uktvguide/uktvguide.pl",
+			"",
+			"channelsCommandLine=",
+			"perl /home/andy/freeguide-tv/org/freeguide-tv/parsers/perl-uktvguide/uktvguide.pl --listchannels",
+			"",
+			"browserCommandLine=netscape",
+			"cssFile=guide.css",
+			"maxFilenameLength=16",
+			"channelHeight=32",
+			"verticalGap=1",
+			"horizontalGap=1",
+			"panelWidth=6000",
+			"favourites=",
+			""
+		};
+		
+		String cfgFilename = arguments.getValue("config-file");
+		
+		if(cfgFilename==null) {
+			cfgFilename=".freeguide";
+		}
+		
+		config = new JoveConfigFile(vitals, cfgFilename);
+		
+		// Open the log file
+		log = new JoveLogFile(config.getValue("logFile"));
+	
+		new FreeGuide();
 		
     }
 
@@ -142,8 +192,18 @@ public class FreeGuide {
 			// Wait for it to finish
 			pr.waitFor();
 			
+			BufferedReader prErr = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
+			
+			String line = prErr.readLine();
+			while(line!=null) {
+				
+				log.writeLine("FreeGuide - execution error - "+line);
+				
+				line = prErr.readLine();
+			}//while
+			
 			// Log it finishing
-			log.writeLine("Finished execution.");
+			log.writeLine("FreeGuide - Finished execution.");
 	    
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -152,6 +212,24 @@ public class FreeGuide {
 		}//try
 	
     }//execExternal
+	
+	public void reShow() {
+		
+		Object[] options = { "View", "Quit" };
+		int retval = JOptionPane.showOptionDialog(null, "Do you want to view programme listings or quit?", "Quit?", 0, JOptionPane.QUESTION_MESSAGE, null, options, "View" );
+		
+		if(retval==0) {
+		
+			// We had to go to a config screen: start again now that's done
+			construct();
+			
+		} else {
+			
+			System.exit(0);
+			
+		}
+		
+	}
 	
 	//------------------------------------------------------------------------
 	

@@ -79,7 +79,7 @@ public class JoveLogFile {
 			String datestr = fmt.format(new Date());
 			
 			buffy.write(datestr);
-			buffy.write(" --- ");
+			buffy.write(" - ");
 			buffy.write(line);
 			buffy.newLine();
 		

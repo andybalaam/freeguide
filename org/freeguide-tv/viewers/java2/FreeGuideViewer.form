@@ -53,6 +53,10 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Favourites..."/>
               </Properties>
+
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menFavouritesActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menOptions">
               <Properties>
@@ -324,7 +328,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextArea" name="printedGuideArea">
+            <Component class="javax.swing.JTextArea" name="printedGuideAreaOld">
               <Properties>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="editable" type="boolean" value="false"/>
@@ -336,6 +340,15 @@
                     <LineBorder/>
                   </Border>
                 </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JEditorPane" name="printedGuideArea">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="8" style="0"/>
+                </Property>
+                <Property name="contentType" type="java.lang.String" value="text/html"/>
               </Properties>
             </Component>
           </SubComponents>

@@ -1,0 +1,15 @@
+h1 {
+	font-family: helvetica, helv, arial;
+	font-weight: bold;
+	font-size: x-large;
+}
+
+p {
+	font-family: helvetica, helv, arial;
+	font-size: small;
+}
+
+address {
+	font-family: helvetica, helv, arial;
+	font-size: xx-small;		
+}
