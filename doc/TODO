@@ -134,6 +134,8 @@ r  means done by Rob Stewart
 - rename program folder to freeguide
 - Update screenshots on sf and freshmeat to show channel and program icons
 - Change Windows shortcuts from FreeGuide.jar to javaw -jar FreeGuide.jar
+- Add notes to FAQ about na_dd subscription expiring and na_dd not entering
+  your password during configuration.
 
 + Release 0.8.1 (bug fix)
 

@@ -163,7 +163,7 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
         getContentPane().add(butCancel, gridBagConstraints);
 
         butDetails.setFont(new java.awt.Font("Dialog", 0, 12));
-        butDetails.setText("Show Output");
+        butDetails.setText("Show Details");
         butDetails.setMaximumSize(new java.awt.Dimension(115, 23));
         butDetails.setMinimumSize(new java.awt.Dimension(115, 23));
         butDetails.setPreferredSize(new java.awt.Dimension(115, 23));
