@@ -9,6 +9,7 @@
 	<property name="src" location="src"/>
 	<property name="doc"  location="doc"/>
 	<property name="xmltv"  location="xmltv"/>
+	<property name="share"  location="share"/>
 	
 	<property name="build" location="build"/>
 	<property name="dist"  location="dist"/>
@@ -111,6 +112,12 @@
 		
 		<!-- copy in the uk grabber -->
 		<copy file="${xmltv}/tv_grab_uk.exe" todir="${build}/install/xmltv"/>
+		
+		<!-- copy in the shared files -->
+		<mkdir dir="${build}/install/share"/>
+		<copy todir="${build}/install/share">
+			<fileset dir="${share}/" />
+		</copy>
 		
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/install-win-uk.props" tofile="${build}/install/install.props" overwrite="true" />

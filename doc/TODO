@@ -9,14 +9,13 @@ feel like it.
 
 --------------------------------------------
 
-Release 2.0
+Release 2.0 (blue sky)
 
 - Think about ports to wxWindows, Python, ...
 
-Release 1.0
+Release 1.0 (the destination)
 
 - Get it all right
-- Alert me when my programme starts
 - Integration with e.g. tv card software 
 	- developed and maintained by a leutenant (i.e. not me)
 	- Needs ability to start/stop viewing and recording
@@ -29,19 +28,27 @@ Release 1.0
 	- How to print on Windows?
 	- Use Java's printing capabilities?
 - Use JNI for grabber etc?
-- Complete single installer for FreeGuide, XMLTV (and Java?) for each platform
 - Facilitate community devt of default settings in each situation (how?)
 - FAQ?
 - Other platforms - investigate Mac, BSD, others
 
-Release 0.6
+Release 0.7 (less urgent or harder features)
 
+- Alert me when my programme starts
+- coloured programme categories and favourites
+- am/pm time
+- Option to turn off non-quarter-hour times in programme box.
+- Filter what appears in the grid e.g. only movies
+
+Release 0.6 (most wanted features)
+
+- Why do numbers disappear from the time line (Linux only?)
+- Multiline tooltips if too long
 - Remember window sizes and positions between uses
-- "Uncheck all" button + "check all" button in channels screen
 - Dynamic update of command output window
 - Add "Contains" option to title match in favourites
 - fix in tv_split for de's lack of channels (or fix tv_grab_de to use configure and to do channels
-- Deal with grabber that doesn't use a config file?
+- Deal with grabber that doesn't use a config file? (aka get tv_grab_de working)
 - Choose how old files are before you delete them
 - Help manual
 - Properties box for a programme showing longer descriptions, other DTD stuff
@@ -51,18 +58,25 @@ Release 0.6
 - --days support
 - Further visual enhancements and customisability
 - Ability to save and load preferences (using Java's ability to save to XML)
-
-Release 0.5
-
-- Fix bug with adding an already-selected programme to favourites.
-- Right-click on a favourite gives option to remove from favs?
-    (remove specific favs, but warn if general)
+- Ability to turn off listing at bottom of screen.
 - Move XML stuff to a separate object
 - Other code rationalisation, FIXMEs, remove commented sections
 - Tidy up FreeGuideOptionsWizard - make it not a wizard
-- Also make FreeGuideInstaller really a wizard
-- Fix bug with favourites not being shown
-- Fix bug where options screen forgets what you chose for grabber command
+
+Release 0.5 (mainly bug fixes)
+
+- "Uncheck all" button + "check all" button in channels screen
+- When some channels aren't found, still display the others.
+- Add days of week to dropdown and take out year
+- Fix bug with adding an already-selected programme to favourites.
+- Right-click on a favourite gives option to remove from favs?
+    (remove specific favs, but warn if general)
+- Make FreeGuideInstaller really a wizard (i.e. can't jump ahead)
+- Fix bug with favourites not being ticked when you enter a day
+- Fix bug where options screen wipes out what you chose for grabber command on entry
+- make installer check your java version, (and other things?)
+- Fix bug with "&" in channel name (is this tv_grab_na?)
+- Investigate what happens when you go through to another day then click GoToNow
 
 Release 0.4
 

@@ -16,6 +16,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.util.Properties;
+import javax.swing.JOptionPane;
 
 /*
  * An installer for FreeGuide
@@ -260,7 +261,17 @@ public class FreeGuideInstall extends javax.swing.JFrame {
 
 	private void butFinishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butFinishActionPerformed
 		
-		finish();
+		try {
+		
+			finish();
+			
+		} catch(java.io.IOException e) {
+			
+			JOptionPane.showMessageDialog(this, "The following error has occurred:" + lb + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+			
+			e.printStackTrace();
+			
+		}
 		
 	}//GEN-LAST:event_butFinishActionPerformed
 
@@ -353,7 +364,7 @@ public class FreeGuideInstall extends javax.swing.JFrame {
 	}
 	
 	
-	private void finish() {
+	private void finish() throws java.io.IOException {
 		
 		FreeGuidePreferencesGroup prefs = new FreeGuidePreferencesGroup();
 		
@@ -381,6 +392,14 @@ public class FreeGuideInstall extends javax.swing.JFrame {
 		String filename="";
 		while( (filename=props.getProperty("file."+i)) != null ) {
 			installFile(filename);
+			i++;
+		}
+		
+		// Do the shared files (Win only)
+		i=1;
+		filename="";
+		while( (filename=props.getProperty("share."+i)) != null ) {
+			installFile(filename, "C:\\Perl\\");
 			i++;
 		}
 		
@@ -427,26 +446,31 @@ public class FreeGuideInstall extends javax.swing.JFrame {
 		
 	}
 	
-	private void installFile(String name) {
+	private void installFile(String name) throws java.io.IOException {
+		installFile(name, installDir);
+	}
+		
+	private void installFile(String name, String destDir) throws java.io.IOException {
 
 		byte[] buf = new byte[32768];
 		
-		try {
-		
-			BufferedInputStream in = new BufferedInputStream(getClass().getResourceAsStream("/" + name));
-			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(installDir + name));
-
-			int count;
-			while((count = in.read(buf, 0, buf.length)) > -1) {
-				out.write(buf,0,count);
-			}
-			
-			in.close();
-			out.close();
-			
-		} catch(java.io.IOException e) {
-			e.printStackTrace(System.out);
+		// make the directory if it doesn't exist
+		String s = destDir + name;
+		int i = s.lastIndexOf(File.separatorChar);
+		if(i>-1) {
+			new File(s.substring(0, i)).mkdirs();
 		}
+		
+		BufferedInputStream in = new BufferedInputStream(getClass().getResourceAsStream("/" + name));
+		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(destDir + name));
+
+		int count;
+		while((count = in.read(buf, 0, buf.length)) > -1) {
+			out.write(buf,0,count);
+		}
+			
+		in.close();
+		out.close();
 		
 	}
 	
@@ -476,6 +500,7 @@ public class FreeGuideInstall extends javax.swing.JFrame {
 	private String installDir;
 	private int prevTab;
 	private FreeGuidePreferencesGroup prefs;
-	private String fs = System.getProperty("file.separator"); 
+	private String fs = System.getProperty("file.separator");
+	private String lb = System.getProperty("line.separator"); 
 	
 }
