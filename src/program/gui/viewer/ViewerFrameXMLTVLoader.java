@@ -11,15 +11,9 @@
 import java.io.File;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Vector;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
+import java.util.*;
+import java.util.regex.*;
+import javax.xml.parsers.*;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.*;
 
@@ -29,7 +23,7 @@ import org.xml.sax.*;
  *
  *@author     andy
  *@created    28 June 2003
- *@version    3
+ *@version    4
  */
 
 class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterface {
@@ -456,6 +450,7 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
             if (currentProgramme != null) {
                 currentProgramme.setPreviouslyShown(true);
             }
+            
         } else if (saxLoc.equals(":tv:programme:rating")) {
 
             if (currentProgramme != null) {
@@ -464,6 +459,7 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
                     currentProgramme.setIsMovie(true);
                 }
             }
+            
 		} else if (saxLoc.equals(":tv:programme:subtitles")) {
 
             if (currentProgramme != null) {
@@ -476,12 +472,15 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
             || saxLoc.equals(":tv:programme:title")
             || saxLoc.equals(":tv:programme:sub-title")
             || saxLoc.equals(":tv:programme:category")
-            || saxLoc.equals(":tv:programme:star-rating") )
+            || saxLoc.startsWith(":tv:programme:rating")
+            || saxLoc.equals(":tv:programme:star-rating")
+            || saxLoc.equals(":tv:programme:star-rating:value")
+            || saxLoc.equals(":tv:programme:url") )
         {
             
-            // Do nothing - this tag is recognised
+            // Do nothing - dealt with in endElement
             
-        } else if( saxLoc.startsWith( ":tv:programme:" ) ) {
+        } else if( saxLoc.matches( ":tv:programme:[^:]*" ) ) {
             
             //FreeGuide.log.info( saxLoc );
             
@@ -569,6 +568,7 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
             if (currentProgramme != null) {
                 currentProgramme.setTitle( data );
             }
+            
 		} else if (saxLoc.equals(":tv:programme:sub-title")) {
 
             if (currentProgramme != null) {
@@ -592,8 +592,9 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
             if (currentProgramme != null) {
                 currentProgramme.setStarRating( data );
             }
-		//} else if (saxLoc.equals(":tv:programme:episode-num")) {
-			// FIXME - fill in here
+		
+        //} else if (saxLoc.equals(":tv:programme:episode-num")) {
+        // FIXME - fill in here
 
         } else if (saxLoc.equals(":tv:programme:url")) {
 
@@ -608,20 +609,39 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
 				}
             }
 
-		} else if (saxLoc.equals(":tv:channel:display-name")) {
+		} else if( saxLoc.equals(":tv:programme:subtitles") 
+                || saxLoc.equals(":tv:programme:previously-shown")
+                || saxLoc.startsWith(":tv:programme:rating")
+                || saxLoc.equals(":tv:programme:star-rating") )
+        {
+            
+            // Do nothing - dealt with in startElement or elsewhere
+            
+        } else if( saxLoc.equals(":tv:channel:display-name") ) {
 
             // Remember the name of the channel we're looking at
             addChannelName(tmpChannelID, data);
 
 		} else if( saxLoc.matches( ":tv:programme:[^:]*" ) ) {
+                // Ending an unknown main tag
             
-            //FreeGuide.log.info( saxLoc );
+            if( currentProgramme != null ) {
+                currentProgramme.endElement( name, "", data );
+            }
             
-            // Remember any unrecognised data
-            if (currentProgramme != null) {
+        } else {
+            
+            Pattern patt = Pattern.compile( ":tv:programme:([^:]+):(.+)" );
+            Matcher mat  = patt.matcher( saxLoc );
+            
+            // If we're looking at an unknown tag of a programme
+            if( mat.matches() && currentProgramme != null ) {
+                    // Ending an unknown subtag
                 
-                currentProgramme.endElement( name, data );
-                
+                String mainTag = mat.group( 1 );
+                    
+                currentProgramme.endElement( mainTag, mat.group(2), data );
+                data = "";
             }
             
         }

@@ -214,7 +214,7 @@ public class ProgrammeFormat {
         
         if( extraTags != null ) {
         
-            buff.append( "<br><hr><table>" ).append( LINE_FEED );
+            buff.append( "<br><hr><table cellpadding='1' cellspacing='0' border='0'>" ).append( LINE_FEED );
         
             for( Iterator it = extraTags.entrySet().iterator();
                 it.hasNext(); )
@@ -223,10 +223,16 @@ public class ProgrammeFormat {
                 Map.Entry entry = (Map.Entry)it.next();
             
                 Hashtable hashOfAttrs = (Hashtable)entry.getValue();
+                String key = (String)hashOfAttrs.get("");
             
-                buff.append( "    <tr><td><b>" + (String)entry.getKey()
-                    + "</b></td><td>" + hashOfAttrs.get("")
-                    + "</td></tr>" ).append( LINE_FEED );
+                buff.append( "    <tr><td><b>")
+                    .append( (String)entry.getKey() )
+                    .append( "</b></td><td>" );
+
+                if( key != null ) { buff.append( key ); }
+                
+                buff.append( "</td></tr>" );
+                    //.append( LINE_FEED );
                 
                 for( Iterator it2 = hashOfAttrs.entrySet().iterator();
                     it2.hasNext(); )
@@ -236,10 +242,12 @@ public class ProgrammeFormat {
                     
                     if( !entry2.getKey().equals("") ) {
                     
-                        buff.append( "    <tr><td><br></td><td>"
-                            + entry2.getKey()
-                            + ": " + entry2.getValue()
-                            + "</td></tr>" ).append( LINE_FEED );
+                        buff.append( "    <tr><td></td><td>" )
+                            .append( entry2.getKey() )
+                            .append( ": " )
+                            .append( entry2.getValue() )
+                            .append( "</td></tr>" );
+                            //.append( LINE_FEED );
                     }
                     
                 }

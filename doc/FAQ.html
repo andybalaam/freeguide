@@ -21,6 +21,7 @@
   <li><a href="#grabberconfig">The grabber configuration step gives me an error.  What is wrong?</a></li>
   <li><a href="#javaversion">What version of Java does FreeGuide need?</a></li>
   <li><a href="#winrar">When I double-click on a .jar file WinRAR comes up - what do I do?</a></li>
+  <li><a href="#firefox">Why isn't Firefox one of the browser options?</a></li>
   <li><a href="#proxy">Can I use FreeGuide from behind a proxy server?</a></li>
   <li><a href="#timezone">I get an error about "TZ" - what do I do?</a></li>
   <li><a href="#twosources">How do I get listings from 2 different sources or channel lineups?</a></li>
@@ -73,6 +74,10 @@
 <h2><a name="winrar"></a>When I double-click on a .jar file WinRAR comes up - what do I do?</h2>
 
 <p>WinRAR is a program for unzipping zipped up files like .zip, .rar and .jar files.  However, we want to run these .jar files instead of unzipping them.  Open a DOS or Cmd window and cd into the directory containing the .jar file.  Now type "java -jar [jarname]" to run the .jar file.  Replace [jarname] with the name of the file you want to run (usually either FreeGuide-X.X-Win-Install.jar or just FreeGuide.jar).</p>
+
+<h2><a name="firefox"></a>Why isn't Firefox one of the browser options?</h2>
+
+<p>Because it has a bug that means it can't be called remotely to open a specific URL.  There is more information in this <a href="http://bugzilla.mozilla.org/show_bug.cgi?id=177996">Firefox bug report</a>.</p>
 
 <h2><a name="proxy"></a>Can I use FreeGuide from behind a proxy server?</h2>
 

@@ -173,10 +173,14 @@ public class Programme {
      *@param  title  The title of the programme
      */
     public void setTitle(String title) {
+        
         if (this.title == null) {
+            
             this.title = new String();
-        }
-        this.title += title;
+            this.title = title;
+            
+        }// FIXME else use the one with the correct lang tag
+        
     }
 	
 	/**
@@ -185,10 +189,14 @@ public class Programme {
      *@param  subtitle  The subtitle of the programme
      */
     public void setSubTitle(String subtitle) {
+        
         if (this.subtitle == null) {
+            
             this.subtitle = new String();
-        }
-        this.subtitle += subtitle;
+            this.subtitle = subtitle;
+            
+        }// FIXME else use the one with the correct lang tag
+        
     }
 
 
@@ -432,11 +440,24 @@ public class Programme {
         
     }
     
-    public void endElement( String name, String data ) {
+    public void endElement( String mainTag, String subTag, String data ) {
         
-        Hashtable hashOfAttrs = (Hashtable)extraTags.get( name );
+        if( extraTags == null ) {
+            extraTags = new Hashtable();
+        }
         
-        hashOfAttrs.put( "", data );
+        Hashtable hashOfAttrs = (Hashtable)extraTags.get( mainTag );
+        
+        if( hashOfAttrs == null ) {
+            
+            hashOfAttrs = new Hashtable();
+            extraTags.put( mainTag, hashOfAttrs );
+            
+        } else {
+            
+            hashOfAttrs.put( subTag, data );
+            
+        }
         
     }
 

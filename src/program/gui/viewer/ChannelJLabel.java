@@ -10,17 +10,14 @@
  *  Created on Jun 24, 2004
  */
 
-import java.awt.Image;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.io.File;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import javax.swing.*;
 
 /**
  * @author Yann Coupin
+ * @version 2
  *
  * A class to store the channel information and maintain them together
  */
@@ -143,4 +140,19 @@ public class ChannelJLabel extends JLabel implements ComponentListener{
 		currentIconFileName = null;
 		super.setIcon(icon);
 	}
+    
+    public int getRequiredWidth() {
+        
+        FontMetrics myFM = this.getFontMetrics( getFont() );
+        int ans = myFM.stringWidth( getText() );
+        
+        Icon ic = getIcon();
+        if( ic != null ) {
+            ans += ic.getIconWidth();
+        }
+        
+        return ans;
+        
+    }
+    
 }

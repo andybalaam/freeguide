@@ -9,8 +9,8 @@
  *  See the file COPYING for more information.
  */
 
-import java.awt.BorderLayout;
-import java.text.SimpleDateFormat;
+import java.awt.*;
+import java.text.*;
 import javax.swing.*;
  
 /**
@@ -46,7 +46,7 @@ public class ProgrammeDetailsJPanel extends javax.swing.JPanel {
         editorPane.setEditable(false);
         editorPane.setContentType("text/html");
         
-        JScrollPane scrollPane = new JScrollPane();
+        scrollPane = new JScrollPane();
         scrollPane.setViewportView( editorPane );
         
         add( scrollPane, BorderLayout.CENTER );
@@ -79,6 +79,8 @@ public class ProgrammeDetailsJPanel extends javax.swing.JPanel {
             
         }
         
+        editorPane.scrollToReference( "top" );
+        
     }
     
     /**
@@ -90,6 +92,7 @@ public class ProgrammeDetailsJPanel extends javax.swing.JPanel {
      * The JEditorPane showing the actual programme description.
      */
     private JEditorPane editorPane;
+    private JScrollPane scrollPane;
     
 }
 

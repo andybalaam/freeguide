@@ -999,20 +999,19 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		// the actual width of the text
         int maxChannelWidth = 0;
 
-        for (int c = 0; c < num_chans; c++) {
+        /*for (int c = 0; c < num_chans; c++) {
             FontMetrics myFM = channelNamePanel.getFontMetrics(font);
             int myChanWidth = myFM.stringWidth( currentChannelSet.getChannelName(c) );
 
-            if( myChanWidth > maxChannelWidth )
-            {
+            if( myChanWidth > maxChannelWidth ) {
               maxChannelWidth = myChanWidth;
             }
-        }
-        // Then add a reasonable amount of space as a border
-        maxChannelWidth += 5;
+        }*/
 
+        ChannelJLabel[] tmpChannels = new ChannelJLabel[num_chans];
+        
 		// Create all the JLabels for channels, and set them up
-        for (int c = 0; c < num_chans; c++) {
+        for( int c = 0; c < num_chans; c++ ) {
 
 			progressor.setProgress( 10 + (c*10) / num_chans );
 			
@@ -1025,14 +1024,6 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 				java.awt.Color.BLACK ) );
             ctxt.setHorizontalAlignment( JLabel.LEFT );
             ctxt.setOpaque( true );
-
-            // Note that I've added + 2 to the width - this is for the
-            // border, you may need to add more if you want more of a gap!
-            ctxt.setBounds(
-                0,
-                (halfVerGap * 2) + (c * channelHeight) - 1,
-                maxChannelWidth,
-                channelHeight - (halfVerGap * 4) );
 
             // Get the URL of this channel icon
 			String iconURLstr = xmltvLoader.getChannelIcon(ctxt.getId());
@@ -1068,12 +1059,17 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 					 * Thus the icon will still be equal to null and we won't show one
 					 */					
 					ctxt.setIcon(iconFile.getCanonicalPath());
-					
+				
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+            }
+            
+            int myChanWidth = ctxt.getRequiredWidth();
+            if( myChanWidth > maxChannelWidth ) {
+                maxChannelWidth = myChanWidth;
             }
 			
             ctxt.addMouseListener(new MouseListener() {
@@ -1108,6 +1104,24 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 				
             });
             channelNamePanel.add( ctxt );
+            
+            tmpChannels[c] = ctxt;
+            
+        }
+        
+        // Then add a reasonable amount of space as a border
+        maxChannelWidth += 5;
+        
+        for( int c = 0; c < num_chans; c++ ) {
+            
+            ChannelJLabel ctxt = tmpChannels[c];
+        
+            ctxt.setBounds(
+                0,
+                (halfVerGap * 2) + (c * channelHeight) - 1,
+                maxChannelWidth,
+                channelHeight - (halfVerGap * 4) );
+                
         }
         
         // Resize the area

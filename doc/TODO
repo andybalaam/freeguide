@@ -76,7 +76,8 @@ y  means done by Yann 'PoV' Coupin
 - Look for the default browser in the Windows registry under:
 	KEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command
 	(actually that looks like the HTML editor, but anyway)
-
+- Deal with programme ratings
+	
 - Release 0.7.8 (preferences creep)
 
 - Choose how old files are before you delete them
@@ -91,6 +92,9 @@ y  means done by Yann 'PoV' Coupin
 - A default favourite, so when you add a new favourite it comes with preset
   settings.
 - A grid or "now" line that helps see what time programmes are on
+- Delete some preferences when doing a complete install?
+- Fix bug in Italian grabber GUI config
+- Fix bugs in Windows grabber config for Netherlands, Sweden and Germany
 
 - Release 0.7.7 (aesthetics)
 
@@ -104,10 +108,12 @@ y  means done by Yann 'PoV' Coupin
 - Allow to adjust display time of tooltips
 - Allow to un-choose programmes from Personalised Listing pane
 - Checkbox to stay at now time
+- Change font for "No programme selected" in programme details pane
+- Scroll to the top of the ProgrammeJLabel whenever its contents change
+- Add icons to UK and US listings
 
 - Release 0.7.6 (accessibility, accessibility, accessibility)
 
-- Fix bug in Italian grabber GUI config
 - Improve accessibility, specifically keyboard shortcuts
 - Shortcut keys for everything
 - Handle other XMLTV tags
@@ -115,10 +121,10 @@ y  means done by Yann 'PoV' Coupin
 - ProgrammeJLabel shows which programme is selected
 - Keyboard navigation of programme scrollpane
 - Full test of keyboard navigation
-- Add icons to UK and US listings
 
 + Release 0.7.5 (minor features)
 
++ Resize channel panel to fit icon
 + Clarify that you _have_ to enter your password during config in NA
 + Make a standard email form for beta test results
 + Fix bug with saying no listings available after midnight

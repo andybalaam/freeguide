@@ -199,21 +199,21 @@
 		<copy file="${src}/install/linux/install-lin-nl.props" tofile="${package}/linux/install-7.props" overwrite="true" />
         <copy file="${src}/install/linux/install-lin-nl_wolf.props" tofile="${package}/linux/install-8.props" overwrite="true" />
         
+        <!-- North America -->
+		<copy file="${src}/install/linux/install-lin-na_dd.props" tofile="${package}/linux/install-9.props" overwrite="true" />
+        
         <!-- Norway -->
-		<copy file="${src}/install/linux/install-lin-no.props" tofile="${package}/linux/install-9.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-no.props" tofile="${package}/linux/install-10.props" overwrite="true" />
         
         <!-- Portugal -->
-        <copy file="${src}/install/linux/install-lin-pt.props" tofile="${package}/linux/install-10.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-pt.props" tofile="${package}/linux/install-11.props" overwrite="true" />
         
         <!-- Spain -->
-		<copy file="${src}/install/linux/install-lin-es.props" tofile="${package}/linux/install-11.props" overwrite="true" />
-        <copy file="${src}/install/linux/install-lin-es_digital.props" tofile="${package}/linux/install-12.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-es.props" tofile="${package}/linux/install-12.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-es_digital.props" tofile="${package}/linux/install-13.props" overwrite="true" />
         
         <!-- Sweden -->
-        <copy file="${src}/install/linux/install-lin-se.props" tofile="${package}/linux/install-13.props" overwrite="true" />
-        
-        <!-- North America -->
-		<copy file="${src}/install/linux/install-lin-na_dd.props" tofile="${package}/linux/install-14.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-se.props" tofile="${package}/linux/install-14.props" overwrite="true" />
         
         <!-- UK -->
         <copy file="${src}/install/linux/install-lin-uk_bleb.props" tofile="${package}/linux/install-15.props" overwrite="true" />
