@@ -214,61 +214,13 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
 				"<font face='helvetica, helv, arial, sans serif' size=3>" );
         }
 
-		String progSubTitle;
-		String progLongDesc;
-		
+	ProgrammeFormat pf = new ProgrammeFormat(
+			ProgrammeFormat.HTML_FRAGMENT_FORMAT, timeFormat);
+	pf.setOnScreen(onScreen);
         for (int i = 0; i < tickedProgrammes.size(); i++) {
 			
             Programme prog = (Programme)tickedProgrammes.get(i);
-			
-			progSubTitle = prog.getSubTitle();
-			progLongDesc = prog.getLongDesc();
-			
-			ans.append( "  <p><b>" )
-				.append( timeFormat.format( prog.getStart().getTime() ) )
-				.append( " - " );
-                        if (onScreen) {
-                                String ref = HTMLGuideListener.createLinkReference(prog);
-                                ans.append( "<a href=\"#" + ref +
-                                            "\" name=\"" +ref + "\">" );
-                        }
-		        ans.append( prog.getTitle() );
-			
-			if( progSubTitle != null ) {
-				
-				ans.append( ": " + progSubTitle );
-				
-			}
-                        if (onScreen) {
-                                ans.append( "</a>" );
-                        }
-			
-			ans.append( "</b><br>" )
-				.append( prog.getChannelName() )
-				.append( ", ends " )
-				.append( timeFormat.format( prog.getEnd().getTime() ) );
-			
-            if ( progLongDesc == null) {
-
-					ans.append( "</p>" )
-						.append( lineBreak );
-
-            } else {
-
-				ans.append( "<br>" )
-					.append( progLongDesc );
-				
-			}
-				
-            if (prog.getPreviouslyShown()) {
-                ans.append( " (Repeat)" ).append( "<br>" );
-            }
-            if ( prog.getIsMovie() && prog.getStarRating() != null ) {
-                ans.append( " Rating: ")
-					.append( prog.getStarRating() ).append( "<br>" );
-            }
-            ans.append( "</p>" ).append( lineBreak );
-
+		ans.append(pf.longFormat(prog));
         }
 		
         if (onScreen) {

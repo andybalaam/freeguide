@@ -80,11 +80,6 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 		Calendar programmeStart = programme.getStart();
         Calendar programmeEnd = programme.getEnd();
 
-        String programmeDescription = programme.getLongDesc();
-        String programmeTitle = programme.getTitle();
-		String programmeSubTitle = programme.getSubTitle();
-		String programmeStarString =  programme.getStarString();
-
         // Find the channel number
         String channelID = programme.getChannelID();
         int channelNo = viewerFrame.currentChannelSet.getChannelNo( channelID );
@@ -102,52 +97,18 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 		int top = halfVerGap + (channelNo * channelHeight);
         int bottom = ((channelNo + 1) * channelHeight) - (halfVerGap * 2);
 		
-        StringBuffer labelText = new StringBuffer();
-		StringBuffer tooltip = new StringBuffer();
-		
+		ProgrammeFormat pf; 
         if( drawTime ) {
-            labelText
-				.append( viewerFrame.timeFormat.format(
-					programmeStart.getTime() ) )
-				.append( " " );
+			pf = new ProgrammeFormat(ProgrammeFormat.TEXT_FORMAT,
+						 timeFormat);
+		} else {
+			pf = new ProgrammeFormat(ProgrammeFormat.TEXT_FORMAT);
         }
-
-        labelText.append( programmeTitle );
-		
-		tooltip.append ( timeFormat.format( programmeStart.getTime() ) )
-				.append( " " )
-				.append( programmeTitle );
-		
-		if( programmeSubTitle != null ) {
-			
-			labelText.append( ": " )
-				.append( programmeSubTitle );
-			
-			tooltip.append( ": " )
-				.append( programmeSubTitle );
-			
-		}
-		
-		if (programmeDescription != null) {
-			
-				tooltip.append( " - " )
-				.append( programme.getShortDesc() );
-		}
-		
-        if ( programme.getIsMovie() && programmeStarString!=null ) {
-			
-            labelText.append(" ")
-				.append( programmeStarString );
-			
-			tooltip.append( " " )
-				.append( programmeStarString );
-			
-        }
-			
-        if ( programme.getPreviouslyShown() ) {
-            labelText.append(" (R)" );
-			tooltip.append( " (R)" );
-        }
+		String labelText = pf.shortFormat(programme);
+		pf.setFormat(ProgrammeFormat.HTML_FORMAT);
+		pf.setWrap(true);
+		pf.setOnScreen(false);
+		String tooltip = "<html><body>" + pf.longFormat(programme) + "</body></html>";
 
 		setFont( font );
 		
@@ -201,12 +162,11 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
                 }
             });
 		
-		this.setText( labelText.toString() );
-		setToolTipText( tooltip.toString() );
+		this.setText( labelText );
+		setToolTipText( tooltip );
 		
 	}
 
-	
 	/**
 	 * Work out whether or not this programme should be selected.
 	 *

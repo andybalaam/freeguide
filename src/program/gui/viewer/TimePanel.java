@@ -179,7 +179,7 @@ public class TimePanel extends javax.swing.JPanel {
     }
 
     /**
-     *  Gets the nowScroll attribute of the TimePanel object
+     *  Gets the value to use to scroll the to a specified time.
      *
      *@return    The value to use to scroll to showTime
      */
