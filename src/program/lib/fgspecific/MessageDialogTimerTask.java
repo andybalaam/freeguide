@@ -1,7 +1,7 @@
 /*
  *  FreeGuide J2
  *
- *  Copyright (c) 2001-2003 by Andy Balaam and the FreeGuide contributors
+ *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
  *
  *  Released under the GNU General Public License
  *  with ABSOLUTELY NO WARRANTY.

@@ -1,7 +1,7 @@
 /*
  *  FreeGuide J2
  *
- *  Copyright (c) 2001-2003 by Andy Balaam and the FreeGuide contributors
+ *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
  *
  *  freeguide-tv.sourceforge.net
  *
@@ -21,7 +21,7 @@ import javax.swing.event.*;
  *
  * @author     Andy Balaam
  * @created    10 Dec 2003
- * @version    1
+ * @version    2
  */
 
 public class DownloadingOptionPanel extends OptionPanel {
@@ -80,6 +80,12 @@ public class DownloadingOptionPanel extends OptionPanel {
 		modalLabel.setLabelFor(modalComboBox);
 		modalLabel.setDisplayedMnemonic( KeyEvent.VK_B );
 		
+		JLabel configLabel = newLeftJLabel( "Config Command:" );
+		configTextArea = newRightJTextArea();
+		JScrollPane configScrollPane = new JScrollPane(configTextArea);
+		configLabel.setLabelFor(configTextArea);
+		configLabel.setDisplayedMnemonic( KeyEvent.VK_G );
+		
 		// Lay them out in a GridBag layout
 		
 		GridBagEasy gbe = new GridBagEasy( this );
@@ -106,6 +112,10 @@ public class DownloadingOptionPanel extends OptionPanel {
 		
 		gbe.addFWX  ( modalLabel          , 0, 5, gbe.FILL_HOR   , 0.2 );
 		gbe.addFWX  ( modalComboBox       , 1, 5, gbe.FILL_HOR   , 0.8 );
+		
+		gbe.addAFWX ( configLabel         , 0, 6, gbe.ANCH_NORTH, gbe.FILL_HOR,
+			0.2 );
+		gbe.addFWXWY( configScrollPane    , 1, 6, gbe.FILL_BOTH  , 0.8, 0.5 );
 		
 		// Load in the values from config
 		load();
@@ -147,6 +157,9 @@ public class DownloadingOptionPanel extends OptionPanel {
 		} else {
 			modalComboBox.setSelectedIndex( 0 );
 		}
+		
+		String[] configs = commandline.getStrings( prefix + "tv_config" );
+		configTextArea.setText( lineBreakise( configs ) );
 		
 	}
 	
@@ -195,6 +208,9 @@ public class DownloadingOptionPanel extends OptionPanel {
 			screen.putBoolean( "executor_modal", true );
 		}
 		
+		commandline.putStrings( "tv_config", unlineBreakise(
+			configTextArea.getText() ) );
+		
 		// Return value is false since none of these options alter the screen
 		// appearance.
 		return false;
@@ -229,6 +245,7 @@ public class DownloadingOptionPanel extends OptionPanel {
 	// ----------------------------------
 	
 	private JTextArea commandTextArea;
+	private JTextArea configTextArea;
 	private JComboBox daysComboBox;
 	private JComboBox startTodayComboBox;
 	private JTextField dayStartTextField;
