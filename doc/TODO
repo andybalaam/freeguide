@@ -107,20 +107,13 @@ D  means work in progress by Dave Torok
 - "Create a new channel set..." option in the channel sets menu
 - Fix severe errors when a channel is missing from a channel set
 - Feedback during download process
-- Talk to XMLTV people about non-zero exit codes under Windows (all but na, sn)
-- Talk to XMLTV people about tv_grab_nl errors:
-$"C:\Program Files\freeguide-tv\xmltv\xmltv.exe" tv_grab_nl --config-file "C:\Program Files\freeguide-tv\xmltv\tv_grab_nl.conf" --offset 0 --days 1 --output "C:\Program Files\freeguide-tv\data\tv-20030416.xmltv"
-Timezone is +0100
-main::process_summary_page() called too early to check prototype at /PerlApp/grab/nl/tv_grab_nl line 973.
-main::process_summary_page() called too early to check prototype at /PerlApp/grab/nl/tv_grab_nl line 323.
-main::process_summary_page() called too early to check prototype at /PerlApp/grab/nl/tv_grab_nl line 346.
-using config file C:\Program Files\freeguide-tv\xmltv\tv_grab_nl.conf
-downloading listings: tv_grab_nl:Invalid argument http://www.tvgids.nl/zoekprogramma.php?station=1&interval=0: could not fetch http://www.tvgids.nl/zoekprogramma.php?station=1&interval=0, aborting
-- Talk to XMLTV people about xmltv.exe tv_grab_na --listings "tv-%Y%m%d.xml" works
++ Talk to XMLTV people about non-zero exit codes under Windows (all but na, sn)
++ Talk to XMLTV people about tv_grab_nl errors
++ Talk to XMLTV people about xmltv.exe tv_grab_na --listings "tv-%Y%m%d.xml" works
 
 + Release 0.5.5 (Win NA bug fix + remember channel set)
 
-+ Also add notes about authenticating proxies:
++ Also add notes about authenticating proxies
 + Remember last channel set on exit.
 + Write java version check in Java 1.0-compatible code, obviously!
 + Fix problem with tv_grab_na install - revert to %date%
