@@ -112,6 +112,7 @@ public class ChannelJLabel extends JLabel implements ComponentListener{
 	public String getId() {
 		return id;
 	}
+    
 	/**
 	 * @return Returns the name.
 	 */
@@ -135,8 +136,8 @@ public class ChannelJLabel extends JLabel implements ComponentListener{
 	 * @see java.awt.event.ComponentListener#componentResized(java.awt.event.ComponentEvent)
 	 */
 	public void componentResized(ComponentEvent e) {
-		if (currentIconFileName != null)
-			setIcon(currentIconFileName);
+		if( currentIconFileName != null )
+			setIcon( currentIconFileName );
 	}
 
 	/* (non-Javadoc)

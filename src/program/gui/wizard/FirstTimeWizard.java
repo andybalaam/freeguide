@@ -177,12 +177,6 @@ public class FirstTimeWizard {
      */
     private void setStandardProps() {  
 		
-        // First delete any pre-0.8 style install directory
-        /*if( FreeGuide.prefs.misc.getSystem( "install_directory" ) != null ) {
-            
-            FreeGuide.prefs.misc.remove( "install_directory" );
-            
-        }*/
         
         // Then load up the properties in the file install-all.props
         
@@ -247,9 +241,9 @@ public class FirstTimeWizard {
 		
         String prefString = "";
 		
-        for ( 	int j = 1;
+        for ( int j = 1;
 				( prefString = iProps.getProperty( "prefs." + j ) )
-                    != null;
+                  != null;
 				j++ ) {
 
             FreeGuide.prefs.put( prefString );

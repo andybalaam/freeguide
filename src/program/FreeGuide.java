@@ -47,9 +47,6 @@ public class FreeGuide {
             prefs.misc.put( "doc_directory",
                 arguments.getValue( "doc_directory" ) );
             
-            log.warning( "doc_directory="
-                + arguments.getValue( "doc_directory" ) );
-            
         } else {
             log.warning( "No documents directory supplied on the command line!"
                 + "  Documentation will not be available." );

@@ -24,13 +24,14 @@ w  means done by William Ballard
 - Think about ports to Gnome, wxPython, ...
 - Convert to SWT (or SwingWT?) and compile natively with GCJ?
 - Process programmes in another thread so we can see a progress display.
+- Download happens without leaving ViewerFrame
 - Apply different fonts to every screen?
 - Review usefulness of stuff like ConfigGuesser
 - Change all forms to use GridBagEasy and newXXX methods.
 - Sort out Utils.exec methods so they make sense
+- Package XMLTV using PAR
 + Separate classes into packages
 - Reduce the size of the XMLTV exe by removing unnecessary Tk files
-- Package XMLTV using PAR
 + Fix problem that if you reinstall to a new dir the old install can't be
 	uninstalled (well, you have to delete the directory instead...)
 - Single channel view
@@ -43,6 +44,8 @@ w  means done by William Ballard
 - Internationalisation
 - Use Java's printing capabilities to print
 - Other platforms - investigate Mac, BSD, others
+- A C++ installer that just checks for the right java version before
+  running the Java installer.
 - Automate upgrading XMLTV without upgrading FreeGuide?
 - Separate reminders from chosenness?  If so, need a new set of preferences
 	which need to be scanned on startup (in fact that is a better way to do
@@ -50,17 +53,51 @@ w  means done by William Ballard
 	Perhaps just add an option - remind of chosen programmes?  If that's
 	unselected then need to add explicit reminders.
 
-- Release 0.9
+- Release 0.10
 
 - Manual
 - Use serialization to reduce startup time
-- Search for programmes
+- Search for programmes, different views on data.
 - Fix Debian bug #285715 http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=285715
+
+- MVC Branch (0.9)
+
+- Fix bug where vertical scrolling makes the cursor disappear
+- Make the StripView focussed when you click on a programme
+- Stop it from changing what's in the programme panel when you hover for a
+  couple of seconds.
+- When you enter a day that hasn't been entered before, mark favourites as
+  inguide
+- Rename "program" dir to "freeguide"
+- Implement in_guide, remind and record for chosen progs and favourites
+- Implement the actual reminders and recording functionality
+- Fix the problem with flickering guide after clicking OK in the Favourites
+  dialog
+- Make hearts appear on favourites.
+- Make it internationalised
++ Rename things so "selected" means cursor is on you, "in guide" means chosen/
+  highlighted/shown in personalised guide, and "favourite" mean is a favourite.
+  (Later, "reminder" will mean you will be reminded, and "recorded" will
+  mean it will be recorded.)
++ Fix whatever is using 100% of CPU whenever FreeGuide is running
++ Make non-favourites appear in personalised guide: make Programmes themselves
+  know whether or not they are inguide.
++ Rename m to model in StripView.java
++ Fix problem with the selected programme appearing in the top left
++ Make the selected programme appear selected after a SPACE-press/dbl-click
++ Make 'f' keyboard shortcut work and refresh screen
++ Make keyboard navigation more natural:
+	+ jump several channels up/down if the intermediate channel is blank
+	+ when left or right is pressed, remember the horizontal position of the
+	  middle of this programme.  During all up/down presses, jump to the
+	  programme that best matches this horizontal position.  When left or right
+	  is pressed, forget this value and find another one.
 
 - Release 0.8.7 (nice features)
 
 - Run an exe when a programme is about to start and/or end
 - Make scrollbar increment in fractions of hours on mouse wheel or click.
+- Add firefox to the possible browsers.
 - Facilitating the download of listings outside of FreeGuide
 	(e.g. via a cron job, or at ppp connect)
 - Error message on RegExp error in Favourite editor
@@ -94,10 +131,15 @@ w  means done by William Ballard
   settings.
 - A grid or "now" line that helps see what time programmes are on
 - Error dialog when there's an XML parsing error
+- Delete some preferences when doing a complete install?
+- Fix bug in Italian grabber GUI config
+- Fix bugs in Windows grabber config for Netherlands, Sweden and Germany
+- Error dialog when there's an XML parsing error.
 - Investigate little squares appearing instead of chars during grabber config
   on Windows (na_dd - timezone screen).
 - Allow selection only of programmes on channels that are currently displayed
-- Fix bug with favourites creating multiple chosen programmes
+- Fix bug with favourites creating multiple chosen programmes (happens when you
+  re-enter a day several times)
 
 - Release 0.8.5 (aesthetics)
 
@@ -112,7 +154,6 @@ w  means done by William Ballard
 - Checkbox to stay at now time
 - Change font for "No programme selected" in programme details pane
 - Add icons to UK and US listings
-- Fix that BackingStoreException
 - http://www.memoire.com/guillaume-desnoix/slaf/
 - Remove text from after channel icons
 - Display programme categories, and allow colours to indicate category.
@@ -159,7 +200,7 @@ w  means done by William Ballard
 - Look into focus/modal bug with About box and reminder: Shaun email 2005-01-06
 - Fix bug with E! icon killing FreeGuide - Jim Konowitz's email of 2005-01-05
 - Fix the problem with configuration failing if ~/.xmltv does not exist
-    ... maybe this should be fixed in XMLTV.
+	... maybe this should be fixed in XMLTV.
 - Make tall and thin channel icons wider to line up text
 - Make a default channel icon for channels missing an icon
 - Allow resizing fonts in HTML displays
@@ -171,6 +212,7 @@ w  means done by William Ballard
 
 + Make it work with Java 1.4
 + Remove INSTALL-windows.html from docs.
++ Fix that BackingStoreException.
 
 + Release 0.8.2 (new xmltv + minor stuff)
 
