@@ -262,7 +262,7 @@ public class FreeGuide {
 
 	 */
 
-	public final static int version_revision = 0;
+	public final static int version_revision = -9;
 
 
 

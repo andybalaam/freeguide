@@ -129,6 +129,8 @@ m  means done by Mike Dean
 
 - Release 0.7 (xmltv-tk)
 
+m JProgrammeLabel Border workaround for GTK+ theme bug
+m Cache favourites to prevent re-reading from prefs
 m Multiline tooltips if too long
 m Sort out themes in some way
 m Make "More Info" box be scrolled to the top.
