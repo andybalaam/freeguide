@@ -197,6 +197,12 @@ loop:			while(true)
 		vector.copyInto(ans);
 		return ans;
 	}
+        
+        public static FreeGuideChannelSet[] arrayFromVector_FreeGuideChannelSet(Vector vector) {
+            FreeGuideChannelSet[] ans = new FreeGuideChannelSet[vector.size()];
+            vector.copyInto(ans);
+            return ans;
+        }
 	
 	/**
 	 * Convert a Vector of Strings to an array.

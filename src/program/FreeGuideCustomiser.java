@@ -45,6 +45,8 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
         panScreen = new javax.swing.JPanel();
         labChannelColour = new javax.swing.JLabel();
         txtChannelColour = new javax.swing.JTextField();
+        labProgrammeMovieColour = new javax.swing.JLabel();
+        txtProgrammeMovieColour = new javax.swing.JTextField();
         labProgrammeNormalColour = new javax.swing.JLabel();
         txtProgrammeNormalColour = new javax.swing.JTextField();
         labProgrammeChosenColour = new javax.swing.JLabel();
@@ -64,6 +66,14 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
         panButtons = new javax.swing.JPanel();
         butOK = new javax.swing.JButton();
         butCancel = new javax.swing.JButton();
+        timebuttongroup = new javax.swing.ButtonGroup();
+        time12button = new javax.swing.JRadioButton();
+        time24button = new javax.swing.JRadioButton();
+        timeLabel = new javax.swing.JLabel();
+        timeCBLabel = new javax.swing.JLabel();
+        timeCheckBox = new javax.swing.JCheckBox();
+
+		
 
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -261,6 +271,69 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.9;
         panScreen.add(butFont, gridBagConstraints);
 		
+        labProgrammeMovieColour.setText("Movie Background Colour");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        panScreen.add(labProgrammeMovieColour, gridBagConstraints);
+
+        txtProgrammeMovieColour.setEditable(false);
+        txtProgrammeMovieColour.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtProgrammeMovieColour.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtProgrammeMovieColourMouseClicked(evt);
+            }
+        });
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 0.9;
+        panScreen.add(txtProgrammeMovieColour, gridBagConstraints);
+
+
+        time12button.setText("2:30 PM");
+        timebuttongroup.add(time12button);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panScreen.add(time12button, gridBagConstraints);
+
+        time24button.setText("14:30");
+        timebuttongroup.add(time24button);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panScreen.add(time24button, gridBagConstraints);
+
+        timeLabel.setText("Time Display:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        panScreen.add(timeLabel, gridBagConstraints);
+
+        timeCBLabel.setText("Show time in grid:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        panScreen.add(timeCBLabel, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panScreen.add(timeCheckBox, gridBagConstraints);
+
         scrScreen.setViewportView(panScreen);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -307,8 +380,8 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
 		
         pack();
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(new java.awt.Dimension(400, 350));
-        setLocation((screenSize.width-400)/2,(screenSize.height-350)/2);
+        setSize(new java.awt.Dimension(400, 450));
+        setLocation((screenSize.width-400)/2,(screenSize.height-400)/2);
 		
 		FreeGuidePreferences scr = FreeGuide.prefs.screen;
 		
@@ -342,6 +415,10 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
 		
 	}
 	
+	private void txtProgrammeMovieColourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtProgrammeMovieColourMouseClicked
+		doColorDialog(txtProgrammeMovieColour);
+	}//GEN-LAST:event_txtProgrammeMovieColourMouseClicked
+
 	private void txtProgrammeNormalColourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtProgrammeNormalColourMouseClicked
 		doColorDialog(txtProgrammeNormalColour);
 	}//GEN-LAST:event_txtProgrammeNormalColourMouseClicked
@@ -370,7 +447,9 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
 		
 		FreeGuide.prefs.screen.putColor("programme_chosen_colour", txtProgrammeChosenColour.getBackground());
 		FreeGuide.prefs.screen.putColor("programme_normal_colour", txtProgrammeNormalColour.getBackground());
-		
+		FreeGuide.prefs.screen.putColor("programme_movie_colour", txtProgrammeMovieColour.getBackground());
+		FreeGuide.prefs.screen.putBoolean("display_programme_time", timeCheckBox.isSelected());
+                FreeGuide.prefs.screen.putBoolean("display_24hour_time", timebuttongroup.getSelection().equals(time24button.getModel()));
 		if(changedFont) {
 			
 			Font f = fontDialog.getSelectedFont();
@@ -404,11 +483,23 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
 		txtVerticalGap.setText( FreeGuide.prefs.screen.get("vertical_gap", String.valueOf(FreeGuide.VERTICAL_GAP)) );
 		txtPanelWidth.setText( FreeGuide.prefs.screen.get("panel_width", String.valueOf(FreeGuide.PANEL_WIDTH)) );
 		
+		col = FreeGuide.prefs.screen.getColor("programme_movie_colour", FreeGuide.PROGRAMME_CHOSEN_COLOUR);
+		fillTextAreaFromColor(txtProgrammeMovieColour, col);
 		col = FreeGuide.prefs.screen.getColor("programme_chosen_colour", FreeGuide.PROGRAMME_CHOSEN_COLOUR);
 		fillTextAreaFromColor(txtProgrammeChosenColour, col);
 		
 		col = FreeGuide.prefs.screen.getColor("programme_normal_colour", FreeGuide.PROGRAMME_NORMAL_COLOUR);
 		fillTextAreaFromColor(txtProgrammeNormalColour, col);
+                boolean progtime = FreeGuide.prefs.screen.getBoolean("display_programme_time",true);
+                timeCheckBox.setSelected(progtime);
+                boolean time24 =   FreeGuide.prefs.screen.getBoolean("display_24hour_time", false);
+                if (time24)
+                    timebuttongroup.setSelected(time24button.getModel(),true);
+                else
+                    timebuttongroup.setSelected(time12button.getModel(),true);
+              
+                
+
 		
 		//FreeGuidePreferences scr = FreeGuide.prefs.screen;
 		//butFont.setText( scr.get("font_name", "Dialog") +
@@ -438,6 +529,7 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField txtProgrammeNormalColour;
+    private javax.swing.JTextField txtProgrammeMovieColour;
     private javax.swing.JLabel labChannelHeight;
     private javax.swing.JTextField txtChannelHeight;
     private javax.swing.JLabel labChannelPanelWidth;
@@ -454,12 +546,19 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
     private javax.swing.JButton butCancel;
     private javax.swing.JLabel labPanelWidth;
     private javax.swing.JLabel labProgrammeChosenColour;
+    private javax.swing.JLabel labProgrammeMovieColour;
     private javax.swing.JTextField txtProgrammeChosenColour;
     private javax.swing.JLabel labHorizontalGap;
     private javax.swing.JTextField txtHorizontalGap;
     private javax.swing.JLabel labProgrammeNormalColour;
 	private javax.swing.JButton butFont;
     private javax.swing.JLabel labFont;
+    private javax.swing.JRadioButton time12button;
+    private javax.swing.ButtonGroup timebuttongroup;
+    private javax.swing.JRadioButton time24button;
+    private javax.swing.JLabel timeLabel;
+    private javax.swing.JLabel timeCBLabel;
+    private javax.swing.JCheckBox timeCheckBox;
     // End of variables declaration//GEN-END:variables
 	
 	FreeGuideLauncher launcher;

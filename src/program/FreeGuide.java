@@ -92,6 +92,7 @@ public class FreeGuide implements FreeGuideLauncher {
 	// Defaults - can be overridden by user preferences
 	public static final Color PROGRAMME_NORMAL_COLOUR = Color.white;
 	public static final Color PROGRAMME_CHOSEN_COLOUR = new Color(220,220,220);
+        public static final Color PROGRAMME_MOVIE_COLOUR = new Color(255,255,204);
 	public static final Color CHANNEL_COLOUR = new Color(245,245,255);
 	public static final int CHANNEL_HEIGHT = 28;
 	public static final int VERTICAL_GAP = 1;

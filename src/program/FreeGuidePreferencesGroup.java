@@ -43,6 +43,7 @@ public class FreeGuidePreferencesGroup {
 		favourites =	new FreeGuidePreferences("favourites");
 		chosen_progs =	new FreeGuidePreferences("chosenprogs");
 		channels =		new FreeGuidePreferences("channels");
+                channelsets = new FreeGuidePreferences("channelsets");
 	
     }
 	
@@ -72,6 +73,7 @@ public class FreeGuidePreferencesGroup {
 			favourites.flush();
 			chosen_progs.flush();
 			channels.flush();
+                        channelsets.flush();
 		} catch(java.util.prefs.BackingStoreException e) {
 			e.printStackTrace();
 		}
@@ -186,7 +188,9 @@ public class FreeGuidePreferencesGroup {
 						thePref = chosen_progs;
 					} else if(node.equals("channels")) {
 						thePref = channels;	
-					} else {
+					} else if(node.equals("channelsets")) {
+						thePref = channelsets;	}
+                                        else {
 						thePref = null;
 					}
 					theKey = ref.substring(k+1);
@@ -501,6 +505,23 @@ public class FreeGuidePreferencesGroup {
 		
 	}
 	
+        public FreeGuideChannelSet[] getChannelSets()
+        {
+            	Vector ans = new Vector();
+		
+		int i = 1;
+		FreeGuideChannelSet cset = channelsets.getFreeGuideChannelSet(String.valueOf(i), null);
+		
+		while( cset != null ) {
+
+			ans.add( cset );			
+			i++;
+			cset = channelsets.getFreeGuideChannelSet(String.valueOf(i), null);
+		}
+		
+		return FreeGuideUtils.arrayFromVector_FreeGuideChannelSet(ans);
+        }
+        
 	public void replaceFavourites(FreeGuideFavourite[] favs) {
 		
 		try {
@@ -517,7 +538,23 @@ public class FreeGuidePreferencesGroup {
 		}
 		
 	}
-	
+        
+	public void replaceChannelSets(FreeGuideChannelSet[] csets) {
+		
+		try {
+		
+			int size = csets.length;
+			String[] keys = new String[size];
+			for(int i=0;i<size;i++) {
+				keys[i] = String.valueOf(i+1);
+			}
+			channelsets.replaceAllFreeGuideChannelSets(keys, csets);
+			
+		} catch(java.util.prefs.BackingStoreException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	public String[] getCommands(String key) {
 		
 		return commandline.getStrings(key);
@@ -672,6 +709,7 @@ public class FreeGuidePreferencesGroup {
 	public FreeGuidePreferences favourites;	// The user's favourite progs
 	public FreeGuidePreferences chosen_progs;// The selected progs
 	public FreeGuidePreferences channels;	// The selected channels
+        public FreeGuidePreferences channelsets; //Sets of channel customization
 	
 	private static final SimpleDateFormat chosenDateFormat = new SimpleDateFormat("yyyyMMdd");
 	

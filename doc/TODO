@@ -15,6 +15,9 @@ S  means work in progress by Sagar Shah
 *  means done by Walter Duncan
 W  means work in progress by Walter Duncan
 
+^  means work done by Dave Torok
+D  means work in progress by Dave Torok
+
 --------------------------------------------
 
 - Release 2.0 (blue sky)
@@ -98,6 +101,13 @@ when they've changed.
 - Add to docs that some people (e.g. RedHat users) will need to change their
 	XMLTV dir to /usr/bin/ instead of /usr/local/bin/ - do we need this check
 	anyway?
+^ Channel Set -- create custom sets of channels
+^ Choose between 24-hour and 12-hour time formats (14:30 vs. 2:30 PM)
+^ Colorize Movies
+^ Parse Movies for NA and UK from XML
+^ Parse and display star-rating for movies
+^ Parse "previously shown" (repeated program) from XML
+^ Choose between displaying the start time in the programme grid (or not)
 
 - Release 0.5 (Features - especially use of many grabbers, and bug fixes)
 

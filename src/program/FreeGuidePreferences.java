@@ -93,7 +93,15 @@ public class FreeGuidePreferences {
 			putFreeGuideFavourite( keys[i], values[i] );
 		}
 	}
-	
+        
+	public void replaceAllFreeGuideChannelSets(String[] keys, FreeGuideChannelSet[] values) throws BackingStoreException
+        {
+            clear();
+            for(int i=0;i<keys.length;i++)
+            {
+                putFreeGuideChannelSet( keys[i], values[i] );
+            }
+	}
 	/**
 	 * Adds the given FreeGuideProgramme to the end of the list stored in this
 	 * node.  See the notes for getFreeGuideProgramme about the amount of
@@ -436,6 +444,32 @@ public class FreeGuidePreferences {
 		putInteger( key+".day_of_week", value.getDayOfWeek() );
 		
 	}
+        public FreeGuideChannelSet getFreeGuideChannelSet(String key, FreeGuideChannelSet def)
+        {
+		
+            String name = get(key+".name");
+
+            
+            if(name==null) {
+                    return def;
+            } else {	// If it is there, fill in the details
+                    FreeGuideChannelSetImpl  cset = new FreeGuideChannelSetImpl();
+
+                    cset.setChannelSetName(name);
+                    
+                    String ids = get(key+".channelids");
+                    if (ids != null)
+                        cset.addChannelsFromString(ids,null);
+                    else return def;
+                    return cset;
+            }
+	}
+        
+        public void putFreeGuideChannelSet(String key, FreeGuideChannelSet value)
+        {
+            put(key+".name", value.getChannelSetName());
+            put(key+".channelids",FreeGuideChannelSetImpl.toString(value.getChannelIDs()));
+        }
 
 	// ------------------------------------------------------------------------
 	// Wrapper methods

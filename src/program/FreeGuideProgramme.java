@@ -32,6 +32,33 @@ public class FreeGuideProgramme {
     public void setEnd(Calendar end) {this.end=end;}
     public Calendar getEnd() {return end;}
     
+    public void setIsMovie(boolean isMovie) {this.isMovie = isMovie;}
+    public boolean getIsMovie() {return this.isMovie;}
+   
+    public void setPreviouslyShown(boolean repeat) {this.previouslyShown = repeat;}
+    public boolean getPreviouslyShown() {return this.previouslyShown;}
+   
+    public void setStarRating(String rating) {this.starRating = rating;}
+    public String getStarRating() {return this.starRating;}
+    public final String stars = "***********";
+    public String getStarString()
+    {
+       String rating = getStarRating();
+       if (rating == null) return "";
+       int i = rating.indexOf('/');
+       if (i > 0)
+       try {
+           double  num = Double.parseDouble(rating.substring(0,i));
+           if (num == 0)
+               return "(No Stars)";
+           if (Math.floor(num) == num)
+               return "(" + stars.substring(0,(int)Math.round(Math.floor(num)))+")";
+           else 
+               return "(" + stars.substring(0,(int)Math.round(Math.floor(num))) + " 1/2)";
+       } catch (Exception ex) { return ""; }
+       return "";
+         }
+    
     public void addToTitle(String title) {
 		if(this.title==null) {
 			this.title = new String();
@@ -144,5 +171,8 @@ public class FreeGuideProgramme {
     private String channelName;	// The name of the channel the prog's on
 	private String channelID;	// The ID of the channel the prog's on
     private Vector category;	// The categories it fits into
+    private boolean isMovie;    //is it a movie?
+    private boolean previouslyShown;       //repeat?
+    private String starRating;      //movie star rating
 	
 }

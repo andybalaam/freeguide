@@ -40,7 +40,7 @@ import org.xml.sax.*;
  */
  
 
-class XMLTVLoader extends DefaultHandler {
+class XMLTVLoader extends DefaultHandler implements FreeGuideChannelSet{
 	
 	/**
 	 * Loads the programme data from a file and stores it in a class
@@ -354,6 +354,18 @@ class XMLTVLoader extends DefaultHandler {
 
 			tmpChannelID = id;
 			
+                } else if(saxLoc.equals(":tv:programme:previously-shown")) {
+			
+                        if(currentProgramme!=null) {
+				currentProgramme.setPreviouslyShown(true);
+			}			
+		} else if(saxLoc.equals(":tv:programme:rating")) {
+			
+                        if(currentProgramme!=null) {
+                            String ratingsystem = attrs.getValue("system");
+                            if (ratingsystem != null && ratingsystem.equalsIgnoreCase("MPAA"))
+				currentProgramme.setIsMovie(true);
+			}			
 		}//if
 
 		
@@ -430,7 +442,20 @@ class XMLTVLoader extends DefaultHandler {
 	    
 			if(currentProgramme!=null) {
 				currentProgramme.addCategory(data);
+                                //DMT handle UK Movie
+                                if (data.equalsIgnoreCase("Film") || data.equalsIgnoreCase("Movie/Drama"))
+                                {
+                                    currentProgramme.setIsMovie(true);
+                                }
+                                    
 			}
+                        
+       		} else if (saxLoc.equals(":tv:programme:star-rating:value")) {
+	    
+			if(currentProgramme!=null) {
+				currentProgramme.setStarRating(data);
+			}
+          
 
 		} else if (saxLoc.equals(":tv:channel:display-name")) {
 
@@ -507,6 +532,12 @@ class XMLTVLoader extends DefaultHandler {
 		
 		return channelIDs.indexOf( channelID );
 		
+	}
+
+	public void setChannelSetName(String name) {return;}
+	public String getChannelSetName()
+	{
+	  return "All Channels";
 	}
 	
 	/**

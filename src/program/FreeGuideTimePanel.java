@@ -56,8 +56,8 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 			super.paintComponent(g);
 			
 			int wid = this.getPreferredSize().width;
-		
-			SimpleDateFormat fmt = new SimpleDateFormat("HH:mm");
+//DMT TODO add HH:mm back in as option		
+			SimpleDateFormat fmt = new SimpleDateFormat("h:mm aa");
 		
 			if(wid>0) {
 		
@@ -90,6 +90,7 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 						if(tmpTime.get(Calendar.MINUTE)==0) {	// Hours
 					
 							g.drawLine(xPos, 0, xPos, 10);
+							g.drawLine(xPos + 1, 0, xPos + 1, 10);
 							g.drawString(fmt.format(tmpTime.getTime()), xPos-17, 21);
 					
 						} else if(tmpTime.get(Calendar.MINUTE)==30) {	// Half hours
