@@ -29,7 +29,7 @@ import javax.swing.text.*;
  *
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    19
+ *@version    20
  */
 public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
@@ -774,6 +774,17 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		
 	}
 	
+	void scrollTo(Calendar showTime) {
+		
+		programmesScrollPane.getHorizontalScrollBar().
+                setValue( timePanel.getScrollValue(showTime) );
+		
+	}
+
+        void scrollToReference(String reference) {
+          printedGuideArea.scrollToReference(reference);
+        }
+
 	//}}}
 	
 	//{{{ drawProgrammes

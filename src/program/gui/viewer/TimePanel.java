@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
  *
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    4
+ *@version    5
  */
 public class TimePanel extends javax.swing.JPanel {
 
@@ -174,15 +174,26 @@ public class TimePanel extends javax.swing.JPanel {
      */
     public int getNowScroll() {
 
+        return getScrollValue(GregorianCalendar.getInstance());
+
+    }
+
+    /**
+     *  Gets the nowScroll attribute of the TimePanel object
+     *
+     *@return    The value to use to scroll to showTime
+     */
+    public int getScrollValue(Calendar showTime) {
+
         if (display) {
 
-            Calendar nowTime = GregorianCalendar.getInstance();
-            return (int) ((nowTime.getTimeInMillis() - startTime.getTimeInMillis()) / multiplier);
+            if (showTime.after(startTime) && showTime.before(endTime)) {
+                return (int) ((showTime.getTimeInMillis() - startTime.getTimeInMillis()) / multiplier);
+            }
         }
 
         return 0;
     }
-
 
     /**
      *  Sets the times attribute of the TimePanel object

@@ -14,12 +14,18 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.Vector;
 import javax.swing.JLabel;
+/* Also using (but can't import because of java.util.Timer)
+import javax.swing.Timer;
+ */
+import javax.swing.ToolTipManager;
 import java.awt.Graphics;
 import java.text.SimpleDateFormat;
 
@@ -28,7 +34,7 @@ import java.text.SimpleDateFormat;
  *
  *@author     Andy Balaam
  *@created    3 July 2003
- *@version    3
+ *@version    4
  */
 public class ProgrammeJLabel extends javax.swing.JLabel {
 
@@ -58,6 +64,15 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 		
 		this.viewerFrame = viewerFrame;
 		this.programme = programme;
+		
+                // Create a timer to scroll the HTML guide when the user
+                // hovers over the selected program.
+                // Using the same timeout as ToolTips so that if we add an
+                // option, one setting will apply to both.
+                scrollHTMLTimer = new javax.swing.Timer(
+                            ToolTipManager.sharedInstance().getInitialDelay(),
+                                                      new ScrollHTMLAction());
+                scrollHTMLTimer.setRepeats(false);
 		
 		Calendar programmeStart = programme.getStart();
         Calendar programmeEnd = programme.getEnd();
@@ -175,8 +190,19 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
                     maybeShowPopup( evt );
                 }
 
-                public void mouseEntered(java.awt.event.MouseEvent evt) { }
-                public void mouseExited(java.awt.event.MouseEvent evt) { }
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                  if (scrollHTMLTimer.isRunning()) {
+                    scrollHTMLTimer.restart();
+                  } else {
+                    scrollHTMLTimer.start();
+                  }
+                }
+
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                  if (scrollHTMLTimer.isRunning()) {
+                    scrollHTMLTimer.stop();
+                  }
+                }
 
                 private void maybeShowPopup( java.awt.event.MouseEvent evt ) {
 					
@@ -384,5 +410,18 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 	private ViewerFrame viewerFrame;
 	private MessageDialogTimer reminderTimer;
 	
+	/**
+	 * Timer to determine when to scroll the HTML Guide if the user
+         * hovers over a programme.
+	 */
+        private javax.swing.Timer scrollHTMLTimer;
+	
+        class ScrollHTMLAction implements ActionListener {
+          public void actionPerformed(ActionEvent e) {
+            viewerFrame.scrollToReference(
+                                  HTMLGuideListener.createLinkReference(
+                                             ProgrammeJLabel.this.programme));
+          }
+        }
 }
 

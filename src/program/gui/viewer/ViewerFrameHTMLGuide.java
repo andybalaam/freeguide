@@ -25,7 +25,7 @@ import java.util.Vector;
  *
  *@author     Andy Balaam
  *@created    17 November 2003
- *@version    1
+ *@version    2
  */
 public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
 
@@ -39,6 +39,9 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
 		
 		this.parentViewerFrame = parentViewerFrame;
 		
+                // Scrolls the program guide to show the program when
+                // the user clicks the program name in the HTML Guide
+                addHyperlinkListener(new HTMLGuideListener(parentViewerFrame));
     }
 	
 	//{{{ Printed Guide
@@ -223,14 +226,22 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
 			
 			ans.append( "  <p><b>" )
 				.append( timeFormat.format( prog.getStart().getTime() ) )
-				.append( " - " )
-				.append( prog.getTitle() );
+				.append( " - " );
+                        if (onScreen) {
+                                String ref = HTMLGuideListener.createLinkReference(prog);
+                                ans.append( "<a href=\"#" + ref +
+                                            "\" name=\"" +ref + "\">" );
+                        }
+		        ans.append( prog.getTitle() );
 			
 			if( progSubTitle != null ) {
 				
 				ans.append( ": " + progSubTitle );
 				
 			}
+                        if (onScreen) {
+                                ans.append( "</a>" );
+                        }
 			
 			ans.append( "</b><br>" )
 				.append( prog.getChannelName() )
