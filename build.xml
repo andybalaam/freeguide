@@ -97,21 +97,50 @@
 
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/windows/install-win-all.props" tofile="${package}/windows/install-all.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-de_tvtoday.props" tofile="${package}/windows/install-0.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-dk.props" tofile="${package}/windows/install-1.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-es.props" tofile="${package}/windows/install-2.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-es_digital.props" tofile="${package}/windows/install-3.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-fi.props" tofile="${package}/windows/install-4.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-fr.props" tofile="${package}/windows/install-5.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-huro.props" tofile="${package}/windows/install-6.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-it.props" tofile="${package}/windows/install-7.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-jp.props" tofile="${package}/windows/install-8.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-nl.props" tofile="${package}/windows/install-9.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-nl_wolf.props" tofile="${package}/windows/install-10.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-na_dd.props" tofile="${package}/windows/install-11.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-no.props" tofile="${package}/windows/install-12.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-pt.props" tofile="${package}/windows/install-13.props" overwrite="true" />
+        
+        <!-- Denmark -->
+		<copy file="${src}/install/windows/install-win-dk.props" tofile="${package}/windows/install-0.props" overwrite="true" />
+        
+        <!-- Finland -->
+		<copy file="${src}/install/windows/install-win-fi.props" tofile="${package}/windows/install-1.props" overwrite="true" />
+        
+        <!-- France -->
+        <copy file="${src}/install/windows/install-win-fr.props" tofile="${package}/windows/install-2.props" overwrite="true" />
+        
+        <!-- Germany -->
+        <copy file="${src}/install/windows/install-win-de_tvtoday.props" tofile="${package}/windows/install-3.props" overwrite="true" />
+        
+        <!-- Hungary and Romania -->
+		<copy file="${src}/install/windows/install-win-huro.props" tofile="${package}/windows/install-4.props" overwrite="true" />
+        
+        <!-- Italy -->
+		<copy file="${src}/install/windows/install-win-it.props" tofile="${package}/windows/install-5.props" overwrite="true" />
+        
+        <!-- Japan -->
+        <copy file="${src}/install/windows/install-win-jp.props" tofile="${package}/windows/install-6.props" overwrite="true" />
+        
+        <!-- Netherlands -->
+        <copy file="${src}/install/windows/install-win-nl.props" tofile="${package}/windows/install-7.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-nl_wolf.props"
+        tofile="${package}/windows/install-8.props" overwrite="true" />
+        
+        <!-- North America -->
+        <copy file="${src}/install/windows/install-win-na_dd.props" tofile="${package}/windows/install-9.props" overwrite="true" />
+        
+        <!-- Norway -->
+        <copy file="${src}/install/windows/install-win-no.props" tofile="${package}/windows/install-10.props" overwrite="true" />
+        
+        <!-- Portugal -->
+        <copy file="${src}/install/windows/install-win-pt.props" tofile="${package}/windows/install-11.props" overwrite="true" />
+        
+        <!-- Spain -->
+		<copy file="${src}/install/windows/install-win-es.props" tofile="${package}/windows/install-12.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-es_digital.props" tofile="${package}/windows/install-13.props" overwrite="true" />
+        
+        <!-- Sweden -->
         <copy file="${src}/install/windows/install-win-se.props" tofile="${package}/windows/install-14.props" overwrite="true" />
+        
+        <!-- UK -->
         <copy file="${src}/install/windows/install-win-uk_bleb.props" tofile="${package}/windows/install-15.props" overwrite="true" />
 		<copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${package}/windows/install-16.props" overwrite="true" />
 		<copy file="${src}/install/windows/install-win-uk_rt-slow.props" tofile="${package}/windows/install-17.props" overwrite="true" />
@@ -144,21 +173,49 @@
 
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/linux/install-lin-all.props" tofile="${package}/linux/install-all.props" overwrite="true" />
-        <copy file="${src}/install/linux/install-lin-de_tvtoday.props" tofile="${package}/linux/install-0.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-dk.props" tofile="${package}/linux/install-1.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-es.props" tofile="${package}/linux/install-2.props" overwrite="true" />
-        <copy file="${src}/install/linux/install-lin-es_digital.props" tofile="${package}/linux/install-3.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-fi.props" tofile="${package}/linux/install-4.props" overwrite="true" />
-        <copy file="${src}/install/linux/install-lin-fr.props" tofile="${package}/linux/install-5.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-huro.props" tofile="${package}/linux/install-6.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-it.props" tofile="${package}/linux/install-7.props" overwrite="true" />
-        <copy file="${src}/install/linux/install-lin-jp.props" tofile="${package}/linux/install-8.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-nl.props" tofile="${package}/linux/install-9.props" overwrite="true" />
-        <copy file="${src}/install/linux/install-lin-nl_wolf.props" tofile="${package}/linux/install-10.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-no.props" tofile="${package}/linux/install-11.props" overwrite="true" />
-        <copy file="${src}/install/linux/install-lin-pt.props" tofile="${package}/linux/install-12.props" overwrite="true" />
+        
+        <!-- Denmark -->
+		<copy file="${src}/install/linux/install-lin-dk.props" tofile="${package}/linux/install-0.props" overwrite="true" />
+        
+        <!-- Finaland -->
+		<copy file="${src}/install/linux/install-lin-fi.props" tofile="${package}/linux/install-1.props" overwrite="true" />
+        
+        <!-- France -->
+        <copy file="${src}/install/linux/install-lin-fr.props" tofile="${package}/linux/install-2.props" overwrite="true" />
+        
+        <!-- Germany -->
+        <copy file="${src}/install/linux/install-lin-de_tvtoday.props" tofile="${package}/linux/install-3.props" overwrite="true" />
+        
+        <!-- Hungary and Romania -->
+		<copy file="${src}/install/linux/install-lin-huro.props" tofile="${package}/linux/install-4.props" overwrite="true" />
+        
+        <!-- Italy -->
+		<copy file="${src}/install/linux/install-lin-it.props" tofile="${package}/linux/install-5.props" overwrite="true" />
+        
+        <!-- Japan -->
+        <copy file="${src}/install/linux/install-lin-jp.props" tofile="${package}/linux/install-6.props" overwrite="true" />
+        
+        <!-- Netherlands -->
+		<copy file="${src}/install/linux/install-lin-nl.props" tofile="${package}/linux/install-7.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-nl_wolf.props" tofile="${package}/linux/install-8.props" overwrite="true" />
+        
+        <!-- Norway -->
+		<copy file="${src}/install/linux/install-lin-no.props" tofile="${package}/linux/install-9.props" overwrite="true" />
+        
+        <!-- Portugal -->
+        <copy file="${src}/install/linux/install-lin-pt.props" tofile="${package}/linux/install-10.props" overwrite="true" />
+        
+        <!-- Spain -->
+		<copy file="${src}/install/linux/install-lin-es.props" tofile="${package}/linux/install-11.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-es_digital.props" tofile="${package}/linux/install-12.props" overwrite="true" />
+        
+        <!-- Sweden -->
         <copy file="${src}/install/linux/install-lin-se.props" tofile="${package}/linux/install-13.props" overwrite="true" />
+        
+        <!-- North America -->
 		<copy file="${src}/install/linux/install-lin-na_dd.props" tofile="${package}/linux/install-14.props" overwrite="true" />
+        
+        <!-- UK -->
         <copy file="${src}/install/linux/install-lin-uk_bleb.props" tofile="${package}/linux/install-15.props" overwrite="true" />
 		<copy file="${src}/install/linux/install-lin-uk_rt.props" tofile="${package}/linux/install-16.props" overwrite="true" />
 		<copy file="${src}/install/linux/install-lin-uk_rt-slow.props" tofile="${package}/linux/install-17.props" overwrite="true" />
