@@ -105,6 +105,7 @@ r  means done by Rob Stewart
 - Man page in RPM
 - Look at Shaun's .desktop file and startup script (email titled Re: Change
   from an installer to a first time wizard)
+- Allow selection only of programmes on channels that are currently displayed
 
 - Release 0.8.2 (aesthetics)
 
@@ -121,6 +122,7 @@ r  means done by Rob Stewart
 - Change font for "No programme selected" in programme details pane
 - Scroll to the top of the ProgrammeJLabel whenever its contents change
 - Add icons to UK and US listings
+- Fix that BackingStoreException.
 
 - Release 0.8.1 (accessibility, accessibility, accessibility)
 
@@ -138,7 +140,7 @@ r  means done by Rob Stewart
 
 - Release 0.8 (first time wizard)
 
-- Merge manpage, start script and desktop entry with debian ones
++ Merge manpage, start script and desktop entry with debian ones
 - Tell people they might want to delete their freeguide-tv directory after
   installation
 - inform http://www.radioandtelly.co.uk/guides.html
