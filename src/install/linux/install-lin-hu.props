@@ -1,13 +1,13 @@
-region=Sverige & Norge
+region=Hungary
 
-prefs.1=misc.install_directory=C:\\Program Files\\freeguide-tv
-prefs.2=misc.working_directory=%misc.install_directory%\\data
-prefs.3=misc.xmltv_directory=%misc.install_directory%\\xmltv
-prefs.4=misc.grabber_config=%misc.xmltv_directory%\\tv_grab_sn.conf
+prefs.1=misc.install_directory=%home%/freeguide-tv
+prefs.2=misc.working_directory=%home%/.freeguide-tv
+prefs.3=misc.xmltv_directory=/usr/local/bin
+prefs.4=misc.grabber_config=%home%/.xmltv/tv_grab_hu.conf
 prefs.5=misc.days_to_grab=7
 prefs.6=misc.day_start_time=06:00
-prefs.7=commandline.browser_command.1=\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" \"%filename%\"
-prefs.7=commandline.tv_grab.1=\"%misc.xmltv_directory%\\xmltv.exe\" tv_grab_sn --config-file \"%misc.grabber_config%\" --offset %offset% --days 1 --output \"%misc.working_directory%\\tv-%date%.xmltv\"
+prefs.7=commandline.browser_command.1=netscape \"%filename%\"
+prefs.8=commandline.tv_grab.1=tv_grab_hu --config-file \"%misc.grabber_config%\" --offset %offset% --days 1 --output \"%misc.working_directory%/tv-%date%.xmltv\"
 prefs.9=misc.grabber_today_offset=0
 prefs.10=misc.grabber_start_time=00:00
 prefs.11=misc.grabber_start_today=true
@@ -31,5 +31,3 @@ file.16=TODO>%misc.install_directory%/TODO
 file.17=developers.html>%misc.install_directory%/developers.html
 
 file.18=xmltv.dtd>%misc.working_directory%/xmltv.dtd
-
-file.19=xmltv.exe>%misc.xmltv_directory%/xmltv.exe

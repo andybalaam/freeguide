@@ -31,7 +31,7 @@ import javax.swing.JOptionPane;
  *
  *  @author  Andy Balaam
  *  @created 02 July 2003
- *  @version 7
+ *  @version 8
  */
 public class Install implements Launcher {
 
@@ -138,7 +138,7 @@ public class Install implements Launcher {
 
             getAllRegions();
 
-            WizardPanel[] panels = new WizardPanel[4];
+            WizardPanel[] panels = new WizardPanel[6];
 
             panels[0] = new LabelWizardPanel("");
             panels[0].setMessages("You are about to install FreeGuide.",
@@ -158,12 +158,28 @@ public class Install implements Launcher {
                     "This will be created if it doesn't exist.");
             panels[2].setConfig("misc", "install_directory");
 
-            panels[3] = new LabelWizardPanel("Now you need to configure your grabber before you can start using it.");
-            panels[3].setMessages("FreeGuide will be installed when you click \"Finish\".", "Read the README in the directory you chose to find out how.");
+			String[] dummyChoices = new String[0];
+			panels[3] = new ChoiceWizardPanel(dummyChoices);
+            panels[3].setMessages("What is the name of your web browser?",
+                    "Choose the default if you don't know.");
+            panels[3].setConfig("misc", "browser");
+			clses = new Class[1];
+			clses[0] = ChoiceWizardPanel.class;
+			panels[3].setOnEnter( this, getClass().getMethod( "enterBrowser",
+				clses ) );
+			clses[0] = String.class;
+			panels[3].setOnExit( this, getClass().getMethod( "exitBrowser",
+				clses ) );
+			
+			panels[4] = new PrivacyWizardPanel();
+			panels[4].setConfig( "misc", "privacy" );
+			
+			clses = new Class[0];
+            panels[5] = new LabelWizardPanel("Now you need to configure your grabber before you can start using it.");
+            panels[5].setMessages("FreeGuide will be installed when you click \"Finish\".", "Read the README in the directory you chose to find out how.");
 
             new WizardFrame("FreeGuide Setup Wizard", panels, this, this,
-                    getClass().getMethod("doInstall",
-                    new Class[0])).setVisible(true);
+                    getClass().getMethod("doInstall", clses)).setVisible(true);
 
         } catch (java.lang.NoSuchMethodException e) {
             e.printStackTrace();
@@ -173,7 +189,36 @@ public class Install implements Launcher {
 
     }
 
-
+	public String enterBrowser( ChoiceWizardPanel panel ) {
+		
+		String[] choices = prefs.getBrowsers();
+		
+		panel.setChoices( choices );
+		
+		return prefs.misc.get( "browser", choices[0] );
+		
+	}
+	
+	public void exitBrowser( String choice ) {
+		
+		String[] choices = prefs.getBrowsers();
+		
+		for( int i=0; i<choices.length; i++ ) {
+			
+			if( choices[i].equals( choice ) ) {
+				
+				prefs.commandline.putStrings( "browser_command",
+					prefs.getCommands( "browser_command." + (i+1) ) );
+				return;
+				
+			}
+			
+		}
+		
+		System.err.println( "exitBrowser: Chosen browser command not found!" );
+		
+	}
+	
     /**
      *  Load in the properties file for the chosen region
      *
