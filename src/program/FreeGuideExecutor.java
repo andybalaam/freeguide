@@ -285,7 +285,9 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 			return true;
 		}
 		Calendar thisDate=GregorianCalendar.getInstance();
-		thisDate.setTime(date.getTime());
+		if ( FreeGuide.prefs.misc.getInt("grabber_start_today",1) == 0 ) {
+			thisDate.setTime(date.getTime());
+		}
 		System.out.print("exec: "+cmdstr+"\n");
 		// Check for any elements that mean this command must be called multiple
 		// times, once for each day.

@@ -108,7 +108,6 @@ public class FreeGuidePreferencesGroup {
 		// visible day before real day is past offset (negative)
 		int offset = visibleDOY - realDOY;
 
-		// FIXME -- WCD -- Configurable Option for grabber_today_offset
 		//return(offset+misc.getInt("grabber_today_offset",1)); // _uk
 		return(offset+misc.getInt("grabber_today_offset",0)); // _na
 	}
