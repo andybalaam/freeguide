@@ -44,7 +44,7 @@ public class FreeGuide implements FreeGuideLauncher {
      * @param args the command line arguments
      */
     public static void main (String args[]) {
-		
+
 		new FreeGuide(args);
 		
 	}
@@ -67,7 +67,9 @@ public class FreeGuide implements FreeGuideLauncher {
 		// Nothing - not used
 	}
 	
-	public void reShow() {	
+	public void reShow() {
+		if(FreeGuide.prefs.screen.getBoolean("use_metal_landf", false))
+			FreeGuideViewer.setDefaultLookAndFeelDecorated(true);
 		new FreeGuideViewer(this, null);
 	}
 	

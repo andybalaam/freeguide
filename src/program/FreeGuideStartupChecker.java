@@ -69,6 +69,9 @@ public class FreeGuideStartupChecker {
 		} else {
 			// All is ok, so begin with viewer
 			//FreeGuide.log.info("Checks ok, starting FreeGuide " + FreeGuide.getVersion() + " ...");
+			if(FreeGuide.prefs.screen.getBoolean("use_metal_landf", false))
+				FreeGuideViewer.setDefaultLookAndFeelDecorated(true);
+			
 			new FreeGuideViewer(launcher, pleaseWait);
 		}
 		

@@ -22,7 +22,7 @@ import java.awt.Font;
  * The Colour options screen for FreeGuide
  *
  * @author  Andy Balaam
- * @version 2
+ * @version 3
  */
 public class FreeGuideCustomiser extends javax.swing.JFrame {
 	
@@ -72,8 +72,9 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
         timeLabel = new javax.swing.JLabel();
         timeCBLabel = new javax.swing.JLabel();
         timeCheckBox = new javax.swing.JCheckBox();
-
-		
+		landf = new javax.swing.JLabel();
+		landfCheckBox = new javax.swing.JCheckBox();
+		landfNoteLabel = new javax.swing.JLabel();
 
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -334,6 +335,32 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panScreen.add(timeCheckBox, gridBagConstraints);
 
+		landf.setText("Use Metal Decoration:");
+		landf.setToolTipText("Use Java Metal Look and Feel Decoration, "
+			+ "requires restart.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 13;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+		panScreen.add(landf, gridBagConstraints);
+		
+		landfCheckBox.setToolTipText("Use Java Metal Look and Feel Decoration, "
+			+ "requires restart.");
+		
+		landfNoteLabel.setText("(Requires restart)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 14;
+		gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
+        panScreen.add(landfNoteLabel, gridBagConstraints);
+		
+		gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 13;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panScreen.add(landfCheckBox, gridBagConstraints);
+	
         scrScreen.setViewportView(panScreen);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -450,6 +477,7 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
 		FreeGuide.prefs.screen.putColor("programme_movie_colour", txtProgrammeMovieColour.getBackground());
 		FreeGuide.prefs.screen.putBoolean("display_programme_time", timeCheckBox.isSelected());
                 FreeGuide.prefs.screen.putBoolean("display_24hour_time", timebuttongroup.getSelection().equals(time24button.getModel()));
+		FreeGuide.prefs.screen.putBoolean("use_metal_landf", landfCheckBox.isSelected());
 		if(changedFont) {
 			
 			Font f = fontDialog.getSelectedFont();
@@ -497,9 +525,9 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
                     timebuttongroup.setSelected(time24button.getModel(),true);
                 else
                     timebuttongroup.setSelected(time12button.getModel(),true);
-              
-                
-
+	    
+	    	boolean metal = FreeGuide.prefs.screen.getBoolean("use_metal_landf", false);
+		landfCheckBox.setSelected(metal);                
 		
 		//FreeGuidePreferences scr = FreeGuide.prefs.screen;
 		//butFont.setText( scr.get("font_name", "Dialog") +
@@ -559,6 +587,10 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
     private javax.swing.JLabel timeLabel;
     private javax.swing.JLabel timeCBLabel;
     private javax.swing.JCheckBox timeCheckBox;
+    
+    private javax.swing.JLabel landf;
+    private javax.swing.JCheckBox landfCheckBox;
+	private javax.swing.JLabel landfNoteLabel;
     // End of variables declaration//GEN-END:variables
 	
 	FreeGuideLauncher launcher;

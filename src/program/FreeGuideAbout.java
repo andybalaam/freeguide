@@ -98,6 +98,8 @@ public class FreeGuideAbout extends javax.swing.JDialog {
 	 * @param args the command line arguments
 	 */
 	public static void main(String args[]) {
+		if(FreeGuide.prefs.screen.getBoolean("use_metal_landf", false))
+			FreeGuideAbout.setDefaultLookAndFeelDecorated(true);
 		new FreeGuideAbout(new javax.swing.JFrame(), true).show();
 	}
 	

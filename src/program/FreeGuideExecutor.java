@@ -328,9 +328,10 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 						// If we not have chosen already, ask the user whether
 						// to re-download
 						if( alwaysDownload == MAYBE ) {
-					
 					     	Object[] options = { "Re-download", "Skip" };
-							int ans = JOptionPane.showOptionDialog(
+						if(FreeGuide.prefs.screen.getBoolean("use_metal_landf", false))
+							javax.swing.JDialog.setDefaultLookAndFeelDecorated(true);
+								int ans = JOptionPane.showOptionDialog(
 								this,
 								"There are already some days' listings "
 								+ "downloaded.  Do you want to re-download "
