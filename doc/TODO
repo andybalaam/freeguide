@@ -95,6 +95,8 @@ W  means work in progress by Walter Duncan
 
 - Release 0.5 (Features - especially use of many grabbers, and bug fixes)
 
+- Appears nz isn't working - "experimental"?
+- Explain in docs that nz needs your config file in ~/.xmltv/tv_grab_nz
 - Use xmltv 0.5.5 including nz grabber, and sn channel selection.
 - Add to docs known bug that na grabber always doesn't overwrite old files.
 - Explain in documentation that if you grab quite late in a day you may only

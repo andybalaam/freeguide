@@ -154,6 +154,7 @@
 		<copy file="${src}/install/install-lin-na.props" tofile="${build}/install-lin/install-1.props" overwrite="true" />
 		<copy file="${src}/install/install-lin-sn.props" tofile="${build}/install-lin/install-2.props" overwrite="true" />
 		<copy file="${src}/install/install-lin-de.props" tofile="${build}/install-lin/install-3.props" overwrite="true" />
+		<copy file="${src}/install/install-lin-nz.props" tofile="${build}/install-lin/install-4.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Linux-Install.jar"
