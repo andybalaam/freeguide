@@ -20,6 +20,12 @@ import javax.xml.parsers.SAXParser;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 
+/**
+ * A form that displays and prints TV listings.
+ *
+ * @author  Andy Balaam
+ * @version 3
+ */
 public class FreeGuideViewer extends javax.swing.JFrame {
 
     public FreeGuideViewer() {
@@ -59,6 +65,7 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		jSeparator4 = new javax.swing.JSeparator();
 		menAbout = new javax.swing.JMenuItem();
 		topPanel = new javax.swing.JPanel();
+		butGoToNow = new javax.swing.JButton();
 		butPrev = new javax.swing.JButton();
 		comTheDate = new javax.swing.JComboBox();
 		butNext = new javax.swing.JButton();
@@ -70,7 +77,7 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		channelNameScrollPane = new javax.swing.JScrollPane();
 		channelNamePanel = new javax.swing.JPanel();
 		timeScrollPane = new javax.swing.JScrollPane();
-		timePanel = new javax.swing.JPanel();
+		timePanel = new FreeGuideTimePanel();
 		printedGuideScrollPane = new javax.swing.JScrollPane();
 		printedGuideArea = new javax.swing.JTextArea();
 		labStatus = new javax.swing.JLabel();
@@ -127,6 +134,15 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 				exitForm(evt);
 			}
 		});
+		
+		butGoToNow.setText("Go To Now");
+		butGoToNow.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				butGoToNowActionPerformed(evt);
+			}
+		});
+		
+		topPanel.add(butGoToNow);
 		
 		butPrev.setText("-");
 		butPrev.addActionListener(new java.awt.event.ActionListener() {
@@ -223,12 +239,7 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		timeScrollPane.setPreferredSize(new java.awt.Dimension(24, 24));
 		timeScrollPane.setMinimumSize(new java.awt.Dimension(24, 24));
 		timeScrollPane.setMaximumSize(new java.awt.Dimension(24, 24));
-		timePanel.setLayout(null);
-		
 		timePanel.setBackground(new java.awt.Color(245, 245, 255));
-		timePanel.setPreferredSize(new java.awt.Dimension(24, 24));
-		timePanel.setMinimumSize(new java.awt.Dimension(24, 24));
-		timePanel.setMaximumSize(new java.awt.Dimension(24, 24));
 		timeScrollPane.setViewportView(timePanel);
 		
 		gridBagConstraints2 = new java.awt.GridBagConstraints();
@@ -290,6 +301,12 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		setSize(new java.awt.Dimension(600, 400));
 		setLocation((screenSize.width-600)/2,(screenSize.height-400)/2);
 	}//GEN-END:initComponents
+
+	private void butGoToNowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butGoToNowActionPerformed
+		
+		goToNow();
+		
+	}//GEN-LAST:event_butGoToNowActionPerformed
 
 	private void menAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menAboutActionPerformed
 		
@@ -425,6 +442,17 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	
     }//initMyComponents
     
+	private void goToNow() {
+	
+		// TO ADD: go to today if not already there.
+		
+		int tmpScr = timePanel.getNowScroll();
+		
+		timeScrollPane.getHorizontalScrollBar().setValue(tmpScr);
+		innerScrollPane.getHorizontalScrollBar().setValue(tmpScr);
+		
+	}
+	
 	/**
 	 * The event procedure for the horizontal scrollpane listener - just
 	 * calls the scrollTime method.
@@ -658,7 +686,7 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 				innerPanel.remove((JTextArea)txts.get(i));
 			}//for
 		}//if
-		timePanel.removeAll();
+		//timePanel.removeAll();
 		channelNamePanel.removeAll();
 	
 		// References which allow us to relate a checkbox to a programme:
@@ -676,7 +704,7 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		channelNamePanel.setMinimumSize(new Dimension(0, channels.length*channelHeight+50));
 		channelNamePanel.setMaximumSize(new Dimension(0, channels.length*channelHeight+50));
 	
-		long hourCount = earliest.getTime();
+		/*long hourCount = earliest.getTime();
 	
 		hourCount = hourCount - (hourCount % (60*60*1000));
 	
@@ -696,6 +724,7 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		timePanel.setPreferredSize(new Dimension((int)((latest.getTime()-earliest.getTime())*widthMultiplier)+50,0));
 		timePanel.setMinimumSize(new Dimension((int)((latest.getTime()-earliest.getTime())*widthMultiplier)+50,0));
 		timePanel.setMaximumSize(new Dimension((int)((latest.getTime()-earliest.getTime())*widthMultiplier)+50,0));
+		 */
 	
 		for(int ch=0;ch<channels.length;ch++) {
 	    
@@ -785,18 +814,25 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		
 		}
 	
-		//innerPanel.setSize(panelWidth, channels.length*channelHeight);
 		innerPanel.setPreferredSize(new java.awt.Dimension(panelWidth, channels.length*channelHeight));
 		innerPanel.setMinimumSize(new java.awt.Dimension(panelWidth, channels.length*channelHeight));
 		innerPanel.setMaximumSize(new java.awt.Dimension(panelWidth, channels.length*channelHeight));
-		//innerScrollPane.setViewportView(innerPanel);
-	
-	
+
+		int tmpH = timePanel.getPreferredSize().height;
+		
+		timePanel.setPreferredSize(new java.awt.Dimension(panelWidth, tmpH));
+		timePanel.setMinimumSize(new java.awt.Dimension(panelWidth, tmpH));
+		timePanel.setMaximumSize(new java.awt.Dimension(panelWidth, tmpH));
+		
+		timePanel.setTimes(earliest, latest, new Date());
+		
+		timePanel.repaint();
+		
+		goToNow();
+		
 	}//drawChannels
 	
     private void updatePanel() {
-    
-		innerPanel.setVisible(false);
 		
 		SimpleDateFormat fmt = new SimpleDateFormat("EEE yyyy-MM-dd");
 	
@@ -819,8 +855,6 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 		updatePrintedGuide();
 		
 		labStatus.setText("Done.");
-	
-		innerPanel.setVisible(true);
 		
     }
     
@@ -949,6 +983,7 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	private javax.swing.JSeparator jSeparator4;
 	private javax.swing.JMenuItem menAbout;
 	private javax.swing.JPanel topPanel;
+	private javax.swing.JButton butGoToNow;
 	private javax.swing.JButton butPrev;
 	private javax.swing.JComboBox comTheDate;
 	private javax.swing.JButton butNext;
@@ -960,7 +995,7 @@ public class FreeGuideViewer extends javax.swing.JFrame {
 	private javax.swing.JScrollPane channelNameScrollPane;
 	private javax.swing.JPanel channelNamePanel;
 	private javax.swing.JScrollPane timeScrollPane;
-	private javax.swing.JPanel timePanel;
+	private FreeGuideTimePanel timePanel;
 	private javax.swing.JScrollPane printedGuideScrollPane;
 	private javax.swing.JTextArea printedGuideArea;
 	private javax.swing.JLabel labStatus;

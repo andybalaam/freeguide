@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.0" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
-  <Properties>
-    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-      <Color blue="c0" green="c0" id="lightGray" palette="0" red="c0" type="palette"/>
-    </Property>
-  </Properties>
   <SyntheticProperties>
   </SyntheticProperties>
 
