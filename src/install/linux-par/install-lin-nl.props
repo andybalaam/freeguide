@@ -5,3 +5,5 @@ prefs.2=commandline.tv_grab.1=\"%misc.xmltv_directory%/xmltv\" tv_grab_nl --offs
 prefs.3=misc.grabber_start_time=00:00
 prefs.4=commandline.tv_config.1=\"%misc.xmltv_directory%/xmltv\" tv_grab_nl --configure --gui
 
+file.1=share/xmltv/tv_grab_nl/channels>%misc.share_directory%/tv_grab_nl/channels
+

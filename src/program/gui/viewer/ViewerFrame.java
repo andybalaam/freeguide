@@ -29,7 +29,7 @@ import javax.swing.text.*;
  *
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    20
+ *@version    21
  */
 public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
@@ -615,7 +615,14 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		helpMenu.setMnemonic(KeyEvent.VK_H);
         mbtUserGuide.setText("User Guide...");
 		mbtUserGuide.setMnemonic(KeyEvent.VK_U);
-        mbtUserGuide.setEnabled(false);
+		mbtUserGuide.addActionListener(
+            new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    mbtUserGuideActionPerformed(evt);
+                }
+            });
+		
+		
         helpMenu.add(mbtUserGuide);
 
         helpMenu.add(jSeparator4);
@@ -1174,7 +1181,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 			"%filename%",
 			programme.getLink().toString() );
 			
-            Utils.execNoWait(cmds);
+        Utils.execNoWait(cmds);
 
     }
 	
@@ -1384,6 +1391,24 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
     }
 
+	/**
+     *  Event handler for when the "User Guide" menu option is chosen 
+     *
+     *@param  evt  The event object
+     */
+    public void mbtUserGuideActionPerformed(java.awt.event.ActionEvent evt) {
+
+		String fs = System.getProperty("file.separator");
+		
+        String[] cmds = Utils.substitute(
+			FreeGuide.prefs.commandline.getStrings( "browser_command" ),
+			"%filename%",
+			"%misc.install_directory%" + fs + "userguide.html" );
+			
+        Utils.execNoWait(cmds);
+
+    }
+	
     /**
      *  Event handler for when the "About" menu option is chosen 
      *
@@ -1393,18 +1418,6 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
         new AboutFrame( this, true ).setVisible( true );
 
-    }
-
-
-    /**
-     *  Event handler for when the "User Guide" menu option is chosen 
-     *
-     *@param  evt  The event object
-     */
-    public void mbtUserGuideActionPerformed(java.awt.event.ActionEvent evt) {
-
-		// FIXME: Does nothing at the moment
-		
     }
 
 

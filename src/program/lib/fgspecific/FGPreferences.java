@@ -1020,23 +1020,21 @@ public class FGPreferences {
      * @return Returns <code>true</code> if the value has been 
      *      updated, otherwise returns <code>false</code>.
      */
-    public boolean updateColor(String _key, Color value) {
-		boolean changed = false;        
+    public boolean updateColor(String _key, Color value) {        
         
         String temp = get(_key);
         
-        if (temp == null ) {
-            changed = true;
+        if ( temp == null ) {
             putColor(_key, value);               
-
+			return true;
         }
 		
 		if( !temp.equals(value) ) {
-            changed = true;
-            putColor(_key, value);               
+            putColor(_key, value);
+            return true;  
         }
         
-        return changed;
+        return false;
 		
     }
 

@@ -4,23 +4,15 @@ below them are completed.
 This document is at risk of radical change whenever I
 feel like it.
 
--  means to do (unclaimed)
+-  means to do
 
 +  means done by Andy Balaam
-A  means work in progress by Andy Balaam
-
 x  means done by Sagar Shah
-S  means work in progress by Sagar Shah
-
 *  means done by Walter Duncan
-W  means work in progress by Walter Duncan
-
-^  means work done by Dave Torok
-D  means work in progress by Dave Torok
-
+^  means done by Dave Torok
 b  means done by Brendan Corrigan
-
 e  means done by Ewan Harrow
+m  means done by Mike Dean
 
 --------------------------------------------
 
@@ -82,6 +74,7 @@ e  means done by Ewan Harrow
 - Save today's choices to xmltv format.
 - Make installer install shortcuts for Windows, Gnome and KDE
 - Make installer launch xmltv configure
+- Set up bochs test machines for vanilla Win98 and Linux
 
 - Release 0.7.4 (preferences creep)
 
@@ -137,16 +130,18 @@ e  means done by Ewan Harrow
 - Keyboard navigation of programme scrollpane
 - Full test of keyboard navigation
 - Reduce the size of the XMLTV exe by removing unnecessary Tk files
-- Fix unable to move "View Command" box bug on Windows
+- Make "More Info" box be scrolle dto the top.
 
 - Release 0.7 (xmltv-tk)
 
-- Update docs, including saying you need to set TZ
-- Include a modified XMLTV for configuration.
-- Enable configuration options in ViewerFrame and InstallWizardPanel
-- Add scripts in xmltv dir to CVS and source zips.
-- Add stats handling code to CVS and source zips.
-- Credit new contributor
+- Fix unable to move "View Command" box bug
++ Update docs, including saying you need to set TZ
++ Include a modified XMLTV for configuration.
++ Enable configuration options in ViewerFrame and InstallWizardPanel
++ Add scripts in xmltv dir to CVS and source zips.
++ Add stats handling code to CVS and source zips.
+m Scroll to programme in HTML guide on hover
+m Scroll to programme in viewer on click in HTML view
 + Fix the bug in updateBoolean in FGPreferences
 
 + Release 0.6.3 (version checking, reminders, links)

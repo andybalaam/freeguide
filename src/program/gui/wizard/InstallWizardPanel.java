@@ -38,8 +38,6 @@ public class InstallWizardPanel extends WizardPanel {
      *  Construct the GUI of this Wizard Panel.
      */
     public void construct() {
-
-		
 		
         java.awt.GridBagConstraints gridBagConstraints;
 

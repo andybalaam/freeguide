@@ -502,7 +502,7 @@ public class Install extends PrefsHolder {
      */
     private void doInstallFile(String src, String dest)
              throws java.io.IOException {
-				 
+
         byte[] buf = new byte[32768];
 
         // make the directory if it doesn't exist
