@@ -28,6 +28,7 @@ import java.util.Timer;
 import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JToolTip;
 /* Also using (but can't import because of java.util.Timer)
 import javax.swing.Timer;
  */
@@ -71,12 +72,19 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 		this.viewerFrame = viewerFrame;
 		this.programme = programme;
 		
+		ToolTipManager tipManager = ToolTipManager.sharedInstance();
+		// Register this component for tooltip management.
+		// This is normally done when by setting the tooltip text,
+		// but we want to "lazily" evaluate tooltip text--we defer
+		// creation of the tip text until the tip is actually needed.
+		// (see the getToolTipText() method below)
+		tipManager.registerComponent(this);
                 // Create a timer to scroll the HTML guide when the user
                 // hovers over the selected program.
                 // Using the same timeout as ToolTips so that if we add an
                 // option, one setting will apply to both.
                 scrollHTMLTimer = new javax.swing.Timer(
-                            ToolTipManager.sharedInstance().getInitialDelay(),
+                                                 tipManager.getInitialDelay(),
                                                       new ScrollHTMLAction());
                 scrollHTMLTimer.setRepeats(false);
 		
@@ -100,7 +108,7 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 		int top = halfVerGap + (channelNo * channelHeight);
         int bottom = ((channelNo + 1) * channelHeight) - (halfVerGap * 2);
 		
-		ProgrammeFormat pf; 
+		ProgrammeFormat pf;
         if( drawTime ) {
 			pf = new ProgrammeFormat(ProgrammeFormat.TEXT_FORMAT,
 						 timeFormat);
@@ -108,10 +116,6 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 			pf = new ProgrammeFormat(ProgrammeFormat.TEXT_FORMAT);
         }
 		String labelText = pf.shortFormat(programme);
-		pf.setFormat(ProgrammeFormat.HTML_FORMAT);
-		pf.setWrap(true);
-		pf.setOnScreen(false);
-		String tooltip = "<html><body>" + pf.longFormat(programme) + "</body></html>";
 
 		setFont( font );
 
@@ -166,8 +170,6 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
             });
 		
 		this.setText( labelText );
-		setToolTipText( tooltip );
-		
 	}
 
 	/**
@@ -412,5 +414,35 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
                                              ProgrammeJLabel.this.programme));
           }
         }
+
+	public String getToolTipText() {
+		String tooltip = super.getToolTipText();
+		if (tooltip == null) {
+			boolean drawTime = FreeGuide.prefs.screen.getBoolean(
+					"display_programme_time", true);
+			boolean draw24time = FreeGuide.prefs.screen.getBoolean(
+					"display_24hour_time", true);
+			SimpleDateFormat timeFormat = ( draw24time ?
+						ViewerFrame.timeFormat24Hour :
+						ViewerFrame.timeFormat12Hour );
+			ProgrammeFormat pf;
+			if( drawTime ) {
+				pf = new ProgrammeFormat(
+						ProgrammeFormat.HTML_FORMAT,
+					 	timeFormat);
+			} else {
+				pf = new ProgrammeFormat(
+						ProgrammeFormat.HTML_FORMAT);
+			}
+			pf.setWrap(true);
+			pf.setOnScreen(false);
+			tooltip = pf.longFormat(programme).toString();
+			// so we don't have to create it next time
+			// we can't call setToolTipText(...) because it calls
+			// getToolTipText()
+			putClientProperty(TOOL_TIP_TEXT_KEY, tooltip);
+		}
+		return tooltip;
+	}
 }
 

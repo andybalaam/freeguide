@@ -179,8 +179,8 @@ public class ProgrammeFormat {
 		if (dateFormat != null) {
 			toAppendTo.append(dateFormat.format(
 				programme.getStart().getTime()));
+			toAppendTo.append( " - " );
 		}
-		toAppendTo.append( " - " );
 		if (onScreen) {
 			String ref = HTMLGuideListener.createLinkReference(programme);
 			toAppendTo.append( "<a href=\"#" + ref +
