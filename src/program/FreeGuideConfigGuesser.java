@@ -19,7 +19,7 @@ import java.io.FileReader;
  * A static class to guess and check configuration options.
  *
  * @author  Andy Balaam
- * @version 2
+ * @version 3
  */
 
 public class FreeGuideConfigGuesser {
@@ -58,7 +58,8 @@ public class FreeGuideConfigGuesser {
 
 		}
 
-		System.out.println("Unknown option asked for - " + entry);
+		System.out.println("Unknown option asked for - " + group + ", "
+			+ entry);
 		return -1;
 
 	}
@@ -132,7 +133,8 @@ public class FreeGuideConfigGuesser {
 
 		}
 
-		System.out.println("Unknown option asked for - " + entry);
+		System.out.println("Unknown option asked for - " + group + ", "
+			+ entry);
 		return -1;
 
 	}
@@ -155,8 +157,8 @@ public class FreeGuideConfigGuesser {
 			case WORKING_DIRECTORY:
 				return checkDirWriteable((File)val, "a working directory");
 
-			case XMLTV_DIRECTORY:
-				return checkXMLTVDir((File)val);
+			//case XMLTV_DIRECTORY:
+			//	return checkXMLTVDir((File)val);
 
 			//case GRABBER_TODAY_OFFSET: //int
 			//case GRABBER_START_TODAY: //int
@@ -213,7 +215,7 @@ public class FreeGuideConfigGuesser {
 	 * Find whether a proposed XMLTV directory is correct.  Checks this
 	 * by looking for the files xmltv.exe or tv_grab* in it.
 	 */
-	private static String checkXMLTVDir(File dir) {
+	/*private static String checkXMLTVDir(File dir) {
 
 		FreeGuidePreferencesGroup prefs = new FreeGuidePreferencesGroup();
 
@@ -235,7 +237,7 @@ public class FreeGuideConfigGuesser {
 
 		// Something went wrong
 		return "The chosen XMLTV directory either doesn't exist or doesn't contain the xmltv executable(s).";
-	}
+	}*/
 
 	// -------------------------------------------
 

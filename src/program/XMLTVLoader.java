@@ -376,6 +376,7 @@ class XMLTVLoader extends DefaultHandler implements FreeGuideChannelSet{
 	 
 	 SimpleDateFormat normalFmt = new SimpleDateFormat("yyyyMMddHHmmss z");
 	 SimpleDateFormat deFmt = new SimpleDateFormat("yyyyMMddHHmm Z");
+	 SimpleDateFormat nzFmt = new SimpleDateFormat("yyyyMMddHHmm");
 	 
 	 Calendar ans = GregorianCalendar.getInstance();
 	 
@@ -385,7 +386,15 @@ class XMLTVLoader extends DefaultHandler implements FreeGuideChannelSet{
 		 
 	 } catch(java.text.ParseException e) {
 		 
-		 ans.setTime( deFmt.parse( strDate ) );
+		 try {
+		 
+		 	ans.setTime( deFmt.parse( strDate ) );
+			
+		 } catch(java.text.ParseException f) {
+			 
+			ans.setTime( nzFmt.parse( strDate ) ); 
+			 
+		 }
 		 
 	 }
 	 

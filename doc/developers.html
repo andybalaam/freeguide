@@ -23,6 +23,24 @@
 
 <p>Some of FreeGuide's forms were originally created using NetBeans, and the .form files are NetBeans' XML GUI format.  However, as the forms are increasingly dynamic in design, this approach is unsuitable, and the more complex GUI stuff is hand-coded.  In summary: use NetBeans if you like, but if someone submits a decent patch to some form code by hand-altering the .java file, I'll accept it and abandon the .form file for that form.</p>
 
+<h2>Building FreeGuide from CVS</h2>
+
+<p>Do a checkout with:</p>
+
+<p><tt>cvs -d:cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/freeguide-tv login</tt></p>
+ 
+<p><tt>cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/freeguide-tv co freeguide-tv</tt></p>
+
+<p>Then download the XMLTV windows binary and source code packages from <a href="http://sourceforge.net/project/showfiles.php?group_id=39046">Sourceforge</a> and do the following:</p>
+
+<p>(Assuming you checked out the sources into ~/freeguide-tv/)</p>
+
+<p>Place the source file xmltv-x.x.x.tar.bz2 into ~/freeguide-tv/xmltv/</p>
+
+<p>Unzip the Windows binary file xmltv-x.x.x-win32.zip to a temporary file and copy the file xmltv.exe to ~/freeguide-tv/xmltv/</p>
+
+<p>You should now be able to build a distribution using Ant.  Note that the automatic conversion of the documents README.html and INSTALL-linux.html documents to text files README and INSTALL respectively will only happen on Linux.</p>
+
 <h2>Help and questions</h2>
 
 <p>Email any questions to <a href="mailto:freeguide-tv-devel@lists.sourceforge.net">freeguide-tv-devel@lists.sourceforge.net</a> and we'll do our best to answer them, and put useful answers up on this page.</p>

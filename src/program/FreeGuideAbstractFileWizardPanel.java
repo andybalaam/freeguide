@@ -139,7 +139,11 @@ public abstract class FreeGuideAbstractFileWizardPanel extends FreeGuideWizardPa
 	}
 	
 	protected void loadFromPrefs(FreeGuidePreferences pref) {
-		setBoxValue( new File(pref.get(configEntry)) );
+		String pr = pref.get( configEntry );
+		if(pr == null ) {
+			pr = "";
+		}
+		setBoxValue( new File( pr ) );
 	}
 	
 	// -----------------------------------

@@ -22,7 +22,7 @@ import java.util.Vector;
  * not.
  *
  * @author  Andy Balaam
- * @version 3
+ * @version 4
  */
 public class FreeGuideStartupChecker {
 
@@ -53,8 +53,8 @@ public class FreeGuideStartupChecker {
 		FreeGuidePreferencesGroup prefs = FreeGuide.prefs;
 		
 		checkFileFailure(prefs.misc, "xmltv_directory", failedWhat);
-		checkCommandLineFailure(prefs.commandline, "tv_grab", failedWhat);
-		checkCommandLineFailure(prefs.commandline, "browser_command", failedWhat);
+		//checkCommandLineFailure(prefs.commandline, "tv_grab", failedWhat);
+		//checkCommandLineFailure(prefs.commandline, "browser_command", failedWhat);
 		checkTextFailure(prefs.misc, "day_start_time", failedWhat);
 		checkTextFailure(prefs.misc, "days_to_grab", failedWhat);
 		// Not needed since e.g. german grabber doesn't use it:
@@ -104,13 +104,13 @@ public class FreeGuideStartupChecker {
 		
 	}
 	
-	private static void checkCommandLineFailure(FreeGuidePreferences pref, String entry, Vector failedWhat) {
+	/*private static void checkCommandLineFailure(FreeGuidePreferences pref, String entry, Vector failedWhat) {
 	
 		if(FreeGuideConfigGuesser.checkValue("commandline", entry, pref.getStrings(entry))!=null) {
 			failedWhat.add("commandline." + entry);
 		}
 		
-	}
+	}*/
 	
 	/**
 	* processArgs
