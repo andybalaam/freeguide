@@ -181,7 +181,7 @@ public class Version
      *
      * @return DOCUMENT_ME!
      */
-    public boolean greaterThan( Object other )
+    public boolean greaterThan( Version other )
     {
 
         return ( compareTo( other ) == 1 );
@@ -195,7 +195,7 @@ public class Version
      *
      * @return DOCUMENT_ME!
      */
-    public boolean lessThan( Object other )
+    public boolean lessThan( Version other )
     {
 
         return ( compareTo( other ) == -1 );
@@ -213,13 +213,13 @@ public class Version
     {
 
         // If the passed in object is not a Version, they are not equal
-        if( !other instanceof Version )
+        if( !( other instanceof Version ) )
         {
 
             return false;
         }
 
-        return ( compareTo( other ) == 0 );
+        return ( compareTo( (Version)other ) == 0 );
 
     }
 }
