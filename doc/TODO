@@ -71,6 +71,9 @@ m  means done by Mike Dean
 - Save today's choices to xmltv format.
 - Add a "save to html" option
 - Make installer install shortcuts for Windows, Gnome and KDE
+- Look for the default browser in the Windows registry under:
+	KEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command
+	(actually that looks like the HTML editor, but anyway)
 
 - Release 0.7.5 (preferences creep)
 
@@ -93,6 +96,7 @@ m  means done by Mike Dean
 - Show whether a tab has been altered on the Options Dialog
 - Custom web browser option
 - Channel icons
+- Icon to show you can jump to the web site
 
 - Release 0.7.3 (accessibility, accessibility, accessibility)
 
@@ -107,6 +111,8 @@ m  means done by Mike Dean
 - Fix mentions of "C" drive in Windows versions
 - Add "contact" page to the docs (and/or as a footer to each page)
 - Update web site saying what countries are supported etc.
+- Add firefox to the possible browsers.
++ Fix bug with ", ends" in tooltip when "Show programme times" is "No"
 
 + Release 0.7.2
 

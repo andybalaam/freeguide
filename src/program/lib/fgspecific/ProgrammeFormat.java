@@ -198,11 +198,12 @@ public class ProgrammeFormat {
 		}
 
 		toAppendTo.append( "</b><br>" )
-			.append( programme.getChannelName() )
-			.append( ", ends " );
+			.append( programme.getChannelName() );
+			
 		if (dateFormat != null) {
-			toAppendTo.append(dateFormat.format(
-						programme.getEnd().getTime()));
+			toAppendTo.append( ", ends " )
+                .append( dateFormat.format(
+				    programme.getEnd().getTime() ) );
 		}
 
 		if ( programmeDescription != null) {
