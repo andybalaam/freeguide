@@ -122,7 +122,7 @@ sub addfile( $ ) {
 	
 	my $dr = $1;
 	
-	copy( "C:/perl/site/5.8.0/$fl", "$dr" );
+	copy( "C:/perl/site/5.8.3/$fl", "$dr" );
 	
 	open MANIFEST, ">>MANIFEST";
 	
