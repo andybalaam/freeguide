@@ -152,19 +152,21 @@ Icon=${real_install_share_dir}/pixmaps/freeguide/logo-16x16.png
         <copy file="${src}/install/windows/install-win-no.props" tofile="${build}/windows/install-10.props" overwrite="true" />
         
         <!-- Portugal -->
+        <!-- Not working
         <copy file="${src}/install/windows/install-win-pt.props" tofile="${build}/windows/install-11.props" overwrite="true" />
+        -->
         
         <!-- Spain -->
-		<copy file="${src}/install/windows/install-win-es.props" tofile="${build}/windows/install-12.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-es_digital.props" tofile="${build}/windows/install-13.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-es.props" tofile="${build}/windows/install-11.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-es_digital.props" tofile="${build}/windows/install-12.props" overwrite="true" />
         
         <!-- Sweden -->
-        <copy file="${src}/install/windows/install-win-se.props" tofile="${build}/windows/install-14.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-se.props" tofile="${build}/windows/install-13.props" overwrite="true" />
         
         <!-- UK -->
-        <copy file="${src}/install/windows/install-win-uk_bleb.props" tofile="${build}/windows/install-15.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${build}/windows/install-16.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-uk_rt-slow.props" tofile="${build}/windows/install-17.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-uk_bleb.props" tofile="${build}/windows/install-14.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${build}/windows/install-15.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-uk_rt-slow.props" tofile="${build}/windows/install-16.props" overwrite="true" />
 
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Win.jar"
@@ -222,19 +224,21 @@ Icon=${real_install_share_dir}/pixmaps/freeguide/logo-16x16.png
 		<copy file="${src}/install/linux/install-lin-no.props" tofile="${build}/linux/install-10.props" overwrite="true" />
         
         <!-- Portugal -->
+        <!-- Not working
         <copy file="${src}/install/linux/install-lin-pt.props" tofile="${build}/linux/install-11.props" overwrite="true" />
+        -->
         
         <!-- Spain -->
-		<copy file="${src}/install/linux/install-lin-es.props" tofile="${build}/linux/install-12.props" overwrite="true" />
-        <copy file="${src}/install/linux/install-lin-es_digital.props" tofile="${build}/linux/install-13.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-es.props" tofile="${build}/linux/install-11.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-es_digital.props" tofile="${build}/linux/install-12.props" overwrite="true" />
         
         <!-- Sweden -->
-        <copy file="${src}/install/linux/install-lin-se.props" tofile="${build}/linux/install-14.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-se.props" tofile="${build}/linux/install-13.props" overwrite="true" />
         
         <!-- UK -->
-        <copy file="${src}/install/linux/install-lin-uk_bleb.props" tofile="${build}/linux/install-15.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-uk_rt.props" tofile="${build}/linux/install-16.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-uk_rt-slow.props" tofile="${build}/linux/install-17.props" overwrite="true" />
+        <copy file="${src}/install/linux/install-lin-uk_bleb.props" tofile="${build}/linux/install-14.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-uk_rt.props" tofile="${build}/linux/install-15.props" overwrite="true" />
+		<copy file="${src}/install/linux/install-lin-uk_rt-slow.props" tofile="${build}/linux/install-16.props" overwrite="true" />
 
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Linux-NoXMLTV.jar"
