@@ -73,9 +73,10 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		panels[7].setMessages("Set the grabber today offset (US=0, UK=1).", "");
 		panels[7].setConfig("misc", "grabber_today_offset");
 		titles[7] = "Grabber Today Offset";
-
-		panels[8] = new FreeGuideTextWizardPanel();
-		panels[8].setMessages("Start grabbing data today(1), or on the date shown(0).", "");
+		
+		String[] gst_choices = {"Today","Date Shown"};
+		panels[8] = new FreeGuideChoiceWizardPanel(gst_choices);
+		panels[8].setMessages("Start grabbing data on what day...", "");
 		panels[8].setConfig("misc", "grabber_start_today");
 		titles[8] = "Grabber Start Today";
 
@@ -158,11 +159,12 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 				panels[panelNo].setConfig("misc", "grabber_today_offset");
 				titles[panelNo] = "Grabber Today Offset";
 
-			} else if(what.equals("misc.grabber_start_day")) {
+			} else if(what.equals("misc.grabber_start_today")) {
 
-				panels[panelNo] = new FreeGuideTextWizardPanel();
+				String[] gst_choices = {"Today","Date Shown"};
+				panels[panelNo] = new FreeGuideChoiceWizardPanel(gst_choices);
 				panels[panelNo].setMessages("Enter the value for grabber day start.", "0=start today, 1=start on day shown");
-				panels[panelNo].setConfig("misc", "grabber_start_day");
+				panels[panelNo].setConfig("misc", "grabber_start_today");
 				titles[panelNo] = "Grabber Start_day";
 
 			} else if(what.equals("misc.grabber_start_time")) {
