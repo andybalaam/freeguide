@@ -39,8 +39,12 @@ public class ProgrammeFormat {
 	public final static String LINE_FEED =
 		                 System.getProperty("line.separator", "\r\n");
 
-	private String newline = LINE_FEED;
 	private final static int MARGIN = 78;
+
+	private String newline = LINE_FEED;
+
+	private final Pattern defaultWrapPattern = Pattern.compile("(.{1," +
+						MARGIN + "})(?:\\s|$)");
 
 	private int outputFormat = TEXT_FORMAT;
 	private DateFormat dateFormat = null;
@@ -254,9 +258,12 @@ public class ProgrammeFormat {
 
 	private StringBuffer wrap(CharSequence input, int preferredMargin) {
 		int newlineLength = newline.length();
-		Pattern p = Pattern.compile("(.{1," + preferredMargin +
-					    "})(?:\\s|$)");
-		Matcher m = p.matcher(input);
+		Pattern wrapPattern = defaultWrapPattern;
+		if (preferredMargin != MARGIN) {
+			wrapPattern = Pattern.compile("(.{1," +
+						MARGIN + "})(?:\\s|$)");
+		}
+		Matcher m = wrapPattern.matcher(input);
 		StringBuffer value = new StringBuffer(300);
 		while (m.find()) {
 			m.appendReplacement(value, "$0" + newline );
