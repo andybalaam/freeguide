@@ -9,6 +9,9 @@
  * See the file COPYING for more information.
  */
 
+// To get this working on your system you need to alter in 2 places
+// and compile: lines 270 and 
+
 import java.awt.*;
 import java.io.*;
 import java.text.*;
@@ -263,11 +266,14 @@ public class FreeGuide extends javax.swing.JFrame {
     }//GEN-LAST:event_exitForm
 
     private void getChannelNames() {
-	// Will be replaced with reading a config file.
+
+        // Alter to exact names of required channels with underscore
+        // instead of space
+        
+        // Will be replaced with reading a config file.
 	channelNames = new String[7];
         channelNames[0]="BBC1";
 	channelNames[1]="BBC2";
-        //channelNames[2]="Carlton_&#38;_LWT";
         channelNames[2]="Channel_4";
 	channelNames[3]="Sky_One";
 	channelNames[4]="FilmFour";
@@ -296,14 +302,14 @@ public class FreeGuide extends javax.swing.JFrame {
     private void getChannelData() {
 	channels[curChan] = new FreeGuideChannelDay(channelNames[curChan]);
 	
-	freeGuideHomeDir = "/home/andy/FreeGuide/";
-	
-	String parserCommand = "perl /home/andy/FreeGuide/parsers/uktvguide/uktvguide.pl";
-	String parserChannelFile = "/home/andy/FreeGuide/parsers/uktvguide/channels.txt";
+        // Alter the following 3 lines to point to your freeguide dir and
+        // the parser you'return using
+        
+	freeGuideHomeDir = "/home/andy/freeguide-tv/org/freeguide-tv/";
+	String parserCommand = "perl /home/andy/freeguide-tv/org/freeguide-tv/parsers/perl-uktvguide/uktvguide.pl";
+	String parserChannelFile = "/home/andy/freeguide-tv/org/freeguide-tv/parsers/perl-uktvguide/channels.txt";
 	
 	int hMFNL = (int)(MAX_FILENAME_LENGTH/2);
-        
-	//String datestr = String.valueOf(1900+theDate.getYear())+twoDigits(theDate.getMonth()+1)+twoDigits(theDate.getDate());
 	
 	SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
 	String datestr = fmt.format(theDate);
