@@ -173,14 +173,14 @@ w Show all actors for a programme instead of just the last one.
   installation
 + inform http://www.radioandtelly.co.uk/guides.html
 + Supply docs directory through the script on Linux
-- Supply docs directory through the shortcuts on Windows
++ Supply docs directory through the shortcuts on Windows
 + Stop copying the docs into the user's home directory - find a better way
-- Fix Windows installer to install shared files for tv_grab_uk_bleb.
-- Make icons optional in Windows installer
-- Add an entry to the add/remove programs list on Windows
-- Remove the need to execute a Java program on Windows install
-- Use the latest version of XMTLV
-- Delete all registry entries on Windows uninstall
++ Fix Windows installer to install shared files for tv_grab_uk_bleb.
++ Make icons optional in Windows installer
++ Add an entry to the add/remove programs list on Windows
++ Remove the need to execute a Java program on Windows install
+= Use the latest version of XMTLV
+= Delete all registry entries on Windows uninstall
 
 + Release 0.8.1 (bug fix)
 
