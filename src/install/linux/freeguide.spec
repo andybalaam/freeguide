@@ -77,5 +77,5 @@ ant clean
 %{_datadir}/pixmaps/freeguide/logo-72x72.png
 %{_datadir}/pixmaps/freeguide/logo-96x96.png
 %{_datadir}/applications/freeguide.desktop
-
+%{_datadir}/man/man1/freeguide.1.gz
 

@@ -141,13 +141,13 @@ r  means done by Rob Stewart
 - Merge manpage, start script and desktop entry with debian ones
 - Tell people they might want to delete their freeguide-tv directory after
   installation
+- inform http://www.radioandtelly.co.uk/guides.html
+- Make icons optional in Windows installer
 + Remove all references to freeguide-tv and replace with freeguide, except:
    * Web address
    * CVS repository root and module
    * Java preferences node
    * Mailing list names
-- inform http://www.radioandtelly.co.uk/guides.html
-- Make icons optional in Windows installer
 + design icons
 + Update docs for new situation
 + Discuss installers on the developers' page

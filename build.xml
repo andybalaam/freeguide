@@ -70,6 +70,9 @@
         <mkdir dir="${install_share_dir}/applications" />
         <copy file="${src}/install/linux/freeguide.desktop" todir="${install_share_dir}/applications/" />
 
+        <mkdir dir="${install_share_dir}/man/man1" />
+        <copy file="${build}/freeguide.1.gz" todir="${install_share_dir}/man/man1/" />
+        
         <chmod file="${install_bin_dir}/freeguide" perm="a+x" />
         
     </target>
@@ -79,13 +82,11 @@
   		<!-- compile the program -->
 		<javac srcdir="${src}/program" destdir="${build}/program"/>
 
-  		<!-- Copy in the required images -->
+  		<!-- copy in the required images -->
   		<copy todir="${build}/program" file="${src}/images/logo-256x256.png" />
 
-		<!-- so we can overwrite files outside the doc tree -->
-		<!--<copy todir="${build}/doc">
-			<fileset dir="${doc}/" excludes="*.sh,*.php,.xvpics/,nonlocal/" />
-		</copy>-->
+		<!-- gzip the man page -->
+        <gzip src="${src}/install/linux/freeguide.1" zipfile="${build}/freeguide.1.gz"/>
         
 	</target>
 
