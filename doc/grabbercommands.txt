@@ -1,0 +1,29 @@
+Some vague notes on what to put into the "Grabber Command" box in FreeGuide.
+
+Mainly for my own use (Andy Balaam) but may be useful.
+
+UK done the old (but still post 0.4.3) way with tv_split:
+
+"C:\Program Files\freeguide-tv\xmltv\tv_grab_uk.exe" --config-file "C:\Program Files\freeguide-tv\xmltv\tv_grab_uk" --output "C:\Program Files\freeguide-tv\data\tv-unprocessed.xmltv"
+"C:\Program Files\freeguide-tv\xmltv\tv_split.exe" --output "C:\Program Files\freeguide-tv\data\tv-%%Y%%m%%d.xmltv" --day_start_time 00:00 "C:\Program Files\freeguide-tv\data\tv-unprocessed.xmltv"
+
+---
+
+UK the new flashy way - doesn't work since --offset isn't in yet.
+
+"C:\Program Files\freeguide-tv\xmltv\xmltv.exe" tv_grab_uk --config-file "C:\Program Files\freeguide-tv\xmltv\tv_grab_uk" --offset %offset% --days 1 --output "C:\Program Files\freeguide-tv\data\tv-%date%.xmltv"
+
+
+---
+
+NA the new flashy way:
+
+"C:\Program Files\freeguide-tv\xmltv\xmltv.exe" tv_grab_na --config-file "C:\Program Files\freeguide-tv\xmltv\tv_grab_na" --offset %offset% --days 1 --output "C:\Program Files\freeguide-tv\data\tv-%date%.xmltv"
+
+---
+
+Any the brute force way
+
+"C:\Program Files\freeguide-tv\xmltv\xmltv.exe" tv_grab_** --output "C:\Program Files\freeguide-tv\data\tv-unprocessed.xmltv"
+
+
