@@ -3,7 +3,7 @@
 <project name="freeguide-tv" default="main" basedir=".">
 
     <description>
-        Ant build file for FreeGuide
+        Ant build file for FreeGuide.
     </description>
 
     <!-- set global properties for this build -->
@@ -106,6 +106,23 @@
         
     </target>
 
+    <target name="copy-for-swingwt" description="copy the java files and replace java.* with swingwt.* " >
+
+        <!-- make the directory to copy files to -->
+        <mkdir dir="${build}/swingwt/freeguide" />
+    
+        <!-- copy in the required images (flash screen) -->
+        <copy todir="${build}/swingwt/freeguide">
+            <fileset dir="${src}/program" />
+        </copy>
+        
+        <!-- replace all the java imports with swingwt -->
+        <replace dir="${build}/swingwt/freeguide" includes="**/*.java" token="java." value="swingwt." />
+        
+        <replace dir="${build}/swingwt/freeguide" includes="**/*.java" token="javax." value="swingwtx." />
+        
+    </target>
+    
     <target name="FreeGuide-Win" depends="compile"
             description="generate the windows jar file" >
 
