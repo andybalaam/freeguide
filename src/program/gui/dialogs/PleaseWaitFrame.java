@@ -52,8 +52,8 @@ public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor {
 
 		imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imageLabel.setIcon( image );
-        imageLabel.setBorder( new javax.swing.border.LineBorder( 
-			new java.awt.Color(0, 0, 0) ) );
+        imageLabel.setBorder( javax.swing.BorderFactory.createLineBorder( 
+			java.awt.Color.BLACK ) );
         getContentPane().add( imageLabel, java.awt.BorderLayout.CENTER );
 		
         getContentPane().add( progressBar, java.awt.BorderLayout.SOUTH );

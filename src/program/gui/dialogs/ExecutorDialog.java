@@ -177,7 +177,7 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
 
         labPleaseWait.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labPleaseWait.setText("Please Wait");
-        labPleaseWait.setBorder( new javax.swing.border.BevelBorder(
+        labPleaseWait.setBorder( javax.swing.BorderFactory.createBevelBorder(
 			javax.swing.border.BevelBorder.LOWERED ) );
         labPleaseWait.setMaximumSize(new java.awt.Dimension(400, 22));
         labPleaseWait.setMinimumSize(new java.awt.Dimension(400, 22));

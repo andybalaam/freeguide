@@ -850,13 +850,18 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
 		tickedColour = FreeGuide.prefs.screen.getColor(
 			"programme_chosen_colour", FreeGuide.PROGRAMME_CHOSEN_COLOUR );
+		ProgrammeJLabel.setTickedColour(tickedColour);
 		movieColour = FreeGuide.prefs.screen.getColor(
 			"programme_movie_colour", FreeGuide.PROGRAMME_MOVIE_COLOUR );
+		ProgrammeJLabel.setMovieColour(movieColour);
 			
 		nonTickedColour = FreeGuide.prefs.screen.getColor(
 			"programme_normal_colour", FreeGuide.PROGRAMME_NORMAL_COLOUR );
+		ProgrammeJLabel.setNonTickedColour(nonTickedColour);
+
 		heartColour = FreeGuide.prefs.screen.getColor(
 			"programme_heart_colour", FreeGuide.PROGRAMME_HEART_COLOUR );
+		ProgrammeJLabel.setHeartColour(heartColour);
 
 		Color channelColour = FreeGuide.prefs.screen.getColor(
                 "channel_colour", FreeGuide.CHANNEL_COLOUR);
@@ -920,8 +925,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
             ctxt.setBackground( channelColour );
             ctxt.setFont( font );
-            ctxt.setBorder( new javax.swing.border.LineBorder(
-				java.awt.Color.black ) );
+            ctxt.setBorder( javax.swing.BorderFactory.createLineBorder(
+				java.awt.Color.BLACK ) );
             ctxt.setHorizontalAlignment( JLabel.LEFT );
             ctxt.setOpaque( true );
 

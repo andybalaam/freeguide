@@ -11,6 +11,7 @@
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -20,17 +21,19 @@ import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.Vector;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 /* Also using (but can't import because of java.util.Timer)
 import javax.swing.Timer;
  */
 import javax.swing.ToolTipManager;
-import java.awt.Graphics;
-import java.text.SimpleDateFormat;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 
 /**
  * A JLabel that displays a TV programme
@@ -111,8 +114,8 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 		String tooltip = "<html><body>" + pf.longFormat(programme) + "</body></html>";
 
 		setFont( font );
-		
-        setBorder( new javax.swing.border.LineBorder(Color.black) );
+
+		setBorder( nonTickedBorder );
 		
         setOpaque(true);
 
@@ -247,16 +250,17 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
         Graphics2D g2 = (Graphics2D) g;
 	AffineTransform originalTransform = g2.getTransform();
 
-        g2.setColor( viewerFrame.heartColour );
+        g2.setColor( heartColour );
         
         // switch on anti-aliasing
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                              RenderingHints.VALUE_ANTIALIAS_ON);
 	
+	// Scale and position appropriately--taking into account the borders
 	Rectangle bounds = heartShape.getBounds();
-	double scale = 0.5 * (getHeight()/bounds.getHeight());
-	double right = getWidth() - (scale *bounds.getWidth());
-	g2.translate(right, 0);
+	double scale = 0.45 * (getHeight()/bounds.getHeight());
+	double right = getWidth() - 2 - (scale * bounds.getWidth());
+	g2.translate(right, 2);
 	g2.scale(scale, scale);
 	g2.fill( heartShape );
 	g2.setTransform(originalTransform);
@@ -318,7 +322,8 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 				
 			}
 			
-			setBackground( viewerFrame.tickedColour );
+			setBorder ( tickedBorder );
+			setBackground( tickedColour );
 			
 		} else {
 			
@@ -333,9 +338,11 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 			}
 			
 			if( programme.getIsMovie() ) {
-				setBackground( viewerFrame.movieColour );
+				setBorder ( movieBorder );
+				setBackground( movieColour );
 			} else {
-				setBackground( viewerFrame.nonTickedColour );
+				setBorder ( nonTickedBorder );
+				setBackground( nonTickedColour );
 			}
 		}
 		
@@ -368,10 +375,43 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 		path.curveTo(600, 400, 500, 0, 300, 200);
 		heartShape = path;
 	}
-		
+
 	private ViewerFrame viewerFrame;
 	private MessageDialogTimer reminderTimer;
+
+	private static Color nonTickedColour;
+	private static Color tickedColour;
+	private static Color movieColour;
+	private static Color heartColour;
+	private static Border nonTickedBorder;
+	private static Border tickedBorder;
+	private static Border movieBorder;
+
+	public static void setNonTickedColour(Color nonTickedColour) {
+		ProgrammeJLabel.nonTickedColour = nonTickedColour;
+		nonTickedBorder = BorderFactory.createCompoundBorder(
+			BorderFactory.createLineBorder(Color.BLACK),
+			BorderFactory.createLineBorder(nonTickedColour, 2));
+	}
+
+	public static void setTickedColour(Color tickedColour) {
+		ProgrammeJLabel.tickedColour = tickedColour;
+		tickedBorder = BorderFactory.createCompoundBorder(
+			BorderFactory.createLineBorder(Color.BLACK),
+			BorderFactory.createLineBorder(tickedColour, 2));
+	}
+
+	public static void setMovieColour(Color movieColour) {
+		ProgrammeJLabel.movieColour = movieColour;
+		movieBorder = BorderFactory.createCompoundBorder(
+			BorderFactory.createLineBorder(Color.BLACK),
+			BorderFactory.createLineBorder(movieColour, 2));
+	}
 	
+	public static void setHeartColour(Color heartColour) {
+		ProgrammeJLabel.heartColour = heartColour;
+	}
+
 	/**
 	 * Timer to determine when to scroll the HTML Guide if the user
          * hovers over a programme.
