@@ -346,7 +346,7 @@ public class ProgrammeFormat {
 		if (programmeIconUrl != null) {
 			toAppendTo.append("<img align=\"right\" src=\"")
 			.append(programmeIconUrl)
-			.append("\">");
+			.append("\"><br>");
 		}
 
 		if ( programmeDescription != null) {
