@@ -17,5 +17,4 @@ prefs.14=misc.browser.4=Opera
 prefs.15=commandline.browser_command.4.1=\"C:\\Program Files\\Opera7\\opera.exe" \"%filename%\"
 
 file.1=xmltv.dtd>%misc.working_directory%/xmltv.dtd
-file.2=xmltv.exe>%misc.xmltv_directory%/xmltv.exe
 

@@ -95,53 +95,25 @@ Icon=${real_install_share_dir}/pixmaps/freeguide-tv/logo-16x16.png
   		<!-- Copy in the required images -->
   		<copy todir="${build}/program" file="${src}/images/logo-256x256.png" />
 
-  		<!-- copy the program classes that are needed by each installer -->
-    	<!--<copy todir="${build}/install">
-			<fileset dir="${build}/program">
-				<include name="*.class"/>
-			</fileset>
-		</copy>-->
-
-		<!-- compile the installer -->
-    	<!--<javac srcdir="${src}/install" destdir="${build}/install"/>-->
-
 		<!-- so we can overwrite files outside the doc tree -->
-		<copy todir="${build}/doc">
+		<!--<copy todir="${build}/doc">
 			<fileset dir="${doc}/" excludes="*.sh,*.php,.xvpics/,nonlocal/" />
-		</copy>
+		</copy>-->
+        
 	</target>
-
-  	<!--<target name="FreeGuide" depends="compile"
-			description="generate the program jar file" >
-
-		<jar 	jarfile="${build}/FreeGuide.jar"
-				basedir="${build}/program"
-				manifest="${src}/manifests/FreeGuide.mf"/>
-
-  	</target>-->
 
     <target name="FreeGuide-Win" depends="compile"
 			description="generate the windows jar file" >
 
         <mkdir dir="${build}/windows" />
         
-        <!-- Copy the program jar, installer clases and docs -->
+        <!-- Copy the program jar -->
 		<copy todir="${build}/windows">
             <fileset dir="${build}/program" />
-			<fileset dir="${build}/doc/" excludes="nonlocal/" />
 		</copy>
 
 		<!-- Copy the XMLTV DTD -->
 		<copy file="${xmltv}/xmltv.dtd" todir="${build}/windows"/>
-
-		<!-- Copy the XMLTV exe -->
-		<copy file="${xmltv}/xmltv.exe" todir="${build}/windows"/>
-
-		<!-- copy in the shared files -->
-		<mkdir dir="${build}/windows/share"/>
-		<copy todir="${build}/windows/share">
-			<fileset dir="${share}/" />
-		</copy>
 
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/windows/install-win-all.props" tofile="${build}/windows/install-all.props" overwrite="true" />
@@ -313,7 +285,7 @@ Icon=${real_install_share_dir}/pixmaps/freeguide-tv/logo-16x16.png
 
 	</target>
 
-	<target name="doc-nonlocal" depends="init"
+	<!--<target name="doc-nonlocal" depends="init"
 		description="generate the website documentation" >
                 <copy todir="${build}/doc/nonlocal">
 			<fileset dir="${doc}/" excludes="*.sh,*.php,.xvpics/,nonlocal/" />
@@ -321,8 +293,7 @@ Icon=${real_install_share_dir}/pixmaps/freeguide-tv/logo-16x16.png
                 <copy todir="${build}/doc/nonlocal">
 			<fileset dir="${doc}/nonlocal" excludes="*.sh,*.php,.xvpics/" />
 		</copy>
-	</target>
-
+	</target>-->
 
 	<target name="clean"
         description="clean up" >
