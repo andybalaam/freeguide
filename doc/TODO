@@ -16,110 +16,82 @@ m  means done by Mike Dean
 
 --------------------------------------------
 
-- Release 2.0 (blue sky)
+- Wish list (I have no plans to implement, but others are welcome)
 
 - Think about ports to Gnome, wxPython, ...
-- Convert to SWT and compile natively with GCJ?
+- Convert to SWT (or SwingWT?) and compile natively with GCJ?
 - Search for programmes, different views on data.
 - Custom component for displaying programmes.
+- Process programmes in another thread so we can see a progress display.
+- Download happens without leaving ViewerFrame
+- Apply different fonts to every screen?
+- Review usefulness of stuff like ConfigGuesser
+- Change all forms to use GridBagEasy and newXXX methods.
+- Sort out Utils.exec methods so they make sense
+- Refactor FreeGuideViewer into a sort of MVC setup
+- Separate classes into packages
+- Reduce the size of the XMLTV exe by removing unnecessary Tk files
+- Separate reminders from chosenness?  If so, need a new set of preferences
+	which need to be scanned on startup (in fact that is a better way to do
+	it in even if we stick with choices.).
+- Fix problem that if you reinstall to a new dir the old install can't be
+	uninstalled (well, you have to delete the directory instead...)
+- Single channel view
+- Integration with tv card software
+- Automated bug reporting e.g. when the grabber fails.
+- Integration with PIMs (http://www.imc.org/pdi/)
 
 - Release 1.0 (the destination)
 
-- Get it all right
-- Integration with e.g. tv card software 
-	- developed and maintained by someone else
-	- Needs ability to start/stop viewing and recording
-	- Might use JNI?
 - Internationalisation
-- Printing
-	- Keep the browser option for maximum compatibility
-	- Add save html option
-	- Support tv_to_latex tool, viewing and printing (what about windows?)
-	- How to print on Windows?
-	- Use Java's printing capabilities?
+- Use Java's printing capabilities to print
 - Other platforms - investigate Mac, BSD, others
-- Consider a C++ installer that just checks for the right java version before
+- A C++ installer that just checks for the right java version before
   running the Java installer.
-- Automated bug reporting e.g. when the grabber fails.
 - Automate upgrading XMLTV without upgrading FreeGuide?
 - rpm/deb/proper Linux installer
-- Integration with PIMs (http://www.imc.org/pdi/)
-- Use cron to alert when programmes are going to start
-- Generate crontab file for downloading listings.
 
 - Release 0.9
 
 - Manual
-- FAQ
-- Do some profiling and algorithm thinking and get startup time down if poss.
-- single channel view
+- Use serialization to reduce startup time
 
 - Release 0.8 (nice features)
 
-- Fix feature that if you reinstall to a new dir the old install can't be
-	uninstalled (well, you have to delete the directory instead...)
-- Further visual enhancements and customisability
 - Facilitating the download of listings outside of FreeGuide
 	(e.g. via a cron job, or at ppp connect)
 - Error message on RegExp error in Favourite editor
 - Snap to nearest half hour in timeline on click
-- Easy access to different channel ordering - perhaps through right-click menu
+- Easy access to different channel ordering - through right-click menu
 - Make favourites work even immediately after a download halfway through a day
-	(this will probably mean working out choices from favourites straight
-	after download?)
 - Install in a more Unix-y way.
 - Move default and common preferences to the System prefs instead of user.
 - Remember last hit-time of favourites
 - Allow sorting of favourites list on name, hit-time and filter by category
 - Save today's choices to xmltv format.
+- Add a "save to html" option
 - Make installer install shortcuts for Windows, Gnome and KDE
-- Make installer launch xmltv configure
-- Set up bochs test machines for vanilla Win98 and Linux
 
-- Release 0.7.6 (preferences creep)
+- Release 0.7.5 (preferences creep)
 
 - Choose how old files are before you delete them
 - Ability to save and load preferences (using Java's ability to save to XML)
-- Check that the grabber is installer by calling tv_grab_* --help?
 - Option to jump to a specific time on program start
-- Separate reminders from chosenness?  If so, need a new set of preferences
-	which need to be scanned on startup (in fact that is a better way to do
-	it in even if we stick with choices.).
-- Reduce the size of the XMLTV exe by removing unnecessary Tk files
 - Remove programmes you've missed from the guide
 - Resolve duplicate programmes in the guide, so it shows both times it's on
 - Movie and/or category matching in favourites
 - Subtitle matches in favourites
-
-- Release 0.7.5 (code tidying)
-
-- Refactor FreeGuideViewer into a sort of MVC setup
-- Separate classes into packages
 - Make installer launch FreeGuide (if XMLTV is configured)
-- Make installer launch a README file (useful to check browser works, as well)
 - Terms and conditions of listings
-- Review usefulness of stuff like ConfigGuesser
-- Change all forms to use GridBagEasy and newXXX methods.
-- Sort out Utils.exec methods so they make sense
 
 - Release 0.7.4 (aesthetics)
 
-- Apply different fonts to every screen?
 - Go To Now scrolls the personalised listing panel as well as the main panel
-- Handle other XMLTV tags (Programme Details box?)
 - Coloured favourites categories (text and/or background)
-- Coloured categories
 - Highlight a given channel
-- Process programmes in another thread so we can see a progress display.
-- Download happens without leaving ViewerFrame
-- Add a status bar to ViewerFrame
-- Make options and customise screens nicer
 - Make the About box a _lot_ nicer.
-- Fix the "Execution Error" on success problem in Windows.
 - Show whether a tab has been altered on the Options Dialog
-- Fix saying there's missing listings after midnight (before 6am) bug
 - Custom web browser option
-- Expand ConfigGuesser's checking capabilities
 - Channel icons
 
 - Release 0.7.3 (accessibility, accessibility, accessibility)
@@ -127,22 +99,27 @@ m  means done by Mike Dean
 - Improve accessibility, specifically keyboard shortcuts
 - Shortcut keys for everything
 - Programme info panel (and ability to turn off tooltips)
+- Handle other XMLTV tags
 - Scroll to the most recently selected programme (and highlight it?)
 - ProgrammeJLabel shows which programme is selected
 - Keyboard navigation of programme scrollpane
 - Full test of keyboard navigation
-- Write tv_grab_uk_bleb2?
 - Fix mentions of "C" drive in Windows versions
 - Add "contact" page to the docs (and/or as a footer to each page)
 - Update web site saying what countries are supported etc.
 
 + Release 0.7.2
 
-- Include xmltv 0.5.32
++ Fix the "Execution Error" on success problem in Windows.
++ Write tv_grab_uk_bleb
++ Include xmltv 0.5.32
 + Fix missing uk_bleb in Linux installer
 
 + Release 0.7.1
 
++ FAQ
++ Make installer launch a README file (useful to check browser works, as well)
++ Make installer launch xmltv configure
 + Write a config setup for bleb
 + Do share files for those grabbers that need them
 + Get Robert to do a windows version of the grabbers.
