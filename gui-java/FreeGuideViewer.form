@@ -44,9 +44,9 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="toolsMenu">
+        <Menu class="javax.swing.JMenu" name="actionsMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Tools"/>
+            <Property name="text" type="java.lang.String" value="Actions"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menDownload">
@@ -62,24 +62,20 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menFavourites">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Favourites..."/>
+                <Property name="text" type="java.lang.String" value="Choose Favourites..."/>
               </Properties>
 
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menFavouritesActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JSeparator" name="jSeparator1">
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menOptions">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Options..."/>
-              </Properties>
-
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menOptionsActionPerformed"/>
-              </Events>
-            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="optionsMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Tools"/>
+          </Properties>
+          <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menCustomiser">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Customise..."/>
@@ -91,11 +87,22 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menChannels">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Channels..."/>
+                <Property name="text" type="java.lang.String" value="Choose Channels..."/>
               </Properties>
 
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menChannelsActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JSeparator" name="jSeparator1">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menOptions">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Options..."/>
+              </Properties>
+
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menOptionsActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

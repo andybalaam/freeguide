@@ -867,7 +867,7 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 
 	private void butFinishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butFinishActionPerformed
 		
-		new FreeGuideViewer(launcher).setVisible(true);
+		//new FreeGuideViewer(launcher).setVisible(true);
 		quit();
 		
 	}//GEN-LAST:event_butFinishActionPerformed

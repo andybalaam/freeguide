@@ -19,7 +19,7 @@ echo "freeguide-tv/TODO"		>> tmpmksrc
 
 find .xmltv/freeguide-tv -name "*.css"	>> tmpmksrc
 
-tar -czf freeguide-tv/freeguide-j2-src-0_3.tar.gz -T tmpmksrc
+tar -czf freeguide-tv/freeguide-j2-src-0_4.tar.gz -T tmpmksrc
 
 rm -f tmpmksrc
 

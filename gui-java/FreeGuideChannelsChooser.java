@@ -143,6 +143,9 @@ public class FreeGuideChannelsChooser extends javax.swing.JFrame {
         getContentPane().add(panButtons, gridBagConstraints);
 
         pack();
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(new java.awt.Dimension(400, 300));
+        setLocation((screenSize.width-400)/2,(screenSize.height-300)/2);
     }//GEN-END:initComponents
 
 	private void butOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butOKActionPerformed

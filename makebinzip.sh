@@ -26,6 +26,6 @@ find freeguide-tv/ -name "TODO"				>> mkbintmp
 find .xmltv/freeguide-tv/ -name "*.dtd"       		>> mkbintmp
 find .xmltv/freeguide-tv/ -name "*.css" 		>> mkbintmp
 
-tar -czf freeguide-tv/freeguide-j2-bin-0_3.tar.gz -T mkbintmp
+tar -czf freeguide-tv/freeguide-j2-bin-0_4.tar.gz -T mkbintmp
 
 rm -f mkbintmp

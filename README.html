@@ -2,10 +2,10 @@
 <html>
 <head>
 	<link rel="stylesheet" href="guide.css" type="text/css">
-	<title>FreeGuide 0.3 Readme</title>
+	<title>FreeGuide 0.4 Readme</title>
 </head>
   <body>
-<h1>FreeGuide 0.3 Readme</h1>
+<h1>FreeGuide 0.4 Readme</h1>
 <h2>Contents</h2>
 <ul>
   <li><a href="#intro">Introduction</a>
@@ -28,7 +28,7 @@
 
 <p>FreeGuide is written by the <a href="contributors.html">FreeGuide contributors</a> (copyright 2001-2002).  Please do send code, ideas, bugs and comments to <a href="mailto:freeguide-tv-devel@lists.sourceforge.net">freeguide-tv-devel@lists.sourceforge.net</a>.  FreeGuide's home page is at <a href="http://freeguide-tv.sourceforge.net">http://freeguide-tv.sourceforge.net</a>. You can contact the lead developer, Andy Balaam at the Centre for Computational Neuroscience and Robotics (CCNR), University of Sussex, Falmer, Brighton, UK.</p>
 
-<p>FreeGuide uses the XMLTV format and parsers developed by the very friendly people at XMLTV (<a href="http://www.doc.ic.ac.uk/%7Eepa98/work/apps/xmltv/">http://www.doc.ic.ac.uk/~epa98/work/apps/xmltv/</a> and <a href="http://sourceforge.net/projects/xmltv">http://sourceforge.net/projects/xmltv</a>).  It also contains a little code by Slava Pestov from the Jedit project (<a href="http://www.jedit.org">www.jedit.org</a>).</p>
+<p>FreeGuide uses the XMLTV format and parsers developed by the very friendly people at XMLTV (<a href="http://www.doc.ic.ac.uk/%7Eepa98/work/apps/xmltv/">http://www.doc.ic.ac.uk/~epa98/work/apps/xmltv/</a> and <a href="http://sourceforge.net/projects/xmltv">http://sourceforge.net/projects/xmltv</a>).  It also contains a little code by Slava Pestov from the JEdit project (<a href="http://www.jedit.org">www.jedit.org</a>).</p>
 
 <h2><a name="licence"></a>Licence</h2>
 
@@ -38,29 +38,17 @@
 
 <h2><a name="installing"></a> Installing FreeGuide</h2>
 
-<p>Windows users should read the <a href="README-windows.html">Windows README</a> as well as what's below.</p>
-
 <p>FreeGuide is written in Java, and thus should work on most types of computer.  It is developed and tested on Linux, and is intended to work on Windows, although it is still tricky to set up on Windows at the moment.</p>
 
-<p>To use FreeGuide you need:</p>
+<p>Windows users should read the <a href="INSTALL-windows.html">Windows installation docs</a>.</p>
 
-<ul>
-<li>The <a href="http://java.sun.com/">Java 2 Runtime Environment</a> version 1.4 or above.  You can check this by typing <tt>java -version</tt> in a DOS or command-line window.</li>
-<li>The <a href="http://sourceforge.net/project/showfiles.php?group_id=39046">XMLTV</a> tools.  You'll need the version for your platform, and non-Windows users will need <a href="http://www.cpan.org/">Perl</a> (which almost everyone already has).  Windows people should unzip the file into "C:\Program Files\xmltv\" if possible.</li>
-<li>If the "tv_split" tool isn't included in the XMLTV distribution you got, you need to download it from the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309">FreeGuide download site</a> and put it in the same directory as the XMLTV tools.  Windows users need "tv_split.exe", and everyone else needs "tv_split".  Hopefully this will be included in the XMLTV distribution soon.</li>
-</ul>
-
-<p>When you've got these, download the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309">FreeGuide binary</a> zip and unzip it into your home directory.  It should make two directories: "freeguide-tv" and ".xmltv/freeguide-tv".</p>
-
-<p>The first thing you need to do is configure your XMLTV grabber.  Connect to the Internet and open a DOS or terminal window, change to the directory containing the XMLTV tools and run your grabber with the --configure option.  For example, if you live in the UK you should type <tt>tv_grab_uk --configure</tt>, and if you live in North America you should type <tt>tv_grab_na --configure</tt>.  Follow the instructions to set up your grabber.  FreeGuide needs the configuration file generated to know what channels you want.</p>
-
-<p>Now Windows users should be able to run FreeGuide by clicking on the "FreeGuide" shortcut in the "freeguide-tv" directory, and everyone else should be able to run it by running "runfreeguide.sh" in the "freeguide-tv" directory.</p>
+<p>Linux and other Unix-like users should read the <a href="INSTALL-linux.html">Linux installation docs</a>.</p>
 
 <h2><a name="running"></a>Using FreeGuide</h2>
 
-<p>The first time you run FreeGuide it will ask you some questions and try to guess how to set itself up using your answers.  This works fine for me on Linux for UK or North American listings, but is imperfect on Windows.  Bug fixes for this and anything else will be gratefully accepted.  If this step doesn't successfully set up your FreeGuide installation, you'll need to alter the settings in the "Options" screen until it works.</p>
+<p>The first time you run FreeGuide it will run its configuration wizard which will check that everything is set up correctly, and allow you to change things if you've installed it in a nonstandard way.  If you followed the installation instructions for your platform exactly, but you get an error in this wizard, it's a bug: sorry - <a href="freeguide-tv-devel@lists.sourceforge.net">contact</a> the developers and we'll sort you out.</p>
 
-<p>Once you're past the setup wizard you will enter the main screen.  If all has gone well, FreeGuide will know what channels you want, but won't be able to show any programmes because you haven't downloaded them yet.  It will ask you whether you want to go to the download screen.  Say yes, connect to the Internet, and click "Download Listings".  Cross your fingers.  If all is well, the listings should eventually download, and you can click OK to start using FreeGuide.  If you've had problems, click "Details >>" and look at what's happened.  Now you'll need to go to the Options screen and try to sort it out.  <a href="mailto:freeguide-tv-devel@lists.sourceforge.net">Email</a> if you need help.</p>
+<p>Once you're past the setup wizard you will enter the main screen.  If all has gone well, FreeGuide will know what channels you want, but won't be able to show any programmes because you haven't downloaded them yet.  It will ask you whether you want to go to the download screen.  Connect to the Internet, and click Yes.  Cross your fingers.  If all is well, the listings should eventually download, and you can click OK to start using FreeGuide.  If you've had problems, click "Show Output" and look at what's happened.  Now you'll need to go to the Options screen and try to sort it out.  <a href="mailto:freeguide-tv-devel@lists.sourceforge.net">Email</a> if you need help.</p>
 
 <p>On the main screen time advances from left to right (click "Go To Now" to see what's on now), and the channels are shown one below another.</p>
 
@@ -68,11 +56,13 @@
 
 <p>You can click on a programme (making it go grey) to add it to your personalised TV guide for today, which is shown in the bottom section of the window.</p>
 
-<p>You can make programmes be ticked automatically by adding them to your favourites list (choose the "Tools" menu and then "Favourites").  Any programme matching a favourite will be ticked automatically.  You can always un-tick programmes if you wish.  You can make a programme a favourite by right-clicking it and choosing "Add to Favourites".</p>
+<p>You can make programmes be ticked automatically by adding them to your favourites list (choose the "Actions" menu and then "Choose Favourites").  Any programme matching a favourite will be ticked automatically.  You can always un-tick programmes if you wish.  You can also make a programme a favourite by right-clicking it and choosing "Add to Favourites".</p>
 
-<p>Clicking "Print this personalised listing" will open up your web browser with your customised TV guide, and you can print it from there by choosing "File" and then "Print".</p>
+<p>Clicking "Print this personalised listing" will open up your web browser with your customised TV guide, and you can print it by choosing "File" and then "Print" in your browser.</p>
 
-<p>To change various options choose the "Tools" menu and then "Options".  To download more listings, choose "Tools" and then "Download Listings".</p>
+<p>To download more listings, choose "Actions" and then "Download Listings".</p>
+
+<p>Check out the "Options" menu to alter channels, colours and settings..</p>
 
 <h2><a name="notes"></a>Notes</h2>
 

@@ -63,7 +63,7 @@ public class FreeGuide implements FreeGuideLauncher {
 	}
 	
 	public void reShow() {	
-		FreeGuide.log.info("FreeGuide finished.");
+		new FreeGuideViewer(this);
 	}
 	
 	public static String getVersion() {

@@ -90,7 +90,7 @@ public class FreeGuideStartupChecker {
 				failBrowser, failDayStartTime, failStyleSheet, failXMLTVCfg).setVisible(true);
 		} else {
 			// All is ok, so begin with viewer
-			new FreeGuideViewer(launcher).setVisible(true);
+			new FreeGuideViewer(launcher);
 		}
 		
 		/*if(!checkXMLTV()) {

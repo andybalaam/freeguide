@@ -420,11 +420,11 @@ loop:			while(true)
 		if(os.equals(os_Windows)) {
 			
 			if(country.equals(country_UK)) {
-				ans = "C:\\My Documents\\.xmltv\\tv_grab_uk";
+				ans = "C:\\xmltv\\.xmltv\\tv_grab_uk";
 			} else if(country.equals(country_NA)) {
-				ans = "C:\\My Documents\\.xmltv\\tv_grab_na";
+				ans = "C:\\xmltv\\.xmltv\\tv_grab_na";
 			} else if(country.equals(country_Germany)) {
-				ans = "C:\\My Documents\\.xmltv\\tv_grab_de";
+				ans = "C:\\xmltv\\.xmltv\\tv_grab_de";
 			} else {
 				FreeGuide.log.warning("Invalid country chosen!");
 				ans = "";
@@ -460,7 +460,7 @@ loop:			while(true)
 		
 		if(os.equals(os_Windows)) {
 			
-			ans = "C:\\My Documents\\.xmltv\\freeguide-tv\\guide.css";
+			ans = "C:\\xmltv\\.xmltv\\freeguide-tv\\guide.css";
 			
 		} else if(os.equals(os_Other)) {
 			
@@ -541,16 +541,16 @@ loop:			while(true)
 			
 			
 			if(country.equals(country_UK)) {
-				ans = "\"%misc.xmltv_directory%\\tv_grab_uk\" --output \"%misc.working_directory%\\listings_unprocessed.xml\"";
+				ans = "\"%misc.xmltv_directory%\\tv_grab_uk\" --config-file \"%misc.grabber_config%\" --output \"%misc.working_directory%\\listings_unprocessed.xml\"";
 			} else if(country.equals(country_NA)) {
-				ans = "\"%misc.xmltv_directory%\\tv_grab_na\" --output \"%misc.working_directory%\\listings_unprocessed.xml\"";
+				ans = "\"%misc.xmltv_directory%\\tv_grab_na\" --config-file \"%misc.grabber_config%\" --output \"%misc.working_directory%\\listings_unprocessed.xml\"";
 			} else if(country.equals(country_Germany)) {
-				ans = "\"%misc.xmltv_directory%\\tv_grab_de\" --output \"%misc.working_directory%\\listings_unprocessed.xml\"";
+				ans = "\"%misc.xmltv_directory%\\tv_grab_de\" --config-file \"%misc.grabber_config%\" --output \"%misc.working_directory%\\listings_unprocessed.xml\"";
 			} else {
 				FreeGuide.log.warning("Invalid country chosen!");
 				ans = "";
 			}
-			ans += lb + "\"" + xmltvDir + "\\tv_split\" --output \"%misc.working_directory%\\%%channel-%%Y%%m%%d.fgd\" --day_start_time %misc.day_start_time% \"%misc.working_directory%\\listings_unprocessed.xml\"";
+			ans += lb + "\"%misc.xmltv_directory%\\tv_split\" --output \"%misc.working_directory%\\%%channel-%%Y%%m%%d.fgd\" --day_start_time %misc.day_start_time% \"%misc.working_directory%\\listings_unprocessed.xml\"";
 			
 		} else if(os.equals(os_Other)) {
 			
@@ -579,7 +579,7 @@ loop:			while(true)
 	private static String getDefaultWorkingDir() {
 		String os = FreeGuide.prefs.misc.get("os");
 		if(os.equals(os_Windows)) {
-			return "C:\\My Documents\\.xmltv\\freeguide-tv\\";
+			return "C:\\xmltv\\.xmltv\\freeguide-tv\\";
 		} else {
 			return "%home%/.xmltv/freeguide-tv/";
 		}
@@ -591,7 +591,7 @@ loop:			while(true)
 	private static String getDefaultXMLTVCmdDir() {
 		String os = FreeGuide.prefs.misc.get("os");
 		if(os.equals(os_Windows)) {
-			return "C:\\Program Files\\xmltv\\";
+			return "C:\\xmltv\\";
 		} else {
 			return "/usr/bin/";
 		}

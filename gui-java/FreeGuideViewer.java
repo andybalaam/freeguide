@@ -63,8 +63,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     }
 
 	private void updatePanel() {
-	
-		setVisible(true);
 		
 		FreeGuide.prefs.flushAll();
 		
@@ -74,24 +72,45 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// Load the data
 		loadProgrammeData();
 	
-		// If we've got programmes, draw them
-		if(!noProgsFound) {
-			drawProgrammes();
-			updatePrintedGuide();
-		} else if(!missingFiles) {
+		
+		
+		// Error if we're missing programme info
+		if(missingFiles) {
 			
-			String msg = "No programmes loaded, probably because you\n"+
-				"haven't chosen any channels on the Options screen..\n"+
-				"Would you like to go to the Options screen now?";
+			if(dontDownload) {
 				
-			int r = JOptionPane.showConfirmDialog(this, msg, "Go to Options?", JOptionPane.YES_NO_OPTION );
+				// Clear the screen if we're not supposed to download
+				innerPanel.removeAll();
+				setVisible(true);
+				
+			} else {
 			
-			if(r==0) {
+				String msg = "There are missing listings for this day.\n"+
+					"Do you want to download more?";
 				
-				setVisible(false);
-				new FreeGuideOptionsWizard(this).setVisible(true);
+				int	r = JOptionPane.showConfirmDialog(this, msg, "Download listings?", JOptionPane.YES_NO_OPTION );
+			
+				if(r==0) {
+				
+					downloadListings();
+				
+				} else {
+					
+					// Clear the screen if we're not supposed to downlaod
+					innerPanel.removeAll();
+					setVisible(true);
+					
+				}
+				
+				dontDownload = true;
 				
 			}
+
+		} else {
+			
+			drawProgrammes();
+			updatePrintedGuide();
+			setVisible(true);
 			
 		}
 		
@@ -132,14 +151,15 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         menPrint = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JSeparator();
         menQuit = new javax.swing.JMenuItem();
-        toolsMenu = new javax.swing.JMenu();
+        actionsMenu = new javax.swing.JMenu();
         menDownload = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JSeparator();
         menFavourites = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JSeparator();
-        menOptions = new javax.swing.JMenuItem();
+        optionsMenu = new javax.swing.JMenu();
         menCustomiser = new javax.swing.JMenuItem();
         menChannels = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JSeparator();
+        menOptions = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         menUserGuide = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JSeparator();
@@ -348,7 +368,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
         fileMenu.add(menQuit);
         jMenuBar2.add(fileMenu);
-        toolsMenu.setText("Tools");
+        actionsMenu.setText("Actions");
         menDownload.setText("Download Listings...");
         menDownload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -356,25 +376,18 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
             }
         });
 
-        toolsMenu.add(menDownload);
-        toolsMenu.add(jSeparator3);
-        menFavourites.setText("Favourites...");
+        actionsMenu.add(menDownload);
+        actionsMenu.add(jSeparator3);
+        menFavourites.setText("Choose Favourites...");
         menFavourites.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menFavouritesActionPerformed(evt);
             }
         });
 
-        toolsMenu.add(menFavourites);
-        toolsMenu.add(jSeparator1);
-        menOptions.setText("Options...");
-        menOptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menOptionsActionPerformed(evt);
-            }
-        });
-
-        toolsMenu.add(menOptions);
+        actionsMenu.add(menFavourites);
+        jMenuBar2.add(actionsMenu);
+        optionsMenu.setText("Tools");
         menCustomiser.setText("Customise...");
         menCustomiser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -382,16 +395,25 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
             }
         });
 
-        toolsMenu.add(menCustomiser);
-        menChannels.setText("Channels...");
+        optionsMenu.add(menCustomiser);
+        menChannels.setText("Choose Channels...");
         menChannels.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menChannelsActionPerformed(evt);
             }
         });
 
-        toolsMenu.add(menChannels);
-        jMenuBar2.add(toolsMenu);
+        optionsMenu.add(menChannels);
+        optionsMenu.add(jSeparator1);
+        menOptions.setText("Options...");
+        menOptions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menOptionsActionPerformed(evt);
+            }
+        });
+
+        optionsMenu.add(menOptions);
+        jMenuBar2.add(optionsMenu);
         helpMenu.setText("Help");
         menUserGuide.setText("User Guide...");
         menUserGuide.setEnabled(false);
@@ -719,16 +741,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 		// Are we missing any channel files?
 		missingFiles = false;
-		// Did we find no programmes?
-		noProgsFound = true;
-		
-		/*
-		 * Old early/late code just trusted the input files. now does it itself
-		 * (has a bug anyway - only 1 week?)
-		 earliest = GregorianCalendar.getInstance();
-		earliest.add( Calendar.WEEK_OF_YEAR, 1);
-		latest = GregorianCalendar.getInstance();
-		latest.add( Calendar.WEEK_OF_YEAR, -1);*/
 		
 		// Find the day's start and end
 		FreeGuideTime divideTime = FreeGuide.prefs.misc.getFreeGuideTime("day_start_time");
@@ -789,31 +801,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			}//if
 			
 		}//for
-		
-		// If not everything we expected was there, ask to download more
-		if(missingFiles) {
-			if(dontDownload) {
-				innerPanel.removeAll();
-			} else {
-			
-				String msg = "There are missing listings for this day.\n"+
-					"Do you want to download more?";
-				
-				setVisible(true);
-				int	r = JOptionPane.showConfirmDialog(this, msg, "Download listings?", JOptionPane.YES_NO_OPTION );
-			
-				if(r==0) {
-				
-					//new FreeGuideDownloader(this).setVisible(true);
-					downloadListings();
-				
-				} else {
-					innerPanel.removeAll();
-					dontDownload = true;
-				}
-			}
-			
-		}
 		
 	}//loadProgrammeData
     
@@ -1249,8 +1236,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	    
 			//assert currentProgramme == null;
 			
-			noProgsFound = false;
-			
 			currentProgramme = new FreeGuideProgramme();
 			
 			// Prepare a date formatter
@@ -1444,6 +1429,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private javax.swing.JMenuItem menCustomiser;
     private javax.swing.JMenuItem menDownload;
     private javax.swing.JEditorPane printedGuideArea;
+    private javax.swing.JMenu actionsMenu;
     private javax.swing.JMenuItem menUserGuide;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JSeparator jSeparator5;
@@ -1451,8 +1437,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private javax.swing.JSeparator jSeparator3;
     private FreeGuideTimePanel timePanel;
     private javax.swing.JMenuItem menPrint;
-    private javax.swing.JPanel channelNamePanel;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel channelNamePanel;
     private javax.swing.JMenuItem menAddFav;
     private javax.swing.JPanel topPanel;
     private javax.swing.JButton butPrint;
@@ -1461,8 +1447,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private javax.swing.JScrollPane channelNameScrollPane;
     private javax.swing.JSplitPane splitPane;
     private javax.swing.JMenuItem menFavourites;
+    private javax.swing.JMenu optionsMenu;
     private javax.swing.JButton butRevertFavs;
-    private javax.swing.JMenu toolsMenu;
     private javax.swing.JPanel bottomPanel;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JMenuItem menAbout;
@@ -1513,7 +1499,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	private static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 	private static final SimpleDateFormat fileDateFormat = new SimpleDateFormat("yyyyMMdd");
 	
-	private boolean noProgsFound;	// true if we didn't find any channels
 	private boolean missingFiles;	// true if there were files missing
 	private boolean dontDownload;	// true if user doesn't want to download missing files
 	
