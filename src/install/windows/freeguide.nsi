@@ -1,4 +1,4 @@
-; freeguide-tv.nsi
+; freeguide.nsi
 ;
 ; Adapted from example1.nsi in the NSIS package
 ; 
@@ -12,7 +12,7 @@ Name "FreeGuide"
 OutFile "..\..\..\installer\FreeGuide-0.8-Windows.exe"
 
 ; The default installation directory
-InstallDir $PROGRAMFILES\freeguide-tv 
+InstallDir $PROGRAMFILES\FreeGuide 
 
 ;--------------------------------
 

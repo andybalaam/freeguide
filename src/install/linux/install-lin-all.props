@@ -1,4 +1,4 @@
-prefs.1=misc.working_directory=%home%/.freeguide-tv
+prefs.1=misc.working_directory=%home%/.freeguide
 prefs.2=misc.doc_directory=%misc.install_directory%/doc
 prefs.3=misc.xmltv_directory=%misc.install_directory%/xmltv
 prefs.4=misc.day_start_time=06:00

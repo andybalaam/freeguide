@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 
-<project name="freeguide-tv" default="main" basedir=".">
+<project name="freeguide" default="main" basedir=".">
 
     <description>
-        Ant build file for freeguide-tv
+        Ant build file for FreeGuide
     </description>
 
 	<!-- set global properties for this build -->
@@ -35,9 +35,9 @@
         <!-- the install_share_dir property is passed in if we are doing
             an install - this will be /usr/share or equivalent -->
         <property name="install_jar_dir"
-            location="${install_share_dir}/freeguide-tv" />
+            location="${install_share_dir}/freeguide" />
         <property name="install_doc_dir" location="${install_jar_dir}/doc" />
-        <property name="install_pixmap_dir" location="${install_share_dir}/pixmaps/freeguide-tv" />
+        <property name="install_pixmap_dir" location="${install_share_dir}/pixmaps/freeguide" />
         
         <mkdir dir="${install_jar_dir}"/>
         <copy file="${dist}/${freeguideversion}-Linux-NoXMLTV.jar"
@@ -62,28 +62,29 @@
         </copy>
         
         <mkdir dir="${install_bin_dir}" />
-        <echo file="${install_bin_dir}/freeguide-tv" >
+        <echo file="${install_bin_dir}/freeguide" >
 #!/bin/bash
-java -jar ${real_install_share_dir}/freeguide-tv/FreeGuide.jar --prefs "misc.install_directory=${real_install_share_dir}/freeguide-tv"
+java -jar ${real_install_share_dir}/freeguide/FreeGuide.jar --prefs "misc.install_directory=${real_install_share_dir}/freeguide"
         </echo>
         
         <mkdir dir="${install_share_dir}/applications" />
-        <echo file="${install_share_dir}/applications/freeguide-tv.desktop" >
+        <echo file="${install_share_dir}/applications/freeguide.desktop" >
 [Desktop Entry]
-Name=FreeGuide TV Guide
+Name=FreeGuide
+Comment=Download a TV guide from the Internet and view it
+GenericName=TV Guide
 
 Encoding=UTF-8
-Version=1.0
 
 Type=Application
 Categories=Application;Utility
 
-Exec=freeguide-tv
+Exec=freeguide
 
-Icon=${real_install_share_dir}/pixmaps/freeguide-tv/logo-16x16.png
+Icon=${real_install_share_dir}/pixmaps/freeguide/logo-16x16.png
         </echo>
         
-        <chmod file="${install_bin_dir}/freeguide-tv" perm="a+x" />
+        <chmod file="${install_bin_dir}/freeguide" perm="a+x" />
         
     </target>
     

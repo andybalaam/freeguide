@@ -1,5 +1,5 @@
 /*
- *  This class is contributed to the freeguide-tv project
+ *  This class is contributed to the FreeGuide project
  *  by Walter Duncan
  *
  *  Copyright (c) 2002 by Walter Duncan

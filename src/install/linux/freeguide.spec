@@ -4,10 +4,10 @@
 ### Adapted from jEdit's spec file http://www.jedit.org
 ###
 
-### To create the RPM, put FreeGuide-X.X.X.tar.gz into the RPM SOURCES
-### directory, and invoke:
-
-### rpm -ba freeguide-tv.spec
+### To create the RPM from CVS, cd to src/install/linux and run:
+### ./buildrpm
+###
+### This will place the built RPMs into installers/
 
 ### You will need to have ant installed
 ### for this to work.
@@ -15,7 +15,7 @@
 Summary: A TV Guide
 Name: FreeGuide
 Version: 0.8
-Release: 2
+Release: 3
 # REMINDER: bump this with each RPM
 Copyright: GPL
 Group: Accessories/
@@ -52,29 +52,29 @@ ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD
 ant clean
 
 %files
-%{_bindir}/freeguide-tv
-%{_datadir}/freeguide-tv/FreeGuide.jar
-%{_datadir}/freeguide-tv/doc/contributors.html
-%{_datadir}/freeguide-tv/doc/COPYING
-%{_datadir}/freeguide-tv/doc/design.html
-%{_datadir}/freeguide-tv/doc/developers.html
-%{_datadir}/freeguide-tv/doc/FAQ.html
-%{_datadir}/freeguide-tv/doc/FreeGuide-0_7-Linux-MetalLookAndFeel.png
-%{_datadir}/freeguide-tv/doc/index.html
-%{_datadir}/freeguide-tv/doc/INSTALL-linux-noxmltv.html
-%{_datadir}/freeguide-tv/doc/INSTALL-windows.html
-%{_datadir}/freeguide-tv/doc/LookAndFeel.html
-%{_datadir}/freeguide-tv/doc/README.html
-%{_datadir}/freeguide-tv/doc/stylesheet.css
-%{_datadir}/freeguide-tv/doc/timezone.html
-%{_datadir}/freeguide-tv/doc/TODO
-%{_datadir}/freeguide-tv/doc/userguide.html
-%{_datadir}/pixmaps/freeguide-tv/logo-16x16.png
-%{_datadir}/pixmaps/freeguide-tv/logo-32x32.png
-%{_datadir}/pixmaps/freeguide-tv/logo-48x48.png
-%{_datadir}/pixmaps/freeguide-tv/logo-64x64.png
-%{_datadir}/pixmaps/freeguide-tv/logo-72x72.png
-%{_datadir}/pixmaps/freeguide-tv/logo-96x96.png
-%{_datadir}/applications/freeguide-tv.desktop
+%{_bindir}/freeguide
+%{_datadir}/freeguide/FreeGuide.jar
+%{_datadir}/freeguide/doc/contributors.html
+%{_datadir}/freeguide/doc/COPYING
+%{_datadir}/freeguide/doc/design.html
+%{_datadir}/freeguide/doc/developers.html
+%{_datadir}/freeguide/doc/FAQ.html
+%{_datadir}/freeguide/doc/FreeGuide-0_7-Linux-MetalLookAndFeel.png
+%{_datadir}/freeguide/doc/index.html
+%{_datadir}/freeguide/doc/INSTALL-linux-noxmltv.html
+%{_datadir}/freeguide/doc/INSTALL-windows.html
+%{_datadir}/freeguide/doc/LookAndFeel.html
+%{_datadir}/freeguide/doc/README.html
+%{_datadir}/freeguide/doc/stylesheet.css
+%{_datadir}/freeguide/doc/timezone.html
+%{_datadir}/freeguide/doc/TODO
+%{_datadir}/freeguide/doc/userguide.html
+%{_datadir}/pixmaps/freeguide/logo-16x16.png
+%{_datadir}/pixmaps/freeguide/logo-32x32.png
+%{_datadir}/pixmaps/freeguide/logo-48x48.png
+%{_datadir}/pixmaps/freeguide/logo-64x64.png
+%{_datadir}/pixmaps/freeguide/logo-72x72.png
+%{_datadir}/pixmaps/freeguide/logo-96x96.png
+%{_datadir}/applications/freeguide.desktop
 
 

@@ -663,7 +663,7 @@ public class PreferencesGroup {
     /**
      * Takes a line in a form like this:
      *
-     * misc.install_directory=C:\Program Files\freeguide-tv
+     * misc.install_directory=C:\Program Files\FreeGuide
      *
      * and translates that to place the relevant entry into the correct
      * user preferences node..
@@ -685,7 +685,7 @@ public class PreferencesGroup {
     /**
      * Takes a line in a form like this:
      *
-     * misc.install_directory=C:\Program Files\freeguide-tv
+     * misc.install_directory=C:\Program Files\FreeGuide
      *
      * and translates that to place the relevant entry into the correct
      * system preferences node.  Also places a default value using the key with

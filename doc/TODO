@@ -33,9 +33,6 @@ r  means done by Rob Stewart
 - Refactor FreeGuideViewer into a sort of MVC setup
 - Separate classes into packages
 - Reduce the size of the XMLTV exe by removing unnecessary Tk files
-- Separate reminders from chosenness?  If so, need a new set of preferences
-	which need to be scanned on startup (in fact that is a better way to do
-	it in even if we stick with choices.).
 - Fix problem that if you reinstall to a new dir the old install can't be
 	uninstalled (well, you have to delete the directory instead...)
 - Single channel view
@@ -51,7 +48,11 @@ r  means done by Rob Stewart
 - A C++ installer that just checks for the right java version before
   running the Java installer.
 - Automate upgrading XMLTV without upgrading FreeGuide?
-- rpm/deb/proper Linux installer
+- Separate reminders from chosenness?  If so, need a new set of preferences
+	which need to be scanned on startup (in fact that is a better way to do
+	it in even if we stick with choices.).
+	Perhaps just add an option - remind of chosen programmes?  If that's
+	unselected then need to add explicit reminders.
 
 - Release 0.9
 
@@ -60,6 +61,7 @@ r  means done by Rob Stewart
 
 - Release 0.8.4 (nice features)
 
+- Run an exe when a programme is about to start and/or end
 - Add firefox to the possible browsers.
 - Facilitating the download of listings outside of FreeGuide
 	(e.g. via a cron job, or at ppp connect)
@@ -67,8 +69,8 @@ r  means done by Rob Stewart
 - Snap to nearest half hour in timeline on click
 - Easy access to different channel ordering - through right-click menu
 - Make favourites work even immediately after a download halfway through a day
-- Install in a more Unix-y way.
-- Move default and common preferences to the System prefs instead of user.
+- Make downloading work after midnight
+- Make it not say no listings after midnight
 - Remember last hit-time of favourites
 - Allow sorting of favourites list on name, hit-time and filter by category
 - Save today's choices to xmltv format.
@@ -100,6 +102,9 @@ r  means done by Rob Stewart
 - Error dialog when there's an XML parsing error.
 - Investigate little squares appearing instead of chars during grabber config
   on Windows (na_dd - timezone screen).
+- Man page in RPM
+- Look at Shaun's .desktop file and startup script (email titled Re: Change
+  from an installer to a first time wizard)
 
 - Release 0.8.2 (aesthetics)
 
@@ -133,6 +138,16 @@ r  means done by Rob Stewart
 
 - Release 0.8 (first time wizard)
 
+- Merge manpage, start script and desktop entry with debian ones
+- Tell people they might want to delete their freeguide-tv directory after
+  installation
++ Remove all references to freeguide-tv and replace with freeguide, except:
+   * Web address
+   * CVS repository root and module
+   * Java preferences node
+   * Mailing list names
+- inform http://www.radioandtelly.co.uk/guides.html
+- Make icons optional in Windows installer
 + design icons
 + Update docs for new situation
 + Discuss installers on the developers' page

@@ -56,11 +56,11 @@
 
 <p>For Windows</p>
 <pre>
-javaw -classpath "C:\path\to\my\LookAndFeel.jar" -jar "C:\Program Files\freeguide-tv\FreeGuide.jar"
+javaw -classpath "C:\path\to\my\LookAndFeel.jar" -jar "C:\Program Files\FreeGuide\FreeGuide.jar"
 </pre>
 <p>Or, for Unix-like operating systems:</p>
 <pre>
-java -classpath "/path/to/my/LookAndFeel.jar" -jar "${HOME}/freeguide-tv/FreeGuide.jar"
+java -classpath "/path/to/my/LookAndFeel.jar" -jar "/usr/share/freeguide/FreeGuide.jar"
 </pre>
 
 <h2><a name="whatisgtk+">What about the GTK+ L&amp;F?</a></h2>
@@ -113,11 +113,11 @@ java -version
 
 <p>For Windows</p>
 <pre>
-javaw -Dswing.gtkthemefile="C:\gtk\Theme Name\gtk-2.0\gtkrc" -jar "C:\Program Files\freeguide-tv\FreeGuide.jar"
+javaw -Dswing.gtkthemefile="C:\gtk\Theme Name\gtk-2.0\gtkrc" -jar "C:\Program Files\FreeGuide\FreeGuide.jar"
 </pre>
 <p>Or, for Unix-like operating systems:</p>
 <pre>
-java -Dswing.gtkthemefile="${HOME}/.themes/Theme Name/gtk-2.0/gtkrc" -jar "${HOME}/freeguide-tv/FreeGuide.jar"
+java -Dswing.gtkthemefile="${HOME}/.themes/Theme Name/gtk-2.0/gtkrc" -jar "/usr/share/freeguide/FreeGuide.jar"
 </pre>
 
 <h2><a name="gtk+changedtheme">Why doesn't FreeGuide notice when I change my System GTK+ theme?</a></h2>
@@ -142,11 +142,11 @@ swing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel
 
 <p>For Windows</p>
 <pre>
-javaw -classpath "C:\path\to\my\LookAndFeel.jar" -Dswing.defaultlaf="javax.swing.plaf.metal.MetalLookAndFeel" -jar "C:\Program Files\freeguide-tv\FreeGuide.jar"
+javaw -classpath "C:\path\to\my\LookAndFeel.jar" -Dswing.defaultlaf="javax.swing.plaf.metal.MetalLookAndFeel" -jar "C:\Program Files\FreeGuide\FreeGuide.jar"
 </pre>
 <p>Or, for Unix-like operating systems:</p>
 <pre>
-java -classpath "/path/to/my/LookAndFeel.jar" -Dswing.defaultlaf="javax.swing.plaf.metal.MetalLookAndFeel" -jar "${HOME}/freeguide-tv/FreeGuide.jar"
+java -classpath "/path/to/my/LookAndFeel.jar" -Dswing.defaultlaf="javax.swing.plaf.metal.MetalLookAndFeel" -jar "/ur/share/freeguide/FreeGuide.jar"
 </pre>
 
 <p>Note that the Metal L&amp;F is most likely the default on your Java installation, so the above command lines and properties file would do nothing.  Instead, use the fully qualified classname of the L&amp;F you want to use.  The fully qualified classname should be given in the L&amp;F's documentation.</p>

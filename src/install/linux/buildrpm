@@ -24,7 +24,7 @@ cd src/install/linux
 cp -f ../../../dist/FreeGuide-*.tar.gz $RPM_TOPDIR/SOURCES/
 
 # Build the RPM
-rpmbuild --define='_topdir /home/andy/.rpm' --define='_tmppath /home/andy/.rpm/tmp' -ba freeguide-tv.spec
+rpmbuild --define='_topdir /home/andy/.rpm' --define='_tmppath /home/andy/.rpm/tmp' -ba freeguide.spec
 
 # Copy the RPMs into my "installer" directory ready for upload
 cp $RPM_TOPDIR/RPMS/noarch/FreeGuide-*.rpm ../../../installer/
