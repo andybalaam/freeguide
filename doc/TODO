@@ -146,6 +146,8 @@ r  means done by Rob Stewart
   within the programme.
 - Make several actors appear in the extra tags section of the programme details
 - Deal with errors on Windows install (e.g. when Java isn't installed)
+- FAQ on how to uninstall
+- Upgrade the FAQ to http://faqtor.sourceforge.net/
 
 + Release 0.8.1 (bug fix)
 
