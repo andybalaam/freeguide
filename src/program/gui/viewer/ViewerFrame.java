@@ -692,15 +692,16 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 	
 	private void setLookAndFeel() {
 		LookAndFeel currentLAF = UIManager.getLookAndFeel();
-		String defaultLAF = "Metal";
+		String defaultLAFName = "Metal";
+		String currentLAFClassName = null;
 		if (currentLAF != null) {
-			defaultLAF = currentLAF.getName();
+			defaultLAFName = currentLAF.getName();
+			currentLAFClassName = currentLAF.getClass().getName();
 		}
 		String requestedLookAndFeel = FreeGuide.prefs.screen.get(
-						"look_and_feel", defaultLAF);
-		if ((!requestedLookAndFeel.equals(currentLAF.getName())) &&
-			(!(requestedLookAndFeel.equals(
-					currentLAF.getClass().getName())))) {
+					"look_and_feel", defaultLAFName);
+		if ((!requestedLookAndFeel.equals(defaultLAFName)) &&
+		    (!(requestedLookAndFeel.equals(currentLAFClassName)))) {
 			String className = LookAndFeelManager
 						.getLookAndFeelClassName(
 							requestedLookAndFeel);

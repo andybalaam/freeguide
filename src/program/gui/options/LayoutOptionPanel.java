@@ -114,13 +114,13 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 	protected void doLoad( String prefix ) {
 		
 		
-                LookAndFeel currentLAF = UIManager.getLookAndFeel();
-                String defaultLAF = "Metal";
-                if (currentLAF != null) {
-                        defaultLAF = currentLAF.getName();
-                }
-                String lookAndFeelName = FreeGuide.prefs.screen.get(
-                                                "look_and_feel", defaultLAF);
+		LookAndFeel currentLAF = UIManager.getLookAndFeel();
+		String defaultLAFName = "Metal";
+		if (currentLAF != null) {
+			defaultLAFName = currentLAF.getName();
+		}
+		String lookAndFeelName = FreeGuide.prefs.screen.get(
+					"look_and_feel", defaultLAFName);
 		lookAndFeelCombo.setSelectedItem(lookAndFeelName);
 
 		int channelHeight = screen.getInt( prefix + "channel_height", 28 );
