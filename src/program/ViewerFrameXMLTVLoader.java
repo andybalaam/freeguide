@@ -26,7 +26,7 @@ import org.xml.sax.*;
  *
  *@author     andy
  *@created    28 June 2003
- *@version    2
+ *@version    3
  */
 
 class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterface {
