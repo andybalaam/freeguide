@@ -80,13 +80,13 @@ x means done by Sagar Shah
 - Separate classes into packages
 - Code rationalisation, FIXMEs, remove commented sections
 - Refactor to rename losing FreeGuide prefix to most classes
-- Make FreeGuideInstaller not implement FreeGuideLauncher
 - Make installer install shortcuts for Windows, Gnome and KDE
 - Make installer launch FreeGuide and/or a README file.
 - Include tv_split in Linux installer
 - Dynamic update of command output window
-- Fix possible NullPointerException in StartupChecker.checkFileFailure
-- Change READMEs etc to point to http://java.sun.com/getjava/
++ Fix possible NullPointerException in StartupChecker.checkFileFailure
++ Put the binary exes, dlls in cvs as binaries
++ Change READMEs etc to point to http://java.sun.com/getjava/
   and point users to this with the installer too.
 + Make the command output screen on the downloader less confusing for newbies
 + Make scrollboxes bigger on Options screen

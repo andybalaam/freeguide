@@ -19,7 +19,7 @@ import javax.swing.JTextArea;
  * for user feedback.
  *
  * @author Andy Balaam
- * @version 6
+ * @version 7
  * (used to be FreeGuideDownloader)
  */
 
@@ -147,7 +147,7 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 	
 	private void showDetails() {
 		
-		new StringViewer("Command Output (stdout):" + lb + readOutput.getStoredOutput(), "Command Error (stderr):" + lb + readError.getStoredOutput());
+		new StringViewer("Command Output (stdout):" + lb + readOutput.getStoredOutput(), "Command Output (stderr):" + lb + readError.getStoredOutput());
 		
 		/*if(labCmdOutput.isVisible()) {
 			

@@ -36,18 +36,18 @@ public class FreeGuideCommandsWizardPanel extends FreeGuideWizardPanel {
 
 		java.awt.GridBagConstraints gridBagConstraints;
 		
-        JLabel topLabel = new JLabel();
-        JLabel bottomLabel = new JLabel();
+		JLabel topLabel = new JLabel();
+		JLabel bottomLabel = new JLabel();
 		JPanel midPanel = new JPanel();
 		JScrollPane midScrollPane = new JScrollPane();
 		textarea = new JTextArea();
 
-        setLayout(new java.awt.GridLayout(3, 0));
+		setLayout(new java.awt.GridLayout(3, 0));
 
-        topLabel.setFont(new java.awt.Font("Dialog", 0, 12));
-        topLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        topLabel.setText(topMessage);
-        add(topLabel);
+		topLabel.setFont(new java.awt.Font("Dialog", 0, 12));
+		topLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		topLabel.setText(topMessage);
+		add(topLabel);
 
 		midPanel.setLayout(new java.awt.GridBagLayout());
 		
@@ -71,18 +71,20 @@ public class FreeGuideCommandsWizardPanel extends FreeGuideWizardPanel {
 			midPanel.add(butGuess, gridBagConstraints);
 		}
 		
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 0.9;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+		gridBagConstraints = new java.awt.GridBagConstraints();
+		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+		gridBagConstraints.weightx = 0.9;
+		gridBagConstraints.weighty = 0.9;
+		gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 0);
 		
 		midScrollPane.setViewportView(textarea);
-		midScrollPane.setPreferredSize(new java.awt.Dimension(300, 50));
-        midPanel.add(midScrollPane, gridBagConstraints);
+		//midScrollPane.setPreferredSize(new java.awt.Dimension(300, 50));
+       		midPanel.add(midScrollPane, gridBagConstraints);
 		
 		add(midPanel);
+		
 
         bottomLabel.setFont(new java.awt.Font("Dialog", 0, 12));
         bottomLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

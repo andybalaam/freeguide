@@ -87,8 +87,13 @@ public class FreeGuideStartupChecker {
 	
 	private static void checkFileFailure(FreeGuidePreferences pref, String entry, Vector failedWhat) {
 	
-		if(FreeGuideConfigGuesser.checkValue("misc", entry, new File(pref.get(entry)))!=null) {
+		String pr = pref.get(entry);
+		
+		if( (pr==null) || 
+				(FreeGuideConfigGuesser.checkValue("misc", entry, new File(pr))!=null) ) {
+					
 			failedWhat.add("misc." + entry);
+			
 		}
 		
 	}
