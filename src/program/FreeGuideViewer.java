@@ -716,12 +716,12 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		String date_string = date_buffer.toString();
 		
 		for(int i=0;i<cmd.length;i++) {
-			System.out.println("Before["+i+"]: "+cmd[i]);
+			//System.out.println("Before["+i+"]: "+cmd[i]);
 			//cmd[i].replaceAll("TODAY", new Integer(offset).toString());
 			//cmd[i].replaceAll("TODAY", new Integer(2).toString());
 			cmd[i]=p_offset.matcher(cmd[i]).replaceAll(new Integer(offset).toString());
 			cmd[i]=p_date.matcher(cmd[i]).replaceAll(date_string);
-			System.out.println("After["+i+"]: "+cmd[i]);
+			//System.out.println("After["+i+"]: "+cmd[i]);
 		}
 		FreeGuideUtils.execAndWait(cmd, "Downloading", this);
 		// FIXME -- we should return, and process the command status here.
