@@ -296,6 +296,7 @@ public class ProgrammeFormat {
 		String programmeSubTitle = programme.getSubTitle();
 		String programmeStarString =  programme.getStarString();
 		String programmeIconUrl = null;
+		String programmeCategory = programme.getCategory();
 		if (showIcon || true)
 			programmeIconUrl = programme.getIconURL();
         
@@ -327,6 +328,10 @@ public class ProgrammeFormat {
 			toAppendTo.append( ", ends " )
                 .append( dateFormat.format(
 				    programme.getEnd().getTime() ) );
+		}
+		
+		if (programmeCategory != null) {
+			toAppendTo.append(" ").append(programmeCategory);
 		}
 		
 		if (printTimeDelta) {
