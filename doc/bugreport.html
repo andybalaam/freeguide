@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <link rel="stylesheet" href="stylesheet.css" type="text/css">
+    <title>FreeGuide Bug Report</title>
+</head>
+<body>
+
+<address class="backlink"><a href="index.html">Home</a> | <a href="README.html">README</a> | <a href="FAQ.html">FAQ</a> | <a href="userguide.html">User Guide</a> | <a href="LookAndFeel.html">Look and Feel Guide</a> | <a href="timezone.html">Timezones</a> | <a href="developers.html">Developers</a> | <a href="design.html">Design Document</a> | <a href="INSTALL-linux-noxmltv.html">Linux XMLTV Install</a> | <a href="contributors.html">Contributors</a></address>
+
+<div style="float:right"><a href="http://sourceforge.net/projects/freeguide-tv/"><img src="http://sourceforge.net/sflogo.php?group_id=35309&type=1" width="88" height="31" border="0" alt="SourceForge Logo"></a></div>
+
+<h1>FreeGuide Bug Report</h1>
+
+<p>You can use this page to report any bugs or problems you have with FreeGuide.  It is intended to help you provide as much useful information as possible when you report a bug.  When you click "Submit" at the end of this form, and email will be sent to the FreeGuide developers' mailing list on <a href="mailto:freeguide-tv-devel@lists.sourceforge.net">freeguide-tv-devel@lists.sourceforge.net</a>.  If you prefer, you may email this list directly, but try to include as much information as possible.</p>
+
+<form name="bug_report_form" action="formmail.php" method='post'>
+
+<input type='hidden' name='mail_to' value="freeguide-tv-users@lists.sourceforge.net">
+<input type='hidden' name='mail_cc' value="">
+<input type='hidden' name='mail_bcc' value="">
+<input type='hidden' name='mail_subject' value="FreeGuide Bug Report">
+
+<table>
+<tr>
+    <td class="form_question">Operating system </td>
+    <td class="form_answer"><input class="form_answer" type="text" name="operating_system" /></td>
+    <td class="form_notes">E.g. Windows XP, Red Hat Linux 9.</td>
+</tr>
+
+<tr>
+    <td class="form_question">FreeGuide version </td>
+    <td class="form_answer"><input class="form_answer" type="text" name="freeguide_version" /></td>
+    <td class="form_notes">Look in the title bar of FreeGuide to find out what version you are using.</td>
+</tr>
+
+<tr>
+    <td class="form_question">Java version</td>
+    <td class="form_answer"><input class="form_answer" type="text" name="java_version" /> </td>
+    <td class="form_notes">Open a DOS, Cmd or terminal window and type &quot;java -version&quot; to find out what version of Java you are using.  Copy the output into this box.</td>
+</tr>
+
+<tr>
+    <td class="form_question">Show details information</td>
+    <td class="form_answer"><textarea name="show_details_output" rows="5" cols="40" ></textarea></td>
+    <td class="form_notes">If you're having a problem with downloading listings, and you get an "Execution Error" message, click on "Show details" in the downloading window and copy and paste the information in the window that pops up into this box.</td>
+</tr>
+
+<tr>
+    <td class="form_question">Command window output</td>
+    <td class="form_answer"><textarea name="command_window_output" rows="5" cols="40" ></textarea></td>
+    <td class="form_notes">If you can't get any information about what's going wrong, try running FreeGuide from within a DOS, Cmd or terminal window and copy and paste everything that appears in the terminal into this box.  On Windows, open a DOS or Cmd window and type <tt>cd "C:\Program Files\FreeGuide"</tt> then press RETURN and type <tt>java -jar FreeGuide.jar</tt> to run FreeGuide.  There are some instructions on <a href="copyfromdos.html">how to copy text out of a dos box</a> available.  When you've copied the output, paste it into the box to the left by clicking in the box and pressing Ctrl-C.</td>
+</tr>
+
+<tr>
+    <td class="form_question">Your email address</td>
+    <td class="form_answer"><input class="form_answer" type="text" name="senders_email" /></td>
+    <td class="form_notes"><br /></td>
+</tr>
+
+<tr>
+    <td class="form_question">What happens</td>
+    <td class="form_answer"><textarea name="what_happens" rows="5" cols="40" ></textarea></td>
+    <td class="form_notes">Describe as accurately as you can what happened and what you were trying to do when the bug or problem occurred.</td>
+</tr>
+
+<tr>
+    <td class="form_question">What you expected to happen </td>
+    <td class="form_answer"><textarea name="expected_behaviour" rows="5" cols="40" ></textarea></td>
+    <td class="form_notes">Describe as accurately as you can what you expected to happen when the above happened.</td>
+</tr>
+
+<tr>
+    <td class="form_submit" colspan="3"><input type='submit' value='Submit Bug Report' /></td>
+</tr>
+
+</table>
+
+</form>
+
+</body>
+</html>
+
+
+<!--<input type='hidden' name='mail_return_subject' value="Your FreeGuide bug report">
+<input type='hidden' name='esh_formmail_return_msg' value="Thank you for sending in a bug report about FreeGuide.  The message has been sent to the mailing list freeguide-tv-users@lists.sourceforge.net.  The FreeGuide developers should reply to you, but if you want to get involved with helping out other FreeGuide users you should join this mailing list by going to this page: http://sourceforge.net/mail/?group_id=35309">-->

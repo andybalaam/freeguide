@@ -41,3 +41,19 @@ address {
 address.backlink {
 	
 }
+td.form_question {
+    text-align: right;
+}
+td.form_answer {
+    
+}
+td.form_notes {
+    font-size: small;
+}
+td.form_submit {
+    text-align: center;
+}
+input.form_answer {
+    width: 100%;
+}
+

@@ -138,6 +138,7 @@ r  means done by Rob Stewart
   your password during configuration.
 - Fix the problem reported by Russell Odom on 24/09/04 to do with the channel
   list not staying up to date when you reconfigure.
+- Finish the bug report form.
 
 + Release 0.8.1 (bug fix)
 
