@@ -5,7 +5,8 @@ This document is at risk of radical change whenever Ifo
 feel like it.
 
 - means to do
-+ means done
++ means done by Andy Balaam
+x means done by Sagar Shah
 
 --------------------------------------------
 
@@ -71,6 +72,7 @@ feel like it.
 - Dynamic update of command output window
 - Fix possible NullPointerException in StartupChecker.checkFileFailure
 - Shortcut keys for everything
+x Display which channels are missing when some listings are missing.
 
 + Release 0.4.3 (most wanted features)
 
