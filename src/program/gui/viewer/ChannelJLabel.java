@@ -57,19 +57,29 @@ public class ChannelJLabel extends JLabel implements ComponentListener{
 		currentIconFileName = fileName;
 		// Create the icon from the file
 		ImageIcon icon = new ImageIcon(fileName);
-		/* Verify the icon isn't taller than the pannel, resize otherwise.
+		/* Verify the icon isn't taller than the panel, resize otherwise.
 		 * We don't check the width as it isn't usually a problem
 		 */ 
 		int width;
-		int maxheight = this.getHeight()-this.getInsets().top-this.getInsets().bottom;
-		//System.err.println(icon.getIconHeight()+" - "+maxheight);
-		if (icon.getIconHeight()>maxheight) {
-			width =icon.getIconWidth()*maxheight/icon.getIconHeight();
-			super.setIcon(new ImageIcon(icon.getImage().getScaledInstance(width,maxheight,Image.SCALE_AREA_AVERAGING)));
-		}
-		else
-			super.setIcon(icon);
-	}
+		int maxheight = this.getHeight() - this.getInsets().top
+            - this.getInsets().bottom;
+            
+		if( icon.getIconHeight() > maxheight ) {
+			width = icon.getIconWidth() * maxheight / icon.getIconHeight();
+            
+            // Last-ditch check for if something went completely wrong
+            if( width <= 0 ) {
+                width = 5;
+            }
+            if( height <= 0 ) {
+                height = 5;
+            }
+			super.setIcon(
+                new ImageIcon( icon.getImage().getScaledInstance(
+                    width, maxheight, Image.SCALE_AREA_AVERAGING ) ) );
+		} else
+            super.setIcon(icon);
+	    }
 	
 	/**
 	 * @param id the Id of the channel

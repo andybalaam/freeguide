@@ -161,6 +161,7 @@ r  means done by Rob Stewart
 - Fix the bug with a favourite that matches everything appearing - see my email
   of 2005-01-05.
 - Add an FAQ about when Java wasn't installed when FreeGuide was installed.
+- Look into focus/modal bug with About box and reminder: Shaun email 2005-01-06
 
 + Release 0.8.1 (bug fix)
 
