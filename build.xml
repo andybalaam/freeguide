@@ -54,10 +54,12 @@
 		<!-- process the documentation -->
 		<exec executable="lynx" dir="${doc}" os="Linux" output="${doc}/README">
 			<arg value="-dump"/>
+			<arg value="-nolist"/>
 			<arg value="README.html"/>
 		</exec>
 		<exec executable="lynx" dir="${doc}" os="Linux" output="${doc}/INSTALL">
 			<arg value="-dump"/>
+			<arg value="-nolist"/>
 			<arg value="INSTALL-linux.html"/>
 		</exec>
 	

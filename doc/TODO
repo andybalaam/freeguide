@@ -77,11 +77,13 @@ Release 0.5 (most wanted features)
 - Hence rewrite FreeGuideViewer much better
 - Shortcut keys for everything
 - Fix GoToNow to deal with days dividing at non-midnight times.
+- New screenshots for web site, and freshmeat.
+- Rename files with version number on build
 
 Release 0.4.2 (mainly bug fixes)
 
-- Developer docs
-- Thorough testing
++ Developer docs
++ Thorough testing
 + Use long descriptions in the printed guide
 + box round Please Wait screen
 + "Choose all" button + "Choose none" button in channels screen
