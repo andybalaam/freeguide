@@ -121,6 +121,7 @@ b  means done by Brendan Corrigan
 - Nice browser chooser in options
 - Document reminder system and/or incorporate into Options screen
 - Scroll to the most recently selected programme (and highlight it?)
++ Fix the bug with spaces in filenames on Linux
 + Alert me when my programme starts
 	(using secret options misc.reminders_on and misc.reminders_warning_secs)
 + Automate creation of tar.gz Source package with Debian naming
