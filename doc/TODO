@@ -137,6 +137,7 @@ c  means done by Christian Weiske
 - Display programme categories, and allow colours to indicate category.
 - Add firefox to the possible browsers.
 - Double-clicks should move items in the channel set editor
+- Update the time panel every minute or so
 
 - Release 0.9.1 (accessibility, accessibility, accessibility)
 
