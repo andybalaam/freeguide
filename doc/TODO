@@ -82,25 +82,22 @@ D  means work in progress by Dave Torok
 - Coloured programme categories and favourites
 - Apply different fonts to every screen.
 
-- Release 0.5.1 (some features and grabber configuration)
+- Release 0.6 (some features and grabber configuration)
 
 - GUI to deal with --configure step and any other post-install, pre-use stuff
 	(part of installer)
-- Custom channel ordering
+- Custom channel ordering - default channel set
 - Make installer install shortcuts for Windows, Gnome and KDE
 - Make installer launch FreeGuide and/or a README file (what about configuring
 	on Windows?)
 - If there is more than one grabber command to execute, the output isn't
-	allways captured (intermittent linux java 1.4.1_01).  Maybe add a
+	always captured (intermittent linux java 1.4.1_01).  Maybe add a
 	permanent (not always visible) viewer w/ a clear button, or
 	timestamped output...
 - Only parse one input file if day_start_time == grabber_start_time
 - Fix the fact that the build process never overwrites README and INSTALL even
-when they've changed.
+	when they've changed.
 - Add the XMLTV source distribution to the source package (good GPL practice)
-- Add to docs that some people (e.g. RedHat users) will need to change their
-	XMLTV dir to /usr/bin/ instead of /usr/local/bin/ - do we need this check
-	anyway?
 ^ Channel Set -- create custom sets of channels
 ^ Choose between 24-hour and 12-hour time formats (14:30 vs. 2:30 PM)
 ^ Colorize Movies
@@ -108,6 +105,13 @@ when they've changed.
 ^ Parse and display star-rating for movies
 ^ Parse "previously shown" (repeated program) from XML
 ^ Choose between displaying the start time in the programme grid (or not)
+
+- Release 0.5.1 (Stable bug-fix release)
+
+- Add to docs that some people (e.g. RedHat users) will need to change their
+	XMLTV dir to /usr/bin/ instead of /usr/local/bin/ - do we need this check
+	anyway?
++ Bug in German installer
 
 - Release 0.5 (Features - especially use of many grabbers, and bug fixes)
 
