@@ -1634,7 +1634,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	private static final SimpleDateFormat comboBoxDateFormat = new SimpleDateFormat("EEEE d MMM yy");
 	private static final SimpleDateFormat htmlDateFormat = new SimpleDateFormat("EEEE dd MMMM yyyy");
 	private static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-	private static final SimpleDateFormat fileDateFormat = new SimpleDateFormat("yyyyMMdd");
+	public static final SimpleDateFormat fileDateFormat = new SimpleDateFormat("yyyyMMdd");
 	
 	private boolean missingFiles;	// true if there were files missing
 	private boolean dontDownload;	// true if user doesn't want to download missing files

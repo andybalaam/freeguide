@@ -19,7 +19,6 @@ file.13=shot2.gif
 file.14=shot3.gif
 file.15=TODO
 grabber_exe=tv_grab_na
-splitter_exe=tv_split
 grabber_config=tv_grab_na
 country=North America
 full_paths=false

@@ -77,7 +77,20 @@ public class FreeGuidePreferencesGroup {
 		}
 	}
 	
+	/**
+	 * Substitute any preference values within the string in and return the
+	 * result.  Assumes any dates should be today, and any "offset" is 1.
+	 */
 	public String performSubstitutions(String in) {
+		return performSubstitutions(in, GregorianCalendar.getInstance(), 1);
+	}
+	
+	/**
+	 * Substitute any preference values within the string in and return the
+	 * result.  Replaces "date" with the date given (formatted as
+	 * FreeGuideViewer.fileDateFormat) and "offset" with the number given.
+	 */
+	public String performSubstitutions(String in, Calendar date, int offset) {
 		
 		if(in==null) {
 			return null;
@@ -128,6 +141,11 @@ public class FreeGuidePreferencesGroup {
 					
 					if(theKey.toLowerCase().equals("home")) {
 						sub = System.getProperty("user.home");
+					} else if(theKey.toLowerCase().equals("date")) {
+						sub = FreeGuideViewer.fileDateFormat.format(
+							date.getTime() );
+					} else if(theKey.toLowerCase().equals("offset")) {
+						sub = String.valueOf(offset);
 					} else {
 						sub = "!!!Unknown preference!!!";
 					}

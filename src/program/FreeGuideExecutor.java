@@ -14,6 +14,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import javax.swing.JTextArea;
 import java.awt.Container;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 
 /**
  * Provides facilities for executing external commands with a GUI
@@ -271,6 +274,37 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 		if(cmdstr==null || cmdstr.equals("")) {
 			// No command to execute: say it was successful
 			return true;
+		}
+		
+		// Check for any elements that mean this command must be called multiple
+		// times, once for each day.
+		if( (cmdstr.indexOf("%date%")!=-1)
+				|| (cmdstr.indexOf("%offset%")!=-1) ) {
+				
+			
+			boolean didOK = true;
+			
+			Calendar date = GregorianCalendar.getInstance();
+			
+			for(int i=0;i<FreeGuide.prefs.misc.getInt("days_to_grab", 7);i++) {
+				
+				// FIXME - don't execute if a file already exists?
+				// What about files that are half empty?
+				
+				// Recursive call to this function
+				if(	!exec(FreeGuide.prefs.performSubstitutions(
+						cmdstr, date, i) ) ) {
+						
+						didOK=false;
+					}
+						
+				
+				date.add(Calendar.DATE, 1);
+				
+			}
+			
+			return didOK;
+			
 		}
 		
 		cmdstr = FreeGuide.prefs.performSubstitutions(cmdstr);

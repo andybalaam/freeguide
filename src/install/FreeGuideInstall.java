@@ -218,6 +218,7 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 			prefs.misc.put("country", props.getProperty("country"));
 			prefs.misc.put("browser_name", props.getProperty("browser_name"));
 			prefs.misc.put("working_directory", working_directory);
+			prefs.misc.putInt("days_to_grab", 7);
 			prefs.misc.put("xmltv_directory", xmltv_directory);
 		
 			String grabber_exe = props.getProperty("grabber_exe");

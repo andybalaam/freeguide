@@ -4,7 +4,8 @@ public class FreeGuideWizardPanelFactory {
 	/**
 	 * Constructs a FreeGuideWizardPanel that is linked to a config entry.
 	 */
-	public static FreeGuideWizardPanel createFreeGuideWizardPanel(String configGroup, String configEntry) {
+	public static FreeGuideWizardPanel createFreeGuideWizardPanel(
+			String configGroup, String configEntry) {
 		
 		// Get the type of this config entry expects
 		int guessType = FreeGuideConfigGuesser.guessType(configGroup, configEntry);
@@ -28,7 +29,8 @@ public class FreeGuideWizardPanelFactory {
 		
 		// Get a 2-entry array of stuff from the guesser that gives the messages
 		// to ask the user
-		String[] guessMessages = FreeGuideConfigGuesser.guessMessages(configGroup, configEntry);
+		String[] guessMessages = FreeGuideConfigGuesser.guessMessages(
+			configGroup, configEntry);
 		
 		ans.setMessages(guessMessages[0], guessMessages[1]);
 		ans.setConfig(configGroup, configEntry);

@@ -61,6 +61,8 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 			currentProgramme = new FreeGuideProgramme();
 			
 			// Prepare a date formatter
+			// FIXME deal with times like this: (somehow)
+			// "yyyyMMddHHmm +0100"
 			SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMddHHmmss z");
 			
 			// Prepare GregorianCalendars for start and end
@@ -77,8 +79,7 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 				// Assume it has a start time
 				start.setTime(fmt.parse(attrs.getValue("start")));
 						
-				// Could really assume it has an end time, since it's gone through
-				// tv_split, but anyway, don't.
+				// Don't assume it has an end time
 				if(attrs.getIndex("stop") != -1) {
 					end.setTime(fmt.parse(attrs.getValue("stop")));
 				} else {

@@ -31,8 +31,8 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 	public FreeGuideOptions(FreeGuideLauncher launcher) {
 		this.launcher = launcher;
 		
-		panels = new FreeGuideWizardPanel[7];
-		titles = new String[7];
+		panels = new FreeGuideWizardPanel[8];
+		titles = new String[8];
 		
 		panels[0] = new FreeGuidePreConfigWizardPanel();
 		panels[0].setMessages("Click the button to change your fundamental info.", "This is what most of the \"Guess\" buttons use.");
@@ -44,7 +44,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		titles[1] = "Working Directory";
 		
 		panels[2] = new FreeGuideDirectoryWizardPanel();
-		panels[2].setMessages("Choose the directory that contains the XMLTV tools.", "This must contain tv_split and tv_grab.");
+		panels[2].setMessages("Choose the directory that contains the XMLTV tools.", "This must contain the xmltv executable(s).");
 		panels[2].setConfig("misc", "xmltv_directory");
 		titles[2] = "XMLTV Directory";
 		
@@ -67,6 +67,11 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		panels[6].setMessages("Choose the XMLTV tool's configuration file.", "This should contain a list of channels you want to watch.");
 		panels[6].setConfig("misc", "grabber_config");
 		titles[6] = "Channels File";
+	
+		panels[7] = new FreeGuideTextWizardPanel();
+		panels[7].setMessages("Choose how many days to download at once.", "");
+		panels[7].setConfig("misc", "days_to_grab");
+		titles[7] = "Days to Download";
 	
 		// Draw the screen
 		initComponents();
@@ -103,9 +108,16 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 			} else if(what.equals("misc.xmltv_directory")) {
 		
 				panels[panelNo] = new FreeGuideDirectoryWizardPanel();
-				panels[panelNo].setMessages("Choose the directory that contains the XMLTV tools.", "This must contain tv_split and tv_grab.");
+				panels[panelNo].setMessages("Choose the directory that contains the XMLTV tools.", "This must contain the xmltv executable(s).");
 				panels[panelNo].setConfig("misc", "xmltv_directory");
 				titles[panelNo] = "XMLTV Directory";
+				
+			} else if(what.equals("misc.days_to_grab")) {
+				
+				panels[panelNo] = new FreeGuideTextWizardPanel();
+				panels[panelNo].setMessages("Choose how many days to download at once.", "");
+				panels[panelNo].setConfig("misc", "days_to_grab");
+				titles[panelNo] = "Days to Download";
 				
 			} else if(what.equals("commandline.tv_grab")) {
 		

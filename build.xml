@@ -14,7 +14,7 @@
 	<property name="build" location="build"/>
 	<property name="dist"  location="dist"/>
 
-	<property name="freeguideversion"  value="FreeGuide-0_4_3"/>
+	<property name="freeguideversion"  value="FreeGuide-0_4_4"/>
 	
   	<target name="init">
   
@@ -54,6 +54,8 @@
     	<javac srcdir="${src}/install" destdir="${build}/install"/>
 	
 		<!-- process the documentation -->
+		<!-- FIXME - this makes the build process fail on Windows as these
+			text files are not created -->
 		<exec executable="lynx" dir="${doc}" os="Linux" output="${doc}/README">
 			<arg value="-dump"/>
 			<arg value="-nolist"/>

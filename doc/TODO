@@ -76,7 +76,7 @@ x means done by Sagar Shah
 - Refactor to rename losing FreeGuide prefix to most classes
 - Separate classes into packages
   
-- Release 0.4.4 (minor features and bug fixes)
+- Release 0.4.4 (Features - especially use of many grabbers, and bug fixes)
 
 - coloured programme categories and favourites
 - Allow changing of font sizes from customise screen
@@ -86,6 +86,10 @@ x means done by Sagar Shah
 - Remove the need for tv_split by calling the grabber once for each day required
 - Fix bug that means favourites sometimes aren't chosen
 - Dynamic population of the date list comboBox based on available data
+- Stop hard-coding the directories into the preference values on install, use
+	e.g. %misc.working_directory%, %misc.xmltv_directory%
+- Fix bug in StreamThreadReader (?) that means only the output of the first
+	command is shown.
 * Dynamic update of command output window
 * Fix bug that causes exception if running release candidate jvm (1.4.0-rc1)
 + Fix bug where you get asked twice whether you want to download new listings

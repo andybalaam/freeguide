@@ -31,7 +31,7 @@ public class StreamReaderThread implements Runnable {
 	}
 
 	public void begin(BufferedReader reader, String cmdstr, StringViewer viewer, StringBuffer viewbuf) {
-
+		
 		this.reader = reader;
 		this.viewer = viewer;
 		this.viewbuf = viewbuf;

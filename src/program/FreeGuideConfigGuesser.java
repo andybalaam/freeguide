@@ -51,6 +51,10 @@ public class FreeGuideConfigGuesser {
 			ans[0] = "Choose the time that a new day starts";
 			ans[1] = "";
 			break;
+		case DAYS_TO_GRAB:
+			ans[0] = "Choose number of days to download every time";
+			ans[1] = "";
+			break;
 		case GRABBER_CONFIG:
 			ans[0] = "Give the location of the grabber's config file";
 			ans[1] = "";
@@ -69,7 +73,7 @@ public class FreeGuideConfigGuesser {
 			break;
 		case XMLTV_DIRECTORY:
 			ans[0] = "Locate the install directory of the XMLTV tools";
-			ans[1] = "This must contain the tv_split tool";
+			ans[1] = "This must contain the xmltv executable(s)";
 			break;
 			
 		}
@@ -179,7 +183,8 @@ public class FreeGuideConfigGuesser {
 		case DAY_START_TIME:
 			return "06:00";
 
-			
+		case DAYS_TO_GRAB:
+			return "7";
 			
 		case GRABBER_CONFIG:
 			return new File(guessGrabberConfig(prefs));
@@ -251,7 +256,7 @@ public class FreeGuideConfigGuesser {
 			} else if(country.equals(country_Germany)) {
 				ans[0] = "\"" + xmltv_directory + fs + "tv_grab_de.exe\" --config-file \"" + grabber_config + "\" --output \"" + working_directory + fs +"listings_unprocessed.xml\"";
 			}
-			ans[1] = "\"" + xmltv_directory + fs + "tv_split.exe\" --output \"" + working_directory + fs + "%%channel-%%Y%%m%%d.fgd\" --day_start_time 00:00 \"" + working_directory + fs + "listings_unprocessed.xml\"";
+			ans[1] = "\"" + xmltv_directory + fs + "xmltv.exe\" --output \"" + working_directory + fs + "%%channel-%%Y%%m%%d.fgd\" --day_start_time 00:00 \"" + working_directory + fs + "listings_unprocessed.xml\"";
 			
 		} else if(os.equals(os_Other)) {
 			
@@ -357,6 +362,8 @@ public class FreeGuideConfigGuesser {
 				return COUNTRY;
 			} else if(entry.equals("day_start_time")) {
 				return DAY_START_TIME;
+			} else if(entry.equals("days_to_grab")) {
+				return DAYS_TO_GRAB;
 			} else if(entry.equals("grabber_config")) {
 				return GRABBER_CONFIG;
 			} else if(entry.equals("install_directory")) {
@@ -473,20 +480,18 @@ public class FreeGuideConfigGuesser {
 	
 	/** 
 	 * Find whether a proposed XMLTV directory is correct.  Checks this
-	 * by looking for the files tv_split* and tv_grab* in it.
+	 * by looking for the files xmltv.exe or tv_grab* in it.
 	 */
 	private static String checkXMLTVDir(File dir) {
 		
 		// Check the dir exists
 		if(dir.exists()) {
 
-			File[] tmp = dir.listFiles(new FreeGuideFilenameFilter("^tv_split.*", false));
+			File[] tmp = dir.listFiles(new FreeGuideFilenameFilter("xmltv\\.exe", false));
 			File[] tmp2 = dir.listFiles(new FreeGuideFilenameFilter("^tv_grab.*", false));
 			
-			// Check a file starting with tv_split exists in this dir
-			// (tv_split is used because that's the one I wrote to make
-			// FreeGuide work.)
-			if( tmp.length > 0  && tmp2.length > 0) {
+			// Check a file xmltv.exe exists in this dir
+			if( tmp.length > 0  || tmp2.length > 0) {
 				// All is ok
 				return null;
 			}
@@ -494,7 +499,7 @@ public class FreeGuideConfigGuesser {
 		}
 		
 		// Something went wrong
-		return "The chosen XMLTV directory either doesn't exist or doesn't contain tv_split and a grabber.";
+		return "The chosen XMLTV directory either doesn't exist or doesn't contain the xmltv executable(s) and a grabber.";
 	}
 	
 	// -------------------------------------------
@@ -509,6 +514,7 @@ public class FreeGuideConfigGuesser {
 	public static final int OS = 7;
 	public static final int WORKING_DIRECTORY = 8;
 	public static final int XMLTV_DIRECTORY = 9;
+	public static final int DAYS_TO_GRAB = 10;
 	
 	// -------------------------------------------
 	
