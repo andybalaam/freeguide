@@ -743,7 +743,7 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
      * @return the URL as a string;
      */
     public String getChannelIcon(String channelID){
-    	if (channelID == null) return null;
+    	if (channelID == null || channelIcons == null) return null;
     	return (String)channelIcons.get(channelID);
     }
 
