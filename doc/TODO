@@ -44,7 +44,8 @@ D  means work in progress by Dave Torok
 - Other platforms - investigate Mac, BSD, others
 - Consider a C++ installer that just checks for the right java version before
   running the Java installer.
-
+- Automated bug reporting e.g. when the grabber fails.
+  
 - Release 0.7 (nice features)
 
 - Alert me when my programme starts
