@@ -86,6 +86,8 @@ m  means done by Mike Dean
 	which need to be scanned on startup (in fact that is a better way to do
 	it in even if we stick with choices.).
 - Reduce the size of the XMLTV exe by removing unnecessary Tk files
+- Remove programmes you've missed from the guide
+- Resolve duplicate programmes in the guide, so it shows both times it's on
 
 - Release 0.7.3 (code tidying)
 
