@@ -566,9 +566,12 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
     	if (saxLoc.equals(":tv:programme")) {
 
             if (currentProgramme.getEnd().after(earliest) &&
-                    currentProgramme.getStart().before(latest)) {
+                    currentProgramme.getStart().before(latest))
+            {
 
-                programmes.add(currentProgramme);
+                if( programmeNotAlreadyEntered( currentProgramme ) ) {
+                    programmes.add(currentProgramme);
+                }
             }
 
             currentProgramme = null;
@@ -670,9 +673,25 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSet
 
     }
 
-
-    //endElement
-
+    private boolean programmeNotAlreadyEntered( Programme programme ) {
+        
+        Iterator iter = programmes.iterator();
+        
+        while( iter.hasNext() ) {
+            
+            Programme prog = (Programme)(iter.next());
+            
+            if( prog.equals( programme ) ) {
+                FreeGuide.log.info( programme.getTitle() );
+                return false;
+            }
+            
+        }
+        
+        return true;
+    }
+    
+    
     /**
      *  Description of the Method
      *
