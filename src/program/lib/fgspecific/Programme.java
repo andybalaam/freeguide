@@ -345,7 +345,7 @@ public class Programme {
      */
     public String getCategory() {
         // FIXME just returns first one
-        if (category.size() > 0) {
+        if (category != null && category.size() > 0) {
             return (String) category.get(0);
         } else {
             return null;
