@@ -100,7 +100,15 @@ public class GridBagEasy
     // ----------------------------------------------
     public void add( Component comp, int gridx, int gridy )
     {
-        setDefaults(  );
+        gbc.anchor = default_anchor;
+        gbc.fill = default_fill;
+        gbc.gridheight = default_gridheight;
+        gbc.gridwidth = default_gridwidth;
+        gbc.insets = default_insets;
+        gbc.ipadx = default_ipadx;
+        gbc.ipady = default_ipady;
+        gbc.weightx = default_weightx;
+        gbc.weighty = default_weighty;
 
         gbc.gridx = gridx;
         gbc.gridy = gridy;
@@ -123,16 +131,20 @@ public class GridBagEasy
         Component comp, int gridx, int gridy, int anchor, double weightx,
         double weighty )
     {
-        setDefaults(  );
-
-        gbc.gridx = gridx;
-        gbc.gridy = gridy;
         gbc.anchor = anchor;
+        gbc.fill = default_fill;
+        gbc.gridheight = default_gridheight;
+        gbc.gridwidth = default_gridwidth;
+        gbc.insets = default_insets;
+        gbc.ipadx = default_ipadx;
+        gbc.ipady = default_ipady;
         gbc.weightx = weightx;
         gbc.weighty = weighty;
 
-        container.add( comp, gbc );
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
 
+        container.add( comp, gbc );
     }
 
     /**
@@ -147,15 +159,20 @@ public class GridBagEasy
     public void addAWX( 
         Component comp, int gridx, int gridy, int anchor, double weightx )
     {
-        setDefaults(  );
+        gbc.anchor = anchor;
+        gbc.fill = default_fill;
+        gbc.gridheight = default_gridheight;
+        gbc.gridwidth = default_gridwidth;
+        gbc.insets = default_insets;
+        gbc.ipadx = default_ipadx;
+        gbc.ipady = default_ipady;
+        gbc.weightx = weightx;
+        gbc.weighty = default_weighty;
 
         gbc.gridx = gridx;
         gbc.gridy = gridy;
-        gbc.anchor = anchor;
-        gbc.weightx = weightx;
 
         container.add( comp, gbc );
-
     }
 
     /**
@@ -170,15 +187,20 @@ public class GridBagEasy
     public void addFWX( 
         Component comp, int gridx, int gridy, int fill, double weightx )
     {
-        setDefaults(  );
+        gbc.anchor = default_anchor;
+        gbc.fill = fill;
+        gbc.gridheight = default_gridheight;
+        gbc.gridwidth = default_gridwidth;
+        gbc.insets = default_insets;
+        gbc.ipadx = default_ipadx;
+        gbc.ipady = default_ipady;
+        gbc.weightx = weightx;
+        gbc.weighty = default_weighty;
 
         gbc.gridx = gridx;
         gbc.gridy = gridy;
-        gbc.fill = fill;
-        gbc.weightx = weightx;
 
         container.add( comp, gbc );
-
     }
 
     /**
@@ -195,16 +217,20 @@ public class GridBagEasy
         Component comp, int gridx, int gridy, int anchor, double weightx,
         int gridwidth )
     {
-        setDefaults(  );
+        gbc.anchor = anchor;
+        gbc.fill = default_fill;
+        gbc.gridheight = default_gridheight;
+        gbc.gridwidth = gridwidth;
+        gbc.insets = default_insets;
+        gbc.ipadx = default_ipadx;
+        gbc.ipady = default_ipady;
+        gbc.weightx = weightx;
+        gbc.weighty = default_weighty;
 
         gbc.gridx = gridx;
         gbc.gridy = gridy;
-        gbc.anchor = anchor;
-        gbc.weightx = weightx;
-        gbc.gridwidth = gridwidth;
 
         container.add( comp, gbc );
-
     }
 
     /**
@@ -221,16 +247,20 @@ public class GridBagEasy
         Component comp, int gridx, int gridy, double weightx, double weighty,
         int gridwidth )
     {
-        setDefaults(  );
+        gbc.anchor = default_anchor;
+        gbc.fill = default_fill;
+        gbc.gridheight = default_gridheight;
+        gbc.gridwidth = gridwidth;
+        gbc.insets = default_insets;
+        gbc.ipadx = default_ipadx;
+        gbc.ipady = default_ipady;
+        gbc.weightx = weightx;
+        gbc.weighty = weighty;
 
         gbc.gridx = gridx;
         gbc.gridy = gridy;
-        gbc.weightx = weightx;
-        gbc.weighty = weighty;
-        gbc.gridwidth = gridwidth;
 
         container.add( comp, gbc );
-
     }
 
     /**
@@ -245,15 +275,20 @@ public class GridBagEasy
     public void addWXWY( 
         Component comp, int gridx, int gridy, double weightx, double weighty )
     {
-        setDefaults(  );
-
-        gbc.gridx = gridx;
-        gbc.gridy = gridy;
+        gbc.anchor = default_anchor;
+        gbc.fill = default_fill;
+        gbc.gridheight = default_gridheight;
+        gbc.gridwidth = default_gridwidth;
+        gbc.insets = default_insets;
+        gbc.ipadx = default_ipadx;
+        gbc.ipady = default_ipady;
         gbc.weightx = weightx;
         gbc.weighty = weighty;
 
-        container.add( comp, gbc );
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
 
+        container.add( comp, gbc );
     }
 
     /**
@@ -271,17 +306,20 @@ public class GridBagEasy
         Component comp, int gridx, int gridy, int fill, double weightx,
         double weighty, int gridwidth )
     {
-        setDefaults(  );
+        gbc.anchor = default_anchor;
+        gbc.fill = fill;
+        gbc.gridheight = default_gridheight;
+        gbc.gridwidth = gridwidth;
+        gbc.insets = default_insets;
+        gbc.ipadx = default_ipadx;
+        gbc.ipady = default_ipady;
+        gbc.weightx = weightx;
+        gbc.weighty = weighty;
 
         gbc.gridx = gridx;
         gbc.gridy = gridy;
-        gbc.fill = fill;
-        gbc.weightx = weightx;
-        gbc.weighty = weighty;
-        gbc.gridwidth = gridwidth;
 
         container.add( comp, gbc );
-
     }
 
     /**
@@ -299,17 +337,20 @@ public class GridBagEasy
         Component comp, int gridx, int gridy, int anchor, double weightx,
         int ipadx, int ipady )
     {
-        setDefaults(  );
+        gbc.anchor = anchor;
+        gbc.fill = default_fill;
+        gbc.gridheight = default_gridheight;
+        gbc.gridwidth = default_gridwidth;
+        gbc.insets = default_insets;
+        gbc.ipadx = ipadx;
+        gbc.ipady = ipady;
+        gbc.weightx = weightx;
+        gbc.weighty = default_weighty;
 
         gbc.gridx = gridx;
         gbc.gridy = gridy;
-        gbc.anchor = anchor;
-        gbc.weightx = weightx;
-        gbc.ipadx = ipadx;
-        gbc.ipady = ipady;
 
         container.add( comp, gbc );
-
     }
 
     /**
@@ -326,16 +367,20 @@ public class GridBagEasy
         Component comp, int gridx, int gridy, int fill, double weightx,
         double weighty )
     {
-        setDefaults(  );
-
-        gbc.gridx = gridx;
-        gbc.gridy = gridy;
+        gbc.anchor = default_anchor;
         gbc.fill = fill;
+        gbc.gridheight = default_gridheight;
+        gbc.gridwidth = default_gridwidth;
+        gbc.insets = default_insets;
+        gbc.ipadx = default_ipadx;
+        gbc.ipady = default_ipady;
         gbc.weightx = weightx;
         gbc.weighty = weighty;
 
-        container.add( comp, gbc );
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
 
+        container.add( comp, gbc );
     }
 
     /**
@@ -354,18 +399,20 @@ public class GridBagEasy
         Component comp, int gridx, int gridy, int fill, double weightx,
         double weighty, int gridwidth, int gridheight )
     {
-        setDefaults(  );
+        gbc.anchor = default_anchor;
+        gbc.fill = fill;
+        gbc.gridheight = gridheight;
+        gbc.gridwidth = gridwidth;
+        gbc.insets = default_insets;
+        gbc.ipadx = default_ipadx;
+        gbc.ipady = default_ipady;
+        gbc.weightx = weightx;
+        gbc.weighty = weighty;
 
         gbc.gridx = gridx;
         gbc.gridy = gridy;
-        gbc.fill = fill;
-        gbc.weightx = weightx;
-        gbc.weighty = weighty;
-        gbc.gridwidth = gridwidth;
-        gbc.gridheight = gridheight;
 
         container.add( comp, gbc );
-
     }
 
     /**
@@ -378,14 +425,20 @@ public class GridBagEasy
      */
     public void addWY( Component comp, int gridx, int gridy, double weighty )
     {
-        setDefaults(  );
+        gbc.anchor = default_anchor;
+        gbc.fill = default_fill;
+        gbc.gridheight = default_gridheight;
+        gbc.gridwidth = default_gridwidth;
+        gbc.insets = default_insets;
+        gbc.ipadx = default_ipadx;
+        gbc.ipady = default_ipady;
+        gbc.weightx = default_weightx;
+        gbc.weighty = weighty;
 
         gbc.gridx = gridx;
         gbc.gridy = gridy;
-        gbc.weighty = weighty;
 
         container.add( comp, gbc );
-
     }
 
     /**
@@ -402,30 +455,19 @@ public class GridBagEasy
         Component comp, int gridx, int gridy, int anchor, int fill,
         double weightx )
     {
-        setDefaults(  );
-
-        gbc.gridx = gridx;
-        gbc.gridy = gridy;
         gbc.anchor = anchor;
         gbc.fill = fill;
-        gbc.weightx = weightx;
-
-        container.add( comp, gbc );
-
-    }
-
-    // -------------
-    private void setDefaults(  )
-    {
-        gbc.anchor = default_anchor;
-        gbc.fill = default_fill;
         gbc.gridheight = default_gridheight;
         gbc.gridwidth = default_gridwidth;
         gbc.insets = default_insets;
         gbc.ipadx = default_ipadx;
         gbc.ipady = default_ipady;
-        gbc.weightx = default_weightx;
+        gbc.weightx = weightx;
         gbc.weighty = default_weighty;
 
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
+
+        container.add( comp, gbc );
     }
 }

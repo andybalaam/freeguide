@@ -16,6 +16,9 @@ import freeguide.*;
 
 import freeguide.gui.*;
 
+// To Be Added Shortly (Rob)
+//import freeguide.lib.general.*;
+
 /**
  * A window saying "Please Wait", displayed while FreeGuide loads.
  *
@@ -43,14 +46,19 @@ public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor
 
     private void initComponents(  )
     {
-        imageLabel = new javax.swing.JLabel(  );
-        progressBar = new javax.swing.JProgressBar( 0, 100 );
-
         java.net.URL imgURL = getClass(  ).getResource( "/logo-256x256.png" );
 
-        image =
-            new javax.swing.ImageIcon( 
+        image = new javax.swing.ImageIcon( 
                 imgURL, FreeGuide.msg.getString( "please_wait" ) );
+
+        imageLabel = new javax.swing.JLabel(
+            image, javax.swing.SwingConstants.CENTER );
+        imageLabel.setBorder( javax.swing.BorderFactory.createLineBorder(
+            java.awt.Color.BLACK ) );
+        getContentPane(  ).add( imageLabel, java.awt.BorderLayout.CENTER );
+
+        progressBar = new javax.swing.JProgressBar( 0, 100 );
+        getContentPane(  ).add( progressBar, java.awt.BorderLayout.SOUTH );
 
         setResizable( false );
 
@@ -63,14 +71,6 @@ public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor
                 }
             } );
 
-        imageLabel.setHorizontalAlignment( javax.swing.SwingConstants.CENTER );
-        imageLabel.setIcon( image );
-        imageLabel.setBorder( 
-            javax.swing.BorderFactory.createLineBorder( java.awt.Color.BLACK ) );
-        getContentPane(  ).add( imageLabel, java.awt.BorderLayout.CENTER );
-
-        getContentPane(  ).add( progressBar, java.awt.BorderLayout.SOUTH );
-
         pack(  );
 
         java.awt.Dimension screenSize =
@@ -80,6 +80,9 @@ public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor
         setLocation( 
             ( screenSize.width - windowSize.width ) / 2,
             ( screenSize.height - windowSize.height ) / 2 );
+
+// To Be Added Shortly (Rob)
+//        GuiUtils.centerDialog( this );
     }
 
     /**

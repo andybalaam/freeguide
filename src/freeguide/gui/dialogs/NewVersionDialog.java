@@ -28,10 +28,9 @@ import javax.swing.*;
  */
 public class NewVersionDialog extends JDialog
 {
-
+    private JButton butOK;
     private JButton butURL;
     private JCheckBox chkTellMeAgain;
-    private JButton butOK;
 
     /**
      * Constructor which sets the customiser up as a JDialog...
@@ -52,24 +51,13 @@ public class NewVersionDialog extends JDialog
         java.awt.GridBagConstraints gridBagConstraints;
 
         Object[] messageArguments = { "http://freeguide-tv.sourceforge.net" };
-        JLabel labTopMessage =
-            new javax.swing.JLabel( 
-                FreeGuide.getCompoundMessage( 
-                    "new_version_available_at_template", messageArguments ) );
-
-        butURL =
-            new javax.swing.JButton( 
-                FreeGuide.msg.getString( "go_to_the_web_site" ) );
-
-        chkTellMeAgain =
-            new javax.swing.JCheckBox( 
-                FreeGuide.msg.getString( "check_new_version_every_time" ), true );
-        butOK = new javax.swing.JButton( FreeGuide.msg.getString( "ok" ) );
 
         Container pane = getContentPane(  );
-
         pane.setLayout( new java.awt.GridBagLayout(  ) );
 
+        JLabel labTopMessage = new javax.swing.JLabel( 
+            FreeGuide.getCompoundMessage(
+                "new_version_available_at_template", messageArguments ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -77,6 +65,8 @@ public class NewVersionDialog extends JDialog
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pane.add( labTopMessage, gridBagConstraints );
 
+        butURL = new javax.swing.JButton( 
+            FreeGuide.msg.getString( "go_to_the_web_site" ) );
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pane.add( butURL, gridBagConstraints );
@@ -89,10 +79,13 @@ public class NewVersionDialog extends JDialog
                 }
             } );
 
+        chkTellMeAgain = new javax.swing.JCheckBox(
+            FreeGuide.msg.getString( "check_new_version_every_time" ), true );
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
         pane.add( chkTellMeAgain, gridBagConstraints );
 
+        butOK = new javax.swing.JButton( FreeGuide.msg.getString( "ok" ) );
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.NONE;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
@@ -117,6 +110,8 @@ public class NewVersionDialog extends JDialog
             ( screenSize.width - getWidth(  ) ) / 2,
             ( screenSize.height - getHeight(  ) ) / 2 );
 
+// To Be Added Shortly (Rob)
+//        GuiUtils.centerDialog( this );
     }
 
     /**

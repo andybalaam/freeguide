@@ -14,6 +14,9 @@ package freeguide.gui.dialogs;
 
 import freeguide.*;
 
+// To Be Added Shortly (Rob)
+//import freeguide.lib.general.*;
+
 /**
  * A small About box.
  *
@@ -22,9 +25,8 @@ import freeguide.*;
  */
 public class AboutFrame extends javax.swing.JDialog
 {
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextPane jTextPane1;
 
@@ -69,10 +71,6 @@ public class AboutFrame extends javax.swing.JDialog
 
     private void initComponents(  )
     {
-        jButton2 = new javax.swing.JButton(  );
-        jScrollPane1 = new javax.swing.JScrollPane(  );
-        jTextPane1 = new javax.swing.JTextPane(  );
-
         getContentPane(  ).setLayout( new java.awt.BorderLayout( 2, 2 ) );
 
         addWindowListener( 
@@ -84,22 +82,24 @@ public class AboutFrame extends javax.swing.JDialog
                 }
             } );
 
-        jButton2.setText( FreeGuide.msg.getString( "ok" ) );
-        jButton2.addActionListener( 
+        jButton1 = new javax.swing.JButton( FreeGuide.msg.getString( "ok" ) );
+        jButton1.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
                 {
-                    jButton2ActionPerformed( evt );
+                    jButton1ActionPerformed( evt );
                 }
             } );
 
-        getContentPane(  ).add( jButton2, java.awt.BorderLayout.SOUTH );
+        getContentPane(  ).add( jButton1, java.awt.BorderLayout.SOUTH );
 
+        jTextPane1 = new javax.swing.JTextPane(  );
         jTextPane1.setBackground( new java.awt.Color( 225, 255, 255 ) );
         jTextPane1.setEditable( false );
         jTextPane1.setContentType( "text/html\n" );
-        jScrollPane1.setViewportView( jTextPane1 );
+
+        jScrollPane1 = new javax.swing.JScrollPane( jTextPane1 );
 
         getContentPane(  ).add( jScrollPane1, java.awt.BorderLayout.CENTER );
 
@@ -110,6 +110,9 @@ public class AboutFrame extends javax.swing.JDialog
         setSize( new java.awt.Dimension( 416, 245 ) );
         setLocation( 
             ( screenSize.width - 416 ) / 2, ( screenSize.height - 245 ) / 2 );
+
+// To Be Added Shortly (Rob)
+//        GuiUtils.centerDialog( this, 416, 245 );
     }
 
     /**
@@ -117,7 +120,7 @@ public class AboutFrame extends javax.swing.JDialog
      *
      * @param evt Description of the Parameter
      */
-    private void jButton2ActionPerformed( java.awt.event.ActionEvent evt )
+    private void jButton1ActionPerformed( java.awt.event.ActionEvent evt )
     {
         setVisible( false );
         dispose(  );

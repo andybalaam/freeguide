@@ -38,17 +38,16 @@ import javax.swing.*;
  */
 public class ChannelSetListDialog extends FGDialog
 {
-
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton butEdit;
-    private javax.swing.JButton butRemove;
     private javax.swing.JButton butAdd;
-    private javax.swing.JList list;
-    private javax.swing.JButton butOK;
     private javax.swing.JButton butCancel;
+    private javax.swing.JButton butEdit;
+    private javax.swing.JButton butOK;
+    private javax.swing.JButton butRemove;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JList list;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private Vector channelsets;
 
     // The channelsets
@@ -139,25 +138,13 @@ public class ChannelSetListDialog extends FGDialog
 
     private void initComponents(  )
     {
-
         java.awt.GridBagConstraints gridBagConstraints;
-
-        jPanel1 = new javax.swing.JPanel(  );
-        butAdd = new javax.swing.JButton(  );
-        butEdit = new javax.swing.JButton(  );
-        butRemove = new javax.swing.JButton(  );
-        jScrollPane1 = new javax.swing.JScrollPane(  );
-        list = new javax.swing.JList( channelsetModel );
-        jLabel1 = new javax.swing.JLabel(  );
-        jPanel2 = new javax.swing.JPanel(  );
-        butOK = new javax.swing.JButton(  );
-        butCancel = new javax.swing.JButton(  );
 
         getContentPane(  ).setLayout( new java.awt.GridBagLayout(  ) );
 
-        jPanel1.setLayout( new java.awt.GridBagLayout(  ) );
+        jPanel1 = new javax.swing.JPanel( new java.awt.GridBagLayout(  ) );
 
-        butAdd.setText( FreeGuide.msg.getString( "add" ) );
+        butAdd = new javax.swing.JButton( FreeGuide.msg.getString( "add" ) );
         butAdd.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
@@ -173,7 +160,7 @@ public class ChannelSetListDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 10 );
         jPanel1.add( butAdd, gridBagConstraints );
 
-        butEdit.setText( FreeGuide.msg.getString( "edit" ) );
+        butEdit = new javax.swing.JButton( FreeGuide.msg.getString( "edit" ) );
         butEdit.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
@@ -189,7 +176,8 @@ public class ChannelSetListDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 10 );
         jPanel1.add( butEdit, gridBagConstraints );
 
-        butRemove.setText( FreeGuide.msg.getString( "remove" ) );
+        butRemove = new javax.swing.JButton(
+            FreeGuide.msg.getString( "remove" ) );
         butRemove.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
@@ -227,18 +215,16 @@ public class ChannelSetListDialog extends FGDialog
             nWidthAdd = nWidthRemove;
         }
 
-        butAdd.setPreferredSize( 
-            new Dimension( 
+        butAdd.setPreferredSize( new Dimension( 
                 nWidthAdd, (int)butAdd.getPreferredSize(  ).getHeight(  ) ) );
-        butEdit.setPreferredSize( 
-            new Dimension( 
+        butEdit.setPreferredSize( new Dimension( 
                 nWidthAdd, (int)butEdit.getPreferredSize(  ).getHeight(  ) ) );
-        butRemove.setPreferredSize( 
-            new Dimension( 
+        butRemove.setPreferredSize( new Dimension( 
                 nWidthAdd, (int)butRemove.getPreferredSize(  ).getHeight(  ) ) );
 
-        jScrollPane1.setViewportView( list );
+        list = new javax.swing.JList( channelsetModel );
 
+        jScrollPane1 = new javax.swing.JScrollPane( list );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -248,16 +234,17 @@ public class ChannelSetListDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 10, 5, 5 );
         getContentPane(  ).add( jScrollPane1, gridBagConstraints );
 
-        jLabel1.setHorizontalAlignment( javax.swing.SwingConstants.CENTER );
-        jLabel1.setText( FreeGuide.msg.getString( "channel_sets" ) + ":" );
+        jLabel1 = new javax.swing.JLabel( 
+            FreeGuide.msg.getString( "channel_sets" ) + ":",
+            javax.swing.SwingConstants.CENTER );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( jLabel1, gridBagConstraints );
 
-        jPanel2.setLayout( new java.awt.GridBagLayout(  ) );
+        jPanel2 = new javax.swing.JPanel( new java.awt.GridBagLayout(  ) );
 
-        butOK.setText( FreeGuide.msg.getString( "ok" ) );
+        butOK = new javax.swing.JButton( FreeGuide.msg.getString( "ok" ) );
         butOK.setPreferredSize( new java.awt.Dimension( 83, 26 ) );
         butOK.addActionListener( 
             new java.awt.event.ActionListener(  )
@@ -272,7 +259,8 @@ public class ChannelSetListDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 10, 5 );
         jPanel2.add( butOK, gridBagConstraints );
 
-        butCancel.setText( FreeGuide.msg.getString( "cancel" ) );
+        butCancel =
+            new javax.swing.JButton( FreeGuide.msg.getString( "cancel" ) );
         butCancel.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
@@ -302,6 +290,9 @@ public class ChannelSetListDialog extends FGDialog
         setSize( new java.awt.Dimension( 400, 300 ) );
         setLocation( 
             ( screenSize.width - 400 ) / 2, ( screenSize.height - 300 ) / 2 );
+
+// To Be Added Shortly (Rob)
+//        GuiUtils.centerDialog( this, 400, 300 );
     }
 
     /**

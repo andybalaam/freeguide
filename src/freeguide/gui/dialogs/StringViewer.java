@@ -12,6 +12,9 @@ package freeguide.gui.dialogs;
 
 import freeguide.*;
 
+// To Be Added Shortly (Rob)
+//import freeguide.lib.general.*;
+
 import java.awt.*;
 
 import java.io.*;
@@ -29,12 +32,11 @@ import javax.swing.*;
  */
 public class StringViewer extends JDialog
 {
-
-    private javax.swing.JTextArea txaOutput;
-    private javax.swing.JTextArea txaError;
     private javax.swing.JScrollPane scrError;
     private javax.swing.JScrollPane scrOutput;
     private javax.swing.JSplitPane splitpane;
+    private javax.swing.JTextArea txaError;
+    private javax.swing.JTextArea txaOutput;
     private StringBuffer bufOut = new StringBuffer(  );
     private StringBuffer bufErr = new StringBuffer(  );
 
@@ -57,12 +59,6 @@ public class StringViewer extends JDialog
 
     private void initComponents(  )
     {
-        splitpane = new javax.swing.JSplitPane(  );
-        scrOutput = new javax.swing.JScrollPane(  );
-        txaOutput = new javax.swing.JTextArea(  );
-        scrError = new javax.swing.JScrollPane(  );
-        txaError = new javax.swing.JTextArea(  );
-
         getContentPane(  ).setLayout( new java.awt.GridLayout(  ) );
 
         setTitle( FreeGuide.msg.getString( "view_command_output" ) );
@@ -75,16 +71,20 @@ public class StringViewer extends JDialog
                 }
             } );
 
+        splitpane = new javax.swing.JSplitPane(
+            javax.swing.JSplitPane.VERTICAL_SPLIT );
         splitpane.setDividerLocation( 100 );
-        splitpane.setOrientation( javax.swing.JSplitPane.VERTICAL_SPLIT );
-        txaOutput.setEditable( false );
-        scrOutput.setViewportView( txaOutput );
 
+        txaOutput = new javax.swing.JTextArea(  );
+        txaOutput.setEditable( false );
+
+        scrOutput = new javax.swing.JScrollPane( txaOutput );
         splitpane.setTopComponent( scrOutput );
 
+        txaError = new javax.swing.JTextArea(  );
         txaError.setEditable( false );
-        scrError.setViewportView( txaError );
 
+        scrError = new javax.swing.JScrollPane( txaError );
         splitpane.setBottomComponent( scrError );
 
         getContentPane(  ).add( splitpane );
@@ -97,6 +97,9 @@ public class StringViewer extends JDialog
         setSize( new java.awt.Dimension( 450, 400 ) );
         setLocation( 
             ( screenSize.width - 450 ) / 2, ( screenSize.height - 400 ) / 2 );
+
+// To Be Added Shortly (Rob)
+//        GuiUtils.centerDialog( this, 450, 400 );
     }
 
     /**

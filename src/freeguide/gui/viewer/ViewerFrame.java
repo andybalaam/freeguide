@@ -537,6 +537,9 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
             FreeGuide.prefs.screen.getInt( 
                 "viewer_top", ( screenSize.height - 400 ) / 2 ) );
 
+// To Be Added Shortly (Rob)
+//        GuiUtils.centerDialog( this, "viewer", 640, 400 );
+
         splitPaneChanProg.setDividerLocation( 
             FreeGuide.prefs.screen.getInt( "viewer_splitpane_vertical", 100 ) );
         splitPaneMainDet.setDividerLocation( 
@@ -579,7 +582,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
             } );
         topButtonsPanel.add( butPreviousDay, gridBagConstraints );
 
-        comTheDate.setEditable( true );
+        // **** Rob **** I think this should be false, if not, why?
+        comTheDate.setEditable( false );
         comTheDate.setFont( new java.awt.Font( "Dialog", 0, 10 ) );
         comTheDate.setMinimumSize( new java.awt.Dimension( 120, 25 ) );
         comTheDate.setPreferredSize( new java.awt.Dimension( 120, 25 ) );
@@ -1141,6 +1145,9 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
 
         goToDate( theDate.getTime(  ) );
 
+// To Be Added Shortly (Rob)
+//        GuiUtils.resizeToContents( comTheDate );
+        
         // Restart listening to item events
         comTheDate.addItemListener( comTheDateItemListener );
     }
@@ -1174,6 +1181,9 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
         comChannelSet.insertItemAt( CHANNEL_SET_EDIT_SETS, i + 1 );
         comChannelSet.setSelectedItem( 
             currentChannelSet.getChannelSetName(  ) );
+
+// To Be Added Shortly (Rob)
+//        GuiUtils.resizeToContents( comChannelSet );
 
         // Restart listening to item events
         comChannelSet.addItemListener( comChannelSetItemListener );
@@ -2210,7 +2220,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
             "viewer_splitpane_horizontal_bottom",
             splitPaneGuideDet.getDividerLocation(  ) );
         FreeGuide.prefs.screen.put( 
-            "viewer_channel_set", (String)( comChannelSet.getSelectedItem(  ) ) );
+            "viewer_channel_set",
+            (String)( comChannelSet.getSelectedItem(  ) ) );
 
         // Delete old .xmltv files
         // ---------------------

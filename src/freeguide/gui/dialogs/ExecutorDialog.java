@@ -62,9 +62,9 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor
     private PreferencesGroup prefs;
 
     //------------------------------------------------------------------------
-    private javax.swing.JLabel labPleaseWait;
     private javax.swing.JButton butCancel;
     private javax.swing.JButton butDetails;
+    private javax.swing.JLabel labPleaseWait;
     private javax.swing.JProgressBar progressBar;
 
     /**
@@ -88,14 +88,6 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor
         SimpleDateFormat showdate = new SimpleDateFormat( "yyyyMMdd" );
 
         initComponents(  );
-
-        // Centre the screen
-        java.awt.Dimension screenSize =
-            java.awt.Toolkit.getDefaultToolkit(  ).getScreenSize(  );
-
-        setLocation( 
-            ( screenSize.width - getWidth(  ) ) / 2,
-            ( screenSize.height - getHeight(  ) ) / 2 );
 
         // Set the please wait message
         Object[] messageArguments = { commandType };
@@ -143,14 +135,6 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor
 
         initComponents(  );
 
-        // Centre the screen
-        java.awt.Dimension screenSize =
-            java.awt.Toolkit.getDefaultToolkit(  ).getScreenSize(  );
-
-        setLocation( 
-            ( screenSize.width - getWidth(  ) ) / 2,
-            ( screenSize.height - getHeight(  ) ) / 2 );
-
         // Set the please wait message
         Object[] messageArguments = { commandType };
         labPleaseWait.setText( 
@@ -169,13 +153,7 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor
 
     private void initComponents(  )
     {
-
         java.awt.GridBagConstraints gridBagConstraints;
-
-        butCancel = new javax.swing.JButton(  );
-        butDetails = new javax.swing.JButton(  );
-        labPleaseWait = new javax.swing.JLabel(  );
-        progressBar = new javax.swing.JProgressBar( 0, 100 );
 
         getContentPane(  ).setLayout( new java.awt.GridBagLayout(  ) );
 
@@ -189,7 +167,8 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor
                 }
             } );
 
-        butCancel.setText( FreeGuide.msg.getString( "cancel" ) );
+        butCancel = new javax.swing.JButton(
+            FreeGuide.msg.getString( "cancel" ) );
         butCancel.setMaximumSize( new java.awt.Dimension( 115, 23 ) );
         butCancel.setMinimumSize( new java.awt.Dimension( 115, 23 ) );
         butCancel.setPreferredSize( new java.awt.Dimension( 115, 23 ) );
@@ -210,8 +189,9 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( butCancel, gridBagConstraints );
 
+        butDetails = new javax.swing.JButton(
+            FreeGuide.msg.getString( "show_output" ) );
         butDetails.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
-        butDetails.setText( FreeGuide.msg.getString( "show_output" ) );
         butDetails.setMaximumSize( new java.awt.Dimension( 115, 23 ) );
         butDetails.setMinimumSize( new java.awt.Dimension( 115, 23 ) );
         butDetails.setPreferredSize( new java.awt.Dimension( 115, 23 ) );
@@ -232,9 +212,9 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( butDetails, gridBagConstraints );
 
-        labPleaseWait.setHorizontalAlignment( 
+        labPleaseWait = new javax.swing.JLabel( 
+            FreeGuide.msg.getString( "please_wait" ),
             javax.swing.SwingConstants.CENTER );
-        labPleaseWait.setText( FreeGuide.msg.getString( "please_wait" ) );
         labPleaseWait.setBorder( 
             javax.swing.BorderFactory.createBevelBorder( 
                 javax.swing.border.BevelBorder.LOWERED ) );
@@ -251,6 +231,7 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( labPleaseWait, gridBagConstraints );
 
+        progressBar = new javax.swing.JProgressBar( 0, 100 );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -260,6 +241,17 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor
         getContentPane(  ).add( progressBar, gridBagConstraints );
 
         pack(  );
+
+        // Centre the screen
+        java.awt.Dimension screenSize =
+            java.awt.Toolkit.getDefaultToolkit(  ).getScreenSize(  );
+
+        setLocation( 
+            ( screenSize.width - getWidth(  ) ) / 2,
+            ( screenSize.height - getHeight(  ) ) / 2 );
+
+// To Be Added Shortly (Rob)
+//        GuiUtils.centerDialog( this );
     }
 
     /**
