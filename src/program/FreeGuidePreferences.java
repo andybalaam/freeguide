@@ -411,6 +411,7 @@ public class FreeGuidePreferences {
 			
 			fav.setName( name );
 			fav.setTitleString( get( key+".title_string" ) );
+			fav.setTitleContains( get( key+".title_contains" ) );
 			fav.setTitleRegex( getPattern( key+".title_regex", null ) );
 			fav.setChannelID( get( key+".channel_id" ) );
 			fav.setAfterTime( getFreeGuideTime( key+".after_time", null ) );
@@ -427,6 +428,7 @@ public class FreeGuidePreferences {
 		
 		put( key+".name", value.getName() );
 		put( key+".title_string", value.getTitleString() );
+		put( key+".title_contains", value.getTitleContains() );
 		putPattern( key+".title_regex", value.getTitleRegex() );
 		put( key+".channel_id", value.getChannelID() );
 		putFreeGuideTime( key+".after_time", value.getAfterTime() );

@@ -14,6 +14,8 @@
 	<property name="build" location="build"/>
 	<property name="dist"  location="dist"/>
 
+	<property name="freeguideversion"  value="FreeGuide-0_4_3"/>
+	
   	<target name="init">
   
     	<!-- Create the time stamp -->
@@ -116,7 +118,7 @@
 		<copy file="${src}/install/install-win-uk.props" tofile="${build}/install-win-uk/install.props" />
 		
 		<!-- Make the jar installer file -->
-		<jar 	jarfile="${dist}/FreeGuide-Win-UK-Install.jar"
+		<jar 	jarfile="${dist}/${freeguideversion}-Win-UK-Install.jar"
 				basedir="${build}/install-win-uk"
 				manifest="${src}/manifests/FreeGuideInstall.mf"/>
   
@@ -153,7 +155,7 @@
 		<!-- copy in the install.props file for the jar -->
 		<copy file="${src}/install/install-win-na.props" tofile="${build}/install-win-na/install.props" />
 		
-		<jar 	jarfile="${dist}/FreeGuide-Win-NA-Install.jar"
+		<jar 	jarfile="${dist}/${freeguideversion}-Win-NA-Install.jar"
 				basedir="${build}/install-win-na"
 				manifest="${src}/manifests/FreeGuideInstall.mf"/>
   
@@ -181,7 +183,7 @@
 		<copy file="${src}/install/install-lin-uk.props" tofile="${build}/install-lin-uk/install.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
-		<jar 	jarfile="${dist}/FreeGuide-Linux-UK-Install.jar"
+		<jar 	jarfile="${dist}/${freeguideversion}-Linux-UK-Install.jar"
 				basedir="${build}/install-lin-uk"
 				manifest="${src}/manifests/FreeGuideInstall.mf"/>
   
@@ -209,7 +211,7 @@
 		<copy file="${src}/install/install-lin-na.props" tofile="${build}/install-lin-na/install.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
-		<jar 	jarfile="${dist}/FreeGuide-Linux-NA-Install.jar"
+		<jar 	jarfile="${dist}/${freeguideversion}-Linux-NA-Install.jar"
 				basedir="${build}/install-lin-na"
 				manifest="${src}/manifests/FreeGuideInstall.mf"/>
   
@@ -218,7 +220,7 @@
 	<target name="FreeGuide-Source"
   		description="generate the source zip" depends="init">
 		
-		<zip zipfile="${dist}/FreeGuide-Source.zip">
+		<zip zipfile="${dist}/${freeguideversion}-Source.zip">
 			<zipfileset dir="${src}" prefix="src" />
 			<zipfileset dir="${doc}" prefix="doc" />
 			<fileset dir="." includes="build.xml" />

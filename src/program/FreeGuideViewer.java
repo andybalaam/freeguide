@@ -37,7 +37,7 @@ import org.xml.sax.SAXException;
  * A form that displays and prints TV listings.
  *
  * @author  Andy Balaam
- * @version 12
+ * @version 13
  */
 public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLauncher {
 
@@ -133,7 +133,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         channelNamePanel = new javax.swing.JPanel();
         //outerPanel = new javax.swing.JPanel();
         innerScrollPane = new javax.swing.JScrollPane();
-        innerPanel = new javax.swing.JPanel();
+        innerPanel = new FreeGuideInnerPanel();
         //timeScrollPane = new javax.swing.JScrollPane();
         timePanel = new FreeGuideTimePanel();
         butRevertFavs = new javax.swing.JButton();
@@ -450,8 +450,20 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
         pack();
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(new java.awt.Dimension(615, 345));
-        setLocation((screenSize.width-615)/2,(screenSize.height-345)/2);
+		
+		// Load the window size and position etc.
+		// --------------------------------------
+		setSize(
+			FreeGuide.prefs.screen.getInt("viewer_width", 615),
+			FreeGuide.prefs.screen.getInt("viewer_height", 345) );
+		
+		setLocation(
+			FreeGuide.prefs.screen.getInt("viewer_left", (screenSize.width-615)/2 ),
+			FreeGuide.prefs.screen.getInt("viewer_top", (screenSize.height-345)/2 ) );
+			
+		jSplitPane1.setDividerLocation(FreeGuide.prefs.screen.getInt("viewer_splitpane_vertical", 100));
+		splitPane.setDividerLocation(FreeGuide.prefs.screen.getInt("viewer_splitpane_horizontal", 150));
+		
     }//GEN-END:initComponents
 
 	private void popProgPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_popProgPopupMenuWillBecomeVisible
@@ -791,6 +803,15 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	 */
 	private void quit() {
 		
+		// Save the window size and position etc.
+		// --------------------------------------
+		FreeGuide.prefs.screen.putInt("viewer_left", getX());
+		FreeGuide.prefs.screen.putInt("viewer_top", getY());
+		FreeGuide.prefs.screen.putInt("viewer_width", getWidth());
+		FreeGuide.prefs.screen.putInt("viewer_height", getHeight());
+		FreeGuide.prefs.screen.putInt("viewer_splitpane_vertical", jSplitPane1.getDividerLocation());
+		FreeGuide.prefs.screen.putInt("viewer_splitpane_horizontal", splitPane.getDividerLocation());
+		
 		// Delete old .fgd files
 		// ---------------------
 		
@@ -831,6 +852,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 		// Exit
 		// ----
+		FreeGuide.log.info("FreeGuide - Ending normally.");
 		System.exit(0);
 		
 	}//quit
@@ -1435,7 +1457,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private javax.swing.JButton butNext;
     private javax.swing.JButton butPrev;
     private javax.swing.JButton butGoToNow;
-    private javax.swing.JPanel innerPanel;
+    private FreeGuideInnerPanel innerPanel;
     private javax.swing.JScrollPane innerScrollPane;
     private javax.swing.JPopupMenu popProg;
     //private javax.swing.JPanel outerPanel;

@@ -55,6 +55,7 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 					uninstall(install_directory);
 					break;
 				default:
+					System.err.println("Exiting installer without doing anything.");
 					System.exit(0);
 			}
 			
@@ -63,15 +64,6 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 	}
 	
 	public void reShow() {
-		/*try {
-			
-			doInstall();
-			System.exit(0);
-			
-		} catch(java.io.IOException e) {
-			e.printStackTrace();
-			System.exit(1);
-		}*/
 		
 	}
 	
@@ -149,6 +141,7 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		
 		JOptionPane.showMessageDialog(null, "FreeGuide has been successfully uninstalled.");
 		
+		System.err.println("Finished uninstall.");
 		System.exit(0);
 		
 	}
@@ -259,6 +252,7 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 			prefs.commandline.putStrings("browser_command", browser);
 			prefs.misc.putFreeGuideTime("day_start_time", new FreeGuideTime(6,0));
 		
+			System.err.println("Finished install.");
 			System.exit(0);
 			
 		} catch(java.io.IOException e) {

@@ -22,7 +22,7 @@ import java.util.GregorianCalendar;
  * A description of a favourite TV program, vague or specific.
  *
  * @author  Andy Balaam
- * @version 2
+ * @version 3
  */
 public class FreeGuideFavourite {
 	
@@ -48,6 +48,12 @@ public class FreeGuideFavourite {
 		// Match the title exactly
 		if( (titleString != null) && !titleString.equals(progTitle) ) {
 			//FreeGuide.log.info(progTitle + " Title match failed");
+			return false;
+		}
+		
+		// Match the title to containing a string
+		if( (titleContains!=null) && (progTitle.indexOf(titleContains)==-1) ) {
+			//FreeGuide.log.info(progTitle + " Title contains failed");
 			return false;
 		}
 		
@@ -97,6 +103,7 @@ public class FreeGuideFavourite {
 	
 	public String getName(){return name;}
 	public String getTitleString(){return titleString;}
+	public String getTitleContains(){return titleContains;}
 	public Pattern getTitleRegex(){return titleRegex;}
 	public String getChannelID(){return channelID;}
 	public FreeGuideTime getAfterTime(){return afterTime;}
@@ -105,6 +112,7 @@ public class FreeGuideFavourite {
 	
 	public void setName(String name){this.name = name;}
 	public void setTitleString(String titleString){this.titleString = titleString;}
+	public void setTitleContains(String titleContains){this.titleContains = titleContains;}
 	public void setTitleRegex(Pattern titleRegex){this.titleRegex = titleRegex;}
 	public void setChannelID(String channelID){this.channelID = channelID;}
 	public void setAfterTime(FreeGuideTime afterTime){this.afterTime = afterTime;}
@@ -115,6 +123,7 @@ public class FreeGuideFavourite {
 	
 	private String name;			// The user-specified name of this favourite
 	private String titleString;		// Exact match for the title
+	private String titleContains;		// Exact match for the title
 	private Pattern titleRegex;		// Regular expression to match the title
 	private String channelID;		// The channel it must be on
 	private FreeGuideTime afterTime;// The time it must be on after

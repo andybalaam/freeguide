@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
  * A screen for editing a single favourite.
  *
  * @author  Andy Balaam
- * @version 1
+ * @version 2
  */
 public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 	
@@ -44,6 +44,9 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 		if(favourite.getTitleString() !=null) {
 			txtTitle.setText( favourite.getTitleString() );
 			cmbTitle.setSelectedItem("Exactly");
+		} else if(favourite.getTitleContains() !=null) {
+			txtTitle.setText( favourite.getTitleContains() );
+			cmbTitle.setSelectedItem("Contains");
 		} else if (favourite.getTitleRegex() !=null) {
 			txtTitle.setText( favourite.getTitleRegex().pattern() );
 			cmbTitle.setSelectedItem("Regular Expression");
@@ -73,6 +76,7 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 		
 		// The combobox for the title match type
 		cmbTitle.addItem("Exactly");
+		cmbTitle.addItem("Contains");
 		cmbTitle.addItem("Regular Expression");
 		
 		channelIDs = ((FreeGuideViewer)launcher.getLauncher()).getChannelIDs();
@@ -115,6 +119,7 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 		if(cmbTitle.getSelectedItem().equals("Exactly")) {
 			
 			favourite.setTitleRegex( null );
+			favourite.setTitleContains( null );
 			
 			String tmp = txtTitle.getText();
 			if(tmp.equals("")) {
@@ -123,7 +128,22 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 				favourite.setTitleString( tmp );
 			}
 			
+		} else if(cmbTitle.getSelectedItem().equals("Contains")) {
+			
+			favourite.setTitleString( null );
+			favourite.setTitleRegex( null );
+			
+			String tmp = txtTitle.getText();
+			if(tmp.equals("")) {
+				favourite.setTitleContains( null );
+			} else {
+				favourite.setTitleContains( tmp );
+			}
+			
 		} else {
+			
+			favourite.setTitleString( null );
+			favourite.setTitleContains( null );
 			
 			String tmp = txtTitle.getText();
 			if(tmp.equals("")) {
@@ -131,8 +151,6 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 			} else {
 				favourite.setTitleRegex( Pattern.compile(tmp) );
 			}
-			
-			favourite.setTitleString( null );
 			
 		}
 		
@@ -208,6 +226,8 @@ public class FreeGuideFavouriteEditor extends javax.swing.JFrame {
 				
 				if(cmbTitle.getSelectedItem().equals("Exactly")) {
 					name += ""+title+" ";
+				} else if(cmbTitle.getSelectedItem().equals("Contains")) {
+					name += "contains "+title+" ";
 				} else {
 					name += "/"+title+"/ ";
 				}

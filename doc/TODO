@@ -32,7 +32,7 @@ feel like it.
 - FAQ?
 - Other platforms - investigate Mac, BSD, others
 
-- Release 0.6 (less urgent or harder features)
+- Release 0.5 (less urgent or harder features)
 
 - Alert me when my programme starts
 - coloured programme categories and favourites
@@ -44,47 +44,47 @@ feel like it.
 - Fix feature that if you reinstall to a new dir the old install can't be
 	uninstalled (well, you have to delete the directory instead...)
 - Help manual
-
-- Release 0.5 (most wanted features)
-
-+ Why do numbers disappear from the time line (Linux only?)
 - Multiline tooltips if too long
-- Remember window sizes and positions between uses
-- Add "Contains" option to title match in favourites
-- fix in tv_split for de's lack of channels (or fix tv_grab_de to use configure and to do channels
 - Remove capability to support grabber without --configure step if that's the way it's going.
 - OR deal with grabber that doesn't use a config file? (aka get tv_grab_de working)
 - Choose how old files are before you delete them
 - Properties box for a programme showing longer descriptions, other DTD stuff
 - Terms and conditions of listings
 - --configure support for tv_grab_na and uk (talk to XMLTV people) (this should be in the installer probably)
-- Dynamic update of command output window
 - --days support
 - Further visual enhancements and customisability
 - Ability to save and load preferences (using Java's ability to save to XML)
-+ Ability to turn off listing at bottom of screen. (added one-touch buttons)
-+ Move XML stuff to a separate object from FreeGuideViewer
 - Other code rationalisation, FIXMEs, remove commented sections
 - Separate classes into packages
 - Refactor to rename losing FreeGuide prefix to most classes
-+ Tidy up FreeGuideOptionsWizard - make it not a wizard
 - Make FreeGuideInstaller not implement FreeGuideLauncher
 - Make installer install shortcuts for Windows, Gnome and KDE
-- Make installer launcher FreeGuide and/or a README file.
-- Other installer features?
+- Make installer launch FreeGuide and/or a README file.
+- Other installer features? e.g. one installer for Linux that lets you choose.
 - Make a subclass of JLabel that represents the visual display of a programme
 	and record e.g. is it a favourite, is it ticked?
 - Hence rewrite FreeGuideViewer much better
-- Shortcut keys for everything
 - Fix GoToNow to deal with days dividing at non-midnight times.
 - Fix what happens when you go through to another day then click GoToNow
-- New screenshots for web site, and freshmeat.
-- Rename files with version number on build
-- Fix possible NullPointerException in StartupChecker.checkFileFailure
-- Add the fact that your .jar installer has to be executed by javaw on Windows,
-	not WinRAR, etc. to the readmes
 - Allow changing of font sizes from customise screen
-- Fix scrollbar arrows only moving display a tiny bit
+- fix in tv_split for de's lack of channels (or fix tv_grab_de to use configure and to do channels
+- Dynamic update of command output window
+- Fix possible NullPointerException in StartupChecker.checkFileFailure
+- Shortcut keys for everything
+
++ Release 0.4.3 (most wanted features)
+
++ Why do numbers disappear from the time line (Linux only?)
++ Remember window sizes and positions between uses
++ Add "Contains" option to title match in favourites
++ Ability to turn off listing at bottom of screen. (added one-touch buttons)
++ Move XML stuff to a separate object from FreeGuideViewer
++ Tidy up FreeGuideOptionsWizard - make it not a wizard
+- New screenshots for web site, and freshmeat.
++ Rename files with version number on build
++ Add the fact that your .jar installer has to be executed by javaw on Windows,
+	not WinRAR, etc. to the readmes
++ Fix scrollbar arrows only moving display a tiny bit
 + Use columnHeaderView of scrollpane for time panel (doh!)
 
 + Release 0.4.2 (mainly bug fixes)
