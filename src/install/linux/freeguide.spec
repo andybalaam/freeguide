@@ -46,7 +46,7 @@ FreeGuide requires Java 2 version 1.4.
 ant FreeGuide-Linux-NoXMLTV
 
 %install
-ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dreal_install_share_dir=%{_datadir} install-Linux-NoXMLTV-files
+ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} install-Linux-NoXMLTV-files
 
 %clean
 ant clean
