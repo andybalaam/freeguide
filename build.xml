@@ -6,6 +6,19 @@
         Ant build file for FreeGuide.
     </description>
 
+    <!--
+     List of files containing FreeGuide's version number:
+     
+     - build.xml
+     - doc/VERSION.php
+     - src/freeguide/FreeGuide.java
+     - src/install/linux/freeguide.spec (2 places)
+     - src/install/linux/freeguide.1
+     - src/install/windows/freeguide.nsi
+     
+     All of these must be updated when a new version is made.
+    -->
+    
     <!-- set global properties for this build -->
     <property name="src" location="src" />
     <property name="doc"  location="doc" />

@@ -207,13 +207,19 @@ c  means done by Christian Weiske
   so that they fit under the German translation.
 - Use latest XMLTV
 - Decide what to do about changing the number of days' xml files to keep.
+- Go through all the files that mention the version number and set the version
+  automatically, instead of hard-coding.  Don't break eclipse etc. support.
+  Do this in the ant "compile" task.
+- Make 00:00 starts after time in favourites _either_ late at night _or_ early
+  in the morning depending what the starts before time is - see debian bug
+  http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=285719
 
 + 0.9pre3 (xmltv 0.5.39)
 
-- include xmltv 0.5.39
++ include xmltv 0.5.39
 + Fix docs to mention only valid grabbers
-- Support only grabbers included in xmltv 0.5.39
-- Make sure the share dir stuff is identical to xmltv 0.5.39
++ Support only grabbers included in xmltv 0.5.39
++ Make sure the share dir stuff is identical to xmltv 0.5.39
 + Support --xxx=yyy style options on the command line
 c Channel set editor and channel set list have resizable buttons with the same width now
 
@@ -262,11 +268,15 @@ c Translate into German
   mean it will be recorded.)
 + Make hearts appear on favourites.
 
++ Release 0.8.5
+
++ Make Windows version know what version it is
+
 + Release 0.8.4 (xmltv 0.5.39)
 
-- Include xmltv 0.5.39
-- Support only grabbers included in xmltv 0.5.39
-- Make sure the share dir stuff is identical to xmltv 0.5.39
++ Include xmltv 0.5.39
++ Support only grabbers included in xmltv 0.5.39
++ Make sure the share dir stuff is identical to xmltv 0.5.39
 
 + Release 0.8.3 (Java 1.4)
 
