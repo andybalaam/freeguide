@@ -86,7 +86,7 @@ c  means done by Christian Weiske
 - Deal with programme ratings
 - x-dist icon support in RPM http://www.hyperborea.org/software/dillo/dillo.spec
 - Look into SQL engines: http://www.mckoi.com/database/
-	
+
 - Release 0.9.3 (preferences creep)
 
 - Choose how old files are before you delete them
@@ -178,8 +178,8 @@ c  means done by Christian Weiske
 - Delete all registry entries on Windows uninstall
 - Check whether you really need to set the timezone.
 - Fix bug with multiple reminders if you enter a page multiple times.
-  
-- Release 0.9 (Keyboard navigation, internationalisation, recording) 
+
+- Release 0.9 (Keyboard navigation, internationalisation, recording)
 
 - Fix bug where vertical scrolling makes the cursor disappear
 - Make the StripView focussed when you click on a programme
@@ -187,7 +187,7 @@ c  means done by Christian Weiske
 - Automate building with swingwt to an exe
 - If a link for a program in the "personalized tv guide" is clicked, the
   program view scrolls to it. It would be also nice if the detail view
-  would change to it. 
+  would change to it.
 - after clicking on the "Edit channel sets" item in the channel set
   dropdown, it stays selected. It would be nice if the previous selected
   item would be selected again.
@@ -205,6 +205,7 @@ c  means done by Christian Weiske
 - Increase the sizes of buttons in Channel Sets, Options and First Time Wizard
   so that they fit under the German translation.
 - Use latest XMLTV
+c Channel set editor and channel set list have resizable buttons with the same width now
 
 + 0.9pre2 (Stabilising MVC work)
 
@@ -390,7 +391,7 @@ m Scroll to programme in viewer on click in HTML view
 + Update docs
 + Make channel sets update after you've edited them.
 + Finish privacy dialogue
-+ Fix popups coming up behind window on startup bug (using a later time?) 
++ Fix popups coming up behind window on startup bug (using a later time?)
 + Refresh after download (using dialog?)
 + Fix blank country in Install
 + Check that all prefs are covered in Options screen
@@ -413,7 +414,7 @@ e Anti-alias heart icon for Favourites
 	(using secret options misc.reminders_on and misc.reminders_warning_secs)
 + Automate creation of tar.gz Source package with Debian naming
 + Use sensible naming for zip package too.
-	
+
 + Release 0.6.1 (gradual improvements to GUI begin)
 
 + Implement sub-titles properly to avoid favourites-not-working regression
@@ -492,7 +493,7 @@ b Change Favourites, Customiser, Channel Sets frames to JDialogs
 ^ Parse Movies for NA and UK from XML
 ^ Parse and display star-rating for movies
 ^ Parse "previously shown" (repeated program) from XML
-^ Choose between displaying the start time in the programme grid (or not) 
+^ Choose between displaying the start time in the programme grid (or not)
 
 + Release 0.5.1 (Stable bug-fix release)
 
@@ -597,8 +598,8 @@ x Display which channels are missing when some listings are missing.
 	the misc.install_directory pref exists) - if click uninstall, delete the
 	whole installation directory, and the working directory if there is one,
 	and the preferences group for FreeGuide.
-+ Make the selected fav on the favourites list presistent 
-	
++ Make the selected fav on the favourites list presistent
+
 + Release 0.4
 
 + Make downloading work on Windows, from within FreeGuide (requires XMLTV 0.5)
