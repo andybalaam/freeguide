@@ -88,18 +88,35 @@ W  means work in progress by Walter Duncan
 - Make installer install shortcuts for Windows, Gnome and KDE
 - Make installer launch FreeGuide and/or a README file (what about configuring
 	on Windows?)
+- If there is more than one grabber command to execute, the output isn't 
+	allways captured (intermittent linux java 1.4.1_01).  Maybe add a
+	permanent (not always visible) viewer w/ a clear button, or 
+	timestamped output...
 
 - Release 0.5 (Features - especially use of many grabbers, and bug fixes)
 
-W Dynamic population of the date list comboBox based on available data
-W Add configurable option to set default "today" offset (uk=1, NA=0)
+* Dynamic population of the date list comboBox based on available data
+* Add configurable option for default grabber_today_offset (uk=1, NA=0)
 W Add configurable option to set grabber day start (na=00:00, uk=06:00)
-W Add configurable option to set grabber starting day 
-  checkbox with "today", or current showing day
+* Add configurable option grabber_start_today with "today", or current showing day
+W Add configurable checkbox option (convert grabber_start_today? option)
 - Fix bug with different day start times on grabber and FG.
-- Fix bug with NullPointerException when you start and there's no listings
-- Fix concept of missing time.
+	(same as grabber day start above I think.)
+-W Fix bug with NullPointerException when you start and there's no listings
+	(This will overlap the Dynamic ComboBox population I suspect... See if I've
+	fixed it).
+- Fix concept of missing time.  (Huh?)
 - Stop it from grabbing stuff that's already been done.
+- Endles loop (Download Listings? Dialog --> Yes --> 
+	execute grabber for yesterday --> Download listings? Dialog --> Yes -> 
+	execute grabber for yesterday --> etc.)
+	when No data files,
+		Viewer.theDate is yesterday, 
+		now is today(the day after yesterday), and
+		days_to_download = 1
+	(see FIXMEs in SAXHandler)  Also make missingFiles be of Calendar type
+	and pass it to downloadListings() (if we do this beware 
+	grabber_start_today option)
 + Seems to be a bug where only first grabber command executes.
 + Ability to control how many days are downloaded
 + Support for new grabbers
