@@ -1,13 +1,16 @@
 Time flows upward.  Releases happen when all actions
 below them are completed.
 
-This document is at risk of radical change whenever Ifo
+This document is at risk of radical change whenever I
 feel like it.
 
-- means to do
-+ means done by Andy Balaam
-x means done by Sagar Shah
-* means done by Walter Duncan
+-  means to do (unclaimed)
++  means done by Andy Balaam
+A  means work in progress by Andy Balaam
+x  means done by Sagar Shah
+S  means work in progress by Sagar Shah
+*  means done by Walter Duncan
+W  means work in progress by Walter Duncan
 
 --------------------------------------------
 
@@ -77,7 +80,7 @@ x means done by Sagar Shah
 - Separate classes into packages
 - Allow "file" in installer to use wildcards (for win-uk share stuff)
 - Custom channel ordering
-- Dynamic population of the date list comboBox based on available data
+W Dynamic population of the date list comboBox based on available data
 - Scroll to the programme you've just added in the list view
 
 - Release 0.4.4 (Features - especially use of many grabbers, and bug fixes)
@@ -92,6 +95,11 @@ x means done by Sagar Shah
 - Fix bug that means favourites sometimes aren't chosen
 - Allow for the fact that a grabber may use dates without seconds, and other
 	differences (e.g. tv_grab_de).
+- Seems to be a bug where only first grabber command executes.
+W Add configurable option to set default "today" offset (uk=1, NA=0)
+W Add configurable option to set grabber day start (na=00:00, uk=06:00)
+W Add configurable option to set grabber starting day 
+  checkbox with "today", or current showing day
 + Make installer understand file>location syntax of props files including
 	changing share to be included in file stuff.
 + Remove the need for tv_split by calling the grabber once for each day required
