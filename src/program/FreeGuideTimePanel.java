@@ -56,9 +56,14 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 			super.paintComponent(g);
 			
 			int wid = this.getPreferredSize().width;
-//DMT TODO add HH:mm back in as option		
-			SimpleDateFormat fmt = new SimpleDateFormat("h:mm aa");
-		
+			SimpleDateFormat fmt;
+
+			//DMT use preferences for 24 hour or 12 hour display
+			if (FreeGuide.prefs.screen.getBoolean("display_24hour_time", true))
+			  fmt = time24format;
+			else
+			  fmt = timeformat;
+
 			if(wid>0) {
 		
 				Rectangle drawHere = g.getClipBounds();
@@ -170,5 +175,7 @@ public class FreeGuideTimePanel extends javax.swing.JPanel {
 	private double multiplier;	// The no. millisecs over the no. pixels
 	
 	private boolean display=false;
+	private final SimpleDateFormat time24format = new SimpleDateFormat("HH:mm");
+	private final SimpleDateFormat timeformat = new SimpleDateFormat("h:mm aa");
 	
 }
