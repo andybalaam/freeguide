@@ -75,11 +75,9 @@ public class FreeGuide {
             }
             
         }
-        
 
         // [Note: upgrade question just notifies you that your custom settings
         // will be over-written and lets you cancel.]
-        //
         
     }
     
@@ -174,7 +172,7 @@ public class FreeGuide {
     }
 
     /**
-     * Convenient way to vlear out all the settings when we're experimenting
+     * Convenient way to clear out all the settings when we're experimenting
      * with different installations of FreeGuide.
      */
     private void removeSettings() {
@@ -258,7 +256,7 @@ public class FreeGuide {
     /**
 	 *  The current version of the programme
 	 */
-    public final static Version version = new Version( 0, 8, 0 );
+    public final static Version version = new Version( 0, 8, 1 );
 	
 	/**
 	 *  Default colour of a normal programme

@@ -59,7 +59,7 @@ r  means done by Rob Stewart
 - Manual
 - Use serialization to reduce startup time
 
-- Release 0.8.4 (nice features)
+- Release 0.8.5 (nice features)
 
 - Run an exe when a programme is about to start and/or end
 - Add firefox to the possible browsers.
@@ -83,7 +83,7 @@ r  means done by Rob Stewart
 - x-dist icon support in RPM http://www.hyperborea.org/software/dillo/dillo.spec
 - Look into SQL engines: http://www.mckoi.com/database/
 	
-- Release 0.8.3 (preferences creep)
+- Release 0.8.4 (preferences creep)
 
 - Choose how old files are before you delete them
 - Ability to save and load preferences (using Java's ability to save to XML)
@@ -108,7 +108,7 @@ r  means done by Rob Stewart
   from an installer to a first time wizard)
 - Allow selection only of programmes on channels that are currently displayed
 
-- Release 0.8.2 (aesthetics)
+- Release 0.8.3 (aesthetics)
 
 - Go To Now scrolls the personalised listing panel as well as the main panel
 - Coloured favourites categories (text and/or background)
@@ -125,7 +125,7 @@ r  means done by Rob Stewart
 - Add icons to UK and US listings
 - Fix that BackingStoreException.
 
-- Release 0.8.1 (accessibility, accessibility, accessibility)
+- Release 0.8.2 (accessibility, accessibility, accessibility)
 
 - Improve accessibility, specifically keyboard shortcuts
 - Shortcut keys for everything
@@ -146,6 +146,14 @@ r  means done by Rob Stewart
 - Make icons optional in Windows installer
 - rename program folder to freeguide
 - Update screenshots on sf and freshmeat to show channel and program icons
+
+- Release 0.8.1 (bug fix)
+
+- Fix windows problem by deleting any install_directory preference stored in
+  the user prefs section
+- Fix linux problem of null install_directory by changing it so it installs
+  the docs to the working directory after you run the first time wizard.  Now
+  the linux version doesn't need to know where it's installed to work.
 
 + Release 0.8 (native installers & first time wizard)
 

@@ -14,7 +14,7 @@
 	<property name="build" location="build"/>
 	<property name="dist"  location="dist"/>
     
-	<property name="freeguideversion"  value="FreeGuide-0.8"/>
+	<property name="freeguideversion"  value="FreeGuide-0.8.1"/>
 
   	<target name="init">
 
@@ -36,21 +36,12 @@
             an install - this will be /usr/share or equivalent -->
         <property name="install_jar_dir"
             location="${install_share_dir}/freeguide" />
-        <property name="install_doc_dir" location="${install_jar_dir}/doc" />
+
         <property name="install_pixmap_dir" location="${install_share_dir}/pixmaps/freeguide" />
         
         <mkdir dir="${install_jar_dir}"/>
         <copy file="${dist}/${freeguideversion}-Linux-NoXMLTV.jar"
             tofile="${install_jar_dir}/FreeGuide.jar" />
-
-        <mkdir dir="${install_doc_dir}" />        
-        <copy todir="${install_doc_dir}/" >
-            <fileset dir="${doc}">
-                <include name="*" />
-                <exclude name="uploadweb.sh" />
-                <exclude name="VERSION.php" />
-            </fileset>
-        </copy>
 
         <!-- Copy the different-sized icons to the freeguide pixmaps dir -->
         <mkdir dir="${install_pixmap_dir}" />
@@ -85,6 +76,10 @@
   		<!-- copy in the required images -->
   		<copy todir="${build}/program" file="${src}/images/logo-256x256.png" />
 
+        <copy todir="${build}/doc/">
+			<fileset dir="${doc}" excludes="nonlocal/,*.sh,*.php,**/.xvpics/**" />
+        </copy>
+        
 		<!-- gzip the man page -->
         <gzip src="${src}/install/linux/freeguide.1" zipfile="${build}/freeguide.1.gz"/>
         
@@ -170,8 +165,11 @@
 		<!-- Copy the program file and docs -->
 		<copy todir="${build}/linux">
             <fileset dir="${build}/program"/>
-			<fileset dir="${build}/doc/" excludes="nonlocal/" />
 		</copy>
+        
+        <copy todir="${build}/linux/doc">
+            <fileset dir="${build}/doc" />
+        </copy>
 
 		<!-- Copy the XMLTV DTD -->
 		<copy file="${xmltv}/xmltv.dtd" todir="${build}/linux" />

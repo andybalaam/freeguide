@@ -412,12 +412,16 @@ public class FGPreferences {
         
         String value = prefs.get( key, null );
         if( value == null ) {
-            value = system_prefs.get( key, null );
+            value = getSystem( key );
         }
         return value;
         
     }
 
+    public String getSystem(String key) {
+        return system_prefs.get( key, null );
+    }
+    
 
     // ------------------------------------------------------------------------
     // Special pseudo-wrappers

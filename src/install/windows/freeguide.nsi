@@ -9,7 +9,7 @@
 Name "FreeGuide"
 
 ; The file to write
-OutFile "..\..\..\installer\FreeGuide-0.8-Windows.exe"
+OutFile "..\..\..\installer\FreeGuide-0.8.1-Windows.exe"
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\FreeGuide 
@@ -44,7 +44,7 @@ Section "Installer Section"
 
   SetOutPath $INSTDIR
   
-  File /oname=FreeGuide.jar ..\..\..\dist\FreeGuide-0.8-Win.jar
+  File /oname=FreeGuide.jar ..\..\..\dist\FreeGuide-0.8.1-Win.jar
   
   ; ------------ remember install dir in Java prefs -------------
   

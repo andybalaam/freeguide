@@ -39,7 +39,7 @@ public class FirstTimeWizard {
         this.launcher = launcher;
         
 		setStandardProps();
-		
+        
 		// If we haven't got a region, assume it's UK.
 		if( FreeGuide.prefs.misc.get( "region" ) == null ) {
 			FreeGuide.prefs.misc.put( "region", "UK" );
@@ -177,6 +177,15 @@ public class FirstTimeWizard {
      */
     private void setStandardProps() {  
 		
+        // First delete any pre-0.8 style install directory
+        if( FreeGuide.prefs.misc.getSystem( "install_directory" ) != null ) {
+            
+            FreeGuide.prefs.misc.remove( "install_directory" );
+            
+        }
+        
+        // Then load up the properties in the file install-all.props
+        
 		standardProps = new Properties();
 		
 		try {
@@ -286,29 +295,6 @@ public class FirstTimeWizard {
     }
 
 
-    /**
-     *  Deletes a whole directory recursively (also deletes a single file).
-     *
-     *@param  dir  The directory to delete
-     */
-    /*private void deleteDir(File dir) {
-
-        if (!dir.exists()) {
-            return;
-        }
-
-        if (dir.isDirectory()) {
-            String[] list = dir.list();
-            for (int i = 0; i < list.length; i++) {
-                deleteDir(new File(dir.getPath() + File.separator + list[i]));
-            }
-        }
-
-        dir.delete();
-
-    }*/
-
-
 	public void quitFirstTimeWizard() {
 		
 		FreeGuide.log.info( "The user quit the install before it completed." );
@@ -323,8 +309,14 @@ public class FirstTimeWizard {
 
         try {
 
-            new File(FreeGuide.prefs.performSubstitutions(
-                    FreeGuide.prefs.misc.get("xmltv_directory"))).mkdirs();
+            String xmltv_directory = FreeGuide.prefs.misc.get(
+                "xmltv_directory");
+            
+            if( xmltv_directory != null ) {
+                new File( FreeGuide.prefs.performSubstitutions(
+                    xmltv_directory ) ).mkdirs();
+            }
+            
             new File(FreeGuide.prefs.performSubstitutions(
                     FreeGuide.prefs.misc.get("working_directory"))).mkdirs();
 
@@ -354,7 +346,7 @@ public class FirstTimeWizard {
                 
         }
 		
-        if(configGrabber) {
+        /*if(configGrabber) {
         
             String pw_file = FreeGuide.prefs.misc.get( "password_file" );
             
@@ -380,7 +372,7 @@ public class FirstTimeWizard {
                 
             }
             
-		}
+		}*/
 		
 		if( showREADME ) {
 			
@@ -479,45 +471,6 @@ public class FirstTimeWizard {
         out.close();
 
     }
-
-
-    /**
-     *  Description of the Method
-     *
-     *@param  prefString  Description of the Parameter
-     */
-    /*private void doPref(String prefString) {
-
-        // Split this string into its constituent parts
-
-        int i = prefString.indexOf('=');
-        String key = prefString.substring(0, i);
-        String value = prefString.substring(i + 1);
-
-        i = key.indexOf('.');
-        String keyCategory = key.substring(0, i);
-        key = key.substring(i + 1);
-
-        // Find out what preferences category we're dealing with
-        FGPreferences pr;
-        if (keyCategory.equals("misc")) {
-            pr = FreeGuide.prefs.misc;
-        } else if (keyCategory.equals("commandline")) {
-            pr = FreeGuide.prefs.commandline;
-        } else {
-            // Following is to make it compile ok.
-            pr = FreeGuide.prefs.misc;
-            FreeGuide.die("Unknown preferences group: " + keyCategory
-                    + " - Aborting");
-        }
-
-        // Set the default value
-        pr.put("default-" + key, value);
-
-        // And the real value
-        pr.put(key, value);
-        
-    }*/
 
     private FreeGuide launcher;
 

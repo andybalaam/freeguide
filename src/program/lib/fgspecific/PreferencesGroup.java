@@ -680,6 +680,8 @@ public class PreferencesGroup {
         
         pr.put( key, value );
         
+        //FreeGuide.log.info( "-" + key + "---" + value + "-" );
+        
     }
     
     /**
