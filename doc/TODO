@@ -54,14 +54,14 @@ e  means done by Ewan Harrow
 - Use cron to alert when programmes are going to start
 - Generate crontab file for downloading listings.
 
-- Release 0.8
+- Release 0.9
 
 - Manual
 - FAQ
 - Do some profiling and algorithm thinking and get startup time down if poss.
 - single channel view
 
-- Release 0.7 (nice features)
+- Release 0.8 (nice features)
 
 - Fix feature that if you reinstall to a new dir the old install can't be
 	uninstalled (well, you have to delete the directory instead...)
@@ -82,7 +82,7 @@ e  means done by Ewan Harrow
 - Make installer install shortcuts for Windows, Gnome and KDE
 - Make installer launch xmltv configure
 
-- Release 0.6.7 (preferences creep)
+- Release 0.7.4 (preferences creep)
 
 - Multiline tooltips if too long (if possible)
 - Choose how old files are before you delete them
@@ -93,7 +93,7 @@ e  means done by Ewan Harrow
 	which need to be scanned on startup (in fact that is a better way to do
 	it in even if we stick with choices.).
 
-- Release 0.6.6 (code tidying)
+- Release 0.7.3 (code tidying)
 
 - Refactor FreeGuideViewer into a sort of MVC setup
 - Separate classes into packages
@@ -102,7 +102,7 @@ e  means done by Ewan Harrow
 - Terms and conditions of listings
 - Review usefulness of stuff like ConfigGuesser
 
-- Release 0.6.5 (aesthetics)
+- Release 0.7.2 (aesthetics)
 
 - Apply different fonts to every screen?
 - Hovering over a programme scrolls the personalised listing to show it
@@ -119,8 +119,10 @@ e  means done by Ewan Harrow
 - Fix the "Execution Error" on success problem in Windows.
 - Show whether a tab has been altered on the Options Dialog
 - Fix segfault in XMLTV --configure when --config-file is supplied
+- Fix saying there's missing listings after midnight (before 6am) bug
+- Custom web browser option
 
-- Release 0.6.4 (accessibility, accessibility, accessibility)
+- Release 0.7.1 (accessibility, accessibility, accessibility)
 
 - Improve accessibility, specifically keyboard shortcuts
 - Shortcut keys for everything
@@ -129,16 +131,19 @@ e  means done by Ewan Harrow
 - ProgrammeJLabel shows which programme is selected
 - Keyboard navigation of programme scrollpane
 
-- Release 0.6.3 (version checking, reminders, links)
+- Release 0.7 (version checking, reminders, links)
 
+- Keep a window open behind grabber config and all out problems go away.
+- Enable configuration option within viewer 
+- Sort out Utils.exec methods so they make sense
 - Fix popups coming up behind window on startup bug (using a later time?)
 - Refresh after download (using dialog?)
 - Fix blank country in Install
 - Include a method to call if you quit out of the wizard, and make it call
 	System.exit in Install
 - Include a modified XMLTV for configuration.
-- Check that all prefs are covered in Options screen
-- Choose browser in options
++ Check that all prefs are covered in Options screen
++ Choose browser in options
 + Privacy choice on reminder screen
 - Document reminder system and incorporate into Options screen
 + Privacy preferences in installer

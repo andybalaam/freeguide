@@ -73,11 +73,28 @@ public abstract class OptionPanel extends JPanel {
 		
 	}
 	
+	protected JLabel newRightJLabel() {
+		
+		JLabel ans = new JLabel();
+		
+		return ans;
+		
+	}
+	
 	protected JButton newRightJButton( String text ) {
 		
 		JButton ans = new JButton( text );
 		Dimension size = new Dimension( 100, 24 );
 		ans.setPreferredSize( size );
+		
+		return ans;
+		
+	}
+	
+	protected JButton newLeftJButton( String text ) {
+		
+		JButton ans = new JButton( text );
+		ans.setHorizontalTextPosition( JButton.RIGHT );
 		
 		return ans;
 		
@@ -97,6 +114,16 @@ public abstract class OptionPanel extends JPanel {
 	protected JTextArea newRightJTextArea() {
 		
 		JTextArea ans = new JTextArea();
+		
+		ans.setLineWrap( true );
+		
+		return ans;
+		
+	}
+	
+	protected JTextField newRightJTextField() {
+		
+		JTextField ans = new JTextField();
 		
 		return ans;
 		

@@ -216,7 +216,6 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         jSeparator5 = new javax.swing.JSeparator();
         mbtQuit = new javax.swing.JMenuItem();
         toolsMenu = new javax.swing.JMenu();
-        mbtCustomiser = new javax.swing.JMenuItem();
         mbtConfigure = new javax.swing.JMenuItem();
         mbtFavourites = new javax.swing.JMenuItem();
         mbtChannelSets = new javax.swing.JMenuItem();
@@ -308,6 +307,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
         butGoToNow.setFont(new java.awt.Font("Dialog", 0, 10));
         butGoToNow.setText("Go To Now");
+		butGoToNow.setMnemonic( KeyEvent.VK_N );
         butGoToNow.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -322,6 +322,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         topButtonsPanel.add(butGoToNow, gridBagConstraints);
 
         butPreviousDay.setText("-");
+		butPreviousDay.setMnemonic( KeyEvent.VK_MINUS );
         butPreviousDay.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -347,6 +348,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         topButtonsPanel.add(comTheDate, gridBagConstraints);
 
         butNextDay.setText("+");
+		butNextDay.setMnemonic( KeyEvent.VK_EQUALS );
         butNextDay.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -388,6 +390,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		
         butDownload.setFont(new java.awt.Font("Dialog", 0, 10));
         butDownload.setText("Download Listings");
+		butDownload.setMnemonic( KeyEvent.VK_D );
         butDownload.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -470,6 +473,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		
         butRevertToFavourites.setFont(new java.awt.Font("Dialog", 0, 10));
         butRevertToFavourites.setText("Reset choices");
+		butRevertToFavourites.setMnemonic( KeyEvent.VK_R );
         butRevertToFavourites.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -486,6 +490,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
         butPrint.setFont(new java.awt.Font("Dialog", 0, 10));
         butPrint.setText("Print this personalised listing");
+		butPrint.setMnemonic( KeyEvent.VK_P );
         butPrint.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -507,6 +512,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		fileMenu.setMnemonic(KeyEvent.VK_F);
         mbtDownload.setText("Download Listings");
 		mbtDownload.setMnemonic(KeyEvent.VK_D);
+		mbtDownload.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_D,
+			InputEvent.CTRL_MASK ) );
         mbtDownload.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -518,6 +525,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
         mbtPrint.setText("Print this personalised listing");
 		mbtPrint.setMnemonic(KeyEvent.VK_P);
+		mbtPrint.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_P,
+			InputEvent.CTRL_MASK ) );
         mbtPrint.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -531,6 +540,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
         mbtQuit.setText("Quit");
 		mbtQuit.setMnemonic(KeyEvent.VK_Q);
+		mbtQuit.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_Q,
+			InputEvent.CTRL_MASK ) );
         mbtQuit.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -544,20 +555,11 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
         toolsMenu.setText("Tools");
 		toolsMenu.setMnemonic(KeyEvent.VK_T);
-        mbtCustomiser.setText("Customise...");
-		mbtCustomiser.setMnemonic(KeyEvent.VK_C);
-        mbtCustomiser.addActionListener(
-            new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    mbtCustomiserActionPerformed(evt);
-                }
-            });
-
-        toolsMenu.add(mbtCustomiser);
 
         mbtConfigure.setText("Configure Grabber...");
-		mbtConfigure.setMnemonic(KeyEvent.VK_G);
-        mbtConfigure.setEnabled(false);
+		mbtConfigure.setMnemonic(KeyEvent.VK_C);
+		mbtConfigure.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_C,
+			InputEvent.CTRL_MASK ) );
         mbtConfigure.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -569,6 +571,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
         mbtFavourites.setText("Favourites...");
 		mbtFavourites.setMnemonic(KeyEvent.VK_F);
+		mbtFavourites.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_F,
+			InputEvent.CTRL_MASK ) );
         mbtFavourites.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -580,6 +584,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
         mbtChannelSets.setText("Channel Sets...");
 		mbtChannelSets.setMnemonic(KeyEvent.VK_H);
+		mbtChannelSets.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_H,
+			InputEvent.CTRL_MASK ) );
         mbtChannelSets.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -590,8 +596,10 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         toolsMenu.add(mbtChannelSets);
         toolsMenu.add(jSeparator1);
 
-        mbtOptions.setText("Advanced Options...");
-		mbtOptions.setMnemonic(KeyEvent.VK_A);
+        mbtOptions.setText("Options...");
+		mbtOptions.setMnemonic(KeyEvent.VK_O);
+		mbtOptions.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_O,
+			InputEvent.CTRL_MASK ) );
         mbtOptions.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -614,6 +622,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
         mbtAbout.setText("About...");
 		mbtAbout.setMnemonic(KeyEvent.VK_A);
+		mbtAbout.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_A,
+			InputEvent.CTRL_MASK ) );
         mbtAbout.addActionListener(
             new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1131,30 +1141,12 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
      */
     public void mbtConfigureActionPerformed(java.awt.event.ActionEvent evt) {
 
-		// Does nothing at present
-		
-        //setVisible(false);
-        //new Configurator(this).setVisible(true);
+		Utils.execAndWait( this,
+			FreeGuide.prefs.getCommands("tv_config"),
+				"Configuring", theDate );
 
     }
 
-
-    /**
-     *  Event handler for when the Customise menu item is chosen
-     *
-     *@param  evt  The event object
-     */
-    public void mbtCustomiserActionPerformed(java.awt.event.ActionEvent evt) {
-
-        
-		boolean updated = centreDialogAndRun( new CustomiserDialog( this ) );
-    	
-    	if (updated) {
-        	drawProgrammes();
-        }
-    
-
-    }
 
     /**
      *  Event handler for when the Go to web site popup menu item is chosen
@@ -1416,7 +1408,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		boolean updated = centreDialogAndRun( new OptionsDialog( this ) );
 
 		if( updated ) {
-			drawProgrammes();
+			reShow();
 		}
 		
     }
@@ -1598,11 +1590,13 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
     public void downloadListings() {
 		
 		//setVisible( false );
-        Utils.execAndWait( 
+        Utils.execAndWait( this,
 			FreeGuide.prefs.getCommands("tv_grab"),
 			"Downloading",
 			theDate );
 
+		reShow();
+			
     }
 	
 	/**
@@ -1893,7 +1887,6 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
     private ViewerFrameHTMLGuide printedGuideArea;
 	
 	private javax.swing.JProgressBar progressBar;
-    private javax.swing.JMenuItem mbtCustomiser;
     private javax.swing.JMenuItem mbtDownload;
     private javax.swing.JMenuItem mbtUserGuide;
     private javax.swing.JMenu fileMenu;

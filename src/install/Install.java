@@ -420,14 +420,8 @@ public class Install extends PrefsHolder {
 		
 		if(configGrabber) {
 			
-			ExecutorFrame ef = Utils.execAndWait( prefs.getCommands(
+			Utils.execAndWait( null, prefs.getCommands(
 				"tv_config" ), "Configuring", prefs );
-			
-			while( ef.isVisible() ) {
-				
-				Thread.currentThread().yield();
-				
-			}
 			
 		}
 		

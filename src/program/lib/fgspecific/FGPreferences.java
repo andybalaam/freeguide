@@ -981,7 +981,30 @@ public class FGPreferences {
         return changed;
     }
 
-
+	/**
+     * Updates a time preference if the value of the preference has changed from
+     * that already stored. Returns a boolean value to indicate if the value
+	 * has been updated.
+     *
+     * @param  _key    The name of the preference to update
+     * @param  value  The <code>Time</code> value to set
+     * @return Returns <code>true</code> if the value has been 
+     *      updated, otherwise returns <code>false</code>.
+     */
+    public boolean updateTime(String _key, Time value) {
+        boolean changed = false;        
+        Time defaultValue = new Time();
+        
+        Time temp = getTime(_key, defaultValue);
+        if (!temp.equals(value)) {
+            changed = true;
+            putTime(_key, value);                
+        }
+        
+        return changed;
+    }
+	
+	
     // BEANO - 22/08/03
 
     /**

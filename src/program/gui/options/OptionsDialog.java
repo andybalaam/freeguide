@@ -111,6 +111,27 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 			new LayoutOptionPanel( this ) );
 		trunk.add( layoutLeaf );
 		
+		DefaultMutableTreeNode colourLeaf = new DefaultMutableTreeNode(
+			new ColoursOptionPanel( this ) );
+		trunk.add( colourLeaf );
+		
+		DefaultMutableTreeNode timeLeaf = new DefaultMutableTreeNode(
+			new TimeOptionPanel( this ) );
+		trunk.add( timeLeaf );
+		
+		DefaultMutableTreeNode browserLeaf = new DefaultMutableTreeNode(
+			new BrowserOptionPanel( this ) );
+		trunk.add( browserLeaf );
+
+		DefaultMutableTreeNode remindLeaf = new DefaultMutableTreeNode(
+			new RemindersOptionPanel( this ) );
+		trunk.add( remindLeaf );
+		
+		DefaultMutableTreeNode privateLeaf = new DefaultMutableTreeNode(
+			new PrivacyOptionPanel( this ) );
+		trunk.add( privateLeaf );
+		
+		
 		DefaultMutableTreeNode advancedBranch = new DefaultMutableTreeNode(
 			"Advanced" );
 		trunk.add( advancedBranch );
@@ -119,6 +140,10 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 			new DownloadingOptionPanel( this ) );
 		advancedBranch.add( grabberLeaf );
 		
+		DefaultMutableTreeNode dirLeaf = new DefaultMutableTreeNode(
+			new DirectoriesOptionPanel( this ) );
+		advancedBranch.add( dirLeaf );
+		
 		menuTree = new JTree( trunk );
 		
 		menuTree.getSelectionModel().setSelectionMode(
@@ -126,6 +151,10 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 		
 		menuTree.addTreeSelectionListener(this);
 		menuTree.setRootVisible( false );
+		
+		/*for( int i=0; i<menuTree.getRowCount(); i++ ) {
+			menuTree.expandRow(i);
+		}*/
 		
 		return layoutLeaf;
 		

@@ -25,7 +25,7 @@ import javax.swing.event.*;
  */
 
 public class LayoutOptionPanel extends OptionPanel implements ActionListener,
-		ChangeListener {
+		ChangeListener, FocusListener {
 
 	public LayoutOptionPanel( FGDialog parent ) {
 		super( parent );
@@ -78,9 +78,11 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 		gbe.addAWXPXPY( fontButton         , 2, 2, gbe.ANCH_WEST  , 0.7, 0, 0 );
 		
 		// Set up events
+		channelHeightText.addFocusListener(this);
 		channelHeightText.addActionListener(this);
 		channelHeightSlider.addChangeListener(this);
 		
+		panelWidthText.addFocusListener(this);
 		panelWidthText.addActionListener(this);
 		panelWidthSlider.addChangeListener(this);
 		
@@ -116,12 +118,26 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 	
 	public boolean doSave() {
 
-		return
-			screen.updateInt( "channel_height", channelHeightSlider.getValue() )
-		 || screen.updateInt( "panel_width", panelWidthSlider.getValue() * 24 )
-		 || screen.update( "font_name", currentFont.getFontName() )
-		 || screen.updateInt( "font_style", currentFont.getStyle() )
-		 || screen.updateInt( "font_size", currentFont.getSize() );
+		FreeGuide.log.info( "Saving" );
+		
+		boolean updated = false;
+		
+		updated = screen.updateInt( "channel_height",
+			channelHeightSlider.getValue() ) || updated;
+			
+		updated = screen.updateInt( "panel_width",
+			panelWidthSlider.getValue() * 24 ) || updated;
+		
+		updated = screen.update( "font_name", currentFont.getFontName() )
+			|| updated;
+		
+		updated = screen.updateInt( "font_style", currentFont.getStyle() )
+			|| updated;
+		
+		updated = screen.updateInt( "font_size", currentFont.getSize() )
+			|| updated;
+		
+		return updated;
 		
 	}
 	
@@ -157,7 +173,19 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 	
 	public void actionPerformed(ActionEvent e) {
 		
-		Object source = e.getSource();
+		updateSlider( e.getSource() );
+		
+	}
+
+	public void focusGained( FocusEvent e ) {}
+	
+	public void focusLost( FocusEvent e ) {
+	
+		updateSlider( e.getSource() );
+	
+	}
+	
+	private void updateSlider( Object source ) {
 		
 		if( source == channelHeightText ) {
 			
@@ -190,7 +218,7 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 		}
 		
 	}
-
+	
 	// ----------------------------------
 	
 	private JSlider channelHeightSlider;

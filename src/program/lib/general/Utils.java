@@ -93,12 +93,12 @@ public class Utils {
      *@param  launcher     Description of the Parameter
      *@param  date         Description of the Parameter
      */
-    public static ExecutorFrame execAndWait(String[] cmds, String commandType,
-			Calendar date) {
+    public static void execAndWait(JFrame owner, String[] cmds,
+			String commandType, Calendar date) {
 
-        ExecutorFrame executor = new ExecutorFrame(cmds, commandType, date);
+        ExecutorDialog executor = new ExecutorDialog(owner, cmds, commandType,
+			date);
         executor.setVisible(true);
-		return executor;
 
     }
 
@@ -110,22 +110,22 @@ public class Utils {
      *@param  commandType  Description of the Parameter
      *@param  launcher     Description of the Parameter
      */
-    public static ExecutorFrame execAndWait(String[] cmds, String commandType) {
+    public static void execAndWait(JFrame owner, String[] cmds,
+			String commandType) {
 
         // Show the command execution window
-        ExecutorFrame executor = new ExecutorFrame(cmds, commandType);
+        ExecutorDialog executor = new ExecutorDialog(owner, cmds, commandType);
         executor.setVisible(true);
-		return executor;
 
     }
 
-	public static ExecutorFrame execAndWait(String[] cmds, String commandType,
+	public static void execAndWait(JFrame owner, String[] cmds, String commandType,
 			PreferencesGroup prefs) {
 
         // Show the command execution window
-        ExecutorFrame executor = new ExecutorFrame(cmds, commandType, prefs);
+        ExecutorDialog executor = new ExecutorDialog(owner, cmds, commandType,
+			prefs);
         executor.setVisible(true);
-		return executor;
 
     }
 

@@ -193,6 +193,21 @@ public class GridBagEasy {
 		
 	}
 	
+	protected void addAFWX( Component comp, int gridx, int gridy,
+			int anchor, int fill, double weightx ) {
+		
+		setDefaults();
+		
+		gbc.gridx = gridx;
+		gbc.gridy = gridy;
+		gbc.anchor = anchor;
+		gbc.fill = fill;
+		gbc.weightx = weightx;
+		
+		container.add( comp, gbc );
+		
+	}
+	
 	// -------------
 	
 	private void setDefaults() {

@@ -41,16 +41,36 @@ public class DownloadingOptionPanel extends OptionPanel {
 		commandLabel.setDisplayedMnemonic( KeyEvent.VK_G );
 		
 		JLabel daysLabel = newLeftJLabel( "Download how much:" );
-		Object[] daysOptions = new Object[8];
-		daysOptions[0] = "1 day";
-		daysOptions[1] = "2 days";
-		daysOptions[2] = "3 days";
-		daysOptions[3] = "4 days";
-		daysOptions[4] = "5 days";
-		daysOptions[5] = "6 days";
-		daysOptions[6] = "1 week";
-		daysOptions[7] = "2 weeks";
-		daysComboBox = newRightJComboBox( daysOptions );
+		Object[] options = new Object[8];
+		options[0] = "1 day";
+		options[1] = "2 days";
+		options[2] = "3 days";
+		options[3] = "4 days";
+		options[4] = "5 days";
+		options[5] = "6 days";
+		options[6] = "1 week";
+		options[7] = "2 weeks";
+		daysComboBox = newRightJComboBox( options );
+		daysLabel.setLabelFor(daysComboBox);
+		daysLabel.setDisplayedMnemonic( KeyEvent.VK_D );
+		
+		JLabel startTodayLabel = newLeftJLabel( "Start grabbing:" );
+		options = new Object[2];
+		options[0] = "Today";
+		options[1] = "Day viewed";
+		startTodayComboBox = newRightJComboBox( options );
+		startTodayLabel.setLabelFor(startTodayComboBox);
+		startTodayLabel.setDisplayedMnemonic( KeyEvent.VK_S );
+		
+		JLabel dayStartLabel = newLeftJLabel( "Day start time (hh:mm):" );
+		dayStartTextField = newRightJTextField();
+		dayStartLabel.setLabelFor(dayStartTextField);
+		dayStartLabel.setDisplayedMnemonic( KeyEvent.VK_A );
+		
+		JLabel todayOffsetLabel = newLeftJLabel( "Today offset:" );
+		todayOffsetTextField = newRightJTextField();
+		todayOffsetLabel.setLabelFor(todayOffsetTextField);
+		todayOffsetLabel.setDisplayedMnemonic( KeyEvent.VK_T );
 		
 		// Lay them out in a GridBag layout
 		
@@ -60,16 +80,24 @@ public class DownloadingOptionPanel extends OptionPanel {
 		gbe.default_ipadx = 5;
 		gbe.default_ipady = 5;
 		
-		gbe.addFWX    ( commandLabel     , 0, 0, gbe.FILL_HOR   , 0.2 );
-		gbe.addFWXWY  ( commandScrollPane, 1, 0, gbe.FILL_BOTH  , 0.8, 0.5 );
+		gbe.addAFWX ( commandLabel      , 0, 0, gbe.ANCH_NORTH, gbe.FILL_HOR,
+			0.2 );
+		gbe.addFWXWY( commandScrollPane , 1, 0, gbe.FILL_BOTH  , 0.8, 0.5 );
 		
-		gbe.addFWX    ( daysLabel        , 0, 1, gbe.FILL_HOR   , 0.2 );
-		gbe.addFWX    ( daysComboBox     , 1, 1, gbe.FILL_HOR   , 0.8 );
+		gbe.addFWX  ( daysLabel         , 0, 1, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWX  ( daysComboBox      , 1, 1, gbe.FILL_HOR   , 0.8 );
+		
+		gbe.addFWX  ( startTodayLabel   , 0, 2, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWX  ( startTodayComboBox, 1, 2, gbe.FILL_HOR   , 0.8 );
+		
+		gbe.addFWX  ( dayStartLabel     , 0, 3, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWX  ( dayStartTextField , 1, 3, gbe.FILL_HOR   , 0.8 );
+		
+		gbe.addFWX  ( todayOffsetLabel    , 0, 4, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWX  ( todayOffsetTextField, 1, 4, gbe.FILL_HOR   , 0.8 );
 		
 		// Load in the values from config
 		load();
-
-		//repaint();
 		
 	}
 	
@@ -87,6 +115,20 @@ public class DownloadingOptionPanel extends OptionPanel {
 			daysComboBox.setSelectedIndex( 7 );
 		}
 	
+		boolean startToday = misc.getBoolean( prefix + "grabber_start_today",
+			true );
+		if( startToday ) {
+			startTodayComboBox.setSelectedIndex( 0 );
+		} else {
+			startTodayComboBox.setSelectedIndex( 1 );
+		}
+	
+		dayStartTextField.setText( misc.get( prefix + "grabber_start_time",
+			"06:00" ) );
+	
+		todayOffsetTextField.setText( misc.get( prefix
+			+ "grabber_today_offset" ) );
+		
 	}
 	
 	
@@ -116,21 +158,21 @@ public class DownloadingOptionPanel extends OptionPanel {
 		}
 		misc.putInt( "days_to_grab", daysToDownload );
 		
+		if( startTodayComboBox.getSelectedIndex() == 0 ) {
+			misc.putBoolean( "grabber_start_today", true );
+		} else {
+			misc.putBoolean( "grabber_start_today", false );
+		}
+		
+		misc.putTime( "grabber_start_time", new Time(
+			dayStartTextField.getText() ) );
+		
+		misc.putInt( "grabber_today_offset", Integer.parseInt(
+			todayOffsetTextField.getText() ) );
+		
 		// Return value is false since none of these options alter the screen
 		// appearance.
 		return false;
-		
-	}
-	
-	private void setDaysCombo( int daysToDownload ) {
-		
-		if( daysToDownload < 7 ) {
-			daysComboBox.setSelectedIndex( daysToDownload - 1 );
-		} else if( daysToDownload < 14 ) {
-			daysComboBox.setSelectedIndex( 6 );
-		} else {
-			daysComboBox.setSelectedIndex( 7 );
-		}
 		
 	}
 	
@@ -163,6 +205,9 @@ public class DownloadingOptionPanel extends OptionPanel {
 	
 	private JTextArea commandTextArea;
 	private JComboBox daysComboBox;
+	private JComboBox startTodayComboBox;
+	private JTextField dayStartTextField;
+	private JTextField todayOffsetTextField;
 	
 	private String lb = System.getProperty("line.separator");	
 	
