@@ -556,9 +556,8 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler
         else if( saxLoc.equals( ":tv:channel" ) )
         {
 
-            String id = attrs.getValue( "id" );
-
-            tmpChannelID = id;
+            tmpChannelID = attrs.getValue( "id" );
+            tmpChannelName = null;
 
         }
         else if( saxLoc.equals( ":tv:channel:icon" ) )
@@ -806,9 +805,11 @@ public class ViewerFrameXMLTVLoader extends DefaultHandler
         }
         else if( saxLoc.equals( ":tv:channel:display-name" ) )
         {
-
-            // Remember the name of the channel we're looking at
-            tmpChannelName = data;
+            if( tmpChannelName == null )
+            {
+                // Remember the name of the channel we're looking at
+                tmpChannelName = data;
+            }
         }
         else if( saxLoc.equals( ":tv:channel" ) )
         {
