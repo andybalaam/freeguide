@@ -1511,9 +1511,9 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor
         Set programmes = ( v != null ) ? new HashSet( v ) : new HashSet(  );
 
         programmesPanel.setRenderer( 
-            new ProgrammeRenderer( timeFormat, font, programmesPanel, this ) );
+            new ProgrammeRenderer( timeFormat, font, this ) );
         programmesPanel.setEditor( 
-            new ProgrammeRenderer( timeFormat, font, programmesPanel, this ) );
+            new ProgrammeRenderer( timeFormat, font, this ) );
 
         ProgrammeStripModel m =
             new ProgrammeStripModel( currentChannelSet, xmltvLoader );
