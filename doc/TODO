@@ -117,8 +117,9 @@ m  means done by Mike Dean
 
 - Release 0.7.5 (minor features)
 
+- Clarify that you _have_ to enter your password during config
 - Programme info panel (and ability to turn off tooltips)
-- Advertise for beta testers
++ Advertise for beta testers
 - Make a standard email form for beta test results
 - Add icons to UK and US listings
 + Merge Yann's icons patch
