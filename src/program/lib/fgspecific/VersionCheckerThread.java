@@ -117,7 +117,7 @@ public class VersionCheckerThread implements Runnable {
 	 */
 	private void warnOldVersion() {
 		
-		new NewVersionDialog(parent).show();
+		new NewVersionDialog(parent).setVisible( true );
 		
 	}
 

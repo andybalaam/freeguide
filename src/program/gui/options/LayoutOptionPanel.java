@@ -301,7 +301,7 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 					- fontDialogSize.height)/2));
 			
 			fontDialog.setSize( fontDialogSize );
-			fontDialog.show();
+			fontDialog.setVisible( true );
 			currentFont = fontDialog.getSelectedFont();
 			fontDemoText.setText( currentFont.getFontName() + " "
 				+ currentFont.getSize() );

@@ -175,7 +175,7 @@ public class WizardFrame extends javax.swing.JFrame {
 
             try {
 
-                finishMethod.invoke(finishObject, new Class[0]);
+                finishMethod.invoke(finishObject, (Object[])new Class[0]);
 
             } catch (java.lang.IllegalAccessException e) {
                 e.printStackTrace();
@@ -316,7 +316,7 @@ public class WizardFrame extends javax.swing.JFrame {
         setVisible(false);
         dispose();
 		try {
-			exitMethod.invoke(exitObject, new Class[0]);
+			exitMethod.invoke(exitObject, (Object[])new Class[0]);
 		} catch( IllegalAccessException e ) {
 			e.printStackTrace();
 		} catch( InvocationTargetException e ) {

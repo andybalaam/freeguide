@@ -134,7 +134,7 @@ public class AboutFrame extends javax.swing.JDialog {
      */
     public static void main(String args[]) {
 		
-        new AboutFrame(new javax.swing.JFrame(), true).show();
+        new AboutFrame(new javax.swing.JFrame(), true).setVisible( true );
     }
 
 

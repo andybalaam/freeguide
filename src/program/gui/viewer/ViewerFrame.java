@@ -1061,20 +1061,27 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
             ctxt.setOpaque( true );
 
             // Get the URL of this channel icon
-			String iconURLstr = xmltvLoader.getChannelIcon(ctxt.getId());
-            if (iconURLstr != null || FreeGuide.prefs.screen.get("customIcon."+ctxt.getId()) != null) {
+			String iconURLstr = xmltvLoader.getChannelIcon( ctxt.getId() );
+            if( iconURLstr != null
+                || FreeGuide.prefs.screen.get( "customIcon." + ctxt.getId() )
+                    != null )
+            {
 				try {
 					ImageIcon iconImg = null;
 					// If a custom icon is set use it !
 					File iconFile = null;
 					ImageIcon tmpImg;
-					if (FreeGuide.prefs.screen.get("customIcon."+ctxt.getId()) != null)
-						iconFile = new File(FreeGuide.prefs.screen.get("customIcon."+ctxt.getId()));
-					else {
-						// First convert the id to a suitable (and safe!!) filename
-						File cache = new File(ctxt.getCacheIconPath());
+					if( FreeGuide.prefs.screen.get(
+                        "customIcon." + ctxt.getId() ) != null )
+                    {
+						iconFile = new File( FreeGuide.prefs.screen.get( 
+                            "customIcon." + ctxt.getId() ) );
+					} else {
+						// First convert the id to a suitable (and safe!!)
+                        // filename
+						File cache = new File( ctxt.getCacheIconPath() );
 						// then verify if the file is in the cache
-						if (!cache.canRead()) {
+						if( !cache.canRead() ) {
 							// if not, we try to fetch it from the url
                             URL iconURL = new URL(iconURLstr);
                             InputStream i = iconURL.openStream();
@@ -1090,11 +1097,14 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
                         iconFile = cache;
 					}
 					/* We then try to read the file which should be in the cache
-					 * If it's not, it doesn't matter, either the URL is not valid or the file couldn't be read
-					 * and we should have left the try anyway, or we will when we try to read it
-					 * Thus the icon will still be equal to null and we won't show one
+					 * If it's not, it doesn't matter, either the URL is not
+                     * valid or the file couldn't be read.
+					 * and we should have left the try anyway, or we will when
+                     * we try to read it.
+					 * Thus the icon will still be equal to null and we won't
+                     * show one.
 					 */					
-					ctxt.setIcon(iconFile.getCanonicalPath());
+					ctxt.setIcon( iconFile.getCanonicalPath() );
 				
 				} catch (MalformedURLException e) {
 					
@@ -1102,6 +1112,12 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 					e.printStackTrace();
 				}
             }
+            
+            // TODO Give it a default icon if one is not available
+            /*if( ctxt.getIcon() == null ) {
+                ctxt.setIcon( FreeGuide.prefs.performSubstitutions(
+                    FreeGuide.prefs.misc.get( "channel_icon_default" ) ) );
+            }*/
             
             int myChanWidth = ctxt.getRequiredWidth();
             if( myChanWidth > maxChannelWidth ) {

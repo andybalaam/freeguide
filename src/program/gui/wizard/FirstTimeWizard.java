@@ -178,11 +178,11 @@ public class FirstTimeWizard {
     private void setStandardProps() {  
 		
         // First delete any pre-0.8 style install directory
-        if( FreeGuide.prefs.misc.getSystem( "install_directory" ) != null ) {
+        /*if( FreeGuide.prefs.misc.getSystem( "install_directory" ) != null ) {
             
             FreeGuide.prefs.misc.remove( "install_directory" );
             
-        }
+        }*/
         
         // Then load up the properties in the file install-all.props
         
@@ -345,34 +345,6 @@ public class FirstTimeWizard {
 				"tv_config" ), "Configuring", FreeGuide.prefs );
                 
         }
-		
-        /*if(configGrabber) {
-        
-            String pw_file = FreeGuide.prefs.misc.get( "password_file" );
-            
-            if( pw_file != null ) {
-            
-                String pw = JOptionPane.showInputDialog(
-                    "Enter your password:" );
-                    
-                try {
-            
-                    BufferedWriter out = new BufferedWriter( new 
-                        FileWriter( FreeGuide.prefs.performSubstitutions( pw_file ) ) );
-
-                    out.write( pw );
-                
-                    out.close();
-                    
-                } catch( java.io.IOException e ) {
-                    
-                    e.printStackTrace();
-                    
-                }
-                
-            }
-            
-		}*/
 		
 		if( showREADME ) {
 			

@@ -53,33 +53,42 @@ public class ChannelJLabel extends JLabel implements ComponentListener{
 	 * Set the icon of the channel
 	 * @param fileName the path to the image to use as an icon
 	 */
-	public void setIcon(String fileName) {
+	public void setIcon( String fileName ) {
+        
 		currentIconFileName = fileName;
+        
 		// Create the icon from the file
-		ImageIcon icon = new ImageIcon(fileName);
-		/* Verify the icon isn't taller than the panel, resize otherwise.
-		 * We don't check the width as it isn't usually a problem
-		 */ 
-		int width;
-		int maxheight = this.getHeight() - this.getInsets().top
-            - this.getInsets().bottom;
+		ImageIcon icon = new ImageIcon( fileName );
+        
+        // Force the icon to have proportions 1.36 x 1
+        
+		int icon_width  = icon.getIconWidth();
+        int icon_height = icon.getIconHeight();
+        
+        int new_icon_width  = -1;
+        int new_icon_height = -1;
+        
+		int max_height = getHeight() - getInsets().top - getInsets().bottom;
+        int max_width = (int)( 1.37 * (double)max_height );
+        
+        double new_over_old = (double)max_width / (double)icon_width;
             
-		if( icon.getIconHeight() > maxheight ) {
-			width = icon.getIconWidth() * maxheight / icon.getIconHeight();
+        new_icon_width  = max_width;
+        new_icon_height = (int)( (double)icon_height * new_over_old );
+
+        if( new_icon_height > max_height ) {
             
-            // Last-ditch check for if something went completely wrong
-            if( width <= 0 ) {
-                width = 5;
-            }
-            if( maxheight <= 0 ) {
-                maxheight = 5;
-            }
-			super.setIcon(
-                new ImageIcon( icon.getImage().getScaledInstance(
-                    width, maxheight, Image.SCALE_AREA_AVERAGING ) ) );
-		} else
-            super.setIcon(icon);
-	    }
+            double new_over_old2 = (double)max_height / (double)new_icon_height;
+            
+            new_icon_height = max_height;
+            new_icon_width  = (int)( (double)max_width * new_over_old2 );
+            
+        }
+        
+        super.setIcon( new ImageIcon( icon.getImage().getScaledInstance(
+            new_icon_width, new_icon_height, Image.SCALE_AREA_AVERAGING ) ) );
+        
+    }
 	
 	/**
 	 * @param id the Id of the channel
@@ -149,7 +158,7 @@ public class ChannelJLabel extends JLabel implements ComponentListener{
         FontMetrics myFM = this.getFontMetrics( getFont() );
         int ans = myFM.stringWidth( getText() );
         
-        Icon ic = getIcon();
+        Icon ic = super.getIcon();
         if( ic != null ) {
             ans += ic.getIconWidth();
         }

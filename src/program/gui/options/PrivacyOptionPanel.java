@@ -150,7 +150,7 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener {
 
 		if( e.getSource() == infoButton ) {
 			
-			new PrivacyInfoDialog().show();
+			new PrivacyInfoDialog().setVisible( true );
 			
 		} else {
 		

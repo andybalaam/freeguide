@@ -46,7 +46,7 @@ public class MessageDialogTimerTask extends TimerTask {
 			
 		dialog = optionPane.createDialog( null, "FreeGuide Reminder" );
 		
-		dialog.show();
+		dialog.setVisible( true );
 		
 	}
 	

@@ -695,7 +695,7 @@ public class PreferencesGroup {
      *
      *@param line    the String line to interpret
      */
-    public void putSystem( String line) {
+    /*public void putSystem( String line) {
         
         Vector ans = processPrefLine( line );
         
@@ -709,7 +709,7 @@ public class PreferencesGroup {
         // And the real value
         pr.putSystem(key, value);
         
-    }
+    }*/
     
     public FGPreferences screen;
     // The screen dimensions etc.

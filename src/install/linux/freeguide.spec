@@ -46,7 +46,7 @@ FreeGuide requires Java 2 version 1.4.
 ant FreeGuide-Linux-NoXMLTV
 
 %install
-ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} install-Linux-NoXMLTV-files
+ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dinstall_doc_dir=$RPM_BUILD_ROOT/%{_datadir}/doc/freeguide -Dinstall_real_doc_dir=%{_datadir}/doc/freeguide install-Linux-NoXMLTV-files
 
 %clean
 ant clean
@@ -63,4 +63,19 @@ ant clean
 %{_datadir}/pixmaps/freeguide/logo-96x96.png
 %{_datadir}/applications/freeguide.desktop
 %{_datadir}/man/man1/freeguide.1.gz
+%{_datadir}/doc/freeguide/contributors.html
+%{_datadir}/doc/freeguide/COPYING
+%{_datadir}/doc/freeguide/design.html
+%{_datadir}/doc/freeguide/developers.html
+%{_datadir}/doc/freeguide/FAQ.html
+%{_datadir}/doc/freeguide/FreeGuide-0_7-Linux-MetalLookAndFeel.png
+%{_datadir}/doc/freeguide/index.html
+%{_datadir}/doc/freeguide/INSTALL-linux-noxmltv.html
+%{_datadir}/doc/freeguide/INSTALL-windows.html
+%{_datadir}/doc/freeguide/LookAndFeel.html
+%{_datadir}/doc/freeguide/README.html
+%{_datadir}/doc/freeguide/stylesheet.css
+%{_datadir}/doc/freeguide/timezone.html
+%{_datadir}/doc/freeguide/TODO
+%{_datadir}/doc/freeguide/userguide.html
 

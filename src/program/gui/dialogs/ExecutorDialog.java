@@ -226,7 +226,7 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
     private void showDetails() {
 
         //viewer.setVisible(true);
-		viewer.show();
+		viewer.setVisible( true );
 
     }
 

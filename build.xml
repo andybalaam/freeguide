@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="freeguide" default="main" basedir=".">
+<project name="freeguide-tv-stable" default="main" basedir=".">
 
     <description>
         Ant build file for FreeGuide
@@ -32,8 +32,13 @@
             description="install all the files for linux"
             depends="FreeGuide-Linux-NoXMLTV" >
         
-        <!-- the install_share_dir property is passed in if we are doing
-            an install - this will be /usr/share or equivalent -->
+        <!-- These properties are passed in from the rpm .spec file:
+            install_share_dir = ~/.rpm/tmp/FreeGuide-0.8.2-root//usr/share
+            install_bin_dir   = ~/.rpm/tmp/FreeGuide-0.8.2-root//usr/bin
+            install_doc_dir   = ~/.rpm/tmp/FreeGui...usr/doc/freeguide
+            install_real_doc_dir = /usr/doc/freeguide
+        -->
+        
         <property name="install_jar_dir"
             location="${install_share_dir}/freeguide" />
 
@@ -55,8 +60,12 @@
         
         <copy tofile="${install_share_dir}/pixmaps/freeguide.png" file="${src}/images/logo-32x32.png" />
         
+        <!-- Creating the launch script: first we need to copy the source launch script, then we replace the string "__ANT_DOC_DIRECTORY__" with the docs directory, and then we move it into place and make it executable. -->
+        <copy file="${src}/install/linux/freeguide" tofile="${src}/install/linux/freeguide.tmp" />
+        <replace file="${src}/install/linux/freeguide.tmp" token="__ANT_DOC_DIRECTORY__" value="${install_real_doc_dir}" />
         <mkdir dir="${install_bin_dir}" />
-        <copy file="${src}/install/linux/freeguide" todir="${install_bin_dir}" />
+        <move file="${src}/install/linux/freeguide.tmp" tofile="${install_bin_dir}/freeguide" />
+        <chmod file="${install_bin_dir}/freeguide" perm="a+x" />
         
         <mkdir dir="${install_share_dir}/applications" />
         <copy file="${src}/install/linux/freeguide.desktop" todir="${install_share_dir}/applications/" />
@@ -64,21 +73,32 @@
         <mkdir dir="${install_share_dir}/man/man1" />
         <copy file="${build}/freeguide.1.gz" todir="${install_share_dir}/man/man1/" />
         
-        <chmod file="${install_bin_dir}/freeguide" perm="a+x" />
+        <mkdir dir="${install_doc_dir}" />
+        <copy todir="${install_doc_dir}/">
+            <fileset dir="${doc}">
+                <include name="*.html" />
+                <include name="*.png" />
+                <include name="*.css" />
+                <include name="COPYING" />
+                <include name="TODO" />
+                <exclude name="bugreport.html" />
+            </fileset>
+        </copy>
         
     </target>
     
   	<target name="compile" depends="init" description="compile the source " >
 
-  		<!-- compile the program -->
-		<javac srcdir="${src}/program" destdir="${build}/program"/>
+  		<!-- compile all the .java files -->
+		<javac srcdir="${src}/program" destdir="${build}/program" deprecation="on" />
 
-  		<!-- copy in the required images -->
+  		<!-- copy in the required images (flash screen) -->
   		<copy todir="${build}/program" file="${src}/images/logo-256x256.png" />
 
+        <!-- docs no longer included in JAR
         <copy todir="${build}/doc/">
 			<fileset dir="${doc}" excludes="nonlocal/,*.sh,*.php,**/.xvpics/**" />
-        </copy>
+        </copy>-->
         
 		<!-- gzip the man page -->
         <gzip src="${src}/install/linux/freeguide.1" zipfile="${build}/freeguide.1.gz"/>
@@ -162,14 +182,15 @@
 
 		<mkdir dir="${build}/linux" />
 
-		<!-- Copy the program file and docs -->
+		<!-- Copy the program file -->
 		<copy todir="${build}/linux">
             <fileset dir="${build}/program"/>
 		</copy>
         
+        <!-- no longer included in JAR
         <copy todir="${build}/linux/doc">
             <fileset dir="${build}/doc" />
-        </copy>
+        </copy>-->
 
 		<!-- Copy the XMLTV DTD -->
 		<copy file="${xmltv}/xmltv.dtd" todir="${build}/linux" />
@@ -272,18 +293,7 @@
 
 	<target name="main" depends="FreeGuide-Source"
 		description="generate all the installers" >
-
 	</target>
-
-	<!--<target name="doc-nonlocal" depends="init"
-		description="generate the website documentation" >
-                <copy todir="${build}/doc/nonlocal">
-			<fileset dir="${doc}/" excludes="*.sh,*.php,.xvpics/,nonlocal/" />
-		</copy>
-                <copy todir="${build}/doc/nonlocal">
-			<fileset dir="${doc}/nonlocal" excludes="*.sh,*.php,.xvpics/" />
-		</copy>
-	</target>-->
 
 	<target name="clean"
         description="clean up" >

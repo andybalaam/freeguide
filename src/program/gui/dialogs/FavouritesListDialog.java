@@ -316,7 +316,7 @@ public class FavouritesListDialog extends FGDialog {
         int i = list.getSelectedIndex();
         if (i != -1) {
             Favourite fav = (Favourite) favourites.get(i);
-            new FavouriteEditorDialog(this, "Edit Favourite", fav).show();
+            new FavouriteEditorDialog(this, "Edit Favourite", fav).setVisible( true );
         }
         
                 
@@ -332,7 +332,7 @@ public class FavouritesListDialog extends FGDialog {
 		
         Favourite newFav = new Favourite();
         favourites.add(newFav);
-        new FavouriteEditorDialog(this, "Add a new Favourite", newFav).show();
+        new FavouriteEditorDialog(this, "Add a new Favourite", newFav).setVisible( true );
         latestIndex = favouritesModel.size();
 
         reShow();

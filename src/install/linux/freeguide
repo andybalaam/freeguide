@@ -7,5 +7,6 @@ fi
 if [ -z "$JAVACMD" ]; then
 	JAVACMD=java
 fi
-$JAVACMD $FREEGUIDE_OPTS -jar $FREEGUIDE_JAR "$@"
+$JAVACMD $FREEGUIDE_OPTS -jar $FREEGUIDE_JAR \
+    --doc_directory "__ANT_DOC_DIRECTORY__" "$@"
 

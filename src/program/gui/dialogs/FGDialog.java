@@ -84,7 +84,7 @@ public class FGDialog extends JDialog {
      */
     
     public boolean showDialog() {
-        show();
+        setVisible( true );
         return updatedFlag;
     }
 
@@ -96,7 +96,7 @@ public class FGDialog extends JDialog {
      */
     protected void quit() {
 
-        hide();
+        setVisible( false );
         dispose();
 
     }

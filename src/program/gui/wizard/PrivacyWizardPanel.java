@@ -196,7 +196,7 @@ public class PrivacyWizardPanel extends WizardPanel implements ActionListener {
 	
 	private void moreInfo() {
 		
-		new PrivacyInfoDialog().show();
+		new PrivacyInfoDialog().setVisible( true );
 		
 	}
 	

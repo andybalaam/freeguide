@@ -1,42 +1,23 @@
 prefs.1=misc.working_directory=%home%/.freeguide
-prefs.2=misc.doc_directory=%misc.working_directory%/doc
 
-prefs.3=misc.day_start_time=06:00
+prefs.2=misc.day_start_time=06:00
 
 
-prefs.4=misc.grabber_today_offset=0
-prefs.5=misc.grabber_start_today=true
+prefs.3=misc.grabber_today_offset=0
+prefs.4=misc.grabber_start_today=true
 
-prefs.6=misc.browser.1=Mozilla
-prefs.7=commandline.browser_command.1.1=mozilla \"%filename%\"
-prefs.8=misc.browser.2=Galeon
-prefs.9=commandline.browser_command.2.1=galeon \"%filename%\"
-prefs.10=misc.browser.3=Konqueror
-prefs.11=commandline.browser_command.3.1=konqueror \"%filename%\"
-prefs.12=misc.browser.4=Opera
-prefs.13=commandline.browser_command.4.1=opera \"%filename%\"
-prefs.14=misc.browser.5=Epiphany
-prefs.15=commandline.browser_command.5.1=epiphany \"%filename%\"
-prefs.16=misc.browser.6=Netscape
-prefs.17=commandline.browser_command.6.1=netscape \"%filename%\"
+prefs.5=misc.browser.1=Mozilla
+prefs.6=commandline.browser_command.1.1=mozilla \"%filename%\"
+prefs.7=misc.browser.2=Galeon
+prefs.8=commandline.browser_command.2.1=galeon \"%filename%\"
+prefs.9=misc.browser.3=Konqueror
+prefs.10=commandline.browser_command.3.1=konqueror \"%filename%\"
+prefs.11=misc.browser.4=Opera
+prefs.12=commandline.browser_command.4.1=opera \"%filename%\"
+prefs.13=misc.browser.5=Epiphany
+prefs.14=commandline.browser_command.5.1=epiphany \"%filename%\"
+prefs.15=misc.browser.6=Netscape
+prefs.16=commandline.browser_command.6.1=netscape \"%filename%\"
 
 file.1=xmltv.dtd>%misc.working_directory%/xmltv.dtd>xmltv.dtd>%misc.working_directory%/xmltv.dtd
-file.2=doc/contributors.html>%misc.working_directory%/doc/contributors.html
-file.3=doc/COPYING>%misc.working_directory%/doc/COPYING
-file.4=doc/design.html>%misc.working_directory%/doc/design.html
-file.5=doc/developers.html>%misc.working_directory%/doc/developers.html
-file.6=doc/FAQ.html>%misc.working_directory%/doc/FAQ.html
-file.7=doc/FreeGuide-0_7-Linux-MetalLookAndFeel.png>%misc.working_directory%/doc/FreeGuide-0_7-Linux-MetalLookAndFeel.png
-file.8=doc/index.html>%misc.working_directory%/doc/index.html
-file.9=doc/INSTALL-linux-noxmltv.html>%misc.working_directory%/doc/INSTALL-linux-noxmltv.html
-file.10=doc/INSTALL-windows.html>%misc.working_directory%/doc/INSTALL-windows.html
-file.11=doc/LookAndFeel.html>%misc.working_directory%/doc/LookAndFeel.html
-file.12=doc/README.html>%misc.working_directory%/doc/README.html
-file.13=doc/stylesheet.css>%misc.working_directory%/doc/stylesheet.css
-file.14=doc/timezone.html>%misc.working_directory%/doc/timezone.html
-file.15=doc/TODO>%misc.working_directory%/doc/TODO
-file.16=doc/userguide.html>%misc.working_directory%/doc/userguide.html
-
-
-
 

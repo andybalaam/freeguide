@@ -94,14 +94,12 @@ public class StandardDialog extends JDialog implements ActionListener {
         String command = event.getActionCommand();
         if (command.equals("helpButton")) {
             // display help information
-        }
-        else if (command.equals("okButton")) {
+        } else if (command.equals("okButton")) {
             this.cancelled = false;
-            hide();
-        }
-        else if (command.equals("cancelButton")) {
+            setVisible( false );
+        } else if (command.equals("cancelButton")) {
             this.cancelled = true;
-            hide();
+            setVisible( false );
         }
     }
 

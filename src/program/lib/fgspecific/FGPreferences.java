@@ -47,8 +47,8 @@ public class FGPreferences {
     public FGPreferences(String subNode) {
 
         prefs = Preferences.userRoot().node( "/org/freeguide-tv/" + subNode );
-        system_prefs = Preferences.systemRoot().node(
-            "/org/freeguide-tv/" + subNode);
+        /*system_prefs = Preferences.systemRoot().node(
+            "/org/freeguide-tv/" + subNode);*/
 
     }
 
@@ -410,17 +410,19 @@ public class FGPreferences {
      */
     public String get(String key) {
         
-        String value = prefs.get( key, null );
+        return prefs.get( key, null );
+        
+        /*String value = prefs.get( key, null );
         if( value == null ) {
             value = getSystem( key );
         }
-        return value;
+        return value;*/
         
     }
 
-    public String getSystem(String key) {
+    /*public String getSystem(String key) {
         return system_prefs.get( key, null );
-    }
+    }*/
     
 
     // ------------------------------------------------------------------------
@@ -917,9 +919,9 @@ public class FGPreferences {
         }
     }
 
-    public void putSystem(String key, String value) {
+    /*public void putSystem(String key, String value) {
         system_prefs.put(key, value);
-    }
+    }*/
     
     
     /**
@@ -1220,7 +1222,7 @@ public class FGPreferences {
     // ------------------------------------------------------------------------
 
     private Preferences prefs;
-    private Preferences system_prefs;
+    //private Preferences system_prefs;
 
 }
 

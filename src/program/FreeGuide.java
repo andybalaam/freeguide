@@ -26,12 +26,12 @@ import java.util.prefs.*;
 import javax.swing.*;
 
 /**
- *  The main class called to start FreeGuide. Calls the FreeGuideStartupChecker
+ *  The main class called to start FreeGuide. Calls other objects
  *  to do the real work. Also contains some global objects.
  *
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    9
+ *@version    10
  */
 public class FreeGuide {
     
@@ -41,7 +41,18 @@ public class FreeGuide {
         // Also set up a log and the preferences classes.
         StartupChecker.basicSetup( args );
         
-        if( arguments.isSet( "install" ) ) {
+        // Find out what the documents directory is from the command line
+        if( arguments.isSet( "doc_directory" ) ) {
+            
+            prefs.misc.put( "doc_directory",
+                arguments.getValue( "doc_directory" ) );
+                
+        } else {
+            
+            log.warning( "No documents directory supplied on the command line!"
+                + "  Documentation will not be available." );
+            
+        }/* else if( arguments.isSet( "install" ) ) {
             setSystemSettings();
             System.exit( 0 );
         } else if( arguments.isSet( "uninstall" ) ) {
@@ -53,7 +64,7 @@ public class FreeGuide {
         } else if( arguments.isSet( "wipeprefs" ) ) {
             removeSettings();
             System.exit( 0 );
-        }
+        }*/
         
         String install_version = FreeGuide.prefs.misc.get( "install_version" );
         if( install_version == null ) {
@@ -116,7 +127,8 @@ public class FreeGuide {
 			}
 			
 			message += "\nPlease go to the Options screen under the Tools "
-				+ "menu\nTo correct the problems, or re-install.";
+				+ "menu\nto correct the problems, or re-run the\n"
+                + "First Time Wizard.";
 			
 			JOptionPane.showMessageDialog( null, message,
 				"Configuration problems", JOptionPane.WARNING_MESSAGE );
@@ -131,7 +143,7 @@ public class FreeGuide {
      * Called when we've received some preference settings on the command line,
      * either during installation or in normal use.
      */
-    private void setSystemSettings() {
+    /*private void setSystemSettings() {
 
         Vector prefsToSet = arguments.getBlankValues();
         
@@ -141,13 +153,13 @@ public class FreeGuide {
 
         }
         
-    }
+    }*/
     
     /**
      * Called on uninstall on some systems to clear the junk out of the Java
      * preferences.
      */
-    private void removeSystemSettings() {
+    /*private void removeSystemSettings() {
         
         // FIXME does not remove the user's preferences node, only the system's
         
@@ -169,13 +181,13 @@ public class FreeGuide {
             e.printStackTrace();
         }
         
-    }
+    }*/
 
     /**
      * Convenient way to clear out all the settings when we're experimenting
      * with different installations of FreeGuide.
      */
-    private void removeSettings() {
+    /*private void removeSettings() {
                                                                  
         Preferences node = Preferences.userRoot().node("/org/freeguide-tv");
                                                                                 
@@ -187,7 +199,7 @@ public class FreeGuide {
             e.printStackTrace();
         }
         
-    }
+    }*/
     
     /**
      *  Deletes a whole directory recursively (also deletes a single file).
