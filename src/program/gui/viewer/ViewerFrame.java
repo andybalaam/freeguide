@@ -423,8 +423,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
         channelNameScrollPane.setBorder(null);
         channelNameScrollPane.setVerticalScrollBarPolicy(javax.swing.JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        channelNameScrollPane.setMinimumSize(new java.awt.Dimension(100, 100));
-        channelNameScrollPane.setPreferredSize(new java.awt.Dimension(100, 100));
+        channelNameScrollPane.setMinimumSize(new java.awt.Dimension(10, 10));
+        channelNameScrollPane.setPreferredSize(new java.awt.Dimension(10, 10));
         channelNamePanel.setLayout(null);
 
         channelNamePanel.setBackground(new java.awt.Color(245, 245, 255));
@@ -900,15 +900,24 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		// Delete the old ones
 		channelNamePanel.removeAll();
 
-		// Resize the area
-        channelNamePanel.setPreferredSize(
-            new Dimension(
-            	channelPanelWidth,
-                currentChannelSet.getNoChannels()
-					* channelHeight + 50 ) );
-					
 		int num_chans = currentChannelSet.getNoChannels();
-					
+
+        // First using the FontMetrics system work out
+		// the actual width of the text
+        int maxChannelWidth = 0;
+
+        for (int c = 0; c < num_chans; c++) {
+            FontMetrics myFM = channelNamePanel.getFontMetrics(font);
+            int myChanWidth = myFM.stringWidth( currentChannelSet.getChannelName(c) );
+
+            if( myChanWidth > maxChannelWidth )
+            {
+              maxChannelWidth = myChanWidth;
+            }
+        }
+        // Then add a reasonable amount of space as a border
+        maxChannelWidth += 5;
+
 		// Create all the JLabels for channels, and set them up
         for (int c = 0; c < num_chans; c++) {
 
@@ -917,12 +926,6 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
             JLabel ctxt = new JLabel(
 				currentChannelSet.getChannelName(c) );
 
-            ctxt.setBounds(
-				0,
-				(halfVerGap * 2) + (c * channelHeight) - 1,
-				channelNamePanel.getPreferredSize().width - 1,
-				channelHeight - (halfVerGap * 4) );
-
             ctxt.setBackground( channelColour );
             ctxt.setFont( font );
             ctxt.setBorder( javax.swing.BorderFactory.createLineBorder(
@@ -930,10 +933,24 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
             ctxt.setHorizontalAlignment( JLabel.LEFT );
             ctxt.setOpaque( true );
 
-            channelNamePanel.add( ctxt );
+            // Note that I've added + 2 to the width - this is for the
+            // border, you may need to add more if you want more of a gap!
+            ctxt.setBounds(
+                0,
+                (halfVerGap * 2) + (c * channelHeight) - 1,
+                maxChannelWidth,
+                channelHeight - (halfVerGap * 4) );
 
+            channelNamePanel.add( ctxt );
         }
-		
+        
+        // Resize the area
+        channelNamePanel.setPreferredSize(
+            new Dimension(
+                maxChannelWidth,
+                currentChannelSet.getNoChannels()
+                    * channelHeight + 50 ) );
+       
 		//}}}
 		
 		//{{{ Draw the programmes

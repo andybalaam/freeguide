@@ -105,7 +105,7 @@ public class VersionCheckerThread implements Runnable {
 	 */
 	private void warnFutureVersion() {
 		
-		FreeGuide.log.info( "Congratulations!  You are using a version of FreeGuide that hasn't been invented yet!" );
+		FreeGuide.log.info( "You are using a development version of FreeGuide." );
 		
 	}
 

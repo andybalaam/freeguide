@@ -130,7 +130,7 @@ public class FreeGuide {
 	/**
 	 *  What revision of the version this is
 	 */
-	public final static int version_revision = 3;
+	public final static int version_revision = 4;
 
 	/**
 	 *  Default colour of a normal programme
