@@ -23,7 +23,7 @@
   <li><a href="#winrar">When I double-click on a .jar file WinRAR comes up - what do I do?</a></li>
   <li><a href="#proxy">Can I use FreeGuide from behind a proxy server?</a></li>
   <li><a href="#timezone">I get an error about "TZ" - what do I do?</a></li>
-  <li><a href="#twosources">How do I get listings from 2 different sources?</a></li>
+  <li><a href="#twosources">How do I get listings from 2 different sources or channel lineups?</a></li>
   <li><a href="#missinglistings">I've downloaded the listings but FreeGuide says some are still missing!  What's happening?</a></li>
   <li><a href="#missingfavs">Why are some of my favourites not selected?</a></li>
   <li><a href="#looknfeel">Does FreeGuide support skins or themes?  How do I use them?</a></li>
@@ -110,13 +110,27 @@
 
 <h2><a name="twosources"></a>How do I get listings from 2 different sources?</h2>
 
-<p>It is possible to make FreeGuide grab the listings from two different listings providers and merge the results for you to view.  This might be useful if you want to see listings for 2 different zip codes, for example.  To do this you will need to configure your grabber twice, and save the config files as (e.g.) tv_grab_na_1.conf and tv_grab_na_2.conf in the normal directory for XMLTV config files.  Then you'll need to go to FreeGuide's "Advanced Options" screen and the "Grabber Command" tab.  Instead of what's there you'll need these 3 lines:</p>
+<p>It is possible to make FreeGuide grab the listings from two different listings providers and merge the results for you to view.  This might be useful if you want to see listings for 2 different channel lineups, for example.  To do this you will need to configure your grabber twice, and save the config files as tv_grab_na_dd.conf and tv_grab_na_dd_b.conf in the normal directory for XMLTV config files.  The example below is for the na_dd grabber, which is for people in North America.</p>
 
-<p><tt>"%misc.xmltv_directory%\xmltv.exe" tv_grab_na --config-file "%misc.xmltv_directory%\tv_grab_na_1.conf" --offset %offset% --days 1 --output "%misc.working_directory%\tv-%date%-1.xmltv.tmp"<br /><br />
-"%misc.xmltv_directory%\xmltv.exe" tv_grab_na --config-file "%misc.xmltv_directory%\tv_grab_na_2.conf" --offset %offset% --days 1 --output "%misc.working_directory%\tv-%date%-2.xmltv.tmp"<br /><br />
-"%misc.xmltv_directory%\xmltv.exe" tv_cat --output "%misc.working_directory%\tv-%date%.xmltv" "%misc.working_directory%\tv-%date%-1.xmltv.tmp" "%misc.working_directory%\tv-%date%-2.xmltv.tmp"</tt></p>
+<p>You'll need to run one normal configuration by choosing "Choose Channels" from the "Tools" menu in FreeGuide, and one manually, by opening a Cmd or DOS window and typing:</p>
 
-<p>(On Linux you'll need the equivalent.  Ask if you need help.)</p>
+<p><tt>
+cd "C:\Program Files\freeguide-tv\xmltv"<br />
+xmltv tv_grab_na_dd --configure --gui --config-file tv_grab_na_dd_b.conf
+</tt></p>
+
+<p>Now give the settings for the second lineup when you are asked.</p>
+
+<p>Next you'll need to go to FreeGuide's "Advanced Options" screen and the "Grabber Command" tab.  Instead of what's there you'll need these 3 lines:</p>
+
+<p><tt>"%misc.xmltv_directory%\xmltv.exe" tv_grab_na_dd --config-file "%misc.xmltv_directory%\tv_grab_na_dd.conf" --offset %offset% --days 1 --output "%misc.working_directory%\tv-%date%.xmltv.tmp1" --dd-data "%misc.working_directory%\dd%offset%.xml"<br /><br />
+
+"%misc.xmltv_directory%\xmltv.exe" tv_grab_na_dd --config-file "%misc.xmltv_directory%\tv_grab_na_dd_b.conf" --offset %offset% --days 1 --output "%misc.working_directory%\tv-%date%.xmltv.tmp2" --dd-data "%misc.working_directory%\dd%offset%.xml" --reprocess<br /><br />
+
+"%misc.xmltv_directory%\xmltv.exe" tv_cat --output "%misc.working_directory%\tv-%date%.xmltv" "%misc.working_directory%\tv-%date%.xmltv.tmp1" "%misc.working_directory%\tv-%date%.xmltv.tmp2"
+</tt></p>
+
+<p>If you're in another region you'll need to adapt the commands to work with your grabber.  On Linux you'll need to adapt the commands to be Linux-y.  Do ask if you need help, and when we work out the solution for other regions and platforms we'll put the results up here.</p>
 
 <h2><a name="missinglistings"></a>I've downloaded the listings but FreeGuide says some are still missing!  What's happening?</h2>
 

@@ -229,7 +229,7 @@ public class DownloadingOptionPanel extends OptionPanel {
 	
 	private String[] unlineBreakise( String withLineBreaks ) {
 		
-		return withLineBreaks.split(lb);
+		return withLineBreaks.split("\n");
 		
 	}
 	
