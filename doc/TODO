@@ -32,6 +32,8 @@ x means done by Sagar Shah
 - Facilitate community devt of default settings in each situation (how?)
 - FAQ?
 - Other platforms - investigate Mac, BSD, others
+- Consider a C++ installer that just checks for the right java version before
+  running the Java installer.
 
 - Release 0.5 (less urgent or harder features)
 
@@ -75,6 +77,8 @@ x means done by Sagar Shah
 - single channel view
 x GoToNow shouldn't put the "now" arrow right at the edge of the screen
 x Display which channels are missing when some listings are missing.
+- Change READMEs etc to point to http://java.sun.com/getjava/
+  and point users to this with the installer too.
 
 + Release 0.4.3 (most wanted features)
 
