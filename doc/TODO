@@ -7,7 +7,7 @@ feel like it.
 - means to do
 + means done by Andy Balaam
 x means done by Sagar Shah
-+ means done by Walter Duncan
+* means done by Walter Duncan
 
 --------------------------------------------
 
@@ -84,6 +84,7 @@ x means done by Sagar Shah
 - Make installer launch FreeGuide and/or a README file.
 - Include tv_split in Linux installer
 - Dynamic update of command output window
+- Put list of "missing listings" channels in a scroll pane...
 + Fix possible NullPointerException in StartupChecker.checkFileFailure
 + Put the binary exes, dlls in cvs as binaries
 + Change READMEs etc to point to http://java.sun.com/getjava/
