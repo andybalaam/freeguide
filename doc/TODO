@@ -95,6 +95,9 @@ W  means work in progress by Walter Duncan
 - Fix the fact that the build process never overwrites README and INSTALL even
 when they've changed.
 - Add the XMLTV source distribution to the source package (good GPL practice)
+- Add to docs that some people (e.g. RedHat users) will need to change their
+	XMLTV dir to /usr/bin/ instead of /usr/local/bin/ - do we need this check
+	anyway?
 
 - Release 0.5 (Features - especially use of many grabbers, and bug fixes)
 
