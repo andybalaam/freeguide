@@ -12,7 +12,7 @@
 echo "Creating patched XMLTV..."
 
 # Find out the version of XMLTV we're working with
-XMLTV_VERSION=xmltv-0.5.32
+XMLTV_VERSION=xmltv-0.5.34
 MODIFIED_VERSION=$XMLTV_VERSION-tkgui-bleb-1
 
 # Remove any old directories

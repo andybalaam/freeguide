@@ -128,6 +128,7 @@ public class ProgrammeFormat {
 		if ( programme.getPreviouslyShown() ) {
 			toAppendTo.append(" (R)" );
 		}
+        
 		return toAppendTo;
 	}
 

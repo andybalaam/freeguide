@@ -4,7 +4,7 @@ RCS file: /cvsroot/xmltv/xmltv/MANIFEST,v
 retrieving revision 1.100
 diff -u -B -b -w -r1.100 MANIFEST
 --- MANIFEST	10 Apr 2004 22:00:29 -0000	1.100
-+++ MANIFEST	15 Apr 2004 08:09:33 -0000
++++ MANIFEST	2 Jun 2004 09:36:59 -0000
 @@ -4,8 +4,14 @@
  Uninstall.pm
  README
@@ -28,7 +28,7 @@ RCS file: /cvsroot/xmltv/xmltv/Makefile.PL,v
 retrieving revision 1.199
 diff -u -B -b -w -r1.199 Makefile.PL
 --- Makefile.PL	13 Apr 2004 22:20:54 -0000	1.199
-+++ Makefile.PL	15 Apr 2004 08:09:34 -0000
++++ Makefile.PL	2 Jun 2004 09:37:00 -0000
 @@ -107,9 +107,16 @@
       'lib/Usage.pm'               => '$(INST_LIBDIR)/XMLTV/Usage.pm',
       'lib/Date.pm'                => '$(INST_LIBDIR)/XMLTV/Date.pm',
@@ -55,7 +55,7 @@ diff -u -B -b -w -r1.199 Makefile.PL
 -    do 'lib/AskTerm.pm' or die 'could not load lib/AskTerm.pm, aborting';
 -    *ask = \&XMLTV::AskTerm::askBooleanQuestion;
 +    do 'lib/Ask/Term.pm' or die 'could not load lib/Ask/Term.pm, aborting';
-+    *ask = \&XMLTV::Ask::Term::askBooleanQuestion;
++    *ask = \&XMLTV::Ask::Term::ask_boolean;
  }
  
  # Weird shit happens when you change things like PREFIX without
@@ -98,13 +98,29 @@ diff -u -B -b -w -r1.199 Makefile.PL
      }
  }
  
+Index: grab/Config_file.pm
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/grab/Config_file.pm,v
+retrieving revision 1.6
+diff -u -B -b -w -r1.6 Config_file.pm
+--- grab/Config_file.pm	3 Jan 2004 14:52:53 -0000	1.6
++++ grab/Config_file.pm	2 Jun 2004 09:37:00 -0000
+@@ -41,7 +41,7 @@
+ sub check_no_overwrite( $ ) {
+     my $f = shift;
+     if (-e $f) {
+-	if (not askBooleanQuestion
++	if (not ask_boolean
+ 	    ("The configuration file $f already exists.  There is
+ currently no support for altering an existing configuration: you have
+ to reconfigure from scratch.
 Index: grab/Grab_XML.pm
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/Grab_XML.pm,v
 retrieving revision 1.11
 diff -u -B -b -w -r1.11 Grab_XML.pm
 --- grab/Grab_XML.pm	3 Jan 2004 14:52:53 -0000	1.11
-+++ grab/Grab_XML.pm	15 Apr 2004 08:09:35 -0000
++++ grab/Grab_XML.pm	2 Jun 2004 09:37:00 -0000
 @@ -6,6 +6,8 @@
  use XMLTV;
  use XMLTV::Usage;
@@ -277,7 +293,7 @@ RCS file: /cvsroot/xmltv/xmltv/grab/de_tvtoday/tv_grab_de_tvtoday.in,v
 retrieving revision 1.9
 diff -u -B -b -w -r1.9 tv_grab_de_tvtoday.in
 --- grab/de_tvtoday/tv_grab_de_tvtoday.in	10 Apr 2004 22:00:30 -0000	1.9
-+++ grab/de_tvtoday/tv_grab_de_tvtoday.in	15 Apr 2004 08:09:35 -0000
++++ grab/de_tvtoday/tv_grab_de_tvtoday.in	2 Jun 2004 09:37:01 -0000
 @@ -11,7 +11,7 @@
  
  tv_grab_de_tvtoday --help
@@ -353,6 +369,15 @@ diff -u -B -b -w -r1.9 tv_grab_de_tvtoday.in
  #-- make sure offset+days arguments are within range
  die "offset mustn't be larger than six"
    if($opt_offset > 6);
+@@ -285,7 +294,7 @@
+     my @chs = sort keys %channels;
+     my @names = map { $channels{$_} } @chs;
+     my @qs = map { "add channel $_?" } @names;
+-    my @want = askManyBooleanQuestions(1, @qs);
++    my @want = ask_many_boolean(1, @qs);
+ 
+     foreach (@chs) {
+ 	my $w = shift @want;
 @@ -353,16 +362,18 @@
  
  #-- write out <programme> tags
@@ -390,7 +415,7 @@ RCS file: /cvsroot/xmltv/xmltv/grab/dk/tv_grab_dk,v
 retrieving revision 1.14
 diff -u -B -b -w -r1.14 tv_grab_dk
 --- grab/dk/tv_grab_dk	10 Apr 2004 22:00:30 -0000	1.14
-+++ grab/dk/tv_grab_dk	15 Apr 2004 08:09:36 -0000
++++ grab/dk/tv_grab_dk	2 Jun 2004 09:37:02 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_dk --help
@@ -459,7 +484,7 @@ diff -u -B -b -w -r1.14 tv_grab_dk
  my $mode = XMLTV::Mode::mode('grab', # default
  			     $opt_configure => 'configure',
  			     $opt_list_channels => 'list-channels',
-@@ -161,11 +170,11 @@
+@@ -161,17 +170,17 @@
      XMLTV::Config_file::check_no_overwrite($config_file);
      open(CONF, ">$config_file") or die "cannot write to $config_file: $!";
      # find list of available channels
@@ -474,6 +499,13 @@ diff -u -B -b -w -r1.14 tv_grab_dk
  
      # Ask about each channel.
      my @chs = sort keys %channels;
+     my @names = map { $channels{$_} } @chs;
+     my @qs = map { "add channel $_?" } @names;
+-    my @want = askManyBooleanQuestions(1, @qs);
++    my @want = ask_many_boolean(1, @qs);
+     foreach (@chs) {
+ 	my $w = shift @want;
+ 	warn("cannot read input, stopping channel questions"), last
 @@ -185,6 +194,8 @@
  	# TODO don't store display-name in config file.
      }
@@ -533,7 +565,7 @@ RCS file: /cvsroot/xmltv/xmltv/grab/es/tv_grab_es,v
 retrieving revision 1.26
 diff -u -B -b -w -r1.26 tv_grab_es
 --- grab/es/tv_grab_es	10 Apr 2004 22:00:30 -0000	1.26
-+++ grab/es/tv_grab_es	15 Apr 2004 08:09:37 -0000
++++ grab/es/tv_grab_es	2 Jun 2004 09:37:03 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_es --help
@@ -602,6 +634,15 @@ diff -u -B -b -w -r1.26 tv_grab_es
  my $mode = XMLTV::Mode::mode('grab', # default
  			     $opt_configure => 'configure',
  			     $opt_list_channels => 'list-channels',
+@@ -192,7 +199,7 @@
+     my @chs = sort keys %channels;
+     my @names = map { $channels{$_} } @chs;
+     my @qs = map { "add channel $_?" } @names;
+-    my @want = askManyBooleanQuestions(1, @qs);
++    my @want = ask_many_boolean(1, @qs);
+     foreach (@chs) {
+ 	my $w = shift @want;
+ 	warn("cannot read input, stopping channel questions"), last
 @@ -285,14 +292,15 @@
  # This progress bar is for both downloading and parsing.  Maybe
  # they could be separate.
@@ -648,7 +689,7 @@ RCS file: /cvsroot/xmltv/xmltv/grab/es_digital/tv_grab_es_digital,v
 retrieving revision 1.3
 diff -u -B -b -w -r1.3 tv_grab_es_digital
 --- grab/es_digital/tv_grab_es_digital	10 Apr 2004 22:00:30 -0000	1.3
-+++ grab/es_digital/tv_grab_es_digital	15 Apr 2004 08:09:37 -0000
++++ grab/es_digital/tv_grab_es_digital	2 Jun 2004 09:37:03 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_es_digital --help
@@ -717,6 +758,15 @@ diff -u -B -b -w -r1.3 tv_grab_es_digital
  my $mode = XMLTV::Mode::mode('grab', # default
  			     $opt_configure => 'configure',
  			     $opt_list_channels => 'list-channels',
+@@ -187,7 +194,7 @@
+     my @chs = sort keys %channels;
+     my @names = map { $channels{$_} } @chs;
+     my @qs = map { "add channel $_?" } @names;
+-    my @want = askManyBooleanQuestions(1, @qs);
++    my @want = ask_many_boolean(1, @qs);
+     foreach (@chs) {
+ 	my $w = shift @want;
+ 	warn("cannot read input, stopping channel questions"), last
 @@ -278,16 +285,18 @@
  # This progress bar is for both downloading and parsing.  Maybe
  # they could be separate.
@@ -766,7 +816,7 @@ RCS file: /cvsroot/xmltv/xmltv/grab/fi/tv_grab_fi,v
 retrieving revision 1.31
 diff -u -B -b -w -r1.31 tv_grab_fi
 --- grab/fi/tv_grab_fi	10 Apr 2004 22:00:31 -0000	1.31
-+++ grab/fi/tv_grab_fi	15 Apr 2004 08:09:38 -0000
++++ grab/fi/tv_grab_fi	2 Jun 2004 09:37:03 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_fi --help
@@ -835,6 +885,15 @@ diff -u -B -b -w -r1.31 tv_grab_fi
  my $mode = XMLTV::Mode::mode('grab', # default
  			     $opt_configure => 'configure',
  			     $opt_list_channels => 'list-channels',
+@@ -176,7 +183,7 @@
+     my @chs = sort keys %channels;
+     my @names = map { $channels{$_} } @chs;
+     my @qs = map { "add channel $_?" } @names;
+-    my @want = askManyBooleanQuestions(1, @qs);
++    my @want = ask_many_boolean(1, @qs);
+     foreach (@chs) {
+ 	my $w = shift @want;
+ 	warn("cannot read input, stopping channel questions"), last
 @@ -266,14 +273,15 @@
  # This progress bar is for both downloading and parsing.  Maybe
  # they could be separate stages.
@@ -881,7 +940,7 @@ RCS file: /cvsroot/xmltv/xmltv/grab/fr/tv_grab_fr,v
 retrieving revision 1.4
 diff -u -B -b -w -r1.4 tv_grab_fr
 --- grab/fr/tv_grab_fr	10 Apr 2004 22:00:31 -0000	1.4
-+++ grab/fr/tv_grab_fr	15 Apr 2004 08:09:38 -0000
++++ grab/fr/tv_grab_fr	2 Jun 2004 09:37:04 -0000
 @@ -6,7 +6,7 @@
  
  =head1 SYNOPSIS
@@ -948,9 +1007,12 @@ diff -u -B -b -w -r1.4 tv_grab_fr
  if (not $opt_slow) {
      # Certain options are ignored in fast mode.
      my %slow_options = (days => $opt_days,
-@@ -246,9 +253,9 @@
+@@ -244,11 +251,11 @@
+     my @gts = sort keys %GridType;
+     my @gtnames = map { $GridType{$_} } @gts;
      my @gtqs = map { "Get channels type : $_?" } @gts;
-     my @gtwant = askManyBooleanQuestions(1, @gtqs);
+-    my @gtwant = askManyBooleanQuestions(1, @gtqs);
++    my @gtwant = ask_many_boolean(1, @gtqs);
  
 -    my $bar = new Term::ProgressBar('getting channel lists',
 +    my $bar = new XMLTV::ProgressBar('getting channel lists',
@@ -971,6 +1033,24 @@ diff -u -B -b -w -r1.4 tv_grab_fr
  
      my %asked;
      foreach (@gts) {
+@@ -271,7 +279,7 @@
+             my @chs = grep { not $asked{$_}++ } sort keys %channels;
+             my @names = map { $channels{$_}{name} } @chs;
+             my @qs = map { "add channel $_?" } @names;
+-            my @want = askManyBooleanQuestions(1, @qs);
++            my @want = ask_many_boolean(1, @qs);
+             foreach (@chs) {
+                 my $w = shift @want;
+                 warn("cannot read input, stopping channel questions"), last if not defined $w;
+@@ -323,7 +331,7 @@
+     my @gts = sort keys %GridType;
+     my @gtnames = map { $GridType{$_} } @gts;
+     my @gtqs = map { "List channels for grid : $_?" } @gts;
+-    my @gtwant = askManyBooleanQuestions(1, @gtqs);
++    my @gtwant = ask_many_boolean(1, @gtqs);
+ 
+     foreach (@gts) {
+         my $gtw = shift @gtwant;
 @@ -384,13 +392,14 @@
          push @to_get, [ $url, $chid, $_ ];
      }
@@ -990,11 +1070,11 @@ diff -u -B -b -w -r1.4 tv_grab_fr
  # Specific functions for grabbing information
 Index: grab/hu/tv_grab_hu
 ===================================================================
-RCS file: /cvsroot/xmltv/xmltv/grab/hu/tv_grab_hu,v
+RCS file: /cvsroot/xmltv/xmltv/grab/hu/Attic/tv_grab_hu,v
 retrieving revision 1.13
 diff -u -B -b -w -r1.13 tv_grab_hu
 --- grab/hu/tv_grab_hu	10 Apr 2004 22:00:31 -0000	1.13
-+++ grab/hu/tv_grab_hu	15 Apr 2004 08:09:39 -0000
++++ grab/hu/tv_grab_hu	2 Jun 2004 09:37:05 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_hu --help
@@ -1072,6 +1152,15 @@ diff -u -B -b -w -r1.13 tv_grab_hu
  my $mode = XMLTV::Mode::mode('grab', # default
  			     $opt_configure => 'configure',
  			     $opt_list_channels => 'list-channels',
+@@ -173,7 +181,7 @@
+     my @chs = sort keys %channels;
+     my @names = map { $channels{$_} } @chs;
+     my @qs = map { "add channel $_?" } @names;
+-    my @want = askManyBooleanQuestions(1, @qs);
++    my @want = ask_many_boolean(1, @qs);
+     foreach (@chs) {
+ 	my $w = shift @want;
+ 	warn("cannot read input, stopping channel questions"), last
 @@ -265,8 +273,8 @@
  # This progress bar is for both downloading and parsing.  Maybe
  # they could be separate stages.
@@ -1121,13 +1210,38 @@ diff -u -B -b -w -r1.13 tv_grab_hu
      return %channels;
  }
  
+Index: grab/huro/tv_grab_huro
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/grab/huro/tv_grab_huro,v
+retrieving revision 1.3
+diff -u -B -b -w -r1.3 tv_grab_huro
+--- grab/huro/tv_grab_huro	9 May 2004 17:49:12 -0000	1.3
++++ grab/huro/tv_grab_huro	2 Jun 2004 09:37:05 -0000
+@@ -185,7 +185,7 @@
+     open(CONF, ">$config_file") or die "cannot write to $config_file: $!";
+ 
+     my $default_cn = 'Hungary';
+-    my $cn = askQuestion('Grab listings for which country?',
++    my $cn = ask_choice('Grab listings for which country?',
+ 			 $default_cn,
+ 			 sort keys %COUNTRIES);
+     my $c = $COUNTRIES{$cn}[0];
+@@ -196,7 +196,7 @@
+     my @chs = sort keys %channels;
+     my @names = map { $channels{$_} } @chs;
+     my @qs = map { "add channel $_?" } @names;
+-    my @want = askManyBooleanQuestions(1, @qs);
++    my @want = ask_many_boolean(1, @qs);
+     foreach (@chs) {
+ 	my $w = shift @want;
+ 	warn("cannot read input, stopping channel questions"), last
 Index: grab/it/tv_grab_it.in
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/it/tv_grab_it.in,v
 retrieving revision 1.24
 diff -u -B -b -w -r1.24 tv_grab_it.in
 --- grab/it/tv_grab_it.in	10 Apr 2004 22:00:31 -0000	1.24
-+++ grab/it/tv_grab_it.in	15 Apr 2004 08:09:39 -0000
++++ grab/it/tv_grab_it.in	2 Jun 2004 09:37:06 -0000
 @@ -11,7 +11,7 @@
  
  tv_grab_it --help
@@ -1204,7 +1318,7 @@ diff -u -B -b -w -r1.24 tv_grab_it.in
  # share/ directory for storing the list of dud channels.  This next line
  # is altered by processing through tv_grab_it.PL.  But we can use the
  # current directory instead of share/tv_grab_it for development.
-@@ -206,11 +212,11 @@
+@@ -206,17 +212,17 @@
  		}
      open(CONF, ">$config_file") or die "cannot write to $config_file: $!";
      # find list of available channels
@@ -1219,6 +1333,13 @@ diff -u -B -b -w -r1.24 tv_grab_it.in
  
      # Ask about each channel.
      my @chs = sort keys %channels;
+     my @names = map { $channels{$_} } @chs;
+     my @qs = map { "add channel $_?" } @names;
+-    my @want = askManyBooleanQuestions(1, @qs);
++    my @want = ask_many_boolean(1, @qs);
+     foreach (@chs) {
+ 	my $w = shift @want;
+ 	warn("cannot read input, stopping channel questions"), last
 @@ -230,6 +236,7 @@
  	# TODO don't store display-name in config file.
      }
@@ -1272,7 +1393,7 @@ RCS file: /cvsroot/xmltv/xmltv/grab/jp/tv_grab_jp,v
 retrieving revision 1.2
 diff -u -B -b -w -r1.2 tv_grab_jp
 --- grab/jp/tv_grab_jp	26 Feb 2004 04:28:26 -0000	1.2
-+++ grab/jp/tv_grab_jp	15 Apr 2004 08:09:40 -0000
++++ grab/jp/tv_grab_jp	2 Jun 2004 09:37:07 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_jp --help
@@ -1352,6 +1473,15 @@ diff -u -B -b -w -r1.2 tv_grab_jp
  
      # Ask region
      my %ask_regions;
+@@ -233,7 +241,7 @@
+ 
+     $msg = select_lang("\n地域を指定してください: ",
+ 		       "\nSelect your region: ");
+-    $req_region = askQuestion($msg, $req_region, @r);
++    $req_region = ask_choice($msg, $req_region, @r);
+     $regionid = $ask_regions{$req_region};
+ 
+     if ($regionid eq 'CATV') {
 @@ -250,9 +258,10 @@
  
      $barmsg = select_lang('チャンネル情報を取得中',
@@ -1365,6 +1495,15 @@ diff -u -B -b -w -r1.2 tv_grab_jp
  
      # Ask about each channel.
      Text::Kakasi::getopt_argv('kakasi', '-ieuc', '-Ja', '-Ha', '-Ka', '-Ea');
+@@ -271,7 +280,7 @@
+     }
+     Text::Kakasi::close_kanwadict();
+ 
+-    my @want = askManyBooleanQuestions(1, @qs);
++    my @want = ask_many_boolean(1, @qs);
+     foreach (@channels) {
+ 	my $w = shift @want;
+ 	my $id = $_->{id};
 @@ -287,7 +296,7 @@
  
      close CONF or warn "cannot close $config_file: $!";
@@ -1439,11 +1578,11 @@ diff -u -B -b -w -r1.2 tv_grab_jp
  # subroutine definitions
 Index: grab/na/tv_grab_na
 ===================================================================
-RCS file: /cvsroot/xmltv/xmltv/grab/na/tv_grab_na,v
+RCS file: /cvsroot/xmltv/xmltv/grab/na/Attic/tv_grab_na,v
 retrieving revision 1.98
 diff -u -B -b -w -r1.98 tv_grab_na
 --- grab/na/tv_grab_na	2 Mar 2004 21:00:03 -0000	1.98
-+++ grab/na/tv_grab_na	15 Apr 2004 08:09:43 -0000
++++ grab/na/tv_grab_na	2 Jun 2004 09:37:10 -0000
 @@ -8,7 +8,7 @@
  
  =head1 SYNOPSIS
@@ -1591,6 +1730,15 @@ diff -u -B -b -w -r1.98 tv_grab_na
  	while ( !$config->{option_provider} ) {
  	    my @providersWithIds;
  
+@@ -1308,7 +1338,7 @@
+ 		$defaultProviderId =$1;
+ 	    }
+ 
+-	    my $res = askQuestion("Choose a service provider: ",
++	    my $res = ask_choice("Choose a service provider: ",
+ 				  $idToDesc{$defaultProviderId},
+ 				  @providersWithIds);
+ 	    die 'failed to choose service provider' if not defined $res;
 @@ -1316,18 +1346,19 @@
  	    my $id = $1; die if not defined $id;
  	    $config->{option_provider}=$id;
@@ -1632,7 +1780,7 @@ diff -u -B -b -w -r1.98 tv_grab_na
  
      if ( $failed ) {
  	#errorMessage("$0: failed to get list of channels for postal/zip code $config->{option_postalzipcode}\n");
-@@ -1375,11 +1408,11 @@
+@@ -1375,18 +1408,18 @@
      if ( defined($opt_auto_new_channels) ) {
  	if ( $opt_auto_new_channels eq "ignore" ) {
  	    @r = map { 0 } @toAsk;
@@ -1646,7 +1794,15 @@ diff -u -B -b -w -r1.98 tv_grab_na
  	}
  	else {
  	    die "invalid auto_new_channels $opt_auto_new_channels\n";
-@@ -1415,11 +1448,11 @@
+ 	}
+     }
+     else {
+-	@r = askManyBooleanQuestions(1, map { "add channel $_ ?" } @toAsk);
++	@r = ask_many_boolean(1, map { "add channel $_ ?" } @toAsk);
+     }
+ 
+     # now use the Boolean answers in @r
+@@ -1415,18 +1448,18 @@
      if ( defined($opt_auto_missing_channels) ) {
  	if ( $opt_auto_missing_channels eq "ignore" ) {
  	    @r = map { 0 } @toAsk;
@@ -1660,6 +1816,14 @@ diff -u -B -b -w -r1.98 tv_grab_na
  	}
  	else {
  	    die "invalid auto_missing_channels $opt_auto_missing_channels\n";
+ 	}
+     }
+     else {
+-	@r = askManyBooleanQuestions(1, map { "remove no-longer available channel $_ ?" } @toAsk);
++	@r = ask_many_boolean(1, map { "remove no-longer available channel $_ ?" } @toAsk);
+     }
+ 
+     foreach my $station (@toAsk) {
 @@ -1442,15 +1475,15 @@
  
      if ( $channelsUpdated == 0 ) {
@@ -1681,11 +1845,11 @@ diff -u -B -b -w -r1.98 tv_grab_na
  	exit(1);
 Index: grab/na_dd/tv_grab_na_dd
 ===================================================================
-RCS file: /cvsroot/xmltv/xmltv/grab/na_dd/tv_grab_na_dd,v
+RCS file: /cvsroot/xmltv/xmltv/grab/na_dd/Attic/tv_grab_na_dd,v
 retrieving revision 1.39
 diff -u -B -b -w -r1.39 tv_grab_na_dd
 --- grab/na_dd/tv_grab_na_dd	11 Apr 2004 04:35:48 -0000	1.39
-+++ grab/na_dd/tv_grab_na_dd	15 Apr 2004 08:09:44 -0000
++++ grab/na_dd/tv_grab_na_dd	2 Jun 2004 09:37:10 -0000
 @@ -14,6 +14,7 @@
      
      tv_grab_na_dd --configure [--config-file FILE] [--dd-data FILE]
@@ -1763,7 +1927,7 @@ diff -u -B -b -w -r1.39 tv_grab_na_dd
 +       {
 +#        $opt_tz_offset='local' unless length($opt_tz_offset);
 +#        $opt_tz_offset=ask("Timezone offset (+/-####), or 'local' ($opt_tz_offset)")||'local';
-+         $opt_tz_offset=$ENV{TZ} unless defined $opt_tz_offset || $ENV{TZ} !~ /[+-]\d\d\d\d/;
++         $opt_tz_offset=$ENV{TZ} unless defined $opt_tz_offset || ( defined($ENV{TZ}) && $ENV{TZ} !~ /[+-]\d\d\d\d/ );
 +         $opt_tz_offset='+0000'  unless defined $opt_tz_offset;
 +         $opt_tz_offset=ask("
  DD data is in UTC by default
@@ -1792,7 +1956,7 @@ diff -u -B -b -w -r1.39 tv_grab_na_dd
      ");
          $dd_user=ask("Username ($dd_user):")|| $dd_user || die "DataDirect Username Required\n";
 -        $dd_pass=ask("
-+        $dd_pass=askPassword("
++        $dd_pass=ask_password("
  WARNING: Storing the password in the config file is not secure
  If password is blank, it will be prompted as needed(more secure)
  Unsecured password ('x':delete,default:<keep>,):")|| $dd_pass;
@@ -1805,7 +1969,7 @@ diff -u -B -b -w -r1.39 tv_grab_na_dd
 -        chomp($dd_pass = <STDIN>);
 -        Term::ReadKey::ReadMode('restore');
 -        print STDERR "\n";
-+        $dd_pass = askPassword( "Password for $dd_user: " );
++        $dd_pass = ask_password( "Password for $dd_user: " );
      }
  
  #
@@ -1862,7 +2026,7 @@ diff -u -B -b -w -r1.39 tv_grab_na_dd
                                     $lineups{$dd_lineup}{type});
                                             
 -        $val = askQuestion("\nWhich Lineup? ($dd_lineup)",$val,@choices);
-+        $val = askQuestion("\nWhich Lineup?", $val, @choices);
++        $val = ask_choice("\nWhich Lineup?", $val, @choices);
          $dd_lineup = (split(/\|/,$val))[0];
      }
      print CONF "lineup: $dd_lineup\n";
@@ -1894,7 +2058,7 @@ diff -u -B -b -w -r1.39 tv_grab_na_dd
 -            {
 -                print STDERR "Ignoring new channel: $key\n";
 -                $chan_config{$key}=0;
-+    my @answers = askManyBooleanQuestions( 1, @questions );
++    my @answers = ask_many_boolean( 1, @questions );
 +        
 +    my $i = 0;
 +    for( my $i=0; $i <= $#channels; $i++ ) {
@@ -1952,13 +2116,60 @@ diff -u -B -b -w -r1.39 tv_grab_na_dd
      unless $opt_quiet;
  
  exit(0);
+Index: grab/na_dd/tv_grab_na_dd.in
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/grab/na_dd/tv_grab_na_dd.in,v
+retrieving revision 1.5
+diff -u -B -b -w -r1.5 tv_grab_na_dd.in
+--- grab/na_dd/tv_grab_na_dd.in	22 May 2004 20:22:30 -0000	1.5
++++ grab/na_dd/tv_grab_na_dd.in	2 Jun 2004 09:37:12 -0000
+@@ -823,12 +823,12 @@
+                                    $lineups{$dd_lineup}{name},
+                                    $lineups{$dd_lineup}{type});
+                                            
+-        $val = askQuestion("\nWhich Lineup? ($dd_lineup)",$val,@choices);
++        $val = ask_choice("\nWhich Lineup? ($dd_lineup)",$val,@choices);
+         $dd_lineup = (split(/\|/,$val))[0];
+     }
+     print CONF "lineup: $dd_lineup\n";
+ 
+-        $opt_auto_config='add' if !$opt_auto_config && !askBooleanQuestion("
++        $opt_auto_config='add' if !$opt_auto_config && !ask_boolean("
+ The preferred method for controlling the channel lineup is through
+ the DataDirect web site, but you can omit channels here as well.
+ Do you want to skip some channels?",0);
+@@ -859,7 +859,7 @@
+        else
+        {
+             $res='no' if exists $chan_config{$key} and ! $chan_config{$key};
+-            $res = askQuestion("Add channel $key?",$res,qw(yes no all none ));
++            $res = ask_choice("Add channel $key?",$res,qw(yes no all none ));
+             $chan_config{$key}=1       if $res=~/^[ya]/i;
+             $chan_config{$key}=0       if $res=~/^[n]/i;
+             $opt_auto_config='add'     if $res=~/^all/i;
+Index: grab/na_icons/tv_grab_na_icons.in
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/grab/na_icons/tv_grab_na_icons.in,v
+retrieving revision 1.2
+diff -u -B -b -w -r1.2 tv_grab_na_icons.in
+--- grab/na_icons/tv_grab_na_icons.in	23 May 2004 17:38:53 -0000	1.2
++++ grab/na_icons/tv_grab_na_icons.in	2 Jun 2004 09:37:12 -0000
+@@ -139,7 +139,7 @@
+     map {s/\xa0//g} @names;  # remove non-breaking spaces
+ 
+     my $name=$names[0];    
+-    $name=askQuestion("\nLineup?",$name,@names);
++    $name=ask_choice("\nLineup?",$name,@names);
+ 
+     foreach (0..$#names)
+     {
 Index: grab/nl/tv_grab_nl.in
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/nl/tv_grab_nl.in,v
 retrieving revision 1.7
 diff -u -B -b -w -r1.7 tv_grab_nl.in
 --- grab/nl/tv_grab_nl.in	10 Apr 2004 22:00:31 -0000	1.7
-+++ grab/nl/tv_grab_nl.in	15 Apr 2004 08:09:46 -0000
++++ grab/nl/tv_grab_nl.in	2 Jun 2004 09:37:14 -0000
 @@ -82,6 +82,7 @@
  use Date::Manip;
  use XMLTV;
@@ -2004,7 +2215,7 @@ diff -u -B -b -w -r1.7 tv_grab_nl.in
  my $mode = XMLTV::Mode::mode('grab', # default
  			     $opt_configure => 'configure',
  			     $opt_list_channels => 'list-channels',
-@@ -189,11 +191,12 @@
+@@ -189,17 +191,18 @@
      # configuring it's useful to download at least something as a
      # check that the site is reachable etc.
      #
@@ -2020,6 +2231,13 @@ diff -u -B -b -w -r1.7 tv_grab_nl.in
  
      # Ask about each channel.
      my @chs = sort { $a <=> $b } keys %channels;
+     my @names = map { $channels{$_} } @chs;
+     my @qs = map { "add channel $_?" } @names;
+-    my @want = askManyBooleanQuestions(1, @qs);
++    my @want = ask_many_boolean(1, @qs);
+     foreach (@chs) {
+ 	my $w = shift @want;
+ 	warn("cannot read input, stopping channel questions"), last
 @@ -246,15 +249,15 @@
     });
  
@@ -2093,7 +2311,7 @@ RCS file: /cvsroot/xmltv/xmltv/grab/nl_wolf/tv_grab_nl_wolf,v
 retrieving revision 1.11
 diff -u -B -b -w -r1.11 tv_grab_nl_wolf
 --- grab/nl_wolf/tv_grab_nl_wolf	14 Feb 2004 22:10:31 -0000	1.11
-+++ grab/nl_wolf/tv_grab_nl_wolf	15 Apr 2004 08:09:46 -0000
++++ grab/nl_wolf/tv_grab_nl_wolf	2 Jun 2004 09:37:14 -0000
 @@ -81,7 +81,7 @@
  my $url_base = "$URL_HOST$URL_DIR";
  
@@ -2135,13 +2353,45 @@ diff -u -B -b -w -r1.11 tv_grab_nl_wolf
  }
  
  Grab_XML_nl_wolf->go();
+Index: grab/no/tv_grab_no
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/grab/no/tv_grab_no,v
+retrieving revision 1.3
+diff -u -B -b -w -r1.3 tv_grab_no
+--- grab/no/tv_grab_no	10 Apr 2004 22:00:32 -0000	1.3
++++ grab/no/tv_grab_no	2 Jun 2004 09:37:14 -0000
+@@ -172,7 +172,7 @@
+     my @chs = sort keys %channels;
+     my @names = map { $channels{$_} } @chs;
+     my @qs = map { "add channel $_?" } @names;
+-    my @want = askManyBooleanQuestions(1, @qs);
++    my @want = ask_many_boolean(1, @qs);
+     foreach (@chs) {
+ 	my $w = shift @want;
+ 	warn("cannot read input, stopping channel questions"), last
+Index: grab/pt/tv_grab_pt
+===================================================================
+RCS file: /cvsroot/xmltv/xmltv/grab/pt/tv_grab_pt,v
+retrieving revision 1.3
+diff -u -B -b -w -r1.3 tv_grab_pt
+--- grab/pt/tv_grab_pt	13 Apr 2004 22:06:09 -0000	1.3
++++ grab/pt/tv_grab_pt	2 Jun 2004 09:37:15 -0000
+@@ -163,7 +163,7 @@
+     my @chs = sort keys %channels;
+     my @names = map { $channels{$_} } @chs;
+     my @qs = map { "add channel $_?" } @names;
+-    my @want = askManyBooleanQuestions(1, @qs);
++    my @want = ask_many_boolean(1, @qs);
+     foreach (@chs) {
+ 	my $w = shift @want;
+ 	warn("cannot read input, stopping channel questions"), last
 Index: grab/se/tv_grab_se
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/se/tv_grab_se,v
 retrieving revision 1.8
 diff -u -B -b -w -r1.8 tv_grab_se
 --- grab/se/tv_grab_se	13 Apr 2004 22:20:55 -0000	1.8
-+++ grab/se/tv_grab_se	15 Apr 2004 08:09:46 -0000
++++ grab/se/tv_grab_se	2 Jun 2004 09:37:15 -0000
 @@ -10,7 +10,7 @@
  
  tv_grab_se --help
@@ -2238,13 +2488,22 @@ diff -u -B -b -w -r1.8 tv_grab_se
  $w->end();
  
  # Signal that something went wrong if there were warnings.
+@@ -365,7 +373,7 @@
+     open(CONF, ">$config_file") or die "cannot write to $config_file: $!";
+ 
+     my @all = sort keys %channels;
+-    my @wanted = askManyBooleanQuestions(1,
++    my @wanted = ask_many_boolean(1,
+                                          map { "get channel $_?" }
+                                          @all );
+     foreach (@all) {
 Index: grab/uk_rt/tv_grab_uk_rt.in
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/grab/uk_rt/tv_grab_uk_rt.in,v
 retrieving revision 1.59
 diff -u -B -b -w -r1.59 tv_grab_uk_rt.in
 --- grab/uk_rt/tv_grab_uk_rt.in	10 Apr 2004 22:00:32 -0000	1.59
-+++ grab/uk_rt/tv_grab_uk_rt.in	15 Apr 2004 08:09:49 -0000
++++ grab/uk_rt/tv_grab_uk_rt.in	2 Jun 2004 09:37:17 -0000
 @@ -11,7 +11,7 @@
  
  tv_grab_uk_rt --help
@@ -2339,13 +2598,31 @@ diff -u -B -b -w -r1.59 tv_grab_uk_rt.in
  
      # FIXME need to make directory
      open(CONF, ">$config_file") or die "cannot write to $config_file: $!";
+@@ -1813,7 +1832,7 @@
+ 	}
+ 	elsif (@poss == 1) {
+ 	    my $ch = $poss[0];
+-	    if (askBooleanQuestion('Add channel ' .
++	    if (ask_boolean('Add channel ' .
+ 				   $ch->{'display-name'}->[0]->[0] . '?', 1)) {
+ 		my $xmltv_id = $ch->{id};
+ 		unless ($chose_ch{$xmltv_id}++) {
+@@ -1831,7 +1850,7 @@
+ 	    }
+ 	    my $none_option = 'None of the above are what I wanted';
+ 	    die 'silly channel name' if exists $dn_to_ch{$none_option};
+-	    my $r = askQuestion('Which channel to add?',
++	    my $r = ask_choice('Which channel to add?',
+ 				$poss[0]->{'display-name'}->[0]->[0],
+ 				(sort keys %dn_to_ch), $none_option);
+ 	    die "cannot read input, aborting configuration\n"
 Index: lib/Ask.pm
 ===================================================================
 RCS file: /cvsroot/xmltv/xmltv/lib/Ask.pm,v
 retrieving revision 1.12
 diff -u -B -b -w -r1.12 Ask.pm
 --- lib/Ask.pm	3 Jan 2004 14:52:53 -0000	1.12
-+++ lib/Ask.pm	15 Apr 2004 08:09:49 -0000
++++ lib/Ask.pm	2 Jun 2004 09:37:17 -0000
 @@ -7,9 +7,20 @@
  
  package XMLTV::Ask;
@@ -2358,10 +2635,10 @@ diff -u -B -b -w -r1.12 Ask.pm
 +use Exporter;
 +@ISA = qw(Exporter);
 +@EXPORT = qw(ask
-+             askPassword
-+             askQuestion
-+             askBooleanQuestion
-+             askManyBooleanQuestions
++             ask_password
++             ask_choice
++             ask_boolean
++             ask_many_boolean
 +             say
 +             );
 +
@@ -2427,7 +2704,7 @@ RCS file: /cvsroot/xmltv/xmltv/lib/exe_opt.pl,v
 retrieving revision 1.7
 diff -u -B -b -w -r1.7 exe_opt.pl
 --- lib/exe_opt.pl	16 Mar 2004 22:43:08 -0000	1.7
-+++ lib/exe_opt.pl	15 Apr 2004 08:09:49 -0000
++++ lib/exe_opt.pl	2 Jun 2004 09:37:17 -0000
 @@ -14,7 +14,10 @@
  #
  print '-nologo
