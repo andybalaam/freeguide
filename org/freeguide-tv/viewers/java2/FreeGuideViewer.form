@@ -3,40 +3,61 @@
 <Form version="1.0" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
+    </Menu>
+    <Menu class="javax.swing.JMenuBar" name="jMenuBar2">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="fileMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="menPrint">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Print Listing"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JSeparator" name="jSeparator5">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menQuit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Quit"/>
               </Properties>
+
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menQuitActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="editMenu">
+        <Menu class="javax.swing.JMenu" name="toolsMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Edit"/>
+            <Property name="text" type="java.lang.String" value="Tools"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="menChannels">
+            <MenuItem class="javax.swing.JMenuItem" name="menDownload">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Channels..."/>
+                <Property name="text" type="java.lang.String" value="Download Listings..."/>
               </Properties>
+
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menDownloadActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JSeparator" name="jSeparator3">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menFavourites">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Favourites..."/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JSeparator" name="jSeparator1">
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menParser">
+            <MenuItem class="javax.swing.JMenuItem" name="menOptions">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Parser Options..."/>
+                <Property name="text" type="java.lang.String" value="Options..."/>
               </Properties>
+
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menOptionsActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -50,7 +71,7 @@
                 <Property name="text" type="java.lang.String" value="User Guide..."/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JSeparator" name="jSeparator2">
+            <MenuItem class="javax.swing.JSeparator" name="jSeparator4">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menAbout">
               <Properties>
@@ -66,7 +87,7 @@
     <Property name="title" type="java.lang.String" value="FreeGuide J2 0.1"/>
   </Properties>
   <SyntheticProperties>
-    <SyntheticProperty name="menuBar" type="java.lang.String" value="(No Menu)"/>
+    <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar2"/>
     <SyntheticProperty name="formSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-112,0,0,2,88"/>
     <SyntheticProperty name="formPosition" type="java.awt.Point" value="-84,-19,0,5,115,114,0,14,106,97,118,97,46,97,119,116,46,80,111,105,110,116,-74,-60,-118,114,52,126,-56,38,2,0,2,73,0,1,120,73,0,1,121,120,112,0,0,0,0,0,0,0,0"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="0"/>
@@ -80,7 +101,7 @@
   </Events>
 
   <AuxValues>
-    <AuxValue name="RADVisualFormContainer_MenuComponent" type="java.lang.String" value="jMenuBar1"/>
+    <AuxValue name="RADVisualFormContainer_MenuComponent" type="java.lang.String" value="jMenuBar2"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
@@ -94,25 +115,41 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="butGetListings">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Get Listings..."/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="butPrev">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Previous Day"/>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
+
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butPrevActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="comTheDate">
           <Properties>
             <Property name="editable" type="boolean" value="true"/>
           </Properties>
+
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comTheDateActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="butNext">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Next Day"/>
+            <Property name="text" type="java.lang.String" value="+"/>
           </Properties>
+
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butNextActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="butPrint">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Print Listing"/>
+          </Properties>
+
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butPrintActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

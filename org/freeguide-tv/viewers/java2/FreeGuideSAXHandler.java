@@ -17,7 +17,7 @@ import javax.xml.parsers.SAXParser;
 
 public class FreeGuideSAXHandler extends DefaultHandler {
 
-    public FreeGuideSAXHandler(FreeGuide freeGuide) {
+    public FreeGuideSAXHandler(FreeGuideViewer freeGuide) {
 	// Remember who called us
 	this.freeGuide=freeGuide;
     }
@@ -42,6 +42,6 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 	freeGuide.characters(new String(ch, start, length));
     }
 
-    private FreeGuide freeGuide;
+    private FreeGuideViewer freeGuide;
 
 }

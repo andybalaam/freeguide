@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <attributes version="1.0">
+   <fileobject name="FreeGuideDownloader.java">
+      <attr name="class_dependency_javax.swing.JFrame" stringvalue="JFrame;FreeGuideDownloader"/>
+      <attr name="class_dependency_java.lang.Runnable" stringvalue="FreeGuideDownloader"/>
+   </fileobject>
    <fileobject name="FreeGuideSAXHandler.java">
       <attr name="class_dependency_org.xml.sax.helpers.DefaultHandler" stringvalue="FreeGuideSAXHandler"/>
    </fileobject>
-   <fileobject name="FreeGuide.java">
-      <attr name="class_dependency_javax.swing.JFrame" stringvalue="JFrame;FreeGuide"/>
+   <fileobject name="FreeGuideViewer.java">
+      <attr name="class_dependency_javax.swing.JFrame" stringvalue="FreeGuide;FreeGuideViewer"/>
+   </fileobject>
+   <fileobject name="FreeGuideTimePanel.java">
+      <attr name="class_dependency_javax.swing.JPanel" stringvalue="FreeGuideTimePanel;JPanel"/>
+   </fileobject>
+   <fileobject name="FreeGuideOptions.java">
+      <attr name="class_dependency_javax.swing.JFrame" stringvalue="FreeGuideOptions"/>
+   </fileobject>
+   <fileobject name="FreeGuideViewer_Old.java">
+      <attr name="class_dependency_javax.swing.JFrame" stringvalue="FreeGuide;FreeGuideViewer_Old;FreeGuideViewer"/>
    </fileobject>
 </attributes>
