@@ -224,10 +224,17 @@ c  means done by Christian Weiske
 - Make _pt use tv_unprocessed method like uk_rt
 - Test whether only channel icons are dispalyed when you use a channel set,
   but icon and name is displayed on All Channels.
+- New channel sets should have a default name
 
 *** 0.9preX unstable releases are described in the TODO in plugins-branch. ***
 
 *** Current work on 0.8.X stable releases is described in the TODO in Stable0_8-branch. ***
+
++ Release 0.8.6
+
++ Use new alpha-exe with fixed uk_rt problem
++ Update version to 0.8.6
++ Change all relevant XMLTV commands to use --quiet
 
 + Release 0.8.5
 
