@@ -86,6 +86,7 @@ m  means done by Mike Dean
 - Separate reminders from chosenness?  If so, need a new set of preferences
 	which need to be scanned on startup (in fact that is a better way to do
 	it in even if we stick with choices.).
+- Reduce the size of the XMLTV exe by removing unnecessary Tk files
 
 - Release 0.7.3 (code tidying)
 
@@ -110,11 +111,9 @@ m  means done by Mike Dean
 - Download happens without leaving ViewerFrame
 - Add a status bar to ViewerFrame
 - Make options and customise screens nicer
-- Sort out themes in some way
 - Make the About box a _lot_ nicer.
 - Fix the "Execution Error" on success problem in Windows.
 - Show whether a tab has been altered on the Options Dialog
-- Fix segfault in XMLTV --configure when --config-file is supplied
 - Fix saying there's missing listings after midnight (before 6am) bug
 - Custom web browser option
 - Expand ConfigGuesser's checking capabilities
@@ -129,10 +128,10 @@ m  means done by Mike Dean
 - ProgrammeJLabel shows which programme is selected
 - Keyboard navigation of programme scrollpane
 - Full test of keyboard navigation
-- Reduce the size of the XMLTV exe by removing unnecessary Tk files
 
 - Release 0.7 (xmltv-tk)
 
+m Sort out themes in some way
 m Make "More Info" box be scrolled to the top.
 + Fix unable to move "View Command" box bug
 + Update docs, including saying you need to set TZ
