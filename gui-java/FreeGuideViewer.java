@@ -258,7 +258,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		timeScrollPane.setMinimumSize(new java.awt.Dimension(24, 24));
 		timeScrollPane.setMaximumSize(new java.awt.Dimension(24, 24));
 		timePanel.setBackground(new java.awt.Color(245, 245, 255));
-		timePanel.setEnabled(false);
 		timeScrollPane.setViewportView(timePanel);
 		
 		gridBagConstraints2 = new java.awt.GridBagConstraints();
