@@ -355,6 +355,8 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
             Attributes attrs) {
 
         saxLoc += ":" + name;
+		
+		data = "";
 
         //FreeGuide.log.info( saxLoc );
 
@@ -513,46 +515,16 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
             }
 
             currentProgramme = null;
-        }
-
-        if (saxLoc.endsWith(name)) {
-
-            saxLoc = saxLoc.substring(0, saxLoc.length() - (name.length() + 1));
-
-        } else {
-            parseError();
-        }
-        //if
-
-        //FreeGuide.log.info("endElement END");
-
-    }
-
-
-    //endElement
-
-    /**
-     *  Description of the Method
-     *
-     *@param  ch      Description of the Parameter
-     *@param  start   Description of the Parameter
-     *@param  length  Description of the Parameter
-     */
-    public void characters(char[] ch, int start, int length) {
-
-        String data = new String(ch, start, length);
-
-        //FreeGuide.log.info("characters "+ data + " START");
-
-        if (saxLoc.equals(":tv:programme:title")) {
+			
+        } else if (saxLoc.equals(":tv:programme:title")) {
 
             if (currentProgramme != null) {
-                currentProgramme.addToTitle(data);
+                currentProgramme.setTitle(data);
             }
 		} else if (saxLoc.equals(":tv:programme:sub-title")) {
 
             if (currentProgramme != null) {
-                currentProgramme.addToSubTitle( data );
+                currentProgramme.setSubTitle( data );
             }
         } else if (saxLoc.equals(":tv:programme:desc")) {
 
@@ -582,6 +554,32 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
             addChannelName(tmpChannelID, data);
 
 		}
+		
+		if (saxLoc.endsWith(name)) {
+
+            saxLoc = saxLoc.substring(0, saxLoc.length() - (name.length() + 1));
+
+        } else {
+            parseError();
+        }
+        //if
+
+        //FreeGuide.log.info("endElement END");
+
+    }
+
+
+    //endElement
+
+    /**
+     *  Description of the Method
+     *
+     *@param  ch      Description of the Parameter
+     *@param  start   Description of the Parameter
+     *@param  length  Description of the Parameter
+     */
+    public void characters(char[] ch, int start, int length) {
+        data += new String(ch, start, length);
     }
 
 
@@ -729,6 +727,7 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
     private String saxLoc = "";
     // Holds our current pos in the XML hierarchy
     private String tmpChannelID;
+	private String data;
 
     private Programme currentProgramme;
     // The programme we're loading in now

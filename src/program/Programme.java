@@ -168,7 +168,7 @@ public class Programme {
      *
      *@param  title  The title of the programme
      */
-    public void addToTitle(String title) {
+    public void setTitle(String title) {
         if (this.title == null) {
             this.title = new String();
         }
@@ -180,7 +180,7 @@ public class Programme {
      *
      *@param  subtitle  The subtitle of the programme
      */
-    public void addToSubTitle(String subtitle) {
+    public void setSubTitle(String subtitle) {
         if (this.subtitle == null) {
             this.subtitle = new String();
         }

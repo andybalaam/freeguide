@@ -602,7 +602,7 @@ public class FGPreferences {
             return def;
         } else {
             Programme prog = new Programme();
-            prog.addToTitle(title);
+            prog.setTitle(title);
 
             Calendar cal = GregorianCalendar.getInstance();
             cal.setTime(getDate(key + ".start", null));
