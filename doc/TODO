@@ -76,7 +76,6 @@ W  means work in progress by Walter Duncan
 - Code rationalisation, FIXMEs, remove commented sections
 - Refactor to rename losing FreeGuide prefix to most classes
 - Separate classes into packages
-- Fix bug that means favourites sometimes aren't chosen
 - Coloured programme categories and favourites
 - Apply different fonts to every screen.
 
@@ -95,15 +94,11 @@ W  means work in progress by Walter Duncan
 
 - Release 0.5 (Features - especially use of many grabbers, and bug fixes)
 
-- Stop it from grabbing stuff that's already been done.
++ Stop it from grabbing stuff that's already been done.
++ Fix bug that means favourites sometimes aren't chosen (YES!)
 * Dynamic population of the date list comboBox based on available data
 * Add configurable option for default grabber_today_offset (uk=1, NA=0)
 * Add configurable option to set grabber day start (na=00:00, uk=06:00)
-	logic:
-		if now < FG day_start set "today"="today"-1
-		if FG_day_start > Grabber_day_start (normal) get "today" & "today"+1
-		else if FG_day_start < Grabber_day_start (reverse) get "today"-1 & "today"
-		else (equal) get "today" (only one file necessary)
 * Add configurable option grabber_start_today with "today", or current showing day
 * Add configurable Choice (checkbox) option (convert grabber_start_today? option)
 	(do we need/want a CheckboxWizard?)

@@ -123,7 +123,9 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 			panels[3] = new FreeGuideLabelWizardPanel("Now you need to configure your grabber before you can start using it.");
 			panels[3].setMessages("FreeGuide will be installed when you click \"Finish\".", "Read the README in the directory you chose to find out how.");
 	
-			new FreeGuideWizard("FreeGuide Setup Wizard", panels ,this, this, getClass().getMethod("doInstall", new Class[0])).setVisible(true);
+			new FreeGuideWizard( "FreeGuide Setup Wizard", panels ,this, this,
+				getClass().getMethod( "doInstall",
+					new Class[0]) ).setVisible(true);
 		
 		} catch(java.lang.NoSuchMethodException e) {
 			e.printStackTrace();
@@ -146,11 +148,26 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 				
 				try{
 					
-					props.load(new BufferedInputStream(getClass().getResourceAsStream(
-					"/install-" + i + ".props")));		
+					props.load(
+						new BufferedInputStream(
+							getClass().getResourceAsStream(
+								"/install-" + i + ".props") ) );		
 
 				} catch(java.io.IOException e) {
 					e.printStackTrace();
+				}
+					
+				// Do all the preferences in the properties file - set the
+				// defaults to them, and set the real values too if we're
+				// not keeping old ones.
+				int j=1;
+				String prefString="";
+				while( ( prefString = props.getProperty(
+						"prefs." + j ) ) != null ) {
+			
+					doPref( prefString );
+					j++;
+				
 				}
 					
 				return;
@@ -252,18 +269,6 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 	
 	public void doInstall() {
 		
-		// Do all the preferences in the properties file - set the defaults
-		// to them, and set the real values too if we're not keeping old
-		// ones.
-		int i=1;
-		String prefString="";
-		while( (prefString=props.getProperty("prefs."+i)) != null ) {
-			
-			doPref(prefString);
-			i++;
-				
-		}
-		
 		try {
 		
 			String install_directory = prefs.performSubstitutions( 
@@ -277,9 +282,9 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 				prefs.misc.get("working_directory") ) ).mkdirs();
 		
 			// Copy in the files
-			i=1;
+			int i = 1;
 			String filename="";
-			while( (filename=props.getProperty("file."+i)) != null ) {
+			while( ( filename = props.getProperty( "file." + i ) ) != null ) {
 				installFile(filename);
 				i++;
 			}

@@ -556,7 +556,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 				txt.setBackground( FreeGuide.prefs.screen.getColor("programme_chosen_colour", FreeGuide.PROGRAMME_CHOSEN_COLOUR) );
 				tickedProgrammes.add(rightClickedProg);
 			
-				FreeGuide.prefs.addChoice(rightClickedProg);
+				FreeGuide.prefs.addChoice( rightClickedProg, theDate );
 			
 				// Update the guide
 				updatePrintedGuide();
@@ -610,19 +610,20 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 		// Untick everything
 		for(int i=0;i<tickedProgrammes.size();i++) {
-			FreeGuide.prefs.removeChoice( (FreeGuideProgramme)tickedProgrammes.get(i) );
+			FreeGuide.prefs.removeChoice(
+				(FreeGuideProgramme)tickedProgrammes.get(i) );
 		}
 		
 		// Tell the prefs we've got no choices for today
 		FreeGuide.prefs.chosenSomething( theDate, false );
 		
 		// Clear out the vector of ticked programmes
-		//tickedProgrammes.clear();
+		tickedProgrammes.clear();
 		
 		// Tick favourites
-		//tickFavsOrChoices();
+		tickFavsOrChoices();
 		
-		//updatePrintedGuide();
+		updatePrintedGuide();
 		
 	}//GEN-LAST:event_butRevertFavsActionPerformed
 
@@ -752,7 +753,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	}
 
 	// Original
-	private void makeDatesList0() {
+	/*private void makeDatesList0() {
 		Calendar tmpDate = GregorianCalendar.getInstance();
 		tmpDate.setTimeInMillis( theDate.getTimeInMillis() );
 
@@ -763,9 +764,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 		}
 		comTheDate.setSelectedItem(comboBoxDateFormat.format(theDate.getTime()));
-	}
+	}*/
 	// causes strange(tm) refresh
-	private void makeDatesList1() {
+	//private void makeDatesList1() {
 		/*comTheDate.removeAllItems();
 		ddl.updateDates();
 		for (int i=0;i<ddl.size();i++) {
@@ -773,7 +774,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		}
 		comTheDate.setSelectedItem(comboBoxDateFormat.format(theDate.getTime()));
 		*/
-	}
+	//}
 	// utility function for makeDatesList
 	private static Date parseComboItem(JComboBox cbox, int i) {
 		Date d1;
@@ -795,7 +796,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	private void makeDatesList() {
 		boolean debug=false;
 		//debug=true;
-		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
+		/*if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
 		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
 		comTheDate.addItem(comTheDate.getSelectedItem());
 		while (comTheDate.getItemCount() > 1) {
@@ -806,15 +807,16 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 				if (debug) System.out.print("remove0\n");
 				comTheDate.removeItemAt(0);
 			}
-		}
+		}*/
+		
+		comTheDate.removeAllItems();
+		
 		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
 		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
 		// now we should have only one item in the list.  Check to see if theDate is it.
 		// If not, fix the situation.
-		//if ( ! parseComboItem(comTheDate, 0).equals(theDate.getTime())) {
-		//		comTheDate.removeItemAt(0);
-		//}
-		comTheDate.setSelectedItem(comTheDate.getSelectedItem());
+
+		//comTheDate.setSelectedItem(comTheDate.getSelectedItem());
 		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
 		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
 		ddl.updateDates();
@@ -1027,7 +1029,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			txt.setBackground( FreeGuide.prefs.screen.getColor("programme_chosen_colour", FreeGuide.PROGRAMME_CHOSEN_COLOUR) );
 			tickedProgrammes.add(prog);
 			
-			FreeGuide.prefs.addChoice(prog);
+			FreeGuide.prefs.addChoice( prog, theDate );
 			
 		}
 		
@@ -1253,7 +1255,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 				// No, use the favourites
 			
 				// Check if this is a favourite and tick it if so
-				FreeGuideFavourite[] favourites = FreeGuide.prefs.getFavourites();
+				FreeGuideFavourite[] favourites =
+					FreeGuide.prefs.getFavourites();
+				
 				if(favourites!=null) {
 					
 					boolean unticked = true;
@@ -1262,7 +1266,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 						if( favourites[i].matches(prog) ) {
 							
 							// Remember this as a choice for next time
-							FreeGuide.prefs.addChoice(prog);
+							FreeGuide.prefs.addChoice( prog, theDate );
 				
 							txt.setBackground(tickedColour);
 							tickedProgrammes.add(prog);
@@ -1292,6 +1296,12 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			
 				theDate.setTime( comboBoxDateFormat.parse(
 					(String)comTheDate.getSelectedItem() ) );
+				
+				Calendar nowDate = GregorianCalendar.getInstance();
+				
+				FreeGuideTime nowTime = new FreeGuideTime( nowDate );
+				
+				nowTime.adjustCalendar( theDate );
 			
 			} catch(java.text.ParseException e) {
 			
@@ -1394,38 +1404,56 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 		if(onScreen) {
 			ans+="<font face='helvetica, helv, arial, sans serif' size=4>";
-			ans+="Your Personalised TV Guide for "+htmlDateFormat.format(theDate.getTime());
+			ans+="Your Personalised TV Guide for "+htmlDateFormat.format(
+				theDate.getTime() );
 			ans+="</font>";
 		} else {
-			ans+="TV Guide for "+htmlDateFormat.format(theDate.getTime());
+			ans+="TV Guide for "+htmlDateFormat.format( theDate.getTime() );
 		}
 		
 		ans+="</h1>"+lineBreak;
 
 		if(onScreen) {
-			ans+="<font face='helvetica, helv, arial, sans serif' size=3>";
-			ans+="<p>Select programmes above by clicking on them, and they will turn grey and appear below.</p>";
-			ans+="</font>";
+			ans += "<font face='helvetica, helv, arial, sans serif' size=3>";
+			ans += "<p>Select programmes above by clicking on them, and they";
+			ans += "will be highlighted and appear below.</p>";
+			ans += "</font>";
 		}
 		
 		// Sort the programmes
-		Collections.sort(tickedProgrammes, new FreeGuideProgrammeStartTimeComparator());
+		Collections.sort( tickedProgrammes,
+			new FreeGuideProgrammeStartTimeComparator() );
 
 		// Add them to the HTML list
 		// ----------------------------
 
-		if(onScreen) {ans+="<font face='helvetica, helv, arial, sans serif' size=3>";}
+		if(onScreen) {
+			ans += "<font face='helvetica, helv, arial, sans serif' size=3>";
+		}
 		
 		for(int i=0;i<tickedProgrammes.size();i++) {
 
-			FreeGuideProgramme prog = (FreeGuideProgramme)tickedProgrammes.get(i);
-
-			//fmt = new SimpleDateFormat("HH:mm");
+			FreeGuideProgramme prog =
+				(FreeGuideProgramme)tickedProgrammes.get(i);
     
 			if(prog.getLongDesc() == null) {
-				ans+="  <p><b>"+timeFormat.format(prog.getStart().getTime())+" - "+prog.getTitle()+"</b><br>"+prog.getChannelName()+", ends "+timeFormat.format(prog.getEnd().getTime())+"</p>"+lineBreak;
+				
+				ans += "  <p><b>" + timeFormat.format(
+					prog.getStart().getTime() ) + " - " +
+					prog.getTitle() + "</b><br>" + 
+					prog.getChannelName() + ", ends " + 
+					timeFormat.format( prog.getEnd().getTime() ) + "</p>" + 
+					lineBreak;
+					
 			} else {
-				ans+="  <p><b>"+timeFormat.format(prog.getStart().getTime())+" - "+prog.getTitle()+"</b><br>"+prog.getChannelName()+", ends "+timeFormat.format(prog.getEnd().getTime())+"<br>"+prog.getLongDesc()+"</p>"+lineBreak;
+				
+				ans += "  <p><b>" + timeFormat.format( 
+				prog.getStart().getTime() ) + " - " +
+				prog.getTitle() + "</b><br>" + 
+				prog.getChannelName() + ", ends " + 
+				timeFormat.format( prog.getEnd().getTime() ) + "<br>" + 
+				prog.getLongDesc() + "</p>" + lineBreak;
+				
 			}
     
 		}//for
@@ -1560,10 +1588,14 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	
 	private FreeGuideLauncher launcher;	// The screen that launched this one
 	
-	private static final SimpleDateFormat comboBoxDateFormat = new SimpleDateFormat("EEEE d MMM yy");
-	private static final SimpleDateFormat htmlDateFormat = new SimpleDateFormat("EEEE dd MMMM yyyy");
-	private static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-	public static final SimpleDateFormat fileDateFormat = new SimpleDateFormat("yyyyMMdd");
+	private static final SimpleDateFormat comboBoxDateFormat
+		= new SimpleDateFormat("EEEE d MMM yy");
+	private static final SimpleDateFormat htmlDateFormat
+		= new SimpleDateFormat("EEEE dd MMMM yyyy");
+	private static final SimpleDateFormat timeFormat
+		= new SimpleDateFormat("HH:mm");
+	public static final SimpleDateFormat fileDateFormat
+		= new SimpleDateFormat("yyyyMMdd");
 	
 	private boolean dontDownload;	// true if user doesn't want to download missing files
 	

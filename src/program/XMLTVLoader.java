@@ -197,11 +197,10 @@ class XMLTVLoader extends DefaultHandler {
 		working_directory = FreeGuide.prefs.performSubstitutions(
 			FreeGuide.prefs.misc.get("working_directory") );
 		
-		date = GregorianCalendar.getInstance();
 		earliest = GregorianCalendar.getInstance();
 		latest = GregorianCalendar.getInstance();
 		
-		date.setTimeInMillis( nowDate.getTimeInMillis() );
+		date = (Calendar)nowDate.clone();
 		
 		// If we're before the day start time we actually want the previous day.
 		FreeGuideTime nowTime = new FreeGuideTime( date );
@@ -215,12 +214,13 @@ class XMLTVLoader extends DefaultHandler {
 		}
 		
 		// Set earliest to the start time on the date
-		earliest.setTimeInMillis( date.getTimeInMillis() );
+		earliest = (Calendar)date.clone();
 		
 		day_start_time.adjustCalendar( earliest );
 		
 		// Set latest to the start time on the day after the date
-		latest.setTimeInMillis( date.getTimeInMillis() );
+		latest = (Calendar)date.clone();
+		
 		latest.add( Calendar.DAY_OF_YEAR, 1);
 		
 		day_start_time.adjustCalendar( latest );
@@ -231,11 +231,8 @@ class XMLTVLoader extends DefaultHandler {
 		
 		// There must be a programme crossing over both of these times in order
 		// for the day to be "covered" i.e. we don't need to download more.
-		hasDataEarliest = GregorianCalendar.getInstance();
-		hasDataLatest = GregorianCalendar.getInstance();
-		
-		hasDataEarliest.setTimeInMillis( earliest.getTimeInMillis() );
-		hasDataLatest.setTimeInMillis( latest.getTimeInMillis() );
+		hasDataEarliest = (Calendar)earliest.clone();
+		hasDataLatest = (Calendar)latest.clone();
 		
 		// If it's today then hasDataEarliest is now-ish
 		if( dayIsToday( nowDate ) ) { 
@@ -250,6 +247,8 @@ class XMLTVLoader extends DefaultHandler {
 		// and remove an hour from the end time
 		hasDataLatest.add( Calendar.HOUR, -1 );
 		
+		//FreeGuide.log.info(hasDataEarliest.toString() + " " 
+		//	+ hasDataLatest.toString());
 		
 	}
 	
@@ -331,15 +330,13 @@ class XMLTVLoader extends DefaultHandler {
 				return;
 			}
 
-			if( start.before( hasDataEarliest ) &&
-					end.after( hasDataEarliest ) ) {
+			if( start.before( hasDataEarliest ) ) {
 						
 				thereAreEarlyProgs = true;
 						
 			}
 			
-			if( start.before( hasDataLatest ) &&
-					end.after( hasDataLatest ) ) {
+			if( end.after( hasDataLatest ) ) {
 						
 				thereAreLateProgs = true;
 						
@@ -387,7 +384,11 @@ class XMLTVLoader extends DefaultHandler {
 		
 		if( saxLoc.equals( ":tv:programme" ) ) {
 				
-			programmes.add(currentProgramme);
+			if( currentProgramme.getEnd().after( earliest ) &&
+					currentProgramme.getStart().before( latest ) ) {
+				
+				programmes.add(currentProgramme);
+			}
 			
 			currentProgramme = null;
 		}
@@ -466,7 +467,7 @@ class XMLTVLoader extends DefaultHandler {
 
     }//characters
 
-	// ------------------------------
+	// -----------------------------------------------------------------------
 
 	public Vector getChannelIDs() {
 		return channelIDs;

@@ -13,6 +13,7 @@ import java.awt.Frame;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import javax.swing.JTextArea;
+import javax.swing.JOptionPane;
 import java.awt.Container;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -41,7 +42,7 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 		this.launcher = launcher;
 		this.cmds = cmds;
 		java.text.SimpleDateFormat showdate = new java.text.SimpleDateFormat("yyyyMMdd");
-		System.out.print("executor w/ date "+showdate.format(date.getTime())+"\n");
+		//System.out.print("executor w/ date "+showdate.format(date.getTime())+"\n");
         initComponents();
 
 		// Centre the screen
@@ -66,7 +67,7 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 		this.launcher = launcher;
 		this.cmds = cmds;
 		
-		System.out.print("executor w/o date\n");
+		//System.out.print("executor w/o date\n");
 
         initComponents();
 
@@ -292,6 +293,9 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 			
 		}
 
+		XMLTVLoader loader = new XMLTVLoader();
+		int alwaysDownload = MAYBE;
+		
 		// Check for any elements that mean this command must be called multiple
 		// times, once for each day.
 		if( (cmdstr.indexOf("%date%")!=-1)
@@ -303,19 +307,70 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 			
 			for(int i=0;i<FreeGuide.prefs.misc.getInt("days_to_grab", 7);i++) {
 				
-				// FIXME - don't execute if a file already exists?
-				// What about files that are half empty?
+				String subbedCmd = FreeGuide.prefs.performSubstitutions(
+						cmdstr, thisDate, true);
 				
-				// Recursive call to this function
-				if( !exec(FreeGuide.prefs.performSubstitutions(
-					cmdstr, thisDate, true) ) ) {
-
-					didOK=false;
-				}
-
-				thisDate.add(Calendar.DATE, 1);
+				if( alwaysDownload == TRUE ) {
+					
+					// Recursive call to this function	
+					if( !exec( subbedCmd ) ) {
+						didOK=false;
+					}
+					
+				} else {
 				
-			}
+					// Parse the data we have for this date
+					loader.loadProgrammeData( thisDate );
+				
+					// Only load a new lot if we haven't got any for this date
+					if( loader.hasData() ) {
+				
+						// If we not have chosen already, ask the user whether
+						// to re-download
+						if( alwaysDownload == MAYBE ) {
+					
+					     	Object[] options = { "Re-download", "Skip" };
+							int ans = JOptionPane.showOptionDialog(
+								this,
+								"There are already some days' listings "
+								+ "downloaded.  Do you want to re-download "
+								+ "them or skip?", "Re-download?",
+								JOptionPane.DEFAULT_OPTION,
+								JOptionPane.QUESTION_MESSAGE,
+								null,
+								options,
+								options[0] );
+
+							if( ans == 0 ) {
+								
+								alwaysDownload = TRUE;
+								// Recursive call to this function	
+								if( !exec( subbedCmd ) ) {
+									didOK=false;
+								}
+
+							} else {
+								
+								alwaysDownload = FALSE;
+								
+							}//if( ans == 0 )
+						
+						}//if( alwaysDownload == MAYBE ) {
+
+					} else {
+						
+						// Recursive call to this function	
+						if( !exec( subbedCmd ) ) {
+							didOK=false;
+						}
+						
+					}//if( !loader.hasData() ) {
+					
+				}//if( alwaysDownload == TRUE ) {
+					
+				thisDate.add( Calendar.DATE, 1 );
+				
+			}//for
 			
 			return didOK;
 			
@@ -397,6 +452,10 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 	private StringViewer viewer;
 	
 	private Calendar date;
+	
+	private static final int MAYBE = 0;
+	private static final int TRUE = 1;
+	private static final int FALSE = 2;
 	
 	
 	//------------------------------------------------------------------------

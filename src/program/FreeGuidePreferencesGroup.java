@@ -410,7 +410,8 @@ public class FreeGuidePreferencesGroup {
 		
 		int i = 1;
 		
-		FreeGuideProgramme prog = chosen_progs.getFreeGuideProgramme(String.valueOf(i), null);
+		FreeGuideProgramme prog = chosen_progs.getFreeGuideProgramme(
+			String.valueOf(i), null );
 		
 		while( prog != null ) {
 			
@@ -463,10 +464,12 @@ public class FreeGuidePreferencesGroup {
 		
 	}
 	
-	public void addChoice(FreeGuideProgramme prog) {
-		if(!chosenAnything(prog.getStart())) {
-			chosenSomething(prog.getStart());
+	public void addChoice(FreeGuideProgramme prog, Calendar date) {
+		
+		if( !chosenAnything( date ) ) {
+			chosenSomething( date );
 		}
+		
 		chosen_progs.appendFreeGuideProgramme(prog);
 	}
 	
