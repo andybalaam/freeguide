@@ -451,6 +451,7 @@ public class Programme {
         if( hashOfAttrs == null ) {
             
             hashOfAttrs = new Hashtable();
+            hashOfAttrs.put(subTag, data);
             extraTags.put( mainTag, hashOfAttrs );
             
         } else {
