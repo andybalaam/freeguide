@@ -8,7 +8,7 @@
 ; The name of the installer
 Name "FreeGuide"
 
-!define VERSION "0.8.2"
+!define VERSION "0.8.3"
 
 ; The file to write
 OutFile ..\..\..\installer\FreeGuide-${VERSION}-Windows.exe

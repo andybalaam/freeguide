@@ -14,12 +14,12 @@
 
 Summary: A TV Guide
 Name: FreeGuide
-Version: 0.8.2
+Version: 0.8.3
 Release: 1
 # REMINDER: bump this with each RPM
 Copyright: GPL
 Group: Accessories/
-Source0: FreeGuide-0.8.2.tar.gz
+Source0: FreeGuide-0.8.3.tar.gz
 URL: http://freeguide-tv.sourceforge.net/
 Vendor: Andy Balaam <axis3x3@users.sourceforge.net>
 Packager: Andy Balaam <axis3x3@users.sourceforge.net>
