@@ -83,8 +83,15 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			
 			if(!dontDownload) {
 				
-				String msg = "There are missing listings for this day.\n"+
-					"Do you want to download more?";
+			    
+			    String msg = "There are missing listings for this day:\n";
+			    for(int i=0; i<channelLoaded.length; i++) {
+				if(!channelLoaded[i]) {
+				    msg += channelNames[i] + "\n";
+				}
+			    }
+			    msg += "\nDo you want to download more?";
+				
 				
 				int	r = JOptionPane.showConfirmDialog(this, msg, "Download listings?", JOptionPane.YES_NO_OPTION );
 			
@@ -864,7 +871,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private void loadProgrammeData() {
 		
 		String fs = System.getProperty("file.separator");
-		
+
 		// Are we missing any channel files?
 		missingFiles = false;
 		
@@ -1506,3 +1513,4 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// The programme the user last right clicked on
 	
 }
+
