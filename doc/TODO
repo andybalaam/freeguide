@@ -132,6 +132,7 @@ y  means done by Yann 'PoV' Coupin
 - write manual install instructions (using ant?)
 - write rpm --rebuild instructions
 - Document where the icons go on win and lin
+- Discuss installers on the developers' page
 + create native windows installer (NSIS)
 + create native linux installer (RPM)
 + Convert the installer into a first time wizard
