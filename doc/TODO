@@ -148,6 +148,9 @@ r  means done by Rob Stewart
 - Deal with errors on Windows install (e.g. when Java isn't installed)
 - FAQ on how to uninstall
 - Upgrade the FAQ to http://faqtor.sourceforge.net/
+- Add a small offset to move the channel name away from the far left when there
+  is no icon.
+- Create a standard "icon missing" icon
 
 + Release 0.8.1 (bug fix)
 
