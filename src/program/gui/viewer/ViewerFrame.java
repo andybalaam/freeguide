@@ -1485,7 +1485,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		String[] cmds = Utils.substitute(
 			FreeGuide.prefs.commandline.getStrings( "browser_command" ),
 			"%filename%",
-			programme.getLink().toString() );
+			programme.getLink().toString().replace("%","%%") );
 			
         Utils.execNoWait(cmds);
 
