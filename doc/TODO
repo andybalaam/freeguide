@@ -137,13 +137,19 @@ e  means done by Ewan Harrow
 - Keyboard navigation of programme scrollpane
 - Full test of keyboard navigation
 
-- Release 0.7 (version checking, reminders, links)
+- Release 0.7 (xmltv-tk)
 
 - Update docs
 - Include a modified XMLTV for configuration.
+- Enable configuration options in ViewerFrame and InstallWizardPanel
+- Add scripts in xmltv dir to CVS and source zips.
+
++ Release 0.6.3 (version checking, reminders, links)
+
++ Update docs
++ Make channel sets update after you've edited them.
 + Finish privacy dialogue
-+ Fix popups coming up behind window on startup bug (using a later time?)
-+ Enable configuration option within viewer 
++ Fix popups coming up behind window on startup bug (using a later time?) 
 + Refresh after download (using dialog?)
 + Fix blank country in Install
 + Check that all prefs are covered in Options screen

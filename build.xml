@@ -16,7 +16,7 @@
 	<property name="package" location="package"/>
 	<property name="dist"  location="dist"/>
 
-	<property name="freeguideversion"  value="FreeGuide-0.7"/>
+	<property name="freeguideversion"  value="FreeGuide-0.6.3"/>
 	
   	<target name="init">
   
@@ -145,9 +145,12 @@
 		<copy file="${src}/install/linux/install-lin-uk.props" tofile="${package}/linux/install-8.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
-		<jar 	jarfile="${dist}/${freeguideversion}-Linux-NoXMLTV-Install.jar"
+		<jar 	jarfile="${dist}/${freeguideversion}-Linux-Install.jar"
 				basedir="${package}/linux"
 				manifest="${src}/manifests/Install.mf"/>
+		<!--<jar 	jarfile="${dist}/${freeguideversion}-Linux-NoXMLTV-Install.jar"
+				basedir="${package}/linux"
+				manifest="${src}/manifests/Install.mf"/>-->
   
   	</target>
   
@@ -198,8 +201,11 @@
 	<target name="FreeGuide-Source"
   		description="generate the source zips"
 			depends="FreeGuide-Win-Install,
-					 FreeGuide-Linux-Install,
 					 FreeGuide-Linux-NoXMLTV-Install">
+					 
+			<!--depends="FreeGuide-Win-Install,
+					 FreeGuide-Linux-Install,
+					 FreeGuide-Linux-NoXMLTV-Install">-->
 		
 		<zip zipfile="${dist}/${freeguideversion}.zip">
 			<zipfileset dir="${src}" prefix="${freeguideversion}/src">
@@ -214,8 +220,20 @@
   
   		<unzip src="${dist}/${freeguideversion}.zip" dest="${package}/source/" />
   
-  		<tar tarfile="${package}/${freeguideversion}.tar" basedir="${package}/source" />
-  
+  		<!--<tar tarfile="${package}/${freeguideversion}.tar" basedir="${package}/source" />-->
+		
+		<tar tarfile="${package}/fg.tar"
+			 basedir="."
+			 includes="build.xml,src/**,doc/**,xmltv/xmltv-*.tar.bz2"
+			 excludes="**/.xvpics/**" />
+  		
+		<mkdir dir="${package}/${freeguideversion}" />
+		
+		<untar dest="${package}/${freeguideversion}" src="${package}/fg.tar"/>
+		
+		<tar tarfile="${package}/${freeguideversion}.tar" basedir="${package}"
+			includes="${freeguideversion}/**" />
+		
   		<gzip src="${package}/${freeguideversion}.tar" zipfile="${dist}/${freeguideversion}.tar.gz" />
 		
   	</target>
