@@ -12,6 +12,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.lang.Math;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -21,6 +22,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.Vector;
+import java.util.regex.Pattern;
+import java.text.FieldPosition;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -104,8 +107,12 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 				if(r==0) {
 
-					downloadListings();
-					missingFiles=false;
+					if (downloadListings()==1) {
+						missingFiles=false;
+					}
+					else {
+						dontDownload = true;
+					}
 					
 					return;
 
@@ -667,8 +674,58 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 	}//GEN-LAST:event_menDownloadActionPerformed
 
-	private void downloadListings() {
-		FreeGuideUtils.execAndWait(FreeGuide.prefs.getCommands("tv_grab"), "Downloading", this);
+	private int downloadListings() {
+		// 1=success
+		// 0=failure
+		
+		//  get today so we can calculate grabber offset
+		Calendar realToday = GregorianCalendar.getInstance();	
+		int realDOY = realToday.get(Calendar.DAY_OF_YEAR);
+		int realY = realToday.get(Calendar.YEAR);
+		
+		//  Get freeguide visible day (this is the one we will grab)
+		int visibleDOY = theDate.get(Calendar.DAY_OF_YEAR);
+		int visibleY = theDate.get(Calendar.YEAR);
+		
+		// if today, and freeguideDay are in different years compensate
+		if (Math.abs(visibleY-realY)>1) {
+			FreeGuide.log.severe("downloadListings(): Trying to fetch a date greater than\n" +
+				"    1 year from the present day is not supported.");
+			return(0);
+		}
+		if ( visibleY>realY) {
+			// add a real year number of days to the visible day of year
+			// to compensate for the change in year
+			visibleDOY+=realToday.getActualMaximum(Calendar.DAY_OF_YEAR);
+		} else if ( visibleY<realY) {
+			// add a visible year number of days to the real day of year
+			// to compensate for the change in year
+			realDOY+=theDate.getActualMaximum(Calendar.DAY_OF_YEAR);
+		}
+		
+		// visible day after real day is future offset (positive)
+		// visible day before real day is past offset (negative)
+		int offset = visibleDOY - realDOY;
+	
+		String[] cmd = FreeGuide.prefs.getCommands("tv_grab");
+		Pattern p_offset = Pattern.compile("%OFFSET");
+		Pattern p_date = Pattern.compile("%DATE");
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		StringBuffer date_buffer = sdf.format(theDate.getTime(), new StringBuffer(), new FieldPosition(0));
+		String date_string = date_buffer.toString();
+		
+		for(int i=0;i<cmd.length;i++) {
+			System.out.println("Before["+i+"]: "+cmd[i]);
+			//cmd[i].replaceAll("TODAY", new Integer(offset).toString());
+			//cmd[i].replaceAll("TODAY", new Integer(2).toString());
+			cmd[i]=p_offset.matcher(cmd[i]).replaceAll(new Integer(offset).toString());
+			cmd[i]=p_date.matcher(cmd[i]).replaceAll(date_string);
+			System.out.println("After["+i+"]: "+cmd[i]);
+		}
+		FreeGuideUtils.execAndWait(cmd, "Downloading", this);
+		// FIXME -- we should return, and process the command status here.
+		return(1);
 	}
 	
 	private void menQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menQuitActionPerformed
