@@ -114,14 +114,16 @@ m  means done by Mike Dean
 - ProgrammeJLabel shows which programme is selected
 - Keyboard navigation of programme scrollpane
 - Full test of keyboard navigation
+- Add icons to UK and US listings
 
 - Release 0.7.5 (minor features)
 
-- Clarify that you _have_ to enter your password during config
-- Programme info panel (and ability to turn off tooltips)
++ Clarify that you _have_ to enter your password during config in NA
++ Make a standard email form for beta test results
++ Fix bug with saying no listings available after midnight
++ Ability to turn off tooltips
++ Programme info panel
 + Advertise for beta testers
-- Make a standard email form for beta test results
-- Add icons to UK and US listings
 + Merge Yann's icons patch
 + Added "starts in x mins"/"started x mins ago" to tooltip
 + Fix problem with tv_split line left from old configurations

@@ -23,7 +23,7 @@ import javax.swing.event.*;
  *
  * @author     Andy Balaam
  * @created    9 Dec 2003
- * @version    2
+ * @version    3
  */
 
 public class LayoutOptionPanel extends OptionPanel implements ActionListener,
@@ -74,11 +74,14 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 		options[1] = "No";
 		alignLeftComboBox = newRightJComboBox( options );
         
-        JLabel printDeltaLabel = newLeftJLabel( "Print time delta" );
+        JLabel printDeltaLabel = newLeftJLabel( "Print time delta?" );
 		options = new Object[2];
 		options[0] = "Yes";
 		options[1] = "No";
 		printDeltaComboBox = newRightJComboBox( options );
+        
+        JLabel tooltipLabel = newLeftJLabel( "Show tooltips?" );
+        tooltipComboBox = newRightJComboBox( options );
         
 		// Lay them out in a GridBag layout
 		
@@ -108,6 +111,9 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
         
         gbe.addFWX    ( printDeltaLabel, 0, 5, gbe.FILL_HOR   , 0.2 );
 		gbe.addFWXWYGW( printDeltaComboBox,1, 5, gbe.FILL_HOR   , 0.8, 0, 2 );
+        
+        gbe.addFWX    ( tooltipLabel, 0, 6, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWXWYGW( tooltipComboBox,1, 6, gbe.FILL_HOR   , 0.8, 0, 2 );
         
 		// Set up events
 		channelHeightText.addFocusListener(this);
@@ -170,6 +176,13 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 			printDeltaComboBox.setSelectedIndex( 1 );
 		}
         
+        boolean tooltip = screen.getBoolean( "display_tooltips", false );
+		if( tooltip ) {
+			tooltipComboBox.setSelectedIndex( 0 );
+		} else {
+			tooltipComboBox.setSelectedIndex( 1 );
+		}
+        
 	}
 	
 	public boolean doSave() {
@@ -201,6 +214,10 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
             
         updated = screen.updateBoolean( "display_time_delta",
                 ( printDeltaComboBox.getSelectedIndex() == 0 ) )
+    			|| updated;
+        
+        updated = screen.updateBoolean( "display_tooltips",
+                ( tooltipComboBox.getSelectedIndex() == 0 ) )
     			|| updated;
             
 		return updated;
@@ -296,6 +313,7 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 	private JButton fontButton;
     private JComboBox alignLeftComboBox;
     private JComboBox printDeltaComboBox;
+    private JComboBox tooltipComboBox;
 	
 	private FontChooserDialog fontDialog;
 	private Font currentFont;

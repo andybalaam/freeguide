@@ -211,7 +211,6 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
      */
     public boolean hasData() {
 
-        // Normal:
         return (thereAreEarlyProgs && thereAreLateProgs);
     }
 
@@ -281,12 +280,12 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
         // There must be a programme crossing over both of these times in order
         // for the day to be "covered" i.e. we don't need to download more.
         hasDataEarliest = (Calendar) earliest.clone();
-        hasDataLatest = (Calendar) latest.clone();
+        hasDataLatest   = (Calendar) latest.clone();
 
         // If it's today then hasDataEarliest is now-ish
-        if (dayIsToday(nowDate)) {
+        if( dayIsToday(nowDate) ) {
 
-            hasDataEarliest.setTimeInMillis(nowDate.getTimeInMillis());
+            hasDataEarliest.setTimeInMillis( nowDate.getTimeInMillis() );
 
         }
 
@@ -305,22 +304,38 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
      *@param  nowDate  Description of the Parameter
      *@return          Description of the Return Value
      */
-    private boolean dayIsToday(Calendar nowDate) {
+    private boolean dayIsToday( Calendar iviewedDateTime ) {
 
-        Calendar today = GregorianCalendar.getInstance();
-        Time nowTime = new Time(today);
-
-        // If we're before the day start time then go to the previous day
-        if (nowTime.before(day_start_time, new Time(0, 0))) {
-
-            today.add(Calendar.DATE, -1);
+        // First copy the datetime we were given because we may have to alter it
+        Calendar viewedDateTime = GregorianCalendar.getInstance();
+        viewedDateTime.setTimeInMillis( iviewedDateTime.getTimeInMillis() );
+        
+        // Now find the time of the datetime we were given
+        Time viewedTime = new Time( viewedDateTime );
+        if( viewedTime.before( day_start_time, new Time(0, 0) ) ) {
+            
+            viewedDateTime.add( Calendar.DATE, -1 );
 
         }
+        
+        // If we're before the day start time then go to the previous day
+        
+        Calendar nowDateTime = GregorianCalendar.getInstance();
+        Time nowTime = new Time( nowDateTime );
 
+        // If we're before the day start time then go to the previous day
+        if( nowTime.before( day_start_time, new Time(0, 0) ) ) {
+            
+            nowDateTime.add( Calendar.DATE, -1 );
+
+        }
+        
         // Now check whether the dates are equal.
-        return (nowDate.get(Calendar.YEAR) == today.get(Calendar.YEAR) &&
-                nowDate.get(Calendar.DAY_OF_YEAR) ==
-                today.get(Calendar.DAY_OF_YEAR));
+        return ( viewedDateTime.get(Calendar.YEAR)
+                    == nowDateTime.get(Calendar.YEAR)
+              && viewedDateTime.get(Calendar.DAY_OF_YEAR)
+                    == nowDateTime.get(Calendar.DAY_OF_YEAR) );
+    
     }
 
 
@@ -409,13 +424,13 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
                 return;
             }
 
-            if (start.before(hasDataEarliest)) {
+            if( start.before(hasDataEarliest) ) {
 
                 thereAreEarlyProgs = true;
 
             }
 
-            if (end.after(hasDataLatest)) {
+            if( end.after(hasDataLatest) ) {
 
                 thereAreLateProgs = true;
 
@@ -457,7 +472,27 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
                 
             }
         
-		}
+		} else if ( saxLoc.equals(":tv:programme:desc")
+            || saxLoc.equals(":tv:programme:title")
+            || saxLoc.equals(":tv:programme:sub-title")
+            || saxLoc.equals(":tv:programme:category")
+            || saxLoc.equals(":tv:programme:star-rating") )
+        {
+            
+            // Do nothing - this tag is recognised
+            
+        } else if( saxLoc.startsWith( ":tv:programme:" ) ) {
+            
+            //FreeGuide.log.info( saxLoc );
+            
+            // Remember any unrecognised data
+            if (currentProgramme != null) {
+                
+                currentProgramme.startElement( name, attrs );
+                
+            }
+            
+        }
         //if
 
     }
@@ -578,7 +613,18 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
             // Remember the name of the channel we're looking at
             addChannelName(tmpChannelID, data);
 
-		}
+		} else if( saxLoc.matches( ":tv:programme:[^:]*" ) ) {
+            
+            //FreeGuide.log.info( saxLoc );
+            
+            // Remember any unrecognised data
+            if (currentProgramme != null) {
+                
+                currentProgramme.endElement( name, data );
+                
+            }
+            
+        }
 		
 		if (saxLoc.endsWith(name)) {
 

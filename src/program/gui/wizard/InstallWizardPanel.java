@@ -21,7 +21,7 @@ import javax.swing.*;
  *
  *@author     Andy Balaam
  *@created    11 Dec 2003
- *@version    1
+ *@version    2
  */
 public class InstallWizardPanel extends WizardPanel {
 

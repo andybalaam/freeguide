@@ -50,7 +50,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
 		// Set up basic variables
 		progressor = pleaseWait;
-		xmltvLoader 	= new ViewerFrameXMLTVLoader();
+		xmltvLoader = new ViewerFrameXMLTVLoader();
 		
 		// Set up the channel sets and dates available
 		findChannelSets();
@@ -80,6 +80,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		
 		// Show the printed guide
 		printedGuideArea.update();
+        
+        detailsPanel.updateProgramme( null );
 
 		// Get rid of the "Please Wait" window if it is visible
         if (pleaseWait != null) {
@@ -206,10 +208,12 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         comTheDate = new javax.swing.JComboBox();
         comChannelSet = new javax.swing.JComboBox();
         butNextDay = new javax.swing.JButton();
-        horizontalSplitPane = new javax.swing.JSplitPane();
+        splitPaneMainDet = new javax.swing.JSplitPane();
         printedGuideScrollPane = new javax.swing.JScrollPane();
         printedGuideArea = new ViewerFrameHTMLGuide( this );
-        verticalSplitPane = new javax.swing.JSplitPane();
+        detailsPanel = new ProgrammeDetailsJPanel( this );
+        splitPaneChanProg = new javax.swing.JSplitPane();
+        splitPaneGuideDet = new javax.swing.JSplitPane();
         channelNameScrollPane = new javax.swing.JScrollPane();
         channelNamePanel = new javax.swing.JPanel();
         programmesScrollPane = new javax.swing.JScrollPane();
@@ -341,11 +345,13 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
                 FreeGuide.prefs.screen.getInt("viewer_top", (
                 screenSize.height - 400) / 2));
 
-        verticalSplitPane.setDividerLocation(FreeGuide.prefs.screen.getInt(
+        splitPaneChanProg.setDividerLocation(FreeGuide.prefs.screen.getInt(
                 "viewer_splitpane_vertical", 100));
-        horizontalSplitPane.setDividerLocation(FreeGuide.prefs.screen.getInt(
+        splitPaneMainDet.setDividerLocation(FreeGuide.prefs.screen.getInt(
                 "viewer_splitpane_horizontal", 150));
-
+        splitPaneGuideDet.setDividerLocation(FreeGuide.prefs.screen.getInt(
+                "viewer_splitpane_horizontal_bottom", 400));
+                
 		//}}}
 
 		//{{{ topButtonsPanel
@@ -455,15 +461,23 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		
 		//{{{ Split panes etc
 		
-        horizontalSplitPane.setOneTouchExpandable(true);
-        horizontalSplitPane.setOrientation(
+        splitPaneMainDet.setOneTouchExpandable(true);
+        splitPaneMainDet.setOrientation(
 			javax.swing.JSplitPane.VERTICAL_SPLIT );
-		
+        
+        splitPaneGuideDet.setOneTouchExpandable(true);
+        splitPaneGuideDet.setOrientation(
+			javax.swing.JSplitPane.HORIZONTAL_SPLIT );
+        
         printedGuideArea.setEditable(false);
         printedGuideArea.setContentType("text/html");
+        
         printedGuideScrollPane.setViewportView(printedGuideArea);
 
-        horizontalSplitPane.setRightComponent(printedGuideScrollPane);
+        splitPaneMainDet.setRightComponent(splitPaneGuideDet);
+        
+        splitPaneGuideDet.setLeftComponent( printedGuideScrollPane );
+        splitPaneGuideDet.setRightComponent( detailsPanel );
 
         channelNameScrollPane.setBorder(null);
         channelNameScrollPane.setVerticalScrollBarPolicy(javax.swing.JScrollPane.VERTICAL_SCROLLBAR_NEVER);
@@ -480,7 +494,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 
         channelNameScrollPane.setViewportView(channelNamePanel);
 
-        verticalSplitPane.setLeftComponent(channelNameScrollPane);
+        splitPaneChanProg.setLeftComponent(channelNameScrollPane);
         
         programmesScrollPane.setBorder(null);
         programmesScrollPane.setColumnHeaderView(timePanel);
@@ -493,9 +507,9 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         timePanel.setLayout(null);
         timePanel.setBackground(new java.awt.Color(245, 245, 255));
 
-        verticalSplitPane.setRightComponent(programmesScrollPane);
+        splitPaneChanProg.setRightComponent(programmesScrollPane);
 
-        horizontalSplitPane.setLeftComponent(verticalSplitPane);
+        splitPaneMainDet.setLeftComponent(splitPaneChanProg);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -505,7 +519,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         gridBagConstraints.weightx = 0.9;
         gridBagConstraints.weighty = 0.9;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        getContentPane().add(horizontalSplitPane, gridBagConstraints);
+        getContentPane().add(splitPaneMainDet, gridBagConstraints);
 
 		/*gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -1263,7 +1277,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
      *  Unhides this window after being hidden while launching another screen.
      */
     public void reShow() {
-
+        
 		// Redraw the channel sets combo
 		findChannelSets();
 		
@@ -1293,6 +1307,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		
 		// Show the printed guide
 		printedGuideArea.update();
+        
+        detailsPanel.updateProgramme( null );
 		
 		// Show the screen
 		setVisible( true );
@@ -1390,6 +1406,15 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
      */
     public void mbtConfigureActionPerformed(java.awt.event.ActionEvent evt) {
 
+        String preconfig_message = FreeGuide.prefs.misc.get(
+            "preconfig_message" );
+       
+        if( preconfig_message != null ) {
+                
+            JOptionPane.showMessageDialog( this, preconfig_message );
+                
+        }
+        
 		Utils.execAndWait( this,
 			FreeGuide.prefs.getCommands("tv_config"),
 				"Configuring", theDate );
@@ -1449,6 +1474,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 							
                         // Update the guide
                         printedGuideArea.update();
+                        
+                        detailsPanel.updateProgramme( null );
 
                     }
         } else {
@@ -1491,6 +1518,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		}
 		
         printedGuideArea.update();
+        detailsPanel.updateProgramme( null );
 
     }
 
@@ -1552,6 +1580,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		
 		// Refresh the printed guide
 		printedGuideArea.update();
+        detailsPanel.updateProgramme( null );
 		
 		progressor.setProgress( 0 );
 
@@ -1591,6 +1620,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		
 		// Refresh the printed guide
 		printedGuideArea.update();
+        detailsPanel.updateProgramme( null );
 		
 		progressor.setProgress( 0 );
 		
@@ -1848,6 +1878,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 		programmeJLabel.setSelected( !programmeJLabel.isSelected );
 
         printedGuideArea.update();
+        detailsPanel.updateProgramme( programmeJLabel.programme );
 
     }
 
@@ -1885,7 +1916,6 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
      */
     public void downloadListings() {
 		
-		//setVisible( false );
         Utils.execAndWait( this,
 			FreeGuide.prefs.getCommands("tv_grab"),
 			"Downloading",
@@ -1951,9 +1981,11 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
         FreeGuide.prefs.screen.putInt("viewer_width", getWidth());
         FreeGuide.prefs.screen.putInt("viewer_height", getHeight());
         FreeGuide.prefs.screen.putInt("viewer_splitpane_vertical",
-                verticalSplitPane.getDividerLocation());
+                splitPaneChanProg.getDividerLocation());
         FreeGuide.prefs.screen.putInt("viewer_splitpane_horizontal",
-                horizontalSplitPane.getDividerLocation());
+                splitPaneMainDet.getDividerLocation());
+        FreeGuide.prefs.screen.putInt("viewer_splitpane_horizontal_bottom",
+                splitPaneGuideDet.getDividerLocation());
         FreeGuide.prefs.screen.put( "viewer_channel_set",
                 (String)(comChannelSet.getSelectedItem()) );
 
@@ -2145,6 +2177,11 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
      *  The panel showing the timeline
      */
     public TimePanel timePanel;
+    
+    /**
+     * The side panel showing programme details
+     */
+    public ProgrammeDetailsJPanel detailsPanel;
 	
 	private javax.swing.JMenuItem mbtPrint;
     /**
@@ -2182,7 +2219,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
      *  The JEditorPane where the printedGuide is shown
      */
     private ViewerFrameHTMLGuide printedGuideArea;
-	
+    
 	private javax.swing.JProgressBar progressBar;
     private javax.swing.JMenuItem mbtDownload;
     private javax.swing.JMenuItem mbtUserGuide;
@@ -2211,17 +2248,24 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
     private javax.swing.JButton butDownload;
     private javax.swing.JMenuItem mbtOptions;
     /**
-     *  The splitpane splitting the inner panel from the printed guide
+     * The splitpane splitting the main panel from the printed guide and
+     * programme details
      */
-    public javax.swing.JSplitPane horizontalSplitPane;
+    public javax.swing.JSplitPane splitPaneMainDet;
+    
+    /**
+     *  The splitpane splitting the printed guide from programme details
+     */
+    public javax.swing.JSplitPane splitPaneGuideDet;
+    
     private javax.swing.JMenuItem mbtFavourites;
     private javax.swing.JMenuItem mbtChannelSets;
     private javax.swing.JButton butRevertToFavourites;
     private javax.swing.JMenu toolsMenu;
     /**
-     *  The splitpane splitting the channels from programmes?
+     *  The splitpane splitting the channels from programmes
      */
-    public javax.swing.JSplitPane verticalSplitPane;
+    public javax.swing.JSplitPane splitPaneChanProg;
     private javax.swing.JMenuItem mbtAbout;
     private javax.swing.JButton butNextDay;
     private javax.swing.JButton butPreviousDay;

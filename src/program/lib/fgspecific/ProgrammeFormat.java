@@ -9,12 +9,9 @@
  *  See the file COPYING for more information.
  */
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
 
 /**
  * Formats Programme information.
@@ -172,7 +169,104 @@ public class ProgrammeFormat {
 	 */
 	public StringBuffer longFormat(Programme programme,
 			               StringBuffer toAppendTo) {
-		Calendar programmeStart = programme.getStart();
+
+		if (HTML_FRAGMENT_FORMAT != outputFormat) {
+			toAppendTo.append( "<html><body>" ).append( LINE_FEED );
+		}
+        
+        doLongFormat( programme, toAppendTo );
+        
+        if (HTML_FRAGMENT_FORMAT != outputFormat) {
+			toAppendTo.append( "</body></html>" ).append( LINE_FEED );
+		}
+
+        return toAppendTo;
+        
+    }
+    
+    public String longFormat(Programme programme) {
+		return longFormat(programme, new StringBuffer(200)).toString();
+	}
+
+    public String extraLongFormat( Programme programme ) {
+        
+        StringBuffer buff = new StringBuffer();
+        
+        if (HTML_FRAGMENT_FORMAT != outputFormat) {
+			buff.append( "<html>" ).append( LINE_FEED );
+            
+            buff.append( "<head>").append( LINE_FEED );
+            buff.append( "  <style type='text/css'>").append( LINE_FEED );
+            buff.append( "	body {").append( LINE_FEED );
+            buff.append( "		font-family: helvetica, helv, arial;")
+                .append( LINE_FEED );
+            buff.append( "		font-size: small;").append( LINE_FEED );
+            buff.append( "	}").append( LINE_FEED );
+            buff.append( "  </style>").append( LINE_FEED );
+            buff.append( "</head>").append( LINE_FEED );
+            
+            buff.append( "<body>" ).append( LINE_FEED );
+		}
+        
+        doLongFormat( programme, buff );
+        
+        Hashtable extraTags = (Hashtable)programme.getExtraTags();
+        
+        if( extraTags != null ) {
+        
+            buff.append( "<br><hr><table>" ).append( LINE_FEED );
+        
+            for( Iterator it = extraTags.entrySet().iterator();
+                it.hasNext(); )
+            {
+            
+                Map.Entry entry = (Map.Entry)it.next();
+            
+                Hashtable hashOfAttrs = (Hashtable)entry.getValue();
+            
+                buff.append( "    <tr><td><b>" + (String)entry.getKey()
+                    + "</b></td><td>" + hashOfAttrs.get("")
+                    + "</td></tr>" ).append( LINE_FEED );
+                
+                for( Iterator it2 = hashOfAttrs.entrySet().iterator();
+                    it2.hasNext(); )
+                {
+                    
+                    Map.Entry entry2 = (Map.Entry)it2.next();
+                    
+                    if( !entry2.getKey().equals("") ) {
+                    
+                        buff.append( "    <tr><td><br></td><td>"
+                            + entry2.getKey()
+                            + ": " + entry2.getValue()
+                            + "</td></tr>" ).append( LINE_FEED );
+                    }
+                    
+                }
+            
+            }
+            
+            buff.append( "</table>" ).append( LINE_FEED );
+            
+        }
+        
+        if (HTML_FRAGMENT_FORMAT != outputFormat) {
+			buff.append( "</body></html>" )
+				  .append( LINE_FEED );
+		}
+        
+        return buff.toString();
+    }
+    
+    // -----------------------------------------------------------------------
+    
+    private StringBuffer doLongFormat( Programme programme,
+        StringBuffer toAppendTo )
+    {
+        
+        toAppendTo.append( "<p><b>" ).append( LINE_FEED );
+        
+        Calendar programmeStart = programme.getStart();
 		String programmeDescription = programme.getLongDesc();
 		if ((programmeDescription != null) && (wrap)) {
 			programmeDescription = wrap(programmeDescription,
@@ -181,13 +275,7 @@ public class ProgrammeFormat {
 		String programmeTitle = programme.getTitle();
 		String programmeSubTitle = programme.getSubTitle();
 		String programmeStarString =  programme.getStarString();
-
-
-		if (HTML_FRAGMENT_FORMAT == outputFormat) {
-			toAppendTo.append( "<p><b>" );
-		} else {
-			toAppendTo.append( "<html><body><p><b>" );
-		}
+        
 		if (dateFormat != null) {
 			toAppendTo.append(dateFormat.format(
 				programme.getStart().getTime()));
@@ -239,21 +327,12 @@ public class ProgrammeFormat {
 			toAppendTo.append( " Rating: ")
 			.append( programme.getStarRating() );
 		}
-		if (HTML_FRAGMENT_FORMAT == outputFormat) {
-			toAppendTo.append( "</p>" ).append( LINE_FEED );
-		} else {
-			toAppendTo.append( "</p></body></html>" )
-				  .append( LINE_FEED );
-		}
-
+		
+        toAppendTo.append( "</p>" ).append( LINE_FEED );
+        
 		return toAppendTo;
 	}
-
-	public String longFormat(Programme programme) {
-		return longFormat(programme, new StringBuffer(200)).toString();
-	}
-
-
+    
 	public void setFormat(int outputFormat) {
 		this.outputFormat = outputFormat;
 		if (HTML_FORMAT == outputFormat) {

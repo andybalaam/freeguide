@@ -5,4 +5,5 @@ prefs.2=commandline.tv_grab.1=tv_grab_na_dd --config-file \"%misc.grabber_config
 prefs.3=misc.grabber_start_time=00:00
 prefs.4=misc.grabber_config=%home%/.xmltv/tv_grab_na_dd.conf
 prefs.5=commandline.tv_config.1=tv_grab_na_dd --config-file \"%misc.grabber_config%\" --configure --gui
+prefs.6=misc.preconfig_message=Note: You MUST enter your password when prompted since you won't be able to give it later.
 

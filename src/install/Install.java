@@ -58,7 +58,7 @@ public class Install extends PrefsHolder {
                     "Lite Install (keep old preferences)",
                     "Uninstall"};
 
-            Object response = JOptionPane.showInputDialog(null,
+            Object response = JOptionPane.showInputDialog( null,
                     txt,
                     "Install question",
                     JOptionPane.QUESTION_MESSAGE,
@@ -141,10 +141,10 @@ public class Install extends PrefsHolder {
 			
 			panels[4] = new PrivacyWizardPanel();
 			panels[4].setConfig( "misc", "privacy" );
-            clses = new Class[1];
+            /*clses = new Class[1];
             clses[0] = String.class;
 			panels[4].setOnExit( this, getClass().getMethod( "exitPrivacy",
-				clses ) );
+				clses ) );*/
             
             panels[5] = new InstallWizardPanel( this );
             panels[5].setMessages(
@@ -157,10 +157,13 @@ public class Install extends PrefsHolder {
 				clses ) );
 
 			clses = new Class[0];
-            new WizardFrame("FreeGuide Setup Wizard", panels,
+            
+            wizardFrame = new WizardFrame("FreeGuide Setup Wizard", panels,
 				this, getClass().getMethod("doInstall", clses),
 				this, getClass().getMethod("quitInstall", clses)
-					).setVisible(true);
+					);
+            
+            wizardFrame.setVisible(true);
 
         } catch (java.lang.NoSuchMethodException e) {
             e.printStackTrace();
@@ -200,14 +203,9 @@ public class Install extends PrefsHolder {
 		
 	}
 	
-    public void exitPrivacy( String unused ) {
+    /*public void exitPrivacy( String unused ) {
 		
-        String preconfig_message = prefs.misc.get( "preconfig_message" );
-		if( preconfig_message != null ) {
-            JOptionPane.showMessageDialog( null, preconfig_message );
-        }
-		
-	}
+	}*/
     
 	public void exitFinal( InstallWizardPanel panel ) {
 		
@@ -437,6 +435,13 @@ public class Install extends PrefsHolder {
 		
 		if(configGrabber) {
 			
+            String preconfig_message = prefs.misc.get( "preconfig_message" );
+            if( preconfig_message != null ) {
+                
+                JOptionPane.showMessageDialog( wizardFrame, preconfig_message );
+                
+            }
+            
 			Utils.execAndWait( null, prefs.getCommands(
 				"tv_config" ), "Configuring", prefs );
                 
@@ -621,5 +626,7 @@ public class Install extends PrefsHolder {
 	
 	private boolean showREADME;
 	private boolean configGrabber;
+    
+    private WizardFrame wizardFrame;
 
 }

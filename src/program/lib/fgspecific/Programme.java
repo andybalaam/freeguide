@@ -10,8 +10,8 @@
  */
 
 import java.net.URL;
-import java.util.Calendar;
-import java.util.Vector;
+import java.util.*;
+import org.xml.sax.Attributes;
 
 /**
  *  FreeGuideProgramme A class that holds info about a particular programme.
@@ -414,7 +414,36 @@ public class Programme {
         return ans;
     }
 
+    public void startElement( String name, Attributes attrs ) {
+        
+        if( extraTags == null ) {
+            extraTags = new Hashtable();
+        }
+        
+        Hashtable hashOfAttrs = new Hashtable();
+        
+        for( int i = 0; i < attrs.getLength(); i++ ) {
+        
+            hashOfAttrs.put( attrs.getQName(i), attrs.getValue(i) );
+            
+        }
+        
+        extraTags.put( name, hashOfAttrs );
+        
+    }
+    
+    public void endElement( String name, String data ) {
+        
+        Hashtable hashOfAttrs = (Hashtable)extraTags.get( name );
+        
+        hashOfAttrs.put( "", data );
+        
+    }
 
+    public Hashtable getExtraTags() {
+        return extraTags;
+    }
+    
 	/**
 	 * The start time
 	 */
@@ -485,4 +514,9 @@ public class Programme {
 	 */
 	private URL link;
 	
+    /**
+     * Any unrecognised tags go in here.
+     */
+    private Hashtable extraTags;
+    
 }

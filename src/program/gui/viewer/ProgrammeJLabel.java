@@ -59,7 +59,7 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 	 *                   is for a program included in this vector, it will be
 	 *                   removed from it.
 	 */
-	ProgrammeJLabel( Programme programme, SimpleDateFormat timeFormat,
+	ProgrammeJLabel( Programme prog, SimpleDateFormat timeFormat,
 			boolean drawTime, int halfHorGap, double widthMultiplier,
 			int halfVerGap, int channelHeight, Font font,
 			final ViewerFrame viewerFrame, Vector choices ) {
@@ -67,23 +67,24 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 		super();
 		
 		this.viewerFrame = viewerFrame;
-		this.programme = programme;
+		this.programme = prog;
 		
 		ToolTipManager tipManager = ToolTipManager.sharedInstance();
-		// Register this component for tooltip management.
-		// This is normally done when by setting the tooltip text,
-		// but we want to "lazily" evaluate tooltip text--we defer
-		// creation of the tip text until the tip is actually needed.
-		// (see the getToolTipText() method below)
-		tipManager.registerComponent(this);
-                // Create a timer to scroll the HTML guide when the user
-                // hovers over the selected program.
-                // Using the same timeout as ToolTips so that if we add an
-                // option, one setting will apply to both.
-                scrollHTMLTimer = new javax.swing.Timer(
-                                                 tipManager.getInitialDelay(),
-                                                      new ScrollHTMLAction());
-                scrollHTMLTimer.setRepeats(false);
+		/* Register this component for tooltip management.
+		   This is normally done when by setting the tooltip text,
+		   but we want to "lazily" evaluate tooltip text--we defer
+		   creation of the tip text until the tip is actually needed.
+		   (see the getToolTipText() method below) */
+		
+        tipManager.registerComponent(this);
+            /* Create a timer to scroll the HTML guide when the user
+               hovers over the selected program.
+               Using the same timeout as ToolTips so that if we add an
+               option, one setting will apply to both. */
+        
+        scrollHTMLTimer = new javax.swing.Timer(
+            tipManager.getInitialDelay(), new ScrollHTMLAction() );
+        scrollHTMLTimer.setRepeats(false);
 		
 		Calendar programmeStart = programme.getStart();
         Calendar programmeEnd = programme.getEnd();
@@ -139,11 +140,14 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
                 }
 
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
-                  if (scrollHTMLTimer.isRunning()) {
-                    scrollHTMLTimer.restart();
-                  } else {
-                    scrollHTMLTimer.start();
-                  }
+                    
+                    viewerFrame.detailsPanel.updateProgramme( programme );
+                    
+                    if (scrollHTMLTimer.isRunning()) {
+                        scrollHTMLTimer.restart();
+                    } else {
+                        scrollHTMLTimer.start();
+                    }
                 }
 
                 public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -451,6 +455,14 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
         }
 
 	public String getToolTipText() {
+        
+        // If the prefs say no tooltips, just return null
+        if( FreeGuide.prefs.screen.getBoolean( "display_tooltips", false )
+                == false )
+        {
+            return null;
+        }
+        
 		String tooltip = super.getToolTipText();
 		boolean printDelta = FreeGuide.prefs.screen.getBoolean(
 				"display_time_delta", true);
