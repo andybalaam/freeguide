@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
@@ -24,17 +25,13 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Timer;
 import java.util.Vector;
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JToolTip;
 /* Also using (but can't import because of java.util.Timer)
 import javax.swing.Timer;
  */
 import javax.swing.ToolTipManager;
 import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
 
 /**
  * A JLabel that displays a TV programme
@@ -216,25 +213,29 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
         if( alignTextToLeftOfScreen ) {
         
             // Paint our own text, aligning to the left of the screen
-            g.setClip(this.getVisibleRect());
-
+        	g.setClip(this.getVisibleRect());
+        	
+        	// First paint background
             g.setColor(this.getBackground());
             g.fillRect(0,0,this.getWidth(), this.getHeight());
 
+            // Then set everything to draw the text
             g.setFont(this.getFont());
             g.setColor(this.getForeground());
 
+            // Compute the right place from the left border
             int fontX = 0;
+            Insets ins = this.getInsets();
             if (this.getBorder() != null) {
-                fontX = this.getBorder().getBorderInsets(this).left;
+                fontX = ins.left;
             }
 
             if (g.getClipBounds() != null && fontX<g.getClipBounds().x) {
-                fontX = g.getClipBounds().x;
+                fontX = g.getClipBounds().x + ins.left;
             }
-
-            g.drawString( getText(), fontX + 1,
-                getInsets().top + g.getFontMetrics().getAscent() );
+            
+            // now we now where, draw the text
+            g.drawString( getText(), fontX, ins.top + (getHeight() - ins.top - ins.bottom + g.getFontMetrics().getAscent()) >> 1);
         
         } else {
             
