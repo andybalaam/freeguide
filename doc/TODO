@@ -136,6 +136,7 @@ r  means done by Rob Stewart
 - rename program folder to freeguide
 - Update screenshots on sf and freshmeat to show channel and program icons
 - Change Windows shortcuts from FreeGuide.jar to javaw -jar FreeGuide.jar
+- Fix Windows installer to install shared files for tv_grab_uk_bleb.
 - Add notes to FAQ about na_dd subscription expiring and na_dd not entering
   your password during configuration.
 - Fix the problem reported by Russell Odom on 24/09/04 to do with the channel
