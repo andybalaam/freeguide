@@ -126,7 +126,7 @@ using config file C:\Program Files\freeguide-tv\xmltv\tv_grab_nl.conf
 downloading listings: tv_grab_nl:Invalid argument http://www.tvgids.nl/zoekprogramma.php?station=1&interval=0: could not fetch http://www.tvgids.nl/zoekprogramma.php?station=1&interval=0, aborting
 - Talk to XMLTV people about xmltv.exe tv_grab_na --listings "tv-%Y%m%d.xml" works
 
-- Release 0.5.4 (Win UK bug fix)
++ Release 0.5.4 (Win UK bug fix)
 
 + Fix shared directory bug with UK install
 + Fix bug with fi install not doing all prefs
