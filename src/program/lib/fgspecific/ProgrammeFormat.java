@@ -13,7 +13,14 @@
 
 package freeguidetv.lib.fgspecific;
 
+import freeguidetv.*;
 import freeguidetv.gui.viewer.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.*;
 import java.util.*;
 import java.util.regex.*;
@@ -245,7 +252,15 @@ public class ProgrammeFormat {
                     
                     Map.Entry entry2 = (Map.Entry)it2.next();
                     
-                    if( !entry2.getKey().equals("") ) {
+                    if( entry.getKey().equals("icon") && entry2.getKey().equals("src")) {
+                    	String cachedIconFile = cacheIcon((String)entry2.getValue());
+                    	if (cachedIconFile != null) {
+	                    	buff.append("<tr><td></td><td><img src=\"")
+							    .append(cachedIconFile)
+							    .append("\"></td></tr>");
+	                   	}
+                    }
+                    else if( !entry2.getKey().equals("") ) {
                     
                         buff.append( "    <tr><td></td><td>" )
                             .append( entry2.getKey() )
@@ -457,6 +472,50 @@ public class ProgrammeFormat {
 		}
 		if (delta<0)
 			toAppend.append(" ago");
+	}
+	
+    public static StringBuffer getIconCacheDir() {
+        
+        StringBuffer ans = new StringBuffer(
+            FreeGuide.prefs.performSubstitutions(
+				FreeGuide.prefs.misc.get("working_directory") ) );
+		ans.append(File.separatorChar).append("iconcache")
+            .append(File.separatorChar);
+        
+        return ans;
+        
+    }
+	private String cacheIcon(String iconURLstr) {
+		StringBuffer path = getIconCacheDir();
+		path.append(iconURLstr.replaceAll("[^0-9A-Za-z_-]|^http://|^ftp://", ""));
+		// First convert the id to a suitable (and safe!!) filename
+		File cache = new File(path.toString());
+		// then verify if the file is in the cache
+		if (!cache.canRead()) {
+			// if not, we try to fetch it from the url
+			try {
+				URL iconURL;
+				iconURL = new URL(iconURLstr);
+				InputStream i = iconURL.openStream();
+				FileOutputStream o = new FileOutputStream(cache);
+				byte buffer[] = new byte[4096];
+				int bCount;
+				while ((bCount = i.read(buffer)) != -1)
+					o.write(buffer, 0, bCount);
+				o.close();
+				i.close();
+			} catch (MalformedURLException e) {
+				return null;
+			} catch (IOException e) {
+				return null;
+			}
+		}
+		try {
+			return cache.toURL().toString();
+		} catch (MalformedURLException e) {
+			return null;
+		}
+		
 	}
 }
 
