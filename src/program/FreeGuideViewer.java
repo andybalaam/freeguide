@@ -517,14 +517,10 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	}//GEN-LAST:event_butDownloadActionPerformed
 
 	private void menConfigureActionPerformed(java.awt.event.ActionEvent evt) {
-		/*setVisible(false);
-		new FreeGuideChannelsChooser(this).setVisible(true);
-		dispose();*/
 		
-		String[] cmds = new String[1];
-		cmds[0] = "bash 'tv_grab_na --configure'";
-		
-		FreeGuideUtils.execNoWait( cmds );
+		//setVisible(false);
+		//new Configurator(this).setVisible(true);
+		//dispose();
 		
 	}
 

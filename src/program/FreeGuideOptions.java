@@ -175,8 +175,12 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 				titles[panelNo] = "Grabber Start_time";
 
 			} else {
-				FreeGuide.log.severe("An unknown check went wrong!");
+				
+				FreeGuide.log.severe("An unknown check went wrong! ("
+					+ what + ")");
+					
 				System.exit(1);
+				
 			}
 
 

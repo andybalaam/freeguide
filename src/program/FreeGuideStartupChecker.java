@@ -57,7 +57,8 @@ public class FreeGuideStartupChecker {
 		checkCommandLineFailure(prefs.commandline, "browser_command", failedWhat);
 		checkTextFailure(prefs.misc, "day_start_time", failedWhat);
 		checkTextFailure(prefs.misc, "days_to_grab", failedWhat);
-		checkFileFailure(prefs.misc, "grabber_config", failedWhat);
+		// Not needed since e.g. german grabber doesn't use it:
+		//checkFileFailure(prefs.misc, "grabber_config", failedWhat);
 		checkFileFailure(prefs.misc, "working_directory", failedWhat);		
 		
 		if(failedWhat.size()>0) {
