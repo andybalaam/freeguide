@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<attributes version="1.0">
+   <fileobject name="FreeGuideSAXHandler.java">
+      <attr name="class_dependency_org.xml.sax.helpers.DefaultHandler" stringvalue="FreeGuideSAXHandler"/>
+   </fileobject>
+   <fileobject name="FreeGuide.java">
+      <attr name="class_dependency_javax.swing.JFrame" stringvalue="JFrame;FreeGuide"/>
+   </fileobject>
+</attributes>
