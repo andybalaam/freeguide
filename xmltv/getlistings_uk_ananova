@@ -28,16 +28,10 @@ sub get_ch_types();
 sub usage();
 sub get_file($$$);
 sub date_programmes($$);
-sub add_clumpidx($$);
+sub add_clumpidx($);
 sub ch_output($);
 sub get_ch_to_output();
 sub get_channel_pkgs();
-sub new_relation();
-sub related($$$);
-sub relate($$$);
-sub unrelate($$$);
-sub nuke_from_rel($$);
-sub relatives($$);
 sub get_output_to_number();
 sub channels_output();
 
@@ -68,16 +62,16 @@ END {
 my $LANG = 'en';
 
 # Check options.
-my ($opt_days, $opt_help, $opt_cache);
-GetOptions('days=i' => \$opt_days, 'help' => \$opt_help, 'cache:s' => \$opt_cache);
+my ($opt_days, $opt_help, $opt_cache, $opt_output);
+GetOptions('days=i' => \$opt_days, 'help' => \$opt_help, 'cache:s' => \$opt_cache, 'output=s' => \$opt_output);
 if ($opt_help) {
     print <<END
 $0: get UK television listings in XMLTV format
 
 The options available depend on what data is at the server.  Run with
 no arguments to get a usage message and a default set of listings (7
-days, London region).  It will write the listings to stdout, so
-redirect it to a file.
+days, London region).  It will write the listings to stdout, or to a
+file if the --output option is used.
 END
   ;
     exit(1);
@@ -125,13 +119,13 @@ my $copyright = check_ananova_blurb(); update $bar;
 # Ananova's data is in Latin-1.
 #
 my $writer;
-# Changed by Andy Balaam 2002-01-04 to allow an output file rather than stdout
-#if($ARGV[1]) {
-#	$writer = new XMLTV::Writer(encoding => 'ISO-8859-1',OUTPUT => $ARGV[1]);
-#	print "here";
-#} else {
+if (defined $opt_output) {
+	my $output = new IO::File(">$opt_output");
+	$writer = new XMLTV::Writer(encoding => 'ISO-8859-1', OUTPUT => $output);
+} else {
 	$writer = new XMLTV::Writer(encoding => 'ISO-8859-1');
-#}
+}
+
 $writer->comment($copyright);
 $writer->start({ 'source-info-url'     =>
 	  'http://www.ananova.com/tv_listings/_tv_full_listings.html',
@@ -260,7 +254,7 @@ else {
     $type_pretty{$_} = $_ foreach qw(radio satellite);
     foreach my $arg (@ARGV) {
 	my $t;
-
+	
 	# See whether the argument matches a region.
 	foreach (sort keys %type_pretty) {
 	    if ($type_pretty{$_} =~ /\Q$arg\E/i) {
@@ -371,16 +365,12 @@ foreach (sort { $a->[0] <=> $b->[0] } @files) {
     my $day_date = DateCalc($today, "+ $day_offset days");
     die if not defined $day_date;
 
-    # Get a list of programmes from this filename.
+    # Get a list of programmes from this filename, fix the dates and
+    # add clumpidxes.
+    #
     my $progs = get_file($day_date, $ch, $filename);
-
-    # Fix the dates.
     date_programmes($progs, $day_date);
-	
-    # Add clumpidx's.
-    my $rel = new_relation();
-    add_clumpidx($progs, $rel);
-    t 'related programmes: ' . d($rel);
+    add_clumpidx($progs);
 
     # Check to see if we have to write channels data first.
     if (not $wrote_channels) {
@@ -590,7 +580,7 @@ my $shown_usage = 0;
 sub usage() {
     return if $shown_usage++;
     my $msg = <<END
-usage: $0 [--days N] channel-spec...
+usage: $0 [--days N] [--output filename] channel-spec...
 
 There are three ways to choose which channels to download.  Pick a
 terrestrial region or channel type from:
@@ -1235,19 +1225,14 @@ sub date_programmes($$) {
 # programmes.  Eg 'The Core' has clumpidx '0/2' and 'Core
 # News' has '1/2'.
 #
-# See also special_split_title() which handles a similar problem.
-#
 # Parameters:
 #   a reference to a list of programmes for one channel, which will
 #   be modified
 #
-#   a reference to a 'relation' scalar.  Programmes sharing a clump are
-#   in this relation together.  This scalar will be modified.
-#
-sub add_clumpidx($$) {
-    die "usage: add_clumpidx(ref to list of programmes, 'related' hashref)"
-      if @_ != 2;
-    my ($progs, $related) = @_;
+sub add_clumpidx($) {
+    die "usage: add_clumpidx(ref to list of programmes)"
+      if @_ != 1;
+    my $progs = shift;
     t('add_clumpidx() ENTRY');
 
     my $last_start;
@@ -1270,12 +1255,11 @@ END
 	}
 	$last_start = $start;
     }
-    
+
     # Okay, we've got clumpidx of '0', '1' where needed, but even
     # better would be '0/2', '1/2'.  We look at how many programmes
     # are in each clump: if only one, remove the clumpidx entirely.
-    # If more than one, put the full 'x/y' clumpidx and additionally
-    # make a note to updated the %{$related} hash.
+    # If more than one, put the full 'x/y' clumpidx.
     #
     t "refine clumpidx's and build todo list";
     my %todo;
@@ -1302,24 +1286,6 @@ END
 	}
 	else { die }
     }
-
-    # Update $related
-    t 'updating $related from todo list';
-    foreach (keys %todo) {
-	t 'todo list for ' . d($_);
-	my @l = @{$todo{$_}};
-	t 'list of programmes: ' . d(\@l);
-	foreach my $ai (0 .. $#l) {
-	    foreach my $bi ($ai+1 .. $#l) {
-		my $a = $l[$ai]; my $b = $l[$bi];
-		t "$a and $b related";
-		die if "$a" eq "$b";
-		warn "$a, $b over-related" if related($related, $a, $b);
-		relate($related, $a, $b);
-	    }
-	}
-    }
-
     t 'add_clumpidx() EXIT';
 }
 
@@ -1343,59 +1309,58 @@ END
 sub channels_output() {
     t 'channels_output() ENTRY';
     my %channels_output;
-
+	
     # Routine to modify %channels_output adding a new pretty name for
     # an internal channel id.
     #
     my $add_to_output = sub( $ ) {
-	my ($id, $entry) = @_;
-	t "asked to add pretty name '$entry' to channel id $id";
-
-	# Don't want to add it if it's already in the list.
-	my $already = 0;
-	foreach (@{$channels_output{$id}}) {
-	    t 'checking existing entry: ' . d $_;
-	    next if $_->[0] ne $entry->[0];
-	    if (not defined $_->[1] and not defined $entry->[1]) {
-		$already = 1;
-		last;
-	    }
-	    if (defined $_->[1] and defined $entry->[1]
-		and $_->[1] eq $entry->[1]) {
-		$already = 1;
-		last;
-	    }
-	}
-	t "already in there? $already";
-	unless ($already) {
-	    push @{$channels_output{$id}}, $entry;
-	    t 'list now: ' . d $channels_output{$id};
-	}
+		my ($id, $entry) = @_;
+		t "asked to add pretty name '$entry' to channel id $id";
+		# Don't want to add it if it's already in the list.
+		my $already = 0;
+		foreach (@{$channels_output{$id}}) {
+	    	t 'checking existing entry: ' . d $_;
+	    	next if $_->[0] ne $entry->[0];
+	    	if (not defined $_->[1] and not defined $entry->[1]) {
+				$already = 1;
+				last;
+	    	}
+	    	if (defined $_->[1] and defined $entry->[1]
+					and $_->[1] eq $entry->[1]) {
+				$already = 1;
+				last;
+	    	}
+		}
+		t "already in there? $already";
+		unless ($already) {
+	    	push @{$channels_output{$id}}, $entry;
+	    	t 'list now: ' . d $channels_output{$id};
+		}
     };
-
+	
     foreach (keys %$ch_pretty) {
-	next unless $want_all or $wanted_type{$ch_types->{$_}} or $wanted_ch{$_};
-	my $o = ch_output($_);
-	my $p = $ch_pretty->{$_}; die if not defined $p;
+		next unless $want_all or $wanted_type{$ch_types->{$_}} or $wanted_ch{$_};
+		my $o = ch_output($_);
+		my $p = $ch_pretty->{$_}; die if not defined $p;
 
-	# Don't need to warn about more than one channel with the same
-	# output id, because Channel 4 and Channel 5 are considered by
-	# Ananova as split into regions, but each region is in fact
-	# the same.  Likewise some things like the two versions of
-	# Meridian (different for BBC, but not ITV).
-	#
-	$add_to_output->($o, [ $p, $LANG ]);
+		# Don't need to warn about more than one channel with the same
+		# output id, because Channel 4 and Channel 5 are considered by
+		# Ananova as split into regions, but each region is in fact
+		# the same.  Likewise some things like the two versions of
+		# Meridian (different for BBC, but not ITV).
+		#
+		$add_to_output->($o, [ $p, $LANG ]);
     }
     foreach (keys %channels_output) {
-	my $extra = $output_to_number{$_};
-	if (defined $extra) {
-	    if ($extra =~ tr/0-9//c) {
-		# Not a channel number, should have a 'language'.
-		$add_to_output->($_, [ $extra, $LANG ]);
-	    } else {
-		$add_to_output->($_, [ $extra ]);
-	    }
-	}
+		my $extra = $output_to_number{$_};
+		if (defined $extra) {
+	    	if ($extra =~ tr/0-9//c) {
+				# Not a channel number, should have a 'language'.
+				$add_to_output->($_, [ $extra, $LANG ]);
+	    	} else {
+				$add_to_output->($_, [ $extra ]);
+	    	}
+		}
     }
     t 'channels_output() RETURNING ' . d \%channels_output;
     return \%channels_output;
@@ -1891,14 +1856,15 @@ sub get_channel_pkgs() {
 		# universally available.
 		#
 		gratis => [qw(
-digital.bbc1.bbc.co.uk digital.bbc2.bbc.co.uk choice.bbc.co.uk
-knowledge.bbc.co.uk news-24.bbc.co.uk parliament.bbc.co.uk carlton.com
-channel4.com channel5.co.uk itv2.itv.co.uk bloomberg.com
-sky-news.sky.com tcm.turner.com qvcuk.com shop-tv.co.uk
-simplyshoppingtv.co.uk shop-america.tv-listings.ananova.com
-qvc1.qvcuk.com 2.tvtravelshop.co.uk screenshop.co.uk
-landmark-travel.tv-listings.ananova.com tvtravelshop.co.uk
-wellbeing.com)],
+digital.bbc1.bbc.co.uk digital.bbc2.bbc.co.uk carlton.com channel4.com
+channel5.co.uk travelchannel.co.uk home.discoveryeurope.com
+choice.bbc.co.uk knowledge.bbc.co.uk einstein.tv tcm.turner.com
+sky-news.sky.com bloomberg.com news-24.bbc.co.uk parliament.bbc.co.uk
+europe.cnn.com itn.co.uk boomerang.cartoonnetwork.com
+channelhealth.tv ftv.com extreme.com qvc1.qvcuk.com tvtravelshop.co.uk
+2.tvtravelshop.co.uk shop-tv.co.uk screenshop.co.uk
+shop-america.tv-listings.ananova.com simplyshoppingtv.co.uk
+christian-channel-europe.god-digital.com)],
 
 		musicchoice => [qw(
 blues.musicchoice.co.uk classical.musicchoice.co.uk
@@ -2023,68 +1989,13 @@ tvtravelshop.co.uk)],
 
     my %r;
     foreach (keys %pkgs) {
-	$r{$_} = [ map { $xmltvid_to_ananovaid{$_} } @{$pkgs{$_}} ];
+	my $ananova_ids = $r{$_} = [];
+	foreach (@{$pkgs{$_}}) {
+	    die if not defined;
+	    my $aid = $xmltvid_to_ananovaid{$_};
+	    die "cannot find Ananova id for $_" if not defined $aid;
+	    push @$ananova_ids, $aid;
+	}
     }
     return %r;
-}
-
-# Routines to handle a symmmetric 'relation'.  This is used to keep
-# track of which programmes are sharing a clump so that fix_clumps()
-# can sort them out if needed.
-#
-# FIXME make this into a module.
-#
-sub new_relation() {
-    die 'usage: new_relation()' if @_;
-    my %h; tie %h, 'Tie::RefHash';
-    return \%h;
-}
-sub related($$$) {
-    die 'usage: related(relation, a, b)' if @_ != 3;
-    my ($rel, $a, $b) = @_;
-    my $list = $rel->{$a};
-    return 0 if not defined $list;
-    foreach (@$list) {
-	return 1 if "$_" eq "$b";
-    }
-    return 0;
-}
-sub relate($$$) {
-    die 'usage: related(relation, a, b)' if @_ != 3;
-    my ($rel, $a, $b) = @_;
-    unless (related($rel, $a, $b)) {
-	push @{$rel->{$a}}, $b;
-	push @{$rel->{$b}}, $a;
-    }
-}
-sub unrelate($$$) {
-    die 'usage: related(relation, a, b)' if @_ != 3;
-    my ($rel, $a, $b) = @_;
-    die unless related($rel, $a, $b) and related($rel, $b, $a);
-    @{$rel->{$a}} = grep { "$_" ne "$b" } @{$rel->{$a}};
-    @{$rel->{$b}} = grep { "$_" ne "$a" } @{$rel->{$b}};
-}
-sub nuke_from_rel($$) {
-    die 'usage: nuke_from_rel(relation, a)' if @_ != 2;
-    my ($rel, $a) = @_;
-    die unless ref($rel) eq 'HASH';
-    foreach (@{relatives($rel, $a)}) {
-	die unless related($rel, $a, $_);
-	unrelate($rel, $a, $_);
-    }
-
-    # Tidy up by removing from hash
-    die if defined $rel->{$a} and @{$rel->{$a}};
-    delete $rel->{$a};
-}
-sub relatives($$) {
-    die 'usage: relatives(relation, a)' if @_ != 2;
-    my ($rel, $a) = @_;
-    die unless ref($rel) eq 'HASH';
-    if ($rel->{$a}) {
-	return [ @{$rel->{$a}} ]; # make a copy
-    }
-    else {
-	return [];
-    }
 }

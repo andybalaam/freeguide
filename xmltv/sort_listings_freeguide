@@ -9,9 +9,8 @@
 #   - stop time, or
 #   - internal channel name
 #
-# Then split the programmes into:
-#   - a channels xml file
-#   - a separate listings xml file for each day and channel
+# Then output a separate listings file for each day and channel, named
+# as channelname-date.fgd for freeguide-tv to read in
 #
 # This converts an XMLTV listing into a format suitable for the
 # freeguide-tv GUI to display
@@ -61,37 +60,41 @@ my $output_directory;
 my @selected_channels;
 
 # Will make flexible at some point
-if(@ARGV < 3) {
-	die "usage: $0 [sorted_input_file] [output_directory] [channel1] [channel2] ...\n";
+if(@ARGV > 2) {
+	die "usage: $0 [unsorted_input_file] [output_directory]\n";
 }
 
 $filename = $ARGV[0];
 $output_directory = $ARGV[1];
 
-my $i;
-for($i=0;$i<@ARGV-2;$i++) {
-	$selected_channels[$i]=$ARGV[$i+2];
-}
+#my $i;
+#for($i=0;$i<@ARGV-2;$i++) {
+#	$selected_channels[$i]=$ARGV[$i+2];
+#}
 
 my ($encoding, $credits, $channels, $progs) = @{read_data($filename)};
 my @progs = @$progs;
 
 # Split up programmes according to channel
 my %chan;
-my $i_prog;
-my $i_chan;
+foreach (@progs) {
+    push @{$chan{$_->{channel}}}, $_;
+}
 
-foreach $i_prog (@progs) {
+#my $i_prog;
+#my $i_chan;
+
+#foreach $i_prog (@progs) {
 	# Only add a channel if it's selected
 	# Could be done better?
-	foreach $i_chan (@selected_channels) {
-		if($i_chan eq $i_prog->{channel}) {
-    		push @{$chan{$i_prog->{channel}}}, $i_prog;
-			goto endchansloop;
-		}
-	}
-	endchansloop:
-}
+#	foreach $i_chan (@selected_channels) {
+#		if($i_chan eq $i_prog->{channel}) {
+#    		push @{$chan{$i_prog->{channel}}}, $i_prog;
+#			goto endchansloop;
+#		}
+#	}
+#	endchansloop:
+#}
 
 # Sort each channel individually, and guess stop times.
 foreach (keys %chan) {
@@ -140,10 +143,7 @@ END
 
 
 # Adapted 2002-01-04 by Andy Balaam - do not merge list back again,
-# but instead write out channels and each day/channel listing as separate files
-
-# Write out channels
-write_data([ $encoding, $credits, $channels, "", "$output_directory/channels.xml" ]);
+# but instead write out each day/channel listing as separate files
 
 # Write out each channel/day
 my $chankey;
@@ -173,7 +173,9 @@ foreach $chankey (keys %chan) {
 			
 			#$datetxt = "$year$mon$mday";
 			$datetxt = UnixDate($date, "%Y%m%d");
-			write_data([ $encoding, $credits, "", \@progs, "$output_directory/$chankey-$datetxt.fgd" ]);
+			
+			my $output = new IO::File(">$output_directory/$chankey-$datetxt.fgd");
+			write_data([ $encoding, $credits, $channels, \@progs ], OUTPUT => $output );
 			
 			$date = $newdate;
 			@progs = ();
@@ -187,13 +189,6 @@ foreach $chankey (keys %chan) {
 	
 	
 }
-
-# Removed by Andy Balaam 2002-01-04
-# Write out the new document
-#t 'writing out data';
-#t 'new programmes list: ' . d \@progs;
-#write_data([ $encoding, $credits, $channels, \@progs ]);
-#write_data([ $encoding, $credits, $channels, \@progs, "$output_directory/test.xml" ]);
 
 exit();
 
