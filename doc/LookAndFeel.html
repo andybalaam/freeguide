@@ -120,7 +120,6 @@ javaw -Dswing.gtkthemefile="C:\gtk\Theme Name\gtk-2.0\gtkrc" -jar "C:\Program Fi
 java -Dswing.gtkthemefile="${HOME}/.themes/Theme Name/gtk-2.0/gtkrc" -jar "${HOME}/freeguide-tv/FreeGuide.jar"
 </pre>
 
-<li><a href="#"></a></li>
 <h2><a name="gtk+changedtheme">Why doesn't FreeGuide notice when I change my System GTK+ theme?</a></h2>
 
 <p>The GTK+ L&F is not actually using the GTK+ theme engine to draw components of FreeGuide.  Instead, it performs the work normally done by the theme engine itself, but does not detect changes to the system-define theme.  Therefore, to get FreeGuide to notice the change to your theme, simply restart FreeGuide.  Note that future versions of the GTK+ L&F may support detection of changes to the system theme, but until then restarting FreeGuide is the only way to change themes.</p>
