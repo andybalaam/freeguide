@@ -39,6 +39,11 @@ Introduction
    FreeGuide contains a little code by Slava Pestov from the Jedit
    project ([13]www.jedit.org).
 
+   Referring to the crimson XML parser (crimson.jar): This product
+   includes software developed by the Apache Software Foundation
+   (http://www.apache.org/). See the file gui-java/crimsonlicence.txt for
+   details.
+
 Licence
 
    This program is free software; you can redistribute it and/or modify
@@ -174,20 +179,20 @@ Notes
 
 References
 
-   1. file://localhost/home/andy/freeguide-tv/README.html#intro
-   2. file://localhost/home/andy/freeguide-tv/README.html#licence
-   3. file://localhost/home/andy/freeguide-tv/README.html#installing
-   4. file://localhost/home/andy/freeguide-tv/README.html#installing-windows
-   5. file://localhost/home/andy/freeguide-tv/README.html#installing-linux
-   6. file://localhost/home/andy/freeguide-tv/README.html#installing-other
-   7. file://localhost/home/andy/freeguide-tv/README.html#running
-   8. file://localhost/home/andy/freeguide-tv/README.html#notes
+   1. file://localhost/home/andy/fgworking/freeguide-tv/README.html#intro
+   2. file://localhost/home/andy/fgworking/freeguide-tv/README.html#licence
+   3. file://localhost/home/andy/fgworking/freeguide-tv/README.html#installing
+   4. file://localhost/home/andy/fgworking/freeguide-tv/README.html#installing-windows
+   5. file://localhost/home/andy/fgworking/freeguide-tv/README.html#installing-linux
+   6. file://localhost/home/andy/fgworking/freeguide-tv/README.html#installing-other
+   7. file://localhost/home/andy/fgworking/freeguide-tv/README.html#running
+   8. file://localhost/home/andy/fgworking/freeguide-tv/README.html#notes
    9. mailto:freeguide@artificialworlds.net
   10. http://freeguide-tv.sourceforge.net/
   11. http://www.doc.ic.ac.uk/%7Eepa98/work/apps/xmltv/
   12. http://sourceforge.net/projects/xmltv
   13. http://www.jedit.org/
-  14. file://localhost/home/andy/freeguide-tv/COPYING
+  14. file://localhost/home/andy/fgworking/freeguide-tv/COPYING
   15. http://java.sun.com/j2se/
   16. http://www.doc.ic.ac.uk/~epa98/work/apps/xmltv/
   17. http://www.sourceforge.net/projects/freeguide-tv
