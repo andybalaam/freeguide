@@ -49,9 +49,9 @@ public class PleaseWaitFrame extends javax.swing.JFrame implements Progressor {
 			
             // All is ok, so begin with viewer
             
-            if (FreeGuide.prefs.screen.getBoolean("use_metal_landf", false)) {
+            /*if (FreeGuide.prefs.screen.getBoolean("use_metal_landf", false)) {
                 ViewerFrame.setDefaultLookAndFeelDecorated(true);
-            }
+            }*/
 
             new ViewerFrame(launcher, this);
         }

@@ -15,40 +15,74 @@ import java.util.Vector;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
 /*
  *  FreeGuideChannelSetList
  *
  *  Provides a list of the user's channelsets and allows them to add or edit
  *  them by launching a FreeGuideChannelSetEditor.
  *
- *  @author  Andy Balaam
- *  @version 2
- */
-/**
- *  Description of the Class
+ *  Note: It may be easier to maintain this panel by using the JGoodies form
+ *  layout.
  *
- *@author     andy
- *@created    28 June 2003
+ *
+ * @author     Brendan Corrigan (based on FreeGuideChannelSetList by Andy Balaam)
+ * @created    22nd August 2003
+ * @version    1
  */
-public class ChannelSetListFrame extends javax.swing.JFrame implements Launcher {
 
+
+public class ChannelSetListDialog extends JDialog {
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton butEdit;
+    private javax.swing.JButton butRemove;
+    private javax.swing.JButton butAdd;
+    private javax.swing.JList list;
+    private javax.swing.JButton butOK;
+    private javax.swing.JButton butCancel;
+    private javax.swing.JLabel jLabel1;
+    // End of variables declaration//GEN-END:variables
+
+    private Vector channelsets;
+    // The channelsets
+    private Launcher launcher;
+    private ViewerFrameXMLTVLoader loader;
+
+    private DefaultListModel channelsetModel;
+    private int latestIndex;
+    
+    private boolean updatedFlag = false;
+
+     
     /**
-     *  Creates new form FreeGuideChannelSetList
+     * Constructor which sets the channel set list up as a JDialog...
      *
-     *@param  launcher  Description of the Parameter
-     *@param  loader    Description of the Parameter
+     * Note: This class takes the ViewerFrameXMLTVLoader as a parameter to keep
+     * the structure of the application intact. This would probably be better refactored
+     * as a static reference object such as the singleton pattern - on the "todo" list!
+     *               
+     *@param owner - the <code>JFrame</code> from which the dialog is displayed 
+     *@param title - the <code>String</code> to display in the dialog's title bar
+     *@param loader - the <code>ViewerFrameXMLTVLoader</code> for compatibility
      */
-    public ChannelSetListFrame(Launcher launcher, ViewerFrameXMLTVLoader loader) {
+                    
+    public ChannelSetListDialog(JFrame owner, String title, ViewerFrameXMLTVLoader loader) {
+        super(owner, title, true);
 
-        this.launcher = launcher;
+
         this.loader = loader;
-
         channelsetModel = new DefaultListModel();
 
         initComponents();
-
         loadChannelSet();
-
         fillList();
 
         latestIndex = 0;
@@ -58,7 +92,7 @@ public class ChannelSetListFrame extends javax.swing.JFrame implements Launcher 
 
 
     /**
-     *  Description of the Method
+     *  todo - Description of the Method
      */
     private void selectLatest() {
 
@@ -68,7 +102,7 @@ public class ChannelSetListFrame extends javax.swing.JFrame implements Launcher 
 
 
     /**
-     *  Description of the Method
+     *  todo - Description of the Method
      */
     private void loadChannelSet() {
 
@@ -79,7 +113,7 @@ public class ChannelSetListFrame extends javax.swing.JFrame implements Launcher 
 
 
     /**
-     *  Description of the Method
+     *  todo - Description of the Method
      */
     private void fillList() {
 
@@ -95,7 +129,7 @@ public class ChannelSetListFrame extends javax.swing.JFrame implements Launcher 
 
 
     /**
-     *  Description of the Method
+     * todo -  Description of the Method
      */
     private void saveChannelSet() {
 
@@ -104,6 +138,7 @@ public class ChannelSetListFrame extends javax.swing.JFrame implements Launcher 
 		FreeGuide.prefs.replaceChannelSets(
 			Utils.arrayFromVector_ChannelSet( channelsets ) );
 
+        updatedFlag = true;
         FreeGuide.prefs.flushAll();
 
     }
@@ -275,6 +310,8 @@ public class ChannelSetListFrame extends javax.swing.JFrame implements Launcher 
 
         fillList();
         selectLatest();
+        
+        updatedFlag = true;
 
     }
 
@@ -327,7 +364,16 @@ public class ChannelSetListFrame extends javax.swing.JFrame implements Launcher 
             //update the channel set names
             fav.updateChannelNames(loader);
 
-            new ChannelSetEditorFrame(this, loader, fav).show();
+            ChannelSetEditorDialog channels = 
+                new ChannelSetEditorDialog(this, "Edit Channel Set", loader, fav);
+
+            boolean changed = channels.showDialog();      
+            
+            if (changed) {
+                updatedFlag = true;
+            }
+
+
         }
     }
 
@@ -343,8 +389,18 @@ public class ChannelSetListFrame extends javax.swing.JFrame implements Launcher 
         ChannelSet newCset = new ChannelSet();
 
         channelsets.add(newCset);
-        new ChannelSetEditorFrame(this, loader, newCset).show();
+                
+        ChannelSetEditorDialog channels = 
+            new ChannelSetEditorDialog(this, "Add a new Channel Set", loader, newCset);
+  
+        boolean changed = channels.showDialog();      
+        
+        if (changed) {
+            updatedFlag = true;
+        }
+        
         latestIndex = channelsetModel.size();
+        reShow();
 
     }
 
@@ -370,19 +426,8 @@ public class ChannelSetListFrame extends javax.swing.JFrame implements Launcher 
     private void quit() {
 
         hide();
-        launcher.reShow();
         dispose();
 
-    }
-
-
-    /**
-     *  Gets the launcher attribute of the FreeGuideChannelSetList object
-     *
-     *@return    The launcher value
-     */
-    public Launcher getLauncher() {
-        return launcher;
     }
 
 
@@ -396,26 +441,18 @@ public class ChannelSetListFrame extends javax.swing.JFrame implements Launcher 
     }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton butEdit;
-    private javax.swing.JButton butRemove;
-    private javax.swing.JButton butAdd;
-    private javax.swing.JList list;
-    private javax.swing.JButton butOK;
-    private javax.swing.JButton butCancel;
-    private javax.swing.JLabel jLabel1;
-    // End of variables declaration//GEN-END:variables
+    /**
+     * Method showDialog calls the default dialog show method
+     *
+     * @returns Returns <code>true</code> if any of the preferences in the
+     *                 customiser dialog have been changed, and <code>false</code> otherwise.
+     */
+    
+    public boolean showDialog() {
+        show();
+        return updatedFlag;
+    }
 
-    private Vector channelsets;
-    // The channelsets
-    private Launcher launcher;
-    private ViewerFrameXMLTVLoader loader;
 
-    private DefaultListModel channelsetModel;
-
-    private int latestIndex;
 
 }

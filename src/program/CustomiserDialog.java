@@ -10,27 +10,34 @@
  *
  *  See the file COPYING for more information.
  */
+
 import java.awt.Color;
-import javax.swing.JColorChooser;
-import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.*;
+import javax.swing.*;
 
 /**
  *  FreeGuideCustomiser The Colour options screen for FreeGuide
  *
- *@author     Andy Balaam
- *@created    28 June 2003
- *@version    3
+ *@author     Brendan Corrigan (based on CustomiserFrame by Andy Balaam)
+ *@created    22nd August 2003
+ *@version    1
  */
-public class CustomiserFrame extends javax.swing.JFrame {
+public class CustomiserDialog extends JDialog {
 
     /**
-     *  Creates new form FreeGuideCustomiser
+     * Constructor which sets the customiser up as a JDialog...
      *
-     *@param  launcher  Description of the Parameter
+     *@param owner - the <code>JFrame</code> from which the dialog is displayed 
+     *@param title - the <code>String</code> to display in the dialog's title bar
+     *@param modal - true for a modal dialog, false for one that allows other windows to be active at the same time
+
      */
-    public CustomiserFrame(Launcher launcher) {
-        this.launcher = launcher;
+    public CustomiserDialog(JFrame owner, String title, boolean modal) {
+        super(owner, title, modal);
+        
+        this.owner = owner;
+        
         initComponents();
         initScreen();
     }
@@ -81,14 +88,6 @@ public class CustomiserFrame extends javax.swing.JFrame {
         landfNoteLabel = new javax.swing.JLabel();
 
         getContentPane().setLayout(new java.awt.GridBagLayout());
-
-        setTitle("FreeGuide Customiser");
-        addWindowListener(
-            new java.awt.event.WindowAdapter() {
-                public void windowClosing(java.awt.event.WindowEvent evt) {
-                    exitForm(evt);
-                }
-            });
 
         panScreen.setLayout(new java.awt.GridBagLayout());
 
@@ -416,22 +415,33 @@ public class CustomiserFrame extends javax.swing.JFrame {
 
         changedFont = false;
 
-        pack();
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(new java.awt.Dimension(400, 450));
-        setLocation((screenSize.width - 400) / 2, (screenSize.height - 400) / 2);
-        FGPreferences scr = FreeGuide.prefs.screen;
+		FGPreferences scr = FreeGuide.prefs.screen;
 
-        fontDialog = new FontChooserDialog(this, "Choose Font", true,
+        fontDialog = new FontChooserDialog(owner, "Choose Font", true,
                 new Font(
                 scr.get("font_name", "Dialog"),
                 scr.getInt("font_style", Font.PLAIN),
                 scr.getInt("font_size", 12)));
 
         fontDialog.setSize(new java.awt.Dimension(300, 200));
-        fontDialog.setLocation((screenSize.width - 300) / 2,
-                (screenSize.height - 200) / 2);
+		
+		pack();  // pack comes before the size instructions or they get ignored.
+		
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(new java.awt.Dimension(420, 450));
+        setLocation((screenSize.width - 420) / 2, (screenSize.height - 450) / 2);
 
+		fontDialog.setLocation((screenSize.width - 300) / 2,
+                (screenSize.height - 200) / 2);
+		
+    }
+
+
+
+    private Frame getParentFrame() {
+	Component p = this;
+	while ( (p = p.getParent()) != null && !(p instanceof Frame) );
+  	return( (Frame)p );
     }
 
 
@@ -543,30 +553,63 @@ public class CustomiserFrame extends javax.swing.JFrame {
     //GEN-LAST:event_exitForm
 
     /**
-     *  Description of the Method
+     * Save the new preferences. Update the <code>changed</code> flag to indicate if
+     * the user made any changes to the preferneces.
+     *
      */
     private void saveScreen() {
 
-        FreeGuide.prefs.screen.putColor("channel_colour", txtChannelColour.getBackground());
+        boolean changed = false;
 
-        FreeGuide.prefs.screen.putInt("channel_height", Integer.parseInt(txtChannelHeight.getText()));
-        FreeGuide.prefs.screen.putInt("channel_panel_width", Integer.parseInt(txtChannelPanelWidth.getText()));
-        FreeGuide.prefs.screen.putInt("horizontal_gap", Integer.parseInt(txtHorizontalGap.getText()));
-        FreeGuide.prefs.screen.putInt("vertical_gap", Integer.parseInt(txtVerticalGap.getText()));
-        FreeGuide.prefs.screen.putInt("panel_width", Integer.parseInt(txtPanelWidth.getText()));
+        changed = FreeGuide.prefs.screen.updateColor("channel_colour", txtChannelColour.getBackground());
+        if (changed) updatedFlag = true;
 
-        FreeGuide.prefs.screen.putColor("programme_chosen_colour", txtProgrammeChosenColour.getBackground());
-        FreeGuide.prefs.screen.putColor("programme_normal_colour", txtProgrammeNormalColour.getBackground());
-        FreeGuide.prefs.screen.putColor("programme_movie_colour", txtProgrammeMovieColour.getBackground());
-        FreeGuide.prefs.screen.putBoolean("display_programme_time", timeCheckBox.isSelected());
-        FreeGuide.prefs.screen.putBoolean("display_24hour_time", timebuttongroup.getSelection().equals(time24button.getModel()));
-        FreeGuide.prefs.screen.putBoolean("use_metal_landf", landfCheckBox.isSelected());
+        changed = FreeGuide.prefs.screen.updateInt("channel_height", Integer.parseInt(txtChannelHeight.getText()));
+        if (changed) updatedFlag = true;
+        
+        changed = FreeGuide.prefs.screen.updateInt("channel_panel_width", Integer.parseInt(txtChannelPanelWidth.getText()));
+        if (changed) updatedFlag = true;
+        
+        changed = FreeGuide.prefs.screen.updateInt("horizontal_gap", Integer.parseInt(txtHorizontalGap.getText()));
+        if (changed) updatedFlag = true;
+        
+        changed = FreeGuide.prefs.screen.updateInt("vertical_gap", Integer.parseInt(txtVerticalGap.getText()));
+        if (changed) updatedFlag = true;
+        
+        changed = FreeGuide.prefs.screen.updateInt("panel_width", Integer.parseInt(txtPanelWidth.getText()));
+        if (changed) updatedFlag = true;
+
+        changed = FreeGuide.prefs.screen.updateColor("programme_chosen_colour", txtProgrammeChosenColour.getBackground());
+        if (changed) updatedFlag = true;
+
+        changed = FreeGuide.prefs.screen.updateColor("programme_normal_colour", txtProgrammeNormalColour.getBackground());
+        if (changed) updatedFlag = true;
+
+        changed = FreeGuide.prefs.screen.updateColor("programme_movie_colour", txtProgrammeMovieColour.getBackground());
+        if (changed) updatedFlag = true;
+
+        changed = FreeGuide.prefs.screen.updateBoolean("display_programme_time", timeCheckBox.isSelected());
+        if (changed) updatedFlag = true;
+        
+        changed = FreeGuide.prefs.screen.updateBoolean("display_24hour_time", timebuttongroup.getSelection().equals(time24button.getModel()));
+        if (changed) updatedFlag = true;
+
+        changed = FreeGuide.prefs.screen.updateBoolean("use_metal_landf", landfCheckBox.isSelected());
+        if (changed) updatedFlag = true;
+
         if (changedFont) {
 
             Font f = fontDialog.getSelectedFont();
-            FreeGuide.prefs.screen.put("font_name", f.getName());
-            FreeGuide.prefs.screen.putInt("font_style", f.getStyle());
-            FreeGuide.prefs.screen.putInt("font_size", f.getSize());
+            
+            changed = FreeGuide.prefs.screen.update("font_name", f.getName());
+            if (changed) updatedFlag = true;
+            
+            changed = FreeGuide.prefs.screen.updateInt("font_style", f.getStyle());
+            if (changed) updatedFlag = true;
+
+            changed = FreeGuide.prefs.screen.updateInt("font_size", f.getSize());
+            if (changed) updatedFlag = true;
+
 
         }
     }
@@ -621,10 +664,6 @@ public class CustomiserFrame extends javax.swing.JFrame {
         boolean metal = FreeGuide.prefs.screen.getBoolean("use_metal_landf", false);
         landfCheckBox.setSelected(metal);
 
-        //FreeGuidePreferences scr = FreeGuide.prefs.screen;
-        //butFont.setText( scr.get("font_name", "Dialog") +
-        //	" " + scr.get("font_size", "12") );
-
     }
 
 
@@ -643,6 +682,24 @@ public class CustomiserFrame extends javax.swing.JFrame {
 
 
     // ------------------------------------------------------------------------
+    
+
+    /**
+     * Method showDialog calls the default show method but additionally
+     * returns a simple flag to indicate whether any of the preferences
+     * on the customiser dialog have been updated or not.
+     *
+     * @returns Returns <code>true</code> if any of the preferences in the
+     *                 customiser dialog have been changed, and <code>false</code> otherwise.
+     */
+    
+    public boolean showDialog() {
+        show();
+        return updatedFlag;
+    }
+
+
+    // ------------------------------------------------------------------------
 
     /**
      *  Closes the form and goes back to the viewer.
@@ -650,7 +707,6 @@ public class CustomiserFrame extends javax.swing.JFrame {
     private void quit() {
 
         hide();
-        launcher.reShow();
         dispose();
 
     }
@@ -692,8 +748,20 @@ public class CustomiserFrame extends javax.swing.JFrame {
     private javax.swing.JLabel landf;
     private javax.swing.JCheckBox landfCheckBox;
     private javax.swing.JLabel landfNoteLabel;
-    Launcher launcher;
+//    Launcher launcher;
     FontChooserDialog fontDialog;
     boolean changedFont;
+    
+
+
+    /**
+     * This flag indicated whether any of the parameters on the
+     * CustomiserDialog have been updated during this session.
+     *
+     */
+    private boolean updatedFlag = false;
+    
+    private Frame owner = null;
+        
 
 }

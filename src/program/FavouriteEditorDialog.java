@@ -17,30 +17,31 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
 
+import javax.swing.*;
+import java.awt.*;
+
 /*
  *  FreeGuideFavouriteEditor
  *
  *  A screen for editing a single favourite.
  *
- *  @author  Andy Balaam
- *  @version 2
+ *  @author     Brendan Corrigan (based on FreeGuideFavouriteEditor by Andy Balaam)
+ *  @created    22nd August 2003
+ *  @version    1
  */
-/**
- *  Description of the Class
- *
- *@author     andy
- *@created    28 June 2003
- */
-public class FavouriteEditorFrame extends javax.swing.JFrame {
-
+ 
+public class FavouriteEditorDialog extends JDialog {
+    
     /**
-     *  Creates new form FreeGuideFavouriteEditor
+     * Constructor which sets the favourites editor up as a JDialog...
      *
-     *@param  launcher   Description of the Parameter
-     *@param  favourite  Description of the Parameter
+     *@param owner - the <code>JFrame</code> from which the dialog is displayed 
+     *@param title - the <code>String</code> to display in the dialog's title bar
+     *@param favourite - the <code>Favourite</code> to modify
      */
-    public FavouriteEditorFrame(Launcher launcher, Favourite favourite) {
-        this.launcher = launcher;
+    public FavouriteEditorDialog(Dialog owner, String title, Favourite favourite) {
+        super(owner, title, true);
+     
         this.favourite = favourite;
 
         initComponents();
@@ -97,11 +98,12 @@ public class FavouriteEditorFrame extends javax.swing.JFrame {
         cmbTitle.addItem("Contains");
         cmbTitle.addItem("Regular Expression");
 
-		ViewerFrame viewerFrame = (ViewerFrame)launcher.getLauncher();
-		
-        channelIDs = viewerFrame.xmltvLoader.getChannelIDs();
-			
-        channelNames = viewerFrame.xmltvLoader.getChannelNames();
+
+        // ViewerFrame viewerFrame = (ViewerFrame)launcher.getLauncher();		
+        // channelIDs = viewerFrame.xmltvLoader.getChannelIDs();
+
+        channelIDs = ViewerFrame.xmltvLoader.getChannelIDs();			
+        channelNames = ViewerFrame.xmltvLoader.getChannelNames();
 
         cmbChannel.addItem("");
         for (int i = 0; i < channelNames.size(); i++) {
@@ -720,8 +722,7 @@ public class FavouriteEditorFrame extends javax.swing.JFrame {
      */
     private void quit() {
 
-        setVisible(false);
-        launcher.reShow();
+        hide();
         dispose();
     }
 

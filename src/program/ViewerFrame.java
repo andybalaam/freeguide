@@ -37,6 +37,8 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.text.JTextComponent;
+import javax.swing.JDialog;
+import javax.swing.*;
 
 //}}}
 
@@ -46,7 +48,7 @@ import javax.swing.text.JTextComponent;
  *
  *@author     Andy Balaam
  *@created    28 June 2003
- *@version    17
+ *@version    18
  */
 public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 		Progressor {
@@ -74,8 +76,6 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 		
 		// Find out what date it is today
 		findInitialDate();
-		
-		
 
 		// Set the progress meter to 5%
 		progressor.setProgress( 5 );
@@ -711,39 +711,39 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
     }
 		
 	private void drawChannelSetComboList() {
-		
+
 		// Stop listening to item events temporarily while we mess about
 		comChannelSet.removeItemListener( comChannelSetItemListener );
 		
 		// Remove all the items from the combo box:
 		// Working around a bug with JComboBox.removeAllItems()
-		//comChannelSet.removeAllItems();
 		int i;
 		int itemCount = comChannelSet.getItemCount();
 		for ( i=0; i<itemCount; i++ ) {
-			
 			comChannelSet.removeItemAt( 0 );
-			
 		}
 		
 		// Add the "All Channels" item
 		comChannelSet.insertItemAt( CHANNEL_SET_ALL_CHANNELS, 0);
 		
+		// BINO - Added this to allow the channels to be refreshed properly
+		//findChannelSets(); 
+		
 		for ( i=0; i < channelSetsList.length; i++ ) {
 			
 			comChannelSet.insertItemAt(
 				channelSetsList[i].getChannelSetName(), i+1 );
-				
+
 			channelSetsList[i].updateChannelNames( xmltvLoader );
-				
+			
         }
 		
 		comChannelSet.insertItemAt( CHANNEL_SET_EDIT_SETS, i+1);
-		
 		comChannelSet.setSelectedItem( currentChannelSet.getChannelSetName() );
 		
 		// Restart listening to item events
 		comChannelSet.addItemListener( comChannelSetItemListener );
+		validate();
 		
 	}
 	
@@ -1134,8 +1134,19 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
      */
     public void mbtCustomiserActionPerformed(java.awt.event.ActionEvent evt) {
 
-        setVisible( false );
-        new CustomiserFrame( this ).setVisible( true );
+        CustomiserDialog customiser = new CustomiserDialog(this, "FreeGuide Customiser", true);
+    		
+	// Center dialog on panel
+	int x = (this.getSize().width - customiser.getSize().width) / 2;
+	int y = (this.getSize().height - customiser.getSize().height) / 2;
+	customiser.setLocation(x + this.getLocation().x, y + this.getLocation().y);
+    
+    	boolean updated = customiser.showDialog();
+    	
+    	if (updated) {
+        	drawProgrammes();
+        }
+    
 
     }
 
@@ -1368,6 +1379,8 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 		
     }
 
+
+
     /**
      *  Event handler for when the "Options" menu option is chosen 
      *
@@ -1380,6 +1393,11 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 
     }
 
+
+
+
+
+
     /**
      *  Event handler for when the "Channel Sets" menu option is chosen 
      *
@@ -1388,15 +1406,29 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
     public void mbtChannelSetsActionPerformed(java.awt.event.ActionEvent evt) {
 		
         editChannelSets();
-
+		
+    }
+        
+    private void editChannelSets() {
+				        
+        ChannelSetListDialog channels = new ChannelSetListDialog(this, "FreeGuide Channels", xmltvLoader);
+    		
+	// Center dialog on panel
+	int x = (this.getSize().width - channels.getSize().width) / 2;
+	int y = (this.getSize().height - channels.getSize().height) / 2;
+	channels.setLocation(x + this.getLocation().x, y + this.getLocation().y);
+    
+    	boolean updated = channels.showDialog();
+            	
+    	if (updated) {
+                drawChannelSetComboList();        	        	
+        }
+        		
     }
 
-	private void editChannelSets() {
-		
-		setVisible(false);
-        new ChannelSetListFrame( this, xmltvLoader ).setVisible( true );
-		
-	}
+
+
+
 	
     /**
      *  Event handler for when the "Favourites" menu option is chosen 
@@ -1405,8 +1437,18 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
      */
     public void mbtFavouritesActionPerformed(java.awt.event.ActionEvent evt) {
 
-        setVisible(false);
-        new FavouritesListFrame( this ).setVisible( true );
+        FavouritesListDialog favourites = new FavouritesListDialog(this, "FreeGuide Favourites", true);
+    		
+	// Center dialog on panel
+	int x = (this.getSize().width - favourites.getSize().width) / 2;
+	int y = (this.getSize().height - favourites.getSize().height) / 2;
+	favourites.setLocation(x + this.getLocation().x, y + this.getLocation().y);
+    
+    	boolean updated = favourites.showDialog();
+    	
+    	if (updated) {
+        	drawProgrammes();
+        }
 
     }
 
@@ -1898,7 +1940,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Launcher,
 	/**
      *  The class that handles all the XMLTV stuff
      */
-    public ViewerFrameXMLTVLoader xmltvLoader;
+    public static ViewerFrameXMLTVLoader xmltvLoader;
 	
 	/**
      *  The list of available channel sets (all are ChannelSet objects)

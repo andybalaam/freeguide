@@ -13,6 +13,7 @@
 import java.util.Arrays;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
+import javax.swing.*;
 
 /*
  *  FreeGuideFavouritesList
@@ -20,37 +21,67 @@ import javax.swing.DefaultListModel;
  *  Provides a list of the user's favourites and allows them to add or edit
  *  them by launching a FreeGuideFavouriteEditor.
  *
- *  @author  Andy Balaam
- *  @version 2
+ * @author     Brendan Corrigan (based on FavouritesListFrame by Andy Balaam)
+ * @created    22nd August 2003
+ * @version    1
  */
-/**
- *  Description of the Class
- *
- *@author     andy
- *@created    28 June 2003
- */
-public class FavouritesListFrame extends javax.swing.JFrame implements Launcher {
+ 
+
+public class FavouritesListDialog extends JDialog {
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton butEdit;
+    private javax.swing.JButton butRemove;
+    private javax.swing.JButton butAdd;
+    private javax.swing.JList list;
+    private javax.swing.JButton butOK;
+    private javax.swing.JButton butCancel;
+    private javax.swing.JLabel jLabel1;
+    // End of variables declaration//GEN-END:variables
+
+    private Vector favourites;
+    private Launcher launcher;
+    private Favourite favourite;
+    private DefaultListModel favouritesModel;
+    private int latestIndex;
+    
+    /**
+     * This flag indicated whether any of the parameters on the
+     * CustomiserDialog have been updated during this session.
+     *
+     */
+    boolean updatedFlag = false;
+
 
     /**
-     *  Creates new form FreeGuideFavouritesList
-     *
-     *@param  launcher  Description of the Parameter
+     * The owner frame
      */
-    public FavouritesListFrame(Launcher launcher) {
+     JFrame owner = null;
 
-        this.launcher = launcher;
 
+    /**
+     * Constructor which sets the favourites list up as a JDialog...
+     *
+     *@param owner - the <code>JFrame</code> from which the dialog is displayed 
+     *@param title - the <code>String</code> to display in the dialog's title bar
+     *@param modal - true for a modal dialog, false for one that allows other windows to be active at the same time
+     */
+    public FavouritesListDialog(JFrame owner, String title, boolean modal) {
+        super(owner, title, modal);
+
+        this.owner = owner;
+        
         favouritesModel = new DefaultListModel();
-
         initComponents();
-
         loadFavourites();
-
         fillList();
-
         latestIndex = 0;
         selectLatest();
-
+        
     }
 
 
@@ -270,8 +301,7 @@ public class FavouritesListFrame extends javax.swing.JFrame implements Launcher 
 
         }
 
-        fillList();
-        selectLatest();
+        reShow();
 
     }
 
@@ -321,8 +351,11 @@ public class FavouritesListFrame extends javax.swing.JFrame implements Launcher 
         int i = list.getSelectedIndex();
         if (i != -1) {
             Favourite fav = (Favourite) favourites.get(i);
-            new FavouriteEditorFrame(this, fav).show();
+//            new FavouriteEditorDialog(owner, "Edit Favourite", fav).show();
+            new FavouriteEditorDialog(this, "Edit Favourite", fav).show();
         }
+        
+                
     }
 
 
@@ -336,8 +369,11 @@ public class FavouritesListFrame extends javax.swing.JFrame implements Launcher 
     private void butAddActionPerformed(java.awt.event.ActionEvent evt) {
         Favourite newFav = new Favourite();
         favourites.add(newFav);
-        new FavouriteEditorFrame(this, newFav).show();
+//        new FavouriteEditorDialog(owner, "Add a new Favourite", newFav).show();
+        new FavouriteEditorDialog(this, "Add a new Favourite", newFav).show();
         latestIndex = favouritesModel.size();
+
+        reShow();
 
     }
 
@@ -363,20 +399,26 @@ public class FavouritesListFrame extends javax.swing.JFrame implements Launcher 
     private void quit() {
 
         hide();
-        launcher.reShow();
         dispose();
 
     }
 
 
+
     /**
-     *  Gets the launcher attribute of the FreeGuideFavouritesList object
+     * Method showDialog calls the default show method but additionally
+     * returns a simple flag to indicate whether any of the preferences
+     * on the customiser dialog have been updated or not.
      *
-     *@return    The launcher value
+     * @returns Returns <code>true</code> if any of the preferences in the
+     *                 customiser dialog have been changed, and <code>false</code> otherwise.
      */
-    public Launcher getLauncher() {
-        return launcher;
+    
+    public boolean showDialog() {
+        show();
+        return updatedFlag;
     }
+
 
 
     /**
@@ -389,26 +431,6 @@ public class FavouritesListFrame extends javax.swing.JFrame implements Launcher 
     }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton butEdit;
-    private javax.swing.JButton butRemove;
-    private javax.swing.JButton butAdd;
-    private javax.swing.JList list;
-    private javax.swing.JButton butOK;
-    private javax.swing.JButton butCancel;
-    private javax.swing.JLabel jLabel1;
-    // End of variables declaration//GEN-END:variables
-
-    private Vector favourites;
-    // The favourites
-    private Launcher launcher;
-    private Favourite favourite;
-
-    private DefaultListModel favouritesModel;
-
-    private int latestIndex;
+    
 
 }

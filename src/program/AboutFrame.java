@@ -129,9 +129,9 @@ public class AboutFrame extends javax.swing.JDialog {
      */
     public static void main(String args[]) {
 		
-        if (FreeGuide.prefs.screen.getBoolean("use_metal_landf", false)) {
+        /*if (FreeGuide.prefs.screen.getBoolean("use_metal_landf", false)) {
             AboutFrame.setDefaultLookAndFeelDecorated( true );
-        }
+        }*/
         new AboutFrame(new javax.swing.JFrame(), true).show();
     }
 

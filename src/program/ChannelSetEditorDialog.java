@@ -1,26 +1,27 @@
+
 import java.util.*;
 import javax.swing.*;
+import java.awt.*;
+
+
 /*
  *  FreeGuideChannelSetEditor.java
  *
- *  Created on December 29, 2002, 4:54 PM
+ * @author     Brendan Corrigan (based on FreeGuideChannelSetEditor by dtorok)
+ * @created    22nd August 2003
+ * @version    1
  */
-/**
- *@author     dtorok
- *@created    28 June 2003
- */
-public class ChannelSetEditorFrame extends javax.swing.JFrame {
 
-    /**
-     *  Creates new form FreeGuideChannelSetEditor
-     *
-     *@param  launcher  Description of the Parameter
-     *@param  loader    Description of the Parameter
-     *@param  chset     Description of the Parameter
-     */
-    public ChannelSetEditorFrame(Launcher launcher, ViewerFrameXMLTVLoader loader, ChannelSet chset) {
+public class ChannelSetEditorDialog extends JDialog {
 
-        this.launcher = launcher;
+
+
+
+    public ChannelSetEditorDialog(Dialog owner, String title, ViewerFrameXMLTVLoader loader, ChannelSet chset) {
+
+        super( owner, title, true);
+
+
         this.loader = loader;
         this.channelset = chset;
         this.allModel = new DefaultListModel();
@@ -434,6 +435,20 @@ public class ChannelSetEditorFrame extends javax.swing.JFrame {
     }
 
 
+
+    /**
+     * Method showDialog calls the default dialog show method
+     *
+     * @returns Returns <code>true</code> if any of the preferences in the
+     *                 customiser dialog have been changed, and <code>false</code> otherwise.
+     */
+    
+    public boolean showDialog() {
+        show();
+        return updatedFlag;
+    }
+
+
     /**
      *  Description of the Method
      */
@@ -477,6 +492,8 @@ public class ChannelSetEditorFrame extends javax.swing.JFrame {
             }
         }
 
+        updatedFlag = true;
+
     }
 
 
@@ -485,8 +502,7 @@ public class ChannelSetEditorFrame extends javax.swing.JFrame {
      */
     private void quit() {
 
-        setVisible(false);
-        launcher.reShow();
+        hide();
         dispose();
     }
 
@@ -517,4 +533,7 @@ public class ChannelSetEditorFrame extends javax.swing.JFrame {
      *  internal list models for the two JLists
      */
     private DefaultListModel allModel, csetModel;
+    
+    private boolean updatedFlag = false;
+    
 }

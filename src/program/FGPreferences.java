@@ -498,6 +498,7 @@ public class FGPreferences {
      *@param  value  Description of the Parameter
      */
     public void putColor(String key, Color value) {
+
         if (value != null) {
             putInt(key + ".r", value.getRed());
             putInt(key + ".g", value.getGreen());
@@ -508,7 +509,6 @@ public class FGPreferences {
             remove(key + ".b");
         }
     }
-
 
     /**
      *  Gets the pattern attribute of the FreeGuidePreferences object
@@ -525,7 +525,6 @@ public class FGPreferences {
             return Pattern.compile(ans);
         }
     }
-
 
     /**
      *  Description of the Method
@@ -958,8 +957,121 @@ public class FGPreferences {
     }
 
 
+    // BEANO - 22/08/03
+
+    /**
+     * Updates a boolean preference if the value of the preference has changed from
+     * that already stored. Returns a boolean value to indicate if the value has been 
+     * updated.
+     *
+     * @param  _key    The name of the preference to update
+     * @param  value  The <code>boolean</code> value to set
+     * @return Returns <code>true</code> if the values has been 
+     *      updated, otherwise returns <code>false</code>.
+     */
+    public boolean updateBoolean(String _key, boolean value) {
+        boolean changed = false;        
+        boolean defaultValue = false;
+        
+        boolean temp = getBoolean(_key, defaultValue);
+        if (temp != value) {
+            changed = true;
+            putBoolean(_key, value);                
+        }
+        
+        return changed;
+    }
+
+
+    // BEANO - 22/08/03
+
+    /**
+     * Updates a colour preference if the value of the preference has changed from
+     * that already stored. Returns a boolean value to indicate if the value has been 
+     * updated.
+     *
+     * @param  _key    The name of the preference to update
+     * @param  value  The <code>Color</code> value to set
+     * @return Returns <code>true</code> if the value has been 
+     *      updated, otherwise returns <code>false</code>.
+     */
+    public boolean updateColor(String _key, Color value) {
+        boolean changed = false;        
+        Color defaultValue = new Color(0,0,0);
+        
+        Color temp = getColor(_key, defaultValue);
+        if (!temp.equals(value)) {
+            changed = true;
+            putColor(_key, value);                
+        }
+        
+        return changed;
+    }
+
+    // BEANO - 22/08/03
+
+    /**
+     * Updates an int preference if the value of the preference has changed from
+     * that already stored. Returns a boolean value to indicate if the value has been 
+     * updated.
+     *
+     * @param  _key    The name of the preference to update
+     * @param  value  The <code>int</code> value to set
+     * @return Returns <code>true</code> if the value has been 
+     *      updated, otherwise returns <code>false</code>.
+     */
+    public boolean updateInt(String _key, int value) {
+        boolean changed = false;        
+        int defaultValue = -1;
+        
+        int temp = getInt(_key, defaultValue);
+        if (temp != value) {
+            changed = true;
+            putInt(_key, value);               
+        }
+        
+        return changed;
+    }
+
+
+    // BEANO - 22/08/03
+
+    /**
+     * Updates a string preference if the value of the preference has changed from
+     * that already stored. Returns a boolean value to indicate if the value has been 
+     * updated.
+     *
+     * @param  _key    The name of the preference to update
+     * @param  value  The <code>String</code> value to set
+     * @return Returns <code>true</code> if the value has been 
+     *      updated, otherwise returns <code>false</code>.
+     */
+    public boolean update(String _key, String value) {
+        boolean changed = false;        
+        
+        String temp = get(_key);
+        
+        if (temp == null ) {
+            if (value != null) {
+                changed = true;
+                put(_key, value);               
+            }
+
+        } else if (value == null || !temp.equals(value)) {
+            changed = true;
+            put(_key, value);               
+        }
+        
+        return changed;
+    }
+
+
+
     // ------------------------------------------------------------------------
 
     private Preferences prefs;
 
 }
+
+
+
