@@ -193,7 +193,7 @@ c  means done by Christian Weiske
   item would be selected again.
 - Personalised guide for the next X days.
 - Brief summary for the next few days.
-- Support --xxx=yyy style options on the command line
++ Support --xxx=yyy style options on the command line
 - Sometimes you can't click on certain programmes, but you can navigate to them
   with the keyboard
 - Make it repaint correctly when you press "f" on a programme
