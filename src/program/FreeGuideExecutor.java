@@ -1,7 +1,7 @@
 /*
  * FreeGuide J2
  *
- * Copyright (c) 2001 by Andy Balaam
+ * Copyright (c) 2001-2003 by Andy Balaam and the FreeGuide contributors
  *
  * Released under the GNU General Public License
  * with ABSOLUTELY NO WARRANTY.
@@ -56,8 +56,8 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 		labPleaseWait.setText(commandType + ", please wait...");
 		setTitle(commandType);
 
-		viewer = new StringViewer("Command Output (stdout):" + lb,
-			"Command Output (stderr):" + lb);
+		viewer = new StringViewer("Commands:" + lb,
+			"Output:" + lb);
 
 		start();
     }
@@ -82,8 +82,8 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 		labPleaseWait.setText(commandType + ", please wait...");
 		setTitle(commandType);
 
-		viewer = new StringViewer("Command Output (stdout):" + lb,
-			"Command Output (stderr):" + lb);
+		viewer = new StringViewer("Commands:" + lb,
+			"Output:" + lb);
 
 		start();
 
@@ -432,6 +432,7 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 		}
 
 		labPleaseWait.setText("Execution Error.");
+		butCancel.setText("Continue");
 
 		FreeGuide.log.warning("Command Output (stdout):" + lb + readOutput.getStoredOutput());
 		FreeGuide.log.warning("Command Error (stderr):" + lb + readError.getStoredOutput());		

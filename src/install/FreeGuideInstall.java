@@ -1,7 +1,7 @@
 /*
  * FreeGuide J2
  *
- * Copyright (c) 2001 by Andy Balaam
+ * Copyright (c) 2001-2003 by Andy Balaam and the FreeGuide contributors
  *
  * freeguide-tv.sourceforge.net
  *
@@ -300,16 +300,19 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		
 	private void installFile(String command) throws java.io.IOException {
 
-		//System.out.println("Installing file: " + name);
-		
 		String[] srcdest = command.split(">");
-		String src = srcdest[0];
-		String dest = prefs.performSubstitutions( srcdest[1] );
 		
+		doInstallFile( srcdest[0],
+			prefs.performSubstitutions( srcdest[1] ) );
+		
+	}
+	
+	private void doInstallFile( String src, String dest )
+		throws java.io.IOException {
+
 		byte[] buf = new byte[32768];
 		
 		// make the directory if it doesn't exist
-		
 		int i = dest.lastIndexOf('/');
 		if(i>-1) { 
 			new File(dest.substring(0, i)).mkdirs();

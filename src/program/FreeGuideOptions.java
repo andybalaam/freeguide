@@ -1,7 +1,7 @@
 /**
  * FreeGuide J2
  *
- * Copyright (c) 2001 by Andy Balaam
+ * Copyright (c) 2001-2003 by Andy Balaam and the FreeGuide contributors
  *
  * freeguide-tv.sourceforge.net
  *
@@ -70,7 +70,7 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		titles[6] = "Days to Download";
 
 		panels[7] = new FreeGuideTextWizardPanel();
-		panels[7].setMessages("Set the grabber today offset (NA=0, UK=1).", "");
+		panels[7].setMessages("Set the grabber today offset (usually 0).", "");
 		panels[7].setConfig("misc", "grabber_today_offset");
 		titles[7] = "Grabber Today Offset";
 		

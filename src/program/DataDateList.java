@@ -8,7 +8,7 @@
  *
  * FreeGuide J2
  *
- * Copyright (c) 2001 by Andy Balaam
+ * Copyright (c) 2001-2003 by Andy Balaam and the FreeGuide contributors
  *
  * freeguide-tv.sourceforge.net
  *

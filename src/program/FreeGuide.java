@@ -1,7 +1,7 @@
 /*
  * FreeGuide J2
  *
- * Copyright (c) 2001 by Andy Balaam
+ * Copyright (c) 2001-2003 by Andy Balaam and the FreeGuide contributors
  *
  * freeguide-tv.sourceforge.net
  *
@@ -89,7 +89,7 @@ public class FreeGuide implements FreeGuideLauncher {
 	
 	public static final int version_major = 0;
 	public static final int version_minor = 5;
-	public static final int version_revision = 3;
+	public static final int version_revision = 4;
 	
 	// Defaults - can be overridden by user preferences
 	public static final Color PROGRAMME_NORMAL_COLOUR = Color.white;

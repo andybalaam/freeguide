@@ -67,8 +67,17 @@ have 'YYYYMM'.  You can also append a timezone to the end; if no
 explicit timezone is given, UT is assumed.  Examples:
 '200007281733 BST', '200209', '19880523083000 +0300'.  (BST == +0100.)
 
-Version 0.5 (xmltv-0.4).  Written by Ed Avis (ed@membled.com) and
+Unless specified otherwise, textual element content may not contain
+newlines - this is to make it easy to convert into line-oriented
+formats, and to avoid the question of what exactly a newline would
+mean in the middle of someone's name or whatever.  Leading and
+trailing whitespace in element content is not significant.
+
+At present versions of this DTD correspond to releases of the 'xmltv'
+package, which is a set of programs to generate and manipulate files
+conforming to this DTD.  Written by Ed Avis (ed@membled.com) and
 Gottfried Szing, thanks to others for suggestions.
+
 $Id$
 
 -->
@@ -130,11 +139,12 @@ give just channels and no programmes, if you just want to describe
 what TV channels are available in a certain area.
 
 Each channel has one id attribute, which must be unique and should
-preferably be in the form suggested by RFC2838.  Then one or more
-display names which are shown to the user.  You might want a different
-display name for different languages, but also you can have more than
-one name for the same language.  Names listed earlier are considered
-'more canonical'.
+preferably be in the form suggested by RFC2838 (the 'broadcast'
+element of the grammar in that RFC, in other words, a DNS-like name
+but without any URI scheme).  Then one or more display names which are
+shown to the user.  You might want a different display name for
+different languages, but also you can have more than one name for the
+same language.  Names listed earlier are considered 'more canonical'.
 
 Since the display name is just there as a way for humans to refer to
 the channel, it's acceptable to just put the channel number if it's
@@ -142,6 +152,11 @@ fairly universal among viewers of the channel.  But remember that this
 isn't an official statement of what channel number has been
 allocated, and the same number might be used for a different channel
 somewhere else.
+
+The ordering of channel elements makes no difference to the meaning of
+the file, since they are looked up by id and not by their position.
+However it makes things like diffing easier if you write the channel
+elements sorted by ASCII order of their ids.
 -->
 <!ELEMENT channel (display-name+, icon*, url*) >
 <!ATTLIST channel id CDATA #REQUIRED >
@@ -186,6 +201,13 @@ channel.  In this case News would have clumpidx="0/2" and Weather
 would have clumpidx="1/2".  If you don't have this problem, be
 thankful!
 
+It's intended that start time and stop time, when both are present,
+make a half-closed interval: a programme is considered to be
+broadcasting _at_ its start time but to stop just before its stop
+time.  In this way a programme from 11:00 to 12:00 does not overlap
+with another programme from 12:00 to 13:00, not even for a moment.
+Nor is there any gap between the two.
+
 To do: Some means of indicating breaks between programmes on the same
 channel.  The 'channel' attribute references the 'id' of a channel
 element, but the DTD doesn't give a way to specify this constraint.
@@ -218,8 +240,8 @@ called 'secondary title' to avoid confusion with captioning!
 <!-- Description of the programme or episode.
 
 Unlike other elements, long bits of whitespace here are treated as
-equivalent to a single space, so you can break lines and write a
-pretty-looking paragraph if you wish.
+equivalent to a single space and newlines are permitted, so you can
+break lines and write a pretty-looking paragraph if you wish.
 -->
 <!ELEMENT desc (#PCDATA)>
 <!ATTLIST desc lang CDATA #IMPLIED>
@@ -294,6 +316,9 @@ minutes even though end time minus start time is 130 minutes.
 <!-- An icon associated with the element that contains it.
 src: uri of image
 width, height: (optional) dimensions of image
+
+These dimensions are pixel dimensions for the time being, eventually
+this will change to be more like HTML's 'img'.
 -->
 <!ELEMENT icon EMPTY>
 <!ATTLIST icon src         CDATA #REQUIRED
@@ -422,7 +447,8 @@ example:
   First showing on national terrestrial TV
 </premiere>
 
-If you don't want to do that, just write empty content:
+The textual content is a 'paragraph' as for <desc>.  If you don't want
+to give an explanation, just write empty content:
 
 <premiere />
 -->
@@ -433,9 +459,9 @@ If you don't want to do that, just write empty content:
 channels buy the rights to show a movie a certain number of times, and
 the first may be flagged 'premiere', the last as 'last showing'.
 
-For symmetry with premiere, you may use the element content to
-describe exactly what is meant - it's unlikely to be the last showing
-ever!  Otherwise, explicitly put empty content:
+For symmetry with premiere, you may use the element content to give a
+'paragraph' describing exactly what is meant - it's unlikely to be the
+last showing ever!  Otherwise, explicitly put empty content:
 
 <last-chance />
 -->

@@ -1,7 +1,7 @@
 /*
  * FreeGuide J2
  *
- * Copyright (c) 2001 by Andy Balaam
+ * Copyright (c) 2001-2003 by Andy Balaam and the FreeGuide contributors
  *
  * Released under the GNU General Public License
  * with ABSOLUTELY NO WARRANTY.
@@ -421,7 +421,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         jMenuBar2.add(fileMenu);
 
         optionsMenu.setText("Tools");
-        menCustomiser.setText("Customise");
+        menCustomiser.setText("Customise...");
         menCustomiser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menCustomiserActionPerformed(evt);
@@ -430,7 +430,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
         optionsMenu.add(menCustomiser);
 		
-        menConfigure.setText("Configure Grabber");
+        menConfigure.setText("Configure Grabber...");
 		menConfigure.setEnabled( false );
         menConfigure.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -440,7 +440,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
         optionsMenu.add(menConfigure);
 	
-        menFavourites.setText("Favourites");
+        menFavourites.setText("Favourites...");
         menFavourites.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menFavouritesActionPerformed(evt);
@@ -449,7 +449,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
         optionsMenu.add(menFavourites);
 
-        menChannelSets.setText("Channel Sets");
+        menChannelSets.setText("Channel Sets...");
         menChannelSets.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menChannelSetsActionPerformed(evt);
@@ -459,7 +459,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         optionsMenu.add(menChannelSets);
         optionsMenu.add(jSeparator1);
 
-        menOptions.setText("Options");
+        menOptions.setText("Advanced Options...");
         menOptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menOptionsActionPerformed(evt);
