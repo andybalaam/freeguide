@@ -88,8 +88,8 @@ x means done by Sagar Shah
 - Fix possible NullPointerException in StartupChecker.checkFileFailure
 - Change READMEs etc to point to http://java.sun.com/getjava/
   and point users to this with the installer too.
-- Make the command output screen on the downloader less confusing for newbies
-- Make scrollboxes bigger on Options screen
++ Make the command output screen on the downloader less confusing for newbies
++ Make scrollboxes bigger on Options screen
 * Fix GoToNow to deal with days dividing at non-midnight times.
 * Fix what happens when you go through to another day then click GoToNow
 x When FreeGuide starts, automatically "GoToNow" rather than staying at start of day
