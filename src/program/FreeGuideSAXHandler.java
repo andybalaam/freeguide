@@ -18,25 +18,46 @@ import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class FreeGuideSAXHandler extends DefaultHandler {
-/*
-    public FreeGuideSAXHandler(Vector programmes, String[] channelIDs, String[] channelNames) {
-		this.programmes = programmes;
-		this.channelIDs = channelIDs;
-		this.channelNames = channelNames;
-		channelNamed = new boolean[channelIDs.length];
-    }
-*/
-    public FreeGuideSAXHandler(Vector programmes, Vector channelIDs, Vector channelNames, Vector channelLoaded,
-    	Calendar earliest, Calendar latest) {
-		this.programmes = programmes;
-		this.channelIDs = channelIDs;
-		this.channelNames = channelNames;
-		this.channelLoaded = channelLoaded;
-		this.earliest=earliest;
-		this.latest=latest;
-		channelNamed = new Vector();
-		for(int i=0;i<channelIDs.size();i++) {
-			channelNamed.add(new Boolean("false"));
+
+	/**
+	 * A SAX handler for processing XMLTV listings (not particularly
+	 * comprehensively or cleverly).
+	 *
+	 * @param theDate 	a Calendar representing the date we're interested in in
+	 * 					terms of whether there is a full set of listings for
+	 *					that day.
+	 */
+    public FreeGuideSAXHandler(FreeGuideViewer viewer ) {
+		
+		this.viewer = viewer;
+		
+		viewer.programmes = new Vector();
+		
+		theDateStart 	= GregorianCalendar.getInstance();
+		theDateEnd 		= GregorianCalendar.getInstance();
+		
+		theDateStart.setTime( viewer.theDate.getTime() );
+		
+		FreeGuideTime dayStartTime = FreeGuide.prefs.misc.getFreeGuideTime(
+			"day_start_time", new FreeGuideTime(6, 0) );
+			
+		theDateStart.set( Calendar.HOUR_OF_DAY, dayStartTime.getHours() );
+		theDateStart.set( Calendar.MINUTE, 		dayStartTime.getMinutes() );
+		
+		theDateEnd.setTime( theDateStart.getTime() );
+		theDateEnd.add( Calendar.DATE, 1 );
+		
+		viewer.missingFiles = true;
+		// Sets this to false when this day gets an early and a late programme
+		
+		dataMissingStart = true;
+		dataMissingEnd = true;
+		
+		viewer.channelNamed = new Vector();
+		for(int i=0;i<viewer.channelIDs.size();i++) {
+			
+			viewer.channelNamed.add( new Boolean("false") );
+			
 		}
     }
 
@@ -49,22 +70,15 @@ public class FreeGuideSAXHandler extends DefaultHandler {
     }//endDocument
     
 	public void startElement(String namespaceURI, String sName, String name, Attributes attrs) {
-		
-		//FreeGuide.log.info("startElement " + name);
-		
+
 		saxLoc+=":"+name;
+	
+		//FreeGuide.log.info( saxLoc );
 	
 		if(saxLoc.equals(":tv:programme")) {
 	    
-			//assert currentProgramme == null;
-			
 			currentProgramme = new FreeGuideProgramme();
-			
-			// Prepare a date formatter
-			// FIXME deal with times like this: (somehow)
-			// "yyyyMMddHHmm +0100"
-			SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMddHHmmss z");
-			
+
 			// Prepare GregorianCalendars for start and end
 			Calendar start = GregorianCalendar.getInstance();
 			Calendar end = GregorianCalendar.getInstance();
@@ -75,23 +89,33 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 			currentProgramme.addToChannelName(getChannelName(channelID));
 
 			try {
-			
-				// Assume it has a start time
-				start.setTime(fmt.parse(attrs.getValue("start")));
-						
+				
+				// Assume is has a start time
+				start = parseDate( attrs.getValue("start") );
+				
 				// Don't assume it has an end time
-				if(attrs.getIndex("stop") != -1) {
-					end.setTime(fmt.parse(attrs.getValue("stop")));
-				} else {
+				if( attrs.getIndex("stop") == -1
+						|| attrs.getValue("stop").equals("+0100") ) {
+							// Also hack around bug in de grabber
+					
 					// Give it a fake end time, half an hour after the start
 					end.setTimeInMillis(start.getTimeInMillis());
 					end.add(Calendar.MINUTE, 30);
+					
+					
+				} else {
+					
+					end = parseDate( attrs.getValue("stop") );
+					
 				}
-				
+			
 			} catch(java.text.ParseException e) {
 				e.printStackTrace();
+				currentProgramme = null;
+				
+				return;
 			}
-			
+
 			currentProgramme.setStart(start);
 			currentProgramme.setEnd(end);
 	    
@@ -102,20 +126,64 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 			tmpChannelID = id;
 			
 		}//if
-		
-		//FreeGuide.log.info("startElement END");
+
 		
     }//startElement
+  
+  	private Calendar parseDate( String strDate )
+			throws java.text.ParseException {
+	 
+	 SimpleDateFormat normalFmt = new SimpleDateFormat("yyyyMMddHHmmss z");
+	 SimpleDateFormat deFmt = new SimpleDateFormat("yyyyMMddHHmm Z");
+	 
+	 Calendar ans = GregorianCalendar.getInstance();
+	 
+	 try {
+		 
+		 ans.setTime( normalFmt.parse( strDate ) );
+		 
+	 } catch(java.text.ParseException e) {
+		 
+		 ans.setTime( deFmt.parse( strDate ) );
+		 
+	 }
+	 
+	 return ans;
+	 
+	}
   
   	public void endElement(String namespaceURI, String sName, String name) {  
 		
 		//FreeGuide.log.info(name);
 		
 		if(saxLoc.equals(":tv:programme")) {
-			if (currentProgramme.getEnd().after(earliest) &&
-			currentProgramme.getStart().before(latest)) {
-				programmes.add(currentProgramme);
-				//System.out.println("Programme Channel Name: "+currentProgramme.getChannelName());
+			
+			if (currentProgramme!=null && 
+					currentProgramme.getEnd().after(viewer.earliest) &&
+					currentProgramme.getStart().before(viewer.latest)) {
+				
+				if( currentProgramme.getStart().before(theDateStart) && 
+						currentProgramme.getEnd().after(theDateStart) ) {
+					
+					dataMissingStart = false;
+					
+				}
+				
+				if( currentProgramme.getStart().before(theDateEnd) && 
+						currentProgramme.getEnd().after(theDateEnd) ) {
+					
+					dataMissingEnd = false;
+					
+				}
+				
+				if((!dataMissingEnd) && (!dataMissingStart)) {
+					
+					viewer.missingFiles = false;
+					
+				}
+				
+				viewer.programmes.add(currentProgramme);
+				
 			}
 			currentProgramme = null;
 		}
@@ -140,17 +208,21 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 		
 		if(saxLoc.equals(":tv:programme:title")) {
 	    
-			//System.out.println(data);
-		
-			currentProgramme.addToTitle(data);
+			if(currentProgramme!=null) {
+				currentProgramme.addToTitle(data);
+			}
 	    
 		} else if (saxLoc.equals(":tv:programme:desc")) {
 	    
-			currentProgramme.addDesc(data);
+			if(currentProgramme!=null) {
+				currentProgramme.addDesc(data);
+			}
 	    
 		} else if (saxLoc.equals(":tv:programme:category")) {
 	    
-			currentProgramme.addCategory(data);
+			if(currentProgramme!=null) {
+				currentProgramme.addCategory(data);
+			}
 
 		} else if (saxLoc.equals(":tv:channel:display-name")) {
 
@@ -158,26 +230,25 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 
 			// If it's a channel we're interested in
 			// and it's not been named already, remember the name
-			int i = channelIDs.indexOf(tmpChannelID);
+			int i = viewer.channelIDs.indexOf(tmpChannelID);
 			//System.out.println(i + " - " +tmpChannelID+" - "+data);
 			if(i!=-1) {
-				if (channelNamed.get(i).equals(Boolean.FALSE)) {
-					channelNames.set(channelIDs.indexOf(tmpChannelID),new String(data));
-					channelNamed.set(channelIDs.indexOf(tmpChannelID),new Boolean("true"));
-					//System.out.println("set: "+channelNames.get(channelIDs.indexOf(tmpChannelID)));
+				if (viewer.channelNamed.get(i).equals(Boolean.FALSE)) {
+					viewer.channelNames.set(viewer.channelIDs.indexOf(tmpChannelID),new String(data));
+					viewer.channelNamed.set(viewer.channelIDs.indexOf(tmpChannelID),new Boolean("true"));
+					//System.out.println("set: "+viewer.channelNames.get(viewer.channelIDs.indexOf(tmpChannelID)));
 				}
 				
-				// FIXME - What are the channelLoaded criteria?
+				// FIXME - What are the viewer.channelLoaded criteria?
 				// For now if it's in the file, it's loaded.
-				channelLoaded.set(i,Boolean.TRUE);
+				viewer.channelLoaded.set(i,Boolean.TRUE);
 			}
 			// if it's a new channel, we can add it here
 			if(i==-1) {
-				channelIDs.add(tmpChannelID);
-				channelNames.add(new String(data));
-				channelNamed.add(new Boolean("true"));
-				//System.out.println("add: "+channelNames.get(channelIDs.indexOf(tmpChannelID)));
-				channelLoaded.add(new Boolean("true"));
+				viewer.channelIDs.add( tmpChannelID );
+				viewer.channelNames.add( data );
+				viewer.channelNamed.add( new Boolean(true) );
+				viewer.channelLoaded.add( new Boolean(true) );
 			}
 
 		}//if
@@ -194,12 +265,21 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 	private String getChannelName(String channelID) {
 
 		// If the ID exists
-		int i = channelIDs.indexOf(channelID);
+		int i = viewer.channelIDs.indexOf(channelID);
 		if(i != -1) {
-			return channelNames.get(i).toString();
+			
+			return viewer.channelNames.get(i).toString();
+			
 		} else {
-			FreeGuide.log.warning("Unknown channel ID in request for channel name.");
-			return "Unknown Channel";
+			
+			// Deal with unnamed channels by naming them after their IDs
+			viewer.channelIDs.add( channelID );
+			viewer.channelNames.add( channelID );
+			viewer.channelNamed.add( new Boolean(true) );
+			viewer.channelLoaded.add( new Boolean(true) );
+			
+			return channelID;
+			
 		}
 
 	}
@@ -218,19 +298,28 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 	private FreeGuideProgramme currentProgramme;
 		// The programme we're loading in now
 
-	private Vector programmes;	// The vector of programmes we're filling
-	//private String[] channelIDs;
-	private Vector channelIDs;
+	//private Vector programmes;	// The vector of programmes we're filling
+	//private String[] viewer.channelIDs;
+	//private Vector viewer.channelIDs;
 		// The IDs of the channels the user has chosen
-	//private String[] channelNames;
-	private Vector channelNames;
+	//private String[] viewer.channelNames;
+	//private Vector viewer.channelNames;
 		// The names of the channels the user has chosen
-	//private boolean[] channelNamed;
-	private Vector channelNamed;
+	//private boolean[] viewer.channelNamed;
+	//private Vector viewer.channelNamed;
 		// Has this channel had its name set?
-	//private boolean[] channelLoaded;
-	private Vector channelLoaded;
+	//private boolean[] viewer.channelLoaded;
+	//private Vector viewer.channelLoaded;
+	
+	private FreeGuideViewer viewer;
 
-	Calendar earliest;
-	Calendar latest;
+	//Calendar earliest;
+	//Calendar latest;
+	
+	Calendar theDateStart;
+	Calendar theDateEnd;
+	
+	boolean dataMissingStart;
+	boolean dataMissingEnd;
+	
 }

@@ -81,22 +81,23 @@ W  means work in progress by Walter Duncan
 - Code rationalisation, FIXMEs, remove commented sections
 - Refactor to rename losing FreeGuide prefix to most classes
 - Separate classes into packages
-
 - Custom channel ordering
 - Scroll to the programme you've just added in the list view
-
-- Release 0.4.4 (Features - especially use of many grabbers, and bug fixes)
-
-- Coloured programme categories and favourites
-- Allow changing of font sizes from customise screen
-A Make it work with the new XMLTV grabbers
-+ 2 installers - Win and Linux that let you choose your location during install
-- Stop it from grabbing stuff that's already been done.
 - Make installer install shortcuts for Windows, Gnome and KDE
 - Make installer launch FreeGuide and/or a README file (what about configuring
 	on Windows?)
 - Fix bug that means favourites sometimes aren't chosen
-A Allow for the fact that a grabber may use dates without seconds, and other
+- Coloured programme categories and favourites
+- Apply different fonts to every screen.
+
+- Release 0.4.4 (Features - especially use of many grabbers, and bug fixes)
+
+- Fix bug with different day start times on grabber and FG.
+A Allow changing of font sizes from customise screen
++ Make it work with the new XMLTV grabbers
++ 2 installers - Win and Linux that let you choose your location during install
+- Stop it from grabbing stuff that's already been done.
++ Allow for the fact that a grabber may use dates without seconds, and other
 	differences (e.g. tv_grab_de).
 + Get rid of config guessing and use defaults instead.
 W Dynamic population of the date list comboBox based on available data

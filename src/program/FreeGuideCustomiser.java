@@ -14,6 +14,7 @@
 import java.awt.Color;
 import javax.swing.JColorChooser;
 import javax.swing.JTextField;
+import java.awt.Font;
 
 /**
  * FreeGuideCustomiser
@@ -21,7 +22,7 @@ import javax.swing.JTextField;
  * The Colour options screen for FreeGuide
  *
  * @author  Andy Balaam
- * @version 1
+ * @version 2
  */
 public class FreeGuideCustomiser extends javax.swing.JFrame {
 	
@@ -58,6 +59,8 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
         txtPanelWidth = new javax.swing.JTextField();
         labChannelPanelWidth = new javax.swing.JLabel();
         txtChannelPanelWidth = new javax.swing.JTextField();
+		labFont = new javax.swing.JLabel();
+		butFont = new javax.swing.JButton();
         panButtons = new javax.swing.JPanel();
         butOK = new javax.swing.JButton();
         butCancel = new javax.swing.JButton();
@@ -233,6 +236,31 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.9;
         panScreen.add(txtChannelPanelWidth, gridBagConstraints);
 
+		labFont.setText("Font");
+		gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        panScreen.add(labFont, gridBagConstraints);
+		
+		butFont.setText("Choose Font");
+        butFont.setMinimumSize(new java.awt.Dimension(88, 26));
+        butFont.setPreferredSize(new java.awt.Dimension(88, 26));
+        butFont.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butFontActionPerformed(evt);
+            }
+        });
+		gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 0.9;
+        panScreen.add(butFont, gridBagConstraints);
+		
         scrScreen.setViewportView(panScreen);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -255,7 +283,7 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
         panButtons.add(butOK, gridBagConstraints);
-
+		
         butCancel.setText("Cancel");
         butCancel.setMinimumSize(new java.awt.Dimension(88, 26));
         butCancel.setPreferredSize(new java.awt.Dimension(88, 26));
@@ -279,6 +307,21 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setSize(new java.awt.Dimension(400, 300));
         setLocation((screenSize.width-400)/2,(screenSize.height-300)/2);
+		
+		FreeGuidePreferences scr = FreeGuide.prefs.screen;
+		
+		fontDialog = new FontChooserDialog(this, "Choose Font", true,
+			new Font(
+				scr.get("font_name", "Dialog"),
+				scr.getInt("font_style", Font.PLAIN),
+				scr.getInt("font_size", 12)) );
+
+			
+        fontDialog.setSize(new java.awt.Dimension(300, 200));
+        fontDialog.setLocation( (screenSize.width-300)/2,
+			(screenSize.height-200)/2 );
+		
+		
     }//GEN-END:initComponents
 
 	private void butOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butOKActionPerformed
@@ -290,6 +333,12 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
 		quit();
 	}//GEN-LAST:event_butCancelActionPerformed
 
+	private void butFontActionPerformed(java.awt.event.ActionEvent evt) {
+		
+		fontDialog.setVisible(true);
+		
+	}
+	
 	private void txtProgrammeNormalColourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtProgrammeNormalColourMouseClicked
 		doColorDialog(txtProgrammeNormalColour);
 	}//GEN-LAST:event_txtProgrammeNormalColourMouseClicked
@@ -318,6 +367,11 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
 		
 		FreeGuide.prefs.screen.putColor("programme_chosen_colour", txtProgrammeChosenColour.getBackground());
 		FreeGuide.prefs.screen.putColor("programme_normal_colour", txtProgrammeNormalColour.getBackground());
+		
+		Font f = fontDialog.getSelectedFont();
+		FreeGuide.prefs.screen.put( "font_name", f.getName() );
+		FreeGuide.prefs.screen.putInt( "font_style", f.getStyle() );
+		FreeGuide.prefs.screen.putInt( "font_size", f.getSize() );
 		
 	}
 	
@@ -348,6 +402,11 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
 		
 		col = FreeGuide.prefs.screen.getColor("programme_normal_colour", FreeGuide.PROGRAMME_NORMAL_COLOUR);
 		fillTextAreaFromColor(txtProgrammeNormalColour, col);
+		
+		//FreeGuidePreferences scr = FreeGuide.prefs.screen;
+		//butFont.setText( scr.get("font_name", "Dialog") +
+		//	" " + scr.get("font_size", "12") );
+		
 	}
 	
 	private void fillTextAreaFromColor(JTextField txt, Color col) {
@@ -392,8 +451,11 @@ public class FreeGuideCustomiser extends javax.swing.JFrame {
     private javax.swing.JLabel labHorizontalGap;
     private javax.swing.JTextField txtHorizontalGap;
     private javax.swing.JLabel labProgrammeNormalColour;
+	private javax.swing.JButton butFont;
+    private javax.swing.JLabel labFont;
     // End of variables declaration//GEN-END:variables
 	
 	FreeGuideLauncher launcher;
+	FontChooserDialog fontDialog;
 	
 }

@@ -11,6 +11,7 @@
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.lang.Math;
 import java.io.BufferedWriter;
@@ -24,8 +25,6 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.Date;
 import java.util.Vector;
-//import java.util.regex.Pattern;
-//import java.text.FieldPosition;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -1106,8 +1105,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 		try {//ParserExceptions etc
 
-			DefaultHandler handler = new FreeGuideSAXHandler(programmes,
-				channelIDs, channelNames, channelLoaded, earliest, latest );
+			DefaultHandler handler = new FreeGuideSAXHandler( this );
 			
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 
@@ -1135,7 +1133,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 					// The grabber must not be able to split into days,
 					// so we'll deal with the unprocessed data.
 					saxParser.parse(unprocFilename, handler);
-				} else {
+				}/* else {
 				
 					if (!day1File.exists()) {
 						FreeGuide.log.warning("Listings file not found: "
@@ -1152,9 +1150,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 							+ unprocFilename);
 					}
 				
-					missingFiles = true;
 				
-				}
+				}*/
+				
 			}
 			
 			doingProgs=false;
@@ -1171,7 +1169,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		}//try
 		
 	}//loadProgrammeData
-
+	
     private void updateDaySpan() {
 
 		// Find the day's start and end
@@ -1266,6 +1264,13 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		int halfHorGap = FreeGuide.prefs.screen.getInt("horizontal_gap", FreeGuide.HORIZONTAL_GAP);
 		int panelWidth = FreeGuide.prefs.screen.getInt("panel_width",FreeGuide.PANEL_WIDTH);
 		
+		String fontName = FreeGuide.prefs.screen.get("font_name", "Dialog");
+		int fontStyle = FreeGuide.prefs.screen.getInt("font_style", Font.PLAIN );
+		int fontSize = FreeGuide.prefs.screen.getInt("font_size", 12 );
+		
+		Font channelFont = new Font( fontName, Font.BOLD, fontSize );
+		Font font = new Font( fontName, fontStyle, fontSize );
+		
 		int channelPanelWidth = FreeGuide.prefs.screen.getInt("channel_panel_width", FreeGuide.CHANNEL_PANEL_WIDTH);
 
 		// Delete all the old textareas
@@ -1301,11 +1306,11 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			if(channelLoaded.get(c).equals(Boolean.TRUE)) {
 			
 				JLabel ctxt = new JLabel(channelNames.get(c).toString());
-				//ctxt.setBounds(0, timeScrollPane.getHeight()+(halfVerGap*2)+(c*channelHeight)-1, channelNamePanel.getPreferredSize().width-1, channelHeight-(halfVerGap*4));
+				
 				ctxt.setBounds(0, (halfVerGap*2)+(c*channelHeight)-1, channelNamePanel.getPreferredSize().width-1, channelHeight-(halfVerGap*4));
 	    
 		    	ctxt.setBackground(channelColour);
-				ctxt.setFont(new java.awt.Font("Dialog", 1, 12));
+				ctxt.setFont( font );
 				ctxt.setBorder(new javax.swing.border.LineBorder(java.awt.Color.black));
 				ctxt.setHorizontalAlignment(JLabel.LEFT);
 				ctxt.setOpaque(true);
@@ -1351,7 +1356,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 			//txt.setLineWrap(true);
 			
-			txt.setFont(new java.awt.Font("Dialog", 0, 10));
+			txt.setFont( font );
 			txt.setBorder(new javax.swing.border.LineBorder(Color.black));
 			txt.setOpaque(true);
 			
@@ -1731,27 +1736,24 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     
 	
 	//private String[] channelIDs;
-	private Vector channelIDs;
+	public Vector channelIDs;
 		// The IDs of the channels the user has chosen
 	//private String[] channelNames;
-	private Vector channelNames;
+	public Vector channelNames;
 		// The names of the channels the user has chosen
-	//private boolean[] channelNamed;
+	public Vector channelNamed;
 		// Has this channel had its name set?
-	//private boolean[] channelLoaded;
-	private Vector channelLoaded;
-    
-    
+	public Vector channelLoaded;
 
 	private boolean doingProgs;	// Are we loading the programmes?
     
-    private Calendar earliest;  // The beginning of this day
-    private Calendar latest;    // The end of this day
-    
-    private Calendar theDate;   // The date for which we are listing programmes
+    public Calendar earliest;  // The beginning of this day
+    public Calendar latest;    // The end of this day
+	
+    public Calendar theDate;   // The date for which we are listing programmes
     
     private Vector textAreas;	// Stores references to all the textareas shown
-    private Vector programmes;	// The programmes being displayed
+    public Vector programmes;	// The programmes being displayed
 	private Vector tickedProgrammes;	// Which programmes are chosen?
 	
     
@@ -1762,7 +1764,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	private static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 	public static final SimpleDateFormat fileDateFormat = new SimpleDateFormat("yyyyMMdd");
 	
-	private boolean missingFiles;	// true if there were files missing
+	public boolean missingFiles;	// true if there were files missing
 	private boolean dontDownload;	// true if user doesn't want to download missing files
 	
 	private FreeGuideProgramme rightClickedProg;
@@ -1770,5 +1772,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 	private DataDateList ddl;
 
+	
+	
 }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 
 <project name="cvs-freeguide-tv" default="main" basedir=".">
+
     <description>
         Ant build file for freeguide-tv
     </description>
@@ -113,6 +114,7 @@
 		<copy file="${src}/install/install-win-uk.props" tofile="${build}/install-win/install-0.props" />
 		<copy file="${src}/install/install-win-na.props" tofile="${build}/install-win/install-1.props" />
 		<copy file="${src}/install/install-win-sn.props" tofile="${build}/install-win/install-2.props" />
+		<copy file="${src}/install/install-win-de.props" tofile="${build}/install-win/install-3.props" />
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Win-Install.jar"
@@ -122,72 +124,6 @@
   	</target>
   
   
-  	<target name="FreeGuide-Win-UK-Install" depends="FreeGuide" 
-  		description="generate the windows uk installer jar" >
-		
-		<mkdir dir="${build}/install-win-uk"/>
-		
-		<!-- Copy the program jar, installer clases and docs -->
-		<copy todir="${build}/install-win-uk">
-			<fileset dir="${dist}/">
-				<include name="FreeGuide.jar"/>
-			</fileset>
-			<fileset dir="${doc}/">
-				<exclude name="*.sh"/>
-			</fileset>
-			<fileset dir="${build}/install"/>
-		</copy>
-		
-		<!-- Copy the XMLTV DTD -->
-		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-win-uk/"/>
-		
-		<!-- Copy the XMLTV exe -->
-		<copy file="${xmltv}/xmltv.exe" todir="${build}/install-win-uk"/>
-		
-		<!-- copy in the shared files -->
-		<mkdir dir="${build}/install-win-uk/share"/>
-		<copy todir="${build}/install-win-uk/share">
-			<fileset dir="${share}/" />
-		</copy>
-		
-		<!-- copy in the install.props file for the jar -->
-		<copy file="${src}/install/install-win-uk.props" tofile="${build}/install-win-uk/install.props" />
-		
-		<!-- Make the jar installer file -->
-		<jar 	jarfile="${dist}/${freeguideversion}-Win-UK-Install.jar"
-				basedir="${build}/install-win-uk"
-				manifest="${src}/manifests/FreeGuideInstall.mf"/>
-  
-  	</target>
-  
-  	<target name="FreeGuide-Win-NA-Install" depends="FreeGuide" 
-  		description="generate the windows north american installer jar" >
-		
-		<!-- Copy the program file and docs -->
-		<copy todir="${build}/install-win-na">
-			<fileset dir="${dist}/">
-				<include name="FreeGuide.jar"/>
-			</fileset>
-			<fileset dir="${doc}/">
-				<exclude name="*.sh"/>
-			</fileset>
-			<fileset dir="${build}/install"/>
-		</copy>
-		
-		<!-- Copy the XMLTV DTD -->
-		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-win-na/"/>
-		
-		<!-- Copy the XMLTV exe -->
-		<copy file="${xmltv}/xmltv.exe" todir="${build}/install-win-na"/>
-		
-		<!-- copy in the install.props file for the jar -->
-		<copy file="${src}/install/install-win-na.props" tofile="${build}/install-win-na/install.props" />
-		
-		<jar 	jarfile="${dist}/${freeguideversion}-Win-NA-Install.jar"
-				basedir="${build}/install-win-na"
-				manifest="${src}/manifests/FreeGuideInstall.mf"/>
-  
-  	</target>
 	
 	<target name="FreeGuide-Linux-Install" depends="FreeGuide" 
   		description="generate the linux installer jar" >
@@ -210,6 +146,7 @@
 		<copy file="${src}/install/install-lin-uk.props" tofile="${build}/install-lin/install-0.props" overwrite="true" />
 		<copy file="${src}/install/install-lin-na.props" tofile="${build}/install-lin/install-1.props" overwrite="true" />
 		<copy file="${src}/install/install-lin-sn.props" tofile="${build}/install-lin/install-2.props" overwrite="true" />
+		<copy file="${src}/install/install-lin-de.props" tofile="${build}/install-lin/install-3.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Linux-Install.jar"
@@ -218,60 +155,6 @@
   
   	</target>
   
-  
-  	<target name="FreeGuide-Linux-UK-Install" depends="FreeGuide" 
-  		description="generate the linux uk installer jar" >
-		
-		<!-- Copy the program file and docs -->
-		<copy todir="${build}/install-lin-uk">
-			<fileset dir="${dist}/">
-				<include name="FreeGuide.jar"/>
-			</fileset>
-			<fileset dir="${doc}/">
-				<exclude name="*.sh"/>
-			</fileset>
-			<fileset dir="${build}/install"/>
-		</copy>
-		
-		<!-- Copy the XMLTV DTD -->
-		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-lin-uk/"/>
-		
-		<!-- copy in the install.props file for the jar -->
-		<copy file="${src}/install/install-lin-uk.props" tofile="${build}/install-lin-uk/install.props" overwrite="true" />
-		
-		<!-- Make the jar installer file -->
-		<jar 	jarfile="${dist}/${freeguideversion}-Linux-UK-Install.jar"
-				basedir="${build}/install-lin-uk"
-				manifest="${src}/manifests/FreeGuideInstall.mf"/>
-  
-  	</target>
-	
-	<target name="FreeGuide-Linux-NA-Install" depends="FreeGuide" 
-  		description="generate the linux na installer jar" >
-		
-		<!-- Copy the program file and docs -->
-		<copy todir="${build}/install-lin-na">
-			<fileset dir="${dist}/">
-				<include name="FreeGuide.jar"/>
-			</fileset>
-			<fileset dir="${doc}/">
-				<exclude name="*.sh"/>
-			</fileset>
-			<fileset dir="${build}/install"/>
-		</copy>
-		
-		<!-- Copy the XMLTV DTD -->
-		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-lin-na/"/>
-		
-		<!-- copy in the install.props file for the jar -->
-		<copy file="${src}/install/install-lin-na.props" tofile="${build}/install-lin-na/install.props" overwrite="true" />
-		
-		<!-- Make the jar installer file -->
-		<jar 	jarfile="${dist}/${freeguideversion}-Linux-NA-Install.jar"
-				basedir="${build}/install-lin-na"
-				manifest="${src}/manifests/FreeGuideInstall.mf"/>
-  
-  	</target>
 	
 	<target name="FreeGuide-Source"
   		description="generate the source zip" depends="init">

@@ -82,7 +82,7 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 	}
 	
 	public void reShow() {
-		
+		System.exit(0);
 	}
 	
 	public FreeGuideLauncher getLauncher() {
@@ -90,7 +90,7 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 	}
 	
 	public void setVisible(boolean show) {
-		System.exit(0);
+		
 	}
 	
 	private void install(String install_directory, boolean keepOldPreferences) {
