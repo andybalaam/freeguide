@@ -52,6 +52,7 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
     public void update() {
 
         setText( constructHTMLGuide(true) );
+	setCaretPosition(0);
 
     }
 
