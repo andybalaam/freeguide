@@ -701,8 +701,6 @@ public class PreferencesGroup {
         String key = (String)ans.get(1);
         String value = (String)ans.get(2);
         
-        pr.put( key, value );
-        
         // Set the default value
         pr.putSystem("default-" + key, value);
 
