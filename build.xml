@@ -140,18 +140,18 @@
 		<copy file="${src}/install/windows/install-win-it_lt.props" tofile="${build}/windows/install-5.props" overwrite="true" />
         
         <!-- Japan -->
-        <copy file="${src}/install/windows/install-win-jp.props" tofile="${build}/windows/install-6.props" overwrite="true" />
+        <!--<copy file="${src}/install/windows/install-win-jp.props" tofile="${build}/windows/install-6.props" overwrite="true" />-->
         
         <!-- Netherlands -->
-        <copy file="${src}/install/windows/install-win-nl.props" tofile="${build}/windows/install-7.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-nl.props" tofile="${build}/windows/install-6.props" overwrite="true" />
         <copy file="${src}/install/windows/install-win-nl_wolf.props"
-        tofile="${build}/windows/install-8.props" overwrite="true" />
+        tofile="${build}/windows/install-7.props" overwrite="true" />
         
         <!-- North America -->
-        <copy file="${src}/install/windows/install-win-na_dd.props" tofile="${build}/windows/install-9.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-na_dd.props" tofile="${build}/windows/install-8.props" overwrite="true" />
         
         <!-- Norway -->
-        <copy file="${src}/install/windows/install-win-no.props" tofile="${build}/windows/install-10.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-no.props" tofile="${build}/windows/install-9.props" overwrite="true" />
         
         <!-- Portugal -->
         <!-- Not working
@@ -159,15 +159,15 @@
         -->
         
         <!-- Spain -->
-		<copy file="${src}/install/windows/install-win-es.props" tofile="${build}/windows/install-11.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-es_digital.props" tofile="${build}/windows/install-12.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-es.props" tofile="${build}/windows/install-10.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-es_digital.props" tofile="${build}/windows/install-11.props" overwrite="true" />
         
         <!-- Sweden -->
-        <copy file="${src}/install/windows/install-win-se.props" tofile="${build}/windows/install-13.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-se.props" tofile="${build}/windows/install-12.props" overwrite="true" />
         
         <!-- UK -->
-        <copy file="${src}/install/windows/install-win-uk_bleb.props" tofile="${build}/windows/install-14.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${build}/windows/install-15.props" overwrite="true" />
+        <copy file="${src}/install/windows/install-win-uk_bleb.props" tofile="${build}/windows/install-13.props" overwrite="true" />
+		<copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${build}/windows/install-14.props" overwrite="true" />
 
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Win.jar"

@@ -163,6 +163,8 @@ w  means done by William Ballard
 - Make tall and thin channel icons wider to line up text
 - Make a default channel icon for channels missing an icon
 - Allow resizing fonts in HTML displays
+- Delete all registry entries on Windows uninstall
+- Check whether you really need to set the timezone.
 
 + Release 0.8.2 (new xmltv + minor stuff)
 
@@ -180,8 +182,7 @@ w Show all actors for a programme instead of just the last one.
 + Make icons optional in Windows installer
 + Add an entry to the add/remove programs list on Windows
 + Remove the need to execute a Java program on Windows install
-= Use the latest version of XMTLV
-= Delete all registry entries on Windows uninstall
++ Use the latest version of XMTLV
 
 + Release 0.8.1 (bug fix)
 

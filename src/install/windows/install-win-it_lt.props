@@ -6,5 +6,3 @@ prefs.3=misc.grabber_start_time=06:00
 prefs.4=misc.grabber_config=%misc.xmltv_directory%\\tv_grab_it_lt.conf
 prefs.5=commandline.tv_config.1=\"%misc.xmltv_directory%\\xmltv.exe\" tv_grab_it_lt --config-file \"%misc.grabber_config%\" --share \"%misc.share_directory%\" --configure --gui
 
-file.1=share/xmltv/tv_grab_it_lt/channel_ids>%misc.share_directory%/tv_grab_it_lt/channel_ids
-
