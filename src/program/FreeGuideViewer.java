@@ -815,7 +815,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	// FIXME -- Might actually work if we can get it to wait for the grabber to complete
 	private void makeDatesList() {
 		boolean debug=false;
-		debug=true;
+		//debug=true;
 		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
 		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
 		comTheDate.addItem(comTheDate.getSelectedItem());
@@ -1008,7 +1008,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		missingFiles = false;
 		
 		updateDaySpan();
-		
+
 		programmes = new Vector();
 		channelLoaded = new Vector();
 		channelIDs = new Vector();
@@ -1016,17 +1016,40 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 		String wkDir = FreeGuide.prefs.performSubstitutions(
 			FreeGuide.prefs.misc.get("working_directory") );
-		
+
+		FreeGuideTime FGStart = FreeGuide.prefs.misc.getFreeGuideTime(
+			"day_start_time",new FreeGuideTime("00:00"));
+		FreeGuideTime GBStart = FreeGuide.prefs.misc.getFreeGuideTime(
+			"grabber_start_time",new FreeGuideTime("00:00"));
+
+		String date1str;
+		String date2str;
 		Calendar tomorrow = (Calendar)theDate.clone();
 		tomorrow.add(Calendar.DAY_OF_YEAR,1);
-		
-		String date1str = fileDateFormat.format(theDate.getTime());
-		String date2str = fileDateFormat.format(tomorrow.getTime());
+		Calendar yesterday = (Calendar)theDate.clone();
+		yesterday.add(Calendar.DAY_OF_YEAR,-1);
+
+		// FIXME:priority(low)-- if FGStart=GBStart we only need to read one file
+		//   not really important, but could speed up loading for those that
+		//   prefer this setting....
+		if ( FGStart.getMillisecondsSinceMidnight() >=
+			GBStart.getMillisecondsSinceMidnight() ) {
+			// Normal mode "today" and "tomorrow"
+			// test case: grabber_start_time=00:00 and day_start_time=06:00
+			// tested good -- WCD
+			date1str = fileDateFormat.format(theDate.getTime());
+			date2str = fileDateFormat.format(tomorrow.getTime());
+		} else {
+			// Reverse mode "yesterday" and "today"
+			// test case: grabber_start_time=06:00 and day_start_time=00:00
+			date1str = fileDateFormat.format(yesterday.getTime());
+			date2str = fileDateFormat.format(theDate.getTime());
+		}
 
 		String day1Filename  = wkDir + fs + "tv-"+date1str+".xmltv";
 		String day2Filename = wkDir + fs + "tv-"+date2str+".xmltv";
 		String unprocFilename = wkDir + fs + "tv-unprocessed.xmltv";
-		
+
 		for(int curChan2=0;curChan2<channelNames.size();curChan2++) {
 			channelLoaded.set(curChan2,Boolean.FALSE);
 		}
@@ -1034,13 +1057,13 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		File day1File = new File(day1Filename);
 		File day2File = new File(day2Filename);
 		File unprocFile = new File(unprocFilename);
-			
+
 		// Parse any files that exist
-		
+
 		try {//ParserExceptions etc
 
 			DefaultHandler handler = new FreeGuideSAXHandler( this );
-			
+
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 
 			SAXParser saxParser = factory.newSAXParser();
@@ -1054,28 +1077,28 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 				saxParser.parse(day2Filename, handler);
 				parsedPartOfToday = true;
 			}
-			
+
 			// But we must have a file for today or we look for unprocessed
 			// listings
 			if(day1File.exists()) {
 				saxParser.parse(day1Filename, handler);
 				parsedPartOfToday = true;
 			} else {
-				
+
 				if(unprocFile.exists()) {
-				
+
 					// The grabber must not be able to split into days,
 					// so we'll deal with the unprocessed data.
 					saxParser.parse(unprocFilename, handler);
 				}/* else {
-				
+
 					if (!day1File.exists()) {
 						FreeGuide.log.warning("Listings file not found: "
 							+ day1Filename);
 					}
-				
+
 					if (!day2File.exists()) {
-						FreeGuide.log.warning("Listings file not found: " 
+						FreeGuide.log.warning("Listings file not found: "
 							+ day2Filename);
 					}
 				

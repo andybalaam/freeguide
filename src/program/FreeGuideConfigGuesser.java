@@ -52,61 +52,63 @@ public class FreeGuideConfigGuesser {
 				return TEXT_TYPE;
 			} else if(entry.equals("grabber_start_today")) {
 				return TEXT_TYPE;
+			} else if(entry.equals("grabber_start_time")) {
+				return TEXT_TYPE;
 			}
 
 		}
-		
+
 		System.out.println("Unknown option asked for - " + entry);
 		return -1;
 
 	}
-	
+
 	/**
 	 * Return the default value of the given preference
 	 */
 	public static Object guess(String group, String entry) {
-		
+
 		FreeGuidePreferences gp = new FreeGuidePreferences( group );
-		
+
 		switch( guessType(group, entry) ) {
-					
+
 			case TEXT_TYPE:
 				return gp.get( "default-" + entry, "-ERROR GETTING DEFAULT-" );
-				
+
 			case FILE_TYPE:
 				return new File( gp.get( "default-" + entry,
 					"-ERROR GETTING DEFAULT-" ) );
-				
+
 			case DIRECTORY_TYPE:
 				return new File( gp.get( "default-" + entry,
 					"-ERROR GETTING DEFAULT-" ) );
-				
+
 			case COMMANDS_TYPE:
 				return gp.getStrings( "default-" + entry );
 
-			
+
 		}
-		
+
 		System.err.println("Unknown config type - " + entry);
 
 		return null;
-		
+
 	}
-	
+
 	// -----------------------------
-	
+
 	private static int prefToInt(String group, String entry) {
-		
+
 		if(group.equals("commandline")) {
-			
+
 			if(entry.equals("browser_command")) {
 				return BROWSER_COMMAND;
 			} else if(entry.equals("tv_grab")) {
 				return TV_GRAB;
 			}
-			
+
 		} else if(group.equals("misc")) {
-			
+
 			if(entry.equals("day_start_time")) {
 				return DAY_START_TIME;
 			} else if(entry.equals("days_to_grab")) {
@@ -123,13 +125,15 @@ public class FreeGuideConfigGuesser {
 				return GRABBER_TODAY_OFFSET;
 			} else if(entry.equals("grabber_start_today")) {
 				return GRABBER_START_TODAY;
+			} else if(entry.equals("grabber_start_time")) {
+				return GRABBER_START_TIME;
 			}
 
 		}
-		
+
 		System.out.println("Unknown option asked for - " + entry);
 		return -1;
-		
+
 	}
 
 	// -------------------------------------------
@@ -139,7 +143,7 @@ public class FreeGuideConfigGuesser {
 		switch(prefToInt(group, entry)) {
 
 			case DAY_START_TIME:
-				return checkValidTime((String)val);
+				return checkValidTime((String)val,"the FreeGuide day start");
 
 			//case GRABBER_CONFIG:
 			//	return checkXMLTVConfigFile((File)val);
@@ -156,6 +160,9 @@ public class FreeGuideConfigGuesser {
 			//case GRABBER_TODAY_OFFSET: //int
 			//case GRABBER_START_TODAY: //int
 
+			case GRABBER_START_TIME:
+				return checkValidTime((String)val,"the grabber start time");
+
 			default:	// E.g. a country or a grabber command, just say it's right
 				return null;
 
@@ -163,11 +170,11 @@ public class FreeGuideConfigGuesser {
 
 	}
 
-	private static String checkValidTime(String time) {
+	private static String checkValidTime(String time, String option) {
 		if(time!=null && time.length()==5 && time.charAt(2)==':') {
 			return null;
 		}
-		return "The time you gave for the start of days is not in valid hh:mm format.";
+		return "The time you gave for "+option+" is not in valid hh:mm format.";
 	}
 
 	private static String checkDirWriteable(File dir, String whatFor) {
@@ -241,6 +248,7 @@ public class FreeGuideConfigGuesser {
 	public static final int DAYS_TO_GRAB = 7;
 	public static final int GRABBER_TODAY_OFFSET = 8;
 	public static final int GRABBER_START_TODAY = 9;
+	public static final int GRABBER_START_TIME = 10;
 
 	// -------------------------------------------
 
@@ -250,7 +258,7 @@ public class FreeGuideConfigGuesser {
 	public static final int DIRECTORY_TYPE = 3;
 
 	// -------------------------------------------
-	
+
 	private static final String fs = File.separator;
-	
+
 }

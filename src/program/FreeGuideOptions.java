@@ -31,8 +31,8 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 	public FreeGuideOptions(FreeGuideLauncher launcher) {
 		this.launcher = launcher;
 		
-		panels = new FreeGuideWizardPanel[9];
-		titles = new String[9];
+		panels = new FreeGuideWizardPanel[10];
+		titles = new String[10];
 
 		panels[0] = new FreeGuideDirectoryWizardPanel();
 		panels[0].setMessages("Choose the working directory FreeGuide will use.", "A new directory will be made if necessary.");
@@ -79,19 +79,24 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		panels[8].setConfig("misc", "grabber_start_today");
 		titles[8] = "Grabber Start Today";
 
+		panels[9] = new FreeGuideTextWizardPanel();
+		panels[9].setMessages("Grabber day start time.", "");
+		panels[9].setConfig("misc", "grabber_start_time");
+		titles[9] = "Grabber Start Time";
+
 		// Draw the screen
 		initComponents();
-		
+
 	}
-	
+
 	/**
 	 * Launch this screen when there's been a problem on startup and we need
 	 * the user to correct some specific problems.
 	 */
 	public FreeGuideOptions(FreeGuideLauncher launcher, Vector failedWhat) {
-		
+
 		this.launcher = launcher;
-		
+
 		panels = new FreeGuideWizardPanel[failedWhat.size()+1];
 		titles = new String[failedWhat.size()+1];
 
@@ -159,6 +164,13 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 				panels[panelNo].setMessages("Enter the value for grabber day start.", "0=start today, 1=start on day shown");
 				panels[panelNo].setConfig("misc", "grabber_start_day");
 				titles[panelNo] = "Grabber Start_day";
+
+			} else if(what.equals("misc.grabber_start_time")) {
+
+				panels[panelNo] = new FreeGuideTextWizardPanel();
+				panels[panelNo].setMessages("Enter the time for the grabber day start.", "Use hh:mm format e.g.06:00 for 6am.");
+				panels[panelNo].setConfig("misc", "grabber_start_time");
+				titles[panelNo] = "Grabber Start_time";
 
 			} else {
 				FreeGuide.log.severe("An unknown check went wrong!");
