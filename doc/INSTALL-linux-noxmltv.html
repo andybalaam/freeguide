@@ -28,13 +28,13 @@
 
 <li>To install from source (which can be tricky due to the large number of prerequisites) download the <a href="http://sourceforge.net/project/showfiles.php?group_id=39046&package_id=31217">latest version</a> plus the <a href="http://sourceforge.net/project/showfiles.php?group_id=39046&package_id=91929">prerequisites</a>.</li>
 
-<p>If you want to be able to configure your grabber using the GUI interface from within FreeGuide, you'll need to download the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309&package_id=103744">patched grabber</a> and use it instead of the xmltv sources.</p>
+<!--<p>If you want to be able to configure your grabber using the GUI interface from within FreeGuide, you'll need to download the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309&package_id=103744">patched grabber</a> and use it instead of the xmltv sources.</p>-->
 
 <p>Install from source in the usual way with "perl Makefile.PL && make && make install".</p>
 
 </ul>
 
-<p>After installing XMLTV, you need to configure it.  Connect to the Internet before doing this.  If you installed the modified XMLTV, you can simply run the FreeGuide installation (see below) and the grabber will be configured within that.  If you installed the normal XMLTV, type (at a command prompt):</p>
+<p>After installing XMLTV, you need to configure it.  Connect to the Internet before doing this.  If you like, you can simply run the FreeGuide installation (see below) and the grabber will be configured within that.  If you would like to do it manually, type (at a command prompt):</p>
 <p><tt>tv_grab_</tt></p>
 <p>and then press TAB a couple of times.  You should see a list of the possible commands.  You want the one for your country: e.g. "na_dd" for North America, "uk_bleb" for UK, "dk" for Denmark.  Continue typing the command by adding the correct completion, and then a space, and then <tt>--configure</tt>.  So the full command should look like this:</p>
 <p><tt>tv_grab_fi --configure</tt></p>
@@ -43,11 +43,11 @@
 
 <h2>Installation</h2>
 
-<p>When XMLTV is installed and configured, download the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309">FreeGuide-xx-noarch.rpm</a> RPM file and install it like so:</p>
+<p>To install FreeGuide, download the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309">FreeGuide-xx-noarch.rpm</a> RPM file and install it like so:</p>
 
-<p><tt>su -c "rpm -i FreeGuide-xx-noarch.rpm"</tt>.  This will install FreeGuide and put a shortcut to it in the menu if you're on RedHat.</p>
+<p><tt>su -c "rpm -i FreeGuide-xx-noarch.rpm"</tt>.  This will install FreeGuide and put a shortcut to it in the menu.</p>
 
-<p>You can now run FreeGuide by choosing it from the RedHat menu (under "Accessories" or "Other") or alternatively by typing:</p>
+<p>You can now run FreeGuide by choosing it from the menu (in RedHat it's under "Accessories" or "Other") or alternatively by typing:</p>
 
 <p><tt>java -jar /usr/share/freeguide/FreeGuide.jar</tt></p>
 

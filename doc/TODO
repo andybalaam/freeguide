@@ -181,6 +181,7 @@ c  means done by Christian Weiske
 
 - Release 0.9 (Keyboard navigation, internationalisation, recording)
 
+- Fix cropped channel icons in program details panel
 - Fix bug where vertical scrolling makes the cursor disappear
 - Make the StripView focussed when you click on a programme
 - Check that upgrading on Windows doesn't leave 2 Add/Remove program entries.
