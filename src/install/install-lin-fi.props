@@ -3,7 +3,7 @@ region=Finland
 prefs.1=misc.install_directory=%home%/freeguide-tv
 prefs.2=misc.working_directory=%home%/.freeguide-tv
 prefs.3=misc.xmltv_directory=/usr/local/bin
-prefs.4=misc.grabber_config=%home%/.xmltv/tv_grab_fi.conf
+prefs.4=misc.grabber_config=%home%/.xmltv/tv_grab_fi
 prefs.5=misc.days_to_grab=7
 prefs.6=misc.day_start_time=06:00
 prefs.7=commandline.browser_command.1=netscape %filename%
