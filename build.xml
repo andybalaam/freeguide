@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="cvs-freeguide-tv" default="main" basedir=".">
+<project name="freeguide-tv" default="main" basedir=".">
 
     <description>
         Ant build file for freeguide-tv
@@ -188,8 +188,12 @@
   		description="generate the source zip" depends="init">
 		
 		<zip zipfile="${dist}/${freeguideversion}-Source.zip">
-			<zipfileset dir="${src}" prefix="src" />
-			<zipfileset dir="${doc}" prefix="doc" />
+			<zipfileset dir="${src}" prefix="src">
+				<exclude name="**/.xvpics/**" />
+			</zipfileset>
+			<zipfileset dir="${doc}" prefix="doc">
+				<exclude name="**/.xvpics/**" />
+			</zipfileset>
 			<fileset dir="." includes="build.xml" />
 			<fileset dir="xmltv" includes="xmltv-*.tar.bz2" />
 		</zip>
