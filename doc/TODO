@@ -45,6 +45,8 @@ D  means work in progress by Dave Torok
 - Consider a C++ installer that just checks for the right java version before
   running the Java installer.
 - Automated bug reporting e.g. when the grabber fails.
+- Automate upgrading XMLTV without upgrading FreeGuide?
+- rpm/deb/proper Linux installer
   
 - Release 0.7 (nice features)
 
