@@ -43,17 +43,28 @@
 
 <h2>Installation</h2>
 
-<p>When XMLTV is installed and configured, download the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309">FreeGuide-xx-Linux-NoXMLTV-Install</a> jar file and run it with <tt>java -jar FreeGuide-xx-Linux-NoXMLTV-Install.jar</tt>.  This will install FreeGuide in a directory of your choice.</p>
+<p>When XMLTV is installed and configured, download the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309">FreeGuide-xx-noarch.rpm</a> RPM file and install it like so:</p>
 
-<p>You can now run FreeGuide by typing:</p>
-<p><tt>cd ~/freeguide-tv</tt> (adapt if you installed it elsewhere)<br>
-<tt>java -jar FreeGuide.jar</tt></p>
+<p><tt>su -c "rpm -i FreeGuide-xx-noarch.rpm</tt>.  This will install FreeGuide and put a shortcut to it in the menu if you're on RedHat.</p>
 
-<p>If you've used the default options everywhere, it should just work.</p>
+<p>You can now run FreeGuide by choosing it from the RedHat menu (under "Accessories" or "Other") or alternatively by typing:</p>
+
+<p><tt>java -jar /usr/share/freeguide-tv/FreeGuide.jar</tt></p>
+
+<p>You'll now need to answer a few questions, and then you're ready to go.</p>
 
 <p>See the <a href="userguide.html">User Guide</a> and <a href="FAQ.html">FAQ</a> for info on how to use FreeGuide.</p>
 
 <p>If you have any problems, <a href="mailto:freeguide-tv-devel@lists.sourceforge.net">contact us</a> and we'll sort you out.</p>
+
+<p>If you prefer not to use RPM, you can install FreeGuide like so:</p>
+
+<p><tt>
+cd freeguide-tv/<br />
+ant -Dinstall_share_dir=/usr/share -Dinstall_bin_dir=/usr/bin -Dreal_install_share_dir=/usr/share install-Linux-NoXMLTV-files<br />
+</tt></p>
+
+<p>There may also be some Debian packages available.</p>
 
 </body>
 </html>

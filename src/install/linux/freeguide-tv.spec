@@ -16,7 +16,7 @@ Summary: A TV Guide
 Name: FreeGuide
 Version: 0.8
 Release: 2
-# REMINDER: bump this with each RPM;
+# REMINDER: bump this with each RPM
 Copyright: GPL
 Group: Accessories/
 Source0: FreeGuide-0.8.tar.gz

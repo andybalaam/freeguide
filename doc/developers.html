@@ -43,10 +43,14 @@
 
 <p>Unzip the Linux binary file xmltv-x.x.x-tkgui-bin-linux.tar.bz2 to a temporary file and copy the file xmltv to ~/freeguide-tv/xmltv/</p>
 
-<p>You should now be able to build a distribution using Ant like so:</p>
+<p>You should now be able to build a the source tarballs and the Windows and Linux jars using Ant like so:</p>
 
 <p><tt>cd ~/freeguide-tv<br />
-ant build.xml</tt></p>
+ant</tt></p>
+
+<p>To build the Linux RPM, cd into freeguide-tv/src/install/linux and modify the file buildrpm to use your own home directory instead of /home/andy.  Now running that file with ./buildrpm should build the entire project and create the noarch and src RPMs in freeguide-tv/installers.  The RPM spec file is in freeguide-tv/src/install/linux/freeguide-tv.spec</p>
+
+<p>To build the Windows installer you need NSIS from here: http://nsis.sourceforge.net/.  Install NSIS v2 and right-click on the file freeguide-tv/src/install/windows/freeguide-tv.nsi.  That should build the Windows EXE installer in freeguide-tv/installers.</p>
 
 <h2>Help and questions</h2>
 

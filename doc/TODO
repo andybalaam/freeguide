@@ -130,11 +130,9 @@ r  means done by Rob Stewart
 
 - Release 0.8 (first time wizard)
 
-- design icons
-- write manual install instructions (using ant?)
-- write rpm --rebuild instructions
-- Document where the icons go on win and lin
-- Discuss installers on the developers' page
++ design icons
++ Update docs for new situation
++ Discuss installers on the developers' page
 r Re-arrange download options panel and add permanent re-download option
 y Display programme icons
 + create native windows installer (NSIS)
