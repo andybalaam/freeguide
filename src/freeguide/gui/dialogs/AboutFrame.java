@@ -25,7 +25,6 @@ public class AboutFrame extends javax.swing.JDialog
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextPane jTextPane1;
 
@@ -37,40 +36,42 @@ public class AboutFrame extends javax.swing.JDialog
      */
     public AboutFrame( java.awt.Frame parent, boolean modal )
     {
-        super( parent, modal );
+        super( parent, FreeGuide.msg.getString( "about" ), modal );
         initComponents(  );
 
         jTextPane1.setContentType( "text/html" );
 
-        String str = "";
+        StringBuffer str = new StringBuffer(  );
 
-        str += "<font face='verdana, arial, helvetica, helv, sans serif' size=3>";
-        str += "<table width=\"100%\" height=\"100%\" border=\"0\"><tr><td height=\"100%\" align=\"center\">";
-        str += ( "<h1><font face='arial, helvetica, helv, sans serif' size=\"5\">FreeGuide "
-        + FreeGuide.version.getDotFormat(  ) + "</font></h1>" );
-        str += "<p>";
-        str += FreeGuide.msg.getString( "free_software_by_contributors" );
-        str += "</p><p>";
-        str += FreeGuide.msg.getString( "web" );
-        str += ": <a href=\"http://freeguide-tv.sourceforge.net\">freeguide-tv.sourceforge.net</a></p><p>";
-        str += FreeGuide.msg.getString( "mail" );
-        str += ": <a href=\"mailto:freeguide-tv-devel@lists.sourceforge.net\">freeguide-tv-devel@lists.sourceforge.net</a></p>";
-        str += "</td></tr></table>";
-        str += "</font>";
+        str.append( 
+            "<font face='verdana, arial, helvetica, helv, sans serif' size=3>" );
+        str.append( 
+            "<table width=\"100%\" height=\"100%\" border=\"0\"><tr><td height=\"100%\" align=\"center\">" );
+        str.append( 
+            "<h1><font face='arial, helvetica, helv, sans serif' size=\"5\">FreeGuide " )
+           .append( FreeGuide.version.getDotFormat(  ) ).append( 
+            "</font></h1>" );
+        str.append( "<p>" );
+        str.append( 
+            FreeGuide.msg.getString( "free_software_by_contributors" ) );
+        str.append( "</p><p>" );
+        str.append( FreeGuide.msg.getString( "web" ) );
+        str.append( 
+            ": <a href=\"http://freeguide-tv.sourceforge.net\">freeguide-tv.sourceforge.net</a></p><p>" );
+        str.append( FreeGuide.msg.getString( "mail" ) );
+        str.append( 
+            ": <a href=\"mailto:freeguide-tv-devel@lists.sourceforge.net\">freeguide-tv-devel@lists.sourceforge.net</a></p>" );
+        str.append( "</td></tr></table>" );
+        str.append( "</font>" );
 
-        jTextPane1.setText( str );
+        jTextPane1.setText( str.toString(  ) );
     }
 
     private void initComponents(  )
     {
-
-        //GEN-BEGIN:initComponents
-        jButton1 = new javax.swing.JButton(  );
         jButton2 = new javax.swing.JButton(  );
         jScrollPane1 = new javax.swing.JScrollPane(  );
         jTextPane1 = new javax.swing.JTextPane(  );
-
-        jButton1.setText( "jButton1" );
 
         getContentPane(  ).setLayout( new java.awt.BorderLayout( 2, 2 ) );
 
@@ -83,7 +84,7 @@ public class AboutFrame extends javax.swing.JDialog
                 }
             } );
 
-        jButton2.setText( "OK" );
+        jButton2.setText( FreeGuide.msg.getString( "ok" ) );
         jButton2.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
@@ -111,8 +112,6 @@ public class AboutFrame extends javax.swing.JDialog
             ( screenSize.width - 416 ) / 2, ( screenSize.height - 245 ) / 2 );
     }
 
-    //GEN-END:initComponents
-
     /**
      * Description of the Method
      *
@@ -120,13 +119,9 @@ public class AboutFrame extends javax.swing.JDialog
      */
     private void jButton2ActionPerformed( java.awt.event.ActionEvent evt )
     {
-
-        //GEN-FIRST:event_jButton2ActionPerformed
         setVisible( false );
         dispose(  );
     }
-
-    //GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * Closes the dialog
@@ -135,13 +130,9 @@ public class AboutFrame extends javax.swing.JDialog
      */
     private void closeDialog( java.awt.event.WindowEvent evt )
     {
-
-        //GEN-FIRST:event_closeDialog
         setVisible( false );
         dispose(  );
     }
-
-    //GEN-LAST:event_closeDialog
 
     /**
      * DOCUMENT ME!
@@ -153,6 +144,4 @@ public class AboutFrame extends javax.swing.JDialog
         new AboutFrame( new javax.swing.JFrame(  ), true ).setVisible( true );
 
     }
-
-    // End of variables declaration//GEN-END:variables
 }
