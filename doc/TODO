@@ -45,10 +45,9 @@ D  means work in progress by Dave Torok
 - Consider a C++ installer that just checks for the right java version before
   running the Java installer.
 
-- Release 0.6 (nice features)
+- Release 0.7 (nice features)
 
 - Alert me when my programme starts
-- am/pm time
 - Do some profiling and algorithm thinking and get startup time down if poss.
 - Fix feature that if you reinstall to a new dir the old install can't be
 	uninstalled (well, you have to delete the directory instead...)
@@ -60,7 +59,7 @@ D  means work in progress by Dave Torok
 - Facilitating the download of listings outside of FreeGuide
 	(e.g. via a cron job, or at ppp connect)
 	
-- Release 0.5.3 (non-urgent minor features)
+- Release 0.6.2 (non-urgent minor features)
 
 - Multiline tooltips if too long
 - Choose how old files are before you delete them
@@ -73,7 +72,7 @@ D  means work in progress by Dave Torok
 - Shortcut keys for everything
 - Scroll to the programme you've just added in the list view
 
-- Release 0.5.2 (consolidation and code tidying)
+- Release 0.6.1 (consolidation and code tidying)
  
 - Allow "file" in installer to use wildcards (for win-uk share stuff)
 - Code rationalisation, FIXMEs, remove commented sections
@@ -98,19 +97,20 @@ D  means work in progress by Dave Torok
 - Fix the fact that the build process never overwrites README and INSTALL even
 	when they've changed.
 - Add the XMLTV source distribution to the source package (good GPL practice)
+- Replace check for existence of tv_grab_* with a check of running
+	tv_grab_* --help 
 ^ Channel Set -- create custom sets of channels
 ^ Choose between 24-hour and 12-hour time formats (14:30 vs. 2:30 PM)
 ^ Colorize Movies
 ^ Parse Movies for NA and UK from XML
 ^ Parse and display star-rating for movies
 ^ Parse "previously shown" (repeated program) from XML
-^ Choose between displaying the start time in the programme grid (or not)
+^ Choose between displaying the start time in the programme grid (or not) 
 
 - Release 0.5.1 (Stable bug-fix release)
 
 - Add to docs that some people (e.g. RedHat users) will need to change their
-	XMLTV dir to /usr/bin/ instead of /usr/local/bin/ - do we need this check
-	anyway?
+	XMLTV dir to /usr/bin/ instead of /usr/local/bin/
 + Bug in German installer
 
 - Release 0.5 (Features - especially use of many grabbers, and bug fixes)
