@@ -9,28 +9,23 @@
  * See the file COPYING for more information.
  */
 
-import java.awt.Frame;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.StreamTokenizer;
-import java.io.StringReader;
-import java.util.Vector;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import java.awt.Graphics;
+import java.awt.*;
+import java.io.*;
+import java.util.*;
+import javax.swing.*;
 
 /**
- * A little frame that shows a string, used to show the output of a command
+ * A little dialog that shows a string, used to show the output of a command
  * execution in FreeGuide (from FreeGuideExecutorDialog).
  *
  * @author Andy Balaam
- * @version 2
+ * @version 3
  */
-public class StringViewer extends javax.swing.JFrame {
+public class StringViewer extends JDialog {
 	
-	public StringViewer(String outputText, String errorText) {
+	public StringViewer(JDialog parent, String outputText, String errorText) {
+		super( parent );
+		
 		initComponents();
 		bufOut.append(outputText);
 		bufErr.append(errorText);

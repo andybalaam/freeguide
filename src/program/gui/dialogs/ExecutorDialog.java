@@ -59,7 +59,7 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
         labPleaseWait.setText(commandType + ", please wait...");
         setTitle(commandType);
 
-        viewer = new StringViewer("Commands:" + lb,
+        viewer = new StringViewer( this, "Commands:" + lb,
                 "Output:" + lb);
 
         start();
@@ -104,7 +104,7 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
         labPleaseWait.setText(commandType + ", please wait...");
         setTitle(commandType);
 
-        viewer = new StringViewer("Commands:" + lb,
+        viewer = new StringViewer(this, "Commands:" + lb,
                 "Output:" + lb);
 
         start();
@@ -218,7 +218,8 @@ public class ExecutorDialog extends JDialog implements Runnable, Progressor {
 
     private void showDetails() {
 
-        viewer.setVisible(true);
+        //viewer.setVisible(true);
+		viewer.show();
 
     }
 

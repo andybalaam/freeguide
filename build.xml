@@ -211,7 +211,7 @@
 			<zipfileset dir="." includes="build.xml" prefix="${freeguideversion}" />
 			<zipfileset dir="xmltv"
 				includes="*"
-				excludes="CVS/**,xmltv,xmltv.exe,xmltv.dtd"
+				excludes="CVS/**,xmltv,xmltv.exe,xmltv.dtd,*-bin-*"
 				prefix="${freeguideversion}/xmltv" />
 			<zipfileset dir="stats"
 				includes="*.sh,*.pl"
@@ -221,7 +221,7 @@
 		<tar tarfile="${package}/fg.tar"
 			 basedir="."
 			 includes="build.xml,src/**,doc/**,xmltv/*,stats/*.sh,stats/*.pl"
-			 excludes="**/.xvpics/**,**/CVS/**,xmltv/xmltv,xmltv/xmltv.exe,xmltv/xmltv.dtd" />
+			 excludes="**/.xvpics/**,**/CVS/**,xmltv/xmltv,xmltv/xmltv.exe,xmltv/xmltv.dtd,xmltv/**-bin-**" />
   		
 		<mkdir dir="${package}/${freeguideversion}" />
 		
