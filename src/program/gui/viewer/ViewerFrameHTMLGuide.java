@@ -216,7 +216,7 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane {
         }
 
 	ProgrammeFormat pf = new ProgrammeFormat(
-			ProgrammeFormat.HTML_FRAGMENT_FORMAT, timeFormat);
+			ProgrammeFormat.HTML_FRAGMENT_FORMAT, timeFormat, false);
 	pf.setOnScreen(onScreen);
         for (int i = 0; i < tickedProgrammes.size(); i++) {
 			

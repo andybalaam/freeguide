@@ -108,7 +108,7 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 		ProgrammeFormat pf;
         if( drawTime ) {
 			pf = new ProgrammeFormat(ProgrammeFormat.TEXT_FORMAT,
-						 timeFormat);
+						 timeFormat, false);
 		} else {
 			pf = new ProgrammeFormat(ProgrammeFormat.TEXT_FORMAT);
         }
@@ -452,7 +452,9 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 
 	public String getToolTipText() {
 		String tooltip = super.getToolTipText();
-		if (tooltip == null) {
+		boolean printDelta = FreeGuide.prefs.screen.getBoolean(
+				"display_time_delta", true);
+		if (tooltip == null || printDelta) {
 			boolean drawTime = FreeGuide.prefs.screen.getBoolean(
 					"display_programme_time", true);
 			boolean draw24time = FreeGuide.prefs.screen.getBoolean(
@@ -464,7 +466,7 @@ public class ProgrammeJLabel extends javax.swing.JLabel {
 			if( drawTime ) {
 				pf = new ProgrammeFormat(
 						ProgrammeFormat.HTML_FORMAT,
-					 	timeFormat);
+					 	timeFormat, printDelta);
 			} else {
 				pf = new ProgrammeFormat(
 						ProgrammeFormat.HTML_FORMAT);

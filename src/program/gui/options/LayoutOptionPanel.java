@@ -74,6 +74,12 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 		options[1] = "No";
 		alignLeftComboBox = newRightJComboBox( options );
         
+        JLabel printDeltaLabel = newLeftJLabel( "Print time delta" );
+		options = new Object[2];
+		options[0] = "Yes";
+		options[1] = "No";
+		printDeltaComboBox = newRightJComboBox( options );
+        
 		// Lay them out in a GridBag layout
 		
 		GridBagEasy gbe = new GridBagEasy( this );
@@ -99,6 +105,9 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 		
         gbe.addFWX    ( alignLeftLabel  , 0, 4, gbe.FILL_HOR   , 0.2 );
 		gbe.addFWXWYGW( alignLeftComboBox,1, 4, gbe.FILL_HOR   , 0.8, 0, 2 );
+        
+        gbe.addFWX    ( printDeltaLabel, 0, 5, gbe.FILL_HOR   , 0.2 );
+		gbe.addFWXWYGW( printDeltaComboBox,1, 5, gbe.FILL_HOR   , 0.8, 0, 2 );
         
 		// Set up events
 		channelHeightText.addFocusListener(this);
@@ -154,6 +163,13 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 			alignLeftComboBox.setSelectedIndex( 1 );
 		}
         
+        boolean printDelta = screen.getBoolean( "display_time_delta", true);
+		if( printDelta) {
+			printDeltaComboBox.setSelectedIndex( 0 );
+		} else {
+			printDeltaComboBox.setSelectedIndex( 1 );
+		}
+        
 	}
 	
 	public boolean doSave() {
@@ -180,9 +196,13 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 			|| updated;
 		
         updated = screen.updateBoolean( "align_text_to_left",
-            ( alignLeftComboBox.getSelectedIndex() == 0 ) )
-			|| updated;
-        
+                ( alignLeftComboBox.getSelectedIndex() == 0 ) )
+    			|| updated;
+            
+        updated = screen.updateBoolean( "display_time_delta",
+                ( printDeltaComboBox.getSelectedIndex() == 0 ) )
+    			|| updated;
+            
 		return updated;
 		
 	}
@@ -275,6 +295,7 @@ public class LayoutOptionPanel extends OptionPanel implements ActionListener,
 	private JTextField fontDemoText;
 	private JButton fontButton;
     private JComboBox alignLeftComboBox;
+    private JComboBox printDeltaComboBox;
 	
 	private FontChooserDialog fontDialog;
 	private Font currentFont;

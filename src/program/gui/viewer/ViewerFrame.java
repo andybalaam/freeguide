@@ -1024,7 +1024,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 			
             Programme prog =
                     (Programme)xmltvLoader.programmes.get(p);
-
+            
 			ProgrammeJLabel programmeJLabel = new ProgrammeJLabel( prog,
 				timeFormat, drawTime,
 				halfHorGap, widthMultiplier, halfVerGap,

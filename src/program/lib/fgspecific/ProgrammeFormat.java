@@ -12,6 +12,7 @@
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,6 +48,7 @@ public class ProgrammeFormat {
 						MARGIN + "})(?:\\s|$)");
 
 	private int outputFormat = TEXT_FORMAT;
+	private boolean printTimeDelta = false;
 	private DateFormat dateFormat = null;
 	private boolean wrap = false;
 	private boolean onScreen = true;
@@ -58,10 +60,12 @@ public class ProgrammeFormat {
 	 *
 	 * @param outputFormat desired output format
 	 * @param dateFormat DateFormat for formatting start and end times
+	 * @param printDelta append the delta from now in the summary
 	 */
-	public ProgrammeFormat(int outputFormat, DateFormat dateFormat) {
+	public ProgrammeFormat(int outputFormat, DateFormat dateFormat, boolean printDelta) {
 		setFormat(outputFormat);
 		setDateFormat(dateFormat);
+		setPrintTimeDelta(printDelta);
 	}
 
 	/**
@@ -71,7 +75,7 @@ public class ProgrammeFormat {
 	 * @param outputFormat desired output format
 	 */
 	public ProgrammeFormat(int outputFormat) {
-		this(outputFormat, null);
+		this(outputFormat, null, false);
 	}
 
 	public ProgrammeFormat() {
@@ -129,6 +133,13 @@ public class ProgrammeFormat {
 			toAppendTo.append(" (R)" );
 		}
         
+		
+		if (printTimeDelta) {
+			toAppendTo.append("(");
+			calcTimeDelta(programme.getStart(), toAppendTo);
+			toAppendTo.append(")");
+		}
+
 		return toAppendTo;
 	}
 
@@ -206,6 +217,12 @@ public class ProgrammeFormat {
                 .append( dateFormat.format(
 				    programme.getEnd().getTime() ) );
 		}
+		
+		if (printTimeDelta) {
+			toAppendTo.append(" <i>(");
+			calcTimeDelta(programme.getStart(), toAppendTo);
+			toAppendTo.append(")</i>");
+		}
 
 		if ( programmeDescription != null) {
 
@@ -279,6 +296,75 @@ public class ProgrammeFormat {
 			value.delete(possibleStart, length);
 		}
 		return value;
+	}
+	/**
+	 * @param printTimeDelta Sets wether to print the time delta from now.
+	 */
+	public void setPrintTimeDelta(boolean printTimeDelta) {
+		this.printTimeDelta = printTimeDelta;
+	}
+	
+	/**
+	 * Function that returns the time difference from now in a format like "2 hours and 1 minute"
+	 * @param startTime starting time of the program
+	 * @param toAppend StringBuffer the resulting string gets added to
+	 */
+	private void calcTimeDelta(Calendar startTime, StringBuffer toAppend) {
+		// Get the current time and calculates the difference in minutes from the starting time
+		// >0 in future
+		GregorianCalendar now = new GregorianCalendar();
+		long delta = startTime.getTimeInMillis() - now.getTimeInMillis();
+		delta /= 60000;
+
+		// If delta = 0 then it starts now and we leave as there's nothing else to do
+		if (delta == 0) {
+			toAppend.append("starts now");
+			return;
+		}
+		
+		// Split delta in meaningful fields
+		int days = (int)(delta / (24*60));
+		int hours = (int)((delta / 60) % 60);
+		int minutes = (int)(delta %60);
+		
+		if (delta>0)
+			toAppend.append("starts in ");
+		if (delta<0)
+			toAppend.append("started ");
+		
+		switch (days) {
+			case 0: break;
+			case 1:
+			case -1:
+				toAppend.append("1 day");
+				break;
+			default:
+				toAppend.append(Math.abs(days)).append(" days");
+		}
+		if (days != 0 && hours != 0)
+			toAppend.append(" ");
+		switch (hours) {
+			case 0: break;
+			case 1:
+			case -1:
+				toAppend.append("1 hour");
+				break;
+			default:
+				toAppend.append(Math.abs(hours)).append(" hours");
+		}
+		if ((days != 0 || hours != 0) && minutes != 0)
+			toAppend.append(" ");
+		switch (minutes) {
+			case 0: break;
+			case 1:
+			case -1:
+				toAppend.append("1 minute");
+				break;
+			default:
+				toAppend.append(Math.abs(minutes)).append(" minutes");
+		}
+		if (delta<0)
+			toAppend.append(" ago");
 	}
 }
 
