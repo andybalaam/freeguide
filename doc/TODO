@@ -13,6 +13,7 @@ x  means done by Sagar Shah
 b  means done by Brendan Corrigan
 e  means done by Ewan Harrow
 m  means done by Mike Dean
+y  means done by Yann 'PoV' Coupin
 
 --------------------------------------------
 
@@ -116,7 +117,7 @@ m  means done by Mike Dean
 - Full test of keyboard navigation
 - Add icons to UK and US listings
 
-- Release 0.7.5 (minor features)
++ Release 0.7.5 (minor features)
 
 + Clarify that you _have_ to enter your password during config in NA
 + Make a standard email form for beta test results
@@ -124,14 +125,13 @@ m  means done by Mike Dean
 + Ability to turn off tooltips
 + Programme info panel
 + Advertise for beta testers
-+ Merge Yann's icons patch
-+ Added "starts in x mins"/"started x mins ago" to tooltip
+y Icons in channel label
+y Added "starts in x mins"/"started x mins ago" to tooltip
 + Fix problem with tv_split line left from old configurations
 + Allow manual changing of browser command
 + Fix crash on tv-%Y%m%d.xmltv file in data dir
 + Disable Choose Channels button when the grabber command is blank
-+ Incorporate Yann 'PoV' Coupin's patch to move programmes names, making them
-  visible when they've scrolled off the left
+y Move programmes names, making them visible when they've scrolled off the left
 + Fix DateFilesExistList to not choke on bad filenames.
 
 + Release 0.7.4 (bug fixes)
