@@ -156,7 +156,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        setTitle("FreeGuide J2 " + FreeGuide.version);
+        setTitle("FreeGuide J2 " + FreeGuide.getVersion());
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
@@ -1440,8 +1440,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem menCustomiser;
     private javax.swing.JComboBox comTheDate;
+    private javax.swing.JMenuItem menCustomiser;
     private javax.swing.JMenuItem menDownload;
     private javax.swing.JEditorPane printedGuideArea;
     private javax.swing.JMenuItem menUserGuide;
@@ -1451,8 +1451,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private javax.swing.JSeparator jSeparator3;
     private FreeGuideTimePanel timePanel;
     private javax.swing.JMenuItem menPrint;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel channelNamePanel;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JMenuItem menAddFav;
     private javax.swing.JPanel topPanel;
     private javax.swing.JButton butPrint;

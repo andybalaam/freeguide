@@ -54,10 +54,13 @@ public class FreeGuideStartupChecker {
 		// Checks that need correction
 		
 		// Variables that will be true if something needs correcting
+		boolean failRunBefore;
 		boolean failOS, failCountry, failBrowserName;
 		boolean failXMLTVCmdDir;
 		boolean failGrabber, failBrowser, failDayStartTime, failStyleSheet;
 		boolean failXMLTVCfg, failWorkingDir;
+		
+		failRunBefore = !checkRunBefore();
 		
 		failOS = (FreeGuide.prefs.misc.get("os") == null);
 		failCountry = (FreeGuide.prefs.misc.get("country") == null);
@@ -65,8 +68,8 @@ public class FreeGuideStartupChecker {
 		
 		failXMLTVCmdDir = !checkXMLTVCmdDir();
 		
-		failGrabber= (FreeGuide.prefs.commandline.get("tv_grab") == null);
-		failBrowser = (FreeGuide.prefs.commandline.get("browser") == null);
+		failGrabber= (FreeGuide.prefs.commandline.getStrings("tv_grab").length == 0);
+		failBrowser = (FreeGuide.prefs.commandline.getStrings("browser_command").length == 0);
 		failDayStartTime = (FreeGuide.prefs.misc.get("day_start_time") == null);
 		failStyleSheet = (FreeGuide.prefs.misc.get("css_file") == null);
 		
@@ -77,10 +80,12 @@ public class FreeGuideStartupChecker {
 			failXMLTVCmdDir || failWorkingDir || failGrabber || failBrowser ||
 			failDayStartTime || failStyleSheet || failXMLTVCfg;
 		
+		int runType = failRunBefore ? FreeGuideOptionsWizard.SCREEN_FIRST_TIME : FreeGuideOptionsWizard.SCREEN_PROBLEM;
+		
 		if(failSomething) {
 			// Something's wrong, so begin with configuration
 			new FreeGuideOptionsWizard(launcher, 
-				FreeGuideOptionsWizard.SCREEN_FIRST_TIME, failOS, failCountry, 
+				runType, failOS, failCountry, 
 				failBrowserName, failXMLTVCmdDir, failWorkingDir, failGrabber, 
 				failBrowser, failDayStartTime, failStyleSheet, failXMLTVCfg).setVisible(true);
 		} else {
@@ -98,10 +103,30 @@ public class FreeGuideStartupChecker {
 		
 		//checkDayStartTime();
 		
-		FreeGuide.log.info("Checks ok, starting FreeGuide " + FreeGuide.version + " ...");
+		FreeGuide.log.info("Checks ok, starting FreeGuide " + FreeGuide.getVersion() + " ...");
 		
 	}
 
+	private static boolean checkRunBefore() {
+		
+		int version_major = FreeGuide.prefs.misc.getInt("version_major", -1);
+		//int version_minor = FreeGuide.prefs.misc.getInt("version_minor", -1);
+		//int version_revision = FreeGuide.prefs.misc.getInt("version_revision", -1);
+		
+		if(version_major == -1) {
+			FreeGuide.prefs.misc.putInt("version_major", FreeGuide.version_major);
+			FreeGuide.prefs.misc.putInt("version_minor", FreeGuide.version_minor);
+			FreeGuide.prefs.misc.putInt("version_revision", FreeGuide.version_revision);
+			return false;
+		
+			// FIXME if the preferences setup changes we'll
+			// need to have clever stuff in an "else" here.
+		
+		}
+	
+		return true;
+	}
+	
 	/**
 	 * checkDayStartTime
 	 *

@@ -221,6 +221,8 @@ loop:			while(true)
 	
 	public static void fillComboBox(JComboBox box, String name) {
 		
+		box.removeAllItems();
+		
 		if(name.equals("os")) {
 			fillComboBoxOS(box);
 		} else if(name.equals("country")) {
@@ -394,8 +396,10 @@ loop:			while(true)
 			return getDefaultWorkingDir();
 		} else if(name.equals("tv_grab")) {
 			return getDefaultGrabber();
-		} else if(name.equals("browser")) {
+		} else if(name.equals("browser_command")) {
 			return getDefaultBrowser();
+		} else if(name.equals("css_file")) {
+			return getDefaultStyleSheet();
 		} else if(name.equals("grabber_config")) {
 			return getDefaultXMLTVCfg();
 		} else {
@@ -410,7 +414,6 @@ loop:			while(true)
 	private static String getDefaultXMLTVCfg() {
 		String os = FreeGuide.prefs.misc.get("os");
 		String country = FreeGuide.prefs.misc.get("country");
-		String lb = System.getProperty("line.separator");
 		
 		String ans = new String();
 		
@@ -448,11 +451,34 @@ loop:			while(true)
 	}
 	
 	/**
+	 * Returns a guess at the stylesheet location
+	 */
+	private static String getDefaultStyleSheet() {
+		String os = FreeGuide.prefs.misc.get("os");
+		
+		String ans = new String();
+		
+		if(os.equals(os_Windows)) {
+			
+			ans = "C:\\My Documents\\.xmltv\\freeguide-tv\\guide.css";
+			
+		} else if(os.equals(os_Other)) {
+			
+			ans = "%home%/.xmltv/freeguide-tv/guide.css";
+
+		} else {
+			FreeGuide.log.warning("Invalid OS chosen!");
+		}
+		
+		return ans;
+	}
+	
+	/**
 	 * Returns a guess at the browser command
 	 */
 	private static String getDefaultBrowser() {
 		String os = FreeGuide.prefs.misc.get("os");
-		String browser = FreeGuide.prefs.misc.get("browser");
+		String browser = FreeGuide.prefs.misc.get("browser_name");
 		String xmltvDir = FreeGuide.prefs.misc.get("xmltv_directory");
 		String workingDir = FreeGuide.prefs.misc.get("working_directory");
 		String lb = System.getProperty("line.separator");

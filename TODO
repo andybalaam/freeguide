@@ -9,16 +9,37 @@ feel like it.
 
 --------------------------------------------
 
+Release 2.0
+
+- Think about ports to wxWindows, Python, ...
+
 Release 1.0
 
+- Get it all right
 - Alert me when my programme starts
-- Integration with e.g. tv card software
+- Integration with e.g. tv card software 
+	- developed and maintained by a leutenant (i.e. not me)
+	- Needs ability to start/stop viewing and recording
+	- Might use JNI?
 - Internationalisation
+- Printing
+	- Keep the browser option for maximum compatibility
+	- Add save html option
+	- Support tv_to_latex tool, viewing and printing (what about windows?)
+	- How to print on Windows?
+	- Use Java's printing capabilities?
+- Use JNI for grabber etc?
+- Complete single installer for FreeGuide, XMLTV (and Java?) for each platform
+- Facilitate community devt of default settings in each situation (how?)
+- Help XMLTV people by making a Windows installer?  (Perhaps using nullsoft's installer)
+- Completely separate READMEs for each platform
+	- Automate integration of common parts
+	- Appoint README maintainers
+- FAQ?
+- Other platforms - investigate Mac, BSD, others
 
-Release 0.4
+Release 0.6
 
-- Right-click on a favourite gives option to remove from favs?
-    (remove specific favs, but warn if general)
 - Uncheck all button + check all button in channels screen
 - MAKE IT WORK IN WINDOWS!
 - Windows installer (nullsoft installer?)
@@ -31,24 +52,32 @@ Release 0.4
 - Deal with grabber that doesn't use a config file?
 - Choose how old files are before you delete them
 - Help manual
-- Other properties of a programme and other DTD features
+- Properties box for a programme showing longer descriptions, othe DTD stuff
 - Terms and conditions of listings
 - --configure support for tv_grab_na and uk (talk to XMLTV people)
 - --days support
 + Make output and error stream boxes in Executor not have huge scroll range.
 - Further visual enhancements and customisability
+- Ability to save and load preferences
 
-Release 0.3.2
+Release 0.5
 
-- Simple installer on all platforms (may be acheived by wizard)
-- [Wait for XMLTV 0.5] ?
+- [Wait for XMLTV 0.5]
+- Right-click on a favourite gives option to remove from favs?
+    (remove specific favs, but warn if general)
+- Make a jar file that saves out the css file when needed
 - Make downloading work on Windows, from within FreeGuide (requires XMLTV 0.5)
 - Move XML stuff to a separate object
-- Other code rationalisation
+- Other code rationalisation, FIXMEs, remove commented sections
+- Tidy up FreeGuideOptionsWizard, especially entering and leaving tabs
 
-Release 0.3.1
+Release 0.4
 
-- Setup wizard sets up every param explicitly and subsumes checks.
+- Alter Options wizard so focuslost events are replaced with custom thing that works
+	+ Create directory if it doesn't exist
+	- Do browse buttons
++ Separate channels and customisation screens
++ Setup wizard sets up every param explicitly and subsumes checks.
 + Fix tv_split so it gives a better error when no programmes are found.
 + Fix bug that means favourites aren't chosen
 + Fix non-scrollability of Details box

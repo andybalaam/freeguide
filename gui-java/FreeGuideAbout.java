@@ -29,7 +29,7 @@ public class FreeGuideAbout extends javax.swing.JDialog {
 		
 		str += "<font face='arial, helvetica, helv, sans serif' size=3>";
 		str += "<table width=\"100%\" height=\"100%\" border=\"0\"><tr><td height=\"100%\" align=\"center\">";
-		str += "<h1><font face='arial, helvetica, helv, sans serif' size=\"5\">FreeGuide J2 " + FreeGuide.version + "</font></h1>";
+		str += "<h1><font face='arial, helvetica, helv, sans serif' size=\"5\">FreeGuide J2 " + FreeGuide.getVersion() + "</font></h1>";
 		str += "<p>Free software by the FreeGuide contributors.</p>";
 		str += "<p>Web: <a href=\"http://freeguide-tv.sourceforge.net\">freeguide-tv.sourceforge.net</a></p>";
 		str += "<p>Mail: <a href=\"mailto:freeguide-tv-devel@lists.sourceforge.net\">freeguide-tv-devel@lists.sourceforge.net</a></p>";

@@ -66,13 +66,23 @@ public class FreeGuide implements FreeGuideLauncher {
 		FreeGuide.log.info("FreeGuide finished.");
 	}
 	
+	public static String getVersion() {
+		if(version_revision==0) {
+			return version_major + "." + version_minor;
+		} else {
+			return version_major + "." + version_minor + "." + version_revision;
+		}
+	}
+	
 	//------------------------------------------------------------------------
 
 	public static FreeGuideCmdArgs arguments;	// The command line args
 	public static FreeGuidePreferencesGroup prefs;	// Holds all preferences info
 	public static Logger log;					// The log file
 	
-	public static final String version = "0.3.1";
+	public static final int version_major = 0;
+	public static final int version_minor = 4;
+	public static final int version_revision = 0;
 	
 	// Defaults - can be overridden by user preferences
 	public static final Color PROGRAMME_NORMAL_COLOUR = Color.white;

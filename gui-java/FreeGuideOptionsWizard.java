@@ -11,8 +11,11 @@
  * See the file COPYING for more information.
  */
 
+import java.awt.Component;
+import java.io.File;
 import java.util.Vector;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -23,7 +26,7 @@ import javax.swing.JOptionPane;
  * when there's a problem on startup, or when the user chooses "Options".
  *
  * @author  Andy Balaam
- * @version 2
+ * @version 3
  */
 public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 	
@@ -38,6 +41,7 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 		boolean failStyleSheet, boolean failXMLTVCfg) {
 	
 		this.launcher = launcher;
+		prevTab = 0;
 		
 		initComponents();
 		
@@ -225,15 +229,6 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 
         panOS.setLayout(new java.awt.GridBagLayout());
 
-        panOS.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                panOSFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                panOSFocusLost(evt);
-            }
-        });
-
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("What operating system are you using?");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -254,15 +249,6 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
         tabs.addTab("OS", panOS);
 
         panCountry.setLayout(new java.awt.GridBagLayout());
-
-        panCountry.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                panCountryFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                panCountryFocusLost(evt);
-            }
-        });
 
         jLabel222.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel222.setText("What region are you in?");
@@ -285,15 +271,6 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 
         panBrowserName.setLayout(new java.awt.GridBagLayout());
 
-        panBrowserName.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                panBrowserNameFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                panBrowserNameFocusLost(evt);
-            }
-        });
-
         jLabel2221.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2221.setText("What browser do you use?");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -315,15 +292,6 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 
         panWorkingDir.setLayout(new java.awt.GridLayout(3, 0));
 
-        panWorkingDir.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                panWorkingDirFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                panWorkingDirFocusLost(evt);
-            }
-        });
-
         jLabel1112.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1112.setText("Choose a writeable directory as FreeGuide's working space:");
         panWorkingDir.add(jLabel1112);
@@ -342,6 +310,12 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 
         butBrowseWorkingDir.setFont(new java.awt.Font("Dialog", 0, 12));
         butBrowseWorkingDir.setText("Browse...");
+        butBrowseWorkingDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butBrowseWorkingDirActionPerformed(evt);
+            }
+        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -358,15 +332,6 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
         tabs.addTab("Working Directory", panWorkingDir);
 
         panXMLTVCmdDir.setLayout(new java.awt.GridLayout(2, 0));
-
-        panXMLTVCmdDir.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                panXMLTVCmdDirFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                panXMLTVCmdDirFocusLost(evt);
-            }
-        });
 
         jLabel111.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel111.setText("Choose the directory into which the XMLTV tools were installed:");
@@ -386,6 +351,12 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 
         butBrowseXMLTVCmdDir.setFont(new java.awt.Font("Dialog", 0, 12));
         butBrowseXMLTVCmdDir.setText("Browse...");
+        butBrowseXMLTVCmdDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butBrowseXMLTVCmdDirActionPerformed(evt);
+            }
+        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -397,15 +368,6 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
         tabs.addTab("XMLTV Directory", panXMLTVCmdDir);
 
         panGrabber.setLayout(new java.awt.GridLayout(3, 0));
-
-        panGrabber.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                panGrabberFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                panGrabberFocusLost(evt);
-            }
-        });
 
         jLabel112.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel112.setText("Choose the command to download listings:");
@@ -424,15 +386,6 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 
         panBrowser.setLayout(new java.awt.GridLayout(3, 0));
 
-        panBrowser.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                panBrowserFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                panBrowserFocusLost(evt);
-            }
-        });
-
         jLabel1121.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1121.setText("Choose the command to launch your web browser:");
         panBrowser.add(jLabel1121);
@@ -449,15 +402,6 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
         tabs.addTab("Browser Command", panBrowser);
 
         panDayStartTime.setLayout(new java.awt.GridLayout(3, 0));
-
-        panDayStartTime.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                panDayStartTimeFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                panDayStartTimeFocusLost(evt);
-            }
-        });
 
         jLabel11122.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11122.setText("Choose a time when days start and end:");
@@ -486,15 +430,6 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 
         panStyleSheet.setLayout(new java.awt.GridLayout(2, 0));
 
-        panStyleSheet.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                panStyleSheetFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                panStyleSheetFocusLost(evt);
-            }
-        });
-
         jLabel11112.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11112.setText("Choose a style sheet file for your TV listings:");
         panStyleSheet.add(jLabel11112);
@@ -513,6 +448,12 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 
         butBrowseXMLTVCfg1.setFont(new java.awt.Font("Dialog", 0, 12));
         butBrowseXMLTVCfg1.setText("Browse...");
+        butBrowseXMLTVCfg1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butBrowseXMLTVCfg1ActionPerformed(evt);
+            }
+        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -524,15 +465,6 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
         tabs.addTab("Style Sheet", panStyleSheet);
 
         panXMLTVCfg.setLayout(new java.awt.GridLayout(3, 0));
-
-        panXMLTVCfg.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                panXMLTVCfgFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                panXMLTVCfgFocusLost(evt);
-            }
-        });
 
         jLabel1111.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1111.setText("Choose the XMLTV grabber config file:");
@@ -552,6 +484,12 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 
         butBrowseXMLTVCfg.setFont(new java.awt.Font("Dialog", 0, 12));
         butBrowseXMLTVCfg.setText("Browse...");
+        butBrowseXMLTVCfg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butBrowseXMLTVCfgActionPerformed(evt);
+            }
+        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -595,7 +533,7 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
         getContentPane().add(tabs, gridBagConstraints);
 
         butCancel.setFont(new java.awt.Font("Dialog", 0, 12));
-        butCancel.setText("Cancel");
+        butCancel.setText("Exit");
         butCancel.setMaximumSize(new java.awt.Dimension(85, 26));
         butCancel.setMinimumSize(new java.awt.Dimension(85, 26));
         butCancel.setPreferredSize(new java.awt.Dimension(85, 26));
@@ -654,25 +592,55 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
         setLocation((screenSize.width-500)/2,(screenSize.height-350)/2);
     }//GEN-END:initComponents
 
-	private void panStyleSheetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panStyleSheetFocusLost
-		txtTabFocusLost(evt, txtStyleSheet, "css_file");
-	}//GEN-LAST:event_panStyleSheetFocusLost
+	private void butBrowseXMLTVCfg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butBrowseXMLTVCfg1ActionPerformed
+		browse(txtStyleSheet, false);
+	}//GEN-LAST:event_butBrowseXMLTVCfg1ActionPerformed
 
-	private void panStyleSheetFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panStyleSheetFocusGained
-		txtTabFocusGained(evt, txtStyleSheet, "css_file");
-	}//GEN-LAST:event_panStyleSheetFocusGained
+	private void butBrowseXMLTVCfgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butBrowseXMLTVCfgActionPerformed
+		browse(txtXMLTVCfg, false);
+	}//GEN-LAST:event_butBrowseXMLTVCfgActionPerformed
 
-	private void panDayStartTimeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panDayStartTimeFocusLost
+	private void butBrowseXMLTVCmdDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butBrowseXMLTVCmdDirActionPerformed
+		browse(txtXMLTVCmdDir, true);
+	}//GEN-LAST:event_butBrowseXMLTVCmdDirActionPerformed
+
+	private void butBrowseWorkingDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butBrowseWorkingDirActionPerformed
+		browse(txtWorkingDir, true);
+	}//GEN-LAST:event_butBrowseWorkingDirActionPerformed
+
+	private boolean panStyleSheetDeparted() {
+		txtTabDeparted(txtStyleSheet, "css_file");
+		return true;
+	}
+
+	private void panStyleSheetArrived() {
+		txtTabArrived(txtStyleSheet, "css_file");
+	}
+
+	private boolean panDayStartTimeDeparted() {
 		FreeGuide.prefs.misc.putFreeGuideTime("day_start_time", new FreeGuideTime(txtDayStartTime.getText()));
-	}//GEN-LAST:event_panDayStartTimeFocusLost
+		return true;
+	}
 
-	private void panDayStartTimeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panDayStartTimeFocusGained
+	private void panDayStartTimeArrived() {
 		txtDayStartTime.setText(FreeGuide.prefs.misc.getFreeGuideTime("day_start_time", new FreeGuideTime(6,00)).getHHMMString());
-	}//GEN-LAST:event_panDayStartTimeFocusGained
+	}
 
-	private void panWorkingDirFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panWorkingDirFocusLost
+	private boolean panWorkingDirDeparted() {
+		
+		// Create this dir if it doesn't exist
+		File workDir = new File(FreeGuide.prefs.performSubstitutions(txtWorkingDir.getText()));
+		
+		if(!workDir.exists()) {
+			//try {
+			workDir.mkdirs();
+			//} catch(java.io.IOException e) {
+//				e.printStackTrace();
+//			}
+		}
+		
 		// Save it to the preferences
-		txtTabFocusLost(evt, txtWorkingDir, "working_directory");
+		txtTabDeparted(txtWorkingDir, "working_directory");
 		
 		// Check this is right
 		if(!FreeGuideStartupChecker.checkWorkingDir()) {
@@ -682,19 +650,19 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 			int ignore = JOptionPane.showConfirmDialog(this, msg, "Error", JOptionPane.YES_NO_OPTION );
 			
 			if(ignore == JOptionPane.NO_OPTION) {
-				tabs.setSelectedComponent(panWorkingDir);
+				return false;
 			}
-			
 		}
-	}//GEN-LAST:event_panWorkingDirFocusLost
+		return true;
+	}
 
-	private void panWorkingDirFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panWorkingDirFocusGained
-		txtTabFocusGained(evt, txtWorkingDir, "working_directory");
-	}//GEN-LAST:event_panWorkingDirFocusGained
+	private void panWorkingDirArrived() {
+		txtTabArrived(txtWorkingDir, "working_directory");
+	}
 
-	private void panXMLTVCfgFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panXMLTVCfgFocusLost
+	private boolean panXMLTVCfgDeparted() {
 		// Save it to the preferences
-		txtTabFocusLost(evt, txtXMLTVCfg, "grabber_config");
+		txtTabDeparted(txtXMLTVCfg, "grabber_config");
 		
 		// Check this is right
 		if(!FreeGuideStartupChecker.checkXMLTVCfg()) {
@@ -704,36 +672,38 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 			int ignore = JOptionPane.showConfirmDialog(this, msg, "Error", JOptionPane.YES_NO_OPTION );
 			
 			if(ignore == JOptionPane.NO_OPTION) {
-				tabs.setSelectedComponent(panXMLTVCfg);
+				return false;
 			}
 			
 		}
-		
-	}//GEN-LAST:event_panXMLTVCfgFocusLost
+		return true;
+	}
 
-	private void panXMLTVCfgFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panXMLTVCfgFocusGained
-		txtTabFocusGained(evt, txtXMLTVCfg, "grabber_config");
-	}//GEN-LAST:event_panXMLTVCfgFocusGained
+	private void panXMLTVCfgArrived() {
+		txtTabArrived(txtXMLTVCfg, "grabber_config");
+	}
 
-	private void panBrowserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panBrowserFocusLost
-		txaTabFocusLost(evt, txaBrowser, "browser");
-	}//GEN-LAST:event_panBrowserFocusLost
+	private boolean panBrowserDeparted() {
+		txaTabDeparted(txaBrowser, "browser_command");
+		return true;
+	}
 
-	private void panBrowserFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panBrowserFocusGained
-		txaTabFocusGained(evt, txaBrowser, "browser");
-	}//GEN-LAST:event_panBrowserFocusGained
+	private void panBrowserArrived() {
+		txaTabArrived(txaBrowser, "browser_command");
+	}
 
-	private void panGrabberFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panGrabberFocusLost
-		txaTabFocusLost(evt, txaGrabber, "tv_grab");
-	}//GEN-LAST:event_panGrabberFocusLost
+	private boolean panGrabberDeparted() {
+		txaTabDeparted(txaGrabber, "tv_grab");
+		return true;
+	}
 
-	private void panGrabberFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panGrabberFocusGained
-		txaTabFocusGained(evt, txaGrabber, "tv_grab");
-	}//GEN-LAST:event_panGrabberFocusGained
+	private void panGrabberArrived() {
+		txaTabArrived(txaGrabber, "tv_grab");
+	}
 
-	private void panXMLTVCmdDirFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panXMLTVCmdDirFocusLost
+	private boolean panXMLTVCmdDirDeparted() {
 		// Save it to the preferences
-		txtTabFocusLost(evt, txtXMLTVCmdDir, "xmltv_directory");
+		txtTabDeparted(txtXMLTVCmdDir, "xmltv_directory");
 		
 		// Check this is right
 		if(!FreeGuideStartupChecker.checkXMLTVCmdDir()) {
@@ -744,46 +714,50 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 			int ignore = JOptionPane.showConfirmDialog(this, msg, "Error", JOptionPane.YES_NO_OPTION );
 			
 			if(ignore == JOptionPane.NO_OPTION) {
-				tabs.setSelectedComponent(panXMLTVCmdDir);
+				return false;
 			}
 			
 		}
-		
-	}//GEN-LAST:event_panXMLTVCmdDirFocusLost
+		return true;
+	}
 
-	private void panXMLTVCmdDirFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panXMLTVCmdDirFocusGained
-		txtTabFocusGained(evt, txtXMLTVCmdDir, "xmltv_directory");
-	}//GEN-LAST:event_panXMLTVCmdDirFocusGained
+	private void panXMLTVCmdDirArrived() {
+		txtTabArrived(txtXMLTVCmdDir, "xmltv_directory");
+	}
 
-	private void panBrowserNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panBrowserNameFocusLost
-		comboTabFocusLost(evt, cmbBrowserName, "browser_name");
-	}//GEN-LAST:event_panBrowserNameFocusLost
+	private boolean panBrowserNameDeparted() {
+		comboTabDeparted(cmbBrowserName, "browser_name");
+		return true;
+	}
 
-	private void panBrowserNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panBrowserNameFocusGained
-		comboTabFocusGained(evt, cmbBrowserName, "browser_name");
-	}//GEN-LAST:event_panBrowserNameFocusGained
+	private void panBrowserNameArrived() {
+		comboTabArrived(cmbBrowserName, "browser_name");
+	}
 
-	private void panCountryFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panCountryFocusLost
-		comboTabFocusLost(evt, cmbCountry, "country");		
-	}//GEN-LAST:event_panCountryFocusLost
+	private boolean panCountryDeparted() {
+		comboTabDeparted(cmbCountry, "country");		
+		return true;
+	}
 
-	private void panCountryFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panCountryFocusGained
-		comboTabFocusGained(evt, cmbCountry, "country");
-	}//GEN-LAST:event_panCountryFocusGained
+	private void panCountryArrived() {
+		comboTabArrived(cmbCountry, "country");
+	}
 
-	private void panOSFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panOSFocusLost
-		comboTabFocusLost(evt, cmbOS, "os");		
-	}//GEN-LAST:event_panOSFocusLost
+	private boolean panOSDeparted() {
+		comboTabDeparted(cmbOS, "os");
+		return true;
+	}
 
-	private void panOSFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panOSFocusGained
-		comboTabFocusGained(evt, cmbOS, "os");
-	}//GEN-LAST:event_panOSFocusGained
-
-	private void txaTabFocusLost(java.awt.event.FocusEvent evt, JTextArea txa, String name) {
-		FreeGuide.prefs.commandline.putStrings(name, getArrayFromJTextArea(txa));
+	private void panOSArrived() {
+		comboTabArrived(cmbOS, "os");
 	}
 	
-	private void txaTabFocusGained(java.awt.event.FocusEvent evt, JTextArea txa, String name) {
+	private boolean txaTabDeparted(JTextArea txa, String name) {
+		FreeGuide.prefs.commandline.putStrings(name, getArrayFromJTextArea(txa));
+		return true;
+	}
+	
+	private void txaTabArrived(JTextArea txa, String name) {
 				
 		// Get the current setting
 		String pref = FreeGuide.prefs.misc.get(name);
@@ -797,11 +771,12 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 		
 	}
 	
-	private void txtTabFocusLost(java.awt.event.FocusEvent evt, JTextField txt, String name) {
+	private boolean txtTabDeparted(JTextField txt, String name) {
 		FreeGuide.prefs.misc.put(name, txt.getText());
+		return true;
 	}
 	
-	private void txtTabFocusGained(java.awt.event.FocusEvent evt, JTextField txt, String name) {
+	private void txtTabArrived(JTextField txt, String name) {
 				
 		// Get the current setting
 		String pref = FreeGuide.prefs.misc.get(name);
@@ -815,11 +790,12 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 		
 	}
 	
-	private void comboTabFocusLost(java.awt.event.FocusEvent evt, JComboBox cmb, String name) {
+	private boolean comboTabDeparted(JComboBox cmb, String name) {
 		FreeGuide.prefs.misc.put(name, (String)cmb.getSelectedItem());
+		return true;
 	}
 	
-	private void comboTabFocusGained(java.awt.event.FocusEvent evt, JComboBox cmb, String name) {
+	private void comboTabArrived(JComboBox cmb, String name) {
 		
 		// Provide the options in the combobox
 		FreeGuideUtils.fillComboBox(cmb, name);
@@ -891,7 +867,7 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 
 	private void butFinishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butFinishActionPerformed
 		
-		//FreeGuideUtils.setDefaultOptions( (String)cmbOS.getSelectedItem(), (String)cmbCountry.getSelectedItem(), (String)cmbBrowser.getSelectedItem());
+		new FreeGuideViewer(launcher).setVisible(true);
 		quit();
 		
 	}//GEN-LAST:event_butFinishActionPerformed
@@ -907,12 +883,50 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 	}//GEN-LAST:event_butBackActionPerformed
 
 	private void tabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabsStateChanged
+		
+		// AllowChange says whether we should let this tab change go ahead -
+		// this is true if the contents of the tab we're leaving are ok, or
+		// the user has chosen to ignore this.
+		boolean allowChange = true;
+		
+		// Check whether the contents of the tab we're leaving are ok.
+		if(prevTab!=-1) {
+			Component fromTab = tabs.getComponentAt(prevTab);
+				 if(fromTab==panOS)				{allowChange = panOSDeparted();}
+			else if(fromTab==panCountry)		{allowChange = panCountryDeparted();}
+			else if(fromTab==panBrowserName)	{allowChange = panBrowserNameDeparted();}
+			else if(fromTab==panXMLTVCmdDir)	{allowChange = panXMLTVCmdDirDeparted();}
+			else if(fromTab==panWorkingDir)		{allowChange = panWorkingDirDeparted();}
+			else if(fromTab==panGrabber)		{allowChange = panGrabberDeparted();}
+			else if(fromTab==panBrowser)		{allowChange = panBrowserDeparted();}
+			else if(fromTab==panDayStartTime)	{allowChange = panDayStartTimeDeparted();}
+			else if(fromTab==panStyleSheet)		{allowChange = panStyleSheetDeparted();}
+			else if(fromTab==panXMLTVCfg)		{allowChange = panXMLTVCfgDeparted();}
+		}
+		
+		// If all is ok, set up the new tab
+		if(allowChange) {
+			Component toTab = tabs.getSelectedComponent();
+				 if(toTab==panOS)			{panOSArrived();}
+			else if(toTab==panCountry)		{panCountryArrived();}
+			else if(toTab==panBrowserName)	{panBrowserNameArrived();}
+			else if(toTab==panXMLTVCmdDir)	{panXMLTVCmdDirArrived();}
+			else if(toTab==panWorkingDir)	{panWorkingDirArrived();}
+			else if(toTab==panGrabber)		{panGrabberArrived();}
+			else if(toTab==panBrowser)		{panBrowserArrived();}
+			else if(toTab==panDayStartTime)	{panDayStartTimeArrived();}
+			else if(toTab==panStyleSheet)	{panStyleSheetArrived();}
+			else if(toTab==panXMLTVCfg)		{panXMLTVCfgArrived();}
+			prevTab = tabs.getSelectedIndex();
+		} else {
+			// Otherwise, go back to the last tab
+			int oldPrevTab = prevTab;
+			prevTab=-1;
+			tabs.setSelectedIndex(oldPrevTab);
+		}
+		
 		refreshButtons();
-		
-		Component tab = tabs.getSelectedComponent();
-		
-		if(tab==panOS) {
-		
+			
 	}//GEN-LAST:event_tabsStateChanged
 
 	private void butNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butNextActionPerformed
@@ -948,6 +962,29 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 	private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
 		quit();	
 	}//GEN-LAST:event_exitForm
+	
+	private void browse(JTextField txtFilename, boolean directory) {
+		
+		JFileChooser chooser = new JFileChooser();
+    
+		chooser.setCurrentDirectory( new File(txtFilename.getText()) );
+		
+		int returnVal;
+		
+		if(directory) {
+			chooser.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
+			returnVal = chooser.showDialog(this, "Choose Directory");
+		} else {
+			returnVal = chooser.showDialog(this, "Choose File");
+		}
+		
+		if(returnVal == JFileChooser.APPROVE_OPTION) {
+			
+			txtFilename.setText(chooser.getSelectedFile().getAbsolutePath());
+			
+		}
+
+	}
 	
 	private void quit() {
 		setVisible(false);
@@ -1031,6 +1068,7 @@ public class FreeGuideOptionsWizard extends javax.swing.JFrame {
 	public static final int SCREEN_PROBLEM = 1;
 	public static final int SCREEN_OPTIONS = 2;
 	
-	FreeGuideLauncher launcher;
+	private FreeGuideLauncher launcher;
+	private int prevTab;
 	
 }

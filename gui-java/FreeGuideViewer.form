@@ -128,7 +128,7 @@
     </Menu>
   </NonVisualComponents>
   <Properties>
-    <Property name="title" postCode="setTitle(&quot;FreeGuide J2 &quot; + FreeGuide.version);"/>
+    <Property name="title" postCode="setTitle(&quot;FreeGuide J2 &quot; + FreeGuide.getVersion());"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar2"/>
