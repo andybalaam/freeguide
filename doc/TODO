@@ -98,7 +98,10 @@ D  means work in progress by Dave Torok
 	when they've changed.
 - Add the XMLTV source distribution to the source package (good GPL practice)
 - Replace check for existence of tv_grab_* with a check of running
-	tv_grab_* --help 
+	tv_grab_* --help
+- Add notes about how to upgrade XMLTV without upgrading FreeGuide
+- Fix bug where "Reset Choices" on one day messes up choices for another day.
+- Add a target to the build file that remakes the text docs from the html ones.
 ^ Channel Set -- create custom sets of channels
 ^ Choose between 24-hour and 12-hour time formats (14:30 vs. 2:30 PM)
 ^ Colorize Movies
@@ -109,11 +112,12 @@ D  means work in progress by Dave Torok
 
 - Release 0.5.1 (Stable bug-fix release)
 
-- Add to docs that some people (e.g. RedHat users) will need to change their
+- Include new xmltv.exe 0.5.6 - test on windows first for "share" problem
++ Add to docs that some people (e.g. RedHat users) will need to change their
 	XMLTV dir to /usr/bin/ instead of /usr/local/bin/
 + Bug in German installer
 
-- Release 0.5 (Features - especially use of many grabbers, and bug fixes)
++ Release 0.5 (Features - especially use of many grabbers, and bug fixes)
 
 + Appears nz isn't working - "experimental"?
 + Explain in docs that nz needs your config file in ~/.xmltv/tv_grab_nz
