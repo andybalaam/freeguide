@@ -164,7 +164,6 @@ w  means done by William Ballard
 - Make a default channel icon for channels missing an icon
 
 + Release 0.8.2 (new xmltv + minor stuff)
-+ rename program folder to Freeguide
 
 + Replace all tabs with 4 spaces
 + add tv_sort after _es and _es_digital grabbers

@@ -168,7 +168,6 @@
         <!-- UK -->
         <copy file="${src}/install/windows/install-win-uk_bleb.props" tofile="${build}/windows/install-14.props" overwrite="true" />
 		<copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${build}/windows/install-15.props" overwrite="true" />
-		<copy file="${src}/install/windows/install-win-uk_rt-slow.props" tofile="${build}/windows/install-16.props" overwrite="true" />
 
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Win.jar"
@@ -244,7 +243,6 @@
         <!-- UK -->
         <copy file="${src}/install/linux/install-lin-uk_bleb.props" tofile="${build}/linux/install-14.props" overwrite="true" />
 		<copy file="${src}/install/linux/install-lin-uk_rt.props" tofile="${build}/linux/install-15.props" overwrite="true" />
-		<copy file="${src}/install/linux/install-lin-uk_rt-slow.props" tofile="${build}/linux/install-16.props" overwrite="true" />
 
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Linux-NoXMLTV.jar"
