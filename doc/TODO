@@ -18,21 +18,18 @@ r  means done by Rob Stewart
 
 --------------------------------------------
 
-- Wish list (I have no plans to implement, but others are welcome)
+- Wish list (I have no plans to implement, but contributions are welcome)
 
 - Think about ports to Gnome, wxPython, ...
 - Convert to SWT (or SwingWT?) and compile natively with GCJ?
-- Search for programmes, different views on data.
-- Custom component for displaying programmes.
 - Process programmes in another thread so we can see a progress display.
-- Download happens without leaving ViewerFrame
 - Apply different fonts to every screen?
 - Review usefulness of stuff like ConfigGuesser
 - Change all forms to use GridBagEasy and newXXX methods.
 - Sort out Utils.exec methods so they make sense
-- Refactor FreeGuideViewer into a sort of MVC setup
 + Separate classes into packages
 - Reduce the size of the XMLTV exe by removing unnecessary Tk files
+- Package XMLTV using PAR
 + Fix problem that if you reinstall to a new dir the old install can't be
 	uninstalled (well, you have to delete the directory instead...)
 - Single channel view
@@ -45,8 +42,6 @@ r  means done by Rob Stewart
 - Internationalisation
 - Use Java's printing capabilities to print
 - Other platforms - investigate Mac, BSD, others
-- A C++ installer that just checks for the right java version before
-  running the Java installer.
 - Automate upgrading XMLTV without upgrading FreeGuide?
 - Separate reminders from chosenness?  If so, need a new set of preferences
 	which need to be scanned on startup (in fact that is a better way to do
@@ -58,6 +53,7 @@ r  means done by Rob Stewart
 
 - Manual
 - Use serialization to reduce startup time
+- Search for programmes
 
 - Release 0.8.5 (nice features)
 
@@ -75,7 +71,6 @@ r  means done by Rob Stewart
 - Allow sorting of favourites list on name, hit-time and filter by category
 - Save today's choices to xmltv format.
 - Add a "save to html" option
-- Make installer install shortcuts for Windows, Gnome and KDE
 - Look for the default browser in the Windows registry under:
 	KEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command
 	(actually that looks like the HTML editor, but anyway)
@@ -92,20 +87,13 @@ r  means done by Rob Stewart
 - Resolve duplicate programmes in the guide, so it shows both times it's on
 - Movie and/or category matching in favourites
 - Subtitle matches in favourites
-- Make installer launch FreeGuide (if XMLTV is configured)
 - Terms and conditions of listings
 - A default favourite, so when you add a new favourite it comes with preset
   settings.
 - A grid or "now" line that helps see what time programmes are on
-- Delete some preferences when doing a complete install?
-- Fix bug in Italian grabber GUI config
-- Fix bugs in Windows grabber config for Netherlands, Sweden and Germany
-- Error dialog when there's an XML parsing error.
+- Error dialog when there's an XML parsing error
 - Investigate little squares appearing instead of chars during grabber config
   on Windows (na_dd - timezone screen).
-- Man page in RPM
-- Look at Shaun's .desktop file and startup script (email titled Re: Change
-  from an installer to a first time wizard)
 - Allow selection only of programmes on channels that are currently displayed
 
 - Release 0.8.3 (aesthetics)
@@ -115,21 +103,18 @@ r  means done by Rob Stewart
 - Highlight a given channel
 - Make the About box a _lot_ nicer.
 - Show whether a tab has been altered on the Options Dialog
-- Channel icons
 - Icon to show you can jump to the web site
 - Allow to adjust display time of tooltips
 - Allow to un-choose programmes from Personalised Listing pane
 - Checkbox to stay at now time
 - Change font for "No programme selected" in programme details pane
-- Scroll to the top of the ProgrammeJLabel whenever its contents change
 - Add icons to UK and US listings
-- Fix that BackingStoreException.
+- Fix that BackingStoreException
 
 - Release 0.8.2 (accessibility, accessibility, accessibility)
 
 - Improve accessibility, specifically keyboard shortcuts
 - Shortcut keys for everything
-- Handle other XMLTV tags
 - Scroll to the most recently selected programme (and highlight it?)
 - ProgrammeJLabel shows which programme is selected
 - Keyboard navigation of programme scrollpane
@@ -139,13 +124,13 @@ r  means done by Rob Stewart
 - View menu - show tooltips
 - Check whether setting the timezone is really necessary.
 - Check for correct Java version with GUI response.
-- Fix problem with old guide location staying around
-- Tell people they might want to delete their freeguide-tv directory after
++ Tell people they might want to delete their freeguide-tv directory after
   installation
-- inform http://www.radioandtelly.co.uk/guides.html
++ inform http://www.radioandtelly.co.uk/guides.html
 - Make icons optional in Windows installer
 - rename program folder to freeguide
 - Update screenshots on sf and freshmeat to show channel and program icons
+- Change Windows shortcuts from FreeGuide.jar to javaw -jar FreeGuide.jar
 
 + Release 0.8.1 (bug fix)
 
@@ -181,6 +166,7 @@ y Display programme icons
 + Fix bug with saying no listings available after midnight
 + Ability to turn off tooltips
 + Programme info panel
++ Handle other XMLTV tags
 + Advertise for beta testers
 y Icons in channel label
 y Added "starts in x mins"/"started x mins ago" to tooltip

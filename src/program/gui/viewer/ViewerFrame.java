@@ -1076,17 +1076,18 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 						// then verify if the file is in the cache
 						if (!cache.canRead()) {
 							// if not, we try to fetch it from the url
-							URL iconURL = new URL(iconURLstr);
-							InputStream i = iconURL.openStream();
-							FileOutputStream o = new FileOutputStream(cache);
-							byte buffer[] = new byte[4096];
-							int bCount;
-							while ((bCount = i.read(buffer)) != -1)
-								o.write(buffer, 0, bCount);
-							o.close();
-							i.close();
-						}
-						iconFile = cache;
+                            URL iconURL = new URL(iconURLstr);
+                            InputStream i = iconURL.openStream();
+                            FileOutputStream o = new  FileOutputStream(cache);
+                            byte buffer[] = new byte[4096];
+                            int bCount;
+                            while ((bCount = i.read(buffer)) != -1) {
+                                o.write(buffer, 0, bCount);
+                            }
+                            o.close();
+                            i.close();
+                        }
+                        iconFile = cache;
 					}
 					/* We then try to read the file which should be in the cache
 					 * If it's not, it doesn't matter, either the URL is not valid or the file couldn't be read
@@ -1096,7 +1097,7 @@ public class ViewerFrame extends javax.swing.JFrame implements Progressor {
 					ctxt.setIcon(iconFile.getCanonicalPath());
 				
 				} catch (MalformedURLException e) {
-					e.printStackTrace();
+					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
