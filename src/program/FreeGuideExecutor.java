@@ -36,10 +36,37 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 	 * @param a description of the command, e.g. "Downloading"
 	 */
     public FreeGuideExecutor(FreeGuideLauncher launcher, String[] cmds,
+			String commandType, Calendar date) {
+		this.date=date;
+		this.launcher = launcher;
+		this.cmds = cmds;
+		java.text.SimpleDateFormat showdate = new java.text.SimpleDateFormat("yyyyMMdd");
+		System.out.print("executor w/ date "+showdate.format(date.getTime())+"\n");
+        initComponents();
+
+		// Centre the screen
+		java.awt.Dimension screenSize =
+			java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		
+		setLocation( (screenSize.width-getWidth())/2,
+			(screenSize.height-getHeight())/2 );
+
+		// Set the please wait message
+		labPleaseWait.setText(commandType + ", please wait...");
+		setTitle(commandType);
+
+		viewer = new StringViewer("Command Output (stdout):" + lb,
+			"Command Output (stderr):" + lb);
+
+		start();
+    }
+	public FreeGuideExecutor(FreeGuideLauncher launcher, String[] cmds,
 			String commandType) {
 
 		this.launcher = launcher;
 		this.cmds = cmds;
+		
+		System.out.print("executor w/o date\n");
 
         initComponents();
 
@@ -257,7 +284,9 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 			// No command to execute: say it was successful
 			return true;
 		}
-		
+		Calendar thisDate=GregorianCalendar.getInstance();
+		thisDate.setTime(date.getTime());
+		System.out.print("exec: "+cmdstr+"\n");
 		// Check for any elements that mean this command must be called multiple
 		// times, once for each day.
 		if( (cmdstr.indexOf("%date%")!=-1)
@@ -265,7 +294,7 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 				
 			boolean didOK = true;
 			
-			Calendar date = GregorianCalendar.getInstance();
+			//Calendar date = GregorianCalendar.getInstance();
 			
 			for(int i=0;i<FreeGuide.prefs.misc.getInt("days_to_grab", 7);i++) {
 				
@@ -274,13 +303,13 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 				
 				// Recursive call to this function
 				if(	!exec(FreeGuide.prefs.performSubstitutions(
-						cmdstr, date, i) ) ) {
+						cmdstr, thisDate) ) ) {
 						
 						didOK=false;
 					}
 						
 				
-				date.add(Calendar.DATE, 1);
+				thisDate.add(Calendar.DATE, 1);
 				
 			}
 			
@@ -288,7 +317,10 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 			
 		}
 		
-		cmdstr = FreeGuide.prefs.performSubstitutions(cmdstr);
+		// this is only necessary if the above condition doesn't match.
+		// It won't hurt to call it an extra time at this point if the
+		// above condition does match.  The date is needed though.
+		cmdstr = FreeGuide.prefs.performSubstitutions(cmdstr, thisDate);
 		
 		// Log what we're about to do
 		FreeGuide.log.info(
@@ -359,6 +391,8 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 	private String[] cmds;
 
 	private StringViewer viewer;
+	
+	private Calendar date;
 	
 	
 	//------------------------------------------------------------------------

@@ -76,13 +76,48 @@ public class FreeGuidePreferencesGroup {
 			e.printStackTrace();
 		}
 	}
-	
+	public int getOffsetForDate(Calendar date) {
+
+		//  get today so we can calculate grabber offset
+		Calendar realToday = GregorianCalendar.getInstance();
+		int realDOY = realToday.get(Calendar.DAY_OF_YEAR);
+		int realY = realToday.get(Calendar.YEAR);
+
+		//  Get freeguide visible day (this is the one we will grab)
+		int visibleDOY = date.get(Calendar.DAY_OF_YEAR);
+		int visibleY = date.get(Calendar.YEAR);
+
+		// if today, and freeguideDay are in different years compensate
+		if (Math.abs(visibleY-realY)>1) {
+			FreeGuide.log.severe("getOffsetForDate():\n" +
+				"       Trying to fetch a date greater than\n" +
+				"       1 year from the present day is not supported.");
+			return(0);
+		}
+		if ( visibleY>realY) {
+			// add a real year number of days to the visible day of year
+			// to compensate for the change in year
+			visibleDOY+=realToday.getActualMaximum(Calendar.DAY_OF_YEAR);
+		} else if ( visibleY<realY) {
+			// add a visible year number of days to the real day of year
+			// to compensate for the change in year
+			realDOY+=date.getActualMaximum(Calendar.DAY_OF_YEAR);
+		}
+
+		// visible day after real day is future offset (positive)
+		// visible day before real day is past offset (negative)
+		int offset = visibleDOY - realDOY;
+
+		// FIXME -- WCD -- Configurable Option for grabber_today_offset
+		//return(offset+misc.getInt("grabber_today_offset",1)); // _uk
+		return(offset+misc.getInt("grabber_today_offset",0)); // _na
+	}
 	/**
 	 * Substitute any preference values within the string in and return the
 	 * result.  Assumes any dates should be today, and any "offset" is 1.
 	 */
 	public String performSubstitutions(String in) {
-		return performSubstitutions(in, GregorianCalendar.getInstance(), 1);
+		return performSubstitutions(in, GregorianCalendar.getInstance());
 	}
 	
 	/**
@@ -90,14 +125,14 @@ public class FreeGuidePreferencesGroup {
 	 * result.  Replaces "date" with the date given (formatted as
 	 * FreeGuideViewer.fileDateFormat) and "offset" with the number given.
 	 */
-	public String performSubstitutions(String in, Calendar date, int offset) {
+	public String performSubstitutions(String in, Calendar date) {
 		
 		if(in==null) {
 			return null;
 		}
 		
 		String ans = new String(in);
-		
+		int offset = getOffsetForDate(date);
 		int i = ans.indexOf('%');
 		while(i!=-1) {
 			

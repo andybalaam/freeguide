@@ -66,6 +66,12 @@ public class FreeGuideUtils {
 	 * Execute an external command and wait for it to finish, providing visual
 	 * feedback to the user.
 	 */
+	public static void execAndWait(String[] cmds, String commandType, FreeGuideLauncher launcher, Calendar date) {
+		// Show the command execution window
+		launcher.setVisible(false);
+		FreeGuideExecutor executor = new FreeGuideExecutor(launcher, cmds, commandType, date);
+		executor.setVisible(true);
+	}
 	public static void execAndWait(String[] cmds, String commandType, FreeGuideLauncher launcher) {
 		// Show the command execution window
 		launcher.setVisible(false);

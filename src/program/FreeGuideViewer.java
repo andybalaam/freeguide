@@ -16,11 +16,13 @@ import java.lang.Math;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.lang.Integer;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.GregorianCalendar;
+import java.util.Date;
 import java.util.Vector;
 //import java.util.regex.Pattern;
 //import java.text.FieldPosition;
@@ -30,6 +32,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+import javax.swing.JComboBox;
 import javax.swing.text.JTextComponent;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -62,6 +65,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		initMyComponents();
 
 		// Draw the programmes on the screen
+		// FIXME Apparently on linux(java 1.4.0-b92), the goto now is broken w/o this
+		//   If it is used, we wind up prompting twice for missing data if that case is true.
 		//updatePanel();
 
 		goToNow(true);
@@ -693,7 +698,15 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	}//GEN-LAST:event_menDownloadActionPerformed
 
 	private void downloadListings() {
-		FreeGuideUtils.execAndWait(FreeGuide.prefs.getCommands("tv_grab"), "Downloading", this);
+	
+		// here we flag to load starting today, or starting on the visible day
+		// theDate is the visible date.  A new calendar instance may need adjusting for day start.
+		// FIXME -- WCD
+		FreeGuideUtils.execAndWait(FreeGuide.prefs.getCommands("tv_grab"), "Downloading", this, theDate);
+			
+		// We assume the list of files has changed
+		makeDatesList();
+
 	}
 	
 	/* WCD Walter's substitution code - better done in performSubstitutions
@@ -748,6 +761,10 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			//System.out.println("After["+i+"]: "+cmd[i]);
 		}
 		FreeGuideUtils.execAndWait(cmd, "Downloading", this);
+		
+		// Update the combo box since we potentially have new files
+		makeDatesList();
+		
 		// FIXME -- we should return, and process the command status here.
 		return(1);
 	}*/
@@ -819,6 +836,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 	}
 	
+	// Original
 	private void makeDatesList() {
 		Calendar tmpDate = GregorianCalendar.getInstance();
 		tmpDate.setTimeInMillis( theDate.getTimeInMillis() );
@@ -829,6 +847,77 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			tmpDate.add( Calendar.DAY_OF_YEAR, 1 );
 			
 		}
+		comTheDate.setSelectedItem(comboBoxDateFormat.format(theDate.getTime()));
+	}
+	// causes strange(tm) refresh
+	private void makeDatesList1() {
+		comTheDate.removeAllItems();
+		ddl.updateDates();
+		for (int i=0;i<ddl.size();i++) {
+			comTheDate.addItem(comboBoxDateFormat.format((Date)ddl.get(i)));
+		}		
+		comTheDate.setSelectedItem(comboBoxDateFormat.format(theDate.getTime()));
+	}
+	// utility function for makeDatesList
+	private static Date parseComboItem(JComboBox cbox, int i) {
+		Date d1;
+		String s1;
+		s1=(String)cbox.getItemAt(i);
+		if ( s1 != null ) {
+			try {
+				d1=((SimpleDateFormat)comboBoxDateFormat).parse(s1);
+			} catch (java.text.ParseException e) {
+				d1=new Date();
+			}
+		} else {
+			d1=new Date();
+		}
+		return(d1);
+	}
+	// Might actually work if we can get it to wait for the grabber to complete
+	// FIXME -- WCD
+	private void makeDatesList2() {
+		boolean debug=false;
+		//debug=true;
+		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
+		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
+		while (comTheDate.getItemCount() > 1) {
+			if (comTheDate.getItemAt(0) == comTheDate.getSelectedItem() ) {
+				if (debug) System.out.print("remove1\n");
+				comTheDate.removeItemAt(1);
+			} else {
+				if (debug) System.out.print("remove0\n");
+				comTheDate.removeItemAt(0);
+			}
+		}
+		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
+		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
+		// now we should have only one item in the list.  Check to see if theDate is it.
+		// If not, fix the situation.
+		if ( ! parseComboItem(comTheDate, 0).equals(theDate.getTime())) {
+				comTheDate.addItem(comTheDate.getSelectedItem());
+				comTheDate.removeItemAt(0);
+		}
+		comTheDate.setSelectedItem(comTheDate.getSelectedItem());
+		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
+		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
+		ddl.updateDates();
+		Date d1;
+		Date d2;
+		String s1;
+		for (int i=0;i<ddl.size();i++) {
+			if (debug) System.out.print("insert1\n");
+			d1=parseComboItem(comTheDate, comTheDate.getSelectedIndex());
+			d2=(Date)ddl.get(i);
+			if (( ! d1.equals(d2) ) || (comTheDate.getSelectedIndex()<0)) { // check for existance of selected item in container
+				if (debug) System.out.print("insert2\n");
+				comTheDate.insertItemAt(comboBoxDateFormat.format(d2),i);
+			}
+		}
+		comTheDate.setSelectedItem(comboBoxDateFormat.format(theDate.getTime()));
+		if (debug) System.out.print("SelectedIndex: "+Integer.toString(comTheDate.getSelectedIndex())+"\n");
+		if (debug) System.out.print("ItemCount: "+Integer.toString(comTheDate.getItemCount())+"\n");
+				
 	}
 	
 	/**
@@ -864,6 +953,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		Calendar now = GregorianCalendar.getInstance();
 		theDate.setTime(now.getTime());
 		updateDaySpan();
+		
+		// TODO -- WCD -- handle case where grabber day start is not 00:00
 		if (theDate.before(earliest)) theDate.add(Calendar.DAY_OF_YEAR,-1);
 		comTheDate.setSelectedItem(comboBoxDateFormat.format(theDate.getTime()));
 		//comTheDate.setSelectedIndex(0);
@@ -1074,7 +1165,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			e.printStackTrace();
 			// FIXME - error dialog!
 		}//try
-
+		
 	}//loadProgrammeData
 
     private void updateDaySpan() {
@@ -1586,6 +1677,10 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	public FreeGuideLauncher getLauncher() {
 		return launcher;
 	}
+
+	public Calendar getTheDate() {
+		return theDate;
+	}
 	
 //parseError
 
@@ -1668,6 +1763,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	
 	private FreeGuideProgramme rightClickedProg;
 		// The programme the user last right clicked on
-	
+		
+	private DataDateList ddl = new DataDateList("/home/wduncan/freeguide-tv/data","^tv-.*\\.xmltv$");
+
 }
 
