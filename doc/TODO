@@ -132,10 +132,18 @@ m  means done by Mike Dean
 - Keyboard navigation of programme scrollpane
 - Full test of keyboard navigation
 - Write tv_grab_uk_bleb2?
-+ Add config file location to Options
 - Fix mentions of "C" drive in Windows versions
-+ Change "configure grabber" labels to "choose channels" everywhere
 - Add "contact" page to the docs (and/or as a footer to each page)
+
+- Release 0.7.1
+
+- Respond to the needs of tv_grab_na_dd including
+	- update docs about overwriting listings
+	- tell user they need to get an account before they continue
+	- tell user to make a password file
+- Use XMLTV 0.5.31 grabbers (modified)
++ Add config file location to Options
++ Change "configure grabber" labels to "choose channels" everywhere
 
 + Release 0.7 (xmltv-tk)
 

@@ -16,33 +16,24 @@ prefs.13=commandline.browser_command.3.1=\"C:\\Program Files\\K-Meleon\\k-meleon
 prefs.14=misc.browser.4=Opera
 prefs.15=commandline.browser_command.4.1=\"C:\\Program Files\\Opera7\\opera.exe" \"%filename%\"
 
-
-
-
-
 file.1=FreeGuide.jar>%misc.install_directory%/FreeGuide.jar
 
-file.2=channels.png>%misc.install_directory%/channels.png
-file.3=contributors.html>%misc.install_directory%/contributors.html
-file.4=COPYING>%misc.install_directory%/COPYING
-file.5=customise.png>%misc.install_directory%/customise.png
-file.6=design.html>%misc.install_directory%/design.html
-file.7=developers.html>%misc.install_directory%/developers.html
-file.8=FAQ.html>%misc.install_directory%/FAQ.html
-file.9=favourites.png>%misc.install_directory%/favourites.png
-file.10=index.html>%misc.install_directory%/index.html
-file.11=INSTALL-linux-noxmltv.html>%misc.install_directory%/INSTALL-linux-noxmltv.html
-file.12=LookAndFeel.html>%misc.install_directory%/LookAndFeel.html
-file.13=options.png>%misc.install_directory%/options.png
-file.14=README.html>%misc.install_directory%/README.html
-file.15=stylesheet.css>%misc.install_directory%/stylesheet.css
-file.16=timezone.html>%misc.install_directory%/timezone.html
-file.17=TODO>%misc.install_directory%/TODO
-file.18=userguide.html>%misc.install_directory%/userguide.html
-file.19=viewer.png>%misc.install_directory%/viewer.png
+file.2=contributors.html>%misc.install_directory%/contributors.html
+file.3=COPYING>%misc.install_directory%/COPYING
+file.4=design.html>%misc.install_directory%/design.html
+file.5=developers.html>%misc.install_directory%/developers.html
+file.6=FAQ.html>%misc.install_directory%/FAQ.html
+file.7=index.html>%misc.install_directory%/index.html
+file.8=INSTALL-linux-noxmltv.html>%misc.install_directory%/INSTALL-linux-noxmltv.html
+file.9=INSTALL-windows.html>%misc.install_directory%/INSTALL-windows.html
+file.10=LookAndFeel.html>%misc.install_directory%/LookAndFeel.html
+file.11=README.html>%misc.install_directory%/README.html
+file.12=stylesheet.css>%misc.install_directory%/stylesheet.css
+file.13=timezone.html>%misc.install_directory%/timezone.html
+file.14=TODO>%misc.install_directory%/TODO
+file.15=userguide.html>%misc.install_directory%/userguide.html
 
-file.19=xmltv.dtd>%misc.working_directory%/xmltv.dtd
+file.16=xmltv.dtd>%misc.working_directory%/xmltv.dtd
 
-file.20=xmltv.exe>%misc.xmltv_directory%/xmltv.exe
-
+file.17=xmltv.exe>%misc.xmltv_directory%/xmltv.exe
 
