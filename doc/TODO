@@ -102,6 +102,7 @@ D  means work in progress by Dave Torok
 - Make installer install shortcuts for Windows, Gnome and KDE
 - Remember what country you are from in installer
 - Make options and customise screens nicer
+- Sort out themes in some way
 + Remove .xvpics from Source package
 + Add a note about WinRAR to the section about running FG
 + Fix problem with channel names being wrong after initial download
