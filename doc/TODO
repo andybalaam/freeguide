@@ -136,6 +136,8 @@ r  means done by Rob Stewart
 - Change Windows shortcuts from FreeGuide.jar to javaw -jar FreeGuide.jar
 - Add notes to FAQ about na_dd subscription expiring and na_dd not entering
   your password during configuration.
+- Fix the problem reported by Russell Odom on 24/09/04 to do with the channel
+  list not staying up to date when you reconfigure.
 
 + Release 0.8.1 (bug fix)
 
