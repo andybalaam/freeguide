@@ -107,6 +107,9 @@ Section "FreeGuide program"
   File /oname=doc\COPYING ..\..\..\doc\COPYING
   File /oname=doc\design.html ..\..\..\doc\design.html
   File /oname=doc\developers.html ..\..\..\doc\developers.html
+  File /oname=doc\developers-compiling.html ..\..\..\doc\developers-compiling.html
+  File /oname=doc\developers-cvs.html ..\..\..\doc\developers-cvs.html
+  File /oname=doc\developers-translatinghtml ..\..\..\doc\developers-translating.html
   File /oname=doc\FAQ.html ..\..\..\doc\FAQ.html
   File /oname=doc\FreeGuide-0_7-Linux-MetalLookAndFeel.png ..\..\..\doc\FreeGuide-0_7-Linux-MetalLookAndFeel.png
   File /oname=doc\index.html ..\..\..\doc\index.html

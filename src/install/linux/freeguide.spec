@@ -67,6 +67,9 @@ ant clean
 %{_datadir}/doc/freeguide/COPYING
 %{_datadir}/doc/freeguide/design.html
 %{_datadir}/doc/freeguide/developers.html
+%{_datadir}/doc/freeguide/developers-compiling.html
+%{_datadir}/doc/freeguide/developers-cvs.html
+%{_datadir}/doc/freeguide/developers-translating.html
 %{_datadir}/doc/freeguide/FAQ.html
 %{_datadir}/doc/freeguide/FreeGuide-0_7-Linux-MetalLookAndFeel.png
 %{_datadir}/doc/freeguide/index.html
