@@ -7,7 +7,7 @@ prefs.4=misc.grabber_config=%misc.xmltv_directory%\\tv_grab_na.conf
 prefs.5=misc.days_to_grab=7
 prefs.6=misc.day_start_time=06:00
 prefs.7=commandline.browser_command.1=\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" \"%filename%\"
-prefs.8=commandline.tv_grab.1=\"%misc.xmltv_directory%\\xmltv.exe\" tv_grab_na --config-file \"%misc.grabber_config%\" --days %misc.days_to_grab% --listings \"%misc.working_directory%\\tv-%%Y%%m%%d.xmltv\" --release-check false
+prefs.8=commandline.tv_grab.1=\"%misc.xmltv_directory%\\xmltv.exe\" tv_grab_na --config-file \"%misc.grabber_config%\" --offset %offset% --days 1 --output \"%misc.working_directory%\\tv-%date%.xmltv\" --release-check false
 prefs.9=misc.grabber_today_offset=0
 prefs.10=misc.grabber_start_time=00:00
 prefs.11=misc.grabber_start_today=true
