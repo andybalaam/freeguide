@@ -107,6 +107,7 @@ D  means work in progress by Dave Torok
 	(part of installer)
 - Custom channel ordering - default channel set
 - Write java version check in Java 1.0-compatible code, obviously!
+- Default to grab 4 days in uk as provider only provides 4 days' worth
 + Remove the big binaries from CVS and add to the developers' doc about how to
 	do a build from CVS checkout + a couple of other files.
 + Add new fi grabber
