@@ -1,4 +1,3 @@
-*.jar
-*.gz
-*.bz2
-*.zip
+dist
+build
+xmltv

@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+
+<project name="freeguide-tv" default="main" basedir=".">
+    <description>
+        Ant build file for freeguide-tv
+    </description>
+	
+	<!-- set global properties for this build -->
+	<property name="src" location="src"/>
+	<property name="doc"  location="doc"/>
+	<property name="xmltv"  location="xmltv"/>
+	
+	<property name="build" location="build"/>
+	<property name="dist"  location="dist"/>
+
+  	<target name="init">
+  
+    	<!-- Create the time stamp -->
+    	<tstamp/>
+    	<!-- Create the build directory structure used by compile -->
+    	<mkdir dir="${build}"/>
+		<mkdir dir="${build}/program"/>
+		<mkdir dir="${build}/install"/>
+	
+	</target>
+
+  	<target name="compile" depends="init" description="compile the source " >
+  
+  		<!-- compile the program -->
+		<javac srcdir="${src}/program" destdir="${build}/program"/>  
+  
+  		<!-- copy the program classes that are needed by the tester -->
+    	<copy todir="${build}/install">
+			<fileset dir="${build}/program">
+				<include name="FreeGuidePreferencesGroup.class"/>
+				<include name="FreeGuidePreferences.class"/>
+				<include name="FreeGuideTime.class"/>
+			</fileset>
+		</copy>
+	
+		<!-- compile the installer -->
+    	<javac srcdir="${src}/install" destdir="${build}/install"/>
+	
+		<!-- process the documentation -->
+		<exec executable="lynx" dir="${doc}" os="Linux" output="${doc}/README">
+			<arg value="-dump"/>
+			<arg value="README.html"/>
+		</exec>
+		<exec executable="lynx" dir="${doc}" os="Linux" output="${doc}/INSTALL">
+			<arg value="-dump"/>
+			<arg value="INSTALL-linux.html"/>
+		</exec>
+	
+	</target>
+
+  	<target name="FreeGuide" depends="compile" description="generate the program jar file" >
+  
+  		<mkdir dir="${dist}"/>
+				
+		<jar 	jarfile="${dist}/FreeGuide.jar"
+				basedir="${build}/program"
+				manifest="${src}/manifests/FreeGuide.mf"/>
+  
+  	</target>
+  
+  	<target name="install-init" depends="FreeGuide"
+  		description="set up ready for creation of installer jar on any platform" >
+		
+		<!-- Copy the program jar in, with the documentation -->
+		<copy todir="${build}/install">
+			<fileset dir="${dist}/">
+				<include name="FreeGuide.jar"/>
+			</fileset>
+			<fileset dir="${doc}/">
+				<exclude name="*.sh"/>
+			</fileset>
+		</copy>
+		
+		<!-- Copy the XMLTV DTD -->
+		<mkdir dir="${build}/install/data"/>
+		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install/data"/>
+		
+	</target>
+  
+  	<target name="windows-install-init" depends="install-init"
+  		description="set up ready for creation of windows installer jar" >
+		
+		<!-- Copy always-used XMLTV exes -->
+		<mkdir dir="${build}/install/xmltv"/>
+		<copy todir="${build}/install/xmltv">
+			<fileset dir="${xmltv}/">
+				<include name="tv_split.exe"/>
+				<include name="perl56.dll"/>
+			</fileset>
+		</copy>
+		
+	</target>
+  
+  	<target name="linux-install-init" depends="install-init"
+  		description="set up ready for creation of linux installer jar" >
+			
+		<!-- does nothing at the moment -->
+		
+	</target>
+  
+  	<target name="FreeGuide-Win-UK-Install" depends="windows-install-init" 
+  		description="generate the windows uk installer jar" >
+		
+		<!-- copy in the uk grabber -->
+		<copy file="${xmltv}/tv_grab_uk.exe" todir="${build}/install/xmltv"/>
+		
+		<!-- copy in the install.props file for the jar -->
+		<copy file="${src}/install/install-win-uk.props" tofile="${build}/install/install.props" overwrite="true" />
+		
+		<!-- Make the jar installer file -->
+		<jar 	jarfile="${dist}/FreeGuide-Win-UK-Install.jar"
+				basedir="${build}/install"
+				manifest="${src}/manifests/FreeGuideInstall.mf"/>
+  
+  	</target>
+  
+  	<target name="FreeGuide-Win-NA-Install" depends="windows-install-init" 
+  		description="generate the windows north american installer jar" >
+
+		<!-- copy in the na grabber -->
+		<copy file="${xmltv}/tv_grab_na.exe" todir="${build}/install/xmltv"/>
+		
+		<!-- copy in the install.props file for the jar -->
+		<copy file="${src}/install/install-win-na.props" tofile="${build}/install/install.props" overwrite="true" />
+		
+		<jar 	jarfile="${dist}/FreeGuide-Win-NA-Install.jar"
+				basedir="${build}/install"
+				manifest="${src}/manifests/FreeGuideInstall.mf"/>
+  
+  	</target>
+  
+  	<target name="FreeGuide-Linux-UK-Install" depends="linux-install-init" 
+  		description="generate the linux uk installer jar" >
+		
+		<!-- copy in the install.props file for the jar -->
+		<copy file="${src}/install/install-lin-uk.props" tofile="${build}/install/install.props" overwrite="true" />
+		
+		<!-- Make the jar installer file -->
+		<jar 	jarfile="${dist}/FreeGuide-Linux-UK-Install.jar"
+				basedir="${build}/install"
+				manifest="${src}/manifests/FreeGuideInstall.mf"/>
+  
+  	</target>
+	
+	<target name="FreeGuide-Linux-NA-Install" depends="linux-install-init" 
+  		description="generate the linux na installer jar" >
+		
+		<!-- copy in the install.props file for the jar -->
+		<copy file="${src}/install/install-lin-na.props" tofile="${build}/install/install.props" overwrite="true" />
+		
+		<!-- Make the jar installer file -->
+		<jar 	jarfile="${dist}/FreeGuide-Linux-NA-Install.jar"
+				basedir="${build}/install"
+				manifest="${src}/manifests/FreeGuideInstall.mf"/>
+  
+  	</target>
+	
+	<target name="FreeGuide-Source"
+  		description="generate the source zip" >
+		
+		<zip zipfile="${dist}/FreeGuide-Source.zip">
+			<zipfileset dir="${src}" prefix="src" />
+			<zipfileset dir="${doc}" prefix="doc" />
+			<fileset dir="." includes="build.xml" />
+		</zip>
+  
+  	</target>
+  
+  	<target name="main" depends="FreeGuide-Source,FreeGuide-Win-UK-Install,FreeGuide-Win-NA-Install,FreeGuide-Linux-UK-Install,FreeGuide-Linux-NA-Install"
+		description="generate all the installers" >
+  
+	</target>
+
+	<target name="clean"
+        description="clean up" >
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}"/>
+		<delete dir="${dist}"/>
+	</target>
+		
+</project>
+
