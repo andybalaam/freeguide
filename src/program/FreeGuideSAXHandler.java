@@ -165,12 +165,10 @@ public class FreeGuideSAXHandler extends DefaultHandler {
 					channelNamed.set(channelIDs.indexOf(tmpChannelID),new Boolean("true"));
 					//System.out.println("set: "+channelNames.get(channelIDs.indexOf(tmpChannelID)));
 				}
-				// What are the channelLoaded criteria?
+				
+				// FIXME - What are the channelLoaded criteria?
 				// For now if it's in the file, it's loaded.
-				// WCD
-				if (false) {
 				channelLoaded.set(i,Boolean.TRUE);
-				}
 			}
 			// if it's a new channel, we can add it here
 			if(i==-1) {

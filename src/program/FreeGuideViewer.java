@@ -59,7 +59,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		initMyComponents();
 
 		// Draw the programmes on the screen
-		updatePanel();
+		//updatePanel();
 
 		goToNow(true);
 
@@ -86,7 +86,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 			
 			if(!dontDownload) {
 				
-
 				String msg = "";
 				for(int i=0; i<channelLoaded.size(); i++) {
 					if(channelLoaded.get(i).equals(Boolean.FALSE)) {
@@ -106,7 +105,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 				if(r==0) {
 
 					downloadListings();
-
+					missingFiles=false;
+					
 					return;
 
 				} else {
@@ -902,129 +902,95 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		
 		programmes = new Vector();
 
-		String wkDir = FreeGuide.prefs.performSubstitutions(FreeGuide.prefs.misc.get("working_directory"));
-		String datestr = fileDateFormat.format(theDate.getTime());
+		String wkDir = FreeGuide.prefs.performSubstitutions(
+			FreeGuide.prefs.misc.get("working_directory") );
+		
 		Calendar tomorrow = (Calendar)theDate.clone();
 		tomorrow.add(Calendar.DAY_OF_YEAR,1);
-		String datestr2 = fileDateFormat.format(tomorrow.getTime());
+		
+		String date1str = fileDateFormat.format(theDate.getTime());
+		String date2str = fileDateFormat.format(tomorrow.getTime());
 
-		String xmlFilename;
-		String xmlFilename2;
-
-		//WCD
-		if (true) {
-		for(int curChan=0;curChan<channelNames.size();curChan++) {
-
-			xmlFilename = wkDir+fs+channelIDs.get(curChan)+"-"+datestr+".fgd";
-			xmlFilename2 = wkDir+fs+channelIDs.get(curChan)+"-"+datestr2+".fgd";
-
-			if((new File(xmlFilename).exists()) &&
-				(new File(xmlFilename2).exists())) {	// If the file exists
-
-				//FreeGuide.log.info("Opening programmes file "+xmlFilename);
-
-				// Load it into memory and process it
-				try {//ParserExceptions etc
-
-					DefaultHandler handler = new FreeGuideSAXHandler(programmes, channelIDs, channelNames, channelLoaded, earliest, latest);
-					SAXParserFactory factory = SAXParserFactory.newInstance();
-
-					SAXParser saxParser = factory.newSAXParser();
-
-					doingProgs=true;
-
-					// Will be a different name for each channel and whatever
-					// date we're on obviously
-					saxParser.parse(xmlFilename, handler);
-					saxParser.parse(xmlFilename2, handler);
-
-					doingProgs=false;
-
-					channelLoaded.set(curChan,Boolean.TRUE);
-
-				} catch(ParserConfigurationException e) {
-					e.printStackTrace();
-				} catch(SAXException e) {
-					e.printStackTrace();
-				} catch(java.io.IOException e) {
-					e.printStackTrace();
-				}//try
-
-			} else { // If no file exists
-
-				// Do nothing because no file exists
-
-				if (!new File(xmlFilename).exists()) {
-					FreeGuide.log.warning("Listings file not found: "+xmlFilename);
-				}
-				if (!new File(xmlFilename2).exists()) {
-					FreeGuide.log.warning("Listings file not found: "+xmlFilename2);
-				}
-
-				channelLoaded.set(curChan,Boolean.FALSE);
-				missingFiles = true;
-
-			}//if
-
-		}//for
-		}//if(false)
-		else
-		{
-			for(int curChan2=0;curChan2<channelNames.size();curChan2++) {
-				channelLoaded.set(curChan2,Boolean.FALSE);
-			}
-
-			xmlFilename = wkDir+fs+"xmltv-"+datestr+".xml";
-			xmlFilename2 = wkDir+fs+"xmltv-"+datestr2+".xml";
-
-			if((new File(xmlFilename).exists()) &&
-				(new File(xmlFilename2).exists())) {	// If the file exists
-
-				//FreeGuide.log.info("Opening programmes file "+xmlFilename);
-
-				// Load it into memory and process it
-				try {//ParserExceptions etc
-
-					DefaultHandler handler = new FreeGuideSAXHandler(programmes, channelIDs, channelNames, channelLoaded, earliest, latest);
-					SAXParserFactory factory = SAXParserFactory.newInstance();
-
-					SAXParser saxParser = factory.newSAXParser();
-
-					doingProgs=true;
-
-					// Will be a different name for each channel and whatever
-					// date we're on obviously
-					saxParser.parse(xmlFilename, handler);
-					saxParser.parse(xmlFilename2, handler);
-
-					doingProgs=false;
-
-				} catch(ParserConfigurationException e) {
-					e.printStackTrace();
-				} catch(SAXException e) {
-					e.printStackTrace();
-				} catch(java.io.IOException e) {
-					e.printStackTrace();
-				}//try
-
-			} else { // If no file exists
-
-				// Do nothing because no file exists
-
-				if (!new File(xmlFilename).exists()) {
-					FreeGuide.log.warning("Listings file not found: "+xmlFilename);
-				}
-				if (!new File(xmlFilename2).exists()) {
-					FreeGuide.log.warning("Listings file not found: "+xmlFilename2);
-				}
-
-				missingFiles = true;
-
-			}//if
-			//for(int curChan2=0;curChan2<channelNames.size();curChan2++) {
-			//	channelLoaded.set(curChan2,Boolean.TRUE);
-			//}
+		String day1Filename  = wkDir + fs + "tv-"+date1str+".xmltv";
+		String day2Filename = wkDir + fs + "tv-"+date2str+".xmltv";
+		String unprocFilename = wkDir + fs + "tv-unprocessed.xmltv";
+		
+		for(int curChan2=0;curChan2<channelNames.size();curChan2++) {
+			channelLoaded.set(curChan2,Boolean.FALSE);
 		}
+
+		File day1File = new File(day1Filename);
+		File day2File = new File(day2Filename);
+		File unprocFile = new File(unprocFilename);
+			
+		// Parse any files that exist
+		
+		try {//ParserExceptions etc
+
+			DefaultHandler handler = new FreeGuideSAXHandler(programmes,
+				channelIDs, channelNames, channelLoaded, earliest, latest );
+			
+			SAXParserFactory factory = SAXParserFactory.newInstance();
+
+			SAXParser saxParser = factory.newSAXParser();
+
+			doingProgs=true;
+			boolean parsedPartOfToday = false;
+
+			// Hopefully we'll have a file for tomorrow, but it doesn't matter
+			// if not.
+			if(day2File.exists()) {
+				saxParser.parse(day2Filename, handler);
+				parsedPartOfToday = true;
+			}
+			
+			// But we must have a file for today or we look for unprocessed
+			// listings
+			if(day1File.exists()) {
+				saxParser.parse(day1Filename, handler);
+				parsedPartOfToday = true;
+			} else {
+				
+				if(unprocFile.exists()) {
+				
+					// The grabber must not be able to split into days,
+					// so we'll deal with the unprocessed data.
+					saxParser.parse(unprocFilename, handler);
+				} else {
+				
+					if (!day1File.exists()) {
+						FreeGuide.log.warning("Listings file not found: "
+							+ day1Filename);
+					}
+				
+					if (!day2File.exists()) {
+						FreeGuide.log.warning("Listings file not found: " 
+							+ day2Filename);
+					}
+				
+					if (!unprocFile.exists()) {
+						FreeGuide.log.warning("Listings file not found: " 
+							+ unprocFilename);
+					}
+				
+					missingFiles = true;
+				
+				}
+			}
+			
+			doingProgs=false;
+
+		} catch(ParserConfigurationException e) {
+			e.printStackTrace();
+			// FIXME - error dialog!
+		} catch(SAXException e) {
+			e.printStackTrace();
+			// FIXME - error dialog!
+		} catch(java.io.IOException e) {
+			e.printStackTrace();
+			// FIXME - error dialog!
+		}//try
+
 	}//loadProgrammeData
 
     private void updateDaySpan() {

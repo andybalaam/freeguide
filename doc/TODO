@@ -84,7 +84,9 @@ x means done by Sagar Shah
 - Make installer launch FreeGuide and/or a README file.
 - Include tv_split in Linux installer
 - Dynamic update of command output window
-- Put list of "missing listings" channels in a scroll pane...
+- Fix bug that means favourites sometimes aren't chosen
++ Fix bug where you get asked twice whether you want to download new listings
+* Put list of "missing listings" channels in a scroll pane...
 + Fix possible NullPointerException in StartupChecker.checkFileFailure
 + Put the binary exes, dlls in cvs as binaries
 + Change READMEs etc to point to http://java.sun.com/getjava/
@@ -157,7 +159,6 @@ x Display which channels are missing when some listings are missing.
 + Separate channels and customisation screens
 + Setup wizard sets up every param explicitly and subsumes checks.
 + Fix tv_split so it gives a better error when no programmes are found.
-+ Fix bug that means favourites aren't chosen
 + Fix non-scrollability of Details box
 + Centre Download Listings box
 + Remove old chosen programmes

@@ -460,6 +460,7 @@ public class FreeGuideConfigGuesser {
 				
 			} catch (java.io.IOException e) {
 				e.printStackTrace();
+				// FIXME - error dialog!
 			}
 
 		}

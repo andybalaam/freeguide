@@ -230,8 +230,8 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 		
 			if(full_paths) {
 		
-				grabber[0] = "\"" + xmltv_directory + grabber_exe + "\" --config-file \"" + xmltv_directory + grabber_config + "\"" + " --output \"" + working_directory + "listings_unprocessed.xml\"";
-				grabber[1] = "\"" + xmltv_directory + splitter_exe + "\" --output \"" + working_directory + "%%channel-%%Y%%m%%d.fgd\" --day_start_time 00:00 \"" + working_directory + "listings_unprocessed.xml\"";
+				grabber[0] = "\"" + xmltv_directory + grabber_exe + "\" --config-file \"" + xmltv_directory + grabber_config + "\"" + " --output \"" + working_directory + "tv-unprocessed.xmltv\"";
+				grabber[1] = "\"" + xmltv_directory + splitter_exe + "\" --output \"" + working_directory + "tv-%%Y%%m%%d.xmltv\" --day_start_time 00:00 \"" + working_directory + "tv-unprocessed.xmltv\"";
 			
 				browser[0] = "\"" + browser_exe +"\" \"%filename%\"";
 			
@@ -239,8 +239,8 @@ public class FreeGuideInstall implements FreeGuideLauncher {
 			
 			} else {
 			
-				grabber[0] = grabber_exe + " --config-file " + System.getProperty("user.home") + fs + ".xmltv" + fs + grabber_config + " --output " + working_directory + "listings_unprocessed.xml";
-				grabber[1] = splitter_exe + " --output " + working_directory + "%%channel-%%Y%%m%%d.fgd --day_start_time 00:00 " + working_directory + "listings_unprocessed.xml";
+				grabber[0] = grabber_exe + " --config-file " + System.getProperty("user.home") + fs + ".xmltv" + fs + grabber_config + " --output " + working_directory + "tv-unprocessed.xmltv";
+				grabber[1] = splitter_exe + " --output " + working_directory + "tv-%%Y%%m%%d.fgd --day_start_time 00:00 " + working_directory + "tv-unprocessed.xmltv";
 			
 				browser[0] = browser_exe + " %filename%";
 			
