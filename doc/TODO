@@ -31,9 +31,9 @@ r  means done by Rob Stewart
 - Change all forms to use GridBagEasy and newXXX methods.
 - Sort out Utils.exec methods so they make sense
 - Refactor FreeGuideViewer into a sort of MVC setup
-- Separate classes into packages
++ Separate classes into packages
 - Reduce the size of the XMLTV exe by removing unnecessary Tk files
-- Fix problem that if you reinstall to a new dir the old install can't be
++ Fix problem that if you reinstall to a new dir the old install can't be
 	uninstalled (well, you have to delete the directory instead...)
 - Single channel view
 - Integration with tv card software
@@ -141,11 +141,12 @@ r  means done by Rob Stewart
 
 - Release 0.8 (first time wizard)
 
-+ Merge manpage, start script and desktop entry with debian ones
+- Fix problem with old guide location staying around
 - Tell people they might want to delete their freeguide-tv directory after
   installation
 - inform http://www.radioandtelly.co.uk/guides.html
 - Make icons optional in Windows installer
++ Merge manpage, start script and desktop entry with debian ones
 + Remove all references to freeguide-tv and replace with freeguide, except:
    * Web address
    * CVS repository root and module
