@@ -63,6 +63,7 @@ D  means work in progress by Dave Torok
 - Facilitating the download of listings outside of FreeGuide
 	(e.g. via a cron job, or at ppp connect)
 - Error message on RegExp error in Favourite editor
+- Snap to nearest half hour in timeline on click
 	
 - Release 0.6.2 (non-urgent minor features)
 
@@ -101,6 +102,9 @@ D  means work in progress by Dave Torok
 - Make installer install shortcuts for Windows, Gnome and KDE
 - Remember what country you are from in installer
 - Make options and customise screens nicer
+- Remove .xvpics from Source package
+- Add a note about WinRAR to the section about running FG
+- Fix problem with channel names being wrong after initial download
 
 + Release 0.6 (some features and grabber configuration)
 

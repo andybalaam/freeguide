@@ -134,7 +134,7 @@ public class FreeGuide implements Launcher {
     /**
      *  What revision of the version this is
      */
-    public final static int version_revision = 0;
+    public final static int version_revision = 1;
 
     /**
      *  Default colour of a normal programme

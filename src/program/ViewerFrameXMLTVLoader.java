@@ -612,12 +612,20 @@ class ViewerFrameXMLTVLoader extends DefaultHandler implements ChannelSetInterfa
      */
     private void addChannelName(String channelID, String channelName) {
 
-        if (channelIDs.indexOf(channelID) == -1) {
+		System.out.println( channelID + " - " + channelName );
+		
+		int i = channelIDs.indexOf(channelID);
+		
+        if ( i == -1) {
 
             channelIDs.add(channelID);
             channelNames.add(channelName);
 
-        }
+        } else if( channelNames.get(i).equals(channelIDs.get(i)) ) {
+			
+			channelNames.setElementAt( channelName, i );
+			
+		}
     }
 
 
