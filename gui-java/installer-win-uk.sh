@@ -1,1 +1,0 @@
-jar cmf Manifest-inst-win-uk.txt FreeGuideInstallerWinUK.jar FreeGuideInstallerWindowsUK*.class FreeGuideUtils.class FreeGuidePreferencesGroup.class FreeGuidePreferences.class FreeGuide.jar xmltv/tv_grab_uk.exe xmltv/tv_split.exe data/guide.css data/xmltv.dtd
