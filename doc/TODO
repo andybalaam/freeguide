@@ -86,37 +86,44 @@ D  means work in progress by Dave Torok
 - Release 0.6.1 (consolidation and code tidying)
  
 - Allow "file" in installer to use wildcards (for win-uk share stuff)
-- Code rationalisation, FIXMEs, remove commented sections
-- Refactor to rename losing FreeGuide prefix to most classes
 - Separate classes into packages
 - Coloured programme categories and favourites
 - Apply different fonts to every screen.
+- Highlight a given channel
+- Custom channel ordering - default channel set
+- GUI to deal with --configure step and any other post-install, pre-use stuff
+	(part of installer)
+- Make installer launch FreeGuide and/or a README file (what about configuring
+	on Windows?)
+- Process programmes in another thread so we can see a progress display.
+- Add a status bar to ViewerFrame
+- Download happens without leaving ViewerFrame
+- Make installer install shortcuts for Windows, Gnome and KDE
+- Remember what country you are from in installer
 
 - Release 0.6 (some features and grabber configuration)
 
-- Change screenshots on web page and freshmeat
-- Uninstall should remove data directory
-- Make installer install shortcuts for Windows, Gnome and KDE
-- Make installer launch FreeGuide and/or a README file (what about configuring
-	on Windows?)
-- Only parse one input file if day_start_time == grabber_start_time
-- If there is more than one grabber command to execute, the output isn't
-	always captured (intermittent linux java 1.4.1_01).  Maybe add a
-	permanent (not always visible) viewer w/ a clear button, or
-	timestamped output...
-- Fix bug where "Reset Choices" on one day messes up choices for another day.
-- GUI to deal with --configure step and any other post-install, pre-use stuff
-	(part of installer)
-- Custom channel ordering - default channel set
-- "Create a new channel set..." option in the channel sets menu
-- Fix severe errors when a channel is missing from a channel set
-- Feedback during download process
-- Test new tv_grab_nl for errors on Windows.
-- Make movies go back to movie colour after being de-favourited
+- Test all grabbers on Windows and Linux
++ Change screenshots on web page and freshmeat
++ Uninstall should remove data directory
++ Progress feedback during download process
++ Refactor to rename losing FreeGuide prefix to most classes
++ Massive code cleanup
++ Code rationalisation, FIXMEs, remove commented sections
++ Graphical flash screen, with progress bar
++ "Create a new channel set..." option in the channel sets menu
++ Fix severe errors when a channel is missing from a channel set
++ Only parse one input file if day_start_time == grabber_start_time
++ Fix bug where "Reset Choices" on one day messes up choices for another day.
++ Make movies go back to movie colour after being de-favourited
 + Talk to XMLTV people about non-zero exit codes under Windows (all but na, sn)
 + Talk to XMLTV people about tv_grab_nl errors
-+ Talk to XMLTV people about xmltv.exe tv_grab_na --listings "tv-%Y%m%d.xml" works
++ Talk to XMLTV people about xmltv.exe tv_grab_na --listings "tv-%Y%m%d.xml"
 + Fix bug with CommandsWizardPanel not splitting into separate lines on Windows
+
++ Release 0.5.5.1-win32 (Win NA bug fix)
+
++ Incorparate XMLTV 0.5.14 with Windows release
 
 + Release 0.5.5 (Win NA bug fix + remember channel set)
 

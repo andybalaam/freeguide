@@ -11,7 +11,7 @@
 
 <h2>Installation Instructions</h2>
 
-<p>Apologies to people in Italy and New Zealand, but you are currently unable to use FreeGuide on Windows.</p>
+<p>Apologies to people in New Zealand, but you are currently unable to use FreeGuide on Windows*.</p>
 
 <ol>
 <li>Download and install the Java Runtime Environment, Version 1.4 at least.  To find out whether you've got this, open a CMD Window (MS-DOS window), and type <span style="background-color: black; color: white;"><tt>java -version</tt></span>.  If it says you've got an earlier version, or if you get an error, you need to get an upgrade from <a href="http://java.sun.com/getjava/">http://java.sun.com/getjava/</a>.</li>
@@ -42,14 +42,19 @@
 </tr><tr>
 <td>If you're from the Netherlands (you may get some errors, but carry on):</td>
 <td style="background-color: black; color: white;"><tt>xmltv.exe tv_grab_nl --config-file tv_grab_nl.conf --configure</tt></td>
-</tr>
+</tr><tr>
+<td>If you're from Denmark:</td>
+<td style="background-color: black; color: white;"><tt>xmltv.exe tv_grab_dk --config-file tv_grab_dk.conf --configure</tt></td>
+</tr><tr>
+<td>If you're from Hungary:</td>
+<td style="background-color: black; color: white;"><tt>xmltv.exe tv_grab_hu --config-file tv_grab_hu.conf --configure</tt></td>
+</tr><!--<tr>
+<td>If you're from Italy:</td>
+<td style="background-color: black; color: white;"><tt>xmltv.exe tv_grab_it --config-file tv_grab_it.conf --configure</tt></td>
+</tr>-->
 </table>
 
 <p>Now follow the instructions and provide the info you're asked for.  This will configure your listings grabber.  Now you can run FreeGuide.</p>
-
-<!-- No longer needed!
-<p><b>Note for UK users (using tv_grab_uk): don't use the regional analogue TV settings, or the radio option.  Instead, say no to the various options and then at the end name each channel you want individually.  FreeGuide doesn't support the regional way of working as it needs to know the name of each channel explicitly.</b></p>
--->
 
 <li>To start FreeGuide, double-click on "FreeGuide.jar" in "C:\Program Files\freeguide-tv\" from Windows Explorer.  You can create a shortcut to start FreeGuide with by right-clicking on it and choosing "Create Shortcut". You may then drag this shortcut onto your desktop if you want.</li>
 
@@ -58,6 +63,8 @@
 <p>If you have any problems, <a href="mailto:freeguide-tv-devel@lists.sourceforge.net">contact us</a> and we'll sort you out.</p>
 
 </ol>
+
+<p>* Techie people might be able to get FreeGuide working for New Zealand, but you'll need to have a working installation of Python, and then you'll need to install FreeGuide for another country (I suggest Spain) and then modify the settings in the "Advance Options" screen.</p>
 
 </body>
 </html>

@@ -15,7 +15,7 @@
 
 <ul>
 <li>The <a href="http://java.sun.com/getjava/">Java 2 Runtime Environment</a> version 1.4 or above.  You can check this by typing <tt>java -version</tt> in a command-line window.  (If you've installed the new version of Java but "java -version" still says the old one, you need to look at putting the new version of java in your PATH.</li>
-<li>The <a href="http://sourceforge.net/project/showfiles.php?group_id=39046">XMLTV</a> package version 0.5.9 or above.  This in turn needs <a href="http://www.cpan.org/">Perl</a> (which almost everyone already has).  XMLTV is a little tricky to install as it has lots of prerequisites you need from CPAN.  You only need to install the grabber for your region (tv_grab_** where ** is the code for your country e.g. uk for UK, na for North America).  Persevere with this, using the instructions in the README that comes with XMLTV, and you'll get there in the end.  Help is always available from <a href="mailto:xmltv-devel@lists.sourceforge.net">xmltv-devel@lists.sourceforge.net</a>.  Once you've got XMLTV installed, the rest is easy.</li>
+<li>The <a href="http://sourceforge.net/project/showfiles.php?group_id=39046">XMLTV</a> package version 0.5.14 or above.  This in turn needs <a href="http://www.cpan.org/">Perl</a> (which almost everyone already has).  XMLTV is a little tricky to install as it has lots of prerequisites you need from CPAN.  You only need to install the grabber for your region (tv_grab_** where ** is the code for your country e.g. uk for UK, na for North America).  Persevere with this, using the instructions in the README that comes with XMLTV, and you'll get there in the end.  Help is always available from <a href="mailto:xmltv-devel@lists.sourceforge.net">xmltv-devel@lists.sourceforge.net</a>.  Once you've got XMLTV installed, the rest is easy.</li>
 <li>NOTE: If you are upgrading from XMLTV 0.5.8 or earlier you will need to rename your grabber configuration file (in ~/.xmltv) to end in .conf (e.g. tv_grab_uk.conf).</li>
 <!-- no longer needed!
 <li>If the "tv_split" tool isn't included in the XMLTV distribution you got, you need to download it from the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309">FreeGuide download site</a> and put it in the same directory as the XMLTV tools (usually /usr/bin/).  Hopefully this will be included in the XMLTV distribution soon.  You may also need to do <tt>chmod a+x /usr/bin/tv_split</tt> to make it executable.</li>
@@ -38,15 +38,17 @@
 <p><tt>tv_grab_es --configure</tt></p>
 <p>people from the Netherlands should type (you may get some errors, but it should work):</p>
 <p><tt>tv_grab_nl --configure</tt></p>
+<p>people from Denmark should type:</p>
+<p><tt>tv_grab_dk --configure</tt></p>
+<p>people from Hundary should type:</p>
+<p><tt>tv_grab_hu --configure</tt></p>
+
 <p>Follow the instructions to configure your grabber.</p>
 <p>German people don't need to do perform this step, lucky them!</p>
-<!--
-<p><b>Note for UK users: don't use the regional analogue TV settings.  Instead, say no to the various options and then at the end name each channel you want individually.  FreeGuide doesn't support the regional way of working as it needs to know the name of each channel explicitly.</b></p>
--->
 
 <h2>Installation</h2>
 
-<p>When XMLTV is installed and configured, download the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309">FreeGuide-xx-Linux-Install</a> jar file for your region (UK for the UK or NA for North America) and run it with <tt>java -jar FreeGuide-xx-Linux-Install.jar</tt>.  This will install FreeGuide in a directory of your choice..</p>
+<p>When XMLTV is installed and configured, download the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309">FreeGuide-xx-Linux-Install</a> jar file and run it with <tt>java -jar FreeGuide-xx-Linux-Install.jar</tt>.  This will install FreeGuide in a directory of your choice.</p>
 
 <p>You can now run FreeGuide by typing:</p>
 <p><tt>cd ~/freeguide-tv</tt> (adapt if you installed it elsewhere)<br>

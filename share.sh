@@ -1,12 +1,22 @@
+#!/bin/bash
+
 # A convenience script I use under Cygwin to generate the list of shared files
 # for tv_grab_uk's install-win-uk.props file
 
-COUNTRY=tv_grab_uk
-#COUNTRY=tv_grab_it
+# Example:
 
-DIR="/cygdrive/c/Documents and Settings/root/My Documents/cvs-freeguide-tv/build/install-win/share/xmltv/$COUNTRY"
+# ./share.sh tv_grab_uk
 
-SUBDIR=$1
+#or
+
+# ./share.sh tv_grab_it 
+
+COUNTRY=$1
+
+#DIR="/cygdrive/c/Documents and Settings/root/My Documents/cvs-freeguide-tv/build/install-win/share/xmltv/$COUNTRY"
+DIR="/home/andy/cvs-freeguide-tv/build/install-win/share/xmltv/$COUNTRY"
+
+SUBDIR=$2
 
 TMPFILE=/tmp/fgshare-sh-count
 
@@ -18,11 +28,11 @@ for FILE in $FILES; do {
 
 		if [ -z $SUBDIR ]; then {
 
-			bash ./share.sh "$FILE"
+			bash ./share.sh $COUNTRY "$FILE"
 		
 		}; else {
 	
-			bash ./share.sh "$SUBDIR/$FILE"
+			bash ./share.sh $COUNTRY "$SUBDIR/$FILE"
 	
 		}; fi
 	
@@ -55,8 +65,8 @@ for FILE in $FILES; do {
 
 }; done
 
-#if [ -z $SUBDIR ]; then {
+if [ -z "$SUBDIR" ]; then {
 
-#	rm -f $TMPFILE
+	rm -f $TMPFILE
 
-#} fi
+} fi

@@ -15,7 +15,7 @@
 	<property name="build" location="build"/>
 	<property name="dist"  location="dist"/>
 
-	<property name="freeguideversion"  value="FreeGuide-0_5_5"/>
+	<property name="freeguideversion"  value="FreeGuide-0_6"/>
 	
   	<target name="init">
   
@@ -35,19 +35,26 @@
   		<!-- compile the program -->
 		<javac srcdir="${src}/program" destdir="${build}/program"/>  
   
+  		<!-- Copy in the required images -->
+  		<copy todir="${build}/program">
+			<fileset dir="${src}/images">
+				<include name="*.png" />
+			</fileset>
+		</copy>
+  
   		<!-- copy the program classes that are needed by each installer -->
     	<copy todir="${build}/install">
 			<fileset dir="${build}/program">
-				<include name="FreeGuide*WizardPanel*.class"/>
-				<include name="FreeGuideConfigGuesser.class"/>
-				<include name="FreeGuideChannelSet*.class"/>
-				<include name="FreeGuideEnvironmentChecker.class"/>
-				<include name="FreeGuideLauncher.class"/>
-				<include name="FreeGuidePreferencesGroup.class"/>
-				<include name="FreeGuidePreferences.class"/>
-				<include name="FreeGuideTime.class"/>
-				<include name="FreeGuideUtils.class"/>
-				<include name="FreeGuideWizard*.class"/>
+				<include name="*WizardPanel*.class"/>
+				<include name="ConfigGuesser.class"/>
+				<include name="ChannelSet*.class"/>
+				<include name="EnvironmentChecker.class"/>
+				<include name="Launcher.class"/>
+				<include name="PreferencesGroup.class"/>
+				<include name="FGPreferences.class"/>
+				<include name="Time.class"/>
+				<include name="Utils.class"/>
+				<include name="WizardFrame*.class"/>
 			</fileset>
 		</copy>
 	
@@ -65,7 +72,7 @@
 	<target name="linux_doc" description="Convert HTML to text" >
 	
 		<!-- process the documentation -->
-		<!-- FIXME - this makes the build process fail on Windows as these
+		<!-- FIXME - this makes the build process imperfect on Windows as these
 			text files are not created -->
 		<exec executable="lynx" dir="${build}/doc" os="Linux" output="${build}/doc/README">
 			<arg value="-dump"/>
@@ -119,18 +126,21 @@
 		</copy>
 		
 		<!-- copy in the install.props file for the jar -->
-		<copy file="${src}/install/install-win-es.props" tofile="${build}/install-win/install-0.props" overwrite="true" />
-		<copy file="${src}/install/install-win-fi.props" tofile="${build}/install-win/install-1.props" overwrite="true" />
-		<copy file="${src}/install/install-win-de.props" tofile="${build}/install-win/install-2.props" overwrite="true" />
-		<copy file="${src}/install/install-win-nl.props" tofile="${build}/install-win/install-3.props" overwrite="true" />
-		<copy file="${src}/install/install-win-na.props" tofile="${build}/install-win/install-4.props" overwrite="true" />
-		<copy file="${src}/install/install-win-sn.props" tofile="${build}/install-win/install-5.props" overwrite="true" />
-		<copy file="${src}/install/install-win-uk.props" tofile="${build}/install-win/install-6.props" overwrite="true" />
+		<copy file="${src}/install/install-win-dk.props" tofile="${build}/install-win/install-0.props" overwrite="true" />
+		<copy file="${src}/install/install-win-de.props" tofile="${build}/install-win/install-1.props" overwrite="true" />
+		<copy file="${src}/install/install-win-es.props" tofile="${build}/install-win/install-2.props" overwrite="true" />
+		<copy file="${src}/install/install-win-fi.props" tofile="${build}/install-win/install-3.props" overwrite="true" />
+		<copy file="${src}/install/install-win-hu.props" tofile="${build}/install-win/install-4.props" overwrite="true" />
+		<copy file="${src}/install/install-win-it.props" tofile="${build}/install-win/install-5.props" overwrite="true" />
+		<copy file="${src}/install/install-win-nl.props" tofile="${build}/install-win/install-6.props" overwrite="true" />
+		<copy file="${src}/install/install-win-na.props" tofile="${build}/install-win/install-7.props" overwrite="true" />
+		<copy file="${src}/install/install-win-sn.props" tofile="${build}/install-win/install-8.props" overwrite="true" />
+		<copy file="${src}/install/install-win-uk.props" tofile="${build}/install-win/install-9.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Win-Install.jar"
 				basedir="${build}/install-win"
-				manifest="${src}/manifests/FreeGuideInstall.mf"/>
+				manifest="${src}/manifests/Install.mf"/>
   
   	</target>
   
@@ -154,20 +164,22 @@
 		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-lin/"/>
 		
 		<!-- copy in the install.props file for the jar -->
-		<copy file="${src}/install/install-lin-es.props" tofile="${build}/install-lin/install-0.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-fi.props" tofile="${build}/install-lin/install-1.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-de.props" tofile="${build}/install-lin/install-2.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-it.props" tofile="${build}/install-lin/install-3.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-nl.props" tofile="${build}/install-lin/install-4.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-nz.props" tofile="${build}/install-lin/install-5.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-na.props" tofile="${build}/install-lin/install-6.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-sn.props" tofile="${build}/install-lin/install-7.props" overwrite="true" />
-		<copy file="${src}/install/install-lin-uk.props" tofile="${build}/install-lin/install-8.props" overwrite="true" />
+		<copy file="${src}/install/install-lin-dk.props" tofile="${build}/install-lin/install-0.props" overwrite="true" />
+		<copy file="${src}/install/install-lin-de.props" tofile="${build}/install-lin/install-1.props" overwrite="true" />
+		<copy file="${src}/install/install-lin-es.props" tofile="${build}/install-lin/install-2.props" overwrite="true" />
+		<copy file="${src}/install/install-lin-fi.props" tofile="${build}/install-lin/install-3.props" overwrite="true" />
+		<copy file="${src}/install/install-lin-hu.props" tofile="${build}/install-lin/install-4.props" overwrite="true" />
+		<copy file="${src}/install/install-lin-it.props" tofile="${build}/install-lin/install-5.props" overwrite="true" />
+		<copy file="${src}/install/install-lin-nl.props" tofile="${build}/install-lin/install-6.props" overwrite="true" />
+		<copy file="${src}/install/install-lin-nz.props" tofile="${build}/install-lin/install-7.props" overwrite="true" />
+		<copy file="${src}/install/install-lin-na.props" tofile="${build}/install-lin/install-8.props" overwrite="true" />
+		<copy file="${src}/install/install-lin-sn.props" tofile="${build}/install-lin/install-9.props" overwrite="true" />
+		<copy file="${src}/install/install-lin-uk.props" tofile="${build}/install-lin/install-10.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/${freeguideversion}-Linux-Install.jar"
 				basedir="${build}/install-lin"
-				manifest="${src}/manifests/FreeGuideInstall.mf"/>
+				manifest="${src}/manifests/Install.mf"/>
   
   	</target>
   
@@ -184,7 +196,6 @@
   
   	</target>
   
-  	<!--<target name="main" depends="FreeGuide-Source,FreeGuide-Win-UK-Install,FreeGuide-Win-NA-Install,FreeGuide-Linux-UK-Install,FreeGuide-Linux-NA-Install">-->
   	<target name="main" depends="FreeGuide-Source,FreeGuide-Win-Install,FreeGuide-Linux-Install" 
 		description="generate all the installers" >
   
