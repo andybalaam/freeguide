@@ -218,13 +218,7 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
 
         tabbedPanel = new javax.swing.JTabbedPane();
         panDefaults = new javax.swing.JPanel();
-        labDefaultChooseOS = new javax.swing.JLabel();
-        cmbDefaultChooseOS = new javax.swing.JComboBox();
         butDefaultDoIt = new javax.swing.JButton();
-        labDefaultChooseCountry = new javax.swing.JLabel();
-        cmbDefaultChooseCountry = new javax.swing.JComboBox();
-        labDefaultChooseBrowser = new javax.swing.JLabel();
-        cmbDefaultChooseBrowser = new javax.swing.JComboBox();
         tabChannels = new javax.swing.JPanel();
         scrChannels = new javax.swing.JScrollPane();
         panChannels = new javax.swing.JPanel();
@@ -284,23 +278,7 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
 
         panDefaults.setLayout(new java.awt.GridBagLayout());
 
-        labDefaultChooseOS.setText("Choose OS:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        panDefaults.add(labDefaultChooseOS, gridBagConstraints);
-
-        FreeGuideUtils.addOSsToComboBox(cmbDefaultChooseOS);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        panDefaults.add(cmbDefaultChooseOS, gridBagConstraints);
-
-        butDefaultDoIt.setText("Set default options");
+        butDefaultDoIt.setText("Run Config Wizard");
         butDefaultDoIt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butDefaultDoItActionPerformed(evt);
@@ -314,38 +292,6 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panDefaults.add(butDefaultDoIt, gridBagConstraints);
-
-        labDefaultChooseCountry.setText("Choose Browser:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        panDefaults.add(labDefaultChooseCountry, gridBagConstraints);
-
-        FreeGuideUtils.addCountriesToComboBox(cmbDefaultChooseCountry);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        panDefaults.add(cmbDefaultChooseCountry, gridBagConstraints);
-
-        labDefaultChooseBrowser.setText("Choose Region:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        panDefaults.add(labDefaultChooseBrowser, gridBagConstraints);
-
-        FreeGuideUtils.addBrowsersToComboBox(cmbDefaultChooseBrowser);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        panDefaults.add(cmbDefaultChooseBrowser, gridBagConstraints);
 
         tabbedPanel.addTab("Defaults", panDefaults);
 
@@ -418,34 +364,34 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panMisc.add(labGrabberConfig, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panMisc.add(txtGrabberConfig, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panMisc.add(txtDayStartTime, gridBagConstraints);
 
         labDayStartTime.setText("Day Start Time");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panMisc.add(labDayStartTime, gridBagConstraints);
 
         scrMisc.setViewportView(panMisc);
@@ -737,7 +683,10 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
 
 	private void butDefaultDoItActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butDefaultDoItActionPerformed
 		
-		FreeGuideUtils.setDefaultOptions( (String)cmbDefaultChooseOS.getSelectedItem(), (String)cmbDefaultChooseCountry.getSelectedItem(), (String)cmbDefaultChooseBrowser.getSelectedItem() );
+		//FreeGuideUtils.setDefaultOptions( (String)cmbDefaultChooseOS.getSelectedItem(), (String)cmbDefaultChooseCountry.getSelectedItem(), (String)cmbDefaultChooseBrowser.getSelectedItem() );
+		//initMyComponents();
+		
+		FreeGuideFirstTimeWizard wiz = new FreeGuideFirstTimeWizard();
 		initMyComponents();
 		
 	}//GEN-LAST:event_butDefaultDoItActionPerformed
@@ -868,14 +817,12 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
 	
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel labDefaultChooseBrowser;
     private javax.swing.JLabel labChannelHeight;
     private javax.swing.JTextField txtChannelHeight;
     private javax.swing.JLabel labChannelPanelWidth;
     private javax.swing.JTextField txtChannelPanelWidth;
     private javax.swing.JLabel labBrowserCommand;
     private javax.swing.JTextField txtVerticalGap;
-    private javax.swing.JLabel labDefaultChooseCountry;
     private javax.swing.JLabel labWorkingDirectory;
     private javax.swing.JPanel panScreen;
     private javax.swing.JPanel tabScreen;
@@ -885,13 +832,11 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
     private javax.swing.JLabel labGrabberConfig;
     private javax.swing.JTextField txtGrabberConfig;
     private javax.swing.JLabel labCssFile;
-    private javax.swing.JLabel labDefaultChooseOS;
     private javax.swing.JTextField txtWorkingDirectory;
     private javax.swing.JScrollPane scrBrowserCommand;
-    private javax.swing.JComboBox cmbDefaultChooseOS;
     private javax.swing.JLabel labProgrammeNormalColour;
-    private javax.swing.JLabel labDayStartTime;
     private javax.swing.JTextArea txaBrowserCommand;
+    private javax.swing.JLabel labDayStartTime;
     private javax.swing.JTextField txtProgrammeNormalColour;
     private javax.swing.JButton butDefaultDoIt;
     private javax.swing.JLabel labVerticalGap;
@@ -901,7 +846,6 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
     private javax.swing.JScrollPane scrScreen;
     private javax.swing.JTextArea txaTvGrab;
     private javax.swing.JPanel panMisc;
-    private javax.swing.JComboBox cmbDefaultChooseBrowser;
     private javax.swing.JPanel panButtons;
     private javax.swing.JTextField txtXmltvDirectory;
     private javax.swing.JTextField txtDayStartTime;
@@ -910,7 +854,6 @@ public class FreeGuideOptions extends javax.swing.JFrame implements FreeGuideLau
     private javax.swing.JTextField txtChannelColour;
     private javax.swing.JButton butOK;
     private javax.swing.JTabbedPane tabbedPanel;
-    private javax.swing.JComboBox cmbDefaultChooseCountry;
     private javax.swing.JScrollPane scrChannels;
     private javax.swing.JPanel panDefaults;
     private javax.swing.JTextField txtCssFile;
