@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="freeguide-tv" default="main" basedir=".">
+<project name="cvs-freeguide-tv" default="main" basedir=".">
     <description>
         Ant build file for freeguide-tv
     </description>
@@ -22,6 +22,7 @@
     	<mkdir dir="${build}"/>
 		<mkdir dir="${build}/program"/>
 		<mkdir dir="${build}/install"/>
+		<mkdir dir="${dist}"/>
 	
 	</target>
 
@@ -30,12 +31,22 @@
   		<!-- compile the program -->
 		<javac srcdir="${src}/program" destdir="${build}/program"/>  
   
-  		<!-- copy the program classes that are needed by the tester -->
+  		
+  
+  		<!-- copy the program classes that are needed by each installer -->
     	<copy todir="${build}/install">
 			<fileset dir="${build}/program">
+				<include name="FreeGuideAbstractFileWizardPanel$*.class"/>
+				<include name="FreeGuideConfigGuesser.class"/>
+				<include name="FreeGuideDirectoryWizardPanel$*.class"/>
+				<include name="FreeGuideEnvironmentChecker.class"/>
+				<include name="FreeGuideLabelWizardPanel$*.class"/>
+				<include name="FreeGuideLauncher.class"/>
 				<include name="FreeGuidePreferencesGroup.class"/>
 				<include name="FreeGuidePreferences.class"/>
 				<include name="FreeGuideTime.class"/>
+				<include name="FreeGuideWizard$*.class"/>
+				<include name="FreeGuideWizardPanel$*.class"/>
 			</fileset>
 		</copy>
 	
@@ -63,131 +74,149 @@
 				manifest="${src}/manifests/FreeGuide.mf"/>
   
   	</target>
+
   
-  	<target name="install-init" depends="FreeGuide"
-  		description="set up ready for creation of installer jar on any platform" >
+  	<target name="FreeGuide-Win-UK-Install" depends="FreeGuide" 
+  		description="generate the windows uk installer jar" >
 		
-		<!-- Copy the program jar in, with the documentation -->
-		<copy todir="${build}/install">
+		<mkdir dir="${build}/install-win-uk"/>
+		
+		<!-- Copy the program jar, installer clases and docs -->
+		<copy todir="${build}/install-win-uk">
 			<fileset dir="${dist}/">
 				<include name="FreeGuide.jar"/>
 			</fileset>
 			<fileset dir="${doc}/">
 				<exclude name="*.sh"/>
 			</fileset>
+			<fileset dir="${build}/install"/>
 		</copy>
 		
 		<!-- Copy the XMLTV DTD -->
-		<mkdir dir="${build}/install/data"/>
-		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install/data"/>
+		<mkdir dir="${build}/install-win-uk/data"/>
+		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-win-uk/data"/>
 		
-	</target>
-  
-  	<target name="windows-install-init" depends="install-init"
-  		description="set up ready for creation of windows installer jar" >
-		
-		<!-- nothing at the moment -->
-		
-	</target>
-  
-  	<target name="linux-install-init" depends="install-init"
-  		description="set up ready for creation of linux installer jar" >
-		
-		<!-- nothing at the moment -->
-		
-	</target>
-  
-  	<target name="FreeGuide-Win-UK-Install" depends="windows-install-init" 
-  		description="generate the windows uk installer jar" >
-		
-		<!-- Copy always-used XMLTV exes -->
-		<delete dir="${build}/install/xmltv"/>
-		<mkdir dir="${build}/install/xmltv"/>
-		<copy todir="${build}/install/xmltv">
+		<!-- Copy the XMLTV exes -->
+		<mkdir dir="${build}/install-win-uk/xmltv"/>
+		<copy todir="${build}/install-win-uk/xmltv">
 			<fileset dir="${xmltv}/">
 				<include name="tv_split.exe"/>
+				<include name="tv_grab_uk.exe"/>
 				<include name="perl56.dll"/>
 			</fileset>
 		</copy>
 		
-		<!-- copy in the uk grabber -->
-		<copy file="${xmltv}/tv_grab_uk.exe" todir="${build}/install/xmltv"/>
-		
 		<!-- copy in the shared files -->
-		<mkdir dir="${build}/install/share"/>
-		<copy todir="${build}/install/share">
+		<mkdir dir="${build}/install-win-uk/share"/>
+		<copy todir="${build}/install-win-uk/share">
 			<fileset dir="${share}/" />
 		</copy>
 		
 		<!-- copy in the install.props file for the jar -->
-		<copy file="${src}/install/install-win-uk.props" tofile="${build}/install/install.props" overwrite="true" />
+		<copy file="${src}/install/install-win-uk.props" tofile="${build}/install-win-uk/install.props" />
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/FreeGuide-Win-UK-Install.jar"
-				basedir="${build}/install"
+				basedir="${build}/install-win-uk"
 				manifest="${src}/manifests/FreeGuideInstall.mf"/>
   
   	</target>
   
-  	<target name="FreeGuide-Win-NA-Install" depends="windows-install-init" 
+  	<target name="FreeGuide-Win-NA-Install" depends="FreeGuide" 
   		description="generate the windows north american installer jar" >
-
-		<!-- Copy always-used XMLTV exes -->
-		<delete dir="${build}/install/xmltv"/>
-		<mkdir dir="${build}/install/xmltv"/>
-		<copy todir="${build}/install/xmltv">
+		
+		<!-- Copy the program file and docs -->
+		<copy todir="${build}/install-win-na">
+			<fileset dir="${dist}/">
+				<include name="FreeGuide.jar"/>
+			</fileset>
+			<fileset dir="${doc}/">
+				<exclude name="*.sh"/>
+			</fileset>
+			<fileset dir="${build}/install"/>
+		</copy>
+		
+		<!-- Copy the XMLTV DTD -->
+		<mkdir dir="${build}/install-win-na/data"/>
+		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-win-na/data"/>
+		
+		<!-- Copy the XMLTV exes -->
+		<mkdir dir="${build}/install-win-na/xmltv"/>
+		<copy todir="${build}/install-win-na/xmltv">
 			<fileset dir="${xmltv}/">
 				<include name="tv_split.exe"/>
+				<include name="tv_grab_na.exe"/>
 				<include name="perl56.dll"/>
 			</fileset>
 		</copy>
 		
-		<!-- copy in the na grabber -->
-		<copy file="${xmltv}/tv_grab_na.exe" todir="${build}/install/xmltv"/>
-		
 		<!-- copy in the install.props file for the jar -->
-		<copy file="${src}/install/install-win-na.props" tofile="${build}/install/install.props" overwrite="true" />
+		<copy file="${src}/install/install-win-na.props" tofile="${build}/install-win-na/install.props" />
 		
 		<jar 	jarfile="${dist}/FreeGuide-Win-NA-Install.jar"
-				basedir="${build}/install"
+				basedir="${build}/install-win-na"
 				manifest="${src}/manifests/FreeGuideInstall.mf"/>
   
   	</target>
   
-  	<target name="FreeGuide-Linux-UK-Install" depends="linux-install-init" 
+  	<target name="FreeGuide-Linux-UK-Install" depends="FreeGuide" 
   		description="generate the linux uk installer jar" >
 		
-		<!-- copy in the install.props file for the jar -->
-		<copy file="${src}/install/install-lin-uk.props" tofile="${build}/install/install.props" overwrite="true" />
+		<!-- Copy the program file and docs -->
+		<copy todir="${build}/install-lin-uk">
+			<fileset dir="${dist}/">
+				<include name="FreeGuide.jar"/>
+			</fileset>
+			<fileset dir="${doc}/">
+				<exclude name="*.sh"/>
+			</fileset>
+			<fileset dir="${build}/install"/>
+		</copy>
 		
-		<!-- delete XMLTV windows exes -->
-		<delete dir="${build}/install/xmltv"/>
+		<!-- Copy the XMLTV DTD -->
+		<mkdir dir="${build}/install-lin-uk/data"/>
+		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-lin-uk/data"/>
+		
+		<!-- copy in the install.props file for the jar -->
+		<copy file="${src}/install/install-lin-uk.props" tofile="${build}/install-lin-uk/install.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/FreeGuide-Linux-UK-Install.jar"
-				basedir="${build}/install"
+				basedir="${build}/install-lin-uk"
 				manifest="${src}/manifests/FreeGuideInstall.mf"/>
   
   	</target>
 	
-	<target name="FreeGuide-Linux-NA-Install" depends="linux-install-init" 
+	<target name="FreeGuide-Linux-NA-Install" depends="FreeGuide" 
   		description="generate the linux na installer jar" >
 		
-		<!-- copy in the install.props file for the jar -->
-		<copy file="${src}/install/install-lin-na.props" tofile="${build}/install/install.props" overwrite="true" />
+		<!-- Copy the program file and docs -->
+		<copy todir="${build}/install-lin-na">
+			<fileset dir="${dist}/">
+				<include name="FreeGuide.jar"/>
+			</fileset>
+			<fileset dir="${doc}/">
+				<exclude name="*.sh"/>
+			</fileset>
+			<fileset dir="${build}/install"/>
+		</copy>
 		
-		<!-- delete XMLTV windows exes -->
-		<delete dir="${build}/install/xmltv"/>
+		<!-- Copy the XMLTV DTD -->
+		<mkdir dir="${build}/install-lin-na/data"/>
+		<copy file="${xmltv}/xmltv.dtd" todir="${build}/install-lin-na/data"/>
+		
+		<!-- copy in the install.props file for the jar -->
+		<copy file="${src}/install/install-lin-na.props" tofile="${build}/install-lin-na/install.props" overwrite="true" />
 		
 		<!-- Make the jar installer file -->
 		<jar 	jarfile="${dist}/FreeGuide-Linux-NA-Install.jar"
-				basedir="${build}/install"
+				basedir="${build}/install-lin-na"
 				manifest="${src}/manifests/FreeGuideInstall.mf"/>
   
   	</target>
 	
 	<target name="FreeGuide-Source"
-  		description="generate the source zip" >
+  		description="generate the source zip" depends="init">
 		
 		<zip zipfile="${dist}/FreeGuide-Source.zip">
 			<zipfileset dir="${src}" prefix="src" />

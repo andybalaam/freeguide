@@ -104,7 +104,7 @@ public class FreeGuidePreConfigWizardPanel extends FreeGuideWizardPanel {
 		panels[4] = new FreeGuideLabelWizardPanel("then click \"Guess\" next to any options you think are wrong,");
 		panels[4].setMessages("OK, that's done - click \"Finish\"", "and FreeGuide will try and fix them.");
 		
-		new FreeGuideWizard("FreeGuide Setup Wizard", panels).setVisible(true);
+		new FreeGuideWizard("FreeGuide Setup Wizard", panels, null).setVisible(true);
 		
 	}
 	

@@ -24,7 +24,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menDownload">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Download Listings..."/>
+                <Property name="text" type="java.lang.String" value="Download Listings"/>
               </Properties>
 
               <Events>
@@ -33,7 +33,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menPrint">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Print Listing"/>
+                <Property name="text" type="java.lang.String" value="Print this personalised listing"/>
               </Properties>
 
               <Events>
@@ -60,7 +60,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menCustomiser">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Customise..."/>
+                <Property name="text" type="java.lang.String" value="Customise"/>
               </Properties>
 
               <Events>
@@ -69,7 +69,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menChannels">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Choose Channels..."/>
+                <Property name="text" type="java.lang.String" value="Channels"/>
               </Properties>
 
               <Events>
@@ -78,7 +78,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menFavourites">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Choose Favourites..."/>
+                <Property name="text" type="java.lang.String" value="Favourites"/>
               </Properties>
 
               <Events>
@@ -89,7 +89,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menOptions">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Options..."/>
+                <Property name="text" type="java.lang.String" value="Options"/>
               </Properties>
 
               <Events>
@@ -422,7 +422,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="10" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Download Listings..."/>
+        <Property name="text" type="java.lang.String" value="Download Listings"/>
       </Properties>
 
       <Events>

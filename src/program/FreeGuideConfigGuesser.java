@@ -414,6 +414,10 @@ public class FreeGuideConfigGuesser {
 		
 		try {
 		
+			if(!dir.exists()) {
+				dir.mkdirs();
+			}
+		
 			// Check it exists and you can write a file to it
 			File testFile = new File(dir.getPath() + "test.tmp");
 			testFile.createNewFile();

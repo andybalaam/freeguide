@@ -11,6 +11,7 @@
  * See the file COPYING for more information.
  */
 
+import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -66,12 +67,6 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 		panels[6].setMessages("Choose the XMLTV tool's configuration file.", "This should contain a list of channels you want to watch.");
 		panels[6].setConfig("misc", "grabber_config");
 		titles[6] = "Channels File";
-		
-		// Set up the panels ready to be used
-		for(int i=0;i<panels.length;i++) {
-			panels[i].construct();
-			panels[i].onEnter();
-		}
 	
 		// Draw the screen
 		initComponents();
@@ -82,49 +77,71 @@ public class FreeGuideOptions extends javax.swing.JFrame {
 	 * Launch this screen when there's been a problem on startup and we need
 	 * the user to correct some specific problems.
 	 */
-	/*public FreeGuideOptionsWizard(FreeGuideLauncher launcher, 
-		boolean failXMLTVCmdDir, boolean failWorkingDir, boolean failGrabber,
-		boolean failBrowser, boolean failDayStartTime,
-		boolean failXMLTVCfg) {
-	
+	public FreeGuideOptions(FreeGuideLauncher launcher, Vector failedWhat) {
+		
 		this.launcher = launcher;
 		
-		FreeGuideLabelWizardPanel welcomePanel = new FreeGuideLabelWizardPanel("Please correct the configuration entries in the other tabs of this screen.");
-		welcomePanel.setMessages("There has been a problem during startup.", "(You may find it easier to reinstall FreeGuide from scratch if you have problems.)");		
+		panels = new FreeGuideWizardPanel[failedWhat.size()+1];
+		titles = new String[failedWhat.size()+1];
 		
-		initComponents();
+		panels[0] = new FreeGuideLabelWizardPanel("Please correct the configuration entries in the other tabs of this screen.");
+		panels[0].setMessages("There has been a problem during startup.", "(You may find it easier to uninstall and install FreeGuide if you have problems.)");
+		titles[0] = "Welcome";		
 		
-		// Set up the front screen
-		switch(frontScreen) {
-			case SCREEN_FIRST_TIME:	// First time wizard
-				tabs.remove(panProblem);
-				tabs.remove(panOptions);
-				tabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-				break;
-			case SCREEN_PROBLEM:
-				tabs.remove(panFirstTime);
-				tabs.remove(panOptions);
-				tabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-				break;
-			case SCREEN_OPTIONS:
-				tabs.remove(panFirstTime);
-				tabs.remove(panProblem);
-				break;
-			default:
-				System.out.println("Wrong front screen option offered to FreeGuideOptionsWizard constructor");
+		int panelNo=1;
+		
+		for(int i=0;i<failedWhat.size();i++) {
+		
+			String what = (String)failedWhat.get(1);
+			if(what.equals("misc.working_directory")) {
+		
+				panels[panelNo] = new FreeGuideDirectoryWizardPanel();
+				panels[panelNo].setMessages("Choose the working directory FreeGuide will use.", "A new directory will be made if necessary.");
+				panels[panelNo].setConfig("misc", "working_directory");
+				titles[panelNo] = "Working Directory";
+				
+			} else if(what.equals("misc.xmltv_directory")) {
+		
+				panels[panelNo] = new FreeGuideDirectoryWizardPanel();
+				panels[panelNo].setMessages("Choose the directory that contains the XMLTV tools.", "This must contain tv_split and tv_grab.");
+				panels[panelNo].setConfig("misc", "xmltv_directory");
+				titles[panelNo] = "XMLTV Directory";
+				
+			} else if(what.equals("commandline.tv_grab")) {
+		
+				panels[panelNo] = new FreeGuideCommandsWizardPanel();
+				panels[panelNo].setMessages("Enter the command used to grab listings.", "");
+				panels[panelNo].setConfig("commandline", "tv_grab");
+				titles[panelNo] = "Grabber Command";
+				
+			} else if(what.equals("commandline.browser_command")) {
+		
+				panels[panelNo] = new FreeGuideCommandsWizardPanel();
+				panels[panelNo].setMessages("Enter the command used to launch a web browser.", "");
+				panels[panelNo].setConfig("commandline", "browser_command");
+				titles[panelNo] = "Browser Command";
+				
+			} else if(what.equals("misc.day_start_time")) {
+		
+				panels[panelNo] = new FreeGuideTextWizardPanel();
+				panels[panelNo].setMessages("Enter the time that each day starts.", "Use hh:mm format e.g.06:00 for 6am.");
+				panels[panelNo].setConfig("misc", "day_start_time");
+				titles[panelNo] = "Day Start";
+				
+			} else if(what.equals("misc.grabber_config")) {
+		
+				panels[panelNo] = new FreeGuideFileWizardPanel();
+				panels[panelNo].setMessages("Choose the XMLTV tool's configuration file.", "This should contain a list of channels you want to watch.");
+				panels[panelNo].setConfig("misc", "grabber_config");
+				titles[panelNo] = "Channels File";
+		
+			}
+			panelNo++;
 		}
 		
-		if(!failOS)				{tabs.remove(panOS);}
-		if(!failCountry)		{tabs.remove(panCountry);}
-		if(!failBrowserName)	{tabs.remove(panBrowserName);}
-		if(!failXMLTVCmdDir)	{tabs.remove(panXMLTVCmdDir);}
-		if(!failWorkingDir)		{tabs.remove(panWorkingDir);}
-		if(!failGrabber)		{tabs.remove(panGrabber);}
-		if(!failBrowser)		{tabs.remove(panBrowser);}
-		if(!failDayStartTime)	{tabs.remove(panDayStartTime);}
-		if(!failXMLTVCfg)		{tabs.remove(panXMLTVCfg);}
-		
-	}*/
+		initComponents();	
+
+	}
 	
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
@@ -134,6 +151,12 @@ public class FreeGuideOptions extends javax.swing.JFrame {
         JButton butCancel = new JButton();
         JButton butOK = new JButton();
 
+		// Set up the panels ready to be used
+		for(int i=0;i<panels.length;i++) {
+			panels[i].construct();
+			panels[i].onEnter();
+		}
+		
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         setTitle("FreeGuide Options");

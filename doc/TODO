@@ -62,9 +62,16 @@ Release 0.6 (most wanted features)
 - Move XML stuff to a separate object
 - Other code rationalisation, FIXMEs, remove commented sections
 - Tidy up FreeGuideOptionsWizard - make it not a wizard
+- Make installer install shortcuts for Windows, Gnome and KDE
+- Make installer launcher FreeGuide and/or a README file.
+- Other installer features?
 
 Release 0.5 (mainly bug fixes)
 
+- Test clean install several times on each platform
+- Test messing up config and see how it deals
+- Test installing in odd places
+- Test changing various options
 - "Choose all" button + "Choose none" button in channels screen
 - When some channels aren't found, still display the others.
 - Add days of week to dropdown and take out year
@@ -79,11 +86,10 @@ Release 0.5 (mainly bug fixes)
 + Make Options screen ask you its first 3 questions, then present you with all
 	other options simultaneously. Each option has a "Guess" button
 + Make options screen better
-- Make installer install shortcuts for Windows, Gnome and KDE
-- Convert installer to FreeGuideWizard
-- make installer check your java version, (and other things?)
++ Convert installer to FreeGuideWizard
++ make installer check your java version, (and other things?)
 - Delete these classes?: OptionsWizard, DirectoryDialog, others?
-- Add a question to the beginning of the installer: install or uninstall (if
++ Add a question to the beginning of the installer: install or uninstall (if
 	the misc.install_directory pref exists) - if click uninstall, delete the
 	whole installation directory, and the working directory if there is one,
 	and the preferences group for FreeGuide.

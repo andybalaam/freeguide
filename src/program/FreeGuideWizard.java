@@ -31,8 +31,9 @@ public class FreeGuideWizard extends javax.swing.JFrame {
 	
 	
 	// The user passes in a title and an array of FreeGuideWizardPanels
-	public FreeGuideWizard(String title, FreeGuideWizardPanel[] panels) {
+	public FreeGuideWizard(String title, FreeGuideWizardPanel[] panels, FreeGuideLauncher launcher) {
 		
+		this.launcher = launcher;
 		this.panels = panels;
 		
 		panelCounter=0;
@@ -217,6 +218,9 @@ public class FreeGuideWizard extends javax.swing.JFrame {
 	
 	private void quit() {
 		setVisible(false);
+		if(launcher!=null) {
+			launcher.reShow();
+		}
 		dispose();
 	}
 	
@@ -229,7 +233,7 @@ public class FreeGuideWizard extends javax.swing.JFrame {
 	private javax.swing.JButton butBack;
 	private javax.swing.JButton butFinish;
     
-
+	private FreeGuideLauncher launcher;
 	private int panelCounter;
 	
 }

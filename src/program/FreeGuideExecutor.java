@@ -43,7 +43,7 @@ public class FreeGuideExecutor extends javax.swing.JFrame implements Runnable {
 		setLocation((screenSize.width-getWidth())/2,(screenSize.height-getHeight())/2);
 		
 		// Set the please wait message
-		labPleaseWait.setText(commandType + ", please wait.");
+		labPleaseWait.setText(commandType + ", please wait...");
 		setTitle(commandType);
 		
 		start();

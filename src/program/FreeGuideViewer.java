@@ -43,6 +43,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
     public FreeGuideViewer(FreeGuideLauncher newLauncher) {
 		
+		FreeGuidePleaseWait pleaseWait = new FreeGuidePleaseWait();
+		pleaseWait.setVisible(true);
+		
 		launcher = newLauncher;
 		
 		doingProgs = false;
@@ -60,6 +63,8 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 		// Draw the programmes on the screen
         updatePanel();
 
+		pleaseWait.dispose();
+		
     }
 
 	private void updatePanel() {
@@ -342,7 +347,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         getContentPane().add(butPrint, gridBagConstraints);
 
         butDownload.setFont(new java.awt.Font("Dialog", 0, 10));
-        butDownload.setText("Download Listings...");
+        butDownload.setText("Download Listings");
         butDownload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butDownloadActionPerformed(evt);
@@ -356,7 +361,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         getContentPane().add(butDownload, gridBagConstraints);
 
         fileMenu.setText("File");
-        menDownload.setText("Download Listings...");
+        menDownload.setText("Download Listings");
         menDownload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menDownloadActionPerformed(evt);
@@ -364,7 +369,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         });
 
         fileMenu.add(menDownload);
-        menPrint.setText("Print Listing");
+        menPrint.setText("Print this personalised listing");
         menPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menPrintActionPerformed(evt);
@@ -383,7 +388,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         fileMenu.add(menQuit);
         jMenuBar2.add(fileMenu);
         optionsMenu.setText("Tools");
-        menCustomiser.setText("Customise...");
+        menCustomiser.setText("Customise");
         menCustomiser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menCustomiserActionPerformed(evt);
@@ -391,7 +396,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         });
 
         optionsMenu.add(menCustomiser);
-        menChannels.setText("Choose Channels...");
+        menChannels.setText("Channels");
         menChannels.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menChannelsActionPerformed(evt);
@@ -399,7 +404,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         });
 
         optionsMenu.add(menChannels);
-        menFavourites.setText("Choose Favourites...");
+        menFavourites.setText("Favourites");
         menFavourites.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menFavouritesActionPerformed(evt);
@@ -408,7 +413,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
         optionsMenu.add(menFavourites);
         optionsMenu.add(jSeparator1);
-        menOptions.setText("Options...");
+        menOptions.setText("Options");
         menOptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menOptionsActionPerformed(evt);
@@ -1395,9 +1400,9 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	 * screen.
 	 */
 	public void reShow() {
-		
+
 		updatePanel();
-		
+
 	}//reShow
 	
 	//------------------------------------------------------------------------
