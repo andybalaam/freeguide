@@ -303,7 +303,8 @@ public class FreeGuideStartupChecker {
 		*/
 	}
 		
-	/** Find whether a proposed XMLTV directory is correct.  Checks this
+	/** 
+	 * Find whether a proposed XMLTV directory is correct.  Checks this
 	 * by looking for the file tv_split in it.
 	 */
 	public static boolean testXMLTVCmdDir(File xmltvDir) {

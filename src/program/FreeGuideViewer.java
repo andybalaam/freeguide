@@ -142,22 +142,19 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         innerPanel = new javax.swing.JPanel();
         timeScrollPane = new javax.swing.JScrollPane();
         timePanel = new FreeGuideTimePanel();
-        bottomPanel = new javax.swing.JPanel();
-        butPrint = new javax.swing.JButton();
-        topLeftPanel = new javax.swing.JPanel();
         butRevertFavs = new javax.swing.JButton();
+        butPrint = new javax.swing.JButton();
+        butDownload = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
+        menDownload = new javax.swing.JMenuItem();
         menPrint = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JSeparator();
         menQuit = new javax.swing.JMenuItem();
-        actionsMenu = new javax.swing.JMenu();
-        menDownload = new javax.swing.JMenuItem();
-        jSeparator3 = new javax.swing.JSeparator();
-        menFavourites = new javax.swing.JMenuItem();
         optionsMenu = new javax.swing.JMenu();
         menCustomiser = new javax.swing.JMenuItem();
         menChannels = new javax.swing.JMenuItem();
+        menFavourites = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JSeparator();
         menOptions = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
@@ -176,7 +173,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        setTitle("FreeGuide J2 " + FreeGuide.getVersion());
+        setTitle("FreeGuide " + FreeGuide.getVersion());
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
@@ -247,7 +244,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         getContentPane().add(topPanel, gridBagConstraints);
 
         splitPane.setDividerLocation(180);
-        splitPane.setDividerSize(5);
         splitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         printedGuideArea.setEditable(false);
         printedGuideArea.setContentType("text/html");
@@ -255,7 +251,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
         splitPane.setRightComponent(printedGuideScrollPane);
 
-        jSplitPane1.setDividerSize(5);
         channelNameScrollPane.setBorder(null);
         channelNameScrollPane.setVerticalScrollBarPolicy(javax.swing.JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         channelNameScrollPane.setMinimumSize(new java.awt.Dimension(100, 100));
@@ -316,40 +311,59 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         getContentPane().add(splitPane, gridBagConstraints);
 
-        butPrint.setFont(new java.awt.Font("Dialog", 0, 10));
-        butPrint.setText("Print this personalised listing...");
-        butPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butPrintActionPerformed(evt);
-            }
-        });
-
-        bottomPanel.add(butPrint);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        getContentPane().add(bottomPanel, gridBagConstraints);
-
         butRevertFavs.setFont(new java.awt.Font("Dialog", 0, 10));
-        butRevertFavs.setText("Show Favourites Only");
+        butRevertFavs.setText("Untick non-favourites");
         butRevertFavs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butRevertFavsActionPerformed(evt);
             }
         });
 
-        topLeftPanel.add(butRevertFavs);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 2, 0);
+        getContentPane().add(butRevertFavs, gridBagConstraints);
+
+        butPrint.setFont(new java.awt.Font("Dialog", 0, 10));
+        butPrint.setText("Print this personalised listing");
+        butPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butPrintActionPerformed(evt);
+            }
+        });
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 2, 0);
+        getContentPane().add(butPrint, gridBagConstraints);
+
+        butDownload.setFont(new java.awt.Font("Dialog", 0, 10));
+        butDownload.setText("Download Listings...");
+        butDownload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butDownloadActionPerformed(evt);
+            }
+        });
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        getContentPane().add(topLeftPanel, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
+        getContentPane().add(butDownload, gridBagConstraints);
 
         fileMenu.setText("File");
+        menDownload.setText("Download Listings...");
+        menDownload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menDownloadActionPerformed(evt);
+            }
+        });
+
+        fileMenu.add(menDownload);
         menPrint.setText("Print Listing");
         menPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -368,25 +382,6 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 
         fileMenu.add(menQuit);
         jMenuBar2.add(fileMenu);
-        actionsMenu.setText("Actions");
-        menDownload.setText("Download Listings...");
-        menDownload.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menDownloadActionPerformed(evt);
-            }
-        });
-
-        actionsMenu.add(menDownload);
-        actionsMenu.add(jSeparator3);
-        menFavourites.setText("Choose Favourites...");
-        menFavourites.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menFavouritesActionPerformed(evt);
-            }
-        });
-
-        actionsMenu.add(menFavourites);
-        jMenuBar2.add(actionsMenu);
         optionsMenu.setText("Tools");
         menCustomiser.setText("Customise...");
         menCustomiser.addActionListener(new java.awt.event.ActionListener() {
@@ -404,6 +399,14 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         });
 
         optionsMenu.add(menChannels);
+        menFavourites.setText("Choose Favourites...");
+        menFavourites.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menFavouritesActionPerformed(evt);
+            }
+        });
+
+        optionsMenu.add(menFavourites);
         optionsMenu.add(jSeparator1);
         menOptions.setText("Options...");
         menOptions.addActionListener(new java.awt.event.ActionListener() {
@@ -435,6 +438,12 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
         setSize(new java.awt.Dimension(615, 345));
         setLocation((screenSize.width-615)/2,(screenSize.height-345)/2);
     }//GEN-END:initComponents
+
+	private void butDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butDownloadActionPerformed
+		
+		downloadListings();
+		
+	}//GEN-LAST:event_butDownloadActionPerformed
 
 	private void menChannelsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menChannelsActionPerformed
 		setVisible(false);
@@ -525,7 +534,7 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
 	private void menOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menOptionsActionPerformed
 		
 		setVisible(false);
-		new FreeGuideOptionsWizard(this).setVisible(true);
+		new FreeGuideOptions(this).setVisible(true);
 		dispose();
 		
 	}//GEN-LAST:event_menOptionsActionPerformed
@@ -1458,27 +1467,24 @@ public class FreeGuideViewer extends javax.swing.JFrame implements FreeGuideLaun
     private javax.swing.JMenuItem menCustomiser;
     private javax.swing.JMenuItem menDownload;
     private javax.swing.JEditorPane printedGuideArea;
-    private javax.swing.JMenu actionsMenu;
     private javax.swing.JMenuItem menUserGuide;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator3;
     private FreeGuideTimePanel timePanel;
     private javax.swing.JMenuItem menPrint;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel channelNamePanel;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JMenuItem menAddFav;
     private javax.swing.JPanel topPanel;
     private javax.swing.JButton butPrint;
-    private javax.swing.JPanel topLeftPanel;
+    private javax.swing.JButton butDownload;
     private javax.swing.JMenuItem menOptions;
     private javax.swing.JScrollPane channelNameScrollPane;
     private javax.swing.JSplitPane splitPane;
     private javax.swing.JMenuItem menFavourites;
-    private javax.swing.JMenu optionsMenu;
     private javax.swing.JButton butRevertFavs;
-    private javax.swing.JPanel bottomPanel;
+    private javax.swing.JMenu optionsMenu;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JMenuItem menAbout;
     private javax.swing.JButton butNext;

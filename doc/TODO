@@ -65,18 +65,28 @@ Release 0.6 (most wanted features)
 
 Release 0.5 (mainly bug fixes)
 
-- "Uncheck all" button + "check all" button in channels screen
+- "Choose all" button + "Choose none" button in channels screen
 - When some channels aren't found, still display the others.
 - Add days of week to dropdown and take out year
 - Fix bug with adding an already-selected programme to favourites.
 - Right-click on a favourite gives option to remove from favs?
     (remove specific favs, but warn if general)
-- Make FreeGuideInstaller really a wizard (i.e. can't jump ahead)
-- Fix bug with favourites not being ticked when you enter a day
-- Fix bug where options screen wipes out what you chose for grabber command on entry
-- make installer check your java version, (and other things?)
-- Fix bug with "&" in channel name (is this tv_grab_na?)
+- Fix bug with favourites not being ticked when you enter a day - can't recreate now
++ Fix bug where options screen wipes out what you chose for grabber command on entry
+- Fix bug with "&" in programme name (is this tv_grab_na?)
 - Investigate what happens when you go through to another day then click GoToNow
++ Make draggable bars look draggable
++ Make Options screen ask you its first 3 questions, then present you with all
+	other options simultaneously. Each option has a "Guess" button
++ Make options screen better
+- Make installer install shortcuts for Windows, Gnome and KDE
+- Convert installer to FreeGuideWizard
+- make installer check your java version, (and other things?)
+- Delete these classes?: OptionsWizard, DirectoryDialog, others?
+- Add a question to the beginning of the installer: install or uninstall (if
+	the misc.install_directory pref exists) - if click uninstall, delete the
+	whole installation directory, and the working directory if there is one,
+	and the preferences group for FreeGuide.
 
 Release 0.4
 

@@ -456,7 +456,7 @@ public class FreeGuideInstall extends javax.swing.JFrame {
 		
 		// make the directory if it doesn't exist
 		String s = destDir + name;
-		int i = s.lastIndexOf(File.separatorChar);
+		int i = s.lastIndexOf('/');
 		if(i>-1) {
 			new File(s.substring(0, i)).mkdirs();
 		}

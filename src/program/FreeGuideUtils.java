@@ -31,7 +31,7 @@ import javax.swing.JTextArea;
  * Some static global methods used in various parts of FreeGuide.
  *
  * @author  Andy Balaam
- * @version 2
+ * @version 3
  */
 
 public class FreeGuideUtils {
@@ -172,6 +172,8 @@ loop:			while(true)
 		
 	}
 	
+	// -------------------------------------------------
+	
 	/**
 	 * Convert a Vector of FreeGuideProgrammes to an array.
 	 */
@@ -219,7 +221,7 @@ loop:			while(true)
 		return ans;
 	}
 	
-	public static void fillComboBox(JComboBox box, String name) {
+	/*public static void fillComboBox(JComboBox box, String name) {
 		
 		box.removeAllItems();
 		
@@ -231,33 +233,33 @@ loop:			while(true)
 			fillComboBoxBrowserName(box);
 		}
 		
-	}
+	}*/
 	
 	/**
 	 * Fill a combo box with possible types of OS.
 	 */
-	public static void fillComboBoxOS(javax.swing.JComboBox box) {
+	/*public static void fillComboBoxOS(javax.swing.JComboBox box) {
 		
 		box.addItem(os_Windows);
 		box.addItem(os_Other);
 		
-	}
+	}*
 	
 	/**
 	 * Fill a combo box with possible countries.
 	 */
-	public static void fillComboBoxCountry(javax.swing.JComboBox box) {
+	/*public static void fillComboBoxCountry(javax.swing.JComboBox box) {
 		
 		box.addItem(country_UK);
 		box.addItem(country_NA);
 		box.addItem(country_Germany);
 		
-	}
+	}*
 	
 	/**
 	 * Fill a combo box with possible Browsers.
 	 */
-	public static void fillComboBoxBrowserName(javax.swing.JComboBox box) {
+	/*public static void fillComboBoxBrowserName(javax.swing.JComboBox box) {
 		
 		box.addItem(browser_IE);
 		box.addItem(browser_NS);
@@ -266,7 +268,7 @@ loop:			while(true)
 		box.addItem(browser_Galeon);
 		box.addItem(browser_Konqueror);
 		
-	}
+	}*/
 	
 	/**
 	 * Set up the default options according to the OS, country and browser
@@ -382,6 +384,7 @@ loop:			while(true)
 		
 	}*/
 	
+	/*
 	public static String getDefault(String name) {
 		if(name.equals("os")) {
 			return getDefaultOS();
@@ -403,12 +406,12 @@ loop:			while(true)
 			FreeGuide.log.warning("Unknown default requested.");
 			return null;
 		}
-	}
+	}*/
 	
 	/**
 	 * Returns a guess at the xmltv config file
 	 */
-	private static String getDefaultXMLTVCfg() {
+	/*private static String getDefaultXMLTVCfg() {
 		String os = FreeGuide.prefs.misc.get("os");
 		String country = FreeGuide.prefs.misc.get("country");
 		
@@ -445,12 +448,12 @@ loop:			while(true)
 		}
 		
 		return ans;
-	}
+	}*/
 	
 	/**
 	 * Returns a guess at the browser command
 	 */
-	private static String getDefaultBrowser() {
+	/*private static String getDefaultBrowser() {
 		String os = FreeGuide.prefs.misc.get("os");
 		String browser = FreeGuide.prefs.misc.get("browser_name");
 		String xmltvDir = FreeGuide.prefs.misc.get("xmltv_directory");
@@ -497,12 +500,12 @@ loop:			while(true)
 		
 		return ans;
 		
-	}
+	}*/
 	
 	/**
 	 * Returns a guess at the xmltv grabber command
 	 */
-	private static String getDefaultGrabber() {
+	/*private static String getDefaultGrabber() {
 		String os = FreeGuide.prefs.misc.get("os");
 		String country = FreeGuide.prefs.misc.get("country");
 		String xmltvDir = FreeGuide.prefs.misc.get("xmltv_directory");
@@ -545,55 +548,55 @@ loop:			while(true)
 		}
 		
 		return ans;
-	}
+	}*/
 	
 	/**
 	 * Returns a guess at the working directory
 	 */
-	private static String getDefaultWorkingDir() {
+	/*private static String getDefaultWorkingDir() {
 		String os = FreeGuide.prefs.misc.get("os");
 		if(os.equals(os_Windows)) {
 			return "C:\\xmltv\\.xmltv\\freeguide-tv\\";
 		} else {
 			return "%home%/.xmltv/freeguide-tv/";
 		}
-	}
+	}*/
 	
 	/**
 	 * Returns a guess at the xmltv directory
 	 */
-	private static String getDefaultXMLTVCmdDir() {
+	/*private static String getDefaultXMLTVCmdDir() {
 		String os = FreeGuide.prefs.misc.get("os");
 		if(os.equals(os_Windows)) {
 			return "C:\\xmltv\\";
 		} else {
 			return "/usr/bin/";
 		}
-	}
+	}*/
 	
 	/**
 	 * Returns IE on Windows and Netscape for real men
 	 */
-	private static String getDefaultBrowserName() {
+	/*private static String getDefaultBrowserName() {
 		String os = FreeGuide.prefs.misc.get("os");
 		if(os.equals(os_Windows)) {
 			return browser_IE;
 		} else {
 			return browser_NS;
 		}
-	}
+	}*/
 	
 	/**
 	 * Returns UK
 	 */
-	private static String getDefaultCountry() {
+	/*private static String getDefaultCountry() {
 		return country_UK;
-	}
+	}*/
 	
 	/**
 	 * Returns either "Windows" if we're on windows or "Linux" otherwise.
 	 */
-	private static String getDefaultOS() {
+	/*private static String getDefaultOS() {
 		String os = System.getProperty("os.name");
 		if(os.startsWith("Windows")) {
 			return os_Windows;
@@ -617,6 +620,7 @@ loop:			while(true)
 	private static final String browser_Mozilla = "Mozilla";
 	private static final String browser_Galeon = "Galeon";
 	private static final String browser_Konqueror = "Konqueror";
+	*/
 	
 	private static final char dosSlash = 127;
 	

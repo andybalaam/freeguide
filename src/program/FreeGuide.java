@@ -81,7 +81,7 @@ public class FreeGuide implements FreeGuideLauncher {
 	public static Logger log;					// The log file
 	
 	public static final int version_major = 0;
-	public static final int version_minor = 4;
+	public static final int version_minor = 5;
 	public static final int version_revision = 0;
 	
 	// Defaults - can be overridden by user preferences
@@ -92,6 +92,6 @@ public class FreeGuide implements FreeGuideLauncher {
 	public static final int VERTICAL_GAP = 1;
 	public static final int HORIZONTAL_GAP = 1;
 	public static final int PANEL_WIDTH = 6000;
-	public static final int CHANNEL_PANEL_WIDTH = 6000;
+	public static final int CHANNEL_PANEL_WIDTH = 400;
 	
 }
