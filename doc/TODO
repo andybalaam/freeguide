@@ -147,11 +147,11 @@ r  means done by Rob Stewart
 - rename program folder to freeguide
 - Update screenshots on sf and freshmeat to show channel and program icons
 
-- Release 0.8.1 (bug fix)
++ Release 0.8.1 (bug fix)
 
-- Fix windows problem by deleting any install_directory preference stored in
++ Fix windows problem by deleting any install_directory preference stored in
   the user prefs section
-- Fix linux problem of null install_directory by changing it so it installs
++ Fix linux problem of null install_directory by changing it so it installs
   the docs to the working directory after you run the first time wizard.  Now
   the linux version doesn't need to know where it's installed to work.
 
