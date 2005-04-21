@@ -125,7 +125,7 @@ Section "FreeGuide program"
   
   CreateDirectory $INSTDIR\icons\
   
-;  File /oname=$INSTDIR\icons\logo.ico ..\..\src\images\logo.ico
+  File /oname=$INSTDIR\icons\logo.ico icons\logo.ico
   
   ; ---------------- add/remove programs entry ------------------
   
