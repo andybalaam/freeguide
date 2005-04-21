@@ -230,6 +230,7 @@ c  means done by Christian Weiske
   "Viewers:Horizontal" etc node to "Horizontal Viewer" node just below layout,
   with other viewers appearing below.
 - Check whether we need TZ set, and if not, remove warnings about it.
+- Can we get rid of a lot of options for the horizontal display?
   
 - Release 0.10pre1 (Add some features to plugins-branch work)
 
@@ -237,7 +238,6 @@ c  means done by Christian Weiske
   countries it supports (XMLTV should make this list by looking at what
   properties files it has available).
 - "Download in background" should work to make the downloading dialog non-modal.
-- Can we get rid of a lot of options for the horizontal display?
 - Support more than one copy of each xmltv grabber
 a Can we remove ViewerFramePositionConfig class?
 a "Show output" should change to "Hide output" when it's clicked
