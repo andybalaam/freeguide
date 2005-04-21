@@ -1,11 +1,3 @@
-Time flows upward.  Releases happen when all actions
-below them are completed.
-
-This document is at risk of radical change whenever I
-feel like it.
-
--  means to do
-
 +  means done by Andy Balaam
 x  means done by Sagar Shah
 *  means done by Walter Duncan
@@ -58,7 +50,7 @@ c  means done by Christian Weiske
   and launch "Choose channels".
 - Include Python XMLTV grabbers, and all others available
 
-- Release 0.9.5
+- Release 0.12
 
 - Manual
 - Use serialization to reduce startup time
@@ -67,7 +59,7 @@ c  means done by Christian Weiske
 - Automatically make a channel set when you right-click a channel and choose
   "Move up" (or even drag!)
 
-- Release 0.9.4 (nice features)
+- Release 0.11 (nice features)
 
 - Run an exe when a programme is about to start and/or end
 - Make scrollbar increment in fractions of hours on mouse wheel or click.
@@ -92,7 +84,7 @@ c  means done by Christian Weiske
 - Look into SQL engines: http://www.mckoi.com/database/
 - Remember where you were in the Options screen
 
-- Release 0.9.3 (preferences creep)
+- Release 0.10.5 (preferences creep)
 
 - Choose how old files are before you delete them
 - Ability to save and load preferences (using Java's ability to save to XML)
@@ -119,7 +111,7 @@ c  means done by Christian Weiske
 - Brief summary for the next few days.
 - Minimize to system tray - see Christian's email of 14/3/05
 
-- Release 0.9.2 (aesthetics)
+- Release 0.10.4 (aesthetics)
 
 - Go To Now scrolls the personalised listing panel as well as the main panel
 - Coloured favourites categories (text and/or background)
@@ -144,7 +136,7 @@ c  means done by Christian Weiske
 - Channel names missing when viewing channel sets (Antony Akintewe's email of
   Mar 24 2005)
 
-- Release 0.9.1 (accessibility, accessibility, accessibility)
+- Release 0.10.3 (accessibility, accessibility, accessibility)
 
 - Improve accessibility, specifically keyboard shortcuts
 - Shortcut keys for everything
@@ -194,8 +186,10 @@ c  means done by Christian Weiske
 - Fix bug with multiple reminders if you enter a page multiple times.
 - Make links in About screen work.
 - Deal with a missing .xmltv directory on Choose Channels by making it.
+- Remember "Show details" setting, and don't close download window if details
+  are being shown.
 
-- Release 0.9 (Keyboard navigation, internationalisation, recording)
+- Release 0.10.2 (Keyboard navigation, internationalisation, recording)
 
 - Fix cropped channel icons in program details panel
 - Fix bug where vertical scrolling makes the cursor disappear
@@ -231,10 +225,191 @@ c  means done by Christian Weiske
 - Test whether only channel icons are dispalyed when you use a channel set,
   but icon and name is displayed on All Channels.
 - New channel sets should have a default name
+- Closing Please Wait dialog should not close FreeGuide except during startup.
+- Options screen: remove unneeded options and make more user-friendly.  Change
+  "Viewers:Horizontal" etc node to "Horizontal Viewer" node just below layout,
+  with other viewers appearing below.
+- Check whether we need TZ set, and if not, remove warnings about it.
+  
+- Release 0.10.1 (Add some features to plugins-branch work)
+
+- Generate the list of grabber plugins dynamically by asking each plugin what
+  countries it supports (XMLTV should make this list by looking at what
+  properties files it has available).
+- "Download in background" should work to make the downloading dialog non-modal.
+- Can we get rid of a lot of options for the horizontal display?
+- Support more than one copy of each xmltv grabber
+a Can we remove ViewerFramePositionConfig class?
+a "Show output" should change to "Hide output" when it's clicked
+- Merge changes from HEAD into plugins-branch
+    a --quiet for all commands
+    a src/freeguide/gui/viewer/ChannelJLabel.java 10 pixel minimum width
+    a src/freeguide/gui/viewer/ViewerFrameXMLTVLoader.java use the first channel
+      name, not all.
+- Progress bar on Please Wait dialog does not move.
+- Rename classes so every class has a different name.
+- Get rid of System.err.println, either removing, or replacing with 
+  FreeGuide.log.info
+- Ensure that the HTML personalised guide only shows programmes that are before
+  the day start time today and after the day start time tomorrow.
+
++ Release 0.10 (Stabilising plugins-branch work)
+
++ Day start time appears to have no effect on the display of programmes (does it
+  need a re-download?)
++ Please Wait dialog appears to have no title.
+a "Remove favourite" english translation appears to be missing
+a When I changed channel set to one that had been imported, it crashed - the
+  "Please wait" window appeared, and then it froze.
+a After the above crash all my favourites disappeared
+a When I start downloading for the first time, the "Please wait" window is a
+  strange shape (too tall - nearly square).  Then when I choose "show details"
+  it becomes very wide, and then when i choose "hide details" it goes back
+  to the correct shape.
+a It successfully imported my channel set, but none of the channels were
+  recognised, so it was blank.  Have the channel ids changed? 
++ "Go to now" button should be the default, so when you press RETURN it is
+  activated
++ Setting for tooltips is not imported.  I had this turned off, and after
+  upgrade it is turned on
++ When I upgrade, the window position is correct, and the horizontal splitpane,
+  but the vertical splitpane seems to be wrong
+a migration doesn't checked xmltv plugin
+a display message on upgrade wizard if xmltv config exists
+a Personalised guide needs to be refreshed when you select a programme
+a Reminders do not work
+a Add to favourites has disappeared from the right-click menu
+a Print personalised listing menu item does not work
+a Upgrade should copy the old xmltv config file into the new location
+a Upgrade should copy channel sets and all other preferences (e.g. window
+  locations)
+a When I did an upgrade from 0.8.6 to 0.10, the first time it started it froze
+  with the programmes window visible, but the please wait dialog in front, 
+  unpainted - just a grey box the size of the please wait dialog.
+a hide_output is not translated into English.
+a Main window does not refresh after downloading listings.
+a Please wait dialog sometimes appears when you have not changed anything
+a Favourites are not automatically selected
+a Favourites do not display hearts
+a FreeGuide forgets which programmes have been selected when you move off this
+  day and back again
+a Sometimes you can't click on programmes - don't know why
+a Java grabbers need to display their errors in the "Show output" section, not
+  the command line (we need to catch and handle any exceptions.)
+a java.lang.NullPointerException
+        at freeguide.lib.general.PreferencesHelper.loadObject(Unknown Source)
+        at freeguide.lib.general.PreferencesHelper.loadObject(Unknown Source)
+        at freeguide.lib.general.PreferencesHelper.loadList(Unknown Source)
+        at freeguide.lib.general.PreferencesHelper.loadObject(Unknown Source)
+        at freeguide.gui.viewer.MainController.loadConfig(Unknown Source)
+        at freeguide.gui.viewer.MainController.start(Unknown Source)
+        at freeguide.FreeGuide.normalStartup(Unknown Source)
+        at freeguide.FreeGuide.<init>(Unknown Source)
+        at freeguide.FreeGuide.main(Unknown Source)
+a Downloading is not working - the download box closes immediately.  It doesn't
+  write "Executing system command" to the console.
+a Are the command lines for grabbers now hardcoded?  If so, we need to change
+  this into a properties files as before and allow the user to make changes.
+a Day start time in horizontal Options is not migrated?
+a Please Wait screen disappears immediately
+a Clicking "Show Output" during command execution (XMLTV) resizes the dialog
+  horizontally as well as vertically
+a Re-sizing the Downloading dialog (XMLTV) causes the output section to become
+  very small
+a Doesn't remember vertical or horizontal slider positions on main screen
+a 2 different File menus - one contains Options and Quit, and one Download
+  Listings, Print this Personalised ... and a separator
+a Options should be under Tools menu
+a Menus out of order - should be File Tools Help
+a Choosing User Guide from the Help menu gives:
+  Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+        at freeguide.lib.general.Utils.execNoWait(Unknown Source)
+a Choosing "Show README" during First Time Wizard does nothing.
+a Executing command dialog has no entry on the task bar (Linux, Gnome) and
+  disappears behind the main screen when you click the main screen's entry.
+  (It should be a modal dialogue [actually set from prefs] with the main screen
+  as its parent - is it?)
+a stderr in Show output should not be prefixed by "WARNING: " - it is normally
+  just for information.
+a Running the First Time Wizard twice leaves you with 2 grabber plugins, whereas
+  normally it should replace one with another.  Having 2 is for advanced users.
+a The title of the tree node in Options for grabbers needs to have a friendly
+  name.  Currently called 
+a Missing or invalid XML for the today's listings causes FreeGuide to freeze on
+  startup with an exception
+a Each grabber plugin should have its own tree node under the plugins node on
+  the Options screen.
+a Main screen does not refresh after a download of listings
+a Main screen is empty with everything in bottom right hand corner on startup
+a Listings only displayed when you move away from today and back onto today
+  using the date combobox.
+a Command output window should display what commands were executed as well as
+  what output there was.
+a Migrate old preferences to new
+a Channels are shorter than programmes
+a Icons are bigger than channel boxes
+a Some channel boxes aren't big enough for the full name
+a Lots of extra files in ~/.freeguide - looks like there may be a missing "/"
+  somewhere - files are called e.g. "iconCachechannel4_com".
+a iconcache has been renamed to iconCache
+a Downloading dialog does not close when it is finished, even though the
+  "Please Wait" window does appear, so presumably the view is refreshed.
+a Dialog should say "Downloading, please wait" instead of just "Please Wait".
+
+
 
 *** 0.9preX unstable releases are described in the TODO in plugins-branch. ***
 
 *** Current work on 0.8.X stable releases is described in the TODO in Stable0_8-branch. ***
+
+
+
++ Release 0.9pre3
+
++ Release 0.9pre2 (Stabilising MVC work)
+
++ Unsplit (Times should be entered as "hh:mm") strings in favourite editor
++ Get rid of all the comments left by NetBeans etc.
++ Incorporate an automatic code formatter into the build process
++ Rename "program" dir to "freeguide"
++ Sometimes deleting a favourite makes everything a favourite.  It does this
+  by blanking the title of a "contains" favourite.
++ Favourite names need an extra space - internationalise these names properly
++ Stop it from changing what's in the programme panel when you hover for a
+  couple of seconds.
++ When you enter a day that hasn't been entered before, mark favourites as
+  inguide
++ Fix the problem with flickering guide after clicking OK in the Favourites
+  dialog
++ Fix the flickering personalised guide when you exit the favourites list
++ Put channel icons at the bottom of the programme details panel
++ Move channel and programme icons to the bottom of the details panel
++ Support firefox, and implement this in the stable branch too.
++ Merge MVC with HEAD
++ Fix favourites behaviour to get back what it did before
++ Rename m to model in StripView.java
++ Make 'f' keyboard shortcut work and refresh screen
++ Internationalise it
+c Translate into German
+
++ Release 0.9pre1 (MVC)
+
++ Make keyboard navigation more natural:
+	+ jump several channels up/down if the intermediate channel is blank
+	+ when left or right is pressed, remember the horizontal position of the
+	  middle of this programme.  During all up/down presses, jump to the
+	  programme that best matches this horizontal position.  When left or right
+	  is pressed, forget this value and find another one.
++ Fix problem with the selected programme appearing in the top left
++ Make the selected programme appear selected after a SPACE-press/dbl-click
++ Fix whatever is using 100% of CPU whenever FreeGuide is running
++ Make non-favourites appear in personalised guide: make Programmes themselves
+  know whether or not they are inguide.
++ Rename things so "selected" means cursor is on you, "in guide" means chosen/
+  highlighted/shown in personalised guide, and "favourite" mean is a favourite.
+  (Later, "reminder" will mean you will be reminded, and "recorded" will
+  mean it will be recorded.)
++ Make hearts appear on favourites.
 
 + Release 0.8.6
 
@@ -638,3 +813,4 @@ x Display which channels are missing when some listings are missing.
 + Delete old programme files and old config entries
 + Update README
 + About screen
+

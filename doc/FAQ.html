@@ -21,7 +21,7 @@
   <li><a href="#grabberconfig">The grabber configuration step gives me an error.  What is wrong?</a></li>
   <li><a href="#javaversion">What version of Java does FreeGuide need?</a></li>
   <li><a href="#winrar">When I double-click on a .jar file WinRAR comes up - what do I do?</a></li>
-  <li><a href="#firefox">Why isn't Firefox one of the browser options?</a></li>
+  <!--<li><a href="#firefox">Why isn't Firefox one of the browser options?</a></li>-->
   <li><a href="#proxy">Can I use FreeGuide from behind a proxy server?</a></li>
   <li><a href="#timezone">I get an error about "TZ" - what do I do?</a></li>
   <li><a href="#channelorder">How do I change the order in which channels are listed?</a></li>
@@ -73,14 +73,15 @@ Now copy and paste the contents of C:\Program Files\FreeGuide\log.txt into an em
 
 <h2><a name="newxmltv"></a>FreeGuide used to work for me but now it's stopped.  What is wrong?</h2>
 
-<p>If FreeGuide used to work for you and has now stopped, it is probably because the web site it grabs listings from has changed its format.  Check the whether there is a new FreeGuide version here: <a href="http://sourceforge.net/project/showfiles.php?group_id=35309&package_id=27789">http://sourceforge.net/project/showfiles.php?group_id=35309&package_id=27789</a>.</p>
+<p>If FreeGuide used to work for you and has now stopped, it is probably because the web site it grabs listings from has changed its format.  Check the whether there is a new FreeGuide version here: <a href="http://sourceforge.net/project/showfiles.php?group_id=35309&package_id=27789">http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789</a>.</p>
 
-<p>If there isn't a new FreeGuide yet, you can see whether there's a new xmltv version here: <a href="http://sourceforge.net/project/showfiles.php?group_id=35309&package_id=103744">http://sourceforge.net/project/showfiles.php?group_id=35309&package_id=103744</a>  and then follow these instructions to install it:</p>
+<p>If there isn't a new FreeGuide yet, you can see whether there's a new xmltv version here: <a href="http://sourceforge.net/project/showfiles.php?group_id=39046&package_id=31217">http://sourceforge.net/project/showfiles.php?group_id=39046&amp;package_id=31217</a>  and then follow these instructions to install it:</p>
 <ul>
-<li>Under Windows unzip the xmltv-x.x.x-tkgui-bin-windows.zip file and copy the file xmltv.exe over your file "C:\Program Files\FreeGuide\xmltv\xmltv.exe"</li>
-<li>Under Linux, unzip the xmltv executable from the xmltv-x.x.x-tkgui-bin-linux.tar.bz2 file and use it to replace the file xmltv in the "xmltv" subdirectory of your FreeGuide install directory.</li>
-<li>Under Linux-NoXMLTV, download the file xmltv-x.x.x-tkgui.tar.bz2 and install it <a href="INSTALL-linux-noxmltv.html">as usual</a>.</li>
+<li>Under Windows unzip the xmltv-x.x.x-win32.zip file and copy the file xmltv.exe over your file "C:\Program Files\FreeGuide\xmltv\xmltv.exe"</li>
+<li>Under Linux, download the file xmltv-x.x.x-tkgui.tar.bz2 and install it <a href="INSTALL-linux-noxmltv.html">as usual</a>.</li>
 </ul>
+
+<p>Now try downloading and see whether it works.</p>
 
 <h2><a name="grabberconfig"></a>The grabber configuration step gives me an error.  What is wrong?</h2>
 
@@ -94,9 +95,9 @@ Now copy and paste the contents of C:\Program Files\FreeGuide\log.txt into an em
 
 <p>WinRAR is a program for unzipping zipped up files like .zip, .rar and .jar files.  However, we want to run these .jar files instead of unzipping them.  Open a DOS or Cmd window and cd into the directory containing the .jar file.  Now type "java -jar [jarname]" to run the .jar file.  Replace [jarname] with the name of the file you want to run (usually either FreeGuide-X.X-Win-Install.jar or just FreeGuide.jar).</p>
 
-<h2><a name="firefox"></a>Why isn't Firefox one of the browser options?</h2>
+<!--<h2><a name="firefox"></a>Why isn't Firefox one of the browser options?</h2>
 
-<p>Because it has a bug that means it can't be called remotely to open a specific URL.  There is more information in this <a href="http://bugzilla.mozilla.org/show_bug.cgi?id=177996">Firefox bug report</a>.</p>
+<p>Because it has a bug that means it can't be called remotely to open a specific URL.  There is more information in this <a href="http://bugzilla.mozilla.org/show_bug.cgi?id=177996">Firefox bug report</a>.</p>-->
 
 <h2><a name="proxy"></a>Can I use FreeGuide from behind a proxy server?</h2>
 

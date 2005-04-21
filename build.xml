@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 
-<project name="freeguide-tv" default="main" basedir=".">
+<project name="freeguide-tv-plugins" default="main" basedir=".">
 
     <description>
         Ant build file for FreeGuide.
     </description>
-
+    
     <!--
      List of files containing FreeGuide's version number:
      
      - build.xml
      - doc/VERSION.php
-     - src/freeguide/FreeGuide.java
-     - src/install/linux/freeguide.spec (2 places)
-     - src/install/linux/freeguide.1
+     - src/java/freeguide/FreeGuide.java
+     - src/install-linux/freeguide.spec (2 places)
+     - src/install-linux/freeguide.1
      - src/install/windows/freeguide.nsi
      
      All of these must be updated when a new version is made.
     -->
-    
+
     <!-- set global properties for this build -->
     <property name="src" location="src" />
     <property name="doc"  location="doc" />
@@ -28,7 +28,7 @@
     <property name="dist"  location="dist" />
     <property name="resources"  location="src/resources" />
     
-    <property name="freeguideversion"  value="FreeGuide-0.9" />
+    <property name="freeguideversion"  value="FreeGuide-0.10" />
 
     <target name="init">
 
@@ -36,15 +36,24 @@
         <tstamp/>
         <!-- Create the build directory structure used by compile -->
         <mkdir dir="${build}" />
-        <mkdir dir="${build}/freeguide" />
-        <mkdir dir="${build}/doc" />
         <mkdir dir="${dist}" />
 
     </target>
-    
+
+    <target name="create-properties-lists">
+        <!--exec executable="sh" dir="${src}/resources/i18n" output="${src}/resources/i18n/ls">
+        	<arg value="-c"/>
+        	<arg value="ls *"/>
+    	</exec>
+        <exec executable="sh" dir="${src}/resources/xmltv" output="${src}/resources/xmltv/ls">
+        	<arg value="-c"/>
+        	<arg value="ls *"/>
+    	</exec-->
+  	</target>
+
     <target name="install-Linux-NoXMLTV-files"
             description="install all the files for linux"
-            depends="FreeGuide-Linux-NoXMLTV" >
+            depends="jar" >
         
         <!-- These properties are passed in from the rpm .spec file:
             install_share_dir = ~/.rpm/tmp/FreeGuide-0.8.2-root//usr/share
@@ -59,7 +68,7 @@
         <property name="install_pixmap_dir" location="${install_share_dir}/pixmaps/freeguide" />
         
         <mkdir dir="${install_jar_dir}" />
-        <copy file="${dist}/${freeguideversion}-Linux-NoXMLTV.jar"
+        <copy file="${build}/FreeGuide.jar"
             tofile="${install_jar_dir}/FreeGuide.jar" />
 
         <!-- Copy the different-sized icons to the freeguide pixmaps dir -->
@@ -72,17 +81,18 @@
             </fileset>
         </copy>
         
-        <copy tofile="${install_share_dir}/pixmaps/freeguide.png" file="${src}/images/logo-32x32.png" />
-        
+        <copy tofile="${install_share_dir}/pixmaps/freeguide.png" 
+            file="${src}/images/logo-32x32.png" />
+            
         <!-- Creating the launch script: first we need to copy the source launch script, then we replace the string "__ANT_DOC_DIRECTORY__" with the docs directory, and then we move it into place and make it executable. -->
-        <copy file="${src}/install/linux/freeguide" tofile="${src}/install/linux/freeguide.tmp" />
-        <replace file="${src}/install/linux/freeguide.tmp" token="__ANT_DOC_DIRECTORY__" value="${install_real_doc_dir}" />
+        <copy file="${src}/install-linux/freeguide" tofile="${src}/install-linux/freeguide.tmp" />
+        <replace file="${src}/install-linux/freeguide.tmp" token="__ANT_DOC_DIRECTORY__" value="${install_real_doc_dir}" />
         <mkdir dir="${install_bin_dir}" />
-        <move file="${src}/install/linux/freeguide.tmp" tofile="${install_bin_dir}/freeguide" />
+        <move file="${src}/install-linux/freeguide.tmp" tofile="${install_bin_dir}/freeguide" />
         <chmod file="${install_bin_dir}/freeguide" perm="a+x" />
         
         <mkdir dir="${install_share_dir}/applications" />
-        <copy file="${src}/install/linux/freeguide.desktop" todir="${install_share_dir}/applications/" />
+        <copy file="${src}/install-linux/freeguide.desktop" todir="${install_share_dir}/applications/" />
 
         <mkdir dir="${install_share_dir}/man/man1" />
         <copy file="${build}/freeguide.1.gz" todir="${install_share_dir}/man/man1/" />
@@ -101,200 +111,64 @@
         
     </target>
     
-    <target name="compile" depends="init" description="compile the source " >
+    <target name="compile" depends="init, create-properties-lists" description="compile the source " >
 
+        <mkdir dir="${build}/classes"/>
         <!-- compile all the .java files -->
-        <javac srcdir="${src}/freeguide" destdir="${build}/freeguide" deprecation="on" source="1.4" target="1.4" />
+        <javac srcdir="${src}/java"
+        	destdir="${build}/classes"
+        	deprecation="on" 
+        	source="1.4" 
+        	target="1.4"
+            encoding="UTF-8">
+        	<classpath>
+        		<fileset dir="${src}/lib" includes="**/*.jar"/>
+        	</classpath>
+      	</javac>
 
-        <!-- copy in the required images (flash screen) -->
-        <copy todir="${build}/freeguide" file="${src}/images/logo-256x256.png" />
-        
-        <!-- gzip the man page -->
-        <gzip src="${src}/install/linux/freeguide.1" zipfile="${build}/freeguide.1.gz" />
-        
+        <copy todir="${build}/classes">
+            <fileset dir="${src}/resources"/>
+        	<fileset dir="${src}/java" excludes="**/*.java"/>
+      	</copy>
+    	
         <!-- generate the fake resource file -->
-        <exec executable="python" os="linux" dir="${resources}">
+        <!--<exec executable="python" dir="${resources}">
             <arg line="generate_REVERSECAPS.py" />
-        </exec>
+        </exec>-->
         
     </target>
 
-    <target name="copy-for-swingwt" description="copy the java files and replace java.* with swingwt.* " >
-
-        <!-- make the directory to copy files to -->
-        <mkdir dir="${build}/swingwt/freeguide" />
-    
-        <!-- copy in the required images (flash screen) -->
-        <copy todir="${build}/swingwt/freeguide">
-            <fileset dir="${src}/freeguide" />
-        </copy>
-        
-        <!-- replace all the java imports with swingwt -->
-        <replace dir="${build}/swingwt/freeguide" includes="**/*.java" token="java." value="swingwt." />
-        
-        <replace dir="${build}/swingwt/freeguide" includes="**/*.java" token="javax." value="swingwtx." />
-        
-    </target>
-    
-    <target name="FreeGuide-Win" depends="compile"
+    <target name="jar" depends="compile"
             description="generate the windows jar file" >
 
-        <mkdir dir="${build}/windows" />
+        <mkdir dir="${build}" />
         
-        <!-- Copy the program jar -->
-        <copy todir="${build}/windows">
-            <fileset dir="${build}/freeguide" />
-        </copy>
-
-        <!-- Copy the XMLTV DTD -->
-        <copy file="${xmltv}/xmltv.dtd" todir="${build}/windows" />
-
-        <!-- Copy the internationalisation resources files -->
-        <mkdir dir="${build}/windows/resources" />
-        <copy todir="${build}/windows/resources">
-            <fileset dir="${resources}">
-                <include name="**/*.properties" />
-            </fileset>
-        </copy>
-        
-        <!-- copy in the install.props file for the jar -->
-        <copy file="${src}/install/windows/install-win-all.props" tofile="${build}/windows/install-all.props" overwrite="true" />
-        
-        <!-- Denmark -->
-        <copy file="${src}/install/windows/install-win-dk.props" tofile="${build}/windows/install-0.props" overwrite="true" />
-        
-        <!-- Finland -->
-        <copy file="${src}/install/windows/install-win-fi.props" tofile="${build}/windows/install-1.props" overwrite="true" />
-        
-        <!-- France -->
-        <copy file="${src}/install/windows/install-win-fr.props" tofile="${build}/windows/install-2.props" overwrite="true" />
-        
-        <!-- Germany -->
-        <copy file="${src}/install/windows/install-win-de_tvtoday.props" tofile="${build}/windows/install-3.props" overwrite="true" />
-        
-        <!-- Hungary and Romania -->
-        <copy file="${src}/install/windows/install-win-huro.props" tofile="${build}/windows/install-4.props" overwrite="true" />
-        
-        <!-- Italy -->
-        <copy file="${src}/install/windows/install-win-it_lt.props" tofile="${build}/windows/install-5.props" overwrite="true" />
-        
-        <!-- Japan -->
-        <!--<copy file="${src}/install/windows/install-win-jp.props" tofile="${build}/windows/install-6.props" overwrite="true" />-->
-        
-        <!-- Netherlands -->
-        <copy file="${src}/install/windows/install-win-nl.props" tofile="${build}/windows/install-6.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-nl_wolf.props"
-        tofile="${build}/windows/install-7.props" overwrite="true" />
-        
-        <!-- North America -->
-        <copy file="${src}/install/windows/install-win-na_dd.props" tofile="${build}/windows/install-8.props" overwrite="true" />
-        
-        <!-- Norway -->
-        <copy file="${src}/install/windows/install-win-no.props" tofile="${build}/windows/install-9.props" overwrite="true" />
-        
-        <!-- Portugal -->
-        <copy file="${src}/install/windows/install-win-pt.props" tofile="${build}/windows/install-10.props" overwrite="true" />
-        
-        <!-- Spain -->
-        <copy file="${src}/install/windows/install-win-es.props" tofile="${build}/windows/install-11.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-es_digital.props" tofile="${build}/windows/install-12.props" overwrite="true" />
-        
-        <!-- Sweden -->
-        <copy file="${src}/install/windows/install-win-se.props" tofile="${build}/windows/install-13.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-se_swedb.props" tofile="${build}/windows/install-14.props" overwrite="true" />
-        
-        <!-- UK -->
-        <copy file="${src}/install/windows/install-win-uk_bleb.props" tofile="${build}/windows/install-15.props" overwrite="true" />
-        <copy file="${src}/install/windows/install-win-uk_rt.props" tofile="${build}/windows/install-16.props" overwrite="true" />
-
         <!-- Make the jar file -->
-        <jar 	jarfile="${dist}/${freeguideversion}-Win.jar"
-                basedir="${build}/windows"
+        <jar 	jarfile="${build}/FreeGuide.jar"
+                basedir="${build}/classes"
                 manifest="${src}/manifests/FreeGuide.mf" />
         
     </target>
 
-    <target name="FreeGuide-Linux-NoXMLTV" depends="compile"
-        description="generate the linux jar" >
+    <target name="FreeGuide-Source" depends="init"
+        description="generate the source tar.gz and zip">
 
-        <mkdir dir="${build}/linux" />
-
-        <!-- Copy the program file -->
-        <copy todir="${build}/linux">
-            <fileset dir="${build}/freeguide" />
-        </copy>
-
-        <!-- Copy the XMLTV DTD -->
-        <copy file="${xmltv}/xmltv.dtd" todir="${build}/linux" />
-
-        <!-- Copy the internationalisation resources files -->
-        <mkdir dir="${build}/linux/resources" />
-        <copy todir="${build}/linux/resources">
-            <fileset dir="${resources}">
-                <include name="**/*.properties" />
-            </fileset>
-        </copy>
-        
-        <!-- copy in the install.props file for the jar -->
-        <copy file="${src}/install/linux/install-lin-all.props" tofile="${build}/linux/install-all.props" overwrite="true" />
-        
-        <!-- Denmark -->
-        <copy file="${src}/install/linux/install-lin-dk.props" tofile="${build}/linux/install-0.props" overwrite="true" />
-        
-        <!-- Finland -->
-        <copy file="${src}/install/linux/install-lin-fi.props" tofile="${build}/linux/install-1.props" overwrite="true" />
-        
-        <!-- France -->
-        <copy file="${src}/install/linux/install-lin-fr.props" tofile="${build}/linux/install-2.props" overwrite="true" />
-        
-        <!-- Germany -->
-        <copy file="${src}/install/linux/install-lin-de_tvtoday.props" tofile="${build}/linux/install-3.props" overwrite="true" />
-        
-        <!-- Hungary and Romania -->
-        <copy file="${src}/install/linux/install-lin-huro.props" tofile="${build}/linux/install-4.props" overwrite="true" />
-        
-        <!-- Italy -->
-        <!--<copy file="${src}/install/linux/install-lin-it_lt.props" tofile="${build}/linux/install-5.props" overwrite="true" />-->
-        
-        <!-- Japan -->
-        <copy file="${src}/install/linux/install-lin-jp.props" tofile="${build}/linux/install-5.props" overwrite="true" />
-        
-        <!-- Netherlands -->
-        <copy file="${src}/install/linux/install-lin-nl.props" tofile="${build}/linux/install-6.props" overwrite="true" />
-        <copy file="${src}/install/linux/install-lin-nl_wolf.props" tofile="${build}/linux/install-7.props" overwrite="true" />
-        
-        <!-- North America -->
-        <copy file="${src}/install/linux/install-lin-na_dd.props" tofile="${build}/linux/install-8.props" overwrite="true" />
-        
-        <!-- Norway -->
-        <copy file="${src}/install/linux/install-lin-no.props" tofile="${build}/linux/install-9.props" overwrite="true" />
-        
-        <!-- Portugal -->
-        <copy file="${src}/install/linux/install-lin-pt.props" tofile="${build}/linux/install-10.props" overwrite="true" />
-        
-        <!-- Spain -->
-        <copy file="${src}/install/linux/install-lin-es.props" tofile="${build}/linux/install-11.props" overwrite="true" />
-        <copy file="${src}/install/linux/install-lin-es_digital.props" tofile="${build}/linux/install-12.props" overwrite="true" />
-        
-        <!-- Sweden -->
-        <copy file="${src}/install/linux/install-lin-se.props" tofile="${build}/linux/install-13.props" overwrite="true" />
-        
-        <!-- UK -->
-        <copy file="${src}/install/linux/install-lin-uk_bleb.props" tofile="${build}/linux/install-14.props" overwrite="true" />
-        <copy file="${src}/install/linux/install-lin-uk_rt.props" tofile="${build}/linux/install-15.props" overwrite="true" />
-
-        <!-- Make the jar installer file -->
-        <jar 	jarfile="${dist}/${freeguideversion}-Linux-NoXMLTV.jar"
-                basedir="${build}/linux"
-                manifest="${src}/manifests/FreeGuide.mf" />
-
-    </target>
-
-    <target name="FreeGuide-Source"
-        description="generate the source zips"
-            depends="FreeGuide-Win,
-                     FreeGuide-Linux-NoXMLTV">
-
+        <tar destfile="${dist}/${freeguideversion}.tar.gz" compression="gzip" >
+            <tarfileset dir="${src}" prefix="${freeguideversion}/src">
+                <exclude name="**/.xvpics/**" />
+            </tarfileset>
+            <tarfileset dir="${doc}" prefix="${freeguideversion}/doc">
+                <exclude name="**/.xvpics/**" />
+            </tarfileset>
+            <tarfileset dir="." includes="build.xml" prefix="${freeguideversion}" />
+            <tarfileset dir="xmltv"
+                includes="*"
+                excludes="CVS/**"
+                prefix="${freeguideversion}/xmltv" />
+            <tarfileset dir="stats"
+                includes="*.sh,*.py,barchart"
+                prefix="${freeguideversion}/stats" />
+        </tar>
         <zip zipfile="${dist}/${freeguideversion}.zip">
             <zipfileset dir="${src}" prefix="${freeguideversion}/src">
                 <exclude name="**/.xvpics/**" />
@@ -308,28 +182,19 @@
                 excludes="CVS/**"
                 prefix="${freeguideversion}/xmltv" />
             <zipfileset dir="stats"
-                includes="*.sh,*.pl"
+                includes="*.sh,*.py,barchart"
                 prefix="${freeguideversion}/stats" />
         </zip>
 
-        <tar tarfile="${build}/fg.tar"
-             basedir="."
-             includes="build.xml,src/**,doc/**,xmltv/*,stats/*.sh,stats/*.pl"
-             excludes="**/.xvpics/**,**/CVS/**" />
-
-        <mkdir dir="${build}/${freeguideversion}" />
-
-        <untar dest="${build}/${freeguideversion}" src="${build}/fg.tar" />
-
-        <tar tarfile="${build}/${freeguideversion}.tar" basedir="${build}"
-            includes="${freeguideversion}/**" />
-
-        <gzip src="${build}/${freeguideversion}.tar" zipfile="${dist}/${freeguideversion}.tar.gz" />
-
     </target>
 
-    <target name="main" depends="FreeGuide-Source"
+    <target name="main" depends="FreeGuide-Source, jar"
         description="generate all the installers" >
+        <!-- gzip the man page -->
+        <gzip src="${src}/install-linux/freeguide.1" zipfile="${build}/freeguide.1.gz" />
+        <copy todir="${build}">
+        	<fileset dir="${src}/lib" includes="**/*.jar"/>
+      	</copy>
     </target>
 
     <target name="clean"
@@ -338,25 +203,6 @@
         <delete dir="${build}" />
         <delete dir="${dist}" />
     </target>
-
-  <!-- 
-  <taskdef name="jalopy" classname="de.hunsicker.jalopy.plugin.ant.AntPlugin">
-    <classpath>
-      <fileset dir="${ANT_HOME}/lib">
-        <include name="*.jar" />
-      </fileset>
-    </classpath>
-  </taskdef>
-  
-  <target name="jalopy-format">
-    <jalopy fileformat="dos" loglevel="info" 
-        convention="${src}/freeguide-jalopy.xml">
-      <fileset dir="${src}/program">
-        <include name="**/*.java" />
-      </fileset>
-    </jalopy>
-  </target>
-  -->
     
 </project>
 

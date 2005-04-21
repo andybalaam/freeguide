@@ -1,1 +1,1 @@
-jalopy -c freeguide-jalopy.xml -r freeguide/
+jalopy -c freeguide-jalopy.xml -r java/

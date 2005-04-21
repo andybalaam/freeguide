@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>Privacy Information</title>
+</head>
+<body>
+<h1>Privacy Information</h1>
+<h2>Contents</h2>
+<ul>
+<li>Summary</li>
+<li>What is the information used for?</li>
+<li>What are the technical details?</li>
+</ul>
+<h2>Summary</h2>
+<p>When FreeGuide starts, it can check on the FreeGuide web site
+whether there is a new release available. It is useful to know how
+many people are using FreeGuide, so a log is kept of the checks
+that are made each day.</p>
+<p>You can choose either to disable the check completely (choose
+"No"), or you can enable the check and customise what information
+about you is stored.</p>
+<p>The most useful information for us is if you choose a nickname
+for yourself that will uniquely identify you. This will mean we can
+count the number of separate people who use FreeGuide.
+Alternatively, you can allow your IP address to be logged (this
+happens whenever you visit a web site). This will allow us to get
+some idea of how many people are using the program, but it will be
+less accurate since some ISPs give you a different IP every time
+you dial in. Finally, if you would like to perform the check but
+not give away any information at all, you can choose to do that. A
+"hit" will still be logged, but nothing that refers to you will be
+recorded.</p>
+<p>If you have any questions about this, please do contact
+freeguide-tv-devel@lists.sourceforge.net.</p>
+<h2>What is the information used for?</h2>
+<p>At the moment the information isn't used for anything. In the
+future it may be used for some of the following purposes:</p>
+<ul>
+<li>To give the FreeGuide developers a warm glow.</li>
+<li>To convince a company to give us money for some reason because
+we've got lots of users.</li>
+</ul>
+<p>It will never be used to identify individuals. It will never be
+sold to or given away to anyone who wants to use it for commercial
+purposes. It will never be used to send marketing information to
+you.</p>
+<p>Basically FreeGuide is done out of love. One day there might be
+a small amount of money in it for me (Andy Balaam), and this might
+be a way of convincing someone that e.g. they want to pay to be the
+listings provider for a country because they'll get a lot of hits
+to their web site from people wanting more info on a programme. To
+do something like this they'd need to know that lots of people use
+FreeGuide, and this is a way of proving that.</p>
+<h2>What are the technical details?</h2>
+<p>When it starts, if you have enabled version checking, FreeGuide
+checks this URL: http://freeguide-tv.sourceforge.net/VERSION.php.
+The code for this is in
+src/program/lib/fgspecific/VersionCheckerThread.java in the source
+package. According to your privacy preferences, some GET options
+are added to the URL, giving either your nickname or a "fake" IP of
+0.0.0.0 if you chose to give no information. If you chose to give
+your IP, the URL is left unchanged and the IP is found
+automatically. The version of FreeGuide you are using is then added
+to the URL.</p>
+<p>The date, identifier (nickname, IP or fake IP) and version are
+written to a file stored on the server. The PHP script that does
+this is stored in doc/VERSION.php in the source package.</p>
+</body>
+</html>
