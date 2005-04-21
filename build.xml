@@ -74,15 +74,11 @@
         <!-- Copy the different-sized icons to the freeguide pixmaps dir -->
         <mkdir dir="${install_pixmap_dir}" />
         <copy todir="${install_pixmap_dir}/" >
-            <fileset dir="${src}/images">
-                <include name="logo-*.png" />
-                <exclude name="logo-192x192.png" />
-                <exclude name="logo-256x256.png" />
-            </fileset>
+            <fileset dir="${src}/install-linux/icons" />
         </copy>
         
         <copy tofile="${install_share_dir}/pixmaps/freeguide.png" 
-            file="${src}/images/logo-32x32.png" />
+            file="${src}/install-linux/icons/logo-32x32.png" />
             
         <!-- Creating the launch script: first we need to copy the source launch script, then we replace the string "__ANT_DOC_DIRECTORY__" with the docs directory, and then we move it into place and make it executable. -->
         <copy file="${src}/install-linux/freeguide" tofile="${src}/install-linux/freeguide.tmp" />
@@ -127,9 +123,7 @@
       	</javac>
 
         <copy todir="${build}/classes">
-            <fileset dir="${src}/resources" excludes="images/**" />
-            <fileset dir="${src}/resources/images"
-                includes="logo-256x256.png,logo-16x16.png" />
+            <fileset dir="${src}/resources" />
         	<fileset dir="${src}/java" excludes="**/*.java" />
       	</copy>
     	
