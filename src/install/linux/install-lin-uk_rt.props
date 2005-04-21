@@ -1,8 +1,0 @@
-region=UK (slow but more detail)
-
-prefs.1=misc.days_to_grab=2
-prefs.2=commandline.tv_grab.1=tv_grab_uk_rt --quiet --config-file \"%misc.grabber_config%\" --output \"%misc.working_directory%/tv-unprocessed.xmltv\"
-prefs.3=misc.grabber_start_time=06:00
-prefs.4=misc.grabber_config=%home%/.xmltv/tv_grab_uk_rt.conf
-prefs.5=commandline.tv_config.1=tv_grab_uk_rt --config-file \"%misc.grabber_config%\" --configure --gui
-
