@@ -208,10 +208,10 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
         ans.append( "  <title>" );
 
         Object[] messageArguments =
-        {
-            parentViewerFrame.parent.htmlDateFormat.format( 
-                new Date( parentViewerFrame.parent.theDate ) )
-        };
+            {
+                parentViewerFrame.parent.htmlDateFormat.format( 
+                    new Date( parentViewerFrame.parent.theDate ) )
+            };
 
         ans.append( 
             parentViewerFrame.parent.getLocalizer(  ).getLocalizedMessage( 
@@ -297,10 +297,10 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
                 "<font face='helvetica, helv, arial, sans serif' size='4'>" );
 
             Object[] messageArguments2 =
-            {
-                parentViewerFrame.parent.htmlDateFormat.format( 
-                    new Date( parentViewerFrame.parent.theDate ) )
-            };
+                {
+                    parentViewerFrame.parent.htmlDateFormat.format( 
+                        new Date( parentViewerFrame.parent.theDate ) )
+                };
 
             ans.append( 
                 parentViewerFrame.parent.getLocalizer(  ).getLocalizedMessage( 
@@ -315,10 +315,10 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
         {
 
             Object[] messageArguments2 =
-            {
-                parentViewerFrame.parent.htmlDateFormat.format( 
-                    new Date( parentViewerFrame.parent.theDate ) )
-            };
+                {
+                    parentViewerFrame.parent.htmlDateFormat.format( 
+                        new Date( parentViewerFrame.parent.theDate ) )
+                };
 
             ans.append( 
                 parentViewerFrame.parent.getLocalizer(  ).getLocalizedMessage( 

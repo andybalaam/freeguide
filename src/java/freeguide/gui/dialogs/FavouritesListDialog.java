@@ -46,7 +46,6 @@ public class FavouritesListDialog extends JDialog
     {
         super( owner, FreeGuide.msg.getString( "favourites" ), true );
         initialize(  );
-
         getRootPane(  ).setDefaultButton( btnOK );
     }
 

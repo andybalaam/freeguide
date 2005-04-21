@@ -122,9 +122,9 @@ public class ProgrammeFormat
      * shown:
      * <pre>
      * 
- startTime title: subtitle (starString) (R)
+     *  startTime title: subtitle (starString) (R)
      * 
- </pre>
+     *  </pre>
      * where starString is only shown if the programme is a movie and (R) is
      * only displayed if the programme has been previously shown.
      *
@@ -200,13 +200,13 @@ public class ProgrammeFormat
      * The following information is returned as shown:
      * <pre>
      * 
- startTime - title: subtitle
+     *  startTime - title: subtitle
      * 
- channelName, ends endTime
+     *  channelName, ends endTime
      * 
- longDesc (Repeat) starString
+     *  longDesc (Repeat) starString
      * 
- </pre>
+     *  </pre>
      * where starString is only shown if the programme is a movie and (Repeat)
      * is only displayed if the programme has been previously shown.
      *
@@ -488,7 +488,7 @@ public class ProgrammeFormat
             toAppendTo.append( " " );
 
             Object[] messageArguments =
-            { dateFormat.format( new Date( programme.getEnd(  ) ) ) };
+                { dateFormat.format( new Date( programme.getEnd(  ) ) ) };
 
             toAppendTo.append( 
                 FreeGuide.msg.getLocalizedMessage( 

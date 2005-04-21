@@ -176,8 +176,8 @@ public class Migrate
             FreeGuide.config.browserName =
                 nodeMisc.get( "browser", FreeGuide.config.browserName );
 
-            FreeGuide.config.regionName =
-                nodeMisc.get( "region", FreeGuide.config.regionName );
+            FreeGuide.config.countryID =
+                nodeMisc.get( "region", FreeGuide.config.countryID );
 
             hov.config.dayStartTime.setTimeHHMMString( 
                 nodeMisc.get( 
@@ -507,5 +507,97 @@ public class Migrate
 
         in.close(  );
 
+    }
+
+    protected static String oldNameToCountryID( final String oldName )
+    {
+
+        if( "France".equals( oldName ) )
+        {
+
+            return "FR";
+        }
+        else if( "Hungary or Romania".equals( oldName ) )
+        {
+
+            return "HU";
+        }
+        else if( "Germany".equals( oldName ) )
+        {
+
+            return "DE";
+        }
+        else if( "Denmark".equals( oldName ) )
+        {
+
+            return "DK";
+        }
+        else if( "Spain (Digital)".equals( oldName ) )
+        {
+
+            return "ES";
+        }
+        else if( "Spain".equals( oldName ) )
+        {
+
+            return "ES";
+        }
+        else if( "Finland".equals( oldName ) )
+        {
+
+            return "FI";
+        }
+        else if( "Italy".equals( oldName ) )
+        {
+
+            return "IT";
+        }
+        else if( "Japan".equals( oldName ) )
+        {
+
+            return "JP";
+        }
+        else if( "North America (US and Canada)".equals( oldName ) )
+        {
+
+            return "US";
+        }
+        else if( "Netherlands (alternative)".equals( oldName ) )
+        {
+
+            return "NL";
+        }
+        else if( "Netherlands".equals( oldName ) )
+        {
+
+            return "NL";
+        }
+        else if( "Norway".equals( oldName ) )
+        {
+
+            return "NO";
+        }
+        else if( "Portugal".equals( oldName ) )
+        {
+
+            return "PT";
+        }
+        else if( "Sweden".equals( oldName ) )
+        {
+
+            return "SW";
+        }
+        else if( "UK".equals( oldName ) )
+        {
+
+            return "UK";
+        }
+        else if( "UK (slow but more detail)".equals( oldName ) )
+        {
+
+            return "UK";
+        }
+
+        return null;
     }
 }

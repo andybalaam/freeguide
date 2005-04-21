@@ -53,42 +53,34 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
     public ExecutorDialog( JFrame owner )
     {
         super( owner, true ); //TODO FreeGuide.prefs.screen.getBoolean( "executor_modal", true ) );
-
         initComponents(  );
 
         // Centre the screen
         java.awt.Dimension screenSize =
             java.awt.Toolkit.getDefaultToolkit(  ).getScreenSize(  );
-
         setLocation( 
             ( screenSize.width - getWidth(  ) ) / 2,
             ( screenSize.height - getHeight(  ) ) / 2 );
-
     }
 
     private void initComponents(  )
     {
 
         java.awt.GridBagConstraints gridBagConstraints;
-
         getContentPane(  ).setLayout( new java.awt.GridBagLayout(  ) );
-
         setTitle( FreeGuide.msg.getString( "executing_command" ) );
-
         butCancel =
             new javax.swing.JButton( FreeGuide.msg.getString( "cancel" ) );
         butCancel.setMaximumSize( new java.awt.Dimension( 115, 23 ) );
         butCancel.setMinimumSize( new java.awt.Dimension( 115, 23 ) );
         butCancel.setPreferredSize( new java.awt.Dimension( 115, 23 ) );
         butCancel.setMnemonic( KeyEvent.VK_C );
-
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( butCancel, gridBagConstraints );
-
         butDetails =
             new javax.swing.JButton( FreeGuide.msg.getString( "show_output" ) );
         butDetails.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
@@ -104,14 +96,12 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
                     butDetailsActionPerformed( evt );
                 }
             } );
-
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( butDetails, gridBagConstraints );
-
         labPleaseWait =
             new javax.swing.JLabel( 
                 FreeGuide.msg.getString( "please_wait" ),
@@ -132,7 +122,6 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( labPleaseWait, gridBagConstraints );
-
         progressBar = new javax.swing.JProgressBar( 0, 100 );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
@@ -142,7 +131,6 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 2, 2, 2, 2 );
         getContentPane(  ).add( progressBar, gridBagConstraints );
-
         log = new JTextArea(  );
 
         // log.setRows( 10 );
@@ -162,11 +150,9 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         // Centre the screen
         java.awt.Dimension screenSize =
             java.awt.Toolkit.getDefaultToolkit(  ).getScreenSize(  );
-
         setLocation( 
             ( screenSize.width - getWidth(  ) ) / 2,
             ( screenSize.height - getHeight(  ) ) / 2 );
-
         pack(  );
         minHeight = getHeight(  );
         maxHeight = minHeight + 150;
@@ -198,7 +184,6 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
     private void butDetailsActionPerformed( java.awt.event.ActionEvent evt )
     {
         showDetails(  );
-
     }
 
     // -----------------------------------------------------------------------

@@ -1,38 +1,28 @@
 /*
-
  *  FreeGuide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  freeguide-tv.sourceforge.net
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
 package freeguide.gui.wizard;
 
-import freeguide.lib.fgspecific.*;
+import freeguide.lib.fgspecific.FGPreferences;
 
-import java.awt.*;
+import java.awt.GridLayout;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.swing.*;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * A JPanel to go on a WizardFrame to choose from a list of choices in a
@@ -149,26 +139,17 @@ public class ChoiceWizardPanel extends WizardPanel
      */
     private void updateChoices(  )
     {
+
+        String[] data =
+            (String[])choices.toArray( new String[choices.size(  )] );
+        Arrays.sort( data );
+
         combobox.removeAllItems(  );
 
-        Iterator it = choices.iterator(  );
-
-        while( it.hasNext(  ) )
+        for( int i = 0; i < data.length; i++ )
         {
-            combobox.addItem( it.next(  ) );
-
+            combobox.addItem( data[i] );
         }
-
-        /*if( choices.length > 0 ) {
-
-
-        combobox.setSelectedItem( choices[0] );
-
-
-        System.err.println( choices[0] );
-
-
-        }*/
     }
 
     /**
@@ -203,7 +184,7 @@ public class ChoiceWizardPanel extends WizardPanel
     protected Object getBoxValue(  )
     {
 
-        return (String)combobox.getSelectedItem(  );
+        return combobox.getSelectedItem(  );
 
     }
 
@@ -218,7 +199,6 @@ public class ChoiceWizardPanel extends WizardPanel
         if( val != null )
         {
             combobox.setSelectedItem( val );
-
         }
     }
 

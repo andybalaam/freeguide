@@ -1,25 +1,14 @@
 /*
-
  *  FreeGuide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  freeguide-tv.sourceforge.net
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
 package freeguide.gui.dialogs;
 
@@ -55,9 +44,7 @@ public class FGDialog extends JDialog
     public FGDialog( JFrame owner, String title )
     {
         super( owner, title, true );
-
         init(  );
-
     }
 
     /**
@@ -72,9 +59,7 @@ public class FGDialog extends JDialog
     public FGDialog( JDialog owner, String title )
     {
         super( owner, title, true );
-
         init(  );
-
     }
 
     private void init(  )
@@ -85,7 +70,6 @@ public class FGDialog extends JDialog
                 public void windowClosing( java.awt.event.WindowEvent evt )
                 {
                     exitForm( evt );
-
                 }
             } );
     }
@@ -98,7 +82,6 @@ public class FGDialog extends JDialog
     private void exitForm( java.awt.event.WindowEvent evt )
     {
         quit(  );
-
     }
 
     /**
@@ -113,7 +96,6 @@ public class FGDialog extends JDialog
         setVisible( true );
 
         return isChanged && isSave;
-
     }
 
     // ------------------------------------------------------------------------
@@ -124,20 +106,16 @@ public class FGDialog extends JDialog
     protected void quit(  )
     {
         setVisible( false );
-
         dispose(  );
-
     }
 
     protected void setChanged(  )
     {
         isChanged = true;
-
     }
 
     protected void setSave(  )
     {
         isSave = true;
-
     }
 }

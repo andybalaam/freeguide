@@ -44,7 +44,6 @@ import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 /**
  * The main class called to start FreeGuide. Calls other objects to do the
@@ -461,10 +460,7 @@ public class FreeGuide
         public String browserCommand;
 
         /** Region name for first time wizard. */
-        public String regionName;
-
-        /** Region ID for first time wizard. */
-        public String regionTree;
+        public String countryID;
 
         /** Working directory dor store all data. */
         public String workingDirectory;
@@ -487,7 +483,7 @@ public class FreeGuide
                 ? ( System.getProperty( "user.home" ) + "/.freeguide" )
                 : ( runtimeInfo.installDirectory + "/data" ) );
 
-            regionName = "UK";
+            countryID = "UK";
 
             privacyInfo = "no";
         }

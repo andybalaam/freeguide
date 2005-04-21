@@ -1,48 +1,40 @@
 /*
-
  *  FreeGuide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  freeguide-tv.sourceforge.net
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
 package freeguide.gui.wizard;
 
-import freeguide.*;
-
-import freeguide.gui.viewer.MainController;
+import freeguide.FreeGuide;
 
 import freeguide.lib.fgspecific.PluginsManager;
 
-import freeguide.lib.general.*;
+import freeguide.lib.general.LanguageHelper;
+import freeguide.lib.general.StringHelper;
+import freeguide.lib.general.Utils;
 
 import freeguide.migration.Migrate;
 
 import freeguide.plugins.IModuleConfigureFromWizard;
 import freeguide.plugins.IModuleGrabber;
 
-import freeguide.plugins.grabber.xmltv.GrabberXMLTV;
+import java.awt.event.KeyEvent;
 
-import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 
-import java.io.*;
-
-import java.util.*;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * A first time wizard for FreeGuide
@@ -57,7 +49,11 @@ public class FirstTimeWizard
     private FreeGuide launcher;
 
     // map of properties files by region name
-    private Map allRegions;
+    private Map isoByRegion;
+
+    // map of properties files by region name
+    private Map regionByISO;
+    private Map allRegionsGrabbers;
     private Map allBrowsers;
     private boolean showREADME;
     private boolean configGrabber;
@@ -123,7 +119,7 @@ public class FirstTimeWizard
 
         }
 
-        panels[1] = new ChoiceWizardPanel( allRegions.keySet(  ) );
+        panels[1] = new ChoiceWizardPanel( isoByRegion.keySet(  ) );
 
         panels[1].setOnExit( 
             new WizardPanel.OnExit(  )
@@ -143,7 +139,7 @@ public class FirstTimeWizard
                 public void onEnter( WizardPanel panel )
                 {
                     ( (ChoiceWizardPanel)panel ).setBoxValue( 
-                        config.regionName );
+                        regionByISO.get( config.countryID ) );
 
                 }
             } );
@@ -153,8 +149,8 @@ public class FirstTimeWizard
             {
                 public void onExit( WizardPanel panel )
                 {
-                    config.regionName = (String)panel.getBoxValue(  );
-
+                    config.countryID =
+                        (String)isoByRegion.get( panel.getBoxValue(  ) );
                 }
             } );
 
@@ -260,9 +256,7 @@ public class FirstTimeWizard
 
                     FreeGuide.config.browserCommand = config.browserCommand;
 
-                    FreeGuide.config.regionName = config.regionName;
-
-                    FreeGuide.config.regionTree = config.regionTree;
+                    FreeGuide.config.countryID = config.countryID;
 
                     FreeGuide.config.workingDirectory =
                         config.workingDirectory;
@@ -482,63 +476,68 @@ public class FirstTimeWizard
     }
 
     /**
-     * Gets the allRegions attribute of the FirstTimeWizard object
+     * Get list of all countries from all grabbers.
      */
     private void getAllRegions(  )
     {
 
-        try
+        final TreeMap allRegions = new TreeMap(  );
+        allRegionsGrabbers = new TreeMap(  );
+        isoByRegion = new TreeMap(  );
+        regionByISO = new TreeMap(  );
+
+        IModuleGrabber[] grabbers = PluginsManager.getGrabbers(  );
+
+        for( int i = 0; i < grabbers.length; i++ )
         {
-            allRegions = readMap( "main/regions.properties" );
 
+            if( grabbers[i] instanceof IModuleConfigureFromWizard )
+            {
+
+                IModuleConfigureFromWizard configurator =
+                    (IModuleConfigureFromWizard)grabbers[i];
+                IModuleConfigureFromWizard.CountryInfo[] grabberInfo =
+                    configurator.getSupportedCountries(  );
+
+                for( int j = 0; j < grabberInfo.length; j++ )
+                {
+
+                    IModuleConfigureFromWizard.CountryInfo prevValue =
+                        (IModuleConfigureFromWizard.CountryInfo)allRegions.get( 
+                            grabberInfo[j].getCountry(  ) );
+                    final boolean needToSet;
+
+                    if( prevValue != null )
+                    {
+                        needToSet =
+                            grabberInfo[j].getPriority(  ) > prevValue
+                            .getPriority(  );
+                    }
+                    else
+                    {
+                        needToSet = true;
+                    }
+
+                    if( needToSet )
+                    {
+
+                        Locale country =
+                            new Locale( "", grabberInfo[j].getCountry(  ) );
+                        String countryName =
+                            country.getDisplayCountry( 
+                                FreeGuide.msg.getLocale(  ) );
+                        isoByRegion.put( 
+                            countryName, grabberInfo[j].getCountry(  ) );
+                        regionByISO.put( 
+                            grabberInfo[j].getCountry(  ), countryName );
+                        allRegions.put( 
+                            grabberInfo[j].getCountry(  ), grabberInfo[j] );
+                        allRegionsGrabbers.put( 
+                            grabberInfo[j].getCountry(  ), grabbers[i] );
+                    }
+                }
+            }
         }
-
-        catch( IOException ex )
-        {
-            ex.printStackTrace(  );
-
-        }
-
-        /*
-
-
-        * try {
-
-
-        *
-
-
-        * String[] resources = LanguageHelper.listResources( getClass(
-
-
-        * ).getClassLoader( ), "freeguide/plugins/grabber/xmltv/resources/xmltv" +
-
-
-        * osSuffix, ".properties" );
-
-
-        *
-
-
-        * for( int i = 0; i < resources.length; i++ ) {
-
-
-        *
-
-
-        * Properties pr = new Properties( ); pr.load( new BufferedInputStream(
-
-
-        * getClass( ).getClassLoader( ).getResourceAsStream( resources[i] ) ) );
-
-
-        * allRegions.put( pr.getProperty( "region" ), pr ); } } catch( IOException ex ) {
-
-
-        * ex.printStackTrace( ); }
-
-
-        */
     }
 
     /**
@@ -560,8 +559,6 @@ public class FirstTimeWizard
     public void onFinish(  )
     {
         config.browserCommand = (String)allBrowsers.get( config.browserName );
-
-        config.regionTree = (String)allRegions.get( config.regionName );
 
         new File( config.workingDirectory ).mkdirs(  );
 
@@ -587,59 +584,15 @@ public class FirstTimeWizard
             }
         }
 
-        IModuleGrabber mod = PluginsManager.getGrabberByID( "xmltv" );
+        IModuleGrabber mod =
+            (IModuleGrabber)allRegionsGrabbers.get( config.countryID );
 
         if( mod instanceof IModuleConfigureFromWizard )
         {
             ( (IModuleConfigureFromWizard)mod ).configureFromWizard( 
-                config.regionTree, configGrabber );
+                config.countryID, configGrabber );
         }
 
-        /*if( configGrabber )
-
-
-        {
-
-
-
-
-               //new GrabberXMLTV().
-
-
-                String preconfig_message =
-
-
-                    FreeGuide.prefs.misc.get( "preconfig_message" );
-
-
-
-
-                if( preconfig_message != null )
-
-
-                {
-
-
-                    JOptionPane.showMessageDialog( wizardFrame, preconfig_message );
-
-
-
-
-                }
-
-
-
-
-                new GrabberController(  ).grabXMLTV(
-
-
-                    null, FreeGuide.prefs.getCommands( "tv_config" ),
-
-
-                    FreeGuide.msg.getString( "configuring" ), null );
-
-
-        }*/
         if( showREADME )
         {
 
@@ -656,36 +609,6 @@ public class FirstTimeWizard
             {
                 ex.printStackTrace(  );
             }
-
-            /*            String[] cmds =
-
-
-                Utils.substitute(
-
-
-                    FreeGuide.prefs.commandline.getStrings( "browser_command" ),
-
-
-                    "%filename%",
-
-
-                    FreeGuide.prefs.performSubstitutions(
-
-
-                        "%misc.doc_directory%"
-
-
-                        + System.getProperty( "file.separator" )
-
-
-                        + "README.html" ) );
-
-
-
-
-
-
-            Utils.execNoWait( cmds, FreeGuide.prefs );*/
         }
 
         wizardFrame.dispose(  );

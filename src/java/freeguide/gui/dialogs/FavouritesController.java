@@ -44,28 +44,21 @@ public class FavouritesController
     {
         listDialog = new FavouritesListDialog( owner );
         this.owner = owner;
-
         this.allChannelsSet = allChannelsSet;
-
         this.favourites = new ArrayList( fav.size(  ) );
 
         for( int i = 0; i < fav.size(  ); i++ )
         {
 
             Favourite fave = (Favourite)fav.get( i );
-
             this.favourites.add( fave.clone(  ) );
-
         }
 
         favouritesModel = new DefaultListModel(  );
         listDialog.getList(  ).setModel( favouritesModel );
         fillList(  );
-
         latestIndex = 0;
-
         selectLatest(  );
-
         setupList(  );
     }
 
@@ -103,7 +96,6 @@ public class FavouritesController
                 {
 
                     Favourite newFav = new Favourite(  );
-
                     favourites.add( newFav );
 
                     if( 
@@ -114,11 +106,9 @@ public class FavouritesController
                                 allChannelsSet ).showDialog(  ) )
                     {
                         changed = true;
-
                     }
 
                     latestIndex = favouritesModel.size(  );
-
                     reShow(  );
                 }
             } );
@@ -157,7 +147,6 @@ public class FavouritesController
                     if( latestIndex == ( favouritesModel.size(  ) - 1 ) )
                     {
                         latestIndex--;
-
                     }
 
                     int[] sel = listDialog.getList(  ).getSelectedIndices(  );
@@ -165,9 +154,7 @@ public class FavouritesController
                     for( int i = 0; i < sel.length; i++ )
                     {
                         favourites.remove( sel[i] );
-
                         changed = true;
-
                     }
 
                     reShow(  );
@@ -201,13 +188,11 @@ public class FavouritesController
     {
 
         return favourites;
-
     }
 
     private void selectLatest(  )
     {
         listDialog.getList(  ).setSelectedIndex( latestIndex );
-
     }
 
     private void fillList(  )
@@ -218,7 +203,6 @@ public class FavouritesController
         {
             favouritesModel.addElement( 
                 ( (Favourite)( favourites.get( i ) ) ).getName(  ) );
-
         }
     }
 
@@ -228,7 +212,6 @@ public class FavouritesController
     public void reShow(  )
     {
         fillList(  );
-
         selectLatest(  );
     }
 }

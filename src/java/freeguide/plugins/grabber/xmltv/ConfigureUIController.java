@@ -1,5 +1,7 @@
 package freeguide.plugins.grabber.xmltv;
 
+import freeguide.FreeGuide;
+
 import freeguide.plugins.IModuleConfigurationUI;
 
 import java.awt.Color;
@@ -174,7 +176,9 @@ public class ConfigureUIController implements IModuleConfigurationUI
 
         gc.fill = GridBagConstraints.HORIZONTAL;
 
-        String[] mods = GrabberXMLTV.getMods(  );
+        String[] mods =
+            GrabberXMLTV.getMods( 
+                "", ".run." + ( FreeGuide.runtimeInfo.isUnix ? "lin" : "win" ) );
 
         for( int i = 0; i < mods.length; i++ )
         {

@@ -54,10 +54,10 @@ public class InstallWizardPanel extends WizardPanel
     /**
 
     
-                                                                                                                                                                                                                                                                         *
+                                                                                                                                                                                                                                                                                                 *
 
     
-                                                                                                                                                                                                                                                                         */
+                                                                                                                                                                                                                                                                                                 */
     public InstallWizardPanel(  )
     {
         super(  );

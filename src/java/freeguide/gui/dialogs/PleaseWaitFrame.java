@@ -43,53 +43,40 @@ public class PleaseWaitFrame extends JFrame implements Progressor
     {
         super( FreeGuide.msg.getString( "please_wait" ) );
         initComponents(  );
-
     }
 
     private void initComponents(  )
     {
 
-        URL imgURL = getClass(  ).getResource( "/logo-16x16.png" );
+        URL imgURL = getClass(  ).getResource( "/images/logo-16x16.png" );
         Image icon =
             ( new javax.swing.ImageIcon( imgURL, "icon" ) ).getImage(  );
         setIconImage( icon );
-
-        imgURL = getClass(  ).getResource( "/logo-256x256.png" );
+        imgURL = getClass(  ).getResource( "/images/logo-256x256.png" );
         image =
             new javax.swing.ImageIcon( 
                 imgURL, FreeGuide.msg.getString( "please_wait" ) );
-
         imageLabel =
             new javax.swing.JLabel( image, javax.swing.SwingConstants.CENTER );
-
         imageLabel.setBorder( 
             javax.swing.BorderFactory.createLineBorder( java.awt.Color.BLACK ) );
-
         getContentPane(  ).add( imageLabel, java.awt.BorderLayout.CENTER );
-
         progressBar = new javax.swing.JProgressBar( 0, 100 );
-
         getContentPane(  ).add( progressBar, java.awt.BorderLayout.SOUTH );
-
         setResizable( false );
-
         addWindowListener( 
             new java.awt.event.WindowAdapter(  )
             {
                 public void windowClosing( java.awt.event.WindowEvent evt )
                 {
                     exitForm( evt );
-
                 }
             } );
-
         pack(  );
 
         java.awt.Dimension screenSize =
             java.awt.Toolkit.getDefaultToolkit(  ).getScreenSize(  );
-
         java.awt.Dimension windowSize = getSize(  );
-
         setLocation( 
             ( screenSize.width - windowSize.width ) / 2,
             ( screenSize.height - windowSize.height ) / 2 );
@@ -107,9 +94,7 @@ public class PleaseWaitFrame extends JFrame implements Progressor
     {
         FreeGuide.log.info( 
             FreeGuide.msg.getString( "halting_due_to_please_wait_closed" ) );
-
         System.exit( 0 );
-
     }
 
     /**
@@ -120,6 +105,5 @@ public class PleaseWaitFrame extends JFrame implements Progressor
     public void setProgress( final int percent )
     {
         progressBar.setValue( percent );
-
     }
 }

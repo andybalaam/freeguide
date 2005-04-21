@@ -72,7 +72,7 @@ public class WizardFrame extends javax.swing.JFrame
         Runnable exitMethod )
     {
 
-        URL imgURL = getClass(  ).getResource( "/logo-16x16.png" );
+        URL imgURL = getClass(  ).getResource( "/images/logo-16x16.png" );
         Image icon =
             ( new javax.swing.ImageIcon( imgURL, "icon" ) ).getImage(  );
         setIconImage( icon );

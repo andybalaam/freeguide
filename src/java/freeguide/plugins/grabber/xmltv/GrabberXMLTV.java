@@ -67,6 +67,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     private StreamReaderThread readOutput;
     private StreamReaderThread readError;
     protected ConfigureUIPanel confUI;
+    protected CountryInfo[] countryInfos;
 
     /**
      * DOCUMENT_ME!
@@ -197,11 +198,9 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
     }
 
-    protected static String[] getMods(  )
+    protected static String[] getMods( 
+        final String prefix, final String suffix )
     {
-
-        String suffix =
-            ".run." + ( FreeGuide.runtimeInfo.isUnix ? "lin" : "win" );
 
         List result = new ArrayList(  );
 
@@ -214,11 +213,11 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
             String key = (String)it.next(  );
 
-            if( key.endsWith( suffix ) )
+            if( key.startsWith( prefix ) && key.endsWith( suffix ) )
             {
                 result.add( 
-                    key.substring( 0, key.length(  ) - suffix.length(  ) ) );
-
+                    key.substring( 
+                        prefix.length(  ), key.length(  ) - suffix.length(  ) ) );
             }
         }
 
@@ -406,22 +405,16 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     /**
      * DOCUMENT_ME!
      *
-     * @param regionTree DOCUMENT_ME!
+     * @param regionName DOCUMENT_ME!
      * @param runSelectChannels DOCUMENT ME!
      */
     public void configureFromWizard( 
-        final String regionTree, final boolean runSelectChannels )
+        final String regionName, final boolean runSelectChannels )
     {
         config.needToRun.clear(  );
 
-        if( !regionTree.startsWith( ID + '/' ) )
-        {
-
-            return;
-
-        }
-
-        String modName = regionTree.substring( ID.length(  ) + 1 );
+        String modName =
+            (String)getCommands(  ).get( "region." + regionName + ".grabber" );
 
         config.needToRun.add( modName );
 
@@ -452,6 +445,34 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         return result.toString(  );
 
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public CountryInfo[] getSupportedCountries(  )
+    {
+
+        if( countryInfos == null )
+        {
+
+            String[] mods = getMods( "region.", ".grabber" );
+            countryInfos = new CountryInfo[mods.length];
+
+            for( int i = 0; i < mods.length; i++ )
+            {
+                countryInfos[i] =
+                    new CountryInfo( 
+                        mods[i], 0,
+                        "true".equalsIgnoreCase( 
+                            (String)getCommands(  ).get( 
+                                "region." + mods[i] + ".allowChannelsSelect" ) ) );
+            }
+        }
+
+        return countryInfos;
     }
 
     protected static class ReadErrors extends Thread
