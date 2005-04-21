@@ -231,7 +231,7 @@ c  means done by Christian Weiske
   with other viewers appearing below.
 - Check whether we need TZ set, and if not, remove warnings about it.
   
-- Release 0.10.1 (Add some features to plugins-branch work)
+- Release 0.10pre1 (Add some features to plugins-branch work)
 
 - Generate the list of grabber plugins dynamically by asking each plugin what
   countries it supports (XMLTV should make this list by looking at what
@@ -241,7 +241,7 @@ c  means done by Christian Weiske
 - Support more than one copy of each xmltv grabber
 a Can we remove ViewerFramePositionConfig class?
 a "Show output" should change to "Hide output" when it's clicked
-- Merge changes from HEAD into plugins-branch
+a Merge changes from HEAD into plugins-branch
     a --quiet for all commands
     a src/freeguide/gui/viewer/ChannelJLabel.java 10 pixel minimum width
     a src/freeguide/gui/viewer/ViewerFrameXMLTVLoader.java use the first channel
@@ -252,8 +252,9 @@ a "Show output" should change to "Hide output" when it's clicked
   FreeGuide.log.info
 - Ensure that the HTML personalised guide only shows programmes that are before
   the day start time today and after the day start time tomorrow.
+- Internationalise "Horizontal Viewer" name
 
-+ Release 0.10 (Stabilising plugins-branch work)
++ Release 0.10pre0 (Stabilising plugins-branch work)
 
 + Day start time appears to have no effect on the display of programmes (does it
   need a re-download?)
@@ -356,14 +357,6 @@ a Downloading dialog does not close when it is finished, even though the
   "Please Wait" window does appear, so presumably the view is refreshed.
 a Dialog should say "Downloading, please wait" instead of just "Please Wait".
 
-
-
-*** 0.9preX unstable releases are described in the TODO in plugins-branch. ***
-
-*** Current work on 0.8.X stable releases is described in the TODO in Stable0_8-branch. ***
-
-
-
 + Release 0.9pre3
 
 + Release 0.9pre2 (Stabilising MVC work)
@@ -410,6 +403,8 @@ c Translate into German
   (Later, "reminder" will mean you will be reminded, and "recorded" will
   mean it will be recorded.)
 + Make hearts appear on favourites.
+
+*** Current work on 0.8.X stable releases is described in the TODO in Stable0_8-branch. ***
 
 + Release 0.8.6
 
