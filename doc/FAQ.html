@@ -28,6 +28,7 @@
   <li><a href="#twosources">How do I get listings from 2 different sources or channel lineups?</a></li>
   <li><a href="#missinglistings">I've downloaded the listings but FreeGuide says some are still missing!  What's happening?</a></li>
   <li><a href="#missingfavs">Why are some of my favourites not selected?</a></li>
+  <li><a href="#cmdline">Something is going wrong - how can I help to diagnose the problem?</a></li>
   <li><a href="#looknfeel">Does FreeGuide support skins or themes?  How do I use them?</a></li>
   <li><a href="#todo">How do I find out what's being planned for future versions?</a></li>
   <li><a href="#morequestions">How do I ask more questions?</a></li>
@@ -168,6 +169,25 @@ xmltv tv_grab_na_dd --configure --gui --config-file tv_grab_na_dd_b.conf
 <h2><a name="missingfavs"></a>Why are some of my favourites not selected?</h2>
 
 <p>If your grabber works in midnight to midnight time slots, you may find that on the day you do a download, programmes which are favourites and are on after midnight are not chosen automatically.  If you click "Reset Choices" in the bottom left, they will be chosen.</p>
+
+<h2><a name="cmdline"></a>Something is going wrong - how can I help to diagnose the problem?</h2>
+
+<p>If FreeGuide is not working or acting strangely, you should contact the developers - see <a href="#morequestions">How do I ask more questions?</a>.  When you do contact the mailing lists, it would be useful to know various pieces of information.</p>
+
+<p>You should find out your operating system (e.g Windows XP), the version of java you are using, and the version of FreeGuide.  Linux users should also check theit XMLTV version.</p>
+
+<p>If you are having problems downloading, the first useful piece of information is the contents of the "Show details" window.  Copy and paste the information in there into your email.</p>
+
+<p>If you are having more complex problems, the developers may ask you to try running FreeGuide from within a DOS or Cmd Window.  Here is how to do that in Windows:</p>
+
+<p>From the Start menu choose Programs, Accessories and click "Cmd Window" or "DOS Window".</p>
+
+<p>Now type the following 2 lines:</p>
+
+<p><tt>cd "C:\Program Files\FreeGuide"</tt> &lt;PRESS RETURN&gt;<br />
+<tt>java -jar FreeGuide.jar --install_directory "C:\Program Files\FreeGuide" --doc_directory "C:\Program Files\FreeGuide\doc" > log.txt</tt> &lt;PRESS RETURN&gt;</p>
+
+<p>Now copy and paste the contents of C:\Program Files\FreeGuide\log.txt into an email, remembering to CC the mailing list you first sent your message to.</p>
 
 <h2><a name="looknfeel">Does FreeGuide support skins or themes?  How do I use them?</a></h2>
 
