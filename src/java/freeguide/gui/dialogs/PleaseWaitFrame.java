@@ -16,6 +16,8 @@ import freeguide.FreeGuide;
 
 import freeguide.gui.Progressor;
 
+import java.awt.Image;
+
 import java.net.URL;
 
 import javax.swing.JFrame;
@@ -39,7 +41,6 @@ public class PleaseWaitFrame extends JFrame implements Progressor
      */
     public PleaseWaitFrame(  )
     {
-
         super( FreeGuide.msg.getString( "please_wait" ) );
         initComponents(  );
 
@@ -48,10 +49,12 @@ public class PleaseWaitFrame extends JFrame implements Progressor
     private void initComponents(  )
     {
 
-        URL imgURL =
-            getClass(  ).getClassLoader(  ).getResource( 
-                "images/logo-256x256.png" );
+        URL imgURL = getClass(  ).getResource( "/logo-16x16.png" );
+        Image icon =
+            ( new javax.swing.ImageIcon( imgURL, "icon" ) ).getImage(  );
+        setIconImage( icon );
 
+        imgURL = getClass(  ).getResource( "/logo-256x256.png" );
         image =
             new javax.swing.ImageIcon( 
                 imgURL, FreeGuide.msg.getString( "please_wait" ) );

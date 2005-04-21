@@ -873,7 +873,7 @@ public class ConfigureUIPanel extends JPanel
 
             dayStart.setColumns( 5 );
         }
-        
+
         return dayStart;
 
     }

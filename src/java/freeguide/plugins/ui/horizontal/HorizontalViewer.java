@@ -590,6 +590,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                         File iconFile = null;
 
                         ImageIcon tmpImg;
+
                         /*TODO   if(
 
 

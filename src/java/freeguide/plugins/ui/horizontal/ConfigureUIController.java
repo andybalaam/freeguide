@@ -147,7 +147,6 @@ public class ConfigureUIController implements IModuleConfigurationUI
      */
     public void save(  )
     {
-        
         config.fontName = currentFont.getName(  );
 
         config.fontSize = currentFont.getSize(  );
@@ -310,7 +309,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
         }
 
         panel.getDayStart(  ).setText( config.dayStartTime.getHHMMString(  ) );
-        
+
     }
 
     protected void setupFont(  )

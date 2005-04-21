@@ -33,6 +33,8 @@ import java.io.*;
 import java.lang.*;
 import java.lang.reflect.*;
 
+import java.net.URL;
+
 import java.util.*;
 
 import javax.swing.*;
@@ -69,6 +71,12 @@ public class WizardFrame extends javax.swing.JFrame
         String title, WizardPanel[] panels, Runnable finishMethod,
         Runnable exitMethod )
     {
+
+        URL imgURL = getClass(  ).getResource( "/logo-16x16.png" );
+        Image icon =
+            ( new javax.swing.ImageIcon( imgURL, "icon" ) ).getImage(  );
+        setIconImage( icon );
+
         this.panels = panels;
 
         this.finishMethod = finishMethod;

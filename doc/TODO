@@ -58,6 +58,7 @@ c  means done by Christian Weiske
 - Fix Debian bug #285715 http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=285715
 - Automatically make a channel set when you right-click a channel and choose
   "Move up" (or even drag!)
+- Fix DOCUMENT_ME!s and write all JavaDoc tags
 
 - Release 0.11 (nice features)
 
@@ -239,13 +240,6 @@ c  means done by Christian Weiske
   properties files it has available).
 - "Download in background" should work to make the downloading dialog non-modal.
 - Support more than one copy of each xmltv grabber
-a Can we remove ViewerFramePositionConfig class?
-a "Show output" should change to "Hide output" when it's clicked
-a Merge changes from HEAD into plugins-branch
-    a --quiet for all commands
-    a src/freeguide/gui/viewer/ChannelJLabel.java 10 pixel minimum width
-    a src/freeguide/gui/viewer/ViewerFrameXMLTVLoader.java use the first channel
-      name, not all.
 - Progress bar on Please Wait dialog does not move.
 - Rename classes so every class has a different name.
 - Get rid of System.err.println, either removing, or replacing with 
@@ -253,6 +247,13 @@ a Merge changes from HEAD into plugins-branch
 - Ensure that the HTML personalised guide only shows programmes that are before
   the day start time today and after the day start time tomorrow.
 - Internationalise "Horizontal Viewer" name
+a Can we remove ViewerFramePositionConfig class?
+a "Show output" should change to "Hide output" when it's clicked
+a Merge changes from HEAD into plugins-branch
+    a --quiet for all commands
+    a src/freeguide/gui/viewer/ChannelJLabel.java 10 pixel minimum width
+    a src/freeguide/gui/viewer/ViewerFrameXMLTVLoader.java use the first channel
+      name, not all.
 
 + Release 0.10pre0 (Stabilising plugins-branch work)
 

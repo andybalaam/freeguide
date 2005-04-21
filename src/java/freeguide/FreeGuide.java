@@ -57,7 +57,7 @@ public class FreeGuide
 {
 
     /** The current version of the programme */
-    public final static Version version = new Version( 0, 10, 0 );
+    public final static Version version = new Version( 0, 10, 1 );
 
     /** DOCUMENT ME! */
     public final static Preferences PREF_ROOT =

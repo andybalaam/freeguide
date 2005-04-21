@@ -263,7 +263,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
                 DefaultMutableTreeNode modBranch =
                     new DefaultMutableTreeNode( 
-                        new ModuleNode(
+                        new ModuleNode( 
                             modules[i], confUI, modules[i].getName(  ) ) );
 
                 branch.add( modBranch );
@@ -388,7 +388,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
     private void saveAll(  )
     {
-        
+
         DefaultMutableTreeNode node =
             (DefaultMutableTreeNode)( menuTree.getModel(  ).getRoot(  ) );
 
@@ -410,7 +410,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
                     setSave(  );
 
                 }
-            } 
+            }
         }
 
         for( int i = 0; i < modulesConf.size(  ); i++ )

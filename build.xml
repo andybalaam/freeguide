@@ -28,7 +28,7 @@
     <property name="dist"  location="dist" />
     <property name="resources"  location="src/resources" />
     
-    <property name="freeguideversion"  value="FreeGuide-0.10" />
+    <property name="freeguideversion"  value="FreeGuide-0.10.1" />
 
     <target name="init">
 
@@ -127,8 +127,10 @@
       	</javac>
 
         <copy todir="${build}/classes">
-            <fileset dir="${src}/resources"/>
-        	<fileset dir="${src}/java" excludes="**/*.java"/>
+            <fileset dir="${src}/resources" excludes="images/**" />
+            <fileset dir="${src}/resources/images"
+                includes="logo-256x256.png,logo-16x16.png" />
+        	<fileset dir="${src}/java" excludes="**/*.java" />
       	</copy>
     	
         <!-- generate the fake resource file -->

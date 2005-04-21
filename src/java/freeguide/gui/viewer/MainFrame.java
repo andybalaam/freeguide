@@ -2,8 +2,11 @@ package freeguide.gui.viewer;
 
 import freeguide.lib.general.LanguageHelper;
 
+import java.awt.Image;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+
+import java.net.URL;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -44,6 +47,11 @@ public class MainFrame extends JFrame
     public MainFrame( final LanguageHelper i18n )
     {
         super(  );
+
+        URL imgURL = getClass(  ).getResource( "/logo-16x16.png" );
+        Image icon =
+            ( new javax.swing.ImageIcon( imgURL, "icon" ) ).getImage(  );
+        setIconImage( icon );
 
         this.i18n = i18n;
 
