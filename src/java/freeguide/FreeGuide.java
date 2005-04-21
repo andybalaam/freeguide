@@ -375,7 +375,7 @@ public class FreeGuide
     }
 
     /**
-     * DOCUMENT_ME!
+     * Show wait dialog.
      */
     public static void showPleaseWait(  )
     {
@@ -389,7 +389,7 @@ public class FreeGuide
     }
 
     /**
-     * DOCUMENT_ME!
+     * Hide wait dialog.
      */
     public static void hidePleaseWait(  )
     {
