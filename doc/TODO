@@ -233,6 +233,7 @@ a  means done by Alex Buloichik
   with other viewers appearing below.
 - Check whether we need TZ set, and if not, remove warnings about it.
 - Can we get rid of a lot of options for the horizontal display?
+- Include videoplus info (see Yann's email of 2005-04-22)
   
 - Release 0.10pre1 (Add some features to plugins-branch work)
 
@@ -240,14 +241,25 @@ a Generate the list of grabber plugins dynamically by asking each plugin what
   countries it supports (XMLTV should make this list by looking at what
   properties files it has available).
 - "Download in background" should work to make the downloading dialog non-modal.
-a Support more than one copy of each xmltv grabber
-a Progress bar on Please Wait dialog does not move.
 - Rename classes so every class has a different name.
 - Get rid of System.err.println, either removing, or replacing with 
   FreeGuide.log.info
 - Ensure that the HTML personalised guide only shows programmes that are before
   the day start time today and after the day start time tomorrow.
 - Internationalise "Horizontal Viewer" name
+- Add an FAQ about how to change the number of days downloaded.
+- Options screen:
+    a Rename "..." buttons to "Configure"
+    a Change "XMLTV" checkbox to "Enable XMLTV plugin"
+    a Rename "C" buttons to "Default"
+    - Rename "Add" to "Add a new XMLTV grabber"
+    - Make a wider gap between XMLTV grabbers so they look separate.
+    - Make all panels accessible via keyboard accelerators
+    - Allow to specify a default browser (needed by Debian maintainer)
+- Migrate XMLTV settings from 0.8.x
+- Migrate XMLTV settings 0.10.0
+- Deleting XMLTV grabbers does not work - they re-appear when you re-enter
+  Options
 a Can we remove ViewerFramePositionConfig class?
 a "Show output" should change to "Hide output" when it's clicked
 a Merge changes from HEAD into plugins-branch
@@ -255,12 +267,8 @@ a Merge changes from HEAD into plugins-branch
     a src/freeguide/gui/viewer/ChannelJLabel.java 10 pixel minimum width
     a src/freeguide/gui/viewer/ViewerFrameXMLTVLoader.java use the first channel
       name, not all.
-- Options screen:
-    a Rename "..." buttons to "Configure"
-    - Change "XMLTV" checkbox to "Enable XMLTV plugin"
-    a Rename "C" buttons to "Default"
-    - Make all panels accessible via keyboard accelerators
-    - Allow to specify a default browser (needed by Debian maintainer)
+a Support more than one copy of each xmltv grabber
+a Progress bar on Please Wait dialog does not move.
 
 + Release 0.10pre0 (Stabilising plugins-branch work)
 
