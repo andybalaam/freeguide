@@ -7,6 +7,7 @@ import freeguide.plugins.IModuleConfigurationUI;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -142,6 +143,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
         gc.gridx = 0;
         gc.gridy = latestY;
         gc.weightx = 1;
+        gc.insets = new Insets(10,0,0,0);
         gc.anchor = GridBagConstraints.WEST;
         gc.fill = GridBagConstraints.HORIZONTAL;
         panel.getPanelModules(  ).add( getOnePanel( moduleInfo ), gc );
