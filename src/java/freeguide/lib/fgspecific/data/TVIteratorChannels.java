@@ -1,5 +1,7 @@
 package freeguide.lib.fgspecific.data;
 
+import java.util.Iterator;
+
 /**
  * Iterator for TV channels.
  *
@@ -7,5 +9,19 @@ package freeguide.lib.fgspecific.data;
  */
 abstract public class TVIteratorChannels extends TVIterator
 {
+
+    protected Iterator it;
+
     abstract protected void onChannel( final TVChannel channel );
+
+    /**
+     * DOCUMENT ME!
+     *
+     * @return Returns the iterator.
+     */
+    public Iterator getIterator(  )
+    {
+
+        return it;
+    }
 }

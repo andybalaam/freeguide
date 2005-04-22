@@ -152,7 +152,8 @@ public class StorageSerFilesByDay extends BaseModule implements IStorage
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData get( TVChannelsSet channels, long minDate, long maxDate )
+    public TVData get( 
+        final TVChannelsSet channels, final long minDate, final long maxDate )
         throws Exception
     {
 
@@ -176,20 +177,38 @@ public class StorageSerFilesByDay extends BaseModule implements IStorage
 
                 if( channels != null )
                 {
-
-                    Iterator it = data.getChannelsIterator(  );
-
-                    while( it.hasNext(  ) )
-                    {
-
-                        TVChannel channel = (TVChannel)it.next(  );
-
-                        if( !channels.contains( channel.getID(  ) ) )
+                    data.iterateChannels( 
+                        new TVIteratorChannels(  )
                         {
-                            it.remove(  );
-                        }
-                    }
+                            protected void onChannel( TVChannel channel )
+                            {
+
+                                if( !channels.contains( channel.getID(  ) ) )
+                                {
+                                    it.remove(  );
+                                }
+                            }
+                        } );
                 }
+
+                data.iterateProgrammes( 
+                    new TVIteratorProgrammes(  )
+                    {
+                        protected void onChannel( TVChannel channel )
+                        {
+                        }
+
+                        protected void onProgramme( TVProgramme programme )
+                        {
+
+                            if( 
+                                ( programme.getStart(  ) > maxDate )
+                                    || ( programme.getEnd(  ) < minDate ) )
+                            {
+                                itProgrammes.remove(  );
+                            }
+                        }
+                    } );
 
                 result.mergeFrom( data );
             }

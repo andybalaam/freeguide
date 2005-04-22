@@ -155,50 +155,76 @@ public class TVData implements Serializable
     public void iterate( final TVIterator iterator )
     {
 
+        if( iterator instanceof TVIteratorChannels )
+        {
+            iterateChannels( (TVIteratorChannels)iterator );
+        }
+        else
+        {
+            iterateProgrammes( (TVIteratorProgrammes)iterator );
+        }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param iterator DOCUMENT_ME!
+     */
+    public void iterateChannels( final TVIteratorChannels iterator )
+    {
+
         synchronized( this )
         {
+            iterator.it = channels.values(  ).iterator(  );
 
-            Iterator itCh = channels.values(  ).iterator(  );
-
-            while( itCh.hasNext(  ) )
+            while( iterator.it.hasNext(  ) )
             {
 
-                TVChannel ch = (TVChannel)itCh.next(  );
+                TVChannel ch = (TVChannel)iterator.it.next(  );
 
-                if( iterator instanceof TVIteratorChannels )
+                iterator.onChannel( ch );
+            }
+        }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param iterator DOCUMENT_ME!
+     */
+    public void iterateProgrammes( final TVIteratorProgrammes iterator )
+    {
+
+        synchronized( this )
+        {
+            iterator.itChannels = channels.values(  ).iterator(  );
+
+            while( iterator.itChannels.hasNext(  ) )
+            {
+
+                TVChannel ch = (TVChannel)iterator.itChannels.next(  );
+
+                iterator.needToIterateChannel = true;
+                iterator.onChannel( ch );
+                iterator.currentChannel = ch;
+
+                if( iterator.needToIterateChannel )
                 {
+                    iterator.itProgrammes = ch.programmes.iterator(  );
 
-                    TVIteratorChannels iteratorChannels =
-                        (TVIteratorChannels)iterator;
-                    iteratorChannels.onChannel( ch );
-                }
-                else if( iterator instanceof TVIteratorProgrammes )
-                {
-
-                    TVIteratorProgrammes iteratorProgrammes =
-                        (TVIteratorProgrammes)iterator;
-                    iteratorProgrammes.needToIterateChannel = true;
-                    iteratorProgrammes.onChannel( ch );
-                    iteratorProgrammes.currentChannel = ch;
-
-                    if( iteratorProgrammes.needToIterateChannel )
+                    while( iterator.itProgrammes.hasNext(  ) )
                     {
 
-                        Iterator itPr = ch.programmes.iterator(  );
+                        TVProgramme pr =
+                            (TVProgramme)iterator.itProgrammes.next(  );
 
-                        while( itPr.hasNext(  ) )
+                        if( !iterator.needToIterateChannel )
                         {
 
-                            TVProgramme pr = (TVProgramme)itPr.next(  );
-
-                            if( !iteratorProgrammes.needToIterateChannel )
-                            {
-
-                                break;
-                            }
-
-                            iteratorProgrammes.onProgramme( pr );
+                            break;
                         }
+
+                        iterator.onProgramme( pr );
                     }
                 }
             }
