@@ -384,7 +384,8 @@ public class ConfigureUIController implements IModuleConfigurationUI
             {
                 panel.moduleInfo.commandToRun =
                     doc.getText( 0, doc.getLength(  ) );
-            }            catch( BadLocationException ex )
+            }
+            catch( BadLocationException ex )
             {
                 ex.printStackTrace(  );
 

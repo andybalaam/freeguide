@@ -366,12 +366,8 @@ public class FreeGuide
      */
     public static void die( String msg )
     {
-        System.err.println( msg );
-
         log.severe( msg );
-
         System.exit( 1 );
-
     }
 
     /**

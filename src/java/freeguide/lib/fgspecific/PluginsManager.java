@@ -1,6 +1,7 @@
 package freeguide.lib.fgspecific;
 
 import freeguide.FreeGuide;
+
 import freeguide.lib.general.LanguageHelper;
 
 import freeguide.plugins.IModule;
@@ -88,7 +89,8 @@ public class PluginsManager
 
             for( int i = 0; i < libs.length; i++ )
             {
-                FreeGuide.log.finest( "Load module jar: " + libs[i].getPath(  ) );
+                FreeGuide.log.finest( 
+                    "Load module jar: " + libs[i].getPath(  ) );
 
                 jarUrls.add( libs[i].toURL(  ) );
 

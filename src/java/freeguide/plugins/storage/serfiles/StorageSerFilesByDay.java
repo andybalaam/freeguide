@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.TreeMap;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -123,8 +124,8 @@ public class StorageSerFilesByDay extends BaseModule implements IStorage
         }
         catch( Exception ex )
         {
-            System.err.println( "Error read file " + f.getAbsolutePath(  ) );
-            ex.printStackTrace(  );
+            FreeGuide.log.log( 
+                Level.WARNING, "Error read file " + f.getAbsolutePath(  ), ex );
 
             return null;
         }
@@ -379,9 +380,9 @@ public class StorageSerFilesByDay extends BaseModule implements IStorage
                 }
                 catch( Exception ex )
                 {
-                    System.err.println( 
-                        "Error write file " + file.getAbsolutePath(  ) );
-                    ex.printStackTrace(  );
+                    FreeGuide.log.log( 
+                        Level.WARNING,
+                        "Error write file " + file.getAbsolutePath(  ), ex );
                 }
             }
         }

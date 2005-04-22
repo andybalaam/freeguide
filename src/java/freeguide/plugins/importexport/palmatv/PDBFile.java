@@ -39,6 +39,8 @@
  */
 package freeguide.plugins.importexport.palmatv;
 
+import freeguide.FreeGuide;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -51,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * DOCUMENT ME!
@@ -255,12 +258,9 @@ public class PDBFile
 
         }
 
-        catch( IOException e )
+        catch( IOException ex )
         {
-            System.err.println( "ERROR - In writeHeader:" );
-
-            e.printStackTrace(  );
-
+            FreeGuide.log.log( Level.SEVERE, "ERROR - In writeHeader:", ex );
         }
     }
 

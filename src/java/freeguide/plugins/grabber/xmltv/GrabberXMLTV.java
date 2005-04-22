@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Level;
 import java.util.prefs.Preferences;
 
 import javax.swing.JDialog;
@@ -134,7 +135,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         if( cmd == null )
         {
-            System.err.println( 
+            FreeGuide.log.severe( 
                 "Command not defined for " + moduleInfo.moduleName );
 
             return;
@@ -149,11 +150,11 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                 cmd, "%xmltv_path%",
                 FreeGuide.runtimeInfo.installDirectory + "/xmltv" );
 
-        System.err.println( "Run command: " + cmd );
+        FreeGuide.log.finest( "Run command: " + cmd );
 
         int resultCode = execCmdSimple( Utils.parseCommand( cmd ) );
 
-        System.err.println( "Result code = " + resultCode );
+        FreeGuide.log.finest( "Result code = " + resultCode );
 
     }
 
@@ -237,7 +238,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         if( cmd == null )
         {
-            System.err.println( 
+            FreeGuide.log.severe( 
                 "Command not defined for " + moduleInfo.moduleName );
 
             logger.error( "Command not defined for " + moduleInfo.moduleName );
@@ -254,14 +255,14 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                 cmd, "%xmltv_path%",
                 FreeGuide.runtimeInfo.installDirectory + "/xmltv" );
 
-        System.err.println( "Run command: " + cmd );
+        FreeGuide.log.finest( "Run command: " + cmd );
 
         logger.info( "Running command: " + cmd );
 
         int resultCode =
             execCmd( result, Utils.parseCommand( cmd ), progress, logger );
 
-        System.err.println( "Result code = " + resultCode );
+        FreeGuide.log.finest( "Result code = " + resultCode );
 
         logger.info( "Result code = " + resultCode );
 
@@ -576,11 +577,9 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             {
                 logger.error( "Error execute grabber: " + ex.getMessage(  ) );
 
-                System.err.println( 
-                    "Error execute grabber: " + ex.getMessage(  ) );
-
-                ex.printStackTrace(  );
-
+                FreeGuide.log.log( 
+                    Level.WARNING,
+                    "Error execute grabber: " + ex.getMessage(  ), ex );
             }
         }
     }

@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.TimeZone;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -126,10 +127,8 @@ public class StorageSerFiles extends BaseModule implements IStorage
         }
         catch( Exception ex )
         {
-            System.err.println( "Error read file " + f.getAbsolutePath(  ) );
-            ex.printStackTrace(  );
-
-            return;
+            FreeGuide.log.log( 
+                Level.WARNING, "Error read file " + f.getAbsolutePath(  ), ex );
         }
     }
 
@@ -417,9 +416,9 @@ public class StorageSerFiles extends BaseModule implements IStorage
             }
             catch( Exception ex )
             {
-                System.err.println( 
-                    "Error write file " + file.getAbsolutePath(  ) );
-                ex.printStackTrace(  );
+                FreeGuide.log.log( 
+                    Level.WARNING,
+                    "Error write file " + file.getAbsolutePath(  ), ex );
             }
         }
     }

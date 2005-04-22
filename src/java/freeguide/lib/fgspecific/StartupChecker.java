@@ -140,10 +140,8 @@ public class StartupChecker
      */
     private static void die( String message )
     {
-        System.err.println( message );
-
+        FreeGuide.log.severe( message );
         System.exit( 1 );
-
     }
 
     /**

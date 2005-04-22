@@ -349,13 +349,13 @@ public class MainController implements IModuleViewer.Parent
                     {
                         public void run(  )
                         {
-                        	FreeGuide.log.finest("start grabbing");
+                            FreeGuide.log.finest( "start grabbing" );
                             grab.grab( 
                                 getApplicationFrame(  ),
                                 mainFrame.getProgressBar(  ) );
                             viewer.onDataChanged(  );
                             reminderReschedule(  );
-                        	FreeGuide.log.finest("stop grabbing");
+                            FreeGuide.log.finest( "stop grabbing" );
                         }
                     }.start(  );
             }

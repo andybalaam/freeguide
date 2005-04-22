@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 
+import java.util.logging.Level;
+
 /**
  * XMLTV xml storage loader.
  *
@@ -48,6 +50,7 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
 
         if( cachedInfo == null )
         {
+
             GetInfoFilter filter = new GetInfoFilter(  );
         }
 
@@ -71,6 +74,7 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
         final TVChannelsSet channels, long minDate, long maxDate )
         throws Exception
     {
+
         final TVData result = new TVData(  );
 
         //processAllFiles( result, filter );
@@ -158,13 +162,11 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
 
                 catch( Exception ex )
                 {
-                    System.err.println( 
+                    FreeGuide.log.log( 
+                        Level.WARNING,
                         "Error on parse xmltv data file '"
                         + dataFiles[i].getAbsolutePath(  ) + "': "
-                        + ex.getMessage(  ) );
-
-                    ex.printStackTrace(  );
-
+                        + ex.getMessage(  ), ex );
                 }
             }
         }

@@ -1,5 +1,7 @@
 package freeguide.lib.grabber;
 
+import freeguide.FreeGuide;
+
 import freeguide.lib.general.LanguageHelper;
 
 import java.io.IOException;
@@ -9,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.*;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,8 +45,7 @@ public class TimeHelper
         }
         catch( IOException ex )
         {
-            System.err.println( "Error read monthes names" );
-            ex.printStackTrace(  );
+            FreeGuide.log.log( Level.SEVERE, "Error read monthes names", ex );
         }
     }
 

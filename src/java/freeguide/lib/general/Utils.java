@@ -108,23 +108,9 @@ public class Utils
             String cmdstr = prefs.performSubstitutions( cmds[i] );
 
             // Log what we're doing
-            if( FreeGuide.log != null )
-            {
-                FreeGuide.log.info( 
-                    FreeGuide.msg.getString( 
-                        "executing_system_command_in_background" ) + ": "
-                    + cmdstr );
-
-            }
-
-            else
-            {
-                System.err.println( 
-                    FreeGuide.msg.getString( 
-                        "executing_system_command_in_background" ) + ": "
-                    + cmdstr );
-
-            }
+            FreeGuide.log.info( 
+                FreeGuide.msg.getString( 
+                    "executing_system_command_in_background" ) + ": " + cmdstr );
 
             try
             {

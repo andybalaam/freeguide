@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.Iterator;
+import java.util.logging.Level;
 
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
@@ -78,12 +79,13 @@ public class GrabberController
 
                 try
                 {
+
                     IModuleGrabber grabber =
                         PluginsManager.getGrabberByID( grabberID );
 
                     if( grabber == null )
                     {
-                        System.err.println( 
+                        FreeGuide.log.warning( 
                             "There is no grabber " + grabberID );
 
                         continue;
@@ -112,12 +114,9 @@ public class GrabberController
                     progressDialog.error( 
                         "Error grab data by grabber '" + grabberID + "'", ex );
 
-                    System.err.println( 
-                        "Error grab data by grabber '" + grabberID
-                        + "'. This is only debug stack trace:" );
-
-                    ex.printStackTrace(  );
-
+                    FreeGuide.log.log( 
+                        Level.WARNING,
+                        "Error grab data by grabber '" + grabberID, ex );
                 }
             }
         }

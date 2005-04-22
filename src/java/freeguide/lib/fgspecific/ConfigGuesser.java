@@ -134,7 +134,7 @@ public class ConfigGuesser
 
         else
         {
-            System.err.println( msg );
+            FreeGuide.log.warning( msg );
 
         }
 

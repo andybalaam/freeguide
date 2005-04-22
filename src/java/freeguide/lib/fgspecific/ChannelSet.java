@@ -172,6 +172,7 @@ public class ChannelSet implements ChannelSetInterface
      */
     public Channel getChannel( int i )
     {
+
         return (Channel)channels.get( i );
     }
 
