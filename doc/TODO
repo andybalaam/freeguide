@@ -257,7 +257,8 @@ a Get rid of System.err.println, either removing, or replacing with
   the default browser names in the properties file.
 - Buttons on the XMLTV grabbers Option pane say "Default" and "", when they
   should say "Configure" and "Delete", I think.
-- Editing a migrated channel set does not work - it never changes
+- Channel sets do not appear to work - not sure why, but try using
+  tv_grab_uk_bleb and then making a channel set.
 - The default channel set name is "" and it should be "(New channel set)"
 - Options screen:
     a Rename "..." buttons to "Configure"
