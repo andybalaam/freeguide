@@ -297,12 +297,8 @@ public class MainController implements IModuleViewer.Parent
 
         if( updated )
         {
-            System.out.println( "updated" );
-
             config.channelsSetsList = dialog.getChannelsSets(  );
-
             viewer.onChannelsSetsChanged(  );
-
         }
     }
 
@@ -353,13 +349,13 @@ public class MainController implements IModuleViewer.Parent
                     {
                         public void run(  )
                         {
-                            System.out.println( "start grabbing" );
+                        	FreeGuide.log.finest("start grabbing");
                             grab.grab( 
                                 getApplicationFrame(  ),
                                 mainFrame.getProgressBar(  ) );
                             viewer.onDataChanged(  );
                             reminderReschedule(  );
-                            System.out.println( "stop grabbing" );
+                        	FreeGuide.log.finest("stop grabbing");
                         }
                     }.start(  );
             }

@@ -172,10 +172,7 @@ public class ChannelSet implements ChannelSetInterface
      */
     public Channel getChannel( int i )
     {
-
-        //System.out.println( "getChannelName(" + i + ") = " +  channelNames.get(i));
         return (Channel)channels.get( i );
-
     }
 
     /**

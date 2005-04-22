@@ -1,5 +1,6 @@
 package freeguide.lib.fgspecific;
 
+import freeguide.FreeGuide;
 import freeguide.lib.general.LanguageHelper;
 
 import freeguide.plugins.IModule;
@@ -8,6 +9,7 @@ import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IModuleViewer;
 
 import freeguide.plugins.grabber.www_cosmostv_com.GrabberCosmostv;
+import freeguide.plugins.grabber.www_vsetv_com.GrabberVsetv;
 import freeguide.plugins.grabber.xmltv.GrabberXMLTV;
 
 import freeguide.plugins.ui.horizontal.HorizontalViewer;
@@ -44,6 +46,7 @@ public class PluginsManager
         modules.add( new GrabberXMLTV(  ) );
 
         //modules.add( new GrabberCosmostv(  ) );
+        //modules.add( new GrabberVsetv(  ) );
         modules.add( new HorizontalViewer(  ) );
 
         for( int i = 0; i < modules.size(  ); i++ )
@@ -85,7 +88,7 @@ public class PluginsManager
 
             for( int i = 0; i < libs.length; i++ )
             {
-                System.out.println( "module jar: " + libs[i].getPath(  ) );
+                FreeGuide.log.finest( "Load module jar: " + libs[i].getPath(  ) );
 
                 jarUrls.add( libs[i].toURL(  ) );
 

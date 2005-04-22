@@ -78,8 +78,6 @@ public class GrabberController
 
                 try
                 {
-                    System.out.println( "Run grabber " + grabberID );
-
                     IModuleGrabber grabber =
                         PluginsManager.getGrabberByID( grabberID );
 
