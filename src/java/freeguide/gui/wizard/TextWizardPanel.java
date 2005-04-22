@@ -110,32 +110,6 @@ public class TextWizardPanel extends WizardPanel
 
     }
 
-    // -------------------------------------------
-
-    /**
-     * Description of the Method
-     *
-     * @param pref Description of the Parameter
-     */
-    protected void saveToPrefs( FGPreferences pref )
-    {
-        pref.put( configEntry, (String)getBoxValue(  ) );
-
-    }
-
-    /**
-     * Description of the Method
-     *
-     * @param pref Description of the Parameter
-     */
-    protected void loadFromPrefs( FGPreferences pref )
-    {
-        setBoxValue( pref.get( configEntry ) );
-
-    }
-
-    // -----------------------------------
-
     /**
      * Gets the boxValue attribute of the FreeGuideTextWizardPanel object
      *

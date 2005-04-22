@@ -110,32 +110,6 @@ public class CommandsWizardPanel extends WizardPanel
 
     }
 
-    // -------------------------------------------
-
-    /**
-     * Description of the Method
-     *
-     * @param pref Description of the Parameter
-     */
-    protected void saveToPrefs( FGPreferences pref )
-    {
-        pref.putStrings( configEntry, (String[])getBoxValue(  ) );
-
-    }
-
-    /**
-     * Description of the Method
-     *
-     * @param pref Description of the Parameter
-     */
-    protected void loadFromPrefs( FGPreferences pref )
-    {
-        setBoxValue( pref.getStrings( configEntry ) );
-
-    }
-
-    // ------------------------------------------
-
     /**
      * Gets the boxValue attribute of the CommandsWizardPanel object
      *

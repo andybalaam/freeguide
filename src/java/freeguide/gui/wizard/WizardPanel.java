@@ -25,10 +25,6 @@ package freeguide.gui.wizard;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.fgspecific.ConfigGuesser;
-import freeguide.lib.fgspecific.FGPreferences;
-import freeguide.lib.fgspecific.PreferencesGroup;
-
 import javax.swing.JOptionPane;
 
 /**
@@ -156,34 +152,6 @@ public class WizardPanel extends javax.swing.JPanel
     public void onEnter(  )
     {
 
-        // Save the config entry if there is one
-        if( configEntry != null )
-        {
-
-            try
-            {
-
-                FGPreferences pref =
-                    (FGPreferences)( PreferencesGroup.class.getField( 
-                        configGroup ).get( new PreferencesGroup(  ) ) );
-
-                loadFromPrefs( pref );
-
-            }
-
-            catch( java.lang.NoSuchFieldException e )
-            {
-                e.printStackTrace(  );
-
-            }
-
-            catch( java.lang.IllegalAccessException e )
-            {
-                e.printStackTrace(  );
-
-            }
-        }
-
         if( onEnter != null )
         {
             onEnter.onEnter( this );
@@ -204,56 +172,32 @@ public class WizardPanel extends javax.swing.JPanel
         if( configEntry != null )
         {
 
-            try
+            String error = checkValue(  );
+
+            if( error != null )
             {
 
-                String error = checkValue(  );
+                // If we have an error, ask the user if they want
+                // to continue
+                String lb = System.getProperty( "line.separator" );
 
-                if( error != null )
+                int ignore =
+                    JOptionPane.showConfirmDialog( 
+                        this,
+                        error + lb
+                        + FreeGuide.msg.getString( "do_you_want_to_continue" ),
+                        FreeGuide.msg.getString( "error" ),
+                        JOptionPane.YES_NO_OPTION );
+
+                if( ignore == JOptionPane.NO_OPTION )
                 {
 
-                    // If we have an error, ask the user if they want
-                    // to continue
-                    String lb = System.getProperty( "line.separator" );
+                    // If not, go back
+                    return false;
 
-                    int ignore =
-                        JOptionPane.showConfirmDialog( 
-                            this,
-                            error + lb
-                            + FreeGuide.msg.getString( 
-                                "do_you_want_to_continue" ),
-                            FreeGuide.msg.getString( "error" ),
-                            JOptionPane.YES_NO_OPTION );
-
-                    if( ignore == JOptionPane.NO_OPTION )
-                    {
-
-                        // If not, go back
-                        return false;
-
-                    }
-
-                    // Otherwise, go on with saving the value
                 }
 
-                FGPreferences pref =
-                    (FGPreferences)( PreferencesGroup.class.getField( 
-                        configGroup ).get( new PreferencesGroup(  ) ) );
-
-                saveToPrefs( pref );
-
-            }
-
-            catch( java.lang.NoSuchFieldException e )
-            {
-                e.printStackTrace(  );
-
-            }
-
-            catch( java.lang.IllegalAccessException e )
-            {
-                e.printStackTrace(  );
-
+                // Otherwise, go on with saving the value
             }
         }
 
@@ -278,36 +222,10 @@ public class WizardPanel extends javax.swing.JPanel
     private String checkValue(  )
     {
 
-        return ConfigGuesser.checkValue( 
-            configGroup, configEntry, this.getBoxValue(  ) );
-
+        return null;
     }
 
     // -------------------------------
-
-    /**
-     * Description of the Method
-     *
-     * @param pref Description of the Parameter
-     */
-    protected void saveToPrefs( FGPreferences pref )
-    {
-
-        // Should never get here.
-    }
-
-    /**
-     * Description of the Method
-     *
-     * @param pref Description of the Parameter
-     */
-    protected void loadFromPrefs( FGPreferences pref )
-    {
-
-        // Should never get here.
-    }
-
-    // -----------------------------------------------
 
     /**
      * Gets the value that's in this panel's box. The box just means the

@@ -110,33 +110,6 @@ public class BooleanWizardPanel extends WizardPanel
 
     }
 
-    // --------------------------------------------
-
-    /**
-     * Description of the Method
-     *
-     * @param pref Description of the Parameter
-     */
-    protected void saveToPrefs( FGPreferences pref )
-    {
-        pref.putBoolean( 
-            configEntry, ( (Boolean)getBoxValue(  ) ).booleanValue(  ) );
-
-    }
-
-    /**
-     * Description of the Method
-     *
-     * @param pref Description of the Parameter
-     */
-    protected void loadFromPrefs( FGPreferences pref )
-    {
-        setBoxValue( new Boolean( pref.getBoolean( configEntry, true ) ) );
-
-    }
-
-    // --------------------------------------------
-
     /**
      * Gets the boxValue attribute of the BooleanWizardPanel object
      *

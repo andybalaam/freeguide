@@ -316,30 +316,6 @@ public class PrivacyWizardPanel extends WizardPanel implements ActionListener
     }
 
     /**
-     * Description of the Method
-     *
-     * @param pref Description of the Parameter
-     */
-    protected void saveToPrefs( FGPreferences pref )
-    {
-        pref.put( configEntry, (String)getBoxValue(  ) );
-
-    }
-
-    /**
-     * Description of the Method
-     *
-     * @param pref Description of the Parameter
-     */
-    protected void loadFromPrefs( FGPreferences pref )
-    {
-        setBoxValue( pref.get( configEntry, "yes_ip" ) );
-
-    }
-
-    // --------------------------------------------
-
-    /**
      * Gets the boxValue attribute of the PrivacyWizardPanel object
      *
      * @return The boxValue value

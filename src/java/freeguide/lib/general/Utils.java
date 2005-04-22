@@ -65,67 +65,14 @@ public class Utils
     private final static char dosSlash = 127;
 
     /**
-     * DOCUMENT_ME!
-     *
-     * @param cmd DOCUMENT_ME!
-     * @param prefs DOCUMENT_ME!
-     */
-    public static void execNoWait( String cmd, PreferencesGroup prefs )
-    {
-
-        String[] cmds = new String[1];
-
-        cmds[0] = cmd;
-
-        execNoWait( cmds, prefs );
-
-    }
-
-    /**
      * Execute an external command, without waiting for it to finish.
      *
      * @param cmds Description of the Parameter
      */
     public static void execNoWait( String[] cmds )
     {
-        execNoWait( cmds, null );
 
-    }
-
-    /**
-     * Execute an external command, without waiting for it to finish.
-     *
-     * @param cmds Description of the Parameter
-     * @param prefs DOCUMENT ME!
-     */
-    public static void execNoWait( String[] cmds, PreferencesGroup prefs )
-    {
-
-        // Step through each command in the list
-        for( int i = 0; i < cmds.length; i++ )
-        {
-
-            // Substitute in any system variables for this command
-            String cmdstr = prefs.performSubstitutions( cmds[i] );
-
-            // Log what we're doing
-            FreeGuide.log.info( 
-                FreeGuide.msg.getString( 
-                    "executing_system_command_in_background" ) + ": " + cmdstr );
-
-            try
-            {
-
-                // Parse the command into arguments and execute
-                Runtime.getRuntime(  ).exec( parseCommand( cmdstr ) );
-
-            }
-            catch( java.io.IOException ex )
-            {
-                FreeGuide.log.log( 
-                    Level.WARNING, "Error execute command: " + cmdstr, ex );
-            }
-        }
+        //  execNoWait( cmds, null );
     }
 
     /**
@@ -281,84 +228,6 @@ loop:
                 j = ans[i].indexOf( oldStr );
 
             }
-        }
-
-        return ans;
-
-    }
-
-    // -------------------------------------------------
-
-    /**
-     * Description of the Method
-     *
-     * @param vector Description of the Parameter
-     *
-     * @return Description of the Return Value
-     */
-    public static ChannelSet[] arrayFromVector_ChannelSet( Vector vector )
-    {
-
-        ChannelSet[] ans = new ChannelSet[vector.size(  )];
-
-        vector.copyInto( ans );
-
-        return ans;
-
-    }
-
-    /**
-     * Convert a Vector of Strings to an array.
-     *
-     * @param vector Description of the Parameter
-     *
-     * @return Description of the Return Value
-     */
-    public static String[] arrayFromVector_String( Vector vector )
-    {
-
-        String[] ans = new String[vector.size(  )];
-
-        vector.copyInto( ans );
-
-        return ans;
-
-    }
-
-    /**
-     * Convert a Vector of Calendars to an array.
-     *
-     * @param vector Description of the Parameter
-     *
-     * @return Description of the Return Value
-     */
-    public static Calendar[] arrayFromVector_Calendar( Vector vector )
-    {
-
-        Calendar[] ans = new Calendar[vector.size(  )];
-
-        vector.copyInto( ans );
-
-        return ans;
-
-    }
-
-    /**
-     * Convert a Vector of Integers to an array of ints.
-     *
-     * @param vector Description of the Parameter
-     *
-     * @return Description of the Return Value
-     */
-    public static int[] arrayFromVector_int( Vector vector )
-    {
-
-        int[] ans = new int[vector.size(  )];
-
-        for( int i = 0; i < ans.length; i++ )
-        {
-            ans[i] = ( (Integer)vector.get( i ) ).intValue(  );
-
         }
 
         return ans;

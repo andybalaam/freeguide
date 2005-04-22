@@ -2,8 +2,6 @@ package freeguide.lib.fgspecific.data;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.fgspecific.FGPreferences;
-
 import org.xml.sax.Attributes;
 
 import java.io.File;
@@ -653,7 +651,10 @@ public class TVProgramme implements Comparable, Serializable
 
         }
 
-        StringBuffer path = FGPreferences.getIconCacheDir(  );
+        StringBuffer path = new StringBuffer(  );
+        path.append( FreeGuide.config.workingDirectory );
+        path.append( '/' );
+        path.append( TVChannel.ICONCACHE_SUBDIR );
 
         path.append( 
             iconURL.replaceAll( "[^0-9A-Za-z_-]|^http://|^ftp://", "" ) );

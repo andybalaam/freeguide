@@ -183,41 +183,6 @@ public abstract class AbstractFileWizardPanel extends WizardPanel
      */
     protected abstract String getFileChooserMessage(  );
 
-    // -----------------------------------
-
-    /**
-     * Description of the Method
-     *
-     * @param pref Description of the Parameter
-     */
-    protected void saveToPrefs( FGPreferences pref )
-    {
-        pref.put( configEntry, ( (File)getBoxValue(  ) ).getPath(  ) );
-
-    }
-
-    /**
-     * Description of the Method
-     *
-     * @param pref Description of the Parameter
-     */
-    protected void loadFromPrefs( FGPreferences pref )
-    {
-
-        String pr = pref.get( configEntry );
-
-        if( pr == null )
-        {
-            pr = "";
-
-        }
-
-        setBoxValue( new File( pr ) );
-
-    }
-
-    // -----------------------------------
-
     /**
      * Gets the boxValue attribute of the AbstractFileWizard object
      *
