@@ -14,8 +14,6 @@ package freeguide.gui.dialogs;
 
 import freeguide.FreeGuide;
 
-import freeguide.gui.Progressor;
-
 import java.awt.Image;
 
 import java.net.URL;
@@ -28,12 +26,11 @@ import javax.swing.JFrame;
  * @author Andy Balaam
  * @version 4
  */
-public class PleaseWaitFrame extends JFrame implements Progressor
+public class PleaseWaitFrame extends JFrame
 {
 
     private javax.swing.JLabel imageLabel;
     private javax.swing.ImageIcon image;
-    private javax.swing.JProgressBar progressBar;
 
     /**
      * Creates this form, makes it visible, and starts the StartupChecker -
@@ -61,8 +58,6 @@ public class PleaseWaitFrame extends JFrame implements Progressor
         imageLabel.setBorder( 
             javax.swing.BorderFactory.createLineBorder( java.awt.Color.BLACK ) );
         getContentPane(  ).add( imageLabel, java.awt.BorderLayout.CENTER );
-        progressBar = new javax.swing.JProgressBar( 0, 100 );
-        getContentPane(  ).add( progressBar, java.awt.BorderLayout.SOUTH );
         setResizable( false );
         addWindowListener( 
             new java.awt.event.WindowAdapter(  )
@@ -95,15 +90,5 @@ public class PleaseWaitFrame extends JFrame implements Progressor
         FreeGuide.log.info( 
             FreeGuide.msg.getString( "halting_due_to_please_wait_closed" ) );
         System.exit( 0 );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param percent DOCUMENT_ME!
-     */
-    public void setProgress( final int percent )
-    {
-        progressBar.setValue( percent );
     }
 }
