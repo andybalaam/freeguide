@@ -65,8 +65,6 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     boolean isStopped = true;
     private Calendar date;
     private Process pr;
-    private StreamReaderThread readOutput;
-    private StreamReaderThread readError;
     protected ConfigureUIPanelModule confUI;
     protected CountryInfo[] countryInfos;
 
@@ -341,28 +339,6 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                 Level.WARNING, "Error execute xmltv grabber", ex );
 
             return -1;
-        }
-    }
-
-    private void clearUp(  )
-    {
-
-        if( pr != null )
-        {
-            pr.destroy(  );
-
-        }
-
-        if( readOutput != null )
-        {
-            readOutput.stop(  );
-
-        }
-
-        if( readError != null )
-        {
-            readError.stop(  );
-
         }
     }
 

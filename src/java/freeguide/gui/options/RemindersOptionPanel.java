@@ -1,56 +1,38 @@
 /*
-
  *  FreeGuide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  freeguide-tv.sourceforge.net
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
 package freeguide.gui.options;
 
-import freeguide.*;
+import freeguide.FreeGuide;
 
-import freeguide.gui.dialogs.*;
+import freeguide.gui.dialogs.FGDialog;
 
 import freeguide.gui.viewer.MainController;
 
-import freeguide.lib.general.*;
+import freeguide.lib.general.GridBagEasy;
 
-import freeguide.plugins.ui.horizontal.HorizontalViewer;
+import java.awt.Insets;
+import java.awt.event.KeyEvent;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /*
-
  *  A panel full of options about time
-
  *
-
  * @author     Andy Balaam
-
  * @created    12 Dec 2003
-
  * @version    1
-
  */
 public class RemindersOptionPanel extends OptionPanel
 {

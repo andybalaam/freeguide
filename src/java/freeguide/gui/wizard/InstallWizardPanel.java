@@ -12,14 +12,14 @@
  */
 package freeguide.gui.wizard;
 
-import freeguide.*;
+import freeguide.FreeGuide;
 
-import freeguide.gui.wizard.*;
+import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * A JPanel to go on a FreeGuideWizard that is the final screen in the

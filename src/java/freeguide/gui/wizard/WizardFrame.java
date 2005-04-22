@@ -1,43 +1,32 @@
 /*
-
  *  FreeGuide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  freeguide-tv.sourceforge.net
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
 package freeguide.gui.wizard;
 
-import freeguide.*;
+import freeguide.FreeGuide;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import java.io.*;
-
-import java.lang.*;
-import java.lang.reflect.*;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import java.net.URL;
 
-import java.util.*;
-
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  * A class to produce a wizard interface.

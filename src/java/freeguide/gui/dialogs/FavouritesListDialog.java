@@ -2,7 +2,6 @@ package freeguide.gui.dialogs;
 
 import freeguide.FreeGuide;
 
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 

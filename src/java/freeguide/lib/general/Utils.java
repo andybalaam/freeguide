@@ -1,56 +1,38 @@
 /*
-
  *  FreeGuide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  freeguide-tv.sourceforge.net
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
 /*
-
  *  parseCommand() method Copyright (c) by Slava Pestov
-
  *
-
  *  from the Jedit project: www.jedit.org
-
  *
-
  */
 package freeguide.lib.general;
 
-import freeguide.*;
+import freeguide.FreeGuide;
 
-import freeguide.gui.dialogs.*;
+import freeguide.gui.dialogs.FGDialog;
 
-import freeguide.lib.fgspecific.*;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Point;
 
-import java.awt.*;
+import java.io.StreamTokenizer;
+import java.io.StringReader;
 
-import java.io.*;
-
-import java.lang.reflect.*;
-
-import java.util.*;
+import java.util.Vector;
 import java.util.logging.Level;
 
-import javax.swing.*;
-import javax.swing.tree.*;
+import javax.swing.JDialog;
 
 /**
  * Some static global methods used in various parts of FreeGuide.

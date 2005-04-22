@@ -23,11 +23,7 @@
  */
 package freeguide.lib.fgspecific;
 
-import freeguide.*;
-
-import freeguide.gui.viewer.*;
-
-import freeguide.lib.fgspecific.*;
+import freeguide.FreeGuide;
 
 import freeguide.lib.general.*;
 
@@ -36,9 +32,6 @@ import java.io.File;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 
 /**
  * FreeGuideStartupChecker Provides a single static method that checks

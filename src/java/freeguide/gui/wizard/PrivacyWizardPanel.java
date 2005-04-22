@@ -1,38 +1,32 @@
 /*
-
  *  FreeGuide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  freeguide-tv.sourceforge.net
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
 package freeguide.gui.wizard;
 
-import freeguide.*;
+import freeguide.FreeGuide;
 
-import freeguide.gui.dialogs.*;
+import freeguide.gui.dialogs.PrivacyInfoDialog;
 
-import freeguide.lib.fgspecific.*;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 /**
  * A JPanel to go on a FreeGuideWizard to choose the user's privacy
