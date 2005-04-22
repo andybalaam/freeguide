@@ -181,6 +181,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
                                 panel, "Are you sure ?", "Delete",
                                 JOptionPane.OK_CANCEL_OPTION ) == JOptionPane.OK_OPTION )
                     {
+                    	config.modules.remove(confPanel.moduleInfo);
                         panel.getPanelModules(  ).remove( confPanel );
                         panel.revalidate(  );
                         panel.repaint(  );
