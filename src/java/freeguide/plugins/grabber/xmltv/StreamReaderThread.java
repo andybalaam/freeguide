@@ -112,14 +112,9 @@ public class StreamReaderThread implements Runnable
      */
     public void start(  )
     {
-
-        // System.out.println("test: StreamReaderThread=" + this);
-        // if(runner==null) {
         runner = new Thread( this );
 
         runner.start(  );
-
-        // }
     }
 
     /**

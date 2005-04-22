@@ -1,5 +1,6 @@
 package freeguide.plugins.ui.horizontal.components;
 
+import freeguide.FreeGuide;
 import freeguide.plugins.ui.horizontal.HorizontalViewer;
 import freeguide.plugins.ui.horizontal.ProgrammeJLabel;
 
@@ -1379,7 +1380,7 @@ public class StripView extends JPanel implements Scrollable
 
             else
             {
-                System.out.println( "nowhere to dispatch" ); // TODO DEBUG
+                FreeGuide.log.finest( "nowhere to dispatch" ); // TODO DEBUG
 
             }
         }
@@ -1408,7 +1409,7 @@ public class StripView extends JPanel implements Scrollable
 
             else
             {
-                System.out.println( "nowhere to dispatch" ); // TODO DEBUG
+            	FreeGuide.log.finest( "nowhere to dispatch" ); // TODO DEBUG
 
             }
         }
@@ -1437,7 +1438,7 @@ public class StripView extends JPanel implements Scrollable
 
             else
             {
-                System.out.println( "nowhere to dispatch" ); // TODO DEBUG
+            	FreeGuide.log.finest( "nowhere to dispatch" ); // TODO DEBUG
 
             }
         }

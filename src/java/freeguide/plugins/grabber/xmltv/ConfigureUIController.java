@@ -384,14 +384,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
             {
                 panel.moduleInfo.commandToRun =
                     doc.getText( 0, doc.getLength(  ) );
-
-                System.out.println( 
-                    "changed " + panel.moduleInfo.moduleName + " to "
-                    + doc.getText( 0, doc.getLength(  ) ) );
-
-            }
-
-            catch( BadLocationException ex )
+            }            catch( BadLocationException ex )
             {
                 ex.printStackTrace(  );
 

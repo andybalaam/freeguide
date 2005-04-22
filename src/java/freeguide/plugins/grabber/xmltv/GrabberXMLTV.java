@@ -86,8 +86,6 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
      */
     public void stop(  )
     {
-        System.out.println( "XMLTVGrabber stopped" );
-
         isStopped = true;
 
         if( pr != null )
@@ -95,9 +93,6 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             pr.destroy(  );
 
             pr = null;
-
-            System.out.println( "pr destroyed" );
-
         }
     }
 

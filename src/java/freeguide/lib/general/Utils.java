@@ -149,7 +149,7 @@ public class Utils
      */
     public static void execNoWait( String cmd )
     {
-        System.out.println( "Execute system command: " + cmd );
+        FreeGuide.log.info( "Execute system command: " + cmd );
 
         try
         {

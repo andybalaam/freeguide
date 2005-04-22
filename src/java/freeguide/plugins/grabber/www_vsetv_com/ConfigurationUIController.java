@@ -128,9 +128,6 @@ public class ConfigurationUIController implements IModuleConfigurationUI
 
         parent.config.isGetAll = panel.getCbGetAll(  ).isSelected(  );
 
-        System.out.println( 
-            "ind=" + panel.getListChannels(  ).getSelectedIndex(  ) );
-
         parent.config.channelGroup =
             (String)chs.get( panel.getListChannels(  ).getSelectedIndex(  ) );
 

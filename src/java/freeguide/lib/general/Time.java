@@ -279,8 +279,6 @@ public class Time
      */
     public void setTimeHHMMString( String hhmm )
     {
-
-        //System.out.println(";klsnf");
         if( ( hhmm.length(  ) != 5 ) || ( hhmm.charAt( 2 ) != ':' ) )
         {
             setMillisecondsSinceMidnight( 0 );

@@ -48,34 +48,7 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
 
         if( cachedInfo == null )
         {
-            System.out.println( "XMLTVProcessor.getInfo" );
-
             GetInfoFilter filter = new GetInfoFilter(  );
-
-            /*try
-
-
-            {
-
-
-            processAllFiles( null, filter );
-
-
-            }
-
-
-            catch( Exception ex )
-
-
-            {
-
-
-            ex.printStackTrace(  );
-
-
-            }*/
-
-            //cachedInfo = filter.info;
         }
 
         return cachedInfo;
@@ -98,8 +71,6 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
         final TVChannelsSet channels, long minDate, long maxDate )
         throws Exception
     {
-        System.out.println( "XMLTVProcessor.load" );
-
         final TVData result = new TVData(  );
 
         //processAllFiles( result, filter );
