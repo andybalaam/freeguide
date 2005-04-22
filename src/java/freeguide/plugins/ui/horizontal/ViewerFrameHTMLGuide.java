@@ -169,6 +169,8 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
         }
 
         final Vector tickedProgrammes = new Vector(  );
+        final long day_start = parentViewerFrame.parent.getStartOfDay(  );
+        final long day_end = parentViewerFrame.parent.getEndOfDay(  );
 
         parentViewerFrame.parent.currentData.iterate( 
             new TVIteratorProgrammes(  )
@@ -180,7 +182,10 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
                 protected void onProgramme( TVProgramme programme )
                 {
 
-                    if( SelectionManager.isInGuide( programme ) )
+                    if( 
+                        SelectionManager.isInGuide( programme )
+                            && ( programme.getEnd(  ) > day_start )
+                            && ( programme.getStart(  ) < day_end ) )
                     {
                         tickedProgrammes.add( programme );
 
@@ -208,10 +213,10 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
         ans.append( "  <title>" );
 
         Object[] messageArguments =
-            {
-                parentViewerFrame.parent.htmlDateFormat.format( 
-                    new Date( parentViewerFrame.parent.theDate ) )
-            };
+        {
+            parentViewerFrame.parent.htmlDateFormat.format( 
+                new Date( parentViewerFrame.parent.theDate ) )
+        };
 
         ans.append( 
             parentViewerFrame.parent.getLocalizer(  ).getLocalizedMessage( 
@@ -297,10 +302,10 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
                 "<font face='helvetica, helv, arial, sans serif' size='4'>" );
 
             Object[] messageArguments2 =
-                {
-                    parentViewerFrame.parent.htmlDateFormat.format( 
-                        new Date( parentViewerFrame.parent.theDate ) )
-                };
+            {
+                parentViewerFrame.parent.htmlDateFormat.format( 
+                    new Date( parentViewerFrame.parent.theDate ) )
+            };
 
             ans.append( 
                 parentViewerFrame.parent.getLocalizer(  ).getLocalizedMessage( 
@@ -315,10 +320,10 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
         {
 
             Object[] messageArguments2 =
-                {
-                    parentViewerFrame.parent.htmlDateFormat.format( 
-                        new Date( parentViewerFrame.parent.theDate ) )
-                };
+            {
+                parentViewerFrame.parent.htmlDateFormat.format( 
+                    new Date( parentViewerFrame.parent.theDate ) )
+            };
 
             ans.append( 
                 parentViewerFrame.parent.getLocalizer(  ).getLocalizedMessage( 

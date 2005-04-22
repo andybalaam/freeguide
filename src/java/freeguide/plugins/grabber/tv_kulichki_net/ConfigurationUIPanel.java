@@ -172,4 +172,5 @@ public class ConfigurationUIPanel extends JPanel
     }
 }
 
+
 //  @jve:decl-index=0:

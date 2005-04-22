@@ -176,6 +176,28 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             }
         } );
 
+    /**
+     * Returns the time at the beginning of the currently-selected day.
+     *
+     * @return The datetime in milliseconds of the start of this day
+     */
+    public long getStartOfDay(  )
+    {
+
+        return theDate;
+    }
+
+    /**
+     * Returns the time at the end of the currently-selected day.
+     *
+     * @return The datetime in milliseconds of the end of this day
+     */
+    public long getEndOfDay(  )
+    {
+
+        return theDate + MILLISECONDS_PER_DAY;
+    }
+
     /* (non-Javadoc)
     * @see freeguide.plugins.IModule#getID()
     */
@@ -590,6 +612,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                         File iconFile = null;
 
                         ImageIcon tmpImg;
+
                         /*TODO   if(
 
 

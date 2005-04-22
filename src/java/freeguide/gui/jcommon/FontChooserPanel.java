@@ -87,11 +87,11 @@ public class FontChooserPanel extends JPanel
 
     /** The font sizes that can be selected. */
     public static final String[] SIZES =
-        {
-            "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "28",
-            
-            "36", "48", "72"
-        };
+    {
+        "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "28",
+        
+        "36", "48", "72"
+    };
 
     /** The list of fonts. */
     private JList fontlist;

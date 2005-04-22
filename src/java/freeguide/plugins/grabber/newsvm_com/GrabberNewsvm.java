@@ -51,7 +51,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE );
     protected static TimeZone tz = TimeZone.getTimeZone( "Europe/Minsk" );
     protected static final String[] DAYS =
-        { "mo", "tu", "we", "th", "fr", "sa", "su" };
+    { "mo", "tu", "we", "th", "fr", "sa", "su" };
     boolean isStopped;
 
     /**

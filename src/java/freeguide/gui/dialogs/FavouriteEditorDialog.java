@@ -398,11 +398,11 @@ public class FavouriteEditorDialog extends FGDialog
         }
 
         Object[] nameArgs =
-            {
-                equalsString, containsString, regexpString, channelString,
-                
-                beforeString, afterString, dayOfWeekString
-            };
+        {
+            equalsString, containsString, regexpString, channelString,
+            
+            beforeString, afterString, dayOfWeekString
+        };
         String name =
             FreeGuide.msg.getLocalizedMessage( 
                 "favourite_name_template", nameArgs );

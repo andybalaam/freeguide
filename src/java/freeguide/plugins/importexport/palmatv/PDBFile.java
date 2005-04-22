@@ -72,11 +72,11 @@ public class PDBFile
     // fields of header
     protected String PDBName;
     protected byte[] filler =
-        {
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            
-            0, 0, 0, 0, 0, 0, 0, 0, 0
-        };
+    {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        
+        0, 0, 0, 0, 0, 0, 0, 0, 0
+    };
     protected short fileAttributes = 8; //24;
 
     /** DOCUMENT ME! */

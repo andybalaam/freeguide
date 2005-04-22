@@ -190,6 +190,8 @@ a  means done by Alex Buloichik
 - Deal with a missing .xmltv directory on Choose Channels by making it.
 - Remember "Show details" setting, and don't close download window if details
   are being shown.
+- Options screen should remember what item we were on and return to it when
+  we re-enter.
 
 - Release 0.10.2 (Keyboard navigation, internationalisation, recording)
 
@@ -261,6 +263,8 @@ a Generate the list of grabber plugins dynamically by asking each plugin what
 - Migrate XMLTV settings 0.10.0
 - Deleting XMLTV grabbers does not work - they re-appear when you re-enter
   Options
+- When I start FreeGuide and it was previously maximized, it opens half-way off
+  the screen
 a Can we remove ViewerFramePositionConfig class?
 a "Show output" should change to "Hide output" when it's clicked
 a Merge changes from HEAD into plugins-branch

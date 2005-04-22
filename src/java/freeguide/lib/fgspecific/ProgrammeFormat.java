@@ -488,7 +488,7 @@ public class ProgrammeFormat
             toAppendTo.append( " " );
 
             Object[] messageArguments =
-                { dateFormat.format( new Date( programme.getEnd(  ) ) ) };
+            { dateFormat.format( new Date( programme.getEnd(  ) ) ) };
 
             toAppendTo.append( 
                 FreeGuide.msg.getLocalizedMessage( 
