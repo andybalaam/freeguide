@@ -203,8 +203,8 @@ public class StorageSerFilesByDay extends BaseModule implements IStorage
                         {
 
                             if( 
-                                ( programme.getStart(  ) > maxDate )
-                                    || ( programme.getEnd(  ) < minDate ) )
+                                ( programme.getStart(  ) >= maxDate )
+                                    || ( programme.getEnd(  ) <= minDate ) )
                             {
                                 itProgrammes.remove(  );
                             }
