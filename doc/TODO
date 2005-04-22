@@ -247,7 +247,7 @@ a Generate the list of grabber plugins dynamically by asking each plugin what
   properties files it has available).
 a "Download in background" should work to make the downloading dialog non-modal.
 - Rename classes so every class has a different name.
-- Get rid of System.err.println, either removing, or replacing with 
+a Get rid of System.err.println, either removing, or replacing with 
   FreeGuide.log.info
 - Ensure that the HTML personalised guide only shows programmes that are before
   the day start time today and after the day start time tomorrow.
