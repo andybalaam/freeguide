@@ -2,6 +2,7 @@ package freeguide.gui.viewer;
 
 import freeguide.lib.general.LanguageHelper;
 
+import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -11,6 +12,8 @@ import java.net.URL;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 
@@ -38,6 +41,8 @@ public class MainFrame extends JFrame
     private JMenuItem menuItemWizard = null;
     private JMenuItem menuItemFavourites = null;
     private JMenuItem menuItemChannelsSets = null;
+    private JPanel jPanel = null;
+    private JProgressBar progressBar = null;
 
     /**
      * This is the default constructor
@@ -95,6 +100,7 @@ public class MainFrame extends JFrame
 
             jContentPane.setLayout( new java.awt.BorderLayout(  ) );
 
+            jContentPane.add( getJPanel(  ), java.awt.BorderLayout.SOUTH );
         }
 
         return jContentPane;
@@ -464,5 +470,40 @@ public class MainFrame extends JFrame
 
         return menuItemChannelsSets;
 
+    }
+
+    /**
+     * This method initializes jPanel
+     *
+     * @return javax.swing.JPanel
+     */
+    private JPanel getJPanel(  )
+    {
+
+        if( jPanel == null )
+        {
+            jPanel = new JPanel(  );
+            jPanel.setLayout( new BorderLayout(  ) );
+            jPanel.add( getProgressBar(  ), java.awt.BorderLayout.EAST );
+        }
+
+        return jPanel;
+    }
+
+    /**
+     * This method initializes jProgressBar
+     *
+     * @return javax.swing.JProgressBar
+     */
+    public JProgressBar getProgressBar(  )
+    {
+
+        if( progressBar == null )
+        {
+            progressBar = new JProgressBar(  );
+            progressBar.setVisible( false );
+        }
+
+        return progressBar;
     }
 }

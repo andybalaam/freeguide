@@ -24,6 +24,8 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +55,7 @@ public class MainController implements IModuleViewer.Parent
     public MainFrame mainFrame;
     protected IModuleViewer viewer;
     protected final Preferences configStore;
+    protected GrabberController grab = new GrabberController(  );
 
     /**
      * Creates a new MainController object.
@@ -100,6 +103,30 @@ public class MainController implements IModuleViewer.Parent
 
                     reminder.reSchedule(  );
 
+                }
+            } );
+        mainFrame.getProgressBar(  ).addMouseListener( 
+            new MouseListener(  )
+            {
+                public void mouseClicked( MouseEvent e )
+                {
+                    doShowGrabbers(  );
+                }
+
+                public void mouseEntered( MouseEvent e )
+                {
+                }
+
+                public void mouseExited( MouseEvent e )
+                {
+                }
+
+                public void mousePressed( MouseEvent e )
+                {
+                }
+
+                public void mouseReleased( MouseEvent e )
+                {
                 }
             } );
 
@@ -312,17 +339,47 @@ public class MainController implements IModuleViewer.Parent
      */
     public void doStartGrabbers(  )
     {
-        new Thread(  )
+
+        synchronized( grab )
+        {
+
+            if( grab.isStarted(  ) )
             {
-                public void run(  )
-                {
-                    new GrabberController(  ).grab( getApplicationFrame(  ) );
+                grab.showDialog(  );
+            }
+            else
+            {
+                new Thread(  )
+                    {
+                        public void run(  )
+                        {
+                            System.out.println( "start grabbing" );
+                            grab.grab( 
+                                getApplicationFrame(  ),
+                                mainFrame.getProgressBar(  ) );
+                            viewer.onDataChanged(  );
+                            reminderReschedule(  );
+                            System.out.println( "stop grabbing" );
+                        }
+                    }.start(  );
+            }
+        }
+    }
 
-                    viewer.onDataChanged(  );
+    /**
+     * DOCUMENT_ME!
+     */
+    public void doShowGrabbers(  )
+    {
 
-                }
-            }.start(  );
+        synchronized( grab )
+        {
 
+            if( grab.isStarted(  ) )
+            {
+                grab.showDialog(  );
+            }
+        }
     }
 
     /**

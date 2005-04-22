@@ -9,23 +9,16 @@ import freeguide.gui.viewer.MainController;
 import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVIteratorChannels;
-import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
-import freeguide.lib.fgspecific.data.TVProgramme;
-
-import freeguide.lib.impexp.XMLTVExport;
 
 import freeguide.plugins.IModuleGrabber;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import java.io.File;
 
 import java.util.Iterator;
 
 import javax.swing.JFrame;
+import javax.swing.JProgressBar;
 
 /**
  * Class for run specified grabber and display progress dialog.
@@ -35,302 +28,145 @@ import javax.swing.JFrame;
 public class GrabberController
 {
 
-    ExecutorDialog progressDialog;
+    protected ExecutorDialog progressDialog;
+    protected JProgressBar secondProgressBar;
 
     /**
      * DOCUMENT_ME!
      *
      * @param owner DOCUMENT_ME!
+     * @param secondProgressBar DOCUMENT ME!
      */
-    public void grab( JFrame owner )
+    public void grab( JFrame owner, JProgressBar secondProgressBar )
     {
-        progressDialog = new ExecutorDialog( owner );
-
-        progressDialog.getActionButton(  ).addActionListener( 
-            new ActionListener(  )
-            {
-                public void actionPerformed( ActionEvent evt )
-                {
-                    finish(  );
-
-                }
-            } );
-
-        progressDialog.addWindowListener( 
-            new WindowAdapter(  )
-            {
-                public void windowClosing( WindowEvent evt )
-                {
-                    finish(  );
-
-                }
-            } );
-
-        new Thread(  )
-            {
-                public void run(  )
-                {
-                    progressDialog.setVisible( true );
-
-                }
-            }.start(  );
-
-        Iterator it = MainController.config.activeGrabberIDs.iterator(  );
-
-        while( it.hasNext(  ) )
-        {
-
-            String grabberID = (String)it.next(  );
-
-            try
-            {
-                System.out.println( "Run grabber " + grabberID );
-
-                IModuleGrabber grabber =
-                    PluginsManager.getGrabberByID( grabberID );
-
-                if( grabber == null )
-                {
-                    System.err.println( "There is no grabber " + grabberID );
-
-                    continue;
-
-                }
-
-                TVData result =
-                    grabber.grabData( progressDialog, progressDialog );
-
-                if( result != null )
-                {
-                    result.iterate( 
-                        new TVIteratorChannels(  )
-                        {
-                            protected void onChannel( TVChannel channel )
-                            {
-                                channel.normalizeTime(  );
-                            }
-                        } );
-                    FreeGuide.storage.add( result );
-                }
-            }
-
-            catch( Exception ex )
-            {
-                progressDialog.error( 
-                    "Error grab data by grabber '" + grabberID + "'", ex );
-
-                System.err.println( 
-                    "Error grab data by grabber '" + grabberID
-                    + "'. This is only debug stack trace:" );
-
-                ex.printStackTrace(  );
-
-            }
-        }
-
-        progressDialog.dispose(  );
-
-        MainController.reminderReschedule(  );
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     */
-
-    /*  public void grabXMLTV(
-
-
-      JFrame owner, String[] cmds, String commandType, Calendar date )
-
-
-    {
-
-
-
-
-      GrabberXMLTV module = new GrabberXMLTV(  );
-
-
-      module.set( cmds, commandType, date );
-
-
-
-
-      try
-
-
-      {
-
-
-          module.setLocale( Locale.ENGLISH );
-
-
-      }
-
-
-      catch( Exception ex )
-
-
-      {
-
-
-          ex.printStackTrace(  );
-
-
-      }
-
-
-
-
-      progressDialog = new ExecutorDialog( owner );
-
-
-      progressDialog.setProgressMessage( commandType );
-
-
-      progressDialog.getActionButton(  ).addActionListener(
-
-
-          new ActionListener(  )
-
-
-          {
-
-
-              public void actionPerformed( ActionEvent evt )
-
-
-              {
-
-
-                  finish(  );
-
-
-              }
-
-
-          } );
-
-
-      progressDialog.addWindowListener(
-
-
-          new WindowAdapter(  )
-
-
-          {
-
-
-              public void windowClosing( WindowEvent evt )
-
-
-              {
-
-
-                  finish(  );
-
-
-              }
-
-
-          } );
-
-
-
-
-      new Thread(  )
-
-
-          {
-
-
-              public void run(  )
-
-
-              {
-
-
-                  progressDialog.setVisible( true );
-
-
-              }
-
-
-          }.start(  );
-
-
-
-
-      grabModule = (IModuleGrabber)module;
-
-
-      start(  );
-
-
-    }*/
-
-    /**
-     * DOCUMENT_ME!
-     */
-
-    /*    public void run(  )
-
-
-    {
-
-
-
+        this.secondProgressBar = secondProgressBar;
 
         try
-
-
         {
 
+            synchronized( this )
+            {
+                progressDialog =
+                    new ExecutorDialog( owner, secondProgressBar );
 
-            System.out.println( "before grab" );
+                progressDialog.getCancelButton(  ).addActionListener( 
+                    new ActionListener(  )
+                    {
+                        public void actionPerformed( ActionEvent evt )
+                        {
+                            finish(  );
 
+                        }
+                    } );
+            }
 
-          //  grabModule.grabData( progressDialog, null );
+            secondProgressBar.setVisible( true );
+            new Thread(  )
+                {
+                    public void run(  )
+                    {
+                        progressDialog.setVisible( true );
+                    }
+                }.start(  );
 
+            Iterator it = MainController.config.activeGrabberIDs.iterator(  );
 
-            System.out.println( "after grab" );
+            while( it.hasNext(  ) )
+            {
 
+                String grabberID = (String)it.next(  );
 
-           // grabModule = null;
+                try
+                {
+                    System.out.println( "Run grabber " + grabberID );
 
+                    IModuleGrabber grabber =
+                        PluginsManager.getGrabberByID( grabberID );
 
+                    if( grabber == null )
+                    {
+                        System.err.println( 
+                            "There is no grabber " + grabberID );
+
+                        continue;
+
+                    }
+
+                    TVData result =
+                        grabber.grabData( progressDialog, progressDialog );
+
+                    if( result != null )
+                    {
+                        result.iterate( 
+                            new TVIteratorChannels(  )
+                            {
+                                protected void onChannel( TVChannel channel )
+                                {
+                                    channel.normalizeTime(  );
+                                }
+                            } );
+                        FreeGuide.storage.add( result );
+                    }
+                }
+
+                catch( Exception ex )
+                {
+                    progressDialog.error( 
+                        "Error grab data by grabber '" + grabberID + "'", ex );
+
+                    System.err.println( 
+                        "Error grab data by grabber '" + grabberID
+                        + "'. This is only debug stack trace:" );
+
+                    ex.printStackTrace(  );
+
+                }
+            }
         }
-
-
-        catch( Exception ex )
-
-
+        finally
         {
-
-
-            ex.printStackTrace(  );
-
-
+            finish(  );
         }
-
-
-
-
-        finish(  );
-
-
-    }*/
+    }
 
     /**
      * DOCUMENT_ME!
      */
     public void finish(  )
     {
-        progressDialog.setVisible( false );
 
-        //viewer.dispose();
-        progressDialog.dispose(  );
+        synchronized( this )
+        {
+            secondProgressBar.setVisible( false );
+            progressDialog.dispose(  );
+            progressDialog = null;
+        }
+    }
 
+    /**
+     * DOCUMENT_ME!
+     */
+    public void showDialog(  )
+    {
+
+        synchronized( this )
+        {
+            progressDialog.setVisible( true );
+        }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public boolean isStarted(  )
+    {
+
+        synchronized( this )
+        {
+
+            return progressDialog != null;
+        }
     }
 }

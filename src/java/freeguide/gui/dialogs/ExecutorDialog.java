@@ -33,6 +33,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
     private final static String lb = System.getProperty( "line.separator" );
 
     // ------------------------------------------------------------------------
+    final private JProgressBar secondProgressBar;
     private javax.swing.JButton butCancel;
     private javax.swing.JButton butDetails;
     private javax.swing.JLabel labPleaseWait;
@@ -49,10 +50,12 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      * Creates a new ExecutorDialog object.
      *
      * @param owner DOCUMENT ME!
+     * @param secondProgressBar DOCUMENT ME!
      */
-    public ExecutorDialog( JFrame owner )
+    public ExecutorDialog( JFrame owner, final JProgressBar secondProgressBar )
     {
         super( owner, true ); //TODO FreeGuide.prefs.screen.getBoolean( "executor_modal", true ) );
+        this.secondProgressBar = secondProgressBar;
         initComponents(  );
 
         // Centre the screen
@@ -157,6 +160,8 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         minHeight = getHeight(  );
         maxHeight = minHeight + 150;
 
+        setDefaultCloseOperation( JDialog.HIDE_ON_CLOSE );
+
         //minPreferredSize = getSize(  );
         //maxPreferredSize = getSize(  );
         //maxPreferredSize.height += 200;
@@ -170,7 +175,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      *
      * @return DOCUMENT_ME!
      */
-    public JButton getActionButton(  )
+    public JButton getCancelButton(  )
     {
 
         return butCancel;
@@ -225,6 +230,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
                 public void run(  )
                 {
                     progressBar.setValue( percent );
+                    secondProgressBar.setValue( percent );
                 }
             } );
     }
