@@ -1,5 +1,7 @@
 package freeguide.plugins.grabber.xmltv;
 
+import freeguide.plugins.ILocalizer;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -8,10 +10,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentListener;
 
 /**
- * DOCUMENT ME!
+ * Panel for edit one XMLTV grabber.
  *
  * @author Alex Buloichik (mailto: alex73 at zaval.org)
  */
@@ -27,18 +28,21 @@ public class ConfigureUIPanelModule extends JPanel
     private JPanel jPanel = null;
     private JPanel jPanel1 = null;
     private JComboBox comboModules = null;
+    protected final ILocalizer localizer;
 
     /**
      * This is the default constructor
      *
+     * @param localizer DOCUMENT ME!
      * @param moduleInfo DOCUMENT ME!
      * @param textChangedEvent DOCUMENT ME!
      */
     public ConfigureUIPanelModule( 
-        final Config.ModuleInfo moduleInfo,
+        final ILocalizer localizer, final Config.ModuleInfo moduleInfo,
         final ConfigureUIController.TextChanged textChangedEvent )
     {
         super(  );
+        this.localizer = localizer;
         this.moduleInfo = moduleInfo;
         this.textChangedEvent = textChangedEvent;
         this.textChangedEvent.panel = this;
@@ -88,9 +92,8 @@ public class ConfigureUIPanelModule extends JPanel
             btnChannels = new JButton(  );
 
             btnChannels.setText( "Configure" );
-
-            btnChannels.setToolTipText( "Select channels" );
-
+            btnChannels.setText( 
+                localizer.getLocalizedMessage( "Options.ChooseChannels" ) );
         }
 
         return btnChannels;
@@ -130,8 +133,8 @@ public class ConfigureUIPanelModule extends JPanel
             btnCommandReset = new JButton(  );
 
             btnCommandReset.setText( "Default" );
-
-            btnCommandReset.setToolTipText( "Reset command to default" );
+            btnChannels.setText( 
+                localizer.getLocalizedMessage( "Options.Reset" ) );
 
         }
 
@@ -150,7 +153,8 @@ public class ConfigureUIPanelModule extends JPanel
         if( btnDelete == null )
         {
             btnDelete = new JButton(  );
-            btnDelete.setText( "Delete" );
+            btnChannels.setText( 
+                localizer.getLocalizedMessage( "Options.Remove" ) );
         }
 
         return btnDelete;

@@ -1,10 +1,6 @@
-/*
- * Created on 22.04.2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 package freeguide.plugins.grabber.xmltv;
+
+import freeguide.plugins.ILocalizer;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,13 +8,11 @@ import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 
 /**
- * DOCUMENT ME!
+ * Panel for edit options.
  *
- * @author alex TODO To change the template for this generated type comment go
- *         to Window - Preferences - Java - Code Style - Code Templates
+ * @author Alex Buloichik (mailto: alex73 at zaval.org)
  */
 public class ConfigureUIPanel extends JScrollPane
 {
@@ -26,13 +20,17 @@ public class ConfigureUIPanel extends JScrollPane
     private JPanel jPanel = null;
     private JButton btnAdd = null;
     private JPanel panelModules = null;
+    protected final ILocalizer localizer;
 
     /**
      * This is the default constructor
+     *
+     * @param localizer DOCUMENT ME!
      */
-    public ConfigureUIPanel(  )
+    public ConfigureUIPanel( final ILocalizer localizer )
     {
         super(  );
+        this.localizer = localizer;
         initialize(  );
     }
 
@@ -99,6 +97,7 @@ public class ConfigureUIPanel extends JScrollPane
         {
             btnAdd = new JButton(  );
             btnAdd.setText( "Add" );
+            btnAdd.setText( localizer.getLocalizedMessage( "Options.Add" ) );
         }
 
         return btnAdd;

@@ -25,7 +25,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 /**
- * DOCUMENT ME!
+ * Edit options controller.
  *
  * @author Alex Buloichik (mailto: alex73 at zaval.org)
  */
@@ -77,7 +77,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
 
         config = (Config)parent.config.clone(  );
 
-        panel = new ConfigureUIPanel(  );
+        panel = new ConfigureUIPanel( parent.getLocalizer(  ) );
 
         for( int i = 0; i < config.modules.size(  ); i++ )
         {
@@ -143,7 +143,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
         gc.gridx = 0;
         gc.gridy = latestY;
         gc.weightx = 1;
-        gc.insets = new Insets(10,0,0,0);
+        gc.insets = new Insets( 10, 0, 0, 0 );
         gc.anchor = GridBagConstraints.WEST;
         gc.fill = GridBagConstraints.HORIZONTAL;
         panel.getPanelModules(  ).add( getOnePanel( moduleInfo ), gc );
@@ -161,7 +161,8 @@ public class ConfigureUIController implements IModuleConfigurationUI
     {
 
         final ConfigureUIPanelModule confPanel =
-            new ConfigureUIPanelModule( moduleInfo, new TextChanged(  ) );
+            new ConfigureUIPanelModule( 
+                parent.getLocalizer(  ), moduleInfo, new TextChanged(  ) );
 
         confPanel.getBtnChannels(  ).addActionListener( 
             new BtnChannelsAction( parent, moduleInfo ) );
@@ -183,7 +184,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
                                 panel, "Are you sure ?", "Delete",
                                 JOptionPane.OK_CANCEL_OPTION ) == JOptionPane.OK_OPTION )
                     {
-                    	config.modules.remove(confPanel.moduleInfo);
+                        config.modules.remove( confPanel.moduleInfo );
                         panel.getPanelModules(  ).remove( confPanel );
                         panel.revalidate(  );
                         panel.repaint(  );
