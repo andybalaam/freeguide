@@ -55,6 +55,7 @@ public class FirstTimeWizard
     private Map regionByISO;
     private Map allRegionsGrabbers;
     private Map allBrowsers;
+    static private String defaultBrowser;
     private boolean showREADME;
     private boolean configGrabber;
     private WizardFrame wizardFrame;
@@ -191,6 +192,8 @@ public class FirstTimeWizard
             FreeGuide.msg.getString( "what_is_the_name_of_your_web_browser.2" ),
             KeyEvent.VK_W );
 
+        config.browserName = defaultBrowser;
+
         panels[3].setOnEnter( 
             new WizardPanel.OnEnter(  )
             {
@@ -284,7 +287,7 @@ public class FirstTimeWizard
 
                     }
                 } );
-
+        
         wizardFrame.setVisible( true );
 
     }
@@ -459,10 +462,14 @@ public class FirstTimeWizard
         try
         {
 
-            return readMap( 
+        	Map result = readMap( 
                 "main/browsers-"
                 + ( FreeGuide.runtimeInfo.isUnix ? "lin" : "win" )
                 + ".properties" );
+        	
+        	defaultBrowser = (String)result.remove("DEFAULT");
+        	
+        	return result;
 
         }
 
