@@ -256,6 +256,7 @@ a Generate the list of grabber plugins dynamically by asking each plugin what
     - Make a wider gap between XMLTV grabbers so they look separate.
     - Make all panels accessible via keyboard accelerators
     - Allow to specify a default browser (needed by Debian maintainer)
+    - Make a simple plugin manager
 - Migrate XMLTV settings from 0.8.x
 - Migrate XMLTV settings 0.10.0
 - Deleting XMLTV grabbers does not work - they re-appear when you re-enter
