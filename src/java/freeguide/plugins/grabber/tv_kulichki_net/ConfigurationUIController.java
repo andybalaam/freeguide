@@ -1,10 +1,14 @@
 package freeguide.plugins.grabber.tv_kulichki_net;
 
+import freeguide.FreeGuide;
+
 import freeguide.plugins.IModuleConfigurationUI;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.util.logging.Level;
 
 /**
  * DOCUMENT ME!
@@ -47,13 +51,12 @@ public class ConfigurationUIController implements IModuleConfigurationUI
                         config.channels.normalize(  );
 
                         panel.getTreeChannels(  ).setData( config.channels );
-
                     }
-
                     catch( Exception ex )
                     {
-                        ex.printStackTrace(  );
-
+                        FreeGuide.log.log( 
+                            Level.WARNING,
+                            "Error load channels list from tv.kulichki.net", ex );
                     }
                 }
             } );

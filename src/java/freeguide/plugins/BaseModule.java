@@ -1,9 +1,12 @@
 package freeguide.plugins;
 
+import freeguide.FreeGuide;
+
 import freeguide.lib.general.LanguageHelper;
 import freeguide.lib.general.PreferencesHelper;
 
 import java.util.Locale;
+import java.util.logging.Level;
 import java.util.prefs.Preferences;
 
 import javax.swing.JDialog;
@@ -115,13 +118,11 @@ public abstract class BaseModule implements IModule
         try
         {
             PreferencesHelper.loadObject( prefs, "", obj );
-
         }
-
         catch( Exception ex )
         {
-            ex.printStackTrace(  );
-
+            FreeGuide.log.log( 
+                Level.WARNING, "Error load config for module " + getID(  ), ex );
         }
     }
 
@@ -133,11 +134,10 @@ public abstract class BaseModule implements IModule
             PreferencesHelper.saveObject( prefs, "", obj );
 
         }
-
         catch( Exception ex )
         {
-            ex.printStackTrace(  );
-
+            FreeGuide.log.log( 
+                Level.WARNING, "Error save config for module " + getID(  ), ex );
         }
     }
 

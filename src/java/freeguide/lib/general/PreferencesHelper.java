@@ -1,5 +1,7 @@
 package freeguide.lib.general;
 
+import freeguide.FreeGuide;
+
 import java.awt.Color;
 
 import java.lang.reflect.Field;
@@ -11,6 +13,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Level;
 import java.util.prefs.Preferences;
 
 /**
@@ -614,8 +617,7 @@ public class PreferencesHelper
 
         catch( Exception ex )
         {
-            ex.printStackTrace(  );
-
+            FreeGuide.log.log( Level.WARNING, "Error clone simple object", ex );
         }
     }
 }

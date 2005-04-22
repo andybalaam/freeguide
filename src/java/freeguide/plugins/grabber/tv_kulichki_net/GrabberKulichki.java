@@ -1,5 +1,7 @@
 package freeguide.plugins.grabber.tv_kulichki_net;
 
+import freeguide.FreeGuide;
+
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.data.TVData;
 
@@ -16,6 +18,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.TimeZone;
 import java.util.TreeMap;
+import java.util.logging.Level;
 import java.util.prefs.Preferences;
 
 import javax.swing.JDialog;
@@ -295,11 +298,11 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
                         '.', '/' ) + "/timezones.properties" ) );
 
         }
-
         catch( Exception ex )
         {
-            ex.printStackTrace(  );
-
+            FreeGuide.log.log( 
+                Level.SEVERE,
+                "Error loading timezone settings for tv.kulichki.net", ex );
         }
     }
 

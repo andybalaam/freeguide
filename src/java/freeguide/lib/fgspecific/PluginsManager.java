@@ -27,6 +27,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.logging.Level;
 import java.util.prefs.Preferences;
 
 /**
@@ -135,23 +136,11 @@ public class PluginsManager
 
                     }
                 }
-
-                catch( ClassNotFoundException ex )
+                catch( Exception ex )
                 {
-                    ex.printStackTrace(  );
-
-                }
-
-                catch( InstantiationException ex )
-                {
-                    ex.printStackTrace(  );
-
-                }
-
-                catch( IllegalAccessException ex )
-                {
-                    ex.printStackTrace(  );
-
+                    FreeGuide.log.log( 
+                        Level.WARNING, "Error loading plugin from "
+                        + className, ex );
                 }
             }
         }
@@ -296,7 +285,9 @@ public class PluginsManager
             }
             catch( Exception ex )
             {
-                ex.printStackTrace(  );
+                FreeGuide.log.log( 
+                    Level.SEVERE,
+                    "Error set locale for module " + module.getID(  ), ex );
             }
         }
     }

@@ -60,8 +60,6 @@ public class StorageAllInMemory extends BaseModule implements IStorage
 
         catch( Exception ex )
         {
-            ex.printStackTrace(  );
-
         }
 
         final Info result = new Info(  );

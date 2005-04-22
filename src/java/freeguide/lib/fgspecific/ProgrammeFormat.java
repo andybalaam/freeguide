@@ -39,6 +39,7 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -386,11 +387,12 @@ public class ProgrammeFormat
                                                                             .toString(  );
 
             }
-
-            catch( MalformedURLException e )
+            catch( MalformedURLException ex )
             {
-                e.printStackTrace(  );
-
+                FreeGuide.log.log( 
+                    Level.WARNING,
+                    "Invalid channel icon URL for channel "
+                    + programme.getChannel(  ).getID(  ), ex );
             }
         }
 

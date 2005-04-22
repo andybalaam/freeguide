@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Level;
 import java.util.prefs.Preferences;
 
 import javax.swing.JFrame;
@@ -176,8 +177,7 @@ public class MainController implements IModuleViewer.Parent
 
         catch( Exception ex )
         {
-            ex.printStackTrace(  );
-
+            FreeGuide.log.log( Level.WARNING, "Error loading config", ex );
         }
     }
 
@@ -194,8 +194,7 @@ public class MainController implements IModuleViewer.Parent
 
         catch( Exception ex )
         {
-            ex.printStackTrace(  );
-
+            FreeGuide.log.log( Level.WARNING, "Error save config", ex );
         }
     }
 
@@ -402,7 +401,8 @@ public class MainController implements IModuleViewer.Parent
                     }
                     catch( Exception ex )
                     {
-                        ex.printStackTrace(  );
+                        FreeGuide.log.log( 
+                            Level.WARNING, "Error export data", ex );
                     }
                 }
             }.start(  );

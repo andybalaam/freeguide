@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.logging.Level;
 
 /**
  * A first time wizard for FreeGuide
@@ -476,10 +477,9 @@ public class FirstTimeWizard
 
         catch( IOException ex )
         {
-            ex.printStackTrace(  );
+            FreeGuide.log.log( Level.SEVERE, "Error loading browser list", ex );
 
             return null;
-
         }
     }
 
@@ -587,8 +587,8 @@ public class FirstTimeWizard
 
             catch( Exception ex )
             {
-                ex.printStackTrace(  );
-
+                FreeGuide.log.log( 
+                    Level.WARNING, "Error finish migration", ex );
             }
         }
 
@@ -615,7 +615,7 @@ public class FirstTimeWizard
             }
             catch( Exception ex )
             {
-                ex.printStackTrace(  );
+                FreeGuide.log.log( Level.WARNING, "Error display README", ex );
             }
         }
 

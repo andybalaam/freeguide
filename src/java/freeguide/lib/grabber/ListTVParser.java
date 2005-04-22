@@ -1,5 +1,7 @@
 package freeguide.lib.grabber;
 
+import freeguide.FreeGuide;
+
 import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVProgramme;
@@ -16,6 +18,7 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 
 import java.util.TimeZone;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipInputStream;
@@ -177,8 +180,9 @@ public class ListTVParser
 
                         catch( ParseException ex )
                         {
-                            ex.printStackTrace(  );
-
+                            FreeGuide.log.log( 
+                                Level.FINE,
+                                "Error parse programme line : " + line, ex );
                         }
                     }
 

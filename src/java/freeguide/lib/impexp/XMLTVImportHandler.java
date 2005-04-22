@@ -1,5 +1,7 @@
 package freeguide.lib.impexp;
 
+import freeguide.FreeGuide;
+
 import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVProgramme;
@@ -14,6 +16,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -153,7 +156,7 @@ class XMLTVImportHandler extends DefaultHandler
             catch( ParseException ex )
             {
                 currentProgramme = null;
-                ex.printStackTrace(  );
+                FreeGuide.log.log( Level.FINE, "Error parse XMLTV data", ex );
             }
         }
     }
@@ -256,9 +259,11 @@ class XMLTVImportHandler extends DefaultHandler
                 currentProgramme.setLink( new URL( charData.toString(  ) ) );
 
             }
-            catch( java.net.MalformedURLException e )
+            catch( java.net.MalformedURLException ex )
             {
-                e.printStackTrace(  );
+                FreeGuide.log.log( 
+                    Level.FINE,
+                    "Invalid URL for programme : " + charData.toString(  ), ex );
             }
         }
     }

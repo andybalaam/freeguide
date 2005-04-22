@@ -387,8 +387,6 @@ public class ConfigureUIController implements IModuleConfigurationUI
             }
             catch( BadLocationException ex )
             {
-                ex.printStackTrace(  );
-
             }
 
             setTextFieldMarkAsEdited( panel );

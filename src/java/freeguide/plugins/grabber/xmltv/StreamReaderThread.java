@@ -19,9 +19,13 @@
  */
 package freeguide.plugins.grabber.xmltv;
 
+import freeguide.FreeGuide;
+
 import freeguide.gui.dialogs.*;
 
 import java.io.BufferedReader;
+
+import java.util.logging.Level;
 
 /**
  * A thread that eats up the output of BufferedReader until told to stop,
@@ -169,19 +173,18 @@ public class StreamReaderThread implements Runnable
                     Thread.sleep( 1 );
 
                 }
-
-                catch( java.lang.InterruptedException e )
+                catch( java.lang.InterruptedException ex )
                 {
-                    e.printStackTrace(  );
-
+                    FreeGuide.log.log( 
+                        Level.SEVERE, "Interrupted xmltv output read process",
+                        ex );
                 }
             }
         }
 
-        catch( java.io.IOException e )
+        catch( java.io.IOException ex )
         {
-            e.printStackTrace(  );
-
+            FreeGuide.log.log( Level.SEVERE, "Error reading xmltv output", ex );
         }
     }
 

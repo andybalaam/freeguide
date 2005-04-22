@@ -173,11 +173,11 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                             '.', '/' ) + "/commands.properties" ) );
 
             }
-
             catch( IOException ex )
             {
-                ex.printStackTrace(  );
-
+                FreeGuide.log.log( 
+                    Level.SEVERE, "Error loading commands settings for xmltv",
+                    ex );
             }
         }
 
@@ -281,7 +281,8 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         catch( IOException ex )
         {
-            ex.printStackTrace(  );
+            FreeGuide.log.log( 
+                Level.WARNING, "Error execute xmltv grabber", ex );
 
             return -1;
         }
@@ -313,7 +314,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         catch( InterruptedException ex )
         {
-            ex.printStackTrace(  );
+            FreeGuide.log.log( Level.SEVERE, "Interrupted xmltv process", ex );
 
             res = -1;
 
@@ -336,7 +337,8 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         catch( Exception ex )
         {
-            ex.printStackTrace(  );
+            FreeGuide.log.log( 
+                Level.WARNING, "Error execute xmltv grabber", ex );
 
             return -1;
         }
@@ -516,8 +518,8 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
             catch( IOException ex )
             {
-                ex.printStackTrace(  );
-
+                FreeGuide.log.log( 
+                    Level.WARNING, "Error read output from xmltv grabber", ex );
             }
         }
     }

@@ -34,6 +34,7 @@ import freeguide.lib.general.*;
 import java.io.File;
 
 import java.util.Vector;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JDialog;
@@ -241,12 +242,12 @@ public class StartupChecker
 
         }
 
-        catch( NumberFormatException e )
+        catch( NumberFormatException ex )
         {
-            e.printStackTrace(  );
+            FreeGuide.log.log( 
+                Level.SEVERE, "Invalid java version : " + versionString, ex );
 
             return false;
-
         }
 
         // Check we have the required version

@@ -8,6 +8,7 @@ import freeguide.lib.fgspecific.selection.SelectionManager;
 import freeguide.plugins.IStorage;
 
 import java.util.Timer;
+import java.util.logging.Level;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -127,11 +128,10 @@ public class Reminder extends Thread
 
                     scheduledProgramme = findNextProgramme(  );
                 }
-
                 catch( InterruptedException ex )
                 {
-                    ex.printStackTrace(  );
-
+                    FreeGuide.log.log( 
+                        Level.WARNING, "Reminder thread interrupted ", ex );
                 }
             }
         }
@@ -183,8 +183,8 @@ public class Reminder extends Thread
 
             catch( Exception ex )
             {
-                ex.printStackTrace(  );
-
+                FreeGuide.log.log( 
+                    Level.WARNING, "Error find next programme", ex );
             }
         }
 

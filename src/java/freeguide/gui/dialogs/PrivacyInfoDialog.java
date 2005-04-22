@@ -20,6 +20,8 @@ import java.awt.*;
 
 import java.io.IOException;
 
+import java.util.logging.Level;
+
 import javax.swing.*;
 
 /**
@@ -59,7 +61,8 @@ public class PrivacyInfoDialog extends JDialog
         }
         catch( IOException ex )
         {
-            ex.printStackTrace(  );
+            FreeGuide.log.log( 
+                Level.WARNING, "Error loading privacy text", ex );
             privacyInfo = "";
         }
 

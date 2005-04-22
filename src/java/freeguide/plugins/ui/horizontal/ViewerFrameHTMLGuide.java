@@ -33,6 +33,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.logging.Level;
 
 /**
  * A class that deals with the HTML listings guide displayed in a scroll panel
@@ -130,10 +131,9 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
 
         }
 
-        catch( java.io.IOException e )
+        catch( java.io.IOException ex )
         {
-            e.printStackTrace(  );
-
+            FreeGuide.log.log( Level.WARNING, "Error write HTML guide", ex );
         }
 
         //try

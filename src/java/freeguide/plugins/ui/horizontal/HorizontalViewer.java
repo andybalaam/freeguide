@@ -39,6 +39,7 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -450,11 +451,9 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                         theDate, theDate + MILLISECONDS_PER_DAY );
 
             }
-
             catch( Exception ex )
             {
-                ex.printStackTrace(  );
-
+                FreeGuide.log.log( Level.WARNING, "Error reading TV data", ex );
             }
         }
     }
@@ -676,17 +675,15 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                             - ( config.sizeHalfVerGap * 4 ) );
 
                     }
-
-                    catch( MalformedURLException e )
+                    catch( MalformedURLException ex )
                     {
-
-                        // Do nothing
+                        FreeGuide.log.log( 
+                            Level.FINE, "Error cache channel icon", ex );
                     }
-
-                    catch( IOException e )
+                    catch( IOException ex )
                     {
-                        e.printStackTrace(  );
-
+                        FreeGuide.log.log( 
+                            Level.FINE, "Error cache channel icon", ex );
                     }
                 }
 

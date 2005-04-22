@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.logging.Level;
 
 import javax.swing.JDialog;
 
@@ -299,9 +300,10 @@ public class FavouriteEditorDialog extends FGDialog
                 cal.setTime( dayOfWeekFormat.parse( tmp ) );
                 favourite.setDayOfWeek( cal.get( Calendar.DAY_OF_WEEK ) );
             }
-            catch( java.text.ParseException e )
+            catch( java.text.ParseException ex )
             {
-                e.printStackTrace(  );
+                FreeGuide.log.log( 
+                    Level.WARNING, "Error on parse day of week", ex );
                 favourite.setDayOfWeek( -1 );
             }
         }

@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.Vector;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 
@@ -148,10 +149,8 @@ public class FreeGuide
 
         catch( IOException ex )
         {
-            ex.printStackTrace(  );
-
+            log.log( Level.SEVERE, "Error loading i18n data", ex );
             System.exit( 1 );
-
         }
 
         PluginsManager.setLocale( locales );
@@ -194,8 +193,7 @@ public class FreeGuide
 
         catch( Exception ex )
         {
-            ex.printStackTrace(  );
-
+            log.log( Level.WARNING, "Error on migration", ex );
         }
 
         // load config
@@ -204,11 +202,9 @@ public class FreeGuide
             PreferencesHelper.loadObject( PREF_ROOT, "config.", config );
 
         }
-
         catch( Exception ex )
         {
-            ex.printStackTrace(  );
-
+            log.log( Level.SEVERE, "Error load config", ex );
         }
 
         if( config.version == null )
@@ -265,7 +261,7 @@ public class FreeGuide
 
         catch( Exception ex )
         {
-            ex.printStackTrace(  );
+            log.log( Level.SEVERE, "Error save config", ex );
 
         }
     }

@@ -47,6 +47,7 @@ import java.io.*;
 import java.lang.reflect.*;
 
 import java.util.*;
+import java.util.logging.Level;
 
 import javax.swing.*;
 import javax.swing.tree.*;
@@ -119,11 +120,10 @@ public class Utils
                 Runtime.getRuntime(  ).exec( parseCommand( cmdstr ) );
 
             }
-
-            catch( java.io.IOException e )
+            catch( java.io.IOException ex )
             {
-                e.printStackTrace(  );
-
+                FreeGuide.log.log( 
+                    Level.WARNING, "Error execute command: " + cmdstr, ex );
             }
         }
     }
@@ -145,10 +145,10 @@ public class Utils
 
         }
 
-        catch( java.io.IOException e )
+        catch( java.io.IOException ex )
         {
-            e.printStackTrace(  );
-
+            FreeGuide.log.log( 
+                Level.WARNING, "Error execute command : " + cmd, ex );
         }
     }
 
