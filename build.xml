@@ -126,11 +126,6 @@
             <fileset dir="${src}/resources" />
         	<fileset dir="${src}/java" excludes="**/*.java" />
       	</copy>
-    	
-        <!-- generate the fake resource file -->
-        <!--<exec executable="python" dir="${resources}">
-            <arg line="generate_REVERSECAPS.py" />
-        </exec>-->
         
     </target>
 
@@ -149,14 +144,16 @@
     <target name="FreeGuide-Source" depends="init"
         description="generate the source tar.gz and zip">
 
-        <tar destfile="${dist}/${freeguideversion}.tar.gz" compression="gzip" >
+        <tar longfile="gnu"
+            destfile="${dist}/${freeguideversion}.tar.gz" compression="gzip" >
             <tarfileset dir="${src}" prefix="${freeguideversion}/src">
                 <exclude name="**/.xvpics/**" />
             </tarfileset>
             <tarfileset dir="${doc}" prefix="${freeguideversion}/doc">
                 <exclude name="**/.xvpics/**" />
             </tarfileset>
-            <tarfileset dir="." includes="build.xml" prefix="${freeguideversion}" />
+            <tarfileset dir="." includes="build.xml"
+                prefix="${freeguideversion}" />
             <tarfileset dir="xmltv"
                 includes="*"
                 excludes="CVS/**"
