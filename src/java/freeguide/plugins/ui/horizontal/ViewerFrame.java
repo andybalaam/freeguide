@@ -168,7 +168,7 @@ public class ViewerFrame extends JPanel
 
         printedGuideScrollPane = new FocusJScrollPane(  );
 
-        printedGuideArea = new ViewerFrameHTMLGuide( this );
+        printedGuideArea = new ViewerFrameHTMLGuide( parent );
 
         detailsPanel = new ProgrammeDetailsJPanel( parent );
 
@@ -1176,23 +1176,11 @@ public class ViewerFrame extends JPanel
         }
 
         /*
-
-
         * Overridden to be able to add a BorderChanger to the view (not for
-
-
         * general use, leaks when called repeatedly, should call
-
-
         * removeFocusListener too)
-
-
         *
-
-
         * @see javax.swing.JScrollPane#setViewportView(java.awt.Component)
-
-
         */
         public void setViewportView( Component view )
         {

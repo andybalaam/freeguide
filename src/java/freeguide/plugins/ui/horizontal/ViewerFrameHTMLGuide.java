@@ -46,23 +46,23 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
 {
 
     /** This object's parent window. */
-    private ViewerFrame parentViewerFrame;
+    private HorizontalViewer controller;
     private ProgrammeStripModel model;
 
     /**
      * DOCUMENT ME!
      *
-     * @param parentViewerFrame The screen on which this is displayed
+     * @param controller The screen on which this is displayed
      */
-    public ViewerFrameHTMLGuide( ViewerFrame parentViewerFrame )
+    public ViewerFrameHTMLGuide( HorizontalViewer controller )
     {
         super(  );
 
-        this.parentViewerFrame = parentViewerFrame;
+        this.controller = controller;
 
         // Scrolls the program guide to show the program when
         // the user clicks the program name in the HTML Guide
-        addHyperlinkListener( new HTMLGuideListener( parentViewerFrame ) );
+        addHyperlinkListener( new HTMLGuideListener( controller ) );
 
     }
 
@@ -152,7 +152,7 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
     {
 
         // Find out whether we're in the 24 hour clock
-        boolean draw24time = parentViewerFrame.parent.config.display24time;
+        boolean draw24time = controller.config.display24time;
 
         SimpleDateFormat timeFormat;
 
@@ -170,7 +170,7 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
 
         final Vector tickedProgrammes = new Vector(  );
 
-        parentViewerFrame.parent.currentData.iterate( 
+        controller.currentData.iterate( 
             new TVIteratorProgrammes(  )
             {
                 protected void onChannel( TVChannel channel )
@@ -208,13 +208,10 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
         ans.append( "  <title>" );
 
         Object[] messageArguments =
-        {
-            parentViewerFrame.parent.htmlDateFormat.format( 
-                new Date( parentViewerFrame.parent.theDate ) )
-        };
+        { controller.htmlDateFormat.format( new Date( controller.theDate ) ) };
 
         ans.append( 
-            parentViewerFrame.parent.getLocalizer(  ).getLocalizedMessage( 
+            controller.getLocalizer(  ).getLocalizedMessage( 
                 "tv_guide_for_template", messageArguments ) );
 
         ans.append( "</title>" ).append( lineBreak );
@@ -297,13 +294,11 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
                 "<font face='helvetica, helv, arial, sans serif' size='4'>" );
 
             Object[] messageArguments2 =
-            {
-                parentViewerFrame.parent.htmlDateFormat.format( 
-                    new Date( parentViewerFrame.parent.theDate ) )
-            };
+            { controller.htmlDateFormat.format( 
+                    new Date( controller.theDate ) ) };
 
             ans.append( 
-                parentViewerFrame.parent.getLocalizer(  ).getLocalizedMessage( 
+                controller.getLocalizer(  ).getLocalizedMessage( 
                     "your_personalised_tv_guide_for_template",
                     messageArguments2 ) );
 
@@ -315,13 +310,11 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
         {
 
             Object[] messageArguments2 =
-            {
-                parentViewerFrame.parent.htmlDateFormat.format( 
-                    new Date( parentViewerFrame.parent.theDate ) )
-            };
+            { controller.htmlDateFormat.format( 
+                    new Date( controller.theDate ) ) };
 
             ans.append( 
-                parentViewerFrame.parent.getLocalizer(  ).getLocalizedMessage( 
+                controller.getLocalizer(  ).getLocalizedMessage( 
                     "tv_guide_for_template", messageArguments2 ) );
 
         }
@@ -336,7 +329,7 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
             ans.append( "<p>" );
 
             ans.append( 
-                parentViewerFrame.parent.getLocalizer(  ).getLocalizedMessage( 
+                controller.getLocalizer(  ).getLocalizedMessage( 
                     "select_programmes_by_clicking_on_them" ) );
 
             ans.append( "</p>" );

@@ -253,6 +253,12 @@ a Get rid of System.err.println, either removing, or replacing with
   the day start time today and after the day start time tomorrow.
 - Internationalise "Horizontal Viewer" name
 - Add an FAQ about how to change the number of days downloaded.
+- A currently-chosen browser, or a migrated one, should take priority over
+  the default browser names in the properties file.
+- Buttons on the XMLTV grabbers Option pane say "Default" and "", when they
+  should say "Configure" and "Delete", I think.
+- Editing a migrated channel set does not work - it never changes
+- The default channel set name is "" and it should be "(New channel set)"
 - Options screen:
     a Rename "..." buttons to "Configure"
     a Change "XMLTV" checkbox to "Enable XMLTV plugin"
@@ -265,8 +271,6 @@ a Get rid of System.err.println, either removing, or replacing with
 - Migrate XMLTV settings 0.10.0
 a Deleting XMLTV grabbers does not work - they re-appear when you re-enter
   Options
-- When I start FreeGuide and it was previously maximized, it opens half-way off
-  the screen
 a Can we remove ViewerFramePositionConfig class?
 a "Show output" should change to "Hide output" when it's clicked
 a Merge changes from HEAD into plugins-branch

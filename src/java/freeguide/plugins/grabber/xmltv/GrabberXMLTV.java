@@ -394,7 +394,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             (String)getCommands(  ).get( "region." + regionName + ".grabber" );
         info.configFileName =
             (String)getCommands(  ).get( "region." + regionName + ".grabber" )
-            + ".cong";
+            + ".conf";
         config.modules.add( info );
 
         if( runSelectChannels )

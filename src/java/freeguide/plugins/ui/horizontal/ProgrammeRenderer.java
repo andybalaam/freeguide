@@ -261,42 +261,20 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
     }
 
     /**
-     * DOCUMENT_ME!
+     * Called when this component receives the focus.  Scrolls the HTML guide
+     * to this programme (if it is in the guide), shows the programme in the
+     * programme details panel, and gives focus to the programmesPanel.
      */
     public void onFocus(  )
     {
+
         controller.panel.scrollToReference( 
             HTMLGuideListener.createLinkReference( programme ) );
 
         controller.panel.detailsPanel.updateProgramme( programme );
 
-    }
+        controller.panel.programmesPanel.requestFocus(  );
 
-    /**
-     * DOCUMENT_ME!
-     */
-    public void isHovering(  )
-    {
-
-        /* Disabled since the introduction of the programme details panel
-
-
-        - now you need to click a programme to see its details.
-
-
-        Now replaces with the above onFocus method.
-
-
-        viewerFrame.scrollToReference( HTMLGuideListener.createLinkReference(
-
-
-        programme ) );
-
-
-        viewerFrame.detailsPanel.updateProgramme( programme );
-
-
-        */
     }
 
     private static class RenderedProgrammeJLabel extends ProgrammeJLabel
@@ -317,17 +295,9 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
         }
 
         /*
-
-
         * Overridden to make sure we get drawn by CellRendererPane
-
-
         *
-
-
         * @see java.awt.Component#isShowing()
-
-
         */
         public boolean isShowing(  )
         {

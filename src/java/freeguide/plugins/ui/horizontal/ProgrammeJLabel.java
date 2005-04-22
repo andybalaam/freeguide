@@ -602,12 +602,6 @@ public class ProgrammeJLabel extends JLabel
     public String getToolTipText(  )
     {
 
-        if( model != null )
-        {
-            model.isHovering(  );
-
-        }
-
         // If the prefs say no tooltips, just return null
         if( !controller.config.displayTooltips )
         {
@@ -828,8 +822,6 @@ public class ProgrammeJLabel extends JLabel
         void setInGuide( boolean state );
 
         void setFavourite( boolean state );
-
-        void isHovering(  );
 
         void onFocus(  );
     }

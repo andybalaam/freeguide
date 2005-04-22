@@ -19,7 +19,10 @@
  */
 package freeguide.plugins.ui.horizontal;
 
+import freeguide.lib.fgspecific.data.TVChannel;
+import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.lib.fgspecific.selection.SelectionManager;
 
 import java.io.UnsupportedEncodingException;
 
@@ -30,6 +33,8 @@ import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.Vector;
 
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
@@ -47,26 +52,28 @@ public class HTMLGuideListener implements HyperlinkListener
     /** Format used for dates in the HTML links. */
     public static SimpleDateFormat LinkDateFormat =
         new SimpleDateFormat( "yyyyMMddHHmmss" );
-    private ViewerFrame parentViewerFrame;
+    private HorizontalViewer controller;
 
     /**
      * Creates a new HTMLGuideListener object.
      *
-     * @param parentViewerFrame DOCUMENT ME!
+     * @param controller the HorizontalViewer controller used to access other
+     *        objects.
      */
-    public HTMLGuideListener( ViewerFrame parentViewerFrame )
+    public HTMLGuideListener( HorizontalViewer controller )
     {
-        this.parentViewerFrame = parentViewerFrame;
+        this.controller = controller;
 
     }
 
     /**
-     * Requests the parentViewerFrame scroll the program listing to the time
-     * encoded in the link's hypertext reference.  The method is called when
-     * a hypertext link is updated ("ACTIVATED", "ENTERED", or "EXITED").
-     * Only events of type "ACTIVATED" are important.
+     * Requests the ViewerFrame scroll the program listing to the time encoded
+     * in the link's hypertext reference, and shows the clicked programme in
+     * the programme details panel. The method is called when a hypertext
+     * link is updated ("ACTIVATED", "ENTERED", or "EXITED"). Only events of
+     * type "ACTIVATED" are important.
      *
-     * @param e DOCUMENT ME!
+     * @param e the event triggering this method call.
      */
     public void hyperlinkUpdate( HyperlinkEvent e )
     {
@@ -76,13 +83,74 @@ public class HTMLGuideListener implements HyperlinkListener
 
             GregorianCalendar showTime = new GregorianCalendar(  );
 
+            // FIXME: Really, instead of scrolling to the start of the programme
+            // we should select the actual ProgrammeJLabel.  We know what
+            // programme it is from the stff below to find the right programme
+            // to show in the programme details panel.
             showTime.setTime( 
                 LinkDateFormat.parse( 
                     e.getDescription(  ), new ParsePosition( 1 ) ) );
 
-            parentViewerFrame.scrollTo( showTime );
+            controller.panel.scrollTo( showTime );
+
+            controller.panel.detailsPanel.updateProgramme( 
+                getProgrammeFromReference( 
+                    e.getDescription(  ).substring( 1 ) ) );
 
         }
+    }
+
+    /**
+     * Utility method to find a programme given its reference.
+     *
+     * @param reference DOCUMENT ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public TVProgramme getProgrammeFromReference( String reference )
+    {
+
+        // FIXME: this is a really slow way of doing it: we should cache
+        // programme references somewhere - why not in programmes themselves?
+        // FIXME: this is copied and pasted from ViewerFrameHTMLGuide
+        final Vector tickedProgrammes = new Vector(  );
+
+        controller.currentData.iterate( 
+            new TVIteratorProgrammes(  )
+            {
+                protected void onChannel( TVChannel channel )
+                {
+                }
+
+                protected void onProgramme( TVProgramme programme )
+                {
+
+                    if( SelectionManager.isInGuide( programme ) )
+                    {
+                        tickedProgrammes.add( programme );
+
+                    }
+                }
+            } );
+
+        // End of copy and paste from ViewerFrameHTMLGuide
+        Iterator it = tickedProgrammes.iterator(  );
+
+        while( it.hasNext(  ) )
+        {
+
+            TVProgramme prog = (TVProgramme)( it.next(  ) );
+            String this_ref = createLinkReference( prog );
+
+            if( this_ref.equals( reference ) )
+            {
+
+                return prog;
+            }
+        }
+
+        return null;
+
     }
 
     /**

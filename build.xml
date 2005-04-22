@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="freeguide-tv-plugins" default="main" basedir=".">
+<project name="freeguide-tv" default="main" basedir=".">
 
     <description>
         Ant build file for FreeGuide.
