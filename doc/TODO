@@ -192,6 +192,8 @@ a  means done by Alex Buloichik
   are being shown.
 - Options screen should remember what item we were on and return to it when
   we re-enter.
+- Make proxies work with downloading from Java - take proxy info from
+  environment variables if possible, or on command line?
 - Make a plugin manager
 
 - Release 0.10.2 (Keyboard navigation, internationalisation, recording)

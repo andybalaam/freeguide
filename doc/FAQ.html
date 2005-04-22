@@ -121,10 +121,22 @@ Now copy and paste the contents of C:\Program Files\FreeGuide\log.txt into an em
 <li>Add a line "set http_proxy=http://proxy.uni.ac.uk:8080" to the file C:\Autoexec.bat</li>
 <li>Restart your computer</li>
 </ul>
+
+<h3>Channel icons:</h3>
+
+<p>In order to make channel icons download ok, you will need to add some stuff to the shortcut you use to launch FreeGuide.  Right-click on the shortcut and choose Properties.</p>
+
+<p>Now change the command to read like this:</p>
+
+<p>javaw.exe -DproxySet=true -DproxyHost=proxy.uni.ac.uk -DproxyPort=8080 -jar "C:\Program Files\FreeGuide\FreeGuide.jar" --doc_directory "C:\Program Files\FreeGuide\doc" --install_directory "C:\Program Files\FreeGuide\"</p>
+
 <h3>With Linux:</h3>
 <ul>
-<li>Bash users: Add a line "export http_proxy=http://proxy.uni.ac.uk:8080" to the file ~/.bash_profile</li>
+<li>Bash users: Add 2 lines to the file ~/.bash_profile :</li>
 </ul>
+<p>export http_proxy=http://proxy.uni.ac.uk:8080<br />
+export FREEGUIDE_OPTS=-DproxySet=true -DproxyHost=http://proxy.uni.ac.uk -DproxyPort=8080
+</p>
 
 <h3>Authenticating Proxies</h3>
 
