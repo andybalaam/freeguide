@@ -169,8 +169,6 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
         }
 
         final Vector tickedProgrammes = new Vector(  );
-        final long day_start = parentViewerFrame.parent.getStartOfDay(  );
-        final long day_end = parentViewerFrame.parent.getEndOfDay(  );
 
         parentViewerFrame.parent.currentData.iterate( 
             new TVIteratorProgrammes(  )
@@ -182,10 +180,7 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
                 protected void onProgramme( TVProgramme programme )
                 {
 
-                    if( 
-                        SelectionManager.isInGuide( programme )
-                            && ( programme.getEnd(  ) > day_start )
-                            && ( programme.getStart(  ) < day_end ) )
+                    if( SelectionManager.isInGuide( programme ) )
                     {
                         tickedProgrammes.add( programme );
 
