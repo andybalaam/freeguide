@@ -192,6 +192,7 @@ a  means done by Alex Buloichik
   are being shown.
 - Options screen should remember what item we were on and return to it when
   we re-enter.
+- Make a plugin manager
 
 - Release 0.10.2 (Keyboard navigation, internationalisation, recording)
 
@@ -242,7 +243,7 @@ a  means done by Alex Buloichik
 a Generate the list of grabber plugins dynamically by asking each plugin what
   countries it supports (XMLTV should make this list by looking at what
   properties files it has available).
-- "Download in background" should work to make the downloading dialog non-modal.
+a "Download in background" should work to make the downloading dialog non-modal.
 - Rename classes so every class has a different name.
 - Get rid of System.err.println, either removing, or replacing with 
   FreeGuide.log.info
@@ -254,14 +255,13 @@ a Generate the list of grabber plugins dynamically by asking each plugin what
     a Rename "..." buttons to "Configure"
     a Change "XMLTV" checkbox to "Enable XMLTV plugin"
     a Rename "C" buttons to "Default"
-    - Rename "Add" to "Add a new XMLTV grabber"
-    - Make a wider gap between XMLTV grabbers so they look separate.
+    a Rename "Add" to "Add a new XMLTV grabber"
+    a Make a wider gap between XMLTV grabbers so they look separate.
     - Make all panels accessible via keyboard accelerators
-    - Allow to specify a default browser (needed by Debian maintainer)
-    - Make a simple plugin manager
+    a Allow to specify a default browser (needed by Debian maintainer)
 - Migrate XMLTV settings from 0.8.x
 - Migrate XMLTV settings 0.10.0
-- Deleting XMLTV grabbers does not work - they re-appear when you re-enter
+a Deleting XMLTV grabbers does not work - they re-appear when you re-enter
   Options
 - When I start FreeGuide and it was previously maximized, it opens half-way off
   the screen
