@@ -66,7 +66,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     private Process pr;
     private StreamReaderThread readOutput;
     private StreamReaderThread readError;
-    protected ConfigureUIPanel confUI;
+    protected ConfigureUIPanelModule confUI;
     protected CountryInfo[] countryInfos;
 
     /**
@@ -118,28 +118,29 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         final TVData result = new TVData(  );
 
-        Iterator it = config.needToRun.iterator(  );
-
-        while( it.hasNext(  ) )
+        for( int i = 0; i < config.modules.size(  ); i++ )
         {
-            grabOne( result, (String)it.next(  ), progress, logger );
 
+            Config.ModuleInfo moduleInfo =
+                (Config.ModuleInfo)config.modules.get( i );
+            grabOne( result, moduleInfo, progress, logger );
         }
 
         return result;
 
     }
 
-    protected void configureChannels( final String modName )
+    protected void configureChannels( final Config.ModuleInfo moduleInfo )
     {
         new File( FreeGuide.config.workingDirectory + "/xmltv-configs/" )
         .mkdirs(  );
 
-        String cmd = getCommand( modName, "cfg" );
+        String cmd = getCommand( moduleInfo.moduleName, "cfg" );
 
         if( cmd == null )
         {
-            System.err.println( "Command not defined for " + modName );
+            System.err.println( 
+                "Command not defined for " + moduleInfo.moduleName );
 
             return;
 
@@ -148,7 +149,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         cmd = StringHelper.replaceAll( 
                 cmd, "%config_file%",
                 FreeGuide.config.workingDirectory + "/xmltv-configs/"
-                + modName + ".conf" );
+                + moduleInfo.configFileName );
         cmd = StringHelper.replaceAll( 
                 cmd, "%xmltv_path%",
                 FreeGuide.runtimeInfo.installDirectory + "/xmltv" );
@@ -226,24 +227,25 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     }
 
     protected void grabOne( 
-        final TVData result, final String modName, final IProgress progress,
-        final ILogger logger )
+        final TVData result, final Config.ModuleInfo moduleInfo,
+        final IProgress progress, final ILogger logger )
     {
         progress.setProgressMessage( FreeGuide.msg.getString( "downloading" ) );
 
-        String cmd = (String)config.commandsRun.get( modName );
+        String cmd = moduleInfo.commandToRun;
 
         if( cmd == null )
         {
-            cmd = getCommand( modName, "run" );
+            cmd = getCommand( moduleInfo.moduleName, "run" );
 
         }
 
         if( cmd == null )
         {
-            System.err.println( "Command not defined for " + modName );
+            System.err.println( 
+                "Command not defined for " + moduleInfo.moduleName );
 
-            logger.error( "Command not defined for " + modName );
+            logger.error( "Command not defined for " + moduleInfo.moduleName );
 
             return;
 
@@ -252,7 +254,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         cmd = StringHelper.replaceAll( 
                 cmd, "%config_file%",
                 FreeGuide.config.workingDirectory + "/xmltv-configs/"
-                + modName + ".conf" );
+                + moduleInfo.configFileName );
         cmd = StringHelper.replaceAll( 
                 cmd, "%xmltv_path%",
                 FreeGuide.runtimeInfo.installDirectory + "/xmltv" );
@@ -411,16 +413,19 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     public void configureFromWizard( 
         final String regionName, final boolean runSelectChannels )
     {
-        config.needToRun.clear(  );
+        config.modules.clear(  );
 
-        String modName =
+        Config.ModuleInfo info = new Config.ModuleInfo(  );
+        info.moduleName =
             (String)getCommands(  ).get( "region." + regionName + ".grabber" );
-
-        config.needToRun.add( modName );
+        info.configFileName =
+            (String)getCommands(  ).get( "region." + regionName + ".grabber" )
+            + ".cong";
+        config.modules.add( info );
 
         if( runSelectChannels )
         {
-            configureChannels( modName );
+            configureChannels( info );
 
         }
 

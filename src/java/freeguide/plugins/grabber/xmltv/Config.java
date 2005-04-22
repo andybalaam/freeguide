@@ -1,9 +1,7 @@
 package freeguide.plugins.grabber.xmltv;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Configuration for xmltv grabber.
@@ -14,19 +12,10 @@ public class Config
 {
 
     /** Info for loading by Preferences Helper. */
-    public static final Class needToRun_TYPE = String.class;
+    public static final Class modules_TYPE = ModuleInfo.class;
 
     /** DOCUMENT ME! */
-    public static final Class commandsRun_KEY_TYPE = String.class;
-
-    /** DOCUMENT ME! */
-    public static final Class commandsRun_VALUE_TYPE = String.class;
-
-    /** List of selected grabbers. */
-    public Set needToRun = new TreeSet(  );
-
-    /** DOCUMENT ME! */
-    public Map commandsRun = new TreeMap(  );
+    public List modules = new ArrayList(  );
 
     /**
      * Clone config.
@@ -38,11 +27,48 @@ public class Config
 
         Config result = new Config(  );
 
-        result.needToRun = new TreeSet( needToRun );
-
-        result.commandsRun = new TreeMap( commandsRun );
+        for( int i = 0; i < modules.size(  ); i++ )
+        {
+            result.modules.add( ( (ModuleInfo)modules.get( i ) ).clone(  ) );
+        }
 
         return result;
 
+    }
+
+    /**
+     * DOCUMENT ME!
+     *
+     * @author $author$
+     * @version $Revision$
+     */
+    public static class ModuleInfo
+    {
+
+        /** DOCUMENT ME! */
+        public String moduleName;
+
+        /** DOCUMENT ME! */
+        public String commandToRun;
+
+        /** DOCUMENT ME! */
+        public String configFileName =
+            Long.toString( System.currentTimeMillis(  ) ) + ".conf";
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @return DOCUMENT_ME!
+         */
+        public Object clone(  )
+        {
+
+            ModuleInfo result = new ModuleInfo(  );
+            result.moduleName = moduleName;
+            result.commandToRun = commandToRun;
+            result.configFileName = configFileName;
+
+            return result;
+        }
     }
 }

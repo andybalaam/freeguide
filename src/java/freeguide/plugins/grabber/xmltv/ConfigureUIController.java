@@ -7,18 +7,17 @@ import freeguide.plugins.IModuleConfigurationUI;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
@@ -33,54 +32,13 @@ public class ConfigureUIController implements IModuleConfigurationUI
 {
 
     final protected GrabberXMLTV parent;
-    final protected JScrollPane scrollPane;
+    final protected ConfigureUIPanel panel;
     final protected Config config;
     protected Color textNoEdited;
     protected Color textEdited = Color.RED;
-    protected Map textFields = new TreeMap(  );
     protected Map textListeners = new TreeMap(  );
-    protected ActionListener CbAction =
-        new ActionListener(  )
-        {
-            public void actionPerformed( ActionEvent e )
-            {
-
-                JCheckBox cb = (JCheckBox)e.getSource(  );
-
-                if( cb.isSelected(  ) )
-                {
-                    config.needToRun.add( cb.getName(  ) );
-
-                }
-
-                else
-                {
-                    config.needToRun.remove( cb.getName(  ) );
-
-                }
-            }
-        };
-
-    protected ActionListener BtnChannelsAction =
-        new ActionListener(  )
-        {
-            public void actionPerformed( final ActionEvent e )
-            {
-                new Thread(  )
-                    {
-                        public void run(  )
-                        {
-
-                            JButton btn = (JButton)e.getSource(  );
-
-                            parent.configureChannels( btn.getName(  ) );
-
-                        }
-                    }.start(  );
-
-            }
-        };
-
+    protected int latestY = 0;
+    final protected String[] modules;
     protected ActionListener BtnResetAction =
         new ActionListener(  )
         {
@@ -89,18 +47,17 @@ public class ConfigureUIController implements IModuleConfigurationUI
 
                 JButton btn = (JButton)e.getSource(  );
 
-                config.commandsRun.remove( btn.getName(  ) );
+                //                config.commandsRun.remove( btn.getName(  ) );
 
-                JTextField tf = (JTextField)textFields.get( btn.getName(  ) );
+                /*         JTextField tf = (JTextField)textFields.get( btn.getName(  ) );
 
-                tf.getDocument(  ).removeDocumentListener( 
-                    (TextChanged)textListeners.get( btn.getName(  ) ) );
+                         tf.getDocument(  ).removeDocumentListener(
+                             (TextChanged)textListeners.get( btn.getName(  ) ) );
 
-                setTextField( btn.getName(  ), true );
+                         setTextField( btn.getName(  ), true );
 
-                tf.getDocument(  ).addDocumentListener( 
-                    (TextChanged)textListeners.get( btn.getName(  ) ) );
-
+                         tf.getDocument(  ).addDocumentListener(
+                             (TextChanged)textListeners.get( btn.getName(  ) ) );*/
             }
         };
 
@@ -113,13 +70,32 @@ public class ConfigureUIController implements IModuleConfigurationUI
     {
         this.parent = parent;
 
+        modules =
+            GrabberXMLTV.getMods( 
+                "", ".run." + ( FreeGuide.runtimeInfo.isUnix ? "lin" : "win" ) );
+
         config = (Config)parent.config.clone(  );
 
-        scrollPane = new JScrollPane( createMainPanel(  ) );
+        panel = new ConfigureUIPanel(  );
 
-        scrollPane.setHorizontalScrollBarPolicy( 
-            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
+        for( int i = 0; i < config.modules.size(  ); i++ )
+        {
+            addModule( (Config.ModuleInfo)config.modules.get( i ) );
+        }
 
+        panel.getBtnAdd(  ).addActionListener( 
+            new ActionListener(  )
+            {
+                public void actionPerformed( ActionEvent e )
+                {
+
+                    Config.ModuleInfo info = new Config.ModuleInfo(  );
+                    config.modules.add( info );
+                    addModule( info );
+                    panel.revalidate(  );
+                    panel.repaint(  );
+                }
+            } );
     }
 
     /**
@@ -148,7 +124,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
     public Component getPanel(  )
     {
 
-        return scrollPane;
+        return panel;
 
     }
 
@@ -159,122 +135,202 @@ public class ConfigureUIController implements IModuleConfigurationUI
     {
     }
 
-    private JPanel createMainPanel(  )
+    private void addModule( final Config.ModuleInfo moduleInfo )
     {
 
-        JPanel panel = new JPanel( new GridBagLayout(  ) );
-
         GridBagConstraints gc = new GridBagConstraints(  );
-
         gc.gridx = 0;
-
-        gc.gridy = 0;
-
+        gc.gridy = latestY;
         gc.weightx = 1;
-
         gc.anchor = GridBagConstraints.WEST;
-
         gc.fill = GridBagConstraints.HORIZONTAL;
-
-        String[] mods =
-            GrabberXMLTV.getMods( 
-                "", ".run." + ( FreeGuide.runtimeInfo.isUnix ? "lin" : "win" ) );
-
-        for( int i = 0; i < mods.length; i++ )
-        {
-            panel.add( getOnePanel( mods[i] ), gc );
-
-            gc.gridy++;
-
-        }
-
-        return panel;
-
+        panel.getPanelModules(  ).add( getOnePanel( moduleInfo ), gc );
+        latestY++;
     }
 
     /**
      * DOCUMENT_ME!
      *
-     * @param modName DOCUMENT_ME!
+     * @param moduleInfo DOCUMENT_ME!
      *
      * @return DOCUMENT_ME!
      */
-    public JPanel getOnePanel( final String modName )
+    public JPanel getOnePanel( final Config.ModuleInfo moduleInfo )
     {
 
-        final ConfigureUIPanel confPanel = new ConfigureUIPanel( modName );
+        final ConfigureUIPanelModule confPanel =
+            new ConfigureUIPanelModule( moduleInfo, new TextChanged(  ) );
 
-        confPanel.getCbGrab(  ).setSelected( 
-            parent.config.needToRun.contains( modName ) );
-
-        confPanel.getCbGrab(  ).setName( modName );
-
-        confPanel.getCbGrab(  ).addActionListener( CbAction );
-
-        confPanel.getBtnChannels(  ).setName( modName );
-
-        confPanel.getBtnChannels(  ).addActionListener( BtnChannelsAction );
-
-        confPanel.getBtnCommandReset(  ).setName( modName );
+        confPanel.getBtnChannels(  ).addActionListener( 
+            new BtnChannelsAction( parent, moduleInfo ) );
+        confPanel.getBtnCommandReset(  ).addActionListener( 
+            new BtnCommandResetAction( confPanel ) );
 
         confPanel.getBtnCommandReset(  ).addActionListener( BtnResetAction );
 
         textNoEdited = confPanel.getTextCommand(  ).getForeground(  );
 
-        confPanel.getTextCommand(  ).setName( modName );
+        confPanel.getBtnDelete(  ).addActionListener( 
+            new ActionListener(  )
+            {
+                public void actionPerformed( ActionEvent e )
+                {
 
-        TextChanged cl = new TextChanged( modName );
+                    if( 
+                        JOptionPane.showConfirmDialog( 
+                                panel, "Are you sure ?", "Delete",
+                                JOptionPane.OK_CANCEL_OPTION ) == JOptionPane.OK_OPTION )
+                    {
+                        panel.getPanelModules(  ).remove( confPanel );
+                        panel.revalidate(  );
+                        panel.repaint(  );
+                    }
+                }
+            } );
 
-        textFields.put( modName, confPanel.getTextCommand(  ) );
+        confPanel.getComboModules(  ).setModel( 
+            new DefaultComboBoxModel( modules ) );
+        confPanel.getComboModules(  ).setSelectedItem( moduleInfo.moduleName );
+        confPanel.getComboModules(  ).addActionListener( 
+            new ComboModulesAction( confPanel ) );
 
-        textListeners.put( modName, cl );
-
-        setTextField( modName, true );
-
-        confPanel.getTextCommand(  ).getDocument(  ).addDocumentListener( cl );
+        setTextFieldSet( confPanel );
+        confPanel.getTextCommand(  ).getDocument(  ).addDocumentListener( 
+            confPanel.textChangedEvent );
+        confPanel.textChangedEvent.allowEvent = true;
 
         return confPanel;
 
     }
 
-    protected void setTextField( 
-        final String modName, final boolean changeText )
+    protected void setTextFieldMarkAsEdited( 
+        final ConfigureUIPanelModule panel )
+    {
+        panel.getTextCommand(  ).setForeground( textEdited );
+    }
+
+    protected void setTextFieldSet( final ConfigureUIPanelModule panel )
     {
 
-        JTextField tf = (JTextField)textFields.get( modName );
-
-        String cmdRun = (String)config.commandsRun.get( modName );
-
-        if( cmdRun == null )
+        if( panel.moduleInfo.commandToRun == null )
         {
-            tf.setForeground( textNoEdited );
-
-            tf.setText( GrabberXMLTV.getCommand( modName, "run" ) );
-
+            panel.getTextCommand(  ).setForeground( textNoEdited );
+            panel.getTextCommand(  ).setText( 
+                GrabberXMLTV.getCommand( panel.moduleInfo.moduleName, "run" ) );
         }
-
         else
         {
-            tf.setForeground( textEdited );
+            panel.getTextCommand(  ).setForeground( textEdited );
+            panel.getTextCommand(  ).setText( panel.moduleInfo.commandToRun );
+        }
+    }
 
-            if( changeText )
-            {
-                tf.setText( cmdRun );
+    protected static class BtnChannelsAction implements ActionListener
+    {
 
-            }
+        final protected GrabberXMLTV parent;
+        final protected Config.ModuleInfo moduleInfo;
+
+        /**
+         * Creates a new BtnChannelsAction object.
+         *
+         * @param parent DOCUMENT ME!
+         * @param moduleInfo DOCUMENT ME!
+         */
+        public BtnChannelsAction( 
+            final GrabberXMLTV parent, final Config.ModuleInfo moduleInfo )
+        {
+            this.parent = parent;
+            this.moduleInfo = moduleInfo;
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param e DOCUMENT_ME!
+         */
+        public void actionPerformed( final ActionEvent e )
+        {
+            new Thread(  )
+                {
+                    public void run(  )
+                    {
+
+                        JButton btn = (JButton)e.getSource(  );
+
+                        parent.configureChannels( moduleInfo );
+
+                    }
+                }.start(  );
+
+        }
+    }
+
+    protected class BtnCommandResetAction implements ActionListener
+    {
+
+        final protected ConfigureUIPanelModule confPanel;
+
+        /**
+         * Creates a new BtnCommandResetAction object.
+         *
+         * @param confPanel DOCUMENT ME!
+         */
+        public BtnCommandResetAction( final ConfigureUIPanelModule confPanel )
+        {
+            this.confPanel = confPanel;
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param e DOCUMENT_ME!
+         */
+        public void actionPerformed( final ActionEvent e )
+        {
+            confPanel.textChangedEvent.allowEvent = false;
+            confPanel.moduleInfo.commandToRun = null;
+            setTextFieldSet( confPanel );
+            confPanel.textChangedEvent.allowEvent = true;
+        }
+    }
+
+    protected class ComboModulesAction implements ActionListener
+    {
+
+        protected final ConfigureUIPanelModule confPanel;
+
+        /**
+         * Creates a new ComboModulesAction object.
+         *
+         * @param confPanel DOCUMENT ME!
+         */
+        public ComboModulesAction( final ConfigureUIPanelModule confPanel )
+        {
+            this.confPanel = confPanel;
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param e DOCUMENT_ME!
+         */
+        public void actionPerformed( final ActionEvent e )
+        {
+            confPanel.textChangedEvent.allowEvent = false;
+            confPanel.moduleInfo.moduleName =
+                (String)( (JComboBox)e.getSource(  ) ).getSelectedItem(  );
+            confPanel.moduleInfo.commandToRun = null;
+            setTextFieldSet( confPanel );
+            confPanel.textChangedEvent.allowEvent = true;
         }
     }
 
     protected class TextChanged implements DocumentListener
     {
 
-        protected String modName;
-
-        TextChanged( String modName )
-        {
-            this.modName = modName;
-
-        }
+        protected ConfigureUIPanelModule panel;
+        protected boolean allowEvent = true;
 
         /**
          * DOCUMENT_ME!
@@ -312,15 +368,21 @@ public class ConfigureUIController implements IModuleConfigurationUI
         protected void onChanged( DocumentEvent e )
         {
 
+            if( !allowEvent )
+            {
+
+                return;
+            }
+
             Document doc = e.getDocument(  );
 
             try
             {
-                config.commandsRun.put( 
-                    modName, doc.getText( 0, doc.getLength(  ) ) );
+                panel.moduleInfo.commandToRun =
+                    doc.getText( 0, doc.getLength(  ) );
 
                 System.out.println( 
-                    "changed " + modName + " to "
+                    "changed " + panel.moduleInfo.moduleName + " to "
                     + doc.getText( 0, doc.getLength(  ) ) );
 
             }
@@ -331,7 +393,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
 
             }
 
-            setTextField( modName, false );
+            setTextFieldMarkAsEdited( panel );
 
         }
     }

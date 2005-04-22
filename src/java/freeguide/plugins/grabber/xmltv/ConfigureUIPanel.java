@@ -1,122 +1,90 @@
+/*
+ * Created on 22.04.2005
+ *
+ * TODO To change the template for this generated file go to
+ * Window - Preferences - Java - Code Style - Code Templates
+ */
 package freeguide.plugins.grabber.xmltv;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 /**
  * DOCUMENT ME!
  *
- * @author Alex Buloichik (mailto: alex73 at zaval.org)
+ * @author alex TODO To change the template for this generated type comment go
+ *         to Window - Preferences - Java - Code Style - Code Templates
  */
-public class ConfigureUIPanel extends JPanel
+public class ConfigureUIPanel extends JScrollPane
 {
 
-    private JCheckBox cbGrab = null;
-    private JButton btnChannels = null;
-    private JTextField textCommand = null;
-    private JButton btnCommandReset = null;
+    private JPanel jPanel = null;
+    private JButton btnAdd = null;
+    private JPanel panelModules = null;
 
     /**
      * This is the default constructor
-     *
-     * @param title DOCUMENT ME!
      */
-    public ConfigureUIPanel( final String title )
+    public ConfigureUIPanel(  )
     {
         super(  );
-
-        initialize( title );
-
+        initialize(  );
     }
 
     /**
      * This method initializes this
-     *
-     * @param title DOCUMENT ME!
      */
-    private void initialize( final String title )
+    private void initialize(  )
     {
-
-        //setPreferredSize(new Dimension(300,200));
-        GridBagConstraints gridBagConstraints6 = new GridBagConstraints(  );
-
-        GridBagConstraints gridBagConstraints4 = new GridBagConstraints(  );
-
-        GridBagConstraints gridBagConstraints2 = new GridBagConstraints(  );
-
-        GridBagConstraints gridBagConstraints1 = new GridBagConstraints(  );
-
-        this.setLayout( new GridBagLayout(  ) );
-
-        this.setBorder( 
-            javax.swing.BorderFactory.createTitledBorder( 
-                null, title,
-                javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
-                javax.swing.border.TitledBorder.DEFAULT_POSITION, null, null ) );
-
-        gridBagConstraints1.gridx = 0;
-
-        gridBagConstraints1.gridy = 0;
-
-        gridBagConstraints1.anchor = java.awt.GridBagConstraints.WEST;
-
-        gridBagConstraints1.fill = java.awt.GridBagConstraints.HORIZONTAL;
-
-        gridBagConstraints2.gridx = 1;
-
-        gridBagConstraints2.gridy = 0;
-
-        gridBagConstraints2.insets = new java.awt.Insets( 3, 3, 3, 3 );
-
-        gridBagConstraints4.gridx = 0;
-
-        gridBagConstraints4.gridy = 1;
-
-        gridBagConstraints4.weightx = 1.0;
-
-        gridBagConstraints4.fill = java.awt.GridBagConstraints.HORIZONTAL;
-
-        gridBagConstraints4.insets = new java.awt.Insets( 5, 5, 5, 5 );
-
-        gridBagConstraints6.gridx = 1;
-
-        gridBagConstraints6.gridy = 1;
-
-        gridBagConstraints6.insets = new java.awt.Insets( 3, 3, 3, 3 );
-
-        this.add( getCbGrab(  ), gridBagConstraints1 );
-
-        this.add( getBtnChannels(  ), gridBagConstraints2 );
-
-        this.add( getTextCommand(  ), gridBagConstraints4 );
-
-        this.add( getBtnCommandReset(  ), gridBagConstraints6 );
-
+        this.setViewportView( getJPanel(  ) );
+        this.setHorizontalScrollBarPolicy( 
+            javax.swing.JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+        this.setSize( 300, 200 );
     }
 
     /**
-     * This method initializes jCheckBox
+     * This method initializes jPanel
      *
-     * @return javax.swing.JCheckBox
+     * @return javax.swing.JPanel
      */
-    public JCheckBox getCbGrab(  )
+    private JPanel getJPanel(  )
     {
 
-        if( cbGrab == null )
+        if( jPanel == null )
         {
-            cbGrab = new JCheckBox(  );
 
-            cbGrab.setText( "Grab data" );
-
+            GridBagConstraints gridBagConstraints9 =
+                new GridBagConstraints(  );
+            GridBagConstraints gridBagConstraints8 =
+                new GridBagConstraints(  );
+            GridBagConstraints gridBagConstraints7 =
+                new GridBagConstraints(  );
+            jPanel = new JPanel(  );
+            jPanel.setLayout( new GridBagLayout(  ) );
+            gridBagConstraints7.gridx = 0;
+            gridBagConstraints7.gridy = 0;
+            gridBagConstraints7.anchor = java.awt.GridBagConstraints.NORTHEAST;
+            gridBagConstraints7.fill = java.awt.GridBagConstraints.NONE;
+            gridBagConstraints7.insets = new java.awt.Insets( 5, 5, 5, 5 );
+            gridBagConstraints8.gridx = 0;
+            gridBagConstraints8.gridy = 1;
+            gridBagConstraints8.fill = java.awt.GridBagConstraints.BOTH;
+            gridBagConstraints8.weightx = 1.0D;
+            gridBagConstraints9.gridx = 0;
+            gridBagConstraints9.gridy = 1;
+            gridBagConstraints9.weightx = 1.0D;
+            gridBagConstraints9.fill = java.awt.GridBagConstraints.BOTH;
+            gridBagConstraints9.weighty = 1.0D;
+            jPanel.add( getBtnAdd(  ), gridBagConstraints7 );
+            jPanel.add( getPanelModules(  ), gridBagConstraints9 );
         }
 
-        return cbGrab;
-
+        return jPanel;
     }
 
     /**
@@ -124,62 +92,32 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JButton
      */
-    public JButton getBtnChannels(  )
+    public JButton getBtnAdd(  )
     {
 
-        if( btnChannels == null )
+        if( btnAdd == null )
         {
-            btnChannels = new JButton(  );
-
-            btnChannels.setText( "..." );
-
-            btnChannels.setToolTipText( "Select channels" );
-
+            btnAdd = new JButton(  );
+            btnAdd.setText( "Add" );
         }
 
-        return btnChannels;
-
+        return btnAdd;
     }
 
     /**
-     * This method initializes jTextField
+     * This method initializes jPanel1
      *
-     * @return javax.swing.JTextField
+     * @return javax.swing.JPanel
      */
-    public JTextField getTextCommand(  )
+    public JPanel getPanelModules(  )
     {
 
-        if( textCommand == null )
+        if( panelModules == null )
         {
-            textCommand = new JTextField(  );
-
-            textCommand.setColumns( 10 );
-
+            panelModules = new JPanel(  );
+            panelModules.setLayout( new GridBagLayout(  ) );
         }
 
-        return textCommand;
-
-    }
-
-    /**
-     * This method initializes jButton
-     *
-     * @return javax.swing.JButton
-     */
-    public JButton getBtnCommandReset(  )
-    {
-
-        if( btnCommandReset == null )
-        {
-            btnCommandReset = new JButton(  );
-
-            btnCommandReset.setText( "C" );
-
-            btnCommandReset.setToolTipText( "Reset command to default" );
-
-        }
-
-        return btnCommandReset;
-
+        return panelModules;
     }
 }
