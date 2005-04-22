@@ -9,6 +9,7 @@ y  means done by Yann 'PoV' Coupin
 r  means done by Rob Stewart
 w  means done by William Ballard
 c  means done by Christian Weiske
+a  means done by Alex Buloichik
 
 --------------------------------------------
 
@@ -235,12 +236,12 @@ c  means done by Christian Weiske
   
 - Release 0.10pre1 (Add some features to plugins-branch work)
 
-- Generate the list of grabber plugins dynamically by asking each plugin what
+a Generate the list of grabber plugins dynamically by asking each plugin what
   countries it supports (XMLTV should make this list by looking at what
   properties files it has available).
 - "Download in background" should work to make the downloading dialog non-modal.
-- Support more than one copy of each xmltv grabber
-- Progress bar on Please Wait dialog does not move.
+a Support more than one copy of each xmltv grabber
+a Progress bar on Please Wait dialog does not move.
 - Rename classes so every class has a different name.
 - Get rid of System.err.println, either removing, or replacing with 
   FreeGuide.log.info
@@ -255,9 +256,9 @@ a Merge changes from HEAD into plugins-branch
     a src/freeguide/gui/viewer/ViewerFrameXMLTVLoader.java use the first channel
       name, not all.
 - Options screen:
-    - Rename "..." buttons to "Configure"
+    a Rename "..." buttons to "Configure"
     - Change "XMLTV" checkbox to "Enable XMLTV plugin"
-    - Rename "C" buttons to "Default"
+    a Rename "C" buttons to "Default"
     - Make all panels accessible via keyboard accelerators
     - Allow to specify a default browser (needed by Debian maintainer)
 
