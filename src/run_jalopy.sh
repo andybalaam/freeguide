@@ -1,3 +1,3 @@
 #!/bin/sh
 
-jalopy -f UNIX -c freeguide-jalopy.xml -r java/
+jalopy -f UNIX -e UTF-8 -c freeguide-jalopy.xml -r java/
