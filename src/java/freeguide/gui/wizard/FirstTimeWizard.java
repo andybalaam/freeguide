@@ -45,6 +45,7 @@ import java.util.TreeSet;
 public class FirstTimeWizard
 {
 
+    static private String defaultBrowser;
     private FreeGuide.Config config;
     private FreeGuide launcher;
 
@@ -55,7 +56,6 @@ public class FirstTimeWizard
     private Map regionByISO;
     private Map allRegionsGrabbers;
     private Map allBrowsers;
-    static private String defaultBrowser;
     private boolean showREADME;
     private boolean configGrabber;
     private WizardFrame wizardFrame;
@@ -287,7 +287,7 @@ public class FirstTimeWizard
 
                     }
                 } );
-        
+
         wizardFrame.setVisible( true );
 
     }
@@ -462,14 +462,15 @@ public class FirstTimeWizard
         try
         {
 
-        	Map result = readMap( 
-                "main/browsers-"
-                + ( FreeGuide.runtimeInfo.isUnix ? "lin" : "win" )
-                + ".properties" );
-        	
-        	defaultBrowser = (String)result.remove("DEFAULT");
-        	
-        	return result;
+            Map result =
+                readMap( 
+                    "main/browsers-"
+                    + ( FreeGuide.runtimeInfo.isUnix ? "lin" : "win" )
+                    + ".properties" );
+
+            defaultBrowser = (String)result.remove( "DEFAULT" );
+
+            return result;
 
         }
 
