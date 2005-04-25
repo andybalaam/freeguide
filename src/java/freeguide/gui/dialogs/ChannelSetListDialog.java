@@ -380,6 +380,8 @@ public class ChannelSetListDialog extends FGDialog
     {
 
         TVChannelsSet newCset = new TVChannelsSet(  );
+        newCset.setName( 
+            FreeGuide.msg.getLocalizedMessage( "new_channel_set" ) );
         channelsSets.add( newCset );
 
         ChannelSetEditorDialog channels =
