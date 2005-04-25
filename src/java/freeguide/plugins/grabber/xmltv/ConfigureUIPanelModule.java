@@ -133,7 +133,7 @@ public class ConfigureUIPanelModule extends JPanel
             btnCommandReset = new JButton(  );
 
             btnCommandReset.setText( "Default" );
-            btnChannels.setText( 
+            btnCommandReset.setText( 
                 localizer.getLocalizedMessage( "Options.Reset" ) );
 
         }
@@ -153,7 +153,8 @@ public class ConfigureUIPanelModule extends JPanel
         if( btnDelete == null )
         {
             btnDelete = new JButton(  );
-            btnChannels.setText( 
+            btnDelete.setText("Delete"); 
+            btnDelete.setText( 
                 localizer.getLocalizedMessage( "Options.Remove" ) );
         }
 
