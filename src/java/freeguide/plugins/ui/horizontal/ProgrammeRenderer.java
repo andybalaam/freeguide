@@ -267,7 +267,6 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
      */
     public void onFocus(  )
     {
-
         controller.panel.scrollToReference( 
             HTMLGuideListener.createLinkReference( programme ) );
 

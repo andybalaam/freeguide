@@ -153,7 +153,7 @@ public class ConfigureUIPanelModule extends JPanel
         if( btnDelete == null )
         {
             btnDelete = new JButton(  );
-            btnDelete.setText("Delete"); 
+            btnDelete.setText( "Delete" );
             btnDelete.setText( 
                 localizer.getLocalizedMessage( "Options.Remove" ) );
         }
