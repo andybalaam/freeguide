@@ -332,7 +332,16 @@ public class StorageSerFilesByDay extends BaseModule implements IStorage
 
             if( data == null )
             {
-                data = new TVData(  );
+
+                if( file.exists(  ) )
+                {
+                    data = load( file );
+                }
+                else
+                {
+                    data = new TVData(  );
+                }
+
                 filesData.put( file, data );
             }
 
