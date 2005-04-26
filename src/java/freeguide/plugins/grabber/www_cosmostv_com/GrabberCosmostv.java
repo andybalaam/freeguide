@@ -76,7 +76,7 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
         logger.info( "Load data files..." );
 
         return new ListTVParser( ID + "/" ).parseZips( 
-            "www.cosmostv.com", zips, TIMEZONE, progress, logger );
+            zips, TIMEZONE, progress, logger );
 
     }
 

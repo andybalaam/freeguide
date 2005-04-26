@@ -55,8 +55,7 @@ public class GrabberNtvplus extends BaseModule implements IModuleGrabber
     {
         progress.setProgressMessage( FreeGuide.msg.getString( "downloading" ) );
 
-        return new ListTVParser( ID ).parseZips( 
-            "www.ntvplus.ru",
+        return new ListTVParser( ID + "/" ).parseZips( 
             new String[] { "http://www.ntvplus.ru/static/schedule/schedule.zip" },
             TIMEZONE, progress, logger );
 
