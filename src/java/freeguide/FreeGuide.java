@@ -468,9 +468,6 @@ public class FreeGuide
          */
         public Config(  )
         {
-            browserName =
-                runtimeInfo.isUnix ? "Konqueror" : "Internet Explorer";
-
             workingDirectory = ( runtimeInfo.isUnix
                 ? ( System.getProperty( "user.home" ) + "/.freeguide" )
                 : ( runtimeInfo.installDirectory + "/data" ) );
