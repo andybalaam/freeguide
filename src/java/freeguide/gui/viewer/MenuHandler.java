@@ -64,7 +64,8 @@ public class MenuHandler
 
                         controller.viewer.onDataChanged(  );
 
-                        controller.setLookAndFeel();
+                        controller.setLookAndFeel(  );
+
                         // Set the look and feel - Don't want this in reShow()
                         //setLookAndFeel(  );
                         //reShow(  );

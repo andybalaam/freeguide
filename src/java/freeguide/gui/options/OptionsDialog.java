@@ -168,20 +168,24 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
      */
     private DefaultMutableTreeNode buildMenuTree(  )
     {
-    	IModuleConfigurationUI ui;
+
+        IModuleConfigurationUI ui;
 
         DefaultMutableTreeNode trunk =
             new DefaultMutableTreeNode( FreeGuide.msg.getString( "options" ) );
 
-        ui = new PanelGeneralController();
+        ui = new PanelGeneralController(  );
+
         DefaultMutableTreeNode generalLeaf =
-            new DefaultMutableTreeNode( new ModuleNode(ui, FreeGuide.msg.getString( "general" ) ));
+            new DefaultMutableTreeNode( 
+                new ModuleNode( ui, FreeGuide.msg.getString( "general" ) ) );
         modulesConf.add( ui );
 
         trunk.add( generalLeaf );
 
         IModule hv = PluginsManager.getViewerByID( HorizontalViewer.ID );
         ui = hv.getConfigurationUI( this );
+
         DefaultMutableTreeNode horzViewer =
             new DefaultMutableTreeNode( 
                 new ModuleNode( ui, "Horizontal Viewer" ) );
@@ -266,7 +270,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
                 DefaultMutableTreeNode modBranch =
                     new DefaultMutableTreeNode( 
-                        new ModuleNode(confUI, modules[i].getName(  ) ) );
+                        new ModuleNode( confUI, modules[i].getName(  ) ) );
 
                 branch.add( modBranch );
 
@@ -424,8 +428,9 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
             m.save(  );
 
         }
-        setChanged();
-        setSave();
+
+        setChanged(  );
+        setSave(  );
     }
 
     protected JButton newStandardJButton( String text )
@@ -460,11 +465,10 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         /**
          * Creates a new ModuleNode object.
          *
-         * @param module DOCUMENT ME!
          * @param confUI DOCUMENT ME!
          * @param title DOCUMENT ME!
          */
-        public ModuleNode(IModuleConfigurationUI confUI, final String title )
+        public ModuleNode( IModuleConfigurationUI confUI, final String title )
         {
             this.confUI = confUI;
             this.title = title;
