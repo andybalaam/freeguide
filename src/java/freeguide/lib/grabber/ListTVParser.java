@@ -56,7 +56,6 @@ public class ListTVParser
     /**
      * DOCUMENT_ME!
      *
-     * @param siteName DOCUMENT_ME!
      * @param urls DOCUMENT_ME!
      * @param tz DOCUMENT_ME!
      * @param progress DOCUMENT_ME!
@@ -67,8 +66,8 @@ public class ListTVParser
      * @throws IOException DOCUMENT_ME!
      */
     public TVData parseZips( 
-        String siteName, String[] urls, TimeZone tz, IProgress progress,
-        ILogger logger ) throws IOException
+        String[] urls, TimeZone tz, IProgress progress, ILogger logger )
+        throws IOException
     {
         result = new TVData(  );
 
