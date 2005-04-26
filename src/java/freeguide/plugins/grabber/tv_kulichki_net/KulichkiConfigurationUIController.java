@@ -15,25 +15,25 @@ import java.util.logging.Level;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class ConfigurationUIController implements IModuleConfigurationUI
+public class KulichkiConfigurationUIController implements IModuleConfigurationUI
 {
 
     final protected GrabberKulichki parent;
-    final protected ConfigurationUIPanel panel;
-    final protected Config config;
+    final protected KulichkiConfigurationUIPanel panel;
+    final protected KulichkiConfig config;
 
     /**
      * Creates a new ConfigurationUIController object.
      *
      * @param parent DOCUMENT ME!
      */
-    public ConfigurationUIController( final GrabberKulichki parent )
+    public KulichkiConfigurationUIController( final GrabberKulichki parent )
     {
         this.parent = parent;
 
-        this.config = (Config)parent.config.clone(  );
+        this.config = (KulichkiConfig)parent.config.clone(  );
 
-        panel = new ConfigurationUIPanel( parent.getLocalizer(  ) );
+        panel = new KulichkiConfigurationUIPanel( parent.getLocalizer(  ) );
 
         panel.getTreeChannels(  ).setData( config.channels );
 

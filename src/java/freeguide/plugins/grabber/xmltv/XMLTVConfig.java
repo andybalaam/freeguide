@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class Config
+public class XMLTVConfig
 {
 
     /** Info for loading by Preferences Helper. */
@@ -25,7 +25,7 @@ public class Config
     public Object clone(  )
     {
 
-        Config result = new Config(  );
+        XMLTVConfig result = new XMLTVConfig(  );
 
         for( int i = 0; i < modules.size(  ); i++ )
         {

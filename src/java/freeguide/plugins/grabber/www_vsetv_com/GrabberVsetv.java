@@ -37,7 +37,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
     /** DOCUMENT ME! */
     public static final String ID = "vsetv";
-    protected Config config = new Config(  );
+    protected VsetvConfig config = new VsetvConfig(  );
     protected Properties TIMEZONES;
 
     /**
@@ -312,7 +312,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
     public IModuleConfigurationUI getConfigurationUI( JDialog parentDialog )
     {
 
-        return new ConfigurationUIController( this );
+        return new VsetvConfigurationUIController( this );
 
     }
 

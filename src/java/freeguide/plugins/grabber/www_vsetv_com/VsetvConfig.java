@@ -5,7 +5,7 @@ package freeguide.plugins.grabber.www_vsetv_com;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class Config
+public class VsetvConfig
 {
 
     /** DOCUMENT ME! */

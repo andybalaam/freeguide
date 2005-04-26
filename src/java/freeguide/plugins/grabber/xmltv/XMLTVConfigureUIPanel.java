@@ -14,7 +14,7 @@ import javax.swing.JScrollPane;
  *
  * @author Alex Buloichik (mailto: alex73 at zaval.org)
  */
-public class ConfigureUIPanel extends JScrollPane
+public class XMLTVConfigureUIPanel extends JScrollPane
 {
 
     private JPanel jPanel = null;
@@ -27,7 +27,7 @@ public class ConfigureUIPanel extends JScrollPane
      *
      * @param localizer DOCUMENT ME!
      */
-    public ConfigureUIPanel( final ILocalizer localizer )
+    public XMLTVConfigureUIPanel( final ILocalizer localizer )
     {
         super(  );
         this.localizer = localizer;

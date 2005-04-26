@@ -37,7 +37,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
     protected Properties TIME_ZONES;
     protected TimeZone TIME_ZONE_DEFAULT =
         TimeZone.getTimeZone( "Europe/Moscow" );
-    protected Config config = new Config(  );
+    protected KulichkiConfig config = new KulichkiConfig(  );
 
     /**
      * DOCUMENT_ME!
@@ -282,7 +282,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
     public IModuleConfigurationUI getConfigurationUI( JDialog parentDialog )
     {
 
-        return new ConfigurationUIController( this );
+        return new KulichkiConfigurationUIController( this );
 
     }
 

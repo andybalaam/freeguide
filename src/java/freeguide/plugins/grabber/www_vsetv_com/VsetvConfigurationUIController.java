@@ -15,12 +15,12 @@ import javax.swing.DefaultListModel;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class ConfigurationUIController implements IModuleConfigurationUI
+public class VsetvConfigurationUIController implements IModuleConfigurationUI
 {
 
     protected static final String CHPREFIX = "ChannelGroup.";
     protected final GrabberVsetv parent;
-    protected final ConfigurationUIPanel panel;
+    protected final VsetvConfigurationUIPanel panel;
     protected final List chs = new ArrayList(  );
 
     /**
@@ -28,11 +28,11 @@ public class ConfigurationUIController implements IModuleConfigurationUI
      *
      * @param parent DOCUMENT ME!
      */
-    public ConfigurationUIController( final GrabberVsetv parent )
+    public VsetvConfigurationUIController( final GrabberVsetv parent )
     {
         this.parent = parent;
 
-        panel = new ConfigurationUIPanel( parent.getLocalizer(  ) );
+        panel = new VsetvConfigurationUIPanel( parent.getLocalizer(  ) );
 
         panel.getTextUser(  ).setText( parent.config.user );
 

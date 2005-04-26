@@ -20,7 +20,7 @@ import javax.swing.JTextPane;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class ConfigurationUIPanel extends JPanel
+public class VsetvConfigurationUIPanel extends JPanel
 {
 
     private JTextField textUser = null;
@@ -42,7 +42,7 @@ public class ConfigurationUIPanel extends JPanel
      *
      * @param localizer DOCUMENT ME!
      */
-    public ConfigurationUIPanel( final ILocalizer localizer )
+    public VsetvConfigurationUIPanel( final ILocalizer localizer )
     {
         super(  );
 

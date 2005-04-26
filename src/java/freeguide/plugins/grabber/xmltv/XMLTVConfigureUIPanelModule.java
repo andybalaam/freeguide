@@ -16,11 +16,11 @@ import javax.swing.JTextField;
  *
  * @author Alex Buloichik (mailto: alex73 at zaval.org)
  */
-public class ConfigureUIPanelModule extends JPanel
+public class XMLTVConfigureUIPanelModule extends JPanel
 {
 
-    protected final Config.ModuleInfo moduleInfo;
-    protected final ConfigureUIController.TextChanged textChangedEvent;
+    protected final XMLTVConfig.ModuleInfo moduleInfo;
+    protected final XMLTVConfigureUIController.TextChanged textChangedEvent;
     private JButton btnChannels = null;
     private JTextField textCommand = null;
     private JButton btnCommandReset = null;
@@ -37,9 +37,9 @@ public class ConfigureUIPanelModule extends JPanel
      * @param moduleInfo DOCUMENT ME!
      * @param textChangedEvent DOCUMENT ME!
      */
-    public ConfigureUIPanelModule( 
-        final ILocalizer localizer, final Config.ModuleInfo moduleInfo,
-        final ConfigureUIController.TextChanged textChangedEvent )
+    public XMLTVConfigureUIPanelModule( 
+        final ILocalizer localizer, final XMLTVConfig.ModuleInfo moduleInfo,
+        final XMLTVConfigureUIController.TextChanged textChangedEvent )
     {
         super(  );
         this.localizer = localizer;

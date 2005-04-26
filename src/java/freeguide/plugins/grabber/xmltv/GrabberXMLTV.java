@@ -61,11 +61,11 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     protected static Properties cmds;
 
     /** DOCUMENT ME! */
-    public Config config = new Config(  );
+    public XMLTVConfig config = new XMLTVConfig(  );
     boolean isStopped = true;
     private Calendar date;
     private Process pr;
-    protected ConfigureUIPanelModule confUI;
+    protected XMLTVConfigureUIPanelModule confUI;
     protected CountryInfo[] countryInfos;
 
     /**
@@ -115,8 +115,8 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         for( int i = 0; i < config.modules.size(  ); i++ )
         {
 
-            Config.ModuleInfo moduleInfo =
-                (Config.ModuleInfo)config.modules.get( i );
+            XMLTVConfig.ModuleInfo moduleInfo =
+                (XMLTVConfig.ModuleInfo)config.modules.get( i );
             grabOne( result, moduleInfo, progress, logger );
         }
 
@@ -124,7 +124,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
     }
 
-    protected void configureChannels( final Config.ModuleInfo moduleInfo )
+    protected void configureChannels( final XMLTVConfig.ModuleInfo moduleInfo )
     {
         new File( FreeGuide.config.workingDirectory + "/xmltv-configs/" )
         .mkdirs(  );
@@ -221,7 +221,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     }
 
     protected void grabOne( 
-        final TVData result, final Config.ModuleInfo moduleInfo,
+        final TVData result, final XMLTVConfig.ModuleInfo moduleInfo,
         final IProgress progress, final ILogger logger )
     {
         progress.setProgressMessage( FreeGuide.msg.getString( "downloading" ) );
@@ -365,7 +365,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     public IModuleConfigurationUI getConfigurationUI( JDialog parentDialog )
     {
 
-        return new ConfigureUIController( this );
+        return new XMLTVConfigureUIController( this );
 
     }
 
@@ -389,7 +389,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     {
         config.modules.clear(  );
 
-        Config.ModuleInfo info = new Config.ModuleInfo(  );
+        XMLTVConfig.ModuleInfo info = new XMLTVConfig.ModuleInfo(  );
         info.moduleName =
             (String)getCommands(  ).get( "region." + regionName + ".grabber" );
         info.configFileName =

@@ -17,7 +17,7 @@ import javax.swing.JTextPane;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class ConfigurationUIPanel extends JPanel
+public class KulichkiConfigurationUIPanel extends JPanel
 {
 
     private final ILocalizer localizer;
@@ -31,7 +31,7 @@ public class ConfigurationUIPanel extends JPanel
      *
      * @param localizer DOCUMENT ME!
      */
-    public ConfigurationUIPanel( final ILocalizer localizer )
+    public KulichkiConfigurationUIPanel( final ILocalizer localizer )
     {
         super(  );
 

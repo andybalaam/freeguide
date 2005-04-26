@@ -8,7 +8,7 @@ import freeguide.lib.fgspecific.data.TVChannelsSet;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class Config
+public class KulichkiConfig
 {
 
     /** DOCUMENT ME! */
@@ -17,7 +17,7 @@ public class Config
     /**
      * Creates a new Config object.
      */
-    public Config(  )
+    public KulichkiConfig(  )
     {
         channels.allChannels.add( 
             new TVChannelsSet.Channel( GrabberKulichki.ID, "All" ) );
@@ -32,7 +32,7 @@ public class Config
     public Object clone(  )
     {
 
-        Config result = new Config(  );
+        KulichkiConfig result = new KulichkiConfig(  );
 
         result.channels = (TVChannelsSelection)channels.clone(  );
 
