@@ -12,12 +12,7 @@ package freeguide.plugins.ui.horizontal;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.fgspecific.ProgrammeFormat;
-import freeguide.lib.fgspecific.StartTimeComparator;
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
-import freeguide.lib.fgspecific.data.TVProgramme;
-import freeguide.lib.fgspecific.selection.SelectionManager;
+import freeguide.lib.fgspecific.PersonalizedHTMLGuide;
 
 import freeguide.lib.general.StringHelper;
 import freeguide.lib.general.Utils;
@@ -25,14 +20,11 @@ import freeguide.lib.general.Utils;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 
-import java.text.SimpleDateFormat;
-
-import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.Vector;
 import java.util.logging.Level;
 
 /**
@@ -47,7 +39,6 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
 
     /** This object's parent window. */
     private HorizontalViewer controller;
-    private ProgrammeStripModel model;
 
     /**
      * DOCUMENT ME!
@@ -66,17 +57,6 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
 
     }
 
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param model DOCUMENT_ME!
-     */
-    public void setModel( ProgrammeStripModel model )
-    {
-        this.model = model;
-
-    }
-
     //{{{ Printed Guide
 
     /**
@@ -84,10 +64,29 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
      */
     public void update(  )
     {
-        setText( constructHTMLGuide( true ) );
+
+        StringWriter str = new StringWriter(  );
+
+        try
+        {
+            new PersonalizedHTMLGuide(  ).createHTML( 
+                str, controller.getLocalizer(  ),
+                new Date( controller.theDate ), controller.currentData,
+                controller.htmlDateFormat,
+                controller.config.display24time
+                ? HorizontalViewer.timeFormat24Hour
+                : HorizontalViewer.timeFormat12Hour, true );
+        }
+        catch( IOException ex )
+        {
+            FreeGuide.log.log( 
+                Level.SEVERE,
+                "Error construct personalized HTML guide for screen", ex );
+        }
+
+        setText( str.toString(  ) );
 
         setCaretPosition( 0 );
-
     }
 
     /*
@@ -118,7 +117,13 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
                     new OutputStreamWriter( 
                         new FileOutputStream( f ), "UTF-8" ) );
 
-            buffy.write( constructHTMLGuide( false ) );
+            new PersonalizedHTMLGuide(  ).createHTML( 
+                buffy, controller.getLocalizer(  ),
+                new Date( controller.theDate ), controller.currentData,
+                controller.htmlDateFormat,
+                controller.config.display24time
+                ? HorizontalViewer.timeFormat24Hour
+                : HorizontalViewer.timeFormat12Hour, false );
 
             buffy.close(  );
 
@@ -137,259 +142,5 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
         }
 
         //try
-    }
-
-    //writeOutAsHTML
-
-    /**
-     * Makes a TV Guide in HTML format and returns it as a string.
-     *
-     * @param onScreen Description of the Parameter
-     *
-     * @return the TV guide as a string of html
-     */
-    private String constructHTMLGuide( boolean onScreen )
-    {
-
-        // Find out whether we're in the 24 hour clock
-        boolean draw24time = controller.config.display24time;
-
-        SimpleDateFormat timeFormat;
-
-        if( draw24time )
-        {
-            timeFormat = HorizontalViewer.timeFormat24Hour;
-
-        }
-
-        else
-        {
-            timeFormat = HorizontalViewer.timeFormat12Hour;
-
-        }
-
-        final Vector tickedProgrammes = new Vector(  );
-
-        controller.currentData.iterate( 
-            new TVIteratorProgrammes(  )
-            {
-                protected void onChannel( TVChannel channel )
-                {
-                }
-
-                protected void onProgramme( TVProgramme programme )
-                {
-
-                    if( SelectionManager.isInGuide( programme ) )
-                    {
-                        tickedProgrammes.add( programme );
-
-                    }
-                }
-            } );
-
-        // The string we shall return
-        StringBuffer ans = new StringBuffer(  );
-
-        // Set up some constants
-        String lineBreak = System.getProperty( "line.separator" );
-
-        ans.append( "<html>" ).append( lineBreak );
-
-        ans.append( "<head>" ).append( lineBreak );
-
-        if( !onScreen )
-        {
-            ans.append( 
-                "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>" )
-               .append( lineBreak );
-        }
-
-        ans.append( "  <title>" );
-
-        Object[] messageArguments =
-        { controller.htmlDateFormat.format( new Date( controller.theDate ) ) };
-
-        ans.append( 
-            controller.getLocalizer(  ).getLocalizedMessage( 
-                "tv_guide_for_template", messageArguments ) );
-
-        ans.append( "</title>" ).append( lineBreak );
-
-        ans.append( "  <style type='text/css'>" ).append( lineBreak );
-
-        ans.append( "    h1 {" ).append( lineBreak );
-
-        ans.append( "        font-family: helvetica, helv, arial;" ).append( 
-            lineBreak );
-
-        ans.append( "        font-weight: bold;" ).append( lineBreak );
-
-        ans.append( "        font-size: x-large;" ).append( lineBreak );
-
-        ans.append( "    }" ).append( lineBreak );
-
-        ans.append( "    h2 {" ).append( lineBreak );
-
-        ans.append( "        font-family: helvetica, helv, arial;" ).append( 
-            lineBreak );
-
-        ans.append( "        font-weight: bold;" ).append( lineBreak );
-
-        ans.append( "        font-size: large;" ).append( lineBreak );
-
-        ans.append( "    }" ).append( lineBreak );
-
-        ans.append( "    h3 {" ).append( lineBreak );
-
-        ans.append( "        font-family: helvetica, helv, arial;" ).append( 
-            lineBreak );
-
-        ans.append( "        font-weight: bold;" ).append( lineBreak );
-
-        ans.append( "        font-size: medium;" ).append( lineBreak );
-
-        ans.append( "    }" ).append( lineBreak );
-
-        ans.append( "    h4 {" ).append( lineBreak );
-
-        ans.append( "        font-family: helvetica, helv, arial;" ).append( 
-            lineBreak );
-
-        ans.append( "        font-weight: bold;" ).append( lineBreak );
-
-        ans.append( "        font-size: small;" ).append( lineBreak );
-
-        ans.append( "    }" ).append( lineBreak );
-
-        ans.append( "    body {" ).append( lineBreak );
-
-        ans.append( "        font-family: helvetica, helv, arial;" ).append( 
-            lineBreak );
-
-        ans.append( "        font-size: small;" ).append( lineBreak );
-
-        ans.append( "    }" ).append( lineBreak );
-
-        ans.append( "    address {" ).append( lineBreak );
-
-        ans.append( "        font-family: helvetica, helv, arial;" ).append( 
-            lineBreak );
-
-        ans.append( "        font-size: xx-small;" ).append( lineBreak );
-
-        ans.append( "    }" ).append( lineBreak );
-
-        ans.append( "  </style>" ).append( lineBreak );
-
-        ans.append( "</head>" ).append( lineBreak );
-
-        ans.append( "<body>" ).append( lineBreak );
-
-        ans.append( "  <h1>" );
-
-        if( onScreen )
-        {
-            ans.append( 
-                "<font face='helvetica, helv, arial, sans serif' size='4'>" );
-
-            Object[] messageArguments2 =
-            { controller.htmlDateFormat.format( 
-                    new Date( controller.theDate ) ) };
-
-            ans.append( 
-                controller.getLocalizer(  ).getLocalizedMessage( 
-                    "your_personalised_tv_guide_for_template",
-                    messageArguments2 ) );
-
-            ans.append( "</font>" );
-
-        }
-
-        else
-        {
-
-            Object[] messageArguments2 =
-            { controller.htmlDateFormat.format( 
-                    new Date( controller.theDate ) ) };
-
-            ans.append( 
-                controller.getLocalizer(  ).getLocalizedMessage( 
-                    "tv_guide_for_template", messageArguments2 ) );
-
-        }
-
-        ans.append( "</h1>" ).append( lineBreak );
-
-        if( onScreen )
-        {
-            ans.append( 
-                "<font face='helvetica, helv, arial, sans serif' size=3>" );
-
-            ans.append( "<p>" );
-
-            ans.append( 
-                controller.getLocalizer(  ).getLocalizedMessage( 
-                    "select_programmes_by_clicking_on_them" ) );
-
-            ans.append( "</p>" );
-
-            ans.append( "</font>" );
-
-        }
-
-        // Sort the programmes
-        Collections.sort( tickedProgrammes, new StartTimeComparator(  ) );
-
-        // Add them to the HTML list
-        // ----------------------------
-        if( onScreen )
-        {
-            ans.append( 
-                "<font face='helvetica, helv, arial, sans serif' size=3>" );
-
-        }
-
-        ProgrammeFormat pf =
-            new ProgrammeFormat( 
-                ProgrammeFormat.HTML_FRAGMENT_FORMAT, timeFormat, false );
-
-        pf.setOnScreen( onScreen );
-
-        Iterator i = tickedProgrammes.iterator(  );
-
-        while( i.hasNext(  ) )
-        {
-
-            TVProgramme prog = (TVProgramme)( i.next(  ) );
-
-            ans.append( pf.formatLong( prog ) );
-
-        }
-
-        if( onScreen )
-        {
-            ans.append( "</font>" );
-
-        }
-
-        if( !onScreen )
-        {
-            ans.append( "<hr />" + lineBreak );
-
-            ans.append( "<address>" );
-
-            ans.append( "http://freeguide-tv.sourceforge.net" );
-
-            ans.append( "</address>" ).append( lineBreak );
-
-        }
-
-        ans.append( "</body>" ).append( lineBreak );
-
-        ans.append( "</html>" ).append( lineBreak );
-
-        return ans.toString(  );
-
     }
 }

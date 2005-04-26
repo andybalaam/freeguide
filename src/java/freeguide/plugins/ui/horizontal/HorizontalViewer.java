@@ -823,8 +823,6 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
             panel.getProgrammesPanel(  ).setModel( m );
 
-            panel.getPrintedGuideArea(  ).setModel( m );
-
             panel.getTimePanel(  ).setTimes( 
                 theDate, theDate + MILLISECONDS_PER_DAY );
 
