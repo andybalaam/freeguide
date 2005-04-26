@@ -15,7 +15,8 @@ import java.util.logging.Level;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class KulichkiConfigurationUIController implements IModuleConfigurationUI
+public class KulichkiConfigurationUIController
+    implements IModuleConfigurationUI
 {
 
     final protected GrabberKulichki parent;

@@ -90,7 +90,8 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
                 public void actionPerformed( ActionEvent e )
                 {
 
-                    XMLTVConfig.ModuleInfo info = new XMLTVConfig.ModuleInfo(  );
+                    XMLTVConfig.ModuleInfo info =
+                        new XMLTVConfig.ModuleInfo(  );
                     config.modules.add( info );
                     addModule( info );
                     panel.revalidate(  );
@@ -280,7 +281,8 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
          *
          * @param confPanel DOCUMENT ME!
          */
-        public BtnCommandResetAction( final XMLTVConfigureUIPanelModule confPanel )
+        public BtnCommandResetAction( 
+            final XMLTVConfigureUIPanelModule confPanel )
         {
             this.confPanel = confPanel;
         }
@@ -309,7 +311,8 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
          *
          * @param confPanel DOCUMENT ME!
          */
-        public ComboModulesAction( final XMLTVConfigureUIPanelModule confPanel )
+        public ComboModulesAction( 
+            final XMLTVConfigureUIPanelModule confPanel )
         {
             this.confPanel = confPanel;
         }
