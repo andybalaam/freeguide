@@ -168,20 +168,23 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
      */
     private DefaultMutableTreeNode buildMenuTree(  )
     {
+    	IModuleConfigurationUI ui;
 
         DefaultMutableTreeNode trunk =
             new DefaultMutableTreeNode( FreeGuide.msg.getString( "options" ) );
 
+        ui = new PanelGeneralController();
         DefaultMutableTreeNode generalLeaf =
-            new DefaultMutableTreeNode( new GeneralOptionPanel( this ) );
+            new DefaultMutableTreeNode( new ModuleNode(ui, FreeGuide.msg.getString( "general" ) ));
+        modulesConf.add( ui );
 
         trunk.add( generalLeaf );
 
         IModule hv = PluginsManager.getViewerByID( HorizontalViewer.ID );
-        IModuleConfigurationUI ui = hv.getConfigurationUI( this );
+        ui = hv.getConfigurationUI( this );
         DefaultMutableTreeNode horzViewer =
             new DefaultMutableTreeNode( 
-                new ModuleNode( hv, ui, "Horizontal Viewer" ) );
+                new ModuleNode( ui, "Horizontal Viewer" ) );
 
         trunk.add( horzViewer );
         modulesConf.add( ui );
@@ -263,8 +266,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
                 DefaultMutableTreeNode modBranch =
                     new DefaultMutableTreeNode( 
-                        new ModuleNode( 
-                            modules[i], confUI, modules[i].getName(  ) ) );
+                        new ModuleNode(confUI, modules[i].getName(  ) ) );
 
                 branch.add( modBranch );
 
@@ -422,6 +424,8 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
             m.save(  );
 
         }
+        setChanged();
+        setSave();
     }
 
     protected JButton newStandardJButton( String text )
@@ -450,7 +454,6 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
     public static class ModuleNode
     {
 
-        IModule module;
         IModuleConfigurationUI confUI;
         String title;
 
@@ -461,10 +464,8 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
          * @param confUI DOCUMENT ME!
          * @param title DOCUMENT ME!
          */
-        public ModuleNode( 
-            IModule module, IModuleConfigurationUI confUI, final String title )
+        public ModuleNode(IModuleConfigurationUI confUI, final String title )
         {
-            this.module = module;
             this.confUI = confUI;
             this.title = title;
         }
