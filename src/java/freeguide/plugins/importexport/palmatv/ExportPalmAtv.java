@@ -36,7 +36,7 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
     /** DOCUMENT ME! */
     public static final String hDatabaseType = "Data";
     protected ADataInputStream rd;
-    protected String charset;
+    protected String charset = "Cp1251";
 
     /**
      * DOCUMENT_ME!
@@ -86,6 +86,11 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
         {
 
             File destination = chooser.getSelectedFile(  );
+
+            if( !destination.getPath(  ).endsWith( ".pdb" ) )
+            {
+                destination = new File( destination.getPath(  ) + ".pdb" );
+            }
 
             destination.delete(  );
 
