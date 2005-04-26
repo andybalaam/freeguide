@@ -22,6 +22,8 @@ public class PanelGeneralUI extends JPanel
     private JLabel labelLF = null;
     private JTextField textWorkingDir = null;
     private JComboBox cbLF = null;
+    private JLabel labelLang = null;
+    private JComboBox cbLang = null;
 
     /**
      * This is the default constructor
@@ -37,6 +39,10 @@ public class PanelGeneralUI extends JPanel
      */
     private void initialize(  )
     {
+        labelLang = new JLabel(  );
+
+        GridBagConstraints gridBagConstraints6 = new GridBagConstraints(  );
+        GridBagConstraints gridBagConstraints5 = new GridBagConstraints(  );
         labelLF = new JLabel(  );
         labelWorkDir = new JLabel(  );
 
@@ -69,10 +75,25 @@ public class PanelGeneralUI extends JPanel
         gridBagConstraints4.weightx = 1.0;
         gridBagConstraints4.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints4.insets = new java.awt.Insets( 3, 3, 3, 3 );
-        this.add( labelWorkDir, gridBagConstraints1 );
+        gridBagConstraints5.gridx = 0;
+        gridBagConstraints5.gridy = 2;
+        labelLang.setText( "Language:" );
+        labelLang.setText( 
+            FreeGuide.msg.getString( "Options.General.Language" ) + ":" );
+        labelLang.setLabelFor( getCbLang(  ) );
+        gridBagConstraints6.gridx = 1;
+        gridBagConstraints6.gridy = 2;
+        gridBagConstraints6.weightx = 1.0;
+        gridBagConstraints6.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints6.insets = new java.awt.Insets( 3, 3, 3, 3 );
+        gridBagConstraints5.insets = new java.awt.Insets( 3, 3, 3, 3 );
         this.add( labelLF, gridBagConstraints2 );
+        this.add( labelLang, gridBagConstraints5 );
+        this.add( labelWorkDir, gridBagConstraints1 );
         this.add( getTextWorkingDir(  ), gridBagConstraints3 );
         this.add( getCbLF(  ), gridBagConstraints4 );
+        this.add( getCbLang(  ), gridBagConstraints6 );
+        labelLang.setVisible( false );
     }
 
     /**
@@ -105,5 +126,22 @@ public class PanelGeneralUI extends JPanel
         }
 
         return cbLF;
+    }
+
+    /**
+     * This method initializes jComboBox
+     *
+     * @return javax.swing.JComboBox
+     */
+    public JComboBox getCbLang(  )
+    {
+
+        if( cbLang == null )
+        {
+            cbLang = new JComboBox(  );
+            cbLang.setVisible( false );
+        }
+
+        return cbLang;
     }
 }

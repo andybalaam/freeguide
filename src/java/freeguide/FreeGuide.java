@@ -87,9 +87,6 @@ public class FreeGuide
     /** The log file */
     public static Logger log;
 
-    /** The locale set from the command line. */
-    public static Locale[] locales = new Locale[1];
-
     /** The bundle of internationalized messages. */
     public static LanguageHelper msg;
 
@@ -123,37 +120,10 @@ public class FreeGuide
 
             }
 
-            locales[0] =
+            final Locale loc =
                 new Locale( arguments.getValue( "language" ), country );
-
+            setLocale( loc );
         }
-
-        else
-        {
-            locales[0] = Locale.getDefault(  );
-
-        }
-
-        try
-        {
-
-            Locale[] supportedLocales =
-                LanguageHelper.getLocaleList( 
-                    FreeGuide.class.getClassLoader(  ), "i18n/MessagesBundle" );
-            msg = new LanguageHelper( 
-                    FreeGuide.class.getClassLoader(  ), "i18n/MessagesBundle",
-                    LanguageHelper.getPreferredLocale( 
-                        locales, supportedLocales ) );
-
-        }
-
-        catch( IOException ex )
-        {
-            log.log( Level.SEVERE, "Error loading i18n data", ex );
-            System.exit( 1 );
-        }
-
-        PluginsManager.setLocale( locales );
 
         // Find out what the documents directory is from the command line
         if( arguments.isSet( "doc_directory" ) )
@@ -205,6 +175,17 @@ public class FreeGuide
         catch( Exception ex )
         {
             log.log( Level.SEVERE, "Error load config", ex );
+        }
+
+        if( msg == null )
+        {
+
+            /*if (config.lang != null) {
+                setLocale(config.lang);
+            } else {*/
+            setLocale( Locale.getDefault(  ) );
+
+            //}
         }
 
         if( config.version == null )
@@ -434,6 +415,34 @@ public class FreeGuide
     }
 
     /**
+     * DOCUMENT_ME!
+     *
+     * @param newLocale DOCUMENT_ME!
+     */
+    public static void setLocale( final Locale newLocale )
+    {
+
+        try
+        {
+
+            Locale[] supportedLocales =
+                LanguageHelper.getLocaleList( 
+                    FreeGuide.class.getClassLoader(  ), "i18n/MessagesBundle" );
+
+            msg = new LanguageHelper( 
+                    FreeGuide.class.getClassLoader(  ), "i18n/MessagesBundle",
+                    LanguageHelper.getPreferredLocale( 
+                        new Locale[] { newLocale }, supportedLocales ) );
+            PluginsManager.setLocale( new Locale[] { newLocale } );
+        }
+        catch( IOException ex )
+        {
+            log.log( Level.SEVERE, "Error loading i18n data", ex );
+            System.exit( 1 );
+        }
+    }
+
+    /**
      * Class for store main application config information.
      *
      * @author $author$
@@ -462,6 +471,8 @@ public class FreeGuide
 
         /** DOCUMENT ME! */
         public String timeZoneName;
+
+        public Locale lang;
 
         /**
          * Creates a new Config object and setup default values.

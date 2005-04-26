@@ -64,6 +64,9 @@ public class MenuHandler
 
                         controller.viewer.onDataChanged(  );
 
+                        /*if (!FreeGuide.msg.getLocale().equals(FreeGuide.config.lang)) {
+                            FreeGuide.setLocale(FreeGuide.config.lang);
+                        }*/
                         controller.setLookAndFeel(  );
 
                         // Set the look and feel - Don't want this in reShow()
