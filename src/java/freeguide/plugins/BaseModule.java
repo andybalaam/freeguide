@@ -117,7 +117,7 @@ public abstract class BaseModule implements IModule
 
         try
         {
-            PreferencesHelper.loadObject( prefs, "", obj );
+            PreferencesHelper.load( prefs, obj );
         }
         catch( Exception ex )
         {
@@ -131,7 +131,7 @@ public abstract class BaseModule implements IModule
 
         try
         {
-            PreferencesHelper.saveObject( prefs, "", obj );
+            PreferencesHelper.save( prefs, obj );
 
         }
         catch( Exception ex )

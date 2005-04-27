@@ -413,13 +413,13 @@ public class Migrate
 
         FreeGuide.saveConfig(  );
 
-        PreferencesHelper.saveObject( 
-            root.node( "mainController" ), "", MainController.config );
+        PreferencesHelper.save( 
+            root.node( "mainController" ), MainController.config );
 
         if( hov != null )
         {
-            PreferencesHelper.saveObject( 
-                root.node( "modules/viewer/" + hov.getID(  ) ), "", hov.config );
+            PreferencesHelper.save( 
+                root.node( "modules/viewer/" + hov.getID(  ) ), hov.config );
 
         }
     }

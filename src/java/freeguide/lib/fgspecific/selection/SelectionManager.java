@@ -265,7 +265,7 @@ public class SelectionManager
      */
     public static void load( Preferences node ) throws Exception
     {
-        PreferencesHelper.loadObject( node, "", storage );
+        PreferencesHelper.load( node, storage );
 
     }
 
@@ -278,7 +278,7 @@ public class SelectionManager
      */
     public static void save( Preferences node ) throws Exception
     {
-        PreferencesHelper.saveObject( node, "", storage );
+        PreferencesHelper.save( node, storage );
 
     }
 
