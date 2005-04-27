@@ -241,7 +241,7 @@ public class PersonalizedHTMLGuide
         }
 
         // Sort the programmes
-        Collections.sort( tickedProgrammes, new StartTimeComparator(  ) );
+        Collections.sort( tickedProgrammes );
 
         // Add them to the HTML list
         // ----------------------------
