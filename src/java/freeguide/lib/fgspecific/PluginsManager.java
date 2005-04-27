@@ -7,11 +7,15 @@ import freeguide.lib.general.LanguageHelper;
 import freeguide.plugins.IModule;
 import freeguide.plugins.IModuleExport;
 import freeguide.plugins.IModuleGrabber;
+import freeguide.plugins.IModuleImport;
 import freeguide.plugins.IModuleViewer;
 
 import freeguide.plugins.grabber.www_cosmostv_com.GrabberCosmostv;
+import freeguide.plugins.grabber.www_ntvplus_ru.GrabberNtvplus;
 import freeguide.plugins.grabber.www_vsetv_com.GrabberVsetv;
 import freeguide.plugins.grabber.xmltv.GrabberXMLTV;
+
+import freeguide.plugins.importexport.palmatv.ExportPalmAtv;
 
 import freeguide.plugins.ui.horizontal.HorizontalViewer;
 
@@ -45,11 +49,14 @@ public class PluginsManager
         modules = new ArrayList(  );
 
         // This hack should be changed for call loadModules() in future.
+        modules.add( new HorizontalViewer(  ) );
         modules.add( new GrabberXMLTV(  ) );
 
-        //modules.add( new GrabberCosmostv(  ) );
-        //modules.add( new GrabberVsetv(  ) );
-        modules.add( new HorizontalViewer(  ) );
+        modules.add( new GrabberVsetv(  ) );
+        modules.add( new GrabberNtvplus(  ) );
+        modules.add( new GrabberCosmostv(  ) );
+
+        modules.add( new ExportPalmAtv(  ) );
 
         for( int i = 0; i < modules.size(  ); i++ )
         {
@@ -66,6 +73,14 @@ public class PluginsManager
             {
                 nodeName =
                     "/org/freeguide-tv/modules/viewer/" + module.getID(  );
+            }
+            else if( 
+                module instanceof IModuleImport
+                    || module instanceof IModuleExport )
+            {
+                nodeName =
+                    "/org/freeguide-tv/modules/importexport/"
+                    + module.getID(  );
             }
 
             module.setConfigStorage( 
@@ -258,8 +273,21 @@ public class PluginsManager
     public static IModuleExport[] getExporters(  )
     {
 
-        return new IModuleExport[0];
+        final List result = new ArrayList(  );
 
+        for( int i = 0; i < modules.size(  ); i++ )
+        {
+
+            IModule module = (IModule)modules.get( i );
+
+            if( module instanceof IModuleExport )
+            {
+                result.add( module );
+            }
+        }
+
+        return (IModuleExport[])result.toArray( 
+            new IModuleExport[result.size(  )] );
     }
 
     /**
