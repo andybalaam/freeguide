@@ -103,8 +103,6 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
     public void writeOutAsHTML(  )
     {
 
-        String fs = System.getProperty( "file.separator" );
-
         // Make a file in the default location
         File f = new File( FreeGuide.config.workingDirectory + "/guide.html" );
 
