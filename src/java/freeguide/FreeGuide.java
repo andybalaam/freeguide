@@ -39,12 +39,9 @@ import java.io.IOException;
 
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
-
-import javax.swing.JOptionPane;
 
 /**
  * The main class called to start FreeGuide. Calls other objects to do the
@@ -79,10 +76,6 @@ public class FreeGuide
 
     /** Holds all commandline arguments */
     public static CmdArgs arguments;
-
-    /** Holds all preferences info */
-
-    //    public static PreferencesGroup prefs;
 
     /** The log file */
     public static Logger log;
@@ -120,9 +113,8 @@ public class FreeGuide
 
             }
 
-            final Locale loc =
+            runtimeInfo.defaultLocale =
                 new Locale( arguments.getValue( "language" ), country );
-            setLocale( loc );
         }
 
         // Find out what the documents directory is from the command line
@@ -169,7 +161,7 @@ public class FreeGuide
         // load config
         try
         {
-            PreferencesHelper.loadObject( PREF_ROOT, "config.", config );
+            PreferencesHelper.load( PREF_ROOT, config );
 
         }
         catch( Exception ex )
@@ -177,16 +169,7 @@ public class FreeGuide
             log.log( Level.SEVERE, "Error load config", ex );
         }
 
-        if( msg == null )
-        {
-
-            /*if (config.lang != null) {
-                setLocale(config.lang);
-            } else {*/
-            setLocale( Locale.getDefault(  ) );
-
-            //}
-        }
+        setLocale( config.lang );
 
         if( config.version == null )
         {
@@ -236,7 +219,7 @@ public class FreeGuide
 
         try
         {
-            PreferencesHelper.saveObject( PREF_ROOT, "config.", config );
+            PreferencesHelper.save( PREF_ROOT, config );
 
         }
 
@@ -255,32 +238,6 @@ public class FreeGuide
     public void normalStartup( String grabberFromWizard )
     {
         showPleaseWait(  );
-
-        Vector failedWhat = StartupChecker.runChecks(  );
-
-        if( failedWhat.size(  ) > 0 )
-        {
-
-            // Something's wrong, so begin with configuration
-            String message;
-
-            message = FreeGuide.msg.getString( "config_messed_up" );
-
-            for( int i = 0; i < failedWhat.size(  ); i++ )
-            {
-                message += ( failedWhat.get( i ) + "\n" );
-
-            }
-
-            message += message += FreeGuide.msg.getString( 
-                "go_to_options_screen" );
-
-            JOptionPane.showMessageDialog( 
-                null, message,
-                FreeGuide.msg.getString( "configuration_problems" ),
-                JOptionPane.WARNING_MESSAGE );
-
-        }
 
         mainController =
             new MainController( PREF_ROOT.node( "mainController" ) );
@@ -410,6 +367,13 @@ public class FreeGuide
 
         ans.append( '/' );
 
+        File dir = new File( ans.toString(  ) );
+
+        if( !dir.exists(  ) )
+        {
+            dir.mkdirs(  );
+        }
+
         return ans;
 
     }
@@ -422,6 +386,9 @@ public class FreeGuide
     public static void setLocale( final Locale newLocale )
     {
 
+        final Locale locale =
+            ( newLocale == null ) ? runtimeInfo.defaultLocale : newLocale;
+
         try
         {
 
@@ -432,8 +399,10 @@ public class FreeGuide
             msg = new LanguageHelper( 
                     FreeGuide.class.getClassLoader(  ), "i18n/MessagesBundle",
                     LanguageHelper.getPreferredLocale( 
-                        new Locale[] { newLocale }, supportedLocales ) );
-            PluginsManager.setLocale( new Locale[] { newLocale } );
+                        new Locale[] { locale }, supportedLocales ) );
+            PluginsManager.setLocale( new Locale[] { locale } );
+            Locale.setDefault( locale );
+            FreeGuide.log.fine( "Set locale to " + locale.getDisplayName(  ) );
         }
         catch( IOException ex )
         {
@@ -472,6 +441,7 @@ public class FreeGuide
         /** DOCUMENT ME! */
         public String timeZoneName;
 
+        /** User's locale, or null if it use default locale. */
         public Locale lang;
 
         /**
@@ -523,13 +493,16 @@ public class FreeGuide
         /** Directory, where program installed. Used on windows. */
         public String installDirectory;
 
+        /** Default system locale or from --language, --country flags. */
+        public Locale defaultLocale;
+
         /**
          * Creates a new RuntimeInfo object.
          */
         public RuntimeInfo(  )
         {
             isUnix = !System.getProperty( "os.name" ).startsWith( "Windows" );
-
+            defaultLocale = Locale.getDefault(  );
         }
     }
 }
