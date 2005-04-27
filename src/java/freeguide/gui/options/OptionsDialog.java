@@ -19,6 +19,7 @@ import freeguide.gui.dialogs.FGDialog;
 import freeguide.lib.fgspecific.PluginsManager;
 
 import freeguide.lib.general.GridBagEasy;
+import freeguide.lib.general.Utils;
 
 import freeguide.plugins.IModule;
 import freeguide.plugins.IModuleConfigurationUI;
@@ -81,7 +82,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
         // Draw the screen
         buildGUI(  );
-
+        Utils.centreDialog( owner, this );
     }
 
     /**
@@ -145,19 +146,6 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         getRootPane(  ).setDefaultButton( okButton );
 
         pack(  );
-
-        Dimension screenSize = Toolkit.getDefaultToolkit(  ).getScreenSize(  );
-
-        Dimension dialogSize = new Dimension( 500, 400 );
-
-        setSize( dialogSize );
-
-        setLocation( 
-            ( screenSize.width - dialogSize.width ) / 2,
-            ( screenSize.height - dialogSize.height ) / 2 );
-
-        // To Be Added Shortly (Rob)
-        //        GuiUtils.centerDialog( this, 500, 400 );
     }
 
     /**
@@ -188,7 +176,9 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
         DefaultMutableTreeNode horzViewer =
             new DefaultMutableTreeNode( 
-                new ModuleNode( ui, "Horizontal Viewer" ) );
+                new ModuleNode( 
+                    ui,
+                    FreeGuide.msg.getString( "Options.Tree.HorizontalViewer" ) ) );
 
         trunk.add( horzViewer );
         modulesConf.add( ui );
@@ -256,8 +246,6 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
         DefaultMutableTreeNode branch = new DefaultMutableTreeNode( obj );
 
-        parent.add( branch );
-
         for( int i = 0; i < modules.length; i++ )
         {
 
@@ -275,6 +263,11 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
                 branch.add( modBranch );
 
             }
+        }
+
+        if( branch.getChildCount(  ) > 0 )
+        {
+            parent.add( branch );
         }
 
         return new TreePath( branch.getPath(  ) );
