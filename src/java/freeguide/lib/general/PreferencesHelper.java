@@ -10,6 +10,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -31,12 +32,26 @@ public class PreferencesHelper
      * DOCUMENT_ME!
      *
      * @param prefNode DOCUMENT_ME!
+     * @param obj DOCUMENT_ME!
+     *
+     * @throws Exception DOCUMENT_ME!
+     */
+    public static void load( final Preferences prefNode, final Object obj )
+        throws Exception
+    {
+        loadObject( prefNode, "", obj );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param prefNode DOCUMENT_ME!
      * @param namePrefix DOCUMENT ME!
      * @param obj DOCUMENT_ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public static void loadObject( 
+    protected static void loadObject( 
         final Preferences prefNode, final String namePrefix, final Object obj )
         throws Exception
     {
@@ -44,174 +59,141 @@ public class PreferencesHelper
         final Set existKeys =
             new TreeSet( Arrays.asList( prefNode.keys(  ) ) );
 
-        Field[] fields = obj.getClass(  ).getFields(  );
+        final Field[] fields = obj.getClass(  ).getFields(  );
 
         for( int i = 0; i < fields.length; i++ )
         {
 
-            Field field = fields[i];
+            final Field field = fields[i];
 
             if( !isFieldSerialized( field ) )
             {
 
                 continue;
-
             }
 
             final String keyName = namePrefix + field.getName(  );
 
-            if( String.class == field.getType(  ) )
-            {
+            if( field.getType(  ).isPrimitive(  ) )
+            { // primitive type
 
                 if( existKeys.contains( keyName ) )
                 {
 
-                    Object value = prefNode.get( keyName, null );
-
-                    field.set( obj, value );
-
+                    if( boolean.class == field.getType(  ) )
+                    {
+                        field.setBoolean( 
+                            obj, prefNode.getBoolean( keyName, false ) );
+                    }
+                    else if( int.class == field.getType(  ) )
+                    {
+                        field.setInt( obj, prefNode.getInt( keyName, 0 ) );
+                    }
+                    else if( long.class == field.getType(  ) )
+                    {
+                        field.setLong( obj, prefNode.getLong( keyName, 0 ) );
+                    }
                 }
             }
-
-            else if( Color.class.isAssignableFrom( field.getType(  ) ) )
-            {
-
-                if( existKeys.contains( keyName ) )
-                {
-
-                    int value = prefNode.getInt( keyName, 0 );
-
-                    field.set( obj, new Color( value ) );
-
-                }
-            }
-
-            else if( boolean.class == field.getType(  ) )
-            {
-
-                if( existKeys.contains( keyName ) )
-                {
-
-                    boolean value = prefNode.getBoolean( keyName, false );
-
-                    field.setBoolean( obj, value );
-
-                }
-            }
-
-            else if( int.class == field.getType(  ) )
-            {
-
-                if( existKeys.contains( keyName ) )
-                {
-
-                    int value = prefNode.getInt( keyName, 0 );
-
-                    field.setInt( obj, value );
-
-                }
-            }
-
-            else if( long.class == field.getType(  ) )
-            {
-
-                if( existKeys.contains( keyName ) )
-                {
-
-                    long value = prefNode.getLong( keyName, 0 );
-
-                    field.setLong( obj, value );
-
-                }
-            }
-
-            else if( Map.class.isAssignableFrom( field.getType(  ) ) )
-            {
-
-                Class keyType =
-                    checkTypeDefined( obj, field.getName(  ) + "_KEY_TYPE" );
-
-                Class valueType =
-                    checkTypeDefined( obj, field.getName(  ) + "_VALUE_TYPE" );
-
-                Map map = (Map)field.get( obj );
-
-                loadMap( prefNode, keyName + ".", map, keyType, valueType );
-
-                //field.set( obj, list );
-            }
-
-            else if( Collection.class.isAssignableFrom( field.getType(  ) ) )
-            {
-
-                Field typeField =
-                    obj.getClass(  ).getField( field.getName(  ) + "_TYPE" );
-
-                int modsT = typeField.getModifiers(  );
-
-                if( 
-                    !Modifier.isPublic( modsT ) || !Modifier.isStatic( modsT )
-                        || ( Class.class != typeField.getType(  ) ) )
-                {
-                    throw new Exception( 
-                        "Type not defined for Collection " + field.getName(  )
-                        + " of class " + obj.getClass(  ) );
-
-                }
-
-                Collection list = (Collection)field.get( obj );
-
-                /*if( List.class.isAssignableFrom( field.getType(  ) ) )
-
-
-                {
-
-
-                list = new ArrayList(  );
-
-
-                }
-
-
-                else if( Set.class.isAssignableFrom( field.getType(  ) ) )
-
-
-                {
-
-
-                list = new TreeSet(  );
-
-
-                }
-
-
-                else
-
-
-                {
-
-
-                throw new Exception(
-
-
-                "Unknown collection type: " + field.getType(  ) );
-
-
-                }*/
-                Class typeClass = (Class)typeField.get( obj.getClass(  ) );
-
-                loadList( prefNode, keyName + ".", list, typeClass );
-
-                //field.set( obj, list );
-            }
-
             else
-            {
+            { // non-primitive type
 
-                // Object fieldObj = field.getType().newInstance();
-                loadObject( prefNode, keyName + ".", field.get( obj ) );
+                if( String.class == field.getType(  ) )
+                {
 
-                // field.set(obj, fieldObj);
+                    if( existKeys.contains( keyName ) )
+                    {
+
+                        Object value = prefNode.get( keyName, null );
+
+                        field.set( obj, value );
+
+                    }
+                }
+
+                else if( Color.class.isAssignableFrom( field.getType(  ) ) )
+                {
+
+                    if( existKeys.contains( keyName ) )
+                    {
+
+                        int value = prefNode.getInt( keyName, 0 );
+
+                        field.set( obj, new Color( value ) );
+
+                    }
+                }
+                else if( Locale.class.isAssignableFrom( field.getType(  ) ) )
+                {
+
+                    if( existKeys.contains( keyName + ".language" ) )
+                    {
+
+                        String language =
+                            prefNode.get( keyName + ".language", "" );
+                        String country =
+                            prefNode.get( keyName + ".country", "" );
+                        String variant =
+                            prefNode.get( keyName + ".variant", "" );
+
+                        field.set( 
+                            obj, new Locale( language, country, variant ) );
+                    }
+                }
+                else if( Map.class.isAssignableFrom( field.getType(  ) ) )
+                {
+
+                    Class keyType =
+                        checkTypeDefined( 
+                            obj, field.getName(  ) + "_KEY_TYPE" );
+
+                    Class valueType =
+                        checkTypeDefined( 
+                            obj, field.getName(  ) + "_VALUE_TYPE" );
+
+                    Map map = (Map)field.get( obj );
+
+                    loadMap( prefNode, keyName + ".", map, keyType, valueType );
+
+                    //field.set( obj, list );
+                }
+
+                else if( 
+                    Collection.class.isAssignableFrom( field.getType(  ) ) )
+                {
+
+                    Field typeField =
+                        obj.getClass(  ).getField( 
+                            field.getName(  ) + "_TYPE" );
+
+                    int modsT = typeField.getModifiers(  );
+
+                    if( 
+                        !Modifier.isPublic( modsT )
+                            || !Modifier.isStatic( modsT )
+                            || ( Class.class != typeField.getType(  ) ) )
+                    {
+                        throw new Exception( 
+                            "Type not defined for Collection "
+                            + field.getName(  ) + " of class "
+                            + obj.getClass(  ) );
+
+                    }
+
+                    Collection list = (Collection)field.get( obj );
+
+                    Class typeClass = (Class)typeField.get( obj.getClass(  ) );
+
+                    loadList( prefNode, keyName + ".", list, typeClass );
+                }
+                else
+                {
+
+                    // Object fieldObj = field.getType().newInstance();
+                    loadObject( prefNode, keyName + ".", field.get( obj ) );
+
+                    // field.set(obj, fieldObj);
+                }
             }
         }
     }
@@ -355,118 +337,116 @@ public class PreferencesHelper
      * DOCUMENT_ME!
      *
      * @param prefNode DOCUMENT_ME!
-     * @param namePrefix DOCUMENT ME!
      * @param obj DOCUMENT_ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public static void saveObject( 
-        final Preferences prefNode, String namePrefix, final Object obj )
+    public static void save( final Preferences prefNode, final Object obj )
+        throws Exception
+    {
+
+        final String[] keys = prefNode.keys(  );
+
+        for( int i = 0; i < keys.length; i++ )
+        {
+            prefNode.remove( keys[i] );
+        }
+
+        saveObject( prefNode, obj, "" );
+    }
+
+    protected static void saveObject( 
+        final Preferences prefNode, final Object obj, final String namePrefix )
         throws Exception
     {
 
         if( obj == null )
-        { // remove data if object is null
-
-            if( namePrefix.endsWith( "." ) )
-            {
-                namePrefix =
-                    namePrefix.substring( 0, namePrefix.length(  ) - 1 );
-
-            }
-
-            final String[] keys = prefNode.keys(  );
-
-            for( int i = 0; i < keys.length; i++ )
-            {
-
-                if( keys[i].startsWith( namePrefix ) )
-                {
-                    prefNode.remove( keys[i] );
-
-                }
-            }
+        {
 
             return;
+        }
 
+        if( obj.getClass(  ).isPrimitive(  ) )
+        {
+
+            // primitive type
+        }
+        else
+        {
+
+            // not primitive type
         }
 
         if( obj instanceof String )
         {
-
-            if( namePrefix.endsWith( "." ) )
-            {
-                namePrefix =
-                    namePrefix.substring( 0, namePrefix.length(  ) - 1 );
-
-            }
-
             prefNode.put( namePrefix, (String)obj );
-
-            return;
-
         }
-
-        Field[] fields = obj.getClass(  ).getFields(  );
-
-        for( int i = 0; i < fields.length; i++ )
+        else if( Color.class.isAssignableFrom( obj.getClass(  ) ) )
         {
 
-            Field field = fields[i];
+            int value = ( (Color)obj ).getRGB(  );
 
-            if( !isFieldSerialized( field ) )
+            prefNode.putInt( namePrefix, value );
+        }
+        else if( Locale.class.isAssignableFrom( obj.getClass(  ) ) )
+        {
+
+            final Locale value = (Locale)obj;
+
+            prefNode.put( namePrefix + ".language", value.getLanguage(  ) );
+            prefNode.put( namePrefix + ".country", value.getCountry(  ) );
+            prefNode.put( namePrefix + ".variant", value.getVariant(  ) );
+        }
+        else if( Map.class.isAssignableFrom( obj.getClass(  ) ) )
+        {
+            saveMap( prefNode, namePrefix, (Map)obj );
+        }
+        else if( Collection.class.isAssignableFrom( obj.getClass(  ) ) )
+        {
+            saveList( prefNode, namePrefix, (Collection)obj );
+        }
+        else
+        {
+
+            final Field[] fields = obj.getClass(  ).getFields(  );
+
+            for( int i = 0; i < fields.length; i++ )
             {
 
-                continue;
+                final Field field = fields[i];
 
-            }
+                if( !isFieldSerialized( field ) )
+                {
 
-            final String keyName = namePrefix + field.getName(  );
+                    continue;
+                }
 
-            if( Color.class.isAssignableFrom( field.getType(  ) ) )
-            {
+                final String newPrefix =
+                    "".equals( namePrefix ) ? field.getName(  )
+                                            : ( namePrefix + "."
+                    + field.getName(  ) );
 
-                int value = ( (Color)field.get( obj ) ).getRGB(  );
+                if( field.getType(  ).isPrimitive(  ) )
+                {
 
-                prefNode.putInt( keyName, value );
-
-            }
-
-            else if( boolean.class == field.getType(  ) )
-            {
-                prefNode.putBoolean( keyName, field.getBoolean( obj ) );
-
-            }
-
-            else if( int.class == field.getType(  ) )
-            {
-                prefNode.putInt( keyName, field.getInt( obj ) );
-
-            }
-
-            else if( long.class == field.getType(  ) )
-            {
-                prefNode.putLong( keyName, field.getLong( obj ) );
-
-            }
-
-            else if( Map.class.isAssignableFrom( field.getType(  ) ) )
-            {
-                saveMap( prefNode, keyName + ".", (Map)field.get( obj ) );
-
-            }
-
-            else if( Collection.class.isAssignableFrom( field.getType(  ) ) )
-            {
-                saveList( 
-                    prefNode, keyName + ".", (Collection)field.get( obj ) );
-
-            }
-
-            else
-            {
-                saveObject( prefNode, keyName + ".", field.get( obj ) );
-
+                    if( boolean.class == obj.getClass(  ) )
+                    {
+                        prefNode.putBoolean( 
+                            newPrefix, field.getBoolean( obj ) );
+                    }
+                    else if( int.class == obj.getClass(  ) )
+                    {
+                        prefNode.putInt( newPrefix, field.getInt( obj ) );
+                    }
+                    else if( long.class == obj.getClass(  ) )
+                    {
+                        prefNode.putLong( newPrefix, field.getLong( obj ) );
+                    }
+                }
+                else
+                {
+                    saveObject( prefNode, field.get( obj ), newPrefix );
+                }
             }
         }
     }
@@ -480,37 +460,21 @@ public class PreferencesHelper
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public static void saveList( 
+    protected static void saveList( 
         final Preferences prefNode, final String namePrefix,
         final Collection elements ) throws Exception
     {
 
         Iterator it = elements.iterator(  );
 
-        int i = 0;
+        int i;
 
-        while( it.hasNext(  ) )
+        for( i = 0; it.hasNext(  ); i++ )
         {
-
-            Object obj = it.next(  );
-
-            if( obj.getClass(  ) == String.class )
-            {
-                prefNode.put( namePrefix + i, (String)obj );
-
-            }
-
-            else
-            {
-                saveObject( prefNode, namePrefix + i + ".", obj );
-
-            }
-
-            i++;
-
+            saveObject( prefNode, it.next(  ), namePrefix + "." + i );
         }
 
-        prefNode.putInt( namePrefix + "size", i );
+        prefNode.putInt( namePrefix + ".size", i );
 
     }
 
@@ -521,21 +485,18 @@ public class PreferencesHelper
 
         Iterator it = map.keySet(  ).iterator(  );
 
-        int i = 0;
+        int i;
 
-        while( it.hasNext(  ) )
+        for( i = 0; it.hasNext(  ); i++ )
         {
 
             Object key = it.next(  );
 
             Object value = map.get( key );
 
-            saveObject( prefNode, namePrefix + i + ".key.", key );
+            saveObject( prefNode, key, namePrefix + i + ".key" );
 
-            saveObject( prefNode, namePrefix + i + ".value.", value );
-
-            i++;
-
+            saveObject( prefNode, value, namePrefix + i + ".value" );
         }
 
         prefNode.putInt( namePrefix + "size", i );
