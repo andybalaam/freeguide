@@ -251,7 +251,7 @@ a Get rid of System.err.println, either removing, or replacing with
   FreeGuide.log.info
 - Ensure that the HTML personalised guide only shows programmes that are before
   the day start time today and after the day start time tomorrow.
-- Internationalise "Horizontal Viewer" name
+a Internationalise "Horizontal Viewer" name
 - Add an FAQ about how to change the number of days downloaded.
 - A currently-chosen browser, or a migrated one, should take priority over
   the default browser names in the properties file.
