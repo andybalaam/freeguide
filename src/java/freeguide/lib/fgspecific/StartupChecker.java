@@ -1,33 +1,20 @@
 /*
-
  *  FreeGuide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  freeguide-tv.sourceforge.net
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
 package freeguide.lib.fgspecific;
 
 import freeguide.FreeGuide;
 
 import freeguide.lib.general.*;
-
-import java.io.File;
 
 import java.util.Vector;
 import java.util.logging.Level;
@@ -70,61 +57,6 @@ public class StartupChecker
                 FreeGuide.msg.getString( "argument_processing_failed" ) );
 
         }
-
-        // Set up the Preferences clases
-
-        /*if( !setupPrefs(  ) )
-
-
-        {
-
-
-        FreeGuide.die(
-
-
-        FreeGuide.msg.getString( "failed_to_set_up_configuration" ) );
-
-
-        }*/
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public static Vector runChecks(  )
-    {
-
-        // Make an icon cache dir if it doesn't exist
-        File iconcache =
-            new File( FreeGuide.config.workingDirectory + "/iconcache" );
-
-        if( !iconcache.isDirectory(  ) )
-        {
-            iconcache.mkdirs(  );
-
-        }
-
-        // --------------------------------------------------------------------
-        // Checks that need correction
-        // Variables that will be true if something needs correcting
-        Vector failedWhat = new Vector(  );
-
-        //PreferencesGroup prefs = FreeGuide.prefs;
-
-        /* checkTextFailure( prefs.misc, "day_start_time", failedWhat );
-
-
-        checkTextFailure( prefs.misc, "grabber_start_time", failedWhat );
-
-
-        checkTextFailure( prefs.misc, "days_to_grab", failedWhat );
-
-
-        checkFileFailure( prefs.misc, "working_directory", failedWhat );*/
-        return failedWhat;
-
     }
 
     /**
@@ -298,22 +230,6 @@ public class StartupChecker
         // Set up the logger
         FreeGuide.log = Logger.getLogger( "org.freeguide-tv" );
 
-        return true;
-
-    }
-
-    /**
-     * setupPrefs Creates the preferences object that holds the configuration
-     * info
-     *
-     * @return true if all is well, false otherwise
-     */
-    private static boolean setupPrefs(  )
-    {
-
-        // Make the object that holds all the Preferences objects
-        //FreeGuide.prefs = new PreferencesGroup(  );
-        //return FreeGuide.prefs.noErrors(  );
         return true;
 
     }
