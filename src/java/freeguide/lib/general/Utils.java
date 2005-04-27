@@ -25,14 +25,14 @@ import freeguide.gui.dialogs.FGDialog;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.Window;
 
 import java.io.StreamTokenizer;
 import java.io.StringReader;
 
 import java.util.Vector;
 import java.util.logging.Level;
-
-import javax.swing.JDialog;
 
 /**
  * Some static global methods used in various parts of FreeGuide.
@@ -227,28 +227,19 @@ loop:
     public static boolean centreDialogAndRun( 
         final Component parent, FGDialog dialog )
     {
-
-        Dimension thisSize = parent.getSize(  );
-
-        Dimension dialogSize = dialog.getSize(  );
-
-        Point thisLocation = parent.getLocation(  );
-
-        dialog.setLocation( 
-            thisLocation.x + ( ( thisSize.width - dialogSize.width ) / 2 ),
-            thisLocation.y + ( ( thisSize.height - dialogSize.height ) / 2 ) );
+        centreDialog( parent, dialog );
 
         return dialog.showDialog(  );
-
     }
 
     /**
-     * DOCUMENT_ME!
+     * Move window to centre of parent window.
      *
-     * @param parent DOCUMENT_ME!
-     * @param dialog DOCUMENT_ME!
+     * @param parent parent window
+     * @param dialog window to move
      */
-    public static void centreDialog( final Component parent, JDialog dialog )
+    public static void centreDialog( 
+        final Component parent, final Window dialog )
     {
 
         Dimension thisSize = parent.getSize(  );
@@ -260,5 +251,22 @@ loop:
         dialog.setLocation( 
             thisLocation.x + ( ( thisSize.width - dialogSize.width ) / 2 ),
             thisLocation.y + ( ( thisSize.height - dialogSize.height ) / 2 ) );
+    }
+
+    /**
+     * Move window to centre of screen.
+     *
+     * @param dialog window to move
+     */
+    public static void centreDialog( final Window dialog )
+    {
+
+        Dimension screenSize = Toolkit.getDefaultToolkit(  ).getScreenSize(  );
+
+        Dimension dialogSize = dialog.getSize(  );
+
+        dialog.setLocation( 
+            ( screenSize.width - dialogSize.width ) / 2,
+            ( screenSize.height - dialogSize.height ) / 2 );
     }
 }
