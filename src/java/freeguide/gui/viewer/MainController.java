@@ -38,7 +38,6 @@ import javax.swing.JFrame;
 import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * Main window of application.
@@ -169,7 +168,7 @@ public class MainController implements IModuleViewer.Parent
 
         try
         {
-            PreferencesHelper.loadObject( configStore, "", config );
+            PreferencesHelper.load( configStore, config );
 
             SelectionManager.load( configStore.node( "selection" ) );
 
@@ -187,7 +186,7 @@ public class MainController implements IModuleViewer.Parent
 
         try
         {
-            PreferencesHelper.saveObject( configStore, "", config );
+            PreferencesHelper.save( configStore, config );
 
             SelectionManager.save( configStore.node( "selection" ) );
         }
@@ -216,67 +215,49 @@ public class MainController implements IModuleViewer.Parent
     }
 
     /**
-     * DOCUMENT_ME!
+     * Set L&F as described in config.
      */
     public void setLookAndFeel(  )
     {
 
-        LookAndFeel currentLAF = UIManager.getLookAndFeel(  );
+        final String inspectedLFClassName;
+        final String currentLAFClassName;
 
-        String defaultLAFName = "Metal";
+        if( config.ui.LFname == null )
+        {
+            inspectedLFClassName = UIManager.getSystemLookAndFeelClassName(  );
+        }
+        else
+        {
+            inspectedLFClassName =
+                LookAndFeelManager.getLookAndFeelClassName( config.ui.LFname );
+        }
 
-        String currentLAFClassName = null;
+        final LookAndFeel currentLAF = UIManager.getLookAndFeel(  );
 
         if( currentLAF != null )
         {
-            defaultLAFName = currentLAF.getName(  );
-
             currentLAFClassName = currentLAF.getClass(  ).getName(  );
-
+        }
+        else
+        {
+            currentLAFClassName = null;
         }
 
-        String requestedLookAndFeel = config.ui.LFname;
-
-        if( 
-            ( !requestedLookAndFeel.equals( defaultLAFName ) )
-                && ( !( requestedLookAndFeel.equals( currentLAFClassName ) ) ) )
+        if( !inspectedLFClassName.equals( currentLAFClassName ) )
         {
-
-            String className =
-                LookAndFeelManager.getLookAndFeelClassName( 
-                    requestedLookAndFeel );
-
-            if( className == null )
-            {
-
-                // Assume that the pref specifies the classname
-                // and do our best
-                className = requestedLookAndFeel;
-
-            }
 
             try
             {
-                UIManager.setLookAndFeel( className );
+                UIManager.setLookAndFeel( inspectedLFClassName );
 
                 SwingUtilities.updateComponentTreeUI( mainFrame );
-
             }
-
-            catch( ClassNotFoundException e )
+            catch( Exception ex )
             {
-            }
-
-            catch( InstantiationException e )
-            {
-            }
-
-            catch( IllegalAccessException e )
-            {
-            }
-
-            catch( UnsupportedLookAndFeelException e )
-            {
+                FreeGuide.log.log( 
+                    Level.WARNING, "Error setup L&F to "
+                    + inspectedLFClassName, ex );
             }
         }
     }
@@ -515,9 +496,6 @@ public class MainController implements IModuleViewer.Parent
                 mainWindowPosition.setLocation( 
                     ( screenSize.width - mainWindowPosition.width ) / 2,
                     ( screenSize.height - mainWindowPosition.height ) / 2 );
-
-                LFname = "Metal";
-
             }
         }
     }
