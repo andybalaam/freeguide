@@ -13,12 +13,11 @@ import java.awt.Component;
 
 import java.io.IOException;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
 
 /**
  * DOCUMENT ME!
@@ -43,9 +42,11 @@ public class PanelGeneralController implements IModuleConfigurationUI
         {
             panel = new PanelGeneralUI(  );
 
+            List lfs = LookAndFeelManager.getAvailableLooksAndFeels(  );
+            lfs.add( 
+                0, FreeGuide.msg.getString( "Options.General.LF.default" ) );
             panel.getCbLF(  ).setModel( 
-                new DefaultComboBoxModel( 
-                    LookAndFeelManager.getAvailableLooksAndFeels(  ).toArray(  ) ) );
+                new DefaultComboBoxModel( lfs.toArray(  ) ) );
 
             try
             {
@@ -54,11 +55,14 @@ public class PanelGeneralController implements IModuleConfigurationUI
                         this.getClass(  ).getClassLoader(  ),
                         "i18n/MessagesBundle" );
 
-                String[] langNames = new String[locales.length];
+                String[] langNames = new String[locales.length + 1];
+                langNames[0] =
+                    FreeGuide.msg.getString( 
+                        "Options.General.Language.default" );
 
                 for( int i = 0; i < locales.length; i++ )
                 {
-                    langNames[i] =
+                    langNames[i + 1] =
                         locales[i].getDisplayName( 
                             FreeGuide.msg.getLocale(  ) );
                 }
@@ -72,6 +76,19 @@ public class PanelGeneralController implements IModuleConfigurationUI
             }
 
             resetToDefaults(  );
+
+            if( MainController.config.ui.LFname != null )
+            {
+                panel.getCbLF(  ).setSelectedItem( 
+                    MainController.config.ui.LFname );
+            }
+
+            if( FreeGuide.config.lang != null )
+            {
+                panel.getCbLang(  ).setSelectedItem( 
+                    FreeGuide.config.lang.getDisplayName( 
+                        FreeGuide.msg.getLocale(  ) ) );
+            }
         }
 
         return panel;
@@ -85,20 +102,8 @@ public class PanelGeneralController implements IModuleConfigurationUI
         panel.getTextWorkingDir(  ).setText( 
             FreeGuide.config.workingDirectory );
 
-        LookAndFeel currentLAF = UIManager.getLookAndFeel(  );
-
-        String defaultLAFName = "Metal";
-
-        if( currentLAF != null )
-        {
-            defaultLAFName = currentLAF.getName(  );
-
-        }
-
-        panel.getCbLF(  ).setSelectedItem( MainController.config.ui.LFname );
-        panel.getCbLang(  ).setSelectedItem( 
-            FreeGuide.msg.getLocale(  ).getDisplayName( 
-                FreeGuide.msg.getLocale(  ) ) );
+        panel.getCbLF(  ).setSelectedIndex( 0 );
+        panel.getCbLang(  ).setSelectedIndex( 0 );
     }
 
     /**
@@ -109,13 +114,32 @@ public class PanelGeneralController implements IModuleConfigurationUI
         FreeGuide.config.workingDirectory =
             panel.getTextWorkingDir(  ).getText(  );
 
-        MainController.config.ui.LFname =
-            panel.getCbLF(  ).getSelectedItem(  ).toString(  );
+        if( panel.getCbLF(  ).getSelectedIndex(  ) != -1 )
+        {
+
+            if( panel.getCbLF(  ).getSelectedIndex(  ) == 0 )
+            {
+                MainController.config.ui.LFname = null;
+            }
+            else
+            {
+                MainController.config.ui.LFname =
+                    panel.getCbLF(  ).getSelectedItem(  ).toString(  );
+            }
+        }
 
         if( panel.getCbLang(  ).getSelectedIndex(  ) != -1 )
         {
 
-            //            FreeGuide.config.lang = locales[panel.getCbLang().getSelectedIndex()]; 
+            if( panel.getCbLang(  ).getSelectedIndex(  ) == 0 )
+            {
+                FreeGuide.config.lang = null;
+            }
+            else
+            {
+                FreeGuide.config.lang =
+                    locales[panel.getCbLang(  ).getSelectedIndex(  ) - 1];
+            }
         }
     }
 

@@ -55,16 +55,20 @@ public class PanelGeneralUI extends JPanel
         gridBagConstraints1.gridx = 0;
         gridBagConstraints1.gridy = 0;
         gridBagConstraints1.insets = new java.awt.Insets( 3, 3, 3, 3 );
+        gridBagConstraints1.anchor = java.awt.GridBagConstraints.WEST;
         labelWorkDir.setText( "Working dir:" );
-        labelWorkDir.setText( FreeGuide.msg.getString( "working_dir" ) + ":" );
+        labelWorkDir.setText( 
+            FreeGuide.msg.getString( "Options.General.WorkingDir" ) + ":" );
         gridBagConstraints2.gridx = 0;
         gridBagConstraints2.gridy = 1;
         gridBagConstraints2.insets = new java.awt.Insets( 3, 3, 3, 3 );
+        gridBagConstraints2.anchor = java.awt.GridBagConstraints.WEST;
         labelLF.setText( "LF:" );
         labelLF.setLabelFor( getCbLF(  ) );
         labelWorkDir.setLabelFor( getTextWorkingDir(  ) );
         labelWorkDir.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_W );
-        labelLF.setText( FreeGuide.msg.getString( "look_and_feel" ) + ":" );
+        labelLF.setText( 
+            FreeGuide.msg.getString( "Options.General.LF" ) + ":" );
         gridBagConstraints3.gridx = 1;
         gridBagConstraints3.gridy = 0;
         gridBagConstraints3.weightx = 1.0;
@@ -87,13 +91,13 @@ public class PanelGeneralUI extends JPanel
         gridBagConstraints6.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints6.insets = new java.awt.Insets( 3, 3, 3, 3 );
         gridBagConstraints5.insets = new java.awt.Insets( 3, 3, 3, 3 );
+        gridBagConstraints5.anchor = java.awt.GridBagConstraints.WEST;
         this.add( labelLF, gridBagConstraints2 );
         this.add( labelLang, gridBagConstraints5 );
         this.add( labelWorkDir, gridBagConstraints1 );
         this.add( getTextWorkingDir(  ), gridBagConstraints3 );
         this.add( getCbLF(  ), gridBagConstraints4 );
         this.add( getCbLang(  ), gridBagConstraints6 );
-        labelLang.setVisible( false );
     }
 
     /**
@@ -139,7 +143,6 @@ public class PanelGeneralUI extends JPanel
         if( cbLang == null )
         {
             cbLang = new JComboBox(  );
-            cbLang.setVisible( false );
         }
 
         return cbLang;
