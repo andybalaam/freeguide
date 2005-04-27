@@ -12,6 +12,8 @@ package freeguide.gui.dialogs;
 
 import freeguide.*;
 
+import freeguide.lib.general.Utils;
+
 import freeguide.plugins.ILogger;
 import freeguide.plugins.IProgress;
 
@@ -58,12 +60,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         this.secondProgressBar = secondProgressBar;
         initComponents(  );
 
-        // Centre the screen
-        java.awt.Dimension screenSize =
-            java.awt.Toolkit.getDefaultToolkit(  ).getScreenSize(  );
-        setLocation( 
-            ( screenSize.width - getWidth(  ) ) / 2,
-            ( screenSize.height - getHeight(  ) ) / 2 );
+        Utils.centreDialog( owner, this );
     }
 
     private void initComponents(  )
@@ -150,24 +147,11 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         log.setVisible( false );
         getContentPane(  ).add( logScroll, gridBagConstraints );
 
-        // Centre the screen
-        java.awt.Dimension screenSize =
-            java.awt.Toolkit.getDefaultToolkit(  ).getScreenSize(  );
-        setLocation( 
-            ( screenSize.width - getWidth(  ) ) / 2,
-            ( screenSize.height - getHeight(  ) ) / 2 );
         pack(  );
         minHeight = getHeight(  );
         maxHeight = minHeight + 150;
 
         setDefaultCloseOperation( JDialog.HIDE_ON_CLOSE );
-
-        //minPreferredSize = getSize(  );
-        //maxPreferredSize = getSize(  );
-        //maxPreferredSize.height += 200;
-        //  setSize( maxPreferredSize );
-        // To Be Added Shortly (Rob)
-        //        GuiUtils.centerDialog( this );
     }
 
     /**

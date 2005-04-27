@@ -18,6 +18,8 @@ import freeguide.gui.dialogs.FGDialog;
 
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 
+import freeguide.lib.general.Utils;
+
 import java.awt.Dimension;
 
 import java.util.ArrayList;
@@ -84,6 +86,7 @@ public class ChannelSetListDialog extends FGDialog
 
         channelsetModel = new DefaultListModel(  );
         initComponents(  );
+        Utils.centreDialog( owner, this );
         loadChannelSet(  );
         fillList(  );
         latestIndex = 0;
@@ -283,14 +286,7 @@ public class ChannelSetListDialog extends FGDialog
         getRootPane(  ).setDefaultButton( butOK );
         pack(  );
 
-        java.awt.Dimension screenSize =
-            java.awt.Toolkit.getDefaultToolkit(  ).getScreenSize(  );
         setSize( new java.awt.Dimension( 400, 300 ) );
-        setLocation( 
-            ( screenSize.width - 400 ) / 2, ( screenSize.height - 300 ) / 2 );
-
-        // To Be Added Shortly (Rob)
-        //        GuiUtils.centerDialog( this, 400, 300 );
     }
 
     /**

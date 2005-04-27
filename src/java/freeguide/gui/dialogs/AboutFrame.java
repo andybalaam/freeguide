@@ -14,6 +14,8 @@ package freeguide.gui.dialogs;
 
 import freeguide.*;
 
+import freeguide.lib.general.Utils;
+
 // To Be Added Shortly (Rob)
 //import freeguide.lib.general.*;
 
@@ -64,6 +66,7 @@ public class AboutFrame extends javax.swing.JDialog
         str.append( "</td></tr></table>" );
         str.append( "</font>" );
         jTextPane1.setText( str.toString(  ) );
+        Utils.centreDialog( parent, this );
     }
 
     private void initComponents(  )
@@ -95,14 +98,7 @@ public class AboutFrame extends javax.swing.JDialog
         getContentPane(  ).add( jScrollPane1, java.awt.BorderLayout.CENTER );
         pack(  );
 
-        java.awt.Dimension screenSize =
-            java.awt.Toolkit.getDefaultToolkit(  ).getScreenSize(  );
         setSize( new java.awt.Dimension( 416, 245 ) );
-        setLocation( 
-            ( screenSize.width - 416 ) / 2, ( screenSize.height - 245 ) / 2 );
-
-        // To Be Added Shortly (Rob)
-        //        GuiUtils.centerDialog( this, 416, 245 );
     }
 
     /**

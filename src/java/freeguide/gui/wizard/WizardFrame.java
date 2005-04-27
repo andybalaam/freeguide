@@ -14,11 +14,11 @@ package freeguide.gui.wizard;
 
 import freeguide.FreeGuide;
 
-import java.awt.Dimension;
+import freeguide.lib.general.Utils;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -340,12 +340,9 @@ public class WizardFrame extends javax.swing.JFrame
 
         refreshButtons(  );
 
-        Dimension screenSize = Toolkit.getDefaultToolkit(  ).getScreenSize(  );
-
         setSize( new java.awt.Dimension( 500, 350 ) );
 
-        setLocation( 
-            ( screenSize.width - 500 ) / 2, ( screenSize.height - 350 ) / 2 );
+        Utils.centreDialog( this );
 
         newPanel.revalidate(  );
 

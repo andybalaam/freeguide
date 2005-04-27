@@ -20,6 +20,7 @@ import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.selection.Favourite;
 
 import freeguide.lib.general.Time;
+import freeguide.lib.general.Utils;
 
 import java.text.SimpleDateFormat;
 
@@ -84,6 +85,7 @@ public class FavouriteEditorDialog extends FGDialog
         super( owner, title );
         this.favourite = favourite;
         initComponents(  );
+        Utils.centreDialog( owner, this );
         fillLists( allChannelsSet );
         getDetails(  );
         addActionListeners(  );
@@ -695,14 +697,7 @@ public class FavouriteEditorDialog extends FGDialog
         getRootPane(  ).setDefaultButton( butOK );
         pack(  );
 
-        java.awt.Dimension screenSize =
-            java.awt.Toolkit.getDefaultToolkit(  ).getScreenSize(  );
         setSize( new java.awt.Dimension( 400, 300 ) );
-        setLocation( 
-            ( screenSize.width - 400 ) / 2, ( screenSize.height - 300 ) / 2 );
-
-        // To Be Added Shortly (Rob)
-        //        GuiUtils.centerDialog( this, 400, 300 );
     }
 
     /**

@@ -14,6 +14,8 @@ package freeguide.gui.dialogs;
 
 import freeguide.FreeGuide;
 
+import freeguide.lib.general.Utils;
+
 import java.awt.Image;
 
 import java.net.URL;
@@ -40,6 +42,7 @@ public class PleaseWaitFrame extends JFrame
     {
         super( FreeGuide.msg.getString( "please_wait" ) );
         initComponents(  );
+        Utils.centreDialog( this );
     }
 
     private void initComponents(  )
@@ -68,16 +71,6 @@ public class PleaseWaitFrame extends JFrame
                 }
             } );
         pack(  );
-
-        java.awt.Dimension screenSize =
-            java.awt.Toolkit.getDefaultToolkit(  ).getScreenSize(  );
-        java.awt.Dimension windowSize = getSize(  );
-        setLocation( 
-            ( screenSize.width - windowSize.width ) / 2,
-            ( screenSize.height - windowSize.height ) / 2 );
-
-        // To Be Added Shortly (Rob)
-        //        GuiUtils.centerDialog( this );
     }
 
     /**
