@@ -249,6 +249,8 @@ a "Download in background" should work to make the downloading dialog non-modal.
 a Rename classes so every class has a different name.
 a Get rid of System.err.println, either removing, or replacing with 
   FreeGuide.log.info
+- The upgrade from 0.8.6 to 0.10.1 changed my theme from Metal to GTK.  It
+  should leave my theme unchanged.
 - Ensure that the HTML personalised guide only shows programmes that are before
   the day start time today and after the day start time tomorrow.
 a Internationalise "Horizontal Viewer" name
@@ -268,7 +270,7 @@ a The default channel set name is "" and it should be "(New channel set)"
     a Make a wider gap between XMLTV grabbers so they look separate.
     - Make all panels accessible via keyboard accelerators
     a Allow to specify a default browser (needed by Debian maintainer)
-- Migrate XMLTV settings from 0.8.x
++ Migrate XMLTV settings from 0.8.x
 a Deleting XMLTV grabbers does not work - they re-appear when you re-enter
   Options
 a Can we remove ViewerFramePositionConfig class?
