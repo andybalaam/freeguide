@@ -193,7 +193,10 @@ public class FirstTimeWizard
             FreeGuide.msg.getString( "what_is_the_name_of_your_web_browser.2" ),
             KeyEvent.VK_W );
 
-        config.browserName = defaultBrowser;
+        if( config.browserName == null )
+        {
+            config.browserName = defaultBrowser;
+        }
 
         panels[3].setOnEnter( 
             new WizardPanel.OnEnter(  )
