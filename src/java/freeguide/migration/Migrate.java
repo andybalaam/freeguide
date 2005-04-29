@@ -373,6 +373,8 @@ public class Migrate
                     "viewer_splitpane_vertical",
                     hov.config.positionSplitPaneVertical );
 
+            MainController.config.ui.LFname =
+                nodeScreen.get( "look_and_feel", null );
             MainController.config.ui.mainWindowPosition.x =
                 nodeScreen.getInt( 
                     "viewer_left",
