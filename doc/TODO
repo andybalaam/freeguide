@@ -264,13 +264,13 @@ a Buttons on the XMLTV grabbers Option pane say "Default" and "", when they
 - Channel sets do not appear to work - not sure why, but try using
   tv_grab_uk_bleb and then making a channel set.
 a The default channel set name is "" and it should be "(New channel set)"
-- Options screen:
+a Options screen:
     a Rename "..." buttons to "Configure"
     a Change "XMLTV" checkbox to "Enable XMLTV plugin"
     a Rename "C" buttons to "Default"
     a Rename "Add" to "Add a new XMLTV grabber"
     a Make a wider gap between XMLTV grabbers so they look separate.
-    - Make all panels accessible via keyboard accelerators
+    a Make all panels accessible via keyboard accelerators
     a Allow to specify a default browser (needed by Debian maintainer)
 + Migrate XMLTV settings from 0.8.x
 a Deleting XMLTV grabbers does not work - they re-appear when you re-enter
