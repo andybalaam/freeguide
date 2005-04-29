@@ -146,6 +146,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         getRootPane(  ).setDefaultButton( okButton );
 
         pack(  );
+        setSize( new Dimension( 600, 400 ) );
     }
 
     /**
