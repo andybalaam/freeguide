@@ -65,6 +65,7 @@ public class PanelGeneralUI extends JPanel
         gridBagConstraints2.anchor = java.awt.GridBagConstraints.WEST;
         labelLF.setText( "LF:" );
         labelLF.setLabelFor( getCbLF(  ) );
+        labelLF.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_F );
         labelWorkDir.setLabelFor( getTextWorkingDir(  ) );
         labelWorkDir.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_W );
         labelLF.setText( 
@@ -85,6 +86,7 @@ public class PanelGeneralUI extends JPanel
         labelLang.setText( 
             FreeGuide.msg.getString( "Options.General.Language" ) + ":" );
         labelLang.setLabelFor( getCbLang(  ) );
+        labelLang.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_L );
         gridBagConstraints6.gridx = 1;
         gridBagConstraints6.gridy = 2;
         gridBagConstraints6.weightx = 1.0;

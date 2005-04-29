@@ -72,7 +72,7 @@ public class VsetvConfigurationUIPanel extends JPanel
 
         this.setLayout( new GridBagLayout(  ) );
 
-        this.setSize( 300, 200 );
+        this.setSize( 300, 300 );
 
         gridBagConstraints18.gridx = 0;
 
@@ -241,6 +241,8 @@ public class VsetvConfigurationUIPanel extends JPanel
 
             labelUser.setText( "Username" );
 
+            labelUser.setLabelFor( getTextUser(  ) );
+            labelUser.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_U );
             labelUser.setText( 
                 localizer.getLocalizedMessage( "Options.UI.Username" ) );
 
@@ -250,6 +252,8 @@ public class VsetvConfigurationUIPanel extends JPanel
 
             labelPass.setText( "Password" );
 
+            labelPass.setLabelFor( getTextPass(  ) );
+            labelPass.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_P );
             labelPass.setText( 
                 localizer.getLocalizedMessage( "Options.UI.Password" ) );
 
@@ -391,6 +395,7 @@ public class VsetvConfigurationUIPanel extends JPanel
 
             rbNoAuth.setText( "Non-Authorized" );
 
+            rbNoAuth.setMnemonic( java.awt.event.KeyEvent.VK_N );
             rbNoAuth.setText( 
                 localizer.getLocalizedMessage( "Options.UI.CB.NoAuth" ) );
 
@@ -414,6 +419,7 @@ public class VsetvConfigurationUIPanel extends JPanel
 
             rbAuth.setText( "Authorized" );
 
+            rbAuth.setMnemonic( java.awt.event.KeyEvent.VK_A );
             rbAuth.setText( 
                 localizer.getLocalizedMessage( "Options.UI.CB.Auth" ) );
 
@@ -457,6 +463,7 @@ public class VsetvConfigurationUIPanel extends JPanel
 
             cbGetAll.setText( "Get all site channels" );
 
+            cbGetAll.setMnemonic( java.awt.event.KeyEvent.VK_G );
             cbGetAll.setText( 
                 localizer.getLocalizedMessage( "Options.UI.Auth.GetAll" ) );
 

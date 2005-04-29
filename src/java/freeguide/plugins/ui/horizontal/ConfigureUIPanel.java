@@ -183,7 +183,7 @@ public class ConfigureUIPanel extends JPanel
         labelHeight.setText( 
             localizer.getLocalizedMessage( "channel_height" ) + ":" );
 
-        labelHeight.setLabelFor( textHeight );
+        labelHeight.setLabelFor( getSliderHeight(  ) );
 
         labelHeight.setDisplayedMnemonic( KeyEvent.VK_H );
 
@@ -193,6 +193,8 @@ public class ConfigureUIPanel extends JPanel
 
         labelColorNormal.setText( "normal_prog_colour" );
 
+        labelColorNormal.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_N );
+        labelColorNormal.setLabelFor( getBtnColorNormal(  ) );
         labelColorNormal.setText( 
             localizer.getLocalizedMessage( "normal_prog_colour" ) );
 
@@ -216,6 +218,8 @@ public class ConfigureUIPanel extends JPanel
 
         labelColorInGuide.setText( "in_guide_prog_colour" );
 
+        labelColorInGuide.setLabelFor( getBtnColorInGuide(  ) );
+        labelColorInGuide.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_G );
         labelColorInGuide.setText( 
             localizer.getLocalizedMessage( "in_guide_prog_colour" ) );
 
@@ -227,6 +231,8 @@ public class ConfigureUIPanel extends JPanel
 
         labelColorMovie.setText( "movie_colour" );
 
+        labelColorMovie.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_M );
+        labelColorMovie.setLabelFor( getBtnColorMovie(  ) );
         labelColorMovie.setText( 
             localizer.getLocalizedMessage( "movie_colour" ) );
 
@@ -236,6 +242,8 @@ public class ConfigureUIPanel extends JPanel
 
         labelColorChannel.setText( "channel_colour" );
 
+        labelColorChannel.setLabelFor( getBtnColorChannel(  ) );
+        labelColorChannel.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_C );
         labelColorChannel.setText( 
             localizer.getLocalizedMessage( "channel_colour" ) );
 
@@ -245,6 +253,8 @@ public class ConfigureUIPanel extends JPanel
 
         labelColorHeart.setText( "heart_colour" );
 
+        labelColorHeart.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_E );
+        labelColorHeart.setLabelFor( getBtnColorHeart(  ) );
         labelColorHeart.setText( 
             localizer.getLocalizedMessage( "heart_colour" ) );
 
@@ -335,7 +345,7 @@ public class ConfigureUIPanel extends JPanel
         labelWidth.setText( 
             localizer.getLocalizedMessage( "width_of_1hr" ) + ":" );
 
-        labelWidth.setLabelFor( textWidth );
+        labelWidth.setLabelFor( getSliderWidth(  ) );
 
         labelWidth.setDisplayedMnemonic( KeyEvent.VK_W );
 
@@ -351,6 +361,7 @@ public class ConfigureUIPanel extends JPanel
 
         labelFont.setLabelFor( btnFont );
 
+        labelFont.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_F );
         gridBagConstraints8.gridx = 1;
 
         gridBagConstraints8.gridy = 2;
@@ -413,6 +424,8 @@ public class ConfigureUIPanel extends JPanel
 
         jLabel.setText( "day_starts_at:" );
 
+        jLabel.setLabelFor( getDayStart(  ) );
+        jLabel.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_S );
         jLabel.setText( 
             localizer.getLocalizedMessage( "day_starts_at" ) + ":" );
 
@@ -432,6 +445,7 @@ public class ConfigureUIPanel extends JPanel
 
         labelTimeFormat.setText( "time_format:" );
 
+        labelTimeFormat.setLabelFor( getRbTime12(  ) );
         labelTimeFormat.setText( 
             localizer.getLocalizedMessage( "time_format" ) + ":" );
 
@@ -927,6 +941,7 @@ public class ConfigureUIPanel extends JPanel
 
             rbTime12.setText( "12 hour" );
 
+            rbTime12.setMnemonic( java.awt.event.KeyEvent.VK_1 );
             rbTime12.setText( localizer.getLocalizedMessage( "12_hour" ) );
 
         }
@@ -949,6 +964,7 @@ public class ConfigureUIPanel extends JPanel
 
             rbTime24.setText( "24 hour" );
 
+            rbTime24.setMnemonic( java.awt.event.KeyEvent.VK_2 );
             rbTime24.setText( localizer.getLocalizedMessage( "24_hour" ) );
 
         }
@@ -971,6 +987,7 @@ public class ConfigureUIPanel extends JPanel
 
             cbDrawTime.setText( "Show programme time ?" );
 
+            cbDrawTime.setMnemonic( java.awt.event.KeyEvent.VK_O );
             cbDrawTime.setText( 
                 localizer.getLocalizedMessage( "show_programme_times" ) );
 
@@ -994,6 +1011,7 @@ public class ConfigureUIPanel extends JPanel
 
             cbAlignLeft.setText( "Moving names ?" );
 
+            cbAlignLeft.setMnemonic( java.awt.event.KeyEvent.VK_V );
             cbAlignLeft.setText( 
                 localizer.getLocalizedMessage( "moving_names" ) );
 
@@ -1017,6 +1035,7 @@ public class ConfigureUIPanel extends JPanel
 
             cbPrintDelta.setText( "Print time delta ?" );
 
+            cbPrintDelta.setMnemonic( java.awt.event.KeyEvent.VK_P );
             cbPrintDelta.setText( 
                 localizer.getLocalizedMessage( "print_time_delta" ) );
 
@@ -1040,6 +1059,7 @@ public class ConfigureUIPanel extends JPanel
 
             cbDisplayTooltips.setText( "Show tooltips ?" );
 
+            cbDisplayTooltips.setMnemonic( java.awt.event.KeyEvent.VK_L );
             cbDisplayTooltips.setText( 
                 localizer.getLocalizedMessage( "show_tooltips" ) );
 

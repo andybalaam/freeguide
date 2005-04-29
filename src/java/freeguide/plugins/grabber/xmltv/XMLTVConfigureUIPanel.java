@@ -97,6 +97,7 @@ public class XMLTVConfigureUIPanel extends JScrollPane
         {
             btnAdd = new JButton(  );
             btnAdd.setText( "Add" );
+            btnAdd.setMnemonic( java.awt.event.KeyEvent.VK_A );
             btnAdd.setText( localizer.getLocalizedMessage( "Options.Add" ) );
         }
 
