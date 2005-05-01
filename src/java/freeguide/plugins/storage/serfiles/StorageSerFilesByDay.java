@@ -83,10 +83,10 @@ public class StorageSerFilesByDay extends BaseModule implements IStorage
                     new File( FreeGuide.config.workingDirectory ).listFiles( 
                         new FilterFiles(  ) );
 
+                cachedInfo = new Info(  );
+
                 if( files != null )
                 {
-                    cachedInfo = new Info(  );
-
                     for( int i = 0; i < files.length; i++ )
                     {
 
@@ -140,6 +140,11 @@ public class StorageSerFilesByDay extends BaseModule implements IStorage
             FreeGuide.config.workingDirectory + "/" + "day-"
             + dateFormat.format( new Date( date ) ) + "-"
             + (char)( 'A' + letterNum ) + ".ser" );
+    }
+
+    protected void createDir( )
+    {
+        new File(FreeGuide.config.workingDirectory).mkdirs();
     }
 
     /**
@@ -363,6 +368,7 @@ public class StorageSerFilesByDay extends BaseModule implements IStorage
          */
         public void sync(  )
         {
+        	createDir();
 
             Iterator it = filesData.keySet(  ).iterator(  );
 
