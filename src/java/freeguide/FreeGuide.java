@@ -117,13 +117,15 @@ public class FreeGuide
                 new Locale( arguments.getValue( "language" ), country );
         }
 
+        setLocale( runtimeInfo.defaultLocale );
+
         // Find out what the documents directory is from the command line
         if( arguments.isSet( "doc_directory" ) )
         {
             runtimeInfo.docDirectory = arguments.getValue( "doc_directory" );
 
         }
-
+        
         else
         {
             log.warning( FreeGuide.msg.getString( "no_docs_dir_supplied" ) );
