@@ -429,16 +429,16 @@ public class PreferencesHelper
                 if( field.getType(  ).isPrimitive(  ) )
                 {
 
-                    if( boolean.class == obj.getClass(  ) )
+                    if( boolean.class == field.getType(  ) )
                     {
                         prefNode.putBoolean( 
                             newPrefix, field.getBoolean( obj ) );
                     }
-                    else if( int.class == obj.getClass(  ) )
+                    else if( int.class == field.getType(  ) )
                     {
                         prefNode.putInt( newPrefix, field.getInt( obj ) );
                     }
-                    else if( long.class == obj.getClass(  ) )
+                    else if( long.class == field.getType(  ) )
                     {
                         prefNode.putLong( newPrefix, field.getLong( obj ) );
                     }
