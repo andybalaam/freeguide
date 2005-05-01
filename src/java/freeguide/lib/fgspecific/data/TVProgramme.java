@@ -651,10 +651,7 @@ public class TVProgramme implements Comparable, Serializable
 
         }
 
-        StringBuffer path = new StringBuffer(  );
-        path.append( FreeGuide.config.workingDirectory );
-        path.append( '/' );
-        path.append( TVChannel.ICONCACHE_SUBDIR );
+        StringBuffer path = FreeGuide.getIconCacheDir();
 
         path.append( 
             iconURL.replaceAll( "[^0-9A-Za-z_-]|^http://|^ftp://", "" ) );
