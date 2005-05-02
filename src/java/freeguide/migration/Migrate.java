@@ -9,6 +9,7 @@ import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.selection.Favourite;
 import freeguide.lib.fgspecific.selection.SelectionManager;
 
+import freeguide.lib.general.LanguageHelper;
 import freeguide.lib.general.PreferencesHelper;
 import freeguide.lib.general.Time;
 import freeguide.lib.general.Version;
@@ -25,7 +26,9 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 
+import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 import java.util.prefs.Preferences;
 
 /**
@@ -182,11 +185,11 @@ public class Migrate
             if( region != null )
             {
 
-                Properties conv = new Properties(  );
-                conv.load( 
+                Map conv = new TreeMap(  );
+                LanguageHelper.loadProperties( 
                     getClass(  ).getClassLoader(  ).getResourceAsStream( 
-                        "freeguide/migration/regions.0.8.6.properties" ) );
-                FreeGuide.config.countryID = conv.getProperty( region );
+                        "freeguide/migration/regions.0.8.6.properties" ), conv );
+                FreeGuide.config.countryID = (String)conv.get( region );
             }
 
             hov.config.dayStartTime.setTimeHHMMString( 
