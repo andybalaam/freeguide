@@ -25,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 
+import java.util.Properties;
 import java.util.prefs.Preferences;
 
 /**
@@ -176,8 +177,17 @@ public class Migrate
             FreeGuide.config.browserName =
                 nodeMisc.get( "browser", FreeGuide.config.browserName );
 
-            FreeGuide.config.countryID =
-                nodeMisc.get( "region", FreeGuide.config.countryID );
+            String region = nodeMisc.get( "region", null );
+
+            if( region != null )
+            {
+
+                Properties conv = new Properties(  );
+                conv.load( 
+                    getClass(  ).getClassLoader(  ).getResourceAsStream( 
+                        "freeguide/migration/regions.0.8.6.properties" ) );
+                FreeGuide.config.countryID = conv.getProperty( region );
+            }
 
             hov.config.dayStartTime.setTimeHHMMString( 
                 nodeMisc.get( 
