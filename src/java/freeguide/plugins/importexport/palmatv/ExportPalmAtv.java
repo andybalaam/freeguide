@@ -94,7 +94,7 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
 
             destination.delete(  );
 
-            StoreIterator iterator = new StoreIterator( "sitename", hPDBName );
+            StoreIterator iterator = new StoreIterator( hPDBName );
             data.iterate( iterator );
             iterator.sync(  );
 
@@ -120,7 +120,6 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
     {
 
         final List programmes = new ArrayList(  );
-        final String siteName;
         protected IOException ex;
         final ByteArrayOutputStream ba;
         final PDBFile pdb;
@@ -129,18 +128,16 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
         /**
          * Creates a new StoreIterator object.
          *
-         * @param siteName DOCUMENT ME!
          * @param pdbName DOCUMENT ME!
          *
          * @throws IOException DOCUMENT ME!
          */
-        public StoreIterator( final String siteName, final String pdbName )
-            throws IOException
+        public StoreIterator( final String pdbName ) throws IOException
         {
-            this.siteName = siteName;
             pdb = new PDBFile( pdbName, hCreatorID, hDatabaseType );
             ba = new ByteArrayOutputStream(  );
             wr = new ADataOutputStream( ba, charset );
+            wr.setBigEndian(  );
         }
 
         protected void onChannel( TVChannel channel )
@@ -177,14 +174,22 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
                 try
                 {
 
+                    String channelID = getCurrentChannel(  ).getID(  );
+                    int pos = channelID.indexOf( '/' );
+
+                    if( pos != -1 )
+                    {
+                        channelID = channelID.substring( 0, pos );
+                    }
+
                     int m =
                         checkMaxRecSize( 
                             getCurrentChannel(  ).getDisplayName(  ),
-                            programmes, siteName, mprev );
+                            programmes, channelID, mprev );
                     ba.reset(  );
                     saveChannelProgTo( 
                         getCurrentChannel(  ).getDisplayName(  ), programmes,
-                        siteName, mprev, m );
+                        channelID, mprev, m );
                     pdb.addRecord( ba.toByteArray(  ) );
                     mprev = m;
                 }
