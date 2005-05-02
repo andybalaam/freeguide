@@ -374,7 +374,7 @@ public class Migrate
                     hov.config.positionSplitPaneVertical );
 
             MainController.config.ui.LFname =
-                nodeScreen.get( "look_and_feel", null );
+                nodeScreen.get( "look_and_feel", "Metal" );
             MainController.config.ui.mainWindowPosition.x =
                 nodeScreen.getInt( 
                     "viewer_left",
