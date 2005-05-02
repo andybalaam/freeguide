@@ -125,7 +125,7 @@ public class FreeGuide
             runtimeInfo.docDirectory = arguments.getValue( "doc_directory" );
 
         }
-        
+
         else
         {
             log.warning( FreeGuide.msg.getString( "no_docs_dir_supplied" ) );

@@ -87,6 +87,7 @@ public class StorageSerFilesByDay extends BaseModule implements IStorage
 
                 if( files != null )
                 {
+
                     for( int i = 0; i < files.length; i++ )
                     {
 
@@ -142,9 +143,9 @@ public class StorageSerFilesByDay extends BaseModule implements IStorage
             + (char)( 'A' + letterNum ) + ".ser" );
     }
 
-    protected void createDir( )
+    protected void createDir(  )
     {
-        new File(FreeGuide.config.workingDirectory).mkdirs();
+        new File( FreeGuide.config.workingDirectory ).mkdirs(  );
     }
 
     /**
@@ -368,7 +369,7 @@ public class StorageSerFilesByDay extends BaseModule implements IStorage
          */
         public void sync(  )
         {
-        	createDir();
+            createDir(  );
 
             Iterator it = filesData.keySet(  ).iterator(  );
 
