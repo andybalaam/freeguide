@@ -242,10 +242,10 @@ a  means done by Alex Buloichik
   
 - Release 0.10pre1 (Add some features to plugins-branch work)
 
-- Default country in First Time Wizard appears not to migrate correctly:
+a Default country in First Time Wizard appears not to migrate correctly:
   choosing "UK (slower but more detail) results in "Canada" being selected in
   upgrade to 0.10.1.
-- Theme changes from Metal to GTK+ on upgrade.
+a Theme changes from Metal to GTK+ on upgrade.
 a Generate the list of grabber plugins dynamically by asking each plugin what
   countries it supports (XMLTV should make this list by looking at what
   properties files it has available).
