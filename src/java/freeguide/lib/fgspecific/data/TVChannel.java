@@ -21,7 +21,8 @@ public class TVChannel implements Serializable
     /** DOCUMENT ME! */
     public static final String ICONCACHE_SUBDIR = "iconcache";
     protected static final long PROG_LENGTH_DEFAULT = 30L * 60L * 1000L; // 30 min
-    protected static final long PROG_LENGTH_MAX = 3L * 60L * 60L * 1000L; // 3 h
+
+    public static final long PROG_LENGTH_MAX = 6L * 60L * 60L * 1000L; // 6 h
 
     /**
      * Channel ID. It MUST be unique in system. We are using mode
@@ -282,7 +283,7 @@ public class TVChannel implements Serializable
             {
 
                 if( 
-                    ( prog.getStart(  ) - prevProg.getStart(  ) ) < PROG_LENGTH_MAX )
+                    ( prog.getStart(  ) - prevProg.getStart(  ) ) <= PROG_LENGTH_MAX )
                 {
                     prevProg.setEnd( prog.getStart(  ) );
 

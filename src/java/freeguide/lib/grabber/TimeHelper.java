@@ -2,7 +2,10 @@ package freeguide.lib.grabber;
 
 import freeguide.FreeGuide;
 
+import freeguide.lib.fgspecific.data.TVChannel;
+
 import freeguide.lib.general.LanguageHelper;
+import freeguide.lib.general.Time;
 
 import java.io.IOException;
 
@@ -10,9 +13,11 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TimeZone;
 import java.util.logging.Level;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -23,11 +28,9 @@ import java.util.regex.Pattern;
 public class TimeHelper
 {
 
-    /** DOCUMENT ME! */
-    public static TimeZone localTZ;
     protected static Map monthes;
-    protected static Pattern reTime =
-        Pattern.compile( "(\\d{1,2})[\\.|:|\\s](\\d{2})" );
+
+    public static final long MILLISECONDS_IN_DAY = 24L * 60L * 60L * 1000L;
 
     static
     {
@@ -62,7 +65,7 @@ public class TimeHelper
     public static Pattern getTimePattern(  )
     {
 
-        return reTime;
+        return LineProgrammeHelper.reTime;
     }
 
     protected static int getMonth( String monthName ) throws ParseException
@@ -99,6 +102,7 @@ public class TimeHelper
     /**
      * DOCUMENT_ME!
      *
+     * @param tz DOCUMENT ME!
      * @param day DOCUMENT_ME!
      * @param month DOCUMENT_ME!
      * @param year DOCUMENT_ME!
@@ -108,14 +112,12 @@ public class TimeHelper
      *
      * @throws ParseException DOCUMENT_ME!
      */
-    public static long parseDate( 
-        String day, String month, String year, String dow )
+    public static long getBaseDate( 
+        TimeZone tz, String day, String month, String year, String dow )
         throws ParseException
     {
 
-        Calendar cal =
-            Calendar.getInstance( 
-                TimeZone.getTimeZone( "GMT" ), Locale.getDefault(  ) );
+        Calendar cal = Calendar.getInstance( tz );
 
         int iyear = 0;
         int cm = getMonth( month );
@@ -162,99 +164,30 @@ public class TimeHelper
      * DOCUMENT_ME!
      *
      * @param tm DOCUMENT_ME!
-     * @param tz DOCUMENT_ME!
-     * @param onDate DOCUMENT_ME!
+     * @param baseDate milliseconds of 00:00 of day, using timezone
+     * @param prevTime DOCUMENT ME!
      *
      * @return DOCUMENT_ME!
-     *
-     * @throws ParseException DOCUMENT_ME!
      */
-    public static long parseTime( String tm, TimeZone tz, long onDate )
-        throws ParseException
+    public static long correctTime( 
+        Time tm, final long baseDate, final long prevTime )
     {
 
-        Matcher ma = reTime.matcher( tm );
+        long newTime =
+            baseDate
+            + ( ( ( tm.getHours(  ) * 60 ) + tm.getMinutes(  ) ) * 60L * 1000 );
 
-        if( ma.matches(  ) )
+        // check for new time is after midnight
+        if( ( prevTime != 0 ) && ( newTime < prevTime ) )
         {
+            newTime += MILLISECONDS_IN_DAY;
 
-            try
+            if( ( newTime - prevTime ) > TVChannel.PROG_LENGTH_MAX )
             {
-
-                int h = Integer.parseInt( ma.group( 1 ) );
-                int m = Integer.parseInt( ma.group( 2 ) );
-
-                if( ( h < 0 ) || ( h > 24 ) || ( m < 0 ) || ( m > 59 ) )
-                {
-
-                    return -1;
-                }
-
-                if( ( h == 24 ) && ( m > 0 ) )
-                {
-
-                    return -1;
-                }
-
-                return ( ( ( h * 60 ) + m ) * 60L * 1000 )
-                - getOffset( onDate, tz );
-            }
-            catch( NumberFormatException ex )
-            {
-                throw new ParseException( "Error parsing time : " + tm, 0 );
+                newTime -= MILLISECONDS_IN_DAY;
             }
         }
-        else
-        {
-            throw new ParseException( "Error parsing time : " + tm, 0 );
-        }
-    }
 
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param onDate DOCUMENT_ME!
-     * @param tz DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public static long getOffset( long onDate, TimeZone tz )
-    {
-
-        Calendar c = Calendar.getInstance(  );
-        c.setTimeZone( tz );
-        c.setTime( new Date( onDate ) );
-
-        return c.get( Calendar.ZONE_OFFSET ) + c.get( Calendar.DST_OFFSET );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param time DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     *
-     * @throws ParseException DOCUMENT_ME!
-     */
-    public static long parseXMLTVtime( String time ) throws ParseException
-    {
-
-        return xmltvFormat.parse( time ).getTime(  );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param time DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     *
-     * @throws ParseException DOCUMENT_ME!
-     */
-    public static long parseXMLATVtime( String time ) throws ParseException
-    {
-
-        return xmlatvFormat.parse( time ).getTime(  );
+        return newTime;
     }
 }

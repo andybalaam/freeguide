@@ -5,6 +5,7 @@ import freeguide.FreeGuide;
 import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.data.TVData;
+import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.lib.grabber.HttpBrowser;
 import freeguide.lib.grabber.LineProgrammeHelper;
@@ -166,6 +167,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         BufferedReader rd = new BufferedReader( new StringReader( data ) );
 
         long basedate = 0;
+        long prevTime = 0;
 
         TVChannel currentChannel = null;
 
@@ -183,8 +185,8 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                 if( mDate.matches(  ) )
                 {
                     basedate =
-                        TimeHelper.parseDate( 
-                            mDate.group( 2 ), mDate.group( 3 ), null,
+                        TimeHelper.getBaseDate( 
+                            tz, mDate.group( 2 ), mDate.group( 3 ), null,
                             mDate.group( 1 ) );
 
                 }
@@ -216,6 +218,8 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                         currentChannel.setDisplayName( channelName );
 
                     }
+
+                    prevTime = 0;
                 }
 
                 else
@@ -225,9 +229,13 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
                     if( mProg.matches(  ) )
                     {
-                        currentChannel.put( 
+
+                        TVProgramme[] programmes =
                             LineProgrammeHelper.parse( 
-                                logger, mProg.group( 1 ).trim(  ), basedate, tz ) );
+                                logger, mProg.group( 1 ).trim(  ), basedate,
+                                prevTime );
+                        prevTime = programmes[0].getStart(  );
+                        currentChannel.put( programmes );
 
                     }
                 }

@@ -180,8 +180,8 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
                 try
                 {
                     currentDate =
-                        TimeHelper.parseDate( 
-                            m.group( 2 ), m.group( 3 ), null, m.group( 1 ) );
+                        TimeHelper.getBaseDate( 
+                            tz, m.group( 2 ), m.group( 3 ), null, m.group( 1 ) );
 
                     currentChannel =
                         result.get( 
@@ -238,7 +238,9 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
                             {
                                 currentProgs =
                                     LineProgrammeHelper.parse( 
-                                        logger, line, currentDate, tz );
+                                        logger, line, currentDate,
+                                        ( currentProgs != null )
+                                        ? currentProgs[0].getStart(  ) : 0 );
 
                                 currentChannel.put( currentProgs );
 

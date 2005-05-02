@@ -2,13 +2,14 @@ package freeguide.lib.grabber;
 
 import freeguide.lib.fgspecific.data.TVProgramme;
 
+import freeguide.lib.general.Time;
+
 import freeguide.plugins.ILogger;
 
 import java.text.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,6 +24,8 @@ public class LineProgrammeHelper
     protected static Pattern reProgram =
         Pattern.compile( 
             "^(\\d{1,2}[\\.|:]\\d{2})([ |,]*)(.+)$", Pattern.CASE_INSENSITIVE );
+    protected static Pattern reTime =
+        Pattern.compile( "(\\d{1,2})[\\.|:|\\s](\\d{2})" );
 
     /**
      * DOCUMENT_ME!
@@ -45,15 +48,15 @@ public class LineProgrammeHelper
      *
      * @param logger DOCUMENT_ME!
      * @param str DOCUMENT_ME!
-     * @param basedate DOCUMENT_ME!
-     * @param htz DOCUMENT_ME!
+     * @param baseDate DOCUMENT_ME!
+     * @param prevTime DOCUMENT_ME!
      *
      * @return DOCUMENT_ME!
      *
      * @throws ParseException DOCUMENT_ME!
      */
     public static TVProgramme[] parse( 
-        ILogger logger, String str, long basedate, TimeZone htz )
+        ILogger logger, String str, long baseDate, long prevTime )
         throws ParseException
     {
 
@@ -75,10 +78,7 @@ public class LineProgrammeHelper
 
             try
             {
-                timelist.add( 
-                    new Long( 
-                        TimeHelper.parseTime( m.group( 1 ), htz, basedate ) ) );
-
+                timelist.add( parseTime( m.group( 1 ) ) );
             }
 
             catch( ParseException ex )
@@ -103,19 +103,66 @@ public class LineProgrammeHelper
         for( int i = 0; i < timelist.size(  ); i++ )
         {
 
-            long tm = ( (Long)timelist.get( i ) ).longValue(  );
+            Time tm = ( (Time)timelist.get( i ) );
 
             TVProgramme prog = new TVProgramme(  );
 
-            prog.setStart( tm + basedate );
+            prog.setStart( TimeHelper.correctTime( tm, baseDate, prevTime ) );
 
             prog.setTitle( p );
 
             result[i] = prog;
+            prevTime = prog.getStart(  );
 
         }
 
         return result;
 
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param tm DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     *
+     * @throws ParseException DOCUMENT_ME!
+     */
+    public static Time parseTime( String tm ) throws ParseException
+    {
+
+        Matcher ma = reTime.matcher( tm );
+
+        if( ma.matches(  ) )
+        {
+
+            try
+            {
+
+                int h = Integer.parseInt( ma.group( 1 ) );
+                int m = Integer.parseInt( ma.group( 2 ) );
+
+                if( ( h < 0 ) || ( h > 24 ) || ( m < 0 ) || ( m > 59 ) )
+                {
+                    new ParseException( "Error parsing time : " + tm, 0 );
+                }
+
+                if( ( h == 24 ) && ( m > 0 ) )
+                {
+                    new ParseException( "Error parsing time : " + tm, 0 );
+                }
+
+                return new Time( h, m );
+            }
+            catch( NumberFormatException ex )
+            {
+                throw new ParseException( "Error parsing time : " + tm, 0 );
+            }
+        }
+        else
+        {
+            throw new ParseException( "Error parsing time : " + tm, 0 );
+        }
     }
 }

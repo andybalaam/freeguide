@@ -4,7 +4,10 @@ import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
+import freeguide.lib.general.Time;
+
 import freeguide.lib.grabber.HtmlHelper;
+import freeguide.lib.grabber.LineProgrammeHelper;
 import freeguide.lib.grabber.TimeHelper;
 
 import freeguide.plugins.ILogger;
@@ -38,6 +41,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
     protected int mode;
     protected long currentDate;
     protected TVChannel currentChannel;
+    protected long prevTime;
     protected TVProgramme currentProg;
     protected final TVData siteData;
     protected final TimeZone tz;
@@ -70,6 +74,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
         currentChannel = null;
         currentProg = null;
         currentDate = 0L;
+        prevTime = 0;
         mode = MODES_NONE;
     }
 
@@ -97,6 +102,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
                 if( "WHITE".equalsIgnoreCase( atts.getValue( "class" ) ) )
                 {
                     mode = MODES_CHANNEL_NAME;
+                    prevTime = 0;
                 }
             }
             else if( "b".equals( qName ) )
@@ -105,6 +111,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
                 if( "TITLE".equalsIgnoreCase( atts.getValue( "class" ) ) )
                 {
                     mode = MODES_TITLE;
+                    prevTime = 0;
                 }
             }
             else if( "a".equals( qName ) )
@@ -170,9 +177,10 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
             try
             {
                 currentDate =
-                    TimeHelper.parseDate( 
-                        titleMatcher.group( 2 ), titleMatcher.group( 3 ),
+                    TimeHelper.getBaseDate( 
+                        tz, titleMatcher.group( 2 ), titleMatcher.group( 3 ),
                         titleMatcher.group( 4 ), titleMatcher.group( 1 ) );
+                prevTime = 0;
             }
             catch( ParseException ex )
             {
@@ -198,6 +206,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
                     GrabberVsetv.ID + "/" + channelName.replace( '/', '_' ) );
             currentChannel.setDisplayName( channelName );
             mode = MODES_NONE;
+            prevTime = 0;
 
             break;
 
@@ -248,11 +257,13 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
             try
             {
 
+                Time tm = LineProgrammeHelper.parseTime( text );
                 long time =
-                    TimeHelper.parseTime( text, tz, currentDate )
-                    + currentDate;
+                    TimeHelper.correctTime( tm, currentDate, prevTime );
+
                 currentProg = new TVProgramme(  );
                 currentProg.setStart( time );
+                prevTime = time;
             }
             catch( ParseException ex )
             {
@@ -283,10 +294,23 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
                 try
                 {
 
+                    Time tm = LineProgrammeHelper.parseTime( text );
                     long time =
-                        TimeHelper.parseTime( text, tz, currentDate )
-                        + currentDate;
+                        TimeHelper.correctTime( tm, currentDate, prevTime );
+
                     currentProg = currentChannel.getProgrammeByTime( time );
+
+                    if( currentProg == null )
+                    {
+                        currentProg =
+                            currentChannel.getProgrammeByTime( 
+                                time + TimeHelper.MILLISECONDS_IN_DAY );
+                    }
+
+                    if( currentProg != null )
+                    {
+                        prevTime = currentProg.getStart(  );
+                    }
                 }
                 catch( ParseException ex )
                 {

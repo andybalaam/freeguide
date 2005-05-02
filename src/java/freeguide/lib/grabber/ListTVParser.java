@@ -39,6 +39,7 @@ public class ListTVParser
     protected long currentDate = 0;
     protected TVChannel currentChannel = null;
     protected TVProgramme[] currentProgs = null;
+    protected long prevTime;
     protected TVData result;
     protected final String channelPrefix;
 
@@ -145,6 +146,7 @@ public class ListTVParser
                     new ByteArrayInputStream( data ), CHARSET ) );
 
         String line;
+        prevTime = 0;
 
         while( ( line = rd.readLine(  ) ) != null )
         {
@@ -158,44 +160,47 @@ public class ListTVParser
 
             }
 
-            if( !testForDate( line, logger ) )
+            if( ( currentProgs == null ) && testForDate( tz, line, logger ) )
             {
 
-                if( currentChannel != null )
+                continue;
+            }
+
+            if( currentChannel != null )
+            {
+
+                if( LineProgrammeHelper.isProgram( line ) )
                 {
 
-                    if( LineProgrammeHelper.isProgram( line ) )
+                    try
                     {
+                        currentProgs =
+                            LineProgrammeHelper.parse( 
+                                logger, line, currentDate, prevTime );
+                        prevTime = currentProgs[0].getStart(  );
 
-                        try
-                        {
-                            currentProgs =
-                                LineProgrammeHelper.parse( 
-                                    logger, line, currentDate, tz );
+                        currentChannel.put( currentProgs );
 
-                            currentChannel.put( currentProgs );
-
-                        }
-
-                        catch( ParseException ex )
-                        {
-                            FreeGuide.log.log( 
-                                Level.FINE,
-                                "Error parse programme line : " + line, ex );
-                        }
                     }
 
-                    else
+                    catch( ParseException ex )
+                    {
+                        FreeGuide.log.log( 
+                            Level.FINE, "Error parse programme line : " + line,
+                            ex );
+                    }
+                }
+
+                else
+                {
+
+                    if( currentProgs != null )
                     {
 
-                        if( currentProgs != null )
+                        for( int i = 0; i < currentProgs.length; i++ )
                         {
+                            currentProgs[i].addDesc( line );
 
-                            for( int i = 0; i < currentProgs.length; i++ )
-                            {
-                                currentProgs[i].addDesc( line );
-
-                            }
                         }
                     }
                 }
@@ -203,7 +208,7 @@ public class ListTVParser
         }
     }
 
-    protected boolean testForDate( String line, ILogger logger )
+    protected boolean testForDate( TimeZone tz, String line, ILogger logger )
     {
 
         Matcher mDate;
@@ -218,9 +223,9 @@ public class ListTVParser
             try
             {
                 currentDate =
-                    TimeHelper.parseDate( 
-                        mDate.group( 1 ), mDate.group( 2 ), mDate.group( 3 ),
-                        null );
+                    TimeHelper.getBaseDate( 
+                        tz, mDate.group( 1 ), mDate.group( 2 ),
+                        mDate.group( 3 ), null );
 
                 channelName = mDate.group( 4 ).trim(  );
 
@@ -247,8 +252,8 @@ public class ListTVParser
                 try
                 {
                     currentDate =
-                        TimeHelper.parseDate( 
-                            mDate.group( 1 ), mDate.group( 2 ),
+                        TimeHelper.getBaseDate( 
+                            tz, mDate.group( 1 ), mDate.group( 2 ),
                             mDate.group( 3 ), null );
 
                     channelName = mDate.group( 4 ).trim(  );
@@ -275,6 +280,7 @@ public class ListTVParser
             currentChannel.setDisplayName( channelName );
 
             currentProgs = null;
+            prevTime = 0;
 
             return true;
 
