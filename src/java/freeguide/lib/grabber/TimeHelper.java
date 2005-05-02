@@ -30,6 +30,7 @@ public class TimeHelper
 
     protected static Map monthes;
 
+    /** Milliseconds per day. */
     public static final long MILLISECONDS_IN_DAY = 24L * 60L * 60L * 1000L;
 
     static

@@ -22,6 +22,7 @@ public class TVChannel implements Serializable
     public static final String ICONCACHE_SUBDIR = "iconcache";
     protected static final long PROG_LENGTH_DEFAULT = 30L * 60L * 1000L; // 30 min
 
+    /** Maximum programme length in milliseconds. */
     public static final long PROG_LENGTH_MAX = 6L * 60L * 60L * 1000L; // 6 h
 
     /**
