@@ -2,8 +2,13 @@ package freeguide.plugins.grabber.www_vsetv_com;
 
 import freeguide.FreeGuide;
 
+import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.data.TVData;
+import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
+import freeguide.lib.fgspecific.data.TVProgramme;
+
+import freeguide.lib.general.LanguageHelper;
 
 import freeguide.lib.grabber.HttpBrowser;
 
@@ -111,35 +116,6 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         }
 
         final TimeZone tz;
-
-        /*        HttpBrowser b = new HttpBrowser();
-
-
-        Map<String, List<Prog>> siteData = new TreeMap<String, List<Prog>>();
-
-
-        HandlerParseProg h = new HandlerParseProg(logger, siteData, tz);
-
-
-        h.setAnnounces(false);
-
-
-        b.loadURL("file:///tmp/prog.html");
-
-
-        b.parse(h);
-
-
-        h.setAnnounces(true);
-
-
-        b.loadURL("file:///tmp/anfi.html");
-
-
-        b.parse(h);
-
-
-        return siteData;*/
         HttpBrowser browser = new HttpBrowser(  );
 
         browser.setHeader( "Accept-Language", "ru" );
@@ -156,6 +132,11 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
         browser.parse( handlerDates );
 
+        String[] dates = handlerDates.getResult(  );
+
+        progress.setStepCount( 2 + ( dates.length * 2 ) );
+        progress.setStepNumber( 1 );
+
         if( config.isAuth )
         {
             login( logger, browser );
@@ -169,6 +150,8 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
             tz = TimeZone.getTimeZone( "Europe/Kiev" );
 
         }
+
+        progress.setStepNumber( 2 );
 
         TVData result = new TVData(  );
 
@@ -194,8 +177,6 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
         request.put( "hours2", "5" );
 
-        String[] dates = handlerDates.getResult(  );
-
         for( int i = 0; i < dates.length; i++ )
         {
             request.put( "selectdate", dates[i] );
@@ -206,6 +187,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
             request.put( "category", "prog" );
 
             browser.loadURL( "http://www.vsetv.com/vsetv.php", request, true );
+            progress.setStepNumber( 3 + ( i * 2 ) );
 
             handler.setAnnounces( false );
 
@@ -217,6 +199,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
             request.put( "category", "anfi" );
 
             browser.loadURL( "http://www.vsetv.com/vsetv.php", request, true );
+            progress.setStepNumber( 4 + ( i * 2 ) );
 
             handler.setAnnounces( true );
 
@@ -225,6 +208,8 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         }
 
         logger.info( "Done" );
+
+        patch( result );
 
         return result;
 
@@ -336,5 +321,50 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
     {
         saveObjectToPreferences( config );
 
+    }
+
+    protected void patch( final TVData data ) throws IOException
+    {
+
+        final String[] nen =
+            LanguageHelper.loadStrings( 
+                getClass(  ).getClassLoader(  ).getResourceAsStream( 
+                    getClass(  ).getPackage(  ).getName(  ).replace( '.', '/' )
+                    + "/nen.utf8.list" ) );
+        data.iterateProgrammes( 
+            new TVIteratorProgrammes(  )
+            {
+                protected void onChannel( TVChannel channel )
+                {
+
+                    if( !"БТ".equals( channel.getDisplayName(  ) ) )
+                    {
+                        stopIterateChanel(  );
+                    }
+                }
+
+                protected void onProgramme( TVProgramme programme )
+                {
+
+                    if( programme.getTitle(  ) == null )
+                    {
+
+                        return;
+                    }
+
+                    System.out.println( programme.getTitle(  ) );
+
+                    for( int i = 0; i < nen.length; i++ )
+                    {
+
+                        if( programme.getTitle(  ).indexOf( nen[i] ) != -1 )
+                        {
+                            programme.setTitle( "Пятиминутка ненависти" );
+
+                            break;
+                        }
+                    }
+                }
+            } );
     }
 }
