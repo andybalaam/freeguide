@@ -265,7 +265,7 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
                 TVProgramme pr = (TVProgramme)programmes.get( i );
                 writeTime( pr.getStart(  ) );
                 wr.writeShort( 
-                    (short)( ( pr.getEnd(  ) - pr.getStart(  ) ) / 1000 / 60 ) );
+                    (short)( ( pr.getEnd(  ) - pr.getStart(  ) ) / 1000 ) );
 
                 if( 
                     ( wr.writeSPasString( pr.getTitle(  ), charset ) % 2 ) == 1 )
