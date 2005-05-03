@@ -390,7 +390,7 @@ public class LanguageHelper implements ILocalizer
      *
      * @throws IOException DOCUMENT ME!
      */
-    protected static String[] loadStrings( final InputStream in )
+    public static String[] loadStrings( final InputStream in )
         throws IOException
     {
 
