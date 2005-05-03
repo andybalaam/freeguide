@@ -189,6 +189,7 @@ public class TVChannel implements Serializable
     {
         programme.setChannel( this );
 
+        programmes.remove( programme );
         programmes.add( programme );
 
     }

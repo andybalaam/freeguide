@@ -289,16 +289,7 @@ public class TVProgramme implements Comparable, Serializable
      */
     public void setTitle( String title )
     {
-
-        if( this.title == null )
-        {
-            this.title = new String(  );
-
-            this.title = title;
-
-        }
-
-        // FIXME else use the one with the correct lang tag
+        this.title = title;
     }
 
     /**
@@ -308,16 +299,7 @@ public class TVProgramme implements Comparable, Serializable
      */
     public void setSubTitle( String subtitle )
     {
-
-        if( this.subtitle == null )
-        {
-            this.subtitle = new String(  );
-
-            this.subtitle = subtitle;
-
-        }
-
-        // FIXME else use the one with the correct lang tag
+        this.subtitle = subtitle;
     }
 
     /**
