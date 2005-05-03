@@ -208,7 +208,9 @@ class XMLTVImportHandler extends DefaultHandler
         if( "display-name".equals( tag ) )
         {
 
-            if( "".equals( currentChannel.getDisplayName(  ) ) )
+            if( 
+                ( currentChannel.getDisplayName(  ) == null )
+                    || "".equals( currentChannel.getDisplayName(  ) ) )
             {
                 currentChannel.setDisplayName( charData.toString(  ) );
             }
@@ -220,11 +222,19 @@ class XMLTVImportHandler extends DefaultHandler
 
         if( "title".equals( tag ) )
         {
-            currentProgramme.setTitle( charData.toString(  ) );
+
+            if( currentProgramme.getTitle(  ) == null )
+            {
+                currentProgramme.setTitle( charData.toString(  ) );
+            }
         }
         else if( "sub-title".equals( tag ) )
         {
-            currentProgramme.setSubTitle( charData.toString(  ) );
+
+            if( currentProgramme.getSubTitle(  ) == null )
+            {
+                currentProgramme.setSubTitle( charData.toString(  ) );
+            }
         }
         else if( "desc".equals( tag ) )
         {
