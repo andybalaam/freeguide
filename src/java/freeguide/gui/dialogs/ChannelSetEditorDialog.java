@@ -394,6 +394,7 @@ public class ChannelSetEditorDialog extends FGDialog
                 csetModel.insertElementAt( 
                     csetModel.remove( oldIndex ), newIndex );
                 channelsetJList.setSelectedIndex( newIndex );
+                setChanged(  );
             }
         }
 
@@ -422,6 +423,7 @@ public class ChannelSetEditorDialog extends FGDialog
                 csetModel.insertElementAt( 
                     csetModel.remove( oldIndex ), newIndex );
                 channelsetJList.setSelectedIndex( newIndex );
+                setChanged(  );
             }
         }
 
@@ -443,6 +445,7 @@ public class ChannelSetEditorDialog extends FGDialog
 
             //Object o=allModel.remove(selected[i]);
             allModel.addElement( csetModel.elementAt( selected[i] ) );
+            setChanged(  );
         }
 
         for( int j = selected.length - 1; j >= 0; j-- )
@@ -472,6 +475,7 @@ public class ChannelSetEditorDialog extends FGDialog
 
             //Object o=allModel.remove(selected[i]);
             csetModel.addElement( allModel.elementAt( selected[i] ) );
+            setChanged(  );
         }
 
         for( int j = selected.length - 1; j >= 0; j-- )
