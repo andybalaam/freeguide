@@ -85,6 +85,7 @@ a  means done by Alex Buloichik
 - x-dist icon support in RPM http://www.hyperborea.org/software/dillo/dillo.spec
 - Look into SQL engines: http://www.mckoi.com/database/
 - Remember where you were in the Options screen
+- Favourites search on programme descriptions
 
 - Release 0.10.5 (preferences creep)
 
@@ -239,6 +240,7 @@ a  means done by Alex Buloichik
 - Check whether we need TZ set, and if not, remove warnings about it.
 - Can we get rid of a lot of options for the horizontal display?
 - Include videoplus info (see Yann's email of 2005-04-22)
+- Why does the data get loaded 3 times when we start?
   
 - Release 0.10pre1 (Add some features to plugins-branch work)
 
