@@ -100,7 +100,6 @@ public class ChannelSetListDialog extends FGDialog
      */
     public List getChannelsSets(  )
     {
-
         return channelsSets;
     }
 
@@ -143,7 +142,6 @@ public class ChannelSetListDialog extends FGDialog
      */
     private void saveChannelSet(  )
     {
-
         // Write out our channelsets to the config file
         // DMT TODO
         //FreeGuide.prefs.replaceChannelSets( Utils.arrayFromVector_ChannelSet( channelsets ) );
@@ -359,7 +357,7 @@ public class ChannelSetListDialog extends FGDialog
                     this, FreeGuide.msg.getString( "edit_channel_set" ),
                     allChannels, fav );
             boolean changed = channels.showDialog(  );
-
+            
             if( changed )
             {
                 setChanged(  );

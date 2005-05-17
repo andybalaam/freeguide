@@ -189,7 +189,6 @@ public class StorageSerFilesByDay extends BaseModule implements IStorage
                         {
                             protected void onChannel( TVChannel channel )
                             {
-
                                 if( !channels.contains( channel.getID(  ) ) )
                                 {
                                     it.remove(  );
