@@ -246,6 +246,11 @@ a  means done by Alex Buloichik
   
 + Release 0.10pre1 (Add some features to plugins-branch work)
 
+- Fix Windows install bugs:
+    - When you try to configure a grabber (uk_rt), from the First Time Wizard
+      or the Options screen, FreeGuide freezes.  When you kill FreeGuide, the
+      grabber configuration screen appears.
+    - The FreeGuide window has no icon in the top left.
 a Default country in First Time Wizard appears not to migrate correctly:
   choosing "UK (slower but more detail) results in "Canada" being selected in
   upgrade to 0.10.1.
