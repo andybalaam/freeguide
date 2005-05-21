@@ -138,6 +138,7 @@ a  means done by Alex Buloichik
   it out of the First Time Wizard (Maybe add "Download listings now" to FTW?)
 - Channel names missing when viewing channel sets (Antony Akintewe's email of
   Mar 24 2005)
+- Duplicate a channel set
 
 - Release 0.10.3 (accessibility, accessibility, accessibility)
 
@@ -241,8 +242,9 @@ a  means done by Alex Buloichik
 - Can we get rid of a lot of options for the horizontal display?
 - Include videoplus info (see Yann's email of 2005-04-22)
 - Why does the data get loaded 3 times when we start?
+- Add an FAQ about how to change the number of days downloaded.
   
-- Release 0.10pre1 (Add some features to plugins-branch work)
++ Release 0.10pre1 (Add some features to plugins-branch work)
 
 a Default country in First Time Wizard appears not to migrate correctly:
   choosing "UK (slower but more detail) results in "Canada" being selected in
@@ -260,14 +262,13 @@ a The upgrade from 0.8.6 to 0.10.1 changed my theme from Metal to GTK.  It
 a Ensure that the HTML personalised guide only shows programmes that are before
   the day start time today and after the day start time tomorrow.
 a Internationalise "Horizontal Viewer" name
-- Add an FAQ about how to change the number of days downloaded.
 a A currently-chosen browser, or a migrated one, should take priority over
   the default browser names in the properties file.
   How it works: If we migrate from previous version, we use selected browser,
   if we run firsts, then we use DEFAULT browser from properties.
 a Buttons on the XMLTV grabbers Option pane say "Default" and "", when they
   should say "Configure" and "Delete", I think.
-- Channel sets do not appear to work - not sure why, but try using
++ Channel sets do not appear to work - not sure why, but try using
   tv_grab_uk_bleb and then making a channel set.
 a The default channel set name is "" and it should be "(New channel set)"
 a Options screen:
