@@ -243,14 +243,15 @@ a  means done by Alex Buloichik
 - Include videoplus info (see Yann's email of 2005-04-22)
 - Why does the data get loaded 3 times when we start?
 - Add an FAQ about how to change the number of days downloaded.
+- On Andy's machine the FreeGuide window has no icon in the top left, and the
+  Please Wait dialog is missing its image.
   
 + Release 0.10pre1 (Add some features to plugins-branch work)
 
-- Fix Windows install bugs:
-    - When you try to configure a grabber (uk_rt), from the First Time Wizard
++ Fix Windows install bugs:
+    + When you try to configure a grabber (uk_rt), from the First Time Wizard
       or the Options screen, FreeGuide freezes.  When you kill FreeGuide, the
       grabber configuration screen appears.
-    - The FreeGuide window has no icon in the top left.
 a Default country in First Time Wizard appears not to migrate correctly:
   choosing "UK (slower but more detail) results in "Canada" being selected in
   upgrade to 0.10.1.
