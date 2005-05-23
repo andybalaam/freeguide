@@ -18,6 +18,7 @@ import freeguide.plugins.IModuleConfigureFromWizard;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IProgress;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -151,7 +152,6 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         FreeGuide.log.finest( "Run command: " + cmd );
 
         int resultCode = execCmdSimple( Utils.parseCommand( cmd ) );
-
         FreeGuide.log.finest( "Result code = " + resultCode );
 
     }
@@ -328,6 +328,8 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         try
         {
             pr = Runtime.getRuntime(  ).exec( args );
+            new ReadProcess( pr.getInputStream(  ), Level.FINEST ).start(  );
+            new ReadProcess( pr.getErrorStream(  ), Level.FINE ).start(  );
 
             return pr.waitFor(  );
 
@@ -452,6 +454,49 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         }
 
         return countryInfos;
+    }
+
+    protected class ReadProcess extends Thread
+    {
+
+        final protected BufferedReader stream;
+        final protected Level logLevel;
+
+        /**
+         * Creates a new ReadProcess object.
+         *
+         * @param stream DOCUMENT ME!
+         * @param level DOCUMENT ME!
+         */
+        public ReadProcess( final InputStream stream, final Level level )
+        {
+            this.stream =
+                new BufferedReader( new InputStreamReader( stream ) );
+            this.logLevel = level;
+        }
+
+        /**
+         * DOCUMENT_ME!
+         */
+        public void run(  )
+        {
+
+            String line;
+
+            try
+            {
+
+                while( ( line = stream.readLine(  ) ) != null )
+                {
+                    FreeGuide.log.log( logLevel, line );
+                }
+            }
+            catch( IOException ex )
+            {
+                FreeGuide.log.log( 
+                    Level.WARNING, "Error on read xmltv console stream", ex );
+            }
+        }
     }
 
     protected static class ReadErrors extends Thread
