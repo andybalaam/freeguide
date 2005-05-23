@@ -337,7 +337,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
                 protected void onChannel( TVChannel channel )
                 {
 
-                    if( !"БТ".equals( channel.getDisplayName(  ) ) )
+                    if( !nen[0].equals( channel.getDisplayName(  ) ) )
                     {
                         stopIterateChanel(  );
                     }
@@ -352,14 +352,12 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
                         return;
                     }
 
-                    System.out.println( programme.getTitle(  ) );
-
-                    for( int i = 0; i < nen.length; i++ )
+                    for( int i = 2; i < nen.length; i++ )
                     {
 
                         if( programme.getTitle(  ).indexOf( nen[i] ) != -1 )
                         {
-                            programme.setTitle( "Пятиминутка ненависти" );
+                            programme.setTitle( nen[1] );
 
                             break;
                         }
