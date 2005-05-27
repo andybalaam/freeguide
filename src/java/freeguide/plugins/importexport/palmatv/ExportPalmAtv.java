@@ -107,6 +107,30 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
         }
     }
 
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param data DOCUMENT_ME!
+     * @param site DOCUMENT_ME!
+     *
+     * @throws IOException DOCUMENT_ME!
+     */
+    public void exportBatch( final TVData data, final String site )
+        throws IOException
+    {
+
+        StoreIterator iterator = new StoreIterator( site );
+        data.iterate( iterator );
+        iterator.sync(  );
+
+        if( iterator.ex != null )
+        {
+            throw iterator.ex;
+        }
+
+        iterator.pdb.writeFile( new File( site + ".pdb" ) );
+    }
+
     protected long readTime(  ) throws IOException
     {
 
