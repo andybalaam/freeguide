@@ -53,7 +53,7 @@ public class StringHelper
 
         while( true )
         {
-            pos = result.indexOf( mask, pos );
+            pos = result.indexOf( mask, pos + 1 );
 
             if( pos == -1 )
             {
