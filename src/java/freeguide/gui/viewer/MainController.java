@@ -267,7 +267,7 @@ public class MainController implements IModuleViewer.Parent
      */
     public void doEditChannelsSets(  )
     {
-        
+
         ChannelSetListDialog dialog =
             new ChannelSetListDialog( 
                 mainFrame, getDataStorage(  ).getInfo(  ).allChannels,
@@ -280,7 +280,6 @@ public class MainController implements IModuleViewer.Parent
             config.channelsSetsList = dialog.getChannelsSets(  );
             viewer.onChannelsSetsChanged(  );
         }
-        
     }
 
     /**
