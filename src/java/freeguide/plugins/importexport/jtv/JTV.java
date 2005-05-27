@@ -184,7 +184,8 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
      *
      * @throws IOException DOCUMENT_ME!
      */
-    public void export( TVData data, JFrame parent ) throws IOException
+    public void exportData( TVData data, JFrame parent )
+        throws IOException
     {
 
         ExportIterator ex = new ExportIterator(  );

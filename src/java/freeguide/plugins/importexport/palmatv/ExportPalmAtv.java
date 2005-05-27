@@ -58,7 +58,7 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
      *
      * @throws IOException DOCUMENT_ME!
      */
-    public void export( final TVData data, final JFrame parent )
+    public void exportData( final TVData data, final JFrame parent )
         throws IOException
     {
 

@@ -98,7 +98,8 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
      *
      * @throws IOException DOCUMENT_ME!
      */
-    public void export( TVData data, JFrame parent ) throws IOException
+    public void exportData( TVData data, JFrame parent )
+        throws IOException
     {
 
         JFileChooser chooser = new JFileChooser(  );
