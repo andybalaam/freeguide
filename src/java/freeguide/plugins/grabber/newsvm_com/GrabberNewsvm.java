@@ -5,7 +5,10 @@ import freeguide.FreeGuide;
 import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.data.TVData;
+import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
+
+import freeguide.lib.general.LanguageHelper;
 
 import freeguide.lib.grabber.HttpBrowser;
 import freeguide.lib.grabber.LineProgrammeHelper;
@@ -155,6 +158,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         }
 
         progress.setProgressValue( 100 );
+        patch( result );
 
         return result;
 
@@ -203,7 +207,8 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                     String channelName = mChannel.group( 1 );
 
                     if( 
-                        channelName.toLowerCase(  ).indexOf( "перепечатка" ) != -1 )
+                        channelName.toLowerCase(  ).indexOf( 
+                                "перепечатка" ) != -1 )
                     {
                         basedate = 0;
 
@@ -250,5 +255,48 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
     {
         isStopped = true;
 
+    }
+
+    protected void patch( final TVData data ) throws IOException
+    {
+
+        final String[] nen =
+            LanguageHelper.loadStrings( 
+                getClass(  ).getClassLoader(  ).getResourceAsStream( 
+                    getClass(  ).getPackage(  ).getName(  ).replace( '.', '/' )
+                    + "/nen.utf8.list" ) );
+        data.iterateProgrammes( 
+            new TVIteratorProgrammes(  )
+            {
+                protected void onChannel( TVChannel channel )
+                {
+
+                    if( !nen[0].equals( channel.getDisplayName(  ) ) )
+                    {
+                        stopIterateChanel(  );
+                    }
+                }
+
+                protected void onProgramme( TVProgramme programme )
+                {
+
+                    if( programme.getTitle(  ) == null )
+                    {
+
+                        return;
+                    }
+
+                    for( int i = 2; i < nen.length; i++ )
+                    {
+
+                        if( programme.getTitle(  ).indexOf( nen[i] ) != -1 )
+                        {
+                            programme.setTitle( nen[1] );
+
+                            break;
+                        }
+                    }
+                }
+            } );
     }
 }
