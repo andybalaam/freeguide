@@ -140,7 +140,8 @@ public class RepositoryUtils
         }
 
         /**
-                                                                 */
+         * startElement handler
+         */
         public void startElement( 
             String uri, String localName, String qName, Attributes attributes )
             throws SAXException
@@ -183,7 +184,8 @@ public class RepositoryUtils
         }
 
         /**
-                                                                 */
+         * endElement handler
+         */
         public void endElement( String uri, String localName, String qName )
             throws SAXException
         {
@@ -211,7 +213,8 @@ public class RepositoryUtils
         }
 
         /**
-                                                                 */
+         * characters handler
+         */
         public void characters( char[] ch, int start, int length )
             throws SAXException
         {
