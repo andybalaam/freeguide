@@ -2,8 +2,7 @@ package freeguide.plugins;
 
 import freeguide.lib.fgspecific.data.TVData;
 
-import java.io.File;
-import java.io.IOException;
+import javax.swing.JFrame;
 
 /**
  * Load data from file(s). Each import module should implement this interface.
@@ -22,5 +21,5 @@ public interface IModuleImport extends IModule
      *
      * @throws IOException
      */
-    TVData load( File inFile ) throws IOException;
+    TVData importData( final JFrame parent ) throws Exception;
 }
