@@ -227,6 +227,8 @@ public class TVData implements Serializable
                         iterator.onProgramme( pr );
                     }
                 }
+
+                iterator.onChannelFinish(  );
             }
         }
     }

@@ -19,6 +19,10 @@ abstract public class TVIteratorProgrammes extends TVIterator
 
     abstract protected void onProgramme( final TVProgramme programme );
 
+    protected void onChannelFinish(  )
+    {
+    }
+
     protected TVChannel getCurrentChannel(  )
     {
 
