@@ -141,6 +141,13 @@ public class RepositoryUtils
 
         /**
          * startElement handler
+         *
+         * @param uri DOCUMENT ME!
+         * @param localName DOCUMENT ME!
+         * @param qName DOCUMENT ME!
+         * @param attributes DOCUMENT ME!
+         *
+         * @throws SAXException DOCUMENT ME!
          */
         public void startElement( 
             String uri, String localName, String qName, Attributes attributes )
@@ -185,6 +192,12 @@ public class RepositoryUtils
 
         /**
          * endElement handler
+         *
+         * @param uri DOCUMENT ME!
+         * @param localName DOCUMENT ME!
+         * @param qName DOCUMENT ME!
+         *
+         * @throws SAXException DOCUMENT ME!
          */
         public void endElement( String uri, String localName, String qName )
             throws SAXException
@@ -214,6 +227,12 @@ public class RepositoryUtils
 
         /**
          * characters handler
+         *
+         * @param ch DOCUMENT ME!
+         * @param start DOCUMENT ME!
+         * @param length DOCUMENT ME!
+         *
+         * @throws SAXException DOCUMENT ME!
          */
         public void characters( char[] ch, int start, int length )
             throws SAXException
