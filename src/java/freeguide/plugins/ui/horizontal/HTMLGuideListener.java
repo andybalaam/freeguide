@@ -19,10 +19,12 @@
  */
 package freeguide.plugins.ui.horizontal;
 
+import freeguide.lib.fgspecific.PluginsManager;
 import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
-import freeguide.lib.fgspecific.selection.SelectionManager;
+
+import freeguide.plugins.IModuleReminder;
 
 import java.io.UnsupportedEncodingException;
 
@@ -31,9 +33,11 @@ import java.net.URLEncoder;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.event.HyperlinkEvent;
@@ -113,7 +117,8 @@ public class HTMLGuideListener implements HyperlinkListener
         // FIXME: this is a really slow way of doing it: we should cache
         // programme references somewhere - why not in programmes themselves?
         // FIXME: this is copied and pasted from ViewerFrameHTMLGuide
-        final Vector tickedProgrammes = new Vector(  );
+        final List tickedProgrammes = new ArrayList(  );
+        final IModuleReminder[] reminders = PluginsManager.getReminders(  );
 
         controller.currentData.iterate( 
             new TVIteratorProgrammes(  )
@@ -125,10 +130,14 @@ public class HTMLGuideListener implements HyperlinkListener
                 protected void onProgramme( TVProgramme programme )
                 {
 
-                    if( SelectionManager.isInGuide( programme ) )
+                    for( int i = 0; i < reminders.length; i++ )
                     {
-                        tickedProgrammes.add( programme );
 
+                        if( reminders[i].isSelected( programme ) )
+                        {
+                            tickedProgrammes.add( programme );
+
+                        }
                     }
                 }
             } );

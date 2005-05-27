@@ -4,9 +4,9 @@ import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
-import freeguide.lib.fgspecific.selection.SelectionManager;
 
 import freeguide.plugins.ILocalizer;
+import freeguide.plugins.IModuleReminder;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -49,6 +49,7 @@ public class PersonalizedHTMLGuide
     {
 
         final List tickedProgrammes = new ArrayList(  );
+        final IModuleReminder[] reminders = PluginsManager.getReminders(  );
 
         data.iterate( 
             new TVIteratorProgrammes(  )
@@ -60,10 +61,14 @@ public class PersonalizedHTMLGuide
                 protected void onProgramme( TVProgramme programme )
                 {
 
-                    if( SelectionManager.isInGuide( programme ) )
+                    for( int i = 0; i < reminders.length; i++ )
                     {
-                        tickedProgrammes.add( programme );
 
+                        if( reminders[i].isSelected( programme ) )
+                        {
+                            tickedProgrammes.add( programme );
+
+                        }
                     }
                 }
             } );

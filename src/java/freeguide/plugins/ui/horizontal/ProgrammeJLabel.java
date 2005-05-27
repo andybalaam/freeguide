@@ -1,41 +1,28 @@
 /*
-
  *  FreeGuide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
 package freeguide.plugins.ui.horizontal;
 
 import freeguide.gui.viewer.MainController;
 
+import freeguide.lib.fgspecific.PluginsManager;
 import freeguide.lib.fgspecific.ProgrammeFormat;
 import freeguide.lib.fgspecific.data.TVProgramme;
-import freeguide.lib.fgspecific.selection.SelectionManager;
+
+import freeguide.plugins.IModuleReminder;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.event.ActionEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.GeneralPath;
 
 import java.net.URL;
 
@@ -61,25 +48,6 @@ import javax.swing.event.PopupMenuEvent;
 public class ProgrammeJLabel extends JLabel
 {
 
-    private final static Shape heartShape;
-
-    static
-    {
-
-        GeneralPath path = new GeneralPath(  );
-
-        path.moveTo( 300, 200 );
-
-        path.curveTo( 100, 0, 0, 400, 300, 580 );
-
-        path.moveTo( 300, 580 );
-
-        path.curveTo( 600, 400, 500, 0, 300, 200 );
-
-        heartShape = path;
-
-    }
-
     private static boolean alignTextToLeftOfScreen;
     private static Color nonTickedColour;
     private static Color tickedColour;
@@ -89,20 +57,23 @@ public class ProgrammeJLabel extends JLabel
     private static Border tickedBorder;
     private static Border movieBorder;
     static private ProgrammePopupMenu popMenuProgramme;
-    static private ToggleAction selectAction;
-    static private ToggleAction favouriteAction;
+    protected final IModuleReminder[] reminders =
+        PluginsManager.getReminders(  );
+
+    //static private ToggleAction selectAction;
+    //static private ToggleAction favouriteAction;
 
     /** The menu item to view a link */
-    static private javax.swing.JMenuItem mbtGoToWebSite;
     private Model model;
     final private ProgrammeFormat textFormat;
     final private ProgrammeFormat htmlFormat;
 
     // Cached model data
     private String tooltip;
-    private TVProgramme programme;
-    private boolean isInGuide;
-    private boolean isFavourite;
+    protected TVProgramme programme;
+
+    //private boolean isInGuide;
+    //private boolean isFavourite;
     private HorizontalViewer controller;
 
     ProgrammeJLabel( 
@@ -156,44 +127,6 @@ public class ProgrammeJLabel extends JLabel
 
         setOpaque( true );
 
-        getActionMap(  ).put( 
-            "select",
-            new AbstractAction(  )
-            {
-                public void actionPerformed( ActionEvent e )
-                {
-                    toggleSelection(  );
-
-                }
-            } );
-
-        getActionMap(  ).put( 
-            "favourite",
-            new AbstractAction(  )
-            {
-                public void actionPerformed( ActionEvent e )
-                {
-                    setFavourite( !getModel(  ).isFavourite(  ) );
-
-                }
-            } );
-
-        getActionMap(  ).put( 
-            "menu",
-            new AbstractAction(  )
-            {
-                public void actionPerformed( ActionEvent e )
-                {
-
-                    ProgrammePopupMenu menu = getPopupMenu(  );
-
-                    menu.label = ProgrammeJLabel.this;
-
-                    menu.show( ProgrammeJLabel.this, 0, getHeight(  ) );
-
-                }
-            } );
-
         InputMap map = getInputMap( JComponent.WHEN_FOCUSED );
 
         map.put( KeyStroke.getKeyStroke( "SPACE" ), "select" );
@@ -210,8 +143,8 @@ public class ProgrammeJLabel extends JLabel
 
                     if( evt.getClickCount(  ) == 2 )
                     {
-                        toggleSelection(  );
 
+                        //toggleSelection(  );
                     }
                 }
 
@@ -242,8 +175,6 @@ public class ProgrammeJLabel extends JLabel
                     {
 
                         ProgrammePopupMenu menu = getPopupMenu(  );
-
-                        menu.label = ProgrammeJLabel.this;
 
                         menu.show( 
                             evt.getComponent(  ), evt.getX(  ), evt.getY(  ) );
@@ -295,10 +226,6 @@ public class ProgrammeJLabel extends JLabel
         {
             programme = null;
 
-            isInGuide = false;
-
-            isFavourite = false;
-
             setText( "(null)" );
 
         }
@@ -309,12 +236,18 @@ public class ProgrammeJLabel extends JLabel
             // Cache model data
             programme = model.getValue(  );
 
-            updateIsInGuide( model.isInGuide(  ) );
-
-            updateIsFavourite( model.isFavourite(  ) );
-
             setText( textFormat.formatForMainGuide( programme ) );
 
+            setBorder( 
+                BorderFactory.createCompoundBorder( 
+                    BorderFactory.createLineBorder( Color.BLACK ),
+                    BorderFactory.createLineBorder( Color.WHITE, 2 ) ) );
+            setBackground( Color.WHITE );
+
+            for( int i = 0; i < reminders.length; i++ )
+            {
+                reminders[i].onPaintProgrammeLabel( programme, this );
+            }
         }
     }
 
@@ -373,10 +306,10 @@ public class ProgrammeJLabel extends JLabel
 
         }
 
-        if( isFavourite )
+        for( int i = 0; i < reminders.length; i++ )
         {
-            drawFavouriteIcon( g );
-
+            reminders[i].onPaintProgrammeLabel( 
+                programme, this, (Graphics2D)g );
         }
 
         URL link = programme.getLink(  );
@@ -394,126 +327,45 @@ public class ProgrammeJLabel extends JLabel
         }
     }
 
-    /**
-     * Draws the favourite icon on this panel.
-     *
-     * @param g The Graphics context to draw on.
-     */
-    protected void drawFavouriteIcon( final Graphics g )
-    {
-
-        Graphics2D g2 = (Graphics2D)g;
-
-        AffineTransform originalTransform = g2.getTransform(  );
-
-        g2.setColor( heartColour );
-
-        // switch on anti-aliasing
-        g2.setRenderingHint( 
-            RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
-
-        // Scale and position appropriately--taking into account the borders
-        Rectangle bounds = heartShape.getBounds(  );
-
-        double scale = 0.45 * ( getHeight(  ) / bounds.getHeight(  ) );
-
-        double right = getWidth(  ) - 2 - ( scale * bounds.getWidth(  ) );
-
-        g2.translate( right, 2 );
-
-        g2.scale( scale, scale );
-
-        g2.fill( heartShape );
-
-        g2.setTransform( originalTransform );
-
-    }
-
-    private void toggleSelection(  )
+    /*private void toggleSelection(  )
     {
 
         if( SelectionManager.isInGuide( programme ) )
         {
             SelectionManager.deselectProgramme( programme );
 
-            updateIsInGuide( false );
-
         }
 
         else
         {
             SelectionManager.selectProgramme( programme );
-
-            updateIsInGuide( true );
-
         }
 
-        MainController.reminderReschedule(  );
+        MainController.remindersReschedule(  );
 
         controller.panel.printedGuideArea.update(  );
-    }
+    }*/
+    /* private void updateIsInGuide( boolean isInGuide )
+     {
+         else if( programme.getIsMovie(  ) )
+         {
+             setBorder( movieBorder );
 
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param isFavourite DOCUMENT_ME!
-     */
-    public void setFavourite( boolean isFavourite )
-    {
+             setBackground( movieColour );
 
-        if( model != null )
-        {
-            model.setFavourite( isFavourite );
+         }
 
-        }
+         else
+         {
+             setBorder( nonTickedBorder );
 
-        updateIsFavourite( isFavourite );
+             setBackground( nonTickedColour );
 
-        updateIsInGuide( model.isInGuide(  ) );
+         }
 
-        MainController.reminderReschedule(  );
+         repaint(  );
 
-    }
-
-    private void updateIsInGuide( boolean isInGuide )
-    {
-        this.isInGuide = isInGuide;
-
-        if( isInGuide )
-        {
-            setBorder( tickedBorder );
-
-            setBackground( tickedColour );
-
-        }
-
-        else if( programme.getIsMovie(  ) )
-        {
-            setBorder( movieBorder );
-
-            setBackground( movieColour );
-
-        }
-
-        else
-        {
-            setBorder( nonTickedBorder );
-
-            setBackground( nonTickedColour );
-
-        }
-
-        repaint(  );
-
-    }
-
-    protected void updateIsFavourite( boolean isFavourite )
-    {
-        this.isFavourite = isFavourite;
-
-        repaint(  );
-
-    }
+     }*/
 
     /**
      * DOCUMENT_ME!
@@ -650,15 +502,15 @@ public class ProgrammeJLabel extends JLabel
 
         popMenuProgramme = new ProgrammePopupMenu(  );
 
-        mbtGoToWebSite = new javax.swing.JMenuItem(  );
-
         popMenuProgramme.addPopupMenuListener( 
             new javax.swing.event.PopupMenuListener(  )
             {
                 public void popupMenuWillBecomeVisible( PopupMenuEvent evt )
                 {
-                    popMenuProgrammePopupMenuWillBecomeVisible( 
-                        evt, favouriteAction );
+
+                    // popMenuProgrammePopupMenuWillBecomeVisible( 
+                    //   evt, favouriteAction );
+                    popMenuProgramme.display( ProgrammeJLabel.this );
 
                 }
 
@@ -671,11 +523,11 @@ public class ProgrammeJLabel extends JLabel
                 }
             } );
 
-        selectAction =
-            new ToggleAction( 
-                controller.getLocalizer(  ).getLocalizedMessage( 
+        /*selectAction =
+            new ToggleAction(
+                controller.getLocalizer(  ).getLocalizedMessage(
                     "add_to_guide" ),
-                controller.getLocalizer(  ).getLocalizedMessage( 
+                controller.getLocalizer(  ).getLocalizedMessage(
                     "remove_from_guide" ) )
                 {
                     public void actionPerformed( ActionEvent e )
@@ -692,13 +544,12 @@ public class ProgrammeJLabel extends JLabel
                     }
                 };
 
-        popMenuProgramme.add( selectAction );
-
-        favouriteAction =
-            new ToggleAction( 
-                controller.getLocalizer(  ).getLocalizedMessage( 
+        popMenuProgramme.add( selectAction );*/
+        /*favouriteAction =
+            new ToggleAction(
+                controller.getLocalizer(  ).getLocalizedMessage(
                     "add_to_favourites" ),
-                controller.getLocalizer(  ).getLocalizedMessage( 
+                controller.getLocalizer(  ).getLocalizedMessage(
                     "remove_from_favourites" ) )
                 {
                     public void actionPerformed( ActionEvent e )
@@ -710,39 +561,21 @@ public class ProgrammeJLabel extends JLabel
                     }
                 };
 
-        popMenuProgramme.add( favouriteAction );
-
-        mbtGoToWebSite.setText( 
-            controller.getLocalizer(  ).getLocalizedMessage( "go_to_web_site" ) );
-
-        mbtGoToWebSite.addActionListener( 
-            new java.awt.event.ActionListener(  )
-            {
-                public void actionPerformed( ActionEvent evt )
-                {
-                    mbtGoToWebSiteActionPerformed( evt );
-
-                }
-            } );
-
+        popMenuProgramme.add( favouriteAction );*/
         return popMenuProgramme;
 
     }
 
     /**
      * Event handler when the popup menu is going to be displayed
-     *
-     * @param evt The event object
-     * @param favouriteAction DOCUMENT ME!
      */
-    static protected void popMenuProgrammePopupMenuWillBecomeVisible( 
+
+    /*static protected void popMenuProgrammePopupMenuWillBecomeVisible(
         PopupMenuEvent evt, ToggleAction favouriteAction )
     {
 
         ProgrammeJLabel label =
             ( (ProgrammePopupMenu)evt.getSource(  ) ).label;
-
-        selectAction.setToggle( label.isInGuide );
 
         favouriteAction.setToggle( label.getModel(  ).isFavourite(  ) );
 
@@ -761,14 +594,13 @@ public class ProgrammeJLabel extends JLabel
             popMenuProgramme.remove( popMenuProgrammeSize - 1 );
 
         }
-    }
+    }*/
 
     /**
      * Event handler for when the Add to Favourites popup menu item is clicked
-     *
-     * @param evt The event object
      */
-    protected void mbtAddFavouriteActionPerformed( 
+
+    /*protected void mbtAddFavouriteActionPerformed(
         java.awt.event.ActionEvent evt )
     {
 
@@ -782,28 +614,7 @@ public class ProgrammeJLabel extends JLabel
 
         controller.panel.printedGuideArea.update(  );
 
-    }
-
-    /**
-     * Event handler for when the Go to web site popup menu item is clicked
-     *
-     * @param evt The event object
-     */
-    static protected void mbtGoToWebSiteActionPerformed( 
-        java.awt.event.ActionEvent evt )
-    {
-
-        TVProgramme programme =
-            ( (ProgrammePopupMenu)( (java.awt.Component)evt.getSource(  ) ).getParent(  ) ).label.getModel(  )
-                                                                                                 .getValue(  );
-
-        //        String[] cmds =
-        //          Utils.substitute( 
-        //            FreeGuide.prefs.commandline.getStrings( "browser_command" ),
-        //          "%filename%",
-        //        programme.getLink(  ).toString(  ).replaceAll( "%", "%%" ) );
-        //Utils.execNoWait( cmds );
-    }
+    }*/
 
     /**
      * DOCUMENT ME!
@@ -814,14 +625,6 @@ public class ProgrammeJLabel extends JLabel
     static public interface Model
     {
         TVProgramme getValue(  );
-
-        boolean isInGuide(  );
-
-        boolean isFavourite(  );
-
-        void setInGuide( boolean state );
-
-        void setFavourite( boolean state );
 
         void onFocus(  );
     }
@@ -927,15 +730,5 @@ public class ProgrammeJLabel extends JLabel
             super.putValue( key, newValue );
 
         }
-    }
-
-    /**
-     * The popup menu when you right-click a programme
-     */
-    static protected class ProgrammePopupMenu extends JPopupMenu
-    {
-
-        /** DOCUMENT ME! */
-        public ProgrammeJLabel label;
     }
 }

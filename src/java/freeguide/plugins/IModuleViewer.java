@@ -36,9 +36,9 @@ public interface IModuleViewer extends IModule
 
     void onDataChanged(  );
 
-    void onFavouritesChanged(  );
-
     void onChannelsSetsChanged(  );
+
+    void redraw(  );
 
     void printHTML(  );
 
@@ -58,8 +58,6 @@ public interface IModuleViewer extends IModule
         List getChannelsSetsList(  );
 
         void doEditChannelsSets(  );
-
-        void doEditFavourites(  );
 
         void doStartGrabbers(  );
 

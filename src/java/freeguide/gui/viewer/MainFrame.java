@@ -39,7 +39,6 @@ public class MainFrame extends JFrame
     private JMenuItem menuItemPrint = null;
     private JMenu menuItemExport = null;
     private JMenuItem menuItemWizard = null;
-    private JMenuItem menuItemFavourites = null;
     private JMenuItem menuItemChannelsSets = null;
     private JPanel jPanel = null;
     private JProgressBar progressBar = null;
@@ -308,8 +307,6 @@ public class MainFrame extends JFrame
 
             menuTools.setMnemonic( KeyEvent.VK_T );
 
-            menuTools.add( getMenuItemFavourites(  ) );
-
             menuTools.add( getMenuItemChannelsSets(  ) );
 
             menuTools.add( new JSeparator(  ) );
@@ -318,6 +315,7 @@ public class MainFrame extends JFrame
 
             menuTools.add( getMenuItemOptions(  ) );
             menuTools.add( getMenuItemUpdater(  ) );
+            menuTools.add( new JSeparator(  ) );
 
         }
 
@@ -419,32 +417,6 @@ public class MainFrame extends JFrame
         }
 
         return menuItemWizard;
-
-    }
-
-    /**
-     * This method initializes jMenuItem1
-     *
-     * @return javax.swing.JMenuItem
-     */
-    public JMenuItem getMenuItemFavourites(  )
-    {
-
-        if( menuItemFavourites == null )
-        {
-            menuItemFavourites = new JMenuItem(  );
-
-            menuItemFavourites.setText( 
-                getLocalizedString( "MainFrame.Menu.Favourites" ) );
-
-            menuItemFavourites.setMnemonic( KeyEvent.VK_F );
-
-            menuItemFavourites.setAccelerator( 
-                KeyStroke.getKeyStroke( KeyEvent.VK_F, InputEvent.CTRL_MASK ) );
-
-        }
-
-        return menuItemFavourites;
 
     }
 

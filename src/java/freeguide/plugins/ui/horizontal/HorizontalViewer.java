@@ -400,7 +400,10 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
     }
 
-    protected void redraw(  )
+    /**
+     * DOCUMENT_ME!
+     */
+    public void redraw(  )
     {
 
         // Refresh the programmes
@@ -869,17 +872,6 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     public void onChannelsSetsChanged(  )
     {
         prepareChannelsSetList(  );
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     */
-    public void onFavouritesChanged(  )
-    {
-        panel.getPrintedGuideArea(  ).update(  );
-
-        drawProgrammes(  );
 
     }
 

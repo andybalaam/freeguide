@@ -8,6 +8,7 @@ import freeguide.plugins.IModule;
 import freeguide.plugins.IModuleExport;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IModuleImport;
+import freeguide.plugins.IModuleReminder;
 import freeguide.plugins.IModuleViewer;
 
 import freeguide.plugins.grabber.newsvm_com.GrabberNewsvm;
@@ -20,6 +21,8 @@ import freeguide.plugins.grabber.xmltv.GrabberXMLTV;
 import freeguide.plugins.importexport.jtv.JTV;
 import freeguide.plugins.importexport.palmatv.ExportPalmAtv;
 import freeguide.plugins.importexport.xmltv.ImpExpXmltv;
+
+import freeguide.plugins.reminder.alarm.AlarmReminder;
 
 import freeguide.plugins.ui.horizontal.HorizontalViewer;
 
@@ -66,6 +69,8 @@ public class PluginsManager
         modules.add( new ImpExpXmltv(  ) );
         modules.add( new JTV(  ) );
 
+        modules.add( new AlarmReminder(  ) );
+
         for( int i = 0; i < modules.size(  ); i++ )
         {
 
@@ -89,6 +94,19 @@ public class PluginsManager
                 nodeName =
                     "/org/freeguide-tv/modules/importexport/"
                     + module.getID(  );
+            }
+            else if( 
+                module instanceof IModuleReminder
+                    || module instanceof IModuleReminder )
+            {
+                nodeName =
+                    "/org/freeguide-tv/modules/reminder/" + module.getID(  );
+            }
+            else
+            {
+                System.err.println( 
+                    "PluginsManager: Unknown module type '"
+                    + module.getClass(  ).getName(  ) + "'" );
             }
 
             module.setConfigStorage( 
@@ -321,6 +339,31 @@ public class PluginsManager
 
         return (IModuleExport[])result.toArray( 
             new IModuleExport[result.size(  )] );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static IModuleReminder[] getReminders(  )
+    {
+
+        final List result = new ArrayList(  );
+
+        for( int i = 0; i < modules.size(  ); i++ )
+        {
+
+            IModule module = (IModule)modules.get( i );
+
+            if( module instanceof IModuleReminder )
+            {
+                result.add( module );
+            }
+        }
+
+        return (IModuleReminder[])result.toArray( 
+            new IModuleReminder[result.size(  )] );
     }
 
     /**

@@ -96,22 +96,9 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
 
     /**
      * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
      */
-    public boolean isInGuide(  )
-    {
 
-        return SelectionManager.isInGuide( programme );
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param state DOCUMENT_ME!
-     */
-    public void setInGuide( boolean state )
+    /*public void setInGuide( boolean state )
     {
 
         if( state )
@@ -129,7 +116,7 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
 
                     // Find out when we will remind
                     Date reminderStartTime =
-                        new Date( 
+                        new Date(
                             startTime.getTime(  )
                             - ( MainController.config.reminderWarning ) );
 
@@ -138,7 +125,7 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
                     // If it's immediately, make it in 10 secs time
                     if( reminderStartTime.before( nowDate ) )
                     {
-                        reminderStartTime.setTime( 
+                        reminderStartTime.setTime(
                             nowDate.getTime(  ) + 10000 );
 
                     }
@@ -146,119 +133,69 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
                     // Set the ending time to be a certain time after the
                     // beginning.
                     Date reminderEndTime =
-                        new Date( 
+                        new Date(
                             reminderStartTime.getTime(  )
                             + ( MainController.config.reminderGiveUp ) );
-
-                    /* TODO if( viewerFrame.reminderTimer != null )
-
-
-                    {
+    */
+    /* TODO if( viewerFrame.reminderTimer != null )
 
 
-                    viewerFrame.reminderTimer.cancel(  );
+    {
 
 
-                    }
+    viewerFrame.reminderTimer.cancel(  );
 
 
-
-
-                    viewerFrame.reminderTimer = new MessageDialogTimer(  );
+    }
 
 
 
 
+    viewerFrame.reminderTimer = new MessageDialogTimer(  );
 
 
-                    Object[] messageArguments = { programme.getTitle(  ) };
 
 
-                    viewerFrame.reminderTimer.schedule(
 
 
-                    FreeGuide.getCompoundMessage(
+    Object[] messageArguments = { programme.getTitle(  ) };
 
 
-                    "is_starting_soon_template", messageArguments ),
+    viewerFrame.reminderTimer.schedule(
 
 
-                    reminderStartTime, reminderEndTime );
+    FreeGuide.getCompoundMessage(
 
 
-                    */
+    "is_starting_soon_template", messageArguments ),
+
+
+    reminderStartTime, reminderEndTime );
+
+
+    */
+    /*                }
                 }
             }
-        }
 
-        else
-        {
-
-            //FreeGuide.prefs.removeFromGuide( programme );
-
-            /*TODO  if( viewerFrame.reminderTimer != null )
-
-
+            else
             {
+    */
+
+    //FreeGuide.prefs.removeFromGuide( programme );
+
+    /*TODO  if( viewerFrame.reminderTimer != null )
 
 
-            viewerFrame.reminderTimer.cancel(  );
-
-
-            }*/
-        }
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public boolean isFavourite(  )
     {
 
-        return SelectionManager.isFavourite( programme );
 
-    }
+    viewerFrame.reminderTimer.cancel(  );
 
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param state DOCUMENT_ME!
-     */
-    public void setFavourite( boolean state )
-    {
 
-        if( !state )
-        {
-
-            Object[] messageArguments = { programme.getTitle(  ) };
-
-            int r =
-                JOptionPane.showConfirmDialog( 
-                    controller.getPanel(  ),
-                    controller.getLocalizer(  ).getLocalizedMessage( 
-                        "remove_favourite_template", messageArguments ),
-                    controller.getLocalizer(  ).getLocalizedMessage( 
-                        "remove_favourite" ), JOptionPane.YES_NO_OPTION );
-
-            if( r == 0 )
-            {
-                SelectionManager.removeFavouriteByProgramme( programme );
-
-                setInGuide( false );
-
-            }
-        }
-
-        else
-        {
-            SelectionManager.addFavouriteByProgramme( programme );
-
-            setInGuide( true );
-
-        }
-    }
+    }*/
+    /*}
+    }*/
 
     /**
      * Called when this component receives the focus.  Scrolls the HTML guide

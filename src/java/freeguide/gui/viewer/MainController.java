@@ -4,18 +4,18 @@ import freeguide.FreeGuide;
 
 import freeguide.gui.dialogs.ChannelSetListDialog;
 import freeguide.gui.dialogs.FGDialog;
-import freeguide.gui.dialogs.FavouritesController;
 
 import freeguide.lib.fgspecific.GrabberController;
+import freeguide.lib.fgspecific.PluginsManager;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.data.TVData;
-import freeguide.lib.fgspecific.selection.SelectionManager;
 
 import freeguide.lib.general.LookAndFeelManager;
 import freeguide.lib.general.PreferencesHelper;
 import freeguide.lib.general.Utils;
 
 import freeguide.plugins.IModuleExport;
+import freeguide.plugins.IModuleReminder;
 import freeguide.plugins.IModuleViewer;
 import freeguide.plugins.IStorage;
 
@@ -49,7 +49,6 @@ public class MainController implements IModuleViewer.Parent
 
     /** DOCUMENT ME! */
     public static final Config config = new Config(  );
-    protected static Reminder reminder = new Reminder(  );
 
     /** DOCUMENT ME! */
     public MainFrame mainFrame;
@@ -65,9 +64,14 @@ public class MainController implements IModuleViewer.Parent
     public MainController( final Preferences configStore )
     {
         this.configStore = configStore;
+    }
 
-        reminder.start(  );
-
+    /**
+     * DOCUMENT_ME!
+     */
+    public void redraw(  )
+    {
+        viewer.redraw(  );
     }
 
     /**
@@ -87,6 +91,14 @@ public class MainController implements IModuleViewer.Parent
 
         new MenuHandler( this );
 
+        final IModuleReminder[] reminders = PluginsManager.getReminders(  );
+
+        for( int i = 0; i < reminders.length; i++ )
+        {
+            reminders[i].addItemsToMenu( mainFrame.getMenuTools(  ) );
+            reminders[i].start(  );
+        }
+
         mainFrame.getContentPane(  ).add( 
             viewer.getPanel(  ), BorderLayout.CENTER );
 
@@ -99,10 +111,13 @@ public class MainController implements IModuleViewer.Parent
 
                     saveConfig(  );
 
-                    reminder.isStopped = true;
+                    final IModuleReminder[] reminders =
+                        PluginsManager.getReminders(  );
 
-                    reminder.reSchedule(  );
-
+                    for( int i = 0; i < reminders.length; i++ )
+                    {
+                        reminders[i].stop(  );
+                    }
                 }
             } );
         mainFrame.getProgressBar(  ).addMouseListener( 
@@ -149,7 +164,7 @@ public class MainController implements IModuleViewer.Parent
             viewer.getDefaultButton(  ) );
         mainFrame.setVisible( true );
 
-        reminderReschedule(  );
+        remindersReschedule(  );
 
         FreeGuide.hidePleaseWait(  );
     }
@@ -157,10 +172,15 @@ public class MainController implements IModuleViewer.Parent
     /**
      * DOCUMENT_ME!
      */
-    public static void reminderReschedule(  )
+    public static void remindersReschedule(  )
     {
-        reminder.reSchedule(  );
 
+        final IModuleReminder[] reminders = PluginsManager.getReminders(  );
+
+        for( int i = 0; i < reminders.length; i++ )
+        {
+            reminders[i].reschedule(  );
+        }
     }
 
     protected void loadConfig(  )
@@ -169,8 +189,6 @@ public class MainController implements IModuleViewer.Parent
         try
         {
             PreferencesHelper.load( configStore, config );
-
-            SelectionManager.load( configStore.node( "selection" ) );
 
         }
 
@@ -187,8 +205,6 @@ public class MainController implements IModuleViewer.Parent
         try
         {
             PreferencesHelper.save( configStore, config );
-
-            SelectionManager.save( configStore.node( "selection" ) );
         }
 
         catch( Exception ex )
@@ -285,34 +301,6 @@ public class MainController implements IModuleViewer.Parent
     /**
      * DOCUMENT_ME!
      */
-    public void doEditFavourites(  )
-    {
-
-        FavouritesController favController =
-            new FavouritesController( 
-                mainFrame, SelectionManager.getFavouritesList(  ),
-                getDataStorage(  ).getInfo(  ).allChannels );
-
-        Utils.centreDialog( mainFrame, favController.getListDialog(  ) );
-        favController.getListDialog(  ).setVisible( true );
-
-        if( favController.isChanged(  ) )
-        {
-            SelectionManager.setFavouritesList( 
-                favController.getFavourites(  ) );
-
-            saveConfig(  );
-
-            viewer.onFavouritesChanged(  );
-
-            reminderReschedule(  );
-
-        }
-    }
-
-    /**
-     * DOCUMENT_ME!
-     */
     public void doStartGrabbers(  )
     {
 
@@ -334,7 +322,7 @@ public class MainController implements IModuleViewer.Parent
                                 getApplicationFrame(  ),
                                 mainFrame.getProgressBar(  ) );
                             viewer.onDataChanged(  );
-                            reminderReschedule(  );
+                            remindersReschedule(  );
                             FreeGuide.log.finest( "stop grabbing" );
                         }
                     }.start(  );

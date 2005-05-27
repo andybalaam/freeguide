@@ -70,7 +70,7 @@ public class MenuHandler
                             FreeGuide.setLocale( FreeGuide.config.lang );
                         }
 
-                        MainController.reminderReschedule(  );
+                        MainController.remindersReschedule(  );
 
                         controller.viewer.onDataChanged(  );
                     }
@@ -93,16 +93,6 @@ public class MenuHandler
                 public void actionPerformed( ActionEvent e )
                 {
                     controller.doPrint(  );
-
-                }
-            } );
-
-        controller.mainFrame.getMenuItemFavourites(  ).addActionListener( 
-            new ActionListener(  )
-            {
-                public void actionPerformed( ActionEvent e )
-                {
-                    controller.doEditFavourites(  );
 
                 }
             } );
