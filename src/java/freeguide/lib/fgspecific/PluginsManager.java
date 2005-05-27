@@ -10,12 +10,16 @@ import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IModuleImport;
 import freeguide.plugins.IModuleViewer;
 
+import freeguide.plugins.grabber.newsvm_com.GrabberNewsvm;
+import freeguide.plugins.grabber.tv_kulichki_net.GrabberKulichki;
 import freeguide.plugins.grabber.www_cosmostv_com.GrabberCosmostv;
 import freeguide.plugins.grabber.www_ntvplus_ru.GrabberNtvplus;
 import freeguide.plugins.grabber.www_vsetv_com.GrabberVsetv;
 import freeguide.plugins.grabber.xmltv.GrabberXMLTV;
 
+import freeguide.plugins.importexport.jtv.JTV;
 import freeguide.plugins.importexport.palmatv.ExportPalmAtv;
+import freeguide.plugins.importexport.xmltv.ImpExpXmltv;
 
 import freeguide.plugins.ui.horizontal.HorizontalViewer;
 
@@ -55,8 +59,12 @@ public class PluginsManager
         modules.add( new GrabberVsetv(  ) );
         modules.add( new GrabberNtvplus(  ) );
         modules.add( new GrabberCosmostv(  ) );
+        modules.add( new GrabberNewsvm(  ) );
+        modules.add( new GrabberKulichki(  ) );
 
         modules.add( new ExportPalmAtv(  ) );
+        modules.add( new ImpExpXmltv(  ) );
+        modules.add( new JTV(  ) );
 
         for( int i = 0; i < modules.size(  ); i++ )
         {
@@ -184,6 +192,31 @@ public class PluginsManager
 
         return (IModuleGrabber[])result.toArray( 
             new IModuleGrabber[result.size(  )] );
+    }
+
+    /**
+     * Get module by ID.
+     *
+     * @param id DOCUMENT ME!
+     *
+     * @return module
+     */
+    public static IModule getModuleByID( final String id )
+    {
+
+        for( int i = 0; i < modules.size(  ); i++ )
+        {
+
+            IModule module = (IModule)modules.get( i );
+
+            if( id.equals( module.getID(  ) ) )
+            {
+
+                return module;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -318,5 +351,49 @@ public class PluginsManager
                     "Error set locale for module " + module.getID(  ), ex );
             }
         }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param id DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static boolean isInstalled( final String id )
+    {
+
+        for( int i = 0; i < modules.size(  ); i++ )
+        {
+
+            IModule module = (IModule)modules.get( i );
+
+            if( id.equals( module.getID(  ) ) )
+            {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param id DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     *
+     * @throws InstantiationException DOCUMENT_ME!
+     * @throws IllegalAccessException DOCUMENT_ME!
+     */
+    public static IModule cloneModule( final String id )
+        throws InstantiationException, IllegalAccessException
+    {
+
+        IModule mod = getModuleByID( id );
+
+        return ( mod != null ) ? (IModule)mod.getClass(  ).newInstance(  ) : null;
     }
 }
