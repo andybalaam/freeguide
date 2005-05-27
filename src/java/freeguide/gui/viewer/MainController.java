@@ -378,7 +378,7 @@ public class MainController implements IModuleViewer.Parent
                         TVData data =
                             getDataStorage(  ).get( 
                                 null, info.minDate, info.maxDate );
-                        exp.export( data, mainFrame );
+                        exp.exportData( data, mainFrame );
                     }
                     catch( Exception ex )
                     {

@@ -6,6 +6,8 @@ import freeguide.gui.dialogs.AboutFrame;
 
 import freeguide.gui.options.OptionsDialog;
 
+import freeguide.gui.updater.UpdaterController;
+
 import freeguide.gui.wizard.FirstTimeWizard;
 
 import freeguide.lib.fgspecific.PluginsManager;
@@ -40,7 +42,6 @@ public class MenuHandler
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
                     controller.mainFrame.setVisible( false );
-
                 }
             } );
 
@@ -149,6 +150,15 @@ public class MenuHandler
                 {
                     new FirstTimeWizard( null, true, null );
 
+                }
+            } );
+
+        controller.mainFrame.getMenuItemUpdater(  ).addActionListener( 
+            new ActionListener(  )
+            {
+                public void actionPerformed( java.awt.event.ActionEvent e )
+                {
+                    new UpdaterController( controller.mainFrame ).run(  );
                 }
             } );
 

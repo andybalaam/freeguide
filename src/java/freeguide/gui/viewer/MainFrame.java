@@ -43,6 +43,7 @@ public class MainFrame extends JFrame
     private JMenuItem menuItemChannelsSets = null;
     private JPanel jPanel = null;
     private JProgressBar progressBar = null;
+    private JMenuItem menuItemUpdater = null;
 
     /**
      * This is the default constructor
@@ -316,6 +317,7 @@ public class MainFrame extends JFrame
             menuTools.add( getMenuItemWizard(  ) );
 
             menuTools.add( getMenuItemOptions(  ) );
+            menuTools.add( getMenuItemUpdater(  ) );
 
         }
 
@@ -505,5 +507,28 @@ public class MainFrame extends JFrame
         }
 
         return progressBar;
+    }
+
+    /**
+     * This method initializes jMenuItem
+     *
+     * @return javax.swing.JMenuItem
+     */
+    public JMenuItem getMenuItemUpdater(  )
+    {
+
+        if( menuItemUpdater == null )
+        {
+            menuItemUpdater = new JMenuItem(  );
+            menuItemUpdater.setText( 
+                getLocalizedString( "MainFrame.Menu.Updater" ) );
+
+            menuItemUpdater.setMnemonic( KeyEvent.VK_U );
+
+            menuItemUpdater.setAccelerator( 
+                KeyStroke.getKeyStroke( KeyEvent.VK_U, InputEvent.CTRL_MASK ) );
+        }
+
+        return menuItemUpdater;
     }
 }
