@@ -222,6 +222,17 @@ public class TVChannel implements Serializable
     }
 
     /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public int getProgrammesCount(  )
+    {
+
+        return programmes.size(  );
+    }
+
+    /**
      * Get programme by specified time.
      *
      * @param startTime
