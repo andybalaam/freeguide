@@ -8,7 +8,6 @@ import freeguide.lib.fgspecific.data.TVProgramme;
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleExport;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,6 +16,10 @@ import java.util.List;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
+
+import org.alex73.utils.io.EndianInputStream;
+import org.alex73.utils.io.EndianOutputByteArray;
+import org.alex73.utils.palm.PDBFile;
 
 /**
  * Export to Palm's ATV module.
@@ -35,7 +38,7 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
 
     /** DOCUMENT ME! */
     public static final String hDatabaseType = "Data";
-    protected ADataInputStream rd;
+    protected EndianInputStream rd;
     protected String charset = "Cp1251";
 
     /**
@@ -145,9 +148,8 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
 
         final List programmes = new ArrayList(  );
         protected IOException ex;
-        final ByteArrayOutputStream ba;
         final PDBFile pdb;
-        protected ADataOutputStream wr;
+        protected EndianOutputByteArray wr;
 
         /**
          * Creates a new StoreIterator object.
@@ -159,9 +161,7 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
         public StoreIterator( final String pdbName ) throws IOException
         {
             pdb = new PDBFile( pdbName, hCreatorID, hDatabaseType );
-            ba = new ByteArrayOutputStream(  );
-            wr = new ADataOutputStream( ba, charset );
-            wr.setBigEndian(  );
+            wr = new EndianOutputByteArray( false, charset );
         }
 
         protected void onChannel( TVChannel channel )
@@ -210,11 +210,11 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
                         checkMaxRecSize( 
                             getCurrentChannel(  ).getDisplayName(  ),
                             programmes, channelID, mprev );
-                    ba.reset(  );
+                    wr.reset(  );
                     saveChannelProgTo( 
                         getCurrentChannel(  ).getDisplayName(  ), programmes,
                         channelID, mprev, m );
-                    pdb.addRecord( ba.toByteArray(  ) );
+                    pdb.addRecord( wr.getBytes(  ) );
                     mprev = m;
                 }
                 catch( IOException ex )
@@ -274,12 +274,9 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
             int to ) throws IOException
         {
 
-            if( 
-                ( wr.writeSPasString0( 
-                        channelName + "(" + sitename + ")", charset ) % 2 ) == 1 )
-            {
-                wr.write( 0 );
-            }
+                 wr.writeSPasString0( 
+                        channelName + "(" + sitename + ")", charset );
+                wr.alignToShort( );
 
             wr.writeInt( to - from );
 
@@ -291,17 +288,11 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
                 wr.writeShort( 
                     (short)( ( pr.getEnd(  ) - pr.getStart(  ) ) / 1000 ) );
 
-                if( 
-                    ( wr.writeSPasString( pr.getTitle(  ), charset ) % 2 ) == 1 )
-                {
-                    wr.write( 0 );
-                }
+                    wr.writeSPasString( pr.getTitle(  ));
+                    wr.alignToShort( );
 
-                if( 
-                    ( wr.writeSPasString( pr.getDescription(  ), charset ) % 2 ) == 1 )
-                {
-                    wr.write( 0 );
-                }
+                    wr.writeSPasString( pr.getDescription(  ));
+                    wr.alignToShort( );
             }
         }
 
