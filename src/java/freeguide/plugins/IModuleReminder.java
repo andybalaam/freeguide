@@ -10,6 +10,13 @@ import javax.swing.JPopupMenu;
 
 /**
  * Reminder support module for alarm or VCR recording.
+ * 
+ * There are favourites and selections. Favourite describes programme parameters, like
+ * channel and title. Selection describes only one TV programme for scheduled date and time.
+ * New grabbed programmes can have favourites, but can't have selections.
+ * Selections can change favourites settings only for own programme.
+ * For example, programme can equals to favourite, but there is selection where flag 
+ * 'selected'==false. In this case programme should be deselected.
  *
  * @author Alex Buloichik(alex73 at zaval.org)
  */
@@ -17,75 +24,78 @@ public interface IModuleReminder extends IModule
 {
 
     /**
-     * DOCUMENT_ME!
+     * Read programmes and schedule again.
      */
     public void reschedule(  );
 
     /**
-     * DOCUMENT_ME!
+     * Start scheduler for wait new schedule.
      */
     public void start(  );
 
     /**
-     * DOCUMENT_ME!
+     * Stop scheduler.
      */
     public void stop(  );
 
     /**
-     * DOCUMENT_ME!
+     * Check if programme is selected.
      *
-     * @param programme DOCUMENT_ME!
+     * @param programme programme 
      *
-     * @return DOCUMENT_ME!
+     * @return true if selected
      */
     public boolean isSelected( TVProgramme programme );
 
     /**
-     * DOCUMENT_ME!
+     * Select programme.
      *
-     * @param programme DOCUMENT_ME!
+     * @param programme programme
      */
     public void selectProgramme( final TVProgramme programme );
 
     /**
-     * DOCUMENT_ME!
+     * Deselect programme.
      *
-     * @param programme DOCUMENT_ME!
+     * @param programme programme
      */
     public void deselectProgramme( final TVProgramme programme );
 
     /**
-     * DOCUMENT_ME!
+     * Add items to main frame menu.
      *
-     * @param menu DOCUMENT_ME!
+     * @param menu main frame menu
      */
     public void addItemsToMenu( final JMenu menu );
 
     /**
-     * DOCUMENT_ME!
+     * Add items to popup menu for programme.
      *
-     * @param programme DOCUMENT_ME!
-     * @param menu DOCUMENT_ME!
+     * @param programme programme
+     * @param menu popup menu
      */
     public void addItemsToPopupMenu( 
         final TVProgramme programme, final JPopupMenu menu );
 
     /**
-     * DOCUMENT_ME!
+     * Calls on paint programme label. 
+     * You can change border, background color, etc.
+     * Label has default presets.
      *
-     * @param prog DOCUMENT_ME!
-     * @param label DOCUMENT_ME!
+     * @param programme programme
+     * @param label label
      */
     public void onPaintProgrammeLabel( 
-        final TVProgramme prog, final JLabel label );
+        final TVProgramme programme, final JLabel label );
 
     /**
-     * DOCUMENT_ME!
+     * Calls on paint programme label.
+     * You can draw icon, etc. 
      *
-     * @param prog DOCUMENT_ME!
-     * @param label DOCUMENT_ME!
-     * @param graphics DOCUMENT_ME!
+     * @param programme programme
+     * @param label label
+     * @param graphics graphics object
      */
     public void onPaintProgrammeLabel( 
-        final TVProgramme prog, final JLabel label, final Graphics2D graphics );
+        final TVProgramme programme, final JLabel label, final Graphics2D graphics );
 }

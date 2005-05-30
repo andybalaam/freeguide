@@ -2,8 +2,6 @@ package freeguide.plugins;
 
 import freeguide.FreeGuide;
 
-import freeguide.gui.viewer.MainController;
-
 import freeguide.lib.fgspecific.data.TVProgramme;
 import freeguide.lib.fgspecific.selection.Favourite;
 import freeguide.lib.fgspecific.selection.ManualSelection;
@@ -22,6 +20,7 @@ import javax.swing.JMenuItem;
 
 /**
  * Base class for support reminders.
+ * It supports scheduler thread for call event on scheduled time.
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
@@ -34,7 +33,7 @@ abstract public class BaseModuleReminder extends BaseModule
     protected Scheduler thread;
 
     /**
-     * DOCUMENT_ME!
+     * Start scheduler thread.
      */
     public void start(  )
     {
@@ -43,7 +42,7 @@ abstract public class BaseModuleReminder extends BaseModule
     }
 
     /**
-     * DOCUMENT_ME!
+     * Stop scheduler thread.
      */
     public void stop(  )
     {
@@ -56,9 +55,9 @@ abstract public class BaseModuleReminder extends BaseModule
     }
 
     /**
-     * DOCUMENT_ME!
+     * Add items to main frame menu.
      *
-     * @param menu DOCUMENT_ME!
+     * @param menu main frame menu
      */
     public void addItemsToMenu( final JMenu menu )
     {
@@ -79,7 +78,7 @@ abstract public class BaseModuleReminder extends BaseModule
     abstract protected void onMenuItem(  );
 
     /**
-     * DOCUMENT_ME!
+     * Read programmes and schedule again.
      */
     public void reschedule(  )
     {
@@ -91,33 +90,35 @@ abstract public class BaseModuleReminder extends BaseModule
     }
 
     /**
-     * DOCUMENT_ME!
+     * Calls on paint programme label. 
      *
-     * @param prog DOCUMENT_ME!
-     * @param label DOCUMENT_ME!
+     * @param programme programme
+     * @param label label
      */
     public void onPaintProgrammeLabel( 
-        final TVProgramme prog, final JLabel label )
+        final TVProgramme programme, final JLabel label )
     {
     }
 
     /**
-     * DOCUMENT_ME!
+     * Calls on paint programme label.
+     * You can draw icon, etc. 
      *
-     * @param prog DOCUMENT_ME!
-     * @param graphics DOCUMENT_ME!
+     * @param programme programme
+     * @param label label
+     * @param graphics graphics object
      */
     public void onPaintProgrammeLabel( 
-        final TVProgramme prog, final Graphics graphics )
+        final TVProgramme programme, final Graphics graphics )
     {
     }
 
     /**
-     * DOCUMENT_ME!
+     * Get favourite description for programme.
      *
-     * @param programme DOCUMENT_ME!
+     * @param programme programme
      *
-     * @return DOCUMENT_ME!
+     * @return favourite description or null if there is no favourite found
      */
     public Favourite getFavourite( TVProgramme programme )
     {
@@ -143,11 +144,11 @@ abstract public class BaseModuleReminder extends BaseModule
     }
 
     /**
-     * DOCUMENT_ME!
+     * Get manual selection description for programme.
      *
-     * @param programme DOCUMENT_ME!
+     * @param programme programme
      *
-     * @return DOCUMENT_ME!
+     * @return selection description or null if there is no selection found
      */
     public ManualSelection getManualSelection( TVProgramme programme )
     {
@@ -176,9 +177,9 @@ abstract public class BaseModuleReminder extends BaseModule
     /**
      * Check if programme in the favourites or manual selection list.
      *
-     * @param programme DOCUMENT ME!
+     * @param programme programme
      *
-     * @return DOCUMENT_ME!
+     * @return true if programme selected
      */
     public boolean isSelected( TVProgramme programme )
     {
@@ -207,9 +208,9 @@ abstract public class BaseModuleReminder extends BaseModule
     }
 
     /**
-     * DOCUMENT_ME!
+     * Add programme to selection list.
      *
-     * @param programme DOCUMENT_ME!
+     * @param programme programme
      */
     public void selectProgramme( TVProgramme programme )
     {
@@ -235,9 +236,9 @@ abstract public class BaseModuleReminder extends BaseModule
     }
 
     /**
-     * DOCUMENT_ME!
+     * Add programme to deselection list.
      *
-     * @param programme DOCUMENT_ME!
+     * @param programme programme
      */
     public void deselectProgramme( TVProgramme programme )
     {
@@ -263,9 +264,9 @@ abstract public class BaseModuleReminder extends BaseModule
     }
 
     /**
-     * DOCUMENT_ME!
+     * Add new favourite.
      *
-     * @param favourite DOCUMENT_ME!
+     * @param favourite favourite description
      */
     public void addFavourite( final Favourite favourite )
     {
@@ -278,9 +279,9 @@ abstract public class BaseModuleReminder extends BaseModule
     }
 
     /**
-     * DOCUMENT_ME!
+     * Remove favourite.
      *
-     * @param favourite DOCUMENT_ME!
+     * @param favourite favourite description
      */
     public void removeFavourite( final Favourite favourite )
     {
@@ -297,25 +298,22 @@ abstract public class BaseModuleReminder extends BaseModule
     abstract protected long getNextTime(  );
 
     /**
-     * DOCUMENT ME!
-     *
-     * @author $author$
-     * @version $Revision$
+     * Favourite and selection lists storage.
      */
     public static class Config
     {
 
-        /** DOCUMENT ME! */
+        /** Favourite element type. */
         public static final Class favouritesList_TYPE = Favourite.class;
 
-        /** DOCUMENT ME! */
+        /** Selection element type. */
         public static final Class manualSelectionList_TYPE =
             ManualSelection.class;
 
-        /** DOCUMENT ME! */
+        /** Favourites list. */
         public List favouritesList = new ArrayList(  );
 
-        /** DOCUMENT ME! */
+        /** Selections list. */
         public List manualSelectionList = new ArrayList(  );
     }
 
