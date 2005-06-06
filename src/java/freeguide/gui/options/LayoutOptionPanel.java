@@ -29,6 +29,7 @@ import freeguide.gui.dialogs.*;
 
 import freeguide.gui.viewer.MainController;
 
+import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PluginsManager;
 
 import freeguide.lib.general.*;
@@ -141,7 +142,7 @@ public class LayoutOptionPanel extends OptionPanel
         MainController.config.ui.LFname =
             lookAndFeelCombo.getSelectedItem(  ).toString(  );
 
-        FreeGuide.mainController.setLookAndFeel(  );
+        Application.getMainController(  ).setLookAndFeel(  );
 
         return true;
 

@@ -24,10 +24,8 @@ public interface IModuleViewer extends IModule
 
     /**
      * Method calls when application open viewer.
-     *
-     * @param parent DOCUMENT ME!
      */
-    void open( Parent parent );
+    void open(  );
 
     /**
      * Method calls when application closes or viewer changed.
@@ -43,24 +41,4 @@ public interface IModuleViewer extends IModule
     void printHTML(  );
 
     JButton getDefaultButton(  );
-
-    /**
-     * Interface for parent of viewer.
-     *
-     * @author Alex Buloichik (alex73 at zaval.org)
-     */
-    public interface Parent
-    {
-        JFrame getApplicationFrame(  );
-
-        IStorage getDataStorage(  );
-
-        List getChannelsSetsList(  );
-
-        void doEditChannelsSets(  );
-
-        void doStartGrabbers(  );
-
-        void doPrint(  );
-    }
 }

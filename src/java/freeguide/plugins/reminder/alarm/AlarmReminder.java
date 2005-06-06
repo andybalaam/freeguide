@@ -6,6 +6,7 @@ import freeguide.gui.dialogs.FavouritesController;
 
 import freeguide.gui.viewer.MainController;
 
+import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVProgramme;
 import freeguide.lib.fgspecific.selection.Favourite;
 import freeguide.lib.fgspecific.selection.ManualSelection;
@@ -222,12 +223,12 @@ public class AlarmReminder extends BaseModuleReminder
 
         FavouritesController favController =
             new FavouritesController( 
-                FreeGuide.mainController.getApplicationFrame(  ),
+                Application.getInstance(  ).getApplicationFrame(  ),
                 config.favouritesList,
                 FreeGuide.storage.getInfo(  ).allChannels );
 
         Utils.centreDialog( 
-            FreeGuide.mainController.getApplicationFrame(  ),
+            Application.getInstance(  ).getApplicationFrame(  ),
             favController.getListDialog(  ) );
         favController.getListDialog(  ).setVisible( true );
 
@@ -237,7 +238,7 @@ public class AlarmReminder extends BaseModuleReminder
 
             saveConfig(  );
 
-            FreeGuide.mainController.redraw(  );
+            Application.getInstance(  ).redraw(  );
 
             reschedule(  );
 

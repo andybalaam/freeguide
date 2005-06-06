@@ -14,6 +14,7 @@ import freeguide.lib.general.LookAndFeelManager;
 import freeguide.lib.general.PreferencesHelper;
 import freeguide.lib.general.Utils;
 
+import freeguide.plugins.IApplication;
 import freeguide.plugins.IModuleExport;
 import freeguide.plugins.IModuleReminder;
 import freeguide.plugins.IModuleViewer;
@@ -44,7 +45,7 @@ import javax.swing.UIManager;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class MainController implements IModuleViewer.Parent
+public class MainController implements IApplication
 {
 
     /** DOCUMENT ME! */
@@ -53,15 +54,15 @@ public class MainController implements IModuleViewer.Parent
     /** DOCUMENT ME! */
     public MainFrame mainFrame;
     protected IModuleViewer viewer;
-    protected final Preferences configStore;
+    protected Preferences configStore;
     protected GrabberController grab = new GrabberController(  );
 
     /**
-     * Creates a new MainController object.
+     * DOCUMENT_ME!
      *
-     * @param configStore DOCUMENT ME!
+     * @param configStore DOCUMENT_ME!
      */
-    public MainController( final Preferences configStore )
+    public void setPreferences( final Preferences configStore )
     {
         this.configStore = configStore;
     }
@@ -158,7 +159,7 @@ public class MainController implements IModuleViewer.Parent
 
         mainFrame.setBounds( config.ui.mainWindowPosition );
 
-        viewer.open( this );
+        viewer.open(  );
 
         mainFrame.getRootPane(  ).setDefaultButton( 
             viewer.getDefaultButton(  ) );

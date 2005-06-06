@@ -396,60 +396,60 @@ abstract public class BaseModuleReminder extends BaseModule
 
         /*try
         {
-        
+
             long schedTime;
-        
+
             if(
                 ( closeDialogTime != 0 )
                     && ( schedTime > closeDialogTime ) )
             {
                 schedTime = closeDialogTime;
             }
-        
+
             long waitTime = schedTime - System.currentTimeMillis(  );
-        
+
             if( waitTime < 10 )
             {
                 waitTime = 10;
-        
+
             }
-        
+
             wait( waitTime );
-        
+
             if( stop )
             {
-        
+
                 break;
-        
+
             }
-        
+
             if( dialog != null )
             {
                 dialog.dispose(  );
-        
+
                 dialog = null;
-        
+
             }
-        
+
             closeDialogTime = 0;
-        
+
             if( scheduledProgramme != null )
             {
-        
+
                 if(
                     ( scheduledProgramme.getStart(  )
                         - MainController.config.reminderWarning ) < System
                         .currentTimeMillis(  ) )
                 {
                     displayDialog(  );
-        
+
                     closeDialogTime =
                         System.currentTimeMillis(  )
                         + MainController.config.reminderGiveUp;
-        
+
                 }
             }
-        
+
             scheduledProgramme = findNextProgramme(  );
         }
         catch( InterruptedException ex )

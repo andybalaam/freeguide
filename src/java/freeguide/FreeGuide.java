@@ -18,6 +18,7 @@ import freeguide.gui.viewer.MainController;
 
 import freeguide.gui.wizard.FirstTimeWizard;
 
+import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PluginsManager;
 import freeguide.lib.fgspecific.StartupChecker;
 import freeguide.lib.fgspecific.data.TVChannel;
@@ -59,9 +60,6 @@ public class FreeGuide
     /** DOCUMENT ME! */
     public final static Preferences PREF_ROOT =
         Preferences.userRoot(  ).node( "/org/freeguide-tv" );
-
-    /** Main application frame controller. */
-    public static MainController mainController;
 
     /** Storage of TV data. */
     public static IStorage storage;
@@ -241,14 +239,14 @@ public class FreeGuide
     {
         showPleaseWait(  );
 
-        mainController =
-            new MainController( PREF_ROOT.node( "mainController" ) );
+        Application.getMainController(  ).setPreferences( 
+            PREF_ROOT.node( "mainController" ) );
 
         storage = new StorageSerFilesByDay(  );
 
         IModuleViewer viewer = PluginsManager.getViewerByID( "Horizontal" );
 
-        mainController.start( viewer, grabberFromWizard );
+        Application.getMainController(  ).start( viewer, grabberFromWizard );
 
     }
 

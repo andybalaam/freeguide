@@ -2,6 +2,7 @@ package freeguide.plugins.ui.horizontal;
 
 import freeguide.FreeGuide;
 
+import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.VersionCheckerThread;
 import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
@@ -94,7 +95,6 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
      * data dirctory.
      */
     public long[] dateExistList;
-    protected IModuleViewer.Parent parent;
 
     /** The channel the user last right clicked on */
     public ChannelJLabel rightClickedChannel;
@@ -158,7 +158,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                         selectedInd == ( panel.getComboChannelsSet(  )
                                                   .getItemCount(  ) - 1 ) )
                     { // edit set
-                        parent.doEditChannelsSets(  );
+                        Application.getInstance(  ).doEditChannelsSets(  );
 
                     }
 
@@ -221,13 +221,9 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
     /**
      * DOCUMENT_ME!
-     *
-     * @param parent DOCUMENT ME!
      */
-    public void open( final IModuleViewer.Parent parent )
+    public void open(  )
     {
-        this.parent = parent;
-
         loadConfig(  );
 
         theDate = System.currentTimeMillis(  );
@@ -245,7 +241,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         {
 
             // Run the check in a separate thread to avoid blocking.
-            new VersionCheckerThread( parent.getApplicationFrame(  ) ).start(  );
+            new VersionCheckerThread( 
+                Application.getInstance(  ).getApplicationFrame(  ) ).start(  );
 
         }
 
@@ -267,7 +264,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             {
                 public void actionPerformed( ActionEvent evt )
                 {
-                    parent.doStartGrabbers(  );
+                    Application.getInstance(  ).doStartGrabbers(  );
 
                 }
             } );
@@ -305,7 +302,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         if( r == 0 )
         {
-            parent.doStartGrabbers(  );
+            Application.getInstance(  ).doStartGrabbers(  );
 
         }
     }
@@ -911,11 +908,15 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         panel.getComboChannelsSet(  ).insertItemAt( 
             getLocalizer(  ).getLocalizedMessage( "all_channels" ), 0 );
 
-        for( int i = 0; i < parent.getChannelsSetsList(  ).size(  ); i++ )
+        for( 
+            int i = 0;
+                i < Application.getInstance(  ).getChannelsSetsList(  ).size(  );
+                i++ )
         {
 
             TVChannelsSet cs =
-                (TVChannelsSet)parent.getChannelsSetsList(  ).get( i );
+                (TVChannelsSet)Application.getInstance(  ).getChannelsSetsList(  )
+                                          .get( i );
 
             panel.getComboChannelsSet(  ).addItem( cs.getName(  ) );
 
@@ -938,7 +939,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         else
         {
             panel.getComboChannelsSet(  ).setSelectedIndex( 
-                parent.getChannelsSetsList(  ).indexOf( cs ) + 1 );
+                Application.getInstance(  ).getChannelsSetsList(  ).indexOf( 
+                    cs ) + 1 );
 
         }
 
@@ -954,19 +956,22 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         if( channelsSetName == null )
         {
 
-            return parent.getDataStorage(  ).getInfo(  ).allChannels;
+            return Application.getInstance(  ).getDataStorage(  ).getInfo(  ).allChannels;
 
         }
 
         else
         {
 
-            for( int i = 0; i < parent.getChannelsSetsList(  ).size(  );
-                    i++ )
+            for( 
+                int i = 0;
+                    i < Application.getInstance(  ).getChannelsSetsList(  )
+                                       .size(  ); i++ )
             {
 
                 TVChannelsSet cs =
-                    (TVChannelsSet)parent.getChannelsSetsList(  ).get( i );
+                    (TVChannelsSet)Application.getInstance(  )
+                                              .getChannelsSetsList(  ).get( i );
 
                 if( channelsSetName.equals( cs.getName(  ) ) )
                 {
