@@ -8,6 +8,10 @@ import freeguide.lib.fgspecific.data.TVProgramme;
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleExport;
 
+import org.alex73.utils.io.EndianInputStream;
+import org.alex73.utils.io.EndianOutputByteArray;
+import org.alex73.utils.palm.PDBFile;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -16,10 +20,6 @@ import java.util.List;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
-
-import org.alex73.utils.io.EndianInputStream;
-import org.alex73.utils.io.EndianOutputByteArray;
-import org.alex73.utils.palm.PDBFile;
 
 /**
  * Export to Palm's ATV module.
@@ -273,10 +273,8 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
             String channelName, List programmes, String sitename, int from,
             int to ) throws IOException
         {
-
-                 wr.writeSPasString0( 
-                        channelName + "(" + sitename + ")", charset );
-                wr.alignToShort( );
+            wr.writeSPasString0( channelName + "(" + sitename + ")", charset );
+            wr.alignToShort(  );
 
             wr.writeInt( to - from );
 
@@ -288,11 +286,11 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
                 wr.writeShort( 
                     (short)( ( pr.getEnd(  ) - pr.getStart(  ) ) / 1000 ) );
 
-                    wr.writeSPasString( pr.getTitle(  ));
-                    wr.alignToShort( );
+                wr.writeSPasString( pr.getTitle(  ) );
+                wr.alignToShort(  );
 
-                    wr.writeSPasString( pr.getDescription(  ));
-                    wr.alignToShort( );
+                wr.writeSPasString( pr.getDescription(  ) );
+                wr.alignToShort(  );
             }
         }
 

@@ -19,8 +19,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 /**
- * Base class for support reminders.
- * It supports scheduler thread for call event on scheduled time.
+ * Base class for support reminders. It supports scheduler thread for call
+ * event on scheduled time.
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
@@ -90,7 +90,7 @@ abstract public class BaseModuleReminder extends BaseModule
     }
 
     /**
-     * Calls on paint programme label. 
+     * Calls on paint programme label.
      *
      * @param programme programme
      * @param label label
@@ -101,11 +101,9 @@ abstract public class BaseModuleReminder extends BaseModule
     }
 
     /**
-     * Calls on paint programme label.
-     * You can draw icon, etc. 
+     * Calls on paint programme label. You can draw icon, etc.
      *
      * @param programme programme
-     * @param label label
      * @param graphics graphics object
      */
     public void onPaintProgrammeLabel( 
@@ -398,60 +396,60 @@ abstract public class BaseModuleReminder extends BaseModule
 
         /*try
         {
-
+        
             long schedTime;
-
+        
             if(
                 ( closeDialogTime != 0 )
                     && ( schedTime > closeDialogTime ) )
             {
                 schedTime = closeDialogTime;
             }
-
+        
             long waitTime = schedTime - System.currentTimeMillis(  );
-
+        
             if( waitTime < 10 )
             {
                 waitTime = 10;
-
+        
             }
-
+        
             wait( waitTime );
-
+        
             if( stop )
             {
-
+        
                 break;
-
+        
             }
-
+        
             if( dialog != null )
             {
                 dialog.dispose(  );
-
+        
                 dialog = null;
-
+        
             }
-
+        
             closeDialogTime = 0;
-
+        
             if( scheduledProgramme != null )
             {
-
+        
                 if(
                     ( scheduledProgramme.getStart(  )
                         - MainController.config.reminderWarning ) < System
                         .currentTimeMillis(  ) )
                 {
                     displayDialog(  );
-
+        
                     closeDialogTime =
                         System.currentTimeMillis(  )
                         + MainController.config.reminderGiveUp;
-
+        
                 }
             }
-
+        
             scheduledProgramme = findNextProgramme(  );
         }
         catch( InterruptedException ex )

@@ -315,51 +315,51 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
      */
 
     /*private void findInitialDate(  )
-
-
+    
+    
     {
-
-
-
-
+    
+    
+    
+    
     // Set the date to today
-
-
+    
+    
     theDate = System.currentTimeMillis(  );
-
-
+    
+    
     theDate = ( theDate / MILLISECONDS_PER_DAY ) * MILLISECONDS_PER_DAY;
-
-
-
-
+    
+    
+    
+    
     Time nowTime = new Time( new Date( theDate ) );
-
-
-
-
+    
+    
+    
+    
     //TODO Time day_start_time = FreeGuide.prefs.misc.getTime( "day_start_time", new Time( 0, 0 ) );
-
-
+    
+    
     Time day_start_time = new Time( 0, 0 );
-
-
-
-
+    
+    
+    
+    
     if( nowTime.before( day_start_time, new Time( 0, 0 ) ) )
-
-
+    
+    
     {
-
-
+    
+    
     theDate -= MILLISECONDS_PER_DAY; //.add( Calendar.DAY_OF_YEAR, -1 );
-
-
-
-
+    
+    
+    
+    
     }
-
-
+    
+    
     }*/
 
     /**
@@ -578,8 +578,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
                 if( 
                     ( iconURLstr != null ) /*TODO  || ( FreeGuide.prefs.screen.get(
-
-
+                    
+                    
                     "customIcon." + ctxt.getChannel(  ).getID(  ) ) != null ) */ )
                 {
 
@@ -594,35 +594,35 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                         ImageIcon tmpImg;
 
                         /*TODO   if(
-
-
+                        
+                        
                         FreeGuide.prefs.screen.get(
-
-
+                        
+                        
                         "customIcon." + ctxt.getChannel(  ).getID(  ) ) != null )
-
-
+                        
+                        
                         {
-
-
+                        
+                        
                         iconFile =
-
-
+                        
+                        
                         new File(
-
-
+                        
+                        
                         FreeGuide.prefs.screen.get(
-
-
+                        
+                        
                         "customIcon."
-
-
+                        
+                        
                         + ctxt.getChannel(  ).getID(  ) ) );
-
-
+                        
+                        
                         }
-
-
+                        
+                        
                         else*/
                         {
 
@@ -693,14 +693,14 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                 // TODO Give it a default icon if one is not available
 
                 /*if( ctxt.getIcon() == null ) {
-
-
+                
+                
                 ctxt.setIcon( FreeGuide.prefs.performSubstitutions(
-
-
+                
+                
                 FreeGuide.prefs.misc.get( "channel_icon_default" ) ) );
-
-
+                
+                
                 }*/
                 int myChanWidth = ctxt.getRequiredWidth(  );
 

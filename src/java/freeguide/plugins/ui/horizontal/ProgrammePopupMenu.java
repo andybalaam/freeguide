@@ -74,10 +74,10 @@ public class ProgrammePopupMenu extends JPopupMenu
         public void actionPerformed( ActionEvent e )
         {
             toggleSelection(  );
-
+    
         }
     } );
-
+    
     getActionMap(  ).put(
     "favourite",
     new AbstractAction(  )
@@ -85,21 +85,21 @@ public class ProgrammePopupMenu extends JPopupMenu
         public void actionPerformed( ActionEvent e )
         {
             setFavourite( !getModel(  ).isFavourite(  ) );
-
+    
         }
     } );
-
+    
     getActionMap(  ).put(
     "menu",
     new AbstractAction(  )
     {
         public void actionPerformed( ActionEvent e )
         {
-
+    
             ProgrammePopupMenu menu = getPopupMenu(  );
-
+    
             menu.show( ProgrammeJLabel.this, 0, getHeight(  ) );
-
+    
         }
     } );*/
 }
