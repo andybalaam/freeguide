@@ -9,14 +9,14 @@ import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
 /**
- * Reminder support module for alarm or VCR recording.
- * 
- * There are favourites and selections. Favourite describes programme parameters, like
- * channel and title. Selection describes only one TV programme for scheduled date and time.
- * New grabbed programmes can have favourites, but can't have selections.
- * Selections can change favourites settings only for own programme.
- * For example, programme can equals to favourite, but there is selection where flag 
- * 'selected'==false. In this case programme should be deselected.
+ * Reminder support module for alarm or VCR recording.  There are favourites
+ * and selections. Favourite describes programme parameters, like channel and
+ * title. Selection describes only one TV programme for scheduled date and
+ * time. New grabbed programmes can have favourites, but can't have
+ * selections. Selections can change favourites settings only for own
+ * programme. For example, programme can equals to favourite, but there is
+ * selection where flag  'selected'==false. In this case programme should be
+ * deselected.
  *
  * @author Alex Buloichik(alex73 at zaval.org)
  */
@@ -41,7 +41,7 @@ public interface IModuleReminder extends IModule
     /**
      * Check if programme is selected.
      *
-     * @param programme programme 
+     * @param programme programme
      *
      * @return true if selected
      */
@@ -78,9 +78,8 @@ public interface IModuleReminder extends IModule
         final TVProgramme programme, final JPopupMenu menu );
 
     /**
-     * Calls on paint programme label. 
-     * You can change border, background color, etc.
-     * Label has default presets.
+     * Calls on paint programme label.  You can change border, background
+     * color, etc. Label has default presets.
      *
      * @param programme programme
      * @param label label
@@ -89,13 +88,13 @@ public interface IModuleReminder extends IModule
         final TVProgramme programme, final JLabel label );
 
     /**
-     * Calls on paint programme label.
-     * You can draw icon, etc. 
+     * Calls on paint programme label. You can draw icon, etc.
      *
      * @param programme programme
      * @param label label
      * @param graphics graphics object
      */
     public void onPaintProgrammeLabel( 
-        final TVProgramme programme, final JLabel label, final Graphics2D graphics );
+        final TVProgramme programme, final JLabel label,
+        final Graphics2D graphics );
 }
