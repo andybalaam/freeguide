@@ -1,6 +1,6 @@
 package freeguide.lib.fgspecific.data;
 
-import freeguide.FreeGuide;
+import freeguide.lib.fgspecific.Application;
 
 import org.xml.sax.Attributes;
 
@@ -247,7 +247,8 @@ public class TVProgramme implements Comparable, Serializable
                 if( num == 0 )
                 {
 
-                    return FreeGuide.msg.getString( "no_stars" );
+                    return Application.getInstance(  ).getLocalizedMessage( 
+                        "no_stars" );
 
                 }
 
@@ -633,7 +634,22 @@ public class TVProgramme implements Comparable, Serializable
 
         }
 
-        StringBuffer path = FreeGuide.getIconCacheDir(  );
+        StringBuffer path = new StringBuffer(  );
+
+        path.append( Application.getInstance(  ).getWorkingDirectory(  ) );
+
+        path.append( '/' );
+
+        path.append( TVChannel.ICONCACHE_SUBDIR );
+
+        path.append( '/' );
+
+        File dir = new File( path.toString(  ) );
+
+        if( !dir.exists(  ) )
+        {
+            dir.mkdirs(  );
+        }
 
         path.append( 
             iconURL.replaceAll( "[^0-9A-Za-z_-]|^http://|^ftp://", "" ) );

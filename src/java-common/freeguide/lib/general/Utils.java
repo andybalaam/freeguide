@@ -18,9 +18,7 @@
  */
 package freeguide.lib.general;
 
-import freeguide.FreeGuide;
-
-import freeguide.gui.dialogs.FGDialog;
+import freeguide.lib.fgspecific.Application;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -64,7 +62,8 @@ public class Utils
      */
     public static void execNoWait( String cmd )
     {
-        FreeGuide.log.info( "Execute system command: " + cmd );
+        Application.getInstance(  ).getLogger(  ).info( 
+            "Execute system command: " + cmd );
 
         try
         {
@@ -76,7 +75,7 @@ public class Utils
 
         catch( java.io.IOException ex )
         {
-            FreeGuide.log.log( 
+            Application.getInstance(  ).getLogger(  ).log( 
                 Level.WARNING, "Error execute command : " + cmd, ex );
         }
     }
@@ -221,16 +220,15 @@ loop:
      *
      * @param parent DOCUMENT_ME!
      * @param dialog DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
      */
-    public static boolean centreDialogAndRun( 
-        final Component parent, FGDialog dialog )
-    {
-        centreDialog( parent, dialog );
 
-        return dialog.showDialog(  );
-    }
+    /*public static boolean centreDialogAndRun(
+    final Component parent, FGDialog dialog )
+    {
+    centreDialog( parent, dialog );
+
+    return dialog.showDialog(  );
+    }*/
 
     /**
      * Move window to centre of parent window.

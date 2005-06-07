@@ -1,6 +1,6 @@
 package freeguide.gui.dialogs;
 
-import freeguide.FreeGuide;
+import freeguide.lib.fgspecific.Application;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -43,7 +43,10 @@ public class FavouritesListDialog extends JDialog
      */
     public FavouritesListDialog( JFrame owner )
     {
-        super( owner, FreeGuide.msg.getString( "favourites" ), true );
+        super( 
+            owner,
+            Application.getInstance(  ).getLocalizedMessage( "favourites" ),
+            true );
         initialize(  );
         getRootPane(  ).setDefaultButton( btnOK );
     }
@@ -125,7 +128,8 @@ public class FavouritesListDialog extends JDialog
         {
             btnOK = new JButton(  );
             btnOK.setText( "OK" );
-            btnOK.setText( FreeGuide.msg.getString( "ok" ) );
+            btnOK.setText( 
+                Application.getInstance(  ).getLocalizedMessage( "ok" ) );
         }
 
         return btnOK;
@@ -143,7 +147,8 @@ public class FavouritesListDialog extends JDialog
         {
             btnCancel = new JButton(  );
             btnCancel.setText( "Cancel" );
-            btnCancel.setText( FreeGuide.msg.getString( "cancel" ) );
+            btnCancel.setText( 
+                Application.getInstance(  ).getLocalizedMessage( "cancel" ) );
         }
 
         return btnCancel;
@@ -224,7 +229,8 @@ public class FavouritesListDialog extends JDialog
         {
             btnRemove = new JButton(  );
             btnRemove.setText( "Remove" );
-            btnRemove.setText( FreeGuide.msg.getString( "remove" ) );
+            btnRemove.setText( 
+                Application.getInstance(  ).getLocalizedMessage( "remove" ) );
         }
 
         return btnRemove;
@@ -242,7 +248,8 @@ public class FavouritesListDialog extends JDialog
         {
             btnAdd = new JButton(  );
             btnAdd.setText( "Add" );
-            btnAdd.setText( FreeGuide.msg.getString( "add" ) );
+            btnAdd.setText( 
+                Application.getInstance(  ).getLocalizedMessage( "add" ) );
         }
 
         return btnAdd;
@@ -260,7 +267,8 @@ public class FavouritesListDialog extends JDialog
         {
             btnEdit = new JButton(  );
             btnEdit.setText( "Edit" );
-            btnEdit.setText( FreeGuide.msg.getString( "edit" ) );
+            btnEdit.setText( 
+                Application.getInstance(  ).getLocalizedMessage( "edit" ) );
         }
 
         return btnEdit;

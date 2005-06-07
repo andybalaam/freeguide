@@ -23,7 +23,7 @@
  */
 package freeguide.lib.general;
 
-import freeguide.FreeGuide;
+import freeguide.lib.fgspecific.Application;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -284,7 +284,8 @@ public class Time
         {
             setMillisecondsSinceMidnight( 0 );
 
-            FreeGuide.log.warning( "Invalid time string \"" + hhmm + "\"" );
+            Application.getInstance(  ).getLogger(  ).warning( 
+                "Invalid time string \"" + hhmm + "\"" );
 
         }
 
@@ -301,7 +302,7 @@ public class Time
 
             catch( NumberFormatException e )
             {
-                FreeGuide.log.severe( 
+                Application.getInstance(  ).getLogger(  ).severe( 
                     "FGTime.setTimeHHMMString(" + hhmm
                     + "): NumberFormatException..." );
 

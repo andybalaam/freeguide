@@ -1,7 +1,6 @@
 package freeguide.gui.dialogs;
 
-import freeguide.FreeGuide;
-
+import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.selection.Favourite;
 
@@ -101,7 +100,8 @@ public class FavouritesController
                     if( 
                         new FavouriteEditorDialog( 
                                 listDialog,
-                                FreeGuide.msg.getString( 
+                                Application.getInstance(  )
+                                               .getLocalizedMessage( 
                                     "add_a_new_favourite" ), newFav,
                                 allChannelsSet ).showDialog(  ) )
                     {
@@ -129,8 +129,10 @@ public class FavouritesController
                         if( 
                             new FavouriteEditorDialog( 
                                     listDialog,
-                                    FreeGuide.msg.getString( "edit_favourite" ),
-                                    fav, allChannelsSet ).showDialog(  ) )
+                                    Application.getInstance(  )
+                                                   .getLocalizedMessage( 
+                                        "edit_favourite" ), fav, allChannelsSet )
+                                .showDialog(  ) )
                         {
                             changed = true;
                         }

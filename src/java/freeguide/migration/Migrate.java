@@ -14,6 +14,8 @@ import freeguide.lib.general.PreferencesHelper;
 import freeguide.lib.general.Time;
 import freeguide.lib.general.Version;
 
+import freeguide.plugins.reminder.alarm.AlarmReminder;
+
 import freeguide.plugins.ui.horizontal.HorizontalViewer;
 
 import java.awt.Color;
@@ -104,7 +106,10 @@ public class Migrate
 
         final Preferences nodeFavourites;
         final HorizontalViewer hov =
-            (HorizontalViewer)PluginsManager.getViewerByID( "Horizontal" );
+            (HorizontalViewer)PluginsManager.getViewerByID( 
+                FreeGuide.VIEWER_ID );
+        final AlarmReminder rem =
+            (AlarmReminder)PluginsManager.getViewerByID( "reminder-alarm" );
 
         if( root.nodeExists( "favourites" ) )
         {
@@ -198,19 +203,16 @@ public class Migrate
             FreeGuide.config.privacyInfo =
                 nodeMisc.get( "privacy", FreeGuide.config.privacyInfo );
 
-            MainController.config.reminderOn =
-                nodeMisc.getBoolean( 
-                    "reminders_on", MainController.config.reminderOn );
+            rem.config.reminderOn =
+                nodeMisc.getBoolean( "reminders_on", rem.config.reminderOn );
 
-            MainController.config.reminderGiveUp =
+            rem.config.reminderGiveUp =
                 nodeMisc.getLong( 
-                    "reminders_give_up_secs",
-                    MainController.config.reminderGiveUp / 1000 ) * 1000;
+                    "reminders_give_up_secs", rem.config.reminderGiveUp / 1000 ) * 1000;
 
-            MainController.config.reminderWarning =
+            rem.config.reminderWarning =
                 nodeMisc.getLong( 
-                    "reminders_warning_secs",
-                    MainController.config.reminderWarning / 1000 ) * 1000;
+                    "reminders_warning_secs", rem.config.reminderWarning / 1000 ) * 1000;
 
         }
 

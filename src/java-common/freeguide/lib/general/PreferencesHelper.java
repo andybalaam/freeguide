@@ -1,6 +1,6 @@
 package freeguide.lib.general;
 
-import freeguide.FreeGuide;
+import freeguide.lib.fgspecific.Application;
 
 import java.awt.Color;
 
@@ -578,7 +578,8 @@ public class PreferencesHelper
 
         catch( Exception ex )
         {
-            FreeGuide.log.log( Level.WARNING, "Error clone simple object", ex );
+            Application.getInstance(  ).getLogger(  ).log( 
+                Level.WARNING, "Error clone simple object", ex );
         }
     }
 }

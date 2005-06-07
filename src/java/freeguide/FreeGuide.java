@@ -31,9 +31,7 @@ import freeguide.lib.general.Version;
 import freeguide.migration.Migrate;
 
 import freeguide.plugins.IModuleViewer;
-import freeguide.plugins.IStorage;
-
-import freeguide.plugins.storage.serfiles.StorageSerFilesByDay;
+import freeguide.plugins.IModuleStorage;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +52,12 @@ import java.util.prefs.Preferences;
 public class FreeGuide
 {
 
+    /** Predefined UI module. */
+    public static final String VIEWER_ID = "ui-horizontal";
+
+    /** Predefined storage module. */
+    public static final String STORAGE_ID = "storage-serfiles";
+
     /** The current version of the programme */
     public final static Version version = new Version( 0, 10, 1 );
 
@@ -62,7 +66,7 @@ public class FreeGuide
         Preferences.userRoot(  ).node( "/org/freeguide-tv" );
 
     /** Storage of TV data. */
-    public static IStorage storage;
+    public static IModuleStorage storage;
 
     /** Runtime info. */
     public static RuntimeInfo runtimeInfo = new RuntimeInfo(  );
@@ -92,8 +96,10 @@ public class FreeGuide
      * Preferences change to the log.
      *
      * @param args DOCUMENT ME!
+     *
+     * @throws Exception DOCUMENT ME!
      */
-    public FreeGuide( String[] args )
+    public FreeGuide( String[] args ) throws Exception
     {
 
         // Check Java version.  If wrong, exit with error
@@ -234,19 +240,40 @@ public class FreeGuide
      * DOCUMENT_ME!
      *
      * @param grabberFromWizard DOCUMENT ME!
+     *
+     * @throws IOException DOCUMENT ME!
      */
     public void normalStartup( String grabberFromWizard )
+        throws IOException
     {
         showPleaseWait(  );
 
-        Application.getMainController(  ).setPreferences( 
-            PREF_ROOT.node( "mainController" ) );
+        MainController mainController =
+            new MainController( PREF_ROOT.node( "mainController" ) );
+        Application.setInstance( mainController );
 
-        storage = new StorageSerFilesByDay(  );
+        PluginsManager.loadModules(  );
+        setLocale( config.lang );
 
-        IModuleViewer viewer = PluginsManager.getViewerByID( "Horizontal" );
+        IModuleViewer viewer = PluginsManager.getViewerByID( VIEWER_ID );
+        storage = PluginsManager.getStorageByID( STORAGE_ID );
 
-        Application.getMainController(  ).start( viewer, grabberFromWizard );
+        if( viewer == null )
+        {
+            log.severe( "Undefined viewer for freeguide" );
+        }
+
+        if( storage == null )
+        {
+            log.severe( "Undefined storage for freeguide" );
+        }
+
+        if( ( viewer == null ) || ( storage == null ) )
+        {
+            System.exit( 2 );
+        }
+
+        mainController.start( viewer, grabberFromWizard );
 
     }
 
@@ -286,8 +313,10 @@ public class FreeGuide
      * The method called when FreeGuide is run.
      *
      * @param args the command line arguments
+     *
+     * @throws Exception DOCUMENT ME!
      */
-    public static void main( String[] args )
+    public static void main( String[] args ) throws Exception
     {
         new FreeGuide( args );
 
@@ -347,35 +376,6 @@ public class FreeGuide
             return TimeZone.getTimeZone( config.timeZoneName );
 
         }
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public static StringBuffer getIconCacheDir(  )
-    {
-
-        StringBuffer ans = new StringBuffer(  );
-
-        ans.append( FreeGuide.config.workingDirectory );
-
-        ans.append( '/' );
-
-        ans.append( TVChannel.ICONCACHE_SUBDIR );
-
-        ans.append( '/' );
-
-        File dir = new File( ans.toString(  ) );
-
-        if( !dir.exists(  ) )
-        {
-            dir.mkdirs(  );
-        }
-
-        return ans;
-
     }
 
     /**

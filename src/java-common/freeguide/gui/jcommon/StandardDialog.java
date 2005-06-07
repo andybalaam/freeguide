@@ -65,6 +65,8 @@ package freeguide.gui.jcommon;
 
 import freeguide.*;
 
+import freeguide.lib.fgspecific.Application;
+
 import java.awt.Dialog;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -173,9 +175,9 @@ public class StandardDialog extends JDialog implements ActionListener
 
         L1R2ButtonPanel buttons =
             new L1R2ButtonPanel( 
-                FreeGuide.msg.getString( "help" ),
-                FreeGuide.msg.getString( "cancel" ),
-                FreeGuide.msg.getString( "ok" ) );
+                Application.getInstance(  ).getLocalizedMessage( "help" ),
+                Application.getInstance(  ).getLocalizedMessage( "cancel" ),
+                Application.getInstance(  ).getLocalizedMessage( "ok" ) );
 
         JButton helpButton = buttons.getLeftButton(  );
 

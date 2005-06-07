@@ -1,7 +1,5 @@
 package freeguide.lib.fgspecific;
 
-import freeguide.gui.viewer.MainController;
-
 import freeguide.plugins.IApplication;
 
 /**
@@ -12,7 +10,7 @@ import freeguide.plugins.IApplication;
 public class Application
 {
 
-    protected final static MainController instance = new MainController(  );
+    protected static IApplication instance;
 
     /**
      * DOCUMENT_ME!
@@ -28,11 +26,10 @@ public class Application
     /**
      * DOCUMENT_ME!
      *
-     * @return DOCUMENT_ME!
+     * @param app DOCUMENT_ME!
      */
-    public static MainController getMainController(  )
+    public static void setInstance( final IApplication app )
     {
-
-        return instance;
+        instance = app;
     }
 }

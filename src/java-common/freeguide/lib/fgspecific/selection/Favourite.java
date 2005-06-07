@@ -23,8 +23,7 @@
  */
 package freeguide.lib.fgspecific.selection;
 
-import freeguide.FreeGuide;
-
+import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.lib.general.Time;
@@ -205,7 +204,7 @@ public class Favourite
 
         Calendar cal = GregorianCalendar.getInstance(  );
 
-        cal.setTimeZone( FreeGuide.getTimeZone(  ) );
+        cal.setTimeZone( Application.getInstance(  ).getTimeZone(  ) );
 
         cal.setTimeInMillis( prog.getStart(  ) );
 

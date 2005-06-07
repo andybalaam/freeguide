@@ -23,17 +23,16 @@
  */
 package freeguide.lib.fgspecific;
 
-import freeguide.FreeGuide;
-
 import freeguide.lib.fgspecific.data.TVProgramme;
 
-import freeguide.plugins.ui.horizontal.HTMLGuideListener;
-
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 
 import java.net.MalformedURLException;
+import java.net.URLEncoder;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import java.util.Hashtable;
@@ -48,6 +47,10 @@ import java.util.regex.Pattern;
  */
 public class ProgrammeFormat
 {
+
+    /** Format used for dates in the HTML links. */
+    public static SimpleDateFormat LINK_DATE_FORMAT =
+        new SimpleDateFormat( "yyyyMMddHHmmss" );
 
     /** Plain text format */
     public final static int TEXT_FORMAT = 0;
@@ -122,9 +125,7 @@ public class ProgrammeFormat
      * supplied StringBuffer.  The following information is returned as
      * shown:
      * <pre>
-     * 
      *  startTime title: subtitle (starString) (R)
-     * 
      *  </pre>
      * where starString is only shown if the programme is a movie and (R) is
      * only displayed if the programme has been previously shown.
@@ -172,7 +173,8 @@ public class ProgrammeFormat
         {
             toAppendTo.append( " " );
 
-            toAppendTo.append( FreeGuide.msg.getString( "r" ) );
+            toAppendTo.append( 
+                Application.getInstance(  ).getLocalizedMessage( "r" ) );
 
         }
 
@@ -200,13 +202,9 @@ public class ProgrammeFormat
      * "long" representation of the Programme to the supplied StringBuffer.
      * The following information is returned as shown:
      * <pre>
-     * 
      *  startTime - title: subtitle
-     * 
      *  channelName, ends endTime
-     * 
      *  longDesc (Repeat) starString
-     * 
      *  </pre>
      * where starString is only shown if the programme is a movie and (Repeat)
      * is only displayed if the programme has been previously shown.
@@ -389,7 +387,7 @@ public class ProgrammeFormat
             }
             catch( MalformedURLException ex )
             {
-                FreeGuide.log.log( 
+                Application.getInstance(  ).getLogger(  ).log( 
                     Level.WARNING,
                     "Invalid channel icon URL for channel "
                     + programme.getChannel(  ).getID(  ), ex );
@@ -454,7 +452,7 @@ public class ProgrammeFormat
         if( onScreen )
         {
 
-            String ref = HTMLGuideListener.createLinkReference( programme );
+            String ref = createLinkReference( programme );
 
             toAppendTo.append( 
                 "<a href=\"#" + ref + "\" name=\"" + ref + "\">" );
@@ -493,7 +491,7 @@ public class ProgrammeFormat
             { dateFormat.format( new Date( programme.getEnd(  ) ) ) };
 
             toAppendTo.append( 
-                FreeGuide.msg.getLocalizedMessage( 
+                Application.getInstance(  ).getLocalizedMessage( 
                     "ends_template", messageArguments ) );
 
         }
@@ -526,7 +524,8 @@ public class ProgrammeFormat
         {
             toAppendTo.append( " " );
 
-            toAppendTo.append( FreeGuide.msg.getString( "repeat" ) );
+            toAppendTo.append( 
+                Application.getInstance(  ).getLocalizedMessage( "repeat" ) );
 
         }
 
@@ -535,7 +534,8 @@ public class ProgrammeFormat
         {
             toAppendTo.append( " " );
 
-            toAppendTo.append( FreeGuide.msg.getString( "rating" ) );
+            toAppendTo.append( 
+                Application.getInstance(  ).getLocalizedMessage( "rating" ) );
 
             toAppendTo.append( ": " );
 
@@ -678,7 +678,8 @@ public class ProgrammeFormat
         // nothing else to do
         if( delta == 0 )
         {
-            toAppend.append( FreeGuide.msg.getString( "starts_now" ) );
+            toAppend.append( 
+                Application.getInstance(  ).getLocalizedMessage( "starts_now" ) );
 
             return;
 
@@ -696,7 +697,9 @@ public class ProgrammeFormat
 
             if( days == 1 )
             {
-                toAppend.append( FreeGuide.msg.getString( "starts_in_1_day" ) );
+                toAppend.append( 
+                    Application.getInstance(  ).getLocalizedMessage( 
+                        "starts_in_1_day" ) );
 
             }
 
@@ -706,7 +709,7 @@ public class ProgrammeFormat
                 Object[] messageArguments = { new Integer( days ) };
 
                 toAppend.append( 
-                    FreeGuide.msg.getLocalizedMessage( 
+                    Application.getInstance(  ).getLocalizedMessage( 
                         "starts_in_days_template", messageArguments ) );
 
             }
@@ -714,7 +717,8 @@ public class ProgrammeFormat
             else if( hours == 1 )
             {
                 toAppend.append( 
-                    FreeGuide.msg.getString( "starts_in_1_hour" ) );
+                    Application.getInstance(  ).getLocalizedMessage( 
+                        "starts_in_1_hour" ) );
 
             }
 
@@ -724,7 +728,7 @@ public class ProgrammeFormat
                 Object[] messageArguments = { new Integer( hours ) };
 
                 toAppend.append( 
-                    FreeGuide.msg.getLocalizedMessage( 
+                    Application.getInstance(  ).getLocalizedMessage( 
                         "starts_in_hours_template", messageArguments ) );
 
             }
@@ -732,7 +736,8 @@ public class ProgrammeFormat
             else if( minutes == 1 )
             {
                 toAppend.append( 
-                    FreeGuide.msg.getString( "starts_in_1_minute" ) );
+                    Application.getInstance(  ).getLocalizedMessage( 
+                        "starts_in_1_minute" ) );
 
             }
 
@@ -742,7 +747,7 @@ public class ProgrammeFormat
                 Object[] messageArguments = { new Integer( minutes ) };
 
                 toAppend.append( 
-                    FreeGuide.msg.getLocalizedMessage( 
+                    Application.getInstance(  ).getLocalizedMessage( 
                         "starts_in_minutes_template", messageArguments ) );
 
             }
@@ -754,7 +759,8 @@ public class ProgrammeFormat
             if( days == -1 )
             {
                 toAppend.append( 
-                    FreeGuide.msg.getString( "started_1_day_ago" ) );
+                    Application.getInstance(  ).getLocalizedMessage( 
+                        "started_1_day_ago" ) );
 
             }
 
@@ -764,7 +770,7 @@ public class ProgrammeFormat
                 Object[] messageArguments = { new Integer( -days ) };
 
                 toAppend.append( 
-                    FreeGuide.msg.getLocalizedMessage( 
+                    Application.getInstance(  ).getLocalizedMessage( 
                         "started_days_ago_template", messageArguments ) );
 
             }
@@ -772,7 +778,8 @@ public class ProgrammeFormat
             else if( hours == -1 )
             {
                 toAppend.append( 
-                    FreeGuide.msg.getString( "started_1_hour_ago" ) );
+                    Application.getInstance(  ).getLocalizedMessage( 
+                        "started_1_hour_ago" ) );
 
             }
 
@@ -782,7 +789,7 @@ public class ProgrammeFormat
                 Object[] messageArguments = { new Integer( -hours ) };
 
                 toAppend.append( 
-                    FreeGuide.msg.getLocalizedMessage( 
+                    Application.getInstance(  ).getLocalizedMessage( 
                         "started_hours_ago_template", messageArguments ) );
 
             }
@@ -790,7 +797,8 @@ public class ProgrammeFormat
             else if( minutes == -1 )
             {
                 toAppend.append( 
-                    FreeGuide.msg.getString( "started_1_minute_ago" ) );
+                    Application.getInstance(  ).getLocalizedMessage( 
+                        "started_1_minute_ago" ) );
 
             }
 
@@ -800,10 +808,51 @@ public class ProgrammeFormat
                 Object[] messageArguments = { new Integer( -minutes ) };
 
                 toAppend.append( 
-                    FreeGuide.msg.getLocalizedMessage( 
+                    Application.getInstance(  ).getLocalizedMessage( 
                         "started_minutes_ago_template", messageArguments ) );
 
             }
         }
+    }
+
+    /**
+     * Utility method to create a unique ASCII-only name (reference) to
+     * identify each program in the HTML program guide.
+     *
+     * @param programme DOCUMENT ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static String createLinkReference( TVProgramme programme )
+    {
+
+        String reference = null;
+
+        // According to HTML spec, name must be unique and use only ASCII chars
+        StringBuffer ref =
+            new StringBuffer( 
+                LINK_DATE_FORMAT.format( new Date( programme.getStart(  ) ) ) );
+
+        ref.append( programme.getChannel(  ).getID(  ) );
+
+        ref.append( programme.getTitle(  ) );
+
+        ref.append( programme.getSubTitle(  ) );
+
+        try
+        {
+            reference = URLEncoder.encode( ref.toString(  ), "UTF-8" );
+
+        }
+
+        catch( UnsupportedEncodingException e )
+        {
+
+            // Won't happen.  All JVM's must support "UTF-8"
+            // (and it's the character set recommended by the W3C).
+        }
+
+        return reference;
+
     }
 }

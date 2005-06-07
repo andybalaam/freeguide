@@ -49,7 +49,8 @@ public class PersonalizedHTMLGuide
     {
 
         final List tickedProgrammes = new ArrayList(  );
-        final IModuleReminder[] reminders = PluginsManager.getReminders(  );
+        final IModuleReminder[] reminders =
+            Application.getInstance(  ).getReminders(  );
 
         data.iterate( 
             new TVIteratorProgrammes(  )

@@ -65,6 +65,8 @@ package freeguide.gui.jcommon;
 
 import freeguide.*;
 
+import freeguide.lib.fgspecific.Application;
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
@@ -128,7 +130,8 @@ public class FontChooserPanel extends JPanel
         fontPanel.setBorder( 
             BorderFactory.createTitledBorder( 
                 BorderFactory.createEtchedBorder(  ),
-                FreeGuide.msg.getString( "font" ) + ":" ) );
+                Application.getInstance(  ).getLocalizedMessage( "font" )
+                + ":" ) );
 
         fontlist = new JList( fonts );
 
@@ -145,7 +148,8 @@ public class FontChooserPanel extends JPanel
         sizePanel.setBorder( 
             BorderFactory.createTitledBorder( 
                 BorderFactory.createEtchedBorder(  ),
-                FreeGuide.msg.getString( "size" ) + ":" ) );
+                Application.getInstance(  ).getLocalizedMessage( "size" )
+                + ":" ) );
 
         sizelist = new JList( SIZES );
 
@@ -157,9 +161,13 @@ public class FontChooserPanel extends JPanel
 
         JPanel attributes = new JPanel( new GridLayout( 1, 2 ) );
 
-        bold = new JCheckBox( FreeGuide.msg.getString( "bold" ) );
+        bold =
+            new JCheckBox( 
+                Application.getInstance(  ).getLocalizedMessage( "bold" ) );
 
-        italic = new JCheckBox( FreeGuide.msg.getString( "italic" ) );
+        italic =
+            new JCheckBox( 
+                Application.getInstance(  ).getLocalizedMessage( "italic" ) );
 
         attributes.add( bold );
 
@@ -168,7 +176,8 @@ public class FontChooserPanel extends JPanel
         attributes.setBorder( 
             BorderFactory.createTitledBorder( 
                 BorderFactory.createEtchedBorder(  ),
-                FreeGuide.msg.getString( "attributes" ) + ":" ) );
+                Application.getInstance(  ).getLocalizedMessage( "attributes" )
+                + ":" ) );
 
         right.add( sizePanel, BorderLayout.CENTER );
 

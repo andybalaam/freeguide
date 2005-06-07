@@ -10,17 +10,7 @@ import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IModuleImport;
 import freeguide.plugins.IModuleReminder;
 import freeguide.plugins.IModuleViewer;
-
-import freeguide.plugins.grabber.newsvm_com.GrabberNewsvm;
-import freeguide.plugins.grabber.tv_kulichki_net.GrabberKulichki;
-import freeguide.plugins.grabber.www_cosmostv_com.GrabberCosmostv;
-import freeguide.plugins.grabber.www_ntvplus_ru.GrabberNtvplus;
-import freeguide.plugins.grabber.www_vsetv_com.GrabberVsetv;
-import freeguide.plugins.grabber.xmltv.GrabberXMLTV;
-
-import freeguide.plugins.importexport.jtv.JTV;
-import freeguide.plugins.importexport.palmatv.ExportPalmAtv;
-import freeguide.plugins.importexport.xmltv.ImpExpXmltv;
+import freeguide.plugins.IModuleStorage;
 
 import freeguide.plugins.reminder.alarm.AlarmReminder;
 
@@ -49,9 +39,9 @@ import java.util.prefs.Preferences;
 public class PluginsManager
 {
 
-    protected static List modules;
+    protected static List plugins = new ArrayList(  );
 
-    static
+    /*    static
     {
         modules = new ArrayList(  );
 
@@ -87,7 +77,7 @@ public class PluginsManager
                 nodeName =
                     "/org/freeguide-tv/modules/viewer/" + module.getID(  );
             }
-            else if( 
+            else if(
                 module instanceof IModuleImport
                     || module instanceof IModuleExport )
             {
@@ -95,7 +85,7 @@ public class PluginsManager
                     "/org/freeguide-tv/modules/importexport/"
                     + module.getID(  );
             }
-            else if( 
+            else if(
                 module instanceof IModuleReminder
                     || module instanceof IModuleReminder )
             {
@@ -104,15 +94,15 @@ public class PluginsManager
             }
             else
             {
-                System.err.println( 
+                System.err.println(
                     "PluginsManager: Unknown module type '"
                     + module.getClass(  ).getName(  ) + "'" );
             }
 
-            module.setConfigStorage( 
+            module.setConfigStorage(
                 Preferences.userRoot(  ).node( nodeName ) );
         }
-    }
+    }*/
 
     /**
      * DOCUMENT_ME!
@@ -122,16 +112,16 @@ public class PluginsManager
     public static void loadModules(  ) throws IOException
     {
 
-        List jarUrls = new ArrayList(  );
+        /*        List jarUrls = new ArrayList(  );
 
-        File[] libs = new File( "modules" ).listFiles(  );
+        File[] libs = new File( "lib" ).listFiles(  );
 
         if( libs != null )
         {
 
             for( int i = 0; i < libs.length; i++ )
             {
-                FreeGuide.log.finest( 
+                FreeGuide.log.finest(
                     "Load module jar: " + libs[i].getPath(  ) );
 
                 jarUrls.add( libs[i].toURL(  ) );
@@ -140,18 +130,19 @@ public class PluginsManager
         }
 
         ClassLoader classLoader =
-            new URLClassLoader( 
+            new URLClassLoader(
                 (URL[])jarUrls.toArray( new URL[jarUrls.size(  )] ),
                 PluginsManager.class.getClassLoader(  ) );
-
-        List listGrabbers = new ArrayList(  );
-
-        Enumeration urls = classLoader.getResources( "module.properties" );
+        */
+        Enumeration urls =
+            PluginsManager.class.getClassLoader(  ).getResources( 
+                "plugin.properties" );
 
         while( urls.hasMoreElements(  ) )
         {
 
             URL url = (URL)urls.nextElement(  );
+            System.out.println( "load prop from " + url.toString(  ) );
 
             Properties props = new Properties(  );
 
@@ -161,7 +152,7 @@ public class PluginsManager
 
             stream.close(  );
 
-            String className = props.getProperty( "classname" );
+            String className = props.getProperty( "class" );
 
             if( className != null )
             {
@@ -169,11 +160,16 @@ public class PluginsManager
                 try
                 {
 
-                    Class moduleClass = classLoader.loadClass( className );
+                    Class moduleClass =
+                        PluginsManager.class.getClassLoader(  ).loadClass( 
+                            className );
 
-                    if( IModuleGrabber.class.isAssignableFrom( moduleClass ) )
+                    if( IModule.class.isAssignableFrom( moduleClass ) )
                     {
-                        listGrabbers.add( moduleClass.newInstance(  ) );
+
+                        IModule module = (IModule)moduleClass.newInstance(  );
+                        setConfig( module );
+                        plugins.add( module );
 
                     }
                 }
@@ -187,6 +183,13 @@ public class PluginsManager
         }
     }
 
+    protected static void setConfig( final IModule module )
+    {
+        module.setConfigStorage( 
+            Preferences.userRoot(  ).node( 
+                "/org/freeguide-tv/modules/" + module.getID(  ) ) );
+    }
+
     /**
      * Get supported IModuleGrabber.
      *
@@ -197,10 +200,10 @@ public class PluginsManager
 
         final List result = new ArrayList(  );
 
-        for( int i = 0; i < modules.size(  ); i++ )
+        for( int i = 0; i < plugins.size(  ); i++ )
         {
 
-            IModule module = (IModule)modules.get( i );
+            IModule module = (IModule)plugins.get( i );
 
             if( module instanceof IModuleGrabber )
             {
@@ -222,10 +225,10 @@ public class PluginsManager
     public static IModule getModuleByID( final String id )
     {
 
-        for( int i = 0; i < modules.size(  ); i++ )
+        for( int i = 0; i < plugins.size(  ); i++ )
         {
 
-            IModule module = (IModule)modules.get( i );
+            IModule module = (IModule)plugins.get( i );
 
             if( id.equals( module.getID(  ) ) )
             {
@@ -247,10 +250,10 @@ public class PluginsManager
 
         final List result = new ArrayList(  );
 
-        for( int i = 0; i < modules.size(  ); i++ )
+        for( int i = 0; i < plugins.size(  ); i++ )
         {
 
-            IModule module = (IModule)modules.get( i );
+            IModule module = (IModule)plugins.get( i );
 
             if( module instanceof IModuleViewer )
             {
@@ -260,6 +263,30 @@ public class PluginsManager
 
         return (IModuleViewer[])result.toArray( 
             new IModuleViewer[result.size(  )] );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static IModuleStorage[] getStorages(  )
+    {
+
+        final List result = new ArrayList(  );
+
+        for( int i = 0; i < plugins.size(  ); i++ )
+        {
+
+            IModule module = (IModule)plugins.get( i );
+
+            if( module instanceof IModuleStorage )
+            {
+                result.add( module );
+            }
+        }
+
+        return (IModuleStorage[])result.toArray( new IModuleStorage[result.size(  )] );
     }
 
     /**
@@ -281,6 +308,32 @@ public class PluginsManager
             {
 
                 return grabbers[i];
+
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param id DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static IModuleStorage getStorageByID( final String id )
+    {
+
+        IModuleStorage[] storages = getStorages(  );
+
+        for( int i = 0; i < storages.length; i++ )
+        {
+
+            if( id.equals( storages[i].getID(  ) ) )
+            {
+
+                return storages[i];
 
             }
         }
@@ -326,10 +379,10 @@ public class PluginsManager
 
         final List result = new ArrayList(  );
 
-        for( int i = 0; i < modules.size(  ); i++ )
+        for( int i = 0; i < plugins.size(  ); i++ )
         {
 
-            IModule module = (IModule)modules.get( i );
+            IModule module = (IModule)plugins.get( i );
 
             if( module instanceof IModuleExport )
             {
@@ -351,10 +404,10 @@ public class PluginsManager
 
         final List result = new ArrayList(  );
 
-        for( int i = 0; i < modules.size(  ); i++ )
+        for( int i = 0; i < plugins.size(  ); i++ )
         {
 
-            IModule module = (IModule)modules.get( i );
+            IModule module = (IModule)plugins.get( i );
 
             if( module instanceof IModuleReminder )
             {
@@ -374,10 +427,10 @@ public class PluginsManager
     public static void setLocale( Locale[] locales )
     {
 
-        for( int i = 0; i < modules.size(  ); i++ )
+        for( int i = 0; i < plugins.size(  ); i++ )
         {
 
-            IModule module = (IModule)modules.get( i );
+            IModule module = (IModule)plugins.get( i );
             Locale locale = null;
 
             try
@@ -406,10 +459,10 @@ public class PluginsManager
     public static boolean isInstalled( final String id )
     {
 
-        for( int i = 0; i < modules.size(  ); i++ )
+        for( int i = 0; i < plugins.size(  ); i++ )
         {
 
-            IModule module = (IModule)modules.get( i );
+            IModule module = (IModule)plugins.get( i );
 
             if( id.equals( module.getID(  ) ) )
             {

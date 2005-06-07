@@ -12,10 +12,9 @@
  */
 package freeguide.gui.dialogs;
 
-import freeguide.FreeGuide;
-
 import freeguide.gui.dialogs.FGDialog;
 
+import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.selection.Favourite;
 
@@ -100,18 +99,21 @@ public class FavouriteEditorDialog extends FGDialog
         if( favourite.getTitleString(  ) != null )
         {
             txtTitle.setText( favourite.getTitleString(  ) );
-            cmbTitle.setSelectedItem( FreeGuide.msg.getString( "exactly" ) );
+            cmbTitle.setSelectedItem( 
+                Application.getInstance(  ).getLocalizedMessage( "exactly" ) );
         }
         else if( favourite.getTitleContains(  ) != null )
         {
             txtTitle.setText( favourite.getTitleContains(  ) );
-            cmbTitle.setSelectedItem( FreeGuide.msg.getString( "contains" ) );
+            cmbTitle.setSelectedItem( 
+                Application.getInstance(  ).getLocalizedMessage( "contains" ) );
         }
         else if( favourite.getTitleRegex(  ) != null )
         {
             txtTitle.setText( favourite.getTitleRegex(  ) );
             cmbTitle.setSelectedItem( 
-                FreeGuide.msg.getString( "regular_expression" ) );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "regular_expression" ) );
         }
 
         if( favourite.getChannelID(  ) != null )
@@ -146,9 +148,13 @@ public class FavouriteEditorDialog extends FGDialog
     {
 
         // The combobox for the title match type
-        cmbTitle.addItem( FreeGuide.msg.getString( "exactly" ) );
-        cmbTitle.addItem( FreeGuide.msg.getString( "contains" ) );
-        cmbTitle.addItem( FreeGuide.msg.getString( "regular_expression" ) );
+        cmbTitle.addItem( 
+            Application.getInstance(  ).getLocalizedMessage( "exactly" ) );
+        cmbTitle.addItem( 
+            Application.getInstance(  ).getLocalizedMessage( "contains" ) );
+        cmbTitle.addItem( 
+            Application.getInstance(  ).getLocalizedMessage( 
+                "regular_expression" ) );
         cmbChannel.addItem( "" );
 
         Iterator it = allChannelsSet.getChannels(  ).iterator(  );
@@ -193,7 +199,8 @@ public class FavouriteEditorDialog extends FGDialog
         // Set the title
         if( 
             cmbTitle.getSelectedItem(  ).equals( 
-                    FreeGuide.msg.getString( "exactly" ) ) )
+                    Application.getInstance(  ).getLocalizedMessage( 
+                        "exactly" ) ) )
         {
             favourite.setTitleRegex( null );
             favourite.setTitleContains( null );
@@ -211,7 +218,8 @@ public class FavouriteEditorDialog extends FGDialog
         }
         else if( 
             cmbTitle.getSelectedItem(  ).equals( 
-                    FreeGuide.msg.getString( "contains" ) ) )
+                    Application.getInstance(  ).getLocalizedMessage( 
+                        "contains" ) ) )
         {
             favourite.setTitleString( null );
             favourite.setTitleRegex( null );
@@ -304,7 +312,7 @@ public class FavouriteEditorDialog extends FGDialog
             }
             catch( java.text.ParseException ex )
             {
-                FreeGuide.log.log( 
+                Application.getInstance(  ).getLogger(  ).log( 
                     Level.WARNING, "Error on parse day of week", ex );
                 favourite.setDayOfWeek( -1 );
             }
@@ -351,24 +359,26 @@ public class FavouriteEditorDialog extends FGDialog
 
             if( 
                 cmbTitle.getSelectedItem(  ).equals( 
-                        FreeGuide.msg.getString( "exactly" ) ) )
+                        Application.getInstance(  ).getLocalizedMessage( 
+                            "exactly" ) ) )
             {
                 equalsString =
-                    FreeGuide.msg.getLocalizedMessage( 
+                    Application.getInstance(  ).getLocalizedMessage( 
                         "favourite_name_equals_template", equalsArray );
             }
             else if( 
                 cmbTitle.getSelectedItem(  ).equals( 
-                        FreeGuide.msg.getString( "contains" ) ) )
+                        Application.getInstance(  ).getLocalizedMessage( 
+                            "contains" ) ) )
             {
                 containsString =
-                    FreeGuide.msg.getLocalizedMessage( 
+                    Application.getInstance(  ).getLocalizedMessage( 
                         "favourite_name_contains_template", containsArray );
             }
             else
             {
                 regexpString =
-                    FreeGuide.msg.getLocalizedMessage( 
+                    Application.getInstance(  ).getLocalizedMessage( 
                         "favourite_name_regexp_template", regexpArray );
             }
         }
@@ -376,28 +386,28 @@ public class FavouriteEditorDialog extends FGDialog
         if( !channel.equals( "" ) )
         {
             channelString =
-                FreeGuide.msg.getLocalizedMessage( 
+                Application.getInstance(  ).getLocalizedMessage( 
                     "favourite_name_channel_template", channelArray );
         }
 
         if( !after.equals( "" ) )
         {
             afterString =
-                FreeGuide.msg.getLocalizedMessage( 
+                Application.getInstance(  ).getLocalizedMessage( 
                     "favourite_name_after_template", afterArray );
         }
 
         if( !before.equals( "" ) )
         {
             beforeString =
-                FreeGuide.msg.getLocalizedMessage( 
+                Application.getInstance(  ).getLocalizedMessage( 
                     "favourite_name_before_template", beforeArray );
         }
 
         if( !dayOfWeek.equals( "" ) )
         {
             dayOfWeekString =
-                FreeGuide.msg.getLocalizedMessage( 
+                Application.getInstance(  ).getLocalizedMessage( 
                     "favourite_name_day_of_week_template", dayOfWeekArray );
         }
 
@@ -408,13 +418,15 @@ public class FavouriteEditorDialog extends FGDialog
             beforeString, afterString, dayOfWeekString
         };
         String name =
-            FreeGuide.msg.getLocalizedMessage( 
+            Application.getInstance(  ).getLocalizedMessage( 
                 "favourite_name_template", nameArgs );
         name = name.replaceAll( "\\s+", " " ).trim(  );
 
         if( name.equals( "" ) )
         {
-            name = FreeGuide.msg.getString( "all_programmes" );
+            name =
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "all_programmes" );
         }
 
         txtName.setText( name );
@@ -501,8 +513,8 @@ public class FavouriteEditorDialog extends FGDialog
         getContentPane(  ).setLayout( new java.awt.GridBagLayout(  ) );
         labTitle =
             new javax.swing.JLabel( 
-                FreeGuide.msg.getString( "title_matches" ) + ":",
-                javax.swing.SwingConstants.RIGHT );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "title_matches" ) + ":", javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -530,8 +542,8 @@ public class FavouriteEditorDialog extends FGDialog
         getContentPane(  ).add( cmbTitle, gridBagConstraints );
         labChannel =
             new javax.swing.JLabel( 
-                FreeGuide.msg.getString( "channel_is" ) + ":",
-                javax.swing.SwingConstants.RIGHT );
+                Application.getInstance(  ).getLocalizedMessage( "channel_is" )
+                + ":", javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -550,8 +562,8 @@ public class FavouriteEditorDialog extends FGDialog
         getContentPane(  ).add( cmbChannel, gridBagConstraints );
         labAfter =
             new javax.swing.JLabel( 
-                FreeGuide.msg.getString( "on_after" ) + ":",
-                javax.swing.SwingConstants.RIGHT );
+                Application.getInstance(  ).getLocalizedMessage( "on_after" )
+                + ":", javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -580,8 +592,8 @@ public class FavouriteEditorDialog extends FGDialog
         getContentPane(  ).add( txtBefore, gridBagConstraints );
         labBefore =
             new javax.swing.JLabel( 
-                FreeGuide.msg.getString( "on_before" ) + ":",
-                javax.swing.SwingConstants.RIGHT );
+                Application.getInstance(  ).getLocalizedMessage( "on_before" )
+                + ":", javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -590,7 +602,8 @@ public class FavouriteEditorDialog extends FGDialog
         getContentPane(  ).add( labBefore, gridBagConstraints );
         labBlankFields =
             new javax.swing.JLabel( 
-                FreeGuide.msg.getString( "you_may_leave_any_fields_blank" ),
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "you_may_leave_any_fields_blank" ),
                 javax.swing.SwingConstants.CENTER );
         labBlankFields.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -602,8 +615,9 @@ public class FavouriteEditorDialog extends FGDialog
         labTimeFormat =
             new javax.swing.JLabel( 
                 "<html>"
-                + FreeGuide.msg.getString( "times_should_be_entered_as_hhmm" )
-                + "</html>", javax.swing.SwingConstants.LEFT );
+                + Application.getInstance(  ).getLocalizedMessage( 
+                    "times_should_be_entered_as_hhmm" ) + "</html>",
+                javax.swing.SwingConstants.LEFT );
         labTimeFormat.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 2;
@@ -617,8 +631,8 @@ public class FavouriteEditorDialog extends FGDialog
         getContentPane(  ).add( labTimeFormat, gridBagConstraints );
         labDayOfWeek =
             new javax.swing.JLabel( 
-                FreeGuide.msg.getString( "on_day_label" ) + ":",
-                javax.swing.SwingConstants.RIGHT );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "on_day_label" ) + ":", javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
@@ -627,8 +641,8 @@ public class FavouriteEditorDialog extends FGDialog
         getContentPane(  ).add( labDayOfWeek, gridBagConstraints );
         labName =
             new javax.swing.JLabel( 
-                FreeGuide.msg.getString( "name" ) + ":",
-                javax.swing.SwingConstants.RIGHT );
+                Application.getInstance(  ).getLocalizedMessage( "name" )
+                + ":", javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
@@ -647,7 +661,8 @@ public class FavouriteEditorDialog extends FGDialog
         getContentPane(  ).add( cmbDayOfWeek, gridBagConstraints );
         txtName =
             new javax.swing.JTextField( 
-                FreeGuide.msg.getString( "all_programmes" ) );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "all_programmes" ) );
         txtName.setEditable( false );
         txtName.setPreferredSize( new java.awt.Dimension( 200, 25 ) );
         txtName.setMinimumSize( new java.awt.Dimension( 200, 25 ) );
@@ -660,14 +675,17 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.weightx = 0.9;
         getContentPane(  ).add( txtName, gridBagConstraints );
         jPanel1 = new javax.swing.JPanel( new java.awt.GridBagLayout(  ) );
-        butOK = new javax.swing.JButton( FreeGuide.msg.getString( "ok" ) );
+        butOK =
+            new javax.swing.JButton( 
+                Application.getInstance(  ).getLocalizedMessage( "ok" ) );
         butOK.setMinimumSize( new java.awt.Dimension( 87, 26 ) );
         butOK.setPreferredSize( new java.awt.Dimension( 87, 26 ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         jPanel1.add( butOK, gridBagConstraints );
         butCancel =
-            new javax.swing.JButton( FreeGuide.msg.getString( "cancel" ) );
+            new javax.swing.JButton( 
+                Application.getInstance(  ).getLocalizedMessage( "cancel" ) );
         butCancel.setMinimumSize( new java.awt.Dimension( 87, 26 ) );
         butCancel.setPreferredSize( new java.awt.Dimension( 87, 26 ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
