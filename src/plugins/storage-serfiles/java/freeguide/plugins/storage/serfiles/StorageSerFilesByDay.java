@@ -10,7 +10,7 @@ import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.plugins.BaseModule;
-import freeguide.plugins.IStorage;
+import freeguide.plugins.IModuleStorage;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -37,7 +37,7 @@ import java.util.regex.Pattern;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class StorageSerFilesByDay extends BaseModule implements IStorage
+public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
 {
 
     protected static final String ID = "storage-serfiles";

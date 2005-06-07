@@ -10,7 +10,7 @@ import freeguide.lib.fgspecific.selection.ManualSelection;
 import freeguide.lib.general.Utils;
 
 import freeguide.plugins.BaseModuleReminder;
-import freeguide.plugins.IStorage;
+import freeguide.plugins.IModuleStorage;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -321,7 +321,7 @@ public class AlarmReminder extends BaseModuleReminder
                     Application.getInstance(  ).getDataStorage(  )
                                .findEarliest( 
                         System.currentTimeMillis(  ) + config.reminderWarning,
-                        new IStorage.EarliestCheckAllow(  )
+                        new IModuleStorage.EarliestCheckAllow(  )
                         {
                             public boolean isAllow( TVProgramme programme )
                             {

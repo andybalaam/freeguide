@@ -10,7 +10,7 @@ import freeguide.lib.fgspecific.data.TVProgramme;
 import freeguide.lib.impexp.XMLTVImport;
 
 import freeguide.plugins.BaseModule;
-import freeguide.plugins.IStorage;
+import freeguide.plugins.IModuleStorage;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -26,7 +26,7 @@ import java.util.logging.Level;
 public class XMLTVProcessor extends BaseModule //implements IStorage
 {
 
-    protected IStorage.Info cachedInfo;
+    protected IModuleStorage.Info cachedInfo;
 
     /**
      * DOCUMENT_ME!
@@ -45,7 +45,7 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
      *
      * @return DOCUMENT_ME!
      */
-    public synchronized IStorage.Info getInfo(  )
+    public synchronized IModuleStorage.Info getInfo(  )
     {
 
         if( cachedInfo == null )
@@ -175,11 +175,11 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
     protected static class GetInfoFilter extends XMLTVImport.Filter
     {
 
-        protected IStorage.Info info;
+        protected IModuleStorage.Info info;
 
         protected GetInfoFilter(  )
         {
-            info = new IStorage.Info(  );
+            info = new IModuleStorage.Info(  );
 
             info.allChannels = new TVChannelsSet(  );
 

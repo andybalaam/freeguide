@@ -8,7 +8,7 @@ import freeguide.lib.fgspecific.data.TVData;
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleConfigurationUI;
 import freeguide.plugins.IModuleViewer;
-import freeguide.plugins.IStorage;
+import freeguide.plugins.IModuleStorage;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -993,7 +993,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
          * Find the dates available by what files exist.  This sets up a
          * datelister for later so you can just call findDates() later.
          */
-        IStorage.Info info =
+        IModuleStorage.Info info =
             Application.getInstance(  ).getDataStorage(  ).getInfo(  );
 
         Calendar cal =
