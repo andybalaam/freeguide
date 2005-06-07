@@ -1,10 +1,137 @@
 <?xml version="1.0"?>
 
-<project name="freeguide-tv" default="main" basedir=".">
+<project name="freeguide-tv" default="all" basedir=".">
 
     <description>
         Ant build file for FreeGuide.
     </description>
+	
+	<target name="all" depends="common, plugins, app, startup"/>
+	
+	<target name="plugins" depends="common">
+		<antcall target="oneplugin">
+			<param name="plugin-name" value="grabber-cosmostv"/>
+		</antcall>
+		<antcall target="oneplugin">
+			<param name="plugin-name" value="grabber-kulichki"/>
+		</antcall>
+		<antcall target="oneplugin">
+			<param name="plugin-name" value="grabber-newsvm"/>
+		</antcall>
+		<antcall target="oneplugin">
+			<param name="plugin-name" value="grabber-ntvplus"/>
+		</antcall>
+		<antcall target="oneplugin">
+			<param name="plugin-name" value="grabber-vsetv"/>
+		</antcall>
+		<antcall target="oneplugin">
+			<param name="plugin-name" value="grabber-xmltv"/>
+		</antcall>
+		<antcall target="oneplugin">
+			<param name="plugin-name" value="impexp-jtv"/>
+		</antcall>
+		<antcall target="oneplugin">
+			<param name="plugin-name" value="impexp-palmatv"/>
+		</antcall>
+		<antcall target="oneplugin">
+			<param name="plugin-name" value="impexp-xmltv"/>
+		</antcall>
+		<antcall target="oneplugin">
+			<param name="plugin-name" value="reminder-alarm"/>
+		</antcall>
+		<antcall target="oneplugin">
+			<param name="plugin-name" value="storage-serfiles"/>
+		</antcall>
+		<antcall target="oneplugin">
+			<param name="plugin-name" value="ui-horizontal"/>
+		</antcall>
+	</target>	
+	
+	<target name="common">
+        <mkdir dir="${build}/classes/common"/>
+        <!-- compile all the .java files -->
+        <javac srcdir="${src}/java-common"
+        	destdir="${build}/classes/common"
+        	deprecation="on" 
+        	source="1.4" 
+        	target="1.4"
+            encoding="UTF-8">
+        	<classpath>
+        		<fileset dir="${src}/lib" includes="**/*.jar"/>
+        	</classpath>
+      	</javac>
+        <jar jarfile="${build}/common.jar"
+             basedir="${build}/classes/common"/>
+	</target>
+	<target name="oneplugin">
+        <mkdir dir="${build}/classes/${plugin-name}"/>
+        <!-- compile all the .java files -->
+        <javac srcdir="${src}/plugins/${plugin-name}/java"
+        	destdir="${build}/classes/${plugin-name}"
+        	deprecation="on" 
+        	source="1.4" 
+        	target="1.4"
+            encoding="UTF-8">
+        	<classpath>
+        		<fileset dir="${src}/lib" includes="**/*.jar"/>
+        		<pathelement location="${build}/classes/common"/>
+        	</classpath>
+      	</javac>
+
+        <copy todir="${build}/classes/${plugin-name}">
+        	<fileset dir="${src}/plugins/${plugin-name}/java" excludes="**/*.java" />
+      	</copy>
+
+        <jar jarfile="${build}/${plugin-name}.jar"
+             basedir="${build}/classes/${plugin-name}"/>
+		</target>
+    <target name="app" depends="init, create-properties-lists" description="compile application" >
+        <mkdir dir="${build}/classes/app"/>
+        <!-- compile all the .java files -->
+        <javac srcdir="${src}/java"
+        	destdir="${build}/classes/app"
+        	deprecation="on" 
+        	source="1.4" 
+        	target="1.4"
+            encoding="UTF-8">
+        	<classpath>
+        		<fileset dir="${src}/lib" includes="**/*.jar"/>
+        		<pathelement location="${build}/classes/common"/>
+        		<pathelement location="${build}/classes/impexp-palmatv"/>
+        		<pathelement location="${build}/classes/ui-horizontal"/>
+        		<pathelement location="${build}/classes/storage-serfiles"/>
+        		<pathelement location="${build}/classes/reminder-alarm"/>
+        	</classpath>
+      	</javac>
+
+        <copy todir="${build}/classes/app">
+            <fileset dir="${src}/resources" />
+        	<fileset dir="${src}/java" excludes="**/*.java" />
+      	</copy>
+        
+        <!-- Make the jar file -->
+        <jar jarfile="${build}/FreeGuide.jar"
+             basedir="${build}/classes/app"/>
+        <copy todir="${build}/">
+            <fileset dir="${src}/lib" includes="**/*.jar"/>
+      	</copy>
+    </target>
+    <target name="startup">
+        <mkdir dir="${build}/classes/startup"/>
+        <!-- compile all the .java files -->
+        <javac srcdir="${src}/startup/java"
+        	destdir="${build}/classes/startup"
+        	deprecation="on" 
+        	source="1.4" 
+        	target="1.4"
+            encoding="UTF-8">
+      	</javac>
+
+        <jar jarfile="${build}/startup.jar"
+             basedir="${build}/classes/startup"
+             manifest="${src}/startup/META-INF/startup.mf" />
+    </target>
+
     
     <!--
      List of files containing FreeGuide's version number:
