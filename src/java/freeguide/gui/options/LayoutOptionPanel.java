@@ -30,12 +30,8 @@ import freeguide.gui.dialogs.*;
 import freeguide.gui.viewer.MainController;
 
 import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.PluginsManager;
 
 import freeguide.lib.general.*;
-
-import freeguide.plugins.ui.horizontal.Config;
-import freeguide.plugins.ui.horizontal.HorizontalViewer;
 
 import java.awt.Insets;
 
@@ -142,7 +138,7 @@ public class LayoutOptionPanel extends OptionPanel
         MainController.config.ui.LFname =
             lookAndFeelCombo.getSelectedItem(  ).toString(  );
 
-        Application.getMainController(  ).setLookAndFeel(  );
+        ( (MainController)Application.getInstance(  ) ).setLookAndFeel(  );
 
         return true;
 

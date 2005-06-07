@@ -18,7 +18,7 @@ import freeguide.plugins.IApplication;
 import freeguide.plugins.IModuleExport;
 import freeguide.plugins.IModuleReminder;
 import freeguide.plugins.IModuleViewer;
-import freeguide.plugins.IStorage;
+import freeguide.plugins.IModuleStorage;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -31,8 +31,10 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.TreeSet;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 
 import javax.swing.JFrame;
@@ -62,7 +64,7 @@ public class MainController implements IApplication
      *
      * @param configStore DOCUMENT_ME!
      */
-    public void setPreferences( final Preferences configStore )
+    public MainController( final Preferences configStore )
     {
         this.configStore = configStore;
     }
@@ -290,7 +292,9 @@ public class MainController implements IApplication
                 mainFrame, getDataStorage(  ).getInfo(  ).allChannels,
                 config.channelsSetsList );
 
-        boolean updated = Utils.centreDialogAndRun( mainFrame, dialog );
+        Utils.centreDialog( mainFrame, dialog );
+
+        boolean updated = dialog.showDialog(  );
 
         if( updated )
         {
@@ -359,7 +363,7 @@ public class MainController implements IApplication
                 public void run(  )
                 {
 
-                    IStorage.Info info = getDataStorage(  ).getInfo(  );
+                    IModuleStorage.Info info = getDataStorage(  ).getInfo(  );
 
                     try
                     {
@@ -416,11 +420,121 @@ public class MainController implements IApplication
      *
      * @return DOCUMENT_ME!
      */
-    public IStorage getDataStorage(  )
+    public IModuleStorage getDataStorage(  )
     {
 
         return FreeGuide.storage;
 
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public boolean isUnix(  )
+    {
+
+        // TODO Auto-generated method stub
+        return FreeGuide.runtimeInfo.isUnix;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public TimeZone getTimeZone(  )
+    {
+
+        return FreeGuide.getTimeZone(  );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String getBrowserCommand(  )
+    {
+
+        return FreeGuide.config.browserCommand;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String getInstallDirectory(  )
+    {
+
+        return FreeGuide.runtimeInfo.installDirectory;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Logger getLogger(  )
+    {
+
+        // TODO Auto-generated method stub
+        return FreeGuide.log;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public IModuleReminder[] getReminders(  )
+    {
+
+        // TODO Auto-generated method stub
+        return PluginsManager.getReminders(  );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param key DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String getLocalizedMessage( String key )
+    {
+
+        // TODO Auto-generated method stub
+        return FreeGuide.msg.getLocalizedMessage( key );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param key DOCUMENT_ME!
+     * @param params DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String getLocalizedMessage( String key, Object[] params )
+    {
+
+        // TODO Auto-generated method stub
+        return FreeGuide.msg.getLocalizedMessage( key, params );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String getWorkingDirectory(  )
+    {
+
+        // TODO Auto-generated method stub
+        return FreeGuide.config.workingDirectory;
     }
 
     /**
@@ -443,15 +557,6 @@ public class MainController implements IApplication
 
         /** DOCUMENT ME! */
         public List channelsSetsList = new ArrayList(  );
-
-        /** Is reminder on. */
-        public boolean reminderOn = true;
-
-        /** Time in milliseconds. */
-        public long reminderGiveUp = 600000L;
-
-        /** Time in milliseconds. */
-        public long reminderWarning = 300000L;
 
         /** DOCUMENT ME! */
         public Set activeGrabberIDs = new TreeSet(  );

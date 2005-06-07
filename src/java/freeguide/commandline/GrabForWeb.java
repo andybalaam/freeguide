@@ -13,7 +13,7 @@ import freeguide.plugins.ILogger;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IProgress;
 
-import freeguide.plugins.importexport.palmatv.ExportPalmAtv;
+import freeguide.plugins.impexp.palmatv.ExportPalmAtv;
 
 import java.io.File;
 import java.io.IOException;

@@ -24,8 +24,6 @@ import freeguide.lib.general.Utils;
 import freeguide.plugins.IModule;
 import freeguide.plugins.IModuleConfigurationUI;
 
-import freeguide.plugins.ui.horizontal.HorizontalViewer;
-
 import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -178,7 +176,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
         trunk.add( generalLeaf );
 
-        IModule hv = PluginsManager.getViewerByID( HorizontalViewer.ID );
+        IModule hv = PluginsManager.getViewerByID( FreeGuide.VIEWER_ID );
         ui = hv.getConfigurationUI( this );
 
         DefaultMutableTreeNode horzViewer =
@@ -201,15 +199,6 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
         trunk.add( browserLeaf );
 
-        panel = new RemindersOptionPanel( this );
-
-        DefaultMutableTreeNode remindLeaf =
-            new DefaultMutableTreeNode( panel );
-        panel.construct(  );
-        optionsPane.add( panel, panel.toString(  ) );
-
-        trunk.add( remindLeaf );
-
         panel = new PrivacyOptionPanel( this );
 
         DefaultMutableTreeNode privateLeaf =
@@ -226,9 +215,9 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         trunk.add( advancedBranch );
 
         /*TreePath pathViewers =
-            addBranchWithModules(
-                trunk, FreeGuide.msg.getString( "OptionsDialog.Tree.Viewers" ),
-                PluginsManager.getViewers(  ) );*/
+        addBranchWithModules(
+        trunk, FreeGuide.msg.getString( "OptionsDialog.Tree.Viewers" ),
+        PluginsManager.getViewers(  ) );*/
         panel = new GrabbersOptionPanel( this );
         panel.construct(  );
         optionsPane.add( panel, panel.toString(  ) );
@@ -261,11 +250,11 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         //menuTree.setRootVisible( false );
 
         /*for( int i=0; i<menuTree.getRowCount(); i++ ) {
-        
-        
+
+
         menuTree.expandRow(i);
-        
-        
+
+
         }*/
         return generalLeaf;
 

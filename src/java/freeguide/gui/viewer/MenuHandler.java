@@ -51,10 +51,11 @@ public class MenuHandler
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
 
-                    boolean updated =
-                        Utils.centreDialogAndRun( 
-                            controller.mainFrame,
-                            new OptionsDialog( controller.mainFrame ) );
+                    OptionsDialog dg =
+                        new OptionsDialog( controller.mainFrame );
+                    Utils.centreDialog( controller.mainFrame, dg );
+
+                    boolean updated = dg.showDialog(  );
 
                     if( updated )
                     {

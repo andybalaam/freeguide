@@ -14,6 +14,7 @@ package freeguide.gui.wizard;
 
 import freeguide.FreeGuide;
 
+import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PluginsManager;
 
 import freeguide.lib.general.LanguageHelper;
@@ -315,78 +316,78 @@ public class FirstTimeWizard
 
 
 
-        if( FreeGuide.isUnix )
+    if( FreeGuide.isUnix )
 
 
-        {
+    {
 
 
-            osSuffix = "-lin-";
+        osSuffix = "-lin-";
 
 
-        }
+    }
 
 
-        else
+    else
 
 
-        {
+    {
 
 
-            osSuffix = "-win-";
+        osSuffix = "-win-";
 
 
-        }
-
-
-
-
-        // Then load up the properties in the file install-all.props
-
-
-        standardProps = new Properties(  );
+    }
 
 
 
 
-        try
+    // Then load up the properties in the file install-all.props
 
 
-        {
-
-
-            standardProps.load(
-
-
-                new BufferedInputStream(
-
-
-                    getClass(  ).getClassLoader(  ).getResourceAsStream(
-
-
-                        "main/main" + osSuffix + "all.properties" ) ) );
+    standardProps = new Properties(  );
 
 
 
 
-        }
+    try
 
 
-        catch( java.io.IOException e )
+    {
 
 
-        {
+        standardProps.load(
 
 
-            e.printStackTrace(  );
+            new BufferedInputStream(
 
 
-        }
+                getClass(  ).getClassLoader(  ).getResourceAsStream(
+
+
+                    "main/main" + osSuffix + "all.properties" ) ) );
 
 
 
 
-        readPrefsFromProps( standardProps );
+    }
+
+
+    catch( java.io.IOException e )
+
+
+    {
+
+
+        e.printStackTrace(  );
+
+
+    }
+
+
+
+
+    readPrefsFromProps( standardProps );
 
 
 
@@ -412,32 +413,32 @@ public class FirstTimeWizard
 
 
 
-        String prefString = "";
+    String prefString = "";
 
 
 
 
-        for(
+    for(
 
 
-            int j = 1;
+        int j = 1;
 
 
-                ( prefString = iProps.getProperty( "prefs." + j ) ) != null;
+            ( prefString = iProps.getProperty( "prefs." + j ) ) != null;
 
 
-                j++ )
+            j++ )
 
 
-        {
+    {
 
 
-            FreeGuide.prefs.put( prefString );
+        FreeGuide.prefs.put( prefString );
 
 
 
 
-        }
+    }
 
 
     }*/
@@ -626,8 +627,16 @@ public class FirstTimeWizard
 
         if( launcher != null )
         {
-            launcher.normalStartup( mod.getID(  ) );
 
+            try
+            {
+                launcher.normalStartup( mod.getID(  ) );
+            }
+            catch( IOException ex )
+            {
+                Application.getInstance(  ).getLogger(  ).severe( 
+                    "Error startup application: " + ex.getMessage(  ) );
+            }
         }
     }
 }

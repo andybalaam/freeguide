@@ -49,7 +49,7 @@ public class UpdaterUI extends JDialog
         this.setTitle( "Plugins update manager" );
         this.setDefaultCloseOperation( 
             javax.swing.WindowConstants.DISPOSE_ON_CLOSE );
-        this.setPreferredSize( new java.awt.Dimension( 400, 200 ) );
+        this.setSize( new java.awt.Dimension( 400, 200 ) );
         this.setContentPane( getJContentPane(  ) );
     }
 
