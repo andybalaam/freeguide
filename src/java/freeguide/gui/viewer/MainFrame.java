@@ -25,24 +25,25 @@ import javax.swing.KeyStroke;
 public class MainFrame extends JFrame
 {
 
-    private javax.swing.JPanel jContentPane = null;
-    private javax.swing.JMenuBar mainMenu = null;
-    private javax.swing.JMenu menuFile = null;
-    private javax.swing.JMenu menuHelp = null;
-    private javax.swing.JMenuItem menuItemExit = null;
-    private javax.swing.JMenuItem menuItemAbout = null;
+    private javax.swing.JPanel jContentPane;
+    private javax.swing.JMenuBar mainMenu;
+    private javax.swing.JMenu menuFile;
+    private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenuItem menuItemExit;
+    private javax.swing.JMenuItem menuItemAbout;
     final protected LanguageHelper i18n;
-    private JMenuItem menuItemUserGuide = null;
-    private JMenuItem menuItemOptions = null;
-    private JMenu menuTools = null;
-    private JMenuItem menuItemDownload = null;
-    private JMenuItem menuItemPrint = null;
-    private JMenu menuItemExport = null;
-    private JMenuItem menuItemWizard = null;
-    private JMenuItem menuItemChannelsSets = null;
-    private JPanel jPanel = null;
-    private JProgressBar progressBar = null;
-    private JMenuItem menuItemUpdater = null;
+    private JMenuItem menuItemUserGuide;
+    private JMenuItem menuItemOptions;
+    private JMenu menuTools;
+    private JMenuItem menuItemDownload;
+    private JMenuItem menuItemPrint;
+    private JMenu menuItemExport;
+    private JMenuItem menuItemWizard;
+    private JMenuItem menuItemChannelsSets;
+    private JPanel jPanel;
+    private JProgressBar progressBar;
+    private JMenuItem menuItemUpdater;
+    private JMenuItem menuItemImport = null;
 
     /**
      * This is the default constructor
@@ -151,6 +152,7 @@ public class MainFrame extends JFrame
 
             menuFile.add( getMenuItemPrint(  ) );
 
+            menuFile.add( getMenuItemImport(  ) );
             menuFile.add( getMenuItemExport(  ) );
 
             menuFile.add( new JSeparator(  ) );
@@ -502,5 +504,23 @@ public class MainFrame extends JFrame
         }
 
         return menuItemUpdater;
+    }
+
+    /**
+     * This method initializes jMenuItem
+     *
+     * @return javax.swing.JMenuItem
+     */
+    public JMenuItem getMenuItemImport(  )
+    {
+
+        if( menuItemImport == null )
+        {
+            menuItemImport = new JMenu(  );
+            menuItemImport.setText( 
+                getLocalizedString( "MainFrame.Menu.Import" ) );
+        }
+
+        return menuItemImport;
     }
 }

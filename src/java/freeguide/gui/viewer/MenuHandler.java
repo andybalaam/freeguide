@@ -16,6 +16,7 @@ import freeguide.lib.general.StringHelper;
 import freeguide.lib.general.Utils;
 
 import freeguide.plugins.IModuleExport;
+import freeguide.plugins.IModuleImport;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -175,6 +176,33 @@ public class MenuHandler
                         public void actionPerformed( ActionEvent e )
                         {
                             controller.exportTo( ex );
+                        }
+                    } );
+            }
+        }
+
+        IModuleImport[] importers = PluginsManager.getImporters(  );
+
+        if( ( importers == null ) || ( importers.length == 0 ) )
+        {
+            controller.mainFrame.getMenuItemImport(  ).setVisible( false );
+        }
+        else
+        {
+
+            for( int i = 0; i < importers.length; i++ )
+            {
+
+                final IModuleImport im = importers[i];
+                final JMenuItem item =
+                    new JMenuItem( importers[i].getName(  ) );
+                controller.mainFrame.getMenuItemImport(  ).add( item );
+                item.addActionListener( 
+                    new ActionListener(  )
+                    {
+                        public void actionPerformed( ActionEvent e )
+                        {
+                            controller.importFrom( im );
                         }
                     } );
             }

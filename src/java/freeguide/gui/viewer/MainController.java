@@ -16,9 +16,10 @@ import freeguide.lib.general.Utils;
 
 import freeguide.plugins.IApplication;
 import freeguide.plugins.IModuleExport;
+import freeguide.plugins.IModuleImport;
 import freeguide.plugins.IModuleReminder;
-import freeguide.plugins.IModuleViewer;
 import freeguide.plugins.IModuleStorage;
+import freeguide.plugins.IModuleViewer;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -377,6 +378,34 @@ public class MainController implements IApplication
                     {
                         FreeGuide.log.log( 
                             Level.WARNING, "Error export data", ex );
+                    }
+                }
+            }.start(  );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param imp DOCUMENT_ME!
+     */
+    public void importFrom( final IModuleImport imp )
+    {
+        new Thread(  )
+            {
+                public void run(  )
+                {
+
+                    try
+                    {
+
+                        TVData data = imp.importData( mainFrame );
+                        getDataStorage(  ).add( data );
+                        viewer.onDataChanged(  );
+                    }
+                    catch( Exception ex )
+                    {
+                        FreeGuide.log.log( 
+                            Level.WARNING, "Error import data", ex );
                     }
                 }
             }.start(  );
