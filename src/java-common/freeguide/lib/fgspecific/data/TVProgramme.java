@@ -2,8 +2,6 @@ package freeguide.lib.fgspecific.data;
 
 import freeguide.lib.fgspecific.Application;
 
-import org.xml.sax.Attributes;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,7 +12,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import java.util.Date;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 /**
@@ -71,7 +70,7 @@ public class TVProgramme implements Comparable, Serializable
     private URL link;
 
     /** Any unrecognised tags go in here. */
-    private Hashtable extraTags;
+    private Map extraTags;
 
     /**
      * Constructor for the Programme object
@@ -551,72 +550,39 @@ public class TVProgramme implements Comparable, Serializable
     /**
      * DOCUMENT_ME!
      *
-     * @param name DOCUMENT_ME!
-     * @param attrs DOCUMENT_ME!
+     * @param tagName DOCUMENT_ME!
+     * @param attrName DOCUMENT_ME!
+     * @param value DOCUMENT_ME!
      */
-    public void startElement( String name, Attributes attrs )
+    public void setExtraTag( 
+        final String tagName, final String attrName, final String value )
     {
 
         if( extraTags == null )
         {
-            extraTags = new Hashtable(  );
-
+            extraTags = new HashMap(  );
         }
 
-        Hashtable hashOfAttrs = new Hashtable(  );
-
-        for( int i = 0; i < attrs.getLength(  ); i++ )
-        {
-            hashOfAttrs.put( attrs.getQName( i ), attrs.getValue( i ) );
-
-        }
-
-        extraTags.put( name, hashOfAttrs );
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param mainTag DOCUMENT_ME!
-     * @param subTag DOCUMENT_ME!
-     * @param data DOCUMENT_ME!
-     */
-    public void endElement( String mainTag, String subTag, String data )
-    {
-
-        if( extraTags == null )
-        {
-            extraTags = new Hashtable(  );
-
-        }
-
-        Hashtable hashOfAttrs = (Hashtable)extraTags.get( mainTag );
+        Map hashOfAttrs = (Map)extraTags.get( tagName );
 
         if( hashOfAttrs == null )
         {
-            hashOfAttrs = new Hashtable(  );
-
-            extraTags.put( mainTag, hashOfAttrs );
-
+            hashOfAttrs = new HashMap(  );
+            extraTags.put( tagName, hashOfAttrs );
         }
 
-        String newData = (String)hashOfAttrs.get( subTag );
+        String text = (String)hashOfAttrs.get( attrName );
 
-        if( newData == null )
+        if( text == null )
         {
-            newData = data;
-
+            text = value;
         }
-
         else
         {
-            newData += ( "; " + data );
-
+            text = text + "; " + value;
         }
 
-        hashOfAttrs.put( subTag, newData );
-
+        hashOfAttrs.put( attrName, text );
     }
 
     /**
@@ -735,11 +701,10 @@ public class TVProgramme implements Comparable, Serializable
      *
      * @return DOCUMENT_ME!
      */
-    public Hashtable getExtraTags(  )
+    public Map getExtraTags(  )
     {
 
         return extraTags;
-
     }
 
     /**

@@ -202,6 +202,10 @@ class XMLTVImportHandler extends DefaultHandler
         {
             isStarRating = true;
         }
+        else
+        {
+            programmeStartExtraTag( tag, attributes );
+        }
     }
 
     protected void parseEndChannel( final String tag )
@@ -278,6 +282,10 @@ class XMLTVImportHandler extends DefaultHandler
                     "Invalid URL for programme : " + charData.toString(  ), ex );
             }
         }
+        else
+        {
+            programmeEndExtraTag( tag, "", charData.toString(  ) );
+        }
     }
 
     /**
@@ -335,6 +343,23 @@ class XMLTVImportHandler extends DefaultHandler
         throws SAXException
     {
         charData.append( ch, start, length );
+    }
+
+    protected void programmeStartExtraTag( 
+        final String name, final Attributes attrs )
+    {
+
+        for( int i = 0; i < attrs.getLength(  ); i++ )
+        {
+            currentProgramme.setExtraTag( 
+                name, attrs.getQName( i ), attrs.getValue( i ) );
+        }
+    }
+
+    protected void programmeEndExtraTag( 
+        final String mainTag, final String subTag, final String data )
+    {
+        currentProgramme.setExtraTag( mainTag, subTag, data );
     }
 
     /**
