@@ -30,8 +30,8 @@ import freeguide.lib.general.Version;
 
 import freeguide.migration.Migrate;
 
-import freeguide.plugins.IModuleViewer;
 import freeguide.plugins.IModuleStorage;
+import freeguide.plugins.IModuleViewer;
 
 import java.io.File;
 import java.io.IOException;
@@ -177,6 +177,10 @@ public class FreeGuide
 
         setLocale( config.lang );
 
+        MainController mainController =
+            new MainController( PREF_ROOT.node( "mainController" ) );
+        Application.setInstance( mainController );
+
         if( config.version == null )
         {
             launchFirstTime(  );
@@ -248,10 +252,6 @@ public class FreeGuide
     {
         showPleaseWait(  );
 
-        MainController mainController =
-            new MainController( PREF_ROOT.node( "mainController" ) );
-        Application.setInstance( mainController );
-
         PluginsManager.loadModules(  );
         setLocale( config.lang );
 
@@ -273,7 +273,8 @@ public class FreeGuide
             System.exit( 2 );
         }
 
-        mainController.start( viewer, grabberFromWizard );
+        ( (MainController)Application.getInstance(  ) ).start( 
+            viewer, grabberFromWizard );
 
     }
 

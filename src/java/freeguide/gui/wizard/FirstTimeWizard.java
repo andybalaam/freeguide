@@ -83,13 +83,13 @@ public class FirstTimeWizard
         /*if( FreeGuide.prefs.misc.get( "region" ) == null )
 
 
-        {
+{
 
 
-        FreeGuide.prefs.misc.put( "region", "UK" );
+FreeGuide.prefs.misc.put( "region", "UK" );
 
 
-        }*/
+}*/
         getAllRegions(  );
 
         allBrowsers = getAllBrowsers(  );
@@ -311,88 +311,88 @@ public class FirstTimeWizard
     /*    private void setStandardProps(  )
 
 
-    {
+{
 
 
 
 
-    if( FreeGuide.isUnix )
+if( FreeGuide.isUnix )
 
 
-    {
+{
 
 
-        osSuffix = "-lin-";
+    osSuffix = "-lin-";
 
 
-    }
+}
 
 
-    else
+else
 
 
-    {
+{
 
 
-        osSuffix = "-win-";
+    osSuffix = "-win-";
 
 
-    }
-
-
-
-
-    // Then load up the properties in the file install-all.props
-
-
-    standardProps = new Properties(  );
+}
 
 
 
 
-    try
+// Then load up the properties in the file install-all.props
 
 
-    {
-
-
-        standardProps.load(
-
-
-            new BufferedInputStream(
-
-
-                getClass(  ).getClassLoader(  ).getResourceAsStream(
-
-
-                    "main/main" + osSuffix + "all.properties" ) ) );
+standardProps = new Properties(  );
 
 
 
 
-    }
+try
 
 
-    catch( java.io.IOException e )
+{
 
 
-    {
+    standardProps.load(
 
 
-        e.printStackTrace(  );
+        new BufferedInputStream(
 
 
-    }
+            getClass(  ).getClassLoader(  ).getResourceAsStream(
 
 
-
-
-    readPrefsFromProps( standardProps );
+                "main/main" + osSuffix + "all.properties" ) ) );
 
 
 
 
-    }*/
+}
+
+
+catch( java.io.IOException e )
+
+
+{
+
+
+    e.printStackTrace(  );
+
+
+}
+
+
+
+
+readPrefsFromProps( standardProps );
+
+
+
+
+}*/
 
     /**
      * Given a properties file real in all the preferences listed and store
@@ -408,40 +408,40 @@ public class FirstTimeWizard
     /*    private void readPrefsFromProps( Properties iProps )
 
 
-    {
+{
 
 
 
 
-    String prefString = "";
+String prefString = "";
 
 
 
 
-    for(
+for(
 
 
-        int j = 1;
+    int j = 1;
 
 
-            ( prefString = iProps.getProperty( "prefs." + j ) ) != null;
+        ( prefString = iProps.getProperty( "prefs." + j ) ) != null;
 
 
-            j++ )
+        j++ )
 
 
-    {
+{
 
 
-        FreeGuide.prefs.put( prefString );
+    FreeGuide.prefs.put( prefString );
 
 
 
 
-    }
+}
 
 
-    }*/
+}*/
     protected static Map readMap( final String resourceName )
         throws IOException
     {
@@ -630,7 +630,7 @@ public class FirstTimeWizard
 
             try
             {
-                launcher.normalStartup( mod.getID(  ) );
+                launcher.normalStartup( ( mod == null ) ? null : mod.getID(  ) );
             }
             catch( IOException ex )
             {
