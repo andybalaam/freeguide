@@ -91,10 +91,10 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
     /*
 
 
-*  Saves out the listings as an HTML file to be printed.
+    *  Saves out the listings as an HTML file to be printed.
 
 
-*/
+    */
 
     /**
      * Description of the Method

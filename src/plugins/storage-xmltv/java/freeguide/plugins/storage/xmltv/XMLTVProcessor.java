@@ -81,22 +81,22 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
         //patch invalid length values
 
         /* new TVData.ByProgrammesIterator(  )
-{
- public void onProgramme( TVProgramme programme )
- {
+        {
+        public void onProgramme( TVProgramme programme )
+        {
 
-     if(
+        if(
          ( programme.getStart(  ) >= programme.getEnd(  ) )
              || ( programme.getEnd(  ) == 0 )
              || ( ( programme.getEnd(  )
              - programme.getStart(  ) ) > ( 120L * 60 * 1000 ) ) )
-     {
+        {
          programme.setEnd(
              programme.getStart(  ) + ( 30L * 60 * 1000 ) );
 
-     }
- }
-}.iterate( result );   */
+        }
+        }
+        }.iterate( result );   */
         return result;
 
     }
@@ -113,13 +113,13 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
         /*                    new XMLTVExport(  ).export(
 
 
-new File(
+        new File(
 
 
-FreeGuide.config.workingDirectory + "/grab-"
+        FreeGuide.config.workingDirectory + "/grab-"
 
 
-+ grabber.getID(  ) + ".xmltv" ), result );*/
+        + grabber.getID(  ) + ".xmltv" ), result );*/
     }
 
     protected void processAllFiles( TVData data, XMLTVImport.Filter filter )

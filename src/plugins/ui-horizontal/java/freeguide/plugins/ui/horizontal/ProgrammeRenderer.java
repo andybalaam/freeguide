@@ -94,10 +94,10 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
      */
 
     /*public void setInGuide( boolean state )
-{
+    {
 
-if( state )
-{
+    if( state )
+    {
 
     //TODO FreeGuide.prefs.addInGuide( programme, viewerFrame.currentDate );
     if( MainController.config.reminderOn )
@@ -131,66 +131,66 @@ if( state )
                 new Date(
                     reminderStartTime.getTime(  )
                     + ( MainController.config.reminderGiveUp ) );
-*/
+    */
     /* TODO if( viewerFrame.reminderTimer != null )
 
 
-{
+    {
 
 
-viewerFrame.reminderTimer.cancel(  );
+    viewerFrame.reminderTimer.cancel(  );
 
 
-}
-
-
-
-
-viewerFrame.reminderTimer = new MessageDialogTimer(  );
+    }
 
 
 
 
+    viewerFrame.reminderTimer = new MessageDialogTimer(  );
 
 
-Object[] messageArguments = { programme.getTitle(  ) };
 
 
-viewerFrame.reminderTimer.schedule(
 
 
-FreeGuide.getCompoundMessage(
+    Object[] messageArguments = { programme.getTitle(  ) };
 
 
-"is_starting_soon_template", messageArguments ),
+    viewerFrame.reminderTimer.schedule(
 
 
-reminderStartTime, reminderEndTime );
+    FreeGuide.getCompoundMessage(
 
 
-*/
+    "is_starting_soon_template", messageArguments ),
+
+
+    reminderStartTime, reminderEndTime );
+
+
+    */
     /*                }
         }
     }
 
     else
     {
-*/
+    */
 
     //FreeGuide.prefs.removeFromGuide( programme );
 
     /*TODO  if( viewerFrame.reminderTimer != null )
 
 
-{
+    {
 
 
-viewerFrame.reminderTimer.cancel(  );
+    viewerFrame.reminderTimer.cancel(  );
 
 
-}*/
+    }*/
     /*}
-}*/
+    }*/
 
     /**
      * Called when this component receives the focus.  Scrolls the HTML guide
@@ -226,10 +226,10 @@ viewerFrame.reminderTimer.cancel(  );
         }
 
         /*
-* Overridden to make sure we get drawn by CellRendererPane
-*
-* @see java.awt.Component#isShowing()
-*/
+        * Overridden to make sure we get drawn by CellRendererPane
+        *
+        * @see java.awt.Component#isShowing()
+        */
         public boolean isShowing(  )
         {
 

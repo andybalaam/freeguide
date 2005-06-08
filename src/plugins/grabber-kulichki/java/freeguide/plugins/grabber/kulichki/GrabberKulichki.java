@@ -184,14 +184,14 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         HandlerProg handlerProg = new HandlerProg( result, logger );
 
         /*browser.loadURL("file:///tmp/p1data.html");
-
-
+        
+        
         handlerProg.setTimeZone(TimeZone.getTimeZone("Europe/Moscow"));
-
-
+        
+        
         browser.parse(handlerProg);
-
-
+        
+        
         if (true) return result;*/
         logger.info( "Load initial page" );
 

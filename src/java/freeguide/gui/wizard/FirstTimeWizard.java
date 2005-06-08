@@ -83,13 +83,13 @@ public class FirstTimeWizard
         /*if( FreeGuide.prefs.misc.get( "region" ) == null )
 
 
-{
+        {
 
 
-FreeGuide.prefs.misc.put( "region", "UK" );
+        FreeGuide.prefs.misc.put( "region", "UK" );
 
 
-}*/
+        }*/
         getAllRegions(  );
 
         allBrowsers = getAllBrowsers(  );
@@ -311,49 +311,49 @@ FreeGuide.prefs.misc.put( "region", "UK" );
     /*    private void setStandardProps(  )
 
 
-{
+    {
 
 
 
 
-if( FreeGuide.isUnix )
+    if( FreeGuide.isUnix )
 
 
-{
+    {
 
 
     osSuffix = "-lin-";
 
 
-}
+    }
 
 
-else
+    else
 
 
-{
+    {
 
 
     osSuffix = "-win-";
 
 
-}
+    }
 
 
 
 
-// Then load up the properties in the file install-all.props
+    // Then load up the properties in the file install-all.props
 
 
-standardProps = new Properties(  );
+    standardProps = new Properties(  );
 
 
 
 
-try
+    try
 
 
-{
+    {
 
 
     standardProps.load(
@@ -370,29 +370,29 @@ try
 
 
 
-}
+    }
 
 
-catch( java.io.IOException e )
+    catch( java.io.IOException e )
 
 
-{
+    {
 
 
     e.printStackTrace(  );
 
 
-}
+    }
 
 
 
 
-readPrefsFromProps( standardProps );
+    readPrefsFromProps( standardProps );
 
 
 
 
-}*/
+    }*/
 
     /**
      * Given a properties file real in all the preferences listed and store
@@ -408,17 +408,17 @@ readPrefsFromProps( standardProps );
     /*    private void readPrefsFromProps( Properties iProps )
 
 
-{
+    {
 
 
 
 
-String prefString = "";
+    String prefString = "";
 
 
 
 
-for(
+    for(
 
 
     int j = 1;
@@ -430,7 +430,7 @@ for(
         j++ )
 
 
-{
+    {
 
 
     FreeGuide.prefs.put( prefString );
@@ -438,10 +438,10 @@ for(
 
 
 
-}
+    }
 
 
-}*/
+    }*/
     protected static Map readMap( final String resourceName )
         throws IOException
     {
@@ -630,7 +630,8 @@ for(
 
             try
             {
-                launcher.normalStartup( ( mod == null ) ? null : mod.getID(  ) );
+                launcher.normalStartup( 
+                    ( mod == null ) ? null : mod.getID(  ) );
             }
             catch( IOException ex )
             {

@@ -456,41 +456,41 @@ public class ViewerFrame extends JPanel
         /*
 
 
-* TODO FreeGuide.prefs.favourites.addFGPreferenceChangeListener( new
+        * TODO FreeGuide.prefs.favourites.addFGPreferenceChangeListener( new
 
 
-* FGPreferenceChangeListener( ) { public void preferenceChange(
+        * FGPreferenceChangeListener( ) { public void preferenceChange(
 
 
-* FGPreferenceChangeEvent evt ) {
+        * FGPreferenceChangeEvent evt ) {
 
 
-*
+        *
 
 
-* //TODO: maybe repaint() programmesPanel.invalidate( ); } } );
+        * //TODO: maybe repaint() programmesPanel.invalidate( ); } } );
 
 
-*/
+        */
         /*
 
 
-* FreeGuide.prefs.chosen_progs.addFGPreferenceChangeListener( new
+        * FreeGuide.prefs.chosen_progs.addFGPreferenceChangeListener( new
 
 
-* FGPreferenceChangeListener( ) { public void preferenceChange(
+        * FGPreferenceChangeListener( ) { public void preferenceChange(
 
 
-* FGPreferenceChangeEvent evt ) {
+        * FGPreferenceChangeEvent evt ) {
 
 
-*
+        *
 
 
-* //TODO: maybe repaint() programmesPanel.invalidate( ); } } );
+        * //TODO: maybe repaint() programmesPanel.invalidate( ); } } );
 
 
-*/
+        */
         programmesScrollPane.setViewportView( programmesPanel );
 
         timePanel.setPreferredSize( new java.awt.Dimension( 24, 24 ) );
@@ -532,22 +532,22 @@ public class ViewerFrame extends JPanel
         /*
 
 
-* gridBagConstraints = new java.awt.GridBagConstraints();
+        * gridBagConstraints = new java.awt.GridBagConstraints();
 
 
-* gridBagConstraints.gridx = 2; gridBagConstraints.gridy = 4;
+        * gridBagConstraints.gridx = 2; gridBagConstraints.gridy = 4;
 
 
-* gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        * gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
 
 
-* gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        * gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
 
 
-* getContentPane().add(progressBar, gridBagConstraints);
+        * getContentPane().add(progressBar, gridBagConstraints);
 
 
-*/
+        */
         // }}}
         // {{{ Bottom buttons
         butRevertToFavourites.setFont( new java.awt.Font( "Dialog", 0, 10 ) );
@@ -614,22 +614,22 @@ public class ViewerFrame extends JPanel
         /*
 
 
-* if( FreeGuide.prefs.commandline.get( "tv_config.1", null ) != null ) {
+        * if( FreeGuide.prefs.commandline.get( "tv_config.1", null ) != null ) {
 
 
-* mbtConfigure.addActionListener( new java.awt.event.ActionListener( ) {
+        * mbtConfigure.addActionListener( new java.awt.event.ActionListener( ) {
 
 
-* public void actionPerformed( ActionEvent evt ) {
+        * public void actionPerformed( ActionEvent evt ) {
 
 
-* mbtConfigureActionPerformed( evt ); } } ); } else {
+        * mbtConfigureActionPerformed( evt ); } } ); } else {
 
 
-* mbtConfigure.setEnabled( false ); }
+        * mbtConfigure.setEnabled( false ); }
 
 
-*/
+        */
         // getRootPane( ).setDefaultButton( butGoToNow );
         // }}}
         // {{{ Event listeners
@@ -712,49 +712,49 @@ public class ViewerFrame extends JPanel
     /*
 
 
-* public void mbtConfigureActionPerformed( java.awt.event.ActionEvent evt ) {
+    * public void mbtConfigureActionPerformed( java.awt.event.ActionEvent evt ) {
 
 
-*
+    *
 
 
-* String preconfig_message = null;
+    * String preconfig_message = null;
 
 
-*
+    *
 
 
-* //FreeGuide.prefs.misc.get( "preconfig_message" ); if( preconfig_message !=
+    * //FreeGuide.prefs.misc.get( "preconfig_message" ); if( preconfig_message !=
 
 
-* null ) { JOptionPane.showMessageDialog( this, preconfig_message );
+    * null ) { JOptionPane.showMessageDialog( this, preconfig_message );
 
 
-*  }
+    *  }
 
 
-*
+    *
 
 
-* Calendar cal = GregorianCalendar.getInstance( ); cal.setTimeInMillis(
+    * Calendar cal = GregorianCalendar.getInstance( ); cal.setTimeInMillis(
 
 
-* theDate );
+    * theDate );
 
 
-*
+    *
 
 
-* //new GrabberController( ).grabXMLTV( // parent,
+    * //new GrabberController( ).grabXMLTV( // parent,
 
 
-* FreeGuide.prefs.getCommands( "tv_config" ), //FreeGuide.msg.getString(
+    * FreeGuide.prefs.getCommands( "tv_config" ), //FreeGuide.msg.getString(
 
 
-* "configuring" ), cal ); }
+    * "configuring" ), cal ); }
 
 
-*/
+    */
 
     /**
      * Event handler for when the Reset button is pressed
@@ -782,34 +782,34 @@ public class ViewerFrame extends JPanel
         /*
 
 
-* TODO FavouritesList favouritesList = FavouritesList.getInstance( );
+        * TODO FavouritesList favouritesList = FavouritesList.getInstance( );
 
 
-*
+        *
 
 
-* for( Iterator i = ( (ProgrammeStripModel)programmesPanel.getModel( )
+        * for( Iterator i = ( (ProgrammeStripModel)programmesPanel.getModel( )
 
 
-* ).getAll( ) .iterator( ); i.hasNext( ); ) {
+        * ).getAll( ) .iterator( ); i.hasNext( ); ) {
 
 
-*
+        *
 
 
-* Programme programme = (Programme)( i.next( ) );
+        * Programme programme = (Programme)( i.next( ) );
 
 
-*
+        *
 
 
-* programme.setInGuide( favouritesList.isFavourite( programme ) );
+        * programme.setInGuide( favouritesList.isFavourite( programme ) );
 
 
-*  }
+        *  }
 
 
-*/
+        */
     }
 
     /**
@@ -1176,12 +1176,12 @@ public class ViewerFrame extends JPanel
         }
 
         /*
-* Overridden to be able to add a BorderChanger to the view (not for
-* general use, leaks when called repeatedly, should call
-* removeFocusListener too)
-*
-* @see javax.swing.JScrollPane#setViewportView(java.awt.Component)
-*/
+        * Overridden to be able to add a BorderChanger to the view (not for
+        * general use, leaks when called repeatedly, should call
+        * removeFocusListener too)
+        *
+        * @see javax.swing.JScrollPane#setViewportView(java.awt.Component)
+        */
         public void setViewportView( Component view )
         {
             super.setViewportView( view );
