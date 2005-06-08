@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 
-<project name="freeguide-tv" default="all" basedir=".">
+<project name="freeguide-tv" default="main" basedir=".">
 
     <description>
         Ant build file for FreeGuide.
     </description>
 	
-	<target name="all" depends="init, common, plugins, app, startup"/>
+	<target name="buildall" depends="init, common, plugins, app, startup"/>
 	
 	<target name="plugins" depends="common">
 		<antcall target="oneplugin">
@@ -88,7 +88,7 @@
         <jar jarfile="${build}/lib/${plugin-name}.jar"
              basedir="${build}/classes/${plugin-name}"/>
 		</target>
-    <target name="app" depends="create-properties-lists" description="compile application" >
+    <target name="app" description="compile application" >
         <mkdir dir="${build}/classes/app"/>
         <!-- compile all the .java files -->
         <javac srcdir="${src}/java"
@@ -167,20 +167,9 @@
 
     </target>
 
-    <target name="create-properties-lists">
-        <!--exec executable="sh" dir="${src}/resources/i18n" output="${src}/resources/i18n/ls">
-        	<arg value="-c"/>
-        	<arg value="ls *"/>
-    	</exec>
-        <exec executable="sh" dir="${src}/resources/xmltv" output="${src}/resources/xmltv/ls">
-        	<arg value="-c"/>
-        	<arg value="ls *"/>
-    	</exec-->
-  	</target>
-
     <target name="install-Linux-NoXMLTV-files"
             description="install all the files for linux"
-            depends="jar" >
+            depends="buildall" >
         
         <!-- These properties are passed in from the rpm .spec file:
             install_share_dir = ~/.rpm/tmp/FreeGuide-0.8.2-root//usr/share
@@ -234,40 +223,6 @@
         
     </target>
     
-    <target name="compile" depends="init, create-properties-lists" description="compile the source " >
-
-        <mkdir dir="${build}/classes"/>
-        <!-- compile all the .java files -->
-        <javac srcdir="${src}/java"
-        	destdir="${build}/classes"
-        	deprecation="on" 
-        	source="1.4" 
-        	target="1.4"
-            encoding="UTF-8">
-        	<classpath>
-        		<fileset dir="${src}/lib" includes="**/*.jar"/>
-        	</classpath>
-      	</javac>
-
-        <copy todir="${build}/classes">
-            <fileset dir="${src}/resources" />
-        	<fileset dir="${src}/java" excludes="**/*.java" />
-      	</copy>
-        
-    </target>
-
-    <target name="jar" depends="compile"
-            description="generate the windows jar file" >
-
-        <mkdir dir="${build}" />
-        
-        <!-- Make the jar file -->
-        <jar 	jarfile="${build}/FreeGuide.jar"
-                basedir="${build}/classes"
-                manifest="${src}/manifests/FreeGuide.mf" />
-        
-    </target>
-
     <target name="FreeGuide-Source" depends="init"
         description="generate the source tar.gz and zip">
 
@@ -308,13 +263,10 @@
 
     </target>
 
-    <target name="main" depends="FreeGuide-Source, jar"
+    <target name="main" depends="FreeGuide-Source, buildall"
         description="generate all the installers" >
         <!-- gzip the man page -->
         <gzip src="${src}/install-linux/freeguide.1" zipfile="${build}/freeguide.1.gz" />
-        <copy todir="${build}">
-        	<fileset dir="${src}/lib" includes="**/*.jar"/>
-      	</copy>
     </target>
 
     <target name="clean"
