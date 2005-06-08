@@ -9,19 +9,13 @@ import freeguide.plugins.IModuleExport;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IModuleImport;
 import freeguide.plugins.IModuleReminder;
-import freeguide.plugins.IModuleViewer;
 import freeguide.plugins.IModuleStorage;
+import freeguide.plugins.IModuleViewer;
 
-import freeguide.plugins.reminder.alarm.AlarmReminder;
-
-import freeguide.plugins.ui.horizontal.HorizontalViewer;
-
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
 import java.net.URL;
-import java.net.URLClassLoader;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -163,8 +157,7 @@ public class PluginsManager
                         PluginsManager.class.getClassLoader(  ).loadClass( 
                             className );
 
-                    FreeGuide.log.fine( "Loading class '"
-                            + className+"'" );
+                    FreeGuide.log.fine( "Loading class '" + className + "'" );
 
                     if( IModule.class.isAssignableFrom( moduleClass ) )
                     {
@@ -288,7 +281,8 @@ public class PluginsManager
             }
         }
 
-        return (IModuleStorage[])result.toArray( new IModuleStorage[result.size(  )] );
+        return (IModuleStorage[])result.toArray( 
+            new IModuleStorage[result.size(  )] );
     }
 
     /**
@@ -394,6 +388,31 @@ public class PluginsManager
 
         return (IModuleExport[])result.toArray( 
             new IModuleExport[result.size(  )] );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static IModuleImport[] getImporters(  )
+    {
+
+        final List result = new ArrayList(  );
+
+        for( int i = 0; i < plugins.size(  ); i++ )
+        {
+
+            IModule module = (IModule)plugins.get( i );
+
+            if( module instanceof IModuleImport )
+            {
+                result.add( module );
+            }
+        }
+
+        return (IModuleImport[])result.toArray( 
+            new IModuleImport[result.size(  )] );
     }
 
     /**
