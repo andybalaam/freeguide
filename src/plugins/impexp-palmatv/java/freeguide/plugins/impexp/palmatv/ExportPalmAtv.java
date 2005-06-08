@@ -29,7 +29,7 @@ import javax.swing.filechooser.FileFilter;
 public class ExportPalmAtv extends BaseModule implements IModuleExport
 {
 
-    DOCUMENT ME!
+    /** Module ID. */
     public static final String ID = "impexp-palmatv";
 
     /** Offset to Palm's time. */
