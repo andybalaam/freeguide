@@ -62,7 +62,9 @@ SectionEnd
 
 Section "Desktop icon"
 
-    CreateShortCut "$DESKTOP\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\FreeGuide.jar" --doc_directory "$INSTDIR\doc" --install_directory "$INSTDIR"' $INSTDIR\icons\logo.ico
+    SetOutPath $INSTDIR
+
+    CreateShortCut "$DESKTOP\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\startup.jar" --doc_directory "$INSTDIR\doc" --install_directory "$INSTDIR"' $INSTDIR\icons\logo.ico
 
 SectionEnd
 
@@ -72,7 +74,9 @@ Section "Start menu folder"
 
     CreateDirectory $SMPROGRAMS\FreeGuide
   
-    CreateShortCut "$SMPROGRAMS\FreeGuide\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\FreeGuide.jar" --doc_directory "$INSTDIR\doc" --install_directory "$INSTDIR"' $INSTDIR\icons\logo.ico
+    SetOutPath $INSTDIR
+
+    CreateShortCut "$SMPROGRAMS\FreeGuide\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\startup.jar" --doc_directory "$INSTDIR\doc" --install_directory "$INSTDIR"' $INSTDIR\icons\logo.ico
 
 SectionEnd
 
@@ -80,7 +84,9 @@ SectionEnd
 
 Section "Quicklaunch icon"
 
-    CreateShortCut "$QUICKLAUNCH\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\FreeGuide.jar" --doc_directory "$INSTDIR\doc" --install_directory "$INSTDIR"' $INSTDIR\icons\logo.ico
+    SetOutPath $INSTDIR
+
+    CreateShortCut "$QUICKLAUNCH\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\startup.jar" --doc_directory "$INSTDIR\doc" --install_directory "$INSTDIR"' $INSTDIR\icons\logo.ico
 
 SectionEnd
 
@@ -93,7 +99,7 @@ Section "FreeGuide program"
 
   SetOutPath $INSTDIR
   
-  File ..\..\build\*.jar
+  File /r ..\..\build\*.jar
   
   ; --------------------- make uninstaller ---------------------
   
