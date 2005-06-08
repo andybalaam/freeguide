@@ -32,7 +32,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 {
 
     /** DOCUMENT ME! */
-    public static final String ID = "kulichki";
+    public static final String ID = "grabber-kulichki";
     protected Properties TIME_ZONES;
     protected TimeZone TIME_ZONE_DEFAULT =
         TimeZone.getTimeZone( "Europe/Moscow" );

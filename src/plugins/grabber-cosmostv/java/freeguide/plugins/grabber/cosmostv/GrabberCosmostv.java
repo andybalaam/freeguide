@@ -23,7 +23,7 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
 {
 
     /** DOCUMENT ME! */
-    public static final String ID = "cosmostv";
+    public static final String ID = "grabber-cosmostv";
     protected static final TimeZone TIMEZONE =
         TimeZone.getTimeZone( "Europe/Minsk" );
     boolean isStopped;

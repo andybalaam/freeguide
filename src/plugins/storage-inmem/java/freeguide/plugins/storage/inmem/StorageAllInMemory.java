@@ -28,7 +28,7 @@ import java.io.ObjectOutputStream;
 public class StorageAllInMemory extends BaseModule implements IModuleStorage
 {
 
-    protected static String ID = "inmem";
+    protected static String ID = "storage-inmem";
     protected TVData data;
 
     /**

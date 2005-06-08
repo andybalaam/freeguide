@@ -22,7 +22,7 @@ public class GrabberNtvplus extends BaseModule implements IModuleGrabber
 {
 
     /** DOCUMENT ME! */
-    public static final String ID = "ntvplus";
+    public static final String ID = "grabber-ntvplus";
     protected static final TimeZone TIMEZONE =
         TimeZone.getTimeZone( "Europe/Moscow" );
     boolean isStopped;

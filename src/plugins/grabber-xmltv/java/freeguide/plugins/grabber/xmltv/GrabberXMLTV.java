@@ -44,7 +44,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     IModuleConfigureFromWizard
 {
 
-    protected final static String ID = "xmltv";
+    protected final static String ID = "grabber-xmltv";
 
     /** DOCUMENT ME! */
     public final static int REDOWNLOAD_ALWAYS = 0;

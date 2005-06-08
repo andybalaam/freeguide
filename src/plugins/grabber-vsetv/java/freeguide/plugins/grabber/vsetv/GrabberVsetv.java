@@ -40,7 +40,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 {
 
     /** DOCUMENT ME! */
-    public static final String ID = "vsetv";
+    public static final String ID = "grabber-vsetv";
     protected VsetvConfig config = new VsetvConfig(  );
     protected Properties TIMEZONES;
 

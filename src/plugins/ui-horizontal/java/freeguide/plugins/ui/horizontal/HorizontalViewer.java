@@ -7,8 +7,8 @@ import freeguide.lib.fgspecific.data.TVData;
 
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleConfigurationUI;
-import freeguide.plugins.IModuleViewer;
 import freeguide.plugins.IModuleStorage;
+import freeguide.plugins.IModuleViewer;
 
 import java.awt.Color;
 import java.awt.Dimension;

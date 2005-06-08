@@ -13,6 +13,7 @@ import freeguide.plugins.BaseModuleReminder;
 import freeguide.plugins.IModuleConfigurationUI;
 import freeguide.plugins.IModuleReminder;
 import freeguide.plugins.IModuleStorage;
+
 import freeguide.plugins.reminder.alarm.AlarmUIController;
 
 import java.awt.Color;
@@ -45,7 +46,8 @@ import javax.swing.KeyStroke;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class AlarmReminder extends BaseModuleReminder implements IModuleReminder
+public class AlarmReminder extends BaseModuleReminder
+    implements IModuleReminder
 {
 
     /** Module ID. */
@@ -120,9 +122,19 @@ public class AlarmReminder extends BaseModuleReminder implements IModuleReminder
             KeyStroke.getKeyStroke( KeyEvent.VK_F, InputEvent.CTRL_MASK ) );
     }
 
-	public IModuleConfigurationUI getConfigurationUI(JDialog parentDialog) {
-		return new AlarmUIController(this);
-	}
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param parentDialog DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public IModuleConfigurationUI getConfigurationUI( JDialog parentDialog )
+    {
+
+        return new AlarmUIController( this );
+    }
+
     /**
      * DOCUMENT_ME!
      *

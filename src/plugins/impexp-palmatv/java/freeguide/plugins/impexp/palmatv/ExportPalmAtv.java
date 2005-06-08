@@ -29,6 +29,9 @@ import javax.swing.filechooser.FileFilter;
 public class ExportPalmAtv extends BaseModule implements IModuleExport
 {
 
+    DOCUMENT ME!
+    public static final String ID = "impexp-palmatv";
+
     /** Offset to Palm's time. */
     public static final long PALM_TIME_DELTA = 24107L * 24 * 60 * 60;
     protected static final String hPDBName = "all";
@@ -49,8 +52,7 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
     public String getID(  )
     {
 
-        return "palm-atv";
-
+        return ID;
     }
 
     /**

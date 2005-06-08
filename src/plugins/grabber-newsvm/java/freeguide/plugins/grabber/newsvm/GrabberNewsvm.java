@@ -39,7 +39,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 {
 
     /** DOCUMENT ME! */
-    protected static final String ID = "newsvm";
+    protected static final String ID = "grabber-newsvm";
     protected static Pattern reDate =
         Pattern.compile( 
             "<b>(\\p{L}+)\\s*,\\s*(\\d{1,2})\\s+(\\p{L}+)</b>",

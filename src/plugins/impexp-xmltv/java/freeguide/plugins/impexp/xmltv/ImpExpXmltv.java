@@ -25,6 +25,9 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
     IModuleExport
 {
 
+    /** Module ID. */
+    public static final String ID = "impexp-xmltv";
+
     /**
      * DOCUMENT_ME!
      *
@@ -33,7 +36,7 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
     public String getID(  )
     {
 
-        return "IO-XMLTV";
+        return ID;
     }
 
     /**
@@ -68,7 +71,7 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
         chooser.setFileSelectionMode( JFileChooser.FILES_ONLY );
         chooser.setMultiSelectionEnabled( true );
 
-        if( chooser.showSaveDialog( parent ) == JFileChooser.APPROVE_OPTION )
+        if( chooser.showOpenDialog( parent ) == JFileChooser.APPROVE_OPTION )
         {
 
             final TVData result = new TVData(  );
