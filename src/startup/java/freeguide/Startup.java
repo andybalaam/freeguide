@@ -91,7 +91,7 @@ public class Startup
 
             for( int i = 0; i < libs.length; i++ )
             {
-                log.warning( "Load module jar: " + libs[i].getPath(  ) );
+                log.fine( "Load module jar: " + libs[i].getPath(  ) );
 
                 jarUrls.add( libs[i].toURL(  ) );
 
