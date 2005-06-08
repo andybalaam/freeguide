@@ -6,7 +6,7 @@
         Ant build file for FreeGuide.
     </description>
 	
-	<target name="all" depends="common, plugins, app, startup"/>
+	<target name="all" depends="init, common, plugins, app, startup"/>
 	
 	<target name="plugins" depends="common">
 		<antcall target="oneplugin">
@@ -60,8 +60,11 @@
         		<fileset dir="${src}/lib" includes="**/*.jar"/>
         	</classpath>
       	</javac>
-        <jar jarfile="${build}/common.jar"
+        <jar jarfile="${build}/lib/common.jar"
              basedir="${build}/classes/common"/>
+        <copy todir="${build}/lib/">
+            <fileset dir="${src}/lib" includes="**/*.jar"/>
+      	</copy>
 	</target>
 	<target name="oneplugin">
         <mkdir dir="${build}/classes/${plugin-name}"/>
@@ -82,10 +85,10 @@
         	<fileset dir="${src}/plugins/${plugin-name}/java" excludes="**/*.java" />
       	</copy>
 
-        <jar jarfile="${build}/${plugin-name}.jar"
+        <jar jarfile="${build}/lib/${plugin-name}.jar"
              basedir="${build}/classes/${plugin-name}"/>
 		</target>
-    <target name="app" depends="init, create-properties-lists" description="compile application" >
+    <target name="app" depends="create-properties-lists" description="compile application" >
         <mkdir dir="${build}/classes/app"/>
         <!-- compile all the .java files -->
         <javac srcdir="${src}/java"
@@ -110,11 +113,8 @@
       	</copy>
         
         <!-- Make the jar file -->
-        <jar jarfile="${build}/FreeGuide.jar"
+        <jar jarfile="${build}/lib/FreeGuide.jar"
              basedir="${build}/classes/app"/>
-        <copy todir="${build}/">
-            <fileset dir="${src}/lib" includes="**/*.jar"/>
-      	</copy>
     </target>
     <target name="startup">
         <mkdir dir="${build}/classes/startup"/>
@@ -162,7 +162,7 @@
         <!-- Create the time stamp -->
         <tstamp/>
         <!-- Create the build directory structure used by compile -->
-        <mkdir dir="${build}" />
+        <mkdir dir="${build}/lib" />
         <mkdir dir="${dist}" />
 
     </target>
