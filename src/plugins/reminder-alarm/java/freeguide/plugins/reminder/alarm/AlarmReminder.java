@@ -10,7 +10,10 @@ import freeguide.lib.fgspecific.selection.ManualSelection;
 import freeguide.lib.general.Utils;
 
 import freeguide.plugins.BaseModuleReminder;
+import freeguide.plugins.IModuleConfigurationUI;
+import freeguide.plugins.IModuleReminder;
 import freeguide.plugins.IModuleStorage;
+import freeguide.plugins.reminder.alarm.AlarmUIController;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -42,7 +45,7 @@ import javax.swing.KeyStroke;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class AlarmReminder extends BaseModuleReminder
+public class AlarmReminder extends BaseModuleReminder implements IModuleReminder
 {
 
     /** Module ID. */
@@ -117,6 +120,9 @@ public class AlarmReminder extends BaseModuleReminder
             KeyStroke.getKeyStroke( KeyEvent.VK_F, InputEvent.CTRL_MASK ) );
     }
 
+	public IModuleConfigurationUI getConfigurationUI(JDialog parentDialog) {
+		return new AlarmUIController(this);
+	}
     /**
      * DOCUMENT_ME!
      *
