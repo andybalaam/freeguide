@@ -125,7 +125,15 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
                 new ObjectInputStream( 
                     new BufferedInputStream( new FileInputStream( f ) ) );
 
-            return (TVData)in.readObject(  );
+            try
+            {
+
+                return (TVData)in.readObject(  );
+            }
+            finally
+            {
+                in.close(  );
+            }
         }
         catch( Exception ex )
         {
