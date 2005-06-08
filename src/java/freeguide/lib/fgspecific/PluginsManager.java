@@ -142,7 +142,6 @@ public class PluginsManager
         {
 
             URL url = (URL)urls.nextElement(  );
-            System.out.println( "load prop from " + url.toString(  ) );
 
             Properties props = new Properties(  );
 
@@ -163,6 +162,9 @@ public class PluginsManager
                     Class moduleClass =
                         PluginsManager.class.getClassLoader(  ).loadClass( 
                             className );
+
+                    FreeGuide.log.fine( "Loading class '"
+                            + className+"'" );
 
                     if( IModule.class.isAssignableFrom( moduleClass ) )
                     {
