@@ -699,19 +699,19 @@ public class FavouriteEditorDialog extends FGDialog
         getContentPane(  ).add( jPanel1, gridBagConstraints );
 
         /*labTimeFormat1 = new javax.swing.JLabel(
-        FreeGuide.msg.getString( "as_hhmm" ),
-        javax.swing.SwingConstants.LEFT );
-        labTimeFormat1.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
-        gridBagConstraints = new java.awt.GridBagConstraints(  );
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 0.4;
-        getContentPane(  ).add( labTimeFormat1, gridBagConstraints );
-        */
+FreeGuide.msg.getString( "as_hhmm" ),
+javax.swing.SwingConstants.LEFT );
+labTimeFormat1.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
+gridBagConstraints = new java.awt.GridBagConstraints(  );
+gridBagConstraints.gridx = 2;
+gridBagConstraints.gridy = 4;
+gridBagConstraints.gridwidth = 2;
+gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
+gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+gridBagConstraints.weightx = 0.4;
+getContentPane(  ).add( labTimeFormat1, gridBagConstraints );
+*/
         getRootPane(  ).setDefaultButton( butOK );
         pack(  );
 

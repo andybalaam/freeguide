@@ -394,67 +394,67 @@ abstract public class BaseModuleReminder extends BaseModule
         }
 
         /*try
-        {
+{
 
-        long schedTime;
+long schedTime;
 
-        if(
-        ( closeDialogTime != 0 )
-            && ( schedTime > closeDialogTime ) )
-        {
-        schedTime = closeDialogTime;
-        }
+if(
+( closeDialogTime != 0 )
+    && ( schedTime > closeDialogTime ) )
+{
+schedTime = closeDialogTime;
+}
 
-        long waitTime = schedTime - System.currentTimeMillis(  );
+long waitTime = schedTime - System.currentTimeMillis(  );
 
-        if( waitTime < 10 )
-        {
-        waitTime = 10;
+if( waitTime < 10 )
+{
+waitTime = 10;
 
-        }
+}
 
-        wait( waitTime );
+wait( waitTime );
 
-        if( stop )
-        {
+if( stop )
+{
 
-        break;
+break;
 
-        }
+}
 
-        if( dialog != null )
-        {
-        dialog.dispose(  );
+if( dialog != null )
+{
+dialog.dispose(  );
 
-        dialog = null;
+dialog = null;
 
-        }
+}
 
-        closeDialogTime = 0;
+closeDialogTime = 0;
 
-        if( scheduledProgramme != null )
-        {
+if( scheduledProgramme != null )
+{
 
-        if(
-            ( scheduledProgramme.getStart(  )
-                - MainController.config.reminderWarning ) < System
-                .currentTimeMillis(  ) )
-        {
-            displayDialog(  );
+if(
+    ( scheduledProgramme.getStart(  )
+        - MainController.config.reminderWarning ) < System
+        .currentTimeMillis(  ) )
+{
+    displayDialog(  );
 
-            closeDialogTime =
-                System.currentTimeMillis(  )
-                + MainController.config.reminderGiveUp;
+    closeDialogTime =
+        System.currentTimeMillis(  )
+        + MainController.config.reminderGiveUp;
 
-        }
-        }
+}
+}
 
-        scheduledProgramme = findNextProgramme(  );
-        }
-        catch( InterruptedException ex )
-        {
-        FreeGuide.log.log(
-        Level.WARNING, "Reminder thread interrupted ", ex );
-        }*/
+scheduledProgramme = findNextProgramme(  );
+}
+catch( InterruptedException ex )
+{
+FreeGuide.log.log(
+Level.WARNING, "Reminder thread interrupted ", ex );
+}*/
     }
 }

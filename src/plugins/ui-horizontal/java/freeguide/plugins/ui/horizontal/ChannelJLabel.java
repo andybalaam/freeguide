@@ -79,10 +79,10 @@ public class ChannelJLabel extends JLabel implements ComponentListener
     /*    public String getCacheIconPath() {
 
 
-    return chan.getIconFileName();
+return chan.getIconFileName();
 
 
-    }*/
+}*/
 
     /**
      * Set the icon of the channel
@@ -163,10 +163,10 @@ public class ChannelJLabel extends JLabel implements ComponentListener
     /* (non-Javadoc)
 
 
-    * @see java.awt.event.ComponentListener#componentHidden(java.awt.event.ComponentEvent)
+* @see java.awt.event.ComponentListener#componentHidden(java.awt.event.ComponentEvent)
 
 
-    */
+*/
     public void componentHidden( ComponentEvent e )
     {
     }
@@ -174,10 +174,10 @@ public class ChannelJLabel extends JLabel implements ComponentListener
     /* (non-Javadoc)
 
 
-    * @see java.awt.event.ComponentListener#componentMoved(java.awt.event.ComponentEvent)
+* @see java.awt.event.ComponentListener#componentMoved(java.awt.event.ComponentEvent)
 
 
-    */
+*/
     public void componentMoved( ComponentEvent e )
     {
     }
@@ -185,10 +185,10 @@ public class ChannelJLabel extends JLabel implements ComponentListener
     /* (non-Javadoc)
 
 
-    * @see java.awt.event.ComponentListener#componentResized(java.awt.event.ComponentEvent)
+* @see java.awt.event.ComponentListener#componentResized(java.awt.event.ComponentEvent)
 
 
-    */
+*/
     public void componentResized( ComponentEvent e )
     {
 
@@ -201,10 +201,10 @@ public class ChannelJLabel extends JLabel implements ComponentListener
     /* (non-Javadoc)
 
 
-    * @see java.awt.event.ComponentListener#componentShown(java.awt.event.ComponentEvent)
+* @see java.awt.event.ComponentListener#componentShown(java.awt.event.ComponentEvent)
 
 
-    */
+*/
     public void componentShown( ComponentEvent e )
     {
     }
@@ -212,10 +212,10 @@ public class ChannelJLabel extends JLabel implements ComponentListener
     /* (non-Javadoc)
 
 
-    * @see javax.swing.JLabel#setIcon(javax.swing.Icon)
+* @see javax.swing.JLabel#setIcon(javax.swing.Icon)
 
 
-    */
+*/
     public void setIcon( Icon icon )
     {
         super.setIcon( icon );

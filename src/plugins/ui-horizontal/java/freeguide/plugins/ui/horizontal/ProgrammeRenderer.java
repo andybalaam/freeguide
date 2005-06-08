@@ -94,103 +94,103 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
      */
 
     /*public void setInGuide( boolean state )
+{
+
+if( state )
+{
+
+    //TODO FreeGuide.prefs.addInGuide( programme, viewerFrame.currentDate );
+    if( MainController.config.reminderOn )
     {
 
-    if( state )
-    {
+        // Set up a reminder here if it's after now
+        Date startTime = new Date( programme.getStart(  ) );
 
-        //TODO FreeGuide.prefs.addInGuide( programme, viewerFrame.currentDate );
-        if( MainController.config.reminderOn )
+        if( startTime.after( new Date(  ) ) )
         {
 
-            // Set up a reminder here if it's after now
-            Date startTime = new Date( programme.getStart(  ) );
+            // Find out when we will remind
+            Date reminderStartTime =
+                new Date(
+                    startTime.getTime(  )
+                    - ( MainController.config.reminderWarning ) );
 
-            if( startTime.after( new Date(  ) ) )
+            Date nowDate = new Date(  );
+
+            // If it's immediately, make it in 10 secs time
+            if( reminderStartTime.before( nowDate ) )
             {
+                reminderStartTime.setTime(
+                    nowDate.getTime(  ) + 10000 );
 
-                // Find out when we will remind
-                Date reminderStartTime =
-                    new Date(
-                        startTime.getTime(  )
-                        - ( MainController.config.reminderWarning ) );
+            }
 
-                Date nowDate = new Date(  );
-
-                // If it's immediately, make it in 10 secs time
-                if( reminderStartTime.before( nowDate ) )
-                {
-                    reminderStartTime.setTime(
-                        nowDate.getTime(  ) + 10000 );
-
-                }
-
-                // Set the ending time to be a certain time after the
-                // beginning.
-                Date reminderEndTime =
-                    new Date(
-                        reminderStartTime.getTime(  )
-                        + ( MainController.config.reminderGiveUp ) );
-    */
+            // Set the ending time to be a certain time after the
+            // beginning.
+            Date reminderEndTime =
+                new Date(
+                    reminderStartTime.getTime(  )
+                    + ( MainController.config.reminderGiveUp ) );
+*/
     /* TODO if( viewerFrame.reminderTimer != null )
 
 
-    {
+{
 
 
-    viewerFrame.reminderTimer.cancel(  );
+viewerFrame.reminderTimer.cancel(  );
 
 
+}
+
+
+
+
+viewerFrame.reminderTimer = new MessageDialogTimer(  );
+
+
+
+
+
+
+Object[] messageArguments = { programme.getTitle(  ) };
+
+
+viewerFrame.reminderTimer.schedule(
+
+
+FreeGuide.getCompoundMessage(
+
+
+"is_starting_soon_template", messageArguments ),
+
+
+reminderStartTime, reminderEndTime );
+
+
+*/
+    /*                }
+        }
     }
 
-
-
-
-    viewerFrame.reminderTimer = new MessageDialogTimer(  );
-
-
-
-
-
-
-    Object[] messageArguments = { programme.getTitle(  ) };
-
-
-    viewerFrame.reminderTimer.schedule(
-
-
-    FreeGuide.getCompoundMessage(
-
-
-    "is_starting_soon_template", messageArguments ),
-
-
-    reminderStartTime, reminderEndTime );
-
-
-    */
-    /*                }
-            }
-        }
-
-        else
-        {
-    */
+    else
+    {
+*/
 
     //FreeGuide.prefs.removeFromGuide( programme );
 
     /*TODO  if( viewerFrame.reminderTimer != null )
 
 
-    {
+{
 
 
-    viewerFrame.reminderTimer.cancel(  );
+viewerFrame.reminderTimer.cancel(  );
 
 
-    }*/
+}*/
     /*}
-    }*/
+}*/
 
     /**
      * Called when this component receives the focus.  Scrolls the HTML guide
@@ -226,10 +226,10 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
         }
 
         /*
-        * Overridden to make sure we get drawn by CellRendererPane
-        *
-        * @see java.awt.Component#isShowing()
-        */
+* Overridden to make sure we get drawn by CellRendererPane
+*
+* @see java.awt.Component#isShowing()
+*/
         public boolean isShowing(  )
         {
 

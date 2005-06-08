@@ -58,13 +58,13 @@ public class CmdArgs
         /*
 
 
-        *  Calls the standard constructor stating that
+*  Calls the standard constructor stating that
 
 
-        *  there are no boolean flags.
+*  there are no boolean flags.
 
 
-        */
+*/
         this( args, new Vector(  ) );
 
     }
