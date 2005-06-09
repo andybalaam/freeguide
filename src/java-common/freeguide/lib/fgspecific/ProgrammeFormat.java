@@ -304,7 +304,7 @@ public class ProgrammeFormat
 
         do_formatLong( programme, buff );
 
-        Hashtable extraTags = (Hashtable)programme.getExtraTags(  );
+        Map extraTags = programme.getExtraTags(  );
 
         if( extraTags != null )
         {
@@ -319,7 +319,7 @@ public class ProgrammeFormat
 
                 Map.Entry entry = (Map.Entry)it.next(  );
 
-                Hashtable hashOfAttrs = (Hashtable)entry.getValue(  );
+                Map hashOfAttrs = (Map)entry.getValue(  );
 
                 String key = (String)hashOfAttrs.get( "" );
 

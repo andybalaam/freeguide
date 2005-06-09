@@ -86,13 +86,13 @@ class XMLTVImportHandler extends DefaultHandler
     {
         charData.setLength( 0 );
 
-        if( currentChannel != null )
-        {
-            parseStartChannel( qName, attributes );
-        }
-        else if( currentProgramme != null )
+        if( currentProgramme != null )
         {
             parseStartProgramme( qName, attributes );
+        }
+        else if( currentChannel != null )
+        {
+            parseStartChannel( qName, attributes );
         }
         else if( "tv".equals( qName ) )
         { // tv
@@ -284,7 +284,11 @@ class XMLTVImportHandler extends DefaultHandler
         }
         else
         {
-            programmeEndExtraTag( tag, "", charData.toString(  ) );
+
+            if( charData.length(  ) > 0 )
+            {
+                programmeEndExtraTag( tag, "", charData.toString(  ) );
+            }
         }
     }
 

@@ -96,6 +96,7 @@ public class TVProgramme implements Comparable, Serializable
         result.end = end;
 
         result.description = description;
+        result.extraTags = extraTags;
 
         return result;
 
