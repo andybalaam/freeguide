@@ -80,6 +80,14 @@ public class MainController implements IApplication
 
     /**
      * DOCUMENT_ME!
+     */
+    public void redrawPersonalizedGuide(  )
+    {
+        viewer.redrawPersonalizedGuide(  );
+    }
+
+    /**
+     * DOCUMENT_ME!
      *
      * @param viewer DOCUMENT_ME!
      * @param grabberFromWizard DOCUMENT ME!
