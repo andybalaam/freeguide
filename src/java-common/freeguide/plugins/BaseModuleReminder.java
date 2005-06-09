@@ -205,11 +205,13 @@ abstract public class BaseModuleReminder extends BaseModule
     }
 
     /**
-     * Add programme to selection list.
+     * Add/remove programme to selection list.
      *
      * @param programme programme
+     * @param newSelection DOCUMENT ME!
      */
-    public void selectProgramme( TVProgramme programme )
+    public void setProgrammeSelection( 
+        final TVProgramme programme, final boolean newSelection )
     {
 
         synchronized( config )
@@ -219,42 +221,14 @@ abstract public class BaseModuleReminder extends BaseModule
 
             if( sel != null )
             {
-                sel.setSelected( true );
+                sel.setSelected( newSelection );
 
             }
 
             else
             {
                 config.manualSelectionList.add( 
-                    new ManualSelection( programme, true ) );
-
-            }
-        }
-    }
-
-    /**
-     * Add programme to deselection list.
-     *
-     * @param programme programme
-     */
-    public void deselectProgramme( TVProgramme programme )
-    {
-
-        synchronized( config )
-        {
-
-            ManualSelection sel = getManualSelection( programme );
-
-            if( sel != null )
-            {
-                sel.setSelected( false );
-
-            }
-
-            else
-            {
-                config.manualSelectionList.add( 
-                    new ManualSelection( programme, false ) );
+                    new ManualSelection( programme, newSelection ) );
 
             }
         }

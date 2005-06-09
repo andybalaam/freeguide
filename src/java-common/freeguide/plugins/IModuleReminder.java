@@ -48,18 +48,12 @@ public interface IModuleReminder extends IModule
     public boolean isSelected( TVProgramme programme );
 
     /**
-     * Select programme.
+     * Select/deselect programme.
      *
      * @param programme programme
      */
-    public void selectProgramme( final TVProgramme programme );
-
-    /**
-     * Deselect programme.
-     *
-     * @param programme programme
-     */
-    public void deselectProgramme( final TVProgramme programme );
+    public void setProgrammeSelection( 
+        final TVProgramme programme, final boolean newSelection );
 
     /**
      * Add items to main frame menu.

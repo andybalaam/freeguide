@@ -27,6 +27,8 @@ public interface IApplication
 
     void redraw(  );
 
+    void redrawPersonalizedGuide(  );
+
     Logger getLogger(  );
 
     TimeZone getTimeZone(  );

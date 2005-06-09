@@ -38,6 +38,8 @@ public interface IModuleViewer extends IModule
 
     void redraw(  );
 
+    void redrawPersonalizedGuide(  );
+
     void printHTML(  );
 
     JButton getDefaultButton(  );
