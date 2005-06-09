@@ -58,7 +58,7 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
                 public String getDescription(  )
                 {
 
-                    return "XMLTV .xml file";
+                    return "XMLTV .xmltv file";
                 }
 
                 public boolean accept( File pathname )
@@ -112,7 +112,7 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
                 public String getDescription(  )
                 {
 
-                    return "XMLTV .xml file";
+                    return "XMLTV .xmltv file";
                 }
 
                 public boolean accept( File pathname )
