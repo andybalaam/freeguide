@@ -14,9 +14,14 @@ package freeguide.plugins.reminder.alarm;
 
 import freeguide.plugins.IModuleConfigurationUI;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JTextField;
 
 /*
@@ -40,8 +45,10 @@ public class AlarmUIController implements IModuleConfigurationUI
      * Creates a new AlarmUIController object.
      *
      * @param parent DOCUMENT ME!
+     * @param parentDialog DOCUMENT ME!
      */
-    public AlarmUIController( AlarmReminder parent )
+    public AlarmUIController( 
+        final AlarmReminder parent, final JDialog parentDialog )
     {
         this.parent = parent;
         panel = new AlarmUIPanel( parent.getLocalizer(  ) );
@@ -51,6 +58,28 @@ public class AlarmUIController implements IModuleConfigurationUI
 
         panel.getTextGiveup(  ).setText( 
             String.valueOf( parent.config.reminderGiveUp / 1000 ) );
+
+        panel.getPanelColorInGuide(  ).setBackground( 
+            parent.config.colorTicked );
+        panel.getBtnColorInGuide(  ).addActionListener( 
+            new ActionListener(  )
+            {
+                public void actionPerformed( ActionEvent e )
+                {
+
+                    Color col =
+                        JColorChooser.showDialog( 
+                            parentDialog,
+                            parent.getLocalizer(  ).getLocalizedMessage( 
+                                "choose_a_colour" ),
+                            panel.getPanelColorInGuide(  ).getBackground(  ) );
+
+                    if( col != null )
+                    {
+                        panel.getPanelColorInGuide(  ).setBackground( col );
+                    }
+                }
+            } );
     }
 
     /**
@@ -93,6 +122,8 @@ public class AlarmUIController implements IModuleConfigurationUI
             Long.parseLong( panel.getTextWarning(  ).getText(  ) ) * 1000L;
         parent.config.reminderGiveUp =
             Long.parseLong( panel.getTextGiveup(  ).getText(  ) ) * 1000L;
+        parent.config.colorTicked =
+            panel.getPanelColorInGuide(  ).getBackground(  );
     }
 
     //        return FreeGuide.msg.getString( "reminders" );

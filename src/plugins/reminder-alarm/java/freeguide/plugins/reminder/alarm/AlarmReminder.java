@@ -132,7 +132,7 @@ public class AlarmReminder extends BaseModuleReminder
     public IModuleConfigurationUI getConfigurationUI( JDialog parentDialog )
     {
 
-        return new AlarmUIController( this );
+        return new AlarmUIController( this, parentDialog );
     }
 
     /**
@@ -156,7 +156,8 @@ public class AlarmReminder extends BaseModuleReminder
                 {
                     public void actionPerformed( ActionEvent e )
                     {
-                        selectProgramme( programme );
+                        setProgrammeSelection( programme, true );
+                        Application.getInstance(  ).redrawPersonalizedGuide(  );
                     }
                 } );
         }
@@ -168,7 +169,8 @@ public class AlarmReminder extends BaseModuleReminder
                 {
                     public void actionPerformed( ActionEvent e )
                     {
-                        deselectProgramme( programme );
+                        setProgrammeSelection( programme, false );
+                        Application.getInstance(  ).redrawPersonalizedGuide(  );
                     }
                 } );
         }
@@ -313,8 +315,6 @@ public class AlarmReminder extends BaseModuleReminder
     public void onPaintProgrammeLabel( TVProgramme programme, JLabel label )
     {
 
-        //setBorder( tickedBorder );
-        //setBackground( tickedColour );
         ManualSelection ms = getManualSelection( programme );
 
         if( ( ms != null ) && ( ms.selected == true ) )
@@ -322,8 +322,8 @@ public class AlarmReminder extends BaseModuleReminder
             label.setBorder( 
                 BorderFactory.createCompoundBorder( 
                     BorderFactory.createLineBorder( Color.BLACK ),
-                    BorderFactory.createLineBorder( Color.GREEN, 2 ) ) );
-            label.setBackground( Color.GREEN );
+                    BorderFactory.createLineBorder( config.colorTicked, 2 ) ) );
+            label.setBackground( config.colorTicked );
         }
     }
 
@@ -406,5 +406,8 @@ public class AlarmReminder extends BaseModuleReminder
 
         /** Time in milliseconds. */
         public long reminderWarning = 300000L;
+
+        /** Default colour of a ticked programme */
+        public Color colorTicked = new Color( 204, 255, 204 );
     }
 }

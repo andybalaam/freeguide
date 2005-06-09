@@ -37,18 +37,12 @@ public class ConfigureUIPanel extends JPanel
     private JLabel labelColorNormal;
     private JPanel panelColorNormal;
     private JButton btnColorNormal;
-    private JLabel labelColorInGuide;
     private JLabel labelColorMovie;
     private JLabel labelColorChannel;
-    private JLabel labelColorHeart;
-    private JPanel panelColorInGuide;
     private JPanel panelColorMovie;
     private JPanel panelColorChannel;
-    private JPanel panelColorHeart;
-    private JButton btnColorInGuide;
     private JButton btnColorMovie;
     private JButton btnColorChannel;
-    private JButton btnColorHeart;
     protected ILocalizer localizer;
     private JTextField dayStart;
     private JLabel jLabel;
@@ -60,6 +54,7 @@ public class ConfigureUIPanel extends JPanel
     private JCheckBox cbAlignLeft;
     private JCheckBox cbPrintDelta;
     private JCheckBox cbDisplayTooltips;
+    private JPanel jPanel = null;
 
     /**
      * This is the default constructor
@@ -81,6 +76,12 @@ public class ConfigureUIPanel extends JPanel
      */
     private void initialize(  )
     {
+
+        GridBagConstraints gridBagConstraints110 = new GridBagConstraints(  );
+        gridBagConstraints110.gridx = 1;
+        gridBagConstraints110.gridy = 9;
+        gridBagConstraints110.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints110.weightx = 0.1D;
 
         GridBagConstraints gridBagConstraints31 = new GridBagConstraints(  );
 
@@ -104,29 +105,17 @@ public class ConfigureUIPanel extends JPanel
 
         labelColorNormal = new JLabel(  );
 
-        labelColorInGuide = new JLabel(  );
-
-        labelColorHeart = new JLabel(  );
-
         labelColorChannel = new JLabel(  );
 
         labelColorMovie = new JLabel(  );
-
-        GridBagConstraints gridBagConstraints20 = new GridBagConstraints(  );
 
         GridBagConstraints gridBagConstraints19 = new GridBagConstraints(  );
 
         GridBagConstraints gridBagConstraints18 = new GridBagConstraints(  );
 
-        GridBagConstraints gridBagConstraints17 = new GridBagConstraints(  );
-
-        GridBagConstraints gridBagConstraints16 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints15 = new GridBagConstraints(  );
 
         GridBagConstraints gridBagConstraints14 = new GridBagConstraints(  );
-
-        GridBagConstraints gridBagConstraints131 = new GridBagConstraints(  );
 
         GridBagConstraints gridBagConstraints81 = new GridBagConstraints(  );
 
@@ -134,13 +123,9 @@ public class ConfigureUIPanel extends JPanel
 
         GridBagConstraints gridBagConstraints6 = new GridBagConstraints(  );
 
-        GridBagConstraints gridBagConstraints91 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints101 = new GridBagConstraints(  );
 
         GridBagConstraints gridBagConstraints111 = new GridBagConstraints(  );
-
-        GridBagConstraints gridBagConstraints12 = new GridBagConstraints(  );
 
         GridBagConstraints gridBagConstraints5 = new GridBagConstraints(  );
 
@@ -170,14 +155,13 @@ public class ConfigureUIPanel extends JPanel
 
         this.setLayout( new GridBagLayout(  ) );
 
-        this.setSize( 300, 400 );
-
         gridBagConstraints1.gridx = 0;
 
         gridBagConstraints1.gridy = 0;
 
         gridBagConstraints1.anchor = java.awt.GridBagConstraints.WEST;
 
+        gridBagConstraints1.insets = new java.awt.Insets( 5, 5, 0, 0 );
         labelHeight.setText( "channel_height:" );
 
         labelHeight.setText( 
@@ -200,6 +184,7 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints6.anchor = java.awt.GridBagConstraints.WEST;
 
+        gridBagConstraints6.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraints71.gridx = 1;
 
         gridBagConstraints71.gridy = 3;
@@ -208,22 +193,12 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints71.gridwidth = 2;
 
+        gridBagConstraints71.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraints81.gridx = 3;
 
         gridBagConstraints81.gridy = 3;
 
-        gridBagConstraints91.gridx = 0;
-
-        gridBagConstraints91.gridy = 4;
-
-        labelColorInGuide.setText( "in_guide_prog_colour" );
-
-        labelColorInGuide.setLabelFor( getBtnColorInGuide(  ) );
-        labelColorInGuide.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_G );
-        labelColorInGuide.setText( 
-            localizer.getLocalizedMessage( "in_guide_prog_colour" ) );
-
-        gridBagConstraints91.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints81.insets = new java.awt.Insets( 5, 5, 0, 5 );
 
         gridBagConstraints101.gridx = 0;
 
@@ -247,31 +222,12 @@ public class ConfigureUIPanel extends JPanel
         labelColorChannel.setText( 
             localizer.getLocalizedMessage( "channel_colour" ) );
 
-        gridBagConstraints12.gridx = 0;
-
-        gridBagConstraints12.gridy = 7;
-
-        labelColorHeart.setText( "heart_colour" );
-
-        labelColorHeart.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_E );
-        labelColorHeart.setLabelFor( getBtnColorHeart(  ) );
-        labelColorHeart.setText( 
-            localizer.getLocalizedMessage( "heart_colour" ) );
-
         gridBagConstraints101.anchor = java.awt.GridBagConstraints.WEST;
 
+        gridBagConstraints101.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraints111.anchor = java.awt.GridBagConstraints.WEST;
 
-        gridBagConstraints12.anchor = java.awt.GridBagConstraints.WEST;
-
-        gridBagConstraints131.gridx = 1;
-
-        gridBagConstraints131.gridy = 4;
-
-        gridBagConstraints131.fill = java.awt.GridBagConstraints.BOTH;
-
-        gridBagConstraints131.gridwidth = 2;
-
+        gridBagConstraints111.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraints14.gridx = 1;
 
         gridBagConstraints14.gridy = 5;
@@ -280,6 +236,7 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints14.gridwidth = 2;
 
+        gridBagConstraints14.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraints15.gridx = 1;
 
         gridBagConstraints15.gridy = 6;
@@ -288,58 +245,24 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints15.gridwidth = 2;
 
-        gridBagConstraints16.gridx = 1;
-
-        gridBagConstraints16.gridy = 7;
-
-        gridBagConstraints16.fill = java.awt.GridBagConstraints.BOTH;
-
-        gridBagConstraints16.gridwidth = 2;
-
-        gridBagConstraints17.gridx = 3;
-
-        gridBagConstraints17.gridy = 4;
-
+        gridBagConstraints15.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraints18.gridx = 3;
 
         gridBagConstraints18.gridy = 5;
 
+        gridBagConstraints18.insets = new java.awt.Insets( 5, 5, 0, 5 );
         gridBagConstraints19.gridx = 3;
 
         gridBagConstraints19.gridy = 6;
 
-        gridBagConstraints20.gridx = 3;
-
-        gridBagConstraints20.gridy = 7;
-
-        this.add( labelColorMovie, gridBagConstraints101 );
-
-        this.add( labelColorChannel, gridBagConstraints111 );
-
-        this.add( labelColorHeart, gridBagConstraints12 );
-
-        this.add( getPanelColorInGuide(  ), gridBagConstraints131 );
-
-        this.add( getBtnColorInGuide(  ), gridBagConstraints17 );
-
-        this.add( getBtnColorChannel(  ), gridBagConstraints19 );
-
-        this.add( getBtnColorHeart(  ), gridBagConstraints20 );
-
-        this.add( labelColorInGuide, gridBagConstraints91 );
-
-        this.add( labelColorNormal, gridBagConstraints6 );
-
-        this.add( getPanelColorNormal(  ), gridBagConstraints71 );
-
-        this.add( getBtnColorNormal(  ), gridBagConstraints81 );
-
+        gridBagConstraints19.insets = new java.awt.Insets( 5, 5, 0, 5 );
         gridBagConstraints4.gridx = 0;
 
         gridBagConstraints4.gridy = 1;
 
         gridBagConstraints4.anchor = java.awt.GridBagConstraints.WEST;
 
+        gridBagConstraints4.insets = new java.awt.Insets( 5, 5, 0, 0 );
         labelWidth.setText( "width_of_1hr:" );
 
         labelWidth.setText( 
@@ -355,6 +278,7 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints7.anchor = java.awt.GridBagConstraints.WEST;
 
+        gridBagConstraints7.insets = new java.awt.Insets( 5, 5, 0, 0 );
         labelFont.setText( "font:" );
 
         labelFont.setText( localizer.getLocalizedMessage( "font" ) + ":" );
@@ -370,10 +294,12 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints8.gridwidth = 2;
 
+        gridBagConstraints8.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraints9.gridx = 3;
 
         gridBagConstraints9.gridy = 2;
 
+        gridBagConstraints9.insets = new java.awt.Insets( 5, 5, 0, 5 );
         gridBagConstraints13.gridx = 2;
 
         gridBagConstraints13.gridy = 9;
@@ -388,12 +314,14 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints2.fill = java.awt.GridBagConstraints.HORIZONTAL;
 
+        gridBagConstraints2.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraints3.gridx = 1;
 
         gridBagConstraints3.gridy = 1;
 
         gridBagConstraints3.fill = java.awt.GridBagConstraints.HORIZONTAL;
 
+        gridBagConstraints3.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraints41.gridx = 2;
 
         gridBagConstraints41.gridy = 1;
@@ -402,6 +330,7 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints41.gridwidth = 2;
 
+        gridBagConstraints41.insets = new java.awt.Insets( 5, 5, 0, 5 );
         gridBagConstraints5.gridx = 2;
 
         gridBagConstraints5.gridy = 0;
@@ -410,18 +339,21 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints5.gridwidth = 2;
 
+        gridBagConstraints5.insets = new java.awt.Insets( 5, 5, 0, 5 );
         gridBagConstraints42.gridx = 1;
 
         gridBagConstraints42.gridy = 10;
 
         gridBagConstraints42.fill = java.awt.GridBagConstraints.HORIZONTAL;
 
+        gridBagConstraints42.insets = new java.awt.Insets( 5, 5, 0, 5 );
         gridBagConstraints51.gridx = 0;
 
         gridBagConstraints51.gridy = 10;
 
         gridBagConstraints51.anchor = java.awt.GridBagConstraints.WEST;
 
+        gridBagConstraints51.insets = new java.awt.Insets( 5, 5, 0, 0 );
         jLabel.setText( "day_starts_at:" );
 
         jLabel.setLabelFor( getDayStart(  ) );
@@ -437,12 +369,14 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints61.gridwidth = 3;
 
+        gridBagConstraints61.insets = new java.awt.Insets( 5, 5, 0, 5 );
         gridBagConstraints72.gridx = 0;
 
         gridBagConstraints72.gridy = 11;
 
         gridBagConstraints72.anchor = java.awt.GridBagConstraints.WEST;
 
+        gridBagConstraints72.insets = new java.awt.Insets( 5, 5, 0, 0 );
         labelTimeFormat.setText( "time_format:" );
 
         labelTimeFormat.setLabelFor( getRbTime12(  ) );
@@ -457,6 +391,7 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints92.anchor = java.awt.GridBagConstraints.WEST;
 
+        gridBagConstraints92.insets = new java.awt.Insets( 5, 5, 0, 5 );
         gridBagConstraints11.gridx = 0;
 
         gridBagConstraints11.gridy = 13;
@@ -465,6 +400,7 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints11.gridwidth = 4;
 
+        gridBagConstraints11.insets = new java.awt.Insets( 5, 5, 0, 5 );
         gridBagConstraints21.gridx = 0;
 
         gridBagConstraints21.gridy = 14;
@@ -473,6 +409,7 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints21.gridwidth = 4;
 
+        gridBagConstraints21.insets = new java.awt.Insets( 5, 5, 0, 5 );
         gridBagConstraints31.gridx = 0;
 
         gridBagConstraints31.gridy = 15;
@@ -481,50 +418,35 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints31.anchor = java.awt.GridBagConstraints.WEST;
 
-        this.add( getPanelColorMovie(  ), gridBagConstraints14 );
-
-        this.add( getBtnColorMovie(  ), gridBagConstraints18 );
-
-        this.add( getPanelColorChannel(  ), gridBagConstraints15 );
-
-        this.add( getPanelColorHeart(  ), gridBagConstraints16 );
-
-        this.add( labelHeight, gridBagConstraints1 );
-
-        this.add( labelWidth, gridBagConstraints4 );
-
-        this.add( getTextFont(  ), gridBagConstraints8 );
-
-        this.add( labelFont, gridBagConstraints7 );
-
-        this.add( getBtnFont(  ), gridBagConstraints9 );
-
-        this.add( getPanelSpacer(  ), gridBagConstraints13 );
-
-        this.add( getTextHeight(  ), gridBagConstraints2 );
-
-        this.add( getTextWidth(  ), gridBagConstraints3 );
-
-        this.add( getSliderWidth(  ), gridBagConstraints41 );
-
-        this.add( getSliderHeight(  ), gridBagConstraints5 );
-
-        this.add( getDayStart(  ), gridBagConstraints42 );
-
-        this.add( jLabel, gridBagConstraints51 );
-
-        this.add( getPanelTimeFormat(  ), gridBagConstraints61 );
-
-        this.add( labelTimeFormat, gridBagConstraints72 );
-
-        this.add( getCbDrawTime(  ), gridBagConstraints92 );
-
-        this.add( getCbAlignLeft(  ), gridBagConstraints11 );
-
-        this.add( getCbPrintDelta(  ), gridBagConstraints21 );
-
+        gridBagConstraints31.insets = new java.awt.Insets( 5, 5, 5, 5 );
         this.add( getCbDisplayTooltips(  ), gridBagConstraints31 );
-
+        this.add( getCbPrintDelta(  ), gridBagConstraints21 );
+        this.add( getCbAlignLeft(  ), gridBagConstraints11 );
+        this.add( getCbDrawTime(  ), gridBagConstraints92 );
+        this.add( labelTimeFormat, gridBagConstraints72 );
+        this.add( getPanelTimeFormat(  ), gridBagConstraints61 );
+        this.add( jLabel, gridBagConstraints51 );
+        this.add( getDayStart(  ), gridBagConstraints42 );
+        this.add( getSliderHeight(  ), gridBagConstraints5 );
+        this.add( getSliderWidth(  ), gridBagConstraints41 );
+        this.add( getTextWidth(  ), gridBagConstraints3 );
+        this.add( getTextHeight(  ), gridBagConstraints2 );
+        this.add( getBtnFont(  ), gridBagConstraints9 );
+        this.add( labelFont, gridBagConstraints7 );
+        this.add( getTextFont(  ), gridBagConstraints8 );
+        this.add( labelWidth, gridBagConstraints4 );
+        this.add( labelHeight, gridBagConstraints1 );
+        this.add( getPanelColorChannel(  ), gridBagConstraints15 );
+        this.add( getBtnColorMovie(  ), gridBagConstraints18 );
+        this.add( getPanelColorMovie(  ), gridBagConstraints14 );
+        this.add( getBtnColorNormal(  ), gridBagConstraints81 );
+        this.add( getPanelColorNormal(  ), gridBagConstraints71 );
+        this.add( labelColorNormal, gridBagConstraints6 );
+        this.add( getBtnColorChannel(  ), gridBagConstraints19 );
+        this.add( labelColorChannel, gridBagConstraints111 );
+        this.add( labelColorMovie, gridBagConstraints101 );
+        this.add( getPanelSpacer(  ), gridBagConstraints13 );
+        this.add( getJPanel(  ), gridBagConstraints110 );
     }
 
     /**
@@ -579,8 +501,8 @@ public class ConfigureUIPanel extends JPanel
         {
             panelSpacer = new JPanel(  );
 
-            panelSpacer.setPreferredSize( new java.awt.Dimension( 10, 0 ) );
-
+            panelSpacer.setPreferredSize( new java.awt.Dimension( 100, 6 ) );
+            panelSpacer.setMinimumSize( new java.awt.Dimension( 100, 5 ) );
         }
 
         return panelSpacer;
@@ -722,24 +644,6 @@ public class ConfigureUIPanel extends JPanel
     }
 
     /**
-     * This method initializes jPanel3
-     *
-     * @return javax.swing.JPanel
-     */
-    protected JPanel getPanelColorInGuide(  )
-    {
-
-        if( panelColorInGuide == null )
-        {
-            panelColorInGuide = new JPanel(  );
-
-        }
-
-        return panelColorInGuide;
-
-    }
-
-    /**
      * This method initializes jPanel4
      *
      * @return javax.swing.JPanel
@@ -772,44 +676,6 @@ public class ConfigureUIPanel extends JPanel
         }
 
         return panelColorChannel;
-
-    }
-
-    /**
-     * This method initializes jPanel6
-     *
-     * @return javax.swing.JPanel
-     */
-    protected JPanel getPanelColorHeart(  )
-    {
-
-        if( panelColorHeart == null )
-        {
-            panelColorHeart = new JPanel(  );
-
-        }
-
-        return panelColorHeart;
-
-    }
-
-    /**
-     * This method initializes jButton1
-     *
-     * @return javax.swing.JButton
-     */
-    protected JButton getBtnColorInGuide(  )
-    {
-
-        if( btnColorInGuide == null )
-        {
-            btnColorInGuide = new JButton(  );
-
-            btnColorInGuide.setText( "..." );
-
-        }
-
-        return btnColorInGuide;
 
     }
 
@@ -850,26 +716,6 @@ public class ConfigureUIPanel extends JPanel
         }
 
         return btnColorChannel;
-
-    }
-
-    /**
-     * This method initializes jButton4
-     *
-     * @return javax.swing.JButton
-     */
-    protected JButton getBtnColorHeart(  )
-    {
-
-        if( btnColorHeart == null )
-        {
-            btnColorHeart = new JButton(  );
-
-            btnColorHeart.setText( "..." );
-
-        }
-
-        return btnColorHeart;
 
     }
 
@@ -1067,5 +913,22 @@ public class ConfigureUIPanel extends JPanel
 
         return cbDisplayTooltips;
 
+    }
+
+    /**
+     * This method initializes jPanel
+     *
+     * @return javax.swing.JPanel
+     */
+    private JPanel getJPanel(  )
+    {
+
+        if( jPanel == null )
+        {
+            jPanel = new JPanel(  );
+            jPanel.setMinimumSize( new java.awt.Dimension( 50, 5 ) );
+        }
+
+        return jPanel;
     }
 }

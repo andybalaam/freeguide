@@ -48,7 +48,6 @@ public class ProgrammeJLabel extends JLabel
 
     private static boolean alignTextToLeftOfScreen;
     private static Color nonTickedColour;
-    private static Color tickedColour;
     private static Color movieColour;
     private static Color heartColour;
     private static Border nonTickedBorder;
@@ -389,22 +388,6 @@ public class ProgrammeJLabel extends JLabel
             BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLACK ),
                 BorderFactory.createLineBorder( nonTickedColour, 2 ) );
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param tickedColour DOCUMENT_ME!
-     */
-    public static void setTickedColour( Color tickedColour )
-    {
-        ProgrammeJLabel.tickedColour = tickedColour;
-
-        tickedBorder =
-            BorderFactory.createCompoundBorder( 
-                BorderFactory.createLineBorder( Color.BLACK ),
-                BorderFactory.createLineBorder( tickedColour, 2 ) );
 
     }
 

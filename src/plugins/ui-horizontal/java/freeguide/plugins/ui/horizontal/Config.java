@@ -41,17 +41,11 @@ public class Config
     /** Default width of the channels scrolling panel */
     public int sizeChannelPanelWidth = 400;
 
-    /** Default colour of a clicked programme */
-    public Color colorTicked = new Color( 204, 255, 204 );
-
     /** Default colour of a movie */
     public Color colorMovie = new Color( 255, 230, 230 );
 
     /** Default colour of a normal programme */
     public Color colorNonTicked = Color.WHITE;
-
-    /** Default colour of a heart that indicates a favourite */
-    public Color colorHeart = Color.RED;
 
     /** Default colour of the channel labels */
     public Color colorChannel = new Color( 245, 245, 255 );

@@ -76,18 +76,6 @@ public class ConfigureUIController implements IModuleConfigurationUI
 
                 }
 
-                else if( e.getSource(  ) == panel.getBtnColorHeart(  ) )
-                {
-                    panelColor = panel.getPanelColorHeart(  );
-
-                }
-
-                else if( e.getSource(  ) == panel.getBtnColorInGuide(  ) )
-                {
-                    panelColor = panel.getPanelColorInGuide(  );
-
-                }
-
                 else if( e.getSource(  ) == panel.getBtnColorMovie(  ) )
                 {
                     panelColor = panel.getPanelColorMovie(  );
@@ -160,10 +148,6 @@ public class ConfigureUIController implements IModuleConfigurationUI
 
         config.colorChannel = panel.getPanelColorChannel(  ).getBackground(  );
 
-        config.colorHeart = panel.getPanelColorHeart(  ).getBackground(  );
-
-        config.colorTicked = panel.getPanelColorInGuide(  ).getBackground(  );
-
         config.colorMovie = panel.getPanelColorMovie(  ).getBackground(  );
 
         config.colorNonTicked =
@@ -228,10 +212,6 @@ public class ConfigureUIController implements IModuleConfigurationUI
 
         panel.getPanelColorChannel(  ).setBackground( config.colorChannel );
 
-        panel.getPanelColorHeart(  ).setBackground( config.colorHeart );
-
-        panel.getPanelColorInGuide(  ).setBackground( config.colorTicked );
-
         panel.getPanelColorMovie(  ).setBackground( config.colorMovie );
 
         panel.getPanelColorNormal(  ).setBackground( config.colorNonTicked );
@@ -275,10 +255,6 @@ public class ConfigureUIController implements IModuleConfigurationUI
             } );
 
         panel.getBtnColorChannel(  ).addActionListener( colorBtnAction );
-
-        panel.getBtnColorHeart(  ).addActionListener( colorBtnAction );
-
-        panel.getBtnColorInGuide(  ).addActionListener( colorBtnAction );
 
         panel.getBtnColorMovie(  ).addActionListener( colorBtnAction );
 
