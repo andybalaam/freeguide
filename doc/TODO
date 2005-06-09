@@ -36,7 +36,7 @@ a  means done by Alex Buloichik
 
 - Release 1.0 (the destination)
 
-- Internationalisation
+a Internationalisation
 - Use Java's printing capabilities to print
 - Other platforms - investigate Mac, BSD, others
 - A C++ installer that just checks for the right java version before
@@ -54,7 +54,7 @@ a  means done by Alex Buloichik
 - Release 0.12
 
 - Manual
-- Use serialization to reduce startup time
+a Use serialization to reduce startup time
 - Search for programmes, different views on data.
 - Fix Debian bug #285715 http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=285715
 - Automatically make a channel set when you right-click a channel and choose
@@ -196,7 +196,7 @@ a  means done by Alex Buloichik
   we re-enter.
 - Make proxies work with downloading from Java - take proxy info from
   environment variables if possible, or on command line?
-- Make a plugin manager
+a Make a plugin manager
 
 - Release 0.10.2 (Keyboard navigation, internationalisation, recording)
 
@@ -233,17 +233,17 @@ a  means done by Alex Buloichik
 - Make _pt use tv_unprocessed method like uk_rt
 - Test whether only channel icons are dispalyed when you use a channel set,
   but icon and name is displayed on All Channels.
-- New channel sets should have a default name
-- Closing Please Wait dialog should not close FreeGuide except during startup.
+a New channel sets should have a default name
+a Closing Please Wait dialog should not close FreeGuide except during startup.
 - Options screen: remove unneeded options and make more user-friendly.  Change
   "Viewers:Horizontal" etc node to "Horizontal Viewer" node just below layout,
   with other viewers appearing below.
-- Check whether we need TZ set, and if not, remove warnings about it.
+a Check whether we need TZ set, and if not, remove warnings about it.
 - Can we get rid of a lot of options for the horizontal display?
 - Include videoplus info (see Yann's email of 2005-04-22)
-- Why does the data get loaded 3 times when we start?
+a Why does the data get loaded 3 times when we start?
 - Add an FAQ about how to change the number of days downloaded.
-- On Andy's machine the FreeGuide window has no icon in the top left, and the
+a On Andy's machine the FreeGuide window has no icon in the top left, and the
   Please Wait dialog is missing its image.
   
 + Release 0.10pre1 (Add some features to plugins-branch work)
