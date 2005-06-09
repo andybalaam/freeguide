@@ -1,0 +1,4 @@
+freeguide.plugins.reminder.alarm.AlarmReminder
+freeguide.plugins.ui.horizontal.HorizontalViewer
+freeguide.plugins.storage.serfiles.StorageSerFilesByDay
+freeguide.plugins.impexp.xmltv.ImpExpXmltv

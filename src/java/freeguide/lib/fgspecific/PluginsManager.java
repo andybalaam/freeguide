@@ -12,16 +12,21 @@ import freeguide.plugins.IModuleReminder;
 import freeguide.plugins.IModuleStorage;
 import freeguide.plugins.IModuleViewer;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import java.net.URL;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.prefs.Preferences;
 
@@ -106,75 +111,77 @@ public class PluginsManager
     public static void loadModules(  ) throws IOException
     {
 
-        /*        List jarUrls = new ArrayList(  );
+        String[] classNamesList = null;
 
-        File[] libs = new File( "lib" ).listFiles(  );
-
-        if( libs != null )
+        try
+        {
+            classNamesList =
+                LanguageHelper.loadStrings( 
+                    new FileInputStream( "plugins.classes" ) );
+        }
+        catch( IOException ex )
         {
 
-            for( int i = 0; i < libs.length; i++ )
+            Enumeration urls =
+                PluginsManager.class.getClassLoader(  ).getResources( 
+                    "plugin.properties" );
+
+            while( urls.hasMoreElements(  ) )
             {
-                FreeGuide.log.finest(
-                    "Load module jar: " + libs[i].getPath(  ) );
 
-                jarUrls.add( libs[i].toURL(  ) );
+                URL url = (URL)urls.nextElement(  );
 
+                Properties props = new Properties(  );
+
+                InputStream stream = url.openStream(  );
+
+                props.load( stream );
+
+                stream.close(  );
+
+                String className = props.getProperty( "class" );
+
+                if( className != null )
+                {
+                    loadClass( className );
+                }
             }
         }
 
-        ClassLoader classLoader =
-            new URLClassLoader(
-                (URL[])jarUrls.toArray( new URL[jarUrls.size(  )] ),
-                PluginsManager.class.getClassLoader(  ) );
-        */
-        Enumeration urls =
-            PluginsManager.class.getClassLoader(  ).getResources( 
-                "plugin.properties" );
-
-        while( urls.hasMoreElements(  ) )
+        if( classNamesList != null )
         {
 
-            URL url = (URL)urls.nextElement(  );
+            for( int i = 0; i < classNamesList.length; i++ )
+            {
+                loadClass( classNamesList[i] );
+            }
+        }
+    }
 
-            Properties props = new Properties(  );
+    protected static void loadClass( final String className )
+    {
 
-            InputStream stream = url.openStream(  );
+        try
+        {
 
-            props.load( stream );
+            Class moduleClass =
+                PluginsManager.class.getClassLoader(  ).loadClass( className );
 
-            stream.close(  );
+            FreeGuide.log.fine( "Loading class '" + className + "'" );
 
-            String className = props.getProperty( "class" );
-
-            if( className != null )
+            if( IModule.class.isAssignableFrom( moduleClass ) )
             {
 
-                try
-                {
+                IModule module = (IModule)moduleClass.newInstance(  );
+                setConfig( module );
+                plugins.add( module );
 
-                    Class moduleClass =
-                        PluginsManager.class.getClassLoader(  ).loadClass( 
-                            className );
-
-                    FreeGuide.log.fine( "Loading class '" + className + "'" );
-
-                    if( IModule.class.isAssignableFrom( moduleClass ) )
-                    {
-
-                        IModule module = (IModule)moduleClass.newInstance(  );
-                        setConfig( module );
-                        plugins.add( module );
-
-                    }
-                }
-                catch( Exception ex )
-                {
-                    FreeGuide.log.log( 
-                        Level.WARNING, "Error loading plugin from "
-                        + className, ex );
-                }
             }
+        }
+        catch( Exception ex )
+        {
+            FreeGuide.log.log( 
+                Level.SEVERE, "Error loading plugin from " + className, ex );
         }
     }
 
