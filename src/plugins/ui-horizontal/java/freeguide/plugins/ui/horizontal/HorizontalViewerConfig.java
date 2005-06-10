@@ -11,7 +11,7 @@ import java.awt.Font;
  *
  * @author Alex Bulochik (alex at zaval.org)
  */
-public class Config
+public class HorizontalViewerConfig
 {
 
     /** DOCUMENT ME! */
@@ -85,7 +85,7 @@ public class Config
     public Object clone(  )
     {
 
-        Config result = new Config(  );
+        HorizontalViewerConfig result = new HorizontalViewerConfig(  );
 
         PreferencesHelper.cloneObject( this, result );
 

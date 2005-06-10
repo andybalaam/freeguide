@@ -34,7 +34,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
     final protected JDialog inDialog;
     protected ConfigureUIPanel panel;
     protected Font currentFont;
-    protected Config config;
+    protected HorizontalViewerConfig config;
     protected ChangeListener sliderChange =
         new ChangeListener(  )
         {
@@ -115,7 +115,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
 
         this.inDialog = parentDialog;
 
-        config = (Config)parent.config.clone(  );
+        config = (HorizontalViewerConfig)parent.config.clone(  );
 
         panel = new ConfigureUIPanel( parent.getLocalizer(  ) );
 

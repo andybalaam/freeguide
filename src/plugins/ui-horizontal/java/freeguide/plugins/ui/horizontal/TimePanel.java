@@ -59,14 +59,14 @@ public class TimePanel extends JPanel
         new SimpleDateFormat( "HH:mm" );
     private final SimpleDateFormat timeformat =
         new SimpleDateFormat( "h:mm aa" );
-    Config config;
+    HorizontalViewerConfig config;
 
     /**
      * Constructor for the TimePanel object
      *
      * @param config DOCUMENT ME!
      */
-    public TimePanel( Config config )
+    public TimePanel( HorizontalViewerConfig config )
     {
         this.config = config;
 
