@@ -59,7 +59,7 @@ public class FreeGuide
     public static final String STORAGE_ID = "storage-serfiles";
 
     /** The current version of the programme */
-    public final static Version version = new Version( 0, 10, 1 );
+    public final static Version version = new Version( 0, 10, 2 );
 
     /** DOCUMENT ME! */
     public final static Preferences PREF_ROOT =
