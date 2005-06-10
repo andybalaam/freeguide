@@ -170,7 +170,7 @@ public class TablePluginsModel extends DefaultTableModel
         {
 
         case 0:
-            return ( pkg != null ) ? pkg.getName( "en" ) : rowObject;
+            return ( pkg != null ) ? ( "    " + pkg.getName( "en" ) ) : rowObject;
 
         case 1:
 

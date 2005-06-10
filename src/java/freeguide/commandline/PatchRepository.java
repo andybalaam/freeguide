@@ -1,10 +1,13 @@
 package freeguide.commandline;
 
+import freeguide.FreeGuide;
+
 import freeguide.lib.fgspecific.PluginsManager;
 
 import freeguide.lib.general.StringHelper;
 
 import freeguide.lib.updater.RepositoryUtils;
+import freeguide.lib.updater.data.PluginMirror;
 import freeguide.lib.updater.data.PluginPackage;
 import freeguide.lib.updater.data.PluginsRepository;
 
@@ -23,6 +26,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Logger;
 
 /**
  * DOCUMENT ME!
@@ -33,6 +37,8 @@ import java.util.TreeSet;
 public class PatchRepository
 {
 
+    /** Path for repository root. */
+    public static final String PATH_BASE = "build/";
     protected static Set allFiles = new TreeSet(  );
 
     /**
@@ -50,9 +56,13 @@ public class PatchRepository
             System.err.println( "Usage: <input file> <output file>" );
         }
 
+        FreeGuide.log = Logger.getLogger( "org.freeguide-tv" );
+        FreeGuide.setLocale( Locale.ENGLISH );
+        PluginsManager.loadModules(  );
+
         PluginsRepository repository =
             RepositoryUtils.parse( 
-                new InputSource( new FileInputStream( args[0] ) ), "" );
+                new InputSource( new FileInputStream( args[0] ) ), PATH_BASE );
 
         final BufferedWriter out =
             new BufferedWriter( 
@@ -60,12 +70,13 @@ public class PatchRepository
                     new FileOutputStream( args[1] ), "UTF-8" ) );
 
         writeHeader( out );
+        listMirrors( out, repository.getAllMirrors(  ) );
         listPackages( out, repository.getAllPackages(  ) );
         writeFooter( out );
         out.flush(  );
 
         out.close(  );
-        list( new File( "." ) );
+        list( new File( PATH_BASE ) );
     }
 
     protected static void list( final File dir )
@@ -89,12 +100,27 @@ public class PatchRepository
         {
 
             String fileName =
-                dir.getPath(  ).substring( 2 ).replace( '\\', '/' );
+                dir.getPath(  ).substring( PATH_BASE.length(  ) ).replace( 
+                    '\\', '/' );
 
             if( !allFiles.contains( fileName ) )
             {
                 System.out.println( "File not in repository: " + fileName );
             }
+        }
+    }
+
+    protected static void listMirrors( 
+        final BufferedWriter out, final List list ) throws Exception
+    {
+
+        for( int i = 0; i < list.size(  ); i++ )
+        {
+
+            PluginMirror mirror = (PluginMirror)list.get( i );
+            out.write( 
+                "  <mirror location=\"" + mirror.getLocation(  )
+                + "\" path=\"" + mirror.getPath(  ) + "\"/>\n" );
         }
     }
 
@@ -120,6 +146,18 @@ public class PatchRepository
 
                 PluginPackage.PackageFile file =
                     (PluginPackage.PackageFile)files.get( j );
+                File localFile = new File( PATH_BASE, file.getLocalPath(  ) );
+
+                if( localFile.exists(  ) )
+                {
+                    file.loadData(  );
+                }
+                else
+                {
+                    System.out.println( 
+                        "File not found : " + file.getLocalPath(  ) );
+                }
+
                 writeFile( out, file );
             }
 
@@ -159,10 +197,11 @@ public class PatchRepository
         throws IOException
     {
         out.write( 
-            "      <file path=\"" + file.getPath(  ) + "\" size=\""
-            + file.getSize(  ) + "\" md5sum=\"" + file.getMd5sum(  )
-            + "\"/>\n" );
-        allFiles.add( file.getPath(  ) );
+            "      <file localPath=\"" + file.getLocalPath(  )
+            + "\" repositoryPath=\"" + file.getRepositoryPath(  )
+            + "\" size=\"" + file.getSize(  ) + "\" md5sum=\""
+            + file.getMd5sum(  ) + "\"/>\n" );
+        allFiles.add( file.getLocalPath(  ) );
     }
 
     protected static void writeHeader( final BufferedWriter out )

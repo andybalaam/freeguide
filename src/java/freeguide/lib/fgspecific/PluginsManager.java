@@ -19,14 +19,10 @@ import java.io.InputStream;
 import java.net.URL;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.prefs.Preferences;
 
@@ -515,6 +511,12 @@ public class PluginsManager
     public static IModule cloneModule( final String id )
         throws InstantiationException, IllegalAccessException
     {
+
+        if( Application.ID.equals( id ) )
+        {
+
+            return Application.getApplicationModule(  );
+        }
 
         IModule mod = getModuleByID( id );
 

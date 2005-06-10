@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<repository>
+  <mirror location="local" path="file://E:/freeguide/repository/"/>
+
+  <package id="FreeGuide" version="0.10.2" type="program">
+    <file localPath="lib/FreeGuide.jar" repositoryPath="0.10.2/lib/FreeGuide.jar"/>
+    <file localPath="lib/common.jar" repositoryPath="0.10.2/lib/common.jar"/>
+    <file localPath="lib/AJavaLib.jar" repositoryPath="0.10.2/lib/AJavaLib.jar"/>
+    <file localPath="lib/tagsoup-1.0rc3.jar" repositoryPath="0.10.2/lib/tagsoup-1.0rc3.jar"/>
+  </package>
+  <package id="grabber-cosmostv" version="0.10.2" type="plugin-grabber">
+    <file localPath="lib/grabber-cosmostv.jar" repositoryPath="0.10.2/lib/grabber-cosmostv.jar"/>
+  </package>
+  <package id="grabber-kulichki" version="0.10.2" type="plugin-kulichki">
+    <file localPath="lib/grabber-kulichki.jar" repositoryPath="0.10.2/lib/grabber-kulichki.jar"/>
+  </package>
+  <package id="grabber-newsvm" version="0.10.2" type="plugin-newsvm">
+    <file localPath="lib/grabber-newsvm.jar" repositoryPath="0.10.2/lib/grabber-newsvm.jar"/>
+  </package>
+  <package id="grabber-ntvplus" version="0.10.2" type="plugin-ntvplus">
+    <file localPath="lib/grabber-ntvplus.jar" repositoryPath="0.10.2/lib/grabber-ntvplus.jar"/>
+  </package>
+  <package id="grabber-vsetv" version="0.10.2" type="plugin-vsetv">
+    <file localPath="lib/grabber-vsetv.jar" repositoryPath="0.10.2/lib/grabber-vsetv.jar"/>
+  </package>
+  <package id="grabber-xmltv" version="0.10.2" type="plugin-xmltv">
+    <file localPath="lib/grabber-xmltv.jar" repositoryPath="0.10.2/lib/grabber-xmltv.jar"/>
+  </package>
+  <package id="impexp-jtv" version="0.10.2" type="plugin-impexp">
+    <file localPath="lib/impexp-jtv.jar" repositoryPath="0.10.2/lib/impexp-jtv.jar"/>
+  </package>
+  <package id="impexp-palmatv" version="0.10.2" type="plugin-palmatv">
+    <file localPath="lib/impexp-palmatv.jar" repositoryPath="0.10.2/lib/impexp-palmatv.jar"/>
+  </package>
+  <package id="impexp-xmltv" version="0.10.2" type="plugin-xmltv">
+    <file localPath="lib/impexp-xmltv.jar" repositoryPath="0.10.2/lib/impexp-xmltv.jar"/>
+  </package>
+  <package id="reminder-alarm" version="0.10.2" type="plugin-reminder">
+    <file localPath="lib/reminder-alarm.jar" repositoryPath="0.10.2/lib/reminder-alarm.jar"/>
+  </package>
+  <package id="storage-serfiles" version="0.10.2" type="plugin-storage">
+    <file localPath="lib/storage-serfiles.jar" repositoryPath="0.10.2/lib/storage-serfiles.jar"/>
+  </package>
+  <package id="ui-horizontal" version="0.10.2" type="plugin-ui">
+    <file localPath="lib/ui-horizontal.jar" repositoryPath="0.10.2/lib/ui-horizontal.jar"/>
+  </package>
+</repository>

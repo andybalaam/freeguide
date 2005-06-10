@@ -25,11 +25,18 @@ public class PluginsRepository
     /** Plugins import/export type. */
     public static final String PACKAGE_TYPE_IMPEXP = "plugin-impexp";
 
+    /** Plugins UI(viewer) type. */
+    public static final String PACKAGE_TYPE_UI = "plugin-ui";
+
+    /** Plugins reminder type. */
+    public static final String PACKAGE_TYPE_REMINDER = "plugin-reminder";
+
     /** Other type. */
     public static final String PACKAGE_TYPE_OTHER = "other";
 
     /** List of packages. */
     protected List packages = new ArrayList(  );
+    protected List mirrors = new ArrayList(  );
     protected File baseDirectory;
 
     /**
@@ -55,12 +62,33 @@ public class PluginsRepository
     /**
      * DOCUMENT_ME!
      *
+     * @param mirror DOCUMENT_ME!
+     */
+    public void addMirror( final PluginMirror mirror )
+    {
+        mirrors.add( mirror );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
      * @return DOCUMENT_ME!
      */
     public List getAllPackages(  )
     {
 
         return packages;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public List getAllMirrors(  )
+    {
+
+        return mirrors;
     }
 
     /**
@@ -167,7 +195,8 @@ public class PluginsRepository
 
             PluginPackage.PackageFile file =
                 (PluginPackage.PackageFile)files.get( i );
-            final File destFile = new File( baseDirectory, file.getPath(  ) );
+            final File destFile =
+                new File( baseDirectory, file.getLocalPath(  ) );
 
             if( !destFile.canWrite(  ) )
             {
@@ -182,8 +211,10 @@ public class PluginsRepository
 
             PluginPackage.PackageFile file =
                 (PluginPackage.PackageFile)files.get( i );
-            final File srcFile = new File( srcDirectory, file.getPath(  ) );
-            final File destFile = new File( baseDirectory, file.getPath(  ) );
+            final File srcFile =
+                new File( srcDirectory, file.getLocalPath(  ) );
+            final File destFile =
+                new File( baseDirectory, file.getLocalPath(  ) );
             srcFile.renameTo( destFile );
         }
     }

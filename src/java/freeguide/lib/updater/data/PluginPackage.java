@@ -173,14 +173,16 @@ public class PluginPackage
     /**
      * Add file to package.
      *
-     * @param path relative path
+     * @param localPath relative path
+     * @param repositoryPath DOCUMENT ME!
      * @param size size
      * @param md5sum MD5 checksum
      */
     public void addFile( 
-        final String path, final long size, final String md5sum )
+        final String localPath, final String repositoryPath, final String size,
+        final String md5sum )
     {
-        files.add( new PackageFile( path, size, md5sum ) );
+        files.add( new PackageFile( localPath, repositoryPath, size, md5sum ) );
     }
 
     /**
@@ -349,8 +351,11 @@ public class PluginPackage
     public class PackageFile
     {
 
-        /** Path of file from software or repository root(relative). */
-        protected String path;
+        /** Path of file from install root(relative). */
+        protected String localPath;
+
+        /** Path of file from mirror root(relative). */
+        protected String repositoryPath;
 
         /** Size of file. */
         protected long size;
@@ -361,15 +366,27 @@ public class PluginPackage
         /**
          * Creates a new PackageFile object.
          *
-         * @param path relative path
+         * @param localPath relative path
+         * @param repositoryPath DOCUMENT ME!
          * @param size size
          * @param md5sum MD5 checksum
          */
         public PackageFile( 
-            final String path, final long size, final String md5sum )
+            final String localPath, final String repositoryPath,
+            final String size, final String md5sum )
         {
-            this.path = path;
-            this.size = size;
+            this.localPath = localPath;
+            this.repositoryPath = repositoryPath;
+
+            if( size != null )
+            {
+                this.size = Long.decode( size ).longValue(  );
+            }
+            else
+            {
+                this.size = -1;
+            }
+
             this.md5sum = md5sum;
         }
 
@@ -378,10 +395,21 @@ public class PluginPackage
          *
          * @return relative path
          */
-        public String getPath(  )
+        public String getLocalPath(  )
         {
 
-            return path;
+            return localPath;
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @return DOCUMENT_ME!
+         */
+        public String getRepositoryPath(  )
+        {
+
+            return repositoryPath;
         }
 
         /**
@@ -416,7 +444,7 @@ public class PluginPackage
         public boolean isChanged(  ) throws Exception
         {
 
-            final File file = new File( parent.baseDirectory, path );
+            final File file = new File( parent.baseDirectory, localPath );
 
             if( file.exists(  ) )
             {
@@ -428,6 +456,19 @@ public class PluginPackage
 
                 return size != 0;
             }
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @throws Exception DOCUMENT_ME!
+         */
+        public void loadData(  ) throws Exception
+        {
+
+            final File file = new File( parent.baseDirectory, localPath );
+            size = file.length(  );
+            md5sum = calculateFileDigest(  );
         }
 
         /**
@@ -451,7 +492,8 @@ public class PluginPackage
 
             MessageDigest md = MessageDigest.getInstance( "MD5" );
             FileInputStream fin =
-                new FileInputStream( new File( parent.baseDirectory, path ) );
+                new FileInputStream( 
+                    new File( parent.baseDirectory, localPath ) );
             byte[] buffer = new byte[64 * 1024];
 
             while( true )

@@ -5,6 +5,7 @@ import freeguide.FreeGuide;
 import freeguide.lib.general.Utils;
 
 import freeguide.lib.updater.RepositoryUtils;
+import freeguide.lib.updater.data.PluginMirror;
 import freeguide.lib.updater.data.PluginPackage;
 import freeguide.lib.updater.data.PluginsRepository;
 
@@ -100,6 +101,8 @@ public class UpdaterController
                     try
                     {
                         RepositoryUtils.downloadFiles( 
+                            ( (PluginMirror)repository.getAllMirrors(  ).get( 
+                                0 ) ).getPath(  ),
                             repository.getFilesForDownload(  ), dstDir );
                     }
                     catch( Exception ex )
@@ -127,8 +130,10 @@ public class UpdaterController
                         model.rows.get( 
                             ui.getTablePackages(  ).rowAtPoint( 
                                 e.getPoint(  ) ) );
+                    int colIndex =
+                        ui.getTablePackages(  ).columnAtPoint( e.getPoint(  ) );
 
-                    if( rowObj instanceof PluginPackage )
+                    if( rowObj instanceof PluginPackage && ( colIndex == 1 ) )
                     {
 
                         PluginPackage pkg = (PluginPackage)rowObj;
