@@ -100,6 +100,7 @@ Section "FreeGuide program"
   SetOutPath $INSTDIR
   
   File /r ..\..\build\*.jar
+  File /r ..\..\build\run.cmd
   
   ; --------------------- make uninstaller ---------------------
   
