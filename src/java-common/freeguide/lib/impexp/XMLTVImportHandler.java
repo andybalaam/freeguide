@@ -182,6 +182,21 @@ class XMLTVImportHandler extends DefaultHandler
 
             // tv:programme:previously-shown
         }
+        else if( "title".equals( tag ) )
+        {
+        }
+        else if( "sub-title".equals( tag ) )
+        {
+        }
+        else if( "desc".equals( tag ) )
+        {
+        }
+        else if( "category".equals( tag ) )
+        {
+        }
+        else if( "title".equals( tag ) )
+        {
+        }
         else if( "rating".equals( tag ) )
         { // tv:programme:rating
 
