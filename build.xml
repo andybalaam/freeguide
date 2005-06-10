@@ -155,7 +155,7 @@
     <property name="dist"  location="dist" />
     <property name="resources"  location="src/resources" />
     
-    <property name="freeguideversion"  value="FreeGuide-0.10.1" />
+    <property name="freeguideversion"  value="FreeGuide-0.10.2" />
 
     <target name="init">
 

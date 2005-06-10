@@ -14,7 +14,7 @@
 
 Summary: A TV Guide
 Name: FreeGuide
-Version: 0.10.1
+Version: 0.10.2
 Release: 1
 # REMINDER: bump this with each RPM
 Copyright: GPL
