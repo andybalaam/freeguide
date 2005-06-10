@@ -4,7 +4,6 @@ import freeguide.FreeGuide;
 
 import freeguide.gui.viewer.MainController;
 
-import freeguide.lib.fgspecific.PluginsManager;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.selection.Favourite;
 import freeguide.lib.fgspecific.selection.SelectionManager;
@@ -16,7 +15,7 @@ import freeguide.lib.general.Version;
 
 import freeguide.plugins.reminder.alarm.AlarmReminder;
 
-import freeguide.plugins.ui.horizontal.HorizontalViewer;
+import freeguide.plugins.ui.horizontal.HorizontalViewerConfig;
 
 import java.awt.Color;
 
@@ -40,37 +39,83 @@ import java.util.prefs.Preferences;
 public class Migrate
 {
 
-    File[] xmltvConfigs;
+    protected static File[] xmltvConfigs;
+    protected static String storedVersionName;
+    protected static boolean firstTime = true;
+    protected static boolean needToRunWizard = false;
+
+    /**
+     * Private constructor against class creation.
+     */
+    private Migrate(  )
+    {
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static boolean isFirstTime(  )
+    {
+
+        return firstTime;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static boolean isNeedToRunWizard(  )
+    {
+
+        return needToRunWizard;
+    }
 
     /**
      * Main method to run.
      *
      * @throws Exception
      */
-    public void migrateBeforeWizard(  ) throws Exception
+    public static void migrateBeforeWizard(  ) throws Exception
     {
+        firstTime =
+            !Preferences.userRoot(  ).nodeExists( "/org/freeguide-tv" );
 
         if( Preferences.userRoot(  ).nodeExists( "/org/freeguide-tv/misc" ) )
         {
-
-            String storedVersionName =
+            storedVersionName =
                 Preferences.userRoot(  ).node( "/org/freeguide-tv/misc" ).get( 
                     "install_version", null );
 
-            if( storedVersionName == null )
-            {
+        }
 
-                return;
+        if( Preferences.userRoot(  ).nodeExists( "/org/freeguide-tv" ) )
+        {
+            storedVersionName =
+                Preferences.userRoot(  ).node( "/org/freeguide-tv" ).get( 
+                    "version", null );
 
-            }
+        }
 
-            if( 
-                new Version( storedVersionName ).compareTo( 
-                        new Version( 0, 10, 0 ) ) < 0 )
-            {
-                loadFromOld(  );
-                FreeGuide.config.version = storedVersionName;
-            }
+        if( 
+            new Version( storedVersionName ).compareTo( 
+                    new Version( 0, 10, 0 ) ) < 0 )
+        {
+            loadFromOld(  );
+            needToRunWizard = true;
+        }
+        else if( 
+            new Version( storedVersionName ).compareTo( 
+                    new Version( 0, 10, 1 ) ) == 0 )
+        {
+            loadFrom_0_10_1(  );
+        }
+        else if( 
+            new Version( storedVersionName ).compareTo( FreeGuide.VERSION ) > 0 )
+        {
+            needToRunWizard = true;
         }
     }
 
@@ -79,17 +124,25 @@ public class Migrate
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public void migrateAfterWizard(  ) throws Exception
+    public static void migrateAfterWizard(  ) throws Exception
     {
 
-        if( xmltvConfigs != null )
+        if( storedVersionName != null )
         {
 
-            for( int i = 0; i < xmltvConfigs.length; i++ )
+            if( xmltvConfigs != null )
             {
-                loadConfigFile( xmltvConfigs[i] );
 
+                for( int i = 0; i < xmltvConfigs.length; i++ )
+                {
+                    loadConfigFile( xmltvConfigs[i] );
+
+                }
+
+                xmltvConfigs = null;
             }
+
+            storedVersionName = null;
         }
     }
 
@@ -98,18 +151,107 @@ public class Migrate
      *
      * @throws Exception
      */
-    protected void loadFromOld(  ) throws Exception
+    protected static void loadFrom_0_10_1(  ) throws Exception
+    {
+        copyPref( 
+            "/org/freeguide-tv/modules/viewer/Horizontal/colorTicked",
+            "/org/freeguide-tv/modules/reminder-alarm/colorTicked" );
+
+        renamePrefNode( 
+            "/org/freeguide-tv/modules/grabber/cosmostv",
+            "/org/freeguide-tv/modules/grabber-cosmostv" );
+        renamePrefNode( 
+            "/org/freeguide-tv/modules/grabber/ntvplus",
+            "/org/freeguide-tv/modules/grabber-ntvplus" );
+        renamePrefNode( 
+            "/org/freeguide-tv/modules/grabber/vsetv",
+            "/org/freeguide-tv/modules/grabber-vsetv" );
+        renamePrefNode( 
+            "/org/freeguide-tv/modules/grabber/xmltv",
+            "/org/freeguide-tv/modules/grabber-xmltv" );
+        renamePrefNode( 
+            "/org/freeguide-tv/modules/importexport/palm-atv",
+            "/org/freeguide-tv/modules/impexp-palmatv" );
+        renamePrefNode( 
+            "/org/freeguide-tv/modules/viewer/Horizontal",
+            "/org/freeguide-tv/modules/ui-horizontal" );
+        removePrefNode( "/org/freeguide-tv/modules/viewer" );
+        removePrefNode( "/org/freeguide-tv/modules/grabber" );
+        removePrefNode( "/org/freeguide-tv/modules/importexport" );
+    }
+
+    protected static void renamePrefNode( 
+        final String fromPath, final String toPath ) throws Exception
+    {
+
+        if( Preferences.userRoot(  ).nodeExists( fromPath ) )
+        {
+
+            Preferences nodeFrom = Preferences.userRoot(  ).node( fromPath );
+            Preferences nodeTo = Preferences.userRoot(  ).node( toPath );
+            String[] keys = nodeFrom.keys(  );
+
+            for( int i = 0; i < keys.length; i++ )
+            {
+                nodeTo.put( keys[i], nodeFrom.get( keys[i], null ) );
+            }
+        }
+    }
+
+    protected static void copyPref( 
+        final String fromPath, final String toPath ) throws Exception
+    {
+
+        int posFrom = fromPath.lastIndexOf( '/' );
+        int posTo = toPath.lastIndexOf( '/' );
+
+        if( ( posFrom < 0 ) || ( posTo < 0 ) )
+        {
+
+            return;
+        }
+
+        String fromPathNode = fromPath.substring( 0, posFrom );
+        String fromPathKey = fromPath.substring( posFrom + 1 );
+        String toPathNode = toPath.substring( 0, posTo );
+        String toPathKey = toPath.substring( posTo + 1 );
+
+        if( Preferences.userRoot(  ).nodeExists( fromPathNode ) )
+        {
+
+            Preferences nodeFrom =
+                Preferences.userRoot(  ).node( fromPathNode );
+            Preferences nodeTo = Preferences.userRoot(  ).node( toPathNode );
+            nodeTo.put( toPathKey, nodeFrom.get( fromPathKey, null ) );
+        }
+    }
+
+    protected static void removePrefNode( final String path )
+        throws Exception
+    {
+
+        if( Preferences.userRoot(  ).nodeExists( path ) )
+        {
+            Preferences.userRoot(  ).node( path ).removeNode(  );
+        }
+    }
+
+    /**
+     * Load preferences from less than 0.9 version.
+     *
+     * @throws Exception
+     */
+    protected static void loadFromOld(  ) throws Exception
     {
 
         final Preferences root =
             Preferences.userRoot(  ).node( "/org/freeguide-tv" );
 
         final Preferences nodeFavourites;
-        final HorizontalViewer hov =
-            (HorizontalViewer)PluginsManager.getViewerByID( 
-                FreeGuide.VIEWER_ID );
-        final AlarmReminder rem =
-            (AlarmReminder)PluginsManager.getViewerByID( "reminder-alarm" );
+        final HorizontalViewerConfig hovConfig =
+            new HorizontalViewerConfig(  );
+        final AlarmReminder.ConfigAlarm remConfig =
+            new AlarmReminder.ConfigAlarm(  );
 
         if( root.nodeExists( "favourites" ) )
         {
@@ -191,28 +333,28 @@ public class Migrate
 
                 Map conv = new TreeMap(  );
                 LanguageHelper.loadProperties( 
-                    getClass(  ).getClassLoader(  ).getResourceAsStream( 
+                    Migrate.class.getClassLoader(  ).getResourceAsStream( 
                         "freeguide/migration/regions.0.8.6.properties" ), conv );
                 FreeGuide.config.countryID = (String)conv.get( region );
             }
 
-            hov.config.dayStartTime.setTimeHHMMString( 
+            hovConfig.dayStartTime.setTimeHHMMString( 
                 nodeMisc.get( 
-                    "day_start_time", hov.config.dayStartTime.getHHMMString(  ) ) );
+                    "day_start_time", hovConfig.dayStartTime.getHHMMString(  ) ) );
 
             FreeGuide.config.privacyInfo =
                 nodeMisc.get( "privacy", FreeGuide.config.privacyInfo );
 
-            rem.config.reminderOn =
-                nodeMisc.getBoolean( "reminders_on", rem.config.reminderOn );
+            remConfig.reminderOn =
+                nodeMisc.getBoolean( "reminders_on", remConfig.reminderOn );
 
-            rem.config.reminderGiveUp =
+            remConfig.reminderGiveUp =
                 nodeMisc.getLong( 
-                    "reminders_give_up_secs", rem.config.reminderGiveUp / 1000 ) * 1000;
+                    "reminders_give_up_secs", remConfig.reminderGiveUp / 1000 ) * 1000;
 
-            rem.config.reminderWarning =
+            remConfig.reminderWarning =
                 nodeMisc.getLong( 
-                    "reminders_warning_secs", rem.config.reminderWarning / 1000 ) * 1000;
+                    "reminders_warning_secs", remConfig.reminderWarning / 1000 ) * 1000;
 
         }
 
@@ -324,68 +466,64 @@ public class Migrate
 
         if( nodeScreen != null )
         {
-            hov.config.displayAlignToLeft =
+            hovConfig.displayAlignToLeft =
                 nodeScreen.getBoolean( 
-                    "align_text_to_left", hov.config.displayAlignToLeft );
+                    "align_text_to_left", hovConfig.displayAlignToLeft );
 
-            hov.config.display24time =
+            hovConfig.display24time =
                 nodeScreen.getBoolean( 
-                    "display_24hour_time", hov.config.display24time );
+                    "display_24hour_time", hovConfig.display24time );
 
-            hov.config.displayTime =
+            hovConfig.displayTime =
                 nodeScreen.getBoolean( 
-                    "display_programme_time", hov.config.displayTime );
+                    "display_programme_time", hovConfig.displayTime );
 
-            hov.config.displayDelta =
+            hovConfig.displayDelta =
                 nodeScreen.getBoolean( 
-                    "display_time_delta", hov.config.displayDelta );
+                    "display_time_delta", hovConfig.displayDelta );
 
-            hov.config.displayTooltips =
+            hovConfig.displayTooltips =
                 nodeScreen.getBoolean( 
-                    "display_tooltips", hov.config.displayTooltips );
+                    "display_tooltips", hovConfig.displayTooltips );
 
-            hov.config.sizeChannelHeight =
+            hovConfig.sizeChannelHeight =
                 nodeScreen.getInt( 
-                    "channel_height", hov.config.sizeChannelHeight );
+                    "channel_height", hovConfig.sizeChannelHeight );
 
-            hov.config.sizeChannelPanelWidth =
+            hovConfig.sizeChannelPanelWidth =
                 nodeScreen.getInt( 
-                    "panel_width", hov.config.sizeChannelPanelWidth );
+                    "panel_width", hovConfig.sizeChannelPanelWidth );
 
-            hov.config.colorHeart =
+            hovConfig.colorMovie =
                 readColor( 
-                    nodeScreen, "programme_heart_colour", hov.config.colorHeart );
+                    nodeScreen, "programme_movie_colour", hovConfig.colorMovie );
 
-            hov.config.colorMovie =
-                readColor( 
-                    nodeScreen, "programme_movie_colour", hov.config.colorMovie );
-
-            hov.config.colorNonTicked =
+            hovConfig.colorNonTicked =
                 readColor( 
                     nodeScreen, "programme_normal_colour",
-                    hov.config.colorNonTicked );
+                    hovConfig.colorNonTicked );
 
-            hov.config.colorChannel =
+            hovConfig.colorChannel =
                 readColor( 
-                    nodeScreen, "channel_colour", hov.config.colorChannel );
+                    nodeScreen, "channel_colour", hovConfig.colorChannel );
 
-            hov.config.colorTicked =
-                readColor( nodeScreen, "", hov.config.colorTicked );
+            remConfig.colorTicked =
+                readColor( nodeScreen, "", remConfig.colorTicked );
 
-            hov.config.positionSplitPaneHorizontalTop =
+            hovConfig.positionSplitPaneHorizontalTop =
                 nodeScreen.getInt( 
                     "viewer_splitpane_horizontal",
-                    hov.config.positionSplitPaneHorizontalTop );
+                    hovConfig.positionSplitPaneHorizontalTop );
 
-            hov.config.positionSplitPaneHorizontalBottom =
+            hovConfig.positionSplitPaneHorizontalBottom =
                 nodeScreen.getInt( 
                     "viewer_splitpane_horizontal_bottom",
-                    hov.config.positionSplitPaneHorizontalBottom );
+                    hovConfig.positionSplitPaneHorizontalBottom );
 
-            hov.config.positionSplitPaneVertical =
+            hovConfig.positionSplitPaneVertical =
                 nodeScreen.getInt( 
                     "viewer_splitpane_vertical",
-                    hov.config.positionSplitPaneVertical );
+                    hovConfig.positionSplitPaneVertical );
 
             MainController.config.ui.LFname =
                 nodeScreen.get( "look_and_feel", "Metal" );
@@ -408,7 +546,7 @@ public class Migrate
                     "viewer_height",
                     MainController.config.ui.mainWindowPosition.height );
 
-            hov.config.currentChannelSetName =
+            hovConfig.currentChannelSetName =
                 nodeScreen.get( "viewer_channel_set", null );
 
         }
@@ -432,12 +570,10 @@ public class Migrate
         PreferencesHelper.save( 
             root.node( "mainController" ), MainController.config );
 
-        if( hov != null )
-        {
-            PreferencesHelper.save( 
-                root.node( "modules/viewer/" + hov.getID(  ) ), hov.config );
-
-        }
+        PreferencesHelper.save( 
+            root.node( "modules/ui-horizontal" ), hovConfig );
+        PreferencesHelper.save( 
+            root.node( "modules/reminder-alarm" ), remConfig );
     }
 
     protected static Color readColor( 
@@ -454,7 +590,7 @@ public class Migrate
 
     }
 
-    protected void listXMLTVConfigs(  )
+    protected static void listXMLTVConfigs(  )
     {
 
         File dir;
@@ -483,7 +619,7 @@ public class Migrate
                 } );
     }
 
-    protected void loadConfigFile( File f ) throws IOException
+    protected static void loadConfigFile( File f ) throws IOException
     {
 
         String fn = FreeGuide.config.workingDirectory + "/xmltv-configs/";

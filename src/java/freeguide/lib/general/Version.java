@@ -76,6 +76,12 @@ public class Version
     public Version( String version_string ) throws NumberFormatException
     {
 
+        if( version_string == null )
+        {
+
+            return;
+        }
+
         String[] split_version = new String[3];
 
         int pos = 0;

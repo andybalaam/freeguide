@@ -140,7 +140,7 @@ public class MenuHandler
             {
                 public void actionPerformed( ActionEvent e )
                 {
-                    new FirstTimeWizard( null, true, null );
+                    new FirstTimeWizard( null, true );
 
                 }
             } );

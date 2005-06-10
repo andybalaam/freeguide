@@ -21,7 +21,6 @@ import freeguide.gui.wizard.FirstTimeWizard;
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PluginsManager;
 import freeguide.lib.fgspecific.StartupChecker;
-import freeguide.lib.fgspecific.data.TVChannel;
 
 import freeguide.lib.general.CmdArgs;
 import freeguide.lib.general.LanguageHelper;
@@ -59,7 +58,7 @@ public class FreeGuide
     public static final String STORAGE_ID = "storage-serfiles";
 
     /** The current version of the programme */
-    public final static Version version = new Version( 0, 10, 2 );
+    public final static Version VERSION = new Version( 0, 10, 2 );
 
     /** DOCUMENT ME! */
     public final static Preferences PREF_ROOT =
@@ -151,14 +150,11 @@ public class FreeGuide
 
         config = new Config(  );
 
-        Migrate m = new Migrate(  );
-
         try
         {
-            m.migrateBeforeWizard(  );
+            Migrate.migrateBeforeWizard(  );
 
         }
-
         catch( Exception ex )
         {
             log.log( Level.WARNING, "Error on migration", ex );
@@ -168,7 +164,7 @@ public class FreeGuide
         try
         {
             PreferencesHelper.load( PREF_ROOT, config );
-
+            config.version = VERSION.getDotFormat(  );
         }
         catch( Exception ex )
         {
@@ -181,43 +177,33 @@ public class FreeGuide
             new MainController( PREF_ROOT.node( "mainController" ) );
         Application.setInstance( mainController );
 
-        if( config.version == null )
+        if( Migrate.isFirstTime(  ) )
         {
             launchFirstTime(  );
-
         }
-
         else
         {
 
-            // If the installed version number is lower than the version we are
-            // running, we need to upgrade
-            if( new Version( config.version ).lessThan( version ) )
+            if( Migrate.isNeedToRunWizard(  ) )
             {
-                launchUpgrade( m );
-
+                launchUpgrade(  );
             }
-
             else
             {
                 normalStartup( null );
-
             }
         }
-
-        // [Note: upgrade question just notifies you that your custom settings
-        // will be over-written and lets you cancel.]
     }
 
     private void launchFirstTime(  )
     {
-        new FirstTimeWizard( this, false, null );
+        new FirstTimeWizard( this, false );
 
     }
 
-    private void launchUpgrade( Migrate m )
+    private void launchUpgrade(  )
     {
-        new FirstTimeWizard( this, true, m );
+        new FirstTimeWizard( this, true );
 
     }
 
@@ -422,7 +408,7 @@ public class FreeGuide
     {
 
         /** Freeguide version of stored config. */
-        public String version;
+        public String version = VERSION.getDotFormat(  );
 
         /** Browser name. */
         public String browserName;

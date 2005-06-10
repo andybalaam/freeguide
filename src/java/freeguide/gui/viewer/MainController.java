@@ -99,7 +99,7 @@ public class MainController implements IApplication
 
         mainFrame = new MainFrame( FreeGuide.msg );
 
-        mainFrame.setTitle( "FreeGuide " + FreeGuide.version.getDotFormat(  ) );
+        mainFrame.setTitle( "FreeGuide " + FreeGuide.VERSION.getDotFormat(  ) );
 
         new MenuHandler( this );
 

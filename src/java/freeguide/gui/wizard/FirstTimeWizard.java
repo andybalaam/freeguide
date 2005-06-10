@@ -61,20 +61,16 @@ public class FirstTimeWizard
     private boolean showREADME;
     private boolean configGrabber;
     private WizardFrame wizardFrame;
-    protected Migrate migrate;
 
     /**
      * Constructor for the FirstTimeWizard object
      *
      * @param launcher DOCUMENT ME!
      * @param upgrade DOCUMENT ME!
-     * @param m DOCUMENT ME!
      */
-    public FirstTimeWizard( FreeGuide launcher, boolean upgrade, Migrate m )
+    public FirstTimeWizard( FreeGuide launcher, boolean upgrade )
     {
         this.launcher = launcher;
-
-        this.migrate = m;
 
         config = (FreeGuide.Config)FreeGuide.config.clone(  );
 
@@ -574,26 +570,17 @@ public class FirstTimeWizard
 
         new File( config.workingDirectory ).mkdirs(  );
 
-        config.version = FreeGuide.version.getDotFormat(  );
-
         FreeGuide.config = config;
 
         FreeGuide.saveConfig(  );
 
-        if( migrate != null )
+        try
         {
-
-            try
-            {
-                migrate.migrateAfterWizard(  );
-
-            }
-
-            catch( Exception ex )
-            {
-                FreeGuide.log.log( 
-                    Level.WARNING, "Error finish migration", ex );
-            }
+            Migrate.migrateAfterWizard(  );
+        }
+        catch( Exception ex )
+        {
+            FreeGuide.log.log( Level.WARNING, "Error finish migration", ex );
         }
 
         IModuleGrabber mod =
