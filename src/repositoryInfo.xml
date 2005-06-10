@@ -1,48 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<repository>
+<packages>
   <mirror location="local" path="file://E:/freeguide/repository/"/>
-
   <package id="FreeGuide" version="0.10.2" type="program">
-    <file localPath="lib/FreeGuide.jar" repositoryPath="0.10.2/lib/FreeGuide.jar"/>
-    <file localPath="lib/common.jar" repositoryPath="0.10.2/lib/common.jar"/>
-    <file localPath="lib/AJavaLib.jar" repositoryPath="0.10.2/lib/AJavaLib.jar"/>
-    <file localPath="lib/tagsoup-1.0rc3.jar" repositoryPath="0.10.2/lib/tagsoup-1.0rc3.jar"/>
+    <name lang="en">FreeGuide</name>
+    <description lang="en">FreeGuide description</description>
+      <file localPath="lib/FreeGuide.jar" repositoryPath="0.10.2/lib/FreeGuide.jar" size="188559" md5sum="E880AC9AAC693D1A1E0CC937B666B00E"/>
+      <file localPath="lib/common.jar" repositoryPath="0.10.2/lib/common.jar" size="92681" md5sum="E5B1A40D981FDE75BCAF71B12F5D96CD"/>
+      <file localPath="lib/AJavaLib.jar" repositoryPath="0.10.2/lib/AJavaLib.jar" size="25812" md5sum="D8E04076EC388F81025C4E7E04532C90"/>
+      <file localPath="lib/tagsoup-1.0rc3.jar" repositoryPath="0.10.2/lib/tagsoup-1.0rc3.jar" size="42207" md5sum="4B6F0FF11716D72EEACDE935079804A5"/>
   </package>
   <package id="grabber-cosmostv" version="0.10.2" type="plugin-grabber">
-    <file localPath="lib/grabber-cosmostv.jar" repositoryPath="0.10.2/lib/grabber-cosmostv.jar"/>
+    <name lang="be">Cosmos TV</name>
+    <description lang="be">Праграмма тэлебачання з http://www.cosmostv.com</description>
+    <name lang="en">Cosmos TV</name>
+    <description lang="en">Grabber for http://www.cosmostv.com</description>
+    <name lang="en.reversecaps">cOSMOStv</name>
+    <description lang="en.reversecaps">gRABBER FOR HTTP://WWW.COSMOSTV.COM</description>
+      <file localPath="lib/grabber-cosmostv.jar" repositoryPath="0.10.2/lib/grabber-cosmostv.jar" size="3981" md5sum="A53600463E3A411919D53BF3273AB3A2"/>
   </package>
-  <package id="grabber-kulichki" version="0.10.2" type="plugin-kulichki">
-    <file localPath="lib/grabber-kulichki.jar" repositoryPath="0.10.2/lib/grabber-kulichki.jar"/>
+  <package id="grabber-kulichki" version="0.10.2" type="plugin-grabber">
+    <name lang="be">Программа ТВ на Куличках</name>
+    <description lang="be">Праграмма тэлебачання з http://kulichki.tv</description>
+    <name lang="en">Kulichki.tv</name>
+    <description lang="en">Grabber for http://kulichki.tv</description>
+    <name lang="en.reversecaps">kULICHKI</name>
+    <description lang="en.reversecaps">DESCRIPTION</description>
+      <file localPath="lib/grabber-kulichki.jar" repositoryPath="0.10.2/lib/grabber-kulichki.jar" size="13300" md5sum="AA955CA17F01C78E97C445DA76B105F2"/>
   </package>
-  <package id="grabber-newsvm" version="0.10.2" type="plugin-newsvm">
-    <file localPath="lib/grabber-newsvm.jar" repositoryPath="0.10.2/lib/grabber-newsvm.jar"/>
+  <package id="grabber-newsvm" version="0.10.2" type="plugin-grabber">
+    <name lang="be">Вечерний Минск</name>
+    <description lang="be">Праграмма тэлебачання з газэты &quot;Вечерний Минск&quot;(http://newsvm.com)</description>
+    <name lang="en">Newsvm.com</name>
+    <description lang="en">Grabber for http://newsvm.com</description>
+    <name lang="en.reversecaps">nEWSVM.COM</name>
+    <description lang="en.reversecaps">gRABBER FOR HTTP://NEWSVM.COM</description>
+      <file localPath="lib/grabber-newsvm.jar" repositoryPath="0.10.2/lib/grabber-newsvm.jar" size="5883" md5sum="DC1C75AEE73FEC6994B02F3B5DECF6CC"/>
   </package>
-  <package id="grabber-ntvplus" version="0.10.2" type="plugin-ntvplus">
-    <file localPath="lib/grabber-ntvplus.jar" repositoryPath="0.10.2/lib/grabber-ntvplus.jar"/>
+  <package id="grabber-ntvplus" version="0.10.2" type="plugin-grabber">
+    <name lang="be">НТВ-Плюс</name>
+    <description lang="be">Праграмма тэлебачання з http://www.ntvplus.com</description>
+    <name lang="en">NTV Plus</name>
+    <description lang="en">Grabber for http://www.ntvplus.ru</description>
+    <name lang="en.reversecaps">ntv+</name>
+    <description lang="en.reversecaps">gRABBER FOR HTTP://WWW.NTVPLUS.RU</description>
+      <file localPath="lib/grabber-ntvplus.jar" repositoryPath="0.10.2/lib/grabber-ntvplus.jar" size="2890" md5sum="D4347A939145D1F2FB29D25D6035A732"/>
   </package>
-  <package id="grabber-vsetv" version="0.10.2" type="plugin-vsetv">
-    <file localPath="lib/grabber-vsetv.jar" repositoryPath="0.10.2/lib/grabber-vsetv.jar"/>
+  <package id="grabber-vsetv" version="0.10.2" type="plugin-grabber">
+    <name lang="be">Всё ТВ</name>
+    <description lang="be">Праграма тэлебачання з http://www.vsetv.com</description>
+    <name lang="en">Vsetv.com</name>
+    <description lang="en">Grabber for http://www.vsetv.com</description>
+    <name lang="en.reversecaps">vSETV</name>
+    <description lang="en.reversecaps">gRABBER FOR HTTP://WWW.VSETV.COM</description>
+      <file localPath="lib/grabber-vsetv.jar" repositoryPath="0.10.2/lib/grabber-vsetv.jar" size="17530" md5sum="DF03DF8DF351312755E57E5C951546D1"/>
   </package>
-  <package id="grabber-xmltv" version="0.10.2" type="plugin-xmltv">
-    <file localPath="lib/grabber-xmltv.jar" repositoryPath="0.10.2/lib/grabber-xmltv.jar"/>
+  <package id="grabber-xmltv" version="0.10.2" type="plugin-grabber">
+    <name lang="en">XMLTV</name>
+    <description lang="en">XMLTV grabber (http://xmltv.sf.net)</description>
+    <name lang="en.reversecaps">xmltv</name>
+    <description lang="en.reversecaps">tHIS IS SMALL DESCRIPTION FOR xmltv gRABBER</description>
+      <file localPath="lib/grabber-xmltv.jar" repositoryPath="0.10.2/lib/grabber-xmltv.jar" size="23828" md5sum="BACB6DFB75B3F2A2820AFBF993CD812E"/>
   </package>
   <package id="impexp-jtv" version="0.10.2" type="plugin-impexp">
-    <file localPath="lib/impexp-jtv.jar" repositoryPath="0.10.2/lib/impexp-jtv.jar"/>
+      <file localPath="lib/impexp-jtv.jar" repositoryPath="0.10.2/lib/impexp-jtv.jar" size="5507" md5sum="1747A4EE0497CAC6002D85EFC002879A"/>
   </package>
-  <package id="impexp-palmatv" version="0.10.2" type="plugin-palmatv">
-    <file localPath="lib/impexp-palmatv.jar" repositoryPath="0.10.2/lib/impexp-palmatv.jar"/>
+  <package id="impexp-palmatv" version="0.10.2" type="plugin-impexp">
+    <name lang="en">ATV-palm</name>
+    <description lang="en">Export to ATV for Palm OS. See http://zaval.org/products/atv</description>
+      <file localPath="lib/impexp-palmatv.jar" repositoryPath="0.10.2/lib/impexp-palmatv.jar" size="5225" md5sum="9A928EE07DD49DA5C12C4E40A18117C7"/>
   </package>
-  <package id="impexp-xmltv" version="0.10.2" type="plugin-xmltv">
-    <file localPath="lib/impexp-xmltv.jar" repositoryPath="0.10.2/lib/impexp-xmltv.jar"/>
+  <package id="impexp-xmltv" version="0.10.2" type="plugin-impexp">
+    <name lang="en">XMLTV</name>
+    <description lang="en">Export to XMLTV format. See http://xmltv.sf.net.</description>
+      <file localPath="lib/impexp-xmltv.jar" repositoryPath="0.10.2/lib/impexp-xmltv.jar" size="3793" md5sum="FC66F73E0B6D3EC65E48966035BE9A64"/>
   </package>
   <package id="reminder-alarm" version="0.10.2" type="plugin-reminder">
-    <file localPath="lib/reminder-alarm.jar" repositoryPath="0.10.2/lib/reminder-alarm.jar"/>
+    <name lang="be">Alarm reminder</name>
+    <description lang="be">Alarm reminder like in previous versions</description>
+    <name lang="de">Alarm reminder</name>
+    <description lang="de">Alarm reminder like in previous versions</description>
+    <name lang="en">Alarm reminder</name>
+    <description lang="en">Alarm reminder like in previous versions</description>
+    <name lang="fr">Alarm reminder</name>
+    <description lang="fr">Alarm reminder like in previous versions</description>
+      <file localPath="lib/reminder-alarm.jar" repositoryPath="0.10.2/lib/reminder-alarm.jar" size="14720" md5sum="799C3D4F8F98F89B7B6234007B15A0E3"/>
   </package>
   <package id="storage-serfiles" version="0.10.2" type="plugin-storage">
-    <file localPath="lib/storage-serfiles.jar" repositoryPath="0.10.2/lib/storage-serfiles.jar"/>
+      <file localPath="lib/storage-serfiles.jar" repositoryPath="0.10.2/lib/storage-serfiles.jar" size="12929" md5sum="56FC3445836CEE64E02222042BC96008"/>
   </package>
   <package id="ui-horizontal" version="0.10.2" type="plugin-ui">
-    <file localPath="lib/ui-horizontal.jar" repositoryPath="0.10.2/lib/ui-horizontal.jar"/>
+    <name lang="be">Гарызантальны</name>
+    <description lang="be">Гэты модуль адлюстроўвае праграму тэлебачання ў выглядзе гарызантальных палос.</description>
+    <name lang="de">!Name!</name>
+    <description lang="de">!Description!</description>
+    <name lang="en">Horizontal</name>
+    <description lang="en">This is viewer with horizontal strips</description>
+    <name lang="en_US">Horizontal</name>
+    <description lang="en_US">This is viewer with horizontal strips</description>
+    <name lang="fr">!Name!</name>
+    <description lang="fr">!Description!</description>
+      <file localPath="lib/ui-horizontal.jar" repositoryPath="0.10.2/lib/ui-horizontal.jar" size="69941" md5sum="B765218631BEF5B67C0AC5E1B214423A"/>
   </package>
-</repository>
+</packages>

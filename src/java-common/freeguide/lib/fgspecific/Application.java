@@ -74,7 +74,7 @@ public class Application
                     throws Exception
                 {
 
-                    return new Locale[0];
+                    return new Locale[] { Locale.ENGLISH };
                 }
 
                 public void setConfigStorage( Preferences prefs )

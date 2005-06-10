@@ -41,8 +41,13 @@ public class TablePluginsModel extends DefaultTableModel
     {
         addSubList( 
             "Program:", PluginsRepository.PACKAGE_TYPE_PROGRAM, repository );
+        addSubList( "UI:", PluginsRepository.PACKAGE_TYPE_UI, repository );
         addSubList( 
             "Grabbers:", PluginsRepository.PACKAGE_TYPE_GRABBER, repository );
+        addSubList( 
+            "Storages:", PluginsRepository.PACKAGE_TYPE_STORAGE, repository );
+        addSubList( 
+            "Reminders:", PluginsRepository.PACKAGE_TYPE_REMINDER, repository );
         addSubList( 
             "Import/Export:", PluginsRepository.PACKAGE_TYPE_IMPEXP, repository );
         addSubList( 
@@ -72,8 +77,20 @@ public class TablePluginsModel extends DefaultTableModel
                         PluginPackage pkg0 = (PluginPackage)arg0;
                         PluginPackage pkg1 = (PluginPackage)arg1;
 
-                        return pkg0.getName( "en" ).compareTo( 
-                            pkg1.getName( "en" ) );
+                        String name0 = pkg0.getName( "en" );
+                        String name1 = pkg1.getName( "en" );
+
+                        if( ( name0 != null ) && ( name1 != null ) )
+                        {
+
+                            return pkg0.getName( "en" ).compareTo( 
+                                pkg1.getName( "en" ) );
+                        }
+                        else
+                        {
+
+                            return 0;
+                        }
                     }
 
                     return 0;

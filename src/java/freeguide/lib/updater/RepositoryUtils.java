@@ -30,7 +30,7 @@ public class RepositoryUtils
 
     /** Repository URL. */
     public static final String REPOSITORY_URL =
-        "file:////E:/freeguide-plugins.xml";
+        "file:////E:/Workspace/freeguide-tv/src/repositoryInfo.xml";
 
     /**
      * Download repository description.
@@ -44,13 +44,23 @@ public class RepositoryUtils
     {
 
         HttpBrowser browser = new HttpBrowser(  );
-        browser.loadURL( REPOSITORY_URL + ".gz" );
+        InputSource src;
 
-        return parse( 
-            new InputSource( 
-                new GZIPInputStream( 
-                    new ByteArrayInputStream( browser.getBinaryData(  ) ) ) ),
-            FreeGuide.runtimeInfo.installDirectory );
+        try
+        {
+            browser.loadURL( REPOSITORY_URL + ".gz" );
+            src = new InputSource( 
+                    new GZIPInputStream( 
+                        new ByteArrayInputStream( browser.getBinaryData(  ) ) ) );
+        }
+        catch( IOException ex )
+        {
+            browser.loadURL( REPOSITORY_URL );
+            src = new InputSource( 
+                    new ByteArrayInputStream( browser.getBinaryData(  ) ) );
+        }
+
+        return parse( src, FreeGuide.runtimeInfo.installDirectory );
     }
 
     /**

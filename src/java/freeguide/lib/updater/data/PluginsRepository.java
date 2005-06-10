@@ -25,6 +25,9 @@ public class PluginsRepository
     /** Plugins import/export type. */
     public static final String PACKAGE_TYPE_IMPEXP = "plugin-impexp";
 
+    /** Plugins storage type. */
+    public static final String PACKAGE_TYPE_STORAGE = "plugin-storage";
+
     /** Plugins UI(viewer) type. */
     public static final String PACKAGE_TYPE_UI = "plugin-ui";
 
