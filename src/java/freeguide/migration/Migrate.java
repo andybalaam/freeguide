@@ -99,6 +99,13 @@ public class Migrate
 
         }
 
+        if( storedVersionName == null )
+        {
+            needToRunWizard = true;
+
+            return;
+        }
+
         if( 
             new Version( storedVersionName ).compareTo( 
                     new Version( 0, 10, 0 ) ) < 0 )
