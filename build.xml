@@ -55,11 +55,15 @@
         	deprecation="on" 
         	source="1.4" 
         	target="1.4"
+        	debug="yes"
             encoding="UTF-8">
         	<classpath>
         		<fileset dir="${src}/lib" includes="**/*.jar"/>
         	</classpath>
       	</javac>
+        <copy todir="${build}/classes/common">
+        	<fileset dir="${src}/java-common" excludes="**/*.java" />
+      	</copy>
         <jar jarfile="${build}/lib/common.jar"
              basedir="${build}/classes/common"/>
         <copy todir="${build}/lib/">
@@ -74,6 +78,7 @@
         	deprecation="on" 
         	source="1.4" 
         	target="1.4"
+        	debug="yes"
             encoding="UTF-8">
         	<classpath>
         		<fileset dir="${src}/lib" includes="**/*.jar"/>
@@ -96,6 +101,7 @@
         	deprecation="on" 
         	source="1.4" 
         	target="1.4"
+        	debug="yes"
             encoding="UTF-8">
         	<classpath>
         		<fileset dir="${src}/lib" includes="**/*.jar"/>
@@ -124,6 +130,7 @@
         	deprecation="on" 
         	source="1.4" 
         	target="1.4"
+        	debug="yes"
             encoding="UTF-8">
       	</javac>
 
