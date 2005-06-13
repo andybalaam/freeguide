@@ -6,7 +6,7 @@ import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.general.LanguageHelper;
 import freeguide.lib.general.Time;
 
-import java.io.IOException;
+import java.io.InputStream;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -42,11 +42,21 @@ public class TimeHelper
             final String resourceName =
                 TimeHelper.class.getPackage(  ).getName(  ).replace( '.', '/' )
                 + "/monthes.utf8.properties";
-            LanguageHelper.loadProperties( 
+            InputStream ins =
                 TimeHelper.class.getClassLoader(  ).getResourceAsStream( 
-                    resourceName ), monthes );
+                    resourceName );
+
+            if( ins == null )
+            {
+                Application.getInstance(  ).getLogger(  ).log( 
+                    Level.SEVERE, "Monthes file not found" );
+            }
+            else
+            {
+                LanguageHelper.loadProperties( ins, monthes );
+            }
         }
-        catch( IOException ex )
+        catch( Exception ex )
         {
             Application.getInstance(  ).getLogger(  ).log( 
                 Level.SEVERE, "Error read monthes names", ex );
