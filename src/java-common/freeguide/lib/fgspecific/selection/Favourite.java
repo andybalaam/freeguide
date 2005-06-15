@@ -115,6 +115,8 @@ public class Favourite
 
         result.beforeTime = beforeTime;
 
+        result.dayOfWeek = dayOfWeek;
+
         return result;
 
     }
