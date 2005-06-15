@@ -246,10 +246,11 @@ a Use serialization to reduce startup time
 - When you try to enter a day with no downloaded listings, FreeGuide should
   prompt asking whether you want to download new listings.  At the moment it
   just prevents you from changing to that day.
-- After I have migrated from 0.10.1 to 0.10.2, my favourites are
+a After I have migrated from 0.10.1 to 0.10.2, my favourites are
   listed in the file ~/.java/.userPrefs/org/freeguide-tv/mainController/
   selection/prefs.xml but when I choose "Favourites" in FreeGuide, none are
   listed.
+a List programmes only after NOW in personal guide.
 a New channel sets should have a default name
 a Closing Please Wait dialog should not close FreeGuide except during startup.
 a Options screen: remove unneeded options and make more user-friendly.  Change
