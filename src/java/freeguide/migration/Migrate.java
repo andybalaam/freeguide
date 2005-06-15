@@ -208,7 +208,7 @@ public class Migrate
     protected static void copyPref( 
         final String fromPath, final String toPath ) throws Exception
     {
-
+        
         int posFrom = fromPath.lastIndexOf( '/' );
         int posTo = toPath.lastIndexOf( '/' );
 
@@ -225,11 +225,14 @@ public class Migrate
 
         if( Preferences.userRoot(  ).nodeExists( fromPathNode ) )
         {
-
             Preferences nodeFrom =
                 Preferences.userRoot(  ).node( fromPathNode );
             Preferences nodeTo = Preferences.userRoot(  ).node( toPathNode );
-            nodeTo.put( toPathKey, nodeFrom.get( fromPathKey, null ) );
+            String toStr = nodeFrom.get( fromPathKey, null );
+            if( toStr != null )
+            {
+                nodeTo.put( toPathKey, toStr );
+            }
         }
     }
 
