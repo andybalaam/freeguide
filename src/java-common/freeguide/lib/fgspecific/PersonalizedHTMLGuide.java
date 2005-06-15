@@ -62,6 +62,15 @@ public class PersonalizedHTMLGuide
                 protected void onProgramme( TVProgramme programme )
                 {
 
+                    if( 
+                        onScreen
+                            && ( programme.getEnd(  ) < System
+                            .currentTimeMillis(  ) ) )
+                    {
+
+                        return;
+                    }
+
                     for( int i = 0; i < reminders.length; i++ )
                     {
 
