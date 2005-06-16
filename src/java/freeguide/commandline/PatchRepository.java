@@ -2,6 +2,7 @@ package freeguide.commandline;
 
 import freeguide.FreeGuide;
 
+import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PluginsManager;
 
 import freeguide.lib.general.StringHelper;
@@ -38,7 +39,7 @@ public class PatchRepository
 {
 
     /** Path for repository root. */
-    public static final String PATH_BASE = "build/";
+    public static final String PATH_BASE = "dist/repository/";
     protected static Set allFiles = new TreeSet(  );
 
     /**
@@ -50,33 +51,48 @@ public class PatchRepository
      */
     public static void main( final String[] args ) throws Exception
     {
-
-        if( args.length != 2 )
-        {
-            System.err.println( "Usage: <input file> <output file>" );
-        }
-
         FreeGuide.log = Logger.getLogger( "org.freeguide-tv" );
         FreeGuide.setLocale( Locale.ENGLISH );
         PluginsManager.loadModules(  );
 
-        PluginsRepository repository =
-            RepositoryUtils.parse( 
-                new InputSource( new FileInputStream( args[0] ) ), PATH_BASE );
+        for( int i = 0; i < args.length; i++ )
+        {
 
-        final BufferedWriter out =
-            new BufferedWriter( 
-                new OutputStreamWriter( 
-                    new FileOutputStream( args[1] ), "UTF-8" ) );
+            PluginsRepository repository =
+                RepositoryUtils.parse( 
+                    new InputSource( 
+                        new FileInputStream( 
+                            args[i] + "/repositoryInfoTemplate.xml" ) ),
+                    PATH_BASE );
 
-        writeHeader( out );
-        listMirrors( out, repository.getAllMirrors(  ) );
-        listPackages( out, repository.getAllPackages(  ) );
-        writeFooter( out );
-        out.flush(  );
+            final BufferedWriter out =
+                new BufferedWriter( 
+                    new OutputStreamWriter( 
+                        new FileOutputStream( args[i] + "/repositoryInfo.xml" ),
+                        "UTF-8" ) );
 
-        out.close(  );
-        list( new File( PATH_BASE ) );
+            writeHeader( out );
+            listMirrors( out, repository.getAllMirrors(  ) );
+            listPackages( 
+                out, "application",
+                new IModule[] { Application.getApplicationModule(  ) } );
+            listPackages( 
+                out, "plugin-grabber", PluginsManager.getGrabbers(  ) );
+            listPackages( 
+                out, "plugin-impexp",
+                PluginsManager.getImportersAndExporters(  ) );
+            listPackages( 
+                out, "plugin-reminder", PluginsManager.getReminders(  ) );
+            listPackages( 
+                out, "plugin-storage", PluginsManager.getStorages(  ) );
+            listPackages( out, "plugin-ui", PluginsManager.getViewers(  ) );
+            writeFooter( out );
+            out.flush(  );
+
+            out.close(  );
+        }
+
+        // list( new File( PATH_BASE ) );
     }
 
     protected static void list( final File dir )
@@ -125,57 +141,44 @@ public class PatchRepository
     }
 
     protected static void listPackages( 
-        final BufferedWriter out, final List list ) throws Exception
-    {
-
-        for( int i = 0; i < list.size(  ); i++ )
-        {
-
-            PluginPackage pkg = (PluginPackage)list.get( i );
-            out.write( 
-                "  <package id=\"" + pkg.getID(  ) + "\" version=\""
-                + pkg.getVersion(  ) + "\" type=\"" + pkg.getType(  )
-                + "\">\n" );
-
-            writeTexts( out, pkg );
-
-            List files = pkg.getFiles(  );
-
-            for( int j = 0; j < files.size(  ); j++ )
-            {
-
-                PluginPackage.PackageFile file =
-                    (PluginPackage.PackageFile)files.get( j );
-                File localFile = new File( PATH_BASE, file.getLocalPath(  ) );
-
-                if( localFile.exists(  ) )
-                {
-                    file.loadData(  );
-                }
-                else
-                {
-                    System.out.println( 
-                        "File not found : " + file.getLocalPath(  ) );
-                }
-
-                writeFile( out, file );
-            }
-
-            out.write( "  </package>\n" );
-        }
-    }
-
-    protected static void writeTexts( 
-        final BufferedWriter out, final PluginPackage pkg )
+        final BufferedWriter out, final String packageType, IModule[] modules )
         throws Exception
     {
 
-        IModule mod = PluginsManager.cloneModule( pkg.getID(  ) );
-
-        if( mod == null )
+        for( int i = 0; i < modules.length; i++ )
         {
-            throw new Exception( "Module '" + pkg.getID(  ) + "' not defined" );
+
+            final IModule module = modules[i];
+
+            out.write( 
+                "  <package id=\"" + module.getID(  ) + "\" version=\""
+                + module.getVersion(  ).getDotFormat(  ) + "\" type=\""
+                + packageType + "\" repositoryPath=\""
+                + getRepositoryPath( module ) + "\">\n" );
+
+            writeTexts( out, module );
+
+            out.write( "  </package>\n" );
+
+            if( 
+                !new File( PATH_BASE + getRepositoryPath( module ) ).exists(  ) )
+            {
+                System.err.println( 
+                    "package '" + getRepositoryPath( module ) + "' not exists" );
+            }
         }
+    }
+
+    protected static String getRepositoryPath( IModule module )
+    {
+
+        return "package-" + module.getID(  ) + "-"
+        + module.getVersion(  ).getDotFormat(  ) + ".zip";
+    }
+
+    protected static void writeTexts( 
+        final BufferedWriter out, final IModule mod ) throws Exception
+    {
 
         Locale[] locales = mod.getSuppotedLocales(  );
 
@@ -190,18 +193,6 @@ public class PatchRepository
                 + StringHelper.toXML( mod.getDescription(  ) )
                 + "</description>\n" );
         }
-    }
-
-    protected static void writeFile( 
-        final BufferedWriter out, final PluginPackage.PackageFile file )
-        throws IOException
-    {
-        out.write( 
-            "      <file localPath=\"" + file.getLocalPath(  )
-            + "\" repositoryPath=\"" + file.getRepositoryPath(  )
-            + "\" size=\"" + file.getSize(  ) + "\" md5sum=\""
-            + file.getMd5sum(  ) + "\"/>\n" );
-        allFiles.add( file.getLocalPath(  ) );
     }
 
     protected static void writeHeader( final BufferedWriter out )

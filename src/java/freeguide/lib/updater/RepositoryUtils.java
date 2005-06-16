@@ -2,20 +2,26 @@ package freeguide.lib.updater;
 
 import freeguide.FreeGuide;
 
+import freeguide.lib.fgspecific.Application;
+
 import freeguide.lib.grabber.HttpBrowser;
 
-import freeguide.lib.updater.data.PluginPackage;
 import freeguide.lib.updater.data.PluginsRepository;
 
 import org.xml.sax.InputSource;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
-import java.util.List;
+import java.util.Enumeration;
 import java.util.zip.GZIPInputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -29,8 +35,18 @@ public class RepositoryUtils
 {
 
     /** Repository URL. */
-    public static final String REPOSITORY_URL =
-        "file:////E:/Workspace/freeguide-tv/src/repositoryInfo.xml";
+    public static String REPOSITORY_URL =
+        "http://freeguide-tv.sourceforge.net/repositoryInfo.xml";
+
+    static
+    {
+
+        // for debugging
+        if( System.getProperty( "repositoryUrl" ) != null )
+        {
+            REPOSITORY_URL = System.getProperty( "repositoryUrl" );
+        }
+    }
 
     /**
      * Download repository description.
@@ -48,6 +64,8 @@ public class RepositoryUtils
 
         try
         {
+            Application.getInstance(  ).getLogger(  ).fine( 
+                "Loading repository info from " + REPOSITORY_URL + ".gz" );
             browser.loadURL( REPOSITORY_URL + ".gz" );
             src = new InputSource( 
                     new GZIPInputStream( 
@@ -55,6 +73,8 @@ public class RepositoryUtils
         }
         catch( IOException ex )
         {
+            Application.getInstance(  ).getLogger(  ).fine( 
+                "Loading repository info from " + REPOSITORY_URL );
             browser.loadURL( REPOSITORY_URL );
             src = new InputSource( 
                     new ByteArrayInputStream( browser.getBinaryData(  ) ) );
@@ -73,26 +93,27 @@ public class RepositoryUtils
      * @throws IOException
      */
     public static void downloadFiles( 
-        final String baseUrl, final List files, final File toDirectory )
+        final String baseUrl, final String[] files, final File toDirectory )
         throws IOException
     {
 
         HttpBrowser browser = new HttpBrowser(  );
 
-        for( int i = 0; i < files.size(  ); i++ )
+        for( int i = 0; i < files.length; i++ )
         {
+            browser.loadURL( baseUrl + files[i] );
 
-            PluginPackage.PackageFile file =
-                (PluginPackage.PackageFile)files.get( i );
-            browser.loadURL( baseUrl + file.getRepositoryPath(  ) );
-
-            File dstFile = new File( toDirectory, file.getLocalPath(  ) );
+            File dstFile = new File( toDirectory, files[i] );
             dstFile.getParentFile(  ).mkdirs(  );
 
             FileOutputStream fout = new FileOutputStream( dstFile );
             fout.write( browser.getBinaryData(  ) );
             fout.flush(  );
             fout.close(  );
+
+            Application.getInstance(  ).getLogger(  ).fine( 
+                "Load package '" + files[i] + "' to "
+                + toDirectory.getPath(  ) );
         }
     }
 
@@ -119,5 +140,73 @@ public class RepositoryUtils
         saxParser.parse( input, handler );
 
         return handler.repository;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param fromDirectory DOCUMENT_ME!
+     * @param baseDirectory DOCUMENT_ME!
+     *
+     * @throws IOException DOCUMENT_ME!
+     */
+    public static void unzipPackages( 
+        final File fromDirectory, final File baseDirectory )
+        throws IOException
+    {
+
+        File[] files =
+            fromDirectory.listFiles( 
+                new FileFilter(  )
+                {
+                    public boolean accept( File pathname )
+                    {
+
+                        return !pathname.isDirectory(  )
+                        && pathname.getName(  ).toLowerCase(  ).endsWith( 
+                            ".zip" );
+                    }
+                } );
+
+        if( files != null )
+        {
+
+            for( int i = 0; i < files.length; i++ )
+            {
+
+                ZipFile zip = new ZipFile( files[i] );
+                Enumeration zipEntries = zip.entries(  );
+
+                while( zipEntries.hasMoreElements(  ) )
+                {
+
+                    ZipEntry entry = (ZipEntry)zipEntries.nextElement(  );
+                    File outFile =
+                        new File( baseDirectory, entry.getName(  ) );
+                    unzipFile( zip.getInputStream( entry ), outFile );
+                }
+
+                files[i].delete(  );
+            }
+        }
+    }
+
+    protected static void unzipFile( final InputStream from, final File to )
+        throws IOException
+    {
+
+        byte[] buffer = new byte[65536];
+        int len;
+        BufferedOutputStream out =
+            new BufferedOutputStream( new FileOutputStream( to ) );
+
+        while( ( len = from.read( buffer ) ) > 0 )
+        {
+            out.write( buffer, 0, len );
+        }
+
+        from.close(  );
+        out.flush(  );
+        out.close(  );
     }
 }

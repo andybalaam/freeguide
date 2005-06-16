@@ -3,6 +3,8 @@ package freeguide.plugins.grabber.cosmostv;
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVData;
 
+import freeguide.lib.general.Version;
+
 import freeguide.lib.grabber.HttpBrowser;
 import freeguide.lib.grabber.ListTVParser;
 
@@ -26,6 +28,9 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
     public static final String ID = "grabber-cosmostv";
     protected static final TimeZone TIMEZONE =
         TimeZone.getTimeZone( "Europe/Minsk" );
+
+    /** Module version. */
+    public static final Version VERSION = new Version( 0, 1 );
     boolean isStopped;
 
     /**
@@ -38,6 +43,17 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
 
         return ID;
 
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Version getVersion(  )
+    {
+
+        return VERSION;
     }
 
     /**

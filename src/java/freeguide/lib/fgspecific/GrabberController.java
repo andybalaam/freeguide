@@ -81,7 +81,8 @@ public class GrabberController
                 {
 
                     IModuleGrabber grabber =
-                        PluginsManager.getGrabberByID( grabberID );
+                        (IModuleGrabber)PluginsManager.getModuleByID( 
+                            grabberID );
 
                     if( grabber == null )
                     {

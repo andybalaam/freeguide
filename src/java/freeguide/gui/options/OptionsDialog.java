@@ -176,7 +176,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
         trunk.add( generalLeaf );
 
-        IModule hv = PluginsManager.getViewerByID( FreeGuide.VIEWER_ID );
+        IModule hv = PluginsManager.getModuleByID( FreeGuide.VIEWER_ID );
         ui = hv.getConfigurationUI( this );
 
         DefaultMutableTreeNode horzViewer =
@@ -222,21 +222,22 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         panel.construct(  );
         optionsPane.add( panel, panel.toString(  ) );
 
-        TreePath pathGrabbers =
-            addBranchWithModules( 
-                advancedBranch, panel, PluginsManager.getGrabbers(  ) );
+        addBranchWithModules( 
+            advancedBranch, panel, PluginsManager.getGrabbers(  ) );
 
-        TreePath pathExporters =
-            addBranchWithModules( 
-                advancedBranch,
-                FreeGuide.msg.getString( "OptionsDialog.Tree.Exporters" ),
-                PluginsManager.getExporters(  ) );
+        addBranchWithModules( 
+            advancedBranch,
+            FreeGuide.msg.getString( "OptionsDialog.Tree.Importers" ),
+            PluginsManager.getImporters(  ) );
+        addBranchWithModules( 
+            advancedBranch,
+            FreeGuide.msg.getString( "OptionsDialog.Tree.Exporters" ),
+            PluginsManager.getExporters(  ) );
 
-        TreePath pathReminders =
-            addBranchWithModules( 
-                advancedBranch,
-                FreeGuide.msg.getString( "OptionsDialog.Tree.Reminders" ),
-                PluginsManager.getReminders(  ) );
+        addBranchWithModules( 
+            advancedBranch,
+            FreeGuide.msg.getString( "OptionsDialog.Tree.Reminders" ),
+            PluginsManager.getReminders(  ) );
 
         menuTree = new JTree( trunk );
 

@@ -8,6 +8,8 @@ import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
+import freeguide.lib.general.Version;
+
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleStorage;
 
@@ -42,6 +44,9 @@ public class StorageSerFiles extends BaseModule implements IModuleStorage
     protected static Pattern DIR_MASK =
         Pattern.compile( "day-\\d{4}-\\d{2}-\\d{2}" );
     protected static long MSEC_PER_DAY = 24L * 60L * 60L * 1000L;
+
+    /** Module version. */
+    public static final Version VERSION = new Version( 0, 1 );
     protected SimpleDateFormat dateFormat;
     protected Info cachedInfo;
 
@@ -63,6 +68,17 @@ public class StorageSerFiles extends BaseModule implements IModuleStorage
     {
 
         return ID;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Version getVersion(  )
+    {
+
+        return VERSION;
     }
 
     /**

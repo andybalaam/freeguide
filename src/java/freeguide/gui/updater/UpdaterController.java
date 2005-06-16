@@ -17,6 +17,8 @@ import java.awt.event.MouseListener;
 import java.io.File;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  * Update UI controller.
@@ -71,6 +73,26 @@ public class UpdaterController
                             RepositoryUtils.downloadRepositoryInfo(  );
                         ui.getTablePackages(  ).setModel( 
                             new TablePluginsModel( repository ) );
+
+                        ModifiedDefaultTableCellRenderer rend =
+                            new ModifiedDefaultTableCellRenderer(  );
+
+                        //                        rend.setHorizontalAlignment(JLabel.CENTER);
+                        ui.getTablePackages(  ).getColumnModel(  ).getColumn( 
+                            0 ).setMaxWidth( 
+                            ui.getTablePackages(  ).getRowHeight(  ) + 10 );
+                        ui.getTablePackages(  ).getColumnModel(  ).getColumn( 
+                            0 ).setWidth( 
+                            ui.getTablePackages(  ).getRowHeight(  ) );
+                        ui.getTablePackages(  ).getColumnModel(  ).getColumn( 
+                            1 ).setCellRenderer( rend );
+                        ui.getTablePackages(  ).getColumnModel(  ).getColumn( 
+                            2 ).setCellRenderer( rend );
+                        ui.getTablePackages(  ).getColumnModel(  ).getColumn( 
+                            3 ).setCellRenderer( rend );
+                        ui.getTablePackages(  ).getColumnModel(  ).getColumn( 
+                            4 ).setCellRenderer( rend );
+                        ui.getTablePackages(  ).doLayout(  );
                         setGoButtonState(  );
                     }
                     catch( Exception ex )
@@ -114,8 +136,11 @@ public class UpdaterController
                 }
             } );
         setGoButtonState(  );
+        ui.getTablePackages(  ).setDefaultRenderer( 
+            Boolean.class, new ModifiedBooleanRenderer(  ) );
 
         ui.getTablePackages(  ).setModel( new TablePluginsModel(  ) );
+
         ui.getTablePackages(  ).setRowSelectionAllowed( false );
 
         ui.getTablePackages(  ).addMouseListener( 
@@ -133,7 +158,7 @@ public class UpdaterController
                     int colIndex =
                         ui.getTablePackages(  ).columnAtPoint( e.getPoint(  ) );
 
-                    if( rowObj instanceof PluginPackage && ( colIndex == 1 ) )
+                    if( rowObj instanceof PluginPackage && ( colIndex == 0 ) )
                     {
 
                         PluginPackage pkg = (PluginPackage)rowObj;

@@ -1,7 +1,5 @@
 package freeguide.gui.updater;
 
-import freeguide.FreeGuide;
-
 import freeguide.lib.updater.data.PluginPackage;
 import freeguide.lib.updater.data.PluginsRepository;
 
@@ -20,6 +18,8 @@ import javax.swing.table.DefaultTableModel;
 public class TablePluginsModel extends DefaultTableModel
 {
 
+    protected static final String[] COLUMNS =
+        new String[] { " ", "Name", "Category", "Version", "Status" };
     final protected List rows = new ArrayList(  );
 
     /**
@@ -27,9 +27,6 @@ public class TablePluginsModel extends DefaultTableModel
      */
     public TablePluginsModel(  )
     {
-        rows.add( "Program" );
-        rows.add( "Grabbers" );
-        rows.add( "Exporters" );
     }
 
     /**
@@ -40,7 +37,7 @@ public class TablePluginsModel extends DefaultTableModel
     public TablePluginsModel( final PluginsRepository repository )
     {
         addSubList( 
-            "Program:", PluginsRepository.PACKAGE_TYPE_PROGRAM, repository );
+            "Program:", PluginsRepository.PACKAGE_TYPE_APPLICATION, repository );
         addSubList( "UI:", PluginsRepository.PACKAGE_TYPE_UI, repository );
         addSubList( 
             "Grabbers:", PluginsRepository.PACKAGE_TYPE_GRABBER, repository );
@@ -58,7 +55,7 @@ public class TablePluginsModel extends DefaultTableModel
         final String title, final String type,
         final PluginsRepository repository )
     {
-        rows.add( title );
+        rows.add( new SubListTitle( title ) );
 
         final List subList = repository.getPackagesByType( type );
 
@@ -107,7 +104,7 @@ public class TablePluginsModel extends DefaultTableModel
     public int getColumnCount(  )
     {
 
-        return 2;
+        return COLUMNS.length;
     }
 
     /**
@@ -137,17 +134,29 @@ public class TablePluginsModel extends DefaultTableModel
     public String getColumnName( int column )
     {
 
-        switch( column )
+        return COLUMNS[column];
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param columnIndex DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Class getColumnClass( int columnIndex )
+    {
+
+        if( columnIndex == 0 )
         {
 
-        case 0:
-            return "Module";
-
-        case 1:
-            return "State";
+            return Boolean.class;
         }
+        else
+        {
 
-        return null;
+            return super.getColumnClass( columnIndex );
+        }
     }
 
     /**
@@ -182,65 +191,104 @@ public class TablePluginsModel extends DefaultTableModel
         {
             pkg = (PluginPackage)rowObject;
         }
+        else
+        {
+
+            if( column == 1 )
+            {
+
+                return rowObject;
+            }
+            else
+            {
+
+                return null;
+            }
+        }
 
         switch( column )
         {
 
         case 0:
-            return ( pkg != null ) ? ( "    " + pkg.getName( "en" ) ) : rowObject;
 
-        case 1:
-
-            if( pkg != null )
+            if( pkg.isInstalled(  ) )
             {
 
-                if( pkg.isInstalled(  ) )
+                return Boolean.valueOf( !pkg.isMarkedForRemove(  ) );
+            }
+            else
+            {
+
+                return Boolean.valueOf( pkg.isMarkedForInstall(  ) );
+            }
+
+        case 1:
+            return "    " + getName( pkg );
+
+        case 2:
+            return getCategory( pkg );
+
+        case 3:
+            return getVersion( pkg );
+
+        case 4:
+            return getStatus( pkg );
+        }
+
+        return null;
+    }
+
+    protected String getName( final PluginPackage pkg )
+    {
+
+        return pkg.getName( "en" );
+    }
+
+    protected String getCategory( final PluginPackage pkg )
+    {
+
+        return pkg.getType(  );
+    }
+
+    protected String getVersion( final PluginPackage pkg )
+    {
+
+        return pkg.getVersion(  ).getDotFormat(  );
+    }
+
+    protected String getStatus( final PluginPackage pkg )
+    {
+
+        if( pkg.isInstalled(  ) )
+        {
+
+            if( pkg.isMarkedForRemove(  ) )
+            {
+
+                return "Will be removed";
+            }
+            else
+            {
+
+                if( pkg.needToUpdate(  ) )
                 {
 
-                    if( pkg.isMarkedForRemove(  ) )
-                    {
-
-                        return "Will be removed";
-                    }
-                    else
-                    {
-
-                        try
-                        {
-
-                            if( pkg.needToUpdate(  ) )
-                            {
-
-                                return "Installed, need to upgrade";
-                            }
-                            else
-                            {
-
-                                return "Installed";
-                            }
-                        }
-                        catch( Exception ex )
-                        {
-                            FreeGuide.log.warning( 
-                                "Error check package for update : "
-                                + pkg.getID(  ) );
-                        }
-                    }
+                    return "Installed, need to upgrade";
                 }
                 else
                 {
 
-                    if( pkg.isMarkedForInstall(  ) )
-                    {
-
-                        return "Will be installed";
-                    }
-                    else
-                    {
-
-                        return "";
-                    }
+                    return "Installed";
                 }
+            }
+        }
+        else
+        {
+
+            if( pkg.isMarkedForInstall(  ) )
+            {
+
+                return "Will be installed";
             }
             else
             {
@@ -248,7 +296,38 @@ public class TablePluginsModel extends DefaultTableModel
                 return "";
             }
         }
+    }
 
-        return null;
+    /**
+     * DOCUMENT ME!
+     *
+     * @author $author$
+     * @version $Revision$
+     */
+    public static class SubListTitle
+    {
+
+        protected final String title;
+
+        /**
+         * Creates a new SubListTitle object.
+         *
+         * @param title DOCUMENT ME!
+         */
+        public SubListTitle( final String title )
+        {
+            this.title = title;
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @return DOCUMENT_ME!
+         */
+        public String toString(  )
+        {
+
+            return title;
+        }
     }
 }

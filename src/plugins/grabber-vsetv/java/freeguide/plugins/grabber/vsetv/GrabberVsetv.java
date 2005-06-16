@@ -8,6 +8,7 @@ import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.lib.general.LanguageHelper;
+import freeguide.lib.general.Version;
 
 import freeguide.lib.grabber.HttpBrowser;
 
@@ -41,6 +42,9 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
     /** DOCUMENT ME! */
     public static final String ID = "grabber-vsetv";
+
+    /** Module version. */
+    public static final Version VERSION = new Version( 0, 1 );
     protected VsetvConfig config = new VsetvConfig(  );
     protected Properties TIMEZONES;
 
@@ -54,6 +58,17 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
         return ID;
 
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Version getVersion(  )
+    {
+
+        return VERSION;
     }
 
     /**

@@ -5,6 +5,8 @@ import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.data.TVData;
 
+import freeguide.lib.general.Version;
+
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleConfigurationUI;
 import freeguide.plugins.IModuleStorage;
@@ -70,6 +72,9 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     /** How to format dates that go in filenames */
     public final static SimpleDateFormat fileDateFormat =
         new SimpleDateFormat( "yyyyMMdd" );
+
+    /** Module version. */
+    public static final Version VERSION = new Version( 0, 1 );
 
     /** Date formatter */
     public SimpleDateFormat comboBoxDateFormat =
@@ -187,6 +192,17 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     /**
      * DOCUMENT_ME!
      *
+     * @return DOCUMENT_ME!
+     */
+    public Version getVersion(  )
+    {
+
+        return VERSION;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
      * @param locale DOCUMENT_ME!
      *
      * @throws Exception DOCUMENT_ME!
@@ -236,11 +252,11 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         // Check the FreeGuide version
         /*if( !"no".equals( FreeGuide.config.privacyInfo ) )
         {
-        
+
         // Run the check in a separate thread to avoid blocking.
         new VersionCheckerThread(
         Application.getInstance(  ).getApplicationFrame(  ) ).start(  );
-        
+
         }*/
         // Ask the user to download more data if it is missing
         checkForNoData(  );
@@ -310,51 +326,51 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
      */
 
     /*private void findInitialDate(  )
-    
-    
+
+
     {
-    
-    
-    
-    
+
+
+
+
     // Set the date to today
-    
-    
+
+
     theDate = System.currentTimeMillis(  );
-    
-    
+
+
     theDate = ( theDate / MILLISECONDS_PER_DAY ) * MILLISECONDS_PER_DAY;
-    
-    
-    
-    
+
+
+
+
     Time nowTime = new Time( new Date( theDate ) );
-    
-    
-    
-    
+
+
+
+
     //TODO Time day_start_time = FreeGuide.prefs.misc.getTime( "day_start_time", new Time( 0, 0 ) );
-    
-    
+
+
     Time day_start_time = new Time( 0, 0 );
-    
-    
-    
-    
+
+
+
+
     if( nowTime.before( day_start_time, new Time( 0, 0 ) ) )
-    
-    
+
+
     {
-    
-    
+
+
     theDate -= MILLISECONDS_PER_DAY; //.add( Calendar.DAY_OF_YEAR, -1 );
-    
-    
-    
-    
+
+
+
+
     }
-    
-    
+
+
     }*/
 
     /**
@@ -579,8 +595,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
                 if( 
                     ( iconURLstr != null ) /*TODO  || ( FreeGuide.prefs.screen.get(
-                    
-                    
+
+
                     "customIcon." + ctxt.getChannel(  ).getID(  ) ) != null ) */ )
                 {
 
@@ -595,35 +611,35 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                         ImageIcon tmpImg;
 
                         /*TODO   if(
-                        
-                        
+
+
                         FreeGuide.prefs.screen.get(
-                        
-                        
+
+
                         "customIcon." + ctxt.getChannel(  ).getID(  ) ) != null )
-                        
-                        
+
+
                         {
-                        
-                        
+
+
                         iconFile =
-                        
-                        
+
+
                         new File(
-                        
-                        
+
+
                         FreeGuide.prefs.screen.get(
-                        
-                        
+
+
                         "customIcon."
-                        
-                        
+
+
                         + ctxt.getChannel(  ).getID(  ) ) );
-                        
-                        
+
+
                         }
-                        
-                        
+
+
                         else*/
                         {
 
@@ -694,14 +710,14 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                 // TODO Give it a default icon if one is not available
 
                 /*if( ctxt.getIcon() == null ) {
-                
-                
+
+
                 ctxt.setIcon( FreeGuide.prefs.performSubstitutions(
-                
-                
+
+
                 FreeGuide.prefs.misc.get( "channel_icon_default" ) ) );
-                
-                
+
+
                 }*/
                 int myChanWidth = ctxt.getRequiredWidth(  );
 

@@ -49,7 +49,8 @@ public class GrabForWeb
 
             final String siteName = args[i];
 
-            IModuleGrabber grabber = PluginsManager.getGrabberByID( siteName );
+            IModuleGrabber grabber =
+                (IModuleGrabber)PluginsManager.getModuleByID( siteName );
 
             if( grabber == null )
             {

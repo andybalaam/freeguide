@@ -5,6 +5,7 @@ import freeguide.FreeGuide;
 import freeguide.gui.dialogs.ChannelSetListDialog;
 import freeguide.gui.dialogs.FGDialog;
 
+import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.GrabberController;
 import freeguide.lib.fgspecific.PluginsManager;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
@@ -99,7 +100,8 @@ public class MainController implements IApplication
 
         mainFrame = new MainFrame( FreeGuide.msg );
 
-        mainFrame.setTitle( "FreeGuide " + FreeGuide.VERSION.getDotFormat(  ) );
+        mainFrame.setTitle( 
+            "FreeGuide " + Application.VERSION.getDotFormat(  ) );
 
         new MenuHandler( this );
 

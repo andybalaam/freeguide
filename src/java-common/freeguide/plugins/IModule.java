@@ -1,5 +1,7 @@
 package freeguide.plugins;
 
+import freeguide.lib.general.Version;
+
 import java.util.Locale;
 import java.util.prefs.Preferences;
 
@@ -22,6 +24,13 @@ public interface IModule
      * @return module ID
      */
     String getID(  );
+
+    /**
+     * Get module version.
+     *
+     * @return version
+     */
+    Version getVersion(  );
 
     /**
      * Get supported locales list. This method called BEFORE setLocale. Each

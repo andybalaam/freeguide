@@ -20,9 +20,12 @@ import java.net.URL;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.prefs.Preferences;
 
@@ -34,86 +37,53 @@ import java.util.prefs.Preferences;
 public class PluginsManager
 {
 
-    protected static List plugins = new ArrayList(  );
-
-    /*    static
-    {
-        modules = new ArrayList(  );
-
-        // This hack should be changed for call loadModules() in future.
-        modules.add( new HorizontalViewer(  ) );
-        modules.add( new GrabberXMLTV(  ) );
-
-        modules.add( new GrabberVsetv(  ) );
-        modules.add( new GrabberNtvplus(  ) );
-        modules.add( new GrabberCosmostv(  ) );
-        modules.add( new GrabberNewsvm(  ) );
-        modules.add( new GrabberKulichki(  ) );
-
-        modules.add( new ExportPalmAtv(  ) );
-        modules.add( new ImpExpXmltv(  ) );
-        modules.add( new JTV(  ) );
-
-        modules.add( new AlarmReminder(  ) );
-
-        for( int i = 0; i < modules.size(  ); i++ )
-        {
-
-            IModule module = (IModule)modules.get( i );
-            String nodeName = null;
-
-            if( module instanceof IModuleGrabber )
-            {
-                nodeName =
-                    "/org/freeguide-tv/modules/grabber/" + module.getID(  );
-            }
-            else if( module instanceof IModuleViewer )
-            {
-                nodeName =
-                    "/org/freeguide-tv/modules/viewer/" + module.getID(  );
-            }
-            else if(
-                module instanceof IModuleImport
-                    || module instanceof IModuleExport )
-            {
-                nodeName =
-                    "/org/freeguide-tv/modules/importexport/"
-                    + module.getID(  );
-            }
-            else if(
-                module instanceof IModuleReminder
-                    || module instanceof IModuleReminder )
-            {
-                nodeName =
-                    "/org/freeguide-tv/modules/reminder/" + module.getID(  );
-            }
-            else
-            {
-                System.err.println(
-                    "PluginsManager: Unknown module type '"
-                    + module.getClass(  ).getName(  ) + "'" );
-            }
-
-            module.setConfigStorage(
-                Preferences.userRoot(  ).node( nodeName ) );
-        }
-    }*/
+    // protected static List allPlugins = new ArrayList(  );
+    protected static Map pluginsByID = new TreeMap(  );
+    protected static IModuleGrabber[] grabbers;
+    protected static IModuleStorage[] storages;
+    protected static IModuleViewer[] viewers;
+    protected static IModuleReminder[] reminders;
+    protected static IModule[] impexps;
+    protected static IModuleImport[] importers;
+    protected static IModuleExport[] exporters;
+    protected static List grabbersList;
+    protected static List storagesList;
+    protected static List viewersList;
+    protected static List remindersList;
+    protected static List impexpsList;
+    protected static List importersList;
+    protected static List exportersList;
 
     /**
-     * DOCUMENT_ME!
+     * Load all modules.
      *
      * @throws IOException DOCUMENT_ME!
      */
     public static void loadModules(  ) throws IOException
     {
+        grabbersList = new ArrayList(  );
+        storagesList = new ArrayList(  );
+        viewersList = new ArrayList(  );
+        remindersList = new ArrayList(  );
+        impexpsList = new ArrayList(  );
+        importersList = new ArrayList(  );
+        exportersList = new ArrayList(  );
 
-        String[] classNamesList = null;
+        pluginsByID.put( 
+            Application.getApplicationModule(  ).getID(  ),
+            Application.getApplicationModule(  ) );
 
         try
         {
-            classNamesList =
+
+            final String[] classNamesList =
                 LanguageHelper.loadStrings( 
                     new FileInputStream( "plugins.classes" ) );
+
+            for( int i = 0; i < classNamesList.length; i++ )
+            {
+                loadClass( classNamesList[i] );
+            }
         }
         catch( IOException ex )
         {
@@ -144,14 +114,33 @@ public class PluginsManager
             }
         }
 
-        if( classNamesList != null )
-        {
-
-            for( int i = 0; i < classNamesList.length; i++ )
-            {
-                loadClass( classNamesList[i] );
-            }
-        }
+        grabbers =
+            (IModuleGrabber[])grabbersList.toArray( 
+                new IModuleGrabber[grabbersList.size(  )] );
+        grabbersList = null;
+        storages =
+            (IModuleStorage[])storagesList.toArray( 
+                new IModuleStorage[storagesList.size(  )] );
+        storagesList = null;
+        viewers =
+            (IModuleViewer[])viewersList.toArray( 
+                new IModuleViewer[viewersList.size(  )] );
+        viewersList = null;
+        reminders =
+            (IModuleReminder[])remindersList.toArray( 
+                new IModuleReminder[remindersList.size(  )] );
+        remindersList = null;
+        impexps =
+            (IModule[])impexpsList.toArray( new IModule[impexpsList.size(  )] );
+        impexpsList = null;
+        importers =
+            (IModuleImport[])importersList.toArray( 
+                new IModuleImport[importersList.size(  )] );
+        importersList = null;
+        exporters =
+            (IModuleExport[])exportersList.toArray( 
+                new IModuleExport[exportersList.size(  )] );
+        exportersList = null;
     }
 
     protected static void loadClass( final String className )
@@ -170,8 +159,40 @@ public class PluginsManager
 
                 IModule module = (IModule)moduleClass.newInstance(  );
                 setConfig( module );
-                plugins.add( module );
+                pluginsByID.put( module.getID(  ), module );
 
+                if( module instanceof IModuleGrabber )
+                {
+                    grabbersList.add( module );
+                }
+                else if( module instanceof IModuleStorage )
+                {
+                    storagesList.add( module );
+                }
+                else if( module instanceof IModuleViewer )
+                {
+                    viewersList.add( module );
+                }
+                else if( module instanceof IModuleReminder )
+                {
+                    remindersList.add( module );
+                }
+                else if( 
+                    module instanceof IModuleImport
+                        || module instanceof IModuleExport )
+                {
+                    impexpsList.add( module );
+
+                    if( module instanceof IModuleImport )
+                    {
+                        importersList.add( module );
+                    }
+
+                    if( module instanceof IModuleExport )
+                    {
+                        exportersList.add( module );
+                    }
+                }
             }
         }
         catch( Exception ex )
@@ -189,31 +210,6 @@ public class PluginsManager
     }
 
     /**
-     * Get supported IModuleGrabber.
-     *
-     * @return
-     */
-    public static IModuleGrabber[] getGrabbers(  )
-    {
-
-        final List result = new ArrayList(  );
-
-        for( int i = 0; i < plugins.size(  ); i++ )
-        {
-
-            IModule module = (IModule)plugins.get( i );
-
-            if( module instanceof IModuleGrabber )
-            {
-                result.add( module );
-            }
-        }
-
-        return (IModuleGrabber[])result.toArray( 
-            new IModuleGrabber[result.size(  )] );
-    }
-
-    /**
      * Get module by ID.
      *
      * @param id DOCUMENT ME!
@@ -223,224 +219,7 @@ public class PluginsManager
     public static IModule getModuleByID( final String id )
     {
 
-        for( int i = 0; i < plugins.size(  ); i++ )
-        {
-
-            IModule module = (IModule)plugins.get( i );
-
-            if( id.equals( module.getID(  ) ) )
-            {
-
-                return module;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public static IModuleViewer[] getViewers(  )
-    {
-
-        final List result = new ArrayList(  );
-
-        for( int i = 0; i < plugins.size(  ); i++ )
-        {
-
-            IModule module = (IModule)plugins.get( i );
-
-            if( module instanceof IModuleViewer )
-            {
-                result.add( module );
-            }
-        }
-
-        return (IModuleViewer[])result.toArray( 
-            new IModuleViewer[result.size(  )] );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public static IModuleStorage[] getStorages(  )
-    {
-
-        final List result = new ArrayList(  );
-
-        for( int i = 0; i < plugins.size(  ); i++ )
-        {
-
-            IModule module = (IModule)plugins.get( i );
-
-            if( module instanceof IModuleStorage )
-            {
-                result.add( module );
-            }
-        }
-
-        return (IModuleStorage[])result.toArray( 
-            new IModuleStorage[result.size(  )] );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param id DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public static IModuleGrabber getGrabberByID( final String id )
-    {
-
-        IModuleGrabber[] grabbers = getGrabbers(  );
-
-        for( int i = 0; i < grabbers.length; i++ )
-        {
-
-            if( id.equals( grabbers[i].getID(  ) ) )
-            {
-
-                return grabbers[i];
-
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param id DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public static IModuleStorage getStorageByID( final String id )
-    {
-
-        IModuleStorage[] storages = getStorages(  );
-
-        for( int i = 0; i < storages.length; i++ )
-        {
-
-            if( id.equals( storages[i].getID(  ) ) )
-            {
-
-                return storages[i];
-
-            }
-        }
-
-        return null;
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param id DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public static IModuleViewer getViewerByID( final String id )
-    {
-
-        IModuleViewer[] viewers = getViewers(  );
-
-        for( int i = 0; i < viewers.length; i++ )
-        {
-
-            if( id.equals( viewers[i].getID(  ) ) )
-            {
-
-                return viewers[i];
-
-            }
-        }
-
-        return null;
-
-    }
-
-    /**
-     * Get supported IModuleExport.
-     *
-     * @return
-     */
-    public static IModuleExport[] getExporters(  )
-    {
-
-        final List result = new ArrayList(  );
-
-        for( int i = 0; i < plugins.size(  ); i++ )
-        {
-
-            IModule module = (IModule)plugins.get( i );
-
-            if( module instanceof IModuleExport )
-            {
-                result.add( module );
-            }
-        }
-
-        return (IModuleExport[])result.toArray( 
-            new IModuleExport[result.size(  )] );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public static IModuleImport[] getImporters(  )
-    {
-
-        final List result = new ArrayList(  );
-
-        for( int i = 0; i < plugins.size(  ); i++ )
-        {
-
-            IModule module = (IModule)plugins.get( i );
-
-            if( module instanceof IModuleImport )
-            {
-                result.add( module );
-            }
-        }
-
-        return (IModuleImport[])result.toArray( 
-            new IModuleImport[result.size(  )] );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public static IModuleReminder[] getReminders(  )
-    {
-
-        final List result = new ArrayList(  );
-
-        for( int i = 0; i < plugins.size(  ); i++ )
-        {
-
-            IModule module = (IModule)plugins.get( i );
-
-            if( module instanceof IModuleReminder )
-            {
-                result.add( module );
-            }
-        }
-
-        return (IModuleReminder[])result.toArray( 
-            new IModuleReminder[result.size(  )] );
+        return (IModule)pluginsByID.get( id );
     }
 
     /**
@@ -451,10 +230,12 @@ public class PluginsManager
     public static void setLocale( Locale[] locales )
     {
 
-        for( int i = 0; i < plugins.size(  ); i++ )
+        Iterator it = pluginsByID.values(  ).iterator(  );
+
+        while( it.hasNext(  ) )
         {
 
-            IModule module = (IModule)plugins.get( i );
+            IModule module = (IModule)it.next(  );
             Locale locale = null;
 
             try
@@ -476,26 +257,78 @@ public class PluginsManager
     /**
      * DOCUMENT_ME!
      *
-     * @param id DOCUMENT_ME!
+     * @return DOCUMENT_ME!
+     */
+    public static IModuleGrabber[] getGrabbers(  )
+    {
+
+        return grabbers;
+    }
+
+    /**
+     * DOCUMENT_ME!
      *
      * @return DOCUMENT_ME!
      */
-    public static boolean isInstalled( final String id )
+    public static IModule[] getImportersAndExporters(  )
     {
 
-        for( int i = 0; i < plugins.size(  ); i++ )
-        {
+        return impexps;
+    }
 
-            IModule module = (IModule)plugins.get( i );
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static IModuleReminder[] getReminders(  )
+    {
 
-            if( id.equals( module.getID(  ) ) )
-            {
+        return reminders;
+    }
 
-                return true;
-            }
-        }
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static IModuleStorage[] getStorages(  )
+    {
 
-        return false;
+        return storages;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static IModuleViewer[] getViewers(  )
+    {
+
+        return viewers;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static IModuleImport[] getImporters(  )
+    {
+
+        return importers;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static IModuleExport[] getExporters(  )
+    {
+
+        return exporters;
     }
 
     /**
@@ -504,22 +337,10 @@ public class PluginsManager
      * @param id DOCUMENT_ME!
      *
      * @return DOCUMENT_ME!
-     *
-     * @throws InstantiationException DOCUMENT_ME!
-     * @throws IllegalAccessException DOCUMENT_ME!
      */
-    public static IModule cloneModule( final String id )
-        throws InstantiationException, IllegalAccessException
+    public static boolean isInstalled( final String id )
     {
 
-        if( Application.ID.equals( id ) )
-        {
-
-            return Application.getApplicationModule(  );
-        }
-
-        IModule mod = getModuleByID( id );
-
-        return ( mod != null ) ? (IModule)mod.getClass(  ).newInstance(  ) : null;
+        return pluginsByID.containsKey( id );
     }
 }

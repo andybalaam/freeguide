@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<packages>
+  <mirror location="Europe - Dublin, Ireland" path="http://heanet.dl.sourceforge.net/sourceforge/freeguide-tv/"/>
+  <mirror location="North America - Minneapolis, MN" path="http://umn.dl.sourceforge.net/sourceforge/freeguide-tv/"/>
+</packages>

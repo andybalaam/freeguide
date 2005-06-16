@@ -3,6 +3,8 @@ package freeguide.plugins.grabber.ntvplus;
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVData;
 
+import freeguide.lib.general.Version;
+
 import freeguide.lib.grabber.ListTVParser;
 
 import freeguide.plugins.BaseModule;
@@ -25,6 +27,9 @@ public class GrabberNtvplus extends BaseModule implements IModuleGrabber
     public static final String ID = "grabber-ntvplus";
     protected static final TimeZone TIMEZONE =
         TimeZone.getTimeZone( "Europe/Moscow" );
+
+    /** Module version. */
+    public static final Version VERSION = new Version( 0, 1 );
     boolean isStopped;
 
     /**
@@ -37,6 +42,17 @@ public class GrabberNtvplus extends BaseModule implements IModuleGrabber
 
         return ID;
 
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Version getVersion(  )
+    {
+
+        return VERSION;
     }
 
     /**

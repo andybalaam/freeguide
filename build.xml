@@ -142,7 +142,54 @@
              manifest="${src}/startup/META-INF/startup.mf" />
     </target>
 
-    
+    <target name="repository">
+    	<mkdir dir="dist/repository"/>
+    	
+    	<zip destfile="dist/repository/package-FreeGuide-0.10.2.zip" 
+    		basedir="build/" 
+    		includes="run.cmd, startup.jar, lib/FreeGuide.jar, lib/common.jar, lib/AJavaLib.jar, lib/tagsoup-1.0.rc3"/>
+
+    	<zip destfile="dist/repository/package-grabber-cosmostv-0.1.zip" 
+    		basedir="build/" 
+    		includes="lib/grabber-cosmostv.jar"/>
+    	<zip destfile="dist/repository/package-grabber-kulichki-0.1.zip" 
+    		basedir="build/" 
+    		includes="lib/grabber-kulichki.jar"/>
+    	<zip destfile="dist/repository/package-grabber-newsvm-0.1.zip" 
+    		basedir="build/" 
+    		includes="lib/grabber-newsvm.jar"/>
+    	<zip destfile="dist/repository/package-grabber-ntvplus-0.1.zip" 
+    		basedir="build/" 
+    		includes="lib/grabber-ntvplus.jar"/>
+    	<zip destfile="dist/repository/package-grabber-vsetv-0.1.zip" 
+    		basedir="build/" 
+    		includes="lib/grabber-vsetv.jar"/>
+    	<zip destfile="dist/repository/package-grabber-xmltv-0.1.zip" 
+    		basedir="build/" 
+    		includes="lib/grabber-xmltv.jar"/>
+
+    	<zip destfile="dist/repository/package-impexp-jtv-0.1.zip" 
+    		basedir="build/" 
+    		includes="lib/impexp-jtv.jar"/>
+    	<zip destfile="dist/repository/package-impexp-palmatv-0.2.zip" 
+    		basedir="build/" 
+    		includes="lib/impexp-palmatv.jar"/>
+    	<zip destfile="dist/repository/package-impexp-xmltv-0.1.zip" 
+    		basedir="build/" 
+    		includes="lib/impexp-xmltv.jar"/>
+
+    	<zip destfile="dist/repository/package-reminder-alarm-0.1.zip" 
+    		basedir="build/" 
+    		includes="lib/reminder-alarm.jar"/>
+
+    	<zip destfile="dist/repository/package-storage-serfiles-0.1.zip" 
+    		basedir="build/" 
+    		includes="lib/storage-serfiles.jar"/>
+
+    	<zip destfile="dist/repository/package-ui-horizontal-0.1.zip" 
+    		basedir="build/" 
+    		includes="lib/ui-horizontal.jar"/>
+	</target>
     <!--
      List of files containing FreeGuide's version number:
      

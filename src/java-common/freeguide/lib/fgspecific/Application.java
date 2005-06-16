@@ -1,5 +1,7 @@
 package freeguide.lib.fgspecific;
 
+import freeguide.lib.general.Version;
+
 import freeguide.plugins.IApplication;
 import freeguide.plugins.IModule;
 import freeguide.plugins.IModuleConfigurationUI;
@@ -19,6 +21,9 @@ public class Application
 
     /** Application ID. */
     public static final String ID = "FreeGuide";
+
+    /** Application version. */
+    public static final Version VERSION = new Version( 0, 10, 2 );
     protected static IApplication instance;
 
     /**
@@ -56,6 +61,12 @@ public class Application
                 {
 
                     return ID;
+                }
+
+                public Version getVersion(  )
+                {
+
+                    return VERSION;
                 }
 
                 public String getName(  )

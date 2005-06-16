@@ -87,7 +87,8 @@ public class VersionCheckerThread implements Runnable
 
             String url =
                 "http://freeguide-tv.sourceforge.net/"
-                + "VERSION.php?version=" + FreeGuide.VERSION.getDotFormat(  );
+                + "VERSION.php?version="
+                + Application.VERSION.getDotFormat(  );
 
             String privacy = FreeGuide.config.privacyInfo;
 
@@ -148,7 +149,7 @@ public class VersionCheckerThread implements Runnable
 
         Version online_version = new Version( major, minor, revision );
 
-        int comp = online_version.compareTo( FreeGuide.VERSION );
+        int comp = online_version.compareTo( Application.VERSION );
 
         if( comp == 1 )
         {

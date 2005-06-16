@@ -25,7 +25,6 @@ import freeguide.lib.fgspecific.StartupChecker;
 import freeguide.lib.general.CmdArgs;
 import freeguide.lib.general.LanguageHelper;
 import freeguide.lib.general.PreferencesHelper;
-import freeguide.lib.general.Version;
 
 import freeguide.migration.Migrate;
 
@@ -56,9 +55,6 @@ public class FreeGuide
 
     /** Predefined storage module. */
     public static final String STORAGE_ID = "storage-serfiles";
-
-    /** The current version of the programme */
-    public final static Version VERSION = new Version( 0, 10, 2 );
 
     /** DOCUMENT ME! */
     public final static Preferences PREF_ROOT =
@@ -164,7 +160,7 @@ public class FreeGuide
         try
         {
             PreferencesHelper.load( PREF_ROOT, config );
-            config.version = VERSION.getDotFormat(  );
+            config.version = Application.VERSION.getDotFormat(  );
         }
         catch( Exception ex )
         {
@@ -241,8 +237,9 @@ public class FreeGuide
         PluginsManager.loadModules(  );
         setLocale( config.lang );
 
-        IModuleViewer viewer = PluginsManager.getViewerByID( VIEWER_ID );
-        storage = PluginsManager.getStorageByID( STORAGE_ID );
+        IModuleViewer viewer =
+            (IModuleViewer)PluginsManager.getModuleByID( VIEWER_ID );
+        storage = (IModuleStorage)PluginsManager.getModuleByID( STORAGE_ID );
 
         if( viewer == null )
         {
@@ -408,7 +405,7 @@ public class FreeGuide
     {
 
         /** Freeguide version of stored config. */
-        public String version = VERSION.getDotFormat(  );
+        public String version = Application.VERSION.getDotFormat(  );
 
         /** Browser name. */
         public String browserName;

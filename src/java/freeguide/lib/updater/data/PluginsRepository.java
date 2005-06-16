@@ -17,7 +17,7 @@ public class PluginsRepository
 {
 
     /** Program type. */
-    public static final String PACKAGE_TYPE_PROGRAM = "program";
+    public static final String PACKAGE_TYPE_APPLICATION = "application";
 
     /** Plugins grabber type. */
     public static final String PACKAGE_TYPE_GRABBER = "plugin-grabber";
@@ -157,7 +157,7 @@ public class PluginsRepository
      *
      * @return list of files (PluginPackage.PackageFile)
      */
-    public List getFilesForDownload(  )
+    public String[] getFilesForDownload(  )
     {
 
         final List result = new ArrayList(  );
@@ -167,18 +167,13 @@ public class PluginsRepository
 
             PluginPackage pkg = (PluginPackage)packages.get( i );
 
-            try
+            if( pkg.isChanged(  ) )
             {
-                pkg.listFilesForDownload( result );
-            }
-            catch( Exception ex )
-            {
-                FreeGuide.log.warning( 
-                    "Error check package for update : " + pkg.getID(  ) );
+                result.add( pkg.getRepositoryPath(  ) );
             }
         }
 
-        return result;
+        return (String[])result.toArray( new String[result.size(  )] );
     }
 
     /**
@@ -193,7 +188,7 @@ public class PluginsRepository
         throws IOException
     {
 
-        for( int i = 0; i < files.size(  ); i++ )
+        /*for( int i = 0; i < files.size(  ); i++ )
         {
 
             PluginPackage.PackageFile file =
@@ -203,7 +198,7 @@ public class PluginsRepository
 
             if( !destFile.canWrite(  ) )
             {
-                throw new IOException( 
+                throw new IOException(
                     "Error update: file " + destFile.getPath(  )
                     + " is not writable" );
             }
@@ -219,6 +214,6 @@ public class PluginsRepository
             final File destFile =
                 new File( baseDirectory, file.getLocalPath(  ) );
             srcFile.renameTo( destFile );
-        }
+        }*/
     }
 }

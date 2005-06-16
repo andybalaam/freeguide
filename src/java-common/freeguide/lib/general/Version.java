@@ -1,25 +1,14 @@
 /*
-
  *  FreeGuide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  freeguide-tv.sourceforge.net
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
 package freeguide.lib.general;
 
@@ -45,6 +34,20 @@ public class Version
 
     /** DOCUMENT ME! */
     public int revision;
+
+    /**
+     * Creates a new Version object.
+     *
+     * @param major DOCUMENT ME!
+     * @param minor DOCUMENT ME!
+     */
+    public Version( int major, int minor )
+    {
+        this.major = major;
+
+        this.minor = minor;
+
+    }
 
     /**
      * Create a Version object with the given major, minor and revision

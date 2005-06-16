@@ -4,6 +4,7 @@ import freeguide.FreeGuide;
 
 import freeguide.gui.viewer.MainController;
 
+import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.selection.Favourite;
 import freeguide.lib.fgspecific.selection.SelectionManager;
@@ -120,7 +121,7 @@ public class Migrate
             loadFrom_0_10_1(  );
         }
         else if( 
-            new Version( storedVersionName ).compareTo( FreeGuide.VERSION ) > 0 )
+            new Version( storedVersionName ).compareTo( Application.VERSION ) > 0 )
         {
             needToRunWizard = true;
         }

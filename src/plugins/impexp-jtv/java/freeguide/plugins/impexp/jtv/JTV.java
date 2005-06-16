@@ -6,6 +6,8 @@ import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
+import freeguide.lib.general.Version;
+
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleExport;
 import freeguide.plugins.IModuleImport;
@@ -44,6 +46,9 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
         new String( "JTV 3.x TV Program Data\n\n\n" ).getBytes(  );
     protected static final long DATE_DELTA = 134774;
 
+    /** Module version. */
+    public static final Version VERSION = new Version( 0, 1 );
+
     /**
      * DOCUMENT_ME!
      *
@@ -53,6 +58,17 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
     {
 
         return ID;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Version getVersion(  )
+    {
+
+        return VERSION;
     }
 
     /**

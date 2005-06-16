@@ -5,6 +5,8 @@ import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
+import freeguide.lib.general.Version;
+
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleExport;
 
@@ -41,6 +43,9 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
 
     /** DOCUMENT ME! */
     public static final String hDatabaseType = "Data";
+
+    /** Module version. */
+    public static final Version VERSION = new Version( 0, 2 );
     protected EndianInputStream rd;
     protected String charset = "Cp1251";
 
@@ -53,6 +58,17 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
     {
 
         return ID;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Version getVersion(  )
+    {
+
+        return VERSION;
     }
 
     /**

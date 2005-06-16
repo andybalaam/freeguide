@@ -14,6 +14,8 @@ package freeguide.gui.dialogs;
 
 import freeguide.*;
 
+import freeguide.lib.fgspecific.Application;
+
 import freeguide.lib.general.Utils;
 
 // To Be Added Shortly (Rob)
@@ -51,7 +53,7 @@ public class AboutFrame extends javax.swing.JDialog
             "<table width=\"100%\" height=\"100%\" border=\"0\"><tr><td height=\"100%\" align=\"center\">" );
         str.append( 
             "<h1><font face=\"arial, helvetica, helv, sans serif\" size=\"5\">FreeGuide " )
-           .append( FreeGuide.VERSION.getDotFormat(  ) ).append( 
+           .append( Application.VERSION.getDotFormat(  ) ).append( 
             "</font></h1>" );
         str.append( "<p>" );
         str.append( 

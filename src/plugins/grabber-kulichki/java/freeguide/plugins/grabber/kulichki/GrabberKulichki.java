@@ -4,6 +4,8 @@ import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.data.TVData;
 
+import freeguide.lib.general.Version;
+
 import freeguide.lib.grabber.HttpBrowser;
 
 import freeguide.plugins.BaseModule;
@@ -33,6 +35,9 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
     /** DOCUMENT ME! */
     public static final String ID = "grabber-kulichki";
+
+    /** Module version. */
+    public static final Version VERSION = new Version( 0, 1 );
     protected Properties TIME_ZONES;
     protected TimeZone TIME_ZONE_DEFAULT =
         TimeZone.getTimeZone( "Europe/Moscow" );
@@ -48,6 +53,17 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         return ID;
 
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Version getVersion(  )
+    {
+
+        return VERSION;
     }
 
     /**

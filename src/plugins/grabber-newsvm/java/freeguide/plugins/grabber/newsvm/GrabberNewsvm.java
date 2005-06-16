@@ -8,6 +8,7 @@ import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.lib.general.LanguageHelper;
+import freeguide.lib.general.Version;
 
 import freeguide.lib.grabber.HttpBrowser;
 import freeguide.lib.grabber.LineProgrammeHelper;
@@ -55,6 +56,9 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
     protected static TimeZone tz = TimeZone.getTimeZone( "Europe/Minsk" );
     protected static final String[] DAYS =
     { "mo", "tu", "we", "th", "fr", "sa", "su" };
+
+    /** Module version. */
+    public static final Version VERSION = new Version( 0, 1 );
     boolean isStopped;
 
     /**
@@ -67,6 +71,17 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
         return ID;
 
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Version getVersion(  )
+    {
+
+        return VERSION;
     }
 
     /**

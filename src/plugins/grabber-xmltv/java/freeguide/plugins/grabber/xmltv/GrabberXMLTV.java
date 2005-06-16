@@ -7,6 +7,7 @@ import freeguide.lib.fgspecific.data.TVIteratorChannels;
 
 import freeguide.lib.general.StringHelper;
 import freeguide.lib.general.Utils;
+import freeguide.lib.general.Version;
 
 import freeguide.lib.impexp.XMLTVImport;
 
@@ -60,6 +61,9 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     private final static String lb = System.getProperty( "line.separator" );
     protected static Properties cmds;
 
+    /** Module version. */
+    public static final Version VERSION = new Version( 0, 1 );
+
     /** DOCUMENT ME! */
     public XMLTVConfig config = new XMLTVConfig(  );
     boolean isStopped = true;
@@ -78,6 +82,17 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         return ID;
 
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Version getVersion(  )
+    {
+
+        return VERSION;
     }
 
     /**

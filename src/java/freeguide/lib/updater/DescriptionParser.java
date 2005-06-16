@@ -52,6 +52,8 @@ public class DescriptionParser extends DefaultHandler
                 new PluginPackage( attributes.getValue( "id" ), repository );
             currentPackage.setType( attributes.getValue( "type" ) );
             currentPackage.setVersion( attributes.getValue( "version" ) );
+            currentPackage.setRepositoryPath( 
+                attributes.getValue( "repositoryPath" ) );
         }
         else if( "mirror".equals( qName ) )
         {
@@ -91,13 +93,6 @@ public class DescriptionParser extends DefaultHandler
             {
                 lang = "en";
             }
-        }
-        else if( "file".equals( qName ) && ( currentPackage != null ) )
-        {
-            currentPackage.addFile( 
-                attributes.getValue( "localPath" ),
-                attributes.getValue( "repositoryPath" ),
-                attributes.getValue( "size" ), attributes.getValue( "md5sum" ) );
         }
     }
 
