@@ -142,7 +142,7 @@
              manifest="${src}/startup/META-INF/startup.mf" />
     </target>
 
-    <target name="repository">
+    <target name="repository" depends="buildall">
     	<mkdir dir="dist/repository"/>
     	
     	<zip destfile="dist/repository/package-FreeGuide-0.10.2.zip" 
