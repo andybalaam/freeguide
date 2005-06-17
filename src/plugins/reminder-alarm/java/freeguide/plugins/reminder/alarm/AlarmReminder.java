@@ -8,7 +8,6 @@ import freeguide.lib.fgspecific.selection.Favourite;
 import freeguide.lib.fgspecific.selection.ManualSelection;
 
 import freeguide.lib.general.Utils;
-import freeguide.lib.general.Version;
 
 import freeguide.plugins.BaseModuleReminder;
 import freeguide.plugins.IModuleConfigurationUI;
@@ -51,8 +50,6 @@ public class AlarmReminder extends BaseModuleReminder
     implements IModuleReminder
 {
 
-    /** Module ID. */
-    public static final String ID = "reminder-alarm";
     private final static Shape heartShape;
 
     static
@@ -72,35 +69,10 @@ public class AlarmReminder extends BaseModuleReminder
 
     }
 
-    /** Module version. */
-    public static final Version VERSION = new Version( 0, 1 );
-
     /** Config object. */
     final public ConfigAlarm config = new ConfigAlarm(  );
     TVProgramme scheduledProgramme;
     JDialog scheduledDialog;
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String getID(  )
-    {
-
-        return ID;
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public Version getVersion(  )
-    {
-
-        return VERSION;
-    }
 
     /**
      * DOCUMENT_ME!

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="grabber-ntvplus" 
+        version="0.1" 
+	    class="freeguide.plugins.grabber.ntvplus.GrabberNtvplus">
+
+    <name lang="be">НТВ-Плюс</name>
+    <description lang="be">Праграмма тэлебачання з http://www.ntvplus.com</description>
+    <name lang="en">NTV Plus</name>
+    <description lang="en">Grabber for http://www.ntvplus.ru</description>
+
+  <files>
+  	<file path="lib/grabber-ntvplus.jar"/>
+  </files>
+</plugin>

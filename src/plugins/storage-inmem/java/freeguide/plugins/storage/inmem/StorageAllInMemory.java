@@ -9,8 +9,6 @@ import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.Version;
-
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleStorage;
 
@@ -30,34 +28,7 @@ import java.io.ObjectOutputStream;
 public class StorageAllInMemory extends BaseModule implements IModuleStorage
 {
 
-    protected static String ID = "storage-inmem";
-
-    /** Module version. */
-    public static final Version VERSION = new Version( 0, 1 );
     protected TVData data;
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String getID(  )
-    {
-
-        return ID;
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public Version getVersion(  )
-    {
-
-        return VERSION;
-    }
 
     /**
      * DOCUMENT_ME!

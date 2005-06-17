@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="grabber-newsvm" 
+        version="0.1" 
+	    class="freeguide.plugins.grabber.newsvm.GrabberNewsvm">
+
+    <name lang="be">Вечерний Минск</name>
+    <description lang="be">Праграмма тэлебачання з газэты &quot;Вечерний Минск&quot;(http://newsvm.com)</description>
+    <name lang="en">Newsvm.com</name>
+    <description lang="en">Grabber for http://newsvm.com</description>
+
+  <files>
+  	<file path="lib/grabber-newsvm.jar"/>
+  </files>
+</plugin>

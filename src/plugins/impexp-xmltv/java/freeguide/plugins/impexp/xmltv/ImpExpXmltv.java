@@ -2,8 +2,6 @@ package freeguide.plugins.impexp.xmltv;
 
 import freeguide.lib.fgspecific.data.TVData;
 
-import freeguide.lib.general.Version;
-
 import freeguide.lib.impexp.XMLTVExport;
 import freeguide.lib.impexp.XMLTVImport;
 
@@ -26,34 +24,6 @@ import javax.swing.filechooser.FileFilter;
 public class ImpExpXmltv extends BaseModule implements IModuleImport,
     IModuleExport
 {
-
-    /** Module ID. */
-    public static final String ID = "impexp-xmltv";
-
-    /** Module version. */
-    public static final Version VERSION = new Version( 0, 1 );
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String getID(  )
-    {
-
-        return ID;
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public Version getVersion(  )
-    {
-
-        return VERSION;
-    }
 
     /**
      * DOCUMENT_ME!

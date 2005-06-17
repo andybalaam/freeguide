@@ -202,8 +202,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 
             String channelName = new String( ch, start, length );
             currentChannel =
-                siteData.get( 
-                    GrabberVsetv.ID + "/" + channelName.replace( '/', '_' ) );
+                siteData.get( "vsetv/" + channelName.replace( '/', '_' ) );
             currentChannel.setDisplayName( channelName );
             mode = MODES_NONE;
             prevTime = 0;

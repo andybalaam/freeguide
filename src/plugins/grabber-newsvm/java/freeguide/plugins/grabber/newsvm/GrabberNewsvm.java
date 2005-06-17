@@ -2,13 +2,11 @@ package freeguide.plugins.grabber.newsvm;
 
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.lib.general.LanguageHelper;
-import freeguide.lib.general.Version;
 
 import freeguide.lib.grabber.HttpBrowser;
 import freeguide.lib.grabber.LineProgrammeHelper;
@@ -25,7 +23,6 @@ import java.io.StringReader;
 
 import java.text.ParseException;
 
-import java.util.Iterator;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,8 +36,6 @@ import java.util.regex.Pattern;
 public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 {
 
-    /** DOCUMENT ME! */
-    protected static final String ID = "grabber-newsvm";
     protected static Pattern reDate =
         Pattern.compile( 
             "<b>(\\p{L}+)\\s*,\\s*(\\d{1,2})\\s+(\\p{L}+)</b>",
@@ -56,82 +51,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
     protected static TimeZone tz = TimeZone.getTimeZone( "Europe/Minsk" );
     protected static final String[] DAYS =
     { "mo", "tu", "we", "th", "fr", "sa", "su" };
-
-    /** Module version. */
-    public static final Version VERSION = new Version( 0, 1 );
     boolean isStopped;
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String getID(  )
-    {
-
-        return ID;
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public Version getVersion(  )
-    {
-
-        return VERSION;
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     *
-     * @throws Exception DOCUMENT_ME!
-     */
-    protected TVChannelsSet getChannelList(  ) throws Exception
-    {
-
-        HttpBrowser browser = new HttpBrowser(  );
-
-        browser.setHeader( HttpBrowser.HEADER_ACCEPT_LANGUAGE, "ru" );
-
-        browser.setHeader( HttpBrowser.HEADER_ACCEPT_CHARSET, "windows-1251" );
-
-        //browser.loadURL( "http://newsvm.com/tv/" + DAYS[0] + ".shtml" );
-        TVData data = new TVData(  );
-
-        for( int i = 0; i < 20; i++ )
-        {
-            data.get( ID + "/ch" + i ).setDisplayName( "name ch" + i );
-
-        }
-
-        //parse( null, browser.getData(  ), data );
-        TVChannelsSet result = new TVChannelsSet(  );
-
-        result.add( new TVChannelsSet.Channel( ID, "All" ) );
-
-        Iterator it = data.getChannelsIterator(  );
-
-        while( it.hasNext(  ) )
-        {
-
-            TVChannel ch = (TVChannel)it.next(  );
-
-            TVChannelsSet.Channel r =
-                new TVChannelsSet.Channel( 
-                    ch.getID(  ), ch.getDisplayName(  ) );
-
-            result.add( r );
-
-        }
-
-        return result;
-
-    }
 
     /**
      * DOCUMENT_ME!
@@ -233,7 +153,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                     {
                         currentChannel =
                             result.get( 
-                                ID + "/" + channelName.replace( '/', '_' ) );
+                                "newsvm/" + channelName.replace( '/', '_' ) );
 
                         currentChannel.setDisplayName( channelName );
 

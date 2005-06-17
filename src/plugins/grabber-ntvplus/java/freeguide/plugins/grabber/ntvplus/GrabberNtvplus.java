@@ -3,8 +3,6 @@ package freeguide.plugins.grabber.ntvplus;
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVData;
 
-import freeguide.lib.general.Version;
-
 import freeguide.lib.grabber.ListTVParser;
 
 import freeguide.plugins.BaseModule;
@@ -23,37 +21,9 @@ import java.util.TimeZone;
 public class GrabberNtvplus extends BaseModule implements IModuleGrabber
 {
 
-    /** DOCUMENT ME! */
-    public static final String ID = "grabber-ntvplus";
     protected static final TimeZone TIMEZONE =
         TimeZone.getTimeZone( "Europe/Moscow" );
-
-    /** Module version. */
-    public static final Version VERSION = new Version( 0, 1 );
     boolean isStopped;
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String getID(  )
-    {
-
-        return ID;
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public Version getVersion(  )
-    {
-
-        return VERSION;
-    }
 
     /**
      * DOCUMENT_ME!
@@ -71,7 +41,7 @@ public class GrabberNtvplus extends BaseModule implements IModuleGrabber
         progress.setProgressMessage( 
             Application.getInstance(  ).getLocalizedMessage( "downloading" ) );
 
-        return new ListTVParser( ID + "/" ).parseZips( 
+        return new ListTVParser( "ntvplus/" ).parseZips( 
             new String[] { "http://www.ntvplus.ru/static/schedule/schedule.zip" },
             TIMEZONE, progress, logger );
 

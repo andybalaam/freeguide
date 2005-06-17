@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="storage-serfiles" 
+        version="0.1" 
+	    class="freeguide.plugins.storage.serfiles.StorageSerFilesByDay">
+
+  <files>
+  	<file path="lib/storage-serfiles.jar"/>
+  </files>
+</plugin>

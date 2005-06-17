@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="grabber-kulichki" 
+        version="0.1" 
+	    class="freeguide.plugins.grabber.kulichki.GrabberKulichki">
+
+    <name lang="be">Программа ТВ на Куличках</name>
+    <description lang="be">Праграмма тэлебачання з http://kulichki.tv</description>
+    <name lang="en">Kulichki.tv</name>
+    <description lang="en">Grabber for http://kulichki.tv</description>
+
+  <files>
+  	<file path="lib/grabber-kulichki.jar"/>
+  </files>
+</plugin>

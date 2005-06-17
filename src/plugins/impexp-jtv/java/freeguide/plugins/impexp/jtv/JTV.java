@@ -6,8 +6,6 @@ import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.Version;
-
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleExport;
 import freeguide.plugins.IModuleImport;
@@ -24,7 +22,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.TimeZone;
 import java.util.TreeSet;
 
 import javax.swing.JFileChooser;
@@ -40,36 +37,9 @@ import javax.swing.filechooser.FileFilter;
 public class JTV extends BaseModule implements IModuleImport, IModuleExport
 {
 
-    /** Plugin ID. */
-    public static final String ID = "impexp-jtv";
     protected static final byte[] SIGNATURE =
         new String( "JTV 3.x TV Program Data\n\n\n" ).getBytes(  );
     protected static final long DATE_DELTA = 134774;
-
-    /** Module version. */
-    public static final Version VERSION = new Version( 0, 1 );
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String getID(  )
-    {
-
-        return ID;
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public Version getVersion(  )
-    {
-
-        return VERSION;
-    }
 
     /**
      * DOCUMENT_ME!

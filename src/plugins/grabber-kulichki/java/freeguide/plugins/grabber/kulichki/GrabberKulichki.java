@@ -4,8 +4,6 @@ import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.data.TVData;
 
-import freeguide.lib.general.Version;
-
 import freeguide.lib.grabber.HttpBrowser;
 
 import freeguide.plugins.BaseModule;
@@ -33,38 +31,10 @@ import javax.swing.JDialog;
 public class GrabberKulichki extends BaseModule implements IModuleGrabber
 {
 
-    /** DOCUMENT ME! */
-    public static final String ID = "grabber-kulichki";
-
-    /** Module version. */
-    public static final Version VERSION = new Version( 0, 1 );
     protected Properties TIME_ZONES;
     protected TimeZone TIME_ZONE_DEFAULT =
         TimeZone.getTimeZone( "Europe/Moscow" );
     protected KulichkiConfig config = new KulichkiConfig(  );
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String getID(  )
-    {
-
-        return ID;
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public Version getVersion(  )
-    {
-
-        return VERSION;
-    }
 
     /**
      * DOCUMENT_ME!
@@ -85,7 +55,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         final TVChannelsSet result = new TVChannelsSet(  );
 
-        result.add( new TVChannelsSet.Channel( ID, "All" ) );
+        result.add( new TVChannelsSet.Channel( "kulichki", "All" ) );
 
         HttpBrowser browser = new HttpBrowser(  );
 
@@ -113,7 +83,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         {
             result.add( 
                 new TVChannelsSet.Channel( 
-                    ID + "/" + packetIDs[j],
+                    "kulichki/" + packetIDs[j],
                     (String)handlerPackets.packetList.get( packetIDs[j] ) ) );
 
             request.put( "pakets", packetIDs[j] );
@@ -148,7 +118,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
                 result.add( 
                     new TVChannelsSet.Channel( 
-                        ID + "/" + packetIDs[j] + "/" + channelID,
+                        "kulichki/" + packetIDs[j] + "/" + channelID,
                         (String)handlerChanels.channelList.get( key ) ) );
 
             }
@@ -230,7 +200,8 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
             {
                 request.put( "pakets", packets[j] );
 
-                handlerProg.setChannelIDprefix( ID + "/" + packets[j] + "/" );
+                handlerProg.setChannelIDprefix( 
+                    "kulichki/" + packets[j] + "/" );
 
                 String tzName = TIME_ZONES.getProperty( packets[j] );
 

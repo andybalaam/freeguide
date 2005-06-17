@@ -20,7 +20,7 @@ public class KulichkiConfig
     public KulichkiConfig(  )
     {
         channels.allChannels.add( 
-            new TVChannelsSet.Channel( GrabberKulichki.ID, "All" ) );
+            new TVChannelsSet.Channel( "kulichki", "All" ) );
 
     }
 

@@ -7,7 +7,6 @@ import freeguide.lib.fgspecific.data.TVIteratorChannels;
 
 import freeguide.lib.general.StringHelper;
 import freeguide.lib.general.Utils;
-import freeguide.lib.general.Version;
 
 import freeguide.lib.impexp.XMLTVImport;
 
@@ -18,7 +17,6 @@ import freeguide.plugins.IModuleConfigureFromWizard;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IProgress;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -45,8 +43,6 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     IModuleConfigureFromWizard
 {
 
-    protected final static String ID = "grabber-xmltv";
-
     /** DOCUMENT ME! */
     public final static int REDOWNLOAD_ALWAYS = 0;
 
@@ -61,9 +57,6 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     private final static String lb = System.getProperty( "line.separator" );
     protected static Properties cmds;
 
-    /** Module version. */
-    public static final Version VERSION = new Version( 0, 1 );
-
     /** DOCUMENT ME! */
     public XMLTVConfig config = new XMLTVConfig(  );
     boolean isStopped = true;
@@ -71,29 +64,6 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     private Process pr;
     protected XMLTVConfigureUIPanelModule confUI;
     protected CountryInfo[] countryInfos;
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String getID(  )
-    {
-
-        return ID;
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public Version getVersion(  )
-    {
-
-        return VERSION;
-    }
 
     /**
      * DOCUMENT_ME!
@@ -610,7 +580,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                     {
                         protected void onChannel( TVChannel channel )
                         {
-                            channel.setID( ID + "/" + channel.getID(  ) );
+                            channel.setID( "xmltv/" + channel.getID(  ) );
                         }
                     } );
 

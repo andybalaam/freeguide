@@ -7,8 +7,6 @@ import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.Version;
-
 import freeguide.lib.impexp.XMLTVImport;
 
 import freeguide.plugins.BaseModule;
@@ -28,32 +26,7 @@ import java.util.logging.Level;
 public class XMLTVProcessor extends BaseModule //implements IStorage
 {
 
-    /** Module version. */
-    public static final Version VERSION = new Version( 0, 1 );
     protected IModuleStorage.Info cachedInfo;
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String getID(  )
-    {
-
-        return "storage-xmltv";
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public Version getVersion(  )
-    {
-
-        return VERSION;
-    }
 
     /**
      * DOCUMENT_ME!

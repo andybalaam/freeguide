@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="ui-horizontal" 
+        version="0.1" 
+	    class="freeguide.plugins.ui.horizontal.HorizontalViewer">
+
+    <name lang="be">Гарызантальны</name>
+    <description lang="be">Гэты модуль адлюстроўвае праграму тэлебачання ў выглядзе гарызантальных палос.</description>
+    <name lang="en">Horizontal</name>
+    <description lang="en">This is viewer with horizontal strips</description>
+
+  <files>
+  	<file path="lib/ui-horizontal.jar"/>
+  </files>
+</plugin>

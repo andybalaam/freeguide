@@ -5,8 +5,6 @@ import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.Version;
-
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleExport;
 
@@ -31,9 +29,6 @@ import javax.swing.filechooser.FileFilter;
 public class ExportPalmAtv extends BaseModule implements IModuleExport
 {
 
-    /** Module ID. */
-    public static final String ID = "impexp-palmatv";
-
     /** Offset to Palm's time. */
     public static final long PALM_TIME_DELTA = 24107L * 24 * 60 * 60;
     protected static final String hPDBName = "all";
@@ -43,33 +38,8 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
 
     /** DOCUMENT ME! */
     public static final String hDatabaseType = "Data";
-
-    /** Module version. */
-    public static final Version VERSION = new Version( 0, 2 );
     protected EndianInputStream rd;
     protected String charset = "Cp1251";
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String getID(  )
-    {
-
-        return ID;
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public Version getVersion(  )
-    {
-
-        return VERSION;
-    }
 
     /**
      * DOCUMENT_ME!

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="grabber-cosmostv" 
+        version="0.1" 
+	    class="freeguide.plugins.grabber.cosmostv.GrabberCosmostv">
+
+    <name lang="be">Cosmos TV</name>
+    <description lang="be">Праграмма тэлебачання з http://www.cosmostv.com</description>
+    <name lang="en">Cosmos TV</name>
+    <description lang="en">Grabber for http://www.cosmostv.com</description>
+
+  <files>
+  	<file path="lib/grabber-cosmostv.jar"/>
+  </files>
+</plugin>
