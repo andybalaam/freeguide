@@ -591,6 +591,14 @@ public class MainController extends BaseModule implements IApplication
     }
 
     /**
+     * DOCUMENT_ME!
+     */
+    public void restart(  )
+    {
+        mainFrame.dispose(  );
+    }
+
+    /**
      * DOCUMENT ME!
      *
      * @author $author$

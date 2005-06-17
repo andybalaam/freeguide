@@ -8,6 +8,11 @@
     <description lang="en">Main FreeGuide-TV application.</description>
 
   <files>
+  	<file path="startup.jar"/>
   	<file path="lib/FreeGuide.jar"/>
+  	<file path="lib/common.jar"/>
+  	<file path="lib/AJavaLib.jar"/>
+  	<file path="lib/tagsoup-1.0rc3.jar"/>
+  	<file path="doc/"/>
   </files>
 </plugin>

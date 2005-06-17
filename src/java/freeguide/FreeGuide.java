@@ -300,7 +300,7 @@ public class FreeGuide
     }
 
     /**
-     * The method called when FreeGuide is run.
+     * The method called when FreeGuide is run by startup.
      *
      * @param args the command line arguments
      *
@@ -309,7 +309,6 @@ public class FreeGuide
     public static void main( String[] args ) throws Exception
     {
         new FreeGuide( args );
-
     }
 
     /**

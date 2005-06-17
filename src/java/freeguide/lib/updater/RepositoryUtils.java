@@ -107,12 +107,19 @@ public class RepositoryUtils
             dstFile.getParentFile(  ).mkdirs(  );
 
             FileOutputStream fout = new FileOutputStream( dstFile );
-            fout.write( browser.getBinaryData(  ) );
-            fout.flush(  );
-            fout.close(  );
 
-            Application.getInstance(  ).getLogger(  ).fine( 
-                "Load package '" + files[i] + "' to "
+            try
+            {
+                fout.write( browser.getBinaryData(  ) );
+                fout.flush(  );
+            }
+            finally
+            {
+                fout.close(  );
+            }
+
+            Application.getInstance(  ).getLogger(  ).finer( 
+                "Download package '" + files[i] + "' to "
                 + toDirectory.getPath(  ) );
         }
     }
@@ -173,25 +180,37 @@ public class RepositoryUtils
 
             for( int i = 0; i < files.length; i++ )
             {
+                Application.getInstance(  ).getLogger(  ).finer( 
+                    "Unzip file '" + files[i] + "' to "
+                    + baseDirectory.getPath(  ) );
 
                 ZipFile zip = new ZipFile( files[i] );
-                Enumeration zipEntries = zip.entries(  );
 
-                while( zipEntries.hasMoreElements(  ) )
+                try
                 {
 
-                    ZipEntry entry = (ZipEntry)zipEntries.nextElement(  );
-                    File outFile =
-                        new File( baseDirectory, entry.getName(  ) );
+                    Enumeration zipEntries = zip.entries(  );
 
-                    if( entry.isDirectory(  ) )
+                    while( zipEntries.hasMoreElements(  ) )
                     {
-                        outFile.mkdirs(  );
+
+                        ZipEntry entry = (ZipEntry)zipEntries.nextElement(  );
+                        File outFile =
+                            new File( baseDirectory, entry.getName(  ) );
+
+                        if( entry.isDirectory(  ) )
+                        {
+                            outFile.mkdirs(  );
+                        }
+                        else
+                        {
+                            unzipFile( zip.getInputStream( entry ), outFile );
+                        }
                     }
-                    else
-                    {
-                        unzipFile( zip.getInputStream( entry ), outFile );
-                    }
+                }
+                finally
+                {
+                    zip.close(  );
                 }
 
                 files[i].delete(  );
@@ -216,5 +235,84 @@ public class RepositoryUtils
         from.close(  );
         out.flush(  );
         out.close(  );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param baseDirectory DOCUMENT_ME!
+     * @param files DOCUMENT_ME!
+     *
+     * @throws IOException DOCUMENT_ME!
+     */
+    public static void checkForDelete( 
+        final File baseDirectory, final String[] files )
+        throws IOException
+    {
+
+        for( int i = 0; i < files.length; i++ )
+        {
+
+            final File file = new File( baseDirectory, files[i] );
+
+            if( file.exists(  ) && !file.canWrite(  ) )
+            {
+                throw new IOException( file.getPath(  ) );
+            }
+        }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param baseDirectory DOCUMENT_ME!
+     * @param files DOCUMENT_ME!
+     */
+    public static void deleteFiles( 
+        final File baseDirectory, final String[] files )
+    {
+
+        for( int i = 0; i < files.length; i++ )
+        {
+
+            final File file = new File( baseDirectory, files[i] );
+
+            if( file.exists(  ) )
+            {
+                Application.getInstance(  ).getLogger(  ).finer( 
+                    "Delete " + file.getPath(  ) );
+                file.delete(  );
+            }
+        }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param dir DOCUMENT_ME!
+     */
+    public static void removeDirectory( final File dir )
+    {
+
+        final File[] childs = dir.listFiles(  );
+
+        if( childs != null )
+        {
+
+            for( int i = 0; i < childs.length; i++ )
+            {
+
+                if( childs[i].isDirectory(  ) )
+                {
+                    removeDirectory( childs[i] );
+                }
+                else
+                {
+                    childs[i].delete(  );
+                }
+            }
+        }
+
+        dir.delete(  );
     }
 }

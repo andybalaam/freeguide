@@ -23,6 +23,7 @@ public class Startup
 {
 
     protected static final String STARTUP_CLASS = "freeguide.FreeGuide";
+    protected static final String STARTUP_METHOD = "main";
     protected static final Logger log =
         Logger.getLogger( "org.freeguide-tv.startup" );
 
@@ -40,21 +41,31 @@ public class Startup
             while( true )
             {
 
-                ClassLoader classLoader = getAllClasses(  );
+                ClassLoader classLoader;
+
+                if( System.getProperty( "debugPlugins" ) != null )
+                {
+                    classLoader = Startup.class.getClassLoader(  );
+                }
+                else
+                {
+                    classLoader = getAllClasses(  );
+                }
+
                 Class startupClass = classLoader.loadClass( STARTUP_CLASS );
                 Method startupMethod =
                     startupClass.getMethod( 
-                        "main", new Class[] { String[].class } );
+                        STARTUP_METHOD, new Class[] { String[].class } );
                 Object result =
                     startupMethod.invoke( startupClass, new Object[] { args } );
 
-                if( 
+                /*if(
                     ( result == null ) || ( result.getClass(  ) != int.class )
                         || ( ( (Integer)result ).intValue(  ) != -1 ) )
                 {
 
                     break;
-                }
+                }*/
             }
         }
         catch( MalformedURLException ex )

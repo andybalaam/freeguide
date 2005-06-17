@@ -2,6 +2,9 @@ package freeguide.lib.updater.data;
 
 import freeguide.FreeGuide;
 
+import freeguide.lib.fgspecific.PluginInfo;
+import freeguide.lib.fgspecific.PluginsManager;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -167,9 +170,42 @@ public class PluginsRepository
 
             PluginPackage pkg = (PluginPackage)packages.get( i );
 
-            if( pkg.isChanged(  ) )
+            if( 
+                ( pkg.isChanged(  ) && !pkg.isMarkedForRemove(  ) )
+                    || pkg.isMarkedForInstall(  ) )
             {
                 result.add( pkg.getRepositoryPath(  ) );
+            }
+        }
+
+        return (String[])result.toArray( new String[result.size(  )] );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String[] getFilesForDelete(  )
+    {
+
+        List result = new ArrayList(  );
+
+        for( int i = 0; i < packages.size(  ); i++ )
+        {
+
+            PluginPackage pkg = (PluginPackage)packages.get( i );
+
+            if( pkg.isChanged(  ) || pkg.isMarkedForRemove(  ) )
+            {
+
+                PluginInfo info =
+                    PluginsManager.getPluginInfoByID( pkg.getID(  ) );
+
+                if( info != null )
+                {
+                    result.addAll( info.getFiles(  ) );
+                }
             }
         }
 

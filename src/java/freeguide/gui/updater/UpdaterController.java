@@ -2,6 +2,8 @@ package freeguide.gui.updater;
 
 import freeguide.FreeGuide;
 
+import freeguide.lib.fgspecific.Application;
+
 import freeguide.lib.general.Utils;
 
 import freeguide.lib.updater.RepositoryUtils;
@@ -15,8 +17,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * Update UI controller.
@@ -113,6 +117,22 @@ public class UpdaterController
                 public void actionPerformed( ActionEvent e )
                 {
 
+                    final String[] filesForDelete =
+                        repository.getFilesForDelete(  );
+
+                    try
+                    {
+                        RepositoryUtils.checkForDelete( 
+                            new File( FreeGuide.runtimeInfo.installDirectory ),
+                            filesForDelete );
+                    }
+                    catch( IOException ex )
+                    {
+                        System.out.println( 
+                            "Can't update, because file '" + ex.getMessage(  )
+                            + "' not writable" );
+                    }
+
                     File dstDir =
                         new File( 
                             FreeGuide.config.workingDirectory + "/updates/" );
@@ -125,16 +145,35 @@ public class UpdaterController
                                 0 ) ).getPath(  ),
                             repository.getFilesForDownload(  ), dstDir );
 
-                        RepositoryUtils.unzipPackages( 
-                            dstDir,
-                            new File( FreeGuide.runtimeInfo.installDirectory ) );
+                        int r =
+                            JOptionPane.showConfirmDialog( 
+                                ui, "All plugins loaded",
+                                "Are you sure to moduify and restart application ?",
+                                JOptionPane.OK_CANCEL_OPTION );
+
+                        if( r == JOptionPane.OK_OPTION )
+                        {
+                            RepositoryUtils.deleteFiles( 
+                                new File( 
+                                    FreeGuide.runtimeInfo.installDirectory ),
+                                filesForDelete );
+
+                            RepositoryUtils.unzipPackages( 
+                                dstDir,
+                                new File( 
+                                    FreeGuide.runtimeInfo.installDirectory ) );
+
+                            Application.getInstance(  ).restart(  );
+                        }
                     }
                     catch( Exception ex )
                     {
                         ex.printStackTrace(  );
                     }
-
-                    dstDir.delete(  );
+                    finally
+                    {
+                        RepositoryUtils.removeDirectory( dstDir );
+                    }
                 }
             } );
         setGoButtonState(  );

@@ -271,11 +271,11 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         //menuTree.setRootVisible( false );
 
         /*for( int i=0; i<menuTree.getRowCount(); i++ ) {
-        
-        
+
+
         menuTree.expandRow(i);
-        
-        
+
+
         }*/
         return generalLeaf;
 

@@ -10,6 +10,9 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
@@ -30,6 +33,7 @@ public class PluginInfo extends DefaultHandler
     protected IModule instance;
     protected Map names = new TreeMap(  );
     protected Map descriptions = new TreeMap(  );
+    protected List files = new ArrayList(  );
     protected String currentLocaleName;
     protected StringBuffer currentText = new StringBuffer(  );
 
@@ -64,6 +68,17 @@ public class PluginInfo extends DefaultHandler
     {
 
         return version;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public List getFiles(  )
+    {
+
+        return Collections.unmodifiableList( files );
     }
 
     /**
@@ -173,6 +188,10 @@ public class PluginInfo extends DefaultHandler
         {
             currentLocaleName = attributes.getValue( "lang" );
             currentText.setLength( 0 );
+        }
+        else if( "file".equals( qName ) )
+        {
+            files.add( attributes.getValue( "path" ) );
         }
     }
 
