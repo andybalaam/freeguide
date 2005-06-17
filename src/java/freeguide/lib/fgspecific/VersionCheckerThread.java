@@ -141,7 +141,8 @@ public class VersionCheckerThread implements Runnable
         catch( java.io.IOException e )
         {
             FreeGuide.log.info( 
-                FreeGuide.msg.getString( "unable_to_check_version" ) );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "unable_to_check_version" ) );
 
             return;
 
@@ -172,7 +173,7 @@ public class VersionCheckerThread implements Runnable
     private void warnFutureVersion(  )
     {
         FreeGuide.log.info( 
-            FreeGuide.msg.getString( 
+            Application.getInstance(  ).getLocalizedMessage( 
                 "you_are_using_a_development_version_of_freeguide" ) );
 
     }

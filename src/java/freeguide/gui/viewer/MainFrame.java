@@ -1,5 +1,7 @@
 package freeguide.gui.viewer;
 
+import freeguide.lib.fgspecific.Application;
+
 import freeguide.lib.general.LanguageHelper;
 
 import java.awt.BorderLayout;
@@ -31,7 +33,6 @@ public class MainFrame extends JFrame
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemAbout;
-    final protected LanguageHelper i18n;
     private JMenuItem menuItemUserGuide;
     private JMenuItem menuItemOptions;
     private JMenu menuTools;
@@ -47,10 +48,8 @@ public class MainFrame extends JFrame
 
     /**
      * This is the default constructor
-     *
-     * @param i18n DOCUMENT ME!
      */
-    public MainFrame( final LanguageHelper i18n )
+    public MainFrame(  )
     {
         super(  );
 
@@ -58,9 +57,6 @@ public class MainFrame extends JFrame
         Image icon =
             ( new javax.swing.ImageIcon( imgURL, "icon" ) ).getImage(  );
         setIconImage( icon );
-
-        this.i18n = i18n;
-
         initialize(  );
 
     }
@@ -68,7 +64,7 @@ public class MainFrame extends JFrame
     protected String getLocalizedString( final String key )
     {
 
-        return i18n.getString( key );
+        return Application.getInstance(  ).getLocalizedMessage( key );
 
     }
 

@@ -12,22 +12,26 @@ import freeguide.plugins.IModuleReminder;
 import freeguide.plugins.IModuleStorage;
 import freeguide.plugins.IModuleViewer;
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
 import java.net.URL;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Properties;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.prefs.Preferences;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 /**
  * Plugins manager.
@@ -38,14 +42,7 @@ public class PluginsManager
 {
 
     // protected static List allPlugins = new ArrayList(  );
-    protected static Map pluginsByID = new TreeMap(  );
-    protected static IModuleGrabber[] grabbers;
-    protected static IModuleStorage[] storages;
-    protected static IModuleViewer[] viewers;
-    protected static IModuleReminder[] reminders;
-    protected static IModule[] impexps;
-    protected static IModuleImport[] importers;
-    protected static IModuleExport[] exporters;
+    protected static Map pluginsInfoByID = new TreeMap(  );
     protected static List grabbersList;
     protected static List storagesList;
     protected static List viewersList;
@@ -53,13 +50,14 @@ public class PluginsManager
     protected static List impexpsList;
     protected static List importersList;
     protected static List exportersList;
+    protected static PluginInfo applicationInfo;
 
     /**
      * Load all modules.
      *
-     * @throws IOException DOCUMENT_ME!
+     * @throws Exception DOCUMENT_ME!
      */
-    public static void loadModules(  ) throws IOException
+    public static void loadModules(  ) throws Exception
     {
         grabbersList = new ArrayList(  );
         storagesList = new ArrayList(  );
@@ -69,144 +67,167 @@ public class PluginsManager
         importersList = new ArrayList(  );
         exportersList = new ArrayList(  );
 
-        pluginsByID.put( 
-            Application.getApplicationModule(  ).getID(  ),
-            Application.getApplicationModule(  ) );
+        SAXParserFactory factory = SAXParserFactory.newInstance(  );
+        SAXParser saxParser = factory.newSAXParser(  );
 
-        try
+        URL[] info;
+
+        if( System.getProperty( "debugPlugins" ) != null )
         {
-
-            final String[] classNamesList =
-                LanguageHelper.loadStrings( 
-                    new FileInputStream( "plugins.classes" ) );
-
-            for( int i = 0; i < classNamesList.length; i++ )
-            {
-                loadClass( classNamesList[i] );
-            }
+            info = findInDirectories(  );
         }
-        catch( IOException ex )
+        else
         {
-
-            Enumeration urls =
-                PluginsManager.class.getClassLoader(  ).getResources( 
-                    "plugin.properties" );
-
-            while( urls.hasMoreElements(  ) )
-            {
-
-                URL url = (URL)urls.nextElement(  );
-
-                Properties props = new Properties(  );
-
-                InputStream stream = url.openStream(  );
-
-                props.load( stream );
-
-                stream.close(  );
-
-                String className = props.getProperty( "class" );
-
-                if( className != null )
-                {
-                    loadClass( className );
-                }
-            }
+            info = findInClassLoader(  );
         }
 
-        grabbers =
-            (IModuleGrabber[])grabbersList.toArray( 
-                new IModuleGrabber[grabbersList.size(  )] );
-        grabbersList = null;
-        storages =
-            (IModuleStorage[])storagesList.toArray( 
-                new IModuleStorage[storagesList.size(  )] );
-        storagesList = null;
-        viewers =
-            (IModuleViewer[])viewersList.toArray( 
-                new IModuleViewer[viewersList.size(  )] );
-        viewersList = null;
-        reminders =
-            (IModuleReminder[])remindersList.toArray( 
-                new IModuleReminder[remindersList.size(  )] );
-        remindersList = null;
-        impexps =
-            (IModule[])impexpsList.toArray( new IModule[impexpsList.size(  )] );
-        impexpsList = null;
-        importers =
-            (IModuleImport[])importersList.toArray( 
-                new IModuleImport[importersList.size(  )] );
-        importersList = null;
-        exporters =
-            (IModuleExport[])exportersList.toArray( 
-                new IModuleExport[exportersList.size(  )] );
-        exportersList = null;
-    }
-
-    protected static void loadClass( final String className )
-    {
-
-        try
+        for( int i = 0; i < info.length; i++ )
         {
 
-            Class moduleClass =
-                PluginsManager.class.getClassLoader(  ).loadClass( className );
-
-            FreeGuide.log.fine( "Loading class '" + className + "'" );
-
-            if( IModule.class.isAssignableFrom( moduleClass ) )
+            try
             {
 
-                IModule module = (IModule)moduleClass.newInstance(  );
-                setConfig( module );
-                pluginsByID.put( module.getID(  ), module );
+                PluginInfo handler = new PluginInfo(  );
 
-                if( module instanceof IModuleGrabber )
+                InputStream stream = info[i].openStream(  );
+
+                try
                 {
-                    grabbersList.add( module );
+                    saxParser.parse( stream, handler );
                 }
-                else if( module instanceof IModuleStorage )
+                finally
                 {
-                    storagesList.add( module );
+                    stream.close(  );
                 }
-                else if( module instanceof IModuleViewer )
+
+                if( handler.getID(  ) != null )
                 {
-                    viewersList.add( module );
+                    pluginsInfoByID.put( handler.getID(  ), handler );
                 }
-                else if( module instanceof IModuleReminder )
+
+                if( "FreeGuide".equals( handler.getID(  ) ) )
                 {
-                    remindersList.add( module );
+                    applicationInfo = handler;
+                }
+                else if( handler.getInstance(  ) instanceof IModuleGrabber )
+                {
+                    grabbersList.add( handler );
+                }
+                else if( handler.getInstance(  ) instanceof IModuleStorage )
+                {
+                    storagesList.add( handler );
+                }
+                else if( handler.getInstance(  ) instanceof IModuleViewer )
+                {
+                    viewersList.add( handler );
+                }
+                else if( handler.getInstance(  ) instanceof IModuleReminder )
+                {
+                    remindersList.add( handler );
                 }
                 else if( 
-                    module instanceof IModuleImport
-                        || module instanceof IModuleExport )
+                    handler.getInstance(  ) instanceof IModuleImport
+                        || handler.getInstance(  ) instanceof IModuleExport )
                 {
-                    impexpsList.add( module );
+                    impexpsList.add( handler );
 
-                    if( module instanceof IModuleImport )
+                    if( handler.getInstance(  ) instanceof IModuleImport )
                     {
-                        importersList.add( module );
+                        importersList.add( handler );
                     }
 
-                    if( module instanceof IModuleExport )
+                    if( handler.getInstance(  ) instanceof IModuleExport )
                     {
-                        exportersList.add( module );
+                        exportersList.add( handler );
+                    }
+                }
+
+                if( handler.getInstance(  ) != null )
+                {
+
+                    if( handler == applicationInfo )
+                    {
+                        handler.getInstance(  ).setConfigStorage( 
+                            Preferences.userRoot(  ).node( 
+                                "/org/freeguide-tv/mainController" ) );
+                    }
+                    else
+                    {
+                        handler.getInstance(  ).setConfigStorage( 
+                            Preferences.userRoot(  ).node( 
+                                "/org/freeguide-tv/modules/"
+                                + handler.getID(  ) ) );
                     }
                 }
             }
-        }
-        catch( Exception ex )
-        {
-            FreeGuide.log.log( 
-                Level.SEVERE, "Error loading plugin from " + className, ex );
+            catch( Exception ex )
+            {
+                Application.getInstance(  ).getLogger(  ).log( 
+                    Level.SEVERE, "Error loading plugin", ex );
+            }
         }
     }
 
-    protected static void setConfig( final IModule module )
+    /**
+     * Find plugin info files in classloader.
+     *
+     * @return list of URLs
+     *
+     * @throws IOException
+     */
+    protected static URL[] findInClassLoader(  ) throws IOException
     {
-        module.setConfigStorage( 
-            Preferences.userRoot(  ).node( 
-                "/org/freeguide-tv/modules/" + module.getID(  ) ) );
+
+        Enumeration urls =
+            PluginsManager.class.getClassLoader(  ).getResources( 
+                "plugin.properties" );
+
+        List list = Collections.list( urls );
+
+        return (URL[])list.toArray( new URL[list.size(  )] );
+    }
+
+    /**
+     * Find plugin info files in child directories. You need to send
+     * "debugPlugins" system property for do it.
+     *
+     * @return list of URLs
+     *
+     * @throws IOException
+     */
+    protected static URL[] findInDirectories(  ) throws IOException
+    {
+
+        List list = new ArrayList(  );
+
+        List dirs = new ArrayList(  );
+        dirs.add( new File( "src" ) );
+
+        File[] dirFiles = new File( "src/plugins" ).listFiles(  );
+
+        if( dirFiles != null )
+        {
+            dirs.addAll( Arrays.asList( dirFiles ) );
+        }
+
+        for( int i = 0; i < dirs.size(  ); i++ )
+        {
+
+            File dir = (File)dirs.get( i );
+
+            if( dir.isDirectory(  ) )
+            {
+
+                File plugInfo = new File( dir, "java/plugin.xml" );
+
+                if( plugInfo.exists(  ) )
+                {
+                    list.add( plugInfo.toURL(  ) );
+                }
+            }
+        }
+
+        return (URL[])list.toArray( new URL[list.size(  )] );
     }
 
     /**
@@ -219,7 +240,31 @@ public class PluginsManager
     public static IModule getModuleByID( final String id )
     {
 
-        return (IModule)pluginsByID.get( id );
+        PluginInfo info = (PluginInfo)pluginsInfoByID.get( id );
+
+        if( info != null )
+        {
+
+            return info.getInstance(  );
+        }
+        else
+        {
+
+            return null;
+        }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param id DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static PluginInfo getPluginInfoByID( final String id )
+    {
+
+        return (PluginInfo)pluginsInfoByID.get( id );
     }
 
     /**
@@ -230,26 +275,33 @@ public class PluginsManager
     public static void setLocale( Locale[] locales )
     {
 
-        Iterator it = pluginsByID.values(  ).iterator(  );
+        Iterator it = pluginsInfoByID.values(  ).iterator(  );
 
         while( it.hasNext(  ) )
         {
 
-            IModule module = (IModule)it.next(  );
-            Locale locale = null;
+            PluginInfo info = (PluginInfo)it.next(  );
 
-            try
+            if( info.getInstance(  ) != null )
             {
 
-                Locale[] modLocales = module.getSuppotedLocales(  );
-                module.setLocale( 
-                    LanguageHelper.getPreferredLocale( locales, modLocales ) );
-            }
-            catch( Exception ex )
-            {
-                FreeGuide.log.log( 
-                    Level.SEVERE,
-                    "Error set locale for module " + module.getID(  ), ex );
+                Locale locale = null;
+
+                try
+                {
+
+                    Locale[] modLocales =
+                        info.getInstance(  ).getSuppotedLocales(  );
+                    info.getInstance(  ).setLocale( 
+                        LanguageHelper.getPreferredLocale( 
+                            locales, modLocales ) );
+                }
+                catch( Exception ex )
+                {
+                    FreeGuide.log.log( 
+                        Level.SEVERE,
+                        "Error set locale for module " + info.getID(  ), ex );
+                }
             }
         }
     }
@@ -259,10 +311,11 @@ public class PluginsManager
      *
      * @return DOCUMENT_ME!
      */
-    public static IModuleGrabber[] getGrabbers(  )
+    public static PluginInfo[] getGrabbers(  )
     {
 
-        return grabbers;
+        return (PluginInfo[])grabbersList.toArray( 
+            new PluginInfo[grabbersList.size(  )] );
     }
 
     /**
@@ -270,10 +323,11 @@ public class PluginsManager
      *
      * @return DOCUMENT_ME!
      */
-    public static IModule[] getImportersAndExporters(  )
+    public static PluginInfo[] getImportersAndExporters(  )
     {
 
-        return impexps;
+        return (PluginInfo[])impexpsList.toArray( 
+            new PluginInfo[impexpsList.size(  )] );
     }
 
     /**
@@ -281,10 +335,11 @@ public class PluginsManager
      *
      * @return DOCUMENT_ME!
      */
-    public static IModuleReminder[] getReminders(  )
+    public static PluginInfo[] getReminders(  )
     {
 
-        return reminders;
+        return (PluginInfo[])remindersList.toArray( 
+            new PluginInfo[remindersList.size(  )] );
     }
 
     /**
@@ -292,10 +347,11 @@ public class PluginsManager
      *
      * @return DOCUMENT_ME!
      */
-    public static IModuleStorage[] getStorages(  )
+    public static PluginInfo[] getStorages(  )
     {
 
-        return storages;
+        return (PluginInfo[])storagesList.toArray( 
+            new PluginInfo[storagesList.size(  )] );
     }
 
     /**
@@ -303,10 +359,11 @@ public class PluginsManager
      *
      * @return DOCUMENT_ME!
      */
-    public static IModuleViewer[] getViewers(  )
+    public static PluginInfo[] getViewers(  )
     {
 
-        return viewers;
+        return (PluginInfo[])viewersList.toArray( 
+            new PluginInfo[viewersList.size(  )] );
     }
 
     /**
@@ -314,10 +371,11 @@ public class PluginsManager
      *
      * @return DOCUMENT_ME!
      */
-    public static IModuleImport[] getImporters(  )
+    public static PluginInfo[] getImporters(  )
     {
 
-        return importers;
+        return (PluginInfo[])importersList.toArray( 
+            new PluginInfo[importersList.size(  )] );
     }
 
     /**
@@ -325,10 +383,22 @@ public class PluginsManager
      *
      * @return DOCUMENT_ME!
      */
-    public static IModuleExport[] getExporters(  )
+    public static PluginInfo[] getExporters(  )
     {
 
-        return exporters;
+        return (PluginInfo[])exportersList.toArray( 
+            new PluginInfo[exportersList.size(  )] );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static PluginInfo getApplicationModuleInfo(  )
+    {
+
+        return applicationInfo;
     }
 
     /**
@@ -341,6 +411,6 @@ public class PluginsManager
     public static boolean isInstalled( final String id )
     {
 
-        return pluginsByID.containsKey( id );
+        return pluginsInfoByID.containsKey( id );
     }
 }

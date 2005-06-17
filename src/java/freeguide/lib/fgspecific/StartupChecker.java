@@ -46,7 +46,9 @@ public class StartupChecker
         // Check we can make a log file
         if( !setupLog(  ) )
         {
-            die( FreeGuide.msg.getString( "failed_to_create_log_file" ) );
+            die( 
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "failed_to_create_log_file" ) );
 
         }
 
@@ -54,7 +56,8 @@ public class StartupChecker
         if( !processArgs( args ) )
         {
             FreeGuide.die( 
-                FreeGuide.msg.getString( "argument_processing_failed" ) );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "argument_processing_failed" ) );
 
         }
     }
@@ -81,7 +84,8 @@ public class StartupChecker
 
             // FIXME should be a Java 1 compatible dialog box
             die( 
-                FreeGuide.msg.getString( "halted_wrong_java_version" )
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "halted_wrong_java_version" )
                 + System.getProperty( "java.version" ) + "." );
 
         }

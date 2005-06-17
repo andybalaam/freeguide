@@ -25,6 +25,8 @@ package freeguide.gui.wizard;
 
 import freeguide.*;
 
+import freeguide.lib.fgspecific.Application;
+
 import javax.swing.JFileChooser;
 
 /**
@@ -69,7 +71,7 @@ public class FileWizardPanel extends AbstractFileWizardPanel
     protected String getFileChooserMessage(  )
     {
 
-        return FreeGuide.msg.getString( "choose_file" );
+        return Application.getInstance(  ).getLocalizedMessage( "choose_file" );
 
     }
 }

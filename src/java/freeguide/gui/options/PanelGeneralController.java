@@ -4,6 +4,8 @@ import freeguide.FreeGuide;
 
 import freeguide.gui.viewer.MainController;
 
+import freeguide.lib.fgspecific.Application;
+
 import freeguide.lib.general.LanguageHelper;
 import freeguide.lib.general.LookAndFeelManager;
 
@@ -44,7 +46,9 @@ public class PanelGeneralController implements IModuleConfigurationUI
 
             List lfs = LookAndFeelManager.getAvailableLooksAndFeels(  );
             lfs.add( 
-                0, FreeGuide.msg.getString( "Options.General.LF.default" ) );
+                0,
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "Options.General.LF.default" ) );
             panel.getCbLF(  ).setModel( 
                 new DefaultComboBoxModel( lfs.toArray(  ) ) );
 
@@ -57,14 +61,12 @@ public class PanelGeneralController implements IModuleConfigurationUI
 
                 String[] langNames = new String[locales.length + 1];
                 langNames[0] =
-                    FreeGuide.msg.getString( 
+                    Application.getInstance(  ).getLocalizedMessage( 
                         "Options.General.Language.default" );
 
                 for( int i = 0; i < locales.length; i++ )
                 {
-                    langNames[i + 1] =
-                        locales[i].getDisplayName( 
-                            FreeGuide.msg.getLocale(  ) );
+                    langNames[i + 1] = locales[i].getDisplayName(  );
                 }
 
                 panel.getCbLang(  ).setModel( 
@@ -86,8 +88,7 @@ public class PanelGeneralController implements IModuleConfigurationUI
             if( FreeGuide.config.lang != null )
             {
                 panel.getCbLang(  ).setSelectedItem( 
-                    FreeGuide.config.lang.getDisplayName( 
-                        FreeGuide.msg.getLocale(  ) ) );
+                    FreeGuide.config.lang.getDisplayName(  ) );
             }
         }
 

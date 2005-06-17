@@ -183,7 +183,15 @@ public class RepositoryUtils
                     ZipEntry entry = (ZipEntry)zipEntries.nextElement(  );
                     File outFile =
                         new File( baseDirectory, entry.getName(  ) );
-                    unzipFile( zip.getInputStream( entry ), outFile );
+
+                    if( entry.isDirectory(  ) )
+                    {
+                        outFile.mkdirs(  );
+                    }
+                    else
+                    {
+                        unzipFile( zip.getInputStream( entry ), outFile );
+                    }
                 }
 
                 files[i].delete(  );

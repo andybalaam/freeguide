@@ -1,5 +1,6 @@
 package freeguide.lib.updater.data;
 
+import freeguide.lib.fgspecific.PluginInfo;
 import freeguide.lib.fgspecific.PluginsManager;
 
 import freeguide.lib.general.Version;
@@ -280,9 +281,9 @@ public class PluginPackage
     protected synchronized boolean isChanged(  )
     {
 
-        IModule module = PluginsManager.getModuleByID( id );
+        PluginInfo info = PluginsManager.getPluginInfoByID( id );
 
-        if( module == null )
+        if( info == null )
         {
 
             return true;
@@ -290,7 +291,7 @@ public class PluginPackage
         else
         {
 
-            return module.getVersion(  ).lessThan( version );
+            return info.getVersion(  ).lessThan( version );
         }
     }
 }

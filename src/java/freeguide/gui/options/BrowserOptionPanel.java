@@ -29,6 +29,8 @@ import freeguide.gui.dialogs.*;
 
 import freeguide.gui.wizard.FirstTimeWizard;
 
+import freeguide.lib.fgspecific.Application;
+
 import freeguide.lib.general.*;
 
 import java.awt.*;
@@ -81,7 +83,9 @@ public class BrowserOptionPanel extends OptionPanel
 
         // Make the objects
         JLabel browserLabel =
-            newLeftJLabel( FreeGuide.msg.getString( "web_browser" ) + ":" );
+            newLeftJLabel( 
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "web_browser" ) + ":" );
 
         browserComboBox =
             newRightJComboBox( browsers.keySet(  ).toArray( new String[0] ) );
@@ -91,7 +95,9 @@ public class BrowserOptionPanel extends OptionPanel
         browserLabel.setDisplayedMnemonic( KeyEvent.VK_W );
 
         JLabel commandLabel =
-            newLeftJLabel( FreeGuide.msg.getString( "full_command" ) + ":" );
+            newLeftJLabel( 
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "full_command" ) + ":" );
 
         commandTextArea = newRightJTextArea(  );
 
@@ -167,7 +173,7 @@ public class BrowserOptionPanel extends OptionPanel
     public String toString(  )
     {
 
-        return FreeGuide.msg.getString( "browser" );
+        return Application.getInstance(  ).getLocalizedMessage( "browser" );
 
     }
 

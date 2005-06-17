@@ -57,30 +57,6 @@ public class Application
 
         return new IModule(  )
             {
-                public String getID(  )
-                {
-
-                    return ID;
-                }
-
-                public Version getVersion(  )
-                {
-
-                    return VERSION;
-                }
-
-                public String getName(  )
-                {
-
-                    return "FreeGuide";
-                }
-
-                public String getDescription(  )
-                {
-
-                    return "FreeGuide description";
-                }
-
                 public Locale[] getSuppotedLocales(  )
                     throws Exception
                 {

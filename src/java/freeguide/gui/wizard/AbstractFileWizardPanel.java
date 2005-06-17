@@ -14,6 +14,8 @@ package freeguide.gui.wizard;
 
 import freeguide.FreeGuide;
 
+import freeguide.lib.fgspecific.Application;
+
 import java.awt.event.KeyEvent;
 
 import java.io.File;
@@ -98,7 +100,8 @@ public abstract class AbstractFileWizardPanel extends WizardPanel
         // Make the browse button
         butBrowse.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
 
-        butBrowse.setText( FreeGuide.msg.getString( "browse" ) );
+        butBrowse.setText( 
+            Application.getInstance(  ).getLocalizedMessage( "browse" ) );
 
         butBrowse.setMnemonic( KeyEvent.VK_B );
 

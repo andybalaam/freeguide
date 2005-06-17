@@ -10,6 +10,8 @@ import freeguide.gui.updater.UpdaterController;
 
 import freeguide.gui.wizard.FirstTimeWizard;
 
+import freeguide.lib.fgspecific.Application;
+import freeguide.lib.fgspecific.PluginInfo;
 import freeguide.lib.fgspecific.PluginsManager;
 
 import freeguide.lib.general.StringHelper;
@@ -20,6 +22,8 @@ import freeguide.plugins.IModuleImport;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.util.Locale;
 
 import javax.swing.*;
 
@@ -65,12 +69,7 @@ public class MenuHandler
 
                         controller.setLookAndFeel(  );
 
-                        if( 
-                            !FreeGuide.msg.getLocale(  ).equals( 
-                                    FreeGuide.config.lang ) )
-                        {
-                            FreeGuide.setLocale( FreeGuide.config.lang );
-                        }
+                        FreeGuide.setLocale( FreeGuide.config.lang );
 
                         MainController.remindersReschedule(  );
 
@@ -154,7 +153,7 @@ public class MenuHandler
                 }
             } );
 
-        IModuleExport[] exporters = PluginsManager.getExporters(  );
+        PluginInfo[] exporters = PluginsManager.getExporters(  );
 
         if( ( exporters == null ) || ( exporters.length == 0 ) )
         {
@@ -166,9 +165,11 @@ public class MenuHandler
             for( int i = 0; i < exporters.length; i++ )
             {
 
-                final IModuleExport ex = exporters[i];
+                final IModuleExport ex =
+                    (IModuleExport)exporters[i].getInstance(  );
                 final JMenuItem item =
-                    new JMenuItem( exporters[i].getName(  ) );
+                    new JMenuItem( 
+                        exporters[i].getName( Locale.getDefault(  ) ) );
                 controller.mainFrame.getMenuItemExport(  ).add( item );
                 item.addActionListener( 
                     new ActionListener(  )
@@ -181,7 +182,7 @@ public class MenuHandler
             }
         }
 
-        IModuleImport[] importers = PluginsManager.getImporters(  );
+        PluginInfo[] importers = PluginsManager.getImporters(  );
 
         if( ( importers == null ) || ( importers.length == 0 ) )
         {
@@ -193,9 +194,11 @@ public class MenuHandler
             for( int i = 0; i < importers.length; i++ )
             {
 
-                final IModuleImport im = importers[i];
+                final IModuleImport im =
+                    (IModuleImport)importers[i].getInstance(  );
                 final JMenuItem item =
-                    new JMenuItem( importers[i].getName(  ) );
+                    new JMenuItem( 
+                        importers[i].getName( Locale.getDefault(  ) ) );
                 controller.mainFrame.getMenuItemImport(  ).add( item );
                 item.addActionListener( 
                     new ActionListener(  )

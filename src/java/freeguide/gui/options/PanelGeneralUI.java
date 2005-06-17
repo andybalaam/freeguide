@@ -2,6 +2,8 @@ package freeguide.gui.options;
 
 import freeguide.FreeGuide;
 
+import freeguide.lib.fgspecific.Application;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -58,7 +60,8 @@ public class PanelGeneralUI extends JPanel
         gridBagConstraints1.anchor = java.awt.GridBagConstraints.WEST;
         labelWorkDir.setText( "Working dir:" );
         labelWorkDir.setText( 
-            FreeGuide.msg.getString( "Options.General.WorkingDir" ) + ":" );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "Options.General.WorkingDir" ) + ":" );
         gridBagConstraints2.gridx = 0;
         gridBagConstraints2.gridy = 1;
         gridBagConstraints2.insets = new java.awt.Insets( 3, 3, 3, 3 );
@@ -69,7 +72,8 @@ public class PanelGeneralUI extends JPanel
         labelWorkDir.setLabelFor( getTextWorkingDir(  ) );
         labelWorkDir.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_W );
         labelLF.setText( 
-            FreeGuide.msg.getString( "Options.General.LF" ) + ":" );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "Options.General.LF" ) + ":" );
         gridBagConstraints3.gridx = 1;
         gridBagConstraints3.gridy = 0;
         gridBagConstraints3.weightx = 1.0;
@@ -84,7 +88,8 @@ public class PanelGeneralUI extends JPanel
         gridBagConstraints5.gridy = 2;
         labelLang.setText( "Language:" );
         labelLang.setText( 
-            FreeGuide.msg.getString( "Options.General.Language" ) + ":" );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "Options.General.Language" ) + ":" );
         labelLang.setLabelFor( getCbLang(  ) );
         labelLang.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_L );
         gridBagConstraints6.gridx = 1;

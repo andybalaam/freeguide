@@ -15,6 +15,7 @@ package freeguide.gui.wizard;
 import freeguide.FreeGuide;
 
 import freeguide.lib.fgspecific.Application;
+import freeguide.lib.fgspecific.PluginInfo;
 import freeguide.lib.fgspecific.PluginsManager;
 
 import freeguide.lib.general.LanguageHelper;
@@ -97,12 +98,14 @@ public class FirstTimeWizard
             panels[0] =
                 new LabelWizardPanel( 
                     "<html>"
-                    + FreeGuide.msg.getString( 
+                    + Application.getInstance(  ).getLocalizedMessage( 
                         "advanced_settings_will_be_overwritten" ) + "<html>" );
 
             panels[0].setMessages( 
-                FreeGuide.msg.getString( "about_to_upgrade.1" ),
-                FreeGuide.msg.getString( "about_to_upgrade.2" ) );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "about_to_upgrade.1" ),
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "about_to_upgrade.2" ) );
 
         }
 
@@ -110,11 +113,14 @@ public class FirstTimeWizard
         {
             panels[0] =
                 new LabelWizardPanel( 
-                    FreeGuide.msg.getString( "need_to_ask_questions" ) );
+                    Application.getInstance(  ).getLocalizedMessage( 
+                        "need_to_ask_questions" ) );
 
             panels[0].setMessages( 
-                FreeGuide.msg.getString( "welcome_to_freeguide.1" ),
-                FreeGuide.msg.getString( "welcome_to_freeguide.2" ) );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "welcome_to_freeguide.1" ),
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "welcome_to_freeguide.2" ) );
 
         }
 
@@ -129,8 +135,10 @@ public class FirstTimeWizard
             } );
 
         panels[1].setMessages( 
-            FreeGuide.msg.getString( "choose_your_region.1" ),
-            FreeGuide.msg.getString( "choose_your_region.2" ), KeyEvent.VK_C );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "choose_your_region.1" ),
+            Application.getInstance(  ).getLocalizedMessage( 
+                "choose_your_region.2" ), KeyEvent.VK_C );
 
         panels[1].setOnEnter( 
             new WizardPanel.OnEnter(  )
@@ -156,9 +164,10 @@ public class FirstTimeWizard
         panels[2] = new DirectoryWizardPanel(  );
 
         panels[2].setMessages( 
-            FreeGuide.msg.getString( "choose_your_working_directory.1" ),
-            FreeGuide.msg.getString( "choose_your_working_directory.2" ),
-            KeyEvent.VK_C );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "choose_your_working_directory.1" ),
+            Application.getInstance(  ).getLocalizedMessage( 
+                "choose_your_working_directory.2" ), KeyEvent.VK_C );
 
         panels[2].setOnEnter( 
             new WizardPanel.OnEnter(  )
@@ -186,9 +195,10 @@ public class FirstTimeWizard
         panels[3] = new ChoiceWizardPanel( allBrowsers.keySet(  ) );
 
         panels[3].setMessages( 
-            FreeGuide.msg.getString( "what_is_the_name_of_your_web_browser.1" ),
-            FreeGuide.msg.getString( "what_is_the_name_of_your_web_browser.2" ),
-            KeyEvent.VK_W );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "what_is_the_name_of_your_web_browser.1" ),
+            Application.getInstance(  ).getLocalizedMessage( 
+                "what_is_the_name_of_your_web_browser.2" ), KeyEvent.VK_W );
 
         if( config.browserName == null )
         {
@@ -240,8 +250,10 @@ public class FirstTimeWizard
         panels[5] = new InstallWizardPanel(  );
 
         panels[5].setMessages( 
-            FreeGuide.msg.getString( "about_to_start.1" ),
-            FreeGuide.msg.getString( "about_to_start.2" ) );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "about_to_start.1" ),
+            Application.getInstance(  ).getLocalizedMessage( 
+                "about_to_start.2" ) );
 
         panels[5].setOnExit( 
             new WizardPanel.OnExit(  )
@@ -270,8 +282,8 @@ public class FirstTimeWizard
 
         wizardFrame =
             new WizardFrame( 
-                FreeGuide.msg.getString( "freeguide_first_time_wizard" ),
-                panels,
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "freeguide_first_time_wizard" ), panels,
                 new Runnable(  )
                 {
                     public void run(  )
@@ -494,16 +506,17 @@ public class FirstTimeWizard
         isoByRegion = new TreeMap(  );
         regionByISO = new TreeMap(  );
 
-        IModuleGrabber[] grabbers = PluginsManager.getGrabbers(  );
+        PluginInfo[] grabbers = PluginsManager.getGrabbers(  );
 
         for( int i = 0; i < grabbers.length; i++ )
         {
 
-            if( grabbers[i] instanceof IModuleConfigureFromWizard )
+            if( 
+                grabbers[i].getInstance(  ) instanceof IModuleConfigureFromWizard )
             {
 
                 IModuleConfigureFromWizard configurator =
-                    (IModuleConfigureFromWizard)grabbers[i];
+                    (IModuleConfigureFromWizard)grabbers[i].getInstance(  );
                 IModuleConfigureFromWizard.CountryInfo[] grabberInfo =
                     configurator.getSupportedCountries(  );
 
@@ -531,9 +544,7 @@ public class FirstTimeWizard
 
                         Locale country =
                             new Locale( "", grabberInfo[j].getCountry(  ) );
-                        String countryName =
-                            country.getDisplayCountry( 
-                                FreeGuide.msg.getLocale(  ) );
+                        String countryName = country.getDisplayCountry(  );
                         isoByRegion.put( 
                             countryName, grabberInfo[j].getCountry(  ) );
                         regionByISO.put( 
@@ -554,7 +565,7 @@ public class FirstTimeWizard
     public void onExit(  )
     {
         FreeGuide.log.info( 
-            FreeGuide.msg.getString( 
+            Application.getInstance(  ).getLocalizedMessage( 
                 "the_user_quit_the_install_before_it_completed" ) );
 
         System.exit( 0 );
@@ -583,10 +594,10 @@ public class FirstTimeWizard
             FreeGuide.log.log( Level.WARNING, "Error finish migration", ex );
         }
 
-        IModuleGrabber mod =
-            (IModuleGrabber)allRegionsGrabbers.get( config.countryID );
+        PluginInfo mod =
+            (PluginInfo)allRegionsGrabbers.get( config.countryID );
 
-        if( mod instanceof IModuleConfigureFromWizard )
+        if( mod.getInstance(  ) instanceof IModuleConfigureFromWizard )
         {
             ( (IModuleConfigureFromWizard)mod ).configureFromWizard( 
                 config.countryID, configGrabber );
@@ -620,7 +631,7 @@ public class FirstTimeWizard
                 launcher.normalStartup( 
                     ( mod == null ) ? null : mod.getID(  ) );
             }
-            catch( IOException ex )
+            catch( Exception ex )
             {
                 Application.getInstance(  ).getLogger(  ).severe( 
                     "Error startup application: " + ex.getMessage(  ) );

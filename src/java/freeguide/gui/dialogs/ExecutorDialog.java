@@ -12,6 +12,8 @@ package freeguide.gui.dialogs;
 
 import freeguide.*;
 
+import freeguide.lib.fgspecific.Application;
+
 import freeguide.lib.general.Utils;
 
 import freeguide.plugins.ILogger;
@@ -68,9 +70,12 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
 
         java.awt.GridBagConstraints gridBagConstraints;
         getContentPane(  ).setLayout( new java.awt.GridBagLayout(  ) );
-        setTitle( FreeGuide.msg.getString( "executing_command" ) );
+        setTitle( 
+            Application.getInstance(  ).getLocalizedMessage( 
+                "executing_command" ) );
         butCancel =
-            new javax.swing.JButton( FreeGuide.msg.getString( "cancel" ) );
+            new javax.swing.JButton( 
+                Application.getInstance(  ).getLocalizedMessage( "cancel" ) );
         butCancel.setMaximumSize( new java.awt.Dimension( 115, 23 ) );
         butCancel.setMinimumSize( new java.awt.Dimension( 115, 23 ) );
         butCancel.setPreferredSize( new java.awt.Dimension( 115, 23 ) );
@@ -82,7 +87,9 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( butCancel, gridBagConstraints );
         butDetails =
-            new javax.swing.JButton( FreeGuide.msg.getString( "show_output" ) );
+            new javax.swing.JButton( 
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "show_output" ) );
         butDetails.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
         butDetails.setMaximumSize( new java.awt.Dimension( 115, 23 ) );
         butDetails.setMinimumSize( new java.awt.Dimension( 115, 23 ) );
@@ -104,8 +111,8 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         getContentPane(  ).add( butDetails, gridBagConstraints );
         labPleaseWait =
             new javax.swing.JLabel( 
-                FreeGuide.msg.getString( "please_wait" ),
-                javax.swing.SwingConstants.CENTER );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "please_wait" ), javax.swing.SwingConstants.CENTER );
         labPleaseWait.setBorder( 
             javax.swing.BorderFactory.createBevelBorder( 
                 javax.swing.border.BevelBorder.LOWERED ) );
@@ -181,7 +188,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         logScroll.setVisible( !logScroll.isVisible(  ) );
         log.setVisible( !log.isVisible(  ) );
         butDetails.setText( 
-            FreeGuide.msg.getString( 
+            Application.getInstance(  ).getLocalizedMessage( 
                 log.isVisible(  ) ? "hide_output" : "show_output" ) );
 
         int width = getWidth(  );
@@ -269,7 +276,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
                     // Set the please wait message
                     Object[] messageArguments = { message };
                     labPleaseWait.setText( 
-                        FreeGuide.msg.getLocalizedMessage( 
+                        Application.getInstance(  ).getLocalizedMessage( 
                             "comma_please_wait_template", messageArguments ) );
                     setTitle( message );
 

@@ -16,6 +16,7 @@ import freeguide.FreeGuide;
 
 import freeguide.gui.dialogs.FGDialog;
 
+import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 
 import freeguide.lib.general.Utils;
@@ -73,7 +74,9 @@ public class ChannelSetListDialog extends FGDialog
     public ChannelSetListDialog( 
         JFrame owner, TVChannelsSet allChannels, List channelsSets )
     {
-        super( owner, FreeGuide.msg.getString( "channel_sets" ) );
+        super( 
+            owner,
+            Application.getInstance(  ).getLocalizedMessage( "channel_sets" ) );
         this.allChannels = allChannels;
         this.channelsSets = new ArrayList( channelsSets.size(  ) );
 
@@ -158,7 +161,9 @@ public class ChannelSetListDialog extends FGDialog
         java.awt.GridBagConstraints gridBagConstraints;
         getContentPane(  ).setLayout( new java.awt.GridBagLayout(  ) );
         jPanel1 = new javax.swing.JPanel( new java.awt.GridBagLayout(  ) );
-        butAdd = new javax.swing.JButton( FreeGuide.msg.getString( "add" ) );
+        butAdd =
+            new javax.swing.JButton( 
+                Application.getInstance(  ).getLocalizedMessage( "add" ) );
         butAdd.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
@@ -172,7 +177,9 @@ public class ChannelSetListDialog extends FGDialog
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 10 );
         jPanel1.add( butAdd, gridBagConstraints );
-        butEdit = new javax.swing.JButton( FreeGuide.msg.getString( "edit" ) );
+        butEdit =
+            new javax.swing.JButton( 
+                Application.getInstance(  ).getLocalizedMessage( "edit" ) );
         butEdit.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
@@ -187,7 +194,8 @@ public class ChannelSetListDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 10 );
         jPanel1.add( butEdit, gridBagConstraints );
         butRemove =
-            new javax.swing.JButton( FreeGuide.msg.getString( "remove" ) );
+            new javax.swing.JButton( 
+                Application.getInstance(  ).getLocalizedMessage( "remove" ) );
         butRemove.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
@@ -244,14 +252,16 @@ public class ChannelSetListDialog extends FGDialog
         getContentPane(  ).add( jScrollPane1, gridBagConstraints );
         jLabel1 =
             new javax.swing.JLabel( 
-                FreeGuide.msg.getString( "channel_sets" ) + ":",
-                javax.swing.SwingConstants.CENTER );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "channel_sets" ) + ":", javax.swing.SwingConstants.CENTER );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( jLabel1, gridBagConstraints );
         jPanel2 = new javax.swing.JPanel( new java.awt.GridBagLayout(  ) );
-        butOK = new javax.swing.JButton( FreeGuide.msg.getString( "ok" ) );
+        butOK =
+            new javax.swing.JButton( 
+                Application.getInstance(  ).getLocalizedMessage( "ok" ) );
         butOK.setPreferredSize( new java.awt.Dimension( 83, 26 ) );
         butOK.addActionListener( 
             new java.awt.event.ActionListener(  )
@@ -265,7 +275,8 @@ public class ChannelSetListDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 10, 5 );
         jPanel2.add( butOK, gridBagConstraints );
         butCancel =
-            new javax.swing.JButton( FreeGuide.msg.getString( "cancel" ) );
+            new javax.swing.JButton( 
+                Application.getInstance(  ).getLocalizedMessage( "cancel" ) );
         butCancel.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
@@ -356,8 +367,9 @@ public class ChannelSetListDialog extends FGDialog
             //todo: fav.updateChannelNames( data );
             ChannelSetEditorDialog channels =
                 new ChannelSetEditorDialog( 
-                    this, FreeGuide.msg.getString( "edit_channel_set" ),
-                    allChannels, fav );
+                    this,
+                    Application.getInstance(  ).getLocalizedMessage( 
+                        "edit_channel_set" ), allChannels, fav );
             boolean changed = channels.showDialog(  );
 
             if( changed )
@@ -377,13 +389,15 @@ public class ChannelSetListDialog extends FGDialog
 
         TVChannelsSet newCset = new TVChannelsSet(  );
         newCset.setName( 
-            FreeGuide.msg.getLocalizedMessage( "new_channel_set" ) );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "new_channel_set" ) );
         channelsSets.add( newCset );
 
         ChannelSetEditorDialog channels =
             new ChannelSetEditorDialog( 
-                this, FreeGuide.msg.getString( "add_a_new_channel_set" ),
-                allChannels, newCset );
+                this,
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "add_a_new_channel_set" ), allChannels, newCset );
         boolean changed = channels.showDialog(  );
         setChanged(  );
         latestIndex = channelsetModel.size(  );

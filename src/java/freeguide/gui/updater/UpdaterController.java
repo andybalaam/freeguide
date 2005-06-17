@@ -17,8 +17,6 @@ import java.awt.event.MouseListener;
 import java.io.File;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  * Update UI controller.
@@ -126,6 +124,10 @@ public class UpdaterController
                             ( (PluginMirror)repository.getAllMirrors(  ).get( 
                                 0 ) ).getPath(  ),
                             repository.getFilesForDownload(  ), dstDir );
+
+                        RepositoryUtils.unzipPackages( 
+                            dstDir,
+                            new File( FreeGuide.runtimeInfo.installDirectory ) );
                     }
                     catch( Exception ex )
                     {

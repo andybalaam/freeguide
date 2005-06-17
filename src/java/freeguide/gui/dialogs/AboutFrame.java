@@ -42,7 +42,9 @@ public class AboutFrame extends javax.swing.JDialog
      */
     public AboutFrame( java.awt.Frame parent, boolean modal )
     {
-        super( parent, FreeGuide.msg.getString( "about" ), modal );
+        super( 
+            parent, Application.getInstance(  ).getLocalizedMessage( "about" ),
+            modal );
         initComponents(  );
         jTextPane1.setContentType( "text/html" );
 
@@ -57,12 +59,13 @@ public class AboutFrame extends javax.swing.JDialog
             "</font></h1>" );
         str.append( "<p>" );
         str.append( 
-            FreeGuide.msg.getString( "free_software_by_contributors" ) );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "free_software_by_contributors" ) );
         str.append( "</p><p>" );
-        str.append( FreeGuide.msg.getString( "web" ) );
+        str.append( Application.getInstance(  ).getLocalizedMessage( "web" ) );
         str.append( 
             ": <a href=\"http://freeguide-tv.sourceforge.net\">freeguide-tv.sourceforge.net</a></p><p>" );
-        str.append( FreeGuide.msg.getString( "mail" ) );
+        str.append( Application.getInstance(  ).getLocalizedMessage( "mail" ) );
         str.append( 
             ": <a href=\"mailto:freeguide-tv-devel@lists.sourceforge.net\">freeguide-tv-devel@lists.sourceforge.net</a></p>" );
         str.append( "</td></tr></table>" );
@@ -82,7 +85,9 @@ public class AboutFrame extends javax.swing.JDialog
                     closeDialog( evt );
                 }
             } );
-        jButton1 = new javax.swing.JButton( FreeGuide.msg.getString( "ok" ) );
+        jButton1 =
+            new javax.swing.JButton( 
+                Application.getInstance(  ).getLocalizedMessage( "ok" ) );
         jButton1.addActionListener( 
             new java.awt.event.ActionListener(  )
             {

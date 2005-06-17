@@ -22,8 +22,6 @@ import javax.swing.JDialog;
 public abstract class BaseModule implements IModule
 {
 
-    protected static final String NAME = "Name";
-    protected static final String DESC = "Description";
     protected LanguageHelper i18n;
     private Preferences prefs;
 
@@ -64,31 +62,6 @@ public abstract class BaseModule implements IModule
     }
 
     /**
-     * IModule.getName implementation. Read string "Name" from i18n file.
-     *
-     * @return name using selected locale
-     */
-    public String getName(  )
-    {
-
-        return i18n.getString( NAME );
-
-    }
-
-    /**
-     * IModule.getDescription implementation. Read string "Description" from
-     * i18n file.
-     *
-     * @return description using selected locale
-     */
-    public String getDescription(  )
-    {
-
-        return i18n.getString( DESC );
-
-    }
-
-    /**
      * IModule.setConfigStorage implementation. It remember config place to
      * protected prefs variable.
      *
@@ -122,7 +95,8 @@ public abstract class BaseModule implements IModule
         catch( Exception ex )
         {
             Application.getInstance(  ).getLogger(  ).log( 
-                Level.WARNING, "Error load config for module " + getID(  ), ex );
+                Level.WARNING,
+                "Error load config for class " + getClass(  ).getName(  ), ex );
         }
     }
 
@@ -137,7 +111,8 @@ public abstract class BaseModule implements IModule
         catch( Exception ex )
         {
             Application.getInstance(  ).getLogger(  ).log( 
-                Level.WARNING, "Error save config for module " + getID(  ), ex );
+                Level.WARNING,
+                "Error save config for class " + getClass(  ).getName(  ), ex );
         }
     }
 

@@ -14,6 +14,8 @@ package freeguide.gui.wizard;
 
 import freeguide.FreeGuide;
 
+import freeguide.lib.fgspecific.Application;
+
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 
@@ -63,7 +65,8 @@ public class InstallWizardPanel extends WizardPanel
 
         readmeCheckBox =
             new JCheckBox( 
-                FreeGuide.msg.getString( "display_the_readme" ), true );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "display_the_readme" ), true );
 
         readmeCheckBox.setMnemonic( KeyEvent.VK_R );
 
@@ -71,7 +74,8 @@ public class InstallWizardPanel extends WizardPanel
 
         configgrabberCheckBox =
             new JCheckBox( 
-                FreeGuide.msg.getString( "choose_channels_now" ), true );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "choose_channels_now" ), true );
 
         configgrabberCheckBox.setMnemonic( KeyEvent.VK_G );
 

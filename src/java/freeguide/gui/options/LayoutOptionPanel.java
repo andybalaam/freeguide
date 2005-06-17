@@ -77,7 +77,9 @@ public class LayoutOptionPanel extends OptionPanel
 
         // Make the objects
         JLabel lookAndFeelLabel =
-            newLeftJLabel( FreeGuide.msg.getString( "look_and_feel" ) + ":" );
+            newLeftJLabel( 
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "look_and_feel" ) + ":" );
 
         lookAndFeelCombo = new JComboBox(  );
 
@@ -152,7 +154,7 @@ public class LayoutOptionPanel extends OptionPanel
     public String toString(  )
     {
 
-        return FreeGuide.msg.getString( "layout" );
+        return Application.getInstance(  ).getLocalizedMessage( "layout" );
 
     }
 }

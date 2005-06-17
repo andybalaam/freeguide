@@ -27,6 +27,8 @@ import freeguide.*;
 
 import freeguide.gui.dialogs.*;
 
+import freeguide.lib.fgspecific.Application;
+
 import freeguide.lib.general.*;
 
 import java.awt.*;
@@ -79,13 +81,14 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
         // Make the objects
         JLabel checkLabel =
             newLeftJLabel( 
-                FreeGuide.msg.getString( "check_for_new_versions" ) );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "check_for_new_versions" ) );
 
         Object[] options = new Object[2];
 
-        options[0] = FreeGuide.msg.getString( "yes" );
+        options[0] = Application.getInstance(  ).getLocalizedMessage( "yes" );
 
-        options[1] = FreeGuide.msg.getString( "no" );
+        options[1] = Application.getInstance(  ).getLocalizedMessage( "no" );
 
         checkComboBox = newRightJComboBox( options );
 
@@ -94,15 +97,19 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
         checkLabel.setDisplayedMnemonic( KeyEvent.VK_V );
 
         JLabel provideLabel =
-            newLeftJLabel( FreeGuide.msg.getString( "provide_info" ) + ":" );
+            newLeftJLabel( 
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "provide_info" ) + ":" );
 
         options = new Object[3];
 
-        options[0] = FreeGuide.msg.getString( "none" );
+        options[0] = Application.getInstance(  ).getLocalizedMessage( "none" );
 
-        options[1] = FreeGuide.msg.getString( "ip" );
+        options[1] = Application.getInstance(  ).getLocalizedMessage( "ip" );
 
-        options[2] = FreeGuide.msg.getString( "nickname" ) + ":";
+        options[2] =
+            Application.getInstance(  ).getLocalizedMessage( "nickname" )
+            + ":";
 
         provideComboBox = newRightJComboBox( options );
 
@@ -111,7 +118,9 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
         provideLabel.setDisplayedMnemonic( KeyEvent.VK_P );
 
         JLabel nicknameLabel =
-            newLeftJLabel( FreeGuide.msg.getString( "nickname" ) + ":" );
+            newLeftJLabel( 
+                Application.getInstance(  ).getLocalizedMessage( "nickname" )
+                + ":" );
 
         nicknameTextField = newRightJTextField(  );
 
@@ -119,7 +128,9 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
 
         nicknameLabel.setDisplayedMnemonic( KeyEvent.VK_N );
 
-        infoButton = newRightJButton( FreeGuide.msg.getString( "more_info" ) );
+        infoButton =
+            newRightJButton( 
+                Application.getInstance(  ).getLocalizedMessage( "more_info" ) );
 
         infoButton.setMnemonic( KeyEvent.VK_M );
 
@@ -274,7 +285,7 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
     public String toString(  )
     {
 
-        return FreeGuide.msg.getString( "privacy" );
+        return Application.getInstance(  ).getLocalizedMessage( "privacy" );
 
     }
 }

@@ -7,14 +7,16 @@ import freeguide.gui.dialogs.FGDialog;
 
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.GrabberController;
+import freeguide.lib.fgspecific.PluginInfo;
 import freeguide.lib.fgspecific.PluginsManager;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.data.TVData;
 
+import freeguide.lib.general.LanguageHelper;
 import freeguide.lib.general.LookAndFeelManager;
-import freeguide.lib.general.PreferencesHelper;
 import freeguide.lib.general.Utils;
 
+import freeguide.plugins.BaseModule;
 import freeguide.plugins.IApplication;
 import freeguide.plugins.IModuleExport;
 import freeguide.plugins.IModuleImport;
@@ -32,12 +34,12 @@ import java.awt.event.MouseListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.prefs.Preferences;
 
 import javax.swing.JFrame;
 import javax.swing.LookAndFeel;
@@ -49,7 +51,7 @@ import javax.swing.UIManager;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class MainController implements IApplication
+public class MainController extends BaseModule implements IApplication
 {
 
     /** DOCUMENT ME! */
@@ -58,17 +60,36 @@ public class MainController implements IApplication
     /** DOCUMENT ME! */
     public MainFrame mainFrame;
     protected IModuleViewer viewer;
-    protected Preferences configStore;
     protected GrabberController grab = new GrabberController(  );
+    protected IModuleReminder[] reminders;
 
     /**
      * DOCUMENT_ME!
      *
-     * @param configStore DOCUMENT_ME!
+     * @return DOCUMENT_ME!
+     *
+     * @throws Exception DOCUMENT_ME!
      */
-    public MainController( final Preferences configStore )
+    public Locale[] getSuppotedLocales(  ) throws Exception
     {
-        this.configStore = configStore;
+
+        return LanguageHelper.getLocaleList( 
+            FreeGuide.class.getClassLoader(  ), "i18n/MessagesBundle" );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param locale DOCUMENT_ME!
+     *
+     * @throws Exception DOCUMENT_ME!
+     */
+    public void setLocale( Locale locale ) throws Exception
+    {
+        i18n =
+            new LanguageHelper( 
+                FreeGuide.class.getClassLoader(  ), "i18n/MessagesBundle",
+                locale );
     }
 
     /**
@@ -77,6 +98,33 @@ public class MainController implements IApplication
     public void redraw(  )
     {
         viewer.redraw(  );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param key DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String getLocalizedMessage( String key )
+    {
+
+        return i18n.getLocalizedMessage( key );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param key DOCUMENT_ME!
+     * @param params DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String getLocalizedMessage( String key, Object[] params )
+    {
+
+        return i18n.getLocalizedMessage( key, params );
     }
 
     /**
@@ -90,6 +138,29 @@ public class MainController implements IApplication
     /**
      * DOCUMENT_ME!
      *
+     * @return DOCUMENT_ME!
+     */
+    public IModuleReminder[] getReminders(  )
+    {
+
+        if( reminders == null )
+        {
+
+            PluginInfo[] infos = PluginsManager.getReminders(  );
+            reminders = new IModuleReminder[infos.length];
+
+            for( int i = 0; i < reminders.length; i++ )
+            {
+                reminders[i] = (IModuleReminder)infos[i].getInstance(  );
+            }
+        }
+
+        return reminders;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
      * @param viewer DOCUMENT_ME!
      * @param grabberFromWizard DOCUMENT ME!
      */
@@ -98,19 +169,22 @@ public class MainController implements IApplication
     {
         this.viewer = viewer;
 
-        mainFrame = new MainFrame( FreeGuide.msg );
+        mainFrame = new MainFrame(  );
 
         mainFrame.setTitle( 
             "FreeGuide " + Application.VERSION.getDotFormat(  ) );
 
         new MenuHandler( this );
 
-        final IModuleReminder[] reminders = PluginsManager.getReminders(  );
+        final PluginInfo[] reminders = PluginsManager.getReminders(  );
 
         for( int i = 0; i < reminders.length; i++ )
         {
-            reminders[i].addItemsToMenu( mainFrame.getMenuTools(  ) );
-            reminders[i].start(  );
+
+            IModuleReminder reminder =
+                (IModuleReminder)reminders[i].getInstance(  );
+            reminder.addItemsToMenu( mainFrame.getMenuTools(  ) );
+            reminder.start(  );
         }
 
         mainFrame.getContentPane(  ).add( 
@@ -125,12 +199,12 @@ public class MainController implements IApplication
 
                     saveConfig(  );
 
-                    final IModuleReminder[] reminders =
+                    final PluginInfo[] reminders =
                         PluginsManager.getReminders(  );
 
                     for( int i = 0; i < reminders.length; i++ )
                     {
-                        reminders[i].stop(  );
+                        ( (IModuleReminder)reminders[i].getInstance(  ) ).stop(  );
                     }
                 }
             } );
@@ -189,42 +263,23 @@ public class MainController implements IApplication
     public static void remindersReschedule(  )
     {
 
-        final IModuleReminder[] reminders = PluginsManager.getReminders(  );
+        final PluginInfo[] reminders = PluginsManager.getReminders(  );
 
         for( int i = 0; i < reminders.length; i++ )
         {
-            reminders[i].reschedule(  );
+            ( (IModuleReminder)reminders[i].getInstance(  ) ).reschedule(  );
         }
     }
 
     protected void loadConfig(  )
     {
-
-        try
-        {
-            PreferencesHelper.load( configStore, config );
-
-        }
-
-        catch( Exception ex )
-        {
-            FreeGuide.log.log( Level.WARNING, "Error loading config", ex );
-        }
+        loadObjectFromPreferences( config );
     }
 
     protected void saveConfig(  )
     {
         config.ui.mainWindowPosition = mainFrame.getBounds(  );
-
-        try
-        {
-            PreferencesHelper.save( configStore, config );
-        }
-
-        catch( Exception ex )
-        {
-            FreeGuide.log.log( Level.WARNING, "Error save config", ex );
-        }
+        saveObjectToPreferences( config );
     }
 
     private boolean centreDialogAndRun( FGDialog dialog )
@@ -521,47 +576,6 @@ public class MainController implements IApplication
 
         // TODO Auto-generated method stub
         return FreeGuide.log;
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public IModuleReminder[] getReminders(  )
-    {
-
-        // TODO Auto-generated method stub
-        return PluginsManager.getReminders(  );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param key DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String getLocalizedMessage( String key )
-    {
-
-        // TODO Auto-generated method stub
-        return FreeGuide.msg.getLocalizedMessage( key );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param key DOCUMENT_ME!
-     * @param params DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String getLocalizedMessage( String key, Object[] params )
-    {
-
-        // TODO Auto-generated method stub
-        return FreeGuide.msg.getLocalizedMessage( key, params );
     }
 
     /**

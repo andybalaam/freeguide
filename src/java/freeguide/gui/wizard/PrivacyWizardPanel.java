@@ -16,6 +16,8 @@ import freeguide.FreeGuide;
 
 import freeguide.gui.dialogs.PrivacyInfoDialog;
 
+import freeguide.lib.fgspecific.Application;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -86,7 +88,7 @@ public class PrivacyWizardPanel extends WizardPanel implements ActionListener
         topLabel.setHorizontalAlignment( javax.swing.SwingConstants.CENTER );
 
         topLabel.setText( 
-            FreeGuide.msg.getString( 
+            Application.getInstance(  ).getLocalizedMessage( 
                 "check_for_updates_when_freeguide_starts" ) );
 
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -105,21 +107,23 @@ public class PrivacyWizardPanel extends WizardPanel implements ActionListener
 
         noButton =
             new JRadioButton( 
-                FreeGuide.msg.getString( 
+                Application.getInstance(  ).getLocalizedMessage( 
                     "no_im_quite_happy_with_this_version" ) );
 
         yesIPButton =
             new JRadioButton( 
-                FreeGuide.msg.getString( "yes_and_you_can_show_my_ip_address" ) );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "yes_and_you_can_show_my_ip_address" ) );
 
         yesNothingButton =
             new JRadioButton( 
-                FreeGuide.msg.getString( "yes_but_dont_show_anything" ) );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "yes_but_dont_show_anything" ) );
 
         yesNickButton =
             new JRadioButton( 
-                FreeGuide.msg.getString( "yes_and_use_this_nickname_for_me" )
-                + ":" );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "yes_and_use_this_nickname_for_me" ) + ":" );
 
         noButton.setMnemonic( KeyEvent.VK_N );
 
@@ -198,7 +202,8 @@ public class PrivacyWizardPanel extends WizardPanel implements ActionListener
         bottomLabel.setHorizontalAlignment( javax.swing.SwingConstants.CENTER );
 
         bottomLabel.setText( 
-            FreeGuide.msg.getString( "it_is_useful_to_know_how_many.1" ) );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "it_is_useful_to_know_how_many.1" ) );
 
         bottomLabel2.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
 
@@ -206,7 +211,8 @@ public class PrivacyWizardPanel extends WizardPanel implements ActionListener
             javax.swing.SwingConstants.CENTER );
 
         bottomLabel2.setText( 
-            FreeGuide.msg.getString( "it_is_useful_to_know_how_many.2" ) );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "it_is_useful_to_know_how_many.2" ) );
 
         bottomLabel3.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
 
@@ -214,7 +220,8 @@ public class PrivacyWizardPanel extends WizardPanel implements ActionListener
             javax.swing.SwingConstants.CENTER );
 
         bottomLabel3.setText( 
-            FreeGuide.msg.getString( "it_is_useful_to_know_how_many.3" ) );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "it_is_useful_to_know_how_many.3" ) );
 
         gridBagConstraints = new java.awt.GridBagConstraints(  );
 
@@ -234,7 +241,8 @@ public class PrivacyWizardPanel extends WizardPanel implements ActionListener
 
         bottomPanel.add( bottomLabel3, gridBagConstraints );
 
-        butMoreInfo.setText( FreeGuide.msg.getString( "more_info_dot" ) );
+        butMoreInfo.setText( 
+            Application.getInstance(  ).getLocalizedMessage( "more_info_dot" ) );
 
         butMoreInfo.addActionListener( 
             new java.awt.event.ActionListener(  )

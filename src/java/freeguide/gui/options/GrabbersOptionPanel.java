@@ -6,6 +6,8 @@ import freeguide.gui.dialogs.FGDialog;
 
 import freeguide.gui.viewer.MainController;
 
+import freeguide.lib.fgspecific.Application;
+import freeguide.lib.fgspecific.PluginInfo;
 import freeguide.lib.fgspecific.PluginsManager;
 
 import freeguide.plugins.IModuleGrabber;
@@ -14,6 +16,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 
+import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -65,7 +68,7 @@ public class GrabbersOptionPanel extends OptionPanel
     {
         setLayout( new GridBagLayout(  ) );
 
-        IModuleGrabber[] grabbers = PluginsManager.getGrabbers(  );
+        PluginInfo[] grabbers = PluginsManager.getGrabbers(  );
 
         for( int i = 0; i < grabbers.length; i++ )
         {
@@ -82,8 +85,9 @@ public class GrabbersOptionPanel extends OptionPanel
 
             cb.setName( grabbers[i].getID(  ) );
 
-            cb.setText( grabbers[i].getName(  ) );
-            cb.setToolTipText( grabbers[i].getDescription(  ) );
+            cb.setText( grabbers[i].getName( Locale.getDefault(  ) ) );
+            cb.setToolTipText( 
+                grabbers[i].getDescription( Locale.getDefault(  ) ) );
 
             if( 
                 MainController.config.activeGrabberIDs.contains( 
@@ -128,7 +132,8 @@ public class GrabbersOptionPanel extends OptionPanel
     public String toString(  )
     {
 
-        return FreeGuide.msg.getString( "OptionsDialog.Tree.Grabbers" );
+        return Application.getInstance(  ).getLocalizedMessage( 
+            "OptionsDialog.Tree.Grabbers" );
 
     }
 }

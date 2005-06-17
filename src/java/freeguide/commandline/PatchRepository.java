@@ -2,17 +2,14 @@ package freeguide.commandline;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.lib.fgspecific.PluginInfo;
 import freeguide.lib.fgspecific.PluginsManager;
 
 import freeguide.lib.general.StringHelper;
 
 import freeguide.lib.updater.RepositoryUtils;
 import freeguide.lib.updater.data.PluginMirror;
-import freeguide.lib.updater.data.PluginPackage;
 import freeguide.lib.updater.data.PluginsRepository;
-
-import freeguide.plugins.IModule;
 
 import org.xml.sax.InputSource;
 
@@ -57,6 +54,8 @@ public class PatchRepository
 
         for( int i = 0; i < args.length; i++ )
         {
+            System.out.println( 
+                "creating " + args[i] + "/repositoryInfo.xml..." );
 
             PluginsRepository repository =
                 RepositoryUtils.parse( 
@@ -75,7 +74,7 @@ public class PatchRepository
             listMirrors( out, repository.getAllMirrors(  ) );
             listPackages( 
                 out, "application",
-                new IModule[] { Application.getApplicationModule(  ) } );
+                new PluginInfo[] { PluginsManager.getApplicationModuleInfo(  ) } );
             listPackages( 
                 out, "plugin-grabber", PluginsManager.getGrabbers(  ) );
             listPackages( 
@@ -141,56 +140,56 @@ public class PatchRepository
     }
 
     protected static void listPackages( 
-        final BufferedWriter out, final String packageType, IModule[] modules )
-        throws Exception
+        final BufferedWriter out, final String packageType,
+        PluginInfo[] plugins ) throws Exception
     {
 
-        for( int i = 0; i < modules.length; i++ )
+        for( int i = 0; i < plugins.length; i++ )
         {
-
-            final IModule module = modules[i];
-
             out.write( 
-                "  <package id=\"" + module.getID(  ) + "\" version=\""
-                + module.getVersion(  ).getDotFormat(  ) + "\" type=\""
+                "  <package id=\"" + plugins[i].getID(  ) + "\" version=\""
+                + plugins[i].getVersion(  ).getDotFormat(  ) + "\" type=\""
                 + packageType + "\" repositoryPath=\""
-                + getRepositoryPath( module ) + "\">\n" );
+                + getRepositoryPath( plugins[i] ) + "\">\n" );
 
-            writeTexts( out, module );
+            writeTexts( out, plugins[i] );
 
             out.write( "  </package>\n" );
 
             if( 
-                !new File( PATH_BASE + getRepositoryPath( module ) ).exists(  ) )
+                !new File( PATH_BASE + getRepositoryPath( plugins[i] ) )
+                    .exists(  ) )
             {
                 System.err.println( 
-                    "package '" + getRepositoryPath( module ) + "' not exists" );
+                    "package '" + getRepositoryPath( plugins[i] )
+                    + "' not exists" );
             }
         }
     }
 
-    protected static String getRepositoryPath( IModule module )
+    protected static String getRepositoryPath( final PluginInfo plugin )
     {
 
-        return "package-" + module.getID(  ) + "-"
-        + module.getVersion(  ).getDotFormat(  ) + ".zip";
+        return "package-" + plugin.getID(  ) + "-"
+        + plugin.getVersion(  ).getDotFormat(  ) + ".zip";
     }
 
     protected static void writeTexts( 
-        final BufferedWriter out, final IModule mod ) throws Exception
+        final BufferedWriter out, final PluginInfo plugin )
+        throws Exception
     {
 
-        Locale[] locales = mod.getSuppotedLocales(  );
+        Locale[] locales = plugin.getInstance(  ).getSuppotedLocales(  );
 
         for( int i = 0; i < locales.length; i++ )
         {
-            mod.setLocale( locales[i] );
             out.write( 
                 "    <name lang=\"" + locales[i].toString(  ) + "\">"
-                + StringHelper.toXML( mod.getName(  ) ) + "</name>\n" );
+                + StringHelper.toXML( plugin.getName( locales[i] ) )
+                + "</name>\n" );
             out.write( 
                 "    <description lang=\"" + locales[i].toString(  ) + "\">"
-                + StringHelper.toXML( mod.getDescription(  ) )
+                + StringHelper.toXML( plugin.getDescription( locales[i] ) )
                 + "</description>\n" );
         }
     }

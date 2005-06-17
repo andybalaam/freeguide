@@ -25,6 +25,8 @@ package freeguide.gui.wizard;
 
 import freeguide.FreeGuide;
 
+import freeguide.lib.fgspecific.Application;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -185,9 +187,10 @@ public class WizardPanel extends javax.swing.JPanel
                     JOptionPane.showConfirmDialog( 
                         this,
                         error + lb
-                        + FreeGuide.msg.getString( "do_you_want_to_continue" ),
-                        FreeGuide.msg.getString( "error" ),
-                        JOptionPane.YES_NO_OPTION );
+                        + Application.getInstance(  ).getLocalizedMessage( 
+                            "do_you_want_to_continue" ),
+                        Application.getInstance(  ).getLocalizedMessage( 
+                            "error" ), JOptionPane.YES_NO_OPTION );
 
                 if( ignore == JOptionPane.NO_OPTION )
                 {

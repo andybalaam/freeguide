@@ -14,6 +14,8 @@ package freeguide.gui.wizard;
 
 import freeguide.FreeGuide;
 
+import freeguide.lib.fgspecific.Application;
+
 import freeguide.lib.general.Utils;
 
 import java.awt.GridBagConstraints;
@@ -119,7 +121,8 @@ public class WizardFrame extends javax.swing.JFrame
                 }
             } );
 
-        butCancel.setText( FreeGuide.msg.getString( "exit" ) );
+        butCancel.setText( 
+            Application.getInstance(  ).getLocalizedMessage( "exit" ) );
 
         butCancel.setMnemonic( KeyEvent.VK_X );
 
@@ -141,7 +144,8 @@ public class WizardFrame extends javax.swing.JFrame
 
         panButtons.add( butCancel );
 
-        butBack.setText( "<< " + FreeGuide.msg.getString( "back" ) );
+        butBack.setText( 
+            "<< " + Application.getInstance(  ).getLocalizedMessage( "back" ) );
 
         butBack.setMnemonic( KeyEvent.VK_B );
 
@@ -159,7 +163,8 @@ public class WizardFrame extends javax.swing.JFrame
 
         panButtons.add( butBack );
 
-        butNext.setText( FreeGuide.msg.getString( "next" ) + " >>" );
+        butNext.setText( 
+            Application.getInstance(  ).getLocalizedMessage( "next" ) + " >>" );
 
         butNext.setMnemonic( KeyEvent.VK_N );
 
@@ -175,7 +180,8 @@ public class WizardFrame extends javax.swing.JFrame
 
         panButtons.add( butNext );
 
-        butFinish.setText( FreeGuide.msg.getString( "finish" ) );
+        butFinish.setText( 
+            Application.getInstance(  ).getLocalizedMessage( "finish" ) );
 
         butFinish.setMnemonic( KeyEvent.VK_F );
 

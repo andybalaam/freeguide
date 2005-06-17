@@ -28,6 +28,7 @@ import freeguide.lib.general.PreferencesHelper;
 
 import freeguide.migration.Migrate;
 
+import freeguide.plugins.IApplication;
 import freeguide.plugins.IModuleStorage;
 import freeguide.plugins.IModuleViewer;
 
@@ -77,9 +78,6 @@ public class FreeGuide
     /** The log file */
     public static Logger log;
 
-    /** The bundle of internationalized messages. */
-    public static LanguageHelper msg;
-
     /** DOCUMENT ME! */
     protected static PleaseWaitFrame pleaseWaitFrame;
 
@@ -127,7 +125,9 @@ public class FreeGuide
 
         else
         {
-            log.warning( FreeGuide.msg.getString( "no_docs_dir_supplied" ) );
+            log.warning( 
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "no_docs_dir_supplied" ) );
 
         }
 
@@ -140,7 +140,9 @@ public class FreeGuide
 
         else if( System.getProperty( "os.name" ).startsWith( "Windows" ) )
         {
-            log.warning( FreeGuide.msg.getString( "no_install_dir_supplied" ) );
+            log.warning( 
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "no_install_dir_supplied" ) );
 
         }
 
@@ -167,11 +169,18 @@ public class FreeGuide
             log.log( Level.SEVERE, "Error load config", ex );
         }
 
+        PluginsManager.loadModules(  );
         setLocale( config.lang );
 
-        MainController mainController =
-            new MainController( PREF_ROOT.node( "mainController" ) );
-        Application.setInstance( mainController );
+        if( PluginsManager.getApplicationModuleInfo(  ) == null )
+        {
+            log.log( Level.SEVERE, "Application module not found" );
+            System.exit( 1 );
+        }
+
+        Application.setInstance( 
+            (IApplication)PluginsManager.getApplicationModuleInfo(  )
+                                        .getInstance(  ) );
 
         if( Migrate.isFirstTime(  ) )
         {
@@ -227,15 +236,12 @@ public class FreeGuide
      *
      * @param grabberFromWizard DOCUMENT ME!
      *
-     * @throws IOException DOCUMENT ME!
+     * @throws Exception DOCUMENT ME!
      */
     public void normalStartup( String grabberFromWizard )
-        throws IOException
+        throws Exception
     {
         showPleaseWait(  );
-
-        PluginsManager.loadModules(  );
-        setLocale( config.lang );
 
         IModuleViewer viewer =
             (IModuleViewer)PluginsManager.getModuleByID( VIEWER_ID );
@@ -373,26 +379,9 @@ public class FreeGuide
         final Locale locale =
             ( newLocale == null ) ? runtimeInfo.defaultLocale : newLocale;
 
-        try
-        {
-
-            Locale[] supportedLocales =
-                LanguageHelper.getLocaleList( 
-                    FreeGuide.class.getClassLoader(  ), "i18n/MessagesBundle" );
-
-            msg = new LanguageHelper( 
-                    FreeGuide.class.getClassLoader(  ), "i18n/MessagesBundle",
-                    LanguageHelper.getPreferredLocale( 
-                        new Locale[] { locale }, supportedLocales ) );
-            PluginsManager.setLocale( new Locale[] { locale } );
-            Locale.setDefault( locale );
-            FreeGuide.log.fine( "Set locale to " + locale.getDisplayName(  ) );
-        }
-        catch( IOException ex )
-        {
-            log.log( Level.SEVERE, "Error loading i18n data", ex );
-            System.exit( 1 );
-        }
+        PluginsManager.setLocale( new Locale[] { locale } );
+        Locale.setDefault( locale );
+        FreeGuide.log.fine( "Set locale to " + locale.getDisplayName(  ) );
     }
 
     /**

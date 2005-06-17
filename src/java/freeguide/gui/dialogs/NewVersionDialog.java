@@ -14,6 +14,8 @@ package freeguide.gui.dialogs;
 
 import freeguide.*;
 
+import freeguide.lib.fgspecific.Application;
+
 import freeguide.lib.general.*;
 
 import java.awt.*;
@@ -41,7 +43,9 @@ public class NewVersionDialog extends JDialog
     public NewVersionDialog( JFrame parent )
     {
         super( 
-            parent, FreeGuide.msg.getString( "new_version_available" ), true );
+            parent,
+            Application.getInstance(  ).getLocalizedMessage( 
+                "new_version_available" ), true );
         initComponents(  );
     }
 
@@ -55,7 +59,7 @@ public class NewVersionDialog extends JDialog
 
         JLabel labTopMessage =
             new javax.swing.JLabel( 
-                FreeGuide.msg.getLocalizedMessage( 
+                Application.getInstance(  ).getLocalizedMessage( 
                     "new_version_available_at_template", messageArguments ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
@@ -65,7 +69,8 @@ public class NewVersionDialog extends JDialog
         pane.add( labTopMessage, gridBagConstraints );
         butURL =
             new javax.swing.JButton( 
-                FreeGuide.msg.getString( "go_to_the_web_site" ) );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "go_to_the_web_site" ) );
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pane.add( butURL, gridBagConstraints );
@@ -79,11 +84,14 @@ public class NewVersionDialog extends JDialog
             } );
         chkTellMeAgain =
             new javax.swing.JCheckBox( 
-                FreeGuide.msg.getString( "check_new_version_every_time" ), true );
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "check_new_version_every_time" ), true );
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
         pane.add( chkTellMeAgain, gridBagConstraints );
-        butOK = new javax.swing.JButton( FreeGuide.msg.getString( "ok" ) );
+        butOK =
+            new javax.swing.JButton( 
+                Application.getInstance(  ).getLocalizedMessage( "ok" ) );
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.NONE;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;

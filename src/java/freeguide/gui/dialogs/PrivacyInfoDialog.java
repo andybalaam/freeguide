@@ -14,12 +14,15 @@ package freeguide.gui.dialogs;
 
 import freeguide.*;
 
+import freeguide.lib.fgspecific.Application;
+
 import freeguide.lib.general.*;
 
 import java.awt.*;
 
 import java.io.IOException;
 
+import java.util.Locale;
 import java.util.logging.Level;
 
 import javax.swing.*;
@@ -39,7 +42,9 @@ public class PrivacyInfoDialog extends JDialog
     public PrivacyInfoDialog(  )
     {
         super(  );
-        setTitle( FreeGuide.msg.getString( "privacy_information" ) );
+        setTitle( 
+            Application.getInstance(  ).getLocalizedMessage( 
+                "privacy_information" ) );
         setModal( true );
         initComponents(  );
     }
@@ -56,8 +61,7 @@ public class PrivacyInfoDialog extends JDialog
                 LanguageHelper.loadFileAsString( 
                     getClass(  ).getClassLoader(  ).getResourceAsStream( 
                         "i18n/PrivacyBundle."
-                        + FreeGuide.msg.getLocale(  ).getLanguage(  )
-                        + ".html" ) );
+                        + Locale.getDefault(  ).getLanguage(  ) + ".html" ) );
         }
         catch( IOException ex )
         {
@@ -71,7 +75,9 @@ public class PrivacyInfoDialog extends JDialog
         infoPane.setCaretPosition( 0 );
 
         JScrollPane scrollPane = new JScrollPane( infoPane );
-        JButton OKButton = new JButton( FreeGuide.msg.getString( "ok" ) );
+        JButton OKButton =
+            new JButton( 
+                Application.getInstance(  ).getLocalizedMessage( "ok" ) );
         GridBagEasy gbe = new GridBagEasy( getContentPane(  ) );
         gbe.default_insets = new java.awt.Insets( 5, 5, 5, 5 );
         gbe.addFWXWY( scrollPane, 0, 0, gbe.FILL_BOTH, 1, 1 );
