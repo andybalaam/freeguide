@@ -4,64 +4,72 @@
   <mirror location="Europe - Dublin, Ireland" path="http://heanet.dl.sourceforge.net/sourceforge/freeguide-tv/"/>
   <mirror location="North America - Minneapolis, MN" path="http://umn.dl.sourceforge.net/sourceforge/freeguide-tv/"/>
   <package id="FreeGuide" version="0.10.2" type="application" repositoryPath="package-FreeGuide-0.10.2.zip">
-    <name lang="en">FreeGuide</name>
-    <description lang="en">FreeGuide description</description>
+    <name lang="de">FreeGuide-TV</name>
+    <description lang="de">Main FreeGuide-TV application.</description>
+    <name lang="be">FreeGuide-TV</name>
+    <description lang="be">Main FreeGuide-TV application.</description>
+    <name lang="en">FreeGuide-TV</name>
+    <description lang="en">Main FreeGuide-TV application.</description>
+    <name lang="en_US">FreeGuide-TV</name>
+    <description lang="en_US">Main FreeGuide-TV application.</description>
+    <name lang="fr">FreeGuide-TV</name>
+    <description lang="fr">Main FreeGuide-TV application.</description>
   </package>
   <package id="grabber-cosmostv" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-cosmostv-0.1.zip">
     <name lang="be">Cosmos TV</name>
     <description lang="be">Праграмма тэлебачання з http://www.cosmostv.com</description>
     <name lang="en">Cosmos TV</name>
     <description lang="en">Grabber for http://www.cosmostv.com</description>
-    <name lang="en.reversecaps">cOSMOStv</name>
-    <description lang="en.reversecaps">gRABBER FOR HTTP://WWW.COSMOSTV.COM</description>
+    <name lang="en.reversecaps">Cosmos TV</name>
+    <description lang="en.reversecaps">Grabber for http://www.cosmostv.com</description>
   </package>
   <package id="grabber-kulichki" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-kulichki-0.1.zip">
     <name lang="be">Программа ТВ на Куличках</name>
     <description lang="be">Праграмма тэлебачання з http://kulichki.tv</description>
     <name lang="en">Kulichki.tv</name>
     <description lang="en">Grabber for http://kulichki.tv</description>
-    <name lang="en.reversecaps">kULICHKI</name>
-    <description lang="en.reversecaps">DESCRIPTION</description>
+    <name lang="en.reversecaps">Kulichki.tv</name>
+    <description lang="en.reversecaps">Grabber for http://kulichki.tv</description>
   </package>
   <package id="grabber-newsvm" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-newsvm-0.1.zip">
     <name lang="be">Вечерний Минск</name>
     <description lang="be">Праграмма тэлебачання з газэты &quot;Вечерний Минск&quot;(http://newsvm.com)</description>
     <name lang="en">Newsvm.com</name>
     <description lang="en">Grabber for http://newsvm.com</description>
-    <name lang="en.reversecaps">nEWSVM.COM</name>
-    <description lang="en.reversecaps">gRABBER FOR HTTP://NEWSVM.COM</description>
+    <name lang="en.reversecaps">Newsvm.com</name>
+    <description lang="en.reversecaps">Grabber for http://newsvm.com</description>
   </package>
   <package id="grabber-ntvplus" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-ntvplus-0.1.zip">
     <name lang="be">НТВ-Плюс</name>
     <description lang="be">Праграмма тэлебачання з http://www.ntvplus.com</description>
     <name lang="en">NTV Plus</name>
     <description lang="en">Grabber for http://www.ntvplus.ru</description>
-    <name lang="en.reversecaps">ntv+</name>
-    <description lang="en.reversecaps">gRABBER FOR HTTP://WWW.NTVPLUS.RU</description>
+    <name lang="en.reversecaps">NTV Plus</name>
+    <description lang="en.reversecaps">Grabber for http://www.ntvplus.ru</description>
   </package>
   <package id="grabber-vsetv" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-vsetv-0.1.zip">
     <name lang="be">Всё ТВ</name>
     <description lang="be">Праграма тэлебачання з http://www.vsetv.com</description>
     <name lang="en">Vsetv.com</name>
     <description lang="en">Grabber for http://www.vsetv.com</description>
-    <name lang="en.reversecaps">vSETV</name>
-    <description lang="en.reversecaps">gRABBER FOR HTTP://WWW.VSETV.COM</description>
+    <name lang="en.reversecaps">Vsetv.com</name>
+    <description lang="en.reversecaps">Grabber for http://www.vsetv.com</description>
   </package>
   <package id="grabber-xmltv" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-xmltv-0.1.zip">
     <name lang="en">XMLTV</name>
     <description lang="en">XMLTV grabber (http://xmltv.sf.net)</description>
-    <name lang="en.reversecaps">xmltv</name>
-    <description lang="en.reversecaps">tHIS IS SMALL DESCRIPTION FOR xmltv gRABBER</description>
-  </package>
-  <package id="impexp-xmltv" version="0.1" type="plugin-impexp" repositoryPath="package-impexp-xmltv-0.1.zip">
-    <name lang="en">XMLTV</name>
-    <description lang="en">Export to XMLTV format. See http://xmltv.sf.net.</description>
+    <name lang="en.reversecaps">XMLTV</name>
+    <description lang="en.reversecaps">XMLTV grabber (http://xmltv.sf.net)</description>
   </package>
   <package id="impexp-jtv" version="0.1" type="plugin-impexp" repositoryPath="package-impexp-jtv-0.1.zip">
   </package>
   <package id="impexp-palmatv" version="0.2" type="plugin-impexp" repositoryPath="package-impexp-palmatv-0.2.zip">
     <name lang="en">ATV-palm</name>
     <description lang="en">Export to ATV for Palm OS. See http://zaval.org/products/atv</description>
+  </package>
+  <package id="impexp-xmltv" version="0.1" type="plugin-impexp" repositoryPath="package-impexp-xmltv-0.1.zip">
+    <name lang="en">XMLTV</name>
+    <description lang="en">Export to XMLTV format. See http://xmltv.sf.net.</description>
   </package>
   <package id="reminder-alarm" version="0.1" type="plugin-reminder" repositoryPath="package-reminder-alarm-0.1.zip">
     <name lang="be">Alarm reminder</name>
@@ -78,13 +86,13 @@
   <package id="ui-horizontal" version="0.1" type="plugin-ui" repositoryPath="package-ui-horizontal-0.1.zip">
     <name lang="be">Гарызантальны</name>
     <description lang="be">Гэты модуль адлюстроўвае праграму тэлебачання ў выглядзе гарызантальных палос.</description>
-    <name lang="de">!Name!</name>
-    <description lang="de">!Description!</description>
+    <name lang="de">Horizontal</name>
+    <description lang="de">This is viewer with horizontal strips</description>
     <name lang="en">Horizontal</name>
     <description lang="en">This is viewer with horizontal strips</description>
     <name lang="en_US">Horizontal</name>
     <description lang="en_US">This is viewer with horizontal strips</description>
-    <name lang="fr">!Name!</name>
-    <description lang="fr">!Description!</description>
+    <name lang="fr">Horizontal</name>
+    <description lang="fr">This is viewer with horizontal strips</description>
   </package>
 </packages>
