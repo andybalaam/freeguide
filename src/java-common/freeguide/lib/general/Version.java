@@ -12,6 +12,9 @@
  */
 package freeguide.lib.general;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Version.java Holds the version of a program (e.g. FreeGuide, Java) and
  * allows comparison between them. Among other things, this class is used to
@@ -24,16 +27,20 @@ package freeguide.lib.general;
 public class Version
 {
 
-    // ----------------------------------------------------------------------
+    protected static final Pattern VERSION_PATTERN =
+        Pattern.compile( "(\\d+)\\.(\\d+)(?:\\.(\\d+)(?:_(\\d+))?)?" );
 
-    /** DOCUMENT ME! */
+    /** Major value. */
     public int major;
 
-    /** DOCUMENT ME! */
+    /** Minor value. */
     public int minor;
 
-    /** DOCUMENT ME! */
+    /** Revision value. */
     public int revision;
+
+    /** Build value. */
+    public int build;
 
     /**
      * Creates a new Version object.
@@ -68,74 +75,64 @@ public class Version
     }
 
     /**
+     * Create a Version object with the given major, minor, revision and build
+     * numbers
+     *
+     * @param major DOCUMENT ME!
+     * @param minor DOCUMENT ME!
+     * @param revision DOCUMENT ME!
+     * @param build DOCUMENT ME!
+     */
+    public Version( int major, int minor, int revision, int build )
+    {
+        this.major = major;
+
+        this.minor = minor;
+
+        this.revision = revision;
+        this.build = build;
+
+    }
+
+    /**
      * Create a Version object from a string that looks like this: d.d.d_x
      * where d represents any number of digits . is a literal dot _ is either
      * an _, - or . character x is any sequence of characters
      *
-     * @param version_string DOCUMENT ME!
+     * @param versionString DOCUMENT ME!
      *
      * @throws NumberFormatException DOCUMENT ME!
      */
-    public Version( String version_string ) throws NumberFormatException
+    public Version( String versionString ) throws NumberFormatException
     {
 
-        if( version_string == null )
+        if( versionString == null )
         {
 
             return;
         }
 
-        String[] split_version = new String[3];
+        final Matcher m = VERSION_PATTERN.matcher( versionString );
 
-        int pos = 0;
-
-        int oldpos = 0;
-
-        for( int i = 0; i < 3; i++ )
+        if( m.matches(  ) )
         {
-            pos = version_string.indexOf( '.', oldpos );
+            major = parseDigs( m.group( 1 ) );
+            minor = parseDigs( m.group( 2 ) );
+            revision = parseDigs( m.group( 3 ) );
+            build = parseDigs( m.group( 4 ) );
+        }
+    }
 
-            if( pos == -1 )
-            {
-                pos = version_string.indexOf( '_', oldpos );
+    protected int parseDigs( final String text )
+    {
 
-            }
+        if( text == null )
+        {
 
-            if( pos == -1 )
-            {
-                pos = version_string.indexOf( '-', oldpos );
-
-            }
-
-            if( pos == -1 )
-            {
-                pos = version_string.length(  );
-
-            }
-
-            // If we've ended the string
-            if( oldpos > pos )
-            {
-                split_version[i] = "0"; // Just add a zero
-
-            }
-
-            else
-            { // Otherwise carry on
-                split_version[i] = version_string.substring( oldpos, pos );
-
-            }
-
-            oldpos = pos + 1;
-
+            return 0;
         }
 
-        major = Integer.parseInt( split_version[0] );
-
-        minor = Integer.parseInt( split_version[1] );
-
-        revision = Integer.parseInt( split_version[2] );
-
+        return Integer.parseInt( text );
     }
 
     // ----------------------------------------------------------------------
@@ -173,8 +170,7 @@ public class Version
             return 1;
 
         }
-
-        if( major < other.major )
+        else if( major < other.major )
         {
 
             return -1;
@@ -187,8 +183,7 @@ public class Version
             return 1;
 
         }
-
-        if( minor < other.minor )
+        else if( minor < other.minor )
         {
 
             return -1;
@@ -201,8 +196,20 @@ public class Version
             return 1;
 
         }
+        else if( revision < other.revision )
+        {
 
-        if( revision < other.revision )
+            return -1;
+
+        }
+
+        if( build > other.build )
+        {
+
+            return 1;
+
+        }
+        else if( build < other.build )
         {
 
             return -1;
@@ -261,5 +268,16 @@ public class Version
 
         return ( compareTo( (Version)other ) == 0 );
 
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static Version getJavaVersion(  )
+    {
+
+        return new Version( System.getProperty( "java.version" ) );
     }
 }
