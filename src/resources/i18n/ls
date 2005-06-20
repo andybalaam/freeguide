@@ -5,3 +5,7 @@ MessagesBundle.en_US.properties
 MessagesBundle.fr.properties
 PrivacyBundle.en.html
 PrivacyBundle.fr.html
+Startup.en.properties
+Startup.de.properties
+Startup.fr.properties
+Startup.be.properties
