@@ -83,6 +83,7 @@ public class Migrate
     {
         firstTime =
             !Preferences.userRoot(  ).nodeExists( "/org/freeguide-tv" );
+        FreeGuide.log.finer( "Migration: firstTime=" + firstTime );
 
         if( Preferences.userRoot(  ).nodeExists( "/org/freeguide-tv/misc" ) )
         {
@@ -100,31 +101,40 @@ public class Migrate
 
         }
 
+        FreeGuide.log.finer( 
+            "Migration: storedVersionName=" + storedVersionName );
+
         if( storedVersionName == null )
         {
             needToRunWizard = true;
 
-            return;
+        }
+        else
+        {
+
+            if( 
+                new Version( storedVersionName ).compareTo( 
+                        new Version( 0, 10, 0 ) ) < 0 )
+            {
+                loadFromOld(  );
+                needToRunWizard = true;
+            }
+            else if( 
+                new Version( storedVersionName ).compareTo( 
+                        new Version( 0, 10, 1 ) ) == 0 )
+            {
+                loadFrom_0_10_1(  );
+            }
+            else if( 
+                new Version( storedVersionName ).compareTo( 
+                        Application.VERSION ) > 0 )
+            {
+                needToRunWizard = true;
+            }
         }
 
-        if( 
-            new Version( storedVersionName ).compareTo( 
-                    new Version( 0, 10, 0 ) ) < 0 )
-        {
-            loadFromOld(  );
-            needToRunWizard = true;
-        }
-        else if( 
-            new Version( storedVersionName ).compareTo( 
-                    new Version( 0, 10, 1 ) ) == 0 )
-        {
-            loadFrom_0_10_1(  );
-        }
-        else if( 
-            new Version( storedVersionName ).compareTo( Application.VERSION ) > 0 )
-        {
-            needToRunWizard = true;
-        }
+        FreeGuide.log.finer( "Migration: needToRunWizard=" + needToRunWizard );
+
     }
 
     /**
@@ -570,15 +580,31 @@ public class Migrate
 
         listXMLTVConfigs(  );
 
-        nodeChannelsSet.removeNode(  );
+        if( nodeChannelsSet != null )
+        {
+            nodeChannelsSet.removeNode(  );
 
-        nodeCommandline.removeNode(  );
+        }
 
-        nodeFavourites.removeNode(  );
+        if( nodeCommandline != null )
+        {
+            nodeCommandline.removeNode(  );
+        }
 
-        nodeMisc.removeNode(  );
+        if( nodeFavourites != null )
+        {
+            nodeFavourites.removeNode(  );
+        }
 
-        nodeScreen.removeNode(  );
+        if( nodeMisc != null )
+        {
+            nodeMisc.removeNode(  );
+        }
+
+        if( nodeScreen != null )
+        {
+            nodeScreen.removeNode(  );
+        }
 
         root.node( "chosenprogs" ).removeNode(  );
 
