@@ -242,10 +242,10 @@ a Use serialization to reduce startup time
 - Release 0.10.2 (plugins manager, bug fixes)
 
 - Use latest XMLTV
-- Fix inability to change day when using tv-unprocessed.xmltv (does this still
+a Fix inability to change day when using tv-unprocessed.xmltv (does this still
   happen?)
 - Add an FAQ about how to change the number of days downloaded.
-- When you try to enter a day with no downloaded listings, FreeGuide should
+a When you try to enter a day with no downloaded listings, FreeGuide should
   prompt asking whether you want to download new listings.  At the moment it
   just prevents you from changing to that day.
 a After I have migrated from 0.10.1 to 0.10.2, my favourites are
