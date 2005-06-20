@@ -44,7 +44,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -220,18 +219,6 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         goToNow(  );
 
-        // Check the FreeGuide version
-        /*if( !"no".equals( FreeGuide.config.privacyInfo ) )
-        {
-
-        // Run the check in a separate thread to avoid blocking.
-        new VersionCheckerThread(
-        Application.getInstance(  ).getApplicationFrame(  ) ).start(  );
-
-        }*/
-        // Ask the user to download more data if it is missing
-        checkForNoData(  );
-
         panel.getButtonGoToNow(  ).addActionListener( 
             new ActionListener(  )
             {
@@ -251,45 +238,6 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
                 }
             } );
-    }
-
-    /**
-     * Checks whether the XMLTVLoader managed to get any data, and asks the
-     * user to download more if not.
-     */
-    private void checkForNoData(  )
-    {
-
-        if( 
-            !Application.getInstance(  ).getDataStorage(  ).getInfo(  )
-                            .isEmpty(  ) )
-        {
-
-            return;
-
-        }
-
-        Object[] oa = new Object[2];
-
-        oa[0] =
-            getLocalizer(  ).getLocalizedMessage( 
-                "there_are_missing_listings_for_today.1" );
-
-        oa[1] =
-            getLocalizer(  ).getLocalizedMessage( 
-                "there_are_missing_listings_for_today.2" );
-
-        int r =
-            JOptionPane.showConfirmDialog( 
-                getPanel(  ), oa,
-                getLocalizer(  ).getLocalizedMessage( "download_listings_q" ),
-                JOptionPane.YES_NO_OPTION );
-
-        if( r == 0 )
-        {
-            Application.getInstance(  ).doStartGrabbers(  );
-
-        }
     }
 
     /**
