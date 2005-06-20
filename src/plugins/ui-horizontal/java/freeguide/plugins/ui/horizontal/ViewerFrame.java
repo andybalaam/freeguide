@@ -10,6 +10,8 @@
  */
 package freeguide.plugins.ui.horizontal;
 
+import freeguide.lib.fgspecific.Application;
+
 import freeguide.plugins.ui.horizontal.components.StripView;
 
 import java.awt.Color;
@@ -31,6 +33,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -902,6 +905,22 @@ public class ViewerFrame extends JPanel
         {
             comTheDate.setSelectedIndex( comTheDate.getSelectedIndex(  ) + 1 );
 
+        }
+        else
+        {
+
+            int r =
+                JOptionPane.showConfirmDialog( 
+                    Application.getInstance(  ).getApplicationFrame(  ),
+                    Application.getInstance(  ).getLocalizedMessage( 
+                        "there_are_missing_listings_for_today" ),
+                    Application.getInstance(  ).getLocalizedMessage( 
+                        "download_listings_q" ), JOptionPane.YES_NO_OPTION );
+
+            if( r == 0 )
+            {
+                Application.getInstance(  ).doStartGrabbers(  );
+            }
         }
     }
 
