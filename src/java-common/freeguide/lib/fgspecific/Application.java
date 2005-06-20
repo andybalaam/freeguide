@@ -3,13 +3,6 @@ package freeguide.lib.fgspecific;
 import freeguide.lib.general.Version;
 
 import freeguide.plugins.IApplication;
-import freeguide.plugins.IModule;
-import freeguide.plugins.IModuleConfigurationUI;
-
-import java.util.Locale;
-import java.util.prefs.Preferences;
-
-import javax.swing.JDialog;
 
 /**
  * Class for retrieve information about main application.
