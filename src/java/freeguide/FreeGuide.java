@@ -20,11 +20,11 @@ import freeguide.gui.wizard.FirstTimeWizard;
 
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PluginsManager;
-import freeguide.lib.fgspecific.StartupChecker;
 
 import freeguide.lib.general.CmdArgs;
 import freeguide.lib.general.LanguageHelper;
 import freeguide.lib.general.PreferencesHelper;
+import freeguide.lib.general.Version;
 
 import freeguide.migration.Migrate;
 
@@ -33,13 +33,15 @@ import freeguide.plugins.IModuleStorage;
 import freeguide.plugins.IModuleViewer;
 
 import java.io.File;
-import java.io.IOException;
 
 import java.util.Locale;
+import java.util.Properties;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
+
+import javax.swing.JOptionPane;
 
 /**
  * The main class called to start FreeGuide. Calls other objects to do the
@@ -69,14 +71,16 @@ public class FreeGuide
 
     /** Application config info. */
     public static Config config;
+    protected static LanguageHelper startupMessages;
 
     //------------------------------------------------------------------------
 
     /** Holds all commandline arguments */
-    public static CmdArgs arguments;
+    public static Properties arguments;
 
     /** The log file */
-    public static Logger log;
+    public static Logger log = Logger.getLogger( "org.freeguide-tv" );
+    protected static final Version MINIMUM_JAVA_VERSION = new Version( 1, 4 );
 
     /** DOCUMENT ME! */
     protected static PleaseWaitFrame pleaseWaitFrame;
@@ -94,56 +98,43 @@ public class FreeGuide
      */
     public FreeGuide( String[] args ) throws Exception
     {
+        startupMessages =
+            new LanguageHelper( 
+                getClass(  ).getClassLoader(  ), "i18n/Startup",
+                LanguageHelper.getPreferredLocale( 
+                    new Locale[] { Locale.getDefault(  ) },
+                    LanguageHelper.getLocaleList( 
+                        getClass(  ).getClassLoader(  ), "i18n/Startup" ) ) );
 
         // Check Java version.  If wrong, exit with error
-        // Also set up a log and the preferences classes.
-        StartupChecker.basicSetup( args );
+        checkJavaVersion(  );
 
-        if( arguments.isSet( "language" ) )
-        {
-
-            String country = arguments.getValue( "country" );
-
-            if( country == null )
-            {
-                country = "";
-
-            }
-
-            runtimeInfo.defaultLocale =
-                new Locale( arguments.getValue( "language" ), country );
-        }
-
-        setLocale( runtimeInfo.defaultLocale );
+        arguments = CmdArgs.parse( args );
 
         // Find out what the documents directory is from the command line
-        if( arguments.isSet( "doc_directory" ) )
+        if( arguments.containsKey( "doc_directory" ) )
         {
-            runtimeInfo.docDirectory = arguments.getValue( "doc_directory" );
+            runtimeInfo.docDirectory =
+                arguments.getProperty( "doc_directory" );
+
+        }
+        else
+        {
+            warning( 
+                startupMessages.getLocalizedMessage( "startup.NoDocDir" ) );
+        }
+
+        if( arguments.containsKey( "install_directory" ) )
+        {
+            runtimeInfo.installDirectory =
+                arguments.getProperty( "install_directory" );
 
         }
 
         else
         {
-            log.warning( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "no_docs_dir_supplied" ) );
-
-        }
-
-        if( arguments.isSet( "install_directory" ) )
-        {
-            runtimeInfo.installDirectory =
-                arguments.getValue( "install_directory" );
-
-        }
-
-        else if( System.getProperty( "os.name" ).startsWith( "Windows" ) )
-        {
-            log.warning( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "no_install_dir_supplied" ) );
-
+            warning( 
+                startupMessages.getLocalizedMessage( "startup.NoInstallDir" ) );
         }
 
         config = new Config(  );
@@ -170,46 +161,32 @@ public class FreeGuide
         }
 
         PluginsManager.loadModules(  );
-        setLocale( config.lang );
 
         if( PluginsManager.getApplicationModuleInfo(  ) == null )
         {
-            log.log( Level.SEVERE, "Application module not found" );
-            System.exit( 1 );
+            die( 
+                startupMessages.getLocalizedMessage( 
+                    "startup.NoApplicationModule" ) );
         }
 
         Application.setInstance( 
             (IApplication)PluginsManager.getApplicationModuleInfo(  )
                                         .getInstance(  ) );
 
-        if( Migrate.isFirstTime(  ) )
+        setLocale( config.lang );
+
+        String modID = null;
+
+        if( Migrate.isNeedToRunWizard(  ) )
         {
-            launchFirstTime(  );
+
+            final FirstTimeWizard wizard =
+                new FirstTimeWizard( !Migrate.isFirstTime(  ) );
+            wizard.getFrame(  ).waitForClose(  );
+            modID = wizard.getSelectedModuleID(  );
         }
-        else
-        {
 
-            if( Migrate.isNeedToRunWizard(  ) )
-            {
-                launchUpgrade(  );
-            }
-            else
-            {
-                normalStartup( null );
-            }
-        }
-    }
-
-    private void launchFirstTime(  )
-    {
-        new FirstTimeWizard( this, false );
-
-    }
-
-    private void launchUpgrade(  )
-    {
-        new FirstTimeWizard( this, true );
-
+        normalStartup( modID );
     }
 
     /**
@@ -249,17 +226,12 @@ public class FreeGuide
 
         if( viewer == null )
         {
-            log.severe( "Undefined viewer for freeguide" );
+            die( startupMessages.getLocalizedMessage( "startup.NoUI" ) );
         }
 
         if( storage == null )
         {
-            log.severe( "Undefined storage for freeguide" );
-        }
-
-        if( ( viewer == null ) || ( storage == null ) )
-        {
-            System.exit( 2 );
+            die( startupMessages.getLocalizedMessage( "startup.NoStorage" ) );
         }
 
         ( (MainController)Application.getInstance(  ) ).start( 
@@ -303,12 +275,19 @@ public class FreeGuide
      * The method called when FreeGuide is run by startup.
      *
      * @param args the command line arguments
-     *
-     * @throws Exception DOCUMENT ME!
      */
-    public static void main( String[] args ) throws Exception
+    public static void main( String[] args )
     {
-        new FreeGuide( args );
+
+        try
+        {
+            new FreeGuide( args );
+        }
+        catch( Exception ex )
+        {
+            log.log( Level.SEVERE, "Error in main class", ex );
+            System.exit( 2 );
+        }
     }
 
     /**
@@ -319,7 +298,21 @@ public class FreeGuide
     public static void die( String msg )
     {
         log.severe( msg );
+        JOptionPane.showMessageDialog( 
+            null, msg, null, JOptionPane.ERROR_MESSAGE );
         System.exit( 1 );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param msg DOCUMENT_ME!
+     */
+    public static void warning( String msg )
+    {
+        log.warning( msg );
+        JOptionPane.showMessageDialog( 
+            null, msg, null, JOptionPane.WARNING_MESSAGE );
     }
 
     /**
@@ -381,6 +374,21 @@ public class FreeGuide
         PluginsManager.setLocale( new Locale[] { locale } );
         Locale.setDefault( locale );
         FreeGuide.log.fine( "Set locale to " + locale.getDisplayName(  ) );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     */
+    public static void checkJavaVersion(  )
+    {
+
+        if( Version.getJavaVersion(  ).lessThan( MINIMUM_JAVA_VERSION ) )
+        {
+            die( 
+                startupMessages.getLocalizedMessage( 
+                    "startup.WrongJavaVersion",
+                    new String[] { System.getProperty( "java.version" ) } ) );
+        }
     }
 
     /**
