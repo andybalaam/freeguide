@@ -1,7 +1,5 @@
 package freeguide.plugins;
 
-import freeguide.lib.general.Version;
-
 import java.util.Locale;
 import java.util.prefs.Preferences;
 

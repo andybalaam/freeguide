@@ -1,9 +1,6 @@
 package freeguide.plugins;
 
-import java.util.List;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
