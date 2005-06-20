@@ -147,8 +147,13 @@ public class UpdaterController
 
                         int r =
                             JOptionPane.showConfirmDialog( 
-                                ui, "All plugins loaded",
-                                "Are you sure to moduify and restart application ?",
+                                ui,
+                                Application.getInstance(  )
+                                           .getLocalizedMessage( 
+                                    "UpdateManager.UpdateConfirmation.Header" ),
+                                Application.getInstance(  )
+                                           .getLocalizedMessage( 
+                                    "UpdateManager.UpdateConfirmation.Text" ),
                                 JOptionPane.OK_CANCEL_OPTION );
 
                         if( r == JOptionPane.OK_OPTION )

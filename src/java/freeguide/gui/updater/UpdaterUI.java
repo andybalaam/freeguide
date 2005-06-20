@@ -1,5 +1,7 @@
 package freeguide.gui.updater;
 
+import freeguide.lib.fgspecific.Application;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -47,6 +49,9 @@ public class UpdaterUI extends JDialog
     {
         this.setModal( true );
         this.setTitle( "Plugins update manager" );
+        this.setTitle( 
+            Application.getInstance(  ).getLocalizedMessage( 
+                "UpdateManager.Header" ) );
         this.setDefaultCloseOperation( 
             javax.swing.WindowConstants.DISPOSE_ON_CLOSE );
         this.setSize( new java.awt.Dimension( 400, 200 ) );
@@ -88,7 +93,9 @@ public class UpdaterUI extends JDialog
             gridBagConstraints1.weightx = 1.0D;
             gridBagConstraints1.insets = new java.awt.Insets( 5, 5, 5, 5 );
             labelTitle = new JLabel(  );
-            labelTitle.setText( "You can install new packages" );
+            labelTitle.setText( 
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "UpdateManager.Prompt" ) );
             jContentPane = new JPanel(  );
             jContentPane.setLayout( new GridBagLayout(  ) );
             jContentPane.add( getPanelButtons(  ), gridBagConstraints3 );
@@ -190,6 +197,9 @@ public class UpdaterUI extends JDialog
         {
             btnCheck = new JButton(  );
             btnCheck.setText( "Check repository" );
+            btnCheck.setText( 
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "UpdateManager.Button.Check" ) );
         }
 
         return btnCheck;
@@ -207,6 +217,9 @@ public class UpdaterUI extends JDialog
         {
             btnGo = new JButton(  );
             btnGo.setText( "Update" );
+            btnGo.setText( 
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "UpdateManager.Button.Update" ) );
         }
 
         return btnGo;
@@ -224,6 +237,9 @@ public class UpdaterUI extends JDialog
         {
             btnClose = new JButton(  );
             btnClose.setText( "Close" );
+            btnClose.setText( 
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "UpdateManager.Button.Close" ) );
         }
 
         return btnClose;

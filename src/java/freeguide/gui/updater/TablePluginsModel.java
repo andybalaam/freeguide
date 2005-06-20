@@ -1,5 +1,7 @@
 package freeguide.gui.updater;
 
+import freeguide.lib.fgspecific.Application;
+
 import freeguide.lib.updater.data.PluginPackage;
 import freeguide.lib.updater.data.PluginsRepository;
 
@@ -18,8 +20,19 @@ import javax.swing.table.DefaultTableModel;
 public class TablePluginsModel extends DefaultTableModel
 {
 
-    protected static final String[] COLUMNS =
-        new String[] { " ", "Name", "Category", "Version", "Status" };
+    protected final String[] COLUMNS =
+        new String[]
+        {
+            " ",
+            Application.getInstance(  ).getLocalizedMessage( 
+                "UpdateManager.TableColumns.Name" ),
+            Application.getInstance(  ).getLocalizedMessage( 
+                "UpdateManager.TableColumns.Category" ),
+            Application.getInstance(  ).getLocalizedMessage( 
+                "UpdateManager.TableColumns.Version" ),
+            Application.getInstance(  ).getLocalizedMessage( 
+                "UpdateManager.TableColumns.Status" )
+        };
     final protected List rows = new ArrayList(  );
 
     /**
@@ -37,18 +50,33 @@ public class TablePluginsModel extends DefaultTableModel
     public TablePluginsModel( final PluginsRepository repository )
     {
         addSubList( 
-            "Program:", PluginsRepository.PACKAGE_TYPE_APPLICATION, repository );
-        addSubList( "UI:", PluginsRepository.PACKAGE_TYPE_UI, repository );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "UpdateManager.TableGroupName.Programme" ) + ":",
+            PluginsRepository.PACKAGE_TYPE_APPLICATION, repository );
         addSubList( 
-            "Grabbers:", PluginsRepository.PACKAGE_TYPE_GRABBER, repository );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "UpdateManager.TableGroupName.UI" ) + ":",
+            PluginsRepository.PACKAGE_TYPE_UI, repository );
         addSubList( 
-            "Storages:", PluginsRepository.PACKAGE_TYPE_STORAGE, repository );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "UpdateManager.TableGroupName.Grabbers" ) + ":",
+            PluginsRepository.PACKAGE_TYPE_GRABBER, repository );
         addSubList( 
-            "Reminders:", PluginsRepository.PACKAGE_TYPE_REMINDER, repository );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "UpdateManager.TableGroupName.Storages" ) + ":",
+            PluginsRepository.PACKAGE_TYPE_STORAGE, repository );
         addSubList( 
-            "Import/Export:", PluginsRepository.PACKAGE_TYPE_IMPEXP, repository );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "UpdateManager.TableGroupName.Reminders" ) + ":",
+            PluginsRepository.PACKAGE_TYPE_REMINDER, repository );
         addSubList( 
-            "Other:", PluginsRepository.PACKAGE_TYPE_OTHER, repository );
+            Application.getInstance(  ).getLocalizedMessage( 
+                "UpdateManager.TableGroupName.ImpExp" ) + ":",
+            PluginsRepository.PACKAGE_TYPE_IMPEXP, repository );
+        addSubList( 
+            Application.getInstance(  ).getLocalizedMessage( 
+                "UpdateManager.TableGroupName.Other" ) + ":",
+            PluginsRepository.PACKAGE_TYPE_OTHER, repository );
     }
 
     protected void addSubList( 
@@ -265,7 +293,8 @@ public class TablePluginsModel extends DefaultTableModel
             if( pkg.isMarkedForRemove(  ) )
             {
 
-                return "Will be removed";
+                return Application.getInstance(  ).getLocalizedMessage( 
+                    "UpdateManager.Status.WillRemoved" );
             }
             else
             {
@@ -273,12 +302,14 @@ public class TablePluginsModel extends DefaultTableModel
                 if( pkg.needToUpdate(  ) )
                 {
 
-                    return "Installed, need to upgrade";
+                    return Application.getInstance(  ).getLocalizedMessage( 
+                        "UpdateManager.Status.WillUpdated" );
                 }
                 else
                 {
 
-                    return "Installed";
+                    return Application.getInstance(  ).getLocalizedMessage( 
+                        "UpdateManager.Status.Installed" );
                 }
             }
         }
@@ -288,12 +319,14 @@ public class TablePluginsModel extends DefaultTableModel
             if( pkg.isMarkedForInstall(  ) )
             {
 
-                return "Will be installed";
+                return Application.getInstance(  ).getLocalizedMessage( 
+                    "UpdateManager.Status.WillInstalled" );
             }
             else
             {
 
-                return "";
+                return Application.getInstance(  ).getLocalizedMessage( 
+                    "UpdateManager.Status.Removed" );
             }
         }
     }
