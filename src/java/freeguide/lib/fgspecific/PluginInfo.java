@@ -19,10 +19,9 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 
 /**
- * DOCUMENT ME!
+ * Information about loaded plugin.
  *
- * @author $author$
- * @version $Revision$
+ * @author Alex Buloichik (alex73 at zaval.rog)
  */
 public class PluginInfo extends DefaultHandler
 {
@@ -38,9 +37,9 @@ public class PluginInfo extends DefaultHandler
     protected StringBuffer currentText = new StringBuffer(  );
 
     /**
-     * DOCUMENT_ME!
+     * Get plugin ID.
      *
-     * @return DOCUMENT_ME!
+     * @return plugin ID
      */
     public String getID(  )
     {
@@ -49,20 +48,9 @@ public class PluginInfo extends DefaultHandler
     }
 
     /**
-     * DOCUMENT_ME!
+     * Get plugin version.
      *
-     * @return DOCUMENT_ME!
-     */
-    public String getClassName(  )
-    {
-
-        return className;
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
+     * @return version
      */
     public Version getVersion(  )
     {
@@ -71,9 +59,9 @@ public class PluginInfo extends DefaultHandler
     }
 
     /**
-     * DOCUMENT_ME!
+     * Get plugin files.
      *
-     * @return DOCUMENT_ME!
+     * @return plugin files
      */
     public List getFiles(  )
     {
@@ -82,11 +70,11 @@ public class PluginInfo extends DefaultHandler
     }
 
     /**
-     * DOCUMENT_ME!
+     * Get plugin name.
      *
-     * @param loc DOCUMENT_ME!
+     * @param loc locale
      *
-     * @return DOCUMENT_ME!
+     * @return plugin name
      */
     public String getName( final Locale loc )
     {
@@ -107,11 +95,11 @@ public class PluginInfo extends DefaultHandler
     }
 
     /**
-     * DOCUMENT_ME!
+     * Get plugin description.
      *
-     * @param loc DOCUMENT_ME!
+     * @param loc locale
      *
-     * @return DOCUMENT_ME!
+     * @return plugin description
      */
     public String getDescription( final Locale loc )
     {
@@ -127,9 +115,9 @@ public class PluginInfo extends DefaultHandler
     }
 
     /**
-     * DOCUMENT_ME!
+     * Get plugin instance.
      *
-     * @return DOCUMENT_ME!
+     * @return instance
      */
     public IModule getInstance(  )
     {
@@ -151,15 +139,14 @@ public class PluginInfo extends DefaultHandler
                     getClass(  ).getClassLoader(  ).loadClass( className );
                 instance = (IModule)moduleClass.newInstance(  );
 
-                FreeGuide.log.fine( "Class '" + className + "' loaded" );
             }
             catch( Exception ex )
             {
-                Application.getInstance(  ).getLogger(  ).log( 
+                FreeGuide.log.log( 
                     Level.SEVERE, "Cannot create instance for " + className, ex );
             }
 
-            FreeGuide.log.fine( "Class '" + className + "' loaded" );
+            FreeGuide.log.finest( "Class '" + className + "' loaded" );
         }
     }
 
