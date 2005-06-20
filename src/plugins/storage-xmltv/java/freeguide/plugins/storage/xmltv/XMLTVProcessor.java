@@ -74,13 +74,13 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
         {
 
         if(
-         ( programme.getStart(  ) >= programme.getEnd(  ) )
-             || ( programme.getEnd(  ) == 0 )
-             || ( ( programme.getEnd(  )
-             - programme.getStart(  ) ) > ( 120L * 60 * 1000 ) ) )
+        ( programme.getStart(  ) >= programme.getEnd(  ) )
+        || ( programme.getEnd(  ) == 0 )
+        || ( ( programme.getEnd(  )
+        - programme.getStart(  ) ) > ( 120L * 60 * 1000 ) ) )
         {
-         programme.setEnd(
-             programme.getStart(  ) + ( 30L * 60 * 1000 ) );
+        programme.setEnd(
+        programme.getStart(  ) + ( 30L * 60 * 1000 ) );
 
         }
         }

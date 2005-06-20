@@ -73,7 +73,7 @@ public class ProgrammePopupMenu extends JPopupMenu
     {
     public void actionPerformed( ActionEvent e )
     {
-        toggleSelection(  );
+    toggleSelection(  );
 
     }
     } );
@@ -84,7 +84,7 @@ public class ProgrammePopupMenu extends JPopupMenu
     {
     public void actionPerformed( ActionEvent e )
     {
-        setFavourite( !getModel(  ).isFavourite(  ) );
+    setFavourite( !getModel(  ).isFavourite(  ) );
 
     }
     } );
@@ -96,9 +96,9 @@ public class ProgrammePopupMenu extends JPopupMenu
     public void actionPerformed( ActionEvent e )
     {
 
-        ProgrammePopupMenu menu = getPopupMenu(  );
+    ProgrammePopupMenu menu = getPopupMenu(  );
 
-        menu.show( ProgrammeJLabel.this, 0, getHeight(  ) );
+    menu.show( ProgrammeJLabel.this, 0, getHeight(  ) );
 
     }
     } );*/

@@ -103,34 +103,34 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
     if( MainController.config.reminderOn )
     {
 
-        // Set up a reminder here if it's after now
-        Date startTime = new Date( programme.getStart(  ) );
+    // Set up a reminder here if it's after now
+    Date startTime = new Date( programme.getStart(  ) );
 
-        if( startTime.after( new Date(  ) ) )
+    if( startTime.after( new Date(  ) ) )
+    {
+
+        // Find out when we will remind
+        Date reminderStartTime =
+            new Date(
+                startTime.getTime(  )
+                - ( MainController.config.reminderWarning ) );
+
+        Date nowDate = new Date(  );
+
+        // If it's immediately, make it in 10 secs time
+        if( reminderStartTime.before( nowDate ) )
         {
+            reminderStartTime.setTime(
+                nowDate.getTime(  ) + 10000 );
 
-            // Find out when we will remind
-            Date reminderStartTime =
-                new Date(
-                    startTime.getTime(  )
-                    - ( MainController.config.reminderWarning ) );
+        }
 
-            Date nowDate = new Date(  );
-
-            // If it's immediately, make it in 10 secs time
-            if( reminderStartTime.before( nowDate ) )
-            {
-                reminderStartTime.setTime(
-                    nowDate.getTime(  ) + 10000 );
-
-            }
-
-            // Set the ending time to be a certain time after the
-            // beginning.
-            Date reminderEndTime =
-                new Date(
-                    reminderStartTime.getTime(  )
-                    + ( MainController.config.reminderGiveUp ) );
+        // Set the ending time to be a certain time after the
+        // beginning.
+        Date reminderEndTime =
+            new Date(
+                reminderStartTime.getTime(  )
+                + ( MainController.config.reminderGiveUp ) );
     */
     /* TODO if( viewerFrame.reminderTimer != null )
 
@@ -170,7 +170,7 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
 
     */
     /*                }
-        }
+    }
     }
 
     else
