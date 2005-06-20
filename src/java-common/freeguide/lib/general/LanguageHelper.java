@@ -376,7 +376,10 @@ public class LanguageHelper implements ILocalizer
 
             }
 
-            result.put( line.substring( 0, i ), line.substring( i + 1 ) );
+            final String key = line.substring( 0, i );
+            String value = line.substring( i + 1 );
+            value = StringHelper.replaceAll( value, "\\n", "\n" );
+            result.put( key, value );
 
         }
     }
