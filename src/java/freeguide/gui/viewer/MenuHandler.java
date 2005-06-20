@@ -10,7 +10,6 @@ import freeguide.gui.updater.UpdaterController;
 
 import freeguide.gui.wizard.FirstTimeWizard;
 
-import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PluginInfo;
 import freeguide.lib.fgspecific.PluginsManager;
 
@@ -25,7 +24,7 @@ import java.awt.event.ActionListener;
 
 import java.util.Locale;
 
-import javax.swing.*;
+import javax.swing.JMenuItem;
 
 /**
  * Menu handler for MainController
@@ -139,8 +138,7 @@ public class MenuHandler
             {
                 public void actionPerformed( ActionEvent e )
                 {
-                    new FirstTimeWizard( null, true );
-
+                    new FirstTimeWizard( true );
                 }
             } );
 

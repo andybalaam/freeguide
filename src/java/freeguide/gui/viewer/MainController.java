@@ -42,6 +42,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -255,6 +256,48 @@ public class MainController extends BaseModule implements IApplication
         remindersReschedule(  );
 
         FreeGuide.hidePleaseWait(  );
+        checkForNoData(  );
+
+        mainFrame.waitForClose(  );
+    }
+
+    /**
+     * Checks whether the XMLTVLoader managed to get any data, and asks the
+     * user to download more if not.
+     */
+    protected void checkForNoData(  )
+    {
+
+        if( 
+            !Application.getInstance(  ).getDataStorage(  ).getInfo(  )
+                            .isEmpty(  ) )
+        {
+
+            return;
+
+        }
+
+        Object[] oa = new Object[2];
+
+        oa[0] =
+            getLocalizer(  ).getLocalizedMessage( 
+                "there_are_missing_listings_for_today.1" );
+
+        oa[1] =
+            getLocalizer(  ).getLocalizedMessage( 
+                "there_are_missing_listings_for_today.2" );
+
+        int r =
+            JOptionPane.showConfirmDialog( 
+                mainFrame, oa,
+                getLocalizer(  ).getLocalizedMessage( "download_listings_q" ),
+                JOptionPane.YES_NO_OPTION );
+
+        if( r == 0 )
+        {
+            Application.getInstance(  ).doStartGrabbers(  );
+
+        }
     }
 
     /**

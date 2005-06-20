@@ -1,8 +1,8 @@
 package freeguide.gui.viewer;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.gui.jcommon.JWaitFrame;
 
-import freeguide.lib.general.LanguageHelper;
+import freeguide.lib.fgspecific.Application;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
@@ -11,7 +11,6 @@ import java.awt.event.KeyEvent;
 
 import java.net.URL;
 
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -24,7 +23,7 @@ import javax.swing.KeyStroke;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class MainFrame extends JFrame
+public class MainFrame extends JWaitFrame
 {
 
     private javax.swing.JPanel jContentPane;
