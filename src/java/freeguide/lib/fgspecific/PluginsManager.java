@@ -86,6 +86,8 @@ public class PluginsManager
 
             try
             {
+                FreeGuide.log.finest( 
+                    "Loading XML from " + info[i].toString(  ) );
 
                 PluginInfo handler = new PluginInfo(  );
 
@@ -180,7 +182,7 @@ public class PluginsManager
 
         Enumeration urls =
             PluginsManager.class.getClassLoader(  ).getResources( 
-                "plugin.properties" );
+                "plugin.xml" );
 
         List list = Collections.list( urls );
 
