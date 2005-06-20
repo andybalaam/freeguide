@@ -14,10 +14,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * DOCUMENT ME!
+ * This class load all jars to classloader and runs main application
+ * class(freeguide.FreeGuide) again and again. It uses for restart
+ * application after update jars and change locale, etc. If we want to close
+ * application, we need to run System.exit().
  *
- * @author $author$
- * @version $Revision$
+ * @author Alex Buloichik (alex73 at zaval.org)
  */
 public class Startup
 {
@@ -28,9 +30,9 @@ public class Startup
         Logger.getLogger( "org.freeguide-tv.startup" );
 
     /**
-     * DOCUMENT_ME!
+     * Main method.
      *
-     * @param args DOCUMENT_ME!
+     * @param args
      */
     public static void main( final String[] args )
     {
@@ -56,16 +58,9 @@ public class Startup
                 Method startupMethod =
                     startupClass.getMethod( 
                         STARTUP_METHOD, new Class[] { String[].class } );
-                Object result =
-                    startupMethod.invoke( startupClass, new Object[] { args } );
 
-                /*if(
-                    ( result == null ) || ( result.getClass(  ) != int.class )
-                        || ( ( (Integer)result ).intValue(  ) != -1 ) )
-                {
+                startupMethod.invoke( startupClass, new Object[] { args } );
 
-                    break;
-                }*/
             }
         }
         catch( MalformedURLException ex )
