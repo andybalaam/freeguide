@@ -274,29 +274,19 @@ public class MainController extends BaseModule implements IApplication
         {
 
             return;
-
         }
-
-        Object[] oa = new Object[2];
-
-        oa[0] =
-            getLocalizer(  ).getLocalizedMessage( 
-                "there_are_missing_listings_for_today.1" );
-
-        oa[1] =
-            getLocalizer(  ).getLocalizedMessage( 
-                "there_are_missing_listings_for_today.2" );
 
         int r =
             JOptionPane.showConfirmDialog( 
-                mainFrame, oa,
-                getLocalizer(  ).getLocalizedMessage( "download_listings_q" ),
-                JOptionPane.YES_NO_OPTION );
+                Application.getInstance(  ).getApplicationFrame(  ),
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "there_are_missing_listings_for_today" ),
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "download_listings_q" ), JOptionPane.YES_NO_OPTION );
 
         if( r == 0 )
         {
             Application.getInstance(  ).doStartGrabbers(  );
-
         }
     }
 
