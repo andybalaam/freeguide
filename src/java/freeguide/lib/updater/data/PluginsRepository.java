@@ -227,29 +227,29 @@ public class PluginsRepository
         /*for( int i = 0; i < files.size(  ); i++ )
         {
 
-            PluginPackage.PackageFile file =
-                (PluginPackage.PackageFile)files.get( i );
-            final File destFile =
-                new File( baseDirectory, file.getLocalPath(  ) );
+        PluginPackage.PackageFile file =
+        (PluginPackage.PackageFile)files.get( i );
+        final File destFile =
+        new File( baseDirectory, file.getLocalPath(  ) );
 
-            if( !destFile.canWrite(  ) )
-            {
-                throw new IOException(
-                    "Error update: file " + destFile.getPath(  )
-                    + " is not writable" );
-            }
+        if( !destFile.canWrite(  ) )
+        {
+        throw new IOException(
+            "Error update: file " + destFile.getPath(  )
+            + " is not writable" );
+        }
         }
 
         for( int i = 0; i < files.size(  ); i++ )
         {
 
-            PluginPackage.PackageFile file =
-                (PluginPackage.PackageFile)files.get( i );
-            final File srcFile =
-                new File( srcDirectory, file.getLocalPath(  ) );
-            final File destFile =
-                new File( baseDirectory, file.getLocalPath(  ) );
-            srcFile.renameTo( destFile );
+        PluginPackage.PackageFile file =
+        (PluginPackage.PackageFile)files.get( i );
+        final File srcFile =
+        new File( srcDirectory, file.getLocalPath(  ) );
+        final File destFile =
+        new File( baseDirectory, file.getLocalPath(  ) );
+        srcFile.renameTo( destFile );
         }*/
     }
 }
