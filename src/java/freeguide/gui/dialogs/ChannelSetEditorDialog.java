@@ -12,8 +12,6 @@
  */
 package freeguide.gui.dialogs;
 
-import freeguide.FreeGuide;
-
 import freeguide.gui.dialogs.FGDialog;
 
 import freeguide.lib.fgspecific.Application;
@@ -21,8 +19,6 @@ import freeguide.lib.fgspecific.data.TVChannelsSet;
 
 import freeguide.lib.general.Utils;
 
-// To Be Added Shortly (Rob)
-//import freeguide.lib.general.*;
 import java.awt.Dimension;
 
 import java.util.Iterator;

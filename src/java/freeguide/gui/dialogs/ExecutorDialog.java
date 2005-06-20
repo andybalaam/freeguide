@@ -10,8 +10,6 @@
  */
 package freeguide.gui.dialogs;
 
-import freeguide.*;
-
 import freeguide.lib.fgspecific.Application;
 
 import freeguide.lib.general.Utils;
@@ -19,10 +17,16 @@ import freeguide.lib.general.Utils;
 import freeguide.plugins.ILogger;
 import freeguide.plugins.IProgress;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 /**
  * Provides facilities for executing external commands with a GUI for user

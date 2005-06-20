@@ -12,8 +12,6 @@
  */
 package freeguide.gui.dialogs;
 
-import freeguide.FreeGuide;
-
 import freeguide.gui.dialogs.FGDialog;
 
 import freeguide.lib.fgspecific.Application;

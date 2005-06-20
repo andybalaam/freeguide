@@ -12,20 +12,25 @@
  */
 package freeguide.gui.dialogs;
 
-import freeguide.*;
+import freeguide.FreeGuide;
 
 import freeguide.lib.fgspecific.Application;
 
-import freeguide.lib.general.*;
+import freeguide.lib.general.GridBagEasy;
+import freeguide.lib.general.LanguageHelper;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import java.io.IOException;
 
 import java.util.Locale;
 import java.util.logging.Level;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
+import javax.swing.JScrollPane;
 
 /**
  * Tell the user about their privacy in FreeGuide

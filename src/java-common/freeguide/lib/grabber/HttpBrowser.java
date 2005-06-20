@@ -59,36 +59,36 @@ public class HttpBrowser
 
     {
 
-        public List select( URI uri )
+    public List select( URI uri )
 
-        {
-
-
-            List result = new ArrayList(  );
-
-            result.add(
-
-                new Proxy(
-
-                    Proxy.Type.HTTP,
-
-                    new InetSocketAddress( "localhost", 3128 ) ) );
+    {
 
 
-            return result;
+        List result = new ArrayList(  );
 
-        }
+        result.add(
+
+            new Proxy(
+
+                Proxy.Type.HTTP,
+
+                new InetSocketAddress( "localhost", 3128 ) ) );
 
 
-        public void connectFailed(
+        return result;
 
-            URI uri, SocketAddress sa, IOException ioe )
+    }
 
-        {
 
-            ioe.printStackTrace(  );
+    public void connectFailed(
 
-        }
+        URI uri, SocketAddress sa, IOException ioe )
+
+    {
+
+        ioe.printStackTrace(  );
+
+    }
 
     };
 

@@ -22,16 +22,16 @@ public class HtmlHelper
     for (int i = 0; i < elems.size(); i++) {
 
 
-        Element elem = (Element) elems.get(i);
+    Element elem = (Element) elems.get(i);
 
 
-        if (attributeValue.equalsIgnoreCase(elem.getAttributes().getValue(attributeName))) {
+    if (attributeValue.equalsIgnoreCase(elem.getAttributes().getValue(attributeName))) {
 
 
-            return elem;
+        return elem;
 
 
-        }
+    }
 
 
     }
@@ -55,16 +55,16 @@ public class HtmlHelper
     for (int i = 0; i < elems.size(); i++) {
 
 
-        Element elem = (Element) elems.get(i);
+    Element elem = (Element) elems.get(i);
 
 
-        if (attributeValue.equalsIgnoreCase(elem.getAttributes().getValue(attributeName))) {
+    if (attributeValue.equalsIgnoreCase(elem.getAttributes().getValue(attributeName))) {
 
 
-            result.add(elem);
+        result.add(elem);
 
 
-        }
+    }
 
 
     }
@@ -88,10 +88,10 @@ public class HtmlHelper
     for (int i = 0; i < elems.size(); i++) {
 
 
-        Element elem = (Element) elems.get(i);
+    Element elem = (Element) elems.get(i);
 
 
-        result.add(elem);
+    result.add(elem);
 
 
     }
