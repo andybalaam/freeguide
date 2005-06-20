@@ -46,39 +46,4 @@ public class Application
     {
         instance = app;
     }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public static IModule getApplicationModule(  )
-    {
-
-        return new IModule(  )
-            {
-                public Locale[] getSuppotedLocales(  )
-                    throws Exception
-                {
-
-                    return new Locale[] { Locale.ENGLISH };
-                }
-
-                public void setConfigStorage( Preferences prefs )
-                {
-                }
-
-                public void setLocale( Locale locale )
-                    throws Exception
-                {
-                }
-
-                public IModuleConfigurationUI getConfigurationUI( 
-                    JDialog parentDialog )
-                {
-
-                    return null;
-                }
-            };
-    }
 }
