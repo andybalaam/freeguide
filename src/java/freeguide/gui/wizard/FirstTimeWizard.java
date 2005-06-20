@@ -25,7 +25,6 @@ import freeguide.lib.general.Utils;
 import freeguide.migration.Migrate;
 
 import freeguide.plugins.IModuleConfigureFromWizard;
-import freeguide.plugins.IModuleGrabber;
 
 import java.awt.event.KeyEvent;
 
@@ -50,7 +49,6 @@ public class FirstTimeWizard
 
     static private String defaultBrowser;
     private FreeGuide.Config config;
-    private FreeGuide launcher;
 
     // map of properties files by region name
     private Map isoByRegion;
@@ -62,17 +60,15 @@ public class FirstTimeWizard
     private boolean showREADME;
     private boolean configGrabber;
     private WizardFrame wizardFrame;
+    protected String selectedModuleID;
 
     /**
      * Constructor for the FirstTimeWizard object
      *
-     * @param launcher DOCUMENT ME!
      * @param upgrade DOCUMENT ME!
      */
-    public FirstTimeWizard( FreeGuide launcher, boolean upgrade )
+    public FirstTimeWizard( boolean upgrade )
     {
-        this.launcher = launcher;
-
         config = (FreeGuide.Config)FreeGuide.config.clone(  );
 
         // setStandardProps(  );
@@ -306,150 +302,16 @@ public class FirstTimeWizard
     }
 
     /**
-     * Load in the standard properties file. Note this method just stores the
-     * preferences listed in this file and then forgets anything else.
-     *
-     * @param resourceName DOCUMENT ME!
+     * DOCUMENT_ME!
      *
      * @return DOCUMENT_ME!
-     *
-     * @throws IOException DOCUMENT ME!
      */
-
-    /*    private void setStandardProps(  )
-
-
+    public WizardFrame getFrame(  )
     {
 
-
-
-
-    if( FreeGuide.isUnix )
-
-
-    {
-
-
-    osSuffix = "-lin-";
-
-
+        return wizardFrame;
     }
 
-
-    else
-
-
-    {
-
-
-    osSuffix = "-win-";
-
-
-    }
-
-
-
-
-    // Then load up the properties in the file install-all.props
-
-
-    standardProps = new Properties(  );
-
-
-
-
-    try
-
-
-    {
-
-
-    standardProps.load(
-
-
-        new BufferedInputStream(
-
-
-            getClass(  ).getClassLoader(  ).getResourceAsStream(
-
-
-                "main/main" + osSuffix + "all.properties" ) ) );
-
-
-
-
-    }
-
-
-    catch( java.io.IOException e )
-
-
-    {
-
-
-    e.printStackTrace(  );
-
-
-    }
-
-
-
-
-    readPrefsFromProps( standardProps );
-
-
-
-
-    }*/
-
-    /**
-     * Given a properties file real in all the preferences listed and store
-     * them.
-     *
-     * @param resourceName DOCUMENT ME!
-     *
-     * @return DOCUMENT_ME!
-     *
-     * @throws IOException DOCUMENT ME!
-     */
-
-    /*    private void readPrefsFromProps( Properties iProps )
-
-
-    {
-
-
-
-
-    String prefString = "";
-
-
-
-
-    for(
-
-
-    int j = 1;
-
-
-        ( prefString = iProps.getProperty( "prefs." + j ) ) != null;
-
-
-        j++ )
-
-
-    {
-
-
-    FreeGuide.prefs.put( prefString );
-
-
-
-
-    }
-
-
-    }*/
     protected static Map readMap( final String resourceName )
         throws IOException
     {
@@ -597,10 +459,11 @@ public class FirstTimeWizard
         PluginInfo mod =
             (PluginInfo)allRegionsGrabbers.get( config.countryID );
 
-        if( mod.getInstance(  ) instanceof IModuleConfigureFromWizard )
+        if( mod != null )
         {
-            ( (IModuleConfigureFromWizard)mod ).configureFromWizard( 
-                config.countryID, configGrabber );
+            ( (IModuleConfigureFromWizard)mod.getInstance(  ) )
+            .configureFromWizard( config.countryID, configGrabber );
+            selectedModuleID = mod.getID(  );
         }
 
         if( showREADME )
@@ -620,22 +483,16 @@ public class FirstTimeWizard
                 FreeGuide.log.log( Level.WARNING, "Error display README", ex );
             }
         }
+    }
 
-        wizardFrame.dispose(  );
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String getSelectedModuleID(  )
+    {
 
-        if( launcher != null )
-        {
-
-            try
-            {
-                launcher.normalStartup( 
-                    ( mod == null ) ? null : mod.getID(  ) );
-            }
-            catch( Exception ex )
-            {
-                Application.getInstance(  ).getLogger(  ).severe( 
-                    "Error startup application: " + ex.getMessage(  ) );
-            }
-        }
+        return selectedModuleID;
     }
 }

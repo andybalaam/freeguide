@@ -12,7 +12,7 @@
  */
 package freeguide.gui.wizard;
 
-import freeguide.FreeGuide;
+import freeguide.gui.jcommon.JWaitFrame;
 
 import freeguide.lib.fgspecific.Application;
 
@@ -36,7 +36,7 @@ import javax.swing.JPanel;
  * @author Andy Balaam
  * @version 1
  */
-public class WizardFrame extends javax.swing.JFrame
+public class WizardFrame extends JWaitFrame
 {
 
     private WizardPanel[] panels;
