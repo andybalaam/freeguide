@@ -139,6 +139,8 @@ a Use serialization to reduce startup time
 - Channel names missing when viewing channel sets (Antony Akintewe's email of
   Mar 24 2005)
 - Duplicate a channel set
+- The "All channels" channel set should be ordered by channel number, if
+  available.
 
 - Release 0.10.4 (accessibility, accessibility, accessibility)
 
