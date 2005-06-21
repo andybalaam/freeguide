@@ -2,6 +2,7 @@ package freeguide.gui.jcommon;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 
@@ -50,6 +51,20 @@ public class JWaitFrame extends JFrame
         }
         catch( InterruptedException ex )
         {
+        }
+    }
+
+    /**
+     * Remove all listeners.
+     */
+    public void cleanupListeners(  )
+    {
+
+        WindowListener[] listeners = getWindowListeners(  );
+
+        for( int i = 0; i < listeners.length; i++ )
+        {
+            removeWindowListener( listeners[i] );
         }
     }
 }
