@@ -3,9 +3,13 @@ package freeguide.lib.general;
 import freeguide.plugins.ILocalizer;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import java.net.URL;
+import java.net.URLConnection;
 
 import java.text.MessageFormat;
 
@@ -35,55 +39,33 @@ public class LanguageHelper implements ILocalizer
      * Create language support object. We use it instead ResourceBundle,
      * because it works with UTF-8 property files.
      *
-     * @param classLoader ClassLoader for resource
      * @param resourcePrefix package prefix in form
      *        "freeguide/plugins/module/messages"
      * @param locale
      *
      * @throws IOException
      */
-    public LanguageHelper( 
-        final ClassLoader classLoader, final String resourcePrefix,
-        final Locale locale ) throws IOException
+    public LanguageHelper( final String resourcePrefix, final Locale locale )
+        throws IOException
     {
         this.locale = locale;
 
-        String fileName =
+        String resourceName =
             resourcePrefix + "." + locale.getLanguage(  ) + ".properties";
 
-        InputStream in = classLoader.getResourceAsStream( fileName );
+        translation = new TreeMap(  );
 
-        if( in != null )
-        {
-            translation = new TreeMap(  );
+        loadProperties( resourceName, translation );
 
-            loadProperties( in, translation );
+        resourceName =
+            resourcePrefix + "." + locale.toString(  ) + ".properties";
 
-            fileName =
-                resourcePrefix + "." + locale.toString(  ) + ".properties";
-
-            in = classLoader.getResourceAsStream( fileName );
-
-            if( in != null )
-            {
-                loadProperties( in, translation );
-
-            }
-        }
-
-        else
-        {
-            throw new IOException( 
-                "There is no resource file '" + fileName + "' for locale '"
-                + locale + "'" );
-
-        }
+        loadProperties( resourceName, translation );
     }
 
     /**
      * Load locales list by parse properties.list file.
      *
-     * @param classLoader ClassLoader for resource
      * @param resourcePrefix package prefix in form
      *        "freeguide/plugins/module/messages"
      *
@@ -91,8 +73,7 @@ public class LanguageHelper implements ILocalizer
      *
      * @throws IOException
      */
-    public static Locale[] getLocaleList( 
-        final ClassLoader classLoader, final String resourcePrefix )
+    public static Locale[] getLocaleList( final String resourcePrefix )
         throws IOException
     {
 
@@ -118,73 +99,55 @@ public class LanguageHelper implements ILocalizer
 
         }
 
-        final InputStream in =
-            classLoader.getResourceAsStream( packageName + "/ls" );
+        //final String[] properitesFiles = loadStrings( packageName + "/ls" );
+        final String[] properitesFiles = new String[0];
 
-        if( in != null )
+        final List result = new ArrayList(  );
+
+        for( int i = 0; i < properitesFiles.length; i++ )
         {
 
-            final String[] properitesFiles = loadStrings( in );
-
-            final List result = new ArrayList(  );
-
-            for( int i = 0; i < properitesFiles.length; i++ )
+            if( 
+                properitesFiles[i].startsWith( fPrefix )
+                    && properitesFiles[i].endsWith( ".properties" ) )
             {
 
-                if( 
-                    properitesFiles[i].startsWith( fPrefix )
-                        && properitesFiles[i].endsWith( ".properties" ) )
-                {
+                final String localeName =
+                    properitesFiles[i].substring( 
+                        fPrefix.length(  ),
+                        properitesFiles[i].length(  )
+                        - ".properties".length(  ) );
 
-                    final String localeName =
-                        properitesFiles[i].substring( 
-                            fPrefix.length(  ),
-                            properitesFiles[i].length(  )
-                            - ".properties".length(  ) );
+                int up = localeName.indexOf( '_' );
 
-                    int up = localeName.indexOf( '_' );
+                if( up == -1 )
+                { // add language only locale
+                    result.add( new Locale( localeName ) );
 
-                    if( up == -1 )
-                    { // add language only locale
-                        result.add( new Locale( localeName ) );
+                }
 
-                    }
+                else
+                { // add language and country locale
+                    result.add( 
+                        new Locale( 
+                            localeName.substring( 0, up ),
+                            localeName.substring( up + 1 ) ) );
 
-                    else
-                    { // add language and country locale
-                        result.add( 
-                            new Locale( 
-                                localeName.substring( 0, up ),
-                                localeName.substring( up + 1 ) ) );
-
-                    }
                 }
             }
-
-            return (Locale[])result.toArray( new Locale[result.size(  )] );
-
         }
 
-        else
-        {
+        return (Locale[])result.toArray( new Locale[result.size(  )] );
 
-            return new Locale[0];
-
-        }
     }
 
     /**
      * DOCUMENT_ME!
      *
-     * @param classLoader DOCUMENT_ME!
-     * @param resourcePrefix DOCUMENT_ME!
-     * @param resourceSuffix DOCUMENT_ME!
-     *
      * @return DOCUMENT_ME!
-     *
-     * @throws IOException DOCUMENT_ME!
      */
-    public static String[] listResources( 
+
+    /*public static String[] listResources(
         final ClassLoader classLoader, final String resourcePrefix,
         final String resourceSuffix ) throws IOException
     {
@@ -224,7 +187,7 @@ public class LanguageHelper implements ILocalizer
             for( int i = 0; i < properitesFiles.length; i++ )
             {
 
-                if( 
+                if(
                     properitesFiles[i].startsWith( fPrefix )
                         && properitesFiles[i].endsWith( resourceSuffix ) )
                 {
@@ -243,7 +206,7 @@ public class LanguageHelper implements ILocalizer
             return new String[0];
 
         }
-    }
+    }*/
 
     /**
      * DOCUMENT_ME!
@@ -343,122 +306,202 @@ public class LanguageHelper implements ILocalizer
     /**
      * Load UTF-8 properties file.
      *
-     * @param in input stream
+     * @param resourceName input stream
      * @param result DOCUMENT ME!
      *
      * @throws IOException DOCUMENT ME!
      */
-    public static void loadProperties( final InputStream in, final Map result )
-        throws IOException
+    public static void loadProperties( 
+        final String resourceName, final Map result ) throws IOException
     {
 
-        final BufferedReader rd =
-            new BufferedReader( new InputStreamReader( in, "UTF-8" ) );
+        final InputStream in = getUncachedStream( resourceName );
 
-        String line;
-
-        while( ( line = rd.readLine(  ) ) != null )
+        if( in == null )
         {
 
-            if( line.startsWith( "#" ) || line.startsWith( ";" ) )
+            return;
+        }
+
+        try
+        {
+
+            final BufferedReader rd =
+                new BufferedReader( new InputStreamReader( in, "UTF-8" ) );
+
+            String line;
+
+            while( ( line = rd.readLine(  ) ) != null )
             {
 
-                continue;
+                if( line.startsWith( "#" ) || line.startsWith( ";" ) )
+                {
+
+                    continue;
+
+                }
+
+                int i = line.indexOf( '=' );
+
+                if( i == -1 )
+                {
+
+                    continue;
+
+                }
+
+                final String key = line.substring( 0, i );
+                String value = line.substring( i + 1 );
+                value = StringHelper.replaceAll( value, "\\n", "\n" );
+                result.put( key, value );
 
             }
-
-            int i = line.indexOf( '=' );
-
-            if( i == -1 )
-            {
-
-                continue;
-
-            }
-
-            final String key = line.substring( 0, i );
-            String value = line.substring( i + 1 );
-            value = StringHelper.replaceAll( value, "\\n", "\n" );
-            result.put( key, value );
-
+        }
+        finally
+        {
+            in.close(  );
         }
     }
 
     /**
      * Load UTF-8 strings file.
      *
-     * @param in input stream
+     * @param resourceName input stream
      *
      * @return Map with properties
      *
      * @throws IOException DOCUMENT ME!
      */
-    public static String[] loadStrings( final InputStream in )
+    public static String[] loadStrings( final String resourceName )
         throws IOException
     {
 
-        final BufferedReader rd =
-            new BufferedReader( new InputStreamReader( in, "UTF-8" ) );
+        final InputStream in = getUncachedStream( resourceName );
 
-        final List result = new ArrayList(  );
-
-        String line;
-
-        while( ( line = rd.readLine(  ) ) != null )
+        if( in == null )
         {
 
-            if( 
-                line.startsWith( "#" ) || line.startsWith( ";" )
-                    || "".equals( line.trim(  ) ) )
+            return new String[0];
+        }
+
+        try
+        {
+
+            final BufferedReader rd =
+                new BufferedReader( new InputStreamReader( in, "UTF-8" ) );
+
+            final List result = new ArrayList(  );
+
+            String line;
+
+            while( ( line = rd.readLine(  ) ) != null )
             {
 
-                continue;
+                if( 
+                    line.startsWith( "#" ) || line.startsWith( ";" )
+                        || "".equals( line.trim(  ) ) )
+                {
+
+                    continue;
+
+                }
+
+                result.add( line );
 
             }
 
-            result.add( line );
-
+            return (String[])result.toArray( new String[result.size(  )] );
         }
-
-        return (String[])result.toArray( new String[result.size(  )] );
-
+        finally
+        {
+            in.close(  );
+        }
     }
 
     /**
      * DOCUMENT_ME!
      *
-     * @param in DOCUMENT_ME!
+     * @param resourceName DOCUMENT_ME!
      *
      * @return DOCUMENT_ME!
      *
      * @throws IOException DOCUMENT_ME!
      */
-    public static String loadFileAsString( final InputStream in )
+    public static String loadResourceAsString( final String resourceName )
         throws IOException
     {
+
+        final InputStream in = getUncachedStream( resourceName );
 
         if( in == null )
         {
 
             return null;
-
         }
 
-        final BufferedReader rd =
-            new BufferedReader( new InputStreamReader( in, "UTF-8" ) );
-
-        final StringBuffer result = new StringBuffer(  );
-
-        String line;
-
-        while( ( line = rd.readLine(  ) ) != null )
+        try
         {
-            result.append( line );
 
+            final BufferedReader rd =
+                new BufferedReader( new InputStreamReader( in, "UTF-8" ) );
+
+            final StringBuffer result = new StringBuffer(  );
+
+            String line;
+
+            while( ( line = rd.readLine(  ) ) != null )
+            {
+                result.append( line );
+
+            }
+
+            return result.toString(  );
+        }
+        finally
+        {
+            in.close(  );
+        }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param resourceName DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     *
+     * @throws IOException DOCUMENT_ME!
+     */
+    public static byte[] loadResourceAsByteArray( final String resourceName )
+        throws IOException
+    {
+
+        final InputStream in = getUncachedStream( resourceName );
+
+        if( in == null )
+        {
+
+            return null;
         }
 
-        return result.toString(  );
+        try
+        {
 
+            final ByteArrayOutputStream out = new ByteArrayOutputStream(  );
+            int len;
+            byte[] buffer = new byte[65536];
+
+            while( ( len = in.read( buffer ) ) >= 0 )
+            {
+                out.write( buffer, 0, len );
+            }
+
+            return out.toByteArray(  );
+        }
+        finally
+        {
+            in.close(  );
+        }
     }
 
     /**
@@ -488,5 +531,50 @@ public class LanguageHelper implements ILocalizer
         }
 
         return Locale.ENGLISH;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param url DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     *
+     * @throws IOException DOCUMENT_ME!
+     */
+    public static InputStream getUncachedStream( final URL url )
+        throws IOException
+    {
+
+        if( url != null )
+        {
+
+            URLConnection conn = url.openConnection(  );
+            conn.setUseCaches( false );
+
+            return conn.getInputStream(  );
+        }
+        else
+        {
+
+            return null;
+        }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param resourceName DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     *
+     * @throws IOException DOCUMENT_ME!
+     */
+    public static InputStream getUncachedStream( final String resourceName )
+        throws IOException
+    {
+
+        return getUncachedStream( 
+            LanguageHelper.class.getClassLoader(  ).getResource( resourceName ) );
     }
 }

@@ -37,7 +37,6 @@ public abstract class BaseModule implements IModule
     {
 
         return LanguageHelper.getLocaleList( 
-            getClass(  ).getClassLoader(  ),
             getClass(  ).getPackage(  ).getName(  ).replace( '.', '/' )
             + "/i18n" );
 
@@ -55,7 +54,6 @@ public abstract class BaseModule implements IModule
     {
         i18n =
             new LanguageHelper( 
-                getClass(  ).getClassLoader(  ),
                 getClass(  ).getPackage(  ).getName(  ).replace( '.', '/' )
                 + "/i18n", locale );
 
