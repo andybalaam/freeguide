@@ -100,11 +100,10 @@ public class FreeGuide
     {
         startupMessages =
             new LanguageHelper( 
-                getClass(  ).getClassLoader(  ), "i18n/Startup",
+                "i18n/Startup",
                 LanguageHelper.getPreferredLocale( 
                     new Locale[] { Locale.getDefault(  ) },
-                    LanguageHelper.getLocaleList( 
-                        getClass(  ).getClassLoader(  ), "i18n/Startup" ) ) );
+                    LanguageHelper.getLocaleList( "i18n/Startup" ) ) );
 
         // Check Java version.  If wrong, exit with error
         checkJavaVersion(  );
@@ -236,7 +235,6 @@ public class FreeGuide
 
         ( (MainController)Application.getInstance(  ) ).start( 
             viewer, grabberFromWizard );
-
     }
 
     /**

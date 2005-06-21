@@ -360,8 +360,7 @@ public class Migrate
 
                 Map conv = new TreeMap(  );
                 LanguageHelper.loadProperties( 
-                    Migrate.class.getClassLoader(  ).getResourceAsStream( 
-                        "freeguide/migration/regions.0.8.6.properties" ), conv );
+                    "freeguide/migration/regions.0.8.6.properties", conv );
                 FreeGuide.config.countryID = (String)conv.get( region );
             }
 
