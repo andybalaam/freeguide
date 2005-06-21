@@ -4,13 +4,16 @@ import freeguide.gui.jcommon.JWaitFrame;
 
 import freeguide.lib.fgspecific.Application;
 
+import freeguide.lib.general.LanguageHelper;
+
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
-import java.net.URL;
+import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -52,10 +55,24 @@ public class MainFrame extends JWaitFrame
     {
         super(  );
 
-        URL imgURL = getClass(  ).getResource( "/images/logo-16x16.png" );
-        Image icon =
-            ( new javax.swing.ImageIcon( imgURL, "icon" ) ).getImage(  );
-        setIconImage( icon );
+        try
+        {
+
+            byte[] data =
+                LanguageHelper.loadResourceAsByteArray( 
+                    "images/logo-16x16.png" );
+
+            if( data != null )
+            {
+
+                Image icon = ( new ImageIcon( data, "icon" ) ).getImage(  );
+                setIconImage( icon );
+            }
+        }
+        catch( IOException ex )
+        {
+        }
+
         initialize(  );
 
     }
@@ -72,8 +89,8 @@ public class MainFrame extends JWaitFrame
      */
     private void initialize(  )
     {
-        this.setDefaultCloseOperation( javax.swing.JFrame.EXIT_ON_CLOSE );
 
+        this.setDefaultCloseOperation( javax.swing.JFrame.EXIT_ON_CLOSE );
         this.setJMenuBar( getMainMenu(  ) );
 
         this.setSize( 300, 200 );

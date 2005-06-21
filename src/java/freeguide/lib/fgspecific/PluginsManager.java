@@ -91,7 +91,8 @@ public class PluginsManager
 
                 PluginInfo handler = new PluginInfo(  );
 
-                InputStream stream = info[i].openStream(  );
+                InputStream stream =
+                    LanguageHelper.getUncachedStream( info[i] );
 
                 try
                 {

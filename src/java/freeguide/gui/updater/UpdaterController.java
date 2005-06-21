@@ -150,10 +150,10 @@ public class UpdaterController
                                 ui,
                                 Application.getInstance(  )
                                            .getLocalizedMessage( 
-                                    "UpdateManager.UpdateConfirmation.Header" ),
+                                    "UpdateManager.UpdateConfirmation.Text" ),
                                 Application.getInstance(  )
                                            .getLocalizedMessage( 
-                                    "UpdateManager.UpdateConfirmation.Text" ),
+                                    "UpdateManager.UpdateConfirmation.Header" ),
                                 JOptionPane.OK_CANCEL_OPTION );
 
                         if( r == JOptionPane.OK_OPTION )

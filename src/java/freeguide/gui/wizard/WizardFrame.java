@@ -16,6 +16,7 @@ import freeguide.gui.jcommon.JWaitFrame;
 
 import freeguide.lib.fgspecific.Application;
 
+import freeguide.lib.general.LanguageHelper;
 import freeguide.lib.general.Utils;
 
 import java.awt.GridBagConstraints;
@@ -25,8 +26,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import java.net.URL;
+import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -63,10 +65,18 @@ public class WizardFrame extends JWaitFrame
         Runnable exitMethod )
     {
 
-        URL imgURL = getClass(  ).getResource( "/images/logo-16x16.png" );
-        Image icon =
-            ( new javax.swing.ImageIcon( imgURL, "icon" ) ).getImage(  );
-        setIconImage( icon );
+        try
+        {
+
+            Image icon =
+                ( new ImageIcon( 
+                    LanguageHelper.loadResourceAsByteArray( 
+                        "/images/logo-16x16.png" ), "icon" ) ).getImage(  );
+            setIconImage( icon );
+        }
+        catch( IOException ex )
+        {
+        }
 
         this.panels = panels;
 

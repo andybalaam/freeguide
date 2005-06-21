@@ -74,8 +74,7 @@ public class MainController extends BaseModule implements IApplication
     public Locale[] getSuppotedLocales(  ) throws Exception
     {
 
-        return LanguageHelper.getLocaleList( 
-            FreeGuide.class.getClassLoader(  ), "i18n/MessagesBundle" );
+        return LanguageHelper.getLocaleList( "i18n/MessagesBundle" );
     }
 
     /**
@@ -87,10 +86,7 @@ public class MainController extends BaseModule implements IApplication
      */
     public void setLocale( Locale locale ) throws Exception
     {
-        i18n =
-            new LanguageHelper( 
-                FreeGuide.class.getClassLoader(  ), "i18n/MessagesBundle",
-                locale );
+        i18n = new LanguageHelper( "i18n/MessagesBundle", locale );
     }
 
     /**
@@ -259,6 +255,14 @@ public class MainController extends BaseModule implements IApplication
         checkForNoData(  );
 
         mainFrame.waitForClose(  );
+
+        for( int i = 0; i < reminders.length; i++ )
+        {
+
+            IModuleReminder reminder =
+                (IModuleReminder)reminders[i].getInstance(  );
+            reminder.stop(  );
+        }
     }
 
     /**

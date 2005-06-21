@@ -318,9 +318,7 @@ public class FirstTimeWizard
 
         Map props = new TreeMap(  );
 
-        LanguageHelper.loadProperties( 
-            FirstTimeWizard.class.getClassLoader(  ).getResourceAsStream( 
-                resourceName ), props );
+        LanguageHelper.loadProperties( resourceName, props );
 
         return props;
 
