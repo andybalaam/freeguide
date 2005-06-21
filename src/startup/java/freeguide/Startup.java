@@ -42,25 +42,8 @@ public class Startup
 
             while( true )
             {
-
-                ClassLoader classLoader;
-
-                if( System.getProperty( "debugPlugins" ) != null )
-                {
-                    classLoader = Startup.class.getClassLoader(  );
-                }
-                else
-                {
-                    classLoader = getAllClasses(  );
-                }
-
-                Class startupClass = classLoader.loadClass( STARTUP_CLASS );
-                Method startupMethod =
-                    startupClass.getMethod( 
-                        STARTUP_METHOD, new Class[] { String[].class } );
-
-                startupMethod.invoke( startupClass, new Object[] { args } );
-
+                run( args );
+                System.gc(  );
             }
         }
         catch( MalformedURLException ex )
@@ -105,7 +88,28 @@ public class Startup
         }
 
         return new URLClassLoader( 
-            (URL[])jarUrls.toArray( new URL[jarUrls.size(  )] ),
-            Startup.class.getClassLoader(  ) );
+            (URL[])jarUrls.toArray( new URL[jarUrls.size(  )] ) );
+    }
+
+    protected static void run( final String[] args ) throws Exception
+    {
+
+        final ClassLoader classLoader;
+
+        if( System.getProperty( "debugPlugins" ) != null )
+        {
+            classLoader = Startup.class.getClassLoader(  );
+        }
+        else
+        {
+            classLoader = getAllClasses(  );
+        }
+
+        Class startupClass = classLoader.loadClass( STARTUP_CLASS );
+        Method startupMethod =
+            startupClass.getMethod( 
+                STARTUP_METHOD, new Class[] { String[].class } );
+
+        startupMethod.invoke( startupClass, new Object[] { args } );
     }
 }

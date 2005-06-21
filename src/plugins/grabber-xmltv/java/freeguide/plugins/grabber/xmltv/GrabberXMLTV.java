@@ -5,6 +5,7 @@ import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVIteratorChannels;
 
+import freeguide.lib.general.LanguageHelper;
 import freeguide.lib.general.StringHelper;
 import freeguide.lib.general.Utils;
 
@@ -153,7 +154,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             try
             {
                 cmds.load( 
-                    GrabberXMLTV.class.getClassLoader(  ).getResourceAsStream( 
+                    LanguageHelper.getUncachedStream( 
                         GrabberXMLTV.class.getPackage(  ).getName(  ).replace( 
                             '.', '/' ) + "/commands.properties" ) );
 

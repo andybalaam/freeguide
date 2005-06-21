@@ -4,6 +4,8 @@ import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.data.TVData;
 
+import freeguide.lib.general.LanguageHelper;
+
 import freeguide.lib.grabber.HttpBrowser;
 
 import freeguide.plugins.BaseModule;
@@ -273,7 +275,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         try
         {
             TIME_ZONES.load( 
-                this.getClass(  ).getClassLoader(  ).getResourceAsStream( 
+                LanguageHelper.getUncachedStream( 
                     this.getClass(  ).getPackage(  ).getName(  ).replace( 
                         '.', '/' ) + "/timezones.properties" ) );
 

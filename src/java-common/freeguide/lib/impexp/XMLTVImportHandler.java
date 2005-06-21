@@ -5,10 +5,14 @@ import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
+import freeguide.lib.general.LanguageHelper;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import java.io.IOException;
 
 import java.net.URL;
 
@@ -442,10 +446,18 @@ class XMLTVImportHandler extends DefaultHandler
         if( systemId.endsWith( "/xmltv.dtd" ) )
         {
 
-            return new InputSource( 
-                getClass(  ).getClassLoader(  ).getResourceAsStream( 
-                    getClass(  ).getPackage(  ).getName(  ).replace( '.', '/' )
-                    + "/xmltv.dtd" ) );
+            try
+            {
+
+                return new InputSource( 
+                    LanguageHelper.getUncachedStream( 
+                        getClass(  ).getPackage(  ).getName(  ).replace( 
+                            '.', '/' ) + "/xmltv.dtd" ) );
+            }
+            catch( IOException ex )
+            {
+                throw new SAXException( ex );
+            }
         }
         else
         {

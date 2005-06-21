@@ -207,7 +207,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         try
         {
             TIMEZONES.load( 
-                this.getClass(  ).getClassLoader(  ).getResourceAsStream( 
+                LanguageHelper.getUncachedStream( 
                     this.getClass(  ).getPackage(  ).getName(  ).replace( 
                         '.', '/' ) + "/timezones.properties" ) );
 
@@ -313,9 +313,8 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
         final String[] nen =
             LanguageHelper.loadStrings( 
-                getClass(  ).getClassLoader(  ).getResourceAsStream( 
-                    getClass(  ).getPackage(  ).getName(  ).replace( '.', '/' )
-                    + "/nen.utf8.list" ) );
+                getClass(  ).getPackage(  ).getName(  ).replace( '.', '/' )
+                + "/nen.utf8.list" );
         data.iterateProgrammes( 
             new TVIteratorProgrammes(  )
             {
