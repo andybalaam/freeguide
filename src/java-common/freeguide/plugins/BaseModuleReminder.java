@@ -302,7 +302,6 @@ abstract public class BaseModuleReminder extends BaseModule
          */
         public void run(  )
         {
-
             synchronized( this )
             {
 
@@ -328,6 +327,7 @@ abstract public class BaseModuleReminder extends BaseModule
                             break;
 
                         case STATE_STOP:
+
                             return;
                         }
 
@@ -363,72 +363,16 @@ abstract public class BaseModuleReminder extends BaseModule
             synchronized( this )
             {
                 state = STATE_STOP;
-                notify(  );
+                notifyAll(  );
+            }
+
+            try
+            {
+                join(  );
+            }
+            catch( InterruptedException ex )
+            {
             }
         }
-
-        /*try
-        {
-
-        long schedTime;
-
-        if(
-        ( closeDialogTime != 0 )
-        && ( schedTime > closeDialogTime ) )
-        {
-        schedTime = closeDialogTime;
-        }
-
-        long waitTime = schedTime - System.currentTimeMillis(  );
-
-        if( waitTime < 10 )
-        {
-        waitTime = 10;
-
-        }
-
-        wait( waitTime );
-
-        if( stop )
-        {
-
-        break;
-
-        }
-
-        if( dialog != null )
-        {
-        dialog.dispose(  );
-
-        dialog = null;
-
-        }
-
-        closeDialogTime = 0;
-
-        if( scheduledProgramme != null )
-        {
-
-        if(
-        ( scheduledProgramme.getStart(  )
-        - MainController.config.reminderWarning ) < System
-        .currentTimeMillis(  ) )
-        {
-        displayDialog(  );
-
-        closeDialogTime =
-        System.currentTimeMillis(  )
-        + MainController.config.reminderGiveUp;
-
-        }
-        }
-
-        scheduledProgramme = findNextProgramme(  );
-        }
-        catch( InterruptedException ex )
-        {
-        FreeGuide.log.log(
-        Level.WARNING, "Reminder thread interrupted ", ex );
-        }*/
     }
 }
