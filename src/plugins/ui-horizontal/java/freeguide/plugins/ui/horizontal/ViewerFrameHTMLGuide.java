@@ -88,14 +88,6 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
         setCaretPosition( 0 );
     }
 
-    /*
-
-
-    *  Saves out the listings as an HTML file to be printed.
-
-
-    */
-
     /**
      * Description of the Method
      */
@@ -141,7 +133,5 @@ public class ViewerFrameHTMLGuide extends javax.swing.JEditorPane
             Application.getInstance(  ).getLogger(  ).log( 
                 Level.WARNING, "Error write HTML guide", ex );
         }
-
-        //try
     }
 }
