@@ -281,7 +281,12 @@ public class RepositoryUtils
             {
                 Application.getInstance(  ).getLogger(  ).finer( 
                     "Delete " + file.getPath(  ) );
-                file.delete(  );
+
+                if( !file.delete(  ) )
+                {
+                    Application.getInstance(  ).getLogger(  ).fine( 
+                        "Delete failed for " + file.getPath(  ) );
+                }
             }
         }
     }
