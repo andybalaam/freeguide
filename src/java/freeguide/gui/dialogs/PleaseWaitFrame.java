@@ -16,13 +16,17 @@ import freeguide.FreeGuide;
 
 import freeguide.lib.fgspecific.Application;
 
+import freeguide.lib.general.LanguageHelper;
 import freeguide.lib.general.Utils;
 
 import java.awt.Image;
 
-import java.net.URL;
+import java.io.IOException;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  * A window saying "Please Wait", displayed while FreeGuide loads.
@@ -51,22 +55,44 @@ public class PleaseWaitFrame extends JFrame
     private void initComponents(  )
     {
 
-        URL imgURL = getClass(  ).getResource( "/images/logo-16x16.png" );
-        Image icon =
-            ( new javax.swing.ImageIcon( imgURL, "icon" ) ).getImage(  );
-        setIconImage( icon );
-        imgURL = getClass(  ).getResource( "/images/logo-256x256.png" );
-        image =
-            new javax.swing.ImageIcon( 
-                imgURL,
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "please_wait" ) );
-        imageLabel =
-            new javax.swing.JLabel( image, javax.swing.SwingConstants.CENTER );
-        imageLabel.setBorder( 
-            javax.swing.BorderFactory.createLineBorder( java.awt.Color.BLACK ) );
-        getContentPane(  ).add( imageLabel, java.awt.BorderLayout.CENTER );
-        setResizable( false );
+        try
+        {
+
+            byte[] data =
+                LanguageHelper.loadResourceAsByteArray( 
+                    "images/logo-16x16.png" );
+
+            if( data != null )
+            {
+
+                Image icon = ( new ImageIcon( data, "icon" ) ).getImage(  );
+                setIconImage( icon );
+            }
+
+            byte[] data2 =
+                LanguageHelper.loadResourceAsByteArray( 
+                    "images/logo-256x256.png" );
+
+            if( data2 != null )
+            {
+                image =
+                    new ImageIcon( 
+                        data2,
+                        Application.getInstance(  ).getLocalizedMessage( 
+                            "please_wait" ) );
+                imageLabel =
+                    new JLabel( image, javax.swing.SwingConstants.CENTER );
+                imageLabel.setBorder( 
+                    BorderFactory.createLineBorder( java.awt.Color.BLACK ) );
+                getContentPane(  ).add( 
+                    imageLabel, java.awt.BorderLayout.CENTER );
+                setResizable( false );
+            }
+        }
+        catch( IOException ex )
+        {
+        }
+
         addWindowListener( 
             new java.awt.event.WindowAdapter(  )
             {
