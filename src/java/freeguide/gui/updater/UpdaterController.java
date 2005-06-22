@@ -19,6 +19,8 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 
+import java.util.logging.Level;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -128,14 +130,21 @@ public class UpdaterController
                     }
                     catch( IOException ex )
                     {
-                        System.out.println( 
-                            "Can't update, because file '" + ex.getMessage(  )
-                            + "' not writable" );
+                        JOptionPane.showMessageDialog( 
+                            ui,
+                            Application.getInstance(  ).getLocalizedMessage( 
+                                "UpdateManager.UpdateCannot.Text",
+                                new String[] { ex.getMessage(  ) } ),
+                            Application.getInstance(  ).getLocalizedMessage( 
+                                "UpdateManager.UpdateCannot.Header" ),
+                            JOptionPane.ERROR_MESSAGE );
+
+                        return;
                     }
 
                     File dstDir =
                         new File( 
-                            FreeGuide.config.workingDirectory + "/updates/" );
+                            FreeGuide.runtimeInfo.installDirectory, "updates" );
                     dstDir.mkdirs(  );
 
                     try
@@ -144,6 +153,11 @@ public class UpdaterController
                             ( (PluginMirror)repository.getAllMirrors(  ).get( 
                                 0 ) ).getPath(  ),
                             repository.getFilesForDownload(  ), dstDir );
+
+                        RepositoryUtils.prepareForDelete( 
+                            new File( 
+                                FreeGuide.runtimeInfo.installDirectory,
+                                "updates/delete.list" ), filesForDelete );
 
                         int r =
                             JOptionPane.showConfirmDialog( 
@@ -158,26 +172,21 @@ public class UpdaterController
 
                         if( r == JOptionPane.OK_OPTION )
                         {
-                            RepositoryUtils.deleteFiles( 
-                                new File( 
-                                    FreeGuide.runtimeInfo.installDirectory ),
-                                filesForDelete );
-
-                            RepositoryUtils.unzipPackages( 
-                                dstDir,
-                                new File( 
-                                    FreeGuide.runtimeInfo.installDirectory ) );
-
                             Application.getInstance(  ).restart(  );
                         }
                     }
                     catch( Exception ex )
                     {
-                        ex.printStackTrace(  );
-                    }
-                    finally
-                    {
-                        RepositoryUtils.removeDirectory( dstDir );
+                        Application.getInstance(  ).getLogger(  ).log( 
+                            Level.WARNING, "Error download updates", ex );
+                        JOptionPane.showMessageDialog( 
+                            ui,
+                            Application.getInstance(  ).getLocalizedMessage( 
+                                "UpdateManager.UpdateError.Text",
+                                new String[] { ex.getMessage(  ) } ),
+                            Application.getInstance(  ).getLocalizedMessage( 
+                                "UpdateManager.UpdateError.Header" ),
+                            JOptionPane.ERROR_MESSAGE );
                     }
                 }
             } );
