@@ -10,18 +10,14 @@ import freeguide.lib.updater.data.PluginsRepository;
 
 import org.xml.sax.InputSource;
 
-import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.OutputStreamWriter;
 
-import java.util.Enumeration;
 import java.util.zip.GZIPInputStream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -152,94 +148,6 @@ public class RepositoryUtils
     /**
      * DOCUMENT_ME!
      *
-     * @param fromDirectory DOCUMENT_ME!
-     * @param baseDirectory DOCUMENT_ME!
-     *
-     * @throws IOException DOCUMENT_ME!
-     */
-    public static void unzipPackages( 
-        final File fromDirectory, final File baseDirectory )
-        throws IOException
-    {
-
-        File[] files =
-            fromDirectory.listFiles( 
-                new FileFilter(  )
-                {
-                    public boolean accept( File pathname )
-                    {
-
-                        return !pathname.isDirectory(  )
-                        && pathname.getName(  ).toLowerCase(  ).endsWith( 
-                            ".zip" );
-                    }
-                } );
-
-        if( files != null )
-        {
-
-            for( int i = 0; i < files.length; i++ )
-            {
-                Application.getInstance(  ).getLogger(  ).finer( 
-                    "Unzip file '" + files[i] + "' to "
-                    + baseDirectory.getPath(  ) );
-
-                ZipFile zip = new ZipFile( files[i] );
-
-                try
-                {
-
-                    Enumeration zipEntries = zip.entries(  );
-
-                    while( zipEntries.hasMoreElements(  ) )
-                    {
-
-                        ZipEntry entry = (ZipEntry)zipEntries.nextElement(  );
-                        File outFile =
-                            new File( baseDirectory, entry.getName(  ) );
-
-                        if( entry.isDirectory(  ) )
-                        {
-                            outFile.mkdirs(  );
-                        }
-                        else
-                        {
-                            unzipFile( zip.getInputStream( entry ), outFile );
-                        }
-                    }
-                }
-                finally
-                {
-                    zip.close(  );
-                }
-
-                files[i].delete(  );
-            }
-        }
-    }
-
-    protected static void unzipFile( final InputStream from, final File to )
-        throws IOException
-    {
-
-        byte[] buffer = new byte[65536];
-        int len;
-        BufferedOutputStream out =
-            new BufferedOutputStream( new FileOutputStream( to ) );
-
-        while( ( len = from.read( buffer ) ) > 0 )
-        {
-            out.write( buffer, 0, len );
-        }
-
-        from.close(  );
-        out.flush(  );
-        out.close(  );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
      * @param baseDirectory DOCUMENT_ME!
      * @param files DOCUMENT_ME!
      *
@@ -265,59 +173,34 @@ public class RepositoryUtils
     /**
      * DOCUMENT_ME!
      *
-     * @param baseDirectory DOCUMENT_ME!
-     * @param files DOCUMENT_ME!
-     */
-    public static void deleteFiles( 
-        final File baseDirectory, final String[] files )
-    {
-
-        for( int i = 0; i < files.length; i++ )
-        {
-
-            final File file = new File( baseDirectory, files[i] );
-
-            if( file.exists(  ) )
-            {
-                Application.getInstance(  ).getLogger(  ).finer( 
-                    "Delete " + file.getPath(  ) );
-
-                if( !file.delete(  ) )
-                {
-                    Application.getInstance(  ).getLogger(  ).fine( 
-                        "Delete failed for " + file.getPath(  ) );
-                }
-            }
-        }
-    }
-
-    /**
-     * DOCUMENT_ME!
+     * @param dest DOCUMENT_ME!
+     * @param names DOCUMENT_ME!
      *
-     * @param dir DOCUMENT_ME!
+     * @throws IOException DOCUMENT ME!
      */
-    public static void removeDirectory( final File dir )
+    public static void prepareForDelete( 
+        final File dest, final String[] names ) throws IOException
     {
 
-        final File[] childs = dir.listFiles(  );
+        BufferedWriter out =
+            new BufferedWriter( 
+                new OutputStreamWriter( 
+                    new FileOutputStream( dest, true ), "UTF-8" ) );
 
-        if( childs != null )
+        try
         {
 
-            for( int i = 0; i < childs.length; i++ )
+            for( int i = 0; i < names.length; i++ )
             {
-
-                if( childs[i].isDirectory(  ) )
-                {
-                    removeDirectory( childs[i] );
-                }
-                else
-                {
-                    childs[i].delete(  );
-                }
+                out.write( names[i] );
+                out.write( '\n' );
             }
-        }
 
-        dir.delete(  );
+            out.flush(  );
+        }
+        finally
+        {
+            out.close(  );
+        }
     }
 }
