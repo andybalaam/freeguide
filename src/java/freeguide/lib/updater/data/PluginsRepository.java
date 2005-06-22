@@ -6,7 +6,6 @@ import freeguide.lib.fgspecific.PluginInfo;
 import freeguide.lib.fgspecific.PluginsManager;
 
 import java.io.File;
-import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -210,46 +209,5 @@ public class PluginsRepository
         }
 
         return (String[])result.toArray( new String[result.size(  )] );
-    }
-
-    /**
-     * Copy files from src to dst dir, which we need to update.
-     *
-     * @param srcDirectory source directory (where we downloaded files)
-     * @param files list fo files for update(PluginPackage.PackageFile)
-     *
-     * @throws IOException exception
-     */
-    public void update( final String srcDirectory, final List files )
-        throws IOException
-    {
-
-        /*for( int i = 0; i < files.size(  ); i++ )
-        {
-
-        PluginPackage.PackageFile file =
-        (PluginPackage.PackageFile)files.get( i );
-        final File destFile =
-        new File( baseDirectory, file.getLocalPath(  ) );
-
-        if( !destFile.canWrite(  ) )
-        {
-        throw new IOException(
-            "Error update: file " + destFile.getPath(  )
-            + " is not writable" );
-        }
-        }
-
-        for( int i = 0; i < files.size(  ); i++ )
-        {
-
-        PluginPackage.PackageFile file =
-        (PluginPackage.PackageFile)files.get( i );
-        final File srcFile =
-        new File( srcDirectory, file.getLocalPath(  ) );
-        final File destFile =
-        new File( baseDirectory, file.getLocalPath(  ) );
-        srcFile.renameTo( destFile );
-        }*/
     }
 }
