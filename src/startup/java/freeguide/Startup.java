@@ -15,9 +15,8 @@ import java.util.logging.Logger;
 
 /**
  * This class load all jars to classloader and runs main application
- * class(freeguide.FreeGuide) again and again. It uses for restart
- * application after update jars and change locale, etc. If we want to close
- * application, we need to run System.exit().
+ * class(freeguide.FreeGuide). It uses for unpack updates BEFORE starting
+ * main application.
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
@@ -28,6 +27,7 @@ public class Startup
     protected static final String STARTUP_METHOD = "main";
     protected static final Logger log =
         Logger.getLogger( "org.freeguide-tv.startup" );
+    protected static final String INSTALL_PREFIX = "--install_directory=";
 
     /**
      * Main method.
@@ -40,40 +40,43 @@ public class Startup
         try
         {
 
-            while( true )
+            try
             {
-                run( args );
-                System.gc(  );
+                new StartupUpdates(  ).update( getInstallDirectory( args ) );
             }
+            catch( Exception ex )
+            {
+                warning( "E05. Error unpack updates", ex );
+            }
+
+            run( args );
         }
         catch( MalformedURLException ex )
         {
-            log.log( Level.SEVERE, "Error in ClassLoader URL", ex );
+            die( "E01. Error in ClassLoader URL", ex );
         }
         catch( ClassNotFoundException ex )
         {
-            log.log( 
-                Level.SEVERE, "Main class('" + STARTUP_CLASS + "') not found",
-                ex );
+            die( "E02. Main class('" + STARTUP_CLASS + "') not found", ex );
         }
         catch( NoSuchMethodException ex )
         {
-            log.log( 
-                Level.SEVERE, "Main method not found in startup class", ex );
+            die( "E03. Main method not found in startup class", ex );
         }
         catch( Exception ex )
         {
-            log.log( Level.SEVERE, "Main method exception throwed", ex );
+            die( "E04. Main method exception throwed", ex );
         }
     }
 
-    protected static ClassLoader getAllClasses(  )
+    protected static ClassLoader getAllClasses( final String[] args )
         throws MalformedURLException
     {
 
         List jarUrls = new ArrayList(  );
 
-        File[] libs = new File( "lib" ).listFiles(  );
+        File[] libs =
+            new File( getInstallDirectory( args ), "lib" ).listFiles(  );
 
         if( libs != null )
         {
@@ -102,7 +105,7 @@ public class Startup
         }
         else
         {
-            classLoader = getAllClasses(  );
+            classLoader = getAllClasses( args );
         }
 
         Class startupClass = classLoader.loadClass( STARTUP_CLASS );
@@ -111,5 +114,33 @@ public class Startup
                 STARTUP_METHOD, new Class[] { String[].class } );
 
         startupMethod.invoke( startupClass, new Object[] { args } );
+    }
+
+    protected static void die( final String message, final Exception ex )
+    {
+        log.log( Level.SEVERE, message, ex );
+        System.exit( 1 );
+    }
+
+    protected static void warning( final String message, final Exception ex )
+    {
+        log.log( Level.SEVERE, message, ex );
+    }
+
+    protected static File getInstallDirectory( final String[] args )
+    {
+
+        for( int i = 0; i < args.length; i++ )
+        {
+
+            if( args[i].startsWith( INSTALL_PREFIX ) )
+            {
+
+                return new File( 
+                    args[i].substring( INSTALL_PREFIX.length(  ) ) );
+            }
+        }
+
+        return new File( "." );
     }
 }
