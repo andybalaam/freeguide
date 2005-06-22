@@ -325,44 +325,44 @@ public class ProgrammeJLabel extends JLabel
     }
 
     /*private void toggleSelection(  )
-    {
+{
 
-    if( SelectionManager.isInGuide( programme ) )
-    {
-        SelectionManager.deselectProgramme( programme );
+if( SelectionManager.isInGuide( programme ) )
+{
+    SelectionManager.deselectProgramme( programme );
 
-    }
+}
 
-    else
-    {
-        SelectionManager.selectProgramme( programme );
-    }
+else
+{
+    SelectionManager.selectProgramme( programme );
+}
 
-    MainController.remindersReschedule(  );
+MainController.remindersReschedule(  );
 
-    controller.panel.printedGuideArea.update(  );
-    }*/
+controller.panel.printedGuideArea.update(  );
+}*/
     /* private void updateIsInGuide( boolean isInGuide )
-    {
-     else if( programme.getIsMovie(  ) )
-     {
-         setBorder( movieBorder );
+{
+ else if( programme.getIsMovie(  ) )
+ {
+     setBorder( movieBorder );
 
-         setBackground( movieColour );
+     setBackground( movieColour );
 
-     }
+ }
 
-     else
-     {
-         setBorder( nonTickedBorder );
+ else
+ {
+     setBorder( nonTickedBorder );
 
-         setBackground( nonTickedColour );
+     setBackground( nonTickedColour );
 
-     }
+ }
 
-     repaint(  );
+ repaint(  );
 
-    }*/
+}*/
 
     /**
      * DOCUMENT_ME!
@@ -505,44 +505,44 @@ public class ProgrammeJLabel extends JLabel
             } );
 
         /*selectAction =
-        new ToggleAction(
-        controller.getLocalizer(  ).getLocalizedMessage(
-            "add_to_guide" ),
-        controller.getLocalizer(  ).getLocalizedMessage(
-            "remove_from_guide" ) )
-        {
-            public void actionPerformed( ActionEvent e )
-            {
+new ToggleAction(
+controller.getLocalizer(  ).getLocalizedMessage(
+    "add_to_guide" ),
+controller.getLocalizer(  ).getLocalizedMessage(
+    "remove_from_guide" ) )
+{
+    public void actionPerformed( ActionEvent e )
+    {
 
-                ProgrammeJLabel label =
-                    ( (ProgrammePopupMenu)( (java.awt.Component)e
-                    .getSource(  ) ).getParent(  ) ).label;
+        ProgrammeJLabel label =
+            ( (ProgrammePopupMenu)( (java.awt.Component)e
+            .getSource(  ) ).getParent(  ) ).label;
 
-                label.toggleSelection(  );
+        label.toggleSelection(  );
 
-                setToggle( !state );
+        setToggle( !state );
 
-            }
-        };
+    }
+};
 
-        popMenuProgramme.add( selectAction );*/
+popMenuProgramme.add( selectAction );*/
         /*favouriteAction =
-        new ToggleAction(
-        controller.getLocalizer(  ).getLocalizedMessage(
-            "add_to_favourites" ),
-        controller.getLocalizer(  ).getLocalizedMessage(
-            "remove_from_favourites" ) )
-        {
-            public void actionPerformed( ActionEvent e )
-            {
-                setToggle( !state );
+new ToggleAction(
+controller.getLocalizer(  ).getLocalizedMessage(
+    "add_to_favourites" ),
+controller.getLocalizer(  ).getLocalizedMessage(
+    "remove_from_favourites" ) )
+{
+    public void actionPerformed( ActionEvent e )
+    {
+        setToggle( !state );
 
-                mbtAddFavouriteActionPerformed( e );
+        mbtAddFavouriteActionPerformed( e );
 
-            }
-        };
+    }
+};
 
-        popMenuProgramme.add( favouriteAction );*/
+popMenuProgramme.add( favouriteAction );*/
         return popMenuProgramme;
 
     }
@@ -552,50 +552,50 @@ public class ProgrammeJLabel extends JLabel
      */
 
     /*static protected void popMenuProgrammePopupMenuWillBecomeVisible(
-    PopupMenuEvent evt, ToggleAction favouriteAction )
-    {
+PopupMenuEvent evt, ToggleAction favouriteAction )
+{
 
-    ProgrammeJLabel label =
-        ( (ProgrammePopupMenu)evt.getSource(  ) ).label;
+ProgrammeJLabel label =
+    ( (ProgrammePopupMenu)evt.getSource(  ) ).label;
 
-    favouriteAction.setToggle( label.getModel(  ).isFavourite(  ) );
+favouriteAction.setToggle( label.getModel(  ).isFavourite(  ) );
 
-    int popMenuProgrammeSize = popMenuProgramme.getSubElements(  ).length;
+int popMenuProgrammeSize = popMenuProgramme.getSubElements(  ).length;
 
-    URL link = label.getModel(  ).getValue(  ).getLink(  );
+URL link = label.getModel(  ).getValue(  ).getLink(  );
 
-    if( ( link != null ) && ( popMenuProgrammeSize < 3 ) )
-    {
-        popMenuProgramme.add( mbtGoToWebSite );
+if( ( link != null ) && ( popMenuProgrammeSize < 3 ) )
+{
+    popMenuProgramme.add( mbtGoToWebSite );
 
-    }
+}
 
-    if( ( link == null ) && ( popMenuProgrammeSize > 2 ) )
-    {
-        popMenuProgramme.remove( popMenuProgrammeSize - 1 );
+if( ( link == null ) && ( popMenuProgrammeSize > 2 ) )
+{
+    popMenuProgramme.remove( popMenuProgrammeSize - 1 );
 
-    }
-    }*/
+}
+}*/
 
     /**
      * Event handler for when the Add to Favourites popup menu item is clicked
      */
 
     /*protected void mbtAddFavouriteActionPerformed(
-    java.awt.event.ActionEvent evt )
-    {
+java.awt.event.ActionEvent evt )
+{
 
-    // Find out which ProgrammeJLabel was right-clicked, and call its
-    // setFavourite method.
-    ProgrammeJLabel label =
-        ( (ProgrammePopupMenu)( (java.awt.Component)evt.getSource(  ) )
-        .getParent(  ) ).label;
+// Find out which ProgrammeJLabel was right-clicked, and call its
+// setFavourite method.
+ProgrammeJLabel label =
+    ( (ProgrammePopupMenu)( (java.awt.Component)evt.getSource(  ) )
+    .getParent(  ) ).label;
 
-    label.setFavourite( !label.getModel(  ).isFavourite(  ) );
+label.setFavourite( !label.getModel(  ).isFavourite(  ) );
 
-    controller.panel.printedGuideArea.update(  );
+controller.panel.printedGuideArea.update(  );
 
-    }*/
+}*/
 
     /**
      * DOCUMENT ME!
@@ -653,10 +653,10 @@ public class ProgrammeJLabel extends JLabel
         /* (non-Javadoc)
 
 
-        * @see javax.swing.Action#getValue(java.lang.String)
+* @see javax.swing.Action#getValue(java.lang.String)
 
 
-        */
+*/
         public Object getValue( String key )
         {
 
@@ -685,10 +685,10 @@ public class ProgrammeJLabel extends JLabel
         /* (non-Javadoc)
 
 
-        * @see javax.swing.Action#putValue(java.lang.String, java.lang.Object)
+* @see javax.swing.Action#putValue(java.lang.String, java.lang.Object)
 
 
-        */
+*/
         public void putValue( String key, Object newValue )
         {
 

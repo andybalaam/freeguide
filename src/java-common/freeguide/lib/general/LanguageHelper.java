@@ -148,65 +148,65 @@ public class LanguageHelper implements ILocalizer
      */
 
     /*public static String[] listResources(
-        final ClassLoader classLoader, final String resourcePrefix,
-        final String resourceSuffix ) throws IOException
+    final ClassLoader classLoader, final String resourcePrefix,
+    final String resourceSuffix ) throws IOException
+{
+
+    final String packageName;
+
+    final String fPrefix;
+
+    final int beg = resourcePrefix.lastIndexOf( '/' );
+
+    if( beg != -1 )
+    {
+        packageName = resourcePrefix.substring( 0, beg );
+
+        fPrefix = resourcePrefix.substring( beg + 1 );
+
+    }
+
+    else
+    {
+        packageName = "";
+
+        fPrefix = resourcePrefix;
+
+    }
+
+    final InputStream in =
+        classLoader.getResourceAsStream( packageName + "/ls" );
+
+    if( in != null )
     {
 
-        final String packageName;
+        final String[] properitesFiles = loadStrings( in );
 
-        final String fPrefix;
+        final List result = new ArrayList(  );
 
-        final int beg = resourcePrefix.lastIndexOf( '/' );
-
-        if( beg != -1 )
-        {
-            packageName = resourcePrefix.substring( 0, beg );
-
-            fPrefix = resourcePrefix.substring( beg + 1 );
-
-        }
-
-        else
-        {
-            packageName = "";
-
-            fPrefix = resourcePrefix;
-
-        }
-
-        final InputStream in =
-            classLoader.getResourceAsStream( packageName + "/ls" );
-
-        if( in != null )
+        for( int i = 0; i < properitesFiles.length; i++ )
         {
 
-            final String[] properitesFiles = loadStrings( in );
-
-            final List result = new ArrayList(  );
-
-            for( int i = 0; i < properitesFiles.length; i++ )
+            if(
+                properitesFiles[i].startsWith( fPrefix )
+                    && properitesFiles[i].endsWith( resourceSuffix ) )
             {
+                result.add( packageName + "/" + properitesFiles[i] );
 
-                if(
-                    properitesFiles[i].startsWith( fPrefix )
-                        && properitesFiles[i].endsWith( resourceSuffix ) )
-                {
-                    result.add( packageName + "/" + properitesFiles[i] );
-
-                }
             }
-
-            return (String[])result.toArray( new String[result.size(  )] );
-
         }
 
-        else
-        {
+        return (String[])result.toArray( new String[result.size(  )] );
 
-            return new String[0];
+    }
 
-        }
-    }*/
+    else
+    {
+
+        return new String[0];
+
+    }
+}*/
 
     /**
      * DOCUMENT_ME!

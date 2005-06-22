@@ -223,12 +223,12 @@ loop:
      */
 
     /*public static boolean centreDialogAndRun(
-    final Component parent, FGDialog dialog )
-    {
-    centreDialog( parent, dialog );
+final Component parent, FGDialog dialog )
+{
+centreDialog( parent, dialog );
 
-    return dialog.showDialog(  );
-    }*/
+return dialog.showDialog(  );
+}*/
 
     /**
      * Move window to centre of parent window.

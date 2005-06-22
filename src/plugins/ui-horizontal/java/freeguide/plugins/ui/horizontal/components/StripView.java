@@ -176,19 +176,19 @@ public class StripView extends JPanel implements Scrollable
     /*
 
 
-    * Overrided to allow us to stretch the rendererPane to cover the whole
+* Overrided to allow us to stretch the rendererPane to cover the whole
 
 
-    * StripView.
+* StripView.
 
 
-    *
+*
 
 
-    * @see java.awt.Component#doLayout()
+* @see java.awt.Component#doLayout()
 
 
-    */
+*/
     public void doLayout(  )
     {
         rendererPane.setBounds( 0, 0, getWidth(  ), getHeight(  ) );
@@ -548,13 +548,13 @@ public class StripView extends JPanel implements Scrollable
         /*if (currentStrip != null) {
 
 
-        Component c = getEditorAt(currentStrip, currentRow);
+Component c = getEditorAt(currentStrip, currentRow);
 
 
-        c.paint(g);
+c.paint(g);
 
 
-        }*/
+}*/
     }
 
     private void paintRow( Graphics g, int y, long x1, long x2 )
@@ -730,16 +730,16 @@ public class StripView extends JPanel implements Scrollable
     /*static Vector empty = new Vector();
 
 
-    public Vector getSelectedLabels() {
+public Vector getSelectedLabels() {
 
 
-    // FIXME
+// FIXME
 
 
-    return empty;
+return empty;
 
 
-    }*/
+}*/
 
     /**
      * Overrides <code>JComponent</code>'s<code>getToolTipText</code> method
@@ -803,16 +803,16 @@ public class StripView extends JPanel implements Scrollable
     /*
 
 
-    * (non-Javadoc)
+* (non-Javadoc)
 
 
-    *
+*
 
 
-    * @see javax.swing.Scrollable#getScrollableTracksViewportHeight()
+* @see javax.swing.Scrollable#getScrollableTracksViewportHeight()
 
 
-    */
+*/
     public boolean getScrollableTracksViewportHeight(  )
     {
 
@@ -823,16 +823,16 @@ public class StripView extends JPanel implements Scrollable
     /*
 
 
-    * (non-Javadoc)
+* (non-Javadoc)
 
 
-    *
+*
 
 
-    * @see javax.swing.Scrollable#getScrollableTracksViewportWidth()
+* @see javax.swing.Scrollable#getScrollableTracksViewportWidth()
 
 
-    */
+*/
     public boolean getScrollableTracksViewportWidth(  )
     {
 
@@ -843,16 +843,16 @@ public class StripView extends JPanel implements Scrollable
     /*
 
 
-    * (non-Javadoc)
+* (non-Javadoc)
 
 
-    *
+*
 
 
-    * @see javax.swing.Scrollable#getPreferredScrollableViewportSize()
+* @see javax.swing.Scrollable#getPreferredScrollableViewportSize()
 
 
-    */
+*/
     public Dimension getPreferredScrollableViewportSize(  )
     {
 
@@ -863,19 +863,19 @@ public class StripView extends JPanel implements Scrollable
     /*
 
 
-    * (non-Javadoc)
+* (non-Javadoc)
 
 
-    *
+*
 
 
-    * @see javax.swing.Scrollable#getScrollableBlockIncrement(java.awt.Rectangle,
+* @see javax.swing.Scrollable#getScrollableBlockIncrement(java.awt.Rectangle,
 
 
-    *      int, int)
+*      int, int)
 
 
-    */
+*/
     public int getScrollableBlockIncrement( 
         Rectangle visibleRect, int orientation, int direction )
     {
@@ -887,19 +887,19 @@ public class StripView extends JPanel implements Scrollable
     /*
 
 
-    * (non-Javadoc)
+* (non-Javadoc)
 
 
-    *
+*
 
 
-    * @see javax.swing.Scrollable#getScrollableUnitIncrement(java.awt.Rectangle,
+* @see javax.swing.Scrollable#getScrollableUnitIncrement(java.awt.Rectangle,
 
 
-    *      int, int)
+*      int, int)
 
 
-    */
+*/
     public int getScrollableUnitIncrement( 
         Rectangle visibleRect, int orientation, int direction )
     {
@@ -920,37 +920,37 @@ public class StripView extends JPanel implements Scrollable
         /*
 
 
-        * TODO
+* TODO
 
 
-        *
+*
 
 
-        * /** Adds a listener to the list that is notified each time a change
+* /** Adds a listener to the list that is notified each time a change
 
 
-        * to the data model occurs. void
+* to the data model occurs. void
 
 
-        * addStripModelListener(StripViewModelListener l);
+* addStripModelListener(StripViewModelListener l);
 
 
-        *
+*
 
 
-        * /** Removes a listener from the list that is notified each time a
+* /** Removes a listener from the list that is notified each time a
 
 
-        * change to the data model occurs. void
+* change to the data model occurs. void
 
 
-        * removeStripModelListener(StripViewModelListener l);
+* removeStripModelListener(StripViewModelListener l);
 
 
-        *
+*
 
 
-        */
+*/
 
         /**
          * Returns the number of rows in the model
@@ -986,19 +986,19 @@ public class StripView extends JPanel implements Scrollable
         /*
 
 
-        * TODO /** Sets the value for the strip on row <code> rowIndex </code>
+* TODO /** Sets the value for the strip on row <code> rowIndex </code>
 
 
-        * covering point <code> x </code> .
+* covering point <code> x </code> .
 
 
-        *
+*
 
 
-        * void setValueAt(Object aValue, int rowIndex, long x1, long x2); TBD
+* void setValueAt(Object aValue, int rowIndex, long x1, long x2); TBD
 
 
-        */
+*/
     }
 
     /**

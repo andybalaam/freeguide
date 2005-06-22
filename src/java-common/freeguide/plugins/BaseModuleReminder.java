@@ -302,6 +302,7 @@ abstract public class BaseModuleReminder extends BaseModule
          */
         public void run(  )
         {
+
             synchronized( this )
             {
 
@@ -327,7 +328,6 @@ abstract public class BaseModuleReminder extends BaseModule
                             break;
 
                         case STATE_STOP:
-
                             return;
                         }
 

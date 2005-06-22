@@ -68,38 +68,38 @@ public class ProgrammePopupMenu extends JPopupMenu
     }
 
     /*getActionMap(  ).put(
-    "select",
-    new AbstractAction(  )
-    {
-    public void actionPerformed( ActionEvent e )
-    {
-    toggleSelection(  );
-    
-    }
-    } );
-    
-    getActionMap(  ).put(
-    "favourite",
-    new AbstractAction(  )
-    {
-    public void actionPerformed( ActionEvent e )
-    {
-    setFavourite( !getModel(  ).isFavourite(  ) );
-    
-    }
-    } );
-    
-    getActionMap(  ).put(
-    "menu",
-    new AbstractAction(  )
-    {
-    public void actionPerformed( ActionEvent e )
-    {
-    
-    ProgrammePopupMenu menu = getPopupMenu(  );
-    
-    menu.show( ProgrammeJLabel.this, 0, getHeight(  ) );
-    
-    }
-    } );*/
+"select",
+new AbstractAction(  )
+{
+public void actionPerformed( ActionEvent e )
+{
+toggleSelection(  );
+
+}
+} );
+
+getActionMap(  ).put(
+"favourite",
+new AbstractAction(  )
+{
+public void actionPerformed( ActionEvent e )
+{
+setFavourite( !getModel(  ).isFavourite(  ) );
+
+}
+} );
+
+getActionMap(  ).put(
+"menu",
+new AbstractAction(  )
+{
+public void actionPerformed( ActionEvent e )
+{
+
+ProgrammePopupMenu menu = getPopupMenu(  );
+
+menu.show( ProgrammeJLabel.this, 0, getHeight(  ) );
+
+}
+} );*/
 }

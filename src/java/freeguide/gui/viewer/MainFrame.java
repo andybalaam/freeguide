@@ -89,7 +89,6 @@ public class MainFrame extends JWaitFrame
      */
     private void initialize(  )
     {
-
         this.setDefaultCloseOperation( javax.swing.JFrame.EXIT_ON_CLOSE );
         this.setJMenuBar( getMainMenu(  ) );
 
