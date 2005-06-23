@@ -1,6 +1,5 @@
 package freeguide.lib.updater;
 
-import freeguide.lib.updater.data.PluginMirror;
 import freeguide.lib.updater.data.PluginPackage;
 import freeguide.lib.updater.data.PluginsRepository;
 
@@ -68,9 +67,7 @@ public class DescriptionParser extends DefaultHandler
     protected void parseMirror( Attributes attributes )
     {
         repository.addMirror( 
-            new PluginMirror( 
-                attributes.getValue( "location" ),
-                attributes.getValue( "path" ) ) );
+            attributes.getValue( "location" ), attributes.getValue( "path" ) );
     }
 
     protected void parseStartPackage( String qName, Attributes attributes )
