@@ -167,8 +167,15 @@ public class StartupUpdates
 
                     if( !toDelete.delete(  ) )
                     {
-                        Startup.log.severe( 
-                            "Error delete " + toDelete.getPath(  ) );
+
+                        if( 
+                            !toDelete.isDirectory(  )
+                                && !"startup.jar".equals( 
+                                    toDelete.getName(  ) ) )
+                        {
+                            Startup.log.severe( 
+                                "Error delete " + toDelete.getPath(  ) );
+                        }
                     }
                 }
             }
