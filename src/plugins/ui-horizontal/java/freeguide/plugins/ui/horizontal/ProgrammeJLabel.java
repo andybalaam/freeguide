@@ -326,20 +326,20 @@ public class ProgrammeJLabel extends JLabel
 
     /*private void toggleSelection(  )
     {
-    
+
     if( SelectionManager.isInGuide( programme ) )
     {
     SelectionManager.deselectProgramme( programme );
-    
+
     }
-    
+
     else
     {
     SelectionManager.selectProgramme( programme );
     }
-    
+
     MainController.remindersReschedule(  );
-    
+
     controller.panel.printedGuideArea.update(  );
     }*/
     /* private void updateIsInGuide( boolean isInGuide )
@@ -347,21 +347,21 @@ public class ProgrammeJLabel extends JLabel
     else if( programme.getIsMovie(  ) )
     {
      setBorder( movieBorder );
-    
+
      setBackground( movieColour );
-    
+
     }
-    
+
     else
     {
      setBorder( nonTickedBorder );
-    
+
      setBackground( nonTickedColour );
-    
+
     }
-    
+
     repaint(  );
-    
+
     }*/
 
     /**
@@ -513,18 +513,18 @@ public class ProgrammeJLabel extends JLabel
         {
         public void actionPerformed( ActionEvent e )
         {
-        
+
         ProgrammeJLabel label =
             ( (ProgrammePopupMenu)( (java.awt.Component)e
             .getSource(  ) ).getParent(  ) ).label;
-        
+
         label.toggleSelection(  );
-        
+
         setToggle( !state );
-        
+
         }
         };
-        
+
         popMenuProgramme.add( selectAction );*/
         /*favouriteAction =
         new ToggleAction(
@@ -536,12 +536,12 @@ public class ProgrammeJLabel extends JLabel
         public void actionPerformed( ActionEvent e )
         {
         setToggle( !state );
-        
+
         mbtAddFavouriteActionPerformed( e );
-        
+
         }
         };
-        
+
         popMenuProgramme.add( favouriteAction );*/
         return popMenuProgramme;
 
@@ -554,26 +554,26 @@ public class ProgrammeJLabel extends JLabel
     /*static protected void popMenuProgrammePopupMenuWillBecomeVisible(
     PopupMenuEvent evt, ToggleAction favouriteAction )
     {
-    
+
     ProgrammeJLabel label =
     ( (ProgrammePopupMenu)evt.getSource(  ) ).label;
-    
+
     favouriteAction.setToggle( label.getModel(  ).isFavourite(  ) );
-    
+
     int popMenuProgrammeSize = popMenuProgramme.getSubElements(  ).length;
-    
+
     URL link = label.getModel(  ).getValue(  ).getLink(  );
-    
+
     if( ( link != null ) && ( popMenuProgrammeSize < 3 ) )
     {
     popMenuProgramme.add( mbtGoToWebSite );
-    
+
     }
-    
+
     if( ( link == null ) && ( popMenuProgrammeSize > 2 ) )
     {
     popMenuProgramme.remove( popMenuProgrammeSize - 1 );
-    
+
     }
     }*/
 
@@ -584,17 +584,17 @@ public class ProgrammeJLabel extends JLabel
     /*protected void mbtAddFavouriteActionPerformed(
     java.awt.event.ActionEvent evt )
     {
-    
+
     // Find out which ProgrammeJLabel was right-clicked, and call its
     // setFavourite method.
     ProgrammeJLabel label =
     ( (ProgrammePopupMenu)( (java.awt.Component)evt.getSource(  ) )
     .getParent(  ) ).label;
-    
+
     label.setFavourite( !label.getModel(  ).isFavourite(  ) );
-    
+
     controller.panel.printedGuideArea.update(  );
-    
+
     }*/
 
     /**
@@ -651,11 +651,11 @@ public class ProgrammeJLabel extends JLabel
         }
 
         /* (non-Javadoc)
-        
-        
+
+
         * @see javax.swing.Action#getValue(java.lang.String)
-        
-        
+
+
         */
         public Object getValue( String key )
         {
@@ -683,11 +683,11 @@ public class ProgrammeJLabel extends JLabel
         }
 
         /* (non-Javadoc)
-        
-        
+
+
         * @see javax.swing.Action#putValue(java.lang.String, java.lang.Object)
-        
-        
+
+
         */
         public void putValue( String key, Object newValue )
         {

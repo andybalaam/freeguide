@@ -174,20 +174,20 @@ public class StripView extends JPanel implements Scrollable
     }
 
     /*
-    
-    
+
+
     * Overrided to allow us to stretch the rendererPane to cover the whole
-    
-    
+
+
     * StripView.
-    
-    
+
+
     *
-    
-    
+
+
     * @see java.awt.Component#doLayout()
-    
-    
+
+
     */
     public void doLayout(  )
     {
@@ -546,14 +546,14 @@ public class StripView extends JPanel implements Scrollable
         }
 
         /*if (currentStrip != null) {
-        
-        
+
+
         Component c = getEditorAt(currentStrip, currentRow);
-        
-        
+
+
         c.paint(g);
-        
-        
+
+
         }*/
     }
 
@@ -728,17 +728,17 @@ public class StripView extends JPanel implements Scrollable
     }
 
     /*static Vector empty = new Vector();
-    
-    
+
+
     public Vector getSelectedLabels() {
-    
-    
+
+
     // FIXME
-    
-    
+
+
     return empty;
-    
-    
+
+
     }*/
 
     /**
@@ -801,17 +801,17 @@ public class StripView extends JPanel implements Scrollable
     // --- Scrollable implementation ---
 
     /*
-    
-    
+
+
     * (non-Javadoc)
-    
-    
+
+
     *
-    
-    
+
+
     * @see javax.swing.Scrollable#getScrollableTracksViewportHeight()
-    
-    
+
+
     */
     public boolean getScrollableTracksViewportHeight(  )
     {
@@ -821,17 +821,17 @@ public class StripView extends JPanel implements Scrollable
     }
 
     /*
-    
-    
+
+
     * (non-Javadoc)
-    
-    
+
+
     *
-    
-    
+
+
     * @see javax.swing.Scrollable#getScrollableTracksViewportWidth()
-    
-    
+
+
     */
     public boolean getScrollableTracksViewportWidth(  )
     {
@@ -841,17 +841,17 @@ public class StripView extends JPanel implements Scrollable
     }
 
     /*
-    
-    
+
+
     * (non-Javadoc)
-    
-    
+
+
     *
-    
-    
+
+
     * @see javax.swing.Scrollable#getPreferredScrollableViewportSize()
-    
-    
+
+
     */
     public Dimension getPreferredScrollableViewportSize(  )
     {
@@ -861,20 +861,20 @@ public class StripView extends JPanel implements Scrollable
     }
 
     /*
-    
-    
+
+
     * (non-Javadoc)
-    
-    
+
+
     *
-    
-    
+
+
     * @see javax.swing.Scrollable#getScrollableBlockIncrement(java.awt.Rectangle,
-    
-    
+
+
     *      int, int)
-    
-    
+
+
     */
     public int getScrollableBlockIncrement( 
         Rectangle visibleRect, int orientation, int direction )
@@ -885,20 +885,20 @@ public class StripView extends JPanel implements Scrollable
     }
 
     /*
-    
-    
+
+
     * (non-Javadoc)
-    
-    
+
+
     *
-    
-    
+
+
     * @see javax.swing.Scrollable#getScrollableUnitIncrement(java.awt.Rectangle,
-    
-    
+
+
     *      int, int)
-    
-    
+
+
     */
     public int getScrollableUnitIncrement( 
         Rectangle visibleRect, int orientation, int direction )
@@ -918,38 +918,38 @@ public class StripView extends JPanel implements Scrollable
     {
 
         /*
-        
-        
+
+
         * TODO
-        
-        
+
+
         *
-        
-        
+
+
         * /** Adds a listener to the list that is notified each time a change
-        
-        
+
+
         * to the data model occurs. void
-        
-        
+
+
         * addStripModelListener(StripViewModelListener l);
-        
-        
+
+
         *
-        
-        
+
+
         * /** Removes a listener from the list that is notified each time a
-        
-        
+
+
         * change to the data model occurs. void
-        
-        
+
+
         * removeStripModelListener(StripViewModelListener l);
-        
-        
+
+
         *
-        
-        
+
+
         */
 
         /**
@@ -984,20 +984,20 @@ public class StripView extends JPanel implements Scrollable
         Strip getNextStrip( int rowIndex, long x );
 
         /*
-        
-        
+
+
         * TODO /** Sets the value for the strip on row <code> rowIndex </code>
-        
-        
+
+
         * covering point <code> x </code> .
-        
-        
+
+
         *
-        
-        
+
+
         * void setValueAt(Object aValue, int rowIndex, long x1, long x2); TBD
-        
-        
+
+
         */
     }
 
