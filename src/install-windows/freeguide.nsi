@@ -64,7 +64,7 @@ Section "Desktop icon"
 
     SetOutPath $INSTDIR
 
-    CreateShortCut "$DESKTOP\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\startup.jar" --doc_directory "$INSTDIR\doc" --install_directory "$INSTDIR"' $INSTDIR\icons\logo.ico
+    CreateShortCut "$DESKTOP\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\startup.jar" --doc_directory="$INSTDIR\doc" --install_directory="$INSTDIR"' $INSTDIR\icons\logo.ico
 
 SectionEnd
 
@@ -76,7 +76,7 @@ Section "Start menu folder"
   
     SetOutPath $INSTDIR
 
-    CreateShortCut "$SMPROGRAMS\FreeGuide\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\startup.jar" --doc_directory "$INSTDIR\doc" --install_directory "$INSTDIR"' $INSTDIR\icons\logo.ico
+    CreateShortCut "$SMPROGRAMS\FreeGuide\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\startup.jar" --doc_directory="$INSTDIR\doc" --install_directory="$INSTDIR"' $INSTDIR\icons\logo.ico
 
 SectionEnd
 
@@ -86,7 +86,7 @@ Section "Quicklaunch icon"
 
     SetOutPath $INSTDIR
 
-    CreateShortCut "$QUICKLAUNCH\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\startup.jar" --doc_directory "$INSTDIR\doc" --install_directory "$INSTDIR"' $INSTDIR\icons\logo.ico
+    CreateShortCut "$QUICKLAUNCH\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\startup.jar" --doc_directory="$INSTDIR\doc" --install_directory="$INSTDIR"' $INSTDIR\icons\logo.ico
 
 SectionEnd
 
