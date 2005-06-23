@@ -116,7 +116,6 @@ Section "FreeGuide program"
   File ..\..\doc\*.css
   File ..\..\doc\*.txt
   File ..\..\doc\*.png
-  File ..\..\doc\*.html
   File ..\..\doc\COPYING
   File ..\..\doc\TODO
   
