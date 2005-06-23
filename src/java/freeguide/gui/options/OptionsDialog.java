@@ -232,9 +232,9 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         trunk.add( advancedBranch );
 
         /*TreePath pathViewers =
-addBranchWithModules(
-trunk, FreeGuide.msg.getString( "OptionsDialog.Tree.Viewers" ),
-PluginsManager.getViewers(  ) );*/
+        addBranchWithModules(
+        trunk, FreeGuide.msg.getString( "OptionsDialog.Tree.Viewers" ),
+        PluginsManager.getViewers(  ) );*/
         panel = new GrabbersOptionPanel( this );
         panel.construct(  );
         optionsPane.add( panel, panel.toString(  ) );
@@ -271,12 +271,12 @@ PluginsManager.getViewers(  ) );*/
         //menuTree.setRootVisible( false );
 
         /*for( int i=0; i<menuTree.getRowCount(); i++ ) {
-
-
-menuTree.expandRow(i);
-
-
-}*/
+        
+        
+        menuTree.expandRow(i);
+        
+        
+        }*/
         return generalLeaf;
 
     }

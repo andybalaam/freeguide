@@ -245,52 +245,52 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
      */
 
     /*private void findInitialDate(  )
-
-
-{
-
-
-
-
-// Set the date to today
-
-
-theDate = System.currentTimeMillis(  );
-
-
-theDate = ( theDate / MILLISECONDS_PER_DAY ) * MILLISECONDS_PER_DAY;
-
-
-
-
-Time nowTime = new Time( new Date( theDate ) );
-
-
-
-
-//TODO Time day_start_time = FreeGuide.prefs.misc.getTime( "day_start_time", new Time( 0, 0 ) );
-
-
-Time day_start_time = new Time( 0, 0 );
-
-
-
-
-if( nowTime.before( day_start_time, new Time( 0, 0 ) ) )
-
-
-{
-
-
-theDate -= MILLISECONDS_PER_DAY; //.add( Calendar.DAY_OF_YEAR, -1 );
-
-
-
-
-}
-
-
-}*/
+    
+    
+    {
+    
+    
+    
+    
+    // Set the date to today
+    
+    
+    theDate = System.currentTimeMillis(  );
+    
+    
+    theDate = ( theDate / MILLISECONDS_PER_DAY ) * MILLISECONDS_PER_DAY;
+    
+    
+    
+    
+    Time nowTime = new Time( new Date( theDate ) );
+    
+    
+    
+    
+    //TODO Time day_start_time = FreeGuide.prefs.misc.getTime( "day_start_time", new Time( 0, 0 ) );
+    
+    
+    Time day_start_time = new Time( 0, 0 );
+    
+    
+    
+    
+    if( nowTime.before( day_start_time, new Time( 0, 0 ) ) )
+    
+    
+    {
+    
+    
+    theDate -= MILLISECONDS_PER_DAY; //.add( Calendar.DAY_OF_YEAR, -1 );
+    
+    
+    
+    
+    }
+    
+    
+    }*/
 
     /**
      * DOCUMENT_ME!
@@ -514,9 +514,9 @@ theDate -= MILLISECONDS_PER_DAY; //.add( Calendar.DAY_OF_YEAR, -1 );
 
                 if( 
                     ( iconURLstr != null ) /*TODO  || ( FreeGuide.prefs.screen.get(
-
-
-"customIcon." + ctxt.getChannel(  ).getID(  ) ) != null ) */ )
+                    
+                    
+                    "customIcon." + ctxt.getChannel(  ).getID(  ) ) != null ) */ )
                 {
 
                     try
@@ -530,36 +530,36 @@ theDate -= MILLISECONDS_PER_DAY; //.add( Calendar.DAY_OF_YEAR, -1 );
                         ImageIcon tmpImg;
 
                         /*TODO   if(
-
-
-FreeGuide.prefs.screen.get(
-
-
-"customIcon." + ctxt.getChannel(  ).getID(  ) ) != null )
-
-
-{
-
-
-iconFile =
-
-
-new File(
-
-
-FreeGuide.prefs.screen.get(
-
-
-"customIcon."
-
-
-+ ctxt.getChannel(  ).getID(  ) ) );
-
-
-}
-
-
-else*/
+                        
+                        
+                        FreeGuide.prefs.screen.get(
+                        
+                        
+                        "customIcon." + ctxt.getChannel(  ).getID(  ) ) != null )
+                        
+                        
+                        {
+                        
+                        
+                        iconFile =
+                        
+                        
+                        new File(
+                        
+                        
+                        FreeGuide.prefs.screen.get(
+                        
+                        
+                        "customIcon."
+                        
+                        
+                        + ctxt.getChannel(  ).getID(  ) ) );
+                        
+                        
+                        }
+                        
+                        
+                        else*/
                         {
 
                             // First convert the id to a suitable (and safe!!)
@@ -601,13 +601,13 @@ else*/
                         }
 
                         /* We then try to read the file which should be in
-* the cache If it's not, it doesn't matter,
-* either the URL is not valid or the file
-* couldn't be read and we should have left the
-* try anyway, or we will when we try to read it
-* Thus the icon will still be equal to null and
-* we won't show one
-*/
+                        * the cache If it's not, it doesn't matter,
+                        * either the URL is not valid or the file
+                        * couldn't be read and we should have left the
+                        * try anyway, or we will when we try to read it
+                        * Thus the icon will still be equal to null and
+                        * we won't show one
+                        */
                         ctxt.setIcon( 
                             iconFile.getCanonicalPath(  ),
                             config.sizeChannelHeight
@@ -629,15 +629,15 @@ else*/
                 // TODO Give it a default icon if one is not available
 
                 /*if( ctxt.getIcon() == null ) {
-
-
-ctxt.setIcon( FreeGuide.prefs.performSubstitutions(
-
-
-FreeGuide.prefs.misc.get( "channel_icon_default" ) ) );
-
-
-}*/
+                
+                
+                ctxt.setIcon( FreeGuide.prefs.performSubstitutions(
+                
+                
+                FreeGuide.prefs.misc.get( "channel_icon_default" ) ) );
+                
+                
+                }*/
                 int myChanWidth = ctxt.getRequiredWidth(  );
 
                 if( myChanWidth > maxChannelWidth )

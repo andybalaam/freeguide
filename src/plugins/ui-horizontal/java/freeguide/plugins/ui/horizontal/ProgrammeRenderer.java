@@ -94,20 +94,20 @@ public class ProgrammeRenderer implements StripRenderer, ProgrammeJLabel.Model
      */
 
     /*public void setInGuide( boolean state )
-{
+    {
 
-if( state )
-{
+    if( state )
+    {
 
-//TODO FreeGuide.prefs.addInGuide( programme, viewerFrame.currentDate );
-if( MainController.config.reminderOn )
-{
+    //TODO FreeGuide.prefs.addInGuide( programme, viewerFrame.currentDate );
+    if( MainController.config.reminderOn )
+    {
 
-// Set up a reminder here if it's after now
-Date startTime = new Date( programme.getStart(  ) );
+    // Set up a reminder here if it's after now
+    Date startTime = new Date( programme.getStart(  ) );
 
-if( startTime.after( new Date(  ) ) )
-{
+    if( startTime.after( new Date(  ) ) )
+    {
 
     // Find out when we will remind
     Date reminderStartTime =
@@ -131,66 +131,66 @@ if( startTime.after( new Date(  ) ) )
         new Date(
             reminderStartTime.getTime(  )
             + ( MainController.config.reminderGiveUp ) );
-*/
+    */
     /* TODO if( viewerFrame.reminderTimer != null )
 
 
-{
+    {
 
 
-viewerFrame.reminderTimer.cancel(  );
+    viewerFrame.reminderTimer.cancel(  );
 
 
-}
-
-
-
-
-viewerFrame.reminderTimer = new MessageDialogTimer(  );
+    }
 
 
 
 
+    viewerFrame.reminderTimer = new MessageDialogTimer(  );
 
 
-Object[] messageArguments = { programme.getTitle(  ) };
 
 
-viewerFrame.reminderTimer.schedule(
 
 
-FreeGuide.getCompoundMessage(
+    Object[] messageArguments = { programme.getTitle(  ) };
 
 
-"is_starting_soon_template", messageArguments ),
+    viewerFrame.reminderTimer.schedule(
 
 
-reminderStartTime, reminderEndTime );
+    FreeGuide.getCompoundMessage(
 
 
-*/
+    "is_starting_soon_template", messageArguments ),
+
+
+    reminderStartTime, reminderEndTime );
+
+
+    */
     /*                }
-}
-}
+    }
+    }
 
-else
-{
-*/
+    else
+    {
+    */
 
     //FreeGuide.prefs.removeFromGuide( programme );
 
     /*TODO  if( viewerFrame.reminderTimer != null )
 
 
-{
+    {
 
 
-viewerFrame.reminderTimer.cancel(  );
+    viewerFrame.reminderTimer.cancel(  );
 
 
-}*/
+    }*/
     /*}
-}*/
+    }*/
 
     /**
      * Called when this component receives the focus.  Scrolls the HTML guide
@@ -226,10 +226,10 @@ viewerFrame.reminderTimer.cancel(  );
         }
 
         /*
-* Overridden to make sure we get drawn by CellRendererPane
-*
-* @see java.awt.Component#isShowing()
-*/
+        * Overridden to make sure we get drawn by CellRendererPane
+        *
+        * @see java.awt.Component#isShowing()
+        */
         public boolean isShowing(  )
         {
 

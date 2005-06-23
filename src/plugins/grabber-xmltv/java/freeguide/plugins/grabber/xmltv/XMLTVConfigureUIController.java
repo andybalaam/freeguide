@@ -52,13 +52,13 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
                 /*         JTextField tf = (JTextField)textFields.get( btn.getName(  ) );
 
-tf.getDocument(  ).removeDocumentListener(
-(TextChanged)textListeners.get( btn.getName(  ) ) );
+                tf.getDocument(  ).removeDocumentListener(
+                (TextChanged)textListeners.get( btn.getName(  ) ) );
 
-setTextField( btn.getName(  ), true );
+                setTextField( btn.getName(  ), true );
 
-tf.getDocument(  ).addDocumentListener(
-(TextChanged)textListeners.get( btn.getName(  ) ) );*/
+                tf.getDocument(  ).addDocumentListener(
+                (TextChanged)textListeners.get( btn.getName(  ) ) );*/
             }
         };
 

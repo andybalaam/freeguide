@@ -325,44 +325,44 @@ public class ProgrammeJLabel extends JLabel
     }
 
     /*private void toggleSelection(  )
-{
-
-if( SelectionManager.isInGuide( programme ) )
-{
+    {
+    
+    if( SelectionManager.isInGuide( programme ) )
+    {
     SelectionManager.deselectProgramme( programme );
-
-}
-
-else
-{
+    
+    }
+    
+    else
+    {
     SelectionManager.selectProgramme( programme );
-}
-
-MainController.remindersReschedule(  );
-
-controller.panel.printedGuideArea.update(  );
-}*/
+    }
+    
+    MainController.remindersReschedule(  );
+    
+    controller.panel.printedGuideArea.update(  );
+    }*/
     /* private void updateIsInGuide( boolean isInGuide )
-{
- else if( programme.getIsMovie(  ) )
- {
+    {
+    else if( programme.getIsMovie(  ) )
+    {
      setBorder( movieBorder );
-
+    
      setBackground( movieColour );
-
- }
-
- else
- {
+    
+    }
+    
+    else
+    {
      setBorder( nonTickedBorder );
-
+    
      setBackground( nonTickedColour );
-
- }
-
- repaint(  );
-
-}*/
+    
+    }
+    
+    repaint(  );
+    
+    }*/
 
     /**
      * DOCUMENT_ME!
@@ -505,44 +505,44 @@ controller.panel.printedGuideArea.update(  );
             } );
 
         /*selectAction =
-new ToggleAction(
-controller.getLocalizer(  ).getLocalizedMessage(
-    "add_to_guide" ),
-controller.getLocalizer(  ).getLocalizedMessage(
-    "remove_from_guide" ) )
-{
-    public void actionPerformed( ActionEvent e )
-    {
-
+        new ToggleAction(
+        controller.getLocalizer(  ).getLocalizedMessage(
+        "add_to_guide" ),
+        controller.getLocalizer(  ).getLocalizedMessage(
+        "remove_from_guide" ) )
+        {
+        public void actionPerformed( ActionEvent e )
+        {
+        
         ProgrammeJLabel label =
             ( (ProgrammePopupMenu)( (java.awt.Component)e
             .getSource(  ) ).getParent(  ) ).label;
-
+        
         label.toggleSelection(  );
-
+        
         setToggle( !state );
-
-    }
-};
-
-popMenuProgramme.add( selectAction );*/
+        
+        }
+        };
+        
+        popMenuProgramme.add( selectAction );*/
         /*favouriteAction =
-new ToggleAction(
-controller.getLocalizer(  ).getLocalizedMessage(
-    "add_to_favourites" ),
-controller.getLocalizer(  ).getLocalizedMessage(
-    "remove_from_favourites" ) )
-{
-    public void actionPerformed( ActionEvent e )
-    {
+        new ToggleAction(
+        controller.getLocalizer(  ).getLocalizedMessage(
+        "add_to_favourites" ),
+        controller.getLocalizer(  ).getLocalizedMessage(
+        "remove_from_favourites" ) )
+        {
+        public void actionPerformed( ActionEvent e )
+        {
         setToggle( !state );
-
+        
         mbtAddFavouriteActionPerformed( e );
-
-    }
-};
-
-popMenuProgramme.add( favouriteAction );*/
+        
+        }
+        };
+        
+        popMenuProgramme.add( favouriteAction );*/
         return popMenuProgramme;
 
     }
@@ -552,50 +552,50 @@ popMenuProgramme.add( favouriteAction );*/
      */
 
     /*static protected void popMenuProgrammePopupMenuWillBecomeVisible(
-PopupMenuEvent evt, ToggleAction favouriteAction )
-{
-
-ProgrammeJLabel label =
+    PopupMenuEvent evt, ToggleAction favouriteAction )
+    {
+    
+    ProgrammeJLabel label =
     ( (ProgrammePopupMenu)evt.getSource(  ) ).label;
-
-favouriteAction.setToggle( label.getModel(  ).isFavourite(  ) );
-
-int popMenuProgrammeSize = popMenuProgramme.getSubElements(  ).length;
-
-URL link = label.getModel(  ).getValue(  ).getLink(  );
-
-if( ( link != null ) && ( popMenuProgrammeSize < 3 ) )
-{
+    
+    favouriteAction.setToggle( label.getModel(  ).isFavourite(  ) );
+    
+    int popMenuProgrammeSize = popMenuProgramme.getSubElements(  ).length;
+    
+    URL link = label.getModel(  ).getValue(  ).getLink(  );
+    
+    if( ( link != null ) && ( popMenuProgrammeSize < 3 ) )
+    {
     popMenuProgramme.add( mbtGoToWebSite );
-
-}
-
-if( ( link == null ) && ( popMenuProgrammeSize > 2 ) )
-{
+    
+    }
+    
+    if( ( link == null ) && ( popMenuProgrammeSize > 2 ) )
+    {
     popMenuProgramme.remove( popMenuProgrammeSize - 1 );
-
-}
-}*/
+    
+    }
+    }*/
 
     /**
      * Event handler for when the Add to Favourites popup menu item is clicked
      */
 
     /*protected void mbtAddFavouriteActionPerformed(
-java.awt.event.ActionEvent evt )
-{
-
-// Find out which ProgrammeJLabel was right-clicked, and call its
-// setFavourite method.
-ProgrammeJLabel label =
+    java.awt.event.ActionEvent evt )
+    {
+    
+    // Find out which ProgrammeJLabel was right-clicked, and call its
+    // setFavourite method.
+    ProgrammeJLabel label =
     ( (ProgrammePopupMenu)( (java.awt.Component)evt.getSource(  ) )
     .getParent(  ) ).label;
-
-label.setFavourite( !label.getModel(  ).isFavourite(  ) );
-
-controller.panel.printedGuideArea.update(  );
-
-}*/
+    
+    label.setFavourite( !label.getModel(  ).isFavourite(  ) );
+    
+    controller.panel.printedGuideArea.update(  );
+    
+    }*/
 
     /**
      * DOCUMENT ME!
@@ -651,12 +651,12 @@ controller.panel.printedGuideArea.update(  );
         }
 
         /* (non-Javadoc)
-
-
-* @see javax.swing.Action#getValue(java.lang.String)
-
-
-*/
+        
+        
+        * @see javax.swing.Action#getValue(java.lang.String)
+        
+        
+        */
         public Object getValue( String key )
         {
 
@@ -683,12 +683,12 @@ controller.panel.printedGuideArea.update(  );
         }
 
         /* (non-Javadoc)
-
-
-* @see javax.swing.Action#putValue(java.lang.String, java.lang.Object)
-
-
-*/
+        
+        
+        * @see javax.swing.Action#putValue(java.lang.String, java.lang.Object)
+        
+        
+        */
         public void putValue( String key, Object newValue )
         {
 

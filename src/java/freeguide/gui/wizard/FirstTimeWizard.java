@@ -76,13 +76,13 @@ public class FirstTimeWizard
         /*if( FreeGuide.prefs.misc.get( "region" ) == null )
 
 
-{
+        {
 
 
-FreeGuide.prefs.misc.put( "region", "UK" );
+        FreeGuide.prefs.misc.put( "region", "UK" );
 
 
-}*/
+        }*/
         getAllRegions(  );
 
         allBrowsers = getAllBrowsers(  );

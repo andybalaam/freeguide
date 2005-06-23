@@ -121,24 +121,24 @@ public class InstallWizardPanel extends WizardPanel
         /*boolean showConfigCheck =
 
 
-( FreeGuide.prefs.commandline.get( "tv_config.1", null ) != null );
+        ( FreeGuide.prefs.commandline.get( "tv_config.1", null ) != null );
 
 
 
 
-if( !showConfigCheck )
+        if( !showConfigCheck )
 
 
-{
+        {
 
 
-configgrabberCheckBox.setSelected( false );
+        configgrabberCheckBox.setSelected( false );
 
 
-middlePanel.remove( configgrabberCheckBox );
+        middlePanel.remove( configgrabberCheckBox );
 
 
-}*/
+        }*/
     }
 
     // ----------------------------------

@@ -174,21 +174,21 @@ public class StripView extends JPanel implements Scrollable
     }
 
     /*
-
-
-* Overrided to allow us to stretch the rendererPane to cover the whole
-
-
-* StripView.
-
-
-*
-
-
-* @see java.awt.Component#doLayout()
-
-
-*/
+    
+    
+    * Overrided to allow us to stretch the rendererPane to cover the whole
+    
+    
+    * StripView.
+    
+    
+    *
+    
+    
+    * @see java.awt.Component#doLayout()
+    
+    
+    */
     public void doLayout(  )
     {
         rendererPane.setBounds( 0, 0, getWidth(  ), getHeight(  ) );
@@ -546,15 +546,15 @@ public class StripView extends JPanel implements Scrollable
         }
 
         /*if (currentStrip != null) {
-
-
-Component c = getEditorAt(currentStrip, currentRow);
-
-
-c.paint(g);
-
-
-}*/
+        
+        
+        Component c = getEditorAt(currentStrip, currentRow);
+        
+        
+        c.paint(g);
+        
+        
+        }*/
     }
 
     private void paintRow( Graphics g, int y, long x1, long x2 )
@@ -728,18 +728,18 @@ c.paint(g);
     }
 
     /*static Vector empty = new Vector();
-
-
-public Vector getSelectedLabels() {
-
-
-// FIXME
-
-
-return empty;
-
-
-}*/
+    
+    
+    public Vector getSelectedLabels() {
+    
+    
+    // FIXME
+    
+    
+    return empty;
+    
+    
+    }*/
 
     /**
      * Overrides <code>JComponent</code>'s<code>getToolTipText</code> method
@@ -801,18 +801,18 @@ return empty;
     // --- Scrollable implementation ---
 
     /*
-
-
-* (non-Javadoc)
-
-
-*
-
-
-* @see javax.swing.Scrollable#getScrollableTracksViewportHeight()
-
-
-*/
+    
+    
+    * (non-Javadoc)
+    
+    
+    *
+    
+    
+    * @see javax.swing.Scrollable#getScrollableTracksViewportHeight()
+    
+    
+    */
     public boolean getScrollableTracksViewportHeight(  )
     {
 
@@ -821,18 +821,18 @@ return empty;
     }
 
     /*
-
-
-* (non-Javadoc)
-
-
-*
-
-
-* @see javax.swing.Scrollable#getScrollableTracksViewportWidth()
-
-
-*/
+    
+    
+    * (non-Javadoc)
+    
+    
+    *
+    
+    
+    * @see javax.swing.Scrollable#getScrollableTracksViewportWidth()
+    
+    
+    */
     public boolean getScrollableTracksViewportWidth(  )
     {
 
@@ -841,18 +841,18 @@ return empty;
     }
 
     /*
-
-
-* (non-Javadoc)
-
-
-*
-
-
-* @see javax.swing.Scrollable#getPreferredScrollableViewportSize()
-
-
-*/
+    
+    
+    * (non-Javadoc)
+    
+    
+    *
+    
+    
+    * @see javax.swing.Scrollable#getPreferredScrollableViewportSize()
+    
+    
+    */
     public Dimension getPreferredScrollableViewportSize(  )
     {
 
@@ -861,21 +861,21 @@ return empty;
     }
 
     /*
-
-
-* (non-Javadoc)
-
-
-*
-
-
-* @see javax.swing.Scrollable#getScrollableBlockIncrement(java.awt.Rectangle,
-
-
-*      int, int)
-
-
-*/
+    
+    
+    * (non-Javadoc)
+    
+    
+    *
+    
+    
+    * @see javax.swing.Scrollable#getScrollableBlockIncrement(java.awt.Rectangle,
+    
+    
+    *      int, int)
+    
+    
+    */
     public int getScrollableBlockIncrement( 
         Rectangle visibleRect, int orientation, int direction )
     {
@@ -885,21 +885,21 @@ return empty;
     }
 
     /*
-
-
-* (non-Javadoc)
-
-
-*
-
-
-* @see javax.swing.Scrollable#getScrollableUnitIncrement(java.awt.Rectangle,
-
-
-*      int, int)
-
-
-*/
+    
+    
+    * (non-Javadoc)
+    
+    
+    *
+    
+    
+    * @see javax.swing.Scrollable#getScrollableUnitIncrement(java.awt.Rectangle,
+    
+    
+    *      int, int)
+    
+    
+    */
     public int getScrollableUnitIncrement( 
         Rectangle visibleRect, int orientation, int direction )
     {
@@ -918,39 +918,39 @@ return empty;
     {
 
         /*
-
-
-* TODO
-
-
-*
-
-
-* /** Adds a listener to the list that is notified each time a change
-
-
-* to the data model occurs. void
-
-
-* addStripModelListener(StripViewModelListener l);
-
-
-*
-
-
-* /** Removes a listener from the list that is notified each time a
-
-
-* change to the data model occurs. void
-
-
-* removeStripModelListener(StripViewModelListener l);
-
-
-*
-
-
-*/
+        
+        
+        * TODO
+        
+        
+        *
+        
+        
+        * /** Adds a listener to the list that is notified each time a change
+        
+        
+        * to the data model occurs. void
+        
+        
+        * addStripModelListener(StripViewModelListener l);
+        
+        
+        *
+        
+        
+        * /** Removes a listener from the list that is notified each time a
+        
+        
+        * change to the data model occurs. void
+        
+        
+        * removeStripModelListener(StripViewModelListener l);
+        
+        
+        *
+        
+        
+        */
 
         /**
          * Returns the number of rows in the model
@@ -984,21 +984,21 @@ return empty;
         Strip getNextStrip( int rowIndex, long x );
 
         /*
-
-
-* TODO /** Sets the value for the strip on row <code> rowIndex </code>
-
-
-* covering point <code> x </code> .
-
-
-*
-
-
-* void setValueAt(Object aValue, int rowIndex, long x1, long x2); TBD
-
-
-*/
+        
+        
+        * TODO /** Sets the value for the strip on row <code> rowIndex </code>
+        
+        
+        * covering point <code> x </code> .
+        
+        
+        *
+        
+        
+        * void setValueAt(Object aValue, int rowIndex, long x1, long x2); TBD
+        
+        
+        */
     }
 
     /**
