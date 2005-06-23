@@ -152,7 +152,7 @@
     	
     	<zip destfile="dist/repository/package-FreeGuide-0.10.2.zip" 
     		basedir="build/" 
-    		includes="run.cmd, startup.jar, lib/FreeGuide.jar, lib/common.jar, lib/AJavaLib.jar, lib/tagsoup-1.0.rc3, doc/"/>
+    		includes="startup.jar, lib/FreeGuide.jar, lib/common.jar, lib/AJavaLib.jar, lib/tagsoup-1.0.rc3, doc/"/>
 
     	<zip destfile="dist/repository/package-grabber-cosmostv-0.1.zip" 
     		basedir="build/" 
