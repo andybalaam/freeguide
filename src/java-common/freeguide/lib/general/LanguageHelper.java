@@ -150,7 +150,7 @@ public class LanguageHelper implements ILocalizer
     /*public static String[] listResources(
     final ClassLoader classLoader, final String resourcePrefix,
     final String resourceSuffix ) throws IOException
-{
+    {
 
     final String packageName;
 
@@ -206,7 +206,7 @@ public class LanguageHelper implements ILocalizer
         return new String[0];
 
     }
-}*/
+    }*/
 
     /**
      * DOCUMENT_ME!
