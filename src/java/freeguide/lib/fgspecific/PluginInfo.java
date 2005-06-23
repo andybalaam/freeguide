@@ -70,6 +70,38 @@ public class PluginInfo extends DefaultHandler
     }
 
     /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Map getNames(  )
+    {
+
+        return Collections.unmodifiableMap( names );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Map getDescriptions(  )
+    {
+
+        return Collections.unmodifiableMap( descriptions );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param files DOCUMENT_ME!
+     */
+    public void setFiles( final List files )
+    {
+        this.files = files;
+    }
+
+    /**
      * Get plugin name.
      *
      * @param loc locale
@@ -92,6 +124,17 @@ public class PluginInfo extends DefaultHandler
         }
 
         return result;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String getClassName(  )
+    {
+
+        return className;
     }
 
     /**
