@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<plugin id="impexp-jtv" 
-        version="0.1" 
-	    class="freeguide.plugins.impexp.jtv.JTV">
+<plugin id="impexp-jtv"
+        version="0.1"
+        class="freeguide.plugins.impexp.jtv.JTV">
+
 
   <files>
-  	<file path="lib/impexp-jtv.jar"/>
+    <file path="lib/impexp-jtv.jar"/>
+    <file path="lib/"/>
   </files>
 </plugin>

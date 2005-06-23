@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<plugin id="impexp-xmltv" 
-        version="0.1" 
-	    class="freeguide.plugins.impexp.xmltv.ImpExpXmltv">
+<plugin id="impexp-xmltv"
+        version="0.1"
+        class="freeguide.plugins.impexp.xmltv.ImpExpXmltv">
 
-    <name lang="en">XMLTV</name>
-    <description lang="en">Export to XMLTV format. See http://xmltv.sf.net.</description>
+  <name lang="en">XMLTV</name>
+  <description lang="en">Export to XMLTV format. See http://xmltv.sf.net.</description>
 
   <files>
-  	<file path="lib/impexp-xmltv.jar"/>
+    <file path="lib/impexp-xmltv.jar"/>
+    <file path="lib/"/>
   </files>
 </plugin>
