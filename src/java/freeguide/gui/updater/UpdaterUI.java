@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,6 +31,8 @@ public class UpdaterUI extends JDialog
     private JButton btnGo = null;
     private JButton btnClose = null;
     private JPanel jPanel = null;
+    private JLabel labelMirror = null;
+    private JComboBox cbMirror = null;
 
     /**
      * This is the default constructor
@@ -69,21 +72,45 @@ public class UpdaterUI extends JDialog
         if( jContentPane == null )
         {
 
+            GridBagConstraints gridBagConstraints2 =
+                new GridBagConstraints(  );
+            gridBagConstraints2.fill = java.awt.GridBagConstraints.HORIZONTAL;
+            gridBagConstraints2.gridx = 1;
+            gridBagConstraints2.gridy = 1;
+            gridBagConstraints2.weightx = 0.5D;
+            gridBagConstraints2.insets = new java.awt.Insets( 5, 5, 0, 5 );
+
+            GridBagConstraints gridBagConstraints11 =
+                new GridBagConstraints(  );
+            gridBagConstraints11.gridx = 0;
+            gridBagConstraints11.gridy = 1;
+            gridBagConstraints11.weightx = 0.5D;
+            gridBagConstraints11.insets = new java.awt.Insets( 5, 5, 0, 0 );
+            gridBagConstraints11.anchor = java.awt.GridBagConstraints.EAST;
+            labelMirror = new JLabel(  );
+            labelMirror.setText( 
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "UpdateManager.MirrorPrompt" ) );
+
             GridBagConstraints gridBagConstraints4 =
                 new GridBagConstraints(  );
             gridBagConstraints4.fill = java.awt.GridBagConstraints.BOTH;
             gridBagConstraints4.gridx = 0;
-            gridBagConstraints4.gridy = 1;
+            gridBagConstraints4.gridy = 2;
             gridBagConstraints4.weightx = 1.0;
-            gridBagConstraints4.weighty = 1.0;
+            gridBagConstraints4.weighty = 1.0D;
             gridBagConstraints4.insets = new java.awt.Insets( 5, 5, 5, 5 );
+
+            gridBagConstraints4.gridwidth = 2;
 
             GridBagConstraints gridBagConstraints3 =
                 new GridBagConstraints(  );
             gridBagConstraints3.gridx = 0;
-            gridBagConstraints3.gridy = 2;
+            gridBagConstraints3.gridy = 4;
             gridBagConstraints3.fill = java.awt.GridBagConstraints.HORIZONTAL;
             gridBagConstraints3.weightx = 1.0D;
+
+            gridBagConstraints3.gridwidth = 2;
 
             GridBagConstraints gridBagConstraints1 =
                 new GridBagConstraints(  );
@@ -91,16 +118,19 @@ public class UpdaterUI extends JDialog
             gridBagConstraints1.gridy = 0;
             gridBagConstraints1.fill = java.awt.GridBagConstraints.HORIZONTAL;
             gridBagConstraints1.weightx = 1.0D;
-            gridBagConstraints1.insets = new java.awt.Insets( 5, 5, 5, 5 );
+            gridBagConstraints1.insets = new java.awt.Insets( 5, 5, 0, 5 );
+            gridBagConstraints1.gridwidth = 2;
             labelTitle = new JLabel(  );
             labelTitle.setText( 
                 Application.getInstance(  ).getLocalizedMessage( 
                     "UpdateManager.Prompt" ) );
             jContentPane = new JPanel(  );
             jContentPane.setLayout( new GridBagLayout(  ) );
-            jContentPane.add( getPanelButtons(  ), gridBagConstraints3 );
-            jContentPane.add( labelTitle, gridBagConstraints1 );
+            jContentPane.add( getCbMirror(  ), gridBagConstraints2 );
+            jContentPane.add( labelMirror, gridBagConstraints11 );
             jContentPane.add( getJScrollPane(  ), gridBagConstraints4 );
+            jContentPane.add( labelTitle, gridBagConstraints1 );
+            jContentPane.add( getPanelButtons(  ), gridBagConstraints3 );
         }
 
         return jContentPane;
@@ -259,5 +289,21 @@ public class UpdaterUI extends JDialog
         }
 
         return jPanel;
+    }
+
+    /**
+     * This method initializes jComboBox
+     *
+     * @return javax.swing.JComboBox
+     */
+    public JComboBox getCbMirror(  )
+    {
+
+        if( cbMirror == null )
+        {
+            cbMirror = new JComboBox(  );
+        }
+
+        return cbMirror;
     }
 }

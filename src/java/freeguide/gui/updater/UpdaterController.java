@@ -7,7 +7,6 @@ import freeguide.lib.fgspecific.Application;
 import freeguide.lib.general.Utils;
 
 import freeguide.lib.updater.RepositoryUtils;
-import freeguide.lib.updater.data.PluginMirror;
 import freeguide.lib.updater.data.PluginPackage;
 import freeguide.lib.updater.data.PluginsRepository;
 
@@ -21,6 +20,7 @@ import java.io.IOException;
 
 import java.util.logging.Level;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -98,6 +98,9 @@ public class UpdaterController
                             4 ).setCellRenderer( rend );
                         ui.getTablePackages(  ).doLayout(  );
                         setGoButtonState(  );
+                        ui.getCbMirror(  ).setModel( 
+                            new DefaultComboBoxModel( 
+                                repository.getMirrorLocations(  ) ) );
                     }
                     catch( Exception ex )
                     {
@@ -150,8 +153,8 @@ public class UpdaterController
                     try
                     {
                         RepositoryUtils.downloadFiles( 
-                            ( (PluginMirror)repository.getAllMirrors(  ).get( 
-                                0 ) ).getPath(  ),
+                            repository.getPathByMirrorsLocation( 
+                                (String)ui.getCbMirror(  ).getSelectedItem(  ) ),
                             repository.getFilesForDownload(  ), dstDir );
 
                         RepositoryUtils.prepareForDelete( 
