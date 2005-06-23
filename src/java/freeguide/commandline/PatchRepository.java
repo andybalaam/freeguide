@@ -8,7 +8,6 @@ import freeguide.lib.fgspecific.PluginsManager;
 import freeguide.lib.general.StringHelper;
 
 import freeguide.lib.updater.RepositoryUtils;
-import freeguide.lib.updater.data.PluginMirror;
 import freeguide.lib.updater.data.PluginsRepository;
 
 import org.xml.sax.InputSource;
@@ -20,7 +19,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
@@ -71,7 +69,7 @@ public class PatchRepository
                         "UTF-8" ) );
 
             writeHeader( out );
-            listMirrors( out, repository.getAllMirrors(  ) );
+            listMirrors( out, repository, repository.getMirrorLocations(  ) );
             listPackages( 
                 out, "application",
                 new PluginInfo[] { PluginsManager.getApplicationModuleInfo(  ) } );
@@ -126,16 +124,15 @@ public class PatchRepository
     }
 
     protected static void listMirrors( 
-        final BufferedWriter out, final List list ) throws Exception
+        final BufferedWriter out, final PluginsRepository repository,
+        final String[] list ) throws Exception
     {
 
-        for( int i = 0; i < list.size(  ); i++ )
+        for( int i = 0; i < list.length; i++ )
         {
-
-            PluginMirror mirror = (PluginMirror)list.get( i );
             out.write( 
-                "  <mirror location=\"" + mirror.getLocation(  )
-                + "\" path=\"" + mirror.getPath(  ) + "\"/>\n" );
+                "  <mirror location=\"" + list[i] + "\" path=\""
+                + repository.getPathByMirrorsLocation( list[i] ) + "\"/>\n" );
         }
     }
 

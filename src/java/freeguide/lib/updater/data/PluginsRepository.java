@@ -9,6 +9,8 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Plugins Repository Info and update implementation.
@@ -41,7 +43,9 @@ public class PluginsRepository
 
     /** List of packages. */
     protected List packages = new ArrayList(  );
-    protected List mirrors = new ArrayList(  );
+
+    /** Map of mirrors, where key=location, value=path. */
+    protected Map mirrors = new TreeMap(  );
     protected File baseDirectory;
 
     /**
@@ -67,11 +71,12 @@ public class PluginsRepository
     /**
      * DOCUMENT_ME!
      *
-     * @param mirror DOCUMENT_ME!
+     * @param location DOCUMENT_ME!
+     * @param path DOCUMENT ME!
      */
-    public void addMirror( final PluginMirror mirror )
+    public void addMirror( final String location, final String path )
     {
-        mirrors.add( mirror );
+        mirrors.put( location, path );
     }
 
     /**
@@ -90,10 +95,24 @@ public class PluginsRepository
      *
      * @return DOCUMENT_ME!
      */
-    public List getAllMirrors(  )
+    public String[] getMirrorLocations(  )
     {
 
-        return mirrors;
+        return (String[])mirrors.keySet(  ).toArray( 
+            new String[mirrors.size(  )] );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param location DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String getPathByMirrorsLocation( final String location )
+    {
+
+        return (String)mirrors.get( location );
     }
 
     /**
