@@ -99,8 +99,7 @@ public class LanguageHelper implements ILocalizer
 
         }
 
-        //final String[] properitesFiles = loadStrings( packageName + "/ls" );
-        final String[] properitesFiles = new String[0];
+        final String[] properitesFiles = loadStrings( packageName + "/ls" );
 
         final List result = new ArrayList(  );
 
