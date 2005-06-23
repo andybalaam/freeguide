@@ -178,11 +178,11 @@ public class PatchPlugins
         }
 
         /*<?xml version="1.0" encoding="UTF-8"?>
-        
+
         <plugin id="FreeGuide"
                 version="0.10.2"
                 class="freeguide.gui.viewer.MainController">
-        
+
             <name lang="en">FreeGuide-TV</name>
             <description lang="en">Main FreeGuide-TV application.</description>
         */
