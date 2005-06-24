@@ -94,8 +94,6 @@ public class UpdaterController
                             2 ).setCellRenderer( rend );
                         ui.getTablePackages(  ).getColumnModel(  ).getColumn( 
                             3 ).setCellRenderer( rend );
-                        ui.getTablePackages(  ).getColumnModel(  ).getColumn( 
-                            4 ).setCellRenderer( rend );
                         ui.getTablePackages(  ).doLayout(  );
                         setGoButtonState(  );
                         ui.getCbMirror(  ).setModel( 

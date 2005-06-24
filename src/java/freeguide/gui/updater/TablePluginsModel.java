@@ -27,8 +27,6 @@ public class TablePluginsModel extends DefaultTableModel
             Application.getInstance(  ).getLocalizedMessage( 
                 "UpdateManager.TableColumns.Name" ),
             Application.getInstance(  ).getLocalizedMessage( 
-                "UpdateManager.TableColumns.Category" ),
-            Application.getInstance(  ).getLocalizedMessage( 
                 "UpdateManager.TableColumns.Version" ),
             Application.getInstance(  ).getLocalizedMessage( 
                 "UpdateManager.TableColumns.Status" )
@@ -254,12 +252,9 @@ public class TablePluginsModel extends DefaultTableModel
             return "    " + getName( pkg );
 
         case 2:
-            return getCategory( pkg );
-
-        case 3:
             return getVersion( pkg );
 
-        case 4:
+        case 3:
             return getStatus( pkg );
         }
 
