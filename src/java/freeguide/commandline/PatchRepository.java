@@ -19,7 +19,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
+import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Logger;
@@ -176,18 +178,23 @@ public class PatchRepository
         throws Exception
     {
 
-        Locale[] locales = plugin.getInstance(  ).getSuppotedLocales(  );
+        final Map names = plugin.getNames(  );
+        final Map descriptions = plugin.getDescriptions(  );
 
-        for( int i = 0; i < locales.length; i++ )
+        final Iterator it = names.keySet(  ).iterator(  );
+
+        while( it.hasNext(  ) )
         {
+
+            final String locale = (String)it.next(  );
+            final String name = (String)names.get( locale );
+            final String desc = (String)descriptions.get( locale );
             out.write( 
-                "    <name lang=\"" + locales[i].toString(  ) + "\">"
-                + StringHelper.toXML( plugin.getName( locales[i] ) )
-                + "</name>\n" );
+                "    <name lang=\"" + locale + "\">"
+                + StringHelper.toXML( name ) + "</name>\n" );
             out.write( 
-                "    <description lang=\"" + locales[i].toString(  ) + "\">"
-                + StringHelper.toXML( plugin.getDescription( locales[i] ) )
-                + "</description>\n" );
+                "    <description lang=\"" + locale + "\">"
+                + StringHelper.toXML( desc ) + "</description>\n" );
         }
     }
 
