@@ -28,7 +28,7 @@ public class Version
 {
 
     protected static final Pattern VERSION_PATTERN =
-        Pattern.compile( "(\\d+)\\.(\\d+)(?:\\.(\\d+)(?:_(\\d+))?)?" );
+        Pattern.compile( "(\\d+)\\.(\\d+)(?:\\.(\\d+)(?:[_-](\\d+))?)?" );
 
     /** Major value. */
     public int major;
