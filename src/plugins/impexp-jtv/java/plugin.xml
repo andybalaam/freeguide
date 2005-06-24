@@ -4,6 +4,8 @@
         version="0.1"
         class="freeguide.plugins.impexp.jtv.JTV">
 
+  <name lang="en">JTV</name>
+  <description lang="en">JTV import/export module (http://jtvhost.chat.ru)</description>
 
   <files>
     <file path="lib/impexp-jtv.jar"/>
