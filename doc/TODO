@@ -243,13 +243,15 @@ a Use serialization to reduce startup time
   suitable error message to the user (using Java 1.0 AWT)
 - Automatically import XMLTV listings if they're in the data dir.  (Just import
   *.xmltv?)
+- Add an FAQ about how to change the number of days downloaded.
 
 - Release 0.10.2 (plugins manager, bug fixes)
 
+- Call System.exit when we leave FreeGuide.
+- Make the extra program details appear like they did in 0.8.x
 - Use latest XMLTV
 a Fix inability to change day when using tv-unprocessed.xmltv (does this still
   happen?)
-- Add an FAQ about how to change the number of days downloaded.
 a When you try to enter a day with no downloaded listings, FreeGuide should
   prompt asking whether you want to download new listings.  At the moment it
   just prevents you from changing to that day.
