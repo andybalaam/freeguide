@@ -87,7 +87,7 @@ a Use serialization to reduce startup time
 - Remember where you were in the Options screen
 - Favourites search on programme descriptions
 
-- Release 0.10.6 (preferences creep)
+- Release 0.10.7 (preferences creep)
 
 - Choose how old files are before you delete them
 - Ability to save and load preferences (using Java's ability to save to XML)
@@ -114,7 +114,7 @@ a Use serialization to reduce startup time
 - Brief summary for the next few days.
 - Minimize to system tray - see Christian's email of 14/3/05
 
-- Release 0.10.5 (aesthetics)
+- Release 0.10.6 (aesthetics)
 
 - Go To Now scrolls the personalised listing panel as well as the main panel
 - Coloured favourites categories (text and/or background)
@@ -142,7 +142,7 @@ a Use serialization to reduce startup time
 - The "All channels" channel set should be ordered by channel number, if
   available.
 
-- Release 0.10.4 (accessibility, accessibility, accessibility)
+- Release 0.10.5 (accessibility, accessibility, accessibility)
 
 - Improve accessibility, specifically keyboard shortcuts
 - Shortcut keys for everything
@@ -199,15 +199,26 @@ a Use serialization to reduce startup time
 - Make proxies work with downloading from Java - take proxy info from
   environment variables if possible, or on command line?
 
-- Release 0.10.3 (Keyboard navigation, internationalisation, recording)
+- Release 0.10.4
 
 - When you enter the Options screen the tree view should be expanded already
 - Redesign the Options screen to make it simpler and more task-focussed
     - Can we get rid of a lot of options for the horizontal display?
+- Automate building (with swingwt?) to an exe
+- Implement in_guide, remind and record for chosen progs and favourites
+- Split the different MVC objects apart as per Risto's email of 28/02/05
+  (Applied Risto's patch, but may want to split ProgrammeRenderer more.)
+- Increase the sizes of buttons in Channel Sets, Options and First Time Wizard
+  so that they fit under the German translation.
+- Go through all the files that mention the version number and set the version
+  automatically, instead of hard-coding.  Don't break eclipse etc. support.
+  Do this in the ant "compile" task.
+- Make _pt use tv_unprocessed method like uk_rt
+
+- Release 0.10.3 (Bug fixes and recording)
+
 - Fix cropped channel icons in program details panel
 - Fix bug where vertical scrolling makes the cursor disappear
-- Make the StripView focussed when you click on a programme
-- Automate building (with swingwt?) to an exe
 - If a link for a program in the "personalized tv guide" is clicked, the
   program view scrolls to it. It would be also nice if the detail view
   would change to it.
@@ -219,25 +230,19 @@ a Use serialization to reduce startup time
 - Make it repaint correctly when you press "f" on a programme
 - Check where each repaint event comes from and make sure it is only called
   once for every time it needs to be called.
-- Implement in_guide, remind and record for chosen progs and favourites
 - Implement the actual reminders and recording functionality
-- Split the different MVC objects apart as per Risto's email of 28/02/05
-  (Applied Risto's patch, but may want to split ProgrammeRenderer more.)
-- Increase the sizes of buttons in Channel Sets, Options and First Time Wizard
-  so that they fit under the German translation.
-- Decide what to do about changing the number of days' xml files to keep.
-- Go through all the files that mention the version number and set the version
-  automatically, instead of hard-coding.  Don't break eclipse etc. support.
-  Do this in the ant "compile" task.
 - Make 00:00 starts after time in favourites _either_ late at night _or_ early
   in the morning depending what the starts before time is - see debian bug
   http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=285719
-- Make _pt use tv_unprocessed method like uk_rt
 - Test whether only channel icons are displayed when you use a channel set,
   but icon and name is displayed on All Channels.
 - Clicking in the personalised listing window jumps the strip view to the
   right time, but not the right programme.
 - Include videoplus info (see Yann's email of 2005-04-22)
+- Catch an exception when using an unsuitable Java version, and display a
+  suitable error message to the user (using Java 1.0 AWT)
+- Automatically import XMLTV listings if they're in the data dir.  (Just import
+  *.xmltv?)
 
 - Release 0.10.2 (plugins manager, bug fixes)
 
@@ -266,6 +271,7 @@ a Make a plugin manager
 
 + Release 0.10pre1 (Add some features to plugins-branch work)
 
++ Make the StripView focussed when you click on a programme
 + Fix Windows install bugs:
     + When you try to configure a grabber (uk_rt), from the First Time Wizard
       or the Options screen, FreeGuide freezes.  When you kill FreeGuide, the
