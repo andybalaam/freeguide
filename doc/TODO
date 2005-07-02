@@ -247,7 +247,7 @@ a Use serialization to reduce startup time
 
 - Release 0.10.2 (plugins manager, bug fixes)
 
-- Call System.exit when we leave FreeGuide.
+- Call System.exit when we leave FreeGuide.  See Joe Blow's email of 01/07/05
 - Make the extra program details appear like they did in 0.8.x
 - Use latest XMLTV
 a Fix inability to change day when using tv-unprocessed.xmltv (does this still
