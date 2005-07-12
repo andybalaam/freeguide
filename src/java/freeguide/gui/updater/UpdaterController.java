@@ -160,21 +160,13 @@ public class UpdaterController
                                 FreeGuide.runtimeInfo.installDirectory,
                                 "updates/delete.list" ), filesForDelete );
 
-                        int r =
-                            JOptionPane.showConfirmDialog( 
-                                ui,
-                                Application.getInstance(  )
-                                           .getLocalizedMessage( 
-                                    "UpdateManager.UpdateConfirmation.Text" ),
-                                Application.getInstance(  )
-                                           .getLocalizedMessage( 
-                                    "UpdateManager.UpdateConfirmation.Header" ),
-                                JOptionPane.OK_CANCEL_OPTION );
-
-                        if( r == JOptionPane.OK_OPTION )
-                        {
-                            Application.getInstance(  ).restart(  );
-                        }
+                        JOptionPane.showMessageDialog( 
+                            ui,
+                            Application.getInstance(  ).getLocalizedMessage( 
+                                "UpdateManager.UpdateRestart.Text" ),
+                            Application.getInstance(  ).getLocalizedMessage( 
+                                "UpdateManager.UpdateRestart.Header" ),
+                            JOptionPane.INFORMATION_MESSAGE );
                     }
                     catch( Exception ex )
                     {
