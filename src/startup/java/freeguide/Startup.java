@@ -10,8 +10,6 @@ import java.net.URLClassLoader;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class load all jars to classloader and runs main application
@@ -25,8 +23,6 @@ public class Startup
 
     protected static final String STARTUP_CLASS = "freeguide.FreeGuide";
     protected static final String STARTUP_METHOD = "main";
-    protected static final Logger log =
-        Logger.getLogger( "org.freeguide-tv.startup" );
     protected static final String INSTALL_PREFIX = "--install_directory=";
 
     /**
@@ -83,7 +79,7 @@ public class Startup
 
             for( int i = 0; i < libs.length; i++ )
             {
-                log.fine( "Load module jar: " + libs[i].getPath(  ) );
+                System.err.println( "Load module jar: " + libs[i].getPath(  ) );
 
                 jarUrls.add( libs[i].toURL(  ) );
 
@@ -108,23 +104,50 @@ public class Startup
             classLoader = getAllClasses( args );
         }
 
-        Class startupClass = classLoader.loadClass( STARTUP_CLASS );
-        Method startupMethod =
-            startupClass.getMethod( 
-                STARTUP_METHOD, new Class[] { String[].class } );
+        try
+        {
 
-        startupMethod.invoke( startupClass, new Object[] { args } );
+            Class startupClass = classLoader.loadClass( STARTUP_CLASS );
+            Method startupMethod =
+                startupClass.getMethod( 
+                    STARTUP_METHOD, new Class[] { String[].class } );
+
+            startupMethod.invoke( startupClass, new Object[] { args } );
+        }
+        catch( NoClassDefFoundError ex )
+        {
+            die( 
+                "Wrong java version: " + System.getProperty( "java.version" )
+                + "\nYou need at least version 1.4", null );
+        }
+        catch( UnsupportedClassVersionError ex )
+        {
+            die( 
+                "Wrong java version: " + System.getProperty( "java.version" )
+                + "\nYou need at least version 1.4", null );
+        }
     }
 
     protected static void die( final String message, final Exception ex )
     {
-        log.log( Level.SEVERE, message, ex );
+        System.err.println( message );
+
+        if( ex != null )
+        {
+            ex.printStackTrace(  );
+        }
+
         System.exit( 1 );
     }
 
     protected static void warning( final String message, final Exception ex )
     {
-        log.log( Level.SEVERE, message, ex );
+        System.err.println( message );
+
+        if( ex != null )
+        {
+            ex.printStackTrace(  );
+        }
     }
 
     protected static File getInstallDirectory( final String[] args )
