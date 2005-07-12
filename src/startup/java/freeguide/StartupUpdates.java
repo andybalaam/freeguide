@@ -58,7 +58,7 @@ public class StartupUpdates
 
             for( int i = 0; i < files.length; i++ )
             {
-                Startup.log.finer( 
+                System.out.println( 
                     "Unzip file '" + files[i] + "' to "
                     + installDir.getPath(  ) );
 
@@ -103,7 +103,7 @@ public class StartupUpdates
 
                 if( !files[i].delete(  ) )
                 {
-                    Startup.log.severe( 
+                    System.err.println( 
                         "Error delete " + files[i].getPath(  ) );
                 }
             }
@@ -173,7 +173,7 @@ public class StartupUpdates
                                 && !"startup.jar".equals( 
                                     toDelete.getName(  ) ) )
                         {
-                            Startup.log.severe( 
+                            System.err.println( 
                                 "Error delete " + toDelete.getPath(  ) );
                         }
                     }
@@ -186,7 +186,7 @@ public class StartupUpdates
 
             if( !deleteList.delete(  ) )
             {
-                Startup.log.severe( "Error delete " + deleteList.getPath(  ) );
+                System.err.println( "Error delete " + deleteList.getPath(  ) );
             }
         }
     }
