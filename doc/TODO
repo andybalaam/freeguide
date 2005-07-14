@@ -248,15 +248,15 @@ a Use serialization to reduce startup time
 
 - Release 0.10.2 (plugins manager, bug fixes)
 
-- Favourites that have been imported are not displayed with a heart symbol,
+a Favourites that have been imported are not displayed with a heart symbol,
   or added to guide
-- When I create a new favourite it is marked with a heart, but it is not added
+a When I create a new favourite it is marked with a heart, but it is not added
   to the list of favourites.  When I exit and restart, the programme is not
   marked with a heart.
 - When an error occurs reading a serialised file, FreeGuide should display an
   error message, and offer to re-download listings in the new format.
 - When I start FreeGuide, the list of available grabbers is different every time
-- When I start 0.10.2 after running 0.10.1, it forgets that "XMLTV" was checked
+a When I start 0.10.2 after running 0.10.1, it forgets that "XMLTV" was checked
   under Options : Advanced : Grabbers
 - Running startup.jar from within a different directory gives this error:
     $ java -jar build/startup.jar
