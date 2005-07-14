@@ -94,6 +94,12 @@ public class AlarmReminder extends BaseModuleReminder
 
     }
 
+    protected Config getConfig(  )
+    {
+
+        return config;
+    }
+
     /**
      * DOCUMENT_ME!
      *
@@ -144,7 +150,7 @@ public class AlarmReminder extends BaseModuleReminder
                     public void actionPerformed( ActionEvent e )
                     {
                         setProgrammeSelection( programme, true );
-                        Application.getInstance(  ).redrawPersonalizedGuide(  );
+                        favSelectionChanged(  );
                     }
                 } );
         }
@@ -157,7 +163,7 @@ public class AlarmReminder extends BaseModuleReminder
                     public void actionPerformed( ActionEvent e )
                     {
                         setProgrammeSelection( programme, false );
-                        Application.getInstance(  ).redrawPersonalizedGuide(  );
+                        favSelectionChanged(  );
                     }
                 } );
         }
@@ -181,6 +187,7 @@ public class AlarmReminder extends BaseModuleReminder
 
                         f.setName( programme.getTitle(  ) );
                         addFavourite( f );
+                        favSelectionChanged(  );
                     }
                 } );
         }
@@ -214,6 +221,7 @@ public class AlarmReminder extends BaseModuleReminder
                             if( r == 0 )
                             {
                                 removeFavourite( fav );
+                                favSelectionChanged(  );
                             }
                         }
                     }
@@ -248,6 +256,12 @@ public class AlarmReminder extends BaseModuleReminder
             reschedule(  );
 
         }
+    }
+
+    protected void favSelectionChanged(  )
+    {
+        Application.getInstance(  ).redrawPersonalizedGuide(  );
+        saveConfig(  );
     }
 
     /**
