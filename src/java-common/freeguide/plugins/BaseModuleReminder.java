@@ -54,7 +54,7 @@ abstract public class BaseModuleReminder extends BaseModule
 
     /**
      * Get reminder's config.
-     * 
+     *
      * @return config
      */
     abstract protected Config getConfig(  );
