@@ -45,7 +45,7 @@ public class MenuHandler
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
-                    controller.mainFrame.setVisible( false );
+                    controller.mainFrame.dispose(  );
                 }
             } );
 
