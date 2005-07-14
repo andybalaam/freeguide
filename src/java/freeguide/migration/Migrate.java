@@ -200,6 +200,34 @@ public class Migrate
         removePrefNode( "/org/freeguide-tv/modules/viewer" );
         removePrefNode( "/org/freeguide-tv/modules/grabber" );
         removePrefNode( "/org/freeguide-tv/modules/importexport" );
+        patchGrabbersList(  );
+    }
+
+    protected static void patchGrabbersList(  ) throws Exception
+    {
+
+        if( 
+            Preferences.userRoot(  ).nodeExists( 
+                    "/org/freeguide-tv/mainController" ) )
+        {
+
+            Preferences nodeFrom =
+                Preferences.userRoot(  ).node( 
+                    "/org/freeguide-tv/mainController" );
+            String[] keys = nodeFrom.keys(  );
+
+            for( int i = 0; i < keys.length; i++ )
+            {
+
+                if( 
+                    keys[i].startsWith( "activeGrabberIDs." )
+                        && !keys[i].equals( "activeGrabberIDs.size" ) )
+                {
+                    nodeFrom.put( 
+                        keys[i], "grabber-" + nodeFrom.get( keys[i], "" ) );
+                }
+            }
+        }
     }
 
     protected static void renamePrefNode( 
