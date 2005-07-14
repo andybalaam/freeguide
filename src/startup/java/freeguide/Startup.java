@@ -42,26 +42,31 @@ public class Startup
             }
             catch( Exception ex )
             {
-                warning( "E05. Error unpack updates", ex );
+                ex.printStackTrace(  );
+                MessageBox.display( 
+                    "Warning W01", "Error unpack updates: "
+                    + ex.getMessage(  ) );
             }
 
             run( args );
         }
         catch( MalformedURLException ex )
         {
-            die( "E01. Error in ClassLoader URL", ex );
+            die( "Error E01", "Error in ClassLoader URL", ex );
         }
         catch( ClassNotFoundException ex )
         {
-            die( "E02. Main class('" + STARTUP_CLASS + "') not found", ex );
+            die( 
+                "Error E02", "Main class('" + STARTUP_CLASS + "') not found",
+                null );
         }
         catch( NoSuchMethodException ex )
         {
-            die( "E03. Main method not found in startup class", ex );
+            die( "Error E03", "Main method not found in startup class", ex );
         }
         catch( Exception ex )
         {
-            die( "E04. Main method exception throwed", ex );
+            die( "Error E04", "Main method exception throwed", ex );
         }
     }
 
@@ -117,18 +122,21 @@ public class Startup
         catch( NoClassDefFoundError ex )
         {
             die( 
+                "Error E05",
                 "Wrong java version: " + System.getProperty( "java.version" )
-                + "\nYou need at least version 1.4", null );
+                + ". You need at least version 1.4", null );
         }
         catch( UnsupportedClassVersionError ex )
         {
             die( 
+                "Error E06",
                 "Wrong java version: " + System.getProperty( "java.version" )
-                + "\nYou need at least version 1.4", null );
+                + ". You need at least version 1.4", null );
         }
     }
 
-    protected static void die( final String message, final Exception ex )
+    protected static void die( 
+        final String title, final String message, final Exception ex )
     {
         System.err.println( message );
 
@@ -136,18 +144,21 @@ public class Startup
         {
             ex.printStackTrace(  );
         }
+
+        String text;
+
+        if( ex != null )
+        {
+            text = message + ": " + ex.getMessage(  );
+        }
+        else
+        {
+            text = message;
+        }
+
+        MessageBox.display( title, text );
 
         System.exit( 1 );
-    }
-
-    protected static void warning( final String message, final Exception ex )
-    {
-        System.err.println( message );
-
-        if( ex != null )
-        {
-            ex.printStackTrace(  );
-        }
     }
 
     protected static File getInstallDirectory( final String[] args )
