@@ -248,6 +248,10 @@ a Use serialization to reduce startup time
 
 - Release 0.10.2 (plugins manager, bug fixes)
 
+- Favourites are not automatically added to the guide
+- Exiting from the File menu does not exit properly
+- Keyboard shortcuts for adding a programme to favourites and adding to guide
+  do not work.
 a Favourites that have been imported are not displayed with a heart symbol,
   or added to guide
 a When I create a new favourite it is marked with a heart, but it is not added
