@@ -27,8 +27,8 @@ public class MessageBox extends Dialog
     /**
      * Display message.
      *
-     * @param title 
-     * @param text 
+     * @param title
+     * @param text
      */
     public static void display( final String title, final String text )
     {
