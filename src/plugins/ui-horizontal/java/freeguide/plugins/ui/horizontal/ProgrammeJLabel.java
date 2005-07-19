@@ -26,8 +26,6 @@ import java.net.URL;
 
 import java.text.SimpleDateFormat;
 
-import java.util.Date;
-
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -248,8 +246,6 @@ public class ProgrammeJLabel extends JLabel
 
     protected void paintComponent( Graphics g )
     {
-        System.out.println( "paint " + new Date(  ) );
-
         if( alignTextToLeftOfScreen )
         {
 
