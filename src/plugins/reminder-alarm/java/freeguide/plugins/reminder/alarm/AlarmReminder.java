@@ -5,7 +5,6 @@ import freeguide.gui.dialogs.FavouritesController;
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVProgramme;
 import freeguide.lib.fgspecific.selection.Favourite;
-import freeguide.lib.fgspecific.selection.ManualSelection;
 
 import freeguide.lib.general.Utils;
 
@@ -25,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 
@@ -253,7 +253,6 @@ public class AlarmReminder extends BaseModuleReminder
             Application.getInstance(  ).redraw(  );
 
             reschedule(  );
-
         }
     }
 
@@ -266,15 +265,15 @@ public class AlarmReminder extends BaseModuleReminder
     /**
      * DOCUMENT_ME!
      *
-     * @param prog DOCUMENT_ME!
+     * @param programme DOCUMENT_ME!
      * @param label DOCUMENT_ME!
      * @param graphics DOCUMENT_ME!
      */
     public void onPaintProgrammeLabel( 
-        TVProgramme prog, JLabel label, Graphics2D graphics )
+        final TVProgramme programme, JLabel label, Graphics2D graphics )
     {
 
-        if( getFavourite( prog ) == null )
+        if( getFavourite( programme ) == null )
         {
 
             return;
@@ -306,14 +305,138 @@ public class AlarmReminder extends BaseModuleReminder
 
     }
 
+    protected void setEv( final TVProgramme programme, final JLabel label )
+    {
+
+        KeyListener[] lists = label.getKeyListeners(  );
+
+        for( int i = 0; i < lists.length; i++ )
+        {
+            label.removeKeyListener( lists[i] );
+        }
+
+        label.addKeyListener( 
+            new KeyListener(  )
+            {
+                public void keyPressed( KeyEvent e )
+                {
+
+                    if( e.getKeyChar(  ) != ' ' )
+                    {
+
+                        return;
+                    }
+
+                    if( !isSelected( programme ) )
+                    {
+                        setProgrammeSelection( programme, true );
+                        label.setBorder( 
+                            BorderFactory.createCompoundBorder( 
+                                BorderFactory.createLineBorder( Color.BLACK ),
+                                BorderFactory.createLineBorder( 
+                                    config.colorTicked, 2 ) ) );
+                        label.setBackground( config.colorTicked );
+                    }
+                    else
+                    {
+                        setProgrammeSelection( programme, false );
+                        label.setBorder( 
+                            BorderFactory.createCompoundBorder( 
+                                BorderFactory.createLineBorder( Color.BLACK ),
+                                BorderFactory.createLineBorder( 
+                                    Color.WHITE, 2 ) ) );
+                        label.setBackground( Color.WHITE );
+                    }
+
+                    favSelectionChanged(  );
+                    label.repaint(  );
+                }
+
+                public void keyReleased( KeyEvent e )
+                {
+                }
+
+                public void keyTyped( KeyEvent e )
+                {
+                }
+            } );
+
+        label.addKeyListener( 
+            new KeyListener(  )
+            {
+                public void keyPressed( KeyEvent e )
+                {
+
+                    if( ( e.getKeyChar(  ) != 'f' )
+                            && ( e.getKeyChar(  ) != 'F' ) )
+                    {
+
+                        return;
+                    }
+
+                    if( getFavourite( programme ) == null )
+                    {
+
+                        Favourite f = new Favourite(  );
+
+                        f.setTitleString( programme.getTitle(  ) );
+
+                        f.setName( programme.getTitle(  ) );
+                        addFavourite( f );
+                        favSelectionChanged(  );
+                    }
+                    else
+                    {
+
+                        Favourite fav = getFavourite( programme );
+
+                        if( fav != null )
+                        {
+
+                            Object[] messageArguments =
+                            { programme.getTitle(  ) };
+
+                            int r =
+                                JOptionPane.showConfirmDialog( 
+                                    null, //controller.getPanel(  ),
+                                    i18n.getLocalizedMessage( 
+                                        "popup.favourite.del.prompt",
+                                        messageArguments ),
+                                    i18n.getLocalizedMessage( 
+                                        "popup.favourite.del.title" ),
+                                    JOptionPane.YES_NO_OPTION );
+
+                            if( r == 0 )
+                            {
+                                removeFavourite( fav );
+                                favSelectionChanged(  );
+                            }
+                        }
+                    }
+
+                    label.repaint(  );
+                }
+
+                public void keyReleased( KeyEvent e )
+                {
+                }
+
+                public void keyTyped( KeyEvent e )
+                {
+                }
+            } );
+    }
+
     /**
      * DOCUMENT_ME!
      *
      * @param programme DOCUMENT_ME!
      * @param label DOCUMENT_ME!
      */
-    public void onPaintProgrammeLabel( TVProgramme programme, JLabel label )
+    public void onPaintProgrammeLabel( 
+        final TVProgramme programme, final JLabel label )
     {
+        setEv( programme, label );
 
         if( isSelected( programme ) )
         {

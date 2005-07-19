@@ -26,13 +26,12 @@ import java.net.URL;
 
 import java.text.SimpleDateFormat;
 
+import java.util.Date;
+
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
-import javax.swing.KeyStroke;
 import javax.swing.ToolTipManager;
 import javax.swing.border.Border;
 import javax.swing.event.PopupMenuEvent;
@@ -124,14 +123,13 @@ public class ProgrammeJLabel extends JLabel
 
         setOpaque( true );
 
-        InputMap map = getInputMap( JComponent.WHEN_FOCUSED );
+        /*        InputMap map = getInputMap( JComponent.WHEN_FOCUSED );
 
-        map.put( KeyStroke.getKeyStroke( "SPACE" ), "select" );
+                map.put( KeyStroke.getKeyStroke( "SPACE" ), "select" );
 
-        map.put( KeyStroke.getKeyStroke( "typed f" ), "favourite" );
+                map.put( KeyStroke.getKeyStroke( "typed f" ), "favourite" );
 
-        map.put( KeyStroke.getKeyStroke( "shift F10" ), "menu" );
-
+                map.put( KeyStroke.getKeyStroke( "shift F10" ), "menu" );*/
         addMouseListener( 
             new java.awt.event.MouseListener(  )
             {
@@ -250,6 +248,7 @@ public class ProgrammeJLabel extends JLabel
 
     protected void paintComponent( Graphics g )
     {
+        System.out.println( "paint " + new Date(  ) );
 
         if( alignTextToLeftOfScreen )
         {
@@ -313,6 +312,7 @@ public class ProgrammeJLabel extends JLabel
 
         if( link != null )
         {
+            System.out.println( " prog blue = " + programme.getTitle(  ) );
             g.setColor( Color.BLUE );
 
             int width = getWidth(  );
