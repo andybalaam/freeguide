@@ -139,9 +139,8 @@ public class AlarmReminder extends BaseModuleReminder
     {
 
         final JMenuItem sel = new JMenuItem(  );
-        ManualSelection ms = getManualSelection( programme );
 
-        if( ( ms == null ) || ( ms.selected == false ) )
+        if( !isSelected( programme ) )
         {
             sel.setText( i18n.getLocalizedMessage( "popup.selection.add" ) );
             sel.addActionListener( 
@@ -316,9 +315,7 @@ public class AlarmReminder extends BaseModuleReminder
     public void onPaintProgrammeLabel( TVProgramme programme, JLabel label )
     {
 
-        ManualSelection ms = getManualSelection( programme );
-
-        if( ( ms != null ) && ( ms.selected == true ) )
+        if( isSelected( programme ) )
         {
             label.setBorder( 
                 BorderFactory.createCompoundBorder( 
