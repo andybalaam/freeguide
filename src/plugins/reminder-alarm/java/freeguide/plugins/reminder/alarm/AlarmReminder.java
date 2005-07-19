@@ -75,6 +75,7 @@ public class AlarmReminder extends BaseModuleReminder
     final public ConfigAlarm config = new ConfigAlarm(  );
     TVProgramme scheduledProgramme;
     JDialog scheduledDialog;
+    MListsner mouseListener = new MListsner(  );
 
     /**
      * DOCUMENT_ME!
@@ -431,72 +432,25 @@ public class AlarmReminder extends BaseModuleReminder
 
         MouseListener[] ml = label.getMouseListeners(  );
 
-        for( int i = 0; i < ml.length; i++ )
+        int i;
+
+        for( i = 0; i < ml.length; i++ )
         {
-            label.removeMouseListener( ml[i] );
+
+            if( ml[i] == mouseListener )
+            {
+
+                break;
+            }
         }
 
-        label.addMouseListener( 
-            new MouseListener(  )
-            {
-                public void mouseClicked( MouseEvent e )
-                {
+        if( i >= ml.length )
+        {
+            label.addMouseListener( mouseListener );
+        }
 
-                    if( e.getClickCount(  ) <= 1 )
-                    {
-
-                        return;
-                    }
-
-                    if( !isSelected( programme ) )
-                    {
-                        setProgrammeSelection( programme, true );
-                        label.setBorder( 
-                            BorderFactory.createCompoundBorder( 
-                                BorderFactory.createLineBorder( Color.BLACK ),
-                                BorderFactory.createLineBorder( 
-                                    config.colorTicked, 2 ) ) );
-                        label.setBackground( config.colorTicked );
-                    }
-                    else
-                    {
-                        setProgrammeSelection( programme, false );
-                        label.setBorder( 
-                            BorderFactory.createCompoundBorder( 
-                                BorderFactory.createLineBorder( Color.BLACK ),
-                                BorderFactory.createLineBorder( 
-                                    Color.WHITE, 2 ) ) );
-                        label.setBackground( Color.WHITE );
-                    }
-
-                    favSelectionChanged(  );
-                    label.repaint(  );
-                }
-
-                public void mouseEntered( MouseEvent e )
-                {
-
-                    // TODO Auto-generated method stub
-                }
-
-                public void mouseExited( MouseEvent e )
-                {
-
-                    // TODO Auto-generated method stub
-                }
-
-                public void mousePressed( MouseEvent e )
-                {
-
-                    // TODO Auto-generated method stub
-                }
-
-                public void mouseReleased( MouseEvent e )
-                {
-
-                    // TODO Auto-generated method stub
-                }
-            } );
+        mouseListener.programme = programme;
+        mouseListener.label = label;
     }
 
     /**
@@ -580,6 +534,94 @@ public class AlarmReminder extends BaseModuleReminder
         scheduledDialog.setModal( false );
 
         scheduledDialog.setVisible( true );
+    }
+
+    protected class MListsner implements MouseListener
+    {
+
+        TVProgramme programme;
+        JLabel label;
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param e DOCUMENT_ME!
+         */
+        public void mouseClicked( MouseEvent e )
+        {
+
+            if( e.getClickCount(  ) <= 1 )
+            {
+
+                return;
+            }
+
+            if( !isSelected( programme ) )
+            {
+                setProgrammeSelection( programme, true );
+                label.setBorder( 
+                    BorderFactory.createCompoundBorder( 
+                        BorderFactory.createLineBorder( Color.BLACK ),
+                        BorderFactory.createLineBorder( config.colorTicked, 2 ) ) );
+                label.setBackground( config.colorTicked );
+            }
+            else
+            {
+                setProgrammeSelection( programme, false );
+                label.setBorder( 
+                    BorderFactory.createCompoundBorder( 
+                        BorderFactory.createLineBorder( Color.BLACK ),
+                        BorderFactory.createLineBorder( Color.WHITE, 2 ) ) );
+                label.setBackground( Color.WHITE );
+            }
+
+            favSelectionChanged(  );
+            label.repaint(  );
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param e DOCUMENT_ME!
+         */
+        public void mouseEntered( MouseEvent e )
+        {
+
+            // TODO Auto-generated method stub
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param e DOCUMENT_ME!
+         */
+        public void mouseExited( MouseEvent e )
+        {
+
+            // TODO Auto-generated method stub
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param e DOCUMENT_ME!
+         */
+        public void mousePressed( MouseEvent e )
+        {
+
+            // TODO Auto-generated method stub
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param e DOCUMENT_ME!
+         */
+        public void mouseReleased( MouseEvent e )
+        {
+
+            // TODO Auto-generated method stub
+        }
     }
 
     /**
