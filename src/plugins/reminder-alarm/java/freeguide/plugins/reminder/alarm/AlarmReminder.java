@@ -367,7 +367,8 @@ public class AlarmReminder extends BaseModuleReminder
                 public void keyPressed( KeyEvent e )
                 {
 
-                    if( ( e.getKeyChar(  ) != 'f' )
+                    if( 
+                        ( e.getKeyChar(  ) != 'f' )
                             && ( e.getKeyChar(  ) != 'F' ) )
                     {
 
