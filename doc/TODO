@@ -248,13 +248,13 @@ a Use serialization to reduce startup time
 
 - Release 0.10.2 (plugins manager, bug fixes)
 
-- Favourites are not automatically added to the guide
-- Exiting from the File menu does not exit properly
-- Keyboard shortcuts for adding a programme to favourites and adding to guide
+a Favourites are not automatically added to the guide
+a Exiting from the File menu does not exit properly
+a Keyboard shortcuts for adding a programme to favourites and adding to guide
   do not work.
-- "Remind me of progs" option does not stay unchecked.  I was able to get it to s tick by editing the registry, though.
--"Width of 1hr" change has no effect.  I didn't see a setting for that in the registry.
-- double-click to add to guide not working as it did in 0.10pre1
+a "Remind me of progs" option does not stay unchecked.  I was able to get it to s tick by editing the registry, though.
+a "Width of 1hr" change has no effect.  I didn't see a setting for that in the registry.
+a double-click to add to guide not working as it did in 0.10pre1
 - favorites from upgrade don't include channel or day details when clicking on edit, but are shown in the main favorites window.  In addition, these missing details are not applied to which programs are selected.  However, the time details are shown & applied.  Editing upgraded favorites to re-include these details still doesn't show in the edit dialog, but they are now properly applied to which programs are selected.
 - New favorites don't retain the channel info in the "edit" view, but it is properly applied to which programs are selected.
 - After tinkering with favorites for a while, "add to favorites" is no longer available from a right-click in the guide view, only "remove from favorites".  Not really sure what I did to trigger this bug, but closing & restarting Freeguide fixed it.  And no, this did not result in all programs being marked as favorites. ;-)
@@ -263,12 +263,12 @@ a Favourites that have been imported are not displayed with a heart symbol,
 a When I create a new favourite it is marked with a heart, but it is not added
   to the list of favourites.  When I exit and restart, the programme is not
   marked with a heart.
-- When an error occurs reading a serialised file, FreeGuide should display an
+a When an error occurs reading a serialised file, FreeGuide should display an
   error message, and offer to re-download listings in the new format.
 - When I start FreeGuide, the list of available grabbers is different every time
 a When I start 0.10.2 after running 0.10.1, it forgets that "XMLTV" was checked
   under Options : Advanced : Grabbers
-- Running startup.jar from within a different directory gives this error:
+a Running startup.jar from within a different directory gives this error:
     $ java -jar build/startup.jar
     E02. Main class('freeguide.FreeGuide') not found
     java.lang.ClassNotFoundException: freeguide.FreeGuide
