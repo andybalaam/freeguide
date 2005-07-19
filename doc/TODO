@@ -245,6 +245,7 @@ a Use serialization to reduce startup time
 - Automatically import XMLTV listings if they're in the data dir.  (Just import
   *.xmltv?)
 - Add an FAQ about how to change the number of days downloaded.
+- After tinkering with favorites for a while, "add to favorites" is no longer available from a right-click in the guide view, only "remove from favorites".  Not really sure what I did to trigger this bug, but closing & restarting Freeguide fixed it.  And no, this did not result in all programs being marked as favorites. ;-) (Joe Blow)
 
 - Release 0.10.2 (plugins manager, bug fixes)
 
@@ -257,7 +258,6 @@ a "Width of 1hr" change has no effect.  I didn't see a setting for that in the r
 a double-click to add to guide not working as it did in 0.10pre1
 - favorites from upgrade don't include channel or day details when clicking on edit, but are shown in the main favorites window.  In addition, these missing details are not applied to which programs are selected.  However, the time details are shown & applied.  Editing upgraded favorites to re-include these details still doesn't show in the edit dialog, but they are now properly applied to which programs are selected.
 - New favorites don't retain the channel info in the "edit" view, but it is properly applied to which programs are selected.
-- After tinkering with favorites for a while, "add to favorites" is no longer available from a right-click in the guide view, only "remove from favorites".  Not really sure what I did to trigger this bug, but closing & restarting Freeguide fixed it.  And no, this did not result in all programs being marked as favorites. ;-)
 a Favourites that have been imported are not displayed with a heart symbol,
   or added to guide
 a When I create a new favourite it is marked with a heart, but it is not added
