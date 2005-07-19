@@ -25,6 +25,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 
@@ -424,6 +426,75 @@ public class AlarmReminder extends BaseModuleReminder
 
                 public void keyTyped( KeyEvent e )
                 {
+                }
+            } );
+
+        MouseListener[] ml = label.getMouseListeners(  );
+
+        for( int i = 0; i < ml.length; i++ )
+        {
+            label.removeMouseListener( ml[i] );
+        }
+
+        label.addMouseListener( 
+            new MouseListener(  )
+            {
+                public void mouseClicked( MouseEvent e )
+                {
+
+                    if( e.getClickCount(  ) <= 1 )
+                    {
+
+                        return;
+                    }
+
+                    if( !isSelected( programme ) )
+                    {
+                        setProgrammeSelection( programme, true );
+                        label.setBorder( 
+                            BorderFactory.createCompoundBorder( 
+                                BorderFactory.createLineBorder( Color.BLACK ),
+                                BorderFactory.createLineBorder( 
+                                    config.colorTicked, 2 ) ) );
+                        label.setBackground( config.colorTicked );
+                    }
+                    else
+                    {
+                        setProgrammeSelection( programme, false );
+                        label.setBorder( 
+                            BorderFactory.createCompoundBorder( 
+                                BorderFactory.createLineBorder( Color.BLACK ),
+                                BorderFactory.createLineBorder( 
+                                    Color.WHITE, 2 ) ) );
+                        label.setBackground( Color.WHITE );
+                    }
+
+                    favSelectionChanged(  );
+                    label.repaint(  );
+                }
+
+                public void mouseEntered( MouseEvent e )
+                {
+
+                    // TODO Auto-generated method stub
+                }
+
+                public void mouseExited( MouseEvent e )
+                {
+
+                    // TODO Auto-generated method stub
+                }
+
+                public void mousePressed( MouseEvent e )
+                {
+
+                    // TODO Auto-generated method stub
+                }
+
+                public void mouseReleased( MouseEvent e )
+                {
+
+                    // TODO Auto-generated method stub
                 }
             } );
     }
