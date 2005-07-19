@@ -143,7 +143,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
 
         config.sizeChannelHeight = panel.getSliderHeight(  ).getValue(  );
 
-        config.sizeChannelPanelWidth =
+        config.sizeProgrammePanelWidth =
             panel.getSliderWidth(  ).getValue(  ) * 24;
 
         config.colorChannel = panel.getPanelColorChannel(  ).getBackground(  );
@@ -205,7 +205,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
         panel.getSliderHeight(  ).setValue( config.sizeChannelHeight );
 
         panel.getTextWidth(  ).setText( 
-            Integer.toString( config.sizeChannelPanelWidth / 24 ) );
+            Integer.toString( config.sizeProgrammePanelWidth / 24 ) );
 
         panel.getSliderWidth(  ).setValue( 
             config.sizeProgrammePanelWidth / 24 );

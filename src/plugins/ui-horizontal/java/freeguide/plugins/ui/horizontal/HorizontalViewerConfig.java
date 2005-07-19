@@ -39,7 +39,8 @@ public class HorizontalViewerConfig
     public int sizeProgrammePanelWidth = 8000;
 
     /** Default width of the channels scrolling panel */
-    public int sizeChannelPanelWidth = 400;
+
+    //public int sizeChannelPanelWidth = 400;
 
     /** Default colour of a movie */
     public Color colorMovie = new Color( 255, 230, 230 );

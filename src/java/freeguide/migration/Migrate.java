@@ -544,9 +544,9 @@ public class Migrate
                 nodeScreen.getInt( 
                     "channel_height", hovConfig.sizeChannelHeight );
 
-            hovConfig.sizeChannelPanelWidth =
+            hovConfig.sizeProgrammePanelWidth =
                 nodeScreen.getInt( 
-                    "panel_width", hovConfig.sizeChannelPanelWidth );
+                    "panel_width", hovConfig.sizeProgrammePanelWidth );
 
             hovConfig.colorMovie =
                 readColor( 
