@@ -256,8 +256,8 @@ a Keyboard shortcuts for adding a programme to favourites and adding to guide
 a "Remind me of progs" option does not stay unchecked.  I was able to get it to s tick by editing the registry, though.
 a "Width of 1hr" change has no effect.  I didn't see a setting for that in the registry.
 a double-click to add to guide not working as it did in 0.10pre1
-- favorites from upgrade don't include channel or day details when clicking on edit, but are shown in the main favorites window.  In addition, these missing details are not applied to which programs are selected.  However, the time details are shown & applied.  Editing upgraded favorites to re-include these details still doesn't show in the edit dialog, but they are now properly applied to which programs are selected.
-- New favorites don't retain the channel info in the "edit" view, but it is properly applied to which programs are selected.
+a favorites from upgrade don't include channel or day details when clicking on edit, but are shown in the main favorites window.  In addition, these missing details are not applied to which programs are selected.  However, the time details are shown & applied.  Editing upgraded favorites to re-include these details still doesn't show in the edit dialog, but they are now properly applied to which programs are selected.
+a New favorites don't retain the channel info in the "edit" view, but it is properly applied to which programs are selected.
 a Favourites that have been imported are not displayed with a heart symbol,
   or added to guide
 a When I create a new favourite it is marked with a heart, but it is not added
