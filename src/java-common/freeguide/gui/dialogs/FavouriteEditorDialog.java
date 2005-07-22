@@ -26,6 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Level;
 
 import javax.swing.JDialog;
@@ -48,6 +50,7 @@ public class FavouriteEditorDialog extends FGDialog
     private javax.swing.JButton butCancel;
     private javax.swing.JButton butOK;
     private javax.swing.JComboBox cmbChannel;
+    private Map channels = new TreeMap(  );
     private javax.swing.JComboBox cmbDayOfWeek;
     private javax.swing.JComboBox cmbTitle;
     private javax.swing.JLabel labAfter;
@@ -118,7 +121,15 @@ public class FavouriteEditorDialog extends FGDialog
 
         if( favourite.getChannelID(  ) != null )
         {
-            cmbChannel.setSelectedItem( favourite.getChannelID(  ) );
+
+            TVChannelsSet.Channel ch =
+                (TVChannelsSet.Channel)channels.get( 
+                    favourite.getChannelID(  ) );
+
+            if( ch != null )
+            {
+                cmbChannel.setSelectedItem( ch );
+            }
         }
 
         if( !favourite.getAfterTime(  ).isEmpty(  ) )
@@ -164,6 +175,7 @@ public class FavouriteEditorDialog extends FGDialog
 
             TVChannelsSet.Channel ch = (TVChannelsSet.Channel)it.next(  );
             cmbChannel.addItem( ch );
+            channels.put( ch.getChannelID(  ), ch );
         }
 
         Calendar cal = GregorianCalendar.getInstance(  );
