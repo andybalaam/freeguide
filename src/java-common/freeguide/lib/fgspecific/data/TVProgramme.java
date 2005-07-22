@@ -349,6 +349,16 @@ public class TVProgramme implements Comparable, Serializable
     }
 
     /**
+     * Set description for programme
+     *
+     * @param desc new description text
+     */
+    public void setDescription( String desc )
+    {
+        description = desc;
+    }
+
+    /**
      * Gets the longDesc attribute of the Programme object
      *
      * @return The longDesc value
