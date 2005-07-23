@@ -246,9 +246,16 @@ a Use serialization to reduce startup time
   *.xmltv?)
 - Add an FAQ about how to change the number of days downloaded.
 - After tinkering with favorites for a while, "add to favorites" is no longer available from a right-click in the guide view, only "remove from favorites".  Not really sure what I did to trigger this bug, but closing & restarting Freeguide fixed it.  And no, this did not result in all programs being marked as favorites. ;-) (Joe Blow)
+- When I start FreeGuide, the list of available grabbers is different every time
 
 - Release 0.10.2 (plugins manager, bug fixes)
 
+- Reminders are never removed.  They should disappear after the time the user
+  has set.
+- Make a new Windows installer containing all the plugins
+- Make RPMs for each plugin, and make the freeguide-base and freeguide-all
+  RPMs.
+- Put latest XMLTV in Windows version
 a Favourites are not automatically added to the guide
 a Exiting from the File menu does not exit properly
 a Keyboard shortcuts for adding a programme to favourites and adding to guide
@@ -265,7 +272,6 @@ a When I create a new favourite it is marked with a heart, but it is not added
   marked with a heart.
 a When an error occurs reading a serialised file, FreeGuide should display an
   error message, and offer to re-download listings in the new format.
-- When I start FreeGuide, the list of available grabbers is different every time
 a When I start 0.10.2 after running 0.10.1, it forgets that "XMLTV" was checked
   under Options : Advanced : Grabbers
 a Running startup.jar from within a different directory gives this error:
@@ -279,10 +285,6 @@ a Running startup.jar from within a different directory gives this error:
             at java.lang.ClassLoader.loadClass(ClassLoader.java:251)
             at freeguide.Startup.run(Startup.java:110)
             at freeguide.Startup.main(Startup.java:48)
-- Make a new Windows installer containing all the plugins
-- Make RPMs for each plugin, and make the freeguide-base and freeguide-all
-  RPMs.
-- Put latest XMLTV in Windows version
 a Call System.exit when we leave FreeGuide.  See Joe Blow's email of 01/07/05
 a Make the extra program details appear like they did in 0.8.x
 a Fix inability to change day when using tv-unprocessed.xmltv (does this still
