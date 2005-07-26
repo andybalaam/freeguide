@@ -17,6 +17,7 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -40,6 +41,7 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
     public static final String hDatabaseType = "Data";
     protected EndianInputStream rd;
     protected String charset = "Cp1251";
+    protected Config config = new Config(  );
 
     /**
      * DOCUMENT_ME!
@@ -54,6 +56,12 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
     {
 
         JFileChooser chooser = new JFileChooser(  );
+
+        if( config.path != null )
+        {
+            chooser.setSelectedFile( new File( config.path ) );
+        }
+
         chooser.setFileFilter( 
             new FileFilter(  )
             {
@@ -82,6 +90,9 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
             {
                 destination = new File( destination.getPath(  ) + ".pdb" );
             }
+
+            config.path = destination.getPath(  );
+            saveConfig(  );
 
             destination.delete(  );
 
@@ -129,6 +140,25 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
 
         return tm /*-TimeEngine.getOffset(tm,TimeEngine.localTZ)*/;
 
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param prefs DOCUMENT_ME!
+     */
+    public void setConfigStorage( Preferences prefs )
+    {
+        super.setConfigStorage( prefs );
+        loadObjectFromPreferences( config );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     */
+    public void saveConfig(  )
+    {
+        saveObjectToPreferences( config );
     }
 
     protected class StoreIterator extends TVIteratorProgrammes
@@ -289,5 +319,21 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
                 + PALM_TIME_DELTA ) );
 
         }
+    }
+
+    /**
+     * DOCUMENT ME!
+     *
+     * @author $author$
+     * @version $Revision$
+     */
+    public static class Config
+    {
+
+        /** Path of last saved file. */
+        public String path;
+
+        /** Charset for output. */
+        public String charset = "Cp1251";
     }
 }
