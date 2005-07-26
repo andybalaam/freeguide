@@ -6,6 +6,7 @@ import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.plugins.BaseModule;
+import freeguide.plugins.IModuleConfigurationUI;
 import freeguide.plugins.IModuleExport;
 
 import org.alex73.utils.io.EndianInputStream;
@@ -40,7 +41,6 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
     /** DOCUMENT ME! */
     public static final String hDatabaseType = "Data";
     protected EndianInputStream rd;
-    protected String charset = "Cp1251";
     protected Config config = new Config(  );
 
     /**
@@ -161,6 +161,19 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
         saveObjectToPreferences( config );
     }
 
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param parentDialog DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public IModuleConfigurationUI getConfigurationUI( JDialog parentDialog )
+    {
+
+        return new PalmUIController( this );
+    }
+
     protected class StoreIterator extends TVIteratorProgrammes
     {
 
@@ -179,7 +192,7 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
         public StoreIterator( final String pdbName ) throws IOException
         {
             pdb = new PDBFile( pdbName, hCreatorID, hDatabaseType );
-            wr = new EndianOutputByteArray( false, charset );
+            wr = new EndianOutputByteArray( false, config.charset );
         }
 
         protected void onChannel( TVChannel channel )
@@ -254,7 +267,7 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
             int sz = 0;
 
             sz += ( wr.calcSPasString0( 
-                channelName + "(" + sitename + ")", charset ) + 1 );
+                channelName + "(" + sitename + ")", config.charset ) + 1 );
 
             sz += 4;
 
@@ -264,9 +277,10 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
                 TVProgramme pr = (TVProgramme)programmes.get( i );
                 sz += 4;
                 sz += 2;
-                sz += ( wr.calcSPasString( pr.getTitle(  ), charset ) + 1 );
-                sz += ( wr.calcSPasString( pr.getDescription(  ), charset )
+                sz += ( wr.calcSPasString( pr.getTitle(  ), config.charset )
                 + 1 );
+                sz += ( wr.calcSPasString( 
+                    pr.getDescription(  ), config.charset ) + 1 );
 
                 if( sz > PDBFile.MAX_RECORD_SIZE )
                 {
@@ -291,7 +305,8 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
             String channelName, List programmes, String sitename, int from,
             int to ) throws IOException
         {
-            wr.writeSPasString0( channelName + "(" + sitename + ")", charset );
+            wr.writeSPasString0( 
+                channelName + "(" + sitename + ")", config.charset );
             wr.alignToShort(  );
 
             wr.writeInt( to - from );
@@ -334,6 +349,6 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
         public String path;
 
         /** Charset for output. */
-        public String charset = "Cp1251";
+        public String charset = "cp1251";
     }
 }
