@@ -35,21 +35,21 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
     public static final long PALM_TIME_DELTA = 24107L * 24 * 60 * 60;
     protected static final String hPDBName = "all";
 
-    /** DOCUMENT ME! */
-    public static final String hCreatorID = "abTV";
+    /** Cretor tag for palm database. */
+    protected static final String hCreatorID = "abTV";
 
-    /** DOCUMENT ME! */
-    public static final String hDatabaseType = "Data";
+    /** Type tag for palm database. */
+    protected static final String hDatabaseType = "Data";
     protected EndianInputStream rd;
     protected Config config = new Config(  );
 
     /**
-     * DOCUMENT_ME!
+     * Export data method.
      *
-     * @param data DOCUMENT_ME!
-     * @param parent DOCUMENT ME!
+     * @param data TV data
+     * @param parent parent frame
      *
-     * @throws IOException DOCUMENT_ME!
+     * @throws IOException
      */
     public void exportData( final TVData data, final JFrame parent )
         throws IOException
@@ -110,12 +110,12 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
     }
 
     /**
-     * DOCUMENT_ME!
+     * Export data from command line.
      *
-     * @param data DOCUMENT_ME!
-     * @param site DOCUMENT_ME!
+     * @param data TV data
+     * @param site site name
      *
-     * @throws IOException DOCUMENT_ME!
+     * @throws IOException
      */
     public void exportBatch( final TVData data, final String site )
         throws IOException
