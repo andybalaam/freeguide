@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
@@ -41,9 +42,10 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
 {
 
     protected static Pattern FILE_MASK =
-        Pattern.compile( "day-\\d{4}-\\d{2}-\\d{2}-[A-D].ser" );
+        Pattern.compile( "day-(\\d{4}-\\d{2}-\\d{2})-[A-D].ser" );
     protected static long MSEC_PER_DAY = 24L * 60L * 60L * 1000L;
     protected static long MSEC_PARTS = 6L * 60L * 60L * 1000L;
+    protected static long OLD_DATA = 10L * 24L * 60L * 60L * 1000L; // 10 days 
     protected SimpleDateFormat dateFormat;
     protected Info cachedInfo;
 
@@ -106,6 +108,15 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
             return null;
         }
 
+        if( isOldFile( f ) )
+        {
+
+            // remove old data
+            f.delete(  );
+
+            return null;
+        }
+
         try
         {
 
@@ -130,6 +141,37 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
 
             return null;
         }
+    }
+
+    /**
+     * Check if file contains old data.
+     *
+     * @param f file for checking
+     *
+     * @return true if data is old
+     */
+    protected boolean isOldFile( final File f )
+    {
+
+        final Matcher m = FILE_MASK.matcher( f.getName(  ) );
+
+        if( m.matches(  ) )
+        {
+
+            try
+            {
+
+                Date fileDate = dateFormat.parse( m.group( 1 ) );
+
+                return fileDate.getTime(  ) < ( System.currentTimeMillis(  )
+                - OLD_DATA );
+            }
+            catch( ParseException ex )
+            {
+            }
+        }
+
+        return false;
     }
 
     protected File getFile( long date )
