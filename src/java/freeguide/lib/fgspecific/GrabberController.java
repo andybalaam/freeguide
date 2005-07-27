@@ -136,8 +136,12 @@ public class GrabberController
         synchronized( this )
         {
             secondProgressBar.setVisible( false );
-            progressDialog.dispose(  );
-            progressDialog = null;
+
+            if( progressDialog != null )
+            {
+                progressDialog.dispose(  );
+                progressDialog = null;
+            }
         }
     }
 
