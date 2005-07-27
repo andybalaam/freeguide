@@ -8,6 +8,7 @@ import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.lib.general.LanguageHelper;
 
+import freeguide.lib.grabber.HtmlHelper;
 import freeguide.lib.grabber.HttpBrowser;
 import freeguide.lib.grabber.LineProgrammeHelper;
 import freeguide.lib.grabber.TimeHelper;
@@ -16,6 +17,9 @@ import freeguide.plugins.BaseModule;
 import freeguide.plugins.ILogger;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IProgress;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,15 +42,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
     protected static Pattern reDate =
         Pattern.compile( 
-            "<b>(\\p{L}+)\\s*,\\s*(\\d{1,2})\\s+(\\p{L}+)</b>",
-            Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE );
-    protected static Pattern reChannel =
-        Pattern.compile( 
-            "<br><b>\"?(.+?)\"?</b>",
-            Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE );
-    protected static Pattern reProgram =
-        Pattern.compile( 
-            "<br>(\\d{1,2}\\.\\d{2}[\\ |,]\\s*.+)",
+            "(\\p{L}+)\\s*,\\s*(\\d{1,2})\\s+(\\p{L}+)",
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE );
     protected static TimeZone tz = TimeZone.getTimeZone( "Europe/Minsk" );
     protected static final String[] DAYS =
@@ -66,6 +62,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
     public TVData grabData( IProgress progress, ILogger logger )
         throws Exception
     {
+        isStopped = false;
         progress.setProgressValue( 0 );
 
         TVData result = new TVData(  );
@@ -81,14 +78,22 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         progress.setProgressMessage( 
             Application.getInstance(  ).getLocalizedMessage( "downloading" ) );
 
+        PageParser parser = new PageParser( result, logger );
+
         for( int i = 0; ( i < DAYS.length ) && !isStopped; i++ )
         {
             progress.setProgressValue( ( i * 100 ) / 7 );
 
+            if( isStopped )
+            {
+
+                return null;
+            }
+
             //            progress.setProgressMessage(  "Load page [" + ( i + 1 ) + "/" + DAYS.length + "]" );
             browser.loadURL( "http://newsvm.com/tv/" + DAYS[i] + ".shtml" );
 
-            parse( logger, browser.getData(  ), result );
+            browser.parse( parser ); //logger, browser.getData(  ), result );
 
         }
 
@@ -97,90 +102,6 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
         return result;
 
-    }
-
-    protected void parse( ILogger logger, final String data, TVData result )
-        throws ParseException, IOException
-    {
-
-        BufferedReader rd = new BufferedReader( new StringReader( data ) );
-
-        long basedate = 0;
-        long prevTime = 0;
-
-        TVChannel currentChannel = null;
-
-        String line;
-
-        while( ( line = rd.readLine(  ) ) != null )
-        {
-            line = line.trim(  );
-
-            if( basedate == 0 )
-            {
-
-                Matcher mDate = reDate.matcher( line );
-
-                if( mDate.matches(  ) )
-                {
-                    basedate =
-                        TimeHelper.getBaseDate( 
-                            tz, mDate.group( 2 ), mDate.group( 3 ), null,
-                            mDate.group( 1 ) );
-
-                }
-            }
-
-            else
-            {
-
-                Matcher mChannel = reChannel.matcher( line );
-
-                if( mChannel.matches(  ) )
-                {
-
-                    String channelName = mChannel.group( 1 );
-
-                    if( 
-                        channelName.toLowerCase(  ).indexOf( 
-                                "перепечатка" ) != -1 )
-                    {
-                        basedate = 0;
-
-                    }
-
-                    else
-                    {
-                        currentChannel =
-                            result.get( 
-                                "newsvm/" + channelName.replace( '/', '_' ) );
-
-                        currentChannel.setDisplayName( channelName );
-
-                    }
-
-                    prevTime = 0;
-                }
-
-                else
-                {
-
-                    Matcher mProg = reProgram.matcher( line );
-
-                    if( mProg.matches(  ) )
-                    {
-
-                        TVProgramme[] programmes =
-                            LineProgrammeHelper.parse( 
-                                logger, mProg.group( 1 ).trim(  ), basedate,
-                                prevTime );
-                        prevTime = programmes[0].getStart(  );
-                        currentChannel.put( programmes );
-
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -232,5 +153,197 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                     }
                 }
             } );
+    }
+
+    protected static class PageParser extends HtmlHelper.DefaultContentHandler
+    {
+
+        protected StringBuffer out;
+        protected final TVData result;
+        protected final ILogger logger;
+
+        /**
+         * Creates a new PageParser object.
+         *
+         * @param result DOCUMENT ME!
+         * @param logger DOCUMENT ME!
+         */
+        public PageParser( final TVData result, final ILogger logger )
+        {
+            this.result = result;
+            this.logger = logger;
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param uri DOCUMENT_ME!
+         * @param localName DOCUMENT_ME!
+         * @param qName DOCUMENT_ME!
+         * @param atts DOCUMENT_ME!
+         *
+         * @throws SAXException DOCUMENT_ME!
+         */
+        public void startElement( 
+            String uri, String localName, String qName, Attributes atts )
+            throws SAXException
+        {
+
+            if( "table".equals( qName ) )
+            {
+                out = new StringBuffer(  );
+            }
+            else if( ( out != null ) && "br".equals( qName ) )
+            {
+                out.append( '\n' );
+            }
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param uri DOCUMENT_ME!
+         * @param localName DOCUMENT_ME!
+         * @param qName DOCUMENT_ME!
+         *
+         * @throws SAXException DOCUMENT_ME!
+         */
+        public void endElement( String uri, String localName, String qName )
+            throws SAXException
+        {
+
+            if( "table".equals( qName ) && ( out != null ) )
+            {
+
+                if( out.length(  ) > 4096 )
+                {
+                    parseText( out.toString(  ) );
+                }
+
+                out = null;
+            }
+            else if( ( out != null ) && "td".equals( qName ) )
+            {
+                out.append( '\n' );
+            }
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param ch DOCUMENT_ME!
+         * @param start DOCUMENT_ME!
+         * @param length DOCUMENT_ME!
+         *
+         * @throws SAXException DOCUMENT_ME!
+         */
+        public void characters( char[] ch, int start, int length )
+            throws SAXException
+        {
+
+            if( out != null )
+            {
+                out.append( ch, start, length );
+            }
+        }
+
+        protected void parseText( final String text ) throws SAXException
+        {
+
+            BufferedReader rd = new BufferedReader( new StringReader( text ) );
+            long basedate = 0;
+            long prevTime = 0;
+
+            TVChannel currentChannel = null;
+
+            String line;
+
+            try
+            {
+
+                while( ( line = rd.readLine(  ) ) != null )
+                {
+                    line = line.trim(  );
+
+                    if( "".equals( line ) )
+                    {
+
+                        continue;
+                    }
+
+                    if( basedate == 0 )
+                    {
+
+                        Matcher mDate = reDate.matcher( line );
+
+                        if( mDate.matches(  ) )
+                        {
+
+                            try
+                            {
+                                basedate =
+                                    TimeHelper.getBaseDate( 
+                                        tz, mDate.group( 2 ), mDate.group( 3 ),
+                                        null, mDate.group( 1 ) );
+                            }
+                            catch( ParseException ex )
+                            {
+                            }
+                        }
+                    }
+
+                    else
+                    {
+
+                        if( LineProgrammeHelper.isProgram( line ) )
+                        {
+
+                            try
+                            {
+
+                                TVProgramme[] programmes =
+                                    LineProgrammeHelper.parse( 
+                                        logger, line, basedate, prevTime );
+                                prevTime = programmes[0].getStart(  );
+                                currentChannel.put( programmes );
+                            }
+                            catch( ParseException ex )
+                            {
+                            }
+                        }
+                        else
+                        {
+
+                            String channelName = line;
+
+                            if( 
+                                channelName.toLowerCase(  ).indexOf( 
+                                        "перепечатка" ) != -1 )
+                            {
+                                basedate = 0;
+
+                            }
+
+                            else
+                            {
+                                currentChannel =
+                                    result.get( 
+                                        "newsvm/"
+                                        + channelName.replace( '/', '_' ) );
+
+                                currentChannel.setDisplayName( channelName );
+
+                            }
+
+                            prevTime = 0;
+                        }
+                    }
+                }
+            }
+            catch( IOException ex )
+            {
+                throw new SAXException( "IOError", ex );
+            }
+        }
     }
 }
