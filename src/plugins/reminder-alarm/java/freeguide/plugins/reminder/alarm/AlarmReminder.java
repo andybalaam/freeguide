@@ -72,10 +72,13 @@ public class AlarmReminder extends BaseModuleReminder
     }
 
     /** Config object. */
-    final public ConfigAlarm config = new ConfigAlarm(  );
-    TVProgramme scheduledProgramme;
-    JDialog scheduledDialog;
-    MListsner mouseListener = new MListsner(  );
+    protected final ConfigAlarm config = new ConfigAlarm(  );
+    protected TVProgramme scheduledProgramme;
+    protected JDialog scheduledDialog;
+    protected long timeForClose;
+    protected long timeForDisplay;
+    protected long scheduledDialogDisplayTime;
+    protected MListsner mouseListener = new MListsner(  );
 
     /**
      * DOCUMENT_ME!
@@ -476,64 +479,103 @@ public class AlarmReminder extends BaseModuleReminder
 
     protected long getNextTime(  )
     {
+        timeForClose = Long.MAX_VALUE;
+        timeForDisplay = Long.MAX_VALUE;
 
-        if( config.reminderOn )
+        synchronized( this )
         {
 
-            try
+            if( scheduledDialog != null )
             {
-                scheduledProgramme =
-                    Application.getInstance(  ).getDataStorage(  )
-                               .findEarliest( 
-                        System.currentTimeMillis(  ) + config.reminderWarning,
-                        new IModuleStorage.EarliestCheckAllow(  )
-                        {
-                            public boolean isAllow( TVProgramme programme )
+                timeForClose =
+                    scheduledDialogDisplayTime + config.reminderGiveUp;
+            }
+
+            scheduledProgramme = null;
+
+            if( config.reminderOn )
+            {
+
+                try
+                {
+                    scheduledProgramme =
+                        Application.getInstance(  ).getDataStorage(  )
+                                   .findEarliest( 
+                            System.currentTimeMillis(  )
+                            + config.reminderWarning,
+                            new IModuleStorage.EarliestCheckAllow(  )
                             {
+                                public boolean isAllow( TVProgramme programme )
+                                {
 
-                                return isSelected( programme );
+                                    return isSelected( programme );
 
-                            }
-                        } );
+                                }
+                            } );
 
-                if( scheduledProgramme != null )
-                {
-
-                    return scheduledProgramme.getStart(  );
+                    if( scheduledProgramme != null )
+                    {
+                        timeForDisplay =
+                            scheduledProgramme.getStart(  )
+                            - config.reminderWarning;
+                    }
                 }
-                else
-                {
 
-                    return Long.MAX_VALUE;
+                catch( Exception ex )
+                {
+                    Application.getInstance(  ).getLogger(  ).log( 
+                        Level.WARNING, "Error find next programme", ex );
                 }
             }
 
-            catch( Exception ex )
-            {
-                Application.getInstance(  ).getLogger(  ).log( 
-                    Level.WARNING, "Error find next programme", ex );
-            }
+            return Math.min( 
+                Math.min( timeForClose, timeForDisplay ),
+                System.currentTimeMillis(  ) + 300000 );
         }
-
-        return Long.MAX_VALUE;
     }
 
     protected void onTime(  )
     {
 
-        String message =
-            i18n.getLocalizedMessage( 
-                "alarm.text", new Object[] { scheduledProgramme.getTitle(  ) } );
+        synchronized( this )
+        {
 
-        JOptionPane optionPane =
-            new JOptionPane( message, JOptionPane.INFORMATION_MESSAGE );
+            if( scheduledDialog != null )
+            {
 
-        scheduledDialog =
-            optionPane.createDialog( null, i18n.getString( "alarm.title" ) );
+                if( 
+                    ( timeForClose <= System.currentTimeMillis(  ) )
+                        || ( timeForDisplay <= System.currentTimeMillis(  ) ) )
+                {
+                    scheduledDialog.dispose(  );
+                    scheduledDialog = null;
+                }
+            }
 
-        scheduledDialog.setModal( false );
+            if( 
+                ( scheduledProgramme != null )
+                    && ( timeForDisplay <= System.currentTimeMillis(  ) ) )
+            {
 
-        scheduledDialog.setVisible( true );
+                String message =
+                    i18n.getLocalizedMessage( 
+                        "alarm.text",
+                        new Object[] { scheduledProgramme.getTitle(  ) } );
+
+                JOptionPane optionPane =
+                    new JOptionPane( message, JOptionPane.INFORMATION_MESSAGE );
+
+                scheduledDialog =
+                    optionPane.createDialog( 
+                        Application.getInstance(  ).getApplicationFrame(  ),
+                        i18n.getString( "alarm.title" ) );
+
+                scheduledDialog.setModal( false );
+
+                scheduledDialog.setVisible( true );
+                scheduledDialogDisplayTime = System.currentTimeMillis(  );
+            }
+        }
     }
 
     protected class MListsner implements MouseListener
