@@ -247,6 +247,7 @@ a Use serialization to reduce startup time
 - Add an FAQ about how to change the number of days downloaded.
 - After tinkering with favorites for a while, "add to favorites" is no longer available from a right-click in the guide view, only "remove from favorites".  Not really sure what I did to trigger this bug, but closing & restarting Freeguide fixed it.  And no, this did not result in all programs being marked as favorites. ;-) (Joe Blow)
 - When I start FreeGuide, the list of available grabbers is different every time
+- Progress meter does nothing when downloading listings & "show output" shows nothing but the command (at least from Zap2it).
 
 - Release 0.10.2 (plugins manager, bug fixes)
 
@@ -256,6 +257,9 @@ a Use serialization to reduce startup time
 - Make RPMs for each plugin, and make the freeguide-base and freeguide-all
   RPMs.
 - Put latest XMLTV in Windows version
+- I still have this bug, but only in reference to day details now: "favorites from upgrade don't include channel or day details when clicking on edit, but are shown in the main favorites window.  In addition, these missing details are not applied to which programs are selected.  However, the time details are shown & applied.  Editing upgraded favorites to re-include these details still doesn't show in the edit dialog, but they are now properly applied to which programs are selected."
+- Making any change via the favorites add, edit, or remove options results in only "add to favorites/guide" being available from a right-click in the guide view (even on existing selections).
+- If a program is selected via left-click in the guide view (as in "Star Trek", outlined in blue) and then any change is made via the favorites add, edit, or remove options to any favorite, then that originally selected program ("Star Trek") is no longer selectable via left-click when returning to the guide view.
 a Favourites are not automatically added to the guide
 a Exiting from the File menu does not exit properly
 a Keyboard shortcuts for adding a programme to favourites and adding to guide
