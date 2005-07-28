@@ -317,14 +317,10 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                             String channelName = line;
 
                             if( 
-                                channelName.toLowerCase(  ).indexOf( 
-                                        "перепечатка" ) != -1 )
-                            {
-                                basedate = 0;
-
-                            }
-
-                            else
+                                ( channelName.toLowerCase(  ).indexOf( 
+                                        "перепечатка" ) == -1 )
+                                    && ( channelName.toLowerCase(  ).indexOf( 
+                                        "профилактика" ) == -1 ) )
                             {
                                 currentChannel =
                                     result.get( 
@@ -333,9 +329,8 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
                                 currentChannel.setDisplayName( channelName );
 
+                                prevTime = 0;
                             }
-
-                            prevTime = 0;
                         }
                     }
                 }
