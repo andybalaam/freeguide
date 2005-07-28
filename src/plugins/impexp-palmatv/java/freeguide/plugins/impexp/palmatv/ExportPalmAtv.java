@@ -113,15 +113,17 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
      * Export data from command line.
      *
      * @param data TV data
-     * @param site site name
+     * @param pdbName site name
+     * @param outFile DOCUMENT ME!
      *
      * @throws IOException
      */
-    public void exportBatch( final TVData data, final String site )
+    public void exportBatch( 
+        final TVData data, final String pdbName, final File outFile )
         throws IOException
     {
 
-        StoreIterator iterator = new StoreIterator( site );
+        StoreIterator iterator = new StoreIterator( pdbName );
         data.iterate( iterator );
         iterator.sync(  );
 
@@ -130,7 +132,7 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
             throw iterator.ex;
         }
 
-        iterator.pdb.writeFile( new File( site + ".pdb" ) );
+        iterator.pdb.writeFile( outFile );
     }
 
     protected long readTime(  ) throws IOException
