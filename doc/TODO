@@ -250,6 +250,10 @@ a Use serialization to reduce startup time
 
 - Release 0.10.2 (plugins manager, bug fixes)
 
+- Sometimes when I build FreeGuide from clean and then immediately start it I
+  get this:
+  26328 Segmentation fault      java -jar startup.jar 
+  --doc_directory=../doc --install_directory=./
 a Reminders are never removed.  They should disappear after the time the user
   has set.
 - Make a new Windows installer containing all the plugins
