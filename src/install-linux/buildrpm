@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # I call this script (_not_ as root) from within this directory
-# to build the FreeGuide RPM and SRPM.  It builds the rpms in /home/andy/.rpm
+# to build the FreeGuide RPMs and SRPMs.  It builds the rpms in /home/andy/.rpm
 
 RPM_TOPDIR=/home/andy/.rpm
 FG_TOPDIR=../..
@@ -9,25 +9,28 @@ FG_TOPDIR=../..
 # Clean and build the source package of FreeGuide
 cd $FG_TOPDIR
 ant clean
-ant FreeGuide-Source
+ant freeguide-source
 
 # Clean up any old RPMs
-rm -f dist/FreeGuide-*.rpm
+rm -f dist/freeguide-*.rpm
 
-rm -f $RPM_TOPDIR/RPMS/noarch/FreeGuide-*.rpm
-rm -f $RPM_TOPDIR/SRPMS/FreeGuide-*.rpm
-rm -f $RPM_TOPDIR/SOURCES/FreeGuide-*.tar.gz
-rm -rf $RPM_TOPDIR/BUILD/FreeGuide-*
+rm -f $RPM_TOPDIR/RPMS/noarch/freeguide-*.rpm
+rm -f $RPM_TOPDIR/SRPMS/freeguide-*.rpm
+rm -f $RPM_TOPDIR/SOURCES/freeguide-*.tar.gz
+rm -rf $RPM_TOPDIR/BUILD/freeguide-*
 rm -rf $RPM_TOPDIR/tmp/*
 
 # Copy in the newly-built source package
 cd src/install-linux
-cp -f $FG_TOPDIR/dist/FreeGuide-*.tar.gz $RPM_TOPDIR/SOURCES/
+cp -f $FG_TOPDIR/dist/freeguide-*.tar.gz $RPM_TOPDIR/SOURCES/
 
-# Build the RPM
-rpmbuild --define='_topdir /home/andy/.rpm' --define='_tmppath /home/andy/.rpm/tmp' -ba freeguide.spec
+# Build the RPMs
+
+for SPEC in *.spec; do {
+    rpmbuild --define='_topdir /home/andy/.rpm' --define='_tmppath /home/andy/.rpm/tmp' -ba $SPEC
+}; done
 
 # Copy the RPMs into my "dist" directory ready for upload
-cp $RPM_TOPDIR/RPMS/noarch/FreeGuide-*.rpm $FG_TOPDIR/dist/
-cp $RPM_TOPDIR/SRPMS/FreeGuide-*.rpm $FG_TOPDIR/dist/
+cp $RPM_TOPDIR/RPMS/noarch/freeguide-*.rpm $FG_TOPDIR/dist/
+cp $RPM_TOPDIR/SRPMS/freeguide-*.rpm $FG_TOPDIR/dist/
 

@@ -13,13 +13,15 @@
 ### for this to work.
 
 Summary: A TV Guide
-Name: FreeGuide
+Name: freeguide-base
+Provides: freeguide-base
+#Requires: java     - TODO
 Version: 0.10.2
 Release: 1
 # REMINDER: bump this with each RPM
 Copyright: GPL
 Group: Accessories/
-Source0: FreeGuide-0.10.1.tar.gz
+Source0: freeguide-0.10.2.tar.gz
 URL: http://freeguide-tv.sourceforge.net/
 Vendor: Andy Balaam <axis3x3@users.sourceforge.net>
 Packager: Andy Balaam <axis3x3@users.sourceforge.net>
@@ -33,27 +35,24 @@ connect to the Internet. The viewer allows the user to view television listings
 and create customised TV guides by selecting programmes and by building up a
 favourites list.
 
-It works with listings for Canada, Denmark, Finland, France, Germany, Hungary,
-Italy, Japan, the Netherlands, Norway, Portugal, Romania, Spain, Sweden, the UK
-and the US.
+It works with listings for many countries.  Check the web site freeguide-tv.sf.net for details.
 
 FreeGuide requires Java 2 version 1.4.
+
+The freeguide-base package is only the small base system for freeguide.  To use the program you will need (at the very least) a ui plugin and a grabber plugin.  The easiest way to install FreeGuide is to select the freeguide-all package in a package manager such as Synaptic, yum or apt-get.  That will install all the available plugins, as well as freeguide-base. 
 
 %prep
 %setup
 
 %build
-ant
+ant buildall
 
 %install
-ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dinstall_doc_dir=$RPM_BUILD_ROOT/%{_datadir}/doc/freeguide -Dinstall_real_doc_dir=%{_datadir}/doc/freeguide install-Linux-NoXMLTV-files
-
-%clean
-ant clean
+ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dinstall_doc_dir=$RPM_BUILD_ROOT/%{_datadir}/doc/freeguide -Dinstall_real_doc_dir=%{_datadir}/doc/freeguide install-linux-base
 
 %files
 %{_bindir}/freeguide
-%{_datadir}/freeguide/FreeGuide.jar
+%{_datadir}/freeguide/freeguide.jar
 %{_datadir}/pixmaps/freeguide.png
 %{_datadir}/pixmaps/freeguide/logo-16x16.png
 %{_datadir}/pixmaps/freeguide/logo-32x32.png
@@ -71,7 +70,7 @@ ant clean
 %{_datadir}/doc/freeguide/developers-cvs.html
 %{_datadir}/doc/freeguide/developers-translating.html
 %{_datadir}/doc/freeguide/FAQ.html
-%{_datadir}/doc/freeguide/FreeGuide-0_7-Linux-MetalLookAndFeel.png
+%{_datadir}/doc/freeguide/freeguide-0_7-Linux-MetalLookAndFeel.png
 %{_datadir}/doc/freeguide/index.html
 %{_datadir}/doc/freeguide/INSTALL-linux-noxmltv.html
 %{_datadir}/doc/freeguide/LookAndFeel.html
