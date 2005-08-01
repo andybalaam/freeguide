@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="grabber-hallmark"
+        version="0.1"
+        class="freeguide.plugins.grabber.hallmark.GrabberHallmark">
+
+  <name lang="en">Hallmark Channel</name>
+  <description lang="en">Grabber for http://www.hallmarkchannel.com</description>
+
+  <files>
+    <file path="lib/grabber-hallmark.jar"/>
+    <file path="lib/"/>
+  </files>
+</plugin>
