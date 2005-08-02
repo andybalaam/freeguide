@@ -60,8 +60,7 @@ public class FreeGuide
     public static final String STORAGE_ID = "storage-serfiles";
 
     /** DOCUMENT ME! */
-    public final static Preferences PREF_ROOT =
-        Preferences.userRoot(  ).node( "/org/freeguide-tv" );
+    public final static String PREF_ROOT_NAME = "/org/freeguide-tv";
 
     /** Storage of TV data. */
     public static IModuleStorage storage;
@@ -151,7 +150,8 @@ public class FreeGuide
         // load config
         try
         {
-            PreferencesHelper.load( PREF_ROOT, config );
+            PreferencesHelper.load( 
+                Preferences.userRoot(  ).node( PREF_ROOT_NAME ), config );
             config.version = Application.VERSION.getDotFormat(  );
         }
         catch( Exception ex )
@@ -196,7 +196,8 @@ public class FreeGuide
 
         try
         {
-            PreferencesHelper.save( PREF_ROOT, config );
+            PreferencesHelper.save( 
+                Preferences.userRoot(  ).node( PREF_ROOT_NAME ), config );
 
         }
 
