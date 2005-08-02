@@ -31,15 +31,15 @@ abstract public class MigrationProcessBase
     /**
      * Creates a new MigrationProcessBase object.
      *
-     * @param root DOCUMENT ME!
+     * @param nodeName DOCUMENT ME!
      *
      * @throws BackingStoreException DOCUMENT ME!
      */
-    public MigrationProcessBase( Preferences root )
+    public MigrationProcessBase( final String nodeName )
         throws BackingStoreException
     {
         prefFrom = new TreeMap(  );
-        loadFrom( "", root );
+        loadFrom( "", Preferences.userRoot(  ).node( nodeName ) );
         prefTo = new TreeMap(  );
     }
 
@@ -150,11 +150,18 @@ abstract public class MigrationProcessBase
     /**
      * DOCUMENT_ME!
      *
-     * @param root DOCUMENT_ME!
+     * @param rootNodeName DOCUMENT_ME!
+     *
+     * @throws BackingStoreException DOCUMENT ME!
      */
-    public void saveTo( final Preferences root )
+    public void saveTo( final String rootNodeName )
+        throws BackingStoreException
     {
         getResult(  );
+
+        Preferences.userRoot(  ).node( rootNodeName ).removeNode(  );
+
+        Preferences root = Preferences.userRoot(  ).node( rootNodeName );
 
         for( Iterator it = prefTo.entrySet(  ).iterator(  ); it.hasNext(  ); )
         {

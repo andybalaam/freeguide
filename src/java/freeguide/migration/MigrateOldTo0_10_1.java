@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.prefs.BackingStoreException;
-import java.util.prefs.Preferences;
 
 /**
  * Migration from old versions to 0.10.1
@@ -41,14 +40,14 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
     /**
      * Creates a new MigrateOldTo0_10_1 object.
      *
-     * @param root DOCUMENT ME!
+     * @param nodeName DOCUMENT ME!
      *
      * @throws BackingStoreException DOCUMENT ME!
      */
-    public MigrateOldTo0_10_1( final Preferences root )
+    public MigrateOldTo0_10_1( final String nodeName )
         throws BackingStoreException
     {
-        super( root );
+        super( nodeName );
     }
 
     /**

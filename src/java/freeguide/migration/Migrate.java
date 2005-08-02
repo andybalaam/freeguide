@@ -28,7 +28,7 @@ public class Migrate
     public static void migrateBeforeWizard(  ) throws Exception
     {
         firstTime =
-            !Preferences.userRoot(  ).nodeExists( "/org/freeguide-tv" );
+            !Preferences.userRoot(  ).nodeExists( FreeGuide.PREF_ROOT_NAME );
         FreeGuide.log.finer( "Migration: firstTime=" + firstTime );
 
         if( firstTime )
@@ -52,24 +52,20 @@ public class Migrate
                 needToRunAfter = true;
 
                 MigrationProcessBase migr =
-                    new MigrateOldTo0_10_1( 
-                        Preferences.userRoot(  ).node( "/org/freeguide-tv" ) );
+                    new MigrateOldTo0_10_1( FreeGuide.PREF_ROOT_NAME );
                 migr.migrate(  );
 
                 migr = new Migrate0_10_1To0_10_2( migr.getResult(  ) );
                 migr.migrate(  );
-                migr.saveTo( 
-                    Preferences.userRoot(  ).node( "/org/freeguide-tv" ) );
+                migr.saveTo( FreeGuide.PREF_ROOT_NAME );
             }
             else if( ver.compareTo( new Version( 0, 10, 1 ) ) == 0 )
             {
 
                 MigrationProcessBase migr =
-                    new Migrate0_10_1To0_10_2( 
-                        Preferences.userRoot(  ).node( "/org/freeguide-tv" ) );
+                    new Migrate0_10_1To0_10_2( FreeGuide.PREF_ROOT_NAME );
                 migr.migrate(  );
-                migr.saveTo( 
-                    Preferences.userRoot(  ).node( "/org/freeguide-tv" ) );
+                migr.saveTo( FreeGuide.PREF_ROOT_NAME );
             }
             else if( ver.compareTo( Application.VERSION ) > 0 )
             {
@@ -118,13 +114,13 @@ public class Migrate
     {
 
         String storedVersionName =
-            Preferences.userRoot(  ).node( "/org/freeguide-tv/misc" ).get( 
-                "install_version", null );
+            Preferences.userRoot(  ).node( FreeGuide.PREF_ROOT_NAME + "/misc" )
+                       .get( "install_version", null );
 
         if( storedVersionName == null )
         {
             storedVersionName =
-                Preferences.userRoot(  ).node( "/org/freeguide-tv" ).get( 
+                Preferences.userRoot(  ).node( FreeGuide.PREF_ROOT_NAME ).get( 
                     "version", null );
         }
 

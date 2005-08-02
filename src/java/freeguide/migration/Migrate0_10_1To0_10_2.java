@@ -2,7 +2,6 @@ package freeguide.migration;
 
 import java.util.Map;
 import java.util.prefs.BackingStoreException;
-import java.util.prefs.Preferences;
 
 /**
  * Migration from 0.10.1 to 0.10.2
@@ -25,14 +24,14 @@ public class Migrate0_10_1To0_10_2 extends MigrationProcessBase
     /**
      * Creates a new Migrate0_10_1To0_10_2 object.
      *
-     * @param root DOCUMENT ME!
+     * @param nodeName DOCUMENT ME!
      *
      * @throws BackingStoreException DOCUMENT ME!
      */
-    public Migrate0_10_1To0_10_2( final Preferences root )
+    public Migrate0_10_1To0_10_2( final String nodeName )
         throws BackingStoreException
     {
-        super( root );
+        super( nodeName );
     }
 
     /**
