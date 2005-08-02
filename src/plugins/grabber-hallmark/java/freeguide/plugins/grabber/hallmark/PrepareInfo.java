@@ -14,11 +14,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import java.util.Arrays;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,7 +44,7 @@ public class PrepareInfo
     public static void main( final String[] args ) throws Exception
     {
 
-        String[] tzn = TimeZone.getAvailableIDs(  );
+        /*String[] tzn = TimeZone.getAvailableIDs(  );
         Arrays.sort( tzn );
 
         Date today = new Date(  );
@@ -64,8 +61,7 @@ public class PrepareInfo
             System.out.println( tzn[i] + " - " + shortName + "/" + longName );
         }
 
-        System.exit( 1 );
-
+        System.exit( 1 );*/
         final HttpBrowser browser = new HttpBrowser(  );
         browser.loadURL( "http://www.hallmarkchannel.com/chooseCountry.jsp" );
 

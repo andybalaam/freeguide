@@ -11,6 +11,8 @@ import freeguide.plugins.IModuleConfigurationUI;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IProgress;
 
+import freeguide.plugins.grabber.hallmark.HallmarkInfo.Language;
+
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
@@ -93,7 +95,7 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
 
             Map.Entry entry = (Map.Entry)it.next(  );
             String key = (String)entry.getKey(  );
-            String description = loadDescription( country.url, lang.id, key );
+            String description = loadDescription( country.url, lang, key );
             List list = (List)entry.getValue(  );
 
             for( int i = 0; i < list.size(  ); i++ )
@@ -117,7 +119,7 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
     }
 
     protected String loadDescription( 
-        final String url, final String lang, final String key )
+        final String url, final Language lang, final String key )
         throws IOException, SAXException
     {
 
@@ -128,7 +130,7 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
 
         if( lang != null )
         {
-            urlSched.append( "&LANG=" ).append( lang );
+            urlSched.append( "&LANG=" ).append( lang.id );
         }
 
         //browser.loadURL(url+"/program.jsp?LANG="+lang+"&CONTENT="+key);

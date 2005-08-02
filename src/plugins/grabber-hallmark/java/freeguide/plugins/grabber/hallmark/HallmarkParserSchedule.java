@@ -1,5 +1,6 @@
 package freeguide.plugins.grabber.hallmark;
 
+import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
@@ -12,11 +13,14 @@ import freeguide.lib.grabber.TimeHelper;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
+import java.io.IOException;
+
 import java.text.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,6 +39,7 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
         Pattern.compile( "CONTENT=([A-Z0-9_]+)" );
     protected static final Pattern RE_MOUSE =
         Pattern.compile( "writetxt\\('(.+)'\\)" );
+    protected static final Properties TIMEZONES = new Properties(  );
     protected boolean foundAcrobat = false;
     protected boolean parse = false;
     protected int row;
@@ -233,7 +238,7 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
                 if( col == 0 )
                 { // timezone
                     timeZoneName = text.toString(  ).trim(  );
-                    timeZone = HallmarkTimeZones.getTimeZone( timeZoneName );
+                    timeZone = getTimeZone( timeZoneName );
 
                     if( timeZone == null )
                     {
@@ -344,6 +349,52 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
             }
 
             list.add( prog );
+        }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param hallmarkTimezone DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public synchronized static TimeZone getTimeZone( 
+        final String hallmarkTimezone )
+    {
+
+        if( TIMEZONES.size(  ) == 0 )
+        {
+
+            try
+            {
+                TIMEZONES.load( 
+                    HallmarkParserSchedule.class.getClassLoader(  )
+                                                .getResourceAsStream( 
+                        HallmarkParserSchedule.class.getPackage(  ).getName(  )
+                                                    .replace( '.', '/' )
+                        + "/timezones.properties" ) );
+            }
+            catch( IOException ex )
+            {
+                Application.getInstance(  ).getLogger(  ).severe( 
+                    "Error loading timezones info: " + ex.getMessage(  ) );
+            }
+        }
+
+        final String tzName = TIMEZONES.getProperty( hallmarkTimezone );
+
+        if( tzName == null )
+        {
+            Application.getInstance(  ).getLogger(  ).warning( 
+                "Unknown timezone: " + tzName );
+
+            return TimeZone.getDefault(  );
+        }
+        else
+        {
+
+            return TimeZone.getTimeZone( tzName );
         }
     }
 }
