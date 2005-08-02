@@ -26,6 +26,8 @@ public class LineProgrammeHelper
             "^(\\d{1,2}[\\.|:]\\d{2})([ |,]*)(.+)$", Pattern.CASE_INSENSITIVE );
     protected static Pattern reTime =
         Pattern.compile( "(\\d{1,2})[\\.|:|\\s](\\d{2})" );
+    protected static Pattern reTimeUS =
+        Pattern.compile( "(\\d{1,2}):(\\d{2})\\s+([A|P]M)" );
 
     /**
      * DOCUMENT_ME!
@@ -162,7 +164,44 @@ public class LineProgrammeHelper
         }
         else
         {
-            throw new ParseException( "Error parsing time : " + tm, 0 );
+
+            Matcher maUS = reTimeUS.matcher( tm );
+
+            if( maUS.matches(  ) )
+            {
+
+                try
+                {
+
+                    int h = Integer.parseInt( maUS.group( 1 ) );
+                    int m = Integer.parseInt( maUS.group( 2 ) );
+                    boolean isPM = "PM".equals( maUS.group( 3 ) );
+
+                    if( ( h < 1 ) || ( h > 12 ) || ( m < 0 ) || ( m > 59 ) )
+                    {
+                        new ParseException( "Error parsing time : " + tm, 0 );
+                    }
+
+                    if( isPM && ( h < 12 ) )
+                    {
+                        h += 12;
+                    }
+                    else if( !isPM && ( h == 12 ) )
+                    {
+                        h -= 12;
+                    }
+
+                    return new Time( h, m );
+                }
+                catch( NumberFormatException ex )
+                {
+                    throw new ParseException( "Error parsing time : " + tm, 0 );
+                }
+            }
+            else
+            {
+                throw new ParseException( "Error parsing time : " + tm, 0 );
+            }
         }
     }
 }
