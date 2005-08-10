@@ -275,7 +275,7 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
         if( xmltvConfig != null )
         {
             xmltvConfig =
-                xmltvConfig.replace( 
+                xmltvConfig.replaceAll( 
                     "%home%", System.getProperty( "user.home" ) );
         }
 
