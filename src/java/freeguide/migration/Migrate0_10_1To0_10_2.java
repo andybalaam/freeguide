@@ -45,6 +45,7 @@ public class Migrate0_10_1To0_10_2 extends MigrationProcessBase
         moveKey( "countryID" );
         moveKey( "privacyInfo" );
 
+        moveNode( "mainController/selection/", "modules/reminder-alarm/" );
         moveNode( "mainController/" );
         moveKey( 
             "modules/viewer/Horizontal/colorTicked",
@@ -56,7 +57,6 @@ public class Migrate0_10_1To0_10_2 extends MigrationProcessBase
         moveNode( "modules/grabber/xmltv/", "modules/grabber-xmltv/" );
         moveNode( "modules/importexport/palm-atv/", "modules/impexp-palmatv/" );
         moveNode( "modules/viewer/Horizontal/", "modules/ui-horizontal/" );
-        moveNode( "mainController/selection/", "modules/reminder-alarm/" );
 
         patchGrabbersList(  );
 

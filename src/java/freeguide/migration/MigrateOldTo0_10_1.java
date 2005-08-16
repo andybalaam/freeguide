@@ -106,7 +106,7 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
                 "mainController/channelsSetsList." + i + ".channels.size",
                 "" + ch.length );
 
-            for( int j = 0; i < ch.length; j++ )
+            for( int j = 0; j < ch.length; j++ )
             {
                 putKey( 
                     "mainController/channelsSetsList." + i + ".channels." + j
@@ -123,7 +123,7 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
         { // convert favourites
 
             String name =
-                getAndRemoveKey( "favourites/" + ( i - 1 ) + ".name" );
+                getAndRemoveKey( "favourites/" + ( i + 1 ) + ".name" );
 
             if( name == null )
             {
@@ -131,23 +131,22 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
                 break;
             }
 
+            putKey( 
+                "mainController/selection/favouritesList." + i + ".name", name );
             moveKey( 
-                "favourites/" + ( i - 1 ) + ".name",
-                "mainController/selection/favouritesList." + i + ".name" );
-            moveKey( 
-                "favourites/" + ( i - 1 ) + ".title_contains",
+                "favourites/" + ( i + 1 ) + ".title_contains",
                 "mainController/selection/favouritesList." + i
                 + ".titleContains" );
             moveKey( 
-                "favourites/" + ( i - 1 ) + ".title_string",
+                "favourites/" + ( i + 1 ) + ".title_string",
                 "mainController/selection/favouritesList." + i
                 + ".titleString" );
             moveKey( 
-                "favourites/" + ( i - 1 ) + ".title_regex",
+                "favourites/" + ( i + 1 ) + ".title_regex",
                 "mainController/selection/favouritesList." + i + ".titleRegex" );
 
             String channelId =
-                getAndRemoveKey( "favourites/" + ( i - 1 ) + ".channel_id" );
+                getAndRemoveKey( "favourites/" + ( i + 1 ) + ".channel_id" );
 
             if( channelId != null )
             {
@@ -157,7 +156,7 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
             }
 
             String dayOfWeek =
-                getAndRemoveKey( "favourites/" + ( i - 1 ) + ".day_of_week" );
+                getAndRemoveKey( "favourites/" + ( i + 1 ) + ".day_of_week" );
 
             if( dayOfWeek != null )
             {
@@ -173,7 +172,7 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
             }
 
             String afterTime =
-                getAndRemoveKey( "favourites/" + ( i - 1 ) + ".after_time" );
+                getAndRemoveKey( "favourites/" + ( i + 1 ) + ".after_time" );
 
             if( afterTime != null )
             {
@@ -189,7 +188,7 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
             }
 
             String beforeTime =
-                getAndRemoveKey( "favourites/" + ( i - 1 ) + ".before_time" );
+                getAndRemoveKey( "favourites/" + ( i + 1 ) + ".before_time" );
 
             if( beforeTime != null )
             {
