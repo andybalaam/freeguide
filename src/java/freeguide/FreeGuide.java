@@ -178,6 +178,7 @@ public class FreeGuide
 
         if( Migrate.isNeedToRunWizard(  ) )
         {
+            hidePleaseWait(  );
 
             final FirstTimeWizard wizard =
                 new FirstTimeWizard( !Migrate.isFirstTime(  ) );
@@ -218,7 +219,6 @@ public class FreeGuide
     public void normalStartup( String grabberFromWizard )
         throws Exception
     {
-        showPleaseWait(  );
 
         IModuleViewer viewer =
             (IModuleViewer)PluginsManager.getModuleByID( VIEWER_ID );
@@ -280,6 +280,7 @@ public class FreeGuide
 
         try
         {
+            showPleaseWait(  );
             new FreeGuide( args );
         }
         catch( Exception ex )
@@ -333,7 +334,12 @@ public class FreeGuide
      */
     public static void hidePleaseWait(  )
     {
-        pleaseWaitFrame.dispose(  );
+
+        if( pleaseWaitFrame != null )
+        {
+            pleaseWaitFrame.dispose(  );
+            pleaseWaitFrame = null;
+        }
     }
 
     /**
