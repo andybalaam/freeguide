@@ -14,8 +14,6 @@ package freeguide.gui.dialogs;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.fgspecific.Application;
-
 import freeguide.lib.general.LanguageHelper;
 import freeguide.lib.general.Utils;
 
@@ -46,8 +44,7 @@ public class PleaseWaitFrame extends JFrame
      */
     public PleaseWaitFrame(  )
     {
-        super( 
-            Application.getInstance(  ).getLocalizedMessage( "please_wait" ) );
+        super( "Please Wait" );
         initComponents(  );
         Utils.centreDialog( this );
     }
@@ -75,11 +72,7 @@ public class PleaseWaitFrame extends JFrame
 
             if( data2 != null )
             {
-                image =
-                    new ImageIcon( 
-                        data2,
-                        Application.getInstance(  ).getLocalizedMessage( 
-                            "please_wait" ) );
+                image = new ImageIcon( data2, "Please Wait" );
                 imageLabel =
                     new JLabel( image, javax.swing.SwingConstants.CENTER );
                 imageLabel.setBorder( 
@@ -111,9 +104,7 @@ public class PleaseWaitFrame extends JFrame
      */
     private void exitForm( java.awt.event.WindowEvent evt )
     {
-        FreeGuide.log.info( 
-            Application.getInstance(  ).getLocalizedMessage( 
-                "halting_due_to_please_wait_closed" ) );
+        FreeGuide.log.info( "Halting due to user closing Please Wait dialog." );
         System.exit( 0 );
     }
 }
