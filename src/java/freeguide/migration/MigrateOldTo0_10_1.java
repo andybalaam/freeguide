@@ -3,6 +3,7 @@ package freeguide.migration;
 import freeguide.FreeGuide;
 
 import freeguide.lib.general.LanguageHelper;
+import freeguide.lib.general.StringHelper;
 
 import java.awt.Color;
 
@@ -57,7 +58,21 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
      */
     public void migrate(  ) throws IOException
     {
-        moveKey( "misc/working_directory", "workingDirectory" );
+
+        String workDir = getAndRemoveKey( "misc/working_directory" );
+
+        if( workDir != null )
+        {
+            workDir =
+                StringHelper.replaceAll( 
+                    workDir, "%home%", System.getProperty( "user.home" ) );
+            workDir =
+                StringHelper.replaceAll( 
+                    workDir, "%misc.install_directory%",
+                    FreeGuide.runtimeInfo.installDirectory );
+            putKey( "workingDirectory", workDir );
+        }
+
         moveKey( "misc/browser", "browserName" );
         moveKey( "commandline/browser_command.1", "browserCommand" );
 
@@ -226,7 +241,7 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
             "modules/viewer/Horizontal/sizeChannelHeight" );
         moveKey( 
             "screen/panel_width",
-            "modules/viewer/Horizontal/sizeChannelPanelWidth" );
+            "modules/viewer/Horizontal/sizeProgrammePanelWidth" );
 
         copyColor( 
             "modules/viewer/Horizontal/colorHeart",
@@ -274,8 +289,12 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
         if( xmltvConfig != null )
         {
             xmltvConfig =
-                xmltvConfig.replaceAll( 
-                    "%home%", System.getProperty( "user.home" ) );
+                StringHelper.replaceAll( 
+                    xmltvConfig, "%home%", System.getProperty( "user.home" ) );
+            xmltvConfig =
+                StringHelper.replaceAll( 
+                    xmltvConfig, "%misc.install_directory%",
+                    FreeGuide.runtimeInfo.installDirectory );
         }
 
         // remove unused keys

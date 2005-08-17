@@ -46,6 +46,14 @@ public class Migrate0_10_1To0_10_2 extends MigrationProcessBase
         moveKey( "privacyInfo" );
 
         moveNode( "mainController/selection/", "modules/reminder-alarm/" );
+        moveKey( 
+            "mainController/reminderOn", "modules/reminder-alarm/reminderOn" );
+        moveKey( 
+            "mainController/reminderGiveUp",
+            "modules/reminder-alarm/reminderGiveUp" );
+        moveKey( 
+            "mainController/reminderWarning",
+            "modules/reminder-alarm/reminderWarning" );
         moveNode( "mainController/" );
         moveKey( 
             "modules/viewer/Horizontal/colorTicked",
