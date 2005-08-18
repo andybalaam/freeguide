@@ -1,16 +1,8 @@
-/*
- *  FreeGuide J2
- *
- *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
- *
- *  Released under the GNU General Public License
- *  with ABSOLUTELY NO WARRANTY.
- *
- *  See the file COPYING for more information.
- */
 package freeguide.plugins.ui.horizontal;
 
 import freeguide.lib.fgspecific.Application;
+
+import freeguide.lib.general.FileHelper;
 
 import freeguide.plugins.ui.horizontal.components.StripView;
 
@@ -25,6 +17,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 
 import java.io.File;
+import java.io.IOException;
 
 import java.util.Calendar;
 import java.util.regex.Pattern;
@@ -88,6 +81,8 @@ public class ViewerFrame extends JPanel
 
     /** The JEditorPane where the printedGuide is shown */
     public ViewerFrameHTMLGuide printedGuideArea;
+
+    /** ToDo: DOCUMENT ME! */
     private javax.swing.JProgressBar progressBar;
 
     /** The menu item to change the icon */
@@ -95,8 +90,14 @@ public class ViewerFrame extends JPanel
 
     /** The menu item to reset to the default icon */
     public javax.swing.JMenuItem mbtResetIcon;
+
+    /** ToDo: DOCUMENT ME! */
     private javax.swing.JPanel topButtonsPanel;
+
+    /** ToDo: DOCUMENT ME! */
     private javax.swing.JButton butPrint;
+
+    /** ToDo: DOCUMENT ME! */
     private javax.swing.JButton butDownload;
 
     /**
@@ -107,13 +108,23 @@ public class ViewerFrame extends JPanel
 
     /** The splitpane splitting the printed guide from programme details */
     public javax.swing.JSplitPane splitPaneGuideDet;
+
+    /** ToDo: DOCUMENT ME! */
     private javax.swing.JButton butRevertToFavourites;
 
     /** The splitpane splitting the channels from programmes */
     public javax.swing.JSplitPane splitPaneChanProg;
+
+    /** ToDo: DOCUMENT ME! */
     private javax.swing.JButton butNextDay;
+
+    /** ToDo: DOCUMENT ME! */
     private javax.swing.JButton butPreviousDay;
+
+    /** ToDo: DOCUMENT ME! */
     private javax.swing.JButton butGoToNow;
+
+    /** ToDo: DOCUMENT ME! */
     private javax.swing.JScrollPane printedGuideScrollPane;
 
     /** The popup menu when a channel label is right-clicked */
@@ -459,41 +470,41 @@ public class ViewerFrame extends JPanel
         /*
 
 
-        * TODO FreeGuide.prefs.favourites.addFGPreferenceChangeListener( new
+ * TODO FreeGuide.prefs.favourites.addFGPreferenceChangeListener( new
 
 
-        * FGPreferenceChangeListener( ) { public void preferenceChange(
+ * FGPreferenceChangeListener( ) { public void preferenceChange(
 
 
-        * FGPreferenceChangeEvent evt ) {
+ * FGPreferenceChangeEvent evt ) {
 
 
-        *
+ *
 
 
-        * //TODO: maybe repaint() programmesPanel.invalidate( ); } } );
+ * //TODO: maybe repaint() programmesPanel.invalidate( ); } } );
 
 
-        */
+ */
         /*
 
 
-        * FreeGuide.prefs.chosen_progs.addFGPreferenceChangeListener( new
+ * FreeGuide.prefs.chosen_progs.addFGPreferenceChangeListener( new
 
 
-        * FGPreferenceChangeListener( ) { public void preferenceChange(
+ * FGPreferenceChangeListener( ) { public void preferenceChange(
 
 
-        * FGPreferenceChangeEvent evt ) {
+ * FGPreferenceChangeEvent evt ) {
 
 
-        *
+ *
 
 
-        * //TODO: maybe repaint() programmesPanel.invalidate( ); } } );
+ * //TODO: maybe repaint() programmesPanel.invalidate( ); } } );
 
 
-        */
+ */
         programmesScrollPane.setViewportView( programmesPanel );
 
         timePanel.setPreferredSize( new java.awt.Dimension( 24, 24 ) );
@@ -535,22 +546,22 @@ public class ViewerFrame extends JPanel
         /*
 
 
-        * gridBagConstraints = new java.awt.GridBagConstraints();
+ * gridBagConstraints = new java.awt.GridBagConstraints();
 
 
-        * gridBagConstraints.gridx = 2; gridBagConstraints.gridy = 4;
+ * gridBagConstraints.gridx = 2; gridBagConstraints.gridy = 4;
 
 
-        * gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+ * gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
 
 
-        * gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+ * gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
 
 
-        * getContentPane().add(progressBar, gridBagConstraints);
+ * getContentPane().add(progressBar, gridBagConstraints);
 
 
-        */
+ */
         // }}}
         // {{{ Bottom buttons
         butRevertToFavourites.setFont( new java.awt.Font( "Dialog", 0, 10 ) );
@@ -617,22 +628,22 @@ public class ViewerFrame extends JPanel
         /*
 
 
-        * if( FreeGuide.prefs.commandline.get( "tv_config.1", null ) != null ) {
+ * if( FreeGuide.prefs.commandline.get( "tv_config.1", null ) != null ) {
 
 
-        * mbtConfigure.addActionListener( new java.awt.event.ActionListener( ) {
+ * mbtConfigure.addActionListener( new java.awt.event.ActionListener( ) {
 
 
-        * public void actionPerformed( ActionEvent evt ) {
+ * public void actionPerformed( ActionEvent evt ) {
 
 
-        * mbtConfigureActionPerformed( evt ); } } ); } else {
+ * mbtConfigureActionPerformed( evt ); } } ); } else {
 
 
-        * mbtConfigure.setEnabled( false ); }
+ * mbtConfigure.setEnabled( false ); }
 
 
-        */
+ */
         // getRootPane( ).setDefaultButton( butGoToNow );
         // }}}
         // {{{ Event listeners
@@ -715,49 +726,49 @@ public class ViewerFrame extends JPanel
     /*
 
 
-    * public void mbtConfigureActionPerformed( java.awt.event.ActionEvent evt ) {
+ * public void mbtConfigureActionPerformed( java.awt.event.ActionEvent evt ) {
 
 
-    *
+ *
 
 
-    * String preconfig_message = null;
+ * String preconfig_message = null;
 
 
-    *
+ *
 
 
-    * //FreeGuide.prefs.misc.get( "preconfig_message" ); if( preconfig_message !=
+ * //FreeGuide.prefs.misc.get( "preconfig_message" ); if( preconfig_message !=
 
 
-    * null ) { JOptionPane.showMessageDialog( this, preconfig_message );
+ * null ) { JOptionPane.showMessageDialog( this, preconfig_message );
 
 
-    *  }
+ *  }
 
 
-    *
+ *
 
 
-    * Calendar cal = GregorianCalendar.getInstance( ); cal.setTimeInMillis(
+ * Calendar cal = GregorianCalendar.getInstance( ); cal.setTimeInMillis(
 
 
-    * theDate );
+ * theDate );
 
 
-    *
+ *
 
 
-    * //new GrabberController( ).grabXMLTV( // parent,
+ * //new GrabberController( ).grabXMLTV( // parent,
 
 
-    * FreeGuide.prefs.getCommands( "tv_config" ), //FreeGuide.msg.getString(
+ * FreeGuide.prefs.getCommands( "tv_config" ), //FreeGuide.msg.getString(
 
 
-    * "configuring" ), cal ); }
+ * "configuring" ), cal ); }
 
 
-    */
+ */
 
     /**
      * Event handler for when the Reset button is pressed
@@ -785,34 +796,34 @@ public class ViewerFrame extends JPanel
         /*
 
 
-        * TODO FavouritesList favouritesList = FavouritesList.getInstance( );
+ * TODO FavouritesList favouritesList = FavouritesList.getInstance( );
 
 
-        *
+ *
 
 
-        * for( Iterator i = ( (ProgrammeStripModel)programmesPanel.getModel( )
+ * for( Iterator i = ( (ProgrammeStripModel)programmesPanel.getModel( )
 
 
-        * ).getAll( ) .iterator( ); i.hasNext( ); ) {
+ * ).getAll( ) .iterator( ); i.hasNext( ); ) {
 
 
-        *
+ *
 
 
-        * Programme programme = (Programme)( i.next( ) );
+ * Programme programme = (Programme)( i.next( ) );
 
 
-        *
+ *
 
 
-        * programme.setInGuide( favouritesList.isFavourite( programme ) );
+ * programme.setInGuide( favouritesList.isFavourite( programme ) );
 
 
-        *  }
+ *  }
 
 
-        */
+ */
     }
 
     /**
@@ -860,11 +871,19 @@ public class ViewerFrame extends JPanel
         if( returnVal == JFileChooser.APPROVE_OPTION )
         {
 
-            // FreeGuide.prefs.screen.put(
-            // "customIcon." + rightClickedChannel.getChannel( ).getID( ),
-            // chooser.getSelectedFile( ).getAbsolutePath( ) );
-            // rightClickedChannel.setIcon(
-            // chooser.getSelectedFile( ).getAbsolutePath( ) );
+            try
+            {
+                FileHelper.copy( 
+                    chooser.getSelectedFile(  ),
+                    new File( 
+                        parent.rightClickedChannel.getChannel(  )
+                                                  .getIconFileName(  ) ) );
+                parent.redraw(  );
+            }
+            catch( IOException ex )
+            {
+                ex.printStackTrace(  );
+            }
         }
     }
 
@@ -965,6 +984,11 @@ public class ViewerFrame extends JPanel
 
     }
 
+    /**
+     * ToDo: DOCUMENT ME!
+     *
+     * @param reference ToDo: DOCUMENT ME!
+     */
     void scrollToReference( String reference )
     {
 
@@ -1146,8 +1170,13 @@ public class ViewerFrame extends JPanel
     static class BorderChanger implements FocusListener
     {
 
+        /** ToDo: DOCUMENT ME! */
         static final Border focusedBorder = new LineBorder( Color.black, 2 );
+
+        /** ToDo: DOCUMENT ME! */
         static final Border unfocusedBorder = new EmptyBorder( 2, 2, 2, 2 );
+
+        /** ToDo: DOCUMENT ME! */
         JComponent borderChangee;
 
         /**
@@ -1186,6 +1215,10 @@ public class ViewerFrame extends JPanel
 
     static class FocusJScrollPane extends JScrollPane
     {
+
+        /**
+         * Creates a new FocusJScrollPane object. ToDo: DOCUMENT ME!
+         */
         FocusJScrollPane(  )
         {
             super(  );
@@ -1195,12 +1228,12 @@ public class ViewerFrame extends JPanel
         }
 
         /*
-        * Overridden to be able to add a BorderChanger to the view (not for
-        * general use, leaks when called repeatedly, should call
-        * removeFocusListener too)
-        *
-        * @see javax.swing.JScrollPane#setViewportView(java.awt.Component)
-        */
+ * Overridden to be able to add a BorderChanger to the view (not for
+ * general use, leaks when called repeatedly, should call
+ * removeFocusListener too)
+ *
+ * @see javax.swing.JScrollPane#setViewportView(java.awt.Component)
+ */
         public void setViewportView( Component view )
         {
             super.setViewportView( view );
