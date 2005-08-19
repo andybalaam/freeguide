@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -71,6 +72,27 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
                     workDir, "%misc.install_directory%",
                     FreeGuide.runtimeInfo.installDirectory );
             putKey( "workingDirectory", workDir );
+
+            final File[] dataFiles =
+                new File( workDir ).listFiles( 
+                    new FileFilter(  )
+                    {
+                        public boolean accept( File pathname )
+                        {
+
+                            return !pathname.isDirectory(  )
+                            && pathname.getName(  ).endsWith( ".xmltv" );
+                        }
+                    } );
+
+            if( dataFiles != null )
+            {
+
+                for( int i = 0; i < dataFiles.length; i++ )
+                {
+                    dataFiles[i].delete(  );
+                }
+            }
         }
 
         moveKey( "misc/browser", "browserName" );
