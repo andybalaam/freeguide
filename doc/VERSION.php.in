@@ -1,8 +1,8 @@
 <?php
 
-	print "0\n";
-	print "10\n";
-	print "1\n";
+	print "__ANT_VERSION_MAJOR__\n";
+	print "__ANT_VERSION_MINOR__\n";
+	print "__ANT_VERSION_REVISION__\n";
 
 	$userlog = fopen( "/home/groups/f/fr/freeguide-tv/userlog/userlog.txt", "a" );
 	

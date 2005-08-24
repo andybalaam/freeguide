@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<project name="freeguide-tv-clean">
+    
+    <target name="clean" depends="build-clean, dist-clean, install-linux-clean, prebuild-clean, source-clean" />
+    
+</project>
+

@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+
+<project name="freeguide-tv-build">
+
+    <target name="build-all" depends="prebuild, build-plugins, build-app, build-startup"/>
+
+    <target name="build-init">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}/lib" />
+    </target>
+    
+    <target name="build-common" depends="build-init">
+        <mkdir dir="${build}/classes/common"/>
+        <!-- compile all the .java files -->
+        <javac srcdir="${src}/java-common"
+            destdir="${build}/classes/common"
+            deprecation="on" 
+            source="1.4" 
+            target="1.4"
+            debug="yes"
+            encoding="UTF-8">
+            <classpath>
+                <fileset dir="${src}/lib" includes="**/*.jar"/>
+            </classpath>
+          </javac>
+        <copy todir="${build}/classes/common">
+            <fileset dir="${src}/java-common" excludes="**/*.java" />
+        </copy>
+        <jar jarfile="${build}/lib/common.jar" basedir="${build}/classes/common"/>
+        <copy todir="${build}/lib/">
+            <fileset dir="${src}/lib" includes="**/*.jar"/>
+        </copy>
+        
+        <!-- gzip the man page -->
+        <gzip src="${src}/install/linux/freeguide.1" zipfile="${build}/freeguide.1.gz" />
+            
+    </target>
+    
+    <target name="build-plugins">
+        <antcall target="all-plugins">
+            <param name="actual-target" value="build-one-plugin"/>
+        </antcall>
+    </target>    
+    
+    <target name="build-one-plugin" depends="build-common">
+        <mkdir dir="${build}/classes/${plugin-name}"/>
+        <!-- compile all the .java files -->
+        <javac srcdir="${src}/plugins/${plugin-name}/java"
+            destdir="${build}/classes/${plugin-name}"
+            deprecation="on" 
+            source="1.4" 
+            target="1.4"
+            debug="yes"
+            encoding="UTF-8">
+            <classpath>
+                <fileset dir="${src}/lib" includes="**/*.jar"/>
+                <pathelement location="${build}/classes/common"/>
+            </classpath>
+          </javac>
+
+        <copy todir="${build}/classes/${plugin-name}">
+            <fileset dir="${src}/plugins/${plugin-name}/java" excludes="**/*.java" />
+          </copy>
+
+        <jar jarfile="${build}/lib/${plugin-name}.jar"
+             basedir="${build}/classes/${plugin-name}"/>
+    </target>
+    
+    <target name="build-app" description="compile application" depends="build-common">
+        <mkdir dir="${build}/classes/app"/>
+        <!-- compile all the .java files -->
+        <javac srcdir="${src}/java"
+            destdir="${build}/classes/app"
+            deprecation="on" 
+            source="1.4" 
+            target="1.4"
+            debug="yes"
+            encoding="UTF-8">
+            <classpath>
+                <fileset dir="${src}/lib" includes="**/*.jar"/>
+                <pathelement location="${build}/classes/common"/>
+                <pathelement location="${build}/classes/impexp-palmatv"/>
+                <pathelement location="${build}/classes/ui-horizontal"/>
+                <pathelement location="${build}/classes/storage-serfiles"/>
+                <pathelement location="${build}/classes/reminder-alarm"/>
+            </classpath>
+          </javac>
+
+        <copy todir="${build}/classes/app">
+            <fileset dir="${src}/resources"/>
+            <fileset dir="${src}/java" excludes="**/*.java"/>
+        </copy>
+        
+        <!-- Make the jar file -->
+        <jar jarfile="${build}/lib/freeguide.jar"
+             basedir="${build}/classes/app"/>
+
+        <copy todir="${build}/doc">
+            <fileset dir="doc" includes="*.html, *.css, *.txt, *.png, COPYING, TODO"/>
+        </copy>
+    	
+    </target>
+    
+    <target name="build-startup" depends="build-common">
+        <mkdir dir="${build}/classes/startup"/>
+        <!-- compile all the .java files -->
+        <javac srcdir="${src}/startup/java"
+            destdir="${build}/classes/startup"
+            deprecation="on" 
+            source="1.3" 
+            target="1.1"
+            debug="yes"
+            encoding="UTF-8">
+          </javac>
+
+        <jar jarfile="${build}/startup.jar"
+             basedir="${build}/classes/startup"
+             manifest="${src}/startup/META-INF/startup.mf" />
+    </target>
+    
+    <target name="build-clean">
+        <delete dir="${build}" />
+    </target>
+    
+</project>
+

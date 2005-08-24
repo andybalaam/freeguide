@@ -2,348 +2,125 @@
 
 <project name="freeguide-tv" default="main" basedir=".">
 
-    <!--
-     List of files containing FreeGuide's version number:
-     
-     - build.xml
-     - doc/VERSION.php
-     - src/java/freeguide/FreeGuide.java
-     - src/install-linux/freeguide.spec (2 places)
-     - src/install-linux/freeguide.1
-     - src/install/windows/freeguide.nsi
-     
-     All of these must be updated when a new version is made.
-    -->
-    
     <!-- set global properties for this build -->
-    <property name="src" location="src" />
-    <property name="doc"  location="doc" />
-    <property name="xmltv"  location="xmltv" />
-    <property name="share"  location="xmltv/share" />
-    <property name="build" location="build" />
-    <property name="dist"  location="dist" />
-    <property name="resources"  location="src/resources" />
-    <property name="freeguideversion"  value="freeguide-0.10.2" />
+    <property name="src"        location="src"                />
+    <property name="resources"  location="${src}/resources"   />
+    <property name="doc"        location="doc"                />
+    <property name="xmltv"      location="xmltv"              />
+    <property name="share"      location="xmltv/share"        />
+    <property name="build"      location="build"              />
+    <property name="dist"       location="dist"               />
+    <property name="dist-src"   location="${dist}/src"        />
+    <property name="dist-repo"  location="${dist}/repository" />
+    <property name="dist-rpm"   location="${dist}/rpm"        />
+    
+    <!-- Version numbers -->
+    <property name="version-major"     value="0"         />
+    <property name="version-minor"     value="10"        />
+    <property name="version-revision"  value="2"         />
+    <property name="program-name"      value="freeguide" />
+    <property name="version-dotted"    value="${version-major}.${version-minor}.${version-revision}"/>
+    <property name="name-version"      value="${program-name}-${version-dotted}"/>
     
     <description>
         Ant build file for FreeGuide.
     </description>
     
-    <!--
-    install-linux-all
-    install-linux-grabber-cosmostv
-    install-linux-grabber-kulichki
-    install-linux-grabber-newsvm
-    install-linux-grabber-ntvplus
-    install-linux-grabber-vsetv
-    install-linux-grabber-xmltv
-    install-linux-impexp-jtv
-    install-linux-impexp-palmatv
-    install-linux-impexp-xmltv
-    install-linux-reminder-alarm
-    install-linux-storage-serfiles
-    install-linux-ui-horizontal
-    -->
+    <target name="main" depends="source-all, build-all" />
     
-    <target name="main" depends="freeguide-source, build-all" />
+    <import file="build-source.xml"/>
+    <import file="build-prebuild.xml"/>
+    <import file="build-build.xml"/>
+    <import file="build-install-linux.xml"/>
+    <import file="build-dist.xml"/>
+    <import file="build-clean.xml"/>
     
-    <target name="build-all" depends="build-init, build-common, build-plugins, build-app, build-startup, build-repository"/>
-    
-    <target name="build-init">
-        <!-- Create the time stamp -->
-        <tstamp/>
-        <!-- Create the build directory structure used by compile -->
-        <mkdir dir="${build}/lib" />
-        <mkdir dir="${dist}" />
-    </target>
-    
-    <target name="build-common">
-        <mkdir dir="${build}/classes/common"/>
-        <!-- compile all the .java files -->
-        <javac srcdir="${src}/java-common"
-            destdir="${build}/classes/common"
-            deprecation="on" 
-            source="1.4" 
-            target="1.4"
-            debug="yes"
-            encoding="UTF-8">
-            <classpath>
-                <fileset dir="${src}/lib" includes="**/*.jar"/>
-            </classpath>
-          </javac>
-        <copy todir="${build}/classes/common">
-            <fileset dir="${src}/java-common" excludes="**/*.java" />
-        </copy>
-        <jar jarfile="${build}/lib/common.jar" basedir="${build}/classes/common"/>
-        <copy todir="${build}/lib/">
-            <fileset dir="${src}/lib" includes="**/*.jar"/>
-        </copy>
-        
-        <!-- gzip the man page -->
-        <gzip src="${src}/install-linux/freeguide.1" zipfile="${build}/freeguide.1.gz" />
-            
-    </target>
-    
-    <target name="build-plugins" depends="build-common">
-        <antcall target="build-one-plugin"><param name="plugin-name" value="grabber-cosmostv"/></antcall>
-        <antcall target="build-one-plugin"><param name="plugin-name" value="grabber-kulichki"/></antcall>
-        <antcall target="build-one-plugin"><param name="plugin-name" value="grabber-newsvm"/></antcall>
-        <antcall target="build-one-plugin"><param name="plugin-name" value="grabber-ntvplus"/></antcall>
-        <antcall target="build-one-plugin"><param name="plugin-name" value="grabber-vsetv"/></antcall>
-        <antcall target="build-one-plugin"><param name="plugin-name" value="grabber-xmltv"/></antcall>
-        <antcall target="build-one-plugin"><param name="plugin-name" value="impexp-jtv"/></antcall>
-        <antcall target="build-one-plugin"><param name="plugin-name" value="impexp-palmatv"/></antcall>
-        <antcall target="build-one-plugin"><param name="plugin-name" value="impexp-xmltv"/></antcall>
-        <antcall target="build-one-plugin"><param name="plugin-name" value="reminder-alarm"/></antcall>
-        <antcall target="build-one-plugin"><param name="plugin-name" value="storage-serfiles"/></antcall>
-        <antcall target="build-one-plugin"><param name="plugin-name" value="ui-horizontal"/></antcall>
-    </target>    
-    
-    <target name="build-one-plugin">
-        <mkdir dir="${build}/classes/${plugin-name}"/>
-        <!-- compile all the .java files -->
-        <javac srcdir="${src}/plugins/${plugin-name}/java"
-            destdir="${build}/classes/${plugin-name}"
-            deprecation="on" 
-            source="1.4" 
-            target="1.4"
-            debug="yes"
-            encoding="UTF-8">
-            <classpath>
-                <fileset dir="${src}/lib" includes="**/*.jar"/>
-                <pathelement location="${build}/classes/common"/>
-            </classpath>
-          </javac>
-
-        <copy todir="${build}/classes/${plugin-name}">
-            <fileset dir="${src}/plugins/${plugin-name}/java" excludes="**/*.java" />
-          </copy>
-
-        <jar jarfile="${build}/lib/${plugin-name}.jar"
-             basedir="${build}/classes/${plugin-name}"/>
-    </target>
-    
-    <target name="build-app" description="compile application" >
-        <mkdir dir="${build}/classes/app"/>
-        <!-- compile all the .java files -->
-        <javac srcdir="${src}/java"
-            destdir="${build}/classes/app"
-            deprecation="on" 
-            source="1.4" 
-            target="1.4"
-            debug="yes"
-            encoding="UTF-8">
-            <classpath>
-                <fileset dir="${src}/lib" includes="**/*.jar"/>
-                <pathelement location="${build}/classes/common"/>
-                <pathelement location="${build}/classes/impexp-palmatv"/>
-                <pathelement location="${build}/classes/ui-horizontal"/>
-                <pathelement location="${build}/classes/storage-serfiles"/>
-                <pathelement location="${build}/classes/reminder-alarm"/>
-            </classpath>
-          </javac>
-
-        <copy todir="${build}/classes/app">
-            <fileset dir="${src}/resources"/>
-            <fileset dir="${src}/java" excludes="**/*.java"/>
-        </copy>
-        
-        <!-- Make the jar file -->
-        <jar jarfile="${build}/lib/freeguide.jar"
-             basedir="${build}/classes/app"/>
-
-        <copy todir="${build}/doc">
-            <fileset dir="doc" includes="*.html, *.css, *.txt, *.png, COPYING, TODO"/>
-        </copy>
-    	
-    </target>
-    
-    <target name="build-startup">
-        <mkdir dir="${build}/classes/startup"/>
-        <!-- compile all the .java files -->
-        <javac srcdir="${src}/startup/java"
-            destdir="${build}/classes/startup"
-            deprecation="on" 
-            source="1.3" 
-            target="1.1"
-            debug="yes"
-            encoding="UTF-8">
-          </javac>
-
-        <jar jarfile="${build}/startup.jar"
-             basedir="${build}/classes/startup"
-             manifest="${src}/startup/META-INF/startup.mf" />
+    <target name="all-plugins" description="Do something for each plugin">
+        <antcall target="${actual-target}">
+            <param name="plugin-name"            value="grabber-cosmostv"/>
+            <param name="plugin-version"         value="1"/>
+            <param name="plugin-release"         value="1"/>
+            <param name="plugin-requires-string" value=""/>
+            <param name="plugin-description"     value="This is a grabber for FreeGuide to download listings from cosmostv."/>
+        </antcall>
+        <antcall target="${actual-target}">
+            <param name="plugin-name" value="grabber-kulichki"/>
+            <param name="plugin-version" value="1"/>
+            <param name="plugin-release"         value="1"/>
+            <param name="plugin-requires-string" value=""/>
+            <param name="plugin-description"     value="This is a grabber for FreeGuide to download listings from kulichki."/>
+        </antcall>
+        <antcall target="${actual-target}">
+            <param name="plugin-name" value="grabber-newsvm"  />
+            <param name="plugin-version" value="1"/>
+            <param name="plugin-release"         value="1"/>
+            <param name="plugin-requires-string" value=""/>
+            <param name="plugin-description"     value="This is a grabber for FreeGuide to download listings from newsvm."/>
+        </antcall>
+        <antcall target="${actual-target}">
+            <param name="plugin-name" value="grabber-ntvplus" />
+            <param name="plugin-version" value="1"/>
+            <param name="plugin-release"         value="1"/>
+            <param name="plugin-requires-string" value=""/>
+            <param name="plugin-description"     value="This is a grabber for FreeGuide to download listings from ntvplus."/>
+        </antcall>
+        <antcall target="${actual-target}">
+            <param name="plugin-name" value="grabber-vsetv"   />
+            <param name="plugin-version" value="1"/>
+            <param name="plugin-release"         value="1"/>
+            <param name="plugin-requires-string" value=""/>
+            <param name="plugin-description"     value="This is a grabber for FreeGuide to download listings from vsetv."/>
+        </antcall>
+        <antcall target="${actual-target}">
+            <param name="plugin-name" value="grabber-xmltv"   />
+            <param name="plugin-version" value="1"/>
+            <param name="plugin-release"         value="1"/>
+            <param name="plugin-requires-string" value=", xmltv-grabbers >= 0.5.40"/>
+            <param name="plugin-description"     value="This is a grabber for FreeGuide to download listings using the XMLTV tools."/>
+        </antcall>
+        <antcall target="${actual-target}">
+            <param name="plugin-name" value="impexp-jtv"      />
+            <param name="plugin-version" value="1"/>
+            <param name="plugin-release"         value="1"/>
+            <param name="plugin-requires-string" value=""/>
+            <param name="plugin-description"     value="This is a plugin for FreeGuide to import/export listings to/from jtv format."/>
+        </antcall>
+        <antcall target="${actual-target}">
+            <param name="plugin-name" value="impexp-palmatv"  />
+            <param name="plugin-version" value="1"/>
+            <param name="plugin-release"         value="1"/>
+            <param name="plugin-requires-string" value=""/>
+            <param name="plugin-description"     value="This is a plugin for FreeGuide to import/export listings to/from PalmATV format."/>
+        </antcall>
+        <antcall target="${actual-target}">
+            <param name="plugin-name" value="impexp-xmltv"    />
+            <param name="plugin-version" value="1"/>
+            <param name="plugin-release"         value="1"/>
+            <param name="plugin-requires-string" value=""/>
+            <param name="plugin-description"     value="This is a plugin for FreeGuide to import/export listings to/from XMLTV format."/>
+        </antcall>
+        <antcall target="${actual-target}">
+            <param name="plugin-name" value="reminder-alarm"  />
+            <param name="plugin-version" value="1"/>
+            <param name="plugin-release"         value="1"/>
+            <param name="plugin-requires-string" value=""/>
+            <param name="plugin-description"     value="This is a plugin for FreeGuide to remind you of programmes."/>
+        </antcall>
+        <antcall target="${actual-target}">
+            <param name="plugin-name" value="storage-serfiles"/>
+            <param name="plugin-version" value="1"/>
+            <param name="plugin-release"         value="1"/>
+            <param name="plugin-requires-string" value=""/>
+            <param name="plugin-description"     value="This is a plugin for FreeGuide to store its listings info as serialised Java objects."/>
+        </antcall>
+        <antcall target="${actual-target}">
+            <param name="plugin-name" value="ui-horizontal"   />
+            <param name="plugin-version" value="1"/>
+            <param name="plugin-release"         value="1"/>
+            <param name="plugin-requires-string" value=""/>
+            <param name="plugin-description"     value="This is a plugin for FreeGuide to display listings in a horizontal format."/>
+        </antcall>
     </target>
 
-    <target name="build-repository">
-    	<mkdir dir="dist/repository"/>
-    	
-    	<zip destfile="dist/repository/package-freeguide-0.10.2.zip" 
-    		basedir="build/" 
-    		includes="startup.jar, lib/freeguide.jar, lib/common.jar, lib/AJavaLib.jar, lib/tagsoup-1.0.rc3, doc/"/>
-
-    	<zip destfile="dist/repository/package-grabber-cosmostv-0.1.zip" 
-    		basedir="build/" 
-    		includes="lib/grabber-cosmostv.jar"/>
-    	<zip destfile="dist/repository/package-grabber-kulichki-0.1.zip" 
-    		basedir="build/" 
-    		includes="lib/grabber-kulichki.jar"/>
-    	<zip destfile="dist/repository/package-grabber-newsvm-0.1.zip" 
-    		basedir="build/" 
-    		includes="lib/grabber-newsvm.jar"/>
-    	<zip destfile="dist/repository/package-grabber-ntvplus-0.1.zip" 
-    		basedir="build/" 
-    		includes="lib/grabber-ntvplus.jar"/>
-    	<zip destfile="dist/repository/package-grabber-vsetv-0.1.zip" 
-    		basedir="build/" 
-    		includes="lib/grabber-vsetv.jar"/>
-    	<zip destfile="dist/repository/package-grabber-xmltv-0.1.zip" 
-    		basedir="build/" 
-    		includes="lib/grabber-xmltv.jar"/>
-
-    	<zip destfile="dist/repository/package-impexp-jtv-0.1.zip" 
-    		basedir="build/" 
-    		includes="lib/impexp-jtv.jar"/>
-    	<zip destfile="dist/repository/package-impexp-palmatv-0.2.zip" 
-    		basedir="build/" 
-    		includes="lib/impexp-palmatv.jar"/>
-    	<zip destfile="dist/repository/package-impexp-xmltv-0.1.zip" 
-    		basedir="build/" 
-    		includes="lib/impexp-xmltv.jar"/>
-
-    	<zip destfile="dist/repository/package-reminder-alarm-0.1.zip" 
-    		basedir="build/" 
-    		includes="lib/reminder-alarm.jar"/>
-
-    	<zip destfile="dist/repository/package-storage-serfiles-0.1.zip" 
-    		basedir="build/" 
-    		includes="lib/storage-serfiles.jar"/>
-
-    	<zip destfile="dist/repository/package-ui-horizontal-0.1.zip" 
-    		basedir="build/" 
-    		includes="lib/ui-horizontal.jar"/>
-	</target>
-        
-    <target name="install-linux-base" depends="build-all" >
-        
-        <!-- These properties are passed in from the rpm .spec file:
-            install_share_dir = ~/.rpm/tmp/freeguide-0.8.2-root/usr/share
-            install_bin_dir   = ~/.rpm/tmp/freeguide-0.8.2-root/usr/bin
-            install_doc_dir   = ~/.rpm/tmp/freeguide-0.8.2-...usr/doc/freeguide
-            install_real_doc_dir = /usr/doc/freeguide
-        -->
-        
-        <property name="install_jar_dir" location="${install_share_dir}/freeguide" />
-
-        <property name="install_pixmap_dir" location="${install_share_dir}/pixmaps/freeguide" />
-        
-        <mkdir dir="${install_jar_dir}" />
-        
-        <copy file="${build}/startup.jar" todir="${install_jar_dir}/" />
-        <copy file="${build}/lib/freeguide.jar" todir="${install_jar_dir}/" />
-        <copy file="${build}/lib/common.jar" todir="${install_jar_dir}/" />
-        <copy file="${build}/lib/tagsoup-1.0rc3.jar" todir="${install_jar_dir}/" />
-
-        <!-- Copy the different-sized icons to the freeguide pixmaps dir -->
-        <mkdir dir="${install_pixmap_dir}" />
-        <copy todir="${install_pixmap_dir}/" >
-            <fileset dir="${src}/install-linux/icons" />
-        </copy>
-        
-        <copy tofile="${install_share_dir}/pixmaps/freeguide.png" 
-            file="${src}/install-linux/icons/logo-32x32.png" />
-            
-        <!-- Creating the launch script: first we need to copy the source launch script, then we replace the string "__ANT_DOC_DIRECTORY__" with the docs directory, and then we move it into place and make it executable. -->
-        <copy file="${src}/install-linux/freeguide" tofile="${src}/install-linux/freeguide.tmp" />
-        <replace file="${src}/install-linux/freeguide.tmp" token="__ANT_DOC_DIRECTORY__" value="${install_real_doc_dir}" />
-        <mkdir dir="${install_bin_dir}" />
-        <move file="${src}/install-linux/freeguide.tmp" tofile="${install_bin_dir}/freeguide" />
-        <chmod file="${install_bin_dir}/freeguide" perm="a+x" />
-        
-        <mkdir dir="${install_share_dir}/applications" />
-        <copy file="${src}/install-linux/freeguide.desktop" todir="${install_share_dir}/applications/" />
-
-        <mkdir dir="${install_share_dir}/man/man1" />
-        <copy file="${build}/freeguide.1.gz" todir="${install_share_dir}/man/man1/" />
-        
-        <mkdir dir="${install_doc_dir}" />
-        <copy todir="${install_doc_dir}/">
-            <fileset dir="${doc}">
-                <include name="*.html" />
-                <include name="*.png" />
-                <include name="*.css" />
-                <include name="COPYING" />
-                <include name="TODO" />
-                <exclude name="bugreport.html" />
-            </fileset>
-        </copy>
-        
-    </target>
-    
-    <target name="install-linux-plugin" depends="build-all" >
-        
-        <!-- These properties are passed in from the rpm .spec file:
-            install_share_dir = ~/.rpm/tmp/freeguide-0.8.2-root/usr/share
-            install_doc_dir   = ~/.rpm/tmp/freeguide-0.8.2-...usr/doc/freeguide
-            install_real_doc_dir = /usr/doc/freeguide
-            plugin_name = grabber-cosmostv
-        -->
-        
-        <mkdir dir="${install_share_dir}/freeguide/plugins/" />
-        <copy file="${build}/lib/${plugin_name}.jar" todir="${install_share_dir}/freeguide/plugins/" />
-    </target>
-    
-    <!-- TODO: make similar targets like the above for each plugin -->
-    
-    <target name="freeguide-source" depends="build-init"
-        description="generate the source tar.gz and zip">
-
-        <!-- TODO: adapt this to include the full sources of the new plugins system -->
-        <tar longfile="gnu"
-            destfile="${dist}/${freeguideversion}.tar.gz" compression="gzip" >
-            <tarfileset dir="${src}" prefix="${freeguideversion}/src">
-                <exclude name="**/.xvpics/**" />
-            </tarfileset>
-            <tarfileset dir="${doc}" prefix="${freeguideversion}/doc">
-                <exclude name="**/.xvpics/**" />
-            </tarfileset>
-            <tarfileset dir="." includes="build.xml"
-                prefix="${freeguideversion}" />
-            <tarfileset dir="xmltv"
-                includes="*"
-                excludes="CVS/**"
-                prefix="${freeguideversion}/xmltv" />
-            <tarfileset dir="stats"
-                includes="*.sh,*.py,barchart"
-                prefix="${freeguideversion}/stats" />
-        </tar>
-        <zip zipfile="${dist}/${freeguideversion}.zip">
-            <zipfileset dir="${src}" prefix="${freeguideversion}/src">
-                <exclude name="**/.xvpics/**" />
-            </zipfileset>
-            <zipfileset dir="${doc}" prefix="${freeguideversion}/doc">
-                <exclude name="**/.xvpics/**" />
-            </zipfileset>
-            <zipfileset dir="." includes="build.xml" prefix="${freeguideversion}" />
-            <zipfileset dir="xmltv"
-                includes="*"
-                excludes="CVS/**"
-                prefix="${freeguideversion}/xmltv" />
-            <zipfileset dir="stats"
-                includes="*.sh,*.py,barchart"
-                prefix="${freeguideversion}/stats" />
-        </zip>
-
-    </target>
-
-
-
-    <target name="clean"
-        description="clean up" >
-        <!-- Delete the ${build} and ${dist} directory trees -->
-        <delete dir="${build}" />
-        <delete dir="${dist}" />
-    </target>
-    
 </project>
 

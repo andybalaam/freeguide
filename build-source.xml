@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<project name="freeguide-tv-source">
+
+    <target name="source-init">
+        <mkdir dir="${dist}" />
+        <mkdir dir="${dist-src}" />
+    </target>
+    
+    <target name="source-all" depends="source-init"
+        description="generate the source tar.gz and zip">
+
+        <tar longfile="gnu"
+            destfile="${dist-src}/${name-version}.tar.gz" compression="gzip" >
+            <tarfileset dir="${src}" prefix="${name-version}/src">
+                <exclude name="**/.xvpics/**" />
+            </tarfileset>
+            <tarfileset dir="${doc}" prefix="${name-version}/doc">
+                <exclude name="**/.xvpics/**" />
+            </tarfileset>
+            <tarfileset dir="." includes="build.xml"
+                prefix="${name-version}" />
+            <tarfileset dir="xmltv"
+                includes="*"
+                excludes="CVS/**"
+                prefix="${name-version}/xmltv" />
+            <tarfileset dir="stats"
+                includes="*.sh,*.py,barchart"
+                prefix="${name-version}/stats" />
+        </tar>
+        <zip zipfile="${dist-src}/${name-version}.zip">
+            <zipfileset dir="${src}" prefix="${name-version}/src">
+                <exclude name="**/.xvpics/**" />
+            </zipfileset>
+            <zipfileset dir="${doc}" prefix="${name-version}/doc">
+                <exclude name="**/.xvpics/**" />
+            </zipfileset>
+            <zipfileset dir="." includes="build.xml" prefix="${name-version}" />
+            <zipfileset dir="xmltv"
+                includes="*"
+                excludes="CVS/**"
+                prefix="${name-version}/xmltv" />
+            <zipfileset dir="stats"
+                includes="*.sh,*.py,barchart"
+                prefix="${name-version}/stats" />
+        </zip>
+        
+    </target>
+
+    <target name="source-clean">
+        <delete dir="${dist-src}" />
+    </target>
+    
+</project>
+

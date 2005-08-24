@@ -16,7 +16,8 @@ public class Application
     public static final String ID = "FreeGuide";
 
     /** Application version. */
-    public static final Version VERSION = new Version( 0, 10, 2 );
+    public static final Version VERSION = new Version(
+        __ANT_VERSION_MAJOR__, __ANT_VERSION_MINOR__, __ANT_VERSION_REVISION__ );
     protected static IApplication instance;
 
     /**
