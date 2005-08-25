@@ -4,36 +4,38 @@
 # to build the FreeGuide RPMs and SRPMs.  It builds the rpms in /home/andy/.rpm
 
 RPM_TOPDIR=$HOME/.rpm
-FG_TOPDIR=../..
+FG_TOPDIR=../../../..
+BUILDRPM_DIR=`pwd`
 
-# Clean and build the source package of FreeGuide
 cd $FG_TOPDIR
-#ant clean
-ant freeguide-source
 
-# Clean up any old RPMs
-#rm -f dist/freeguide-*.rpm
+# Clean
+ant clean
+rm -f dist/rpm/freeguide-*.rpm
+rm -f $RPM_TOPDIR/RPMS/noarch/freeguide-*.rpm
+rm -f $RPM_TOPDIR/SRPMS/freeguide-*.rpm
+rm -f $RPM_TOPDIR/SOURCES/freeguide-*.tar.gz
+rm -rf $RPM_TOPDIR/BUILD/freeguide-*
+rm -rf $RPM_TOPDIR/tmp/*
 
-#rm -f $RPM_TOPDIR/RPMS/noarch/freeguide-*.rpm
-#rm -f $RPM_TOPDIR/SRPMS/freeguide-*.rpm
-#rm -f $RPM_TOPDIR/SOURCES/freeguide-*.tar.gz
-#rm -rf $RPM_TOPDIR/BUILD/freeguide-*
-#rm -rf $RPM_TOPDIR/tmp/*
+# Build the source package and the spec files
+ant source-all
+ant dist-rpm-init
 
 # Copy in the newly-built source package
-cd src/install-linux
-cp -f $FG_TOPDIR/dist/freeguide-*.tar.gz $RPM_TOPDIR/SOURCES/
+echo cp -f dist/src/freeguide-*.tar.gz $RPM_TOPDIR/SOURCES/
+cp -f dist/src/freeguide-*.tar.gz $RPM_TOPDIR/SOURCES/
 
 # Build the RPMs, in the right order
-#SPECS="freeguide-base.spec freeguide-*-*.spec freeguide-all.spec"
-#SPECS="freeguide-base.spec freeguide-grabber-cosmostv.spec"
-SPECS=freeguide-all.spec
+cd $BUILDRPM_DIR
+SPECS="freeguide-base.spec freeguide-*-*.spec freeguide-all.spec"
 
 for SPEC in $SPECS; do {
-    rpmbuild --quiet --define='_topdir /home/andy/.rpm' --define='_tmppath /home/andy/.rpm/tmp' -ba $SPEC
+    echo rpmbuild --quiet --define="_topdir $RPM_TOPDIR" --define="_tmppath $RPM_TOPDIR/tmp" -ba $SPEC
+    rpmbuild --quiet --define="_topdir $RPM_TOPDIR" --define="_tmppath $RPM_TOPDIR/tmp" -ba $SPEC
 }; done
 
 # Copy the RPMs into my "dist" directory ready for upload
-cp $RPM_TOPDIR/RPMS/noarch/freeguide-*.rpm $FG_TOPDIR/dist/
-cp $RPM_TOPDIR/SRPMS/freeguide-*.rpm $FG_TOPDIR/dist/
+cp $RPM_TOPDIR/RPMS/noarch/freeguide-*.rpm $FG_TOPDIR/dist/rpm/
+cp $RPM_TOPDIR/SRPMS/freeguide-*.rpm $FG_TOPDIR/dist/src/
 

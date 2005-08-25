@@ -25,7 +25,7 @@ URL: http://freeguide-tv.sourceforge.net/
 Vendor: Andy Balaam <axis3x3@users.sourceforge.net>
 Packager: Andy Balaam <axis3x3@users.sourceforge.net>
 BuildArch: noarch
-BuildRoot: %{_tmppath}/__ANT_NAME_VERSION__-root
+BuildRoot: %{_tmppath}/__ANT_NAME_VERSION__-__ANT_PLUGIN_NAME__.__ANT_PLUGIN_VERSION__.__ANT_PLUGIN_RELEASE__-root
 
 %description
 __ANT_PLUGIN_DESCRIPTION__

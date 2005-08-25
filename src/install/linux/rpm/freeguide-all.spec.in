@@ -26,7 +26,7 @@ URL: http://freeguide-tv.sourceforge.net/
 Vendor: Andy Balaam <axis3x3@users.sourceforge.net>
 Packager: Andy Balaam <axis3x3@users.sourceforge.net>
 BuildArch: noarch
-BuildRoot: %{_tmppath}/__ANT_NAME_VERSION__-root
+BuildRoot: %{_tmppath}/__ANT_NAME_VERSION__-all-root
 
 %description
 FreeGuide is a TV guide program. It uses parser programs to extract TV
@@ -49,4 +49,7 @@ ant build-all
 
 %install
 ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dinstall_doc_dir=$RPM_BUILD_ROOT/%{_datadir}/doc/freeguide install-linux-all 
+
+%files
+%{_datadir}/freeguide/freeguide-all.empty
 

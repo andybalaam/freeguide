@@ -33,7 +33,18 @@
     <target name="dist-rpm" depends="dist-rpm-init">
         <!-- TODO: either call the rpmbuild script from here, or use the ant rpm task -->
     </target>
-    
+   
+    <target name="dist-rpm-make-plugin-spec" depends="version-numbers">
+        <property name="template_file" value="${src}/install/linux/rpm/freeguide-plugin.spec.template"/>
+        <property name="output_file" value="${src}/install/linux/rpm/freeguide-${plugin-name}.spec"/>
+        <copy file="${template_file}" tofile="${output_file}"/>
+        <replace file="${output_file}" token="__ANT_PLUGIN_NAME__" value="${plugin-name}"/>
+        <replace file="${output_file}" token="__ANT_PLUGIN_VERSION__" value="${plugin-version}"/>
+        <replace file="${output_file}" token="__ANT_PLUGIN_RELEASE__" value="${plugin-release}"/>
+        <replace file="${output_file}" token="__ANT_PLUGIN_REQUIRES_STRING__" value="${plugin-requires-string}"/>
+        <replace file="${output_file}" token="__ANT_PLUGIN_DESCRIPTION__" value="${plugin-description}"/>
+    </target>
+ 
     <target name="dist-clean">
         <delete dir="${dist-repo}" />
         <delete dir="${dist-rpm}" />

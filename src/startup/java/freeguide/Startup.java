@@ -76,8 +76,9 @@ public class Startup
 
         List jarUrls = new ArrayList(  );
 
-        File[] libs =
-            new File( getInstallDirectory( args ), "lib" ).listFiles(  );
+        File libDirectory = new File( getInstallDirectory( args ), "lib" );
+
+        File[] libs = libDirectory.listFiles(  );
 
         if( libs != null )
         {

@@ -8,5 +8,7 @@ if [ -z "$JAVACMD" ]; then
 	JAVACMD=java
 fi
 $JAVACMD $FREEGUIDE_OPTS -jar $STARTUP_JAR \
-    --doc_directory "__ANT_DOC_DIRECTORY__" --install_directory "__ANT_INSTALL_DIRECTORY__" "$@"
+    --doc_directory="__ANT_DOC_DIRECTORY__" \
+    --install_directory="__ANT_INSTALL_DIRECTORY__" \
+    "$@"
 

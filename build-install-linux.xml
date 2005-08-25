@@ -61,7 +61,8 @@
     </target>
     
     <target name="install-linux-all" >
-        
+        <mkdir dir="${install_share_dir}" />
+            <copy file="${doc}/freeguide-all.empty" todir="${install_share_dir}/freeguide/"/>
     </target>
     
     <target name="install-linux-plugin" depends="build-all">

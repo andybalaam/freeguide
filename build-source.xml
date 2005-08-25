@@ -18,7 +18,7 @@
             <tarfileset dir="${doc}" prefix="${name-version}/doc">
                 <exclude name="**/.xvpics/**" />
             </tarfileset>
-            <tarfileset dir="." includes="build.xml"
+            <tarfileset dir="." includes="build*.xml"
                 prefix="${name-version}" />
             <tarfileset dir="xmltv"
                 includes="*"
@@ -35,7 +35,7 @@
             <zipfileset dir="${doc}" prefix="${name-version}/doc">
                 <exclude name="**/.xvpics/**" />
             </zipfileset>
-            <zipfileset dir="." includes="build.xml" prefix="${name-version}" />
+            <zipfileset dir="." includes="build*.xml" prefix="${name-version}" />
             <zipfileset dir="xmltv"
                 includes="*"
                 excludes="CVS/**"
