@@ -213,6 +213,7 @@ a Internationalisation
 - Sometimes when I build FreeGuide from clean and then immediately start it I
   get a Segmentation fault
 - Make sure the repository stuff works, and a repository is up on sourceforge.
+- Make sure all the documentation fits with the UI changes in 0.10.x.
 
 - Release 0.10.2 (plugins manager, bug fixes)
 
