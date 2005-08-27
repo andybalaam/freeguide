@@ -15,63 +15,36 @@ a  means done by Alex Buloichik
 
 - Wish list (I have no plans to implement, but contributions are welcome)
 
-- Think about ports to Gnome, wxPython, ...
-- Convert to SWT (or SwingWT?) and compile natively with GCJ?
-- Process programmes in another thread so we can see a progress display.
-- Download happens without leaving ViewerFrame
-- Apply different fonts to every screen?
-- Review usefulness of stuff like ConfigGuesser
-- Change all forms to use GridBagEasy and newXXX methods.
-- Sort out Utils.exec methods so they make sense
 - Package XMLTV using PAR
-+ Separate classes into packages
-- Reduce the size of the XMLTV exe by removing unnecessary Tk files
-+ Fix problem that if you reinstall to a new dir the old install can't be
-    uninstalled (well, you have to delete the directory instead...)
 - Single channel view
-- Integration with tv card software
 - Automated bug reporting e.g. when the grabber fails.
-- Integration with PIMs (http://www.imc.org/pdi/)
 - Alphabetical listing of programmes this week under each category.
+- Views: details only, guide only, both layout 1, both layout 2, neither
+- Make scrollbar increment in fractions of hours on mouse wheel or click.
+- Snap to nearest half hour in timeline on click
 
 - Release 1.0 (the destination)
 
 a Internationalisation
 - Use Java's printing capabilities to print
 - Other platforms - investigate Mac, BSD, others
-- A C++ installer that just checks for the right java version before
-  running the Java installer.
-- Automate upgrading XMLTV without upgrading FreeGuide?
-- Separate reminders from chosenness?  If so, need a new set of preferences
-    which need to be scanned on startup (in fact that is a better way to do
-    it in even if we stick with choices.).
-    Perhaps just add an option - remind of chosen programmes?  If that's
-    unselected then need to add explicit reminders.
 - Notice "Please run --configure" in the command output, cancel downloading
   and launch "Choose channels".
 - Include Python XMLTV grabbers, and all others available
+- Fix DOCUMENT_ME!s and write all JavaDoc tags
 
 - Release 0.12
 
-- Manual
-a Use serialization to reduce startup time
+- Write a full manual
 - Search for programmes, different views on data.
 - Fix Debian bug #285715 http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=285715
 - Automatically make a channel set when you right-click a channel and choose
   "Move up" (or even drag!)
-- Fix DOCUMENT_ME!s and write all JavaDoc tags
 
-- Release 0.11 (nice features)
+- Release 0.12 (nice features)
 
-- Run an exe when a programme is about to start and/or end
-- Make scrollbar increment in fractions of hours on mouse wheel or click.
-- Add firefox to the possible browsers.
-- Facilitating the download of listings outside of FreeGuide
-    (e.g. via a cron job, or at ppp connect)
 - Error message on RegExp error in Favourite editor
-- Snap to nearest half hour in timeline on click
 - Easy access to different channel ordering - through right-click menu
-- Make favourites work even immediately after a download halfway through a day
 - Make downloading work after midnight
 - Make it not say no listings after midnight
 - Remember last hit-time of favourites
@@ -81,25 +54,28 @@ a Use serialization to reduce startup time
 - Look for the default browser in the Windows registry under:
     KEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command
     (actually that looks like the HTML editor, but anyway)
-- Deal with programme ratings
+- Display with programme ratings
 - x-dist icon support in RPM http://www.hyperborea.org/software/dillo/dillo.spec
 - Look into SQL engines: http://www.mckoi.com/database/
 - Remember where you were in the Options screen
 - Favourites search on programme descriptions
 
-- Release 0.10.7 (preferences creep)
+- Release 0.11 (Free Java)
 
-- Choose how old files are before you delete them
+- Find a way to run FreeGuide on a Free Java platform - either:
+    - SwingWT + GCJ
+    - SwingWT + kaffe or other VM
+    - Swing in Classpath + GCJ
+    - Swing in Classpath + kaffe or other VM
+  (Conversion to SWT is for an unstable branch, if ever.)
+
+- Release 0.10.8 (non-vital preferences creep)
+
 - Ability to save and load preferences (using Java's ability to save to XML)
-- Option to jump to a specific time on program start
-- Remove programmes you've missed from the guide
 - Resolve duplicate programmes in the guide, so it shows both times it's on
-- Movie and/or category matching in favourites
-- Subtitle matches in favourites
 - Terms and conditions of listings
-- A default favourite, so when you add a new favourite it comes with preset
-  settings.
-- A grid or "now" line that helps see what time programmes are on
+- Highlight a given channel
+- A grid or "now" line that helps see what time programmes are on (see 
 - Error dialog when there's an XML parsing error
 - Delete some preferences when doing a complete install?
 - Fix bug in Italian grabber GUI config
@@ -114,11 +90,15 @@ a Use serialization to reduce startup time
 - Brief summary for the next few days.
 - Minimize to system tray - see Christian's email of 14/3/05
 
-- Release 0.10.6 (aesthetics)
+- Release 0.10.7 (useful little features)
 
-- Go To Now scrolls the personalised listing panel as well as the main panel
+- A default favourite, so when you add a new favourite it comes with preset
+  settings.
+- Subtitle matches in favourites
 - Coloured favourites categories (text and/or background)
-- Highlight a given channel
+- Movie and/or category matching in favourites
+- Option to jump to a specific time on program start
+- Go To Now scrolls the personalised listing panel as well as the main panel
 - Make the About box a _lot_ nicer.
 - Show whether a tab has been altered on the Options Dialog
 - Icon to show you can jump to the web site
@@ -141,126 +121,107 @@ a Use serialization to reduce startup time
 - Duplicate a channel set
 - The "All channels" channel set should be ordered by channel number, if
   available.
-
-- Release 0.10.5 (accessibility, accessibility, accessibility)
-
-- Improve accessibility, specifically keyboard shortcuts
-- Shortcut keys for everything
-- Scroll to the most recently selected programme (and highlight it?)
-- ProgrammeJLabel shows which programme is selected
-- Keyboard navigation of programme scrollpane
-- Full test of keyboard navigation
-- Fix programme icons as per my email to Yann
-- Views: details only, guide only, both layout 1, both layout 2, neither
-- View menu - show tooltips
-- Check whether setting the timezone is really necessary.
-- Check for correct Java version with GUI response.
-- rename program folder to freeguide
-- Update screenshots on sf and freshmeat to show channel and program icons
-- Change Windows shortcuts from FreeGuide.jar to javaw -jar FreeGuide.jar
-- Add notes to FAQ about na_dd subscription expiring and na_dd not entering
-  your password during configuration.
-- Fix the problem reported by Russell Odom on 24/09/04 to do with the channel
-  list not staying up to date when you reconfigure.
-- Finish the bug report form.
-- Make Exit button in first time wizard exit back to FreeGuide if launched from
-  within the programme.
-- Make several actors appear in the extra tags section of the programme details
-- Deal with errors on Windows install (e.g. when Java isn't installed)
-- FAQ on how to uninstall
-- Upgrade the FAQ to http://faqtor.sourceforge.net/
-- Add a small offset to move the channel name away from the far left when there
-  is no icon.
+- Update screenshots on sf and freshmeat to show latest features
 - Create a standard "icon missing" icon
-- Fix bad characters being displayed in Tk GUI of XMLTV (entering username).
+- Look into focus/modal bug with About box and reminder: Shaun email 2005-01-06
+- Fix bug with E! icon killing FreeGuide - Jim Konowitz's email of 2005-01-05
 - Complain when the system prefs are not installed because installation went
   wrong.
-- Fix tv_grab_uk_rt to use --gui.
+- Make tall and thin channel icons wider to line up text
+- Allow resizing fonts in HTML displays
+- Delete all registry entries on Windows uninstall (how to do this?)
+- Make a single reminder window showing a list of all the things you are being
+  reminded about
+- Options screen should remember what item we were on and return to it when
+  we re-enter.
+- Make links in About screen work.
+- Make proxies work with downloading from Java - take proxy info from
+  environment variables if possible, or on command line?
+- Include videoplus info (see Yann's email of 2005-04-22)
+- Sort out how to notice a programme is a movie in various countries
+
+- Release 0.10.6 (documentation and accessibility)
+
+- Add notes to FAQ about na_dd subscription expiring and na_dd not entering
+  your password during configuration.
+- Add an FAQ about when Java wasn't installed when FreeGuide was installed.
+- Check everything has keyboard shortcuts
+- Add an FAQ about how to change the number of days downloaded.
+
+- Release 0.10.5 (harder bugs and small features)
+
+- Remember "Show details" setting, and don't close download window if details
+  are being shown.
+- Fix bug with multiple reminders if you enter a page multiple times.
+- Fix the problem reported by Russell Odom on 24/09/04 to do with the channel
+  list not staying up to date when you reconfigure.
 - Fix the old channels hanging around bug - see Yann's email of 15/11/04
 - Fix the bug with a favourite that matches everything appearing - see my email
   of 2005-01-05.
-- Add an FAQ about when Java wasn't installed when FreeGuide was installed.
-- Look into focus/modal bug with About box and reminder: Shaun email 2005-01-06
-- Fix bug with E! icon killing FreeGuide - Jim Konowitz's email of 2005-01-05
-- Fix the problem with configuration failing if ~/.xmltv does not exist
-    ... maybe this should be fixed in XMLTV.
-- Make tall and thin channel icons wider to line up text
-- Make a default channel icon for channels missing an icon
-- Allow resizing fonts in HTML displays
-- Delete all registry entries on Windows uninstall
-- Check whether you really need to set the timezone.
-- Fix bug with multiple reminders if you enter a page multiple times.
-- Make links in About screen work.
-- Deal with a missing .xmltv directory on Choose Channels by making it.
-- Remember "Show details" setting, and don't close download window if details
-  are being shown.
-- Options screen should remember what item we were on and return to it when
-  we re-enter.
-- Make proxies work with downloading from Java - take proxy info from
-  environment variables if possible, or on command line?
-
-- Release 0.10.4
-
+- Fix bad characters being displayed in Tk GUI of XMLTV (entering username).
 - When you enter the Options screen the tree view should be expanded already
 - Redesign the Options screen to make it simpler and more task-focussed
     - Can we get rid of a lot of options for the horizontal display?
-- Automate building (with swingwt?) to an exe
-- Implement in_guide, remind and record for chosen progs and favourites
-- Split the different MVC objects apart as per Risto's email of 28/02/05
-  (Applied Risto's patch, but may want to split ProgrammeRenderer more.)
 - Increase the sizes of buttons in Channel Sets, Options and First Time Wizard
   so that they fit under the German translation.
-- Go through all the files that mention the version number and set the version
-  automatically, instead of hard-coding.  Don't break eclipse etc. support.
-  Do this in the ant "compile" task.
 - Make _pt use tv_unprocessed method like uk_rt
-- Make XMLTV gra
-
-- Release 0.10.3 (Bug fixes and recording)
-
-- Fix cropped channel icons in program details panel
 - Fix bug where vertical scrolling makes the cursor disappear
+- Fix cropped channel icons in program details panel
 - If a link for a program in the "personalized tv guide" is clicked, the
   program view scrolls to it. It would be also nice if the detail view
   would change to it.
 - after clicking on the "Edit channel sets" item in the channel set
   dropdown, it stays selected. It would be nice if the previous selected
   item would be selected again.
-- Sometimes you can't click on certain programmes, but you can navigate to them
-  with the keyboard
-- Make it repaint correctly when you press "f" on a programme
 - Check where each repaint event comes from and make sure it is only called
   once for every time it needs to be called.
-- Implement the actual reminders and recording functionality
 - Make 00:00 starts after time in favourites _either_ late at night _or_ early
   in the morning depending what the starts before time is - see debian bug
   http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=285719
-- Test whether only channel icons are displayed when you use a channel set,
-  but icon and name is displayed on All Channels.
 - Clicking in the personalised listing window jumps the strip view to the
   right time, but not the right programme.
-- Include videoplus info (see Yann's email of 2005-04-22)
-- Catch an exception when using an unsuitable Java version, and display a
-  suitable error message to the user (using Java 1.0 AWT)
-- Automatically import XMLTV listings if they're in the data dir.  (Just import
-  *.xmltv?)
-- Add an FAQ about how to change the number of days downloaded.
-- After tinkering with favorites for a while, "add to favorites" is no longer available from a right-click in the guide view, only "remove from favorites".  Not really sure what I did to trigger this bug, but closing & restarting Freeguide fixed it.  And no, this did not result in all programs being marked as favorites. ;-) (Joe Blow)
-- When I start FreeGuide, the list of available grabbers is different every time
+- Check what happens (if anything?) if you don't set TZ
+- Improve visibility of the fact that the downloading is still going on when
+  you've clicked the X in the downloading window.
+
+- Release 0.10.4 (recording)
+
+- Implement the actual reminders and recording functionality
+- Implement in_guide, remind and record for chosen progs and favourites
+
+- Release 0.10.3 (Transition to stable release)
+
+- Clicking Exit in First Time Wizard closes FreeGuide.
 - On migration from 0.8.6, delete old *.xmltv files.
 - Re-order buttons and change wording in Tools menu, Options screen.
+- After tinkering with favorites for a while, "add to favorites" is no longer
+  available from a right-click in the guide view, only "remove from favorites".
+  Not really sure what I did to trigger this bug, but closing & restarting
+  Freeguide fixed it.  And no, this did not result in all programs being marked
+  as favorites. ;-) (Joe Blow)
+- Automatically import XMLTV listings if they're in the data dir.  (Just import
+  *.xmltv)
+- Catch an exception when using an unsuitable Java version, and display a
+  suitable error message to the user (using Java 1.0 AWT)
+- Test whether only channel icons are displayed when you use a channel set,
+  but icon and name is displayed on All Channels.
+- Make it repaint correctly when you press "f" on a programme, or double-click
+- Sometimes you can't click on certain programmes, but you can navigate to them
+  with the keyboard
+- Make Startup.java accept "--install_directory x" as well as
+  "--install_directory=x"
+- Sometimes when I build FreeGuide from clean and then immediately start it I
+  get a Segmentation fault
+- Make sure the repository stuff works, and a repository is up on sourceforge.
 
 - Release 0.10.2 (plugins manager, bug fixes)
 
-- User Guide button doesn't work in Windows.
-- Final testing and bug-fixing
+- User Guide menu option doesn't work in Windows.
 - When upgrading to 0.10.2 on Windows, the XMLTV checkbox in options is not
   checked.
-- Clicking Exit in First Time Wizard still closes FreeGuide.
-- Sometimes when I build FreeGuide from clean and then immediately start it I
-  get this:
-  26328 Segmentation fault      java -jar startup.jar 
-  --doc_directory=../doc --install_directory=./
++ Go through all the files that mention the version number and set the version
+  automatically, instead of hard-coding.  Don't break eclipse etc. support.
+  Do this in the ant "compile" task.
 a Reminders are never removed.  They should disappear after the time the user
   has set.
 + Make a new Windows installer containing all the plugins
@@ -318,6 +279,7 @@ a Why does the data get loaded 3 times when we start?
 a On Andy's machine the FreeGuide window has no icon in the top left, and the
   Please Wait dialog is missing its image.
 a Make a plugin manager
+a Use serialization to reduce startup time
 
 + Release 0.10pre1 (Add some features to plugins-branch work)
 
