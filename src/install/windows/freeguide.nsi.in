@@ -12,7 +12,7 @@ Name "FreeGuide"
 !define VERSION "__ANT_VERSION_MAJOR__.__ANT_VERSION_MINOR__.ANT_VERSION_REVISION__"
 
 ; The file to write
-OutFile ..\..\dist\${NAME_VERSION}-all-win32.exe
+OutFile ..\..\..\dist\${NAME_VERSION}-all-win32.exe
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\FreeGuide 
@@ -100,7 +100,7 @@ Section "FreeGuide program"
 
   SetOutPath $INSTDIR
   
-  File /r ..\..\build\*.jar
+  File /r ..\..\..\build\*.jar
   File /r run.cmd
   
   ; --------------------- make uninstaller ---------------------
@@ -113,12 +113,12 @@ Section "FreeGuide program"
 
   SetOutPath $INSTDIR\doc\
 
-  File ..\..\doc\*.html
-  File ..\..\doc\*.css
-  File ..\..\doc\*.txt
-  File ..\..\doc\*.png
-  File ..\..\doc\COPYING
-  File ..\..\doc\TODO
+  File ..\..\..\doc\*.html
+  File ..\..\..\doc\*.css
+  File ..\..\..\doc\*.txt
+  File ..\..\..\doc\*.png
+  File ..\..\..\doc\COPYING
+  File ..\..\..\doc\TODO
   
   ; -------------------------- xmltv -------------------------
   
@@ -126,7 +126,7 @@ Section "FreeGuide program"
 
   SetOutPath $INSTDIR\xmltv\
 
-  File /r ..\..\xmltv\*.*
+  File /r ..\..\..\xmltv\*.*
   
   ; --------------------------- icons --------------------------
   

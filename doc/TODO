@@ -248,19 +248,25 @@ a Use serialization to reduce startup time
 - After tinkering with favorites for a while, "add to favorites" is no longer available from a right-click in the guide view, only "remove from favorites".  Not really sure what I did to trigger this bug, but closing & restarting Freeguide fixed it.  And no, this did not result in all programs being marked as favorites. ;-) (Joe Blow)
 - When I start FreeGuide, the list of available grabbers is different every time
 - On migration from 0.8.6, delete old *.xmltv files.
+- Re-order buttons and change wording in Tools menu, Options screen.
 
 - Release 0.10.2 (plugins manager, bug fixes)
 
+- User Guide button doesn't work in Windows.
+- Final testing and bug-fixing
+- When upgrading to 0.10.2 on Windows, the XMLTV checkbox in options is not
+  checked.
+- Clicking Exit in First Time Wizard still closes FreeGuide.
 - Sometimes when I build FreeGuide from clean and then immediately start it I
   get this:
   26328 Segmentation fault      java -jar startup.jar 
   --doc_directory=../doc --install_directory=./
 a Reminders are never removed.  They should disappear after the time the user
   has set.
-- Make a new Windows installer containing all the plugins
-- Make RPMs for each plugin, and make the freeguide-base and freeguide-all
++ Make a new Windows installer containing all the plugins
++ Make RPMs for each plugin, and make the freeguide-base and freeguide-all
   RPMs.
-- Put latest XMLTV in Windows version
++ Put latest XMLTV in Windows version
 a Favourites are not automatically added to the guide
 a Exiting from the File menu does not exit properly
 a Keyboard shortcuts for adding a programme to favourites and adding to guide
