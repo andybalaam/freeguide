@@ -160,40 +160,26 @@ public class TVChannel implements Serializable
     public String getIconFileName(  )
     {
 
-        // Compute the cache fileName
-        if( getIconURL(  ) != null )
+        StringBuffer sb = new StringBuffer(  );
+
+        sb.append( Application.getInstance(  ).getWorkingDirectory(  ) );
+
+        sb.append( '/' );
+
+        sb.append( TVChannel.ICONCACHE_SUBDIR );
+
+        sb.append( '/' );
+
+        File dir = new File( sb.toString(  ) );
+
+        if( !dir.exists(  ) )
         {
-
-            StringBuffer sb = new StringBuffer(  );
-
-            sb.append( Application.getInstance(  ).getWorkingDirectory(  ) );
-
-            sb.append( '/' );
-
-            sb.append( TVChannel.ICONCACHE_SUBDIR );
-
-            sb.append( '/' );
-
-            File dir = new File( sb.toString(  ) );
-
-            if( !dir.exists(  ) )
-            {
-                dir.mkdirs(  );
-            }
-
-            sb.append( 
-                id.replace( '.', '_' ).replaceAll( "[^a-zA-Z0-9_]", "-" ) );
-
-            return sb.toString(  );
-
+            dir.mkdirs(  );
         }
 
-        else
-        {
+        sb.append( id.replace( '.', '_' ).replaceAll( "[^a-zA-Z0-9_]", "-" ) );
 
-            return null;
-
-        }
+        return sb.toString(  );
     }
 
     /**
