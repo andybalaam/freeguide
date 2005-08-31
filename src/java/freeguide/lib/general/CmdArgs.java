@@ -1,21 +1,12 @@
 /*
-
  *  FreeGUide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
 package freeguide.lib.general;
 
@@ -83,7 +74,7 @@ public class CmdArgs
             }
             else
             {
-                FreeGuide.log.warning( "Invalid agrument: " + args[i] );
+                FreeGuide.log.warning( "Invalid argument: " + args[i] );
             }
         }
 
