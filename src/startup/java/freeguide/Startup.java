@@ -23,7 +23,7 @@ public class Startup
 
     protected static final String STARTUP_CLASS = "freeguide.FreeGuide";
     protected static final String STARTUP_METHOD = "main";
-    protected static final String INSTALL_PREFIX = "--install_directory=";
+    protected static final String INSTALL_PREFIX = "--install_directory";
 
     /**
      * Main method.
@@ -168,11 +168,16 @@ public class Startup
         for( int i = 0; i < args.length; i++ )
         {
 
-            if( args[i].startsWith( INSTALL_PREFIX ) )
+            if( args[i].equals( INSTALL_PREFIX ) && ( ( i + 1 ) < args.length ) )
+            {
+
+                return new File( args[i + 1] );
+            }
+            else if( args[i].startsWith( INSTALL_PREFIX + "=" ) )
             {
 
                 return new File( 
-                    args[i].substring( INSTALL_PREFIX.length(  ) ) );
+                    args[i].substring( INSTALL_PREFIX.length(  ) + 1 ) );
             }
         }
 

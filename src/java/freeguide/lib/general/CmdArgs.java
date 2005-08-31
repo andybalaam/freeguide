@@ -67,7 +67,16 @@ public class CmdArgs
                 else
                 {
                     key = args[i].substring( 2 );
-                    value = "";
+
+                    if( ( i + 1 ) < args.length )
+                    {
+                        value = args[i + 1];
+                        i++;
+                    }
+                    else
+                    {
+                        value = "";
+                    }
                 }
 
                 result.put( key, value );
