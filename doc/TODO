@@ -186,6 +186,7 @@ a Internationalisation
 - Don't scroll left or right when you press the up or down button to navigate
   between programmes (unless the programme you have not selected is entirely off
   the screen)
+- Make channel labels wide enough to fit channel name and icon.
 
 - Release 0.10.4 (recording)
 
