@@ -75,7 +75,9 @@
             <param name="plugin-name" value="grabber-xmltv"   />
             <param name="plugin-version" value="1"/>
             <param name="plugin-release"         value="1"/>
-            <param name="plugin-requires-string" value=", xmltv-grabbers >= 0.5.40"/>
+            <param name="plugin-requires-string" value=""/>
+            <!--param name="plugin-requires-string" value=", xmltv-grabbers >= 0.5.40"/-->
+            <!-- This should be added when/if FreeGuide is added to ATRPMs -->
             <param name="plugin-description"     value="This is a grabber for FreeGuide to download listings using the XMLTV tools."/>
         </antcall>
         <antcall target="${actual-target}">
