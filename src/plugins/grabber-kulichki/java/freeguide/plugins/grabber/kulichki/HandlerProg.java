@@ -186,6 +186,7 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
                     currentChannel =
                         result.get( 
                             channelIDprefix + m.group( 4 ).replace( '/', '_' ) );
+                    currentChannel.setDisplayName( m.group( 4 ) );
 
                 }
 

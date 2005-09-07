@@ -20,7 +20,6 @@ import java.util.Properties;
 import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.logging.Level;
-import java.util.prefs.Preferences;
 
 import javax.swing.JDialog;
 
@@ -37,6 +36,17 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
     protected TimeZone TIME_ZONE_DEFAULT =
         TimeZone.getTimeZone( "Europe/Moscow" );
     protected KulichkiConfig config = new KulichkiConfig(  );
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Object getConfig(  )
+    {
+
+        return config;
+    }
 
     /**
      * DOCUMENT_ME!
@@ -200,6 +210,13 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
             for( int j = 0; j < packets.length; j++ )
             {
+
+                if( !config.channels.isSelected( "kulichki/" + packets[j] ) )
+                {
+
+                    continue;
+                }
+
                 request.put( "pakets", packets[j] );
 
                 handlerProg.setChannelIDprefix( 
@@ -286,27 +303,5 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
                 Level.SEVERE,
                 "Error loading timezone settings for tv.kulichki.net", ex );
         }
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param prefs DOCUMENT_ME!
-     */
-    public void setConfigStorage( Preferences prefs )
-    {
-        super.setConfigStorage( prefs );
-
-        loadObjectFromPreferences( config );
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     */
-    public void saveConfig(  )
-    {
-        saveObjectToPreferences( config );
-
     }
 }
