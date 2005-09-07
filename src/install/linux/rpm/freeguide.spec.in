@@ -13,11 +13,11 @@
 ### for this to work.
 
 Summary: A TV Guide
-Name: freeguide-all
-Provides: freeguide-all
+Name: freeguide
+Provides: freeguide
 Requires: freeguide-base             >= 0.10.2, freeguide-grabber-cosmostv >= 1, freeguide-grabber-kulichki >= 1, freeguide-grabber-newsvm   >= 1, freeguide-grabber-ntvplus  >= 1, freeguide-grabber-vsetv    >= 1, freeguide-grabber-xmltv    >= 1, freeguide-impexp-jtv       >= 1, freeguide-impexp-palmatv   >= 1, freeguide-impexp-xmltv     >= 1, freeguide-reminder-alarm   >= 1, freeguide-storage-serfiles >= 1, freeguide-ui-horizontal    >= 1
 Version: __ANT_VERSION_DOTTED__
-Release: 1
+Release: 2
 # REMINDER: bump this with each RPM
 Copyright: GPL
 Group: Accessories/
@@ -39,7 +39,7 @@ It works with listings for many countries.  Check the web site freeguide-tv.sf.n
 
 FreeGuide requires Java 2 version 1.4.
 
-The freeguide-all package depends on all the plugins available for freeguide, so if you install it with a package manager such as Synaptic, yum, or apt-get, you will automatically get a full install of everything you need to use freeguide. 
+The freeguide package depends on all the plugins available for freeguide, so if you install it with a package manager such as Synaptic, yum, or apt-get, you will automatically get a full install of everything you need to use freeguide. 
 
 %prep
 %setup -n __ANT_NAME_VERSION__
@@ -51,5 +51,5 @@ ant build-all
 ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dinstall_doc_dir=$RPM_BUILD_ROOT/%{_datadir}/doc/freeguide install-linux-all 
 
 %files
-%{_datadir}/freeguide/freeguide-all.empty
+%{_datadir}/freeguide/freeguide.empty
 

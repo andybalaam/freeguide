@@ -38,16 +38,23 @@
         <property name="template_file" value="${src}/install/linux/rpm/freeguide-plugin.spec.template"/>
         <property name="output_file" value="${src}/install/linux/rpm/freeguide-${plugin-name}.spec"/>
         <copy file="${template_file}" tofile="${output_file}"/>
-        <replace file="${output_file}" token="__ANT_PLUGIN_NAME__" value="${plugin-name}"/>
-        <replace file="${output_file}" token="__ANT_PLUGIN_VERSION__" value="${plugin-version}"/>
-        <replace file="${output_file}" token="__ANT_PLUGIN_RELEASE__" value="${plugin-release}"/>
-        <replace file="${output_file}" token="__ANT_PLUGIN_REQUIRES_STRING__" value="${plugin-requires-string}"/>
-        <replace file="${output_file}" token="__ANT_PLUGIN_DESCRIPTION__" value="${plugin-description}"/>
+	<replace file="${output_file}">
+		<replacefilter token="__ANT_PLUGIN_NAME__" value="${plugin-name}"/>
+		<replacefilter token="__ANT_PLUGIN_VERSION__" value="${plugin-version}"/>
+		<replacefilter token="__ANT_PLUGIN_RELEASE__" value="${plugin-release}"/>
+		<replacefilter token="__ANT_PLUGIN_REQUIRES_STRING__" value="${plugin-requires-string}"/>
+		<replacefilter token="__ANT_PLUGIN_DESCRIPTION__" value="${plugin-description}"/>
+	</replace>
     </target>
  
+    <target name="dist-rpm-delete-plugin-spec">
+	<delete file="${src}/install/linux/rpm/freeguide-${plugin-name}.spec"/>
+    </target>
+
     <target name="dist-clean">
         <delete dir="${dist-repo}" />
         <delete dir="${dist-rpm}" />
+	<antcall target="all-plugins"><param name="actual-target" value="dist-rpm-delete-plugin-spec"/></antcall>
     </target>
     
 </project>

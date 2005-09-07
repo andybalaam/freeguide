@@ -41,5 +41,5 @@ ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD
 
 
 %files
-%{_datadir}/freeguide/plugins/__ANT_PLUGIN_NAME__.jar
+%{_datadir}/freeguide/lib/__ANT_PLUGIN_NAME__.jar
 

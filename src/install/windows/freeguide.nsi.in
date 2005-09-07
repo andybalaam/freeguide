@@ -12,7 +12,7 @@ Name "FreeGuide"
 !define VERSION "__ANT_VERSION_MAJOR__.__ANT_VERSION_MINOR__.ANT_VERSION_REVISION__"
 
 ; The file to write
-OutFile ..\..\..\dist\${NAME_VERSION}-all-win32.exe
+OutFile ..\..\..\dist\windows\${NAME_VERSION}-all-win32.exe
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\FreeGuide 

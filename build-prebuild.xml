@@ -11,7 +11,7 @@
     <target name="version-numbers-each-file">
         <antcall target="${actual-target}"><param name="filename" value="${doc}/VERSION.php"                                          /></antcall>
         <antcall target="${actual-target}"><param name="filename" value="${src}/java-common/freeguide/lib/fgspecific/Application.java"/></antcall>
-        <antcall target="${actual-target}"><param name="filename" value="${src}/install/linux/rpm/freeguide-all.spec"                 /></antcall>
+        <antcall target="${actual-target}"><param name="filename" value="${src}/install/linux/rpm/freeguide.spec"                     /></antcall>
         <antcall target="${actual-target}"><param name="filename" value="${src}/install/linux/rpm/freeguide-base.spec"                /></antcall>
         <antcall target="${actual-target}"><param name="filename" value="${src}/install/linux/rpm/freeguide-plugin.spec.template"     /></antcall>
         <antcall target="${actual-target}"><param name="filename" value="${src}/install/linux/freeguide.1"                            /></antcall>
@@ -20,11 +20,13 @@
     
     <target name="version-numbers-file">
         <copy file="${filename}.in" tofile="${filename}.tmp" />
-        <replace file="${filename}.tmp" token="__ANT_VERSION_MAJOR__" value="${version-major}" />
-        <replace file="${filename}.tmp" token="__ANT_VERSION_MINOR__" value="${version-minor}" />
-        <replace file="${filename}.tmp" token="__ANT_VERSION_REVISION__" value="${version-revision}" />
-        <replace file="${filename}.tmp" token="__ANT_VERSION_DOTTED__" value="${version-dotted}" />
-        <replace file="${filename}.tmp" token="__ANT_NAME_VERSION__" value="${name-version}" />
+	<replace file="${filename}.tmp">
+	        <replacefilter token="__ANT_VERSION_MAJOR__" value="${version-major}" />
+	        <replacefilter token="__ANT_VERSION_MINOR__" value="${version-minor}" />
+	        <replacefilter token="__ANT_VERSION_REVISION__" value="${version-revision}" />
+	        <replacefilter token="__ANT_VERSION_DOTTED__" value="${version-dotted}" />
+        	<replacefilter token="__ANT_NAME_VERSION__" value="${name-version}" />
+	</replace>
         <move file="${filename}.tmp" tofile="${filename}" />
     </target>
     

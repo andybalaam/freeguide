@@ -17,7 +17,7 @@ Name: freeguide-base
 Provides: freeguide-base
 #Requires: java     - TODO
 Version: __ANT_VERSION_DOTTED__
-Release: 1
+Release: 2
 # REMINDER: bump this with each RPM
 Copyright: GPL
 Group: Accessories/
