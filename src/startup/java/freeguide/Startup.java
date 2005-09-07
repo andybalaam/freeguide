@@ -168,7 +168,8 @@ public class Startup
         for( int i = 0; i < args.length; i++ )
         {
 
-            if( args[i].equals( INSTALL_PREFIX ) && ( ( i + 1 ) < args.length ) )
+            if( 
+                args[i].equals( INSTALL_PREFIX ) && ( ( i + 1 ) < args.length ) )
             {
 
                 return new File( args[i + 1] );
