@@ -83,24 +83,9 @@ public class AlarmReminder extends BaseModuleReminder
     /**
      * DOCUMENT_ME!
      *
-     * @param prefs DOCUMENT_ME!
+     * @return DOCUMENT_ME!
      */
-    public void setConfigStorage( Preferences prefs )
-    {
-        super.setConfigStorage( prefs );
-        loadObjectFromPreferences( config );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     */
-    public void saveConfig(  )
-    {
-        saveObjectToPreferences( config );
-
-    }
-
-    protected Config getConfig(  )
+    public Object getConfig(  )
     {
 
         return config;
@@ -254,7 +239,7 @@ public class AlarmReminder extends BaseModuleReminder
         {
             config.favouritesList = favController.getFavourites(  );
 
-            saveConfig(  );
+            saveConfigNow(  );
 
             Application.getInstance(  ).redraw(  );
 
@@ -265,7 +250,7 @@ public class AlarmReminder extends BaseModuleReminder
     protected void favSelectionChanged(  )
     {
         Application.getInstance(  ).redrawPersonalizedGuide(  );
-        saveConfig(  );
+        saveConfigNow(  );
     }
 
     /**

@@ -35,6 +35,17 @@ public class StorageAllInMemory extends BaseModule implements IModuleStorage
      *
      * @return DOCUMENT_ME!
      */
+    public Object getConfig(  )
+    {
+
+        return null;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
     public synchronized Info getInfo(  )
     {
 

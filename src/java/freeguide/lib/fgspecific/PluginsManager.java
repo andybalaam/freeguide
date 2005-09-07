@@ -3,6 +3,7 @@ package freeguide.lib.fgspecific;
 import freeguide.FreeGuide;
 
 import freeguide.lib.general.LanguageHelper;
+import freeguide.lib.general.PreferencesHelper;
 
 import freeguide.plugins.IModule;
 import freeguide.plugins.IModuleExport;
@@ -148,18 +149,25 @@ public class PluginsManager
                 if( handler.getInstance(  ) != null )
                 {
 
-                    if( handler == applicationInfo )
+                    Object config = handler.getInstance(  ).getConfig(  );
+
+                    if( config != null )
                     {
-                        handler.getInstance(  ).setConfigStorage( 
-                            Preferences.userRoot(  ).node( 
-                                "/org/freeguide-tv/mainController" ) );
-                    }
-                    else
-                    {
-                        handler.getInstance(  ).setConfigStorage( 
-                            Preferences.userRoot(  ).node( 
-                                "/org/freeguide-tv/modules/"
-                                + handler.getID(  ) ) );
+
+                        if( handler == applicationInfo )
+                        {
+                            PreferencesHelper.load( 
+                                Preferences.userRoot(  ).node( 
+                                    "/org/freeguide-tv/mainController" ),
+                                config );
+                        }
+                        else
+                        {
+                            PreferencesHelper.load( 
+                                Preferences.userRoot(  ).node( 
+                                    "/org/freeguide-tv/modules/"
+                                    + handler.getID(  ) ), config );
+                        }
                     }
                 }
             }
@@ -167,6 +175,51 @@ public class PluginsManager
             {
                 Application.getInstance(  ).getLogger(  ).log( 
                     Level.SEVERE, "Error loading plugin", ex );
+            }
+        }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     */
+    public static void saveAllConfigs(  )
+    {
+
+        final Iterator it = pluginsInfoByID.values(  ).iterator(  );
+
+        while( it.hasNext(  ) )
+        {
+
+            PluginInfo handler = (PluginInfo)it.next(  );
+
+            try
+            {
+
+                Object config = handler.getInstance(  ).getConfig(  );
+
+                if( config != null )
+                {
+
+                    if( handler == applicationInfo )
+                    {
+                        PreferencesHelper.save( 
+                            Preferences.userRoot(  ).node( 
+                                "/org/freeguide-tv/mainController" ), config );
+                    }
+                    else
+                    {
+                        PreferencesHelper.save( 
+                            Preferences.userRoot(  ).node( 
+                                "/org/freeguide-tv/modules/"
+                                + handler.getID(  ) ), config );
+                    }
+                }
+            }
+            catch( Exception ex )
+            {
+                Application.getInstance(  ).getLogger(  ).log( 
+                    Level.SEVERE,
+                    "Error save config for module " + handler.getID(  ), ex );
             }
         }
     }
@@ -287,8 +340,6 @@ public class PluginsManager
 
             if( info.getInstance(  ) != null )
             {
-
-                Locale locale = null;
 
                 try
                 {

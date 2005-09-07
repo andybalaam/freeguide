@@ -3,7 +3,6 @@ package freeguide.gui.viewer;
 import freeguide.FreeGuide;
 
 import freeguide.gui.dialogs.ChannelSetListDialog;
-import freeguide.gui.dialogs.FGDialog;
 
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.GrabberController;
@@ -26,7 +25,6 @@ import freeguide.plugins.IModuleViewer;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
@@ -63,6 +61,25 @@ public class MainController extends BaseModule implements IApplication
     protected IModuleViewer viewer;
     protected GrabberController grab = new GrabberController(  );
     protected IModuleReminder[] reminders;
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Object getConfig(  )
+    {
+
+        return config;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     */
+    public void saveAllConfigs(  )
+    {
+        PluginsManager.saveAllConfigs(  );
+    }
 
     /**
      * DOCUMENT_ME!
@@ -194,7 +211,7 @@ public class MainController extends BaseModule implements IApplication
                 {
                     viewer.close(  );
 
-                    saveConfig(  );
+                    saveConfigNow(  );
 
                     final PluginInfo[] reminders =
                         PluginsManager.getReminders(  );
@@ -229,8 +246,6 @@ public class MainController extends BaseModule implements IApplication
                 {
                 }
             } );
-
-        loadConfig(  );
 
         if( grabberFromWizard != null )
         {
@@ -308,32 +323,13 @@ public class MainController extends BaseModule implements IApplication
         }
     }
 
-    protected void loadConfig(  )
-    {
-        loadObjectFromPreferences( config );
-    }
-
-    protected void saveConfig(  )
+    /**
+     * DOCUMENT_ME!
+     */
+    public void saveConfigNow(  )
     {
         config.ui.mainWindowPosition = mainFrame.getBounds(  );
-        saveObjectToPreferences( config );
-    }
-
-    private boolean centreDialogAndRun( FGDialog dialog )
-    {
-
-        Dimension thisSize = mainFrame.getSize(  );
-
-        Dimension dialogSize = dialog.getSize(  );
-
-        Point thisLocation = mainFrame.getLocation(  );
-
-        dialog.setLocation( 
-            thisLocation.x + ( ( thisSize.width - dialogSize.width ) / 2 ),
-            thisLocation.y + ( ( thisSize.height - dialogSize.height ) / 2 ) );
-
-        return dialog.showDialog(  );
-
+        super.saveConfigNow(  );
     }
 
     /**

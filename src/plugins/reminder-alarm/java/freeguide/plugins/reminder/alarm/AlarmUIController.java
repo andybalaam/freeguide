@@ -124,7 +124,6 @@ public class AlarmUIController implements IModuleConfigurationUI
             Long.parseLong( panel.getTextGiveup(  ).getText(  ) ) * 1000L;
         parent.config.colorTicked =
             panel.getPanelColorInGuide(  ).getBackground(  );
-        parent.saveConfig(  );
     }
 
     //        return FreeGuide.msg.getString( "reminders" );

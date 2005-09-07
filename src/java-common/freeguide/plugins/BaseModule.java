@@ -3,11 +3,8 @@ package freeguide.plugins;
 import freeguide.lib.fgspecific.Application;
 
 import freeguide.lib.general.LanguageHelper;
-import freeguide.lib.general.PreferencesHelper;
 
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.prefs.Preferences;
 
 import javax.swing.JDialog;
 
@@ -23,7 +20,6 @@ public abstract class BaseModule implements IModule
 {
 
     protected LanguageHelper i18n;
-    private Preferences prefs;
 
     /**
      * IModule.getSuppotedLocales implementation. Read list of
@@ -56,19 +52,6 @@ public abstract class BaseModule implements IModule
             new LanguageHelper( 
                 getClass(  ).getPackage(  ).getName(  ).replace( '.', '/' )
                 + "/i18n", locale );
-
-    }
-
-    /**
-     * IModule.setConfigStorage implementation. It remember config place to
-     * protected prefs variable.
-     *
-     * @param prefs DOCUMENT ME!
-     */
-    public void setConfigStorage( final Preferences prefs )
-    {
-        this.prefs = prefs;
-
     }
 
     /**
@@ -80,38 +63,11 @@ public abstract class BaseModule implements IModule
     {
 
         return i18n;
-
     }
 
-    protected void loadObjectFromPreferences( final Object obj )
+    protected void saveConfigNow(  )
     {
-
-        try
-        {
-            PreferencesHelper.load( prefs, obj );
-        }
-        catch( Exception ex )
-        {
-            Application.getInstance(  ).getLogger(  ).log( 
-                Level.WARNING,
-                "Error load config for class " + getClass(  ).getName(  ), ex );
-        }
-    }
-
-    protected void saveObjectToPreferences( final Object obj )
-    {
-
-        try
-        {
-            PreferencesHelper.save( prefs, obj );
-
-        }
-        catch( Exception ex )
-        {
-            Application.getInstance(  ).getLogger(  ).log( 
-                Level.WARNING,
-                "Error save config for class " + getClass(  ).getName(  ), ex );
-        }
+        Application.getInstance(  ).saveAllConfigs(  );
     }
 
     /**
@@ -125,6 +81,5 @@ public abstract class BaseModule implements IModule
     {
 
         return null;
-
     }
 }

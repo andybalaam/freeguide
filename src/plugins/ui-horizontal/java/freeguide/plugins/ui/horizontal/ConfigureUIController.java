@@ -167,8 +167,6 @@ public class ConfigureUIController implements IModuleConfigurationUI
 
         parent.config = config;
 
-        parent.saveConfig(  );
-
         parent.redraw(  );
 
     }

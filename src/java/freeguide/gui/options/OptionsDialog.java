@@ -62,14 +62,14 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
     // -----------------------------------------
     private JTree menuTree;
-    private Container contentPane;
     private OptionPanel currentOptionPanel;
     private JPanel optionsPane;
     private CardLayout optionsPaneLayout;
     private JButton okButton;
     private JButton cancelButton;
     private JButton defaultButton;
-    List modulesConf = new ArrayList(  );
+    protected List modulesConf = new ArrayList(  );
+    protected List modulesParents = new ArrayList(  );
     JSplitPane splitPane;
 
     /**
@@ -450,6 +450,8 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
             m.save(  );
 
         }
+
+        PluginsManager.saveAllConfigs(  );
 
         setChanged(  );
         setSave(  );

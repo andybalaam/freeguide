@@ -45,6 +45,8 @@ public interface IApplication
 
     IModuleReminder[] getReminders(  );
 
+    void saveAllConfigs(  );
+
     String getBrowserCommand(  );
 
     void restart(  );

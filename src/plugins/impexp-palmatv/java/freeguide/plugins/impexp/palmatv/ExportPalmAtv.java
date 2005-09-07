@@ -44,6 +44,17 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
     protected Config config = new Config(  );
 
     /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Object getConfig(  )
+    {
+
+        return config;
+    }
+
+    /**
      * Export data method.
      *
      * @param data TV data
@@ -92,7 +103,8 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
             }
 
             config.path = destination.getPath(  );
-            saveConfig(  );
+
+            saveConfigNow(  );
 
             destination.delete(  );
 
@@ -142,25 +154,6 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
 
         return tm /*-TimeEngine.getOffset(tm,TimeEngine.localTZ)*/;
 
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param prefs DOCUMENT_ME!
-     */
-    public void setConfigStorage( Preferences prefs )
-    {
-        super.setConfigStorage( prefs );
-        loadObjectFromPreferences( config );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     */
-    public void saveConfig(  )
-    {
-        saveObjectToPreferences( config );
     }
 
     /**

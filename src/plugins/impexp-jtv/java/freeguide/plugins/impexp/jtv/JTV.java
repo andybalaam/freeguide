@@ -44,6 +44,17 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
     /**
      * DOCUMENT_ME!
      *
+     * @return DOCUMENT_ME!
+     */
+    public Object getConfig(  )
+    {
+
+        return null;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
      * @param parent DOCUMENT_ME!
      *
      * @return DOCUMENT_ME!

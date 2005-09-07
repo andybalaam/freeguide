@@ -131,8 +131,6 @@ public class VsetvConfigurationUIController implements IModuleConfigurationUI
         parent.config.channelGroup =
             (String)chs.get( panel.getListChannels(  ).getSelectedIndex(  ) );
 
-        parent.saveConfig(  );
-
     }
 
     /**

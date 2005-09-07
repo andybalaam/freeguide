@@ -22,7 +22,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.prefs.Preferences;
 
 import javax.swing.JDialog;
 
@@ -35,6 +34,17 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
 {
 
     protected final Config config = new Config(  );
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Object getConfig(  )
+    {
+
+        return config;
+    }
 
     /**
      * DOCUMENT_ME!
@@ -151,28 +161,6 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
      */
     public void stop(  )
     {
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param prefs DOCUMENT_ME!
-     */
-    public void setConfigStorage( Preferences prefs )
-    {
-        super.setConfigStorage( prefs );
-
-        loadObjectFromPreferences( config );
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     */
-    public void saveConfig(  )
-    {
-        saveObjectToPreferences( config );
-
     }
 
     /**

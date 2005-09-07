@@ -1,7 +1,6 @@
 package freeguide.plugins;
 
 import java.util.Locale;
-import java.util.prefs.Preferences;
 
 import javax.swing.JDialog;
 
@@ -33,11 +32,18 @@ public interface IModule
     void setLocale( Locale locale ) throws Exception;
 
     /**
-     * Set Preferences for load and store module's parameters.
+     * Get config for store and load.
      *
-     * @param prefs Preferences
+     * @return config object
      */
-    void setConfigStorage( Preferences prefs );
+    Object getConfig(  );
 
+    /**
+     * Get configuration interface for support Option panel.
+     *
+     * @param parentDialog
+     *
+     * @return
+     */
     IModuleConfigurationUI getConfigurationUI( JDialog parentDialog );
 }

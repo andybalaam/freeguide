@@ -33,6 +33,17 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
      *
      * @return DOCUMENT_ME!
      */
+    public Object getConfig(  )
+    {
+
+        return null;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
     public synchronized IModuleStorage.Info getInfo(  )
     {
 

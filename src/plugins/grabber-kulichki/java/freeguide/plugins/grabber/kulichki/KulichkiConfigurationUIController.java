@@ -91,8 +91,6 @@ public class KulichkiConfigurationUIController
     {
         parent.config = config;
 
-        parent.saveConfig(  );
-
     }
 
     /**

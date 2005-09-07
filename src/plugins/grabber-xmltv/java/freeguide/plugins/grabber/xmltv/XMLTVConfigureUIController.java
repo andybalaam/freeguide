@@ -109,8 +109,6 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
     {
         parent.config = config;
 
-        parent.saveConfig(  );
-
     }
 
     /**

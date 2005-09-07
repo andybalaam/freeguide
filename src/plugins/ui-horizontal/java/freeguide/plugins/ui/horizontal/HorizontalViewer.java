@@ -173,6 +173,17 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     /**
      * DOCUMENT_ME!
      *
+     * @return DOCUMENT_ME!
+     */
+    public Object getConfig(  )
+    {
+
+        return config;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
      * @param locale DOCUMENT_ME!
      *
      * @throws Exception DOCUMENT_ME!
@@ -207,7 +218,14 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
      */
     public void open(  )
     {
-        loadConfig(  );
+        panel.splitPaneChanProg.setDividerLocation( 
+            config.positionSplitPaneVertical );
+
+        panel.splitPaneMainDet.setDividerLocation( 
+            config.positionSplitPaneHorizontalTop );
+
+        panel.splitPaneGuideDet.setDividerLocation( 
+            config.positionSplitPaneHorizontalBottom );
 
         theDate = System.currentTimeMillis(  );
 
@@ -297,25 +315,10 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
      */
     public void close(  )
     {
-        saveConfig(  );
+        saveConfigNow(  );
     }
 
-    protected void loadConfig(  )
-    {
-        loadObjectFromPreferences( config );
-
-        panel.splitPaneChanProg.setDividerLocation( 
-            config.positionSplitPaneVertical );
-
-        panel.splitPaneMainDet.setDividerLocation( 
-            config.positionSplitPaneHorizontalTop );
-
-        panel.splitPaneGuideDet.setDividerLocation( 
-            config.positionSplitPaneHorizontalBottom );
-
-    }
-
-    protected void saveConfig(  )
+    protected void saveConfigNow(  )
     {
         config.positionSplitPaneVertical =
             panel.splitPaneChanProg.getDividerLocation(  );
@@ -326,7 +329,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         config.positionSplitPaneHorizontalBottom =
             panel.splitPaneGuideDet.getDividerLocation(  );
 
-        saveObjectToPreferences( config );
+        super.saveConfigNow(  );
 
     }
 

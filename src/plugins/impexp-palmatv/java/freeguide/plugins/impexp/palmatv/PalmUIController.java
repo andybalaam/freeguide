@@ -69,7 +69,6 @@ public class PalmUIController implements IModuleConfigurationUI
     {
         parent.config.charset =
             (String)panel.getCbCharset(  ).getSelectedItem(  );
-        parent.saveConfig(  );
     }
 
     /**

@@ -132,7 +132,6 @@ public class HallmarkConfigurationUIController
 
         parent.config.weeksNumber =
             Integer.parseInt( panel.getTextWeeks(  ).getText(  ) );
-        parent.saveConfig(  );
     }
 
     /**

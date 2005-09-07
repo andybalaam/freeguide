@@ -63,7 +63,7 @@ public class MenuHandler
 
                     if( updated )
                     {
-                        controller.saveConfig(  );
+                        controller.saveConfigNow(  );
                         FreeGuide.saveConfig(  );
 
                         controller.setLookAndFeel(  );

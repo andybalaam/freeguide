@@ -52,12 +52,11 @@ abstract public class BaseModuleReminder extends BaseModule
         }
     }
 
-    /**
-     * Get reminder's config.
-     *
-     * @return config
-     */
-    abstract protected Config getConfig(  );
+    protected Config getReminderConfig(  )
+    {
+
+        return (Config)getConfig(  );
+    }
 
     /**
      * Add items to main frame menu.
@@ -126,14 +125,15 @@ abstract public class BaseModuleReminder extends BaseModule
     public Favourite getFavourite( TVProgramme programme )
     {
 
-        synchronized( getConfig(  ) )
+        synchronized( getReminderConfig(  ) )
         {
 
-            for( int i = 0; i < getConfig(  ).favouritesList.size(  ); i++ )
+            for( int i = 0; i < getReminderConfig(  ).favouritesList.size(  );
+                    i++ )
             {
 
                 Favourite fav =
-                    (Favourite)getConfig(  ).favouritesList.get( i );
+                    (Favourite)getReminderConfig(  ).favouritesList.get( i );
 
                 if( fav.matches( programme ) )
                 {
@@ -157,15 +157,18 @@ abstract public class BaseModuleReminder extends BaseModule
     public ManualSelection getManualSelection( TVProgramme programme )
     {
 
-        synchronized( getConfig(  ) )
+        synchronized( getReminderConfig(  ) )
         {
 
-            for( int i = 0; i < getConfig(  ).manualSelectionList.size(  );
+            for( 
+                int i = 0;
+                    i < getReminderConfig(  ).manualSelectionList.size(  );
                     i++ )
             {
 
                 ManualSelection sel =
-                    (ManualSelection)getConfig(  ).manualSelectionList.get( i );
+                    (ManualSelection)getReminderConfig(  ).manualSelectionList
+                    .get( i );
 
                 if( sel.matches( programme ) )
                 {
@@ -189,7 +192,7 @@ abstract public class BaseModuleReminder extends BaseModule
     public boolean isSelected( TVProgramme programme )
     {
 
-        synchronized( getConfig(  ) )
+        synchronized( getReminderConfig(  ) )
         {
 
             ManualSelection sel = getManualSelection( programme );
@@ -222,7 +225,7 @@ abstract public class BaseModuleReminder extends BaseModule
         final TVProgramme programme, final boolean newSelection )
     {
 
-        synchronized( getConfig(  ) )
+        synchronized( getReminderConfig(  ) )
         {
 
             ManualSelection sel = getManualSelection( programme );
@@ -235,7 +238,7 @@ abstract public class BaseModuleReminder extends BaseModule
 
             else
             {
-                getConfig(  ).manualSelectionList.add( 
+                getReminderConfig(  ).manualSelectionList.add( 
                     new ManualSelection( programme, newSelection ) );
 
             }
@@ -250,9 +253,9 @@ abstract public class BaseModuleReminder extends BaseModule
     public void addFavourite( final Favourite favourite )
     {
 
-        synchronized( getConfig(  ) )
+        synchronized( getReminderConfig(  ) )
         {
-            getConfig(  ).favouritesList.add( favourite );
+            getReminderConfig(  ).favouritesList.add( favourite );
 
         }
     }
@@ -265,9 +268,9 @@ abstract public class BaseModuleReminder extends BaseModule
     public void removeFavourite( final Favourite favourite )
     {
 
-        synchronized( getConfig(  ) )
+        synchronized( getReminderConfig(  ) )
         {
-            getConfig(  ).favouritesList.remove( favourite );
+            getReminderConfig(  ).favouritesList.remove( favourite );
 
         }
     }

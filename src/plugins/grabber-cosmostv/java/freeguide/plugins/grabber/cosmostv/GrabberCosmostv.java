@@ -29,6 +29,17 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
     /**
      * DOCUMENT_ME!
      *
+     * @return DOCUMENT_ME!
+     */
+    public Object getConfig(  )
+    {
+
+        return null;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
      * @param progress DOCUMENT_ME!
      * @param logger DOCUMENT_ME!
      *

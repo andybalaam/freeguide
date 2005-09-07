@@ -44,6 +44,17 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
     /**
      * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Object getConfig(  )
+    {
+
+        return config;
+    }
+
+    /**
+     * DOCUMENT_ME!
      */
     public void stop(  )
     {
@@ -283,28 +294,6 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
     {
 
         return new VsetvConfigurationUIController( this );
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param prefs DOCUMENT_ME!
-     */
-    public void setConfigStorage( Preferences prefs )
-    {
-        super.setConfigStorage( prefs );
-
-        loadObjectFromPreferences( config );
-
-    }
-
-    /**
-     * DOCUMENT_ME!
-     */
-    public void saveConfig(  )
-    {
-        saveObjectToPreferences( config );
 
     }
 
