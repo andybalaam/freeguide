@@ -52,10 +52,10 @@ ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD
 
 %files
 %{_bindir}/freeguide
-%{_datadir}/freeguide/freeguide.jar
-%{_datadir}/freeguide/common.jar
+%{_datadir}/freeguide/lib/freeguide.jar
+%{_datadir}/freeguide/lib/common.jar
 %{_datadir}/freeguide/startup.jar
-%{_datadir}/freeguide/tagsoup-1.0rc3.jar
+%{_datadir}/freeguide/lib/tagsoup-1.0rc3.jar
 %{_datadir}/pixmaps/freeguide.png
 %{_datadir}/pixmaps/freeguide/logo-16x16.png
 %{_datadir}/pixmaps/freeguide/logo-32x32.png

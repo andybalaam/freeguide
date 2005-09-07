@@ -13,15 +13,16 @@
         -->
         
         <property name="install_jar_dir" location="${install_share_dir}/freeguide" />
+        <property name="install_lib_dir" location="${install_jar_dir}/lib" />
 
         <property name="install_pixmap_dir" location="${install_share_dir}/pixmaps/freeguide" />
         
         <mkdir dir="${install_jar_dir}" />
         
         <copy file="${build}/startup.jar" todir="${install_jar_dir}/" />
-        <copy file="${build}/lib/freeguide.jar" todir="${install_jar_dir}/" />
-        <copy file="${build}/lib/common.jar" todir="${install_jar_dir}/" />
-        <copy file="${build}/lib/tagsoup-1.0rc3.jar" todir="${install_jar_dir}/" />
+        <copy file="${build}/lib/freeguide.jar" todir="${install_lib_dir}/" />
+        <copy file="${build}/lib/common.jar" todir="${install_lib_dir}/" />
+        <copy file="${build}/lib/tagsoup-1.0rc3.jar" todir="${install_lib_dir}/" />
 
         <!-- Copy the different-sized icons to the freeguide pixmaps dir -->
         <mkdir dir="${install_pixmap_dir}" />
