@@ -124,8 +124,8 @@ public class ProgrammeFormat
      * supplied StringBuffer.  The following information is returned as
      * shown:
      * <pre>
- startTime title: subtitle (starString) (R)
- </pre>
+     *  startTime title: subtitle (starString) (R)
+     *  </pre>
      * where starString is only shown if the programme is a movie and (R) is
      * only displayed if the programme has been previously shown.
      *
@@ -201,10 +201,10 @@ public class ProgrammeFormat
      * "long" representation of the Programme to the supplied StringBuffer.
      * The following information is returned as shown:
      * <pre>
- startTime - title: subtitle
- channelName, ends endTime
- longDesc (Repeat) starString
- </pre>
+     *  startTime - title: subtitle
+     *  channelName, ends endTime
+     *  longDesc (Repeat) starString
+     *  </pre>
      * where starString is only shown if the programme is a movie and (Repeat)
      * is only displayed if the programme has been previously shown.
      *
