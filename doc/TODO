@@ -224,9 +224,9 @@ a Internationalisation
 - User Guide menu option doesn't work in Windows.
 - When upgrading to 0.10.2 on Windows, the XMLTV checkbox in options is not
   checked.
-- Make spaces between command lne arguments work
 - When there are no listings for today FreeGuide should immediately ask whether
   you want to download as soon as it starts.
+- Get rid of the "user andy" messages when installing RPMs
 
 + Release 0.10.2 (plugins manager, bug fixes)
 
