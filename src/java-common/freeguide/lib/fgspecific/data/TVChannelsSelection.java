@@ -18,7 +18,7 @@ public class TVChannelsSelection
     /** DOCUMENT ME! */
     public TVChannelsSet allChannels = new TVChannelsSet(  );
 
-    /** DOCUMENT ME! */
+    /** Set of channel ID strings. */
     public Set selectedChannelIDs = new TreeSet(  );
 
     /**
@@ -69,5 +69,36 @@ public class TVChannelsSelection
 
             }
         }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param channelID DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public boolean isSelected( final String channelID )
+    {
+
+        for( Iterator it = selectedChannelIDs.iterator(  ); it.hasNext(  ); )
+        {
+
+            final String selectedChannelID = (String)it.next(  );
+
+            if( channelID.equals( selectedChannelID ) )
+            {
+
+                return true;
+            }
+
+            if( channelID.startsWith( selectedChannelID + '/' ) )
+            {
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }
