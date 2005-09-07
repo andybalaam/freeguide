@@ -1,5 +1,6 @@
 package freeguide.plugins.grabber.hallmark;
 
+import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
@@ -77,11 +78,14 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
         browser.loadURL( urlSched.toString(  ) );
 
         TVData result = new TVData(  );
+        TVChannel channel =
+            result.get( 
+                "hallmark/" + config.countryId + "/"
+                + ( ( lang != null ) ? lang.name : "Default" ) + "/hallmark" );
         Map descriptions = new TreeMap(  );
         HallmarkParserSchedule parser =
             new HallmarkParserSchedule( 
-                result.get( "hallmark/hallmark" ), descriptions,
-                country.id.equals( "US" ) );
+                channel, descriptions, country.id.equals( "US" ) );
         browser.parse( parser );
 
         int di = 0;
