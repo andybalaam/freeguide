@@ -112,21 +112,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
                 String key = (String)it.next(  );
 
-                String channelID;
-
-                int pos = key.lastIndexOf( '.' );
-
-                if( pos != -1 )
-                {
-                    channelID = key.substring( 0, pos );
-
-                }
-
-                else
-                {
-                    channelID = key;
-
-                }
+                String channelID = getChannelIdByTag( key );
 
                 result.add( 
                     new TVChannelsSet.Channel( 
@@ -211,7 +197,10 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
             for( int j = 0; j < packets.length; j++ )
             {
 
-                if( !config.channels.isSelected( "kulichki/" + packets[j] ) )
+                if( 
+                    !config.channels.isSelected( "kulichki/" + packets[j] )
+                        && !config.channels.isChildSelected( 
+                            "kulichki/" + packets[j] ) )
                 {
 
                     continue;
@@ -255,6 +244,22 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
                     + "] packet [" + ( j + 1 ) + "/" + packets.length
                     + "]: channel data" );
 
+                for( 
+                    Iterator it =
+                        handlerChanels.channelList.keySet(  ).iterator(  );
+                        it.hasNext(  ); )
+                {
+
+                    String channelID =
+                        "kulichki/" + packets[j] + "/"
+                        + getChannelIdByTag( (String)it.next(  ) );
+
+                    if( !config.channels.isSelected( channelID ) )
+                    {
+                        it.remove(  );
+                    }
+                }
+
                 requestChannels.put( 
                     "chanel", handlerChanels.channelList.keySet(  ) );
 
@@ -269,6 +274,23 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         return result;
 
+    }
+
+    protected String getChannelIdByTag( final String tag )
+    {
+
+        int pos = tag.lastIndexOf( '.' );
+
+        if( pos != -1 )
+        {
+
+            return tag.substring( 0, pos );
+        }
+        else
+        {
+
+            return tag;
+        }
     }
 
     /**
