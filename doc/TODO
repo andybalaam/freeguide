@@ -227,6 +227,7 @@ a Internationalisation
 - When there are no listings for today FreeGuide should immediately ask whether
   you want to download as soon as it starts.
 - Get rid of the "user andy" messages when installing RPMs
+- Opera should have the command 'opera -newpage "%filename%"'
 
 + Release 0.10.2 (plugins manager, bug fixes)
 
