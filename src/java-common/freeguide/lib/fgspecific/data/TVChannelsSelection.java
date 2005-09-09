@@ -101,4 +101,29 @@ public class TVChannelsSelection
 
         return false;
     }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param channelID DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public boolean isChildSelected( final String channelID )
+    {
+
+        for( Iterator it = selectedChannelIDs.iterator(  ); it.hasNext(  ); )
+        {
+
+            final String selectedChannelID = (String)it.next(  );
+
+            if( selectedChannelID.startsWith( channelID + '/' ) )
+            {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
