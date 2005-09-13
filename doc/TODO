@@ -228,6 +228,7 @@ a Internationalisation
   you want to download as soon as it starts.
 - Get rid of the "user andy" messages when installing RPMs
 - Opera should have the command 'opera -newpage "%filename%"'
+- Change plugin repo packages to be called freeguide-* instead of package-*.
 
 + Release 0.10.2 (plugins manager, bug fixes)
 
