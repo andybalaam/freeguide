@@ -229,6 +229,8 @@ a Internationalisation
 - Get rid of the "user andy" messages when installing RPMs
 - Opera should have the command 'opera -newpage "%filename%"'
 - Change plugin repo packages to be called freeguide-* instead of package-*.
+- Check that we need the TZ environment variable, and if not, remove it from
+  the documentation, or reduce the urgency of the messages, at least.
 
 + Release 0.10.2 (plugins manager, bug fixes)
 
