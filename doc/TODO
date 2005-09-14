@@ -187,6 +187,8 @@ a Internationalisation
   between programmes (unless the programme you have not selected is entirely off
   the screen)
 - Make channel labels wide enough to fit channel name and icon.
+- Make a "Change Channels" button that links through to change the settings of
+  the grabber(s) you are using.
 
 - Release 0.10.4 (recording)
 
@@ -219,6 +221,11 @@ a Internationalisation
   get a Segmentation fault
 - Make sure the repository stuff works, and a repository is up on sourceforge.
 - Make sure all the documentation fits with the UI changes in 0.10.x.
+  - Change the home page to say how to download for each platform and region
+  - Document how to modify grabber config, change channels, etc.
+  - Check that all the FAQs are still relevant, and add new ones.
+- Make simple tar.gz packages for e.g. Slackware, and so that other
+  pacakgers can base on that, e.g. Mac OS.
 - Make multiple-line command lines work (see Vladimir Nicolici's email
   of 2005-08-14).
 - User Guide menu option doesn't work in Windows.
@@ -237,6 +244,7 @@ a Internationalisation
   one to add to the daily guide.  It's usually a program that's at the 
   bottom of the current screen at either 1/2 or 1 hour later in the day.
   Reported by rlbfsb@gmail.com
+- Opera should have the command 'opera -newpage "%filename%"'
 
 + Release 0.10.2 (plugins manager, bug fixes)
 
