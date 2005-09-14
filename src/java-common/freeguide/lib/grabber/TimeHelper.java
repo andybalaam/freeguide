@@ -6,9 +6,7 @@ import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.general.LanguageHelper;
 import freeguide.lib.general.Time;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -48,11 +46,6 @@ public class TimeHelper
                 Level.SEVERE, "Error read monthes names", ex );
         }
     }
-
-    private static DateFormat xmltvFormat =
-        new SimpleDateFormat( "yyyyMMddHHmmss Z" );
-    private static DateFormat xmlatvFormat =
-        new SimpleDateFormat( "yyyy-MM-dd HH:mm z" );
 
     /**
      * DOCUMENT_ME!
