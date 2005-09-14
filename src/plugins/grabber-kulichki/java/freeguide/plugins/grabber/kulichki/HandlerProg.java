@@ -218,6 +218,7 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
 
                 try
                 {
+                    currentProgs = null;
 
                     String line;
 
