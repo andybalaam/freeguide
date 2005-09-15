@@ -3,13 +3,13 @@
 <packages>
   <mirror location="Europe - Dublin, Ireland" path="http://heanet.dl.sourceforge.net/sourceforge/freeguide-tv/"/>
   <mirror location="North America - Minneapolis, MN" path="http://umn.dl.sourceforge.net/sourceforge/freeguide-tv/"/>
-  <package id="FreeGuide" version="0.10.2" type="application" repositoryPath="package-FreeGuide-0.10.2.zip">
+  <package id="FreeGuide" version="0.10.2" type="application" repositoryPath="package-freeguide-0.10.2.zip">
     <name lang="en">FreeGuide-TV</name>
     <description lang="en">Main FreeGuide-TV application.</description>
     <name lang="fr">FreeGuide-TV</name>
     <description lang="fr">Le programme Freeguide-TV</description>
   </package>
-  <package id="grabber-cosmostv" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-cosmostv-0.1.zip">
+  <package id="grabber-cosmostv" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-cosmostv-1.zip">
     <name lang="be">Cosmos TV</name>
     <description lang="be">Праграмма тэлебачання з http://www.cosmostv.com</description>
     <name lang="en">Cosmos TV</name>
@@ -17,7 +17,7 @@
     <name lang="fr">Cosmos TV</name>
     <description lang="fr">Aspirateur pour http://www.cosmostv.com</description>
   </package>
-  <package id="grabber-kulichki" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-kulichki-0.1.zip">
+  <package id="grabber-kulichki" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-kulichki-1.zip">
     <name lang="be">Программа ТВ на Куличках</name>
     <description lang="be">Праграмма тэлебачання з http://kulichki.tv</description>
     <name lang="en">Kulichki.tv</name>
@@ -25,7 +25,7 @@
     <name lang="fr">Kulichki.tv</name>
     <description lang="fr">Aspirateur pour http://kulichki.tv</description>
   </package>
-  <package id="grabber-newsvm" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-newsvm-0.1.zip">
+  <package id="grabber-newsvm" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-newsvm-1.zip">
     <name lang="be">Вечерний Минск</name>
     <description lang="be">Праграмма тэлебачання з газэты &quot;Вечерний Минск&quot;(http://newsvm.com)</description>
     <name lang="en">Newsvm.com</name>
@@ -33,7 +33,7 @@
     <name lang="fr">Newsvm.com</name>
     <description lang="fr">Aspirateur pour http://newsvm.com</description>
   </package>
-  <package id="grabber-ntvplus" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-ntvplus-0.1.zip">
+  <package id="grabber-ntvplus" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-ntvplus-1.zip">
     <name lang="be">НТВ-Плюс</name>
     <description lang="be">Праграмма тэлебачання з http://www.ntvplus.com</description>
     <name lang="en">NTV Plus</name>
@@ -41,7 +41,7 @@
     <name lang="fr">NTV Plus</name>
     <description lang="fr">Aspirateur pour http://www.ntvplus.ru</description>
   </package>
-  <package id="grabber-vsetv" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-vsetv-0.1.zip">
+  <package id="grabber-vsetv" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-vsetv-1.zip">
     <name lang="be">Всё ТВ</name>
     <description lang="be">Праграма тэлебачання з http://www.vsetv.com</description>
     <name lang="en">Vsetv.com</name>
@@ -49,31 +49,31 @@
     <name lang="fr">Vsetv.com</name>
     <description lang="fr">Aspirateur pour http://www.vsetv.com</description>
   </package>
-  <package id="grabber-xmltv" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-xmltv-0.1.zip">
+  <package id="grabber-xmltv" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-xmltv-1.zip">
     <name lang="en">XMLTV</name>
     <description lang="en">XMLTV grabber (http://xmltv.sf.net)</description>
     <name lang="fr">XMLTV</name>
     <description lang="fr">Aspirateur XMLTV (http://xmltv.sf.net)</description>
   </package>
-  <package id="impexp-jtv" version="0.1" type="plugin-impexp" repositoryPath="package-impexp-jtv-0.1.zip">
+  <package id="impexp-jtv" version="0.1" type="plugin-impexp" repositoryPath="package-impexp-jtv-1.zip">
     <name lang="en">JTV</name>
     <description lang="en">JTV import/export module (http://jtvhost.chat.ru)</description>
     <name lang="fr">JTV</name>
     <description lang="fr">Module d'import/export pour JTV (http://jtvhost.chat.ru)</description>
   </package>
-  <package id="impexp-palmatv" version="0.2" type="plugin-impexp" repositoryPath="package-impexp-palmatv-0.2.zip">
+  <package id="impexp-palmatv" version="0.2" type="plugin-impexp" repositoryPath="package-impexp-palmatv-1.zip">
     <name lang="en">ATV-palm</name>
     <description lang="en">Export to ATV for Palm OS. See http://zaval.org/products/atv</description>
     <name lang="fr">ATV-palm</name>
     <description lang="fr">Module d'export vers ATV pour Palm OS. (http://zaval.org/products/atv)</description>
   </package>
-  <package id="impexp-xmltv" version="0.1" type="plugin-impexp" repositoryPath="package-impexp-xmltv-0.1.zip">
+  <package id="impexp-xmltv" version="0.1" type="plugin-impexp" repositoryPath="package-impexp-xmltv-1.zip">
     <name lang="en">XMLTV</name>
     <description lang="en">Export to XMLTV format. See http://xmltv.sf.net.</description>
     <name lang="fr">XMLTV</name>
     <description lang="fr">Export au format XMLTV. (http://xmltv.sf.net).</description>
   </package>
-  <package id="reminder-alarm" version="0.1" type="plugin-reminder" repositoryPath="package-reminder-alarm-0.1.zip">
+  <package id="reminder-alarm" version="0.1" type="plugin-reminder" repositoryPath="package-reminder-alarm-1.zip">
     <name lang="be">Alarm reminder</name>
     <description lang="be">Alarm reminder like in previous versions</description>
     <name lang="de">Alarm reminder</name>
@@ -83,13 +83,13 @@
     <name lang="fr">Alarme de rappel</name>
     <description lang="fr">Alarme de rappel comme dans les anciennes versions</description>
   </package>
-  <package id="storage-serfiles" version="0.1" type="plugin-storage" repositoryPath="package-storage-serfiles-0.1.zip">
+  <package id="storage-serfiles" version="0.1" type="plugin-storage" repositoryPath="package-storage-serfiles-1.zip">
     <name lang="en">Serialized</name>
     <description lang="en">Store data in serialized files</description>
     <name lang="fr">Serialized</name>
     <description lang="fr">Stocke les données sous formes de fichiers sérialisés</description>
   </package>
-  <package id="ui-horizontal" version="0.1" type="plugin-ui" repositoryPath="package-ui-horizontal-0.1.zip">
+  <package id="ui-horizontal" version="0.1" type="plugin-ui" repositoryPath="package-ui-horizontal-1.zip">
     <name lang="be">Гарызантальны</name>
     <description lang="be">Гэты модуль адлюстроўвае праграму тэлебачання ў выглядзе гарызантальных палос.</description>
     <name lang="en">Horizontal</name>
