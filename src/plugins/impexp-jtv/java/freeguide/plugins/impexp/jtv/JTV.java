@@ -61,7 +61,7 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData importData( JFrame parent ) throws Exception
+    public TVData importDataUI( JFrame parent ) throws Exception
     {
 
         JFileChooser chooser = new JFileChooser(  );
@@ -117,6 +117,24 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
         }
 
         return null;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param path DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     *
+     * @throws Exception DOCUMENT_ME!
+     */
+    public TVData importData( File path ) throws Exception
+    {
+
+        TVData result = new TVData(  );
+        loadFromFile( path.getPath(  ), result );
+
+        return result;
     }
 
     protected void loadFromFile( final String fileName, final TVData data )

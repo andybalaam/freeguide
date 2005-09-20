@@ -45,7 +45,7 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData importData( final JFrame parent ) throws Exception
+    public TVData importDataUI( final JFrame parent ) throws Exception
     {
 
         JFileChooser chooser = new JFileChooser(  );
@@ -88,6 +88,24 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
         }
 
         return null;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param file DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     *
+     * @throws Exception DOCUMENT_ME!
+     */
+    public TVData importData( final File file ) throws Exception
+    {
+
+        TVData result = new TVData(  );
+        new XMLTVImport(  ).process( file, result, new XMLTVImport.Filter(  ) );
+
+        return result;
     }
 
     /**
