@@ -414,7 +414,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
             }
 
             ch.put( programme );
-            StorageHelper.performInInfo( cachedInfo, programme );
+            StorageHelper.performInInfo( getInfo(  ), programme );
         }
 
         /**
