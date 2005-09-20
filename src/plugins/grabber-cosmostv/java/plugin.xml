@@ -8,6 +8,8 @@
   <name lang="en">Cosmos TV</name>
   <description lang="be">Праграмма тэлебачання з http://www.cosmostv.com</description>
   <description lang="en">Grabber for http://www.cosmostv.com</description>
+  <name lang="fr">Cosmos TV</name>
+  <description lang="fr">Aspirateur pour http://www.cosmostv.com</description>
 
   <files>
     <file path="lib/grabber-cosmostv.jar"/>

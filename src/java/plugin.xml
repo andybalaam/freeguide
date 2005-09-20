@@ -6,6 +6,8 @@
 
   <name lang="en">FreeGuide-TV</name>
   <description lang="en">Main FreeGuide-TV application.</description>
+  <name lang="fr">FreeGuide-TV</name>
+  <description lang="fr">Le programme Freeguide-TV</description>
 
   <files>
     <file path="startup.jar"/>

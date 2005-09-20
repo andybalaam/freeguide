@@ -5,9 +5,11 @@
         class="freeguide.plugins.grabber.vsetv.GrabberVsetv">
 
   <name lang="be">Всё ТВ</name>
-  <name lang="en">Vsetv.com</name>
   <description lang="be">Праграма тэлебачання з http://www.vsetv.com</description>
+  <name lang="en">Vsetv.com</name>
   <description lang="en">Grabber for http://www.vsetv.com</description>
+  <name lang="fr">Vsetv.com</name>
+  <description lang="fr">Aspirateur pour http://www.vsetv.com</description>
 
   <files>
     <file path="lib/grabber-vsetv.jar"/>

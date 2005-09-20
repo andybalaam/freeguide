@@ -6,6 +6,8 @@
 
   <name lang="en">JTV</name>
   <description lang="en">JTV import/export module (http://jtvhost.chat.ru)</description>
+  <name lang="fr">JTV</name>
+  <description lang="fr">Module d'import/export pour JTV (http://jtvhost.chat.ru)</description>
 
   <files>
     <file path="lib/impexp-jtv.jar"/>

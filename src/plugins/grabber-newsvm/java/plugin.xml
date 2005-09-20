@@ -5,9 +5,11 @@
         class="freeguide.plugins.grabber.newsvm.GrabberNewsvm">
 
   <name lang="be">Вечерний Минск</name>
-  <name lang="en">Newsvm.com</name>
   <description lang="be">Праграмма тэлебачання з газэты "Вечерний Минск"(http://newsvm.com)</description>
+  <name lang="en">Newsvm.com</name>
   <description lang="en">Grabber for http://newsvm.com</description>
+  <name lang="fr">Newsvm.com</name>
+  <description lang="fr">Aspirateur pour http://newsvm.com</description>
 
   <files>
     <file path="lib/grabber-newsvm.jar"/>

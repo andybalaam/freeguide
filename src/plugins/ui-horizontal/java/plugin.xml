@@ -5,9 +5,11 @@
         class="freeguide.plugins.ui.horizontal.HorizontalViewer">
 
   <name lang="be">Гарызантальны</name>
-  <name lang="en">Horizontal</name>
   <description lang="be">Гэты модуль адлюстроўвае праграму тэлебачання ў выглядзе гарызантальных палос.</description>
+  <name lang="en">Horizontal</name>
   <description lang="en">This is viewer with horizontal strips</description>
+  <name lang="fr">Horizontal</name>
+  <description lang="fr">Module de visualisation sous forme de bandes horizontales</description>
 
   <files>
     <file path="lib/ui-horizontal.jar"/>
