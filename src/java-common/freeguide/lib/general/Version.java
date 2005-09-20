@@ -90,8 +90,8 @@ public class Version
         this.minor = minor;
 
         this.revision = revision;
-        this.build = build;
 
+        this.build = build;
     }
 
     /**
@@ -139,18 +139,20 @@ public class Version
     public String getDotFormat(  )
     {
 
-        if( revision == 0 )
+        if( ( revision == 0 ) && ( build == 0 ) )
         {
 
             return major + "." + minor;
-
         }
-
-        else
+        else if( build == 0 )
         {
 
             return major + "." + minor + "." + revision;
+        }
+        else
+        {
 
+            return major + "." + minor + "." + revision + "." + build;
         }
     }
 
