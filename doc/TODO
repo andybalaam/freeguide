@@ -206,16 +206,16 @@ a Internationalisation
   Not really sure what I did to trigger this bug, but closing & restarting
   Freeguide fixed it.  And no, this did not result in all programs being marked
   as favorites. ;-) (Joe Blow)
-- Automatically import XMLTV listings if they're in the data dir.  (Just import
+a Automatically import XMLTV listings if they're in the data dir.  (Just import
   *.xmltv)
-- Catch an exception when using an unsuitable Java version, and display a
+a Catch an exception when using an unsuitable Java version, and display a
   suitable error message to the user (using Java 1.0 AWT)
 - Test whether only channel icons are displayed when you use a channel set,
   but icon and name is displayed on All Channels.
 - Make it repaint correctly when you press "f" on a programme, or double-click
 - Sometimes you can't click on certain programmes, but you can navigate to them
   with the keyboard
-- Make Startup.java accept "--install_directory x" as well as
+a Make Startup.java accept "--install_directory x" as well as
   "--install_directory=x"
 - Sometimes when I build FreeGuide from clean and then immediately start it I
   get a Segmentation fault
@@ -224,7 +224,7 @@ a Internationalisation
   - Change the home page to say how to download for each platform and region
   - Document how to modify grabber config, change channels, etc.
   - Check that all the FAQs are still relevant, and add new ones.
-- Make simple tar.gz packages for e.g. Slackware, and so that other
+a Make simple tar.gz packages for e.g. Slackware, and so that other
   pacakgers can base on that, e.g. Mac OS.
 - Make multiple-line command lines work (see Vladimir Nicolici's email
   of 2005-08-14).
@@ -234,7 +234,7 @@ a Internationalisation
 - When there are no listings for today FreeGuide should immediately ask whether
   you want to download as soon as it starts.
 - Get rid of the "user andy" messages when installing RPMs
-- Opera should have the command 'opera -newpage "%filename%"'
+a Opera should have the command 'opera -newpage "%filename%"'
 - Change plugin repo packages to be called freeguide-* instead of package-*.
 - Check that we need the TZ environment variable, and if not, remove it from
   the documentation, or reduce the urgency of the messages, at least.
@@ -244,7 +244,7 @@ a Internationalisation
   one to add to the daily guide.  It's usually a program that's at the 
   bottom of the current screen at either 1/2 or 1 hour later in the day.
   Reported by rlbfsb@gmail.com
-- Opera should have the command 'opera -newpage "%filename%"'
+a Opera should have the command 'opera -newpage "%filename%"'
 
 + Release 0.10.2 (plugins manager, bug fixes)
 
