@@ -15,37 +15,37 @@
 
         <tar longfile="gnu"
             destfile="${dist-src}/${application-id}-${application-version}.tar.gz" compression="gzip" >
-            <tarfileset dir="${src}" prefix="${name-version}/src">
+            <tarfileset dir="${src}" prefix="${application-id}-${application-version}/src">
                 <exclude name="**/.xvpics/**" />
             </tarfileset>
-            <tarfileset dir="${doc}" prefix="${name-version}/doc">
+            <tarfileset dir="${doc}" prefix="${application-id}-${application-version}/doc">
                 <exclude name="**/.xvpics/**" />
             </tarfileset>
             <tarfileset dir="." includes="build*.xml"
-                prefix="${name-version}" />
+                prefix="${application-id}-${application-version}" />
             <tarfileset dir="xmltv"
                 includes="*"
                 excludes="CVS/**"
-                prefix="${name-version}/xmltv" />
+                prefix="${application-id}-${application-version}/xmltv" />
             <tarfileset dir="stats"
                 includes="*.sh,*.py,barchart"
-                prefix="${name-version}/stats" />
+                prefix="${application-id}-${application-version}/stats" />
         </tar>
         <zip zipfile="${dist-src}/${application-id}-${application-version}.zip">
-            <zipfileset dir="${src}" prefix="${name-version}/src">
+            <zipfileset dir="${src}" prefix="${application-id}-${application-version}/src">
                 <exclude name="**/.xvpics/**" />
             </zipfileset>
-            <zipfileset dir="${doc}" prefix="${name-version}/doc">
+            <zipfileset dir="${doc}" prefix="${application-id}-${application-version}/doc">
                 <exclude name="**/.xvpics/**" />
             </zipfileset>
-            <zipfileset dir="." includes="build*.xml" prefix="${name-version}" />
+            <zipfileset dir="." includes="build*.xml" prefix="${application-id}-${application-version}" />
             <zipfileset dir="xmltv"
                 includes="*"
                 excludes="CVS/**"
-                prefix="${name-version}/xmltv" />
+                prefix="${application-id}-${application-version}/xmltv" />
             <zipfileset dir="stats"
                 includes="*.sh,*.py,barchart"
-                prefix="${name-version}/stats" />
+                prefix="${application-id}-${application-version}/stats" />
         </zip>
         
     </target>

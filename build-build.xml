@@ -2,16 +2,12 @@
 
 <project name="freeguide-tv-build">
 
-    <target name="build-all" depends="prebuild, build-plugins, build-app, build-startup"/>
+	<import file="build-prebuild.xml"/>
+	<import file="build-plugins-info.xml"/>
+	
+    <target name="build-all" depends="prebuild-versions, build-plugins, build-app"/>
 
-    <target name="build-init">
-        <!-- Create the time stamp -->
-        <tstamp/>
-        <!-- Create the build directory structure used by compile -->
-        <mkdir dir="${build}/lib" />
-    </target>
-    
-    <target name="build-common" depends="build-init">
+    <target name="build-common">
         <mkdir dir="${build}/classes/common"/>
         <!-- compile all the .java files -->
         <javac srcdir="${src}/java-common"
@@ -28,27 +24,25 @@
         <copy todir="${build}/classes/common">
             <fileset dir="${src}/java-common" excludes="**/*.java" />
         </copy>
-        <jar jarfile="${build}/lib/common.jar" basedir="${build}/classes/common"/>
-        <copy todir="${build}/lib/">
+
+    	<mkdir dir="${build}/package/${application-id}/lib"/>
+		<jar jarfile="${build}/package/${application-id}/lib/common.jar" basedir="${build}/classes/common"/>
+        <copy todir="${build}/package/${application-id}/lib">
             <fileset dir="${src}/lib" includes="**/*.jar"/>
         </copy>
-        
-        <!-- gzip the man page -->
-        <gzip src="${src}/install/linux/freeguide.1" zipfile="${build}/freeguide.1.gz" />
-            
     </target>
     
     <target name="build-plugins">
         <antcall target="all-plugins">
-            <param name="actual-target" value="build-one-plugin"/>
+            <param name="actual-target" value="subtask-build-one-plugin"/>
         </antcall>
     </target>    
     
-    <target name="build-one-plugin" depends="build-common">
-        <mkdir dir="${build}/classes/${plugin-name}"/>
+    <target name="subtask-build-one-plugin" depends="build-common">
+        <mkdir dir="${build}/classes/${plugin-id}"/>
         <!-- compile all the .java files -->
-        <javac srcdir="${src}/plugins/${plugin-name}/java"
-            destdir="${build}/classes/${plugin-name}"
+        <javac srcdir="${src}/plugins/${plugin-id}/java"
+            destdir="${build}/classes/${plugin-id}"
             deprecation="on" 
             source="1.4" 
             target="1.4"
@@ -60,19 +54,20 @@
             </classpath>
           </javac>
 
-        <copy todir="${build}/classes/${plugin-name}">
-            <fileset dir="${src}/plugins/${plugin-name}/java" excludes="**/*.java" />
+        <copy todir="${build}/classes/${plugin-id}">
+            <fileset dir="${src}/plugins/${plugin-id}/java" excludes="**/*.java" />
           </copy>
 
-        <jar jarfile="${build}/lib/${plugin-name}.jar"
-             basedir="${build}/classes/${plugin-name}"/>
+    	<mkdir dir="${build}/package/${plugin-id}/lib"/>
+        <jar jarfile="${build}/package/${plugin-id}/lib/${plugin-id}.jar"
+             basedir="${build}/classes/${plugin-id}"/>
     </target>
     
-    <target name="build-app" description="compile application" depends="build-common">
-        <mkdir dir="${build}/classes/app"/>
+    <target name="build-app" description="compile application" depends="build-common, build-startup">
+        <mkdir dir="${build}/classes/${application-id}"/>
         <!-- compile all the .java files -->
         <javac srcdir="${src}/java"
-            destdir="${build}/classes/app"
+            destdir="${build}/classes/${application-id}"
             deprecation="on" 
             source="1.4" 
             target="1.4"
@@ -88,19 +83,22 @@
             </classpath>
           </javac>
 
-        <copy todir="${build}/classes/app">
+        <copy todir="${build}/classes/${application-id}">
             <fileset dir="${src}/resources"/>
             <fileset dir="${src}/java" excludes="**/*.java"/>
         </copy>
         
         <!-- Make the jar file -->
-        <jar jarfile="${build}/lib/freeguide.jar"
-             basedir="${build}/classes/app"/>
+    	<mkdir dir="${build}/package/${application-id}/lib"/>
+        <jar jarfile="${build}/package/${application-id}/lib/${application-id}.jar"
+             basedir="${build}/classes/${application-id}"/>
 
-        <copy todir="${build}/doc">
+    	<mkdir dir="${build}/package/${application-id}/doc"/>
+        <copy todir="${build}/package/${application-id}/doc">
             <fileset dir="doc" includes="*.html, *.css, *.txt, *.png, COPYING, TODO"/>
         </copy>
-    	
+        <!-- gzip the man page -->
+        <gzip src="${build}/dist/linux/freeguide.1" zipfile="${build}/package/${application-id}/freeguide.1.gz" />
     </target>
     
     <target name="build-startup" depends="build-common">
@@ -115,7 +113,8 @@
             encoding="UTF-8">
           </javac>
 
-        <jar jarfile="${build}/startup.jar"
+    	<mkdir dir="${build}/package/${application-id}/lib"/>
+        <jar jarfile="${build}/package/${application-id}/startup.jar"
              basedir="${build}/classes/startup"
              manifest="${src}/startup/META-INF/startup.mf" />
     </target>

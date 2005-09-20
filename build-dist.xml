@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
 <project name="freeguide-tv-dist">
-    
+
+    <import file="build-build.xml"/>
+
     <target name="dist-init">
         <mkdir dir="${dist}"/>
         <mkdir dir="${dist-repo}"/>
@@ -10,9 +12,8 @@
     
     <target name="dist-repository" depends="build-all, dist-init">
         
-        <zip destfile="${dist-repo}/package-freeguide-0.10.2.zip" 
-    		basedir="build/" 
-    		includes="startup.jar, lib/freeguide.jar, lib/common.jar, lib/AJavaLib.jar, lib/tagsoup-1.0.rc3, doc/"/>
+        <zip destfile="${dist-repo}/package-${application-id}-${application-version}.zip" 
+    		basedir="build/package/${application-id}"/>
         
         <antcall target="all-plugins">
             <param name="actual-target" value="dist-repository-one-plugin"/>
@@ -21,41 +22,44 @@
     </target>
     
     <target name="dist-repository-one-plugin">
-    	<zip destfile="${dist-repo}/package-${plugin-name}-${plugin-version}.zip" 
-    		basedir="build/" 
-    		includes="lib/${plugin-name}.jar"/>
+    	<zip destfile="${dist-repo}/package-${plugin-id}-${plugin-version}.zip" 
+    		basedir="build/package/${plugin-id}"/>
+	</target>
+ 
+    <target name="dist-clean">
+        <delete dir="${dist}" />
+    </target>
+    
+	
+	
+	<target name="dist-tgz" depends="build-all">
+		<mkdir dir="${dist}/tgz"/>
+		<tar longfile="gnu"
+			 destfile="${dist}/tgz/${application-id}-${application-version}.tar.gz" compression="gzip" >
+            <tarfileset dir="${build}/package/${application-id}" prefix="/usr/share/freeguide/">
+	            <exclude name="doc/**"/>
+            </tarfileset>
+            <tarfileset dir="${build}/package/${application-id}/doc" prefix="/usr/share/doc/freeguide/"/>
+        </tar>
+		<antcall target="all-plugins">
+            <param name="actual-target" value="subtask-dist-tgz-plugin"/>
+		</antcall>
+	</target>
+	
+	
+	<target name="subtask-dist-tgz-plugin">
+		<mkdir dir="${dist}/tgz"/>
+		<tar longfile="gnu"
+			 destfile="${dist}/tgz/${plugin-id}-${plugin-version}.tar.gz" compression="gzip" >
+            <tarfileset dir="${build}/package/${plugin-id}" prefix="/usr/share/freeguide/">
+	            <exclude name="doc/**"/>
+            </tarfileset>
+            <!--tarfileset dir="${build}/package/${plugin-id}/doc" prefix="/usr/share/doc/freeguide/"/-->
+        </tar>
 	</target>
     
-    <target name="dist-rpm-init" depends="build-all, dist-init">
-        <antcall target="all-plugins"><param name="actual-target" value="dist-rpm-make-plugin-spec"/></antcall>
-    </target>
-    
-    <target name="dist-rpm" depends="dist-rpm-init">
-        <!-- TODO: either call the rpmbuild script from here, or use the ant rpm task -->
-    </target>
-   
-    <target name="dist-rpm-make-plugin-spec" depends="version-numbers">
-        <property name="template_file" value="${src}/install/linux/rpm/freeguide-plugin.spec.template"/>
-        <property name="output_file" value="${src}/install/linux/rpm/freeguide-${plugin-name}.spec"/>
-        <copy file="${template_file}" tofile="${output_file}"/>
-	<replace file="${output_file}">
-		<replacefilter token="__ANT_PLUGIN_NAME__" value="${plugin-name}"/>
-		<replacefilter token="__ANT_PLUGIN_VERSION__" value="${plugin-version}"/>
-		<replacefilter token="__ANT_PLUGIN_RELEASE__" value="${plugin-release}"/>
-		<replacefilter token="__ANT_PLUGIN_REQUIRES_STRING__" value="${plugin-requires-string}"/>
-		<replacefilter token="__ANT_PLUGIN_DESCRIPTION__" value="${plugin-description}"/>
-	</replace>
-    </target>
- 
-    <target name="dist-rpm-delete-plugin-spec">
-	<delete file="${src}/install/linux/rpm/freeguide-${plugin-name}.spec"/>
-    </target>
 
-    <target name="dist-clean">
-        <delete dir="${dist-repo}" />
-        <delete dir="${dist-rpm}" />
-	<antcall target="all-plugins"><param name="actual-target" value="dist-rpm-delete-plugin-spec"/></antcall>
-    </target>
     
+
 </project>
 

@@ -2,6 +2,8 @@
 
 <project name="freeguide-tv-install-linux">
 
+    <import file="build-build.xml"/>
+
     <target name="install-linux-base" depends="build-all" >
         
         <!-- These properties are passed in (example values shown):
@@ -83,6 +85,5 @@
     </target>
     
     <target name="install-linux-clean"/>
-    
 </project>
 
