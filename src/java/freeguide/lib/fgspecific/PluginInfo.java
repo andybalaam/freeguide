@@ -165,32 +165,46 @@ public class PluginInfo extends DefaultHandler
     public IModule getInstance(  )
     {
 
+        if( instance == null )
+        {
+            instanciate(  );
+        }
+
         return instance;
+    }
+
+    protected synchronized void instanciate(  )
+    {
+
+        if( instance == null )
+        {
+
+            if( className != null )
+            {
+
+                try
+                {
+
+                    Class moduleClass =
+                        getClass(  ).getClassLoader(  ).loadClass( className );
+                    instance = (IModule)moduleClass.newInstance(  );
+
+                }
+                catch( Exception ex )
+                {
+                    FreeGuide.log.log( 
+                        Level.SEVERE, "Cannot create instance for "
+                        + className, ex );
+                }
+
+                FreeGuide.log.finest( "Class '" + className + "' loaded" );
+            }
+        }
     }
 
     protected void setClassName( final String className )
     {
         this.className = className;
-
-        if( className != null )
-        {
-
-            try
-            {
-
-                Class moduleClass =
-                    getClass(  ).getClassLoader(  ).loadClass( className );
-                instance = (IModule)moduleClass.newInstance(  );
-
-            }
-            catch( Exception ex )
-            {
-                FreeGuide.log.log( 
-                    Level.SEVERE, "Cannot create instance for " + className, ex );
-            }
-
-            FreeGuide.log.finest( "Class '" + className + "' loaded" );
-        }
     }
 
     /**
