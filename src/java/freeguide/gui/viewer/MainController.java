@@ -496,7 +496,7 @@ public class MainController extends BaseModule implements IApplication
                     try
                     {
 
-                        TVData data = imp.importData( mainFrame );
+                        TVData data = imp.importDataUI( mainFrame );
                         getDataStorage(  ).add( data );
                         viewer.onDataChanged(  );
                     }
