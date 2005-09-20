@@ -20,6 +20,7 @@ import freeguide.gui.wizard.FirstTimeWizard;
 
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PluginsManager;
+import freeguide.lib.fgspecific.data.TVData;
 
 import freeguide.lib.general.CmdArgs;
 import freeguide.lib.general.LanguageHelper;
@@ -29,10 +30,12 @@ import freeguide.lib.general.Version;
 import freeguide.migration.Migrate;
 
 import freeguide.plugins.IApplication;
+import freeguide.plugins.IModuleImport;
 import freeguide.plugins.IModuleStorage;
 import freeguide.plugins.IModuleViewer;
 
 import java.io.File;
+import java.io.FileFilter;
 
 import java.util.Locale;
 import java.util.Properties;
@@ -205,7 +208,6 @@ public class FreeGuide
         catch( Exception ex )
         {
             log.log( Level.SEVERE, "Error save config", ex );
-
         }
     }
 
@@ -234,8 +236,59 @@ public class FreeGuide
             die( startupMessages.getLocalizedMessage( "startup.NoStorage" ) );
         }
 
+        try
+        {
+            importXMLTV(  );
+        }
+        catch( Exception ex )
+        {
+            log.log( Level.WARNING, "Error loading XMLTV file", ex );
+        }
+
         ( (MainController)Application.getInstance(  ) ).start( 
             viewer, grabberFromWizard );
+    }
+
+    /**
+     * Import all XMLTV files from data directory on startup.
+     *
+     * @throws Exception
+     */
+    protected void importXMLTV(  ) throws Exception
+    {
+
+        IModuleImport xmltvHandler =
+            (IModuleImport)PluginsManager.getModuleByID( "impexp-xmltv" );
+
+        if( xmltvHandler == null )
+        {
+
+            return;
+        }
+
+        File[] xmltvFiles =
+            new File( config.workingDirectory ).listFiles( 
+                new FileFilter(  )
+                {
+                    public boolean accept( File pathname )
+                    {
+
+                        return !pathname.isDirectory(  )
+                        && pathname.getName(  ).endsWith( ".xmltv" );
+                    }
+                } );
+
+        if( xmltvFiles != null )
+        {
+
+            for( int i = 0; i < xmltvFiles.length; i++ )
+            {
+
+                TVData data = xmltvHandler.importData( xmltvFiles[i] );
+                Application.getInstance(  ).getDataStorage(  ).add( data );
+                xmltvFiles[i].delete(  );
+            }
+        }
     }
 
     /**
