@@ -2,16 +2,19 @@
 
 <project name="freeguide-tv-source">
 
+    <import file="build-prebuild.xml"/>
+    <import file="build-plugins-info.xml"/>
+
     <target name="source-init">
         <mkdir dir="${dist}" />
         <mkdir dir="${dist-src}" />
     </target>
     
-    <target name="source-all" depends="source-init"
+    <target name="source-all" depends="prebuild-versions, source-init"
         description="generate the source tar.gz and zip">
 
         <tar longfile="gnu"
-            destfile="${dist-src}/${name-version}.tar.gz" compression="gzip" >
+            destfile="${dist-src}/${application-id}-${application-version}.tar.gz" compression="gzip" >
             <tarfileset dir="${src}" prefix="${name-version}/src">
                 <exclude name="**/.xvpics/**" />
             </tarfileset>
@@ -28,7 +31,7 @@
                 includes="*.sh,*.py,barchart"
                 prefix="${name-version}/stats" />
         </tar>
-        <zip zipfile="${dist-src}/${name-version}.zip">
+        <zip zipfile="${dist-src}/${application-id}-${application-version}.zip">
             <zipfileset dir="${src}" prefix="${name-version}/src">
                 <exclude name="**/.xvpics/**" />
             </zipfileset>

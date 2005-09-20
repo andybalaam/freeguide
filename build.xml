@@ -1,6 +1,23 @@
 <?xml version="1.0"?>
 
-<project name="freeguide-tv" default="main" basedir=".">
+<!--
+
+  Main build file with meta tasks.
+  Used tasks:
+    source-all        - pack all sources to .zip and .tar.gz formats.
+    prebuild-versions - compile helper classes and apply versions and names from plugin.xml's to all files.
+    build-all         - compile application and all plugins to jars.
+    dist-repository   - make .zip files for repository
+    dist-tgz          - make .tar.gz files for slackware and other unpackaged linuxes
+
+
+  After builds we have:
+    dist/src        - sources
+    dist/repository - zip files for repository
+    dist/rpm        - rpm files
+-->
+
+<project name="freeguide-tv" default="all" basedir=".">
 
     <!-- set global properties for this build -->
     <property name="src"        location="src"                />
@@ -14,115 +31,22 @@
     <property name="dist-repo"  location="${dist}/repository" />
     <property name="dist-rpm"   location="${dist}/rpm"        />
     
-    <!-- Version numbers -->
-    <property name="version-major"     value="0"         />
-    <property name="version-minor"     value="10"        />
-    <property name="version-revision"  value="2"         />
-    <property name="program-name"      value="freeguide" />
-    <property name="version-dotted"    value="${version-major}.${version-minor}.${version-revision}"/>
-    <property name="name-version"      value="${program-name}-${version-dotted}"/>
-    
     <description>
         Ant build file for FreeGuide.
     </description>
     
-    <target name="main" depends="source-all, build-all" />
+    <target name="all" depends="source-all, build-all, dist-repository" />
     
-    <import file="build-source.xml"/>
     <import file="build-prebuild.xml"/>
+    <import file="build-source.xml"/>
     <import file="build-build.xml"/>
     <import file="build-install-linux.xml"/>
     <import file="build-dist.xml"/>
-    <import file="build-clean.xml"/>
+  
     
-    <target name="all-plugins" description="Do something for each plugin">
-        <antcall target="${actual-target}">
-            <param name="plugin-name"            value="grabber-cosmostv"/>
-            <param name="plugin-version"         value="1"/>
-            <param name="plugin-release"         value="2"/>
-            <param name="plugin-requires-string" value=""/>
-            <param name="plugin-description"     value="This is a grabber for FreeGuide to download listings from cosmostv."/>
-        </antcall>
-        <antcall target="${actual-target}">
-            <param name="plugin-name" value="grabber-kulichki"/>
-            <param name="plugin-version" value="1"/>
-            <param name="plugin-release"         value="2"/>
-            <param name="plugin-requires-string" value=""/>
-            <param name="plugin-description"     value="This is a grabber for FreeGuide to download listings from kulichki."/>
-        </antcall>
-        <antcall target="${actual-target}">
-            <param name="plugin-name" value="grabber-newsvm"  />
-            <param name="plugin-version" value="1"/>
-            <param name="plugin-release"         value="2"/>
-            <param name="plugin-requires-string" value=""/>
-            <param name="plugin-description"     value="This is a grabber for FreeGuide to download listings from newsvm."/>
-        </antcall>
-        <antcall target="${actual-target}">
-            <param name="plugin-name" value="grabber-ntvplus" />
-            <param name="plugin-version" value="1"/>
-            <param name="plugin-release"         value="2"/>
-            <param name="plugin-requires-string" value=""/>
-            <param name="plugin-description"     value="This is a grabber for FreeGuide to download listings from ntvplus."/>
-        </antcall>
-        <antcall target="${actual-target}">
-            <param name="plugin-name" value="grabber-vsetv"   />
-            <param name="plugin-version" value="1"/>
-            <param name="plugin-release"         value="2"/>
-            <param name="plugin-requires-string" value=""/>
-            <param name="plugin-description"     value="This is a grabber for FreeGuide to download listings from vsetv."/>
-        </antcall>
-        <antcall target="${actual-target}">
-            <param name="plugin-name" value="grabber-xmltv"   />
-            <param name="plugin-version" value="1"/>
-            <param name="plugin-release"         value="2"/>
-            <param name="plugin-requires-string" value=""/>
-            <!--param name="plugin-requires-string" value=", xmltv-grabbers >= 0.5.40"/-->
-            <!-- This should be added when/if FreeGuide is added to ATRPMs -->
-            <param name="plugin-description"     value="This is a grabber for FreeGuide to download listings using the XMLTV tools."/>
-        </antcall>
-        <antcall target="${actual-target}">
-            <param name="plugin-name" value="impexp-jtv"      />
-            <param name="plugin-version" value="1"/>
-            <param name="plugin-release"         value="2"/>
-            <param name="plugin-requires-string" value=""/>
-            <param name="plugin-description"     value="This is a plugin for FreeGuide to import/export listings to/from jtv format."/>
-        </antcall>
-        <antcall target="${actual-target}">
-            <param name="plugin-name" value="impexp-palmatv"  />
-            <param name="plugin-version" value="1"/>
-            <param name="plugin-release"         value="2"/>
-            <param name="plugin-requires-string" value=""/>
-            <param name="plugin-description"     value="This is a plugin for FreeGuide to import/export listings to/from PalmATV format."/>
-        </antcall>
-        <antcall target="${actual-target}">
-            <param name="plugin-name" value="impexp-xmltv"    />
-            <param name="plugin-version" value="1"/>
-            <param name="plugin-release"         value="2"/>
-            <param name="plugin-requires-string" value=""/>
-            <param name="plugin-description"     value="This is a plugin for FreeGuide to import/export listings to/from XMLTV format."/>
-        </antcall>
-        <antcall target="${actual-target}">
-            <param name="plugin-name" value="reminder-alarm"  />
-            <param name="plugin-version" value="1"/>
-            <param name="plugin-release"         value="2"/>
-            <param name="plugin-requires-string" value=""/>
-            <param name="plugin-description"     value="This is a plugin for FreeGuide to remind you of programmes."/>
-        </antcall>
-        <antcall target="${actual-target}">
-            <param name="plugin-name" value="storage-serfiles"/>
-            <param name="plugin-version" value="1"/>
-            <param name="plugin-release"         value="2"/>
-            <param name="plugin-requires-string" value=""/>
-            <param name="plugin-description"     value="This is a plugin for FreeGuide to store its listings info as serialised Java objects."/>
-        </antcall>
-        <antcall target="${actual-target}">
-            <param name="plugin-name" value="ui-horizontal"   />
-            <param name="plugin-version" value="1"/>
-            <param name="plugin-release"         value="2"/>
-            <param name="plugin-requires-string" value=""/>
-            <param name="plugin-description"     value="This is a plugin for FreeGuide to display listings in a horizontal format."/>
-        </antcall>
-    </target>
+
+    <target name="clean" depends="build-clean, dist-clean, install-linux-clean, prebuild-clean, source-clean" />
+
 
 </project>
 
