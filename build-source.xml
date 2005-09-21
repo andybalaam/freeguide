@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 
-<project name="freeguide-tv-source">
+<project name="freeguide-tv-source" default="source-all">
 
-    <import file="build-prebuild.xml"/>
     <import file="build-plugins-info.xml"/>
 
     <target name="source-init">
@@ -10,11 +9,11 @@
         <mkdir dir="${dist-src}" />
     </target>
     
-    <target name="source-all" depends="prebuild-versions, source-init"
+    <target name="source-all" depends="source-init"
         description="generate the source tar.gz and zip">
 
         <tar longfile="gnu"
-            destfile="${dist-src}/${application-id}-${application-version}.tar.gz" compression="gzip" >
+            destfile="${dist-src}/${application-id}-${application-version}-src.tar.gz" compression="gzip" >
             <tarfileset dir="${src}" prefix="${application-id}-${application-version}/src">
                 <exclude name="**/.xvpics/**" />
             </tarfileset>
@@ -31,7 +30,7 @@
                 includes="*.sh,*.py,barchart"
                 prefix="${application-id}-${application-version}/stats" />
         </tar>
-        <zip zipfile="${dist-src}/${application-id}-${application-version}.zip">
+        <zip zipfile="${dist-src}/${application-id}-${application-version}-src.zip">
             <zipfileset dir="${src}" prefix="${application-id}-${application-version}/src">
                 <exclude name="**/.xvpics/**" />
             </zipfileset>
@@ -49,10 +48,5 @@
         </zip>
         
     </target>
-
-    <target name="source-clean">
-        <delete dir="${dist-src}" />
-    </target>
-    
 </project>
 

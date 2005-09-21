@@ -83,7 +83,5 @@
         <mkdir dir="${install_share_dir}/freeguide/lib/" />
         <copy file="${build}/lib/${plugin_name}.jar" todir="${install_share_dir}/freeguide/lib/" />
     </target>
-    
-    <target name="install-linux-clean"/>
 </project>
 

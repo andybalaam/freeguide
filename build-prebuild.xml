@@ -2,7 +2,7 @@
 
 <!-- Tasks for prepare build, i.e. for change application and plugins info in the all files. -->
 
-<project name="freeguide-tv-prebuild">
+<project name="freeguide-tv-prebuild" default="prepare">
 
     <target name="prebuild-mkdir">
 		<mkdir dir="${build}/buildcode"/>
@@ -20,14 +20,9 @@
     	</javac>
     </target>
 	
-    <target name="prebuild-versions" depends="prebuild-buildcode">
+    <target name="prepare" depends="prebuild-buildcode">
     	<java classpath="${build}/buildcode"
     	classname="PatchAllFiles"
     	fork="true"/>
     </target>
-
-    <target name="prebuild-clean">
-    	<delete dir="${build}/buildcode"/>
-    </target>
-    
 </project>

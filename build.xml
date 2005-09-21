@@ -4,17 +4,23 @@
 
   Main build file with meta tasks.
   Used tasks:
-    source-all        - pack all sources to .zip and .tar.gz formats.
-    prebuild-versions - compile helper classes and apply versions and names from plugin.xml's to all files.
-    build-all         - compile application and all plugins to jars.
-    dist-repository   - make .zip files for repository
-    dist-tgz          - make .tar.gz files for slackware and other unpackaged linuxes
+
+    all: prepare, source-all, build-all, dist-repository, dist-tgz
+      prepare           - compile helper classes and apply versions and names from plugin.xml's to all files.
+      source-all        - pack all sources to .zip and .tar.gz formats.
+      build-all         - compile application and all plugins to jars.
+      dist-repository   - make .zip files for repository
+      dist-tgz          - make .tar.gz files for slackware and other unpackaged linuxes
 
 
   After builds we have:
     dist/src        - sources
     dist/repository - zip files for repository
     dist/rpm        - rpm files
+    
+    
+    For build project you just need to run "ant".
+    After that you can package project by rpm, deb and NSIS.
 -->
 
 <project name="freeguide-tv" default="all" basedir=".">
@@ -35,18 +41,29 @@
         Ant build file for FreeGuide.
     </description>
     
-    <target name="all" depends="source-all, build-all, dist-repository" />
+    <target name="all" depends="prepare, source-all, build-all, dist-repository, dist-tgz" />
     
-    <import file="build-prebuild.xml"/>
-    <import file="build-source.xml"/>
-    <import file="build-build.xml"/>
-    <import file="build-install-linux.xml"/>
-    <import file="build-dist.xml"/>
-  
+	<target name="prepare">
+		<ant antfile="build-prebuild.xml"></ant>
+	</target>
+	<target name="source-all">
+		<ant antfile="build-source.xml"></ant>
+	</target>
+	<target name="build-all">
+		<ant antfile="build-build.xml"></ant>
+	</target>
+	<target name="dist-repository">
+		<ant antfile="build-dist.xml" target="dist-repository"></ant>
+	</target>
+	<target name="dist-tgz">
+		<ant antfile="build-dist.xml" target="dist-tgz"></ant>
+	</target>
     
 
-    <target name="clean" depends="build-clean, dist-clean, install-linux-clean, prebuild-clean, source-clean" />
-
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+  	</target>
 
 </project>
 

@@ -2,7 +2,7 @@
 
 <project name="freeguide-tv-dist">
 
-    <import file="build-build.xml"/>
+	<import file="build-plugins-info.xml"/>
 
     <target name="dist-init">
         <mkdir dir="${dist}"/>
@@ -10,9 +10,9 @@
         <mkdir dir="${dist-rpm}"/>
     </target>
     
-    <target name="dist-repository" depends="build-all, dist-init">
+    <target name="dist-repository" depends="dist-init">
         
-        <zip destfile="${dist-repo}/package-${application-id}-${application-version}.zip" 
+        <zip destfile="${dist-repo}/freeguide-${application-id}-${application-version}.zip" 
     		basedir="build/package/${application-id}"/>
         
         <antcall target="all-plugins">
@@ -22,7 +22,7 @@
     </target>
     
     <target name="dist-repository-one-plugin">
-    	<zip destfile="${dist-repo}/package-${plugin-id}-${plugin-version}.zip" 
+    	<zip destfile="${dist-repo}/freeguide-${plugin-id}-${plugin-version}.zip" 
     		basedir="build/package/${plugin-id}"/>
 	</target>
  
@@ -32,7 +32,7 @@
     
 	
 	
-	<target name="dist-tgz" depends="build-all">
+	<target name="dist-tgz" depends="dist-init">
 		<mkdir dir="${dist}/tgz"/>
 		<tar longfile="gnu"
 			 destfile="${dist}/tgz/${application-id}-${application-version}.tar.gz" compression="gzip" >
@@ -58,8 +58,5 @@
         </tar>
 	</target>
     
-
-    
-
 </project>
 

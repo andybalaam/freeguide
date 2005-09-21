@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
 
-<project name="freeguide-tv-build">
+<project name="freeguide-tv-build" default="build-all">
 
-	<import file="build-prebuild.xml"/>
 	<import file="build-plugins-info.xml"/>
 	
-    <target name="build-all" depends="prebuild-versions, build-plugins, build-app"/>
+    <target name="build-all" depends="build-plugins, build-app"/>
 
     <target name="build-common">
         <mkdir dir="${build}/classes/common"/>
@@ -118,10 +117,5 @@
              basedir="${build}/classes/startup"
              manifest="${src}/startup/META-INF/startup.mf" />
     </target>
-    
-    <target name="build-clean">
-        <delete dir="${build}" />
-    </target>
-    
 </project>
 
