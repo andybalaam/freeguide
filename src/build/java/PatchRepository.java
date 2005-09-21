@@ -74,7 +74,7 @@ public class PatchRepository
 
             String packageType;
 
-            if( "FreeGuide".equals( plugins[i].getID(  ) ) )
+            if( "freeguide".equals( plugins[i].getID(  ) ) )
             {
                 packageType = "application";
             }

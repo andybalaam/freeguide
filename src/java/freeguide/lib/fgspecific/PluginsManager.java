@@ -109,7 +109,7 @@ public class PluginsManager
                     pluginsInfoByID.put( handler.getID(  ), handler );
                 }
 
-                if( "FreeGuide".equals( handler.getID(  ) ) )
+                if( "freeguide".equals( handler.getID(  ) ) )
                 {
                     applicationInfo = handler;
                 }

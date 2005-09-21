@@ -88,7 +88,7 @@ public class PatchPlugins
         final String pkgName = m.group( 1 );
         final File dir;
 
-        if( "FreeGuide".equals( pkgName ) )
+        if( "freeguide".equals( pkgName ) )
         {
             dir = new File( "src/java/" );
         }
@@ -176,11 +176,11 @@ public class PatchPlugins
         }
 
         /*<?xml version="1.0" encoding="UTF-8"?>
-
+        
         <plugin id="FreeGuide"
                 version="0.10.2"
                 class="freeguide.gui.viewer.MainController">
-
+        
             <name lang="en">FreeGuide-TV</name>
             <description lang="en">Main FreeGuide-TV application.</description>
         */
