@@ -198,8 +198,9 @@ a Internationalisation
 
 - Release 0.10.3 (Transition to stable release)
 
-- Clicking Exit in First Time Wizard closes FreeGuide.
-- On migration from 0.8.6, delete old *.xmltv files.
+a Clicking Exit in First Time Wizard closes FreeGuide.
+a On migration from 0.8.6, delete old *.xmltv files.
+  COMMENT: Files deleted only if we use the same working directory.
 - Re-order buttons and change wording in Tools menu, Options screen.
 - After tinkering with favorites for a while, "add to favorites" is no longer
   available from a right-click in the guide view, only "remove from favorites".
@@ -235,7 +236,7 @@ a Make simple tar.gz packages for e.g. Slackware, and so that other
   you want to download as soon as it starts.
 - Get rid of the "user andy" messages when installing RPMs
 a Opera should have the command 'opera -newpage "%filename%"'
-- Change plugin repo packages to be called freeguide-* instead of package-*.
+a Change plugin repo packages to be called freeguide-* instead of package-*.
 - Check that we need the TZ environment variable, and if not, remove it from
   the documentation, or reduce the urgency of the messages, at least.
 - Double click problem when not on the current day.  This one is hard to 
