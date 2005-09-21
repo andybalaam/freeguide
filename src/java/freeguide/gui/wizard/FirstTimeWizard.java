@@ -427,9 +427,7 @@ public class FirstTimeWizard
         FreeGuide.log.info( 
             Application.getInstance(  ).getLocalizedMessage( 
                 "the_user_quit_the_install_before_it_completed" ) );
-
-        System.exit( 0 );
-
+        onFinish(  );
     }
 
     /**
