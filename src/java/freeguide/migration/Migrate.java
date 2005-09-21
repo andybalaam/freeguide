@@ -33,6 +33,7 @@ public class Migrate
 
         if( firstTime )
         {
+            needToRunWizard = true;
 
             return;
         }
