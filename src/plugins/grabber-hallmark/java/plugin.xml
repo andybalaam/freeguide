@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin id="grabber-hallmark"
-        version="0.1"
+        version="2"
         class="freeguide.plugins.grabber.hallmark.GrabberHallmark">
 
   <name lang="en">Hallmark Channel</name>

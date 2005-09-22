@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin id="impexp-palmatv"
-        version="0.2"
+        version="2"
         class="freeguide.plugins.impexp.palmatv.ExportPalmAtv">
 
   <name lang="en">ATV-palm</name>

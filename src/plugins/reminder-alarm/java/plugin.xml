@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin id="reminder-alarm"
-        version="0.1"
+        version="2"
         class="freeguide.plugins.reminder.alarm.AlarmReminder">
 
   <name lang="be">Alarm reminder</name>

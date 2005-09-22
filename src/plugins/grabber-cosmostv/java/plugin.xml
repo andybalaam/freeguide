@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin id="grabber-cosmostv"
-        version="0.1"
+        version="2"
         class="freeguide.plugins.grabber.cosmostv.GrabberCosmostv">
 
   <name lang="be">Cosmos TV</name>

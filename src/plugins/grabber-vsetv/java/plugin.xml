@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin id="grabber-vsetv"
-        version="0.1"
+        version="2"
         class="freeguide.plugins.grabber.vsetv.GrabberVsetv">
 
   <name lang="be">Всё ТВ</name>

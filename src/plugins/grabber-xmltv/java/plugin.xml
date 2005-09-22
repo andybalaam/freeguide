@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin id="grabber-xmltv"
-        version="0.1"
+        version="2"
         class="freeguide.plugins.grabber.xmltv.GrabberXMLTV">
 
   <name lang="en">XMLTV</name>

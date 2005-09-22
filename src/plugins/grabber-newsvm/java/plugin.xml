@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin id="grabber-newsvm"
-        version="0.1"
+        version="2"
         class="freeguide.plugins.grabber.newsvm.GrabberNewsvm">
 
   <name lang="be">Вечерний Минск</name>

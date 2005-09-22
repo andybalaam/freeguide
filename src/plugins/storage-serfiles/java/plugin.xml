@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin id="storage-serfiles"
-        version="0.1"
+        version="2"
         class="freeguide.plugins.storage.serfiles.StorageSerFilesByDay">
 
   <name lang="en">Serialized</name>

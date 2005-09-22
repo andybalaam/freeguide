@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin id="impexp-jtv"
-        version="0.1"
+        version="2"
         class="freeguide.plugins.impexp.jtv.JTV">
 
   <name lang="en">JTV</name>
