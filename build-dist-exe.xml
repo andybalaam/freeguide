@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<project name="freeguide-tv-dist-exe" default="dist-exe">
+
+	<import file="build-plugins-info.xml"/>
+
+    <target name="dist-exe">
+    </target>
+</project>
+

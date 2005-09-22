@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<project name="freeguide-tv-dist-rpm" default="dist-rpm">
+
+	<import file="build-plugins-info.xml"/>
+
+    <target name="dist-rpm">
+    </target>
+</project>
+
