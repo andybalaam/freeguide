@@ -1,42 +1,25 @@
 /*
-
  *  FreeGuide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  freeguide-tv.sourceforge.net
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
 package freeguide.lib.general;
 
 import java.awt.*;
 
 /*
-
  *  A nice easy and concise way of handling a GridBagLayout.
-
  *
-
  * @author     Andy Balaam
-
  * @created    10 Dec 2003
-
  * @version    2
-
  */
 public class GridBagEasy
 {

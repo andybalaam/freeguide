@@ -38,8 +38,6 @@ import javax.swing.SwingUtilities;
 public class ExecutorDialog extends JDialog implements IProgress, ILogger
 {
 
-    private final static String lb = System.getProperty( "line.separator" );
-
     // ------------------------------------------------------------------------
     final private JProgressBar secondProgressBar;
     private javax.swing.JButton butCancel;
