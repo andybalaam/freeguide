@@ -28,7 +28,7 @@ public class Version
 {
 
     protected static final Pattern VERSION_PATTERN =
-        Pattern.compile( "(\\d+)\\.(\\d+)(?:\\.(\\d+)(?:[_-](\\d+))?)?" );
+        Pattern.compile( "(\\d+)(?:\\.(\\d+)(?:\\.(\\d+)(?:[_-](\\d+))?)?)?" );
 
     /** Major value. */
     public int major;
@@ -138,6 +138,12 @@ public class Version
     // ----------------------------------------------------------------------
     public String getDotFormat(  )
     {
+
+        if( ( minor == 0 ) && ( revision == 0 ) && ( build == 0 ) )
+        {
+
+            return Integer.toString( major );
+        }
 
         if( ( revision == 0 ) && ( build == 0 ) )
         {
