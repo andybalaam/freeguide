@@ -75,10 +75,6 @@
             <classpath>
                 <fileset dir="${src}/lib" includes="**/*.jar"/>
                 <pathelement location="${build}/classes/common"/>
-                <pathelement location="${build}/classes/impexp-palmatv"/>
-                <pathelement location="${build}/classes/ui-horizontal"/>
-                <pathelement location="${build}/classes/storage-serfiles"/>
-                <pathelement location="${build}/classes/reminder-alarm"/>
             </classpath>
           </javac>
 
