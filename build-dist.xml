@@ -35,7 +35,7 @@
 	<target name="dist-tgz" depends="dist-init">
 		<mkdir dir="${dist}/tgz"/>
 		<tar longfile="gnu"
-			 destfile="${dist}/tgz/${application-id}-${application-version}.tar.gz" compression="gzip" >
+			 destfile="${dist}/tgz/freeguide-${application-id}-${application-version}.tar.gz" compression="gzip" >
             <tarfileset dir="${build}/package/${application-id}" prefix="/usr/share/freeguide/">
 	            <exclude name="doc/**"/>
             </tarfileset>
@@ -50,7 +50,7 @@
 	<target name="subtask-dist-tgz-plugin">
 		<mkdir dir="${dist}/tgz"/>
 		<tar longfile="gnu"
-			 destfile="${dist}/tgz/${plugin-id}-${plugin-version}.tar.gz" compression="gzip" >
+			 destfile="${dist}/tgz/freeguide-${plugin-id}-${plugin-version}.tar.gz" compression="gzip" >
             <tarfileset dir="${build}/package/${plugin-id}" prefix="/usr/share/freeguide/">
 	            <exclude name="doc/**"/>
             </tarfileset>
