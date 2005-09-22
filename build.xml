@@ -19,8 +19,10 @@
     dist/rpm        - rpm files
     
     
-    For build project you just need to run "ant".
-    After that you can package project by rpm, deb and NSIS.
+    For build project you just need to run "ant clean", then "ant".
+      After that you can run :
+        dist-exe  - package to .exe
+        dist-rpm  - package to .rpm
 -->
 
 <project name="freeguide-tv" default="all" basedir=".">
@@ -64,6 +66,14 @@
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
   	</target>
+	
+	<target name="dist-rpm">
+		<ant antfile="build-dist-rpm.xml"></ant>
+	</target>
+	<target name="dist-exe">
+		<ant antfile="build-dist-exe.xml"></ant>
+	</target>
+	
 
 </project>
 
