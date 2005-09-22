@@ -189,6 +189,8 @@ a Internationalisation
 - Make channel labels wide enough to fit channel name and icon.
 - Make a "Change Channels" button that links through to change the settings of
   the grabber(s) you are using.
+- Report e.g. parsing errors during download to the Show Details panel
+- Make the XMLTV plugin optionally save out the raw XML it downloaded for debug.
 
 - Release 0.10.4 (recording)
 
@@ -246,6 +248,9 @@ a Change plugin repo packages to be called freeguide-* instead of package-*.
   bottom of the current screen at either 1/2 or 1 hour later in the day.
   Reported by rlbfsb@gmail.com
 a Opera should have the command 'opera -newpage "%filename%"'
+- If you change the default for xmltv to more than 7 days the guide only shows 7
+  days (See Joe Blow's emails)
+- Movies are not shown in the movie colour
 
 + Release 0.10.2 (plugins manager, bug fixes)
 
