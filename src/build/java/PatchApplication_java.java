@@ -6,7 +6,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
@@ -21,16 +20,18 @@ public class PatchApplication_java
 
     protected static final String FILENAME =
         "src/java-common/freeguide/lib/fgspecific/Application.java";
+    protected static final String TAG_BEG = "/*VER_BEG*/";
+    protected static final String TAG_END = "/*VER_END*/";
 
     /**
      * DOCUMENT_ME!
      *
      * @param plugins DOCUMENT_ME!
      *
-     * @throws IOException DOCUMENT_ME!
+     * @throws Exception DOCUMENT_ME!
      */
     public static void patch( final PluginInfo[] plugins )
-        throws IOException
+        throws Exception
     {
 
         BufferedReader rd =
@@ -57,11 +58,20 @@ public class PatchApplication_java
         rd.close(  );
 
         String strData = data.toString(  );
+
+        final int posBeg = strData.indexOf( TAG_BEG );
+        final int posEnd = strData.indexOf( TAG_END );
+
+        if( ( posBeg < 0 ) || ( posEnd < 0 ) || ( posEnd <= posBeg ) )
+        {
+            throw new Exception( 
+                "Application.java must include /*VER_BEG*/ and /*VER_END*/ tags" );
+        }
+
         strData =
-            strData.replaceAll( 
-                "\\/\\*VER_BEG\\*\\/.*\\/\\*VER_END\\*\\/",
-                "/*VER_BEG*/" + getVersionCos( plugins[0].getVersion(  ) )
-                + "/*VER_END*/" );
+            strData.substring( 0, posBeg + TAG_BEG.length(  ) )
+            + getVersionCos( plugins[0].getVersion(  ) )
+            + strData.substring( posEnd );
 
         BufferedWriter wr =
             new BufferedWriter( 
@@ -76,6 +86,6 @@ public class PatchApplication_java
     protected static String getVersionCos( final Version ver )
     {
 
-        return ver.getDotFormat(  ).replaceAll( "\\.", ", " );
+        return " " + ver.getDotFormat(  ).replaceAll( "\\.", ", " ) + " ";
     }
 }
