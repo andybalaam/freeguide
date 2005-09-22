@@ -87,18 +87,22 @@ public class PatchAllFiles
             }
         }
 
-        PluginInfo[] result = new PluginInfo[files.size(  )];
+        List result = new ArrayList( files.size(  ) );
 
         for( int i = 0; i < files.size(  ); i++ )
         {
 
             File xmlFile = (File)files.get( i );
-            result[i] = new PluginInfo(  );
+            PluginInfo info = new PluginInfo(  );
+            saxParser.parse( xmlFile, info );
 
-            saxParser.parse( xmlFile, result[i] );
+            if( info.getID(  ) != null )
+            {
+                result.add( info );
+            }
         }
 
-        return result;
+        return (PluginInfo[])result.toArray( new PluginInfo[result.size(  )] );
     }
 
     protected static void changeOldFile( String baseFileName )
