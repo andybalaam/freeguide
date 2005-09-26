@@ -371,7 +371,10 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
     protected class WriteIterator extends TVIteratorProgrammes
     {
 
-        // map for store TVData by File. Each programme collected in own TVData, and all TVData's stored in sync.
+        /**
+         * Map for store TVData by File.  Each programme collected in own
+         * TVData, and all TVData's stored in sync.
+         */
         Map filesData = new TreeMap(  );
 
         protected void onChannel( TVChannel channel )
@@ -386,6 +389,14 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
         public void onProgramme( TVProgramme programme )
         {
 
+            if( 
+                programme.getStart(  ) < ( System.currentTimeMillis(  )
+                    - OLD_DATA ) )
+            {
+
+                return; // This is old programme
+            }
+
             File file = getFile( programme.getStart(  ) );
             TVData data = (TVData)filesData.get( file );
 
@@ -395,6 +406,12 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
                 if( file.exists(  ) )
                 {
                     data = load( file );
+
+                    if( data == null )
+                    { // may be it is old file
+
+                        return;
+                    }
                 }
                 else
                 {
