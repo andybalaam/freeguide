@@ -28,7 +28,7 @@ public class TVProgramme implements Comparable, Serializable
     private final static long serialVersionUID = 10;
 
     /** Description of the Field */
-    public final String stars = "***********";
+    protected static final String STARS = "***********";
 
     /** The start time in millis. */
     private long start;
@@ -90,13 +90,20 @@ public class TVProgramme implements Comparable, Serializable
         final TVProgramme result = new TVProgramme(  );
 
         result.title = title;
+        result.description = description;
 
         result.start = start;
-
         result.end = end;
 
-        result.description = description;
         result.extraTags = extraTags;
+        result.category = category;
+        result.iconURL = iconURL;
+        result.isMovie = isMovie;
+        result.isSubtitled = isSubtitled;
+        result.link = link;
+        result.previouslyShown = previouslyShown;
+        result.starRating = starRating;
+        result.subtitle = subtitle;
 
         return result;
 
@@ -256,7 +263,7 @@ public class TVProgramme implements Comparable, Serializable
                 {
 
                     return "("
-                    + stars.substring( 
+                    + STARS.substring( 
                         0, (int)Math.round( Math.floor( num ) ) ) + ")";
 
                 }
@@ -265,7 +272,7 @@ public class TVProgramme implements Comparable, Serializable
                 {
 
                     return "("
-                    + stars.substring( 
+                    + STARS.substring( 
                         0, (int)Math.round( Math.floor( num ) ) ) + " 1/2)";
 
                 }
