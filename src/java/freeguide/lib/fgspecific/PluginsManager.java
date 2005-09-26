@@ -104,10 +104,13 @@ public class PluginsManager
                     stream.close(  );
                 }
 
-                if( handler.getID(  ) != null )
+                if( handler.getID(  ) == null )
                 {
-                    pluginsInfoByID.put( handler.getID(  ), handler );
+
+                    continue;
                 }
+
+                pluginsInfoByID.put( handler.getID(  ), handler );
 
                 if( "freeguide".equals( handler.getID(  ) ) )
                 {
@@ -195,23 +198,30 @@ public class PluginsManager
             try
             {
 
-                Object config = handler.getInstance(  ).getConfig(  );
+                IModule moduleInstance = handler.getInstance(  );
 
-                if( config != null )
+                if( moduleInstance != null )
                 {
 
-                    if( handler == applicationInfo )
+                    Object config = handler.getInstance(  ).getConfig(  );
+
+                    if( config != null )
                     {
-                        PreferencesHelper.save( 
-                            Preferences.userRoot(  ).node( 
-                                "/org/freeguide-tv/mainController" ), config );
-                    }
-                    else
-                    {
-                        PreferencesHelper.save( 
-                            Preferences.userRoot(  ).node( 
-                                "/org/freeguide-tv/modules/"
-                                + handler.getID(  ) ), config );
+
+                        if( handler == applicationInfo )
+                        {
+                            PreferencesHelper.save( 
+                                Preferences.userRoot(  ).node( 
+                                    "/org/freeguide-tv/mainController" ),
+                                config );
+                        }
+                        else
+                        {
+                            PreferencesHelper.save( 
+                                Preferences.userRoot(  ).node( 
+                                    "/org/freeguide-tv/modules/"
+                                    + handler.getID(  ) ), config );
+                        }
                     }
                 }
             }

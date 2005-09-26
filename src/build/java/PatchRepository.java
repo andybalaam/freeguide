@@ -98,6 +98,10 @@ public class PatchRepository
             {
                 packageType = "plugin-ui";
             }
+            else if( plugins[i].getID(  ).startsWith( "other-" ) )
+            {
+                packageType = "other";
+            }
             else
             {
                 throw new Exception( 
