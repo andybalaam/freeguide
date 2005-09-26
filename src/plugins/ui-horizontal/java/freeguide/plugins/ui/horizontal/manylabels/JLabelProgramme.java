@@ -1,6 +1,6 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import freeguide.lib.fgspecific.PluginsManager;
+import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.ProgrammeFormat;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
@@ -171,8 +171,19 @@ public class JLabelProgramme extends JLabel
      */
     public static void setupLabel( final HorizontalViewer main )
     {
-        REMINDER =
-            (IModuleReminder)PluginsManager.getModuleByID( "reminder-alarm" );
+
+        // TODO change
+        IModuleReminder[] rems = Application.getInstance(  ).getReminders(  );
+
+        if( rems.length > 0 )
+        {
+            REMINDER = rems[0];
+        }
+        else
+        {
+            REMINDER = null;
+        }
+
         DEFAULT_BORDER =
             BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLACK ),
