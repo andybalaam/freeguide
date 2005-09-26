@@ -55,11 +55,16 @@
 
         <copy todir="${build}/classes/${plugin-id}">
             <fileset dir="${src}/plugins/${plugin-id}/java" excludes="**/*.java" />
-          </copy>
+        </copy>
 
     	<mkdir dir="${build}/package/${plugin-id}/lib"/>
         <jar jarfile="${build}/package/${plugin-id}/lib/${plugin-id}.jar"
              basedir="${build}/classes/${plugin-id}"/>
+    	
+    	<copy todir="${build}/package/${plugin-id}" failonerror="false">
+            <fileset dir="${src}/plugins/${plugin-id}/files"/>
+            <fileset dir="${src}/plugins/${plugin-id}/files-nosrc"/>
+  		</copy>
     </target>
     
     <target name="build-app" description="compile application" depends="build-common, build-startup">

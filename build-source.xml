@@ -16,6 +16,7 @@
             destfile="${dist-src}/${application-id}-${application-version}-src.tar.gz" compression="gzip" >
             <tarfileset dir="${src}" prefix="${application-id}-${application-version}/src">
                 <exclude name="**/.xvpics/**" />
+                <exclude name="**/*-nosrc/**" />
             </tarfileset>
             <tarfileset dir="${doc}" prefix="${application-id}-${application-version}/doc">
                 <exclude name="**/.xvpics/**" />
@@ -33,6 +34,7 @@
         <zip zipfile="${dist-src}/${application-id}-${application-version}-src.zip">
             <zipfileset dir="${src}" prefix="${application-id}-${application-version}/src">
                 <exclude name="**/.xvpics/**" />
+                <exclude name="**/*-nosrc/**" />
             </zipfileset>
             <zipfileset dir="${doc}" prefix="${application-id}-${application-version}/doc">
                 <exclude name="**/.xvpics/**" />

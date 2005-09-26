@@ -23,6 +23,9 @@
       After that you can run :
         dist-exe  - package to .exe
         dist-rpm  - package to .rpm
+        
+    For create other-xmltv-win32-exe plugin, you need to put xmltv.exe into
+      "src/plugins/other-xmltv-win32-exe/files-nosrc/xmltv" directory.
 -->
 
 <project name="freeguide-tv" default="all" basedir=".">

@@ -47,6 +47,10 @@
       <param name="plugin-version" value="2"/>
     </antcall>
     <antcall target="${actual-target}">
+      <param name="plugin-id" value="other-xmltv-win32-exe"/>
+      <param name="plugin-version" value="1"/>
+    </antcall>
+    <antcall target="${actual-target}">
       <param name="plugin-id" value="reminder-alarm"/>
       <param name="plugin-version" value="2"/>
     </antcall>

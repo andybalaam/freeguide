@@ -77,6 +77,10 @@
     <name lang="fr">XMLTV</name>
     <description lang="fr">Export au format XMLTV. (http://xmltv.sf.net).</description>
   </package>
+  <package id="other-xmltv-win32-exe" version="1" type="other" repositoryPath="package-other-xmltv-win32-exe-1.zip">
+    <name lang="en">XMLTV for Windows</name>
+    <description lang="en">XMLTV for Windows execution from http://alpha-exe.xmltv.org/</description>
+  </package>
   <package id="reminder-alarm" version="2" type="plugin-reminder" repositoryPath="package-reminder-alarm-2.zip">
     <name lang="be">Alarm reminder</name>
     <description lang="be">Alarm reminder like in previous versions</description>
