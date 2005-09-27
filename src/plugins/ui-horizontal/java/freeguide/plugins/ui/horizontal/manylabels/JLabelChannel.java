@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Image;
+import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -75,15 +76,16 @@ public class JLabelChannel extends JLabel
     {
 
         FontMetrics myFM = this.getFontMetrics( getFont(  ) );
-
         int ans = myFM.stringWidth( getText(  ) );
-
         Icon ic = super.getIcon(  );
 
         if( ic != null )
         {
             ans += ic.getIconWidth(  );
         }
+
+        Insets ins = getInsets(  );
+        ans += ( ins.left + ins.right );
 
         if( ans < 10 )
         {
