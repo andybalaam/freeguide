@@ -33,7 +33,10 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
     protected static final int MODES_NONE = 0;
     protected static final int MODES_TITLE = 1;
     protected static final int MODES_CHANNEL_NAME = 2;
-    protected static final int MODES_END = 3;
+    protected static final int MODES_PROG_TIME = 3;
+    protected static final int MODES_PROG_TITLE = 4;
+    protected static final int MODES_ANON_TIME = 5;
+    protected static final int MODES_ANON_TEXT = 6;
     protected static final Pattern DATE_PATTERN =
         Pattern.compile( "(\\S+)\\s*,\\s*(\\d{1,2})\\s+(\\S+)\\s+(\\d{4})" );
     protected static final Pattern FILM_ID_PATTERN =
@@ -47,6 +50,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
     protected final TimeZone tz;
     protected boolean isAnnounces;
     protected ILogger logger;
+    protected final StringBuffer currentText = new StringBuffer(  );
 
     /**
      * Creates a new HandlerParseProg object.
@@ -72,7 +76,6 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
     public void startDocument(  ) throws SAXException
     {
         currentChannel = null;
-        currentProg = null;
         currentDate = 0L;
         prevTime = 0;
         mode = MODES_NONE;
@@ -92,38 +95,43 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
         String uri, String localName, String qName, Attributes atts )
         throws SAXException
     {
+        currentText.setLength( 0 );
 
         if( mode == MODES_NONE )
         {
 
-            if( "font".equals( qName ) )
+            if( 
+                "td".equals( qName )
+                    && "channeltitle".equals( atts.getValue( "class" ) ) )
             {
-
-                if( "WHITE".equalsIgnoreCase( atts.getValue( "class" ) ) )
-                {
-                    mode = MODES_CHANNEL_NAME;
-                    prevTime = 0;
-                }
+                mode = MODES_CHANNEL_NAME;
+                prevTime = 0;
+                currentProg = null;
             }
-            else if( "b".equals( qName ) )
+            else if( 
+                "span".equals( qName )
+                    && "pagedate".equals( atts.getValue( "class" ) ) )
             {
-
-                if( "TITLE".equalsIgnoreCase( atts.getValue( "class" ) ) )
-                {
-                    mode = MODES_TITLE;
-                    prevTime = 0;
-                }
+                mode = MODES_TITLE;
+                prevTime = 0;
             }
-            else if( "a".equals( qName ) )
+            else if( 
+                "td".equals( qName )
+                    && "progtime".equals( atts.getValue( "class" ) ) )
             {
-
-                String href = atts.getValue( "href" );
-
-                if( ( href != null ) && ( href.indexOf( "print.php" ) != -1 ) )
-                {
-                    currentChannel = null;
-                    mode = MODES_END;
-                }
+                mode = MODES_PROG_TIME;
+            }
+            else if( 
+                "td".equals( qName )
+                    && "anonstime".equals( atts.getValue( "class" ) ) )
+            {
+                mode = MODES_ANON_TIME;
+            }
+            else if( 
+                "span".equals( qName )
+                    && "descr1".equals( atts.getValue( "class" ) ) )
+            {
+                mode = MODES_ANON_TEXT;
             }
         }
     }
@@ -141,32 +149,14 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
         throws SAXException
     {
 
-        if( isAnnounces && "td".equals( qName ) )
-        {
-            currentProg = null;
-        }
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param ch DOCUMENT_ME!
-     * @param start DOCUMENT_ME!
-     * @param length DOCUMENT_ME!
-     *
-     * @throws SAXException DOCUMENT_ME!
-     */
-    public void characters( char[] ch, int start, int length )
-        throws SAXException
-    {
+        String text = HtmlHelper.strongTrim( currentText.toString(  ) );
 
         switch( mode )
         {
 
         case MODES_TITLE:
 
-            Matcher titleMatcher =
-                DATE_PATTERN.matcher( new String( ch, start, length ) );
+            Matcher titleMatcher = DATE_PATTERN.matcher( text );
 
             if( !titleMatcher.matches(  ) )
             {
@@ -184,8 +174,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
             }
             catch( ParseException ex )
             {
-                logger.warning( 
-                    "Error parse : " + new String( ch, start, length ) );
+                logger.warning( "Error parse : " + text );
             }
 
             mode = MODES_NONE;
@@ -200,7 +189,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
                     "Error in page format: title not found" );
             }
 
-            String channelName = new String( ch, start, length );
+            String channelName = text;
             currentChannel =
                 siteData.get( "vsetv/" + channelName.replace( '/', '_' ) );
             currentChannel.setDisplayName( channelName );
@@ -209,30 +198,123 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 
             break;
 
-        case MODES_NONE:
+        case MODES_PROG_TIME:
 
-            if( currentChannel != null )
+            if( currentChannel == null )
+            {
+                throw new SAXException( 
+                    "Error in page format: channel not found" );
+            }
+
+            try
             {
 
-                String text =
-                    HtmlHelper.strongTrim( new String( ch, start, length ) );
+                Time tm = LineProgrammeHelper.parseTime( text );
+                long time =
+                    TimeHelper.correctTime( tm, currentDate, prevTime );
+                currentProg = new TVProgramme(  );
+                currentProg.setStart( time );
+                prevTime = time;
+                mode = MODES_PROG_TITLE;
+                currentChannel.put( currentProg );
+            }
+            catch( ParseException ex )
+            {
+            }
 
-                if( !"".equals( text ) )
+            break;
+
+        case MODES_PROG_TITLE:
+
+            if( currentProg != null )
+            {
+                currentProg.setTitle( text );
+            }
+
+            mode = MODES_NONE;
+
+            break;
+
+        case MODES_ANON_TIME:
+
+            if( currentDate == 0 )
+            {
+                throw new SAXException( 
+                    "Error in page format: title not found" );
+            }
+
+            try
+            {
+
+                Time tm = LineProgrammeHelper.parseTime( text );
+                long time = TimeHelper.correctTime( tm, currentDate, 0 );
+                long timeCor =
+                    TimeHelper.correctTime( tm, currentDate, prevTime );
+                currentProg = currentChannel.getProgrammeByTime( timeCor );
+
+                if( currentProg == null )
                 {
-
-                    if( !isAnnounces )
-                    {
-                        parseTextForProg( text );
-                    }
-                    else
-                    {
-                        parseTextForAnnonce( text );
-                    }
+                    currentProg =
+                        currentChannel.getProgrammeByTime( 
+                            time + TimeHelper.MILLISECONDS_IN_DAY );
                 }
+
+                if( currentProg == null )
+                {
+                    currentProg = currentChannel.getProgrammeByTime( time );
+                }
+
+                if( currentProg != null )
+                {
+                    prevTime = currentProg.getStart(  );
+                }
+
+                mode = MODES_ANON_TEXT;
+            }
+            catch( ParseException ex )
+            {
+            }
+
+            break;
+
+        case MODES_ANON_TEXT:
+
+            if( currentDate == 0 )
+            {
+                throw new SAXException( 
+                    "Error in page format: title not found" );
+            }
+
+            if( currentProg != null )
+            {
+                currentProg.addDesc( text );
             }
 
             break;
         }
+
+        if( "table".equals( qName ) )
+        {
+            mode = MODES_NONE;
+        }
+
+        currentText.setLength( 0 );
+
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param ch DOCUMENT_ME!
+     * @param start DOCUMENT_ME!
+     * @param length DOCUMENT_ME!
+     *
+     * @throws SAXException DOCUMENT_ME!
+     */
+    public void characters( char[] ch, int start, int length )
+        throws SAXException
+    {
+        currentText.append( ch, start, length );
     }
 
     /**
@@ -243,84 +325,5 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
     public void setAnnounces( boolean announces )
     {
         isAnnounces = announces;
-    }
-
-    protected void parseTextForProg( String text )
-    {
-
-        Matcher timeMatcher = TimeHelper.getTimePattern(  ).matcher( text );
-
-        if( timeMatcher.matches(  ) )
-        {
-
-            try
-            {
-
-                Time tm = LineProgrammeHelper.parseTime( text );
-                long time =
-                    TimeHelper.correctTime( tm, currentDate, prevTime );
-
-                currentProg = new TVProgramme(  );
-                currentProg.setStart( time );
-                prevTime = time;
-            }
-            catch( ParseException ex )
-            {
-                currentProg = null;
-                logger.warning( "Invalid time format: " + text );
-            }
-        }
-        else if( currentProg != null )
-        {
-            currentProg.setTitle( text );
-            currentChannel.put( currentProg );
-            currentProg = null;
-        }
-    }
-
-    protected void parseTextForAnnonce( String text )
-    {
-
-        if( currentProg == null )
-        {
-
-            Matcher timeMatcher =
-                TimeHelper.getTimePattern(  ).matcher( text );
-
-            if( timeMatcher.matches(  ) )
-            {
-
-                try
-                {
-
-                    Time tm = LineProgrammeHelper.parseTime( text );
-                    long time =
-                        TimeHelper.correctTime( tm, currentDate, prevTime );
-
-                    currentProg = currentChannel.getProgrammeByTime( time );
-
-                    if( currentProg == null )
-                    {
-                        currentProg =
-                            currentChannel.getProgrammeByTime( 
-                                time + TimeHelper.MILLISECONDS_IN_DAY );
-                    }
-
-                    if( currentProg != null )
-                    {
-                        prevTime = currentProg.getStart(  );
-                    }
-                }
-                catch( ParseException ex )
-                {
-                    currentProg = null;
-                    logger.warning( "Invalid time format: " + text );
-                }
-            }
-        }
-        else
-        {
-            currentProg.addDesc( text );
-        }
     }
 }
