@@ -190,7 +190,6 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
             request.put( "category", "prog" );
 
             browser.loadURL( "http://www.vsetv.com/vsetv.php", request, false );
-            browser.saveAs( "E:/t.html" );
             progress.setStepNumber( 3 + ( i * 2 ) );
 
             handler.setAnnounces( false );
@@ -203,7 +202,6 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
             request.put( "category", "anfi" );
 
             browser.loadURL( "http://www.vsetv.com/vsetv.php", request, false );
-            browser.saveAs( "E:/ta.html" );
             progress.setStepNumber( 4 + ( i * 2 ) );
 
             handler.setAnnounces( true );
