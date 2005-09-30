@@ -1,6 +1,7 @@
 package freeguide.plugins.grabber.kulichki;
 
 import freeguide.lib.fgspecific.Application;
+import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.data.TVData;
 
@@ -33,6 +34,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 {
 
     protected Properties TIME_ZONES;
+    protected Map GROUP_NAMES;
     protected TimeZone TIME_ZONE_DEFAULT =
         TimeZone.getTimeZone( "Europe/Moscow" );
     protected KulichkiConfig config = new KulichkiConfig(  );
@@ -150,10 +152,25 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         if( TIME_ZONES == null )
         {
             loadTimeZones(  );
+        }
 
+        if( GROUP_NAMES == null )
+        {
+            loadGroupNames(  );
         }
 
         TVData result = new TVData(  );
+
+        for( 
+            Iterator it = GROUP_NAMES.entrySet(  ).iterator(  );
+                it.hasNext(  ); )
+        {
+
+            Map.Entry entry = (Map.Entry)it.next(  );
+            final TVChannel channel =
+                result.get( "kulichki/" + (String)entry.getKey(  ) );
+            channel.setDisplayName( (String)entry.getValue(  ) );
+        }
 
         HttpBrowser browser = new HttpBrowser(  );
 
@@ -167,10 +184,6 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         HandlerProg handlerProg = new HandlerProg( result, logger );
 
-        /*browser.loadURL("file:///tmp/p1data.html");
-        handlerProg.setTimeZone(TimeZone.getTimeZone("Europe/Moscow"));
-        browser.parse(handlerProg);
-        if (true) return result;*/
         logger.info( "Load initial page" );
 
         browser.loadURL( "http://tv.kulichki.net" );
@@ -324,6 +337,24 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
             Application.getInstance(  ).getLogger(  ).log( 
                 Level.SEVERE,
                 "Error loading timezone settings for tv.kulichki.net", ex );
+        }
+    }
+
+    protected void loadGroupNames(  )
+    {
+        GROUP_NAMES = new TreeMap(  );
+
+        try
+        {
+            LanguageHelper.loadProperties( 
+                this.getClass(  ).getPackage(  ).getName(  ).replace( 
+                    '.', '/' ) + "/groupnames.properties", GROUP_NAMES );
+        }
+        catch( Exception ex )
+        {
+            Application.getInstance(  ).getLogger(  ).log( 
+                Level.SEVERE,
+                "Error loading groupnames settings for tv.kulichki.net", ex );
         }
     }
 }
