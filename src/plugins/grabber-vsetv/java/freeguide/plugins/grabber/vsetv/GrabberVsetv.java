@@ -172,14 +172,6 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
         request.put( "hours2", "5" );
 
-        if( dates.length > 0 )
-        { // bug in the site engine
-            request.put( "selectdate", dates[0] );
-            request.put( "category", "prog" );
-
-            browser.loadURL( "http://www.vsetv.com/vsetv.php", request, false );
-        }
-
         for( int i = 0; i < dates.length; i++ )
         {
             request.put( "selectdate", dates[i] );
