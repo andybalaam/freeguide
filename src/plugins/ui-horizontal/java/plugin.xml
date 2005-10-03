@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin id="ui-horizontal"
-        version="0.1"
-        class="freeguide.plugins.ui.horizontal.HorizontalViewer">
+        version="2"
+        class="freeguide.plugins.ui.horizontal.manylabels.HorizontalViewer">
 
   <name lang="be">Гарызантальны</name>
   <description lang="be">Гэты модуль адлюстроўвае праграму тэлебачання ў выглядзе гарызантальных палос.</description>
