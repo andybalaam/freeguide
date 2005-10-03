@@ -191,6 +191,8 @@ a Internationalisation
   the grabber(s) you are using.
 - Report e.g. parsing errors during download to the Show Details panel
 - Make the XMLTV plugin optionally save out the raw XML it downloaded for debug.
+- Supply a default config file for each XMLTV grabber so that you get something
+  even if config didn't work.
 
 - Release 0.10.4 (recording)
 
@@ -200,6 +202,7 @@ a Internationalisation
 
 - Release 0.10.3 (Transition to stable release)
 
+- Fix channel icons not being displayed.  See Jan Knudsen's email of 30/09/2005
 a Clicking Exit in First Time Wizard closes FreeGuide.
 a On migration from 0.8.6, delete old *.xmltv files.
   COMMENT: Files deleted only if we use the same working directory.
@@ -251,6 +254,9 @@ a Opera should have the command 'opera -newpage "%filename%"'
 - If you change the default for xmltv to more than 7 days the guide only shows 7
   days (See Joe Blow's emails)
 - Movies are not shown in the movie colour
+- Make progress dialog stay open if either:
+    - User clicked "Show details", or
+    - There was any kind of error
 
 + Release 0.10.2 (plugins manager, bug fixes)
 

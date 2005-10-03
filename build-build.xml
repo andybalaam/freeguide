@@ -19,6 +19,7 @@
             <classpath>
                 <fileset dir="${src}/lib" includes="**/*.jar"/>
             </classpath>
+            <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
           </javac>
         <copy todir="${build}/classes/common">
             <fileset dir="${src}/java-common" excludes="**/*.java" />

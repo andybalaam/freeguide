@@ -17,6 +17,7 @@
     		<classpath>
     			<fileset dir="${src}/lib" includes="**/*.jar"/>
     		</classpath>
+            <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
     	</javac>
     </target>
 	
