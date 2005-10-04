@@ -232,8 +232,6 @@ a Make Startup.java accept "--install_directory x" as well as
   - Check that all the FAQs are still relevant, and add new ones.
 a Make simple tar.gz packages for e.g. Slackware, and so that other
   pacakgers can base on that, e.g. Mac OS.
-- Make multiple-line command lines work (see Vladimir Nicolici's email
-  of 2005-08-14).
 - User Guide menu option doesn't work in Windows.
 - When upgrading to 0.10.2 on Windows, the XMLTV checkbox in options is not
   checked.
