@@ -2,6 +2,8 @@ package freeguide.lib.fgspecific;
 
 import freeguide.lib.fgspecific.data.TVChannel;
 
+import freeguide.lib.general.StringHelper;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -105,15 +107,16 @@ public class TVChannelIconHelper
     /**
      * Load icon from URL.
      *
-     * @param url icon url
+     * @param urlString icon url
      * @param outFile file
      *
      * @return true if icon downloaded, else - false
      */
-    protected static boolean loadIcon( final String url, final File outFile )
+    protected static boolean loadIcon( 
+        final String urlString, final File outFile )
     {
 
-        if( url == null )
+        if( urlString == null )
         {
 
             // there is no icon for channel
@@ -123,7 +126,9 @@ public class TVChannelIconHelper
         try
         {
 
-            InputStream i = new URL( url ).openStream(  );
+            URL url = new URL( StringHelper.encodeURL( urlString ) );
+
+            InputStream i = url.openStream(  );
 
             try
             {

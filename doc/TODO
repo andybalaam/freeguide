@@ -202,7 +202,7 @@ a Internationalisation
 
 - Release 0.10.3 (Transition to stable release)
 
-- Fix channel icons not being displayed.  See Jan Knudsen's email of 30/09/2005
+a Fix channel icons not being displayed.  See Jan Knudsen's email of 30/09/2005
 a Clicking Exit in First Time Wizard closes FreeGuide.
 a On migration from 0.8.6, delete old *.xmltv files.
   COMMENT: Files deleted only if we use the same working directory.

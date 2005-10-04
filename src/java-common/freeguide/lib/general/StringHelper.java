@@ -1,7 +1,7 @@
 package freeguide.lib.general;
 
 /**
- * DOCUMENT ME!
+ * Helper for some string operations.
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
@@ -22,7 +22,6 @@ public class StringHelper
         {
 
             return null;
-
         }
 
         String result = replaceAll( in, "&", "&amp;" );
@@ -31,6 +30,21 @@ public class StringHelper
         result = replaceAll( result, ">", "&gt;" );
         result = replaceAll( result, "\"", "&quot;" );
         result = replaceAll( result, "'", "&apos;" );
+
+        return result;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param in DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static String encodeURL( final String in )
+    {
+
+        String result = replaceAll( in, " ", "%20" );
 
         return result;
     }
