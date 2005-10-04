@@ -150,60 +150,60 @@ public class LanguageHelper implements ILocalizer
     final ClassLoader classLoader, final String resourcePrefix,
     final String resourceSuffix ) throws IOException
     {
-    
+
     final String packageName;
-    
+
     final String fPrefix;
-    
+
     final int beg = resourcePrefix.lastIndexOf( '/' );
-    
+
     if( beg != -1 )
     {
         packageName = resourcePrefix.substring( 0, beg );
-    
+
         fPrefix = resourcePrefix.substring( beg + 1 );
-    
+
     }
-    
+
     else
     {
         packageName = "";
-    
+
         fPrefix = resourcePrefix;
-    
+
     }
-    
+
     final InputStream in =
         classLoader.getResourceAsStream( packageName + "/ls" );
-    
+
     if( in != null )
     {
-    
+
         final String[] properitesFiles = loadStrings( in );
-    
+
         final List result = new ArrayList(  );
-    
+
         for( int i = 0; i < properitesFiles.length; i++ )
         {
-    
+
             if(
                 properitesFiles[i].startsWith( fPrefix )
                     && properitesFiles[i].endsWith( resourceSuffix ) )
             {
                 result.add( packageName + "/" + properitesFiles[i] );
-    
+
             }
         }
-    
+
         return (String[])result.toArray( new String[result.size(  )] );
-    
+
     }
-    
+
     else
     {
-    
+
         return new String[0];
-    
+
     }
     }*/
 

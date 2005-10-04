@@ -161,8 +161,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         TVData result = new TVData(  );
 
-        for( 
-            Iterator it = GROUP_NAMES.entrySet(  ).iterator(  );
+        for( Iterator it = GROUP_NAMES.entrySet(  ).iterator(  );
                 it.hasNext(  ); )
         {
 
