@@ -56,28 +56,7 @@ public class PatchFile
 
         rd.close(  );
 
-        String strData = data.toString(  );
-        strData =
-            strData.replaceAll( 
-                "__ANT_VERSION_MAJOR__", "" + plugins[0].getVersion(  ).major );
-        strData =
-            strData.replaceAll( 
-                "__ANT_VERSION_MINOR__", "" + plugins[0].getVersion(  ).minor );
-        strData =
-            strData.replaceAll( 
-                "__ANT_VERSION_REVISION__",
-                "" + plugins[0].getVersion(  ).revision );
-        strData =
-            strData.replaceAll( 
-                "__ANT_VERSION_BUILD__", "" + plugins[0].getVersion(  ).build );
-        strData =
-            strData.replaceAll( 
-                "__ANT_NAME_VERSION__",
-                "freeguide-" + plugins[0].getVersion(  ).getDotFormat(  ) );
-        strData =
-            strData.replaceAll( 
-                "__ANT_VERSION_DOTTED__",
-                plugins[0].getVersion(  ).getDotFormat(  ) );
+        final String strData = replaceAppInfo( plugins[0], data.toString(  ) );
 
         BufferedWriter wr =
             new BufferedWriter( 
@@ -131,8 +110,10 @@ public class PatchFile
         for( int i = 0; i < plugins.length; i++ )
         {
 
-            String result =
-                strData.replaceAll( 
+            String result = replaceAppInfo( plugins[0], strData );
+
+            result =
+                result.replaceAll( 
                     "__ANT_PLUGIN_NAME__", "" + plugins[i].getID(  ) );
             result =
                 result.replaceAll( 
@@ -152,5 +133,35 @@ public class PatchFile
             wr.flush(  );
             wr.close(  );
         }
+    }
+
+    protected static String replaceAppInfo( 
+        final PluginInfo appInfo, final String in )
+    {
+
+        String strData = in;
+        strData =
+            strData.replaceAll( 
+                "__ANT_VERSION_MAJOR__", "" + appInfo.getVersion(  ).major );
+        strData =
+            strData.replaceAll( 
+                "__ANT_VERSION_MINOR__", "" + appInfo.getVersion(  ).minor );
+        strData =
+            strData.replaceAll( 
+                "__ANT_VERSION_REVISION__",
+                "" + appInfo.getVersion(  ).revision );
+        strData =
+            strData.replaceAll( 
+                "__ANT_VERSION_BUILD__", "" + appInfo.getVersion(  ).build );
+        strData =
+            strData.replaceAll( 
+                "__ANT_NAME_VERSION__",
+                "freeguide-" + appInfo.getVersion(  ).getDotFormat(  ) );
+        strData =
+            strData.replaceAll( 
+                "__ANT_VERSION_DOTTED__",
+                appInfo.getVersion(  ).getDotFormat(  ) );
+
+        return strData;
     }
 }

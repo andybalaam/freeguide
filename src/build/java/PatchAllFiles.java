@@ -45,16 +45,17 @@ public class PatchAllFiles
             "src/install/linux/rpm/freeguide.spec.in",
             "build/dist/linux/rpm/freeguide.spec", plugins );
         PatchFile.patch( 
-            "src/install/linux/rpm/freeguide-base.spec",
+            "src/install/linux/rpm/freeguide-base.spec.in",
             "build/dist/linux/rpm/freeguide-base.spec", plugins );
-        PatchFile.patch( 
-            "src/install/linux/rpm/freeguide-plugin.spec.template",
-            "build/dist/linux/rpm/freeguide-plugin.spec.template", plugins );
+
+        /*        PatchFile.patch(
+                    "src/install/linux/rpm/freeguide-plugin.spec.template",
+                    "build/dist/linux/rpm/freeguide-plugin.spec.template", plugins );*/
         PatchFile.patch( 
             "src/install/linux/freeguide.1.in", "build/dist/linux/freeguide.1",
             plugins );
         PatchFile.patchAllPlugins( 
-            "build/dist/linux/rpm/freeguide-plugin.spec.template",
+            "src/install/linux/rpm/freeguide-plugin.spec.template.in",
             "build/dist/linux/rpm/freeguide-", ".spec", plugins );
     }
 
