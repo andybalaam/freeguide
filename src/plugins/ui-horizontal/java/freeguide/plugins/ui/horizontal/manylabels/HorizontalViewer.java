@@ -46,6 +46,7 @@ import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 
@@ -160,6 +161,18 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         theDate = System.currentTimeMillis(  );
 
         prepareDateList(  );
+
+        if( dateExistList.length > 0 )
+        {
+
+            if( 
+                ( System.currentTimeMillis(  ) < dateExistList[0] )
+                    || ( System.currentTimeMillis(  ) > ( dateExistList[dateExistList.length
+                    - 1] + MILLISECONDS_PER_DAY ) ) )
+            {
+                askForLoadData(  );
+            }
+        }
 
         prepareChannelsSetList(  );
 
@@ -280,6 +293,28 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                 Application.getInstance(  ).getLogger(  ).log( 
                     Level.WARNING, "Error reading TV data", ex );
             }
+
+            if( currentData.getChannelsCount(  ) == 0 )
+            {
+                askForLoadData(  );
+            }
+        }
+    }
+
+    protected void askForLoadData(  )
+    {
+
+        int r =
+            JOptionPane.showConfirmDialog( 
+                Application.getInstance(  ).getApplicationFrame(  ),
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "there_are_missing_listings_for_today" ),
+                Application.getInstance(  ).getLocalizedMessage( 
+                    "download_listings_q" ), JOptionPane.YES_NO_OPTION );
+
+        if( r == 0 )
+        {
+            Application.getInstance(  ).doStartGrabbers(  );
         }
     }
 

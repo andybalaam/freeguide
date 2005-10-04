@@ -1,7 +1,5 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import freeguide.lib.fgspecific.Application;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionListener;
@@ -17,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
@@ -738,23 +735,10 @@ public class ViewerFrame extends JPanel
             ( comTheDate.getSelectedIndex(  ) + 1 ) < comTheDate.getItemCount(  ) )
         {
             comTheDate.setSelectedIndex( comTheDate.getSelectedIndex(  ) + 1 );
-
         }
         else
         {
-
-            int r =
-                JOptionPane.showConfirmDialog( 
-                    Application.getInstance(  ).getApplicationFrame(  ),
-                    Application.getInstance(  ).getLocalizedMessage( 
-                        "there_are_missing_listings_for_today" ),
-                    Application.getInstance(  ).getLocalizedMessage( 
-                        "download_listings_q" ), JOptionPane.YES_NO_OPTION );
-
-            if( r == 0 )
-            {
-                Application.getInstance(  ).doStartGrabbers(  );
-            }
+            parent.askForLoadData(  );
         }
     }
 
@@ -769,7 +753,10 @@ public class ViewerFrame extends JPanel
         if( comTheDate.getSelectedIndex(  ) > 0 )
         {
             comTheDate.setSelectedIndex( comTheDate.getSelectedIndex(  ) - 1 );
-
+        }
+        else
+        {
+            parent.askForLoadData(  );
         }
     }
 
