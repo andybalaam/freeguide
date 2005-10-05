@@ -304,6 +304,26 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
             } );
     }
 
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public boolean isLogVisible(  )
+    {
+
+        return log.isVisible(  );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     */
+    public void setCloseLabel(  )
+    {
+        setButtonLabel( 
+            Application.getInstance(  ).getLocalizedMessage( "close" ) );
+    }
+
     protected void addToLog( final String msg )
     {
         SwingUtilities.invokeLater( 

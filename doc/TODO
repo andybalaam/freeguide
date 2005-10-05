@@ -252,7 +252,7 @@ a Opera should have the command 'opera -newpage "%filename%"'
 - If you change the default for xmltv to more than 7 days the guide only shows 7
   days (See Joe Blow's emails)
 - Movies are not shown in the movie colour
-- Make progress dialog stay open if either:
+a Make progress dialog stay open if either:
     - User clicked "Show details", or
     - There was any kind of error
 

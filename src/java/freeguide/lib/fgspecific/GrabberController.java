@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.logging.Level;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 
@@ -31,6 +32,7 @@ public class GrabberController
 
     protected ExecutorDialog progressDialog;
     protected JProgressBar secondProgressBar;
+    protected boolean wasError;
 
     /**
      * DOCUMENT_ME!
@@ -42,101 +44,102 @@ public class GrabberController
     {
         this.secondProgressBar = secondProgressBar;
 
-        try
+        synchronized( this )
+        {
+            wasError = false;
+            progressDialog = new ExecutorDialog( owner, secondProgressBar );
+
+            progressDialog.getCancelButton(  ).addActionListener( 
+                new ActionListener(  )
+                {
+                    public void actionPerformed( ActionEvent evt )
+                    {
+                        closeDialog(  );
+                    }
+                } );
+        }
+
+        secondProgressBar.setVisible( true );
+        new Thread(  )
+            {
+                public void run(  )
+                {
+                    progressDialog.setVisible( true );
+                }
+            }.start(  );
+
+        Iterator it = MainController.config.activeGrabberIDs.iterator(  );
+
+        while( it.hasNext(  ) )
         {
 
-            synchronized( this )
-            {
-                progressDialog =
-                    new ExecutorDialog( owner, secondProgressBar );
+            String grabberID = (String)it.next(  );
 
-                progressDialog.getCancelButton(  ).addActionListener( 
-                    new ActionListener(  )
-                    {
-                        public void actionPerformed( ActionEvent evt )
+            try
+            {
+
+                IModuleGrabber grabber =
+                    (IModuleGrabber)PluginsManager.getModuleByID( grabberID );
+
+                if( grabber == null )
+                {
+                    FreeGuide.log.warning( "There is no grabber " + grabberID );
+
+                    continue;
+
+                }
+
+                TVData result =
+                    grabber.grabData( progressDialog, progressDialog );
+
+                if( result != null )
+                {
+                    result.iterate( 
+                        new TVIteratorChannels(  )
                         {
-                            finish(  );
-
-                        }
-                    } );
-            }
-
-            secondProgressBar.setVisible( true );
-            new Thread(  )
-                {
-                    public void run(  )
-                    {
-                        progressDialog.setVisible( true );
-                    }
-                }.start(  );
-
-            Iterator it = MainController.config.activeGrabberIDs.iterator(  );
-
-            while( it.hasNext(  ) )
-            {
-
-                String grabberID = (String)it.next(  );
-
-                try
-                {
-
-                    IModuleGrabber grabber =
-                        (IModuleGrabber)PluginsManager.getModuleByID( 
-                            grabberID );
-
-                    if( grabber == null )
-                    {
-                        FreeGuide.log.warning( 
-                            "There is no grabber " + grabberID );
-
-                        continue;
-
-                    }
-
-                    TVData result =
-                        grabber.grabData( progressDialog, progressDialog );
-
-                    if( result != null )
-                    {
-                        result.iterate( 
-                            new TVIteratorChannels(  )
+                            protected void onChannel( TVChannel channel )
                             {
-                                protected void onChannel( TVChannel channel )
-                                {
-                                    channel.normalizeTime(  );
-                                }
-                            } );
-                        FreeGuide.storage.add( result );
-                    }
+                                channel.normalizeTime(  );
+                            }
+                        } );
+                    FreeGuide.storage.add( result );
                 }
+            }
+            catch( Exception ex )
+            {
+                wasError = true;
+                progressDialog.error( 
+                    "Error grab data by grabber '" + grabberID + "'", ex );
 
-                catch( Exception ex )
-                {
-                    progressDialog.error( 
-                        "Error grab data by grabber '" + grabberID + "'", ex );
-
-                    FreeGuide.log.log( 
-                        Level.WARNING,
-                        "Error grab data by grabber '" + grabberID, ex );
-                }
+                FreeGuide.log.log( 
+                    Level.WARNING, "Error grab data by grabber '" + grabberID,
+                    ex );
             }
         }
-        finally
+
+        if( !wasError && !progressDialog.isLogVisible(  ) )
         {
-            finish(  );
+            closeDialog(  );
+        }
+        else
+        {
+            secondProgressBar.setVisible( false );
+            progressDialog.setDefaultCloseOperation( JDialog.DISPOSE_ON_CLOSE );
+            progressDialog.setCloseLabel(  );
         }
     }
 
     /**
      * DOCUMENT_ME!
      */
-    public void finish(  )
+    public void closeDialog(  )
     {
 
         synchronized( this )
         {
             secondProgressBar.setVisible( false );
 
+            // leave dialog when details open or was error
             if( progressDialog != null )
             {
                 progressDialog.dispose(  );

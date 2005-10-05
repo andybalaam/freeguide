@@ -267,8 +267,8 @@ public class MainController extends BaseModule implements IApplication
         remindersReschedule(  );
 
         FreeGuide.hidePleaseWait(  );
-        //checkForNoData(  );
 
+        //checkForNoData(  );
         mainFrame.waitForClose(  );
 
         for( int i = 0; i < reminders.length; i++ )
