@@ -48,7 +48,6 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.filechooser.FileFilter;
 
 /**
@@ -237,10 +236,10 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     {
 
         // set scroll units
-        final JScrollBar vertSB =
-            panel.getProgrammesScrollPane(  ).getVerticalScrollBar(  );
-        vertSB.setUnitIncrement( config.sizeChannelHeight );
-        vertSB.setBlockIncrement( config.sizeChannelHeight * 10 );
+        panel.getProgrammesScrollPane(  ).getVerticalScrollBar(  )
+             .setUnitIncrement( config.sizeChannelHeight );
+        panel.getProgrammesScrollPane(  ).getHorizontalScrollBar(  )
+             .setUnitIncrement( config.sizeProgrammePanelWidth / 24 / 6 );
 
         // Refresh the programmes
         drawProgrammes(  );
