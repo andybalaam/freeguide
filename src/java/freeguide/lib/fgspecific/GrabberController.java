@@ -33,6 +33,47 @@ public class GrabberController
     protected ExecutorDialog progressDialog;
     protected JProgressBar secondProgressBar;
     protected boolean wasError;
+    protected IModuleGrabber currentGrabber;
+    protected boolean isFinished;
+
+    /**
+     * Show grabber dialog when grabbing rinning, or start grabbing in new
+     * thread.
+     *
+     * @param controller DOCUMENT ME!
+     */
+    public void activate( final MainController controller )
+    {
+
+        synchronized( this )
+        {
+
+            if( progressDialog != null )
+            {
+
+                // Show dialog
+                progressDialog.setVisible( true );
+            }
+            else
+            {
+
+                // Start new grabbing
+                new Thread(  )
+                    {
+                        public void run(  )
+                        {
+                            FreeGuide.log.finest( "start grabbing" );
+                            grab( 
+                                controller.getApplicationFrame(  ),
+                                controller.mainFrame.getProgressBar(  ) );
+                            controller.viewer.onDataChanged(  );
+                            controller.remindersReschedule(  );
+                            FreeGuide.log.finest( "stop grabbing" );
+                        }
+                    }.start(  );
+            }
+        }
+    }
 
     /**
      * DOCUMENT_ME!
@@ -47,6 +88,8 @@ public class GrabberController
         synchronized( this )
         {
             wasError = false;
+            currentGrabber = null;
+            isFinished = false;
             progressDialog = new ExecutorDialog( owner, secondProgressBar );
 
             progressDialog.getCancelButton(  ).addActionListener( 
@@ -89,8 +132,25 @@ public class GrabberController
 
                 }
 
+                synchronized( this )
+                {
+                    currentGrabber = grabber;
+                }
+
+                if( isFinished )
+                {
+
+                    break;
+                }
+
                 TVData result =
                     grabber.grabData( progressDialog, progressDialog );
+
+                if( isFinished )
+                {
+
+                    break;
+                }
 
                 if( result != null )
                 {
@@ -123,9 +183,14 @@ public class GrabberController
         }
         else
         {
-            secondProgressBar.setVisible( false );
-            progressDialog.setDefaultCloseOperation( JDialog.DISPOSE_ON_CLOSE );
-            progressDialog.setCloseLabel(  );
+
+            synchronized( this )
+            {
+                secondProgressBar.setVisible( false );
+                progressDialog.setDefaultCloseOperation( 
+                    JDialog.DISPOSE_ON_CLOSE );
+                progressDialog.setCloseLabel(  );
+            }
         }
     }
 
@@ -137,6 +202,13 @@ public class GrabberController
 
         synchronized( this )
         {
+            isFinished = true;
+
+            if( currentGrabber != null )
+            {
+                currentGrabber.stop(  );
+            }
+
             secondProgressBar.setVisible( false );
 
             // leave dialog when details open or was error
@@ -145,33 +217,6 @@ public class GrabberController
                 progressDialog.dispose(  );
                 progressDialog = null;
             }
-        }
-    }
-
-    /**
-     * DOCUMENT_ME!
-     */
-    public void showDialog(  )
-    {
-
-        synchronized( this )
-        {
-            progressDialog.setVisible( true );
-        }
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public boolean isStarted(  )
-    {
-
-        synchronized( this )
-        {
-
-            return progressDialog != null;
         }
     }
 }
