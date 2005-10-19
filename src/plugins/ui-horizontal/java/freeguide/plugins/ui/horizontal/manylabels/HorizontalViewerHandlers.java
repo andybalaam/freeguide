@@ -1,13 +1,25 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
 import freeguide.lib.fgspecific.Application;
+import freeguide.lib.fgspecific.PluginsManager;
+import freeguide.lib.fgspecific.selection.Favourite;
 
+import freeguide.plugins.IModuleReminder;
+
+import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JProgressBar;
+import javax.swing.KeyStroke;
 
 /**
  * DOCUMENT ME!
@@ -148,13 +160,16 @@ public class HorizontalViewerHandlers
                 if( evt.getClickCount(  ) == 2 )
                 {
 
-                    //toggleSelection(  );
+                    JLabelProgramme label =
+                        (JLabelProgramme)evt.getComponent(  );
+                    label.getActionMap(  ).get( "select" ).actionPerformed( 
+                        new ActionEvent( label, 0, "select" ) );
                 }
             }
 
             public void mousePressed( java.awt.event.MouseEvent evt )
             {
-                evt.getComponent(  ).requestFocusInWindow(  );
+                evt.getComponent(  ).requestFocus(  );
                 maybeShowPopup( evt );
 
             }
@@ -162,7 +177,6 @@ public class HorizontalViewerHandlers
             public void mouseReleased( java.awt.event.MouseEvent evt )
             {
                 maybeShowPopup( evt );
-
             }
 
             public void mouseEntered( java.awt.event.MouseEvent evt )
@@ -195,18 +209,28 @@ public class HorizontalViewerHandlers
             public void focusGained( FocusEvent e )
             {
 
-                JLabelProgramme labelProgramme =
+                final JLabelProgramme labelProgramme =
                     (JLabelProgramme)e.getComponent(  );
-                System.out.println( 
-                    "focus " + labelProgramme.getProgramme(  ).getTitle(  ) );
+                controller.currentProgrammeLabel = labelProgramme;
                 controller.updateProgrammeInfo( 
                     labelProgramme.getProgramme(  ) );
+                labelProgramme.setupColors(  );
             }
 
             public void focusLost( FocusEvent e )
             {
+
+                final JLabelProgramme labelProgramme =
+                    (JLabelProgramme)e.getComponent(  );
+                labelProgramme.setupColors(  );
             }
         };
+
+    /** Map for programme labels. */
+    public ActionMap labelProgrammeActionMap = new LabelProgrammeActionMap(  );
+
+    /** Map for programme labels. */
+    public InputMap labelProgrammeInputMap = new LabelProgrammeInputMap(  );
 
     /**
      * Creates a new HorizontalViewerHandlers object.
@@ -216,5 +240,136 @@ public class HorizontalViewerHandlers
     public HorizontalViewerHandlers( final HorizontalViewer controller )
     {
         this.controller = controller;
+    }
+
+    /**
+     * DOCUMENT ME!
+     *
+     * @author $author$
+     * @version $Revision$
+     */
+    public static class LabelProgrammeActionMap extends ActionMap
+    {
+
+        /**
+         * Creates a new LabelProgrammeActionMap object.
+         */
+        public LabelProgrammeActionMap(  )
+        {
+            put( 
+                "up",
+                new AbstractAction(  )
+                {
+                    public void actionPerformed( ActionEvent e )
+                    {
+                        getPanel( e ).focusMoveUp( getLabel( e ) );
+                    }
+                    ;
+                } );
+            put( 
+                "down",
+                new AbstractAction(  )
+                {
+                    public void actionPerformed( ActionEvent e )
+                    {
+                        getPanel( e ).focusMoveDown( getLabel( e ) );
+                    }
+                    ;
+                } );
+            put( 
+                "left",
+                new AbstractAction(  )
+                {
+                    public void actionPerformed( ActionEvent e )
+                    {
+                        getPanel( e ).focusMoveLeft( getLabel( e ) );
+                    }
+                    ;
+                } );
+            put( 
+                "right",
+                new AbstractAction(  )
+                {
+                    public void actionPerformed( ActionEvent e )
+                    {
+                        getPanel( e ).focusMoveRight( getLabel( e ) );
+                    }
+                    ;
+                } );
+            put( 
+                "select",
+                new AbstractAction(  )
+                {
+                    public void actionPerformed( ActionEvent e )
+                    {
+
+                        JLabelProgramme label =
+                            (JLabelProgramme)e.getSource(  );
+
+                        final IModuleReminder reminder =
+                            (IModuleReminder)PluginsManager.getModuleByID( 
+                                HorizontalViewer.REMINDER_MAIN );
+
+                        if( reminder == null )
+                        {
+
+                            return;
+                        }
+
+                        final boolean isSelected =
+                            reminder.isSelected( label.getProgramme(  ) );
+                        reminder.setProgrammeSelection( 
+                            label.getProgramme(  ), !isSelected );
+                        label.controller.redrawCurrentProgramme(  );
+                    }
+                    ;
+                } );
+            put( 
+                "favourite",
+                new AbstractAction(  )
+                {
+                    public void actionPerformed( ActionEvent e )
+                    {
+                        System.out.println( "favourite" );
+                    }
+                    ;
+                } );
+        }
+
+        protected JPanelProgramme getPanel( ActionEvent e )
+        {
+
+            return (JPanelProgramme)getLabel( e ).getParent(  );
+        }
+
+        protected JLabelProgramme getLabel( ActionEvent e )
+        {
+
+            return (JLabelProgramme)e.getSource(  );
+        }
+    }
+
+    /**
+     * DOCUMENT ME!
+     *
+     * @author $author$
+     * @version $Revision$
+     */
+    public static class LabelProgrammeInputMap extends InputMap
+    {
+
+        /**
+         * Creates a new LabelProgrammeInputMap object.
+         */
+        public LabelProgrammeInputMap(  )
+        {
+            put( KeyStroke.getKeyStroke( KeyEvent.VK_UP, 0 ), "up" );
+            put( KeyStroke.getKeyStroke( KeyEvent.VK_DOWN, 0 ), "down" );
+            put( KeyStroke.getKeyStroke( KeyEvent.VK_LEFT, 0 ), "left" );
+            put( KeyStroke.getKeyStroke( KeyEvent.VK_RIGHT, 0 ), "right" );
+
+            put( KeyStroke.getKeyStroke( KeyEvent.VK_SPACE, 0 ), "select" );
+            put( KeyStroke.getKeyStroke( KeyEvent.VK_F, 0 ), "favourite" );
+        }
     }
 }

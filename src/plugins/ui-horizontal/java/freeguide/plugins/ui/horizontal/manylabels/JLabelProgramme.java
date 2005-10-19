@@ -14,11 +14,20 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 
+import java.beans.PropertyChangeListener;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
 /**
@@ -32,6 +41,7 @@ public class JLabelProgramme extends JLabel
     protected static Border DEFAULT_BORDER;
     protected static Border MOVIE_BORDER;
     protected static Border INGUIDE_BORDER;
+    protected static Border FOCUSED_BORDER;
 
     /** Standard reminder. */
     protected static IModuleReminder REMINDER;
@@ -70,27 +80,26 @@ public class JLabelProgramme extends JLabel
      *
      * @param programme DOCUMENT ME!
      * @param main DOCUMENT ME!
-     * @param startDate DOCUMENT ME!
-     * @param row DOCUMENT ME!
-     * @param font DOCUMENT ME!
      * @param textFormat DOCUMENT ME!
      */
     public JLabelProgramme( 
         final TVProgramme programme, final HorizontalViewer main,
-        final long startDate, final int row, final Font font,
         final ProgrammeFormat textFormat )
     {
         super( textFormat.formatForMainGuide( programme ) );
         this.programme = programme;
         this.controller = main;
-        setupBounds( row, startDate );
-        setFont( font );
         setupColors(  );
         setupHeart(  );
         setOpaque( true );
         setFocusable( true );
         addMouseListener( main.handlers.labelProgrammeMouseListener );
         addFocusListener( main.handlers.labelProgrammeFocusListener );
+
+        setActionMap( main.handlers.labelProgrammeActionMap );
+        setInputMap( 
+            JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT,
+            main.handlers.labelProgrammeInputMap );
     }
 
     /**
@@ -110,19 +119,13 @@ public class JLabelProgramme extends JLabel
     public void setupColors(  )
     {
 
-        if( REMINDER != null )
+        if( ( REMINDER != null ) && REMINDER.isSelected( programme ) )
         {
+            setBackground( controller.config.colorTicked );
+            setBorder( INGUIDE_BORDER );
 
-            if( REMINDER.isSelected( programme ) )
-            {
-                setBackground( controller.config.colorTicked );
-                setBorder( INGUIDE_BORDER );
-
-                return;
-            }
         }
-
-        if( !programme.getIsMovie(  ) )
+        else if( !programme.getIsMovie(  ) )
         {
             setBackground( controller.config.colorNonTicked );
             setBorder( DEFAULT_BORDER );
@@ -132,36 +135,12 @@ public class JLabelProgramme extends JLabel
             setBackground( controller.config.colorMovie );
             setBorder( MOVIE_BORDER );
         }
-    }
 
-    /**
-     * Set size and position.
-     *
-     * @param row label row
-     * @param startDate width
-     */
-    protected void setupBounds( final int row, final long startDate )
-    {
-
-        //int x = (int)( ( ( programme.getStart(  ) - startDate ) * main.config.sizeProgrammePanelWidth ) / main.MILLISECONDS_PER_DAY ) + 1;
-        //int y = ( main.config.sizeChannelHeight * row ) + 1;
-        //int height = main.config.sizeChannelHeight - 2;
-        //int width =(int)( ( ( programme.getEnd(  ) - programme.getStart(  ) ) * main.config.sizeProgrammePanelWidth ) / main.MILLISECONDS_PER_DAY ) - 2;
-        int x =
-            ( ( controller.config.sizeHalfHorGap * 2 )
-            + (int)( ( ( programme.getStart(  ) - startDate ) * controller.config.sizeProgrammePanelWidth ) / controller.MILLISECONDS_PER_DAY ) )
-            - 1;
-        int y =
-            ( ( controller.config.sizeHalfVerGap * 2 )
-            + ( row * controller.config.sizeChannelHeight ) ) - 1;
-        int height =
-            controller.config.sizeChannelHeight
-            - ( controller.config.sizeHalfVerGap * 4 );
-        int width =
-            (int)( ( ( programme.getEnd(  ) - programme.getStart(  ) ) * controller.config.sizeProgrammePanelWidth ) / controller.MILLISECONDS_PER_DAY )
-            - ( controller.config.sizeHalfVerGap * 4 );
-
-        setBounds( x, y, width, height );
+        if( isFocusOwner(  ) )
+        {
+            setBorder( FOCUSED_BORDER );
+            System.out.println( "focused " + programme.getTitle(  ) );
+        }
     }
 
     /**
@@ -186,16 +165,20 @@ public class JLabelProgramme extends JLabel
 
         DEFAULT_BORDER =
             BorderFactory.createCompoundBorder( 
-                BorderFactory.createLineBorder( Color.BLACK ),
+                BorderFactory.createLineBorder( Color.BLACK, 1 ),
                 BorderFactory.createLineBorder( main.config.colorNonTicked, 2 ) );
         MOVIE_BORDER =
             BorderFactory.createCompoundBorder( 
-                BorderFactory.createLineBorder( Color.BLACK ),
+                BorderFactory.createLineBorder( Color.BLACK, 1 ),
                 BorderFactory.createLineBorder( main.config.colorMovie, 2 ) );
         INGUIDE_BORDER =
             BorderFactory.createCompoundBorder( 
-                BorderFactory.createLineBorder( Color.BLACK ),
+                BorderFactory.createLineBorder( Color.BLACK, 1 ),
                 BorderFactory.createLineBorder( main.config.colorTicked, 2 ) );
+        FOCUSED_BORDER =
+            BorderFactory.createCompoundBorder( 
+                BorderFactory.createLineBorder( Color.BLUE, 2 ),
+                BorderFactory.createLineBorder( main.config.colorNonTicked, 1 ) );
     }
 
     /**

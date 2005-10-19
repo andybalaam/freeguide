@@ -2,6 +2,7 @@ package freeguide.plugins.ui.horizontal.manylabels;
 
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PersonalizedHTMLGuide;
+import freeguide.lib.fgspecific.PluginsManager;
 import freeguide.lib.fgspecific.ProgrammeFormat;
 import freeguide.lib.fgspecific.TVChannelIconHelper;
 import freeguide.lib.fgspecific.data.TVChannel;
@@ -16,6 +17,7 @@ import freeguide.lib.general.Utils;
 
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleConfigurationUI;
+import freeguide.plugins.IModuleReminder;
 import freeguide.plugins.IModuleStorage;
 import freeguide.plugins.IModuleViewer;
 
@@ -56,7 +58,7 @@ import javax.swing.filechooser.FileFilter;
 public class HorizontalViewer extends BaseModule implements IModuleViewer
 {
 
-    //public static class DateFormats {
+    protected static final String REMINDER_MAIN = "reminder-alarm";
 
     /** Time formatter for 12 hour clock */
     public final static SimpleDateFormat timeFormat12Hour =
@@ -102,6 +104,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     /** Handlers for handle events from UI controls. */
     protected final HorizontalViewerHandlers handlers =
         new HorizontalViewerHandlers( this );
+    protected JLabelProgramme currentProgrammeLabel;
 
     /**
      * Get config object.
@@ -178,8 +181,6 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         onDataChanged(  );
 
-        goToNow(  );
-
         panel.getButtonGoToNow(  ).addActionListener( 
             new ActionListener(  )
             {
@@ -201,6 +202,9 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             } );
         panel.getPrintedGuideArea(  ).addHyperlinkListener( 
             new ViewerFramePersonalGuideListener( this ) );
+
+        panel.getProgrammesScrollPane(  ).validate(  );
+        goToNow(  );
     }
 
     /**
@@ -249,10 +253,17 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     }
 
     /**
-     * Redraw personalized guide.
+     * DOCUMENT_ME!
      */
-    public void redrawPersonalizedGuide(  )
+    public void redrawCurrentProgramme(  )
     {
+
+        if( currentProgrammeLabel != null )
+        {
+            currentProgrammeLabel.setupColors(  );
+            currentProgrammeLabel.repaint(  );
+        }
+
         updatePersonalizedGuide(  );
     }
 
@@ -275,7 +286,6 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         //---panel.getProgrammesPanel(  ).focus( now );
         panel.getProgrammesScrollPane(  ).getHorizontalScrollBar(  ).setValue( 
             panel.getTimePanel(  ).getScrollValue( now ) - 100 );
-
     }
 
     /**
@@ -329,8 +339,9 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
      */
     protected synchronized void drawProgrammes(  )
     {
+        currentProgrammeLabel = null;
+
         panel.getChannelNamePanel(  ).removeAll(  );
-        panel.getProgrammesPanel(  ).removeAll(  );
 
         JLabelProgramme.setupLabel( this );
 
@@ -381,6 +392,10 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                 it.remove(  );
             }
         }
+
+        panel.getProgrammesPanel(  ).init( 
+            theDate, textFormat, font,
+            currentChannelSet.getChannels(  ).size(  ) );
 
         int maxChannelWidth = 0;
 
@@ -458,13 +473,13 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
                     if( row != -1 )
                     {
-                        panel.getProgrammesPanel(  ).add( 
-                            new JLabelProgramme( 
-                                programme, HorizontalViewer.this, theDate, row,
-                                font, textFormat ) );
+                        panel.getProgrammesPanel(  ).addProgramme( 
+                            programme, row );
                     }
                 }
             } );
+
+        panel.getProgrammesPanel(  ).sort(  );
 
         // Repaint screen
         panel.getTimePanel(  ).revalidate(  );
