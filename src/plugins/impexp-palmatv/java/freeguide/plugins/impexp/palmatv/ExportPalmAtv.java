@@ -18,7 +18,6 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.prefs.Preferences;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -225,7 +224,7 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
                 {
 
                     String channelID = getCurrentChannel(  ).getID(  );
-                    int pos = channelID.indexOf( '/' );
+                    int pos = channelID.lastIndexOf( '/' );
 
                     if( pos != -1 )
                     {
