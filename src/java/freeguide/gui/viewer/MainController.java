@@ -58,7 +58,9 @@ public class MainController extends BaseModule implements IApplication
 
     /** DOCUMENT ME! */
     public MainFrame mainFrame;
-    protected IModuleViewer viewer;
+
+    /** DOCUMENT ME! */
+    public IModuleViewer viewer;
     protected GrabberController grab = new GrabberController(  );
     protected IModuleReminder[] reminders;
 
@@ -108,14 +110,6 @@ public class MainController extends BaseModule implements IApplication
 
     /**
      * DOCUMENT_ME!
-     */
-    public void redraw(  )
-    {
-        viewer.redraw(  );
-    }
-
-    /**
-     * DOCUMENT_ME!
      *
      * @param key DOCUMENT_ME!
      *
@@ -139,14 +133,6 @@ public class MainController extends BaseModule implements IApplication
     {
 
         return i18n.getLocalizedMessage( key, params );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     */
-    public void redrawPersonalizedGuide(  )
-    {
-        viewer.redrawPersonalizedGuide(  );
     }
 
     /**
@@ -407,31 +393,7 @@ public class MainController extends BaseModule implements IApplication
      */
     public void doStartGrabbers(  )
     {
-
-        synchronized( grab )
-        {
-
-            if( grab.isStarted(  ) )
-            {
-                grab.showDialog(  );
-            }
-            else
-            {
-                new Thread(  )
-                    {
-                        public void run(  )
-                        {
-                            FreeGuide.log.finest( "start grabbing" );
-                            grab.grab( 
-                                getApplicationFrame(  ),
-                                mainFrame.getProgressBar(  ) );
-                            viewer.onDataChanged(  );
-                            remindersReschedule(  );
-                            FreeGuide.log.finest( "stop grabbing" );
-                        }
-                    }.start(  );
-            }
-        }
+        grab.activate( this );
     }
 
     /**
@@ -439,15 +401,7 @@ public class MainController extends BaseModule implements IApplication
      */
     public void doShowGrabbers(  )
     {
-
-        synchronized( grab )
-        {
-
-            if( grab.isStarted(  ) )
-            {
-                grab.showDialog(  );
-            }
-        }
+        grab.activate( this );
     }
 
     /**
@@ -552,6 +506,17 @@ public class MainController extends BaseModule implements IApplication
 
         return FreeGuide.storage;
 
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public IModuleViewer getViewer(  )
+    {
+
+        return viewer;
     }
 
     /**
