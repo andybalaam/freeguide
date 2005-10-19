@@ -70,25 +70,4 @@ public interface IModuleReminder extends IModule
      */
     public void addItemsToPopupMenu( 
         final TVProgramme programme, final JPopupMenu menu );
-
-    /**
-     * Calls on paint programme label.  You can change border, background
-     * color, etc. Label has default presets.
-     *
-     * @param programme programme
-     * @param label label
-     */
-    public void onPaintProgrammeLabel( 
-        final TVProgramme programme, final JLabel label );
-
-    /**
-     * Calls on paint programme label. You can draw icon, etc.
-     *
-     * @param programme programme
-     * @param label label
-     * @param graphics graphics object
-     */
-    public void onPaintProgrammeLabel( 
-        final TVProgramme programme, final JLabel label,
-        final Graphics2D graphics );
 }

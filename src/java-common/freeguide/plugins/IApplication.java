@@ -17,6 +17,8 @@ public interface IApplication
 
     IModuleStorage getDataStorage(  );
 
+    IModuleViewer getViewer(  );
+
     List getChannelsSetsList(  );
 
     void doEditChannelsSets(  );
@@ -24,10 +26,6 @@ public interface IApplication
     void doStartGrabbers(  );
 
     void doPrint(  );
-
-    void redraw(  );
-
-    void redrawPersonalizedGuide(  );
 
     Logger getLogger(  );
 
@@ -48,6 +46,4 @@ public interface IApplication
     void saveAllConfigs(  );
 
     String getBrowserCommand(  );
-
-    void restart(  );
 }

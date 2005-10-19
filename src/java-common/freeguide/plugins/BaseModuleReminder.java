@@ -94,28 +94,6 @@ abstract public class BaseModuleReminder extends BaseModule
     }
 
     /**
-     * Calls on paint programme label.
-     *
-     * @param programme programme
-     * @param label label
-     */
-    public void onPaintProgrammeLabel( 
-        final TVProgramme programme, final JLabel label )
-    {
-    }
-
-    /**
-     * Calls on paint programme label. You can draw icon, etc.
-     *
-     * @param programme programme
-     * @param graphics graphics object
-     */
-    public void onPaintProgrammeLabel( 
-        final TVProgramme programme, final Graphics graphics )
-    {
-    }
-
-    /**
      * Get favourite description for programme.
      *
      * @param programme programme

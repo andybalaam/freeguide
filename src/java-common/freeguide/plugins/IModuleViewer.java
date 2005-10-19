@@ -35,7 +35,7 @@ public interface IModuleViewer extends IModule
 
     void redraw(  );
 
-    void redrawPersonalizedGuide(  );
+    void redrawCurrentProgramme(  );
 
     void printHTML(  );
 

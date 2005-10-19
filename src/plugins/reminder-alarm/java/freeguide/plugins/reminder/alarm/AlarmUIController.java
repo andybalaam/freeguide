@@ -58,28 +58,6 @@ public class AlarmUIController implements IModuleConfigurationUI
 
         panel.getTextGiveup(  ).setText( 
             String.valueOf( parent.config.reminderGiveUp / 1000 ) );
-
-        panel.getPanelColorInGuide(  ).setBackground( 
-            parent.config.colorTicked );
-        panel.getBtnColorInGuide(  ).addActionListener( 
-            new ActionListener(  )
-            {
-                public void actionPerformed( ActionEvent e )
-                {
-
-                    Color col =
-                        JColorChooser.showDialog( 
-                            parentDialog,
-                            parent.getLocalizer(  ).getLocalizedMessage( 
-                                "choose_a_colour" ),
-                            panel.getPanelColorInGuide(  ).getBackground(  ) );
-
-                    if( col != null )
-                    {
-                        panel.getPanelColorInGuide(  ).setBackground( col );
-                    }
-                }
-            } );
     }
 
     /**
@@ -99,7 +77,6 @@ public class AlarmUIController implements IModuleConfigurationUI
     public Component getPanel(  )
     {
 
-        // TODO Auto-generated method stub
         return panel;
     }
 
@@ -122,9 +99,5 @@ public class AlarmUIController implements IModuleConfigurationUI
             Long.parseLong( panel.getTextWarning(  ).getText(  ) ) * 1000L;
         parent.config.reminderGiveUp =
             Long.parseLong( panel.getTextGiveup(  ).getText(  ) ) * 1000L;
-        parent.config.colorTicked =
-            panel.getPanelColorInGuide(  ).getBackground(  );
     }
-
-    //        return FreeGuide.msg.getString( "reminders" );
 }

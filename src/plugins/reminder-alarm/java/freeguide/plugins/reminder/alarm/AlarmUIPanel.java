@@ -26,9 +26,6 @@ public class AlarmUIPanel extends JPanel
     private JLabel jLabel1 = null;
     private JTextField textGiveup = null;
     private ILocalizer localizer;
-    private JLabel jLabel2 = null;
-    private JButton btnColorInGuide = null;
-    private JPanel panelColorInGuide = null;
 
     /**
      * This is the default constructor
@@ -48,37 +45,16 @@ public class AlarmUIPanel extends JPanel
     private void initialize(  )
     {
 
-        GridBagConstraints gridBagConstraints51 = new GridBagConstraints(  );
-        gridBagConstraints51.gridx = 1;
-        gridBagConstraints51.gridy = 0;
-        gridBagConstraints51.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints51.insets = new java.awt.Insets( 5, 5, 0, 0 );
-
         GridBagConstraints gridBagConstraints41 = new GridBagConstraints(  );
         gridBagConstraints41.gridx = 2;
         gridBagConstraints41.gridy = 1;
         gridBagConstraints41.insets = new java.awt.Insets( 5, 5, 0, 5 );
-
-        GridBagConstraints gridBagConstraints31 = new GridBagConstraints(  );
-        gridBagConstraints31.gridx = 2;
-        gridBagConstraints31.gridy = 0;
-        gridBagConstraints31.insets = new java.awt.Insets( 5, 5, 0, 5 );
 
         GridBagConstraints gridBagConstraints21 = new GridBagConstraints(  );
         gridBagConstraints21.gridx = 0;
         gridBagConstraints21.gridy = 1;
         gridBagConstraints21.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints21.insets = new java.awt.Insets( 5, 5, 0, 0 );
-
-        GridBagConstraints gridBagConstraints11 = new GridBagConstraints(  );
-        gridBagConstraints11.gridx = 0;
-        gridBagConstraints11.gridy = 0;
-        gridBagConstraints11.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints11.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        jLabel2 = new JLabel(  );
-        jLabel2.setText( "inguide_colour" );
-        jLabel2.setText( 
-            localizer.getLocalizedMessage( "options.inguide_colour" ) );
 
         GridBagConstraints gridBagConstraints5 = new GridBagConstraints(  );
         gridBagConstraints5.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -126,9 +102,6 @@ public class AlarmUIPanel extends JPanel
         gridBagConstraints1.insets = new java.awt.Insets( 5, 5, 0, 5 );
         this.setLayout( new GridBagLayout(  ) );
         this.setSize( 300, 200 );
-        this.add( getPanelColorInGuide(  ), gridBagConstraints51 );
-        this.add( getBtnColorInGuide(  ), gridBagConstraints31 );
-        this.add( jLabel2, gridBagConstraints11 );
         this.add( getCbRemind(  ), gridBagConstraints1 );
         this.add( jLabel, gridBagConstraints2 );
         this.add( getTextWarning(  ), gridBagConstraints3 );
@@ -186,38 +159,5 @@ public class AlarmUIPanel extends JPanel
         }
 
         return textGiveup;
-    }
-
-    /**
-     * This method initializes jButton
-     *
-     * @return javax.swing.JButton
-     */
-    public JButton getBtnColorInGuide(  )
-    {
-
-        if( btnColorInGuide == null )
-        {
-            btnColorInGuide = new JButton(  );
-            btnColorInGuide.setText( "..." );
-        }
-
-        return btnColorInGuide;
-    }
-
-    /**
-     * This method initializes jPanel
-     *
-     * @return javax.swing.JPanel
-     */
-    public JPanel getPanelColorInGuide(  )
-    {
-
-        if( panelColorInGuide == null )
-        {
-            panelColorInGuide = new JPanel(  );
-        }
-
-        return panelColorInGuide;
     }
 }
