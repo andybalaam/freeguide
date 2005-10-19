@@ -82,7 +82,7 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
             controller.updateProgrammeInfo( 
                 getProgrammeFromReference( 
                     e.getDescription(  ).substring( 1 ) ) );
-
+            controller.currentProgrammeLabel = null;
         }
     }
 

@@ -52,7 +52,7 @@ import javax.swing.JPanel;
  * @author $author$
  * @version $Revision$
  */
-public class HorizontalViewer extends BaseModule implements IModuleViewer
+public class HorizontalViewer extends BaseModule // implements IModuleViewer
 {
 
     /** Time formatter for 12 hour clock */

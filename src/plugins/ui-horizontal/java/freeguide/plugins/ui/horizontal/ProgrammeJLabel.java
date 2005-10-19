@@ -239,7 +239,8 @@ public class ProgrammeJLabel extends JLabel
 
             for( int i = 0; i < reminders.length; i++ )
             {
-                reminders[i].onPaintProgrammeLabel( programme, this );
+
+                //                reminders[i].onPaintProgrammeLabel( programme, this );
             }
         }
     }
@@ -301,8 +302,9 @@ public class ProgrammeJLabel extends JLabel
 
         for( int i = 0; i < reminders.length; i++ )
         {
-            reminders[i].onPaintProgrammeLabel( 
-                programme, this, (Graphics2D)g );
+
+            //            reminders[i].onPaintProgrammeLabel( 
+            //                programme, this, (Graphics2D)g );
         }
 
         URL link = programme.getLink(  );

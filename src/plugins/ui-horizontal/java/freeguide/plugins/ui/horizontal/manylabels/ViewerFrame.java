@@ -57,7 +57,7 @@ public class ViewerFrame extends JPanel
     public javax.swing.JScrollPane channelNameScrollPane;
 
     /** The panel containing the programmes */
-    public JPanel programmesPanel;
+    private JPanelProgramme programmesPanel;
 
     /** The Scrollpane showing programmes */
     public javax.swing.JScrollPane programmesScrollPane;
@@ -163,7 +163,7 @@ public class ViewerFrame extends JPanel
         programmesScrollPane = new FocusJScrollPane(  );
 
         //programmesPanel = new JPanel(new ProgrammesPanelLayout());
-        programmesPanel = new JPanel( null );
+        programmesPanel = new JPanelProgramme( parent );
         timePanel = new TimePanel( parent.config );
 
         butRevertToFavourites = new javax.swing.JButton(  );
@@ -855,11 +855,10 @@ public class ViewerFrame extends JPanel
      *
      * @return DOCUMENT_ME!
      */
-    public JPanel getProgrammesPanel(  )
+    public JPanelProgramme getProgrammesPanel(  )
     {
 
         return programmesPanel;
-
     }
 
     /**
