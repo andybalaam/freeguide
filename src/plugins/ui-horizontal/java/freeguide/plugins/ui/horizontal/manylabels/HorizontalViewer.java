@@ -2,7 +2,6 @@ package freeguide.plugins.ui.horizontal.manylabels;
 
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PersonalizedHTMLGuide;
-import freeguide.lib.fgspecific.PluginsManager;
 import freeguide.lib.fgspecific.ProgrammeFormat;
 import freeguide.lib.fgspecific.TVChannelIconHelper;
 import freeguide.lib.fgspecific.data.TVChannel;
@@ -17,7 +16,6 @@ import freeguide.lib.general.Utils;
 
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleConfigurationUI;
-import freeguide.plugins.IModuleReminder;
 import freeguide.plugins.IModuleStorage;
 import freeguide.plugins.IModuleViewer;
 

@@ -1,8 +1,6 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
 import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.PluginsManager;
-import freeguide.lib.fgspecific.selection.Favourite;
 
 import freeguide.plugins.IModuleReminder;
 
@@ -18,7 +16,6 @@ import java.awt.event.MouseListener;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
-import javax.swing.JProgressBar;
 import javax.swing.KeyStroke;
 
 /**
@@ -306,15 +303,16 @@ public class HorizontalViewerHandlers
                         JLabelProgramme label =
                             (JLabelProgramme)e.getSource(  );
 
-                        final IModuleReminder reminder =
-                            (IModuleReminder)PluginsManager.getModuleByID( 
-                                HorizontalViewer.REMINDER_MAIN );
+                        IModuleReminder[] reminders =
+                            Application.getInstance(  ).getReminders(  );
 
-                        if( reminder == null )
+                        if( reminders.length < 1 )
                         {
 
                             return;
                         }
+
+                        final IModuleReminder reminder = reminders[0];
 
                         final boolean isSelected =
                             reminder.isSelected( label.getProgramme(  ) );
