@@ -139,6 +139,7 @@ a Internationalisation
   environment variables if possible, or on command line?
 - Include videoplus info (see Yann's email of 2005-04-22)
 - Sort out how to notice a programme is a movie in various countries
+- Play a sound when a reminder pops up
 
 - Release 0.10.6 (documentation and accessibility)
 
@@ -202,6 +203,8 @@ a Internationalisation
 
 - Release 0.10.3 (Transition to stable release)
 
+- Add a "Choose Channels" option to the Tools menu that configures all the
+  grabbers that are being used.
 a Fix channel icons not being displayed.  See Jan Knudsen's email of 30/09/2005
 a Clicking Exit in First Time Wizard closes FreeGuide.
 a On migration from 0.8.6, delete old *.xmltv files.
