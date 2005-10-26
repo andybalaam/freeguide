@@ -562,7 +562,6 @@ public class TVProgramme implements Comparable, Serializable
         }
 
         return ans;
-
     }
 
     /**
