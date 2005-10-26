@@ -165,31 +165,38 @@ public class AlarmReminder extends BaseModuleReminder
 
                         if( fav != null )
                         {
-
-                            Object[] messageArguments =
-                            { programme.getTitle(  ) };
-
-                            int r =
-                                JOptionPane.showConfirmDialog( 
-                                    null, //controller.getPanel(  ),
-                                    i18n.getLocalizedMessage( 
-                                        "popup.favourite.del.prompt",
-                                        messageArguments ),
-                                    i18n.getLocalizedMessage( 
-                                        "popup.favourite.del.title" ),
-                                    JOptionPane.YES_NO_OPTION );
-
-                            if( r == 0 )
-                            {
-                                removeFavourite( fav );
-                                favSelectionChanged( false );
-                            }
+                            removeFavourite( fav );
                         }
                     }
                 } );
         }
 
         menu.add( fav );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param favourite DOCUMENT_ME!
+     */
+    public void removeFavourite( final Favourite favourite )
+    {
+
+        Object[] messageArguments = { favourite.getName(  ) };
+
+        int r =
+            JOptionPane.showConfirmDialog( 
+                null, //controller.getPanel(  ),
+                i18n.getLocalizedMessage( 
+                    "popup.favourite.del.prompt", messageArguments ),
+                i18n.getLocalizedMessage( "popup.favourite.del.title" ),
+                JOptionPane.YES_NO_OPTION );
+
+        if( r == 0 )
+        {
+            super.removeFavourite( favourite );
+            favSelectionChanged( false );
+        }
     }
 
     protected void onMenuItem(  )

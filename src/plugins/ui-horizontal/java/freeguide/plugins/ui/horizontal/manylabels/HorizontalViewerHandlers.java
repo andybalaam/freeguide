@@ -1,6 +1,8 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
 import freeguide.lib.fgspecific.Application;
+import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.lib.fgspecific.selection.Favourite;
 
 import freeguide.plugins.IModuleReminder;
 
@@ -328,9 +330,54 @@ public class HorizontalViewerHandlers
                 {
                     public void actionPerformed( ActionEvent e )
                     {
-                        System.out.println( "favourite" );
+
+                        JLabelProgramme label =
+                            (JLabelProgramme)e.getSource(  );
+                        final TVProgramme programme = label.getProgramme(  );
+                        IModuleReminder[] reminders =
+                            Application.getInstance(  ).getReminders(  );
+
+                        if( reminders.length < 1 )
+                        {
+
+                            return;
+                        }
+
+                        final IModuleReminder reminder = reminders[0];
+                        Favourite fav = reminder.getFavourite( programme );
+
+                        if( fav != null )
+                        {
+                            reminder.removeFavourite( fav );
+
+                            JLabelProgramme labelNew =
+                                ( (ViewerFrame)label.controller.getPanel(  ) ).getProgrammesPanel(  )
+                                  .getLabelForProgramme( programme );
+
+                            if( labelNew != null )
+                            {
+                                labelNew.requestFocus(  );
+                            }
+                        }
+                        else
+                        {
+                            fav = new Favourite(  );
+                            fav.setTitleString( 
+                                label.getProgramme(  ).getTitle(  ) );
+                            fav.setName( label.getProgramme(  ).getTitle(  ) );
+                            reminder.addFavourite( fav );
+                            label.controller.redraw(  );
+
+                            JLabelProgramme labelNew =
+                                ( (ViewerFrame)label.controller.getPanel(  ) ).getProgrammesPanel(  )
+                                  .getLabelForProgramme( programme );
+
+                            if( labelNew != null )
+                            {
+                                labelNew.requestFocus(  );
+                            }
+                        }
                     }
-                    ;
                 } );
         }
 

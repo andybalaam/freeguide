@@ -10,7 +10,9 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JPanel;
 import javax.swing.JViewport;
@@ -25,6 +27,7 @@ public class JPanelProgramme extends JPanel
     protected long startDate;
     protected ProgrammeFormat textFormat;
     protected List[] rows = new List[0];
+    protected Map labelsForProgrammes = new HashMap(  );
 
     /**
      * Creates a new JPanelProgramme object.
@@ -50,6 +53,7 @@ public class JPanelProgramme extends JPanel
         final int rowCount )
     {
         removeAll(  );
+        labelsForProgrammes.clear(  );
         this.startDate = theDate;
         this.textFormat = textFormat;
         setFont( font );
@@ -59,6 +63,13 @@ public class JPanelProgramme extends JPanel
         {
             rows[i] = new ArrayList(  );
         }
+    }
+
+    protected JLabelProgramme getLabelForProgramme( 
+        final TVProgramme programme )
+    {
+
+        return (JLabelProgramme)labelsForProgrammes.get( programme );
     }
 
     /**
@@ -76,6 +87,7 @@ public class JPanelProgramme extends JPanel
         add( label );
 
         rows[row].add( label );
+        labelsForProgrammes.put( programme, label );
     }
 
     /**
