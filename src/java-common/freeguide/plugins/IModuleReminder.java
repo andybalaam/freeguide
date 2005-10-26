@@ -1,6 +1,7 @@
 package freeguide.plugins;
 
 import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.lib.fgspecific.selection.Favourite;
 
 import java.awt.Graphics2D;
 
@@ -70,4 +71,10 @@ public interface IModuleReminder extends IModule
      */
     public void addItemsToPopupMenu( 
         final TVProgramme programme, final JPopupMenu menu );
+
+    Favourite getFavourite( TVProgramme programme );
+
+    void addFavourite( final Favourite favourite );
+
+    void removeFavourite( final Favourite favourite );
 }
