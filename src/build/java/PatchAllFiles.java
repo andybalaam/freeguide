@@ -39,8 +39,11 @@ public class PatchAllFiles
 
         PatchFile.patch( "doc/VERSION.php.in", "doc/VERSION.php", plugins );
         PatchFile.patch( 
-            "src/install/windows/freeguide.nsi.in",
-            "build/dist/windows/freeguide.nsi", plugins );
+                "src/install/windows/freeguide-without-xmltv.nsi.in",
+                "build/dist/windows/freeguide-without-xmltv.nsi", plugins );
+        PatchFile.patch( 
+                "src/install/windows/freeguide-with-xmltv.nsi.in",
+                "build/dist/windows/freeguide-with-xmltv.nsi", plugins );
         PatchFile.patch( 
             "src/install/linux/rpm/freeguide.spec.in",
             "build/dist/linux/rpm/freeguide.spec", plugins );

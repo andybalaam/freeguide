@@ -5,14 +5,15 @@
 
 ;--------------------------------
 
+!cd ..\..\..
+!system "mkdir dist"
+!system "mkdir dist\windows"
+
 ; The name of the installer
 Name "FreeGuide"
 
-!define NAME_VERSION "__ANT_NAME_VERSION__"
-!define VERSION "__ANT_VERSION_MAJOR__.__ANT_VERSION_MINOR__.ANT_VERSION_REVISION__"
-
 ; The file to write
-OutFile ..\..\..\dist\windows\${NAME_VERSION}-all-win32.exe
+OutFile dist\windows\${NAME_VERSION}-win32.exe
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\FreeGuide 
@@ -100,8 +101,8 @@ Section "FreeGuide program"
 
   SetOutPath $INSTDIR
   
-  File /r ..\..\..\build\*.jar
-  File /r run.cmd
+  File /r build\*.jar
+  File /r src\install\windows\run.cmd
   
   ; --------------------- make uninstaller ---------------------
   
@@ -113,26 +114,31 @@ Section "FreeGuide program"
 
   SetOutPath $INSTDIR\doc\
 
-  File ..\..\..\doc\*.html
-  File ..\..\..\doc\*.css
-  File ..\..\..\doc\*.txt
-  File ..\..\..\doc\*.png
-  File ..\..\..\doc\COPYING
-  File ..\..\..\doc\TODO
+  File doc\*.html
+  File doc\*.css
+  File doc\*.txt
+  File doc\*.png
+  File doc\COPYING
+  File doc\TODO
   
   ; -------------------------- xmltv -------------------------
-  
+
+!ifdef XMLTV  
+
   CreateDirectory $INSTDIR\xmltv\
 
   SetOutPath $INSTDIR\xmltv\
 
-  File /r ..\..\..\xmltv\*.*
-  
+  File /r src\plugins\other-xmltv-win32-exe\files\xmltv\*.*
+  File /r src\plugins\other-xmltv-win32-exe\files-nosrc\xmltv\xmltv.exe
+
+!endif
+
   ; --------------------------- icons --------------------------
   
   CreateDirectory $INSTDIR\icons\
   
-  File /oname=$INSTDIR\icons\logo.ico icons\logo.ico
+  File /oname=$INSTDIR\icons\logo.ico src\install\windows\icons\logo.ico
   
   ; ---------------- add/remove programs entry ------------------
   
