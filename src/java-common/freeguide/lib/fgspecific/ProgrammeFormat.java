@@ -668,7 +668,7 @@ public class ProgrammeFormat
      * @param startTime starting time of the program
      * @param toAppend StringBuffer the resulting string gets added to
      */
-    private void calcTimeDelta( long startTime, StringBuffer toAppend )
+    public static void calcTimeDelta( long startTime, StringBuffer toAppend )
     {
 
         // Get the current time and calculates the difference in minutes
