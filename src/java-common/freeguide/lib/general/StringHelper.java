@@ -1,5 +1,9 @@
 package freeguide.lib.general;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 /**
  * Helper for some string operations.
  *
@@ -81,5 +85,30 @@ public class StringHelper
         }
 
         return result;
+    }
+
+    /**
+     * Save string to file.
+     *
+     * @param data string to save
+     * @param outFile file
+     *
+     * @throws IOException
+     */
+    public static void saveToFile( final String data, final File outFile )
+        throws IOException
+    {
+
+        final FileOutputStream out = new FileOutputStream( outFile );
+
+        try
+        {
+            out.write( data.getBytes( "UTF-8" ) );
+            out.flush(  );
+        }
+        finally
+        {
+            out.close(  );
+        }
     }
 }
