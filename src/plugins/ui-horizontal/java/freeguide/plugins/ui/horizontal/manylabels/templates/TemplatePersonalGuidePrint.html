@@ -1,0 +1,48 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title><VALUE:.getTitle()/></title>
+  <style type='text/css'>
+    h1 {
+        font-family: helvetica, helv, arial;
+        font-weight: bold;
+        font-size: x-large;
+    }
+    h2 {
+        font-family: helvetica, helv, arial;
+        font-weight: bold;
+        font-size: large;
+    }
+    h3 {
+        font-family: helvetica, helv, arial;
+       font-weight: bold;
+        font-size: medium;
+    }
+    h4 {
+        font-family: helvetica, helv, arial;
+        font-weight: bold;
+        font-size: small;
+    }
+    body {
+        font-family: helvetica, helv, arial;
+        font-size: small;
+    }
+    address {
+        font-family: helvetica, helv, arial;
+        font-size: xx-small;
+    }
+  </style>
+</head>
+<body>
+  <h1><VALUE:.getHeader()/></h1>
+    <ITERATOR:getProgrammes()>
+    	<p><b><VALUE:.getProgrammeStartTime(this)/> - <a href="<VALUE:.getProgrammeURL(this)/>"><VALUE:.getProgrammeTitle(this)><VALUE:.getProgrammeSubTitle(this)/></a></b>
+    	  <br><VALUE:.getProgrammeChannelName(this)/>, ends <VALUE:.getProgrammeEndTime(this)/> <VALUE:.getProgrammeCategory(this)/>
+    	  <br><VALUE:.getProgrammeDescription(this)/> <VALUE:.getPreviouslyShown(this)/> <VALUE:.getStarRating(this)/>
+    	</p>
+    </ITERATOR>
+
+<hr/>
+<address>http://freeguide-tv.sourceforge.net</address>
+</body>
+</html>
