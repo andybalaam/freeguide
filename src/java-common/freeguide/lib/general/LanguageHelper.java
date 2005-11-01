@@ -430,6 +430,8 @@ public class LanguageHelper implements ILocalizer
         throws IOException
     {
 
+        final String lineSeparator = System.getProperty( "line.separator" );
+
         final InputStream in = getUncachedStream( resourceName );
 
         if( in == null )
@@ -451,8 +453,7 @@ public class LanguageHelper implements ILocalizer
             while( ( line = rd.readLine(  ) ) != null )
             {
                 result.append( line );
-                result.append( '\n' );
-
+                result.append( lineSeparator );
             }
 
             return result.toString(  );
