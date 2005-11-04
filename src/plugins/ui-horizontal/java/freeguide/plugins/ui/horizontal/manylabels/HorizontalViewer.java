@@ -12,16 +12,12 @@ import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.lib.general.FileHelper;
 import freeguide.lib.general.StringHelper;
-import freeguide.lib.general.TemplateParser;
 import freeguide.lib.general.Utils;
 
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleConfigurationUI;
 import freeguide.plugins.IModuleStorage;
 import freeguide.plugins.IModuleViewer;
-
-import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerPersonalGuide;
-import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;
 
 import java.awt.Dimension;
 import java.awt.Font;
