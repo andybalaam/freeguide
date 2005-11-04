@@ -13,6 +13,7 @@ import freeguide.plugins.IModuleReminder;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -263,7 +264,7 @@ public class HandlerPersonalGuide
      *
      * @return DOCUMENT_ME!
      */
-    public Iterable getProgrammes(  )
+    public Collection getProgrammes(  )
     {
 
         final IModuleReminder[] reminders =

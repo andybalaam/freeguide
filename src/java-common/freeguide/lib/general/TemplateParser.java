@@ -7,6 +7,7 @@ import java.io.Writer;
 import java.lang.reflect.Method;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -262,10 +263,11 @@ public class TemplateParser
 
         boolean processed = false;
 
-        if( value instanceof Iterable )
+        if( value instanceof Collection )
         {
 
-            for( Iterator it = ( (Iterable)value ).iterator(  );
+            for( 
+                Iterator it = ( (Collection)value ).iterator(  );
                     it.hasNext(  ); )
             {
                 currentPos = pos;

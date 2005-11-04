@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import java.text.SimpleDateFormat;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
@@ -93,7 +94,7 @@ public class HandlerProgrammeInfo
      *
      * @return DOCUMENT_ME!
      */
-    public Iterable getExtraTags(  )
+    public Collection getExtraTags(  )
     {
 
         if( programme.getExtraTags(  ) != null )
@@ -128,7 +129,7 @@ public class HandlerProgrammeInfo
      *
      * @return DOCUMENT_ME!
      */
-    public Iterable getTagAttrs( final Map attrs )
+    public Collection getTagAttrs( final Map attrs )
     {
 
         final Map result = new TreeMap( attrs );
