@@ -945,7 +945,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
             try
             {
-                panel.getDetailsPanel(  ).setText( 
+                buff.append( 
                     programmeFormat.formatForProgrammeDetailsJPanel( 
                         programme ) );
 
