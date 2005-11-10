@@ -8,26 +8,17 @@ import freeguide.plugins.BaseModuleReminder;
 import freeguide.plugins.IModuleReminder;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 
-import java.beans.PropertyChangeListener;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.BorderFactory;
-import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
 /**
@@ -139,7 +130,6 @@ public class JLabelProgramme extends JLabel
         if( isFocusOwner(  ) )
         {
             setBorder( FOCUSED_BORDER );
-            System.out.println( "focused " + programme.getTitle(  ) );
         }
     }
 
