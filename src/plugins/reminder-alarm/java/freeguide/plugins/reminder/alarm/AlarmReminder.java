@@ -71,7 +71,7 @@ public class AlarmReminder extends BaseModuleReminder
     {
         super.addItemsToMenu( menu );
 
-        JMenuItem it = menu.getItem( menu.getItemCount(  ) - 1 );
+        JMenuItem it = menu.getItem( 0 );
         it.setMnemonic( KeyEvent.VK_F );
         it.setAccelerator( 
             KeyStroke.getKeyStroke( KeyEvent.VK_F, InputEvent.CTRL_MASK ) );

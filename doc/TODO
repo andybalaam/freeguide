@@ -194,6 +194,12 @@ a Internationalisation
 - Make the XMLTV plugin optionally save out the raw XML it downloaded for debug.
 - Supply a default config file for each XMLTV grabber so that you get something
   even if config didn't work.
+- Create an ant build target that makes a "run" directory that contains all the
+  jar files needed etc to run freeguide (and preferably puts a little
+  "freeguide" script in there to run it using the correct directories)
+- Move "First Time Wizard" and "Plugins manager" _inside_ the Options screen.
+- Sometimes when I build FreeGuide from clean and then immediately start it I
+  get a Segmentation fault
 
 - Release 0.10.4 (recording)
 
@@ -204,45 +210,12 @@ a Internationalisation
 - Release 0.10.3 (Transition to stable release)
 
 - Add a "Choose Channels" option to the Tools menu that configures all the
-  grabbers that are being used.
-a Fix channel icons not being displayed.  See Jan Knudsen's email of 30/09/2005
-a Clicking Exit in First Time Wizard closes FreeGuide.
-a On migration from 0.8.6, delete old *.xmltv files.
-  COMMENT: Files deleted only if we use the same working directory.
-- Re-order buttons and change wording in Tools menu, Options screen.
-- After tinkering with favorites for a while, "add to favorites" is no longer
-  available from a right-click in the guide view, only "remove from favorites".
-  Not really sure what I did to trigger this bug, but closing & restarting
-  Freeguide fixed it.  And no, this did not result in all programs being marked
-  as favorites. ;-) (Joe Blow)
-a Automatically import XMLTV listings if they're in the data dir.  (Just import
-  *.xmltv)
-a Catch an exception when using an unsuitable Java version, and display a
-  suitable error message to the user (using Java 1.0 AWT)
-a Test whether only channel icons are displayed when you use a channel set,
-  but icon and name is displayed on All Channels.
-- Make it repaint correctly when you press "f" on a programme, or double-click
-- Sometimes you can't click on certain programmes, but you can navigate to them
-  with the keyboard
-a Make Startup.java accept "--install_directory x" as well as
-  "--install_directory=x"
-- Sometimes when I build FreeGuide from clean and then immediately start it I
-  get a Segmentation fault
-- Make sure the repository stuff works, and a repository is up on sourceforge.
-- Make sure all the documentation fits with the UI changes in 0.10.x.
-  - Change the home page to say how to download for each platform and region
-  - Document how to modify grabber config, change channels, etc.
-  - Check that all the FAQs are still relevant, and add new ones.
-a Make simple tar.gz packages for e.g. Slackware, and so that other
-  pacakgers can base on that, e.g. Mac OS.
+  grabbers that are being used, one by one.
 - User Guide menu option doesn't work in Windows.
 - When upgrading to 0.10.2 on Windows, the XMLTV checkbox in options is not
   checked.
-a When there are no listings for today FreeGuide should immediately ask whether
-  you want to download as soon as it starts.
 - Get rid of the "user andy" messages when installing RPMs
-a Opera should have the command 'opera -newpage "%filename%"'
-a Change plugin repo packages to be called freeguide-* instead of package-*.
+- Create a single RPM to install, instead of loads
 - Check that we need the TZ environment variable, and if not, remove it from
   the documentation, or reduce the urgency of the messages, at least.
 - Double click problem when not on the current day.  This one is hard to 
@@ -251,13 +224,40 @@ a Change plugin repo packages to be called freeguide-* instead of package-*.
   one to add to the daily guide.  It's usually a program that's at the 
   bottom of the current screen at either 1/2 or 1 hour later in the day.
   Reported by rlbfsb@gmail.com
-a Opera should have the command 'opera -newpage "%filename%"'
 - If you change the default for xmltv to more than 7 days the guide only shows 7
   days (See Joe Blow's emails)
 - Movies are not shown in the movie colour
+- Make sure the repository stuff works, and a repository is up on sourceforge.
+- Make sure all the documentation fits with the UI changes in 0.10.x.
+  - Change the home page to say how to download for each platform and region
+  - Document how to modify grabber config, change channels, etc.
+  - Check that all the FAQs are still relevant, and add new ones.
++ Re-order buttons and change wording in Tools menu, Options screen.
+a Fix channel icons not being displayed.  See Jan Knudsen's email of 30/09/2005
+a Clicking Exit in First Time Wizard closes FreeGuide.
+a On migration from 0.8.6, delete old *.xmltv files.
+  COMMENT: Files deleted only if we use the same working directory.
+a Automatically import XMLTV listings if they're in the data dir.  (Just import
+  *.xmltv)
+a Catch an exception when using an unsuitable Java version, and display a
+  suitable error message to the user (using Java 1.0 AWT)
+a Test whether only channel icons are displayed when you use a channel set,
+  but icon and name is displayed on All Channels.
+a Make it repaint correctly when you press "f" on a programme, or double-click
+a Sometimes you can't click on certain programmes, but you can navigate to them
+  with the keyboard
+a Make Startup.java accept "--install_directory x" as well as
+  "--install_directory=x"
+a Make simple tar.gz packages for e.g. Slackware, and so that other
+  packagers can base on that, e.g. Mac OS.
+a When there are no listings for today FreeGuide should immediately ask whether
+  you want to download as soon as it starts.
+a Opera should have the command 'opera -newpage "%filename%"'
+a Change plugin repo packages to be called freeguide-* instead of package-*.
+a Opera should have the command 'opera -newpage "%filename%"'
 a Make progress dialog stay open if either:
-    - User clicked "Show details", or
-    - There was any kind of error
+    User clicked "Show details", or
+    There was any kind of error
 
 + Release 0.10.2 (plugins manager, bug fixes)
 

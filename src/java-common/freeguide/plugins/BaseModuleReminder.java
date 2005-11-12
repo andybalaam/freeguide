@@ -68,7 +68,7 @@ abstract public class BaseModuleReminder extends BaseModule
 
         JMenuItem item = new JMenuItem(  );
         item.setText( i18n.getString( MENU_ITEM_LABEL ) );
-        menu.add( item );
+        menu.insert( item, 0 );
         item.addActionListener( 
             new ActionListener(  )
             {

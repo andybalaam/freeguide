@@ -315,21 +315,16 @@ public class MainFrame extends JWaitFrame
         if( menuTools == null )
         {
             menuTools = new JMenu(  );
-
             menuTools.setText( getLocalizedString( "MainFrame.Menu.Tools" ) );
-
             menuTools.setMnemonic( KeyEvent.VK_T );
-
-            menuTools.add( getMenuItemChannelsSets(  ) );
-
+            
+                                    // Will be added here:  // Favourites
+            menuTools.add( getMenuItemChannelsSets(  ) );   // Channel Sets
             menuTools.add( new JSeparator(  ) );
-
-            menuTools.add( getMenuItemWizard(  ) );
-
-            menuTools.add( getMenuItemOptions(  ) );
-            menuTools.add( getMenuItemUpdater(  ) );
+            menuTools.add( getMenuItemWizard(  ) );         // First time wiz
+            menuTools.add( getMenuItemUpdater(  ) );        // Plugins man
             menuTools.add( new JSeparator(  ) );
-
+            menuTools.add( getMenuItemOptions(  ) );        // Options
         }
 
         return menuTools;
@@ -423,10 +418,6 @@ public class MainFrame extends JWaitFrame
 
             menuItemWizard.setText( 
                 getLocalizedString( "MainFrame.Menu.Wizard" ) );
-
-            menuItemWizard.setMnemonic( KeyEvent.VK_F );
-
-            //	                    mbtFirstTimeActionPerformed( evt );
         }
 
         return menuItemWizard;
