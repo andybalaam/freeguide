@@ -206,6 +206,12 @@ a Internationalisation
 - Implement the actual reminders and recording functionality (using Reuel's
   plugin)
 - Implement in_guide, remind and record for chosen progs and favourites
+- Select programmes and channes for export and print:
+  - by channels(all/one/channelset)
+  - by date(all/today or selected/from-to)
+  - by selection(all/only selected)
+- Add pack(.gz) option for export
+- Implement vertical viewer
 
 - Release 0.10.3 (Transition to stable release)
 
