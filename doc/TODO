@@ -200,6 +200,7 @@ a Internationalisation
 - Move "First Time Wizard" and "Plugins manager" _inside_ the Options screen.
 - Sometimes when I build FreeGuide from clean and then immediately start it I
   get a Segmentation fault
+- Movies are not shown in the movie colour
 
 - Release 0.10.4 (recording)
 
@@ -215,29 +216,28 @@ a Internationalisation
 
 - Release 0.10.3 (Transition to stable release)
 
-- Add a "Choose Channels" option to the Tools menu that configures all the
-  grabbers that are being used, one by one.
-- User Guide menu option doesn't work in Windows.
-- When upgrading to 0.10.2 on Windows, the XMLTV checkbox in options is not
-  checked.
-- Get rid of the "user andy" messages when installing RPMs
-- Create a single RPM to install, instead of loads
-- Check that we need the TZ environment variable, and if not, remove it from
-  the documentation, or reduce the urgency of the messages, at least.
-- Double click problem when not on the current day.  This one is hard to 
-  tie down to a specific click here and this happens.  When not on the 
-  current day, if you double click on a program it will select a different 
-  one to add to the daily guide.  It's usually a program that's at the 
-  bottom of the current screen at either 1/2 or 1 hour later in the day.
-  Reported by rlbfsb@gmail.com
-- If you change the default for xmltv to more than 7 days the guide only shows 7
-  days (See Joe Blow's emails)
-- Movies are not shown in the movie colour
 - Make sure the repository stuff works, and a repository is up on sourceforge.
 - Make sure all the documentation fits with the UI changes in 0.10.x.
   - Change the home page to say how to download for each platform and region
   - Document how to modify grabber config, change channels, etc.
   - Check that all the FAQs are still relevant, and add new ones.
+- Add a "Choose Channels" option to the Tools menu that configures all the
+  grabbers that are being used, one by one.
+- Get rid of the "user andy" messages when installing RPMs
+- Create a single RPM to install, instead of loads
+- Check that we need the TZ environment variable, and if not, remove it from
+  the documentation, or reduce the urgency of the messages, at least.
+a User Guide menu option doesn't work in Windows.
+a When upgrading to 0.10.2 on Windows, the XMLTV checkbox in options is not
+  checked.
+a Double click problem when not on the current day.  This one is hard to 
+  tie down to a specific click here and this happens.  When not on the 
+  current day, if you double click on a program it will select a different 
+  one to add to the daily guide.  It's usually a program that's at the 
+  bottom of the current screen at either 1/2 or 1 hour later in the day.
+  Reported by rlbfsb@gmail.com
+# If you change the default for xmltv to more than 7 days the guide only shows 7
+  days (See Joe Blow's emails) [WONTFIX - problem in tv_grab_na_dd]
 + Re-order buttons and change wording in Tools menu, Options screen.
 a Fix channel icons not being displayed.  See Jan Knudsen's email of 30/09/2005
 a Clicking Exit in First Time Wizard closes FreeGuide.
