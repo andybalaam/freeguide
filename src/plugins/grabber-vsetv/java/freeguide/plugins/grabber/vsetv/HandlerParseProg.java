@@ -228,10 +228,17 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 
             if( currentProg != null )
             {
-                currentProg.setTitle( text );
-            }
 
-            mode = MODES_NONE;
+                if( "td".equals( qName ) )
+                {
+                    currentProg.setTitle( text );
+                    mode = MODES_NONE;
+                }
+            }
+            else
+            {
+                mode = MODES_NONE;
+            }
 
             break;
 
@@ -297,9 +304,6 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
         {
             mode = MODES_NONE;
         }
-
-        currentText.setLength( 0 );
-
     }
 
     /**
