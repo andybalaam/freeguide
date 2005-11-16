@@ -311,7 +311,6 @@ public class ProgrammeJLabel extends JLabel
 
         if( link != null )
         {
-            System.out.println( " prog blue = " + programme.getTitle(  ) );
             g.setColor( Color.BLUE );
 
             int width = getWidth(  );
