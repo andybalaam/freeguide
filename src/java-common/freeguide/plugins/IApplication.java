@@ -5,6 +5,7 @@ import java.util.TimeZone;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 
 /**
  * Interface for retrieve information about main application.
@@ -46,4 +47,17 @@ public interface IApplication
     void saveAllConfigs(  );
 
     String getBrowserCommand(  );
+
+    IMainMenu getMainMenu(  );
+
+    /**
+     * DOCUMENT ME!
+     *
+     * @author $author$
+     * @version $Revision$
+     */
+    public interface IMainMenu
+    {
+        JMenu getTools(  );
+    }
 }

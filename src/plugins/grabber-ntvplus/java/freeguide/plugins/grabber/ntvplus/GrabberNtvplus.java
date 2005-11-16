@@ -38,6 +38,20 @@ public class GrabberNtvplus extends BaseModule implements IModuleGrabber
 
     /**
      * DOCUMENT_ME!
+     */
+    public void start(  )
+    {
+    }
+
+    /**
+     * DOCUMENT_ME!
+     */
+    public void stop(  )
+    {
+    }
+
+    /**
+     * DOCUMENT_ME!
      *
      * @param progress DOCUMENT_ME!
      * @param logger DOCUMENT_ME!
@@ -61,7 +75,7 @@ public class GrabberNtvplus extends BaseModule implements IModuleGrabber
     /**
      * DOCUMENT_ME!
      */
-    public void stop(  )
+    public void stopGrabbing(  )
     {
         isStopped = true;
 

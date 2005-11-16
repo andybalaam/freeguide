@@ -48,6 +48,20 @@ public class GrabberRbc extends BaseModule implements IModuleGrabber
 
     /**
      * DOCUMENT_ME!
+     */
+    public void start(  )
+    {
+    }
+
+    /**
+     * DOCUMENT_ME!
+     */
+    public void stop(  )
+    {
+    }
+
+    /**
+     * DOCUMENT_ME!
      *
      * @return DOCUMENT_ME!
      */
@@ -60,10 +74,8 @@ public class GrabberRbc extends BaseModule implements IModuleGrabber
     /**
      * DOCUMENT_ME!
      */
-    public void stop(  )
+    public void stopGrabbing(  )
     {
-
-        // TODO Auto-generated method stub
     }
 
     /**

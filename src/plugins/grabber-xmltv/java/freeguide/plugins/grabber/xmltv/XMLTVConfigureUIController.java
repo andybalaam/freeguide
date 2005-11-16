@@ -94,7 +94,12 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
                     XMLTVConfig.ModuleInfo info =
                         new XMLTVConfig.ModuleInfo(  );
-                    config.modules.add( info );
+
+                    synchronized( config.modules )
+                    {
+                        config.modules.add( info );
+                    }
+
                     addModule( info );
                     panel.revalidate(  );
                     panel.repaint(  );
@@ -185,7 +190,12 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
                                 panel, "Are you sure ?", "Delete",
                                 JOptionPane.OK_CANCEL_OPTION ) == JOptionPane.OK_OPTION )
                     {
-                        config.modules.remove( confPanel.moduleInfo );
+
+                        synchronized( config.modules )
+                        {
+                            config.modules.remove( confPanel.moduleInfo );
+                        }
+
                         panel.getPanelModules(  ).remove( confPanel );
                         panel.revalidate(  );
                         panel.repaint(  );

@@ -6,6 +6,8 @@ import freeguide.lib.fgspecific.Application;
 
 import freeguide.lib.general.LanguageHelper;
 
+import freeguide.plugins.IApplication;
+
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.event.InputEvent;
@@ -47,6 +49,15 @@ public class MainFrame extends JWaitFrame
     private JProgressBar progressBar;
     private JMenuItem menuItemUpdater;
     private JMenuItem menuItemImport = null;
+    private final IApplication.IMainMenu menuForExport =
+        new IApplication.IMainMenu(  )
+        {
+            public JMenu getTools(  )
+            {
+
+                return getMenuTools(  );
+            }
+        };
 
     /**
      * This is the default constructor
@@ -75,6 +86,17 @@ public class MainFrame extends JWaitFrame
 
         initialize(  );
 
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public IApplication.IMainMenu getMainMenuForExport(  )
+    {
+
+        return menuForExport;
     }
 
     protected String getLocalizedString( final String key )
@@ -317,14 +339,15 @@ public class MainFrame extends JWaitFrame
             menuTools = new JMenu(  );
             menuTools.setText( getLocalizedString( "MainFrame.Menu.Tools" ) );
             menuTools.setMnemonic( KeyEvent.VK_T );
-            
-                                    // Will be added here:  // Favourites
-            menuTools.add( getMenuItemChannelsSets(  ) );   // Channel Sets
+
+            // Will be added here:  // Favourites
+            menuTools.add( getMenuItemChannelsSets(  ) ); // Channel Sets
             menuTools.add( new JSeparator(  ) );
-            menuTools.add( getMenuItemWizard(  ) );         // First time wiz
-            menuTools.add( getMenuItemUpdater(  ) );        // Plugins man
+            menuTools.add( getMenuItemWizard(  ) ); // First time wiz
+            menuTools.add( getMenuItemUpdater(  ) ); // Plugins man
             menuTools.add( new JSeparator(  ) );
-            menuTools.add( getMenuItemOptions(  ) );        // Options
+            menuTools.add( getMenuItemOptions(  ) ); // Options
+            menuTools.add( new JSeparator(  ) );
         }
 
         return menuTools;

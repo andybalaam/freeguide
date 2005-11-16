@@ -27,5 +27,15 @@ public interface IModuleGrabber extends IModule
     /**
      * Stop grabbing.
      */
+    void stopGrabbing(  );
+
+    /**
+     * Start module. Called when application starts.
+     */
+    void start(  );
+
+    /**
+     * Stop module. Called when application stops.
+     */
     void stop(  );
 }

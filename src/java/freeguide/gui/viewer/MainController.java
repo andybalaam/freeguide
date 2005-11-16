@@ -18,6 +18,7 @@ import freeguide.lib.general.Utils;
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IApplication;
 import freeguide.plugins.IModuleExport;
+import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IModuleImport;
 import freeguide.plugins.IModuleReminder;
 import freeguide.plugins.IModuleStorage;
@@ -73,6 +74,17 @@ public class MainController extends BaseModule implements IApplication
     {
 
         return config;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public IMainMenu getMainMenu(  )
+    {
+
+        return mainFrame.getMainMenuForExport(  );
     }
 
     /**
@@ -176,17 +188,6 @@ public class MainController extends BaseModule implements IApplication
 
         new MenuHandler( this );
 
-        final PluginInfo[] reminders = PluginsManager.getReminders(  );
-
-        for( int i = 0; i < reminders.length; i++ )
-        {
-
-            IModuleReminder reminder =
-                (IModuleReminder)reminders[i].getInstance(  );
-            reminder.addItemsToMenu( mainFrame.getMenuTools(  ) );
-            reminder.start(  );
-        }
-
         mainFrame.getContentPane(  ).add( 
             viewer.getPanel(  ), BorderLayout.CENTER );
 
@@ -195,17 +196,9 @@ public class MainController extends BaseModule implements IApplication
             {
                 public void windowClosing( java.awt.event.WindowEvent evt )
                 {
-                    viewer.close(  );
-
                     saveConfigNow(  );
 
-                    final PluginInfo[] reminders =
-                        PluginsManager.getReminders(  );
-
-                    for( int i = 0; i < reminders.length; i++ )
-                    {
-                        ( (IModuleReminder)reminders[i].getInstance(  ) ).stop(  );
-                    }
+                    stopModules(  );
                 }
             } );
         mainFrame.getProgressBar(  ).addMouseListener( 
@@ -244,26 +237,18 @@ public class MainController extends BaseModule implements IApplication
 
         mainFrame.setBounds( config.ui.mainWindowPosition );
 
-        viewer.open(  );
+        startModules(  );
 
         mainFrame.getRootPane(  ).setDefaultButton( 
             viewer.getDefaultButton(  ) );
         mainFrame.setVisible( true );
-
-        remindersReschedule(  );
 
         FreeGuide.hidePleaseWait(  );
 
         //checkForNoData(  );
         mainFrame.waitForClose(  );
 
-        for( int i = 0; i < reminders.length; i++ )
-        {
-
-            IModuleReminder reminder =
-                (IModuleReminder)reminders[i].getInstance(  );
-            reminder.stop(  );
-        }
+        stopModules(  );
     }
 
     /**
@@ -293,6 +278,55 @@ public class MainController extends BaseModule implements IApplication
         {
             Application.getInstance(  ).doStartGrabbers(  );
         }
+    }
+
+    protected void startModules(  )
+    {
+        viewer.open(  );
+
+        final PluginInfo[] grabbers = PluginsManager.getGrabbers(  );
+
+        for( int i = 0; i < grabbers.length; i++ )
+        {
+
+            IModuleGrabber grabber =
+                (IModuleGrabber)grabbers[i].getInstance(  );
+            grabber.start(  );
+        }
+
+        final PluginInfo[] reminders = PluginsManager.getReminders(  );
+
+        for( int i = 0; i < reminders.length; i++ )
+        {
+
+            IModuleReminder reminder =
+                (IModuleReminder)reminders[i].getInstance(  );
+            reminder.addItemsToMenu( mainFrame.getMenuTools(  ) );
+            reminder.start(  );
+        }
+    }
+
+    protected void stopModules(  )
+    {
+
+        final PluginInfo[] reminders = PluginsManager.getReminders(  );
+
+        for( int i = 0; i < reminders.length; i++ )
+        {
+            ( (IModuleReminder)reminders[i].getInstance(  ) ).stop(  );
+        }
+
+        final PluginInfo[] grabbers = PluginsManager.getGrabbers(  );
+
+        for( int i = 0; i < grabbers.length; i++ )
+        {
+
+            IModuleGrabber grabber =
+                (IModuleGrabber)grabbers[i].getInstance(  );
+            grabber.stop(  );
+        }
+
+        viewer.close(  );
     }
 
     /**

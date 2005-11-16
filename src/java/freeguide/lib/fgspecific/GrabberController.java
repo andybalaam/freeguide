@@ -206,7 +206,7 @@ public class GrabberController
 
             if( currentGrabber != null )
             {
-                currentGrabber.stop(  );
+                currentGrabber.stopGrabbing(  );
             }
 
             secondProgressBar.setVisible( false );

@@ -18,6 +18,9 @@ import freeguide.plugins.IModuleConfigureFromWizard;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IProgress;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -25,15 +28,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
-import java.util.prefs.Preferences;
 
 import javax.swing.JDialog;
+import javax.swing.JMenuItem;
 
 /**
  * Grabber implementation for XMLTV.
@@ -55,16 +57,64 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
     // execExternal
     // ----------------------------------------------------------------------
-    private final static String lb = System.getProperty( "line.separator" );
     protected static Properties cmds;
 
     /** DOCUMENT ME! */
     public XMLTVConfig config = new XMLTVConfig(  );
     boolean isStopped = true;
-    private Calendar date;
     private Process pr;
     protected XMLTVConfigureUIPanelModule confUI;
     protected CountryInfo[] countryInfos;
+
+    /**
+     * DOCUMENT_ME!
+     */
+    public void start(  )
+    {
+
+        final JMenuItem menuLine = new JMenuItem(  );
+        menuLine.setText( 
+            getLocalizer(  ).getLocalizedMessage( "Menu.Tools.ChooseChannels" ) );
+        Application.getInstance(  ).getMainMenu(  ).getTools(  ).add( 
+            menuLine );
+
+        menuLine.addActionListener( 
+            new ActionListener(  )
+            {
+                public void actionPerformed( ActionEvent e )
+                {
+                    new Thread(  )
+                        {
+                            public void run(  )
+                            {
+
+                                final List modules = new ArrayList(  );
+
+                                synchronized( config.modules )
+                                {
+                                    modules.addAll( config.modules );
+                                }
+
+                                for( int i = 0; i < modules.size(  ); i++ )
+                                {
+
+                                    final XMLTVConfig.ModuleInfo moduleInfo =
+                                        (XMLTVConfig.ModuleInfo)modules.get( 
+                                            i );
+                                    configureChannels( moduleInfo );
+                                }
+                            }
+                        }.start(  );
+                }
+            } );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     */
+    public void stop(  )
+    {
+    }
 
     /**
      * DOCUMENT_ME!
@@ -80,7 +130,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     /**
      * DOCUMENT_ME!
      */
-    public void stop(  )
+    public void stopGrabbing(  )
     {
         isStopped = true;
 
@@ -109,12 +159,16 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         final TVData result = new TVData(  );
 
-        for( int i = 0; i < config.modules.size(  ); i++ )
+        synchronized( config.modules )
         {
 
-            XMLTVConfig.ModuleInfo moduleInfo =
-                (XMLTVConfig.ModuleInfo)config.modules.get( i );
-            grabOne( result, moduleInfo, progress, logger );
+            for( int i = 0; i < config.modules.size(  ); i++ )
+            {
+
+                XMLTVConfig.ModuleInfo moduleInfo =
+                    (XMLTVConfig.ModuleInfo)config.modules.get( i );
+                grabOne( result, moduleInfo, progress, logger );
+            }
         }
 
         return result;
@@ -152,7 +206,6 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         int resultCode = execCmdSimple( Utils.parseCommand( cmd ) );
         Application.getInstance(  ).getLogger(  ).finest( 
             "Result code = " + resultCode );
-
     }
 
     protected static synchronized Map getCommands(  )
@@ -370,7 +423,6 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     public void configureFromWizard( 
         final String regionName, final boolean runSelectChannels )
     {
-        config.modules.clear(  );
 
         XMLTVConfig.ModuleInfo info = new XMLTVConfig.ModuleInfo(  );
         info.moduleName =
@@ -378,12 +430,16 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         info.configFileName =
             (String)getCommands(  ).get( "region." + regionName + ".grabber" )
             + ".conf";
-        config.modules.add( info );
+
+        synchronized( config.modules )
+        {
+            config.modules.clear(  );
+            config.modules.add( info );
+        }
 
         if( runSelectChannels )
         {
             configureChannels( info );
-
         }
     }
 

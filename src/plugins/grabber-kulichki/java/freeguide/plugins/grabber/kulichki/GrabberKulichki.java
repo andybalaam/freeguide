@@ -53,7 +53,21 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
     /**
      * DOCUMENT_ME!
      */
+    public void start(  )
+    {
+    }
+
+    /**
+     * DOCUMENT_ME!
+     */
     public void stop(  )
+    {
+    }
+
+    /**
+     * DOCUMENT_ME!
+     */
+    public void stopGrabbing(  )
     {
     }
 

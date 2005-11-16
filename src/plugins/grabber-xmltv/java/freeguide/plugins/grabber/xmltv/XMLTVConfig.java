@@ -27,9 +27,14 @@ public class XMLTVConfig
 
         XMLTVConfig result = new XMLTVConfig(  );
 
-        for( int i = 0; i < modules.size(  ); i++ )
+        synchronized( modules )
         {
-            result.modules.add( ( (ModuleInfo)modules.get( i ) ).clone(  ) );
+
+            for( int i = 0; i < modules.size(  ); i++ )
+            {
+                result.modules.add( 
+                    ( (ModuleInfo)modules.get( i ) ).clone(  ) );
+            }
         }
 
         return result;
