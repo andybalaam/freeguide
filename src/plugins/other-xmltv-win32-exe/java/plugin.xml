@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin id="other-xmltv-win32-exe"
-        version="1">
+        version="0.5.41">
 
   <name lang="en">XMLTV for Windows</name>
   <description lang="en">XMLTV for Windows execution from http://alpha-exe.xmltv.org/</description>
