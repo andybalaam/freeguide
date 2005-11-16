@@ -58,9 +58,9 @@ abstract public class MigrationProcessBase
     public Map getResult(  )
     {
 
-        if( prefFrom.size(  ) > 0 )
+        /*if( prefFrom.size(  ) > 0 )
         {
-            System.out.println( 
+            System.out.println(
                 "Leaved after migration " + getClass(  ).getName(  ) + ":" );
         }
 
@@ -69,8 +69,7 @@ abstract public class MigrationProcessBase
 
             Map.Entry entry = (Map.Entry)it.next(  );
             System.out.println( entry.getKey(  ) + "=" + entry.getValue(  ) );
-        }
-
+        }*/
         return prefTo;
     }
 
