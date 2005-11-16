@@ -216,6 +216,8 @@ a Internationalisation
 
 - Release 0.10.3 (Transition to stable release)
 
++ --no-plugin-manager implementation
++ Tools/Choose channels for xmltv submenu
 - Make sure the repository stuff works, and a repository is up on sourceforge.
 - Make sure all the documentation fits with the UI changes in 0.10.x.
   - Change the home page to say how to download for each platform and region
