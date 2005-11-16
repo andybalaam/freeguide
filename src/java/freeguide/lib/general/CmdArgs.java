@@ -13,6 +13,8 @@ package freeguide.lib.general;
 import freeguide.FreeGuide;
 
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Processes and stores the command line arguments passed to an application.
@@ -25,6 +27,13 @@ import java.util.Properties;
  */
 public class CmdArgs
 {
+
+    protected static final Set KEY_TRIGGERS = new TreeSet(  );
+
+    static
+    {
+        KEY_TRIGGERS.add( "no-plugin-manager" );
+    }
 
     /**
      * Constructs a new set of command line arguments for use in an
@@ -59,7 +68,9 @@ public class CmdArgs
                 {
                     key = args[i].substring( 2 );
 
-                    if( ( i + 1 ) < args.length )
+                    if( 
+                        !KEY_TRIGGERS.contains( key )
+                            && ( ( i + 1 ) < args.length ) )
                     {
                         value = args[i + 1];
                         i++;

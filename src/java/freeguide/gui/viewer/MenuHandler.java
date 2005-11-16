@@ -10,6 +10,7 @@ import freeguide.gui.updater.UpdaterController;
 
 import freeguide.gui.wizard.FirstTimeWizard;
 
+import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PluginInfo;
 import freeguide.lib.fgspecific.PluginsManager;
 
@@ -25,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.util.Locale;
 
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 /**
  * Menu handler for MainController
@@ -147,7 +149,21 @@ public class MenuHandler
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
-                    new UpdaterController( controller.mainFrame ).run(  );
+
+                    if( FreeGuide.arguments.containsKey( "no-plugin-manager" ) )
+                    {
+                        JOptionPane.showMessageDialog( 
+                            controller.mainFrame,
+                            Application.getInstance(  ).getLocalizedMessage( 
+                                "UpdateManager.Disabled.Text" ),
+                            Application.getInstance(  ).getLocalizedMessage( 
+                                "UpdateManager.Disabled.Header" ),
+                            JOptionPane.ERROR_MESSAGE );
+                    }
+                    else
+                    {
+                        new UpdaterController( controller.mainFrame ).run(  );
+                    }
                 }
             } );
 
