@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <title>FreeGuide - your TV Guide</title>
+
+    <para>FreeGuide is a TV guide program. It uses parser programs to extract
+    TV information from web pages and stores them for viewing without the need
+    to connect to the Internet. The viewer allows the user to view television
+    listings and create customised TV guides by selecting programmes and by
+    building up a favourites list.</para>
+
+    <para>It works with listings for Canada, Denmark, Finland, France,
+    Germany, Hungary, Ireland, Italy, Japan (Linux only), the Netherlands,
+    Norway, Portugal, Romania, Spain, Sweden, the UK and the US.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><link linkend="downinst">Download and Install FreeGuide</link>
+        for:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><link linkend="downinst.windows">Windows</link></para>
+          </listitem>
+
+          <listitem>
+            <para><link linkend="downinst.linux">Linux</link></para>
+          </listitem>
+<!--
+    FIXME: Include them again after the chapters have been written
+          <listitem>
+            <para><link linkend="downinst.macos">MacOS</link></para>
+          </listitem>
+
+          <listitem>
+            <para><link linkend="downinst.freebsd">FreeBSD</link></para>
+          </listitem>
+
+          <listitem>
+            <para><link linkend="downinst.otheros">Other operating
+            systems</link></para>
+          </listitem>
+-->
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para><link linkend="userguide">User Guide</link></para>
+      </listitem>
+
+      <listitem>
+        <para><link linkend="help">Help and FAQ</link></para>
+      </listitem>
+
+      <listitem>
+        <para><link linkend="contact">Contact Us</link></para>
+      </listitem>
+    </itemizedlist>
+
+    <figure>
+      <title>FreeGuide in action</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="FreeGuide-0_7-Linux-MetalLookAndFeel.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>One picture isn't enough? Look at <ulink url="FIXME">more
+    screenshots</ulink> (Online).</para>

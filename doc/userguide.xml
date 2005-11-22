@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <chapter id="userguide">
+    <title>User Guide</title>
+
+    <section id="userguide.firsttime">
+      <title>Running for the first time</title>
+
+      <para>The first time you run FreeGuide it asks you some questions and
+      then offers to configure your grabber. You should normally leave this
+      option ticked.</para>
+
+      <para>If you followed the installation instructions for your platform
+      exactly, but you get an error here, it's a bug - sorry! - <link
+      linkend="contact">contact us</link> and we'll sort you out.</para>
+
+      <para>If all has gone well, FreeGuide will know what channels you want,
+      but won't be able to show any programmes because you haven't downloaded
+      them yet. It will ask you whether you want to go to the download screen.
+      Connect to the Internet, and click <guibutton>Yes</guibutton>. Cross
+      your fingers and wait. If all is well, the listings should eventually
+      download (it can take some time), and you can click
+      <guibutton>OK</guibutton> to start using FreeGuide. If you have problems
+      have a look at the <link linkend="help.faq">FAQ</link>.</para>
+
+      <note>
+        <para>If you very quickly get an "<literal>Execution Error</literal>"
+        message, check that you're connected to the Internet and try again. If
+        you wait quite a while and then get the "<literal>Execution
+        Error</literal>" message, everything may still be alright - click
+        "<guibutton>Continue</guibutton>" to see.</para>
+      </note>
+    </section>
+
+    <section id="userguide.mainscreen">
+      <title>The main screen</title>
+
+      <para>On the main screen time advances from left to right (click
+      "<guibutton>Go To Now</guibutton>" to see what's on now), and the
+      channels are shown one below another.</para>
+
+      <para>The <guibutton>+</guibutton> and <guibutton>-</guibutton> buttons
+      change the day you are looking at, or you can choose a day from the
+      list.</para>
+
+      <para>You can double-click on a programme (making it change colour) to
+      add it to your personalised TV guide for today, which is shown in the
+      bottom section of the window. You can change the colours, but the
+      default setup has green for programmes that are in your personalised
+      guide, and pink for movies.</para>
+
+      <para>Clicking "<guibutton>Print this personalised listing</guibutton>"
+      will open up your web browser with your customised TV guide, and you can
+      print it by choosing "<guimenu>File</guimenu>" and then
+      "<guimenuitem>Print</guimenuitem>" in your browser.</para>
+
+      <para>To change the order of your channels, or only show some of them at
+      a time, use the "<guimenuitem>Channel Sets</guimenuitem>" option on the
+      "<guimenu>Tools</guimenu>" menu. After you've made one, you can choose a
+      channel set with the dropdown list at the top-right of the main
+      screen.</para>
+    </section>
+
+    <section id="userguide.features">
+      <title>Features</title>
+
+      <para>You can make programmes highlight themselves by adding them to
+      your favourites list (under the "<guimenu>Tools</guimenu>" menu click
+      "<guimenuitem>Favourites</guimenuitem>"). Any programme matching a
+      favourite will be ticked automatically. You can always un-tick
+      programmes if you wish. You can also make a programme a favourite by
+      right-clicking it and choosing "<guibutton>Add to
+      Favourites</guibutton>".</para>
+
+      <para>Check out the "<guimenuitem>Options</guimenuitem>" item on the
+      "<guimenu>Tools</guimenu>" menu to customise FreeGuide and alter lots of
+      options.</para>
+    </section>
+
+    <section id="userguide.look_and_feel">
+      <title>Styling FreeGuide: Look and Feel</title>
+
+      <para>You can style/theme FreeGuide by using so-called <emphasis>Look
+      and Feels</emphasis>. This page tries to give you some answers to the
+      questions you might have.</para>
+
+      <qandaset>
+        <qandadiv>
+          <qandaentry id="userguide.look_and_feel.skins">
+            <question>
+              <para>Does FreeGuide support skins/themes?</para>
+            </question>
+
+            <answer>
+              <para><productname>FreeGuide</productname> (starting with
+              version <productnumber>0.7</productnumber>) supports
+              <productname>Java</productname>'s Pluggable Look and Feel
+              (L&amp;F). Most of the available L&amp;F's provide a single
+              "look," but some, such as the GTK+ and Synth Looks and Feels,
+              provide support for themes (skins).</para>
+            </answer>
+          </qandaentry>
+
+	  <qandaentry id="userguide.look_and_feel.whatislaf">
+            <question>
+              <para>What are Looks and Feels?</para>
+            </question>
+
+            <answer>
+              <para>Looks and Feels (L&amp;F's) are a means by which a
+              programmer or an end-user can change the appearance of a Java
+              application without rewriting or recompiling the
+              application.</para>
+            </answer>
+          </qandaentry>
+
+	  <qandaentry id="userguide.look_and_feel.setlaf">
+            <question>
+              <para>How do I set the L&amp;F used by FreeGuide?</para>
+            </question>
+
+            <answer>
+              <para>Select
+              <guimenu>Tools</guimenu>|<guimenuitem>Options</guimenuitem> from
+              the FreeGuide menu. The options for <guilabel>Layout</guilabel>
+              include a combo box (drop down list) that lists all of the
+              L&amp;F's available on your system. Select the L&amp;F you want
+              to use and click the <guibutton>OK</guibutton> button.</para>
+
+              <para>If you have installed a L&amp;F that FreeGuide was unable
+              to identify, you may type its class name into the combo box.
+              Note that you must provide the fully-qualified classname - one
+              that includes several words separated by periods, such as
+              <filename>javax.swing.plaf.metal.MetalLookAndFeel</filename>.
+              The fully qualified classname should be given in the L&amp;F's
+              documentation.</para>
+
+              <para>If you type in the class name and nothing happens,
+              FreeGuide is unable to find the specified class. Make sure you
+              spelled the class name correctly. If everything is spelled
+              correctly, make sure you installed the L&amp;F correctly.</para>
+            </answer>
+          </qandaentry>
+
+	  <qandaentry id="userguide.look_and_feel.installlaf">
+            <question>
+              <para>How do I install new L&amp;F's.</para>
+            </question>
+
+            <answer>
+              <para>When you download a L&amp;F, it should include
+              instructions for installing the L&amp;F. Some may have
+              requirements that others do not; for example, some will require
+              you to specify additional information on the command line to use
+              the L&amp;F. Therefore, it is important that you read the
+              instructions that came with your L&amp;F.</para>
+
+              <para>In all cases, however, the L&amp;F must appear in
+              FreeGuide's classpath. To include the L&amp;F in the classpath,
+              modify the shortcut you are using to start FreeGuide to include
+              the <parameter>-classpath</parameter> command-line option. The
+              command line should look something like those shown below (make
+              sure you use the correct locations for your files):</para>
+
+              <para>For Windows</para>
+
+              <programlisting>javaw -classpath "C:\path\to\my\LookAndFeel.jar" -jar "C:\Program Files\FreeGuide\FreeGuide.jar"</programlisting>
+
+              <para>Or, for Unix-like operating systems:</para>
+
+              <programlisting>java -classpath "/path/to/my/LookAndFeel.jar" -jar "/usr/share/freeguide/FreeGuide.jar"</programlisting>
+            </answer>
+          </qandaentry>
+
+	  <qandaentry id="userguide.look_and_feel.gtklaf">
+            <question>
+              <para>What about the GTK+ L&amp;F?</para>
+            </question>
+
+            <answer>
+              <para>The GTK+ L&amp;F was designed to provide the look and feel
+              of a native application developed with the <ulink
+              url="http://www.gtk.org/">GTK+</ulink> toolkit (as are many
+              applications for Unix-like operating systems - such as GNU/Linux
+              - and even some applications that run on Windows). Since the
+              GTK+ toolkit provides support for themes (which are functionally
+              equivalent to skins), the GTK+ L&amp;F provides theme/skin
+              support.</para>
+            </answer>
+          </qandaentry>
+
+	  <qandaentry id="userguide.look_and_feel.gtkforgtk">
+            <question>
+              <para>Do I need to install GTK+ to use the GTK+ L&amp;F?</para>
+            </question>
+
+            <answer>
+              <para>No. The GTK+ L&amp;F performs the work normally
+              accomplished by GTK+ theme engines to allow its use on any
+              system - regardless of whether the system uses (or even
+              supports) GTK+. Therefore, as long as you have the GTK+ L&amp;F
+              available, you can use the GTK+ L&amp;F. Note that you will also
+              need to make GTK+ themes available to use different GTK+
+              themes.</para>
+            </answer>
+          </qandaentry>
+
+	  <qandaentry id="userguide.look_and_feel.gtknotlisted">
+            <question>
+              <para>The GTK+ L&amp;F sounds great, but it's not listed as
+              available. Why not?</para>
+            </question>
+
+            <answer>
+              <para>The GTK+ L&amp;F is a brand-new addition to Java. It is
+              only included in Java 2 version 1.4.2 and above. Make sure you
+              have the right version of Java. You can determine your Java
+              version by executing the following command from the Command
+              Prompt or shell:</para>
+
+              <programlisting>java -version</programlisting>
+
+              <para>If you're using Microsoft Windows, please see the next
+              question.</para>
+            </answer>
+          </qandaentry>
+
+	  <qandaentry id="userguide.look_and_feel.nogtk142">
+            <question>
+              <para>I have Java 2 version 1.4.2 or above and I still don't see
+              GTK+. What's wrong?</para>
+            </question>
+
+            <answer>
+              <para>Sun decided not to include the GTK+ L&amp;F with the Java
+              2 Runtime Environment (JRE) for Windows. Currently, the only
+              available option is to install the <ulink
+              url="http://java.sun.com/j2se/1.4.2/download.html">Java 2
+              Software Development Kit (SDK)</ulink> for Windows. NOTE: You do
+              not need the J2EE with J2SE package or the NetBeans IDE with
+              J2SE COBUNDLE. You want J2SE SDK.</para>
+
+              <para>If you're not using Windows, you may be using an
+              implementation of Java that was created by a vendor other than
+              Sun Microsystems. If that's the case, you will need to <ulink
+              url="http://java.sun.com/j2se/1.4.2/download.html">download</ulink>
+              Sun's implementation of Java to get the GTK+ theme. If Sun
+              doesn't provide a version for your platform, you're out of
+              (legal) options.</para>
+            </answer>
+          </qandaentry>
+
+	  <qandaentry id="userguide.look_and_feel.morethemes">
+            <question>
+              <para>Where can I get more GTK+ themes?</para>
+            </question>
+
+            <answer>
+              <para>GTK+ themes are available from a number of websites,
+              including <ulink
+              url="http://art.gnome.org/themes/gtk2/">GNOME</ulink> and <ulink
+              url="http://themes.freshmeat.net/">freshmeat.net</ulink>;
+              however, make sure you download supported themes.</para>
+            </answer>
+          </qandaentry>
+
+	  <qandaentry id="userguide.look_and_feel.gtknotright">
+            <question>
+              <para>My GTK+ theme doesn't look right (or doesn't work). What's
+              wrong?</para>
+            </question>
+
+            <answer>
+              <para>Currently, the GTK+ L&amp;F only supports a subset of the
+              themes available for GTK+. Themes must be GTK+ 2 themes and may
+              only use the Default, pixmap, and/or bluecurve theme engines.
+              What does all that mean? If you really want to know, I suggest
+              you go to the <ulink url="http://www.gtk.org/">GTK+
+              websit</ulink>e and start reading. After all, this is a
+              FreeGuide FAQ. :)</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="userguide.look_and_feel.gtkthemesupported">
+            <question>
+              <para>So, how do I know if a GTK+ theme is supported?</para>
+            </question>
+
+            <answer>
+              <para>In truth, the best way to find out is to try the theme.
+              Even if the theme is not fully supported, you might like the
+              results; and since it is a "Look and Feel," if you like the look
+              and you like the feel, it works for you!</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="userguide.look_and_feel.changetheme">
+            <question>
+              <para>You said the GTK+ L&amp;F supports themes. How do I change
+              my theme?</para>
+            </question>
+
+            <answer>
+              <para>First, you'll need some themes. Once you've downloaded one
+              or more themes to try, install the theme (as described in the
+              next two paragraphs).</para>
+
+              <para>If you're using a Unix-like operating system, use the tool
+              provided by your distribution vendor to install and select the
+              theme. Now, simply start FreeGuide and, if you haven't already
+              done so, select the GTK+ L&amp;F and enjoy the new look. In
+              general, themes are installed by extracting their files into the
+              <filename>${USER}/.themes</filename> directory. If you do not
+              have a tool for working with GTK+ themes, <ulink
+              url="http://www.muhri.net/nav.php3?node=gts">GTK Theme Switch
+              2</ulink> is a nice lightweight program for installing and
+              selecting themes. Note: If you do not want to install and/or
+              select the theme, you may follow the Windows instructions
+              below.</para>
+
+              <para>If you're using Windows (or you don't want to install the
+              theme on your Unix-like operating system), it's not necessary to
+              install the theme. Extract the theme files to a directory,
+              keeping each theme in its own directory, and keep all the theme
+              directories together in a single directory to make them easy to
+              find (I recommend using <filename>C:\gtk</filename> since it's
+              short and easy to type).</para>
+
+              <para>Since most of the themes will be distributed in "tarballs"
+              (a common way to distribute software for Unix-like operating
+              systems), you will need an extraction tool that can handle tape
+              archive files (tar files) and GZIP and/or BZIP2 compression. One
+              such tool for Windows is <ulink
+              url="http://www.7-zip.org/">7-Zip</ulink>.</para>
+
+              <para>Once you've extracted the themes, you're ready to use
+              them. To do so, just specify the location of the
+              <filename>gtkrc</filename> file in the
+              <filename>swing.gtkthemefile</filename> system property on the
+              command line, as shown below:</para>
+
+              <para>For Windows</para>
+
+              <programlisting>javaw -Dswing.gtkthemefile="C:\gtk\Theme Name\gtk-2.0\gtkrc" -jar "C:\Program Files\FreeGuide\FreeGuide.jar"</programlisting>
+
+              <para>Or, for Unix-like operating systems:</para>
+
+              <programlisting>java -Dswing.gtkthemefile="${HOME}/.themes/Theme Name/gtk-2.0/gtkrc" -jar "/usr/share/freeguide/FreeGuide.jar"</programlisting>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="userguide.look_and_feel.gtkchanged">
+            <question>
+              <para>Why doesn't FreeGuide notice when I change my System GTK+
+              theme?</para>
+            </question>
+
+            <answer>
+              <para>The GTK+ L&amp;F is not actually using the GTK+ theme
+              engine to draw components of FreeGuide. Instead, it performs the
+              work normally done by the theme engine itself, but does not
+              detect changes to the system-define theme. Therefore, to get
+              FreeGuide to notice the change to your theme, simply restart
+              FreeGuide. Note that future versions of the GTK+ L&amp;F may
+              support detection of changes to the system theme, but until then
+              restarting FreeGuide is the only way to change themes.</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="userguide.look_and_feel.slow">
+            <question>
+              <para>Since I changed my L&amp;F, FreeGuide seems slow.
+              Why?</para>
+            </question>
+
+            <answer>
+              <para>Well, you can't get something for nothing--with the
+              exception of good quality open source software, of course! Some
+              L&amp;F's are slower than others, some L&amp;F's claim to be
+              faster than the default Java L&amp;F (Metal), so you might want
+              to try experimenting with other L&amp;F's. If you've got your
+              heart set on the L&amp;F you're using, you'll have to get used
+              to its performance.</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="userguide.look_and_feel.longerstartup">
+            <question>
+              <para>Since I changed my L&amp;F, FreeGuide seems to take 4.5ms
+              longer to start up. Why?</para>
+            </question>
+
+            <answer>
+              <para>The Java installation on your system specifies a default
+              L&amp;F to use when none is specifically requested. Therefore,
+              when you start FreeGuide, Java uses its default L&amp;F until
+              FreeGuide changes the L&amp;F to the one you specified in your
+              preferences. If you tell Java to use your preferred L&amp;F,
+              FreeGuide won't need to change the L&amp;F after startup.</para>
+
+              <para>To specify the L&amp;F, you may either change your
+              installation's default L&amp;F (which will affect
+              <emphasis>all</emphasis> Java programs you use) or specify the
+              default L&amp;F on the command line. To change your
+              installation's default, edit the file
+              <filename>%JAVA_HOME%/lib/swing.properties</filename> (you may
+              have to create the file) and add the line (or edit the one
+              starting with <varname>swing.defaultlaf</varname> to look like
+              the following):</para>
+
+              <programlisting>swing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel</programlisting>
+
+              <para>To change the default L&amp;F for FreeGuide only, specify
+              the L&amp;F classname as the value for the
+              <varname>swing.defaultlaf</varname> system property on the
+              command line. The command line should look something like those
+              shown below (make sure you use the correct locations for your
+              files):</para>
+
+              <para>For Windows</para>
+
+              <programlisting>javaw -classpath "C:\path\to\my\LookAndFeel.jar" -Dswing.defaultlaf="javax.swing.plaf.metal.MetalLookAndFeel" -jar "C:\Program Files\FreeGuide\FreeGuide.jar"</programlisting>
+
+              <para>Or, for Unix-like operating systems:</para>
+
+              <programlisting>java -classpath "/path/to/my/LookAndFeel.jar" -Dswing.defaultlaf="javax.swing.plaf.metal.MetalLookAndFeel" -jar "/ur/share/freeguide/FreeGuide.jar"</programlisting>
+
+              <para>Note that the Metal L&amp;F is most likely the default on
+              your Java installation, so the above command lines and
+              properties file would do nothing. Instead, use the fully
+              qualified classname of the L&amp;F you want to use. The fully
+              qualified classname should be given in the L&amp;F's
+              documentation.</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="userguide.look_and_feel.wheretofindmore">
+            <question>
+              <para>Where can I find more L&amp;F's?</para>
+            </question>
+
+            <answer>
+              <para>Some sites, such as <ulink
+              url="http://www.javootoo.com/">javootoo.com</ulink> provide
+              links to many different L&amp;F's that are available for
+              download under licenses varying from open source to proprietary
+              commercial. You may also want to try a search on your favorite
+              search engine, for example on <ulink
+              url="http://www.google.com/search?q=%2B%22Java%22+%2B%22Look+and+Feel%22+%2B%22download%22&amp;start=0&amp;ie=utf-8&amp;oe=utf-8">Google</ulink>.</para>
+            </answer>
+          </qandaentry>
+        </qandadiv>
+      </qandaset>
+    </section>
+  </chapter>

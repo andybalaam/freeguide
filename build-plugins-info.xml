@@ -20,7 +20,7 @@
     </antcall>
     <antcall target="${actual-target}">
       <param name="plugin-id" value="other-xmltv-win32-exe"/>
-      <param name="plugin-version" value="1"/>
+      <param name="plugin-version" value="0.5.41"/>
     </antcall>
     <antcall target="${actual-target}">
       <param name="plugin-id" value="grabber-cosmostv"/>

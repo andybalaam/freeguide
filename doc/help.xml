@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <chapter id="help">
+    <title>Help and FAQ</title>
+<!--
+    <para>FIXME</para>
+-->
+    <section id="help.faq">
+      <title>Frequently Asked Questions</title>
+
+      <para>This page tries to answer frequently asked questions. If your
+      question is not answered here, have a look at the <link
+      linkend="contact">Getting in contact</link> section.</para>
+
+      <qandaset>
+        <qandadiv>
+          <qandaentry id="help.faq.whatis">
+            <question>
+              <para>What is FreeGuide?</para>
+            </question>
+
+            <answer>
+              <para><productname>FreeGuide</productname> is a TV listings
+              viewer that works offline.</para>
+
+              <para>See "<link linkend="freeguide-manual">What is
+              FreeGuide</link>".</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="help.faq.howinstall">
+            <question>
+              <para>How do I install FreeGuide?</para>
+            </question>
+
+            <answer>
+              <para>See the <link linkend="downinst">installation
+              instructions</link>.</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="help.faq.howuse">
+            <question>
+              <para>How do I use FreeGuide?</para>
+            </question>
+
+            <answer>
+              <para>Look at "<link linkend="userguide">Using
+              FreeGuide</link>".</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="help.faq.executionerror">
+            <question>
+              <para>I got an "<guilabel>Execution Error</guilabel>" message.
+              What is wrong?</para>
+            </question>
+
+            <answer>
+              <para>Note: if you very quickly get an "<guilabel>Execution
+              Error</guilabel>" message, check that you're connected to the
+              Internet and try again. If you have to wait quite a while and
+              then get the "<guilabel>Execution Error</guilabel>" message,
+              everything may still be alright - click
+              "<guibutton>Continue</guibutton>" to see.</para>
+
+              <para>If you keep getting the "<guilabel>Execution
+              Error</guilabel>" message and you don't see any listings when
+              you click "<guibutton>Continue</guibutton>" then click
+              "<guibutton>Show Details</guibutton>" and copy the error
+              messages shown into an email and send it to <ulink
+              url="mailto:freeguide-tv-users@lists.sourceforge.net">freeguide-tv-users@lists.sourceforge.net</ulink>
+              with an explanation of what you were doing, what operating
+              system you are on and what versions of Java and FreeGuide you
+              are using.</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="help.faq.stoppedworking">
+            <question>
+              <para>FreeGuide used to work for me but now it's stopped. What
+              is wrong?</para>
+            </question>
+
+            <answer>
+              <para>If FreeGuide used to work for you and has now stopped, it
+              is probably because the web site it grabs listings from has
+              changed its format. Check the whether there is a <ulink
+              url="http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789">new
+              FreeGuide version</ulink>.</para>
+
+              <para>If there isn't a new FreeGuide yet, you can see whether
+              there's a <ulink
+              url="http://sourceforge.net/project/showfiles.php?group_id=39046&amp;package_id=31217">new
+              xmltv version</ulink> and then follow these instructions to
+              install it:</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>Under Windows unzip the
+                  <filename>xmltv-x.x.x-win32.zip</filename> file and copy the
+                  file <filename>xmltv.exe</filename> over your file
+                  "<filename>C:\Program
+                  Files\FreeGuide\xmltv\xmltv.exe</filename>"</para>
+                </listitem>
+
+                <listitem>
+                  <para>Under Linux, download the file
+                  <filename>xmltv-x.x.x-tkgui.tar.bz2</filename> and <link
+                  linkend="downinst.linux">install it as usual</link>.</para>
+                </listitem>
+              </itemizedlist>
+
+              <para>Now try downloading and see whether it works.</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="help.faq.choosechannelerror">
+            <question>
+              <para>The "<guilabel>Choose Channels</guilabel>" grabber
+              configuration step gives me an error. What is wrong?</para>
+            </question>
+
+            <answer>
+              <para>If your grabber fails to configure or run because it can't
+              seem to get any data from the Internet, it may be because you
+              need to use a proxy server. Read <link
+              linkend="downinst.windows.proxy">this question</link> for
+              information on how to set one up.</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="help.faq.javaversion">
+            <question>
+              <para>What version of Java does FreeGuide need?</para>
+            </question>
+
+            <answer>
+              <para>FreeGuide needs Java version
+              <productnumber>1.4.0</productnumber> or above. You can find out
+              what version you are using by opening a DOS window or Cmd prompt
+              and typing "<command>java -version</command>". If it says you've
+              got an earlier version, or if you get an error, you need to get
+              an upgrade from <ulink
+              url="http://java.sun.com/getjava/">http://java.sun.com/getjava/</ulink>.</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="help.faq.proxy">
+            <question>
+              <para>Can I use FreeGuide from behind a proxy server?</para>
+            </question>
+
+            <answer>
+              <para>Yes. Have a look at "<link
+              linkend="downinst.windows.proxy">Configure proxy
+              server</link>"</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="help.faq.tzerror">
+            <question>
+              <para>I get an error about "TZ" - what do I do?</para>
+            </question>
+
+            <answer>
+              <para>You need to <link linkend="downinst.windows.timezone">set
+              your timezone</link> before you use FreeGuide.</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="help.faq.channelorder">
+            <question>
+              <para>How do I change the order in which channels are
+              listed?</para>
+            </question>
+
+            <answer>
+              <para>To change the order of channels, you need to make a
+              channel set. Choose "<guimenuitem>Channel Sets</guimenuitem>"
+              from the "<guimenu>Tools</guimenu>" menu and create one there,
+              than choose it from the drop-down in the top right hand corner
+              of the screen.</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="help.faq.stillmissing">
+            <question>
+              <para>I've downloaded the listings but FreeGuide says some are
+              still missing! What's happening?</para>
+            </question>
+
+            <answer>
+              <para>If you grab some listings late in a day, nearing the
+              grabber's idea of the end of a day (e.g. close to 6am for the UK
+              grabber) then you may be told that there are missing listings
+              for that day even though you've just grabbed new listings. This
+              is because the grabbing has started from tomorrow, so what's
+              left of today doesn't have a full set of listings. Don't worry
+              about this - just say "<guibutton>No</guibutton>" and you should
+              be able to see what you need.</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="help.faq.somethingwrong">
+            <question>
+              <para>Something is going wrong - how can I help to diagnose the
+              problem?</para>
+            </question>
+
+            <answer>
+              <para>If FreeGuide is not working or acting strangely, you
+              should contact the developers - see How do I ask more
+              questions?. When you do contact the mailing lists, it would be
+              useful to know various pieces of information.</para>
+
+              <para>You should find out your operating system (e.g
+              <productname>Windows XP</productname>), the version of
+              <productname>Java</productname> you are using, and the version
+              of FreeGuide. Linux users should also check theit XMLTV
+              version.</para>
+
+              <para>If you are having problems downloading, the first useful
+              piece of information is the contents of the "Show details"
+              window. Copy and paste the information in there into your
+              email.</para>
+
+              <para>If you are having more complex problems, the developers
+              may ask you to try running FreeGuide from within a DOS or Cmd
+              Window. Here is how to do that in Windows:</para>
+
+              <para>From the <guibutton>Start menu</guibutton> choose
+              <guimenu>Programs</guimenu>, <guimenu>Accessories</guimenu> and
+              click "<guimenuitem>Cmd Window</guimenuitem>" or
+              "<guimenuitem>DOS Window</guimenuitem>".</para>
+
+              <para>Now type the following 2 lines:</para>
+
+              <programlisting>cd "C:\Program Files\FreeGuide" &lt;PRESS RETURN&gt;
+java -jar FreeGuide.jar --install_directory "C:\Program Files\FreeGuide" --doc_directory "C:\Program Files\FreeGuide\doc" &gt; log.txt &lt;PRESS RETURN&gt;</programlisting>
+
+              <para>Now copy and paste the contents of <filename>C:\Program
+              Files\FreeGuide\log.txt</filename> into an email, remembering to
+              CC the mailing list you first sent your message to.</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="help.faq.skins">
+            <question>
+              <para>Does FreeGuide support skins or themes? How do I use
+              them?</para>
+            </question>
+
+            <answer>
+              <para>Yes! See the <link linkend="userguide.look_and_feel">Look and Feel
+              Guide</link>.</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="help.faq.plannedfeatures">
+            <question>
+              <para>How do I find out what's being planned for future
+              versions?</para>
+            </question>
+
+            <answer>
+              <para>Check out the <ulink url="TODO">TODO</ulink> file.</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="help.faq.morequestions">
+            <question>
+              <para>How do I ask more questions?</para>
+            </question>
+
+            <answer>
+              <para>See "<link linkend="contact">Getting in
+              contact</link>".</para>
+            </answer>
+          </qandaentry>
+        </qandadiv>
+      </qandaset>
+    </section>
+  </chapter>
