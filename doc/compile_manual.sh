@@ -16,3 +16,7 @@ cp *.css $BUILDDIR/
 xsltproc \
  docbook-xsl-1.69.1/xhtml/chunk.xsl \
  manual.xml
+
+# Copy the backward-compatibility html files into the build dir
+cp *.html $BUILDDIR/
+
