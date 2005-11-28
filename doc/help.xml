@@ -263,7 +263,7 @@ java -jar FreeGuide.jar --install_directory "C:\Program Files\FreeGuide" --doc_d
             </question>
 
             <answer>
-              <para>Check out the <ulink url="TODO">TODO</ulink> file.</para>
+              <para>Check out the <ulink url="dev/index.php/TODO_list">TODO</ulink> list on the developers' wiki.</para>
             </answer>
           </qandaentry>
 
