@@ -144,6 +144,23 @@ public class JPanelProgramme extends JPanel
             (int)( ( ( programme.getEnd(  ) - programme.getStart(  ) ) * controller.config.sizeProgrammePanelWidth ) / controller.MILLISECONDS_PER_DAY )
             - ( controller.config.sizeHalfVerGap * 4 );
 
+        if( x < 0 )
+        {
+
+            // trunc for window if programme starts before current day
+            int dt = -x;
+            x += dt;
+            width -= dt;
+        }
+
+        if( x > controller.config.sizeProgrammePanelWidth )
+        {
+
+            // trunc for window if programme ends after current day
+            int dt = x - controller.config.sizeProgrammePanelWidth;
+            width -= dt;
+        }
+
         label.setBounds( x, y, width, height );
     }
 
