@@ -223,8 +223,8 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
             final TVData result = new TVData(  );
 
             for( 
-                long dt = ( minDate / MSEC_PARTS ) * MSEC_PARTS; dt < maxDate;
-                    dt += MSEC_PARTS )
+                long dt = ( ( minDate / MSEC_PARTS ) - 1 ) * MSEC_PARTS;
+                    dt < maxDate; dt += MSEC_PARTS )
             {
 
                 TVData data = load( getFile( dt ) );
