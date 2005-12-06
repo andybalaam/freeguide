@@ -101,7 +101,7 @@ Section "FreeGuide program"
 
   SetOutPath $INSTDIR
   
-  File /r build\*.jar
+  File /r build\plain\*.*
   File /r src\install\windows\run.cmd
   
   ; --------------------- make uninstaller ---------------------
@@ -129,8 +129,7 @@ Section "FreeGuide program"
 
   SetOutPath $INSTDIR\xmltv\
 
-  File /r src\plugins\other-xmltv-win32-exe\files\xmltv\*.*
-  File /r src\plugins\other-xmltv-win32-exe\files-nosrc\xmltv\xmltv.exe
+  File /r src\plugins\other-xmltv-win32-exe\files-nosrc\xmltv\*.*
 
 !endif
 

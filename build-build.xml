@@ -66,6 +66,11 @@
             <fileset dir="${src}/plugins/${plugin-id}/files"/>
             <fileset dir="${src}/plugins/${plugin-id}/files-nosrc"/>
   		</copy>
+    	
+    	<mkdir dir="${build}/plain"/>
+    	<copy todir="${build}/plain">
+    		<fileset dir="${build}/package/${plugin-id}" includes="**/*.jar"/>
+   		</copy>
     </target>
     
     <target name="build-app" description="compile application" depends="build-common, build-startup">
@@ -100,7 +105,12 @@
         </copy>
         <!-- gzip the man page -->
         <gzip src="${build}/dist/linux/freeguide.1" zipfile="${build}/package/${application-id}/freeguide.1.gz" />
-    </target>
+
+    	<mkdir dir="${build}/plain"/>
+    	<copy todir="${build}/plain">
+    		<fileset dir="${build}/package/${application-id}"/>
+   		</copy>
+	</target>
     
     <target name="build-startup" depends="build-common">
         <mkdir dir="${build}/classes/startup"/>
