@@ -17,6 +17,7 @@ import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -39,10 +40,10 @@ public class ViewerFrame extends JPanel
     private AdjustmentListener comProgramScrollListener;
 
     /** Combobox containing the date we are viewing */
-    public javax.swing.JComboBox comTheDate;
+    public JComboBox comTheDate;
 
     /** The combobox showing the channel set we are using */
-    public javax.swing.JComboBox comChannelSet;
+    public JComboBox comChannelSet;
 
     /** The panel showing the timeline */
     public TimePanel timePanel;
@@ -51,16 +52,16 @@ public class ViewerFrame extends JPanel
     protected JEditorPane detailsPanel;
 
     /** The panel containing the channel names */
-    public javax.swing.JPanel channelNamePanel;
+    public JPanelChannel channelNamePanel;
 
     /** The scrollpane that contains the names of channels */
-    public javax.swing.JScrollPane channelNameScrollPane;
+    public JScrollPane channelNameScrollPane;
 
     /** The panel containing the programmes */
     private JPanelProgramme programmesPanel;
 
     /** The Scrollpane showing programmes */
-    public javax.swing.JScrollPane programmesScrollPane;
+    public JScrollPane programmesScrollPane;
 
     // }}}
     // {{{ Static GUI
@@ -69,40 +70,37 @@ public class ViewerFrame extends JPanel
     public JEditorPane printedGuideArea;
 
     /** ToDo: DOCUMENT ME! */
-    private javax.swing.JPanel topButtonsPanel;
+    private JPanel topButtonsPanel;
 
     /** ToDo: DOCUMENT ME! */
-    private javax.swing.JButton butPrint;
+    private JButton butPrint;
 
     /** ToDo: DOCUMENT ME! */
-    private javax.swing.JButton butDownload;
+    private JButton butDownload;
 
     /**
      * The splitpane splitting the main panel from the printed guide and
      * programme details
      */
-    public javax.swing.JSplitPane splitPaneMainDet;
+    public JSplitPane splitPaneMainDet;
 
     /** The splitpane splitting the printed guide from programme details */
-    public javax.swing.JSplitPane splitPaneGuideDet;
-
-    /** ToDo: DOCUMENT ME! */
-    private javax.swing.JButton butRevertToFavourites;
+    public JSplitPane splitPaneGuideDet;
 
     /** The splitpane splitting the channels from programmes */
-    public javax.swing.JSplitPane splitPaneChanProg;
+    public JSplitPane splitPaneChanProg;
 
     /** ToDo: DOCUMENT ME! */
-    private javax.swing.JButton butNextDay;
+    private JButton butNextDay;
 
     /** ToDo: DOCUMENT ME! */
-    private javax.swing.JButton butPreviousDay;
+    private JButton butPreviousDay;
 
     /** ToDo: DOCUMENT ME! */
-    private javax.swing.JButton butGoToNow;
+    private JButton butGoToNow;
 
     /** ToDo: DOCUMENT ME! */
-    private javax.swing.JScrollPane printedGuideScrollPane;
+    private JScrollPane printedGuideScrollPane;
 
     /** Constructor for the FreeGuideViewer object */
     HorizontalViewer parent;
@@ -158,15 +156,13 @@ public class ViewerFrame extends JPanel
 
         channelNameScrollPane = new FocusJScrollPane(  );
 
-        channelNamePanel = new javax.swing.JPanel( null );
+        channelNamePanel = new JPanelChannel( parent );
 
         programmesScrollPane = new FocusJScrollPane(  );
 
         //programmesPanel = new JPanel(new ProgrammesPanelLayout());
         programmesPanel = new JPanelProgramme( parent );
         timePanel = new TimePanel( parent.config );
-
-        butRevertToFavourites = new javax.swing.JButton(  );
 
         butPrint = new javax.swing.JButton(  );
 
@@ -472,25 +468,6 @@ public class ViewerFrame extends JPanel
 
 
         */
-        // }}}
-        // {{{ Bottom buttons
-        butRevertToFavourites.setFont( new java.awt.Font( "Dialog", 0, 10 ) );
-
-        butRevertToFavourites.setText( 
-            parent.getLocalizer(  ).getLocalizedMessage( "reset_programmes" ) );
-
-        butRevertToFavourites.setMnemonic( KeyEvent.VK_R );
-
-        butRevertToFavourites.addActionListener( 
-            new ActionListener(  )
-            {
-                public void actionPerformed( java.awt.event.ActionEvent evt )
-                {
-                    butRevertToFavouritesActionPerformed( evt );
-
-                }
-            } );
-
         gridBagConstraints = new java.awt.GridBagConstraints(  );
 
         gridBagConstraints.gridx = 0;
@@ -500,8 +477,6 @@ public class ViewerFrame extends JPanel
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
 
         gridBagConstraints.insets = new java.awt.Insets( 0, 0, 2, 0 );
-
-        add( butRevertToFavourites, gridBagConstraints );
 
         butPrint.setFont( new java.awt.Font( "Dialog", 0, 10 ) );
 
@@ -653,61 +628,6 @@ public class ViewerFrame extends JPanel
     */
 
     /**
-     * Event handler for when the Reset button is pressed
-     *
-     * @param evt The event object
-     */
-    public void butRevertToFavouritesActionPerformed( 
-        java.awt.event.ActionEvent evt )
-    {
-
-        // Tell the prefs we've got no programmes for today
-        // FreeGuide.prefs.somethingInGuide( theDate, false );
-        resetSelections(  );
-
-        //---        printedGuideArea.update(  );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     */
-    public void resetSelections(  )
-    {
-
-        /*
-
-
-        * TODO FavouritesList favouritesList = FavouritesList.getInstance( );
-
-
-        *
-
-
-        * for( Iterator i = ( (ProgrammeStripModel)programmesPanel.getModel( )
-
-
-        * ).getAll( ) .iterator( ); i.hasNext( ); ) {
-
-
-        *
-
-
-        * Programme programme = (Programme)( i.next( ) );
-
-
-        *
-
-
-        * programme.setInGuide( favouritesList.isFavourite( programme ) );
-
-
-        *  }
-
-
-        */
-    }
-
-    /**
      * Event handler for the channel -> change icon menu entry
      *
      * @param evt
@@ -720,7 +640,8 @@ public class ViewerFrame extends JPanel
     public void butPrintActionPerformed( java.awt.event.ActionEvent evt )
     {
 
-        //---        printedGuideArea.writeOutAsHTML(  );
+        //printedGuideArea.writeOutAsHTML(  );
+        parent.printHTML(  );
     }
 
     /**
@@ -816,14 +737,17 @@ public class ViewerFrame extends JPanel
      * DOCUMENT_ME!
      *
      * @param showTime DOCUMENT_ME!
+     * @param channelID DOCUMENT ME!
      */
-    public void scrollTo( Calendar showTime )
+    public void scrollTo( final Calendar showTime, final String channelID )
     {
 
         //---   getProgrammesPanel(  ).focus( showTime.getTimeInMillis(  ) );
         getProgrammesScrollPane(  ).getHorizontalScrollBar(  ).setValue( 
             getTimePanel(  ).getScrollValue( showTime ) );
 
+        getProgrammesScrollPane(  ).getVerticalScrollBar(  ).setValue( 
+            getChannelNamePanel(  ).getScrollValue( channelID ) );
     }
 
     /**
@@ -890,11 +814,10 @@ public class ViewerFrame extends JPanel
      *
      * @return DOCUMENT_ME!
      */
-    public JPanel getChannelNamePanel(  )
+    public JPanelChannel getChannelNamePanel(  )
     {
 
         return channelNamePanel;
-
     }
 
     /**

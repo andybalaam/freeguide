@@ -18,6 +18,10 @@ import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.plugins.IModuleReminder;
 
+import java.io.UnsupportedEncodingException;
+
+import java.net.URLDecoder;
+
 import java.text.ParsePosition;
 
 import java.util.ArrayList;
@@ -67,6 +71,21 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
         if( HyperlinkEvent.EventType.ACTIVATED == e.getEventType(  ) )
         {
 
+            String desc;
+
+            try
+            {
+                desc = URLDecoder.decode( e.getDescription(  ), "UTF-8" );
+            }
+            catch( UnsupportedEncodingException ex )
+            {
+                desc = e.getDescription(  );
+            }
+
+            int pos = desc.indexOf( ';' );
+
+            String channelID = ( pos > 0 ) ? desc.substring( pos + 1 ) : "";
+
             GregorianCalendar showTime = new GregorianCalendar(  );
 
             // FIXME: Really, instead of scrolling to the start of the programme
@@ -75,9 +94,9 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
             // to show in the programme details panel.
             showTime.setTime( 
                 ProgrammeFormat.LINK_DATE_FORMAT.parse( 
-                    e.getDescription(  ), new ParsePosition( 1 ) ) );
+                    desc.substring( 0, pos ), new ParsePosition( 1 ) ) );
 
-            controller.panel.scrollTo( showTime );
+            controller.panel.scrollTo( showTime, channelID );
 
             controller.updateProgrammeInfo( 
                 getProgrammeFromReference( 

@@ -19,6 +19,7 @@ import java.awt.geom.GeneralPath;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.ToolTipManager;
 import javax.swing.border.Border;
 
 /**
@@ -66,18 +67,24 @@ public class JLabelProgramme extends JLabel
     /** Need to draw heart. */
     protected boolean isDrawHeart;
 
+    /** Cached tooltip text. */
+    private String tooltip;
+    protected ProgrammeFormat htmlFormat;
+
     /**
      * Creates a new JLabelProgramme object.
      *
      * @param programme DOCUMENT ME!
      * @param main DOCUMENT ME!
      * @param textFormat DOCUMENT ME!
+     * @param htmlFormat DOCUMENT ME!
      */
     public JLabelProgramme( 
         final TVProgramme programme, final HorizontalViewer main,
-        final ProgrammeFormat textFormat )
+        final ProgrammeFormat textFormat, final ProgrammeFormat htmlFormat )
     {
         super( textFormat.formatForMainGuide( programme ) );
+        this.htmlFormat = htmlFormat;
         this.programme = programme;
         this.controller = main;
         setupColors(  );
@@ -91,6 +98,15 @@ public class JLabelProgramme extends JLabel
         setInputMap( 
             JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT,
             main.handlers.labelProgrammeInputMap );
+
+        ToolTipManager tipManager = ToolTipManager.sharedInstance(  );
+
+        // Register this component for tooltip management.
+        // This is normally done by setting the tooltip text,
+        // but we want to "lazily" evaluate tooltip text--we defer
+        // creation of the tip text until the tip is actually needed.
+        // (see the getToolTipText() method below)
+        tipManager.registerComponent( this );
     }
 
     /**
@@ -226,5 +242,44 @@ public class JLabelProgramme extends JLabel
         graphics.fill( HEART_SHAPE );
 
         graphics.setTransform( originalTransform );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String getToolTipText(  )
+    {
+
+        if( !controller.config.displayTooltips )
+        {
+
+            return null;
+        }
+
+        String tooltip = super.getToolTipText(  );
+
+        if( tooltip != null )
+        {
+
+            return tooltip;
+        }
+
+        boolean printDelta = controller.config.displayDelta;
+
+        if( ( this.tooltip != null ) && !printDelta )
+        {
+
+            return this.tooltip;
+        }
+
+        htmlFormat.setWrap( true );
+
+        htmlFormat.setOnScreen( false );
+
+        this.tooltip = htmlFormat.formatLong( programme ).toString(  );
+
+        return this.tooltip;
     }
 }

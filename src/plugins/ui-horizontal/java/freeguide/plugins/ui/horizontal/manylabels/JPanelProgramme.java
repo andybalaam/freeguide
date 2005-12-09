@@ -26,6 +26,7 @@ public class JPanelProgramme extends JPanel
     protected final HorizontalViewer controller;
     protected long startDate;
     protected ProgrammeFormat textFormat;
+    protected ProgrammeFormat htmlFormat;
     protected List[] rows = new List[0];
     protected Map labelsForProgrammes = new HashMap(  );
 
@@ -45,17 +46,19 @@ public class JPanelProgramme extends JPanel
      *
      * @param theDate DOCUMENT_ME!
      * @param textFormat DOCUMENT_ME!
+     * @param htmlFormat DOCUMENT ME!
      * @param font DOCUMENT_ME!
      * @param rowCount DOCUMENT_ME!
      */
     public void init( 
-        final long theDate, final ProgrammeFormat textFormat, final Font font,
-        final int rowCount )
+        final long theDate, final ProgrammeFormat textFormat,
+        final ProgrammeFormat htmlFormat, final Font font, final int rowCount )
     {
         removeAll(  );
         labelsForProgrammes.clear(  );
         this.startDate = theDate;
         this.textFormat = textFormat;
+        this.htmlFormat = htmlFormat;
         setFont( font );
         rows = new List[rowCount];
 
@@ -82,7 +85,8 @@ public class JPanelProgramme extends JPanel
     {
 
         JLabelProgramme label =
-            new JLabelProgramme( programme, controller, textFormat );
+            new JLabelProgramme( 
+                programme, controller, textFormat, htmlFormat );
         setupBounds( label, programme, row );
         add( label );
 

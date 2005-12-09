@@ -96,27 +96,6 @@ public class JLabelChannel extends JLabel
     }
 
     /**
-     * Set size and position.
-     *
-     * @param maxWidth width
-     * @param row label row
-     */
-    public void setupBounds( int maxWidth, int row )
-    {
-
-        int x = 0;
-        int y =
-            ( ( controller.config.sizeHalfVerGap * 2 )
-            + ( row * controller.config.sizeChannelHeight ) ) - 1;
-        int width = maxWidth;
-        int height =
-            controller.config.sizeChannelHeight
-            - ( controller.config.sizeHalfVerGap * 4 );
-        setBounds( x, y, width, height );
-
-    }
-
-    /**
      * Resize icon to label's size.
      */
     protected void setupIcon(  )

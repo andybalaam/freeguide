@@ -1,5 +1,7 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
+import freeguide.FreeGuide;
+
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PersonalizedHTMLGuide;
 import freeguide.lib.fgspecific.ProgrammeFormat;
@@ -11,8 +13,6 @@ import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.lib.general.FileHelper;
-import freeguide.lib.general.StringHelper;
-import freeguide.lib.general.Utils;
 
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleConfigurationUI;
@@ -339,8 +339,6 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     {
         currentProgrammeLabel = null;
 
-        panel.getChannelNamePanel(  ).removeAll(  );
-
         JLabelProgramme.setupLabel( this );
 
         /** The chosen time formatter */
@@ -370,6 +368,10 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             new ProgrammeFormat( 
                 ProgrammeFormat.HTML_FORMAT, timeFormat, config.displayDelta );
 
+        final ProgrammeFormat htmlFormat =
+            new ProgrammeFormat( 
+                ProgrammeFormat.HTML_FORMAT, timeFormat, config.displayDelta );
+
         final Font font =
             new Font( config.fontName, config.fontStyle, config.fontSize );
 
@@ -392,41 +394,29 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         }
 
         panel.getProgrammesPanel(  ).init( 
-            theDate, textFormat, font,
+            theDate, textFormat, htmlFormat, font,
             currentChannelSet.getChannels(  ).size(  ) );
 
-        int maxChannelWidth = 0;
+        final List channels = new ArrayList(  );
 
-        JLabelChannel[] displayedChannels =
-            new JLabelChannel[currentChannelSet.getChannels(  ).size(  )];
-
-        // Create all the JLabels for channels, and set them up
-        it = currentChannelSet.getChannels(  ).iterator(  );
-
-        for( int i = 0; it.hasNext(  ); i++ )
+        for( it = currentChannelSet.getChannels(  ).iterator(  );
+                it.hasNext(  ); )
         {
 
             TVChannelsSet.Channel listCh = (TVChannelsSet.Channel)it.next(  );
             TVChannel curChan = currentData.get( listCh.getChannelID(  ) );
-            JLabelChannel ctxt = new JLabelChannel( curChan, this, font );
-            maxChannelWidth =
-                Math.max( ctxt.getRequiredWidth(  ), maxChannelWidth );
-            panel.getChannelNamePanel(  ).add( ctxt );
-            displayedChannels[i] = ctxt;
+
+            channels.add( curChan );
         }
 
-        // Then add a reasonable amount of space as a border
-        maxChannelWidth += 5;
-
-        for( int i = 0; i < displayedChannels.length; i++ )
-        {
-            displayedChannels[i].setupBounds( maxChannelWidth, i );
-        }
+        panel.getChannelNamePanel(  ).setFont( font );
+        panel.getChannelNamePanel(  ).setChanels( 
+            (TVChannel[])channels.toArray( new TVChannel[channels.size(  )] ) );
 
         // Resize the areas
         panel.getChannelNamePanel(  ).setPreferredSize( 
             new Dimension( 
-                maxChannelWidth,
+                panel.getChannelNamePanel(  ).getMaxChannelWidth(  ),
                 ( currentChannelSet.getChannels(  ).size(  ) * config.sizeChannelHeight )
                 + 50 ) );
 
@@ -855,12 +845,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
             buffy.close(  );
 
-            String cmd =
-                StringHelper.replaceAll( 
-                    Application.getInstance(  ).getBrowserCommand(  ),
-                    "%filename%", f.getPath(  ) );
-
-            Utils.execNoWait( cmd );
+            FreeGuide.openFile( f.getPath(  ) );
         }
         catch( java.io.IOException ex )
         {
