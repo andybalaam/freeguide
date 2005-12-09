@@ -836,12 +836,11 @@ public class ProgrammeFormat
             new StringBuffer( 
                 LINK_DATE_FORMAT.format( new Date( programme.getStart(  ) ) ) );
 
+        ref.append( ';' );
         ref.append( programme.getChannel(  ).getID(  ) );
 
-        ref.append( programme.getTitle(  ) );
-
-        ref.append( programme.getSubTitle(  ) );
-
+        //ref.append( programme.getTitle(  ) );
+        //ref.append( programme.getSubTitle(  ) );
         try
         {
             reference = URLEncoder.encode( ref.toString(  ), "UTF-8" );
