@@ -12,9 +12,21 @@
  */
 package freeguide.gui.dialogs;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.FreeGuide;
 
+import freeguide.lib.fgspecific.Application;
+import freeguide.lib.fgspecific.ProgrammeFormat;
+
+import freeguide.lib.general.StringHelper;
 import freeguide.lib.general.Utils;
+
+import java.text.ParsePosition;
+
+import java.util.GregorianCalendar;
+
+import javax.swing.JDialog;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 
 // To Be Added Shortly (Rob)
 //import freeguide.lib.general.*;
@@ -25,7 +37,7 @@ import freeguide.lib.general.Utils;
  * @author Andy Balaam
  * @version 2
  */
-public class AboutFrame extends javax.swing.JDialog
+public class AboutFrame extends JDialog implements HyperlinkListener
 {
 
     private javax.swing.JButton jButton1;
@@ -70,6 +82,7 @@ public class AboutFrame extends javax.swing.JDialog
         str.append( "</font>" );
         jTextPane1.setText( str.toString(  ) );
         Utils.centreDialog( parent, this );
+        jTextPane1.addHyperlinkListener( this );
     }
 
     private void initComponents(  )
@@ -126,6 +139,20 @@ public class AboutFrame extends javax.swing.JDialog
     {
         setVisible( false );
         dispose(  );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param e DOCUMENT_ME!
+     */
+    public void hyperlinkUpdate( HyperlinkEvent e )
+    {
+
+        if( HyperlinkEvent.EventType.ACTIVATED == e.getEventType(  ) )
+        {
+            FreeGuide.openURL( e.getURL(  ) );
+        }
     }
 
     /**

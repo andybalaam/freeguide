@@ -143,7 +143,7 @@ public class NewVersionDialog extends JDialog
 
         String[] cmds =
             Utils.substitute( 
-                new String[] { FreeGuide.config.browserCommand }, "%filename%",
+                new String[] { FreeGuide.config.browserCommand }, "%url%",
                 "http://freeguide-tv.sourceforge.net" );
         Utils.execNoWait( cmds );
     }

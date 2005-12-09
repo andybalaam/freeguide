@@ -464,20 +464,8 @@ public class FirstTimeWizard
 
         if( showREADME )
         {
-
-            String cmd =
-                StringHelper.replaceAll( 
-                    config.browserCommand, "%filename%",
-                    FreeGuide.runtimeInfo.docDirectory + "/README.html" );
-
-            try
-            {
-                Utils.execNoWait( cmd );
-            }
-            catch( Exception ex )
-            {
-                FreeGuide.log.log( Level.WARNING, "Error display README", ex );
-            }
+            FreeGuide.openFile( 
+                FreeGuide.runtimeInfo.docDirectory + "/README.html" );
         }
     }
 

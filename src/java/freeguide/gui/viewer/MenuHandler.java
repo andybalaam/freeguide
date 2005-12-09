@@ -14,7 +14,6 @@ import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PluginInfo;
 import freeguide.lib.fgspecific.PluginsManager;
 
-import freeguide.lib.general.StringHelper;
 import freeguide.lib.general.Utils;
 
 import freeguide.plugins.IModuleExport;
@@ -114,13 +113,8 @@ public class MenuHandler
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
-
-                    String cmd =
-                        StringHelper.replaceAll( 
-                            FreeGuide.config.browserCommand, "%filename%",
-                            FreeGuide.runtimeInfo.docDirectory
-                            + "/userguide.html" );
-                    Utils.execNoWait( cmd );
+                    FreeGuide.openFile( 
+                        FreeGuide.runtimeInfo.docDirectory + "/userguide.html" );
                 }
             } );
 
