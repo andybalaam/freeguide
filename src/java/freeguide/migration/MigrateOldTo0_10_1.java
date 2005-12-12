@@ -2,8 +2,13 @@ package freeguide.migration;
 
 import freeguide.FreeGuide;
 
+import freeguide.lib.fgspecific.TVChannelIconHelper;
+import freeguide.lib.fgspecific.data.TVChannel;
+
+import freeguide.lib.general.FileHelper;
 import freeguide.lib.general.LanguageHelper;
 import freeguide.lib.general.StringHelper;
+import freeguide.lib.general.Time;
 
 import java.awt.Color;
 
@@ -15,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.prefs.BackingStoreException;
@@ -28,6 +34,7 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 {
 
     protected static String xmltvConfig;
+    protected static Map icons;
 
     /**
      * Creates a new MigrateOldTo0_10_1 object.
@@ -213,9 +220,12 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
             if( afterTime != null )
             {
+
+                final Time t = new Time( afterTime );
                 putKey( 
                     "mainController/selection/favouritesList." + i
-                    + ".afterTime.milliseconds", afterTime );
+                    + ".afterTime.milliseconds",
+                    Long.toString( t.getLongValue(  ) ) );
             }
             else
             {
@@ -229,9 +239,12 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
             if( beforeTime != null )
             {
+
+                final Time t = new Time( beforeTime );
                 putKey( 
                     "mainController/selection/favouritesList." + i
-                    + ".beforeTime.milliseconds", beforeTime );
+                    + ".beforeTime.milliseconds",
+                    Long.toString( t.getLongValue(  ) ) );
             }
             else
             {
@@ -239,6 +252,19 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
                     "mainController/selection/favouritesList." + i
                     + ".beforeTime.milliseconds", "-1" );
             }
+        }
+
+        final String[] iconKeys = listKeys( "screen/customIcon." );
+        icons = new TreeMap(  );
+
+        for( i = 0; i < iconKeys.length; i++ )
+        {
+
+            final String key =
+                "xmltv/"
+                + iconKeys[i].substring( "screen/customIcon.".length(  ) );
+            final String value = getAndRemoveKey( iconKeys[i] );
+            icons.put( key, value );
         }
 
         putKey( "mainController/selection/favouritesList.size", "" + i );
@@ -393,6 +419,29 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
      */
     public static void migrateAfterWizard(  ) throws Exception
     {
+
+        if( icons != null )
+        {
+
+            for( 
+                Iterator it = icons.keySet(  ).iterator(  ); it.hasNext(  ); )
+            {
+
+                final String key = (String)it.next(  );
+                final File fromPath = new File( (String)icons.get( key ) );
+                final String toPath =
+                    TVChannelIconHelper.getIconFileName( new TVChannel( key ) );
+
+                try
+                {
+                    FileHelper.copy( fromPath, new File( toPath ) );
+                    fromPath.delete(  );
+                }
+                catch( IOException ex )
+                {
+                }
+            }
+        }
 
         if( xmltvConfig != null )
         {

@@ -1,6 +1,8 @@
 package freeguide.migration;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.prefs.BackingStoreException;
@@ -119,6 +121,33 @@ abstract public class MigrationProcessBase
     {
 
         return (String)prefFrom.remove( keyFrom );
+    }
+
+    /**
+     * Get list of keys which stars from prefix.
+     *
+     * @param prefix prefix for check
+     *
+     * @return list of keys
+     */
+    protected String[] listKeys( final String prefix )
+    {
+
+        final List result = new ArrayList(  );
+
+        for( 
+            Iterator it = prefFrom.keySet(  ).iterator(  ); it.hasNext(  ); )
+        {
+
+            final String key = (String)it.next(  );
+
+            if( key.startsWith( prefix ) )
+            {
+                result.add( key );
+            }
+        }
+
+        return (String[])result.toArray( new String[result.size(  )] );
     }
 
     protected void putKey( final String key, final String value )

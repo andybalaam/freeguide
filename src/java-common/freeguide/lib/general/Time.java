@@ -480,6 +480,17 @@ public class Time
     }
 
     /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public long getLongValue(  )
+    {
+
+        return milliseconds;
+    }
+
+    /**
      * Return the number of hours since midnight formatted as a String of
      * length 2 - "00" to "23".
      *
