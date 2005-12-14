@@ -18,5 +18,5 @@ xsltproc \
  manual.xml
 
 # Copy the backward-compatibility html files into the build dir
-cp *.html $BUILDDIR/
+cp COPYING TODO *.html $BUILDDIR/
 

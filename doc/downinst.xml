@@ -24,6 +24,7 @@
       <section id="downinst.windows.config">
         <title>Configuring your System</title>
 
+        <!-- Time zone is not needed by XMLTV any more.
         <section id="downinst.windows.timezone">
           <title>Timezone</title>
 
@@ -79,11 +80,15 @@
               </listitem>
             </itemizedlist>
           </section>
-        </section>
+        </section>-->
 
         <section id="downinst.windows.proxy">
           <title>Proxy</title>
 
+          <para>If you have a proxy server or are behind a firewall, you may
+          need to follow the instructions below to allow FreeGuide to see
+          past them to the Internet.</para>
+          
           <para>In the following replace "<uri>proxy.uni.ac.uk</uri>" with
           your proxy server address, and "<parameter>8080</parameter>" with
           the port it uses. On Windows you can find these out from the
@@ -300,7 +305,7 @@
       <section id="downinst.linux.config">
         <title>Configuring your System</title>
 
-	<section id="downinst.linux.config.timezone">
+        <!--<section id="downinst.linux.config.timezone">
           <title>Timezone</title>
 
           <para>Before you use FreeGuide you need to set your environment
@@ -313,11 +318,15 @@
 
           <para>Add a line <programlisting>export TZ=EST5EDT</programlisting>to
           the file <filename>~/.bash_profile</filename>.</para>
-        </section>
+        </section>-->
 
-	<section id="downinst.linux.config.proxy">
+        <section id="downinst.linux.config.proxy">
           <title>Proxy</title>
-
+          
+          <para>If you have a proxy server or are behind a firewall, you may
+          need to follow the instructions below to allow FreeGuide to see
+          past them to the Internet.</para>
+          
           <para>Add 2 lines to the file
           <filename>~/.bash_profile</filename>:</para>
 
