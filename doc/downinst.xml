@@ -23,7 +23,10 @@
 
       <section id="downinst.windows.config">
         <title>Configuring your System</title>
-
+        
+        <para>As soon as it's installed, FreeGuide should be ready to go,
+        unless you are behind a firewall or proxy server.</para>
+        
         <!-- Time zone is not needed by XMLTV any more.
         <section id="downinst.windows.timezone">
           <title>Timezone</title>
@@ -85,7 +88,7 @@
         <section id="downinst.windows.proxy">
           <title>Proxy</title>
 
-          <para>If you have a proxy server or are behind a firewall, you may
+          <para>If you have a proxy server or are behind a firewall, you will
           need to follow the instructions below to allow FreeGuide to see
           past them to the Internet.</para>
           
