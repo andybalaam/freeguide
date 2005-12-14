@@ -86,7 +86,8 @@ public class JPanelProgramme extends JPanel
 
         JLabelProgramme label =
             new JLabelProgramme( 
-                programme, controller, textFormat, htmlFormat );
+                programme, controller, textFormat, htmlFormat,
+                controller.config.displayAlignToLeft );
         setupBounds( label, programme, row );
         add( label );
 

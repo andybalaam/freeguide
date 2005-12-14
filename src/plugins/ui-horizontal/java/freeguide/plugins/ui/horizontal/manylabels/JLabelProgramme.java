@@ -10,6 +10,7 @@ import freeguide.plugins.IModuleReminder;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
@@ -70,6 +71,7 @@ public class JLabelProgramme extends JLabel
     /** Cached tooltip text. */
     private String tooltip;
     protected ProgrammeFormat htmlFormat;
+    protected final boolean moveNames;
 
     /**
      * Creates a new JLabelProgramme object.
@@ -78,15 +80,18 @@ public class JLabelProgramme extends JLabel
      * @param main DOCUMENT ME!
      * @param textFormat DOCUMENT ME!
      * @param htmlFormat DOCUMENT ME!
+     * @param moveNames DOCUMENT ME!
      */
     public JLabelProgramme( 
         final TVProgramme programme, final HorizontalViewer main,
-        final ProgrammeFormat textFormat, final ProgrammeFormat htmlFormat )
+        final ProgrammeFormat textFormat, final ProgrammeFormat htmlFormat,
+        final boolean moveNames )
     {
         super( textFormat.formatForMainGuide( programme ) );
         this.htmlFormat = htmlFormat;
         this.programme = programme;
         this.controller = main;
+        this.moveNames = moveNames;
         setupColors(  );
         setupHeart(  );
         setOpaque( true );
@@ -211,7 +216,54 @@ public class JLabelProgramme extends JLabel
      */
     protected void paintComponent( Graphics g )
     {
-        super.paintComponent( g );
+
+        if( moveNames )
+        {
+
+            // Paint our own text, aligning to the left of the screen
+            g.setClip( this.getVisibleRect(  ) );
+
+            // First paint background
+            g.setColor( this.getBackground(  ) );
+
+            g.fillRect( 0, 0, this.getWidth(  ), this.getHeight(  ) );
+
+            // Then set everything to draw the text
+            g.setFont( this.getFont(  ) );
+
+            g.setColor( this.getForeground(  ) );
+
+            // Compute the right place from the left border
+            int fontX = 0;
+
+            Insets ins = this.getInsets(  );
+
+            if( this.getBorder(  ) != null )
+            {
+                fontX = ins.left;
+
+            }
+
+            if( 
+                ( g.getClipBounds(  ) != null )
+                    && ( fontX < g.getClipBounds(  ).x ) )
+            {
+                fontX = g.getClipBounds(  ).x + ins.left;
+
+            }
+
+            // now we now where, draw the text
+            g.drawString( 
+                getText(  ), fontX,
+                ( ins.top
+                + ( getHeight(  ) - ins.top - ins.bottom
+                + g.getFontMetrics(  ).getAscent(  ) ) ) >> 1 );
+
+        }
+        else
+        {
+            super.paintComponent( g );
+        }
 
         if( !isDrawHeart )
         {
