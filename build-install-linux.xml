@@ -4,7 +4,7 @@
 
     <import file="build-build.xml"/>
 
-    <target name="install-linux-base" depends="build-all" >
+    <target name="install-linux-base">
         
         <!-- These properties are passed in (example values shown):
             install_share_dir = ~/.rpm/tmp/freeguide-0.8.2-root/usr/share
@@ -21,10 +21,10 @@
         
         <mkdir dir="${install_jar_dir}" />
         
-        <copy file="${build}/startup.jar" todir="${install_jar_dir}/" />
-        <copy file="${build}/lib/freeguide.jar" todir="${install_lib_dir}/" />
-        <copy file="${build}/lib/common.jar" todir="${install_lib_dir}/" />
-        <copy file="${build}/lib/tagsoup-1.0rc3.jar" todir="${install_lib_dir}/" />
+        <copy file="${build}/package/freeguide/startup.jar" todir="${install_jar_dir}/" />
+        <copy file="${build}/package/freeguide/lib/freeguide.jar" todir="${install_lib_dir}/" />
+        <copy file="${build}/package/freeguide/lib/common.jar" todir="${install_lib_dir}/" />
+        <copy file="${build}/package/freeguide/lib/tagsoup-1.0rc3.jar" todir="${install_lib_dir}/" />
 
         <!-- Copy the different-sized icons to the freeguide pixmaps dir -->
         <mkdir dir="${install_pixmap_dir}" />
@@ -37,11 +37,11 @@
             
         <!-- Creating the launch script: first we need to copy the source launch script, then we replace the string "__ANT_DOC_DIRECTORY__" with the docs directory, and then we move it into place and make it executable. -->
         <copy file="${src}/install/linux/freeguide" tofile="${src}/install/linux/freeguide.tmp" />
-
         <replace file="${src}/install/linux/freeguide.tmp">
                 <replacefilter token="__ANT_DOC_DIRECTORY__" value="${install_real_doc_dir}" />
                 <replacefilter token="__ANT_INSTALL_DIRECTORY__" value="${install_real_dir}" />
         </replace>
+        
         <mkdir dir="${install_bin_dir}" />
         <move file="${src}/install/linux/freeguide.tmp" tofile="${install_bin_dir}/freeguide" />
         <chmod file="${install_bin_dir}/freeguide" perm="a+x" />
@@ -50,11 +50,11 @@
         <copy file="${src}/install/linux/freeguide.desktop" todir="${install_share_dir}/applications/" />
 
         <mkdir dir="${install_share_dir}/man/man1" />
-        <copy file="${build}/freeguide.1.gz" todir="${install_share_dir}/man/man1/" />
+        <copy file="${build}/package/freeguide/freeguide.1.gz" todir="${install_share_dir}/man/man1/" />
         
         <mkdir dir="${install_doc_dir}" />
         <copy todir="${install_doc_dir}/">
-            <fileset dir="${doc}">
+            <fileset dir="${build}/doc/html">
                 <include name="*.html" />
                 <include name="*.png" />
                 <include name="*.css" />
@@ -71,17 +71,49 @@
             <copy file="${doc}/freeguide.empty" todir="${install_share_dir}/freeguide/"/>
     </target>
     
-    <target name="install-linux-plugin" depends="build-all">
+    <target name="install-linux-plugin">
         
         <!-- These properties are passed in (example values shown):
             install_share_dir = ~/.rpm/tmp/freeguide-0.8.2-root/usr/share
             install_doc_dir   = ~/.rpm/tmp/freeguide-0.8.2-...usr/doc/freeguide
             install_real_doc_dir = /usr/doc/freeguide
-            plugin_name = grabber-cosmostv
+            plugin-id = grabber-cosmostv
         -->
         
         <mkdir dir="${install_share_dir}/freeguide/lib/" />
-        <copy file="${build}/lib/${plugin_name}.jar" todir="${install_share_dir}/freeguide/lib/" />
+        <copy file="${build}/package/${plugin-id}/lib/${plugin-id}.jar" todir="${install_share_dir}/freeguide/lib/" />
     </target>
+    
+    <target name="install-linux-allinone">
+	<!-- Used by the freeguide-allinone.spec file to create an RPM with all plugins
+             and the base system all included -->
+        <antcall target="install-linux-base">
+            <param name="install_share_dir" value="${install_share_dir}"/>
+            <param name="install_bin_dir" value="${install_bin_dir}"/>
+            <param name="install_doc_dir" value="${install_doc_dir}"/>
+            <param name="install_real_dir" value="${install_real_dir}"/>
+            <param name="install_real_doc_dir" value="${install_real_doc_dir}"/>
+        </antcall>
+        
+        <antcall target="all-plugins">
+            <param name="actual-target" value="install-linux-plugin"/>
+            <param name="install_share_dir" value="${install_share_dir}"/>
+            <param name="install_doc_dir" value="${install_doc_dir}"/>
+            <param name="install_real_doc_dir" value="${install_real_doc_dir}"/>
+            <param name="plugin-id" value="${plugin-id}"/>
+        </antcall>
+    </target>
+    
+    <target name="install-linux-run" depends="build-all">
+        <delete dir="run"/>
+        <antcall target="install-linux-allinone">
+            <param name="install_share_dir" value="run/usr/share"/>
+            <param name="install_bin_dir" value="run"/>
+            <param name="install_doc_dir" value="run/usr/share/doc"/>
+            <param name="install_real_dir" value="usr/share/freeguide"/>
+            <param name="install_real_doc_dir" value="usr/share/doc/freeguide"/>
+        </antcall>
+    </target>
+    
 </project>
 

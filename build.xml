@@ -48,35 +48,43 @@
     
     <target name="all" depends="prepare, source-all, build-all, dist-repository, dist-tgz" />
     
-	<target name="prepare">
-		<ant antfile="build-prebuild.xml"></ant>
-	</target>
-	<target name="source-all">
-		<ant antfile="build-source.xml"></ant>
-	</target>
-	<target name="build-all">
-		<ant antfile="build-build.xml"></ant>
-	</target>
-	<target name="dist-repository">
-		<ant antfile="build-dist.xml" target="dist-repository"></ant>
-	</target>
-	<target name="dist-tgz">
-		<ant antfile="build-dist.xml" target="dist-tgz"></ant>
-	</target>
-    
+    <target name="prepare">
+        <ant antfile="build-prebuild.xml" />
+    </target>
+    <target name="source-all">
+        <ant antfile="build-source.xml" />
+    </target>
+    <target name="build-all">
+        <ant antfile="build-build.xml" />
+    </target>
+    <target name="dist-repository">
+        <ant antfile="build-dist.xml" target="dist-repository" />
+    </target>
+    <target name="dist-tgz">
+        <ant antfile="build-dist.xml" target="dist-tgz" />
+    </target>
 
     <target name="clean">
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
-  	</target>
-	
-	<target name="dist-rpm">
-		<ant antfile="build-dist-rpm.xml"></ant>
-	</target>
-	<target name="dist-exe">
-		<ant antfile="build-dist-exe.xml"></ant>
-	</target>
-	
+    </target>
+    
+    <target name="install-linux-run">
+        <ant antfile="build-install-linux.xml" target="install-linux-run" />
+    </target>
+    
+    <target name="install-linux-allinone">
+        <ant antfile="build-install-linux.xml" target="install-linux-allinone" />
+    </target>
+    <target name="install-linux">
+        <ant antfile="build-install-linux.xml" />
+    </target>
+    <target name="dist-exe">
+        <ant antfile="build-dist-exe.xml" />
+    </target>
+    <target name="dist-rpm">
+        <ant antfile="build-dist-rpm.xml" />
+    </target>
 
 </project>
 

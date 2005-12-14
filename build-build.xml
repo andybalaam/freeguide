@@ -4,7 +4,7 @@
 
 	<import file="build-plugins-info.xml"/>
 	
-    <target name="build-all" depends="build-plugins, build-app"/>
+    <target name="build-all" depends="build-plugins, build-app, build-doc"/>
 
     <target name="build-common">
         <mkdir dir="${build}/classes/common"/>
@@ -104,13 +104,13 @@
             <fileset dir="doc" includes="*.html, *.css, *.txt, *.png, COPYING, TODO"/>
         </copy>
         <!-- gzip the man page -->
-        <gzip src="${build}/dist/linux/freeguide.1" zipfile="${build}/package/${application-id}/freeguide.1.gz" />
-
-    	<mkdir dir="${build}/plain"/>
-    	<copy todir="${build}/plain">
-    		<fileset dir="${build}/package/${application-id}"/>
-   		</copy>
-	</target>
+        <gzip src="${src}/install/linux/freeguide.1" zipfile="${build}/package/${application-id}/freeguide.1.gz" />
+        
+        <mkdir dir="${build}/plain"/>
+        <copy todir="${build}/plain">
+            <fileset dir="${build}/package/${application-id}"/>
+        </copy>
+    </target>
     
     <target name="build-startup" depends="build-common">
         <mkdir dir="${build}/classes/startup"/>
@@ -129,5 +129,12 @@
              basedir="${build}/classes/startup"
              manifest="${src}/startup/META-INF/startup.mf" />
     </target>
+    
+    <target name="build-doc">
+        <chmod file="${doc}/compile_manual.sh" perm="ugo+rx"/>
+        <exec dir="${doc}" executable="compile_manual.sh" resolveexecutable="true" failonerror="true"/>
+    </target>
+    
+    
 </project>
 
