@@ -5,6 +5,8 @@ import java.io.FileFilter;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.xml.parsers.SAXParser;
@@ -105,6 +107,20 @@ public class PatchAllFiles
                 result.add( info );
             }
         }
+
+        Collections.sort( 
+            result,
+            new Comparator(  )
+            {
+                public int compare( Object o1, Object o2 )
+                {
+
+                    final PluginInfo p1 = (PluginInfo)o1;
+                    final PluginInfo p2 = (PluginInfo)o2;
+
+                    return p1.getID(  ).compareTo( p2.getID(  ) );
+                }
+            } );
 
         return (PluginInfo[])result.toArray( new PluginInfo[result.size(  )] );
     }
