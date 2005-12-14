@@ -423,8 +423,7 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
         if( icons != null )
         {
 
-            for( 
-                Iterator it = icons.keySet(  ).iterator(  ); it.hasNext(  ); )
+            for( Iterator it = icons.keySet(  ).iterator(  ); it.hasNext(  ); )
             {
 
                 final String key = (String)it.next(  );

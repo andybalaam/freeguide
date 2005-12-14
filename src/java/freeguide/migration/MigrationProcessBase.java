@@ -135,8 +135,7 @@ abstract public class MigrationProcessBase
 
         final List result = new ArrayList(  );
 
-        for( 
-            Iterator it = prefFrom.keySet(  ).iterator(  ); it.hasNext(  ); )
+        for( Iterator it = prefFrom.keySet(  ).iterator(  ); it.hasNext(  ); )
         {
 
             final String key = (String)it.next(  );
