@@ -75,8 +75,8 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         final JMenuItem menuLine = new JMenuItem(  );
         menuLine.setText( 
             getLocalizer(  ).getLocalizedMessage( "Menu.Tools.ChooseChannels" ) );
-        Application.getInstance(  ).getMainMenu(  ).getTools(  ).add( 
-            menuLine );
+        Application.getInstance(  ).getMainMenu(  ).getTools(  ).insert( 
+            menuLine, 0 );
 
         menuLine.addActionListener( 
             new ActionListener(  )
