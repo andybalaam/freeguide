@@ -25,8 +25,6 @@ import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.general.CmdArgs;
 import freeguide.lib.general.LanguageHelper;
 import freeguide.lib.general.PreferencesHelper;
-import freeguide.lib.general.StringHelper;
-import freeguide.lib.general.Utils;
 import freeguide.lib.general.Version;
 
 import freeguide.migration.Migrate;
@@ -38,9 +36,6 @@ import freeguide.plugins.IModuleViewer;
 
 import java.io.File;
 import java.io.FileFilter;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import java.util.Locale;
 import java.util.Properties;
@@ -297,38 +292,6 @@ public class FreeGuide
     }
 
     /**
-     * Deletes a whole directory recursively (also deletes a single file).
-     *
-     * @param dir The directory to delete
-     */
-    private void deleteDir( File dir )
-    {
-
-        if( !dir.exists(  ) )
-        {
-
-            return;
-
-        }
-
-        if( dir.isDirectory(  ) )
-        {
-
-            String[] list = dir.list(  );
-
-            for( int i = 0; i < list.length; i++ )
-            {
-                deleteDir( 
-                    new File( dir.getPath(  ) + File.separator + list[i] ) );
-
-            }
-        }
-
-        dir.delete(  );
-
-    }
-
-    /**
      * The method called when FreeGuide is run by startup.
      *
      * @param args the command line arguments
@@ -451,53 +414,6 @@ public class FreeGuide
                 startupMessages.getLocalizedMessage( 
                     "startup.WrongJavaVersion",
                     new String[] { System.getProperty( "java.version" ) } ) );
-        }
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param filename DOCUMENT_ME!
-     */
-    public static void openFile( final String filename )
-    {
-
-        try
-        {
-
-            String cmd =
-                StringHelper.replaceAll( 
-                    config.browserCommand, "%url%",
-                    new File( filename ).toURL(  ).toExternalForm(  ) );
-            Utils.execNoWait( cmd );
-        }
-        catch( Exception ex )
-        {
-            Application.getInstance(  ).getLogger(  ).log( 
-                Level.WARNING, "Error open file " + filename, ex );
-        }
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param url DOCUMENT_ME!
-     */
-    public static void openURL( final URL url )
-    {
-
-        try
-        {
-
-            String cmd =
-                StringHelper.replaceAll( 
-                    config.browserCommand, "%url%", url.toExternalForm(  ) );
-            Utils.execNoWait( cmd );
-        }
-        catch( Exception ex )
-        {
-            Application.getInstance(  ).getLogger(  ).log( 
-                Level.WARNING, "Error open url " + url.toExternalForm(  ), ex );
         }
     }
 

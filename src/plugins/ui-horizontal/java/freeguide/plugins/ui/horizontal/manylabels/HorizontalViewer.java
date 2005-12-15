@@ -1,7 +1,5 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import freeguide.FreeGuide;
-
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PersonalizedHTMLGuide;
 import freeguide.lib.fgspecific.ProgrammeFormat;
@@ -845,7 +843,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
             buffy.close(  );
 
-            FreeGuide.openFile( f.getPath(  ) );
+            FileHelper.openFile( f.getPath(  ) );
         }
         catch( java.io.IOException ex )
         {

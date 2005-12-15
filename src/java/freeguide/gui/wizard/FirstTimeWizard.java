@@ -18,9 +18,8 @@ import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PluginInfo;
 import freeguide.lib.fgspecific.PluginsManager;
 
+import freeguide.lib.general.FileHelper;
 import freeguide.lib.general.LanguageHelper;
-import freeguide.lib.general.StringHelper;
-import freeguide.lib.general.Utils;
 
 import freeguide.migration.Migrate;
 
@@ -33,9 +32,7 @@ import java.io.IOException;
 
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.logging.Level;
 
 /**
@@ -185,8 +182,6 @@ public class FirstTimeWizard
 
                 }
             } );
-
-        Set dummyChoices = new TreeSet(  );
 
         panels[3] = new ChoiceWizardPanel( allBrowsers.keySet(  ) );
 
@@ -464,7 +459,7 @@ public class FirstTimeWizard
 
         if( showREADME )
         {
-            FreeGuide.openFile( 
+            FileHelper.openFile( 
                 FreeGuide.runtimeInfo.docDirectory + "/README.html" );
         }
     }
