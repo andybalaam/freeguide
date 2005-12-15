@@ -44,6 +44,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -361,6 +362,17 @@ public class FreeGuide
             pleaseWaitFrame.dispose(  );
             pleaseWaitFrame = null;
         }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public static JFrame getPleaseWaitFrame(  )
+    {
+
+        return pleaseWaitFrame;
     }
 
     /**

@@ -64,6 +64,7 @@ public class MainController extends BaseModule implements IApplication
     public IModuleViewer viewer;
     protected GrabberController grab = new GrabberController(  );
     protected IModuleReminder[] reminders;
+    protected JFrame applicationFrame;
 
     /**
      * DOCUMENT_ME!
@@ -179,6 +180,8 @@ public class MainController extends BaseModule implements IApplication
     public void start( 
         final IModuleViewer viewer, final String grabberFromWizard )
     {
+        applicationFrame = FreeGuide.getPleaseWaitFrame(  );
+
         this.viewer = viewer;
 
         mainFrame = new MainFrame(  );
@@ -244,6 +247,8 @@ public class MainController extends BaseModule implements IApplication
         mainFrame.setVisible( true );
 
         FreeGuide.hidePleaseWait(  );
+
+        applicationFrame = mainFrame;
 
         //checkForNoData(  );
         mainFrame.waitForClose(  );
@@ -514,7 +519,7 @@ public class MainController extends BaseModule implements IApplication
     public JFrame getApplicationFrame(  )
     {
 
-        return mainFrame;
+        return applicationFrame;
 
     }
 
