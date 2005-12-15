@@ -165,11 +165,22 @@ public class GrabberController
                     FreeGuide.storage.add( result );
                 }
             }
-            catch( Exception ex )
+            catch( Throwable ex )
             {
                 wasError = true;
-                progressDialog.error( 
-                    "Error grab data by grabber '" + grabberID + "'", ex );
+
+                if( ex instanceof Exception )
+                {
+                    progressDialog.error( 
+                        "Error grab data by grabber '" + grabberID + "'",
+                        (Exception)ex );
+                }
+                else
+                {
+                    progressDialog.error( 
+                        "Error grab data by grabber '" + grabberID + "': "
+                        + ex.getClass(  ).getName(  ) );
+                }
 
                 FreeGuide.log.log( 
                     Level.WARNING, "Error grab data by grabber '" + grabberID,
