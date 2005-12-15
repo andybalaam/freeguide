@@ -170,9 +170,9 @@ public class JPanelProgramme extends JPanel
     }
 
     /**
-     * DOCUMENT_ME!
+     * Up button event.
      *
-     * @param label DOCUMENT_ME!
+     * @param label current label
      */
     public void focusMoveUp( final JLabelProgramme label )
     {
@@ -193,7 +193,7 @@ public class JPanelProgramme extends JPanel
 
             if( newLabel != null )
             {
-                focusAndShow( newLabel );
+                focusAndShowPartly( newLabel );
 
                 break;
             }
@@ -201,9 +201,9 @@ public class JPanelProgramme extends JPanel
     }
 
     /**
-     * DOCUMENT_ME!
+     * Down button event.
      *
-     * @param label DOCUMENT_ME!
+     * @param label current label
      */
     public void focusMoveDown( final JLabelProgramme label )
     {
@@ -224,7 +224,7 @@ public class JPanelProgramme extends JPanel
 
             if( newLabel != null )
             {
-                focusAndShow( newLabel );
+                focusAndShowPartly( newLabel );
 
                 break;
             }
@@ -232,9 +232,9 @@ public class JPanelProgramme extends JPanel
     }
 
     /**
-     * DOCUMENT_ME!
+     * Left button event.
      *
-     * @param label DOCUMENT_ME!
+     * @param label current label
      */
     public void focusMoveLeft( final JLabelProgramme label )
     {
@@ -259,9 +259,9 @@ public class JPanelProgramme extends JPanel
     }
 
     /**
-     * DOCUMENT_ME!
+     * Right button event.
      *
-     * @param label DOCUMENT_ME!
+     * @param label current label
      */
     public void focusMoveRight( final JLabelProgramme label )
     {
@@ -285,6 +285,13 @@ public class JPanelProgramme extends JPanel
         }
     }
 
+    /**
+     * Find label and return its row.
+     *
+     * @param label label
+     *
+     * @return row or -1 if label not found
+     */
     protected int getRowOfLabel( final JLabelProgramme label )
     {
 
@@ -301,6 +308,14 @@ public class JPanelProgramme extends JPanel
         return -1;
     }
 
+    /**
+     * Find nesrest programme for specified row and time.
+     *
+     * @param row row, i.e. channel
+     * @param startTime time to find
+     *
+     * @return found label, or null if there is no label in specified row
+     */
     protected JLabelProgramme getNearestFor( 
         final int row, final long startTime )
     {
@@ -332,6 +347,11 @@ public class JPanelProgramme extends JPanel
         return nearest;
     }
 
+    /**
+     * Focus specified label and scroll to it if need.
+     *
+     * @param label label
+     */
     protected void focusAndShow( final JLabelProgramme label )
     {
         label.requestFocus(  );
@@ -339,6 +359,38 @@ public class JPanelProgramme extends JPanel
         JViewport vp = (JViewport)getParent(  );
         Rectangle r2 = label.getBounds(  );
         Point origin = vp.getViewPosition(  );
+        r2.translate( -origin.x, -origin.y );
+        vp.scrollRectToVisible( r2 );
+    }
+
+    /**
+     * Focus specified label and scroll to it to show only 50 pixels
+     * horizontally.
+     *
+     * @param label label
+     */
+    protected void focusAndShowPartly( final JLabelProgramme label )
+    {
+        label.requestFocus(  );
+
+        JViewport vp = (JViewport)getParent(  );
+        Rectangle r2 = label.getBounds(  );
+        Point origin = vp.getViewPosition(  );
+        int dx = r2.width - 50;
+        r2.width = 50;
+
+        if( r2.x > origin.x )
+        {
+
+            // label on the right of visible window begin
+        }
+        else if( r2.x < origin.x )
+        {
+
+            // label on the left of visible window begin
+            r2.x += dx;
+        }
+
         r2.translate( -origin.x, -origin.y );
         vp.scrollRectToVisible( r2 );
     }
