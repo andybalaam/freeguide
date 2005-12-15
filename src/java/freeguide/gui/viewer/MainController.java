@@ -519,6 +519,18 @@ public class MainController extends BaseModule implements IApplication
     public JFrame getApplicationFrame(  )
     {
 
+        return mainFrame;
+
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public JFrame getCurrentFrame(  )
+    {
+
         return applicationFrame;
 
     }

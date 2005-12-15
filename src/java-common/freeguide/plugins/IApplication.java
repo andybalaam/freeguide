@@ -16,6 +16,8 @@ public interface IApplication
 {
     JFrame getApplicationFrame(  );
 
+    JFrame getCurrentFrame(  );
+
     IModuleStorage getDataStorage(  );
 
     IModuleViewer getViewer(  );

@@ -318,7 +318,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         int r =
             JOptionPane.showConfirmDialog( 
-                Application.getInstance(  ).getApplicationFrame(  ),
+                Application.getInstance(  ).getCurrentFrame(  ),
                 Application.getInstance(  ).getLocalizedMessage( 
                     "there_are_missing_listings_for_today" ),
                 Application.getInstance(  ).getLocalizedMessage( 
