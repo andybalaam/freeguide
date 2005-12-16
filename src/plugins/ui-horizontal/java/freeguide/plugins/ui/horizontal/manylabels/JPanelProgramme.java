@@ -90,6 +90,7 @@ public class JPanelProgramme extends JPanel
                 controller.config.displayAlignToLeft );
         setupBounds( label, programme, row );
         add( label );
+        label.setFont( getFont(  ) );
 
         rows[row].add( label );
         labelsForProgrammes.put( programme, label );
