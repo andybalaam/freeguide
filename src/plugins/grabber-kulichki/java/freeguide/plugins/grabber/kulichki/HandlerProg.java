@@ -1,7 +1,6 @@
 package freeguide.plugins.grabber.kulichki;
 
 import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.lib.grabber.HtmlHelper;
@@ -9,6 +8,7 @@ import freeguide.lib.grabber.LineProgrammeHelper;
 import freeguide.lib.grabber.TimeHelper;
 
 import freeguide.plugins.ILogger;
+import freeguide.plugins.IStoragePipe;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -38,11 +38,11 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
     protected static Pattern RE_CHANNEL =
         Pattern.compile( 
             "\\s*(\\S+)\\s*\\.\\s*(\\d{1,2})\\s+(\\S+)\\s*\\.\\s+(.+)" );
-    protected TVData result;
+    protected final IStoragePipe storage;
     protected ILogger logger;
     protected TimeZone tz;
     protected long currentDate;
-    protected TVChannel currentChannel;
+    protected String currentChannelID;
     protected TVProgramme[] currentProgs;
     protected int mode;
     protected String channelIDprefix;
@@ -50,12 +50,12 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
     /**
      * Creates a new HandlerProg object.
      *
-     * @param result DOCUMENT ME!
+     * @param storage DOCUMENT ME!
      * @param logger DOCUMENT ME!
      */
-    public HandlerProg( TVData result, ILogger logger )
+    public HandlerProg( final IStoragePipe storage, ILogger logger )
     {
-        this.result = result;
+        this.storage = storage;
 
         this.logger = logger;
 
@@ -92,8 +92,7 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
     {
         mode = MODES_NONE;
 
-        currentChannel = null;
-
+        currentChannelID = null;
     }
 
     /**
@@ -147,7 +146,7 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
         {
             mode = MODES_NONE;
 
-            currentChannel = null;
+            currentChannelID = null;
 
         }
     }
@@ -183,16 +182,23 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
                         TimeHelper.getBaseDate( 
                             tz, m.group( 2 ), m.group( 3 ), null, m.group( 1 ) );
 
-                    currentChannel =
-                        result.get( 
-                            channelIDprefix + m.group( 4 ).replace( '/', '_' ) );
-                    currentChannel.setDisplayName( m.group( 4 ) );
+                    currentChannelID =
+                        channelIDprefix + m.group( 4 ).replace( '/', '_' );
 
+                    try
+                    {
+                        storage.addChannel( 
+                            new TVChannel( currentChannelID, m.group( 4 ) ) );
+                    }
+                    catch( Exception ex )
+                    {
+                        throw new SAXException( ex );
+                    }
                 }
 
                 catch( ParseException ex )
                 {
-                    currentChannel = null;
+                    currentChannelID = null;
 
                     logger.warning( "Error on channel name: " + data );
 
@@ -201,7 +207,7 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
 
             else
             {
-                currentChannel = null;
+                currentChannelID = null;
 
             }
 
@@ -209,7 +215,7 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
 
         case MODES_DATA:
 
-            if( currentChannel != null )
+            if( currentChannelID != null )
             {
 
                 BufferedReader rd =
@@ -244,8 +250,15 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
                                         ( currentProgs != null )
                                         ? currentProgs[0].getStart(  ) : 0 );
 
-                                currentChannel.put( currentProgs );
-
+                                try
+                                {
+                                    storage.addProgrammes( 
+                                        currentChannelID, currentProgs );
+                                }
+                                catch( Exception ex )
+                                {
+                                    throw new SAXException( ex );
+                                }
                             }
 
                             catch( ParseException ex )

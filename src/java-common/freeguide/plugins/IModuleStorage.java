@@ -53,7 +53,7 @@ public interface IModuleStorage extends IModule
      *
      * @throws Exception
      */
-    void add( TVData data ) throws Exception;
+    void store( TVData data ) throws Exception;
 
     /**
      * DOCUMENT ME!

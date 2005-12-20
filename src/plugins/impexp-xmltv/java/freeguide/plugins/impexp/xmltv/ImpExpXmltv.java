@@ -8,6 +8,7 @@ import freeguide.lib.impexp.XMLTVImport;
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleExport;
 import freeguide.plugins.IModuleImport;
+import freeguide.plugins.IStoragePipe;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,12 +41,12 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
      * DOCUMENT_ME!
      *
      * @param parent DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
+     * @param storage DOCUMENT ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData importDataUI( final JFrame parent ) throws Exception
+    public void importDataUI( final JFrame parent, final IStoragePipe storage )
+        throws Exception
     {
 
         JFileChooser chooser = new JFileChooser(  );
@@ -71,7 +72,6 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
         if( chooser.showOpenDialog( parent ) == JFileChooser.APPROVE_OPTION )
         {
 
-            final TVData result = new TVData(  );
             File[] files = chooser.getSelectedFiles(  );
             XMLTVImport imp = new XMLTVImport(  );
 
@@ -80,32 +80,26 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
 
                 for( int i = 0; i < files.length; i++ )
                 {
-                    imp.process( files[i], result, new XMLTVImport.Filter(  ) );
+                    imp.process( 
+                        files[i], storage, new XMLTVImport.Filter(  ), "" );
                 }
             }
-
-            return result;
         }
-
-        return null;
     }
 
     /**
      * DOCUMENT_ME!
      *
      * @param file DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
+     * @param storage DOCUMENT ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData importData( final File file ) throws Exception
+    public void importData( final File file, final IStoragePipe storage )
+        throws Exception
     {
-
-        TVData result = new TVData(  );
-        new XMLTVImport(  ).process( file, result, new XMLTVImport.Filter(  ) );
-
-        return result;
+        new XMLTVImport(  ).process( 
+            file, storage, new XMLTVImport.Filter(  ), "" );
     }
 
     /**

@@ -98,7 +98,7 @@ public class StorageAllInMemory extends BaseModule implements IModuleStorage
                     {
                         resChannel = result.get( channel.getID(  ) );
 
-                        resChannel.loadHeadersFrom( channel );
+                        resChannel.moveFrom( channel );
 
                     }
 
@@ -154,11 +154,11 @@ public class StorageAllInMemory extends BaseModule implements IModuleStorage
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public void add( final TVData newData ) throws Exception
+    public void store( final TVData newData ) throws Exception
     {
         checkData(  );
 
-        data.mergeFrom( newData );
+        data.moveFrom( newData );
 
         ObjectOutputStream out =
             new ObjectOutputStream( 

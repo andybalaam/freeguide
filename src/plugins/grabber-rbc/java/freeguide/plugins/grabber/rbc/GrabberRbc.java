@@ -1,25 +1,15 @@
 package freeguide.plugins.grabber.rbc;
 
-import freeguide.lib.fgspecific.data.TVData;
-
-import freeguide.lib.grabber.HttpBrowser;
-
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.ILogger;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IProgress;
+import freeguide.plugins.IStoragePipe;
 
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.io.IOException;
-
-import java.text.NumberFormat;
-
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.TimeZone;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -83,12 +73,12 @@ public class GrabberRbc extends BaseModule implements IModuleGrabber
      *
      * @param progress DOCUMENT_ME!
      * @param logger DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
+     * @param storage DOCUMENT ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData grabData( IProgress progress, ILogger logger )
+    public void grabData( 
+        IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
 
@@ -138,7 +128,6 @@ public class GrabberRbc extends BaseModule implements IModuleGrabber
                     }
                 }
                 anns = null;*/
-        return null;
     }
 
     /*    protected boolean parsePage(){

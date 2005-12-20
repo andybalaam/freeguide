@@ -1,7 +1,6 @@
 package freeguide.plugins.grabber.cosmostv;
 
 import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVData;
 
 import freeguide.lib.grabber.HttpBrowser;
 import freeguide.lib.grabber.ListTVParser;
@@ -10,6 +9,7 @@ import freeguide.plugins.BaseModule;
 import freeguide.plugins.ILogger;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IProgress;
+import freeguide.plugins.IStoragePipe;
 
 import java.util.TimeZone;
 
@@ -56,12 +56,12 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
      *
      * @param progress DOCUMENT_ME!
      * @param logger DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
+     * @param storage DOCUMENT ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData grabData( IProgress progress, ILogger logger )
+    public void grabData( 
+        IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
 
@@ -86,9 +86,8 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
 
         logger.info( "Load data files..." );
 
-        return new ListTVParser( "cosmostv/" ).parseZips( 
+        new ListTVParser( "cosmostv/", storage ).parseZips( 
             zips, TIMEZONE, progress, logger );
-
     }
 
     /**

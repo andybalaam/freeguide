@@ -9,6 +9,7 @@ import freeguide.lib.fgspecific.data.TVProgramme;
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleExport;
 import freeguide.plugins.IModuleImport;
+import freeguide.plugins.IStoragePipe;
 
 import org.alex73.utils.io.EndianInputStream;
 import org.alex73.utils.io.EndianOutputByteArray;
@@ -56,12 +57,12 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
      * DOCUMENT_ME!
      *
      * @param parent DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
+     * @param storage DOCUMENT ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData importDataUI( JFrame parent ) throws Exception
+    public void importDataUI( JFrame parent, final IStoragePipe storage )
+        throws Exception
     {
 
         JFileChooser chooser = new JFileChooser(  );
@@ -103,42 +104,34 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
                 }
             }
 
-            final TVData result = new TVData(  );
             Iterator it = fUniq.iterator(  );
 
             while( it.hasNext(  ) )
             {
 
                 String fileName = (String)it.next(  );
-                loadFromFile( fileName, result );
+                loadFromFile( fileName, storage );
             }
-
-            return result;
         }
-
-        return null;
     }
 
     /**
      * DOCUMENT_ME!
      *
      * @param path DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
+     * @param storage DOCUMENT ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData importData( File path ) throws Exception
+    public void importData( File path, final IStoragePipe storage )
+        throws Exception
     {
-
-        TVData result = new TVData(  );
-        loadFromFile( path.getPath(  ), result );
-
-        return result;
+        loadFromFile( path.getPath(  ), storage );
     }
 
-    protected void loadFromFile( final String fileName, final TVData data )
-        throws IOException
+    protected void loadFromFile( 
+        final String fileName, final IStoragePipe storage )
+        throws Exception
     {
 
         final EndianInputStream inndx =
@@ -155,10 +148,11 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
         }
 
         final int posf = fileName.lastIndexOf( '/' );
-        final TVChannel channel =
-            data.get( 
-                "jtv/"
-                + ( ( posf == -1 ) ? fileName : fileName.substring( posf + 1 ) ) );
+        final String channelID =
+            "jtv/"
+            + ( ( posf == -1 ) ? fileName : fileName.substring( posf + 1 ) );
+        storage.addChannel( new TVChannel( channelID, channelID ) );
+
         short progCount = inndx.readShort(  );
 
         for( int i = 0; i < progCount; i++ )
@@ -172,7 +166,7 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
             final int pos = inndx.readUnsignedShort(  );
             inpdt.setCurrentPos( pos );
             prog.setTitle( inpdt.readSPasString(  ) );
-            channel.put( prog );
+            storage.addProgramme( channelID, prog );
         }
     }
 

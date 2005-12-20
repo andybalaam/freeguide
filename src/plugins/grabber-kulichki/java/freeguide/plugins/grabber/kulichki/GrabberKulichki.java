@@ -3,7 +3,6 @@ package freeguide.plugins.grabber.kulichki;
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
-import freeguide.lib.fgspecific.data.TVData;
 
 import freeguide.lib.general.LanguageHelper;
 
@@ -14,6 +13,7 @@ import freeguide.plugins.ILogger;
 import freeguide.plugins.IModuleConfigurationUI;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IProgress;
+import freeguide.plugins.IStoragePipe;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -147,20 +147,19 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
      *
      * @param progress DOCUMENT_ME!
      * @param logger DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
+     * @param storage DOCUMENT ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData grabData( IProgress progress, ILogger logger )
+    public void grabData( 
+        IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
 
         if( config.channels.selectedChannelIDs.size(  ) == 0 )
         {
 
-            return null;
-
+            return;
         }
 
         if( TIME_ZONES == null )
@@ -173,16 +172,15 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
             loadGroupNames(  );
         }
 
-        TVData result = new TVData(  );
-
         for( Iterator it = GROUP_NAMES.entrySet(  ).iterator(  );
                 it.hasNext(  ); )
         {
 
             Map.Entry entry = (Map.Entry)it.next(  );
-            final TVChannel channel =
-                result.get( "kulichki/" + (String)entry.getKey(  ) );
-            channel.setDisplayName( (String)entry.getValue(  ) );
+            storage.addChannel( 
+                new TVChannel( 
+                    "kulichki/" + (String)entry.getKey(  ),
+                    (String)entry.getValue(  ) ) );
         }
 
         HttpBrowser browser = new HttpBrowser(  );
@@ -195,7 +193,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         HandlerChannels handlerChanels = new HandlerChannels(  );
 
-        HandlerProg handlerProg = new HandlerProg( result, logger );
+        HandlerProg handlerProg = new HandlerProg( storage, logger );
 
         logger.info( "Load initial page" );
 
@@ -294,12 +292,9 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
                     requestChannels, true );
 
                 browser.parse( handlerProg );
-
+                storage.finishBlock(  );
             }
         }
-
-        return result;
-
     }
 
     protected String getChannelIdByTag( final String tag )

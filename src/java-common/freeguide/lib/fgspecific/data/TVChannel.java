@@ -51,25 +51,46 @@ public class TVChannel implements Serializable
     }
 
     /**
-     * DOCUMENT_ME!
+     * Create channel with specified ID and display name.
      *
-     * @param channel DOCUMENT_ME!
+     * @param id channel ID
+     * @param displayName display name
      */
-    public void loadHeadersFrom( final TVChannel channel )
+    public TVChannel( final String id, final String displayName )
     {
-        displayName = channel.displayName;
-
-        iconURL = channel.iconURL;
-
+        this.id = id;
+        this.displayName = displayName;
     }
 
     /**
-     * DOCUMENT_ME!
+     * Merge name and icon from channel.
      *
-     * @param channel DOCUMENT_ME!
+     * @param channel channel from which merge
      */
-    public void mergeFrom( final TVChannel channel )
+    public void mergeHeaderFrom( final TVChannel channel )
     {
+
+        if( 
+            ( channel.displayName != null )
+                && ( channel.displayName.length(  ) > 0 ) )
+        {
+            displayName = channel.displayName;
+        }
+
+        if( channel.iconURL != null )
+        {
+            iconURL = channel.iconURL;
+        }
+    }
+
+    /**
+     * Merge name, icons and move programmes from channel to itself.
+     *
+     * @param channel channel from which merge
+     */
+    public void moveFrom( final TVChannel channel )
+    {
+        mergeHeaderFrom( channel );
 
         Iterator it = channel.getProgrammesIterator(  );
 
@@ -77,10 +98,10 @@ public class TVChannel implements Serializable
         {
 
             TVProgramme p = (TVProgramme)it.next(  );
-
-            put( (TVProgramme)p.clone(  ) );
-
+            put( p );
         }
+
+        channel.clearProgrammes(  );
     }
 
     /**
@@ -193,7 +214,6 @@ public class TVChannel implements Serializable
 
         programmes.remove( programme );
         programmes.add( programme );
-
     }
 
     /**
@@ -207,7 +227,6 @@ public class TVChannel implements Serializable
         for( int i = 0; i < programme.length; i++ )
         {
             put( programme[i] );
-
         }
     }
 
@@ -280,7 +299,7 @@ public class TVChannel implements Serializable
     }
 
     /**
-     * DOCUMENT_ME!
+     * Normalize time for all programmes.
      */
     public void normalizeTime(  )
     {
@@ -321,5 +340,13 @@ public class TVChannel implements Serializable
             prevProg.setEnd( prevProg.getStart(  ) + PROG_LENGTH_DEFAULT );
 
         }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     */
+    public void clearProgrammes(  )
+    {
+        programmes.clear(  );
     }
 }

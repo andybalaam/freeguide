@@ -11,6 +11,7 @@ import freeguide.lib.grabber.LineProgrammeHelper;
 import freeguide.lib.grabber.TimeHelper;
 
 import freeguide.plugins.ILogger;
+import freeguide.plugins.IStoragePipe;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -46,7 +47,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
     protected TVChannel currentChannel;
     protected long prevTime;
     protected TVProgramme currentProg;
-    protected final TVData siteData;
+    protected final TVData data;
     protected final TimeZone tz;
     protected boolean isAnnounces;
     protected ILogger logger;
@@ -56,15 +57,14 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
      * Creates a new HandlerParseProg object.
      *
      * @param logger DOCUMENT ME!
-     * @param siteData DOCUMENT ME!
      * @param tz DOCUMENT ME!
      */
-    public HandlerParseProg( ILogger logger, TVData siteData, TimeZone tz )
+    public HandlerParseProg( ILogger logger, TimeZone tz )
     {
         mode = MODES_NONE;
         isAnnounces = false;
         this.logger = logger;
-        this.siteData = siteData;
+        this.data = new TVData(  );
         this.tz = tz;
     }
 
@@ -191,8 +191,9 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 
             String channelName = text;
             currentChannel =
-                siteData.get( "vsetv/" + channelName.replace( '/', '_' ) );
+                data.get( "vsetv/" + channelName.replace( '/', '_' ) );
             currentChannel.setDisplayName( channelName );
+
             mode = MODES_NONE;
             prevTime = 0;
 
@@ -206,6 +207,8 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
                     "Error in page format: channel not found" );
             }
 
+            currentProg = null;
+
             try
             {
 
@@ -216,10 +219,14 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
                 currentProg.setStart( time );
                 prevTime = time;
                 mode = MODES_PROG_TITLE;
-                currentChannel.put( currentProg );
             }
             catch( ParseException ex )
             {
+            }
+
+            if( currentProg != null )
+            {
+                currentChannel.put( currentProg );
             }
 
             break;
@@ -329,5 +336,18 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
     public void setAnnounces( boolean announces )
     {
         isAnnounces = announces;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param storage DOCUMENT_ME!
+     *
+     * @throws Exception DOCUMENT_ME!
+     */
+    public void store( final IStoragePipe storage ) throws Exception
+    {
+        storage.addData( data );
+        storage.finishBlock(  );
     }
 }

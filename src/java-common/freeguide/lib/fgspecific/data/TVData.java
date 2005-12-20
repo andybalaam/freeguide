@@ -70,27 +70,74 @@ public class TVData implements Serializable
      *
      * @param other DOCUMENT_ME!
      */
-    public void mergeFrom( final TVData other )
+    public synchronized void moveFrom( final TVData other )
+    {
+        timeCalculated = false;
+
+        Iterator it = other.getChannelsIterator(  );
+
+        while( it.hasNext(  ) )
+        {
+
+            TVChannel ch = (TVChannel)it.next(  );
+
+            TVChannel myCh = get( ch.getID(  ) );
+            myCh.moveFrom( ch );
+        }
+    }
+
+    /**
+     * Calculate programmes count in all channels.
+     *
+     * @return DOCUMENT_ME!
+     */
+    public synchronized int getProgrammesCount(  )
     {
 
-        synchronized( this )
+        int result = 0;
+        Iterator it = getChannelsIterator(  );
+
+        while( it.hasNext(  ) )
         {
-            timeCalculated = false;
 
-            Iterator it = other.getChannelsIterator(  );
+            TVChannel ch = (TVChannel)it.next(  );
+            result += ch.getProgrammesCount(  );
+        }
 
-            while( it.hasNext(  ) )
-            {
+        return result;
+    }
 
-                TVChannel ch = (TVChannel)it.next(  );
+    /**
+     * Normalize time for all channels.
+     */
+    public synchronized void normalizeTime(  )
+    {
+        timeCalculated = false;
 
-                TVChannel myCh = get( ch.getID(  ) );
+        Iterator it = getChannelsIterator(  );
 
-                myCh.loadHeadersFrom( ch );
+        while( it.hasNext(  ) )
+        {
 
-                myCh.mergeFrom( ch );
+            TVChannel ch = (TVChannel)it.next(  );
+            ch.normalizeTime(  );
+        }
+    }
 
-            }
+    /**
+     * Clear programmes from all channels.
+     */
+    public synchronized void clearProgrammes(  )
+    {
+        timeCalculated = false;
+
+        Iterator it = getChannelsIterator(  );
+
+        while( it.hasNext(  ) )
+        {
+
+            TVChannel ch = (TVChannel)it.next(  );
+            ch.clearProgrammes(  );
         }
     }
 

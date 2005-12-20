@@ -1,7 +1,6 @@
 package freeguide.plugins.grabber.hallmark;
 
 import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.lib.grabber.HttpBrowser;
@@ -11,6 +10,7 @@ import freeguide.plugins.ILogger;
 import freeguide.plugins.IModuleConfigurationUI;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IProgress;
+import freeguide.plugins.IStoragePipe;
 
 import freeguide.plugins.grabber.hallmark.HallmarkInfo.Language;
 
@@ -65,12 +65,12 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
      *
      * @param progress DOCUMENT_ME!
      * @param logger DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
+     * @param storage DOCUMENT ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData grabData( IProgress progress, ILogger logger )
+    public void grabData( 
+        IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
 
@@ -101,11 +101,11 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
 
         browser.loadURL( urlSched.toString(  ) );
 
-        TVData result = new TVData(  );
-        TVChannel channel =
-            result.get( 
-                "hallmark/" + config.countryId + "/"
-                + ( ( lang != null ) ? lang.name : "Default" ) + "/hallmark" );
+        final String channelID =
+            "hallmark/" + config.countryId + "/"
+            + ( ( lang != null ) ? lang.name : "Default" ) + "/hallmark";
+        TVChannel channel = new TVChannel( channelID, "Hallmark Channel" );
+
         Map descriptions = new TreeMap(  );
         HallmarkParserSchedule parser =
             new HallmarkParserSchedule( 
@@ -143,7 +143,8 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
             }
         }
 
-        return result;
+        storage.addChannel( channel );
+        storage.finishBlock(  );
     }
 
     protected String loadDescription( 

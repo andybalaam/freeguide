@@ -1,9 +1,6 @@
 package freeguide.plugins.grabber.xmltv;
 
 import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVData;
-import freeguide.lib.fgspecific.data.TVIteratorChannels;
 
 import freeguide.lib.general.LanguageHelper;
 import freeguide.lib.general.StringHelper;
@@ -17,6 +14,7 @@ import freeguide.plugins.IModuleConfigurationUI;
 import freeguide.plugins.IModuleConfigureFromWizard;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IProgress;
+import freeguide.plugins.IStoragePipe;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -147,17 +145,15 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
      *
      * @param progress DOCUMENT ME!
      * @param logger DOCUMENT ME!
-     *
-     * @return DOCUMENT_ME!
+     * @param storage DOCUMENT ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData grabData( final IProgress progress, final ILogger logger )
-        throws Exception
+    public void grabData( 
+        final IProgress progress, final ILogger logger,
+        final IStoragePipe storage ) throws Exception
     {
         isStopped = false;
-
-        final TVData result = new TVData(  );
 
         synchronized( config.modules )
         {
@@ -167,12 +163,9 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
                 XMLTVConfig.ModuleInfo moduleInfo =
                     (XMLTVConfig.ModuleInfo)config.modules.get( i );
-                grabOne( result, moduleInfo, progress, logger );
+                grabOne( storage, moduleInfo, progress, logger );
             }
         }
-
-        return result;
-
     }
 
     protected void configureChannels( final XMLTVConfig.ModuleInfo moduleInfo )
@@ -273,7 +266,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     }
 
     protected void grabOne( 
-        final TVData result, final XMLTVConfig.ModuleInfo moduleInfo,
+        final IStoragePipe storage, final XMLTVConfig.ModuleInfo moduleInfo,
         final IProgress progress, final ILogger logger )
     {
         progress.setProgressMessage( 
@@ -312,18 +305,17 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         logger.info( "Running command: " + cmd );
 
         int resultCode =
-            execCmd( result, Utils.parseCommand( cmd ), progress, logger );
+            execCmd( storage, Utils.parseCommand( cmd ), progress, logger );
 
         Application.getInstance(  ).getLogger(  ).finest( 
             "Result code = " + resultCode );
 
         logger.info( "Result code = " + resultCode );
-
     }
 
     protected int execCmd( 
-        final TVData result, final String[] args, final IProgress progress,
-        final ILogger logger )
+        final IStoragePipe storage, final String[] args,
+        final IProgress progress, final ILogger logger )
     {
 
         try
@@ -346,7 +338,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                 new InputStreamReader( pr.getErrorStream(  ) ) );
 
         Thread threadData =
-            new ReadOutput( result, pr.getInputStream(  ), logger );
+            new ReadOutput( storage, pr.getInputStream(  ), logger );
 
         threadData.start(  );
 
@@ -585,24 +577,23 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         final protected ILogger logger;
         final protected InputStream in;
-        final TVData result;
+        final protected IStoragePipe storage;
 
         /**
          * Creates a new ReadOutputData object.
          *
-         * @param result DOCUMENT ME!
+         * @param storage DOCUMENT ME!
          * @param in DOCUMENT ME!
          * @param logger DOCUMENT ME!
          */
         public ReadOutput( 
-            final TVData result, InputStream in, ILogger logger )
+            final IStoragePipe storage, InputStream in, ILogger logger )
         {
             this.in = in;
 
             this.logger = logger;
 
-            this.result = result;
-
+            this.storage = storage;
         }
 
         /**
@@ -611,24 +602,10 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         public void run(  )
         {
 
-            TVData newData = new TVData(  );
-
             try
             {
                 new XMLTVImport(  ).process( 
-                    in, newData, new XMLTVImport.Filter(  ) );
-
-                newData.iterate( 
-                    new TVIteratorChannels(  )
-                    {
-                        protected void onChannel( TVChannel channel )
-                        {
-                            channel.setID( "xmltv/" + channel.getID(  ) );
-                        }
-                    } );
-
-                result.mergeFrom( newData );
-
+                    in, storage, new XMLTVImport.Filter(  ), "xmltv/" );
             }
 
             catch( Exception ex )

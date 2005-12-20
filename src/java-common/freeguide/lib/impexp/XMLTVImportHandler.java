@@ -2,10 +2,11 @@ package freeguide.lib.impexp;
 
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.lib.general.LanguageHelper;
+
+import freeguide.plugins.IStoragePipe;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -33,11 +34,13 @@ import java.util.regex.Pattern;
 class XMLTVImportHandler extends DefaultHandler
 {
 
-    final protected TVData data;
+    final protected IStoragePipe storage;
     final protected XMLTVImport.Filter filter;
+    final protected String channelPrefix;
     protected String currentSite;
     protected TVProgramme currentProgramme;
     protected TVChannel currentChannel;
+    protected String currentChannelID;
     protected boolean isStarRating;
     protected StringBuffer charData = new StringBuffer(  );
     private Calendar ans = GregorianCalendar.getInstance(  );
@@ -51,14 +54,17 @@ class XMLTVImportHandler extends DefaultHandler
     /**
      * Creates a new Handler object.
      *
-     * @param data variable for store results
+     * @param storage variable for store results
      * @param filter filter
+     * @param channelPrefix DOCUMENT ME!
      */
     public XMLTVImportHandler( 
-        final TVData data, final XMLTVImport.Filter filter )
+        final IStoragePipe storage, final XMLTVImport.Filter filter,
+        final String channelPrefix )
     {
-        this.data = data;
+        this.storage = storage;
         this.filter = filter;
+        this.channelPrefix = channelPrefix;
     }
 
     /**
@@ -108,19 +114,12 @@ class XMLTVImportHandler extends DefaultHandler
         else if( "channel".equals( qName ) && ( currentSite != null ) )
         { // tv:channel
 
-            final String channelID = attributes.getValue( "id" );
+            final String channelID =
+                channelPrefix + attributes.getValue( "id" );
 
             if( filter.checkChannelStart( channelID ) )
             {
-
-                if( data != null )
-                {
-                    currentChannel = data.get( channelID );
-                }
-                else
-                {
-                    currentChannel = new TVChannel( channelID );
-                }
+                currentChannel = new TVChannel( channelID );
             }
         }
         else if( "programme".equals( qName ) )
@@ -152,10 +151,10 @@ class XMLTVImportHandler extends DefaultHandler
                 {
                     currentProgramme = null;
                 }
-                else if( data != null )
+                else
                 {
-                    currentChannel =
-                        data.get( attributes.getValue( "channel" ) );
+                    currentChannelID =
+                        channelPrefix + attributes.getValue( "channel" );
                 }
             }
             catch( ParseException ex )
@@ -324,33 +323,47 @@ class XMLTVImportHandler extends DefaultHandler
         throws SAXException
     {
 
-        if( "tv".equals( qName ) )
+        try
         {
-            currentSite = null;
-            currentChannel = null;
-            currentProgramme = null;
-        }
-        else if( "channel".equals( qName ) && ( currentChannel != null ) )
-        {
-            filter.performChannelEnd( currentChannel );
-            currentChannel = null;
-        }
-        else if( "programme".equals( qName ) && ( currentProgramme != null ) )
-        {
-            currentChannel.put( currentProgramme );
-            currentProgramme = null;
-            currentChannel = null;
-        }
-        else if( currentProgramme != null )
-        {
-            parseEndProgramme( qName );
-        }
-        else if( currentChannel != null )
-        {
-            parseEndChannel( qName );
-        }
 
-        charData.setLength( 0 );
+            if( "tv".equals( qName ) )
+            {
+                currentSite = null;
+                currentChannel = null;
+                currentProgramme = null;
+            }
+            else if( "channel".equals( qName ) && ( currentChannel != null ) )
+            {
+                filter.performChannelEnd( currentChannel );
+                storage.addChannel( currentChannel );
+                currentChannel = null;
+            }
+            else if( 
+                "programme".equals( qName ) && ( currentProgramme != null ) )
+            {
+                storage.addProgramme( currentChannelID, currentProgramme );
+                currentProgramme = null;
+                currentChannelID = null;
+            }
+            else if( currentProgramme != null )
+            {
+                parseEndProgramme( qName );
+            }
+            else if( currentChannel != null )
+            {
+                parseEndChannel( qName );
+            }
+
+            charData.setLength( 0 );
+        }
+        catch( SAXException ex )
+        {
+            throw ex;
+        }
+        catch( Exception ex )
+        {
+            throw new SAXException( ex );
+        }
     }
 
     /**

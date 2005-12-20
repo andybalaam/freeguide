@@ -1,8 +1,9 @@
 package freeguide.lib.impexp;
 
 import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVProgramme;
+
+import freeguide.plugins.IStoragePipe;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -46,18 +47,20 @@ public class XMLTVImport
      * DOCUMENT_ME!
      *
      * @param file DOCUMENT_ME!
-     * @param outputData DOCUMENT_ME!
+     * @param storage DOCUMENT_ME!
      * @param filter DOCUMENT_ME!
+     * @param channelPrefix DOCUMENT ME!
      *
      * @throws SAXException DOCUMENT_ME!
      * @throws IOException DOCUMENT_ME!
      */
-    public void process( File file, TVData outputData, Filter filter )
-        throws SAXException, IOException
+    public void process( 
+        File file, final IStoragePipe storage, Filter filter,
+        final String channelPrefix ) throws SAXException, IOException
     {
 
         XMLTVImportHandler handler =
-            new XMLTVImportHandler( outputData, filter );
+            new XMLTVImportHandler( storage, filter, channelPrefix );
         InputSource ins =
             new InputSource( 
                 new BufferedInputStream( new FileInputStream( file ) ) );
@@ -68,22 +71,24 @@ public class XMLTVImport
     /**
      * DOCUMENT_ME!
      *
+     * @param in DOCUMENT_ME!
      * @param filter DOCUMENT_ME!
-     * @param outputData DOCUMENT_ME!
      * @param filter DOCUMENT_ME!
+     * @param channelPrefix DOCUMENT ME!
      *
-     * @throws SAXException DOCUMENT_ME!
-     * @throws IOException DOCUMENT_ME!
+     * @throws Exception DOCUMENT_ME!
      */
-    public void process( InputStream in, TVData outputData, Filter filter )
-        throws SAXException, IOException
+    public void process( 
+        InputStream in, final IStoragePipe storage, Filter filter,
+        final String channelPrefix ) throws Exception
     {
 
         XMLTVImportHandler handler =
-            new XMLTVImportHandler( outputData, filter );
+            new XMLTVImportHandler( storage, filter, channelPrefix );
         InputSource ins = new InputSource( in );
         ins.setSystemId( "memory://data" );
         saxParser.parse( ins, handler );
+        storage.finishBlock(  );
     }
 
     /**

@@ -71,11 +71,6 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
     {
         this.channel = channel;
 
-        if( channel != null )
-        {
-            this.channel.setDisplayName( "Hallmark Channel" );
-        }
-
         this.descriptionsMap = descriptionsMap;
         this.isUS = isUS;
     }
@@ -319,7 +314,16 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
                                 prevTimes[col - 1] ) );
                         prog.setTitle( title );
                         prog.setDescription( descriptionText );
-                        channel.put( prog );
+
+                        try
+                        {
+                            channel.put( prog );
+                        }
+                        catch( Exception ex )
+                        {
+                            throw new SAXException( ex );
+                        }
+
                         addToDescriptionsMap( descriptionKey, prog );
                     }
                 }

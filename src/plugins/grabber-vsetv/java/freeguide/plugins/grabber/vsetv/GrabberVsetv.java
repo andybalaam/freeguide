@@ -16,6 +16,7 @@ import freeguide.plugins.ILogger;
 import freeguide.plugins.IModuleConfigurationUI;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IProgress;
+import freeguide.plugins.IStoragePipe;
 
 import org.xml.sax.SAXException;
 
@@ -109,12 +110,12 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
      *
      * @param progress DOCUMENT_ME!
      * @param logger DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
+     * @param storage DOCUMENT ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData grabData( IProgress progress, ILogger logger )
+    public void grabData( 
+        IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
 
@@ -162,9 +163,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
         progress.setStepNumber( 2 );
 
-        TVData result = new TVData(  );
-
-        HandlerParseProg handler = new HandlerParseProg( logger, result, tz );
+        HandlerParseProg handler = new HandlerParseProg( logger, tz );
 
         Map request = new TreeMap(  );
 
@@ -213,14 +212,11 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
             handler.setAnnounces( true );
 
             browser.parse( handler );
+
+            handler.store( storage );
         }
 
         logger.info( "Done" );
-
-        patch( result );
-
-        return result;
-
     }
 
     protected void loadTimeZones(  )

@@ -6,10 +6,6 @@ import freeguide.gui.dialogs.ExecutorDialog;
 
 import freeguide.gui.viewer.MainController;
 
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVData;
-import freeguide.lib.fgspecific.data.TVIteratorChannels;
-
 import freeguide.plugins.IModuleGrabber;
 
 import java.awt.event.ActionEvent;
@@ -143,26 +139,14 @@ public class GrabberController
                     break;
                 }
 
-                TVData result =
-                    grabber.grabData( progressDialog, progressDialog );
+                final StoragePipe pipe = new StoragePipe(  );
+                grabber.grabData( progressDialog, progressDialog, pipe );
+                pipe.finish(  );
 
                 if( isFinished )
                 {
 
                     break;
-                }
-
-                if( result != null )
-                {
-                    result.iterate( 
-                        new TVIteratorChannels(  )
-                        {
-                            protected void onChannel( TVChannel channel )
-                            {
-                                channel.normalizeTime(  );
-                            }
-                        } );
-                    FreeGuide.storage.add( result );
                 }
             }
             catch( Throwable ex )

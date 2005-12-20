@@ -1,7 +1,5 @@
 package freeguide.plugins;
 
-import freeguide.lib.fgspecific.data.TVData;
-
 /**
  * Interface for grabber modules. Each grabber module should implement this
  * interface.
@@ -17,11 +15,9 @@ public interface IModuleGrabber extends IModule
      * @param progress IProgress
      * @param logger ILogger
      *
-     * @return data
-     *
      * @throws Exception
      */
-    TVData grabData( IProgress progress, ILogger logger )
+    void grabData( IProgress progress, ILogger logger, IStoragePipe storage )
         throws Exception;
 
     /**
