@@ -6,13 +6,13 @@ import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
+import freeguide.lib.general.EndianInputStream;
+import freeguide.lib.general.EndianOutputByteArray;
+
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleExport;
 import freeguide.plugins.IModuleImport;
 import freeguide.plugins.IStoragePipe;
-
-import org.alex73.utils.io.EndianInputStream;
-import org.alex73.utils.io.EndianOutputByteArray;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -41,6 +41,7 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
     protected static final byte[] SIGNATURE =
         new String( "JTV 3.x TV Program Data\n\n\n" ).getBytes(  );
     protected static final long DATE_DELTA = 134774;
+    protected static final String CHARSET = "Cp1251";
 
     /**
      * DOCUMENT_ME!
@@ -135,9 +136,9 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
     {
 
         final EndianInputStream inndx =
-            new EndianInputStream( new File( fileName + ".ndx" ) );
+            new EndianInputStream( new File( fileName + ".ndx" ), CHARSET );
         final EndianInputStream inpdt =
-            new EndianInputStream( new File( fileName + ".pdt" ) );
+            new EndianInputStream( new File( fileName + ".pdt" ), CHARSET );
         final byte[] sig = new byte[SIGNATURE.length];
         inpdt.read( sig );
 
@@ -147,11 +148,11 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
                 "Error JTV file format in '" + fileName + ".pdt'" );
         }
 
-        final int posf = fileName.lastIndexOf( '/' );
-        final String channelID =
-            "jtv/"
-            + ( ( posf == -1 ) ? fileName : fileName.substring( posf + 1 ) );
-        storage.addChannel( new TVChannel( channelID, channelID ) );
+        final int posf = fileName.lastIndexOf( File.separatorChar );
+        final String channelName =
+            ( ( posf == -1 ) ? fileName : fileName.substring( posf + 1 ) );
+        final String channelID = "jtv/" + channelName;
+        storage.addChannel( new TVChannel( channelID, channelName ) );
 
         short progCount = inndx.readShort(  );
 
@@ -162,12 +163,13 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
             inndx.readShort(  );
             prog.setStart( readTime( inndx ) );
 
-            final long dt = inndx.readLong(  );
             final int pos = inndx.readUnsignedShort(  );
             inpdt.setCurrentPos( pos );
             prog.setTitle( inpdt.readSPasString(  ) );
             storage.addProgramme( channelID, prog );
         }
+
+        storage.finishBlock(  );
     }
 
     protected long readTime( final EndianInputStream in )

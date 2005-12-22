@@ -5,13 +5,12 @@ import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
+import freeguide.lib.general.EndianInputStream;
+import freeguide.lib.general.EndianOutputByteArray;
+
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleConfigurationUI;
 import freeguide.plugins.IModuleExport;
-
-import org.alex73.utils.io.EndianInputStream;
-import org.alex73.utils.io.EndianOutputByteArray;
-import org.alex73.utils.palm.PDBFile;
 
 import java.io.File;
 import java.io.IOException;

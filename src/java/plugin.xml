@@ -13,7 +13,6 @@
     <file path="startup.jar"/>
     <file path="lib/common.jar"/>
     <file path="lib/FreeGuide.jar"/>
-    <file path="lib/AJavaLib.jar"/>
     <file path="lib/"/>
     <file path="doc/userguide.html"/>
     <file path="doc/timezone.html"/>
