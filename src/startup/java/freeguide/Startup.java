@@ -66,8 +66,7 @@ public class Startup
         }
         catch( Exception ex )
         {
-            die( "Error E04",
-                "Main method exception threw an unknown exception", ex );
+            die( "Error E04", "Main method threw an unknown exception", ex );
         }
     }
 
