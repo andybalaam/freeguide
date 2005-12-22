@@ -157,7 +157,7 @@
             </answer>
           </qandaentry>
 
-          <qandaentry id="help.faq.tzerror">
+          <!--<qandaentry id="help.faq.tzerror">
             <question>
               <para>I get an error about "TZ" - what do I do?</para>
             </question>
@@ -166,7 +166,7 @@
               <para>You need to <link linkend="downinst.windows.timezone">set
               your timezone</link> before you use FreeGuide.</para>
             </answer>
-          </qandaentry>
+          </qandaentry>-->
 
           <qandaentry id="help.faq.channelorder">
             <question>
