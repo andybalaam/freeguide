@@ -125,50 +125,51 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
         throws Exception
     {
 
-        String working_directory = FreeGuide.config.workingDirectory;
+        /*
+                String working_directory = FreeGuide.config.workingDirectory;
 
-        if( working_directory == null )
-        {
-            throw new IOException( "Working directory not defined" );
-
-        }
-
-        File[] dataFiles =
-            new File( working_directory ).listFiles( 
-                new FilenameFilter(  )
+                if( working_directory == null )
                 {
-                    public boolean accept( File dir, String name )
+                    throw new IOException( "Working directory not defined" );
+
+                }
+
+                File[] dataFiles =
+                    new File( working_directory ).listFiles(
+                        new FilenameFilter(  )
+                        {
+                            public boolean accept( File dir, String name )
+                            {
+
+                                return name.endsWith( ".xmltv" );
+
+                            }
+                        } );
+
+                if( dataFiles != null )
+                {
+
+                    XMLTVImport importer = new XMLTVImport(  );
+
+                    for( int i = 0; i < dataFiles.length; i++ )
                     {
 
-                        return name.endsWith( ".xmltv" );
+                        try
+                        {
+                            importer.process( dataFiles[i], data, filter );
 
+                        }
+
+                        catch( Exception ex )
+                        {
+                            FreeGuide.log.log(
+                                Level.WARNING,
+                                "Error on parse xmltv data file '"
+                                + dataFiles[i].getAbsolutePath(  ) + "': "
+                                + ex.getMessage(  ), ex );
+                        }
                     }
-                } );
-
-        if( dataFiles != null )
-        {
-
-            XMLTVImport importer = new XMLTVImport(  );
-
-            for( int i = 0; i < dataFiles.length; i++ )
-            {
-
-                try
-                {
-                    importer.process( dataFiles[i], data, filter );
-
-                }
-
-                catch( Exception ex )
-                {
-                    FreeGuide.log.log( 
-                        Level.WARNING,
-                        "Error on parse xmltv data file '"
-                        + dataFiles[i].getAbsolutePath(  ) + "': "
-                        + ex.getMessage(  ), ex );
-                }
-            }
-        }
+                }*/
     }
 
     protected static class GetInfoFilter extends XMLTVImport.Filter

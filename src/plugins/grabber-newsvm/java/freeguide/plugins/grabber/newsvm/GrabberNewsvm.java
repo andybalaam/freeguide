@@ -17,6 +17,7 @@ import freeguide.plugins.BaseModule;
 import freeguide.plugins.ILogger;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IProgress;
+import freeguide.plugins.IStoragePipe;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -79,18 +80,16 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
      *
      * @param progress DOCUMENT_ME!
      * @param logger DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
+     * @param storage DOCUMENT ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData grabData( IProgress progress, ILogger logger )
+    public void grabData( 
+        IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
         isStopped = false;
         progress.setProgressValue( 0 );
-
-        TVData result = new TVData(  );
 
         HttpBrowser browser = new HttpBrowser(  );
 
@@ -103,7 +102,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         progress.setProgressMessage( 
             Application.getInstance(  ).getLocalizedMessage( "downloading" ) );
 
-        PageParser parser = new PageParser( result, logger );
+        PageParser parser = new PageParser( storage, logger );
 
         for( int i = 0; ( i < DAYS.length ) && !isStopped; i++ )
         {
@@ -112,21 +111,17 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
             if( isStopped )
             {
 
-                return null;
+                return;
             }
 
             //            progress.setProgressMessage(  "Load page [" + ( i + 1 ) + "/" + DAYS.length + "]" );
             browser.loadURL( "http://newsvm.com/tv/" + DAYS[i] + ".shtml" );
 
             browser.parse( parser ); //logger, browser.getData(  ), result );
-
+            storage.finishBlock(  );
         }
 
         progress.setProgressValue( 100 );
-        patch( result );
-
-        return result;
-
     }
 
     /**
@@ -184,18 +179,18 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
     {
 
         protected StringBuffer out;
-        protected final TVData result;
+        protected final IStoragePipe storage;
         protected final ILogger logger;
 
         /**
          * Creates a new PageParser object.
          *
-         * @param result DOCUMENT ME!
+         * @param storage DOCUMENT ME!
          * @param logger DOCUMENT ME!
          */
-        public PageParser( final TVData result, final ILogger logger )
+        public PageParser( final IStoragePipe storage, final ILogger logger )
         {
-            this.result = result;
+            this.storage = storage;
             this.logger = logger;
         }
 
@@ -279,7 +274,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
             long basedate = 0;
             long prevTime = 0;
 
-            TVChannel currentChannel = null;
+            String currentChannelID = null;
 
             String line;
 
@@ -330,7 +325,16 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                                     LineProgrammeHelper.parse( 
                                         logger, line, basedate, prevTime );
                                 prevTime = programmes[0].getStart(  );
-                                currentChannel.put( programmes );
+
+                                try
+                                {
+                                    storage.addProgrammes( 
+                                        currentChannelID, programmes );
+                                }
+                                catch( Exception ex )
+                                {
+                                    throw new SAXException( ex );
+                                }
                             }
                             catch( ParseException ex )
                             {
@@ -347,12 +351,20 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                                     && ( channelName.toLowerCase(  ).indexOf( 
                                         "профилактика" ) == -1 ) )
                             {
-                                currentChannel =
-                                    result.get( 
-                                        "newsvm/"
-                                        + channelName.replace( '/', '_' ) );
+                                currentChannelID =
+                                    "newsvm/"
+                                    + channelName.replace( '/', '_' );
 
-                                currentChannel.setDisplayName( channelName );
+                                try
+                                {
+                                    storage.addChannel( 
+                                        new TVChannel( 
+                                            currentChannelID, channelName ) );
+                                }
+                                catch( Exception ex )
+                                {
+                                    throw new SAXException( ex );
+                                }
 
                                 prevTime = 0;
                             }

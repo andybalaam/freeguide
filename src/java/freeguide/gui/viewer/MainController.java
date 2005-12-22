@@ -8,6 +8,7 @@ import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.GrabberController;
 import freeguide.lib.fgspecific.PluginInfo;
 import freeguide.lib.fgspecific.PluginsManager;
+import freeguide.lib.fgspecific.StoragePipe;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.data.TVData;
 
@@ -489,8 +490,9 @@ public class MainController extends BaseModule implements IApplication
                     try
                     {
 
-                        TVData data = imp.importDataUI( mainFrame );
-                        getDataStorage(  ).add( data );
+                        final StoragePipe pipe = new StoragePipe(  );
+                        imp.importDataUI( mainFrame, pipe );
+                        pipe.finish(  );
                         viewer.onDataChanged(  );
                     }
                     catch( Exception ex )

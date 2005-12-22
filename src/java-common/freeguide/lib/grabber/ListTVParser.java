@@ -2,11 +2,11 @@ package freeguide.lib.grabber;
 
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.plugins.ILogger;
 import freeguide.plugins.IProgress;
+import freeguide.plugins.IStoragePipe;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -36,21 +36,23 @@ public class ListTVParser
     protected static final Pattern DATE_PATTERN2 =
         Pattern.compile( "(\\d{1,2})\\.(\\d{1,2})\\.(\\d{4})\\s*(.+)" );
     protected long currentDate = 0;
-    protected TVChannel currentChannel = null;
+    protected String currentChannelID;
     protected TVProgramme[] currentProgs = null;
     protected long prevTime;
-    protected TVData result;
     protected final String channelPrefix;
+    protected final IStoragePipe storage;
 
     /**
      * Creates a new ListTVParser object.
      *
      * @param channelPrefix DOCUMENT ME!
+     * @param storage DOCUMENT ME!
      */
-    public ListTVParser( final String channelPrefix )
+    public ListTVParser( 
+        final String channelPrefix, final IStoragePipe storage )
     {
         this.channelPrefix = channelPrefix;
-
+        this.storage = storage;
     }
 
     /**
@@ -61,20 +63,18 @@ public class ListTVParser
      * @param progress DOCUMENT_ME!
      * @param logger DOCUMENT_ME!
      *
-     * @return DOCUMENT_ME!
-     *
-     * @throws IOException DOCUMENT_ME!
+     * @throws Exception DOCUMENT_ME!
      */
-    public TVData parseZips( 
+    public void parseZips( 
         String[] urls, TimeZone tz, IProgress progress, ILogger logger )
-        throws IOException
+        throws Exception
     {
-        result = new TVData(  );
 
         HttpBrowser browser = new HttpBrowser(  );
 
         progress.setStepCount( urls.length * 2 );
 
+        // walk by urls
         for( int i = 0; i < urls.length; i++ )
         {
             progress.setStepNumber( i * 2 );
@@ -100,13 +100,13 @@ public class ListTVParser
                 new ZipInputStream( 
                     new ByteArrayInputStream( browser.getBinaryData(  ) ) );
 
+            // walk by files in zip
             while( zip.getNextEntry(  ) != null )
             {
 
+                // read file to memory
                 ByteArrayOutputStream out = new ByteArrayOutputStream(  );
-
                 int len;
-
                 byte[] buffer = new byte[16 * 1024];
 
                 while( true )
@@ -117,26 +117,30 @@ public class ListTVParser
                     {
 
                         break;
-
                     }
 
                     out.write( buffer, 0, len );
-
                 }
 
+                // parse file
                 parseListTV( out.toByteArray(  ), tz, logger );
-
             }
         }
 
         progress.setStepNumber( urls.length * 2 );
-
-        return result;
-
     }
 
+    /**
+     * Parse one ListTV text format file.
+     *
+     * @param data file data
+     * @param tz timezone
+     * @param logger logger
+     *
+     * @throws Exception
+     */
     protected void parseListTV( byte[] data, TimeZone tz, ILogger logger )
-        throws IOException
+        throws Exception
     {
 
         BufferedReader rd =
@@ -153,10 +157,9 @@ public class ListTVParser
 
             if( "".equals( line ) )
             {
-                currentProgs = null;
+                finishProgrammes(  );
 
                 continue;
-
             }
 
             if( ( currentProgs == null ) && testForDate( tz, line, logger ) )
@@ -165,7 +168,7 @@ public class ListTVParser
                 continue;
             }
 
-            if( currentChannel != null )
+            if( currentChannelID != null )
             {
 
                 if( LineProgrammeHelper.isProgram( line ) )
@@ -173,15 +176,12 @@ public class ListTVParser
 
                     try
                     {
+                        finishProgrammes(  );
                         currentProgs =
                             LineProgrammeHelper.parse( 
                                 logger, line, currentDate, prevTime );
                         prevTime = currentProgs[0].getStart(  );
-
-                        currentChannel.put( currentProgs );
-
                     }
-
                     catch( ParseException ex )
                     {
                         Application.getInstance(  ).getLogger(  ).log( 
@@ -189,7 +189,6 @@ public class ListTVParser
                             ex );
                     }
                 }
-
                 else
                 {
 
@@ -199,15 +198,28 @@ public class ListTVParser
                         for( int i = 0; i < currentProgs.length; i++ )
                         {
                             currentProgs[i].addDesc( line );
-
                         }
                     }
                 }
             }
         }
+
+        finishProgrammes(  );
+        storage.finishBlock(  );
+    }
+
+    protected void finishProgrammes(  ) throws Exception
+    {
+
+        if( currentProgs != null )
+        {
+            storage.addProgrammes( currentChannelID, currentProgs );
+            currentProgs = null;
+        }
     }
 
     protected boolean testForDate( TimeZone tz, String line, ILogger logger )
+        throws Exception
     {
 
         Matcher mDate;
@@ -225,28 +237,22 @@ public class ListTVParser
                     TimeHelper.getBaseDate( 
                         tz, mDate.group( 1 ), mDate.group( 2 ),
                         mDate.group( 3 ), null );
-
                 channelName = mDate.group( 4 ).trim(  );
-
             }
-
             catch( ParseException ex )
             {
                 logger.warning( "Error parse date string: " + line );
-
-                currentChannel = null;
-
-                currentProgs = null;
-
+                finishProgrammes(  );
+                currentChannelID = null;
             }
         }
-
         else
         {
             mDate = DATE_PATTERN2.matcher( line );
 
             if( mDate.matches(  ) )
             {
+                finishProgrammes(  );
 
                 try
                 {
@@ -254,42 +260,33 @@ public class ListTVParser
                         TimeHelper.getBaseDate( 
                             tz, mDate.group( 1 ), mDate.group( 2 ),
                             mDate.group( 3 ), null );
-
                     channelName = mDate.group( 4 ).trim(  );
-
                 }
-
                 catch( ParseException ex )
                 {
                     logger.warning( "Error parse date string: " + line );
-
-                    currentChannel = null;
-
-                    currentProgs = null;
-
+                    finishProgrammes(  );
+                    currentChannelID = null;
                 }
             }
         }
 
         if( channelName != null )
         {
-            currentChannel =
-                result.get( channelPrefix + channelName.replace( '/', '_' ) );
+            finishProgrammes(  );
+            storage.finishBlock(  );
 
-            currentChannel.setDisplayName( channelName );
-
-            currentProgs = null;
+            currentChannelID = channelPrefix + channelName.replace( '/', '_' );
+            storage.addChannel( 
+                new TVChannel( currentChannelID, channelName ) );
             prevTime = 0;
 
             return true;
-
         }
-
         else
         {
 
             return false;
-
         }
     }
 }

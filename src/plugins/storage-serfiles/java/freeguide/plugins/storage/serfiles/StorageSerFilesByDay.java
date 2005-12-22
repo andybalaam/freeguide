@@ -74,40 +74,35 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
      *
      * @return DOCUMENT_ME!
      */
-    public Info getInfo(  )
+    public synchronized Info getInfo(  )
     {
 
-        synchronized( this )
+        if( cachedInfo == null )
         {
 
-            if( cachedInfo == null )
+            File[] files =
+                new File( Application.getInstance(  ).getWorkingDirectory(  ) )
+                .listFiles( new FilterFiles(  ) );
+
+            cachedInfo = new Info(  );
+
+            if( files != null )
             {
 
-                File[] files =
-                    new File( 
-                        Application.getInstance(  ).getWorkingDirectory(  ) )
-                    .listFiles( new FilterFiles(  ) );
-
-                cachedInfo = new Info(  );
-
-                if( files != null )
+                for( int i = 0; i < files.length; i++ )
                 {
 
-                    for( int i = 0; i < files.length; i++ )
+                    TVData data = load( files[i] );
+
+                    if( data != null )
                     {
-
-                        TVData data = load( files[i] );
-
-                        if( data != null )
-                        {
-                            StorageHelper.performInInfo( cachedInfo, data );
-                        }
+                        StorageHelper.performInInfo( cachedInfo, data );
                     }
                 }
             }
-
-            return cachedInfo;
         }
+
+        return cachedInfo;
     }
 
     protected TVData load( final File f )
@@ -212,69 +207,65 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData get( 
+    public synchronized TVData get( 
         final TVChannelsSet channels, final long minDate, final long maxDate )
         throws Exception
     {
 
-        synchronized( this )
+        final TVData result = new TVData(  );
+
+        for( 
+            long dt = ( ( minDate / MSEC_PARTS ) - 1 ) * MSEC_PARTS;
+                dt < maxDate; dt += MSEC_PARTS )
         {
 
-            final TVData result = new TVData(  );
+            TVData data = load( getFile( dt ) );
 
-            for( 
-                long dt = ( ( minDate / MSEC_PARTS ) - 1 ) * MSEC_PARTS;
-                    dt < maxDate; dt += MSEC_PARTS )
+            if( data == null )
             {
 
-                TVData data = load( getFile( dt ) );
+                continue;
+            }
 
-                if( data == null )
-                {
-
-                    continue;
-                }
-
-                if( channels != null )
-                {
-                    data.iterateChannels( 
-                        new TVIteratorChannels(  )
-                        {
-                            protected void onChannel( TVChannel channel )
-                            {
-
-                                if( !channels.contains( channel.getID(  ) ) )
-                                {
-                                    it.remove(  );
-                                }
-                            }
-                        } );
-                }
-
-                data.iterateProgrammes( 
-                    new TVIteratorProgrammes(  )
+            if( channels != null )
+            {
+                data.iterateChannels( 
+                    new TVIteratorChannels(  )
                     {
                         protected void onChannel( TVChannel channel )
                         {
-                        }
 
-                        protected void onProgramme( TVProgramme programme )
-                        {
-
-                            if( 
-                                ( programme.getStart(  ) >= maxDate )
-                                    || ( programme.getEnd(  ) <= minDate ) )
+                            if( !channels.contains( channel.getID(  ) ) )
                             {
-                                itProgrammes.remove(  );
+                                it.remove(  );
                             }
                         }
                     } );
-
-                result.mergeFrom( data );
             }
 
-            return result;
+            data.iterateProgrammes( 
+                new TVIteratorProgrammes(  )
+                {
+                    protected void onChannel( TVChannel channel )
+                    {
+                    }
+
+                    protected void onProgramme( TVProgramme programme )
+                    {
+
+                        if( 
+                            ( programme.getStart(  ) >= maxDate )
+                                || ( programme.getEnd(  ) <= minDate ) )
+                        {
+                            itProgrammes.remove(  );
+                        }
+                    }
+                } );
+
+            result.moveFrom( data );
         }
+
+        return result;
     }
 
     /**
@@ -287,34 +278,30 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVProgramme findEarliest( long minDate, EarliestCheckAllow check )
-        throws Exception
+    public synchronized TVProgramme findEarliest( 
+        long minDate, EarliestCheckAllow check ) throws Exception
     {
 
-        synchronized( this )
+        for( 
+            long dt = ( minDate / MSEC_PARTS ) * MSEC_PARTS;
+                dt < getInfo(  ).maxDate; dt += MSEC_PARTS )
         {
 
-            for( 
-                long dt = ( minDate / MSEC_PARTS ) * MSEC_PARTS;
-                    dt < getInfo(  ).maxDate; dt += MSEC_PARTS )
+            TVData data = load( getFile( dt ) );
+
+            if( data == null )
             {
 
-                TVData data = load( getFile( dt ) );
+                continue;
+            }
 
-                if( data == null )
-                {
+            final TVProgramme prog =
+                StorageHelper.findEarliest( data, minDate, check );
 
-                    continue;
-                }
+            if( prog != null )
+            {
 
-                final TVProgramme prog =
-                    StorageHelper.findEarliest( data, minDate, check );
-
-                if( prog != null )
-                {
-
-                    return prog;
-                }
+                return prog;
             }
         }
 
@@ -328,16 +315,12 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public void add( TVData data ) throws Exception
+    public synchronized void store( TVData data ) throws Exception
     {
 
-        synchronized( this )
-        {
-
-            WriteIterator it = new WriteIterator(  );
-            data.iterate( it );
-            it.sync(  );
-        }
+        WriteIterator it = new WriteIterator(  );
+        data.iterate( it );
+        it.sync(  );
     }
 
     protected static class FilterFiles implements FileFilter
@@ -402,33 +385,13 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
 
             if( data == null )
             {
-
-                if( file.exists(  ) )
-                {
-                    data = load( file );
-
-                    if( data == null )
-                    { // may be it is old file
-
-                        return;
-                    }
-                }
-                else
-                {
-                    data = new TVData(  );
-                }
-
+                data = new TVData(  );
                 filesData.put( file, data );
             }
 
-            boolean exist =
-                data.containsChannel( programme.getChannel(  ).getID(  ) );
             TVChannel ch = data.get( programme.getChannel(  ).getID(  ) );
 
-            if( !exist )
-            {
-                ch.loadHeadersFrom( programme.getChannel(  ) );
-            }
+            ch.mergeHeaderFrom( programme.getChannel(  ) );
 
             ch.put( programme );
             StorageHelper.performInInfo( getInfo(  ), programme );
@@ -447,7 +410,21 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
             {
 
                 File file = (File)it.next(  );
+                TVData storedData = null;
+
+                if( file.exists(  ) )
+                {
+                    storedData = load( file );
+                }
+
+                if( storedData == null )
+                { // may be it is old file or file doesn't exists
+                    storedData = new TVData(  );
+                }
+
                 TVData data = (TVData)filesData.get( file );
+
+                storedData.moveFrom( data );
 
                 try
                 {
@@ -458,7 +435,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
                             new BufferedOutputStream( 
                                 new FileOutputStream( file ) ) );
 
-                    out.writeObject( data );
+                    out.writeObject( storedData );
 
                     out.flush(  );
 

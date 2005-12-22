@@ -1,7 +1,6 @@
 package freeguide.plugins.grabber.ntvplus;
 
 import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVData;
 
 import freeguide.lib.grabber.ListTVParser;
 
@@ -9,6 +8,7 @@ import freeguide.plugins.BaseModule;
 import freeguide.plugins.ILogger;
 import freeguide.plugins.IModuleGrabber;
 import freeguide.plugins.IProgress;
+import freeguide.plugins.IStoragePipe;
 
 import java.util.TimeZone;
 
@@ -55,21 +55,20 @@ public class GrabberNtvplus extends BaseModule implements IModuleGrabber
      *
      * @param progress DOCUMENT_ME!
      * @param logger DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
+     * @param storage DOCUMENT ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public TVData grabData( IProgress progress, ILogger logger )
+    public void grabData( 
+        IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
         progress.setProgressMessage( 
             Application.getInstance(  ).getLocalizedMessage( "downloading" ) );
 
-        return new ListTVParser( "ntvplus/" ).parseZips( 
+        new ListTVParser( "ntvplus/", storage ).parseZips( 
             new String[] { "http://www.ntvplus.ru/static/schedule/schedule.zip" },
             TIMEZONE, progress, logger );
-
     }
 
     /**

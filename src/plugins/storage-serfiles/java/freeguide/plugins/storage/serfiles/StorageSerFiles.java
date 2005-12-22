@@ -132,8 +132,7 @@ public class StorageSerFiles extends BaseModule implements IModuleStorage
             TVChannel ch = (TVChannel)in.readObject(  );
 
             TVChannel stCh = data.get( ch.getID(  ) );
-            stCh.loadHeadersFrom( ch );
-            stCh.mergeFrom( ch );
+            stCh.moveFrom( ch );
         }
         catch( Exception ex )
         {
@@ -274,7 +273,7 @@ public class StorageSerFiles extends BaseModule implements IModuleStorage
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public void add( TVData data ) throws Exception
+    public void store( TVData data ) throws Exception
     {
 
         synchronized( this )
@@ -379,8 +378,8 @@ public class StorageSerFiles extends BaseModule implements IModuleStorage
                 fileData = new TVData(  );
                 load( file, fileData );
 
-                fileData.get( programme.getChannel(  ).getID(  ) )
-                        .loadHeadersFrom( programme.getChannel(  ) );
+                fileData.get( programme.getChannel(  ).getID(  ) ).moveFrom( 
+                    programme.getChannel(  ) );
             }
 
             fileData.get( programme.getChannel(  ).getID(  ) ).put( 

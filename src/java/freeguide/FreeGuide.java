@@ -20,7 +20,7 @@ import freeguide.gui.wizard.FirstTimeWizard;
 
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.PluginsManager;
-import freeguide.lib.fgspecific.data.TVData;
+import freeguide.lib.fgspecific.StoragePipe;
 
 import freeguide.lib.general.CmdArgs;
 import freeguide.lib.general.LanguageHelper;
@@ -285,8 +285,9 @@ public class FreeGuide
             for( int i = 0; i < xmltvFiles.length; i++ )
             {
 
-                TVData data = xmltvHandler.importData( xmltvFiles[i] );
-                Application.getInstance(  ).getDataStorage(  ).add( data );
+                final StoragePipe pipe = new StoragePipe(  );
+                xmltvHandler.importData( xmltvFiles[i], pipe );
+                pipe.finish(  );
                 xmltvFiles[i].delete(  );
             }
         }
