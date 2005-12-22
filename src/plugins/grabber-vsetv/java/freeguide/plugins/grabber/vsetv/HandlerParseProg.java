@@ -347,6 +347,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
      */
     public void store( final IStoragePipe storage ) throws Exception
     {
+        GrabberVsetv.patch( data );
         storage.addData( data );
         storage.finishBlock(  );
     }

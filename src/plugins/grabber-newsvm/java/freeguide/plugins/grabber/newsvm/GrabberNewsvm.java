@@ -2,8 +2,6 @@ package freeguide.plugins.grabber.newsvm;
 
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVData;
-import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.lib.general.LanguageHelper;
@@ -133,65 +131,60 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
     }
 
-    protected void patch( final TVData data ) throws IOException
-    {
-
-        final String[] nen =
-            LanguageHelper.loadStrings( 
-                getClass(  ).getPackage(  ).getName(  ).replace( '.', '/' )
-                + "/nen.utf8.list" );
-        data.iterateProgrammes( 
-            new TVIteratorProgrammes(  )
-            {
-                protected void onChannel( TVChannel channel )
-                {
-
-                    if( !nen[0].equals( channel.getDisplayName(  ) ) )
-                    {
-                        stopIterateChanel(  );
-                    }
-                }
-
-                protected void onProgramme( TVProgramme programme )
-                {
-
-                    if( programme.getTitle(  ) == null )
-                    {
-
-                        return;
-                    }
-
-                    for( int i = 2; i < nen.length; i++ )
-                    {
-
-                        if( programme.getTitle(  ).indexOf( nen[i] ) != -1 )
-                        {
-                            programme.setTitle( nen[1] );
-
-                            break;
-                        }
-                    }
-                }
-            } );
-    }
-
     protected static class PageParser extends HtmlHelper.DefaultContentHandler
     {
 
         protected StringBuffer out;
         protected final IStoragePipe storage;
         protected final ILogger logger;
+        protected final String[] nen;
 
         /**
          * Creates a new PageParser object.
          *
          * @param storage DOCUMENT ME!
          * @param logger DOCUMENT ME!
+         *
+         * @throws IOException DOCUMENT ME!
          */
         public PageParser( final IStoragePipe storage, final ILogger logger )
+            throws IOException
         {
             this.storage = storage;
             this.logger = logger;
+            nen = LanguageHelper.loadStrings( 
+                    getClass(  ).getPackage(  ).getName(  ).replace( '.', '/' )
+                    + "/nen.utf8.list" );
+        }
+
+        void patchProgrammes( 
+            final String channelID, final TVProgramme[] programmes )
+        {
+
+            if( !nen[0].equals( channelID ) )
+            {
+
+                return;
+            }
+
+            for( int i = 0; i < programmes.length; i++ )
+            {
+
+                if( programmes[i].getTitle(  ) != null )
+                {
+
+                    for( int j = 2; j < nen.length; j++ )
+                    {
+
+                        if( programmes[i].getTitle(  ).indexOf( nen[j] ) != -1 )
+                        {
+                            programmes[i].setTitle( nen[1] );
+
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         /**
@@ -328,6 +321,8 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
                                 try
                                 {
+                                    patchProgrammes( 
+                                        currentChannelID, programmes );
                                     storage.addProgrammes( 
                                         currentChannelID, programmes );
                                 }

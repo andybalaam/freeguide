@@ -305,13 +305,13 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
     }
 
-    protected void patch( final TVData data ) throws IOException
+    protected static void patch( final TVData data ) throws IOException
     {
 
         final String[] nen =
             LanguageHelper.loadStrings( 
-                getClass(  ).getPackage(  ).getName(  ).replace( '.', '/' )
-                + "/nen.utf8.list" );
+                GrabberVsetv.class.getPackage(  ).getName(  ).replace( 
+                    '.', '/' ) + "/nen.utf8.list" );
         data.iterateProgrammes( 
             new TVIteratorProgrammes(  )
             {
