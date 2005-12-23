@@ -334,4 +334,40 @@ public class JLabelProgramme extends JLabel
 
         return this.tooltip;
     }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param startMin DOCUMENT_ME!
+     * @param endMax DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public long getMiddle( final long startMin, final long endMax )
+    {
+
+        long start = Math.max( getProgramme(  ).getStart(  ), startMin );
+        long end = Math.min( getProgramme(  ).getEnd(  ), endMax );
+
+        return ( start + end ) / 2;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param middleTime DOCUMENT_ME!
+     * @param startMin DOCUMENT_ME!
+     * @param endMax DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public boolean isOverlap( 
+        final long middleTime, final long startMin, final long endMax )
+    {
+
+        long start = Math.max( getProgramme(  ).getStart(  ), startMin );
+        long end = Math.min( getProgramme(  ).getEnd(  ), endMax );
+
+        return ( middleTime >= start ) && ( middleTime < end );
+    }
 }

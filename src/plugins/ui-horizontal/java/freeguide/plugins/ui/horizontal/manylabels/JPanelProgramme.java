@@ -148,7 +148,7 @@ public class JPanelProgramme extends JPanel
             - ( controller.config.sizeHalfVerGap * 4 );
         int width =
             (int)( ( ( programme.getEnd(  ) - programme.getStart(  ) ) * controller.config.sizeProgrammePanelWidth ) / controller.MILLISECONDS_PER_DAY )
-            - ( controller.config.sizeHalfVerGap * 4 );
+            - ( controller.config.sizeHalfHorGap * 4 );
 
         if( x < 0 )
         {
@@ -190,7 +190,10 @@ public class JPanelProgramme extends JPanel
         {
 
             JLabelProgramme newLabel =
-                getNearestFor( i, label.getProgramme(  ).getStart(  ) );
+                getNearestFor( 
+                    i,
+                    label.getMiddle( 
+                        startDate, startDate + controller.MILLISECONDS_PER_DAY ) );
 
             if( newLabel != null )
             {
@@ -221,7 +224,10 @@ public class JPanelProgramme extends JPanel
         {
 
             JLabelProgramme newLabel =
-                getNearestFor( i, label.getProgramme(  ).getStart(  ) );
+                getNearestFor( 
+                    i,
+                    label.getMiddle( 
+                        startDate, startDate + controller.MILLISECONDS_PER_DAY ) );
 
             if( newLabel != null )
             {
@@ -313,39 +319,30 @@ public class JPanelProgramme extends JPanel
      * Find nesrest programme for specified row and time.
      *
      * @param row row, i.e. channel
-     * @param startTime time to find
+     * @param middleTime time to find
      *
      * @return found label, or null if there is no label in specified row
      */
     protected JLabelProgramme getNearestFor( 
-        final int row, final long startTime )
+        final int row, final long middleTime )
     {
-
-        JLabelProgramme nearest = null;
 
         for( int i = 0; i < rows[row].size(  ); i++ )
         {
 
             JLabelProgramme current = (JLabelProgramme)rows[row].get( i );
 
-            if( nearest == null )
-            {
-                nearest = current;
-            }
-            else
+            if( 
+                current.isOverlap( 
+                        middleTime, startDate,
+                        startDate + controller.MILLISECONDS_PER_DAY ) )
             {
 
-                if( 
-                    Math.abs( 
-                            startTime - current.getProgramme(  ).getStart(  ) ) < ( startTime
-                        - nearest.getProgramme(  ).getStart(  ) ) )
-                {
-                    nearest = current;
-                }
+                return current;
             }
         }
 
-        return nearest;
+        return null;
     }
 
     /**
