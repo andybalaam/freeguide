@@ -114,12 +114,7 @@ Section "FreeGuide program"
 
   SetOutPath $INSTDIR\doc\
 
-  File doc\*.html
-  File doc\*.css
-  File doc\*.txt
-  File doc\*.png
-  File doc\COPYING
-  File doc\TODO
+  File build\doc\html\*.*
   
   ; -------------------------- xmltv -------------------------
 
