@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 import java.net.URL;
 
@@ -145,5 +146,31 @@ public class FileHelper
         }
 
         dir.delete(  );
+    }
+
+    /**
+     * Write data to file.
+     *
+     * @param fileName file name
+     * @param data data
+     *
+     * @throws IOException
+     */
+    public static void write( final String fileName, final String data )
+        throws IOException
+    {
+
+        OutputStreamWriter out =
+            new OutputStreamWriter( new FileOutputStream( fileName ), "UTF-8" );
+
+        try
+        {
+            out.write( data );
+            out.flush(  );
+        }
+        finally
+        {
+            out.close(  );
+        }
     }
 }

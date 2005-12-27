@@ -14,7 +14,7 @@
     }
     h3 {
         font-family: helvetica, helv, arial;
-       font-weight: bold;
+        font-weight: bold;
         font-size: medium;
     }
     h4 {
@@ -37,8 +37,8 @@
   <font face='helvetica, helv, arial, sans serif' size=3><p><VALUE:.getHelp()/></p></font>
   <font face='helvetica, helv, arial, sans serif' size=3>
     <ITERATOR:getProgrammes()>
-    	<p><b><VALUE:.getProgrammeStartTime(this)/> - <a href="<VALUE:.getProgrammeURL(this)/>"><VALUE:.getProgrammeTitle(this)><VALUE:.getProgrammeSubTitle(this)/></a></b>
-    	  <br><VALUE:.getProgrammeChannelName(this)/>, ends <VALUE:.getProgrammeEndTime(this)/> <VALUE:.getProgrammeCategory(this)/>
+    	<p><b><VALUE:.getProgrammeStartTime(this)/> - <a href="#<VALUE:.getProgrammeURL(this)/>" name="<VALUE:.getProgrammeURL(this)/>"><VALUE:.getProgrammeTitle(this)><VALUE:.getProgrammeSubTitle(this)/></a></b>
+    	  <br><VALUE:.getProgrammeChannelName(this)/>, <VALUE:.getEnds(this)/> <VALUE:.getProgrammeCategory(this)/>
     	  <br><VALUE:.getProgrammeDescription(this)/> <VALUE:.getPreviouslyShown(this)/> <VALUE:.getStarRating(this)/>
     	</p>
     </ITERATOR>

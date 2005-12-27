@@ -18,6 +18,9 @@ import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.plugins.IModuleReminder;
 
+import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerPersonalGuide;
+import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;
+
 import java.io.UnsupportedEncodingException;
 
 import java.net.URLDecoder;

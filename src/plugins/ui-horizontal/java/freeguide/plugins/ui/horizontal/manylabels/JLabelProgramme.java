@@ -1,11 +1,14 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
 import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.ProgrammeFormat;
 import freeguide.lib.fgspecific.data.TVProgramme;
+
+import freeguide.lib.general.TemplateParser;
 
 import freeguide.plugins.BaseModuleReminder;
 import freeguide.plugins.IModuleReminder;
+
+import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -16,6 +19,13 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
+
+import java.io.StringWriter;
+
+import java.text.DateFormat;
+
+import java.util.Date;
+import java.util.logging.Level;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -70,28 +80,26 @@ public class JLabelProgramme extends JLabel
 
     /** Cached tooltip text. */
     private String tooltip;
-    protected ProgrammeFormat htmlFormat;
     protected final boolean moveNames;
+    protected final DateFormat timeFormat;
 
     /**
      * Creates a new JLabelProgramme object.
      *
      * @param programme DOCUMENT ME!
      * @param main DOCUMENT ME!
-     * @param textFormat DOCUMENT ME!
-     * @param htmlFormat DOCUMENT ME!
      * @param moveNames DOCUMENT ME!
+     * @param timeFormat DOCUMENT ME!
      */
     public JLabelProgramme( 
         final TVProgramme programme, final HorizontalViewer main,
-        final ProgrammeFormat textFormat, final ProgrammeFormat htmlFormat,
-        final boolean moveNames )
+        final boolean moveNames, final DateFormat timeFormat )
     {
-        super( textFormat.formatForMainGuide( programme ) );
-        this.htmlFormat = htmlFormat;
+        this.timeFormat = timeFormat;
         this.programme = programme;
         this.controller = main;
         this.moveNames = moveNames;
+        setText( getTitle( programme ) );
         setupColors(  );
         setupHeart(  );
         setOpaque( true );
@@ -112,6 +120,55 @@ public class JLabelProgramme extends JLabel
         // creation of the tip text until the tip is actually needed.
         // (see the getToolTipText() method below)
         tipManager.registerComponent( this );
+    }
+
+    /**
+     * Generate title for label.
+     *
+     * @param programme
+     *
+     * @return title text
+     */
+    protected String getTitle( final TVProgramme programme )
+    {
+
+        final StringBuffer toAppendTo = new StringBuffer(  );
+
+        long programmeStart = programme.getStart(  );
+
+        String programmeTitle = programme.getTitle(  );
+
+        String programmeSubTitle = programme.getSubTitle(  );
+
+        String programmeStarString = programme.getStarString(  );
+
+        toAppendTo.append( timeFormat.format( new Date( programmeStart ) ) )
+                  .append( " " );
+
+        toAppendTo.append( programmeTitle );
+
+        if( programmeSubTitle != null )
+        {
+            toAppendTo.append( ": " ).append( programmeSubTitle );
+
+        }
+
+        if( programme.getIsMovie(  ) && ( programmeStarString != null ) )
+        {
+            toAppendTo.append( " " ).append( programmeStarString );
+
+        }
+
+        if( programme.getPreviouslyShown(  ) )
+        {
+            toAppendTo.append( " " );
+
+            toAppendTo.append( 
+                Application.getInstance(  ).getLocalizedMessage( "r" ) );
+
+        }
+
+        return toAppendTo.toString(  );
     }
 
     /**
@@ -326,11 +383,23 @@ public class JLabelProgramme extends JLabel
             return this.tooltip;
         }
 
-        htmlFormat.setWrap( true );
+        try
+        {
 
-        htmlFormat.setOnScreen( false );
-
-        this.tooltip = htmlFormat.formatLong( programme ).toString(  );
+            final StringWriter out = new StringWriter(  );
+            TemplateParser parser =
+                new TemplateParser( 
+                    "freeguide/plugins/ui/horizontal/manylabels/templates/TemplateProgrammeTooltip.html" );
+            parser.process( 
+                new HandlerProgrammeInfo( 
+                    controller.getLocalizer(  ), programme, timeFormat ), out );
+            this.tooltip = out.toString(  );
+        }
+        catch( Exception ex )
+        {
+            Application.getInstance(  ).getLogger(  ).log( 
+                Level.WARNING, "Error generate tooltip text", ex );
+        }
 
         return this.tooltip;
     }

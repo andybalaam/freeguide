@@ -1,7 +1,6 @@
 package freeguide.lib.general;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.io.Writer;
 
 import java.lang.reflect.Method;
@@ -105,8 +104,13 @@ public class TemplateParser
             {
 
             case NEXT_ITERATOR_START:
-                out.write( 
-                    template, currentPos, posIteratorStart - currentPos );
+
+                if( currentObject != null )
+                {
+                    out.write( 
+                        template, currentPos, posIteratorStart - currentPos );
+                }
+
                 currentPos = posIteratorStart;
                 currentPos = getNextPos( ">" ) + 1;
                 iterate( 
@@ -116,67 +120,100 @@ public class TemplateParser
                 break;
 
             case NEXT_ITERATOR_END:
-                out.write( template, currentPos, posIteratorEnd - currentPos );
+
+                if( currentObject != null )
+                {
+                    out.write( 
+                        template, currentPos, posIteratorEnd - currentPos );
+                }
+
                 currentPos = posIteratorEnd;
                 currentPos = getNextPos( ">" ) + 1;
 
                 return;
 
             case NEXT_VALUE:
-                out.write( template, currentPos, posValue - currentPos );
+
+                if( currentObject != null )
+                {
+                    out.write( template, currentPos, posValue - currentPos );
+                }
+
                 currentPos = posValue;
                 currentPos = getNextPos( ">" ) + 1;
-                out.write( 
-                    getStringValue( 
-                        template.substring( posValue, currentPos - 1 ),
-                        currentObject ) );
+
+                if( currentObject != null )
+                {
+                    out.write( 
+                        getStringValue( 
+                            template.substring( posValue, currentPos - 1 ),
+                            currentObject ) );
+                }
 
                 break;
 
             case NEXT_END:
-                out.write( 
-                    template, currentPos, template.length(  ) - currentPos );
+
+                if( currentObject != null )
+                {
+                    out.write( 
+                        template, currentPos, template.length(  ) - currentPos );
+                }
+
                 currentPos = template.length(  );
 
                 return;
 
             case NEXT_IF_START:
-                out.write( template, currentPos, posIfStart - currentPos );
+
+                if( currentObject != null )
+                {
+                    out.write( template, currentPos, posIfStart - currentPos );
+                }
+
                 currentPos = posIfStart;
                 currentPos = getNextPos( ">" ) + 1;
 
-                Object value =
-                    calculate( 
-                        template.substring( posIfStart, currentPos - 1 ),
-                        currentObject );
-
-                if( ( value == null ) || !( value instanceof Boolean ) )
-                {
-                    throw new Exception( 
-                        "Invalid type of value: "
-                        + template.substring( posValue, currentPos - 1 ) );
-                }
-
-                if( Boolean.TRUE.equals( value ) )
+                if( currentObject != null )
                 {
 
-                    // write to out
-                    internalProcess( currentObject );
+                    Object value =
+                        calculate( 
+                            template.substring( posIfStart, currentPos - 1 ),
+                            currentObject );
+
+                    if( ( value == null ) || !( value instanceof Boolean ) )
+                    {
+                        throw new Exception( 
+                            "Invalid type of value: "
+                            + template.substring( posValue, currentPos - 1 ) );
+                    }
+
+                    if( Boolean.TRUE.equals( value ) )
+                    {
+
+                        // write to out
+                        internalProcess( currentObject );
+                    }
+                    else
+                    {
+                        internalProcess( null );
+                    }
                 }
                 else
                 {
-
-                    // write to /dev/null
-                    Writer realWriter = out;
-                    out = new StringWriter(  );
-                    internalProcess( currentObject );
-                    out = realWriter;
+                    internalProcess( null );
                 }
 
                 break;
 
             case NEXT_IF_END:
-                out.write( template, currentPos, posIfEnd - currentPos );
+
+                if( currentObject != null )
+                {
+                    out.write( template, currentPos, posIfEnd - currentPos );
+                }
+
                 currentPos = posIfEnd;
                 currentPos = getNextPos( ">" ) + 1;
 
@@ -258,21 +295,25 @@ public class TemplateParser
         throws Exception
     {
 
-        int pos = currentPos;
-        Object value = calculate( str, currentObject );
-
         boolean processed = false;
 
-        if( value instanceof Collection )
+        if( currentObject != null )
         {
 
-            for( 
-                Iterator it = ( (Collection)value ).iterator(  );
-                    it.hasNext(  ); )
+            int pos = currentPos;
+            Object value = calculate( str, currentObject );
+
+            if( value instanceof Collection )
             {
-                currentPos = pos;
-                internalProcess( it.next(  ) );
-                processed = true;
+
+                for( 
+                    Iterator it = ( (Collection)value ).iterator(  );
+                        it.hasNext(  ); )
+                {
+                    currentPos = pos;
+                    internalProcess( it.next(  ) );
+                    processed = true;
+                }
             }
         }
 

@@ -10,7 +10,7 @@ import freeguide.lib.fgspecific.data.TVProgramme;
 import freeguide.plugins.ILocalizer;
 import freeguide.plugins.IModuleReminder;
 
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,8 +29,8 @@ public class HandlerPersonalGuide
     protected final ILocalizer localizer;
     protected final TVData currentData;
     protected final Date theDate;
-    protected final SimpleDateFormat dateFormat;
-    protected final SimpleDateFormat timeFormat;
+    protected final DateFormat dateFormat;
+    protected final DateFormat timeFormat;
     protected final boolean forPrint;
 
     /**
@@ -45,8 +45,8 @@ public class HandlerPersonalGuide
      */
     public HandlerPersonalGuide( 
         final ILocalizer localizer, final TVData currentData,
-        final Date theDate, final SimpleDateFormat dateFormat,
-        final SimpleDateFormat timeFormat, final boolean forPrint )
+        final Date theDate, final DateFormat dateFormat,
+        final DateFormat timeFormat, final boolean forPrint )
     {
         this.localizer = localizer;
         this.currentData = currentData;
@@ -54,6 +54,20 @@ public class HandlerPersonalGuide
         this.dateFormat = dateFormat;
         this.timeFormat = timeFormat;
         this.forPrint = forPrint;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param programme DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String getEnds( final TVProgramme programme )
+    {
+
+        return Application.getInstance(  ).getLocalizedMessage( 
+            "ends_template", new Object[] { getProgrammeEndTime( programme ) } );
     }
 
     /**

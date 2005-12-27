@@ -1,8 +1,6 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
 import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.PersonalizedHTMLGuide;
-import freeguide.lib.fgspecific.ProgrammeFormat;
 import freeguide.lib.fgspecific.TVChannelIconHelper;
 import freeguide.lib.fgspecific.data.TVChannel;
 import freeguide.lib.fgspecific.data.TVChannelsSet;
@@ -11,11 +9,15 @@ import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
 import freeguide.lib.general.FileHelper;
+import freeguide.lib.general.TemplateParser;
 
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleConfigurationUI;
 import freeguide.plugins.IModuleStorage;
 import freeguide.plugins.IModuleViewer;
+
+import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerPersonalGuide;
+import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -29,6 +31,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -340,35 +343,16 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         JLabelProgramme.setupLabel( this );
 
         /** The chosen time formatter */
-        SimpleDateFormat timeFormat;
+        DateFormat timeFormat;
 
         if( config.displayTime )
         {
-
-            if( config.display24time )
-            {
-                timeFormat = timeFormat24Hour;
-            }
-            else
-            {
-                timeFormat = timeFormat12Hour;
-            }
-
-            timeFormat.setTimeZone( 
-                Application.getInstance(  ).getTimeZone(  ) );
+            timeFormat = getCurrentDateFormat(  );
         }
         else
         {
             timeFormat = null;
         }
-
-        final ProgrammeFormat textFormat =
-            new ProgrammeFormat( 
-                ProgrammeFormat.HTML_FORMAT, timeFormat, config.displayDelta );
-
-        final ProgrammeFormat htmlFormat =
-            new ProgrammeFormat( 
-                ProgrammeFormat.HTML_FORMAT, timeFormat, config.displayDelta );
 
         final Font font =
             new Font( config.fontName, config.fontStyle, config.fontSize );
@@ -392,8 +376,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         }
 
         panel.getProgrammesPanel(  ).init( 
-            theDate, textFormat, htmlFormat, font,
-            currentChannelSet.getChannels(  ).size(  ) );
+            theDate, font, currentChannelSet.getChannels(  ).size(  ),
+            timeFormat );
 
         final List channels = new ArrayList(  );
 
@@ -835,17 +819,23 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                     new OutputStreamWriter( 
                         new FileOutputStream( f ), "UTF-8" ) );
 
-            new PersonalizedHTMLGuide(  ).createHTML( 
+            /*new PersonalizedHTMLGuide(  ).createHTML(
                 buffy, getLocalizer(  ), new Date( theDate ), currentData,
                 htmlDateFormat,
                 config.display24time ? HorizontalViewer.timeFormat24Hour
-                                     : HorizontalViewer.timeFormat12Hour, false );
-
+                                     : HorizontalViewer.timeFormat12Hour, false );*/
+            TemplateParser parser =
+                new TemplateParser( 
+                    "freeguide/plugins/ui/horizontal/manylabels/templates/TemplatePersonalGuide.html" );
+            parser.process( 
+                new HandlerPersonalGuide( 
+                    getLocalizer(  ), currentData, new Date( theDate ),
+                    htmlDateFormat, getCurrentDateFormat(  ), true ), buffy );
             buffy.close(  );
 
             FileHelper.openFile( f.getPath(  ) );
         }
-        catch( java.io.IOException ex )
+        catch( Exception ex )
         {
             Application.getInstance(  ).getLogger(  ).log( 
                 Level.WARNING, "Error write HTML guide", ex );
@@ -862,22 +852,19 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         try
         {
-            new PersonalizedHTMLGuide(  ).createHTML( 
+
+            /*new PersonalizedHTMLGuide(  ).createHTML(
                 str, getLocalizer(  ), new Date( theDate ), currentData,
                 htmlDateFormat,
                 config.display24time ? HorizontalViewer.timeFormat24Hour
-                                     : HorizontalViewer.timeFormat12Hour, true );
-
-            /*TemplateParser parser =
-                new TemplateParser(
+                                     : HorizontalViewer.timeFormat12Hour, true );*/
+            TemplateParser parser =
+                new TemplateParser( 
                     "freeguide/plugins/ui/horizontal/manylabels/templates/TemplatePersonalGuide.html" );
-            parser.process(
-                new HandlerPersonalGuide(
+            parser.process( 
+                new HandlerPersonalGuide( 
                     getLocalizer(  ), currentData, new Date( theDate ),
-                    htmlDateFormat,
-                    config.display24time ? HorizontalViewer.timeFormat24Hour
-                                         : HorizontalViewer.timeFormat12Hour,
-                    false ), str );*/
+                    htmlDateFormat, getCurrentDateFormat(  ), false ), str );
         }
         catch( Exception ex )
         {
@@ -899,67 +886,37 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     protected void updateProgrammeInfo( final TVProgramme programme )
     {
 
-        // Find out whether we're in the 24 hour clock
-        boolean draw24time = true;
-
-        //TODO FreeGuide.prefs.screen.getBoolean( "display_24hour_time", true );
-        // And get the time format from that
-        SimpleDateFormat timeFormat;
-
-        if( draw24time )
-        {
-            timeFormat = HorizontalViewer.timeFormat24Hour;
-        }
-        else
-        {
-            timeFormat = HorizontalViewer.timeFormat12Hour;
-        }
-
-        ProgrammeFormat programmeFormat =
-            new ProgrammeFormat( 
-                ProgrammeFormat.HTML_FORMAT, timeFormat, true );
-
-        programmeFormat.setOnScreen( false );
-
-        StringBuffer buff = new StringBuffer(  );
-
-        if( programme != null )
+        try
         {
 
-            try
-            {
-                buff.append( 
-                    programmeFormat.formatForProgrammeDetailsJPanel( 
-                        programme ) );
+            final TemplateParser parser =
+                new TemplateParser( 
+                    "freeguide/plugins/ui/horizontal/manylabels/templates/TemplateProgrammeInfo.html" );
+            StringWriter out = new StringWriter(  );
+            parser.process( 
+                new HandlerProgrammeInfo( 
+                    getLocalizer(  ), programme, getCurrentDateFormat(  ) ),
+                out );
 
-                /*TemplateParser parser =
-                    new TemplateParser(
-                        "freeguide/plugins/ui/horizontal/manylabels/templates/TemplateProgrammeInfo.html" );
-                StringWriter out = new StringWriter(  );
-                parser.process(
-                    new HandlerProgrammeInfo( programme, timeFormat ), out );
-                buff = out.getBuffer(  );*/
-            }
-            catch( Exception ex )
-            {
-                Application.getInstance(  ).getLogger(  ).log( 
-                    Level.SEVERE,
-                    "Error construct programme info HTML for screen", ex );
-            }
+            panel.getDetailsPanel(  ).setText( out.getBuffer(  ).toString(  ) );
+            panel.getDetailsPanel(  ).setCaretPosition( 0 );
         }
-        else
+        catch( Exception ex )
         {
-            ProgrammeFormat.appendStyleSheet( buff );
-
-            buff.append( "<p>" );
-
-            buff.append( 
-                getLocalizer(  ).getLocalizedMessage( "no_programme_selected" ) );
-
-            buff.append( "</p></body></html>" );
+            Application.getInstance(  ).getLogger(  ).log( 
+                Level.SEVERE, "Error construct programme info HTML for screen",
+                ex );
         }
+    }
 
-        panel.getDetailsPanel(  ).setText( buff.toString(  ) );
-        panel.getDetailsPanel(  ).setCaretPosition( 0 );
+    protected DateFormat getCurrentDateFormat(  )
+    {
+
+        final DateFormat result =
+            config.display24time ? HorizontalViewer.timeFormat24Hour
+                                 : HorizontalViewer.timeFormat12Hour;
+        result.setTimeZone( Application.getInstance(  ).getTimeZone(  ) );
+
+        return result;
     }
 }

@@ -1,11 +1,12 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import freeguide.lib.fgspecific.ProgrammeFormat;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.Rectangle;
+
+import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,10 +26,9 @@ public class JPanelProgramme extends JPanel
 
     protected final HorizontalViewer controller;
     protected long startDate;
-    protected ProgrammeFormat textFormat;
-    protected ProgrammeFormat htmlFormat;
     protected List[] rows = new List[0];
     protected Map labelsForProgrammes = new HashMap(  );
+    protected DateFormat timeFormat;
 
     /**
      * Creates a new JPanelProgramme object.
@@ -45,20 +45,18 @@ public class JPanelProgramme extends JPanel
      * DOCUMENT_ME!
      *
      * @param theDate DOCUMENT_ME!
-     * @param textFormat DOCUMENT_ME!
-     * @param htmlFormat DOCUMENT ME!
      * @param font DOCUMENT_ME!
      * @param rowCount DOCUMENT_ME!
+     * @param timeFormat DOCUMENT_ME!
      */
     public void init( 
-        final long theDate, final ProgrammeFormat textFormat,
-        final ProgrammeFormat htmlFormat, final Font font, final int rowCount )
+        final long theDate, final Font font, final int rowCount,
+        final DateFormat timeFormat )
     {
         removeAll(  );
         labelsForProgrammes.clear(  );
         this.startDate = theDate;
-        this.textFormat = textFormat;
-        this.htmlFormat = htmlFormat;
+        this.timeFormat = timeFormat;
         setFont( font );
         rows = new List[rowCount];
 
@@ -86,8 +84,8 @@ public class JPanelProgramme extends JPanel
 
         JLabelProgramme label =
             new JLabelProgramme( 
-                programme, controller, textFormat, htmlFormat,
-                controller.config.displayAlignToLeft );
+                programme, controller, controller.config.displayAlignToLeft,
+                timeFormat );
         setupBounds( label, programme, row );
         add( label );
         label.setFont( getFont(  ) );

@@ -5,10 +5,12 @@ import freeguide.lib.fgspecific.ProgrammeFormat;
 import freeguide.lib.fgspecific.TVChannelIconHelper;
 import freeguide.lib.fgspecific.data.TVProgramme;
 
+import freeguide.plugins.ILocalizer;
+
 import java.io.File;
 import java.io.IOException;
 
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 
 import java.util.Collection;
 import java.util.Date;
@@ -25,19 +27,34 @@ public class HandlerProgrammeInfo
 {
 
     protected final TVProgramme programme;
-    protected final SimpleDateFormat timeFormat;
+    protected final DateFormat timeFormat;
+    protected final ILocalizer localizer;
 
     /**
      * Creates a new HandlerProgrammeInfo object.
      *
+     * @param localizer DOCUMENT ME!
      * @param programme DOCUMENT ME!
      * @param timeFormat DOCUMENT ME!
      */
     public HandlerProgrammeInfo( 
-        final TVProgramme programme, final SimpleDateFormat timeFormat )
+        final ILocalizer localizer, final TVProgramme programme,
+        final DateFormat timeFormat )
     {
+        this.localizer = localizer;
         this.programme = programme;
         this.timeFormat = timeFormat;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String getNoneMessage(  )
+    {
+
+        return localizer.getLocalizedMessage( "no_programme_selected" );
     }
 
     /**
@@ -87,6 +104,28 @@ public class HandlerProgrammeInfo
     {
 
         return programme.getExtraTags(  ) != null;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public boolean hasProgramme(  )
+    {
+
+        return programme != null;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public boolean noProgramme(  )
+    {
+
+        return programme == null;
     }
 
     /**
