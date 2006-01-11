@@ -460,7 +460,7 @@ public class FirstTimeWizard
         if( showREADME )
         {
             FileHelper.openFile( 
-                FreeGuide.runtimeInfo.docDirectory + "/README.html" );
+                FreeGuide.runtimeInfo.docDirectory + "/userguide.html" );
         }
     }
 
