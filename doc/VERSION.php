@@ -4,7 +4,7 @@
 	print "10\n";
 	print "3\n";
 
-	$userlog = fopen( "/home/groups/f/fr/freeguide-tv/userlog/userlog.txt", "a" );
+	$userlog = fopen( "/tmp/persistent/freeguide-tv/userlog.txt", "a        " );
 	
 	$dt = date( "Y-m-d H:i:s" );
 

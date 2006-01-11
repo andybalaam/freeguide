@@ -4,7 +4,7 @@
 	print "__ANT_VERSION_MINOR__\n";
 	print "__ANT_VERSION_REVISION__\n";
 
-	$userlog = fopen( "/home/groups/f/fr/freeguide-tv/userlog/userlog.txt", "a" );
+	$userlog = fopen( "/tmp/persistent/freeguide-tv/userlog.txt", "a" );
 	
 	$dt = date( "Y-m-d H:i:s" );
 

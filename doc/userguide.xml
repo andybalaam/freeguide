@@ -275,7 +275,7 @@
               only use the Default, pixmap, and/or bluecurve theme engines.
               What does all that mean? If you really want to know, I suggest
               you go to the <ulink url="http://www.gtk.org/">GTK+
-              websit</ulink>e and start reading. After all, this is a
+              website</ulink> and start reading. After all, this is a
               FreeGuide FAQ. :)</para>
             </answer>
           </qandaentry>
@@ -452,3 +452,4 @@
       </qandaset>
     </section>
   </chapter>
+

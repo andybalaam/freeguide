@@ -31,8 +31,8 @@
 
   <div style="float:right" class="sourceforgelogo">
     <a href="http://sourceforge.net/projects/freeguide-tv/">
-<!--       <img src="http://sourceforge.net/sflogo.php?group_id=35309&amp;type=1" width="88" height="31" border="0" alt="SourceForge Logo"/> -->
-      <img src="sflogo.png" width="88" height="31" border="0" alt="SourceForge Logo"/>
+       <img src="http://sourceforge.net/sflogo.php?group_id=35309&amp;type=1" width="88" height="31" border="0" alt="SourceForge Logo"/> 
+<!--      <img src="sflogo.png" width="88" height="31" border="0" alt="SourceForge Logo"/>-->
     </a>
   </div>
 
@@ -133,3 +133,4 @@
 
 
 </xsl:stylesheet>
+

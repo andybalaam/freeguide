@@ -246,6 +246,34 @@ java -jar FreeGuide.jar --install_directory "C:\Program Files\FreeGuide" --doc_d
 
           <qandaentry id="help.faq.skins">
             <question>
+              <para>How can I make FreeGuide download more than 1 weeks' XMLTV
+              listings at a time?</para>
+            </question>
+
+            <answer>
+              <para>Go to the "Tools" menu and choose "Options".  Open the "Advanced"
+              node and open the "Grabbers" node, and choose "XMLTV".  In the lower
+              text box is the command used to run the XMLTV grabber.  It starts
+              something like this:</para>
+              <programlisting>"%xmltv_path%/xmltv.exe" tv_grab_uk_rt</programlisting>
+              <para>(The uk_rt bit will be different if you are not in the UK.) 
+              After this bit are the other bits of the command, e.g. "--quiet",
+              "--config-file" etc.  If you add the string " --days 14 " after
+              the main command (shown above) and before the other options (e.g.
+              "--quiet") this will tell XMLTV to download 14 days instead of the
+              default of 7.</para>
+              <para>If something gets messed up and listings won't download, click the
+              button labelled "Default" to get the old command back.</para>
+              <para>Note that some of the listings sources do not provide listings for
+              such a long time into the future, and some of the XMTLV grabbers for
+              some countries do not listen to the --days option, so this change may
+              not make any difference for some people.</para>
+            </answer>
+          </qandaentry>
+
+
+          <qandaentry id="help.faq.skins">
+            <question>
               <para>Does FreeGuide support skins or themes? How do I use
               them?</para>
             </question>
