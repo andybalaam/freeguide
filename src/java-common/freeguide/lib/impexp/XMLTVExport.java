@@ -78,7 +78,7 @@ public class XMLTVExport
 
             TVChannel ch = (TVChannel)itCh.next(  );
 
-            final Iterator itP = ch.getProgrammesIterator(  );
+            final Iterator itP = ch.getProgrammes(  ).iterator(  );
 
             while( itP.hasNext(  ) )
             {

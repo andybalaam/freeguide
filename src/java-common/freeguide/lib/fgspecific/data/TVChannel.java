@@ -92,7 +92,7 @@ public class TVChannel implements Serializable
     {
         mergeHeaderFrom( channel );
 
-        Iterator it = channel.getProgrammesIterator(  );
+        Iterator it = channel.getProgrammes(  ).iterator(  );
 
         while( it.hasNext(  ) )
         {
@@ -231,15 +231,14 @@ public class TVChannel implements Serializable
     }
 
     /**
-     * Get iterator by all TVProgrammes.
+     * Get all programmes list.
      *
      * @return Iterator
      */
-    public Iterator getProgrammesIterator(  )
+    public Set getProgrammes(  )
     {
 
-        return programmes.iterator(  );
-
+        return programmes;
     }
 
     /**
@@ -263,7 +262,7 @@ public class TVChannel implements Serializable
     public TVProgramme getProgrammeByTime( final long startTime )
     {
 
-        Iterator it = getProgrammesIterator(  );
+        Iterator it = getProgrammes(  ).iterator(  );
 
         while( it.hasNext(  ) )
         {
@@ -306,7 +305,7 @@ public class TVChannel implements Serializable
 
         TVProgramme prevProg = null;
 
-        Iterator it = getProgrammesIterator(  );
+        Iterator it = getProgrammes(  ).iterator(  );
 
         while( it.hasNext(  ) )
         {
