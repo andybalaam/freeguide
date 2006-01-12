@@ -22,16 +22,13 @@ public interface IModuleStorage extends IModule
     /**
      * Load data from external storage to in-memory storage.
      *
-     * @param channels filter for loaded data
-     * @param minDate DOCUMENT ME!
-     * @param maxDate DOCUMENT ME!
+     * @param loadInfo filter for loaded data
      *
      * @return data
      *
      * @throws Exception
      */
-    TVData get( TVChannelsSet channels, long minDate, long maxDate )
-        throws Exception;
+    TVData get( final Info loadInfo ) throws Exception;
 
     /**
      * Find earliest programme. Uses for remonder.
@@ -65,7 +62,7 @@ public interface IModuleStorage extends IModule
     {
 
         /** DOCUMENT ME! */
-        public TVChannelsSet allChannels = new TVChannelsSet(  );
+        public TVChannelsSet channelsList = new TVChannelsSet(  );
 
         /** DOCUMENT ME! */
         public long minDate = Long.MAX_VALUE;
@@ -74,33 +71,21 @@ public interface IModuleStorage extends IModule
         public long maxDate = Long.MIN_VALUE;
 
         /**
-         * DOCUMENT_ME!
+         * Clone info object before changing.
          *
-         * @return DOCUMENT_ME!
+         * @return new Info object.
          */
-        public Object clone(  )
+        public Info cloneInfo(  )
         {
 
             Info result = new Info(  );
 
-            //result.allChannels = (TVChannelsSet)allChannels.clone();
+            result.channelsList = (TVChannelsSet)channelsList.clone(  );
             result.minDate = minDate;
-
             result.maxDate = maxDate;
 
             return result;
 
-        }
-
-        /**
-         * DOCUMENT_ME!
-         *
-         * @return DOCUMENT_ME!
-         */
-        public boolean isEmpty(  )
-        {
-
-            return allChannels.channels.isEmpty(  );
         }
     }
 
