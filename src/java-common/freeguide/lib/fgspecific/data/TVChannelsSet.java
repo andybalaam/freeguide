@@ -23,6 +23,17 @@ public class TVChannelsSet
     public List channels = new ArrayList(  );
 
     /**
+     * Check if channels list empty.
+     *
+     * @return true if channels list empty
+     */
+    public boolean isEmpty(  )
+    {
+
+        return channels.isEmpty(  );
+    }
+
+    /**
      * Get position of siteID/channelID in list.
      *
      * @param channelID channel ID
