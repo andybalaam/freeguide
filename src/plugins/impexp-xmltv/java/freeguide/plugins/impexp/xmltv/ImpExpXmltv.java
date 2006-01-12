@@ -1,5 +1,7 @@
 package freeguide.plugins.impexp.xmltv;
 
+import freeguide.gui.dialogs.FileChooserExtension;
+
 import freeguide.lib.fgspecific.data.TVData;
 
 import freeguide.lib.impexp.XMLTVExport;
@@ -133,6 +135,8 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
             } );
         chooser.setFileSelectionMode( JFileChooser.FILES_ONLY );
         chooser.setMultiSelectionEnabled( false );
+
+        chooser.setAccessory( new FileChooserExtension(  ) );
 
         if( chooser.showSaveDialog( parent ) == JFileChooser.APPROVE_OPTION )
         {
