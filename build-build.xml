@@ -3,6 +3,7 @@
 <project name="freeguide-tv-build" default="build-all">
 
 	<import file="build-plugins-info.xml"/>
+	<import file="build-prebuild.xml"/>
 	
     <target name="build-all" depends="build-plugins, build-app, build-doc"/>
 
@@ -130,9 +131,12 @@
              manifest="${src}/startup/META-INF/startup.mf" />
     </target>
     
-    <target name="build-doc">
-        <chmod file="${doc}/compile_manual.sh" perm="ugo+rx"/>
-        <exec dir="${doc}" executable="compile_manual.sh" resolveexecutable="true" failonerror="true"/>
+    <target name="build-doc" depends="prebuild-buildcode">
+    	<java classpath="${build}/buildcode"
+    	    	classname="DocXSLT"
+    	    	fork="true"/>
+        <!--chmod file="${doc}/compile_manual.sh" perm="ugo+rx"/>
+        <exec dir="${doc}" executable="compile_manual.sh" resolveexecutable="true" failonerror="true"/-->
     </target>
     
     
