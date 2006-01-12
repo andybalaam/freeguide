@@ -48,9 +48,9 @@ public class StorageHelper
         final IModuleStorage.Info info, final TVProgramme programme )
     {
 
-        if( !info.allChannels.contains( programme.getChannel(  ).getID(  ) ) )
+        if( !info.channelsList.contains( programme.getChannel(  ).getID(  ) ) )
         {
-            info.allChannels.add( 
+            info.channelsList.add( 
                 new TVChannelsSet.Channel( 
                     programme.getChannel(  ).getID(  ),
                     programme.getChannel(  ).getDisplayName(  ) ) );
@@ -82,9 +82,9 @@ public class StorageHelper
                 protected void onChannel( TVChannel channel )
                 {
 
-                    if( !info.allChannels.contains( channel.getID(  ) ) )
+                    if( !info.channelsList.contains( channel.getID(  ) ) )
                     {
-                        info.allChannels.add( 
+                        info.channelsList.add( 
                             new TVChannelsSet.Channel( 
                                 channel.getID(  ), channel.getDisplayName(  ) ) );
                     }
