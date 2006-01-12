@@ -40,4 +40,11 @@ public interface IModuleViewer extends IModule
     void printHTML(  );
 
     JButton getDefaultButton(  );
+
+    /**
+     * Get display info.
+     *
+     * @return displayed info
+     */
+    IModuleStorage.Info getDisplayedInfo(  );
 }
