@@ -14,6 +14,9 @@ import freeguide.lib.general.TemplateParser;
 import freeguide.plugins.BaseModule;
 import freeguide.plugins.IModuleConfigurationUI;
 import freeguide.plugins.IModuleStorage;
+
+import freeguide.plugins.IModuleStorage.Info;
+
 import freeguide.plugins.IModuleViewer;
 
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerPersonalGuide;
@@ -44,6 +47,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -288,6 +292,23 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     }
 
     /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Info getDisplayedInfo(  )
+    {
+
+        final IModuleStorage.Info info = new IModuleStorage.Info(  );
+        info.channelsList =
+            getChannelsSetByName( config.currentChannelSetName );
+        info.minDate = theDate;
+        info.maxDate = theDate + MILLISECONDS_PER_DAY;
+
+        return info;
+    }
+
+    /**
      * Load data for current date and selected channels set.
      */
     protected void loadData(  )
@@ -300,8 +321,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             {
                 currentData =
                     Application.getInstance(  ).getDataStorage(  ).get( 
-                        getChannelsSetByName( config.currentChannelSetName ),
-                        theDate, theDate + MILLISECONDS_PER_DAY );
+                        getDisplayedInfo(  ) );
             }
             catch( Exception ex )
             {
@@ -574,7 +594,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         if( channelsSetName == null )
         {
 
-            return Application.getInstance(  ).getDataStorage(  ).getInfo(  ).allChannels;
+            return Application.getInstance(  ).getDataStorage(  ).getInfo(  ).channelsList;
 
         }
 
@@ -665,22 +685,15 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         // Remove all the items from the combo box:
         // Working around a bug with JComboBox.removeAllItems()
         //comTheDate.removeAllItems();
-        int i;
-
-        int itemCount = panel.getComboDate(  ).getItemCount(  );
-
-        for( i = 0; i < itemCount; i++ )
-        {
-            panel.getComboDate(  ).removeItemAt( 0 );
-
-        }
+        ( (DefaultComboBoxModel)panel.getComboDate(  ).getModel(  ) )
+        .removeAllElements(  );
 
         comboBoxDateFormat.setTimeZone( 
             Application.getInstance(  ).getTimeZone(  ) );
 
         int ind = 0;
 
-        for( i = 0; i < dateExistList.length; i++ )
+        for( int i = 0; i < dateExistList.length; i++ )
         {
             panel.getComboDate(  ).insertItemAt( 
                 comboBoxDateFormat.format( new Date( dateExistList[i] ) ), i );
