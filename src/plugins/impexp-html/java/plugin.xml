@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="impexp-html"
+        version="1"
+        class="freeguide.plugins.impexp.html.ExportHTML">
+
+  <name lang="en">HTML</name>
+  <description lang="en">HTML export</description>
+
+  <files>
+    <file path="lib/impexp-html.jar"/>
+    <file path="lib/"/>
+  </files>
+</plugin>
