@@ -206,7 +206,7 @@ public class AlarmReminder extends BaseModuleReminder
             new FavouritesController( 
                 Application.getInstance(  ).getApplicationFrame(  ),
                 config.favouritesList,
-                Application.getInstance(  ).getDataStorage(  ).getInfo(  ).allChannels );
+                Application.getInstance(  ).getDataStorage(  ).getInfo(  ).channelsList );
 
         Utils.centreDialog( 
             Application.getInstance(  ).getApplicationFrame(  ),

@@ -3,7 +3,6 @@ package freeguide.plugins.storage.serfiles;
 import freeguide.lib.fgspecific.Application;
 import freeguide.lib.fgspecific.StorageHelper;
 import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVChannelsSet;
 import freeguide.lib.fgspecific.data.TVData;
 import freeguide.lib.fgspecific.data.TVIteratorChannels;
 import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
@@ -199,24 +198,21 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
     /**
      * DOCUMENT_ME!
      *
-     * @param channels DOCUMENT_ME!
-     * @param minDate DOCUMENT_ME!
-     * @param maxDate DOCUMENT_ME!
+     * @param loadInfo DOCUMENT_ME!
      *
      * @return DOCUMENT_ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public synchronized TVData get( 
-        final TVChannelsSet channels, final long minDate, final long maxDate )
+    public synchronized TVData get( final Info loadInfo )
         throws Exception
     {
 
         final TVData result = new TVData(  );
 
         for( 
-            long dt = ( ( minDate / MSEC_PARTS ) - 1 ) * MSEC_PARTS;
-                dt < maxDate; dt += MSEC_PARTS )
+            long dt = ( ( loadInfo.minDate / MSEC_PARTS ) - 1 ) * MSEC_PARTS;
+                dt < loadInfo.maxDate; dt += MSEC_PARTS )
         {
 
             TVData data = load( getFile( dt ) );
@@ -227,7 +223,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
                 continue;
             }
 
-            if( channels != null )
+            if( loadInfo.channelsList != null )
             {
                 data.iterateChannels( 
                     new TVIteratorChannels(  )
@@ -235,7 +231,9 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
                         protected void onChannel( TVChannel channel )
                         {
 
-                            if( !channels.contains( channel.getID(  ) ) )
+                            if( 
+                                !loadInfo.channelsList.contains( 
+                                        channel.getID(  ) ) )
                             {
                                 it.remove(  );
                             }
@@ -254,8 +252,8 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
                     {
 
                         if( 
-                            ( programme.getStart(  ) >= maxDate )
-                                || ( programme.getEnd(  ) <= minDate ) )
+                            ( programme.getStart(  ) >= loadInfo.maxDate )
+                                || ( programme.getEnd(  ) <= loadInfo.minDate ) )
                         {
                             itProgrammes.remove(  );
                         }
