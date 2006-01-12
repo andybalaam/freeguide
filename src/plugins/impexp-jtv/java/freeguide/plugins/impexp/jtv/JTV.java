@@ -40,7 +40,7 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
 
     protected static final byte[] SIGNATURE =
         new String( "JTV 3.x TV Program Data\n\n\n" ).getBytes(  );
-    protected static final long DATE_DELTA = 134774;
+    protected static final long DATE_DELTA = 134774L * 24L * 60L * 60L * 1000L; // milliseconds from Jan 1 1601 to Jan 1 1970
     protected static final String CHARSET = "Cp1251";
 
     /**
@@ -87,7 +87,7 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
         chooser.setFileSelectionMode( JFileChooser.FILES_ONLY );
         chooser.setMultiSelectionEnabled( true );
 
-        if( chooser.showSaveDialog( parent ) == JFileChooser.APPROVE_OPTION )
+        if( chooser.showOpenDialog( parent ) == JFileChooser.APPROVE_OPTION )
         {
 
             File[] files = chooser.getSelectedFiles(  );
@@ -178,9 +178,10 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
         Calendar c = Calendar.getInstance(  );
         c.setTimeZone( Application.getInstance(  ).getTimeZone(  ) );
 
+        // Time stored in a 64-bit value representing the number of 100-nanosecond intervals since January 1, 1601 (UTC).
         long v = in.readLong(  );
 
-        long dt = ( v / 10000 ) - ( DATE_DELTA * 24L * 60 * 60 * 1000 );
+        long dt = ( v / 10000 ) - DATE_DELTA;
 
         return dt - c.get( Calendar.ZONE_OFFSET )
         - c.get( Calendar.DST_OFFSET );
@@ -283,8 +284,7 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
 
         protected void writeTime( long dt )
         {
-            wrndx.writeLong( 
-                ( dt + ( DATE_DELTA * 24L * 60 * 60 * 1000 ) ) * 10000 );
+            wrndx.writeLong( ( dt - DATE_DELTA ) * 10000 );
         }
     }
 }
