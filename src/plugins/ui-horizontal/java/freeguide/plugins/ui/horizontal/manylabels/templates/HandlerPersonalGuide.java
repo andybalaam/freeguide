@@ -14,6 +14,7 @@ import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -312,6 +313,8 @@ public class HandlerPersonalGuide
                     }
                 }
             } );
+
+        Collections.sort( result );
 
         return result;
     }
