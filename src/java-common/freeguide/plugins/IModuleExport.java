@@ -25,5 +25,5 @@ public interface IModuleExport extends IModule
      * @throws IOException
      */
     void exportData( final TVData data, final JFrame parent )
-        throws IOException;
+        throws Exception;
 }
