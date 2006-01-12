@@ -265,8 +265,8 @@ public class MainController extends BaseModule implements IApplication
     {
 
         if( 
-            !Application.getInstance(  ).getDataStorage(  ).getInfo(  )
-                            .isEmpty(  ) )
+            !Application.getInstance(  ).getDataStorage(  ).getInfo(  ).channelsList
+                .isEmpty(  ) )
         {
 
             return;
@@ -414,7 +414,7 @@ public class MainController extends BaseModule implements IApplication
 
         ChannelSetListDialog dialog =
             new ChannelSetListDialog( 
-                mainFrame, getDataStorage(  ).getInfo(  ).allChannels,
+                mainFrame, getDataStorage(  ).getInfo(  ).channelsList,
                 config.channelsSetsList );
 
         Utils.centreDialog( mainFrame, dialog );
@@ -456,14 +456,14 @@ public class MainController extends BaseModule implements IApplication
                 public void run(  )
                 {
 
-                    IModuleStorage.Info info = getDataStorage(  ).getInfo(  );
+                    IModuleStorage.Info info =
+                        getDataStorage(  ).getInfo(  ).cloneInfo(  );
 
                     try
                     {
+                        info.channelsList = null;
 
-                        TVData data =
-                            getDataStorage(  ).get( 
-                                null, info.minDate, info.maxDate );
+                        TVData data = getDataStorage(  ).get( info );
                         exp.exportData( data, mainFrame );
                     }
                     catch( Exception ex )
