@@ -254,6 +254,8 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
             }
         }
 
+        putKey( "mainController/selection/favouritesList.size", "" + i );
+
         final String[] iconKeys = listKeys( "screen/customIcon." );
         icons = new TreeMap(  );
 
@@ -266,8 +268,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
             final String value = getAndRemoveKey( iconKeys[i] );
             icons.put( key, value );
         }
-
-        putKey( "mainController/selection/favouritesList.size", "" + i );
 
         moveKey( 
             "screen/align_text_to_left",
