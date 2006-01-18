@@ -142,8 +142,11 @@ public class JLabelProgramme extends JLabel
 
         String programmeStarString = programme.getStarString(  );
 
-        toAppendTo.append( timeFormat.format( new Date( programmeStart ) ) )
-                  .append( " " );
+        if( timeFormat != null )
+        {
+            toAppendTo.append( 
+                timeFormat.format( new Date( programmeStart ) ) ).append( " " );
+        }
 
         toAppendTo.append( programmeTitle );
 
