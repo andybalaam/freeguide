@@ -456,7 +456,7 @@ class XMLTVImportHandler extends DefaultHandler
         throws SAXException
     {
 
-        if( systemId.endsWith( "/xmltv.dtd" ) )
+        if( systemId.endsWith( "xmltv.dtd" ) )
         {
 
             try
