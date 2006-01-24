@@ -244,7 +244,7 @@ java -jar FreeGuide.jar --install_directory "C:\Program Files\FreeGuide" --doc_d
             </answer>
           </qandaentry>
 
-          <qandaentry id="help.faq.skins">
+          <qandaentry id="help.faq.downloadmore">
             <question>
               <para>How can I make FreeGuide download more than 1 weeks' XMLTV
               listings at a time?</para>
@@ -271,6 +271,36 @@ java -jar FreeGuide.jar --install_directory "C:\Program Files\FreeGuide" --doc_d
             </answer>
           </qandaentry>
 
+          <qandaentry id="help.faq.othergrabbers">
+            <question>
+              <para>How do I use a listings grabber that is not part of the XMLTV
+              project?  (E.g. for using FreeGuide in Australia.)</para>
+            </question>
+
+            <answer>
+              <para>Here is some advice from one of our users on how he got Australian
+              listings working:</para>
+              <para>I went to http://minnie.tuhs.org/twiki/bin/view/TVGuide/
+              and signed up for an account, then i downloaded
+              http://www.wireplay.org/xmltv_au/tv_grab_au.exe
+              then i just went into tools, options, advanced,grabbers,xmltv, picked
+              any one and changed the command path to
+              C:\Program Files\video\FreeGuide\TVGuideGrabber\tv_grab_au_tuhs.exe --config-file "C:\Program Files\video\FreeGuide\TVGuideGrabber\tv_grab_au_tuhs.xml"
+              </para>
+              <para>If you manage to get any non-official grabbers working, let us
+              know on the developers' mailing list so we can help others do the same.
+              If any third-party grabber works well, and is not going to go into
+              XMLTV for some reason (e.g. it's not written in Perl),and it's GPL
+              licenced, we will consider distributing it as a part of FreeGuide
+              to make it easier for others to use.</para>
+            </answer>
+          </qandaentry>
+
+I went to http://minnie.tuhs.org/twiki/bin/view/TVGuide/ and signed up for an account,
+then i dloaded http://www.wireplay.org/xmltv_au/tv_grab_au.exe
+ 
+then i just went into tools, options, advanced,grabbers,xmltv, picked any one and changed the command path to C:\Program Files\video\FreeGuide\TVGuideGrabber\tv_grab_au_tuhs.exe --config-file "C:\Program Files\video\FreeGuide\TVGuideGrabber\tv_grab_au_tuhs.xml"
+ 
 
           <qandaentry id="help.faq.skins">
             <question>

@@ -12,9 +12,11 @@
 
       <para>Go to the <ulink
       url="http://sourceforge.net/project/showfiles.php?group_id=35309">sourceforge
-      download page</ulink> and pick the
-      "<filename>FreeGuide-x.y.z-Windows.exe</filename>" with the highest
+      download page</ulink> and pick the file like this:
+      "<filename>freeguide-x.x.x-with-xmltv-win32.exe</filename>" with the highest
       version number to get the windows installer.</para>
+      <para>NOTE: you almost certainly want the "with-xmltv" version, unless you
+      know you don't need XMLTV.</para>
 
       <para>The only thing you need to do after downloading the file is
       double-clicking on the <filename>.exe</filename> file and following the
@@ -216,10 +218,10 @@
             <para><link linkend="downinst.linux.gentoo">Gentoo</link></para>
           </listitem>
 
-          <listitem>
+          <!--listitem>
             <para><link linkend="downinst.linux.tarball">Others - Tarball
             installation</link></para>
-          </listitem>
+          </listitem-->
         </itemizedlist>
       </section>
 

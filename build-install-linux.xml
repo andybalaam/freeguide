@@ -109,7 +109,7 @@
         <antcall target="install-linux-allinone">
             <param name="install_share_dir" value="run/usr/share"/>
             <param name="install_bin_dir" value="run"/>
-            <param name="install_doc_dir" value="run/usr/share/doc"/>
+            <param name="install_doc_dir" value="run/usr/share/doc/freeguide"/>
             <param name="install_real_dir" value="usr/share/freeguide"/>
             <param name="install_real_doc_dir" value="usr/share/doc/freeguide"/>
         </antcall>
