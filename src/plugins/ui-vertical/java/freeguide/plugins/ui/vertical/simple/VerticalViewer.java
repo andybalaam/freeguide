@@ -108,8 +108,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
                 //get the data
                 currentData =
                     Application.getInstance(  ).getDataStorage(  ).get(
-                        Application.getInstance().getDataStorage().getInfo().allChannels,
-                        theDate, theDate + MILLISECONDS_PER_DAY );
+                        getDisplayedInfo(  ) );
 
                 //prepare the model
                 model.prepareRows(currentData.getProgrammesCount());
@@ -201,6 +200,19 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
     public JButton getDefaultButton()
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+
+
+    public IModuleStorage.Info getDisplayedInfo()
+    {
+        final IModuleStorage.Info info = new IModuleStorage.Info(  );
+        info.channelsList =
+            Application.getInstance(  ).getDataStorage(  ).getInfo(  ).channelsList;
+        info.minDate = theDate;
+        info.maxDate = theDate + MILLISECONDS_PER_DAY;
+
+        return info;
     }
 
 
