@@ -226,7 +226,8 @@
           <b><xsl:apply-templates select="*[name(.) != 'label']"/></b>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates select="*[name(.) != 'label']"/>
+          <b><xsl:value-of select="."/></b>
+<!--           <xsl:apply-templates select="*[name(.) != 'label']"/> -->
         </xsl:otherwise>
       </xsl:choose>
     </td>
