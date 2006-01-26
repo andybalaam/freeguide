@@ -137,7 +137,7 @@
           <para>Now change the command to read like this:</para>
 
           <para><command>javaw.exe -DproxySet=true -DproxyHost=proxy.uni.ac.uk
-          -DproxyPort=8080 -jar "C:\Program Files\FreeGuide\FreeGuide.jar"
+          -DproxyPort=8080 -jar "C:\Program Files\FreeGuide\startup.jar"
           --doc_directory "C:\Program Files\FreeGuide\doc" --install_directory
           "C:\Program Files\FreeGuide\"</command></para>
         </section>
@@ -244,7 +244,7 @@
         RedHat it's under "<guimenu>Accessories</guimenu>" or
         "<guimenuitem>Other</guimenuitem>") or alternatively by typing:</para>
 
-        <programlisting>java -jar /usr/share/freeguide/FreeGuide.jar</programlisting>
+        <programlisting>java -jar /usr/share/freeguide/startup.jar</programlisting>
 
         <para>You'll now need to answer a few questions, and then you're ready
         to go.</para>

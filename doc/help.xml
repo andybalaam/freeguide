@@ -236,7 +236,7 @@
               <para>Now type the following 2 lines:</para>
 
               <programlisting>cd "C:\Program Files\FreeGuide" &lt;PRESS RETURN&gt;
-java -jar FreeGuide.jar --install_directory "C:\Program Files\FreeGuide" --doc_directory "C:\Program Files\FreeGuide\doc" &gt; log.txt &lt;PRESS RETURN&gt;</programlisting>
+java -jar startup.jar --install_directory "C:\Program Files\FreeGuide" --doc_directory "C:\Program Files\FreeGuide\doc" &gt; log.txt &lt;PRESS RETURN&gt;</programlisting>
 
               <para>Now copy and paste the contents of <filename>C:\Program
               Files\FreeGuide\log.txt</filename> into an email, remembering to

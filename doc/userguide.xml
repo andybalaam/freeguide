@@ -163,11 +163,11 @@
 
               <para>For Windows</para>
 
-              <programlisting>javaw -classpath "C:\path\to\my\LookAndFeel.jar" -jar "C:\Program Files\FreeGuide\FreeGuide.jar"</programlisting>
+              <programlisting>javaw -classpath "C:\path\to\my\LookAndFeel.jar" -jar "C:\Program Files\FreeGuide\startup.jar"</programlisting>
 
               <para>Or, for Unix-like operating systems:</para>
 
-              <programlisting>java -classpath "/path/to/my/LookAndFeel.jar" -jar "/usr/share/freeguide/FreeGuide.jar"</programlisting>
+              <programlisting>java -classpath "/path/to/my/LookAndFeel.jar" -jar "/usr/share/freeguide/startup.jar"</programlisting>
             </answer>
           </qandaentry>
 
@@ -340,11 +340,11 @@
 
               <para>For Windows</para>
 
-              <programlisting>javaw -Dswing.gtkthemefile="C:\gtk\Theme Name\gtk-2.0\gtkrc" -jar "C:\Program Files\FreeGuide\FreeGuide.jar"</programlisting>
+              <programlisting>javaw -Dswing.gtkthemefile="C:\gtk\Theme Name\gtk-2.0\gtkrc" -jar "C:\Program Files\FreeGuide\startup.jar"</programlisting>
 
               <para>Or, for Unix-like operating systems:</para>
 
-              <programlisting>java -Dswing.gtkthemefile="${HOME}/.themes/Theme Name/gtk-2.0/gtkrc" -jar "/usr/share/freeguide/FreeGuide.jar"</programlisting>
+              <programlisting>java -Dswing.gtkthemefile="${HOME}/.themes/Theme Name/gtk-2.0/gtkrc" -jar "/usr/share/freeguide/startup.jar"</programlisting>
             </answer>
           </qandaentry>
 
@@ -418,11 +418,11 @@
 
               <para>For Windows</para>
 
-              <programlisting>javaw -classpath "C:\path\to\my\LookAndFeel.jar" -Dswing.defaultlaf="javax.swing.plaf.metal.MetalLookAndFeel" -jar "C:\Program Files\FreeGuide\FreeGuide.jar"</programlisting>
+              <programlisting>javaw -classpath "C:\path\to\my\LookAndFeel.jar" -Dswing.defaultlaf="javax.swing.plaf.metal.MetalLookAndFeel" -jar "C:\Program Files\FreeGuide\startup.jar"</programlisting>
 
               <para>Or, for Unix-like operating systems:</para>
 
-              <programlisting>java -classpath "/path/to/my/LookAndFeel.jar" -Dswing.defaultlaf="javax.swing.plaf.metal.MetalLookAndFeel" -jar "/ur/share/freeguide/FreeGuide.jar"</programlisting>
+              <programlisting>java -classpath "/path/to/my/LookAndFeel.jar" -Dswing.defaultlaf="javax.swing.plaf.metal.MetalLookAndFeel" -jar "/ur/share/freeguide/startup.jar"</programlisting>
 
               <para>Note that the Metal L&amp;F is most likely the default on
               your Java installation, so the above command lines and
