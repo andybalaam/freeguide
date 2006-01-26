@@ -260,6 +260,29 @@ public class MainController extends BaseModule implements IApplication
     }
 
     /**
+     * Set a viewer
+     */
+    public void setViewer(String viewerId)
+    {
+        if (FreeGuide.config.viewerId.equals(viewerId)) {
+            //Viewer is already active
+            return;
+        }
+
+        if (this.viewer != null) {
+            mainFrame.getContentPane().remove(this.viewer.getPanel());
+            this.viewer.close();
+        }
+
+        FreeGuide.config.viewerId = viewerId;
+        this.viewer = (IModuleViewer)PluginsManager.getModuleByID( viewerId);
+        mainFrame.getContentPane().add(this.viewer.getPanel(), BorderLayout.CENTER);
+        this.viewer.open();
+
+        this.viewer.getPanel().updateUI();
+    }
+
+    /**
      * Checks whether the XMLTVLoader managed to get any data, and asks the
      * user to download more if not.
      */
