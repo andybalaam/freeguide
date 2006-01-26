@@ -58,7 +58,7 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
 
         //Add checkbox items for the single channels
         this.channelMap = new HashMap();
-        for (Iterator it = Application.getInstance().getDataStorage().getInfo().allChannels.getChannels().iterator();
+        for (Iterator it = Application.getInstance().getDataStorage().getInfo().channelsList.getChannels().iterator();
              it.hasNext();) {
             TVChannelsSet.Channel listCh = (TVChannelsSet.Channel)it.next();
             JCheckBoxMenuItem item = new ChannelCheckBoxMenuItem(listCh.getDisplayName(), listCh.getChannelID());
