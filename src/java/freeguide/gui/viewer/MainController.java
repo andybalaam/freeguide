@@ -178,7 +178,7 @@ public class MainController extends BaseModule implements IApplication
      * @param viewer DOCUMENT_ME!
      * @param grabberFromWizard DOCUMENT ME!
      */
-    public void start( 
+    public void start(
         final IModuleViewer viewer, final String grabberFromWizard )
     {
         applicationFrame = FreeGuide.getPleaseWaitFrame(  );
@@ -187,15 +187,15 @@ public class MainController extends BaseModule implements IApplication
 
         mainFrame = new MainFrame(  );
 
-        mainFrame.setTitle( 
+        mainFrame.setTitle(
             "FreeGuide " + Application.VERSION.getDotFormat(  ) );
 
         new MenuHandler( this );
 
-        mainFrame.getContentPane(  ).add( 
+        mainFrame.getContentPane(  ).add(
             viewer.getPanel(  ), BorderLayout.CENTER );
 
-        mainFrame.addWindowListener( 
+        mainFrame.addWindowListener(
             new java.awt.event.WindowAdapter(  )
             {
                 public void windowClosing( java.awt.event.WindowEvent evt )
@@ -203,9 +203,11 @@ public class MainController extends BaseModule implements IApplication
                     saveConfigNow(  );
 
                     stopModules(  );
+
+                    System.exit(0);
                 }
             } );
-        mainFrame.getProgressBar(  ).addMouseListener( 
+        mainFrame.getProgressBar(  ).addMouseListener(
             new MouseListener(  )
             {
                 public void mouseClicked( MouseEvent e )
@@ -243,7 +245,7 @@ public class MainController extends BaseModule implements IApplication
 
         startModules(  );
 
-        mainFrame.getRootPane(  ).setDefaultButton( 
+        mainFrame.getRootPane(  ).setDefaultButton(
             viewer.getDefaultButton(  ) );
         mainFrame.setVisible( true );
 
@@ -264,7 +266,7 @@ public class MainController extends BaseModule implements IApplication
     protected void checkForNoData(  )
     {
 
-        if( 
+        if(
             !Application.getInstance(  ).getDataStorage(  ).getInfo(  ).channelsList
                 .isEmpty(  ) )
         {
@@ -273,11 +275,11 @@ public class MainController extends BaseModule implements IApplication
         }
 
         int r =
-            JOptionPane.showConfirmDialog( 
+            JOptionPane.showConfirmDialog(
                 Application.getInstance(  ).getApplicationFrame(  ),
-                Application.getInstance(  ).getLocalizedMessage( 
+                Application.getInstance(  ).getLocalizedMessage(
                     "there_are_missing_listings_for_today" ),
-                Application.getInstance(  ).getLocalizedMessage( 
+                Application.getInstance(  ).getLocalizedMessage(
                     "download_listings_q" ), JOptionPane.YES_NO_OPTION );
 
         if( r == 0 )
@@ -399,7 +401,7 @@ public class MainController extends BaseModule implements IApplication
             }
             catch( Exception ex )
             {
-                FreeGuide.log.log( 
+                FreeGuide.log.log(
                     Level.WARNING, "Error setup L&F to "
                     + inspectedLFClassName, ex );
             }
@@ -413,7 +415,7 @@ public class MainController extends BaseModule implements IApplication
     {
 
         ChannelSetListDialog dialog =
-            new ChannelSetListDialog( 
+            new ChannelSetListDialog(
                 mainFrame, getDataStorage(  ).getInfo(  ).channelsList,
                 config.channelsSetsList );
 
@@ -468,7 +470,7 @@ public class MainController extends BaseModule implements IApplication
                     }
                     catch( Exception ex )
                     {
-                        FreeGuide.log.log( 
+                        FreeGuide.log.log(
                             Level.WARNING, "Error export data", ex );
                     }
                 }
@@ -497,7 +499,7 @@ public class MainController extends BaseModule implements IApplication
                     }
                     catch( Exception ex )
                     {
-                        FreeGuide.log.log( 
+                        FreeGuide.log.log(
                             Level.WARNING, "Error import data", ex );
                     }
                 }
@@ -699,7 +701,7 @@ public class MainController extends BaseModule implements IApplication
 
                 mainWindowPosition = new Rectangle( 640, 400 );
 
-                mainWindowPosition.setLocation( 
+                mainWindowPosition.setLocation(
                     ( screenSize.width - mainWindowPosition.width ) / 2,
                     ( screenSize.height - mainWindowPosition.height ) / 2 );
             }
