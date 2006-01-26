@@ -69,7 +69,7 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
      *
      * @throws Exception
      */
-    public TVData load( 
+    public TVData load(
         final TVChannelsSet channels, long minDate, long maxDate )
         throws Exception
     {
@@ -181,7 +181,7 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
         {
             info = new IModuleStorage.Info(  );
 
-            info.allChannels = new TVChannelsSet(  );
+            info.channelsList = new TVChannelsSet(  );
 
             info.minDate = Long.MAX_VALUE;
 
@@ -198,12 +198,12 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
         {
 
             TVChannelsSet.Channel ch =
-                new TVChannelsSet.Channel( 
+                new TVChannelsSet.Channel(
                     currentChannel.getID(  ), currentChannel.getDisplayName(  ) );
 
-            if( !info.allChannels.contains( ch.getChannelID(  ) ) )
+            if( !info.channelsList.contains( ch.getChannelID(  ) ) )
             {
-                info.allChannels.add( ch );
+                info.channelsList.add( ch );
 
             }
         }
@@ -225,7 +225,7 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
             }
 
             // we can't check endtime, because xmltv grabber produce wrong endtime.
-            //TODO when we will preprocess grabber result, we will be able check endtime 
+            //TODO when we will preprocess grabber result, we will be able check endtime
             if( programme.getStart(  ) > info.maxDate )
             {
                 info.maxDate = programme.getStart(  );
