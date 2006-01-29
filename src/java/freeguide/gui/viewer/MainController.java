@@ -264,7 +264,7 @@ public class MainController extends BaseModule implements IApplication
      */
     public void setViewer(String viewerId)
     {
-        if (FreeGuide.config.viewerId.equals(viewerId)) {
+        if (((MainController.Config)this.getConfig()).viewerId.equals(viewerId)) {
             //Viewer is already active
             return;
         }
@@ -274,7 +274,7 @@ public class MainController extends BaseModule implements IApplication
             this.viewer.close();
         }
 
-        FreeGuide.config.viewerId = viewerId;
+        ((MainController.Config)this.getConfig()).viewerId = viewerId;
         this.viewer = (IModuleViewer)PluginsManager.getModuleByID( viewerId);
         mainFrame.getContentPane().add(this.viewer.getPanel(), BorderLayout.CENTER);
         this.viewer.open();
@@ -697,6 +697,9 @@ public class MainController extends BaseModule implements IApplication
 
         /** DOCUMENT ME! */
         public Set activeGrabberIDs = new TreeSet(  );
+
+        /** The default selected viewer*/
+        public String viewerId = FreeGuide.VIEWER_ID;
 
         /**
          * DOCUMENT ME!

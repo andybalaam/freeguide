@@ -227,7 +227,7 @@ public class FreeGuide
     {
 
         IModuleViewer viewer =
-            (IModuleViewer)PluginsManager.getModuleByID( FreeGuide.config.viewerId );
+            (IModuleViewer)PluginsManager.getModuleByID( ((MainController.Config)((MainController)Application.getInstance()).getConfig()).viewerId );
         storage = (IModuleStorage)PluginsManager.getModuleByID( STORAGE_ID );
 
         if( viewer == null )
@@ -469,9 +469,6 @@ public class FreeGuide
         /** User's locale, or null if it use default locale. */
         public Locale lang;
 
-        /** The default selected viewer*/
-        public String viewerId;
-
         /**
          * Creates a new Config object and setup default values.
          */
@@ -484,7 +481,6 @@ public class FreeGuide
             countryID = "UK";
 
             privacyInfo = "no";
-            viewerId = FreeGuide.VIEWER_ID;
         }
 
         /**

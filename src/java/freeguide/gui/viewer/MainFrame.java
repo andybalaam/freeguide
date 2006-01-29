@@ -373,7 +373,7 @@ public class MainFrame extends JWaitFrame
                         ((MainController)Application.getInstance()).setViewer(((JDataRadioButtonMenuItem)actionEvent.getSource()).data);
                     }
                 });
-                if (viewer.getID().equals(FreeGuide.config.viewerId)) {
+                if (viewer.getID().equals(((MainController.Config)((MainController)Application.getInstance()).getConfig()).viewerId)) {
                     item.setSelected(true);
                 }
                 group.add(item);
