@@ -49,6 +49,13 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
     protected Info cachedInfo;
 
     /**
+     * The maximal age of a file. If it's older, it gets deleted in cleanup()
+     * 86400 (seconds in 1 day) * 7 (days/wee)
+     *   * 4 (weeks) * 10 (to make milliseconds)
+     */
+    protected static final int MAX_FILE_AGE = 24192000;
+
+    /**
      * Creates a new StorageSerFiles object.
      */
     public StorageSerFilesByDay(  )
@@ -320,6 +327,33 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
         data.iterate( it );
         it.sync(  );
     }
+
+
+
+    /**
+     * Deletes all the files older than four (4) weeks.
+     *
+     * Have a look at the MAX_FILE_AGE class constant to get the
+     * real maximum age.
+     */
+    public void cleanup()
+    {
+        File[] files =
+            new File( Application.getInstance(  ).getWorkingDirectory(  ) )
+            .listFiles( new FilterFiles(  ) );
+
+        if( files != null )
+        {
+            for( int i = 0; i < files.length; i++ )
+            {
+                if ((System.currentTimeMillis() - files[i].lastModified()) > MAX_FILE_AGE) {
+                    files[i].delete();
+                }
+            }
+        }
+    }//public void cleanup()
+
+
 
     protected static class FilterFiles implements FileFilter
     {

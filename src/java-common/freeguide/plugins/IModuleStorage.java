@@ -53,6 +53,11 @@ public interface IModuleStorage extends IModule
     void store( TVData data ) throws Exception;
 
     /**
+     * Cleans up old data (e.g. files that are older than some weeks) 
+     */
+    void cleanup();
+
+    /**
      * DOCUMENT ME!
      *
      * @author $author$

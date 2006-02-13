@@ -311,6 +311,12 @@ public class MainController extends BaseModule implements IApplication
         }
     }
 
+
+
+    /**
+     * Starts up all grabbers and reminders via their
+     * start() method.
+     */
     protected void startModules(  )
     {
         viewer.open(  );
@@ -337,9 +343,15 @@ public class MainController extends BaseModule implements IApplication
         }
     }
 
+    /**
+     * Shuts down all running reminders and grabbers via their
+     * stop() method. The viewer is closed after all, too.
+     *
+     * It's called before FreeGuide is closed.
+     */
     protected void stopModules(  )
     {
-
+        //stop reminders
         final PluginInfo[] reminders = PluginsManager.getReminders(  );
 
         for( int i = 0; i < reminders.length; i++ )
@@ -347,6 +359,7 @@ public class MainController extends BaseModule implements IApplication
             ( (IModuleReminder)reminders[i].getInstance(  ) ).stop(  );
         }
 
+        //stop grabbers
         final PluginInfo[] grabbers = PluginsManager.getGrabbers(  );
 
         for( int i = 0; i < grabbers.length; i++ )
@@ -357,6 +370,18 @@ public class MainController extends BaseModule implements IApplication
             grabber.stop(  );
         }
 
+        //clean up storages
+        final PluginInfo[] storages = PluginsManager.getStorages(  );
+
+        for( int i = 0; i < storages.length; i++ )
+        {
+
+            IModuleStorage storage =
+                (IModuleStorage)storages[i].getInstance(  );
+            storage.cleanup(  );
+        }
+
+        //close viewer
         viewer.close(  );
     }
 
@@ -454,7 +479,9 @@ public class MainController extends BaseModule implements IApplication
     }
 
     /**
-     * DOCUMENT_ME!
+     * Activates the grabber controller. That basically
+     * shows the grabber dialog if grabbing is runnning,
+     * or starts the grabbing process
      */
     public void doStartGrabbers(  )
     {
@@ -462,7 +489,8 @@ public class MainController extends BaseModule implements IApplication
     }
 
     /**
-     * DOCUMENT_ME!
+     * Activates the grabber controller.
+     * @see this.doStartGrabbers()
      */
     public void doShowGrabbers(  )
     {

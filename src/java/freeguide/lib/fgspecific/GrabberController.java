@@ -33,7 +33,7 @@ public class GrabberController
     protected boolean isFinished;
 
     /**
-     * Show grabber dialog when grabbing rinning, or start grabbing in new
+     * Show grabber dialog when grabbing running, or start grabbing in new
      * thread.
      *
      * @param controller DOCUMENT ME!
