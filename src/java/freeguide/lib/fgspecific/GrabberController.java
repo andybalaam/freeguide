@@ -59,7 +59,7 @@ public class GrabberController
                         public void run(  )
                         {
                             FreeGuide.log.finest( "start grabbing" );
-                            grab( 
+                            grab(
                                 controller.getApplicationFrame(  ),
                                 controller.mainFrame.getProgressBar(  ) );
                             controller.viewer.onDataChanged(  );
@@ -88,7 +88,7 @@ public class GrabberController
             isFinished = false;
             progressDialog = new ExecutorDialog( owner, secondProgressBar );
 
-            progressDialog.getCancelButton(  ).addActionListener( 
+            progressDialog.getCancelButton(  ).addActionListener(
                 new ActionListener(  )
                 {
                     public void actionPerformed( ActionEvent evt )
@@ -107,68 +107,75 @@ public class GrabberController
                 }
             }.start(  );
 
-        Iterator it = MainController.config.activeGrabberIDs.iterator(  );
 
-        while( it.hasNext(  ) )
-        {
+        if (MainController.config.activeGrabberIDs.size() == 0) {
+            wasError = true;
+            progressDialog.showNoGrabberMessage();
 
-            String grabberID = (String)it.next(  );
+        } else {
+            Iterator it = MainController.config.activeGrabberIDs.iterator(  );
 
-            try
+            while( it.hasNext(  ) )
             {
 
-                IModuleGrabber grabber =
-                    (IModuleGrabber)PluginsManager.getModuleByID( grabberID );
+                String grabberID = (String)it.next(  );
 
-                if( grabber == null )
-                {
-                    FreeGuide.log.warning( "There is no grabber " + grabberID );
-
-                    continue;
-
-                }
-
-                synchronized( this )
-                {
-                    currentGrabber = grabber;
-                }
-
-                if( isFinished )
+                try
                 {
 
-                    break;
+                    IModuleGrabber grabber =
+                        (IModuleGrabber)PluginsManager.getModuleByID( grabberID );
+
+                    if( grabber == null )
+                    {
+                        FreeGuide.log.warning( "There is no grabber " + grabberID );
+
+                        continue;
+
+                    }
+
+                    synchronized( this )
+                    {
+                        currentGrabber = grabber;
+                    }
+
+                    if( isFinished )
+                    {
+
+                        break;
+                    }
+
+                    final StoragePipe pipe = new StoragePipe(  );
+                    grabber.grabData( progressDialog, progressDialog, pipe );
+                    pipe.finish(  );
+
+                    if( isFinished )
+                    {
+
+                        break;
+                    }
                 }
-
-                final StoragePipe pipe = new StoragePipe(  );
-                grabber.grabData( progressDialog, progressDialog, pipe );
-                pipe.finish(  );
-
-                if( isFinished )
+                catch( Throwable ex )
                 {
+                    wasError = true;
 
-                    break;
-                }
-            }
-            catch( Throwable ex )
-            {
-                wasError = true;
+                    if( ex instanceof Exception )
+                    {
+                        progressDialog.error(
+                            "Error grab data by grabber '" + grabberID + "'",
+                            (Exception)ex );
+                    }
+                    else
+                    {
+                        progressDialog.error(
+                            "Error grab data by grabber '" + grabberID + "': "
+                            + ex.getClass(  ).getName(  ) );
+                    }
 
-                if( ex instanceof Exception )
-                {
-                    progressDialog.error( 
-                        "Error grab data by grabber '" + grabberID + "'",
-                        (Exception)ex );
+                    FreeGuide.log.log(
+                        Level.WARNING, "Error grab data by grabber '" + grabberID,
+                        ex );
                 }
-                else
-                {
-                    progressDialog.error( 
-                        "Error grab data by grabber '" + grabberID + "': "
-                        + ex.getClass(  ).getName(  ) );
-                }
-
-                FreeGuide.log.log( 
-                    Level.WARNING, "Error grab data by grabber '" + grabberID,
-                    ex );
             }
         }
 
@@ -182,7 +189,7 @@ public class GrabberController
             synchronized( this )
             {
                 secondProgressBar.setVisible( false );
-                progressDialog.setDefaultCloseOperation( 
+                progressDialog.setDefaultCloseOperation(
                     JDialog.DISPOSE_ON_CLOSE );
                 progressDialog.setCloseLabel(  );
             }
