@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
@@ -28,8 +29,9 @@ public class DocXSLT
 
         final InputStream xslt =
             new FileInputStream( "doc/docbook-xsl-1.69.1/xhtml/chunk.xsl" );
+        final String systemId = new File("doc/docbook-xsl-1.69.1/xhtml/").toURL().toExternalForm();
         final Transformer trans =
-            factory.newTransformer( new StreamSource( xslt ) );
+            factory.newTransformer( new StreamSource( xslt,systemId ) );
 
         trans.transform( 
             new StreamSource( new FileInputStream( "doc/manual.xml" ) ), null );
