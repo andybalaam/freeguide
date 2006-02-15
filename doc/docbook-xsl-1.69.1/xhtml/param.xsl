@@ -71,7 +71,7 @@ div.annotation-close { position: absolute;
 <xsl:param name="appendix.autolabel" select="'A'"/>
 <xsl:param name="author.othername.in.middle" select="1"/>
 <xsl:param name="autotoc.label.separator" select="'. '"/>
-<xsl:param name="base.dir" select="''"/>
+<!-- <xsl:param name="base.dir" select="''"/> -->
 <xsl:param name="biblioentry.item.separator">. </xsl:param>
 <xsl:param name="bibliography.collection" select="'http://docbook.sourceforge.net/release/bibliography/bibliography.xml'"/>
 <xsl:param name="bibliography.numbered" select="0"/>
@@ -121,7 +121,7 @@ div.annotation-close { position: absolute;
 <xsl:param name="emphasis.propagates.style" select="1"/>
 <xsl:param name="entry.propagates.style" select="1"/>
 <xsl:param name="firstterm.only.link" select="0"/>
-<xsl:param name="footer.rule" select="1"/>
+<!-- <xsl:param name="footer.rule" select="1"/> -->
 <xsl:param name="footnote.number.format" select="'1'"/>
 <xsl:param name="footnote.number.symbols" select="''"/>
 <xsl:param name="formal.procedures" select="1"/>
@@ -144,7 +144,7 @@ task before
 <xsl:param name="generate.manifest" select="0"/>
 <xsl:param name="generate.meta.abstract" select="1"/>
 <xsl:param name="generate.section.toc.level" select="0"/>
-<xsl:param name="generate.toc">
+<!--<xsl:param name="generate.toc">
 appendix  toc,title
 article/appendix  nop
 article   toc,title
@@ -162,7 +162,7 @@ sect4     toc
 sect5     toc
 section   toc
 set       toc,title
-</xsl:param>
+</xsl:param>-->
 
 <xsl:param name="glossary.collection" select="''"/>
 <xsl:param name="glossentry.show.acronym" select="'no'"/>
@@ -170,7 +170,7 @@ set       toc,title
 <xsl:param name="graphic.default.extension"/>
 <xsl:param name="graphicsize.extension" select="1"/>
 <xsl:param name="graphicsize.use.img.src.path" select="0"/>
-<xsl:param name="header.rule" select="1"/>
+<!-- <xsl:param name="header.rule" select="1"/> -->
 <xsl:param name="html.base"/>
 <xsl:param name="html.cellpadding" select="''"/>
 <xsl:param name="html.cellspacing" select="''"/>
@@ -353,7 +353,7 @@ set       toc,title
 <xsl:param name="ulink.target" select="'_top'"/>
 <xsl:param name="use.embed.for.svg" select="0"/>
 <xsl:param name="use.extensions" select="'0'"/>
-<xsl:param name="use.id.as.filename" select="'0'"/>
+<!-- <xsl:param name="use.id.as.filename" select="'0'"/> -->
 <xsl:param name="use.local.olink.style" select="0"/> 
 <xsl:param name="use.role.as.xrefstyle" select="1"/>
 <xsl:param name="use.role.for.mediaobject" select="1"/>
