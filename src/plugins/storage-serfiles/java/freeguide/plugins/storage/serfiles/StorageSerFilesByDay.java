@@ -50,10 +50,10 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
 
     /**
      * The maximal age of a file. If it's older, it gets deleted in cleanup()
-     * 86400 (seconds in 1 day) * 7 (days/wee)
-     *   * 4 (weeks) * 10 (to make milliseconds)
+     * 86400 (seconds in 1 day) * 7 (days/week)
+     *   * 4 (weeks) * 1000 (to make milliseconds)
      */
-    protected static final int MAX_FILE_AGE = 24192000;
+    protected static final long MAX_FILE_AGE = (long)86400 * 7 * 4 * 1000;
 
     /**
      * Creates a new StorageSerFiles object.
@@ -133,7 +133,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
         {
 
             ObjectInputStream in =
-                new ObjectInputStream( 
+                new ObjectInputStream(
                     new BufferedInputStream( new FileInputStream( f ) ) );
 
             try
@@ -148,7 +148,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
         }
         catch( Exception ex )
         {
-            Application.getInstance(  ).getLogger(  ).log( 
+            Application.getInstance(  ).getLogger(  ).log(
                 Level.WARNING, "Error read file " + f.getAbsolutePath(  ), ex );
 
             return null;
@@ -191,7 +191,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
 
         long letterNum = ( date % MSEC_PER_DAY ) / MSEC_PARTS;
 
-        return new File( 
+        return new File(
             Application.getInstance(  ).getWorkingDirectory(  ) + "/" + "day-"
             + dateFormat.format( new Date( date ) ) + "-"
             + (char)( 'A' + letterNum ) + ".ser" );
@@ -217,7 +217,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
 
         final TVData result = new TVData(  );
 
-        for( 
+        for(
             long dt = ( ( loadInfo.minDate / MSEC_PARTS ) - 1 ) * MSEC_PARTS;
                 dt < loadInfo.maxDate; dt += MSEC_PARTS )
         {
@@ -232,14 +232,14 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
 
             if( loadInfo.channelsList != null )
             {
-                data.iterateChannels( 
+                data.iterateChannels(
                     new TVIteratorChannels(  )
                     {
                         protected void onChannel( TVChannel channel )
                         {
 
-                            if( 
-                                !loadInfo.channelsList.contains( 
+                            if(
+                                !loadInfo.channelsList.contains(
                                         channel.getID(  ) ) )
                             {
                                 it.remove(  );
@@ -248,7 +248,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
                     } );
             }
 
-            data.iterateProgrammes( 
+            data.iterateProgrammes(
                 new TVIteratorProgrammes(  )
                 {
                     protected void onChannel( TVChannel channel )
@@ -258,7 +258,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
                     protected void onProgramme( TVProgramme programme )
                     {
 
-                        if( 
+                        if(
                             ( programme.getStart(  ) >= loadInfo.maxDate )
                                 || ( programme.getEnd(  ) <= loadInfo.minDate ) )
                         {
@@ -283,11 +283,11 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public synchronized TVProgramme findEarliest( 
+    public synchronized TVProgramme findEarliest(
         long minDate, EarliestCheckAllow check ) throws Exception
     {
 
-        for( 
+        for(
             long dt = ( minDate / MSEC_PARTS ) * MSEC_PARTS;
                 dt < getInfo(  ).maxDate; dt += MSEC_PARTS )
         {
@@ -404,7 +404,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
         public void onProgramme( TVProgramme programme )
         {
 
-            if( 
+            if(
                 programme.getStart(  ) < ( System.currentTimeMillis(  )
                     - OLD_DATA ) )
             {
@@ -463,8 +463,8 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
                     file.getParentFile(  ).mkdirs(  );
 
                     ObjectOutputStream out =
-                        new ObjectOutputStream( 
-                            new BufferedOutputStream( 
+                        new ObjectOutputStream(
+                            new BufferedOutputStream(
                                 new FileOutputStream( file ) ) );
 
                     out.writeObject( storedData );
@@ -475,7 +475,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
                 }
                 catch( Exception ex )
                 {
-                    Application.getInstance(  ).getLogger(  ).log( 
+                    Application.getInstance(  ).getLogger(  ).log(
                         Level.WARNING,
                         "Error write file " + file.getAbsolutePath(  ), ex );
                 }
