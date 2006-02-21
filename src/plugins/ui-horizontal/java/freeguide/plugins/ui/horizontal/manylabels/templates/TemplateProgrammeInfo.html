@@ -18,8 +18,8 @@
 		<br>
 		<table cellpadding='1' cellspacing='0' border='0'>
 		  <ITERATOR:getExtraTags()>
-			<tr><td><b><VALUE:getKey()/></b></td><td><VALUE:getHashOfAttr()/></td></tr>
-			<ITERATOR:getTagAttrs(getValue())>
+			<tr><td><b><VALUE:getKey()/></b></td><td><VALUE:.getHashOfAttr(getValue())/></td></tr>
+			<ITERATOR:.getTagAttrs(getValue())>
 				<tr><td></td><td><VALUE:getKey()/>: <VALUE:getValue()/></td></tr>
 			</ITERATOR>
 		  </ITERATOR>

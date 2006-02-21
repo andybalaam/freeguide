@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class for parse templates and produce results.
@@ -455,7 +456,31 @@ public class TemplateParser
                     final Method method =
                         calledObject.getClass(  ).getMethod( 
                             methodName, parameterTypes );
-                    value = method.invoke( calledObject, params.toArray(  ) );
+
+                    // invoke methods for Map.Entry by hand, because it can't be invoked through reflection - cannot access to protected class HashMap$Entry
+                    if( 
+                        method.getName(  ).equals( "getKey" )
+                            && ( method.getParameterTypes(  ).length == 0 )
+                            && calledObject instanceof Map.Entry )
+                    {
+
+                        final Map.Entry entry = (Map.Entry)calledObject;
+                        value = entry.getKey(  );
+                    }
+                    else if( 
+                        method.getName(  ).equals( "getValue" )
+                            && ( method.getParameterTypes(  ).length == 0 )
+                            && calledObject instanceof Map.Entry )
+                    {
+
+                        final Map.Entry entry = (Map.Entry)calledObject;
+                        value = entry.getValue(  );
+                    }
+                    else
+                    {
+                        value =
+                            method.invoke( calledObject, params.toArray(  ) );
+                    }
                 }
                 else
                 {

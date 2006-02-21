@@ -14,6 +14,7 @@ import java.text.DateFormat;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -155,7 +156,7 @@ public class HandlerProgrammeInfo
      *
      * @return DOCUMENT_ME!
      */
-    public Object getHashOfAttr( final Map hashOfAttrs )
+    public Object getHashOfAttr( final HashMap hashOfAttrs )
     {
 
         return hashOfAttrs.get( "" );
@@ -168,7 +169,7 @@ public class HandlerProgrammeInfo
      *
      * @return DOCUMENT_ME!
      */
-    public Collection getTagAttrs( final Map attrs )
+    public Collection getTagAttrs( final HashMap attrs )
     {
 
         final Map result = new TreeMap( attrs );
