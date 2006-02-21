@@ -22,8 +22,8 @@ import freeguide.plugins.IModuleImport;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowListener;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import java.util.Locale;
 
@@ -44,20 +44,28 @@ public class MenuHandler
     {
         this.controller = controller;
 
-        controller.mainFrame.getMenuItemExit(  ).addActionListener(
+        controller.mainFrame.getMenuItemExit(  ).addActionListener( 
             new ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
-                    WindowListener[] listeners = controller.mainFrame.getWindowListeners();
-                    for (int i = 0; i < listeners.length; i++) {
-                        listeners[i].windowClosing(new WindowEvent(controller.mainFrame, WindowEvent.WINDOW_CLOSING));
+
+                    WindowListener[] listeners =
+                        controller.mainFrame.getWindowListeners(  );
+
+                    for( int i = 0; i < listeners.length; i++ )
+                    {
+                        listeners[i].windowClosing( 
+                            new WindowEvent( 
+                                controller.mainFrame,
+                                WindowEvent.WINDOW_CLOSING ) );
                     }
+
                     controller.mainFrame.dispose(  );
                 }
             } );
 
-        controller.mainFrame.getMenuItemOptions(  ).addActionListener(
+        controller.mainFrame.getMenuItemOptions(  ).addActionListener( 
             new ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
@@ -85,7 +93,7 @@ public class MenuHandler
                 }
             } );
 
-        controller.mainFrame.getMenuItemDownload(  ).addActionListener(
+        controller.mainFrame.getMenuItemDownload(  ).addActionListener( 
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
@@ -95,7 +103,7 @@ public class MenuHandler
                 }
             } );
 
-        controller.mainFrame.getMenuItemPrint(  ).addActionListener(
+        controller.mainFrame.getMenuItemPrint(  ).addActionListener( 
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
@@ -105,7 +113,7 @@ public class MenuHandler
                 }
             } );
 
-        controller.mainFrame.getMenuItemChannelsSets(  ).addActionListener(
+        controller.mainFrame.getMenuItemChannelsSets(  ).addActionListener( 
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
@@ -115,28 +123,28 @@ public class MenuHandler
                 }
             } );
 
-        controller.mainFrame.getMenuItemUserGuide(  ).addActionListener(
+        controller.mainFrame.getMenuItemUserGuide(  ).addActionListener( 
             new ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
-                    FileHelper.openFile(
+                    FileHelper.openFile( 
                         FreeGuide.runtimeInfo.docDirectory + "/userguide.html" );
                 }
             } );
 
-        controller.mainFrame.getMenuItemAbout(  ).addActionListener(
+        controller.mainFrame.getMenuItemAbout(  ).addActionListener( 
             new ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
-                    new AboutFrame( controller.mainFrame, true ).setVisible(
+                    new AboutFrame( controller.mainFrame, true ).setVisible( 
                         true );
 
                 }
             } );
 
-        controller.mainFrame.getMenuItemWizard(  ).addActionListener(
+        controller.mainFrame.getMenuItemWizard(  ).addActionListener( 
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
@@ -145,7 +153,7 @@ public class MenuHandler
                 }
             } );
 
-        controller.mainFrame.getMenuItemUpdater(  ).addActionListener(
+        controller.mainFrame.getMenuItemUpdater(  ).addActionListener( 
             new ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
@@ -153,11 +161,11 @@ public class MenuHandler
 
                     if( FreeGuide.arguments.containsKey( "no-plugin-manager" ) )
                     {
-                        JOptionPane.showMessageDialog(
+                        JOptionPane.showMessageDialog( 
                             controller.mainFrame,
-                            Application.getInstance(  ).getLocalizedMessage(
+                            Application.getInstance(  ).getLocalizedMessage( 
                                 "UpdateManager.Disabled.Text" ),
-                            Application.getInstance(  ).getLocalizedMessage(
+                            Application.getInstance(  ).getLocalizedMessage( 
                                 "UpdateManager.Disabled.Header" ),
                             JOptionPane.ERROR_MESSAGE );
                     }
@@ -183,10 +191,10 @@ public class MenuHandler
                 final IModuleExport ex =
                     (IModuleExport)exporters[i].getInstance(  );
                 final JMenuItem item =
-                    new JMenuItem(
+                    new JMenuItem( 
                         exporters[i].getName( Locale.getDefault(  ) ) );
                 controller.mainFrame.getMenuItemExport(  ).add( item );
-                item.addActionListener(
+                item.addActionListener( 
                     new ActionListener(  )
                     {
                         public void actionPerformed( ActionEvent e )
@@ -212,10 +220,10 @@ public class MenuHandler
                 final IModuleImport im =
                     (IModuleImport)importers[i].getInstance(  );
                 final JMenuItem item =
-                    new JMenuItem(
+                    new JMenuItem( 
                         importers[i].getName( Locale.getDefault(  ) ) );
                 controller.mainFrame.getMenuItemImport(  ).add( item );
-                item.addActionListener(
+                item.addActionListener( 
                     new ActionListener(  )
                     {
                         public void actionPerformed( ActionEvent e )

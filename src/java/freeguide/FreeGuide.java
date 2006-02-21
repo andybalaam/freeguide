@@ -102,9 +102,9 @@ public class FreeGuide
     public FreeGuide( String[] args ) throws Exception
     {
         startupMessages =
-            new LanguageHelper(
+            new LanguageHelper( 
                 "i18n/Startup",
-                LanguageHelper.getPreferredLocale(
+                LanguageHelper.getPreferredLocale( 
                     new Locale[] { Locale.getDefault(  ) },
                     LanguageHelper.getLocaleList( "i18n/Startup" ) ) );
 
@@ -122,7 +122,7 @@ public class FreeGuide
         }
         else
         {
-            warning(
+            warning( 
                 startupMessages.getLocalizedMessage( "startup.NoDocDir" ) );
         }
 
@@ -135,7 +135,7 @@ public class FreeGuide
 
         else
         {
-            warning(
+            warning( 
                 startupMessages.getLocalizedMessage( "startup.NoInstallDir" ) );
         }
 
@@ -154,7 +154,7 @@ public class FreeGuide
         // load config
         try
         {
-            PreferencesHelper.load(
+            PreferencesHelper.load( 
                 Preferences.userRoot(  ).node( PREF_ROOT_NAME ), config );
             config.version = Application.VERSION.getDotFormat(  );
         }
@@ -167,12 +167,12 @@ public class FreeGuide
 
         if( PluginsManager.getApplicationModuleInfo(  ) == null )
         {
-            die(
-                startupMessages.getLocalizedMessage(
+            die( 
+                startupMessages.getLocalizedMessage( 
                     "startup.NoApplicationModule" ) );
         }
 
-        Application.setInstance(
+        Application.setInstance( 
             (IApplication)PluginsManager.getApplicationModuleInfo(  )
                                         .getInstance(  ) );
 
@@ -201,7 +201,7 @@ public class FreeGuide
 
         try
         {
-            PreferencesHelper.save(
+            PreferencesHelper.save( 
                 Preferences.userRoot(  ).node( PREF_ROOT_NAME ), config );
 
         }
@@ -213,10 +213,9 @@ public class FreeGuide
     }
 
     /**
-     * Perform a normal startup.
-     * Loads the selected/default user interface (horizontal/vertical),
-     * loads the storage module, tries to import XMLTV data
-     * and starts the application
+     * Perform a normal startup. Loads the selected/default user interface
+     * (horizontal/vertical), loads the storage module, tries to import XMLTV
+     * data and starts the application
      *
      * @param grabberFromWizard DOCUMENT ME!
      *
@@ -227,15 +226,22 @@ public class FreeGuide
     {
 
         IModuleViewer viewer =
-            (IModuleViewer)PluginsManager.getModuleByID( ((MainController.Config)((MainController)Application.getInstance()).getConfig()).viewerId );
+            (IModuleViewer)PluginsManager.getModuleByID( 
+                ( (MainController.Config)( (MainController)Application
+                .getInstance(  ) ).getConfig(  ) ).viewerId );
         storage = (IModuleStorage)PluginsManager.getModuleByID( STORAGE_ID );
 
         if( viewer == null )
         {
-            if (PluginsManager.getViewers().length == 0) {
+
+            if( PluginsManager.getViewers(  ).length == 0 )
+            {
                 die( startupMessages.getLocalizedMessage( "startup.NoUI" ) );
             }
-            viewer = (IModuleViewer)PluginsManager.getModuleByID(PluginsManager.getViewers()[0].getID());
+
+            viewer =
+                (IModuleViewer)PluginsManager.getModuleByID( 
+                    PluginsManager.getViewers(  )[0].getID(  ) );
         }
 
         if( storage == null )
@@ -252,7 +258,7 @@ public class FreeGuide
             log.log( Level.WARNING, "Error loading XMLTV file", ex );
         }
 
-        ( (MainController)Application.getInstance(  ) ).start(
+        ( (MainController)Application.getInstance(  ) ).start( 
             viewer, grabberFromWizard );
     }
 
@@ -274,7 +280,7 @@ public class FreeGuide
         }
 
         File[] xmltvFiles =
-            new File( config.workingDirectory ).listFiles(
+            new File( config.workingDirectory ).listFiles( 
                 new FileFilter(  )
                 {
                     public boolean accept( File pathname )
@@ -327,7 +333,7 @@ public class FreeGuide
     public static void die( String msg )
     {
         log.severe( msg );
-        JOptionPane.showMessageDialog(
+        JOptionPane.showMessageDialog( 
             null, msg, null, JOptionPane.ERROR_MESSAGE );
         System.exit( 1 );
     }
@@ -340,7 +346,7 @@ public class FreeGuide
     public static void warning( String msg )
     {
         log.warning( msg );
-        JOptionPane.showMessageDialog(
+        JOptionPane.showMessageDialog( 
             null, msg, null, JOptionPane.WARNING_MESSAGE );
     }
 
@@ -429,8 +435,8 @@ public class FreeGuide
 
         if( Version.getJavaVersion(  ).lessThan( MINIMUM_JAVA_VERSION ) )
         {
-            die(
-                startupMessages.getLocalizedMessage(
+            die( 
+                startupMessages.getLocalizedMessage( 
                     "startup.WrongJavaVersion",
                     new String[] { System.getProperty( "java.version" ) } ) );
         }

@@ -1,28 +1,29 @@
 package freeguide.gui.viewer;
 
+import freeguide.FreeGuide;
+
 import freeguide.gui.jcommon.JWaitFrame;
 
 import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.PluginsManager;
 import freeguide.lib.fgspecific.PluginInfo;
+import freeguide.lib.fgspecific.PluginsManager;
 
 import freeguide.lib.general.LanguageHelper;
 
 import freeguide.plugins.IApplication;
-import freeguide.FreeGuide;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 import java.io.IOException;
+
 import java.util.Locale;
 
 import javax.swing.*;
-
 
 /**
  * Main application frame.
@@ -72,7 +73,7 @@ public class MainFrame extends JWaitFrame
         {
 
             byte[] data =
-                LanguageHelper.loadResourceAsByteArray(
+                LanguageHelper.loadResourceAsByteArray( 
                     "images/logo-16x16.png" );
 
             if( data != null )
@@ -214,12 +215,12 @@ public class MainFrame extends JWaitFrame
         {
             menuItemOptions = new JMenuItem(  );
 
-            menuItemOptions.setText(
+            menuItemOptions.setText( 
                 getLocalizedString( "MainFrame.Menu.Options" ) );
 
             menuItemOptions.setMnemonic( KeyEvent.VK_O );
 
-            menuItemOptions.setAccelerator(
+            menuItemOptions.setAccelerator( 
                 KeyStroke.getKeyStroke( KeyEvent.VK_O, InputEvent.CTRL_MASK ) );
 
         }
@@ -244,7 +245,7 @@ public class MainFrame extends JWaitFrame
 
             menuItemExit.setMnemonic( KeyEvent.VK_Q );
 
-            menuItemExit.setAccelerator(
+            menuItemExit.setAccelerator( 
                 KeyStroke.getKeyStroke( KeyEvent.VK_Q, InputEvent.CTRL_MASK ) );
 
         }
@@ -293,12 +294,12 @@ public class MainFrame extends JWaitFrame
         {
             menuItemAbout = new JMenuItem(  );
 
-            menuItemAbout.setText(
+            menuItemAbout.setText( 
                 getLocalizedString( "MainFrame.Menu.About" ) );
 
             menuItemAbout.setMnemonic( KeyEvent.VK_A );
 
-            menuItemAbout.setAccelerator(
+            menuItemAbout.setAccelerator( 
                 KeyStroke.getKeyStroke( KeyEvent.VK_A, InputEvent.CTRL_MASK ) );
 
         }
@@ -319,7 +320,7 @@ public class MainFrame extends JWaitFrame
         {
             menuItemUserGuide = new JMenuItem(  );
 
-            menuItemUserGuide.setText(
+            menuItemUserGuide.setText( 
                 getLocalizedString( "MainFrame.Menu.UserGuide" ) );
 
             menuItemUserGuide.setMnemonic( KeyEvent.VK_U );
@@ -331,13 +332,11 @@ public class MainFrame extends JWaitFrame
     }
 
     /**
-     * This method initializes the View menu.
-     * It automatically creates the submenu with all
-     * available viewers.
-     *
-     * I had to make an "addMenuView", because it's determined here
-     * if we need this menu. If we don't need the menu, we can't return it,
-     * and adding a NULL to a component isn't good
+     * This method initializes the View menu. It automatically creates the
+     * submenu with all available viewers. I had to make an "addMenuView",
+     * because it's determined here if we need this menu. If we don't need
+     * the menu, we can't return it, and adding a NULL to a component isn't
+     * good
      *
      * @return javax.swing.JMenu
      */
@@ -349,38 +348,67 @@ public class MainFrame extends JWaitFrame
             menuView = new JMenu(  );
             menuView.setText( getLocalizedString( "MainFrame.Menu.View" ) );
             menuView.setMnemonic( KeyEvent.VK_V );
+            class JDataRadioButtonMenuItem extends JRadioButtonMenuItem
+            {
 
-            class JDataRadioButtonMenuItem extends JRadioButtonMenuItem {
+                /** DOCUMENT ME! */
                 public String data = null;
-                public JDataRadioButtonMenuItem(String string) {
-                    super(string);
+
+                /**
+                 * Creates a new JDataRadioButtonMenuItem object.
+                 *
+                 * @param string DOCUMENT ME!
+                 */
+                public JDataRadioButtonMenuItem( String string )
+                {
+                    super( string );
                 }
             }
 
-            PluginInfo[] viewers = PluginsManager.getViewers();
-            if (viewers.length <= 1) {
+            PluginInfo[] viewers = PluginsManager.getViewers(  );
+
+            if( viewers.length <= 1 )
+            {
+
                 //Don't show viewers menu if there is only one
                 return null;
             }
 
-            ButtonGroup group = new ButtonGroup();
-            for (int i = 0; i < viewers.length; i++) {
+            ButtonGroup group = new ButtonGroup(  );
+
+            for( int i = 0; i < viewers.length; i++ )
+            {
+
                 PluginInfo viewer = viewers[i];
-                JDataRadioButtonMenuItem item = new JDataRadioButtonMenuItem(viewer.getName(Locale.getDefault()));
-                item.data = viewer.getID();
-                item.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        ((MainController)Application.getInstance()).setViewer(((JDataRadioButtonMenuItem)actionEvent.getSource()).data);
-                    }
-                });
-                if (viewer.getID().equals(((MainController.Config)((MainController)Application.getInstance()).getConfig()).viewerId)) {
-                    item.setSelected(true);
+                JDataRadioButtonMenuItem item =
+                    new JDataRadioButtonMenuItem( 
+                        viewer.getName( Locale.getDefault(  ) ) );
+                item.data = viewer.getID(  );
+                item.addActionListener( 
+                    new ActionListener(  )
+                    {
+                        public void actionPerformed( ActionEvent actionEvent )
+                        {
+                            ( (MainController)Application.getInstance(  ) )
+                            .setViewer( 
+                                ( (JDataRadioButtonMenuItem)actionEvent
+                                .getSource(  ) ).data );
+                        }
+                    } );
+
+                if( 
+                    viewer.getID(  ).equals( 
+                            ( (MainController.Config)( (MainController)Application
+                            .getInstance(  ) ).getConfig(  ) ).viewerId ) )
+                {
+                    item.setSelected( true );
                 }
-                group.add(item);
-                menuView.add(item);
+
+                group.add( item );
+                menuView.add( item );
             }
 
-            mainMenu.add(menuView);
+            mainMenu.add( menuView );
         }
 
         return menuView;
@@ -426,12 +454,12 @@ public class MainFrame extends JWaitFrame
         {
             menuItemDownload = new JMenuItem(  );
 
-            menuItemDownload.setText(
+            menuItemDownload.setText( 
                 getLocalizedString( "MainFrame.Menu.Download" ) );
 
             menuItemDownload.setMnemonic( KeyEvent.VK_D );
 
-            menuItemDownload.setAccelerator(
+            menuItemDownload.setAccelerator( 
                 KeyStroke.getKeyStroke( KeyEvent.VK_D, InputEvent.CTRL_MASK ) );
 
             //	                    mbtDownloadActionPerformed( evt );
@@ -452,7 +480,7 @@ public class MainFrame extends JWaitFrame
         if( menuItemExport == null )
         {
             menuItemExport = new JMenu(  );
-            menuItemExport.setText(
+            menuItemExport.setText( 
                 getLocalizedString( "MainFrame.Menu.Export" ) );
 
         }
@@ -472,12 +500,12 @@ public class MainFrame extends JWaitFrame
         {
             menuItemPrint = new JMenuItem(  );
 
-            menuItemPrint.setText(
+            menuItemPrint.setText( 
                 getLocalizedString( "MainFrame.Menu.Print" ) );
 
             menuItemPrint.setMnemonic( KeyEvent.VK_P );
 
-            menuItemPrint.setAccelerator(
+            menuItemPrint.setAccelerator( 
                 KeyStroke.getKeyStroke( KeyEvent.VK_P, InputEvent.CTRL_MASK ) );
 
             //	                    mbtPrintActionPerformed( evt );
@@ -499,7 +527,7 @@ public class MainFrame extends JWaitFrame
         {
             menuItemWizard = new JMenuItem(  );
 
-            menuItemWizard.setText(
+            menuItemWizard.setText( 
                 getLocalizedString( "MainFrame.Menu.Wizard" ) );
         }
 
@@ -519,12 +547,12 @@ public class MainFrame extends JWaitFrame
         {
             menuItemChannelsSets = new JMenuItem(  );
 
-            menuItemChannelsSets.setText(
+            menuItemChannelsSets.setText( 
                 getLocalizedString( "MainFrame.Menu.ChannelsSets" ) );
 
             menuItemChannelsSets.setMnemonic( KeyEvent.VK_H );
 
-            menuItemChannelsSets.setAccelerator(
+            menuItemChannelsSets.setAccelerator( 
                 KeyStroke.getKeyStroke( KeyEvent.VK_H, InputEvent.CTRL_MASK ) );
 
         }
@@ -579,12 +607,12 @@ public class MainFrame extends JWaitFrame
         if( menuItemUpdater == null )
         {
             menuItemUpdater = new JMenuItem(  );
-            menuItemUpdater.setText(
+            menuItemUpdater.setText( 
                 getLocalizedString( "MainFrame.Menu.Updater" ) );
 
             menuItemUpdater.setMnemonic( KeyEvent.VK_U );
 
-            menuItemUpdater.setAccelerator(
+            menuItemUpdater.setAccelerator( 
                 KeyStroke.getKeyStroke( KeyEvent.VK_U, InputEvent.CTRL_MASK ) );
         }
 
@@ -602,7 +630,7 @@ public class MainFrame extends JWaitFrame
         if( menuItemImport == null )
         {
             menuItemImport = new JMenu(  );
-            menuItemImport.setText(
+            menuItemImport.setText( 
                 getLocalizedString( "MainFrame.Menu.Import" ) );
         }
 

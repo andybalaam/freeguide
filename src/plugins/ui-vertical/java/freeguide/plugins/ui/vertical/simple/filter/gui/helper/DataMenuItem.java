@@ -2,52 +2,68 @@ package freeguide.plugins.ui.vertical.simple.filter.gui.helper;
 
 import javax.swing.*;
 
-
 /**
  * Simple menu item which can hold a data item
  *
- * @author Christian Weiske <cweiske@cweiske.de>
+ * @author Christian Weiske (cweiske at cweiske.de)
  */
 public class DataMenuItem extends JMenuItem
 {
-    /**
-     * Everyone can access that
-     */
+
+    /** Everyone can access that */
     public Object data;
 
-
-
-    public DataMenuItem()
+    /**
+     * Creates a new DataMenuItem object.
+     */
+    public DataMenuItem(  )
     {
-        super();
+        super(  );
     }
 
-
-
-    public DataMenuItem(String string)
+    /**
+     * Creates a new DataMenuItem object.
+     *
+     * @param string DOCUMENT ME!
+     */
+    public DataMenuItem( String string )
     {
-        super(string);
+        super( string );
     }
 
-
-
-    public DataMenuItem(String string, Object data)
+    /**
+     * Creates a new DataMenuItem object.
+     *
+     * @param string DOCUMENT ME!
+     * @param data DOCUMENT ME!
+     */
+    public DataMenuItem( String string, Object data )
     {
-        super(string);
+        super( string );
         this.data = data;
     }
 
-
-
-    public Object getData()
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Object getData(  )
     {
+
         return data;
     }
 
-
-
-    public void setData(Object data)
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param data DOCUMENT_ME!
+     */
+    public void setData( Object data )
     {
         this.data = data;
     }
-}//public class DataMenuItem
+}
+
+
+//public class DataMenuItem

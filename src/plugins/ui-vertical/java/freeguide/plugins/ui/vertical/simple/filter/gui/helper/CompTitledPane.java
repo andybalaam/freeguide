@@ -6,8 +6,9 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
 /**
+ * DOCUMENT ME!
+ *
  * @version 1.0 08/12/99
  */
 public class CompTitledPane extends JPanel
@@ -20,137 +21,193 @@ public class CompTitledPane extends JPanel
     protected boolean transmittingAllowed;
     protected StateTransmitter transmitter;
 
-
-
-    public CompTitledPane()
+    /**
+     * Creates a new CompTitledPane object.
+     */
+    public CompTitledPane(  )
     {
-        this(new JLabel("Title"));
+        this( new JLabel( "Title" ) );
+
         // debug
         // JLabel label = (JLabel)getTitleComponent();
         // label.setOpaque(true);
         // label.setBackground(Color.yellow);
     }
 
-
-
-    public CompTitledPane(JComponent component)
+    /**
+     * Creates a new CompTitledPane object.
+     *
+     * @param component DOCUMENT ME!
+     */
+    public CompTitledPane( JComponent component )
     {
         this.component = component;
-        border = new CompTitledBorder(component);
-        setBorder(border);
-        panel = new JPanel(new BorderLayout());
-        setLayout(null);
-        add(component, false);
-        add(panel, false);
+        border = new CompTitledBorder( component );
+        setBorder( border );
+        panel = new JPanel( new BorderLayout(  ) );
+        setLayout( null );
+        add( component, false );
+        add( panel, false );
         transmittingAllowed = false;
         transmitter = null;
     }
 
-
-
-    public JComponent getTitleComponent()
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public JComponent getTitleComponent(  )
     {
+
         return component;
     }
 
-
-
-    public void setTitleComponent(JComponent newComponent)
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param newComponent DOCUMENT_ME!
+     */
+    public void setTitleComponent( JComponent newComponent )
     {
-        remove(component);
-        add(newComponent);
-        border.setTitleComponent(newComponent);
+        remove( component );
+        add( newComponent );
+        border.setTitleComponent( newComponent );
         component = newComponent;
     }
 
-
-
-    public Component add(Component c)
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param c DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Component add( Component c )
     {
-        return this.add(c, true);
+
+        return this.add( c, true );
     }
 
-
-
-    public Component add(Component c, boolean bToContentPane)
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param c DOCUMENT_ME!
+     * @param bToContentPane DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Component add( Component c, boolean bToContentPane )
     {
-        if (bToContentPane) {
-            this.getContentPane().add(c);
-        } else {
-            super.add(c);
+
+        if( bToContentPane )
+        {
+            this.getContentPane(  ).add( c );
         }
+        else
+        {
+            super.add( c );
+        }
+
         return c;
     }
 
-
-
-    public void remove(Component c)
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param c DOCUMENT_ME!
+     */
+    public void remove( Component c )
     {
-        getContentPane().remove(c);
-        getContentPane().updateUI();
+        getContentPane(  ).remove( c );
+        getContentPane(  ).updateUI(  );
     }
 
-
-
-    public JPanel getContentPane()
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public JPanel getContentPane(  )
     {
+
         return panel;
     }
 
-
-
-    public void doLayout()
+    /**
+     * DOCUMENT_ME!
+     */
+    public void doLayout(  )
     {
-        Insets insets = getInsets();
-        Rectangle rect = getBounds();
+
+        Insets insets = getInsets(  );
+        Rectangle rect = getBounds(  );
         rect.x = 0;
         rect.y = 0;
 
-        Rectangle compR = border.getComponentRect(rect, insets);
-        component.setBounds(compR);
+        Rectangle compR = border.getComponentRect( rect, insets );
+        component.setBounds( compR );
         rect.x += insets.left;
         rect.y += insets.top;
-        rect.width -= insets.left + insets.right;
-        rect.height -= insets.top + insets.bottom;
-        panel.setBounds(rect);
+        rect.width -= ( insets.left + insets.right );
+        rect.height -= ( insets.top + insets.bottom );
+        panel.setBounds( rect );
     }
 
-
-
-    public void setTransmittingAllowed(boolean enable)
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param enable DOCUMENT_ME!
+     */
+    public void setTransmittingAllowed( boolean enable )
     {
         transmittingAllowed = enable;
     }
 
-
-
-    public boolean getTransmittingAllowed()
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public boolean getTransmittingAllowed(  )
     {
+
         return transmittingAllowed;
     }
 
-
-
-    public void setTransmitter(StateTransmitter transmitter)
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param transmitter DOCUMENT_ME!
+     */
+    public void setTransmitter( StateTransmitter transmitter )
     {
         this.transmitter = transmitter;
     }
 
-
-
-    public StateTransmitter getTransmitter()
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public StateTransmitter getTransmitter(  )
     {
+
         return transmitter;
     }
 
-
-
-    public void setEnabled(boolean enable)
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param enable DOCUMENT_ME!
+     */
+    public void setEnabled( boolean enable )
     {
-        super.setEnabled(enable);
-        if (transmittingAllowed && transmitter != null) {
-            transmitter.setChildrenEnabled(enable);
+        super.setEnabled( enable );
+
+        if( transmittingAllowed && ( transmitter != null ) )
+        {
+            transmitter.setChildrenEnabled( enable );
         }
     }
-
 }
