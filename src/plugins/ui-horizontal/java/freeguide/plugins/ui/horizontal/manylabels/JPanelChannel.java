@@ -1,6 +1,6 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import freeguide.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVChannel;
 
 import javax.swing.JPanel;
 

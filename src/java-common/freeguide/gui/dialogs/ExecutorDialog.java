@@ -8,14 +8,14 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.gui.dialogs;
+package freeguide.common.gui;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.lib.general.Utils;
+import freeguide.common.lib.general.Utils;
 
-import freeguide.plugins.ILogger;
-import freeguide.plugins.IProgress;
+import freeguide.common.plugins.ILogger;
+import freeguide.common.plugins.IProgress;
 
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;

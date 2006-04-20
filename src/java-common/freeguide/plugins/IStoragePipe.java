@@ -1,8 +1,8 @@
-package freeguide.plugins;
+package freeguide.common.plugins;
 
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVData;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 /**
  * Interface for declare methods for store partially data from grabbers.

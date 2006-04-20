@@ -1,9 +1,9 @@
-package freeguide.gui.updater;
+package freeguide.plugins.program.freeguide.updater;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.lib.updater.data.PluginPackage;
-import freeguide.lib.updater.data.PluginsRepository;
+import freeguide.common.lib.updater.data.PluginPackage;
+import freeguide.common.lib.updater.data.PluginsRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;

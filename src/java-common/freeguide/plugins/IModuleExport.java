@@ -1,6 +1,6 @@
-package freeguide.plugins;
+package freeguide.common.plugins;
 
-import freeguide.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.data.TVData;
 
 import java.io.IOException;
 

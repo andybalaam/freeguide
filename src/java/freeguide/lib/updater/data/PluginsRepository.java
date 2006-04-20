@@ -1,9 +1,9 @@
-package freeguide.lib.updater.data;
+package freeguide.plugins.program.freeguide.lib.updater.data;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.fgspecific.PluginInfo;
-import freeguide.lib.fgspecific.PluginsManager;
+import freeguide.common.lib.fgspecific.PluginInfo;
+import freeguide.common.lib.fgspecific.PluginsManager;
 
 import java.io.File;
 

@@ -1,10 +1,10 @@
-package freeguide.lib.grabber;
+package freeguide.common.lib.grabber;
 
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.Time;
+import freeguide.common.lib.general.Time;
 
-import freeguide.plugins.ILogger;
+import freeguide.common.plugins.ILogger;
 
 import java.text.ParseException;
 

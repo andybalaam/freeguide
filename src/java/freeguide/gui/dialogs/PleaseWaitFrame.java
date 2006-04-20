@@ -10,12 +10,12 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.gui.dialogs;
+package freeguide.plugins.program.freeguide.dialogs;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.general.LanguageHelper;
-import freeguide.lib.general.Utils;
+import freeguide.common.lib.general.LanguageHelper;
+import freeguide.common.lib.general.Utils;
 
 import java.awt.Image;
 

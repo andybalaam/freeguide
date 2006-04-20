@@ -1,14 +1,14 @@
 package freeguide.plugins.grabber.kulichki;
 
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.grabber.HtmlHelper;
-import freeguide.lib.grabber.LineProgrammeHelper;
-import freeguide.lib.grabber.TimeHelper;
+import freeguide.common.lib.grabber.HtmlHelper;
+import freeguide.common.lib.grabber.LineProgrammeHelper;
+import freeguide.common.lib.grabber.TimeHelper;
 
-import freeguide.plugins.ILogger;
-import freeguide.plugins.IStoragePipe;
+import freeguide.common.plugins.ILogger;
+import freeguide.common.plugins.IStoragePipe;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

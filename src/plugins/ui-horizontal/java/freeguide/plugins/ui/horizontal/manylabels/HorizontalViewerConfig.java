@@ -1,7 +1,7 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import freeguide.lib.general.PreferencesHelper;
-import freeguide.lib.general.Time;
+import freeguide.common.lib.general.PreferencesHelper;
+import freeguide.common.lib.general.Time;
 
 import java.awt.Color;
 import java.awt.Font;

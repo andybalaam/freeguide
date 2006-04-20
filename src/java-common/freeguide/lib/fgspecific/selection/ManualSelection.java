@@ -1,6 +1,6 @@
-package freeguide.lib.fgspecific.selection;
+package freeguide.common.lib.fgspecific.selection;
 
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 /**
  * Class for store manual selection or deselection of TV programme.

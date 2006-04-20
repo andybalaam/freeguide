@@ -1,20 +1,20 @@
 package freeguide.plugins.grabber.xmltv;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.lib.general.LanguageHelper;
-import freeguide.lib.general.StringHelper;
-import freeguide.lib.general.Utils;
+import freeguide.common.lib.general.LanguageHelper;
+import freeguide.common.lib.general.StringHelper;
+import freeguide.common.lib.general.Utils;
 
-import freeguide.lib.impexp.XMLTVImport;
+import freeguide.common.lib.impexp.XMLTVImport;
 
-import freeguide.plugins.BaseModule;
-import freeguide.plugins.ILogger;
-import freeguide.plugins.IModuleConfigurationUI;
-import freeguide.plugins.IModuleConfigureFromWizard;
-import freeguide.plugins.IModuleGrabber;
-import freeguide.plugins.IProgress;
-import freeguide.plugins.IStoragePipe;
+import freeguide.common.plugins.BaseModule;
+import freeguide.common.plugins.ILogger;
+import freeguide.common.plugins.IModuleConfigurationUI;
+import freeguide.common.plugins.IModuleConfigureFromWizard;
+import freeguide.common.plugins.IModuleGrabber;
+import freeguide.common.plugins.IProgress;
+import freeguide.common.plugins.IStoragePipe;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

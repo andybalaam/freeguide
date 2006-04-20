@@ -1,12 +1,12 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.TemplateParser;
+import freeguide.common.lib.general.TemplateParser;
 
-import freeguide.plugins.BaseModuleReminder;
-import freeguide.plugins.IModuleReminder;
+import freeguide.common.plugins.BaseModuleReminder;
+import freeguide.common.plugins.IModuleReminder;
 
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;
 

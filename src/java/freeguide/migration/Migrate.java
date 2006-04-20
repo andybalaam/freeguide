@@ -1,10 +1,10 @@
-package freeguide.migration;
+package freeguide.plugins.program.freeguide.migration;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.lib.general.Version;
+import freeguide.common.lib.general.Version;
 
 import java.util.prefs.Preferences;
 

@@ -10,7 +10,7 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.lib.general;
+package freeguide.common.lib.general;
 
 import java.awt.*;
 

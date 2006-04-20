@@ -10,13 +10,13 @@
  */
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.ProgrammeFormat;
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.ProgrammeFormat;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.plugins.IModuleReminder;
+import freeguide.common.plugins.IModuleReminder;
 
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerPersonalGuide;
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;

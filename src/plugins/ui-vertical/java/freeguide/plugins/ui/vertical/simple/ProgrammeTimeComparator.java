@@ -1,6 +1,6 @@
 package freeguide.plugins.ui.vertical.simple;
 
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 import java.util.Comparator;
 

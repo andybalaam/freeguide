@@ -10,11 +10,11 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.gui.wizard;
+package freeguide.plugins.program.freeguide.wizard;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
 import java.awt.event.KeyEvent;
 

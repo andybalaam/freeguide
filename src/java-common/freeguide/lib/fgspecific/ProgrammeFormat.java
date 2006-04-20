@@ -21,9 +21,9 @@
  *  See the file COPYING for more information.
 
  */
-package freeguide.lib.fgspecific;
+package freeguide.common.lib.fgspecific;
 
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 import java.io.UnsupportedEncodingException;
 

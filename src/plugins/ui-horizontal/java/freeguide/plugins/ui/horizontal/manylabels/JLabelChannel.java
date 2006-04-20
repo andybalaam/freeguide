@@ -1,7 +1,7 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import freeguide.lib.fgspecific.TVChannelIconHelper;
-import freeguide.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.TVChannelIconHelper;
+import freeguide.common.lib.fgspecific.data.TVChannel;
 
 import java.awt.Color;
 import java.awt.Font;

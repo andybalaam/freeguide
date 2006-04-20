@@ -10,21 +10,21 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.gui.options;
+package freeguide.plugins.program.freeguide.options;
 
 import freeguide.FreeGuide;
 
-import freeguide.gui.dialogs.FGDialog;
+import freeguide.common.gui.FGDialog;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.PluginInfo;
-import freeguide.lib.fgspecific.PluginsManager;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.PluginInfo;
+import freeguide.common.lib.fgspecific.PluginsManager;
 
-import freeguide.lib.general.GridBagEasy;
-import freeguide.lib.general.Utils;
+import freeguide.common.lib.general.GridBagEasy;
+import freeguide.common.lib.general.Utils;
 
-import freeguide.plugins.IModule;
-import freeguide.plugins.IModuleConfigurationUI;
+import freeguide.common.plugininterfaces.IModule;
+import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
 import java.awt.CardLayout;
 import java.awt.Container;

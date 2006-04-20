@@ -21,7 +21,7 @@
  *  See the file COPYING for more information.
 
  */
-package freeguide.gui.wizard;
+package freeguide.plugins.program.freeguide.wizard;
 
 import javax.swing.*;
 

@@ -10,13 +10,13 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.gui.wizard;
+package freeguide.plugins.program.freeguide.wizard;
 
 import freeguide.FreeGuide;
 
-import freeguide.gui.dialogs.PrivacyInfoDialog;
+import freeguide.plugins.program.freeguide.gui.PrivacyInfoDialog;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;

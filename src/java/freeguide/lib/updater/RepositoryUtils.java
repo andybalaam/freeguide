@@ -1,12 +1,12 @@
-package freeguide.lib.updater;
+package freeguide.plugins.program.freeguide.lib.updater;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.lib.grabber.HttpBrowser;
+import freeguide.common.lib.grabber.HttpBrowser;
 
-import freeguide.lib.updater.data.PluginsRepository;
+import freeguide.common.lib.updater.data.PluginsRepository;
 
 import org.xml.sax.InputSource;
 

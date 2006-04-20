@@ -21,12 +21,12 @@
  *  See the file COPYING for more information.
 
  */
-package freeguide.lib.fgspecific.selection;
+package freeguide.common.lib.fgspecific.selection;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.Time;
+import freeguide.common.lib.general.Time;
 
 import java.util.Calendar;
 import java.util.Date;

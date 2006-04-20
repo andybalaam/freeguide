@@ -1,4 +1,4 @@
-package freeguide;
+package freeguide.startup;
 
 import java.io.File;
 

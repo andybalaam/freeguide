@@ -1,7 +1,7 @@
 package freeguide.plugins.ui.vertical.simple.filter.gui;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVChannelsSet;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 
 import freeguide.plugins.ui.vertical.simple.VerticalViewer;
 import freeguide.plugins.ui.vertical.simple.filter.ChannelFilter;

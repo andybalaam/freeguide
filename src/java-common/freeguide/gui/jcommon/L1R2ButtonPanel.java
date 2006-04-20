@@ -61,7 +61,7 @@
  * Modified by: FreeGuide contributors Copyright (c) 2001-2004.
 
  */
-package freeguide.gui.jcommon;
+package freeguide.common.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;

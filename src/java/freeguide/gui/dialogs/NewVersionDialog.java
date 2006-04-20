@@ -10,13 +10,13 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.gui.dialogs;
+package freeguide.plugins.program.freeguide.dialogs;
 
 import freeguide.*;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.lib.general.*;
+import freeguide.common.lib.general.*;
 
 import java.awt.*;
 

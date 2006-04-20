@@ -1,11 +1,11 @@
 package freeguide.plugins.ui.horizontal.manylabels.templates;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.ProgrammeFormat;
-import freeguide.lib.fgspecific.TVChannelIconHelper;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.ProgrammeFormat;
+import freeguide.common.lib.fgspecific.TVChannelIconHelper;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.plugins.ILocalizer;
+import freeguide.common.plugins.ILocalizer;
 
 import java.io.File;
 import java.io.IOException;

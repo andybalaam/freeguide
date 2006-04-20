@@ -1,7 +1,7 @@
-package freeguide.plugins;
+package freeguide.common.plugins;
 
-import freeguide.lib.fgspecific.data.TVProgramme;
-import freeguide.lib.fgspecific.selection.Favourite;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.selection.Favourite;
 
 import java.awt.Graphics2D;
 

@@ -16,9 +16,9 @@
  *  from the Jedit project: www.jedit.org
  *
  */
-package freeguide.lib.general;
+package freeguide.common.lib.general;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
 import java.awt.Component;
 import java.awt.Dimension;

@@ -1,16 +1,16 @@
-package freeguide.plugins.impexp.xmltv;
+package freeguide.plugins.importexport.xmltv;
 
-import freeguide.gui.dialogs.FileChooserExtension;
+import freeguide.common.gui.FileChooserExtension;
 
-import freeguide.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.data.TVData;
 
-import freeguide.lib.impexp.XMLTVExport;
-import freeguide.lib.impexp.XMLTVImport;
+import freeguide.common.lib.impexp.XMLTVExport;
+import freeguide.common.lib.impexp.XMLTVImport;
 
-import freeguide.plugins.BaseModule;
-import freeguide.plugins.IModuleExport;
-import freeguide.plugins.IModuleImport;
-import freeguide.plugins.IStoragePipe;
+import freeguide.common.plugins.BaseModule;
+import freeguide.common.plugins.IModuleExport;
+import freeguide.common.plugins.IModuleImport;
+import freeguide.common.plugins.IStoragePipe;
 
 import java.io.File;
 import java.io.IOException;

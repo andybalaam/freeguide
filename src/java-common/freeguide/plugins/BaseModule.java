@@ -1,8 +1,8 @@
-package freeguide.plugins;
+package freeguide.common.plugins;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.lib.general.LanguageHelper;
+import freeguide.common.lib.general.LanguageHelper;
 
 import java.util.Locale;
 

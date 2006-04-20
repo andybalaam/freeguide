@@ -1,8 +1,8 @@
-package freeguide.plugins;
+package freeguide.common.plugins;
 
-import freeguide.lib.fgspecific.data.TVChannelsSet;
-import freeguide.lib.fgspecific.data.TVData;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
+import freeguide.common.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 /**
  * Interface to TVData storage implementation.

@@ -1,16 +1,16 @@
-package freeguide.plugins.impexp.palmatv;
+package freeguide.plugins.importexport.palmatv;
 
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVData;
-import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.EndianInputStream;
-import freeguide.lib.general.EndianOutputByteArray;
+import freeguide.common.lib.general.EndianInputStream;
+import freeguide.common.lib.general.EndianOutputByteArray;
 
-import freeguide.plugins.BaseModule;
-import freeguide.plugins.IModuleConfigurationUI;
-import freeguide.plugins.IModuleExport;
+import freeguide.common.plugins.BaseModule;
+import freeguide.common.plugins.IModuleConfigurationUI;
+import freeguide.common.plugins.IModuleExport;
 
 import java.io.File;
 import java.io.IOException;

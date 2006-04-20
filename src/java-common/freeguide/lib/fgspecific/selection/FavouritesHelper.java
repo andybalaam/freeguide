@@ -10,9 +10,9 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.lib.fgspecific.selection;
+package freeguide.common.lib.fgspecific.selection;
 
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 import java.util.Iterator;
 import java.util.List;

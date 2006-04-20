@@ -1,23 +1,23 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.TVChannelIconHelper;
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVChannelsSet;
-import freeguide.lib.fgspecific.data.TVData;
-import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.TVChannelIconHelper;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
+import freeguide.common.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.FileHelper;
-import freeguide.lib.general.TemplateParser;
+import freeguide.common.lib.general.FileHelper;
+import freeguide.common.lib.general.TemplateParser;
 
-import freeguide.plugins.BaseModule;
-import freeguide.plugins.IModuleConfigurationUI;
-import freeguide.plugins.IModuleStorage;
+import freeguide.common.plugins.BaseModule;
+import freeguide.common.plugins.IModuleConfigurationUI;
+import freeguide.common.plugins.IModuleStorage;
 
-import freeguide.plugins.IModuleStorage.Info;
+import freeguide.common.plugins.IModuleStorage.Info;
 
-import freeguide.plugins.IModuleViewer;
+import freeguide.common.plugins.IModuleViewer;
 
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerPersonalGuide;
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;

@@ -2,15 +2,15 @@ package freeguide.plugins.storage.xmltv;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVChannelsSet;
-import freeguide.lib.fgspecific.data.TVData;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
+import freeguide.common.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.impexp.XMLTVImport;
+import freeguide.common.lib.impexp.XMLTVImport;
 
-import freeguide.plugins.BaseModule;
-import freeguide.plugins.IModuleStorage;
+import freeguide.common.plugins.BaseModule;
+import freeguide.common.plugins.IModuleStorage;
 
 import java.io.File;
 import java.io.FilenameFilter;

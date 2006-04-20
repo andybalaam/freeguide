@@ -10,20 +10,20 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.gui.wizard;
+package freeguide.plugins.program.freeguide.wizard;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.PluginInfo;
-import freeguide.lib.fgspecific.PluginsManager;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.PluginInfo;
+import freeguide.common.lib.fgspecific.PluginsManager;
 
-import freeguide.lib.general.FileHelper;
-import freeguide.lib.general.LanguageHelper;
+import freeguide.common.lib.general.FileHelper;
+import freeguide.common.lib.general.LanguageHelper;
 
-import freeguide.migration.Migrate;
+import freeguide.plugins.program.freeguide.migration.Migrate;
 
-import freeguide.plugins.IModuleConfigureFromWizard;
+import freeguide.common.plugininterfaces.IModuleConfigureFromWizard;
 
 import java.awt.event.KeyEvent;
 

@@ -4,7 +4,7 @@
  * with ABSOLUTELY NO WARRANTY. See the file COPYING for more information. A
  * screen which has a progress bar.
  */
-package freeguide.gui;
+package freeguide.plugins.program.freeguide;
 
 /**
  * DOCUMENT ME!

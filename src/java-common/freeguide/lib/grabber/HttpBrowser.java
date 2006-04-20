@@ -1,4 +1,4 @@
-package freeguide.lib.grabber;
+package freeguide.common.lib.grabber;
 
 import org.ccil.cowan.tagsoup.Parser;
 

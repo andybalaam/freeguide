@@ -1,12 +1,12 @@
-package freeguide.lib.impexp;
+package freeguide.common.lib.impexp;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.LanguageHelper;
+import freeguide.common.lib.general.LanguageHelper;
 
-import freeguide.plugins.IStoragePipe;
+import freeguide.common.plugins.IStoragePipe;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;

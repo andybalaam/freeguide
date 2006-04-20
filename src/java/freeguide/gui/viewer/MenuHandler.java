@@ -1,24 +1,24 @@
-package freeguide.gui.viewer;
+package freeguide.plugins.program.freeguide.viewer;
 
 import freeguide.FreeGuide;
 
-import freeguide.gui.dialogs.AboutFrame;
+import freeguide.plugins.program.freeguide.gui.AboutFrame;
 
-import freeguide.gui.options.OptionsDialog;
+import freeguide.plugins.program.freeguide.options.OptionsDialog;
 
-import freeguide.gui.updater.UpdaterController;
+import freeguide.plugins.program.freeguide.updater.UpdaterController;
 
-import freeguide.gui.wizard.FirstTimeWizard;
+import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.PluginInfo;
-import freeguide.lib.fgspecific.PluginsManager;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.PluginInfo;
+import freeguide.common.lib.fgspecific.PluginsManager;
 
-import freeguide.lib.general.FileHelper;
-import freeguide.lib.general.Utils;
+import freeguide.common.lib.general.FileHelper;
+import freeguide.common.lib.general.Utils;
 
-import freeguide.plugins.IModuleExport;
-import freeguide.plugins.IModuleImport;
+import freeguide.common.plugininterfaces.IModuleExport;
+import freeguide.common.plugininterfaces.IModuleImport;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

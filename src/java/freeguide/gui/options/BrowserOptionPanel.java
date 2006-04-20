@@ -21,17 +21,17 @@
  *  See the file COPYING for more information.
 
  */
-package freeguide.gui.options;
+package freeguide.plugins.program.freeguide.options;
 
 import freeguide.*;
 
-import freeguide.gui.dialogs.*;
+import freeguide.plugins.program.freeguide.gui.*;
 
-import freeguide.gui.wizard.FirstTimeWizard;
+import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.lib.general.*;
+import freeguide.common.lib.general.*;
 
 import java.awt.*;
 import java.awt.event.*;

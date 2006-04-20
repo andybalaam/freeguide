@@ -1,7 +1,7 @@
 package freeguide.plugins.ui.vertical.simple;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.*;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.*;
 
 import freeguide.plugins.*;
 

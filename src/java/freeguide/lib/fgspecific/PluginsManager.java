@@ -1,17 +1,17 @@
-package freeguide.lib.fgspecific;
+package freeguide.plugins.program.freeguide.lib.fgspecific;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.general.LanguageHelper;
-import freeguide.lib.general.PreferencesHelper;
+import freeguide.common.lib.general.LanguageHelper;
+import freeguide.common.lib.general.PreferencesHelper;
 
-import freeguide.plugins.IModule;
-import freeguide.plugins.IModuleExport;
-import freeguide.plugins.IModuleGrabber;
-import freeguide.plugins.IModuleImport;
-import freeguide.plugins.IModuleReminder;
-import freeguide.plugins.IModuleStorage;
-import freeguide.plugins.IModuleViewer;
+import freeguide.common.plugininterfaces.IModule;
+import freeguide.common.plugininterfaces.IModuleExport;
+import freeguide.common.plugininterfaces.IModuleGrabber;
+import freeguide.common.plugininterfaces.IModuleImport;
+import freeguide.common.plugininterfaces.IModuleReminder;
+import freeguide.common.plugininterfaces.IModuleStorage;
+import freeguide.common.plugininterfaces.IModuleViewer;
 
 import java.io.File;
 import java.io.IOException;

@@ -10,19 +10,19 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.gui.dialogs;
+package freeguide.plugins.program.freeguide.dialogs;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.lib.general.FileHelper;
-import freeguide.lib.general.Utils;
+import freeguide.common.lib.general.FileHelper;
+import freeguide.common.lib.general.Utils;
 
 import javax.swing.JDialog;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
 // To Be Added Shortly (Rob)
-//import freeguide.lib.general.*;
+//import freeguide.common.lib.general.*;
 
 /**
  * A small About box.

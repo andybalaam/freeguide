@@ -1,10 +1,10 @@
-package freeguide.lib.fgspecific;
+package freeguide.plugins.program.freeguide.lib.fgspecific;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.general.Version;
+import freeguide.common.lib.general.Version;
 
-import freeguide.plugins.IModule;
+import freeguide.common.plugininterfaces.IModule;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

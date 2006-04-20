@@ -17,10 +17,10 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package freeguide.plugins.impexp.palmatv;
+package freeguide.plugins.importexport.palmatv;
 
-import freeguide.lib.general.EndianInputStream;
-import freeguide.lib.general.EndianOutputByteArray;
+import freeguide.common.lib.general.EndianInputStream;
+import freeguide.common.lib.general.EndianOutputByteArray;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

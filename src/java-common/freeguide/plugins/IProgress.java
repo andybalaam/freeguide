@@ -1,4 +1,4 @@
-package freeguide.plugins;
+package freeguide.common.plugins;
 
 /**
  * Interface for display progress about module work. Implemented progress bar

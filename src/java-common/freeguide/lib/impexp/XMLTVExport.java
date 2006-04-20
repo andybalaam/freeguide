@@ -1,10 +1,10 @@
-package freeguide.lib.impexp;
+package freeguide.common.lib.impexp;
 
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVData;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.StringHelper;
+import freeguide.common.lib.general.StringHelper;
 
 import java.io.BufferedWriter;
 import java.io.File;

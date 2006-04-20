@@ -1,6 +1,6 @@
 package freeguide.plugins.grabber.vsetv;
 
-import freeguide.plugins.ILocalizer;
+import freeguide.common.plugins.ILocalizer;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

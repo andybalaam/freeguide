@@ -1,7 +1,7 @@
 package freeguide.plugins.grabber.kulichki;
 
-import freeguide.lib.fgspecific.data.TVChannelsSelection;
-import freeguide.lib.fgspecific.data.TVChannelsSet;
+import freeguide.common.lib.fgspecific.data.TVChannelsSelection;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 
 /**
  * Class for store config information.

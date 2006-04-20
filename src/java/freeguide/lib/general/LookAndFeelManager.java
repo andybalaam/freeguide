@@ -8,7 +8,7 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.lib.general;
+package freeguide.plugins.program.freeguide.lib.general;
 
 import java.util.ArrayList;
 import java.util.Collections;

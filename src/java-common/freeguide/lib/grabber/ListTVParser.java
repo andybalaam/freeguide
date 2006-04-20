@@ -1,12 +1,12 @@
-package freeguide.lib.grabber;
+package freeguide.common.lib.grabber;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.plugins.ILogger;
-import freeguide.plugins.IProgress;
-import freeguide.plugins.IStoragePipe;
+import freeguide.common.plugins.ILogger;
+import freeguide.common.plugins.IProgress;
+import freeguide.common.plugins.IStoragePipe;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;

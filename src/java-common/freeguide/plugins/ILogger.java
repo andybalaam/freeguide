@@ -1,4 +1,4 @@
-package freeguide.plugins;
+package freeguide.common.plugins;
 
 /**
  * Interface for display or store logs about module work.  Implemented

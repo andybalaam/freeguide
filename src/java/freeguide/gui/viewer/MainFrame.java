@@ -1,16 +1,16 @@
-package freeguide.gui.viewer;
+package freeguide.plugins.program.freeguide.viewer;
 
 import freeguide.FreeGuide;
 
-import freeguide.gui.jcommon.JWaitFrame;
+import freeguide.plugins.program.freeguide.gui.JWaitFrame;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.PluginInfo;
-import freeguide.lib.fgspecific.PluginsManager;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.PluginInfo;
+import freeguide.common.lib.fgspecific.PluginsManager;
 
-import freeguide.lib.general.LanguageHelper;
+import freeguide.common.lib.general.LanguageHelper;
 
-import freeguide.plugins.IApplication;
+import freeguide.common.plugininterfaces.IApplication;
 
 import java.awt.BorderLayout;
 import java.awt.Image;

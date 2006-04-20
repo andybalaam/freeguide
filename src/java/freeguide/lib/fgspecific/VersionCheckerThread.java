@@ -21,13 +21,13 @@
  *  See the file COPYING for more information.
 
  */
-package freeguide.lib.fgspecific;
+package freeguide.plugins.program.freeguide.lib.fgspecific;
 
 import freeguide.*;
 
-import freeguide.gui.dialogs.*;
+import freeguide.plugins.program.freeguide.gui.*;
 
-import freeguide.lib.general.*;
+import freeguide.common.lib.general.*;
 
 import java.io.*;
 

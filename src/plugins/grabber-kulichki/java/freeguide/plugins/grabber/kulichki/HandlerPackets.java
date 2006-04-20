@@ -1,6 +1,6 @@
 package freeguide.plugins.grabber.kulichki;
 
-import freeguide.lib.grabber.HtmlHelper;
+import freeguide.common.lib.grabber.HtmlHelper;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

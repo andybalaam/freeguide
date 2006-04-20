@@ -1,4 +1,4 @@
-package freeguide.plugins;
+package freeguide.common.plugins;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;

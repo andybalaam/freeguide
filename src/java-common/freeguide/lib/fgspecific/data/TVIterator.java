@@ -1,4 +1,4 @@
-package freeguide.lib.fgspecific.data;
+package freeguide.common.lib.fgspecific.data;
 
 /**
  * Base class for iterators.

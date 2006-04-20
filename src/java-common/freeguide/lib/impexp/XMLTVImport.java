@@ -1,9 +1,9 @@
-package freeguide.lib.impexp;
+package freeguide.common.lib.impexp;
 
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.plugins.IStoragePipe;
+import freeguide.common.plugins.IStoragePipe;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;

@@ -10,29 +10,26 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide;
+package freeguide.plugins.program.freeguide;
 
-import freeguide.gui.dialogs.PleaseWaitFrame;
+import freeguide.plugins.program.freeguide.gui.PleaseWaitFrame;
+import freeguide.plugins.program.freeguide.viewer.MainController;
+import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
+import freeguide.plugins.program.freeguide.migration.Migrate;
 
-import freeguide.gui.viewer.MainController;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.PluginsManager;
+import freeguide.common.lib.fgspecific.StoragePipe;
 
-import freeguide.gui.wizard.FirstTimeWizard;
+import freeguide.common.lib.general.CmdArgs;
+import freeguide.common.lib.general.LanguageHelper;
+import freeguide.common.lib.general.PreferencesHelper;
+import freeguide.common.lib.general.Version;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.PluginsManager;
-import freeguide.lib.fgspecific.StoragePipe;
-
-import freeguide.lib.general.CmdArgs;
-import freeguide.lib.general.LanguageHelper;
-import freeguide.lib.general.PreferencesHelper;
-import freeguide.lib.general.Version;
-
-import freeguide.migration.Migrate;
-
-import freeguide.plugins.IApplication;
-import freeguide.plugins.IModuleImport;
-import freeguide.plugins.IModuleStorage;
-import freeguide.plugins.IModuleViewer;
+import freeguide.common.plugininterfaces.IApplication;
+import freeguide.common.plugininterfaces.IModuleImport;
+import freeguide.common.plugininterfaces.IModuleStorage;
+import freeguide.common.plugininterfaces.IModuleViewer;
 
 import java.io.File;
 import java.io.FileFilter;

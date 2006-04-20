@@ -1,22 +1,22 @@
 package freeguide.plugins.grabber.vsetv;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVChannelsSet;
-import freeguide.lib.fgspecific.data.TVData;
-import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
+import freeguide.common.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.LanguageHelper;
+import freeguide.common.lib.general.LanguageHelper;
 
-import freeguide.lib.grabber.HttpBrowser;
+import freeguide.common.lib.grabber.HttpBrowser;
 
-import freeguide.plugins.BaseModule;
-import freeguide.plugins.ILogger;
-import freeguide.plugins.IModuleConfigurationUI;
-import freeguide.plugins.IModuleGrabber;
-import freeguide.plugins.IProgress;
-import freeguide.plugins.IStoragePipe;
+import freeguide.common.plugins.BaseModule;
+import freeguide.common.plugins.ILogger;
+import freeguide.common.plugins.IModuleConfigurationUI;
+import freeguide.common.plugins.IModuleGrabber;
+import freeguide.common.plugins.IProgress;
+import freeguide.common.plugins.IStoragePipe;
 
 import org.xml.sax.SAXException;
 

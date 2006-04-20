@@ -61,11 +61,11 @@
  * Modified by: FreeGuide contributors Copyright (c) 2001-2004.
 
  */
-package freeguide.gui.jcommon;
+package freeguide.common.gui;
 
 import freeguide.*;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
 import java.awt.BorderLayout;
 import java.awt.Font;

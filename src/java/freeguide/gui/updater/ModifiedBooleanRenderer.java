@@ -1,4 +1,4 @@
-package freeguide.gui.updater;
+package freeguide.plugins.program.freeguide.updater;
 
 import java.awt.Component;
 

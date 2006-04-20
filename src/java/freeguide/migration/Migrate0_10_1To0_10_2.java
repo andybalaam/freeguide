@@ -1,4 +1,4 @@
-package freeguide.migration;
+package freeguide.plugins.program.freeguide.migration;
 
 import java.util.Map;
 import java.util.prefs.BackingStoreException;

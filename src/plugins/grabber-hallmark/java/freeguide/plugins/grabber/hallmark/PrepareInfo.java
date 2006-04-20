@@ -1,9 +1,9 @@
 package freeguide.plugins.grabber.hallmark;
 
-import freeguide.lib.general.StringHelper;
+import freeguide.common.lib.general.StringHelper;
 
-import freeguide.lib.grabber.HtmlHelper;
-import freeguide.lib.grabber.HttpBrowser;
+import freeguide.common.lib.grabber.HtmlHelper;
+import freeguide.common.lib.grabber.HttpBrowser;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

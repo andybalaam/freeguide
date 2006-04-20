@@ -10,7 +10,7 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.gui.dialogs;
+package freeguide.common.gui;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;

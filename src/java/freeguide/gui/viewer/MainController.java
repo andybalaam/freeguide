@@ -1,29 +1,29 @@
-package freeguide.gui.viewer;
+package freeguide.plugins.program.freeguide.viewer;
 
 import freeguide.FreeGuide;
 
-import freeguide.gui.dialogs.ChannelSetListDialog;
+import freeguide.plugins.program.freeguide.gui.ChannelSetListDialog;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.GrabberController;
-import freeguide.lib.fgspecific.PluginInfo;
-import freeguide.lib.fgspecific.PluginsManager;
-import freeguide.lib.fgspecific.StoragePipe;
-import freeguide.lib.fgspecific.data.TVChannelsSet;
-import freeguide.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.GrabberController;
+import freeguide.common.lib.fgspecific.PluginInfo;
+import freeguide.common.lib.fgspecific.PluginsManager;
+import freeguide.common.lib.fgspecific.StoragePipe;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
+import freeguide.common.lib.fgspecific.data.TVData;
 
-import freeguide.lib.general.LanguageHelper;
-import freeguide.lib.general.LookAndFeelManager;
-import freeguide.lib.general.Utils;
+import freeguide.common.lib.general.LanguageHelper;
+import freeguide.common.lib.general.LookAndFeelManager;
+import freeguide.common.lib.general.Utils;
 
-import freeguide.plugins.BaseModule;
-import freeguide.plugins.IApplication;
-import freeguide.plugins.IModuleExport;
-import freeguide.plugins.IModuleGrabber;
-import freeguide.plugins.IModuleImport;
-import freeguide.plugins.IModuleReminder;
-import freeguide.plugins.IModuleStorage;
-import freeguide.plugins.IModuleViewer;
+import freeguide.common.plugininterfaces.BaseModule;
+import freeguide.common.plugininterfaces.IApplication;
+import freeguide.common.plugininterfaces.IModuleExport;
+import freeguide.common.plugininterfaces.IModuleGrabber;
+import freeguide.common.plugininterfaces.IModuleImport;
+import freeguide.common.plugininterfaces.IModuleReminder;
+import freeguide.common.plugininterfaces.IModuleStorage;
+import freeguide.common.plugininterfaces.IModuleViewer;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

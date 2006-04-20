@@ -1,9 +1,9 @@
-package freeguide.plugins;
+package freeguide.common.plugins;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVProgramme;
-import freeguide.lib.fgspecific.selection.Favourite;
-import freeguide.lib.fgspecific.selection.ManualSelection;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.selection.Favourite;
+import freeguide.common.lib.fgspecific.selection.ManualSelection;
 
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;

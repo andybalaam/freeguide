@@ -1,6 +1,6 @@
-package freeguide.lib.fgspecific.data;
+package freeguide.common.lib.fgspecific.data;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
 import java.io.File;
 import java.io.FileOutputStream;

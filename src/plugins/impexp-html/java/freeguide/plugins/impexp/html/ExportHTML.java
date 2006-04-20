@@ -1,13 +1,13 @@
-package freeguide.plugins.impexp.html;
+package freeguide.plugins.importexport.html;
 
-import freeguide.gui.dialogs.FileChooserExtension;
+import freeguide.common.gui.FileChooserExtension;
 
-import freeguide.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.data.TVData;
 
-import freeguide.lib.general.TemplateParser;
+import freeguide.common.lib.general.TemplateParser;
 
-import freeguide.plugins.BaseModule;
-import freeguide.plugins.IModuleExport;
+import freeguide.common.plugins.BaseModule;
+import freeguide.common.plugins.IModuleExport;
 
 import java.io.BufferedWriter;
 import java.io.File;

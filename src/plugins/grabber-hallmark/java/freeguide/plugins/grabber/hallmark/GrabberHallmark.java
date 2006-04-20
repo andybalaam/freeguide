@@ -1,16 +1,16 @@
 package freeguide.plugins.grabber.hallmark;
 
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.grabber.HttpBrowser;
+import freeguide.common.lib.grabber.HttpBrowser;
 
-import freeguide.plugins.BaseModule;
-import freeguide.plugins.ILogger;
-import freeguide.plugins.IModuleConfigurationUI;
-import freeguide.plugins.IModuleGrabber;
-import freeguide.plugins.IProgress;
-import freeguide.plugins.IStoragePipe;
+import freeguide.common.plugins.BaseModule;
+import freeguide.common.plugins.ILogger;
+import freeguide.common.plugins.IModuleConfigurationUI;
+import freeguide.common.plugins.IModuleGrabber;
+import freeguide.common.plugins.IProgress;
+import freeguide.common.plugins.IStoragePipe;
 
 import freeguide.plugins.grabber.hallmark.HallmarkInfo.Language;
 

@@ -1,16 +1,16 @@
-package freeguide.gui.options;
+package freeguide.plugins.program.freeguide.options;
 
 import freeguide.FreeGuide;
 
-import freeguide.gui.dialogs.FGDialog;
+import freeguide.common.gui.FGDialog;
 
-import freeguide.gui.viewer.MainController;
+import freeguide.plugins.program.freeguide.viewer.MainController;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.PluginInfo;
-import freeguide.lib.fgspecific.PluginsManager;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.PluginInfo;
+import freeguide.common.lib.fgspecific.PluginsManager;
 
-import freeguide.plugins.IModuleGrabber;
+import freeguide.common.plugininterfaces.IModuleGrabber;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

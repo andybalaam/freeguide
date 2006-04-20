@@ -10,14 +10,14 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.gui.dialogs;
+package freeguide.plugins.program.freeguide.dialogs;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.lib.general.GridBagEasy;
-import freeguide.lib.general.LanguageHelper;
+import freeguide.common.lib.general.GridBagEasy;
+import freeguide.common.lib.general.LanguageHelper;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;

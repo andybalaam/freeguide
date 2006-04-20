@@ -1,14 +1,14 @@
-package freeguide.gui.updater;
+package freeguide.plugins.program.freeguide.updater;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.lib.general.Utils;
+import freeguide.common.lib.general.Utils;
 
-import freeguide.lib.updater.RepositoryUtils;
-import freeguide.lib.updater.data.PluginPackage;
-import freeguide.lib.updater.data.PluginsRepository;
+import freeguide.common.lib.updater.RepositoryUtils;
+import freeguide.common.lib.updater.data.PluginPackage;
+import freeguide.common.lib.updater.data.PluginsRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

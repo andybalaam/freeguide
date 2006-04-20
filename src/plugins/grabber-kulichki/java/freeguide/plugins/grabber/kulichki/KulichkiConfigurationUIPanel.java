@@ -1,8 +1,8 @@
 package freeguide.plugins.grabber.kulichki;
 
-import freeguide.lib.fgspecific.TVChannelsTree;
+import freeguide.common.lib.fgspecific.TVChannelsTree;
 
-import freeguide.plugins.ILocalizer;
+import freeguide.common.plugins.ILocalizer;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

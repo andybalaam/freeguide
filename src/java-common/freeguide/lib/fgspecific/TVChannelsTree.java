@@ -1,7 +1,7 @@
-package freeguide.lib.fgspecific;
+package freeguide.common.lib.fgspecific;
 
-import freeguide.lib.fgspecific.data.TVChannelsSelection;
-import freeguide.lib.fgspecific.data.TVChannelsSet;
+import freeguide.common.lib.fgspecific.data.TVChannelsSelection;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 
 import java.awt.Component;
 import java.awt.event.MouseAdapter;

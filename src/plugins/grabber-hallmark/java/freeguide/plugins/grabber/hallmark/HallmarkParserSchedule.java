@@ -1,14 +1,14 @@
 package freeguide.plugins.grabber.hallmark;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.Time;
+import freeguide.common.lib.general.Time;
 
-import freeguide.lib.grabber.HtmlHelper;
-import freeguide.lib.grabber.LineProgrammeHelper;
-import freeguide.lib.grabber.TimeHelper;
+import freeguide.common.lib.grabber.HtmlHelper;
+import freeguide.common.lib.grabber.LineProgrammeHelper;
+import freeguide.common.lib.grabber.TimeHelper;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

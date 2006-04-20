@@ -1,8 +1,8 @@
-package freeguide.lib.fgspecific.selection;
+package freeguide.common.lib.fgspecific.selection;
 
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.PreferencesHelper;
+import freeguide.common.lib.general.PreferencesHelper;
 
 import java.util.ArrayList;
 import java.util.Iterator;

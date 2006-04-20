@@ -1,9 +1,9 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.plugins.IModuleReminder;
+import freeguide.common.plugins.IModuleReminder;
 
 import java.awt.event.ActionEvent;
 

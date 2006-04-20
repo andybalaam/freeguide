@@ -1,8 +1,8 @@
-package freeguide.lib.fgspecific;
+package freeguide.common.lib.fgspecific;
 
-import freeguide.lib.general.Version;
+import freeguide.common.lib.general.Version;
 
-import freeguide.plugins.IApplication;
+import freeguide.common.plugins.IApplication;
 
 /**
  * Class for retrieve information about main application.

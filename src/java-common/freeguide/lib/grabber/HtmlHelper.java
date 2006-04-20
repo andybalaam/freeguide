@@ -1,4 +1,4 @@
-package freeguide.lib.grabber;
+package freeguide.common.lib.grabber;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;

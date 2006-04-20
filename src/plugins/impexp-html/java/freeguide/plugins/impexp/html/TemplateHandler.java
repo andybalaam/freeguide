@@ -1,13 +1,13 @@
-package freeguide.plugins.impexp.html;
+package freeguide.plugins.importexport.html;
 
-import freeguide.gui.dialogs.FileChooserExtension;
+import freeguide.common.gui.FileChooserExtension;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVChannelsSet;
-import freeguide.lib.fgspecific.data.TVData;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
+import freeguide.common.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.plugins.IModuleStorage;
+import freeguide.common.plugins.IModuleStorage;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

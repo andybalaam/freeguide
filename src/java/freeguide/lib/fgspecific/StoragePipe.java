@@ -1,11 +1,11 @@
-package freeguide.lib.fgspecific;
+package freeguide.plugins.program.freeguide.lib.fgspecific;
 
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVData;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.plugins.IModuleStorage;
-import freeguide.plugins.IStoragePipe;
+import freeguide.common.plugininterfaces.IModuleStorage;
+import freeguide.common.plugininterfaces.IStoragePipe;
 
 /**
  * DOCUMENT ME!

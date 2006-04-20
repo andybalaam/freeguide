@@ -1,14 +1,14 @@
-package freeguide.migration;
+package freeguide.plugins.program.freeguide.migration;
 
 import freeguide.FreeGuide;
 
-import freeguide.lib.fgspecific.TVChannelIconHelper;
-import freeguide.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.TVChannelIconHelper;
+import freeguide.common.lib.fgspecific.data.TVChannel;
 
-import freeguide.lib.general.FileHelper;
-import freeguide.lib.general.LanguageHelper;
-import freeguide.lib.general.StringHelper;
-import freeguide.lib.general.Time;
+import freeguide.common.lib.general.FileHelper;
+import freeguide.common.lib.general.LanguageHelper;
+import freeguide.common.lib.general.StringHelper;
+import freeguide.common.lib.general.Time;
 
 import java.awt.Color;
 

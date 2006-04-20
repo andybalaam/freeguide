@@ -1,8 +1,8 @@
-package freeguide.gui.dialogs;
+package freeguide.common.gui;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.plugins.IModuleStorage;
+import freeguide.common.plugins.IModuleStorage;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

@@ -1,8 +1,8 @@
-package freeguide.gui.dialogs;
+package freeguide.common.gui;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVChannelsSet;
-import freeguide.lib.fgspecific.selection.Favourite;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
+import freeguide.common.lib.fgspecific.selection.Favourite;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

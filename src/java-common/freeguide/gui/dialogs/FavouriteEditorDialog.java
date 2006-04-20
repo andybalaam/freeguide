@@ -10,16 +10,16 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.gui.dialogs;
+package freeguide.common.gui;
 
-import freeguide.gui.dialogs.FGDialog;
+import freeguide.common.gui.FGDialog;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVChannelsSet;
-import freeguide.lib.fgspecific.selection.Favourite;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
+import freeguide.common.lib.fgspecific.selection.Favourite;
 
-import freeguide.lib.general.Time;
-import freeguide.lib.general.Utils;
+import freeguide.common.lib.general.Time;
+import freeguide.common.lib.general.Utils;
 
 import java.text.SimpleDateFormat;
 

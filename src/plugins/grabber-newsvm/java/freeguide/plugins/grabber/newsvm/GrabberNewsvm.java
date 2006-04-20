@@ -1,21 +1,21 @@
 package freeguide.plugins.grabber.newsvm;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.LanguageHelper;
+import freeguide.common.lib.general.LanguageHelper;
 
-import freeguide.lib.grabber.HtmlHelper;
-import freeguide.lib.grabber.HttpBrowser;
-import freeguide.lib.grabber.LineProgrammeHelper;
-import freeguide.lib.grabber.TimeHelper;
+import freeguide.common.lib.grabber.HtmlHelper;
+import freeguide.common.lib.grabber.HttpBrowser;
+import freeguide.common.lib.grabber.LineProgrammeHelper;
+import freeguide.common.lib.grabber.TimeHelper;
 
-import freeguide.plugins.BaseModule;
-import freeguide.plugins.ILogger;
-import freeguide.plugins.IModuleGrabber;
-import freeguide.plugins.IProgress;
-import freeguide.plugins.IStoragePipe;
+import freeguide.common.plugins.BaseModule;
+import freeguide.common.plugins.ILogger;
+import freeguide.common.plugins.IModuleGrabber;
+import freeguide.common.plugins.IProgress;
+import freeguide.common.plugins.IStoragePipe;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

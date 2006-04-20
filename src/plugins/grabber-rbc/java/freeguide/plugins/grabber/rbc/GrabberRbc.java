@@ -1,10 +1,10 @@
 package freeguide.plugins.grabber.rbc;
 
-import freeguide.plugins.BaseModule;
-import freeguide.plugins.ILogger;
-import freeguide.plugins.IModuleGrabber;
-import freeguide.plugins.IProgress;
-import freeguide.plugins.IStoragePipe;
+import freeguide.common.plugins.BaseModule;
+import freeguide.common.plugins.ILogger;
+import freeguide.common.plugins.IModuleGrabber;
+import freeguide.common.plugins.IProgress;
+import freeguide.common.plugins.IStoragePipe;
 
 import org.xml.sax.helpers.DefaultHandler;
 

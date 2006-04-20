@@ -1,7 +1,7 @@
-package freeguide.lib.updater;
+package freeguide.plugins.program.freeguide.lib.updater;
 
-import freeguide.lib.updater.data.PluginPackage;
-import freeguide.lib.updater.data.PluginsRepository;
+import freeguide.common.lib.updater.data.PluginPackage;
+import freeguide.common.lib.updater.data.PluginsRepository;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

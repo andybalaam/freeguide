@@ -1,4 +1,4 @@
-package freeguide.lib.general;
+package freeguide.common.lib.general;
 
 import java.io.IOException;
 

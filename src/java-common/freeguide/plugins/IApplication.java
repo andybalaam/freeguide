@@ -1,4 +1,4 @@
-package freeguide.plugins;
+package freeguide.common.plugins;
 
 import java.util.List;
 import java.util.TimeZone;

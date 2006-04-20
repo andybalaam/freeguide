@@ -1,18 +1,18 @@
 package freeguide.plugins.reminder.alarm;
 
-import freeguide.gui.dialogs.FavouritesController;
+import freeguide.common.gui.FavouritesController;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVProgramme;
-import freeguide.lib.fgspecific.selection.Favourite;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.selection.Favourite;
 
-import freeguide.lib.general.Utils;
+import freeguide.common.lib.general.Utils;
 
-import freeguide.plugins.BaseModuleReminder;
-import freeguide.plugins.IModuleConfigurationUI;
-import freeguide.plugins.IModuleReminder;
-import freeguide.plugins.IModuleStorage;
-import freeguide.plugins.IModuleViewer;
+import freeguide.common.plugins.BaseModuleReminder;
+import freeguide.common.plugins.IModuleConfigurationUI;
+import freeguide.common.plugins.IModuleReminder;
+import freeguide.common.plugins.IModuleStorage;
+import freeguide.common.plugins.IModuleViewer;
 
 import freeguide.plugins.reminder.alarm.AlarmUIController;
 

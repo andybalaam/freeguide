@@ -1,6 +1,6 @@
-package freeguide.migration;
+package freeguide.plugins.program.freeguide.migration;
 
-import freeguide.lib.general.StringHelper;
+import freeguide.common.lib.general.StringHelper;
 
 import java.util.Map;
 import java.util.prefs.BackingStoreException;

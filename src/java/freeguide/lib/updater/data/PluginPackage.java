@@ -1,11 +1,11 @@
-package freeguide.lib.updater.data;
+package freeguide.plugins.program.freeguide.lib.updater.data;
 
-import freeguide.lib.fgspecific.PluginInfo;
-import freeguide.lib.fgspecific.PluginsManager;
+import freeguide.common.lib.fgspecific.PluginInfo;
+import freeguide.common.lib.fgspecific.PluginsManager;
 
-import freeguide.lib.general.Version;
+import freeguide.common.lib.general.Version;
 
-import freeguide.plugins.IModule;
+import freeguide.common.plugininterfaces.IModule;
 
 import java.util.Map;
 import java.util.TreeMap;

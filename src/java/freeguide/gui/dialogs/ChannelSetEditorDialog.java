@@ -10,14 +10,14 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.gui.dialogs;
+package freeguide.plugins.program.freeguide.dialogs;
 
-import freeguide.gui.dialogs.FGDialog;
+import freeguide.common.gui.FGDialog;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVChannelsSet;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 
-import freeguide.lib.general.Utils;
+import freeguide.common.lib.general.Utils;
 
 import java.awt.Dimension;
 

@@ -10,14 +10,14 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.gui.wizard;
+package freeguide.plugins.program.freeguide.wizard;
 
-import freeguide.gui.jcommon.JWaitFrame;
+import freeguide.plugins.program.freeguide.gui.JWaitFrame;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.lib.general.LanguageHelper;
-import freeguide.lib.general.Utils;
+import freeguide.common.lib.general.LanguageHelper;
+import freeguide.common.lib.general.Utils;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

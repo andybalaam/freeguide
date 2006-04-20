@@ -19,7 +19,7 @@
  */
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

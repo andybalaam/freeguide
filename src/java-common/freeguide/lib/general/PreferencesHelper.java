@@ -1,6 +1,6 @@
-package freeguide.lib.general;
+package freeguide.common.lib.general;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
 import java.awt.Color;
 

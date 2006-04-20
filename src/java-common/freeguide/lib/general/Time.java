@@ -21,9 +21,9 @@
  *  See the file COPYING for more information.
 
  */
-package freeguide.lib.general;
+package freeguide.common.lib.general;
 
-import freeguide.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.Application;
 
 import java.util.Calendar;
 import java.util.Date;

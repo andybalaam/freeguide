@@ -1,12 +1,12 @@
-package freeguide.lib.fgspecific;
+package freeguide.plugins.program.freeguide.lib.fgspecific;
 
 import freeguide.FreeGuide;
 
-import freeguide.gui.dialogs.ExecutorDialog;
+import freeguide.plugins.program.freeguide.gui.ExecutorDialog;
 
-import freeguide.gui.viewer.MainController;
+import freeguide.plugins.program.freeguide.viewer.MainController;
 
-import freeguide.plugins.IModuleGrabber;
+import freeguide.common.plugininterfaces.IModuleGrabber;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

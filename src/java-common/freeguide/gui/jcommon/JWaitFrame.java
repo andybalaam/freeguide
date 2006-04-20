@@ -1,4 +1,4 @@
-package freeguide.gui.jcommon;
+package freeguide.common.gui;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

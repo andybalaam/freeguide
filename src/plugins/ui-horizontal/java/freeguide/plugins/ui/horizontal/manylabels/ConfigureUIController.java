@@ -1,10 +1,10 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import freeguide.gui.jcommon.FontChooserDialog;
+import freeguide.common.gui.FontChooserDialog;
 
-import freeguide.lib.general.Time;
+import freeguide.common.lib.general.Time;
 
-import freeguide.plugins.IModuleConfigurationUI;
+import freeguide.common.plugins.IModuleConfigurationUI;
 
 import java.awt.Color;
 import java.awt.Component;

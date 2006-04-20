@@ -1,4 +1,4 @@
-package freeguide.lib.fgspecific.data;
+package freeguide.common.lib.fgspecific.data;
 
 import java.util.Iterator;
 

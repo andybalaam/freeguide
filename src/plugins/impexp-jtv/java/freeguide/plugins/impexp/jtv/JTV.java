@@ -1,18 +1,18 @@
-package freeguide.plugins.impexp.jtv;
+package freeguide.plugins.importexport.jtv;
 
-import freeguide.lib.fgspecific.Application;
-import freeguide.lib.fgspecific.data.TVChannel;
-import freeguide.lib.fgspecific.data.TVData;
-import freeguide.lib.fgspecific.data.TVIteratorProgrammes;
-import freeguide.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.lib.general.EndianInputStream;
-import freeguide.lib.general.EndianOutputByteArray;
+import freeguide.common.lib.general.EndianInputStream;
+import freeguide.common.lib.general.EndianOutputByteArray;
 
-import freeguide.plugins.BaseModule;
-import freeguide.plugins.IModuleExport;
-import freeguide.plugins.IModuleImport;
-import freeguide.plugins.IStoragePipe;
+import freeguide.common.plugins.BaseModule;
+import freeguide.common.plugins.IModuleExport;
+import freeguide.common.plugins.IModuleImport;
+import freeguide.common.plugins.IStoragePipe;
 
 import java.io.File;
 import java.io.FileOutputStream;
