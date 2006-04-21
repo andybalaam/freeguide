@@ -1,6 +1,6 @@
 package freeguide.plugins.storage.xmltv;
 
-import freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;

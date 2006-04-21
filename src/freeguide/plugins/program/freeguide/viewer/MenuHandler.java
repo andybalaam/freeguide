@@ -1,6 +1,6 @@
 package freeguide.plugins.program.freeguide.viewer;
 
-import freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import freeguide.plugins.program.freeguide.gui.AboutFrame;
 
@@ -11,8 +11,8 @@ import freeguide.plugins.program.freeguide.updater.UpdaterController;
 import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
 
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.fgspecific.PluginInfo;
-import freeguide.common.lib.fgspecific.PluginsManager;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 
 import freeguide.common.lib.general.FileHelper;
 import freeguide.common.lib.general.Utils;

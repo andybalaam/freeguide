@@ -1,11 +1,11 @@
 package freeguide.build.patchallfiles;
 
-import freeguide.common.lib.fgspecific.PluginInfo;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 
 import freeguide.common.lib.general.StringHelper;
 
-import freeguide.common.lib.updater.RepositoryUtils;
-import freeguide.common.lib.updater.data.PluginsRepository;
+import freeguide.plugins.program.freeguide.lib.updater.RepositoryUtils;
+import freeguide.plugins.program.freeguide.lib.updater.data.PluginsRepository;
 
 import org.xml.sax.InputSource;
 

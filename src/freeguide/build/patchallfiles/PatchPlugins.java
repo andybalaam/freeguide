@@ -1,6 +1,6 @@
 package freeguide.build.patchallfiles;
 
-import freeguide.common.lib.fgspecific.PluginInfo;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 
 import java.io.BufferedWriter;
 import java.io.File;

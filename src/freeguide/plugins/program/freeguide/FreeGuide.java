@@ -18,7 +18,7 @@ import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
 import freeguide.plugins.program.freeguide.migration.Migrate;
 
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.fgspecific.PluginsManager;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 import freeguide.common.lib.fgspecific.StoragePipe;
 
 import freeguide.common.lib.general.CmdArgs;

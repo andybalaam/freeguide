@@ -1,4 +1,4 @@
-package freeguide.common.plugins;
+package freeguide.common.plugininterfaces;
 
 /**
  * Module CAN implement this interface if it can be configured from wizard.

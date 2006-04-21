@@ -1,4 +1,4 @@
-package freeguide.common.plugins;
+package freeguide.common.plugininterfaces;
 
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.fgspecific.selection.Favourite;

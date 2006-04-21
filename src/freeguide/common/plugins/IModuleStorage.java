@@ -1,4 +1,4 @@
-package freeguide.common.plugins;
+package freeguide.common.plugininterfaces;
 
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;

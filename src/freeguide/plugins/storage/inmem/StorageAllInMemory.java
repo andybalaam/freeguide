@@ -1,6 +1,6 @@
 package freeguide.plugins.storage.inmem;
 
-import freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import freeguide.common.lib.fgspecific.StorageHelper;
 import freeguide.common.lib.fgspecific.data.TVChannel;

@@ -12,7 +12,7 @@
  */
 package freeguide.plugins.program.freeguide.wizard;
 
-import freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import freeguide.plugins.program.freeguide.gui.PrivacyInfoDialog;
 

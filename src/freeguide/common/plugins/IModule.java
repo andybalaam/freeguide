@@ -1,4 +1,4 @@
-package freeguide.common.plugins;
+package freeguide.common.plugininterfaces;
 
 import java.util.Locale;
 

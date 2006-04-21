@@ -1,4 +1,4 @@
-package freeguide.common.plugins;
+package freeguide.common.plugininterfaces;
 
 /**
  * Interface for grabber modules. Each grabber module should implement this

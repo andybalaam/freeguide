@@ -12,7 +12,7 @@
  */
 package freeguide.plugins.program.freeguide.dialogs;
 
-import freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import freeguide.common.lib.fgspecific.Application;
 

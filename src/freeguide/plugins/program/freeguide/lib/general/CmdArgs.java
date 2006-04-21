@@ -10,7 +10,7 @@
  */
 package freeguide.plugins.program.freeguide.lib.general;
 
-import freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import java.util.Properties;
 import java.util.Set;

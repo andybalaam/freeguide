@@ -1,14 +1,14 @@
 package freeguide.plugins.program.freeguide.options;
 
-import freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import freeguide.common.gui.FGDialog;
 
 import freeguide.plugins.program.freeguide.viewer.MainController;
 
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.fgspecific.PluginInfo;
-import freeguide.common.lib.fgspecific.PluginsManager;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 
 import freeguide.common.plugininterfaces.IModuleGrabber;
 
