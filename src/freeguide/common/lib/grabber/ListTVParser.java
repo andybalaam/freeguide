@@ -4,9 +4,9 @@ import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.common.plugins.ILogger;
-import freeguide.common.plugins.IProgress;
-import freeguide.common.plugins.IStoragePipe;
+import freeguide.common.plugininterfaces.ILogger;
+import freeguide.common.plugininterfaces.IProgress;
+import freeguide.common.plugininterfaces.IStoragePipe;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;

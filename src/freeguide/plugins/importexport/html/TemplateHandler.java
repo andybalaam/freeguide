@@ -7,7 +7,7 @@ import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.common.plugins.IModuleStorage;
+import freeguide.common.plugininterfaces.IModuleStorage;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

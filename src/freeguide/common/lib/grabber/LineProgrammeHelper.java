@@ -4,7 +4,7 @@ import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 import freeguide.common.lib.general.Time;
 
-import freeguide.common.plugins.ILogger;
+import freeguide.common.plugininterfaces.ILogger;
 
 import java.text.ParseException;
 

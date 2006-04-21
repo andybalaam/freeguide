@@ -3,7 +3,7 @@ package freeguide.common.lib.impexp;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.common.plugins.IStoragePipe;
+import freeguide.common.plugininterfaces.IStoragePipe;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;

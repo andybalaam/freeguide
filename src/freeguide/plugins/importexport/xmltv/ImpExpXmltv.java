@@ -7,10 +7,10 @@ import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.impexp.XMLTVExport;
 import freeguide.common.lib.impexp.XMLTVImport;
 
-import freeguide.common.plugins.BaseModule;
-import freeguide.common.plugins.IModuleExport;
-import freeguide.common.plugins.IModuleImport;
-import freeguide.common.plugins.IStoragePipe;
+import freeguide.common.plugininterfaces.BaseModule;
+import freeguide.common.plugininterfaces.IModuleExport;
+import freeguide.common.plugininterfaces.IModuleImport;
+import freeguide.common.plugininterfaces.IStoragePipe;
 
 import java.io.File;
 import java.io.IOException;

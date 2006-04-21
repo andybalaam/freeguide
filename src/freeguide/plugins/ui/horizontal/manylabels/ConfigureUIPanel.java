@@ -1,6 +1,6 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import freeguide.common.plugins.ILocalizer;
+import freeguide.common.plugininterfaces.ILocalizer;
 
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;

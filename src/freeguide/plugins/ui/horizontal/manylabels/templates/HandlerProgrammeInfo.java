@@ -5,7 +5,7 @@ import freeguide.common.lib.fgspecific.ProgrammeFormat;
 import freeguide.common.lib.fgspecific.TVChannelIconHelper;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.common.plugins.ILocalizer;
+import freeguide.common.plugininterfaces.ILocalizer;
 
 import java.io.File;
 import java.io.IOException;

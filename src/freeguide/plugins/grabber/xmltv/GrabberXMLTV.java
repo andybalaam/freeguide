@@ -8,13 +8,13 @@ import freeguide.common.lib.general.Utils;
 
 import freeguide.common.lib.impexp.XMLTVImport;
 
-import freeguide.common.plugins.BaseModule;
-import freeguide.common.plugins.ILogger;
-import freeguide.common.plugins.IModuleConfigurationUI;
-import freeguide.common.plugins.IModuleConfigureFromWizard;
-import freeguide.common.plugins.IModuleGrabber;
-import freeguide.common.plugins.IProgress;
-import freeguide.common.plugins.IStoragePipe;
+import freeguide.common.plugininterfaces.BaseModule;
+import freeguide.common.plugininterfaces.ILogger;
+import freeguide.common.plugininterfaces.IModuleConfigurationUI;
+import freeguide.common.plugininterfaces.IModuleConfigureFromWizard;
+import freeguide.common.plugininterfaces.IModuleGrabber;
+import freeguide.common.plugininterfaces.IProgress;
+import freeguide.common.plugininterfaces.IStoragePipe;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

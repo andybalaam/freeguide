@@ -3,7 +3,7 @@ package freeguide.plugins.ui.vertical.simple;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.common.plugins.IModuleReminder;
+import freeguide.common.plugininterfaces.IModuleReminder;
 
 import java.awt.*;
 

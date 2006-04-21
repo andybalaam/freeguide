@@ -1,6 +1,6 @@
 package freeguide.plugins.reminder.alarm;
 
-import freeguide.common.plugins.ILocalizer;
+import freeguide.common.plugininterfaces.ILocalizer;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

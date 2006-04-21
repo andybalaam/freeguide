@@ -4,7 +4,7 @@ import freeguide.common.gui.FontChooserDialog;
 
 import freeguide.common.lib.general.Time;
 
-import freeguide.common.plugins.IModuleConfigurationUI;
+import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
 import java.awt.Color;
 import java.awt.Component;

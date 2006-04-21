@@ -7,8 +7,8 @@ import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.common.plugins.ILocalizer;
-import freeguide.common.plugins.IModuleReminder;
+import freeguide.common.plugininterfaces.ILocalizer;
+import freeguide.common.plugininterfaces.IModuleReminder;
 
 import java.text.DateFormat;
 

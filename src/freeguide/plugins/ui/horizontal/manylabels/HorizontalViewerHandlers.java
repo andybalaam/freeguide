@@ -4,7 +4,7 @@ import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.fgspecific.selection.Favourite;
 
-import freeguide.common.plugins.IModuleReminder;
+import freeguide.common.plugininterfaces.IModuleReminder;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;

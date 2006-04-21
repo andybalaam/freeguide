@@ -1,6 +1,6 @@
 package freeguide.plugins.grabber.vsetv;
 
-import freeguide.common.plugins.IModuleConfigurationUI;
+import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
 import java.awt.Component;
 

@@ -16,7 +16,7 @@ import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.common.plugins.IModuleReminder;
+import freeguide.common.plugininterfaces.IModuleReminder;
 
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerPersonalGuide;
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;

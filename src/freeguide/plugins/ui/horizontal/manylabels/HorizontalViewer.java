@@ -11,13 +11,13 @@ import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.FileHelper;
 import freeguide.common.lib.general.TemplateParser;
 
-import freeguide.common.plugins.BaseModule;
-import freeguide.common.plugins.IModuleConfigurationUI;
-import freeguide.common.plugins.IModuleStorage;
+import freeguide.common.plugininterfaces.BaseModule;
+import freeguide.common.plugininterfaces.IModuleConfigurationUI;
+import freeguide.common.plugininterfaces.IModuleStorage;
 
-import freeguide.common.plugins.IModuleStorage.Info;
+import freeguide.common.plugininterfaces.IModuleStorage.Info;
 
-import freeguide.common.plugins.IModuleViewer;
+import freeguide.common.plugininterfaces.IModuleViewer;
 
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerPersonalGuide;
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;

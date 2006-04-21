@@ -6,7 +6,7 @@ import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 import freeguide.common.lib.general.LanguageHelper;
 
-import freeguide.common.plugins.IStoragePipe;
+import freeguide.common.plugininterfaces.IStoragePipe;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;

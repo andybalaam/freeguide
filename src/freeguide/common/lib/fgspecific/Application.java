@@ -2,7 +2,7 @@ package freeguide.common.lib.fgspecific;
 
 import freeguide.common.lib.general.Version;
 
-import freeguide.common.plugins.IApplication;
+import freeguide.common.plugininterfaces.IApplication;
 
 /**
  * Class for retrieve information about main application.

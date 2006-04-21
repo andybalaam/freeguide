@@ -8,11 +8,11 @@ import freeguide.common.lib.fgspecific.selection.Favourite;
 
 import freeguide.common.lib.general.Utils;
 
-import freeguide.common.plugins.BaseModuleReminder;
-import freeguide.common.plugins.IModuleConfigurationUI;
-import freeguide.common.plugins.IModuleReminder;
-import freeguide.common.plugins.IModuleStorage;
-import freeguide.common.plugins.IModuleViewer;
+import freeguide.common.plugininterfaces.BaseModuleReminder;
+import freeguide.common.plugininterfaces.IModuleConfigurationUI;
+import freeguide.common.plugininterfaces.IModuleReminder;
+import freeguide.common.plugininterfaces.IModuleStorage;
+import freeguide.common.plugininterfaces.IModuleViewer;
 
 import freeguide.plugins.reminder.alarm.AlarmUIController;
 

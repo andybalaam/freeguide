@@ -6,7 +6,7 @@ import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.common.plugins.IModuleStorage;
+import freeguide.common.plugininterfaces.IModuleStorage;
 
 /**
  * DOCUMENT ME!

@@ -6,8 +6,8 @@ import freeguide.common.lib.fgspecific.data.TVData;
 
 import freeguide.common.lib.general.TemplateParser;
 
-import freeguide.common.plugins.BaseModule;
-import freeguide.common.plugins.IModuleExport;
+import freeguide.common.plugininterfaces.BaseModule;
+import freeguide.common.plugininterfaces.IModuleExport;
 
 import java.io.BufferedWriter;
 import java.io.File;

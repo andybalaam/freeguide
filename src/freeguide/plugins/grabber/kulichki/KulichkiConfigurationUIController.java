@@ -2,7 +2,7 @@ package freeguide.plugins.grabber.kulichki;
 
 import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.common.plugins.IModuleConfigurationUI;
+import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;

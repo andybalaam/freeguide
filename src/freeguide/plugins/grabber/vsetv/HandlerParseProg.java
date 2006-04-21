@@ -10,8 +10,8 @@ import freeguide.common.lib.grabber.HtmlHelper;
 import freeguide.common.lib.grabber.LineProgrammeHelper;
 import freeguide.common.lib.grabber.TimeHelper;
 
-import freeguide.common.plugins.ILogger;
-import freeguide.common.plugins.IStoragePipe;
+import freeguide.common.plugininterfaces.ILogger;
+import freeguide.common.plugininterfaces.IStoragePipe;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

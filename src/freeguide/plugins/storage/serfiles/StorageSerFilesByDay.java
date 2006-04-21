@@ -8,8 +8,8 @@ import freeguide.common.lib.fgspecific.data.TVIteratorChannels;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.common.plugins.BaseModule;
-import freeguide.common.plugins.IModuleStorage;
+import freeguide.common.plugininterfaces.BaseModule;
+import freeguide.common.plugininterfaces.IModuleStorage;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

@@ -3,7 +3,7 @@ package freeguide.plugins.ui.vertical.simple;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.*;
 
-import freeguide.plugins.*;
+import freeguide.common.plugininterfaces.*;
 
 import java.awt.*;
 

@@ -5,8 +5,8 @@ import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 import freeguide.common.lib.general.TemplateParser;
 
-import freeguide.common.plugins.BaseModuleReminder;
-import freeguide.common.plugins.IModuleReminder;
+import freeguide.common.plugininterfaces.BaseModuleReminder;
+import freeguide.common.plugininterfaces.IModuleReminder;
 
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;
 

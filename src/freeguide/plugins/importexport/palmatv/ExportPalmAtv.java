@@ -8,9 +8,9 @@ import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.EndianInputStream;
 import freeguide.common.lib.general.EndianOutputByteArray;
 
-import freeguide.common.plugins.BaseModule;
-import freeguide.common.plugins.IModuleConfigurationUI;
-import freeguide.common.plugins.IModuleExport;
+import freeguide.common.plugininterfaces.BaseModule;
+import freeguide.common.plugininterfaces.IModuleConfigurationUI;
+import freeguide.common.plugininterfaces.IModuleExport;
 
 import java.io.File;
 import java.io.IOException;

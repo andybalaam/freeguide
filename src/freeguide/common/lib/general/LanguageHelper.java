@@ -1,6 +1,6 @@
 package freeguide.common.lib.general;
 
-import freeguide.common.plugins.ILocalizer;
+import freeguide.common.plugininterfaces.ILocalizer;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;

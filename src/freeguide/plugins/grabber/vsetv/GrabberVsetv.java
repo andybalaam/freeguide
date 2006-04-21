@@ -11,12 +11,12 @@ import freeguide.common.lib.general.LanguageHelper;
 
 import freeguide.common.lib.grabber.HttpBrowser;
 
-import freeguide.common.plugins.BaseModule;
-import freeguide.common.plugins.ILogger;
-import freeguide.common.plugins.IModuleConfigurationUI;
-import freeguide.common.plugins.IModuleGrabber;
-import freeguide.common.plugins.IProgress;
-import freeguide.common.plugins.IStoragePipe;
+import freeguide.common.plugininterfaces.BaseModule;
+import freeguide.common.plugininterfaces.ILogger;
+import freeguide.common.plugininterfaces.IModuleConfigurationUI;
+import freeguide.common.plugininterfaces.IModuleGrabber;
+import freeguide.common.plugininterfaces.IProgress;
+import freeguide.common.plugininterfaces.IStoragePipe;
 
 import org.xml.sax.SAXException;
 
