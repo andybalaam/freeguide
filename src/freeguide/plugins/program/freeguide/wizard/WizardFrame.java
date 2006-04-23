@@ -12,7 +12,7 @@
  */
 package freeguide.plugins.program.freeguide.wizard;
 
-import freeguide.plugins.program.freeguide.gui.JWaitFrame;
+import freeguide.common.gui.JWaitFrame;
 
 import freeguide.common.lib.fgspecific.Application;
 

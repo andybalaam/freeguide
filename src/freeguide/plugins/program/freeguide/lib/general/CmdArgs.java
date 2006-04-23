@@ -1,5 +1,5 @@
 /*
- *  FreeGUide J2
+ *  FreeGuide J2
  *
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
  *

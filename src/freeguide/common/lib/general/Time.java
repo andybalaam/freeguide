@@ -1,26 +1,16 @@
 /*
-
  *  FreeGuide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  freeguide-tv.sourceforge.net
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
+
 package freeguide.common.lib.general;
 
 import freeguide.common.lib.fgspecific.Application;
@@ -40,25 +30,21 @@ import java.util.GregorianCalendar;
  */
 public class Time
 {
-
     private final static long oneSecond = 1000;
     private final static long oneMinute = oneSecond * 60;
     private final static long oneHour = oneMinute * 60;
     private final static long oneDay = oneHour * 24;
-
     // ------------------------------------------------------------------------
     // ------------------------------------------------------------------------
-
     /** DOCUMENT ME! */
     public long milliseconds = -1;
-
     /**
      * Create a FreeGuideTime object set to midnight.
      */
     public Time(  )
     {
     }
-
+    
     /**
      * Create a FreeGuideTime object with the same time as other.
      *
@@ -67,9 +53,8 @@ public class Time
     public Time( Time other )
     {
         setTime( other );
-
     }
-
+    
     /**
      * Create a FreeGuideTime object set to the given hour.
      *
@@ -78,9 +63,8 @@ public class Time
     public Time( int hour )
     {
         setTime( hour );
-
     }
-
+    
     /**
      * Create a FreeGuideTime object set to the given hour and minute.
      *
@@ -90,9 +74,8 @@ public class Time
     public Time( int hour, int minute )
     {
         setTime( hour, minute );
-
     }
-
+    
     /**
      * Create a FreeGuideTime object set to the given hour, minute and second.
      *
@@ -103,9 +86,8 @@ public class Time
     public Time( int hour, int minute, int second )
     {
         setTime( hour, minute, second );
-
     }
-
+    
     /**
      * Create a FreeGuideTime object set to the given hour, minute, second and
      * millisecond.
@@ -118,9 +100,8 @@ public class Time
     public Time( int hour, int minute, int second, int millisecond )
     {
         setTime( hour, minute, second, millisecond );
-
     }
-
+    
     /**
      * Create a FreeGuideTime object by taking the just time-related bits of
      * the given Date object.
@@ -130,9 +111,8 @@ public class Time
     public Time( Date date )
     {
         setTime( date );
-
     }
-
+    
     /**
      * Create a FreeGuideTime object by taking the just time-related bits of
      * the given Calendar object.
@@ -142,9 +122,8 @@ public class Time
     public Time( Calendar date )
     {
         setTime( date );
-
     }
-
+    
     /**
      * Create a FreeGuideTime object from this string in the form HH:MM.
      *
@@ -153,9 +132,8 @@ public class Time
     public Time( String hhmm )
     {
         setTimeHHMMString( hhmm );
-
     }
-
+    
     /**
      * DOCUMENT_ME!
      *
@@ -163,13 +141,10 @@ public class Time
      */
     public boolean isEmpty(  )
     {
-
         return milliseconds == -1;
-
     }
-
+    
     // ------------------------------------------------------------------------
-
     /**
      * Set the time to the given hour (0-23) exactly. Deals with numbers
      * outside the range by simply wrapping e.g. -2 becomes 22.
@@ -179,9 +154,8 @@ public class Time
     public void setTime( int hour )
     {
         setMillisecondsSinceMidnight( hour * oneHour );
-
     }
-
+    
     /**
      * Create a FreeGuideTime object with the same time as other.
      *
@@ -190,9 +164,8 @@ public class Time
     public void setTime( Time other )
     {
         milliseconds = other.getMillisecondsSinceMidnight(  );
-
     }
-
+    
     /**
      * Set the time to the given hour and minute exactly. Simply adds the
      * numbers given e.g. setTime(21, -5) gives us a time of 20:55.
@@ -204,9 +177,8 @@ public class Time
     {
         setMillisecondsSinceMidnight( 
             ( hour * oneHour ) + ( minute * oneMinute ) );
-
     }
-
+    
     /**
      * Set the time to the given hour, minute and second exactly.
      *
@@ -218,9 +190,8 @@ public class Time
     {
         setMillisecondsSinceMidnight( 
             ( hour * oneHour ) + ( minute * oneMinute ) + ( second * oneSecond ) );
-
     }
-
+    
     /**
      * Set the time to the given hour, minute, second and millisecond.
      *
@@ -234,9 +205,8 @@ public class Time
         setMillisecondsSinceMidnight( 
             ( hour * oneHour ) + ( minute * oneMinute ) + ( second * oneSecond )
             + millisecond );
-
     }
-
+    
     /**
      * Set the time by taking the just time-related bits of the given Date
      * object.
@@ -245,17 +215,13 @@ public class Time
      */
     public void setTime( Date date )
     {
-
         Calendar cal = GregorianCalendar.getInstance(  );
-
         cal.setTime( date );
-
         setTime( 
             cal.get( Calendar.HOUR_OF_DAY ), cal.get( Calendar.MINUTE ),
             cal.get( Calendar.SECOND ), cal.get( Calendar.MILLISECOND ) );
-
     }
-
+    
     /**
      * Set the time by taking the just time-related bits of the given Calendar
      * object.
@@ -267,9 +233,8 @@ public class Time
         setTime( 
             date.get( Calendar.HOUR_OF_DAY ), date.get( Calendar.MINUTE ),
             date.get( Calendar.SECOND ), date.get( Calendar.MILLISECOND ) );
-
     }
-
+    
     /**
      * Sets this time to the time specified by the String hhmm in the form of
      * two digits representing the hour and two digits representing the
@@ -279,39 +244,30 @@ public class Time
      */
     public void setTimeHHMMString( String hhmm )
     {
-
         if( ( hhmm.length(  ) != 5 ) || ( hhmm.charAt( 2 ) != ':' ) )
         {
             setMillisecondsSinceMidnight( 0 );
-
             Application.getInstance(  ).getLogger(  ).warning( 
                 "Invalid time string \"" + hhmm + "\"" );
-
         }
-
         else
         {
-
             try
             {
                 setTime( 
                     Integer.parseInt( hhmm.substring( 0, 2 ) ),
                     Integer.parseInt( hhmm.substring( 3 ) ) );
-
             }
-
             catch( NumberFormatException e )
             {
                 Application.getInstance(  ).getLogger(  ).severe( 
                     "FGTime.setTimeHHMMString(" + hhmm
                     + "): NumberFormatException..." );
-
                 setTime( 0 );
-
             }
         }
     }
-
+    
     /**
      * Set the hour of the day.
      *
@@ -320,9 +276,8 @@ public class Time
     public void setHours( int hours )
     {
         addMilliseconds( ( hours - getHours(  ) ) * oneHour );
-
     }
-
+    
     /**
      * Set the number of minutes past the hour.
      *
@@ -331,9 +286,8 @@ public class Time
     public void setMinutes( int minutes )
     {
         addMilliseconds( ( minutes - getMinutes(  ) ) * oneMinute );
-
     }
-
+    
     /**
      * Set the number of seconds past the minute.
      *
@@ -342,9 +296,8 @@ public class Time
     public void setSeconds( int seconds )
     {
         addMilliseconds( ( seconds - getSeconds(  ) ) * oneSecond );
-
     }
-
+    
     /**
      * Set the number of milliseconds past the second.
      *
@@ -353,9 +306,8 @@ public class Time
     public void setMilliseconds( int milliseconds )
     {
         addMilliseconds( milliseconds - getMilliseconds(  ) );
-
     }
-
+    
     /**
      * Add incHours hours to the time.
      *
@@ -364,9 +316,8 @@ public class Time
     public void addHours( int incHours )
     {
         addMilliseconds( incHours * oneHour );
-
     }
-
+    
     /**
      * Add incMinutes minutes to the time.
      *
@@ -375,9 +326,8 @@ public class Time
     public void addMinutes( int incMinutes )
     {
         addMilliseconds( incMinutes * oneMinute );
-
     }
-
+    
     /**
      * Add incSeconds seconds to the time.
      *
@@ -386,9 +336,8 @@ public class Time
     public void addSeconds( int incSeconds )
     {
         addMilliseconds( incSeconds * oneSecond );
-
     }
-
+    
     /**
      * Add incMilliseconds milliseconds to the time.
      *
@@ -398,9 +347,8 @@ public class Time
     public void addMilliseconds( long incMilliseconds )
     {
         setMillisecondsSinceMidnight( milliseconds + incMilliseconds );
-
     }
-
+    
     /**
      * Set the time to given millisecond after midnight.
      *
@@ -409,13 +357,10 @@ public class Time
     public void setMillisecondsSinceMidnight( long milliseconds )
     {
         this.milliseconds = milliseconds;
-
         wrap(  );
-
     }
-
+    
     // ------------------------------------------------------------------------
-
     /**
      * Return this time, in the form of the number of milliseconds since
      * midnight. Guaranteed to be >= 0 and less than the number of
@@ -426,11 +371,9 @@ public class Time
      */
     public long getMillisecondsSinceMidnight(  )
     {
-
         return milliseconds;
-
     }
-
+    
     /**
      * Return the number of hours since midnight 0 to 23.
      *
@@ -438,11 +381,9 @@ public class Time
      */
     public int getHours(  )
     {
-
         return (int)( milliseconds / oneHour );
-
     }
-
+    
     /**
      * Return the number of minutes past the hour 0 to 59.
      *
@@ -450,11 +391,9 @@ public class Time
      */
     public int getMinutes(  )
     {
-
         return (int)( ( milliseconds % oneHour ) / oneMinute );
-
     }
-
+    
     /**
      * Return the number of seconds past the minute 0 to 59.
      *
@@ -462,11 +401,9 @@ public class Time
      */
     public int getSeconds(  )
     {
-
         return (int)( ( milliseconds % oneMinute ) / oneSecond );
-
     }
-
+    
     /**
      * Return the number of milliseconds past the second 0 to 999.
      *
@@ -474,11 +411,9 @@ public class Time
      */
     public int getMilliseconds(  )
     {
-
         return (int)( milliseconds % oneSecond );
-
     }
-
+    
     /**
      * DOCUMENT_ME!
      *
@@ -486,10 +421,9 @@ public class Time
      */
     public long getLongValue(  )
     {
-
         return milliseconds;
     }
-
+    
     /**
      * Return the number of hours since midnight formatted as a String of
      * length 2 - "00" to "23".
@@ -498,11 +432,9 @@ public class Time
      */
     public String getHoursString(  )
     {
-
         return padded( String.valueOf( getHours(  ) ), 2 );
-
     }
-
+    
     /**
      * Return the number of minutes past the hour formatted as a String of
      * length 2 - "00" to "59".
@@ -511,11 +443,9 @@ public class Time
      */
     public String getMinutesString(  )
     {
-
         return padded( String.valueOf( getMinutes(  ) ), 2 );
-
     }
-
+    
     /**
      * Return the number of seconds past the minute formatted as a String of
      * length 2 - "00" to "59".
@@ -524,11 +454,9 @@ public class Time
      */
     public String getSecondsString(  )
     {
-
         return padded( String.valueOf( getSeconds(  ) ), 2 );
-
     }
-
+    
     /**
      * Return the number of milliseconds past the second formatted as a String
      * of length 3 - "000" to "999".
@@ -537,11 +465,9 @@ public class Time
      */
     public String getMillisecondsString(  )
     {
-
         return padded( String.valueOf( getMilliseconds(  ) ), 3 );
-
     }
-
+    
     /**
      * Return the time formatted as HH:MM
      *
@@ -549,11 +475,9 @@ public class Time
      */
     public String getHHMMString(  )
     {
-
         return getHoursString(  ) + ":" + getMinutesString(  );
-
     }
-
+    
     /**
      * Return a string representation of this time formatted as: hh:mm:ss:nnnn
      * where hh is the hour, mm is the minute, ss is the second and nnnn is
@@ -563,12 +487,10 @@ public class Time
      */
     public String toString(  )
     {
-
         return getHoursString(  ) + ":" + getMinutesString(  ) + ":"
         + getSecondsString(  ) + ":" + getMillisecondsString(  );
-
     }
-
+    
     /**
      * A convenience method which sets a Calendar object to this time.
      *
@@ -577,17 +499,12 @@ public class Time
     public void adjustCalendar( Calendar cal )
     {
         cal.set( Calendar.HOUR_OF_DAY, getHours(  ) );
-
         cal.set( Calendar.MINUTE, getMinutes(  ) );
-
         cal.set( Calendar.SECOND, getSeconds(  ) );
-
         cal.set( Calendar.MILLISECOND, getMilliseconds(  ) );
-
     }
-
+    
     // ------------------------------------------------------------------------
-
     /**
      * Returns true if this time is after the other.
      *
@@ -598,11 +515,9 @@ public class Time
      */
     public boolean after( Time other )
     {
-
         return after( other, new Time( 0, 0 ) ); //FreeGuide.prefs.misc.getTime( "day_start_time" ) );
-
     }
-
+    
     /**
      * Returns true if this time is after the other, but viewing the day as
      * not starting and ending at midnight, but at divideTime. e.g.
@@ -621,11 +536,9 @@ public class Time
      */
     public boolean after( Time other, Time divideTime )
     {
-
         return ( compareTo( other, divideTime ) > 0 );
-
     }
-
+    
     /**
      * Returns true if this time is before the other.
      *
@@ -636,11 +549,9 @@ public class Time
      */
     public boolean before( Time other )
     {
-
         return before( other, new Time( 0, 0 ) ); //FreeGuide.prefs.misc.getTime( "day_start_time" ) );
-
     }
-
+    
     /**
      * Returns true if this time is before the other, but viewing the day as
      * not starting and ending at midnight, but at divideTime. See the
@@ -654,11 +565,9 @@ public class Time
      */
     public boolean before( Time other, Time divideTime )
     {
-
         return ( compareTo( other, divideTime ) < 0 );
-
     }
-
+    
     /**
      * Compare two times for ordering.
      *
@@ -669,11 +578,9 @@ public class Time
      */
     public int compareTo( Time other )
     {
-
         return compareTo( other, new Time( 0 ) );
-
     }
-
+    
     /**
      * Compare two times for ordering. See the example under after() for more
      * info in divideTime.
@@ -686,73 +593,52 @@ public class Time
      */
     public int compareTo( Time other, Time divideTime )
     {
-
         // Get ourselves into ms
         long thisMS = getMillisecondsSinceMidnight(  );
-
         long otherMS = other.getMillisecondsSinceMidnight(  );
-
         long divideMS = divideTime.getMillisecondsSinceMidnight(  );
-
         // check for equality
         if( thisMS == otherMS )
         {
-
             return 0;
-
         }
-
         // Adjust either of the times if they're before the divide time
         if( thisMS < divideMS )
         {
             thisMS += oneDay;
-
         }
-
         if( otherMS < divideMS )
         {
             otherMS += oneDay;
-
         }
-
         // And finally compare them
         if( thisMS < otherMS )
         {
-
             return -1;
-
         }
-
         else
         {
-
             return 1;
-
         }
     }
-
+    
     // ------------------------------------------------------------------------
     // Get milliseconds within [0:oneDay)
-
     /**
      * Description of the Method
      */
     private void wrap(  )
     {
-
         // Get it within (-oneDay, oneDay)
         milliseconds %= oneDay;
-
         // Finish off
         if( milliseconds < 0 )
         {
             milliseconds += oneDay;
-
         }
     }
-
+    
     // Pad out a string with zeros until it's the given length
-
     /**
      * Description of the Method
      *
@@ -763,18 +649,13 @@ public class Time
      */
     private String padded( String input, int length )
     {
-
         // When I figure out assertions in NetBeans:
         //assert input.length() <= length;
         StringBuffer buffy = new StringBuffer( input );
-
         while( buffy.length(  ) < length )
         {
             buffy.insert( 0, '0' );
-
         }
-
         return buffy.toString(  );
-
     }
 }

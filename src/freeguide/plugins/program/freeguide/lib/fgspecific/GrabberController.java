@@ -2,7 +2,7 @@ package freeguide.plugins.program.freeguide.lib.fgspecific;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
 
-import freeguide.plugins.program.freeguide.gui.ExecutorDialog;
+import freeguide.common.gui.ExecutorDialog;
 
 import freeguide.plugins.program.freeguide.viewer.MainController;
 

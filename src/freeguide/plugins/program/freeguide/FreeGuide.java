@@ -12,16 +12,16 @@
  */
 package freeguide.plugins.program.freeguide;
 
-import freeguide.plugins.program.freeguide.gui.PleaseWaitFrame;
+import freeguide.plugins.program.freeguide.dialogs.PleaseWaitFrame;
 import freeguide.plugins.program.freeguide.viewer.MainController;
 import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
 import freeguide.plugins.program.freeguide.migration.Migrate;
 
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
-import freeguide.common.lib.fgspecific.StoragePipe;
+import freeguide.plugins.program.freeguide.lib.fgspecific.StoragePipe;
 
-import freeguide.common.lib.general.CmdArgs;
+import freeguide.plugins.program.freeguide.lib.general.CmdArgs;
 import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.PreferencesHelper;
 import freeguide.common.lib.general.Version;

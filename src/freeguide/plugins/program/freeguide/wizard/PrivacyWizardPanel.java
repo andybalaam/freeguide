@@ -14,7 +14,7 @@ package freeguide.plugins.program.freeguide.wizard;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
 
-import freeguide.plugins.program.freeguide.gui.PrivacyInfoDialog;
+import freeguide.plugins.program.freeguide.dialogs.PrivacyInfoDialog;
 
 import freeguide.common.lib.fgspecific.Application;
 

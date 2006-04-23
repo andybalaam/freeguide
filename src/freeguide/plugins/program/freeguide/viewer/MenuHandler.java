@@ -2,12 +2,9 @@ package freeguide.plugins.program.freeguide.viewer;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
 
-import freeguide.plugins.program.freeguide.gui.AboutFrame;
-
+import freeguide.plugins.program.freeguide.dialogs.AboutFrame;
 import freeguide.plugins.program.freeguide.options.OptionsDialog;
-
 import freeguide.plugins.program.freeguide.updater.UpdaterController;
-
 import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
 
 import freeguide.common.lib.fgspecific.Application;

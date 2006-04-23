@@ -216,21 +216,6 @@ loop:
     }
 
     /**
-     * DOCUMENT_ME!
-     *
-     * @param parent DOCUMENT_ME!
-     * @param dialog DOCUMENT_ME!
-     */
-
-    /*public static boolean centreDialogAndRun(
-    final Component parent, FGDialog dialog )
-    {
-    centreDialog( parent, dialog );
-
-    return dialog.showDialog(  );
-    }*/
-
-    /**
      * Move window to centre of parent window.
      *
      * @param parent parent window

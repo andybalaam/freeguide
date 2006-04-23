@@ -63,7 +63,6 @@
  */
 package freeguide.common.gui;
 
-import freeguide.*;
 
 import freeguide.common.lib.fgspecific.Application;
 

@@ -4,6 +4,7 @@ import freeguide.plugins.program.freeguide.FreeGuide;
 
 import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.PreferencesHelper;
+import freeguide.common.lib.fgspecific.Application;
 
 import freeguide.common.plugininterfaces.IModule;
 import freeguide.common.plugininterfaces.IModuleExport;
@@ -425,7 +426,6 @@ public class PluginsManager
      */
     public static PluginInfo[] getViewers(  )
     {
-
         return (PluginInfo[])viewersList.toArray( 
             new PluginInfo[viewersList.size(  )] );
     }
@@ -437,7 +437,6 @@ public class PluginsManager
      */
     public static PluginInfo[] getImporters(  )
     {
-
         return (PluginInfo[])importersList.toArray( 
             new PluginInfo[importersList.size(  )] );
     }
@@ -449,7 +448,6 @@ public class PluginsManager
      */
     public static PluginInfo[] getExporters(  )
     {
-
         return (PluginInfo[])exportersList.toArray( 
             new PluginInfo[exportersList.size(  )] );
     }
@@ -461,7 +459,6 @@ public class PluginsManager
      */
     public static PluginInfo getApplicationModuleInfo(  )
     {
-
         return applicationInfo;
     }
 

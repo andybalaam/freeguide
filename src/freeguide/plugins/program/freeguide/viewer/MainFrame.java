@@ -2,7 +2,7 @@ package freeguide.plugins.program.freeguide.viewer;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
 
-import freeguide.plugins.program.freeguide.gui.JWaitFrame;
+import freeguide.common.gui.JWaitFrame;
 
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;

@@ -1,7 +1,5 @@
 package freeguide.plugins.ui.vertical.simple.filter.gui;
 
-import freeguide.common.lib.fgspecific.Application;
-
 import freeguide.plugins.ui.vertical.simple.VerticalViewer;
 import freeguide.plugins.ui.vertical.simple.filter.ProgrammeFilter;
 import freeguide.plugins.ui.vertical.simple.filter.TitleFilter;

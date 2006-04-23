@@ -1,35 +1,22 @@
 /*
-
  *  FreeGuide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  freeguide-tv.sourceforge.net
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
 package freeguide.plugins.program.freeguide.options;
 
-import freeguide.*;
-
-import freeguide.plugins.program.freeguide.gui.*;
-
+import freeguide.plugins.program.freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.dialogs.*;
 import freeguide.common.lib.fgspecific.Application;
-
 import freeguide.common.lib.general.*;
+import freeguide.common.gui.FGDialog;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -38,19 +25,12 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 /*
-
  *  A panel full of options about privacy and checking for new version of
-
  *  FreeGuide
-
  *
-
  * @author     Andy Balaam
-
  * @created    12 Dec 2003
-
  * @version    1
-
  */
 public class PrivacyOptionPanel extends OptionPanel implements ActionListener
 {

@@ -1,7 +1,7 @@
 package freeguide.common.lib.fgspecific;
 
 import freeguide.common.lib.fgspecific.data.TVChannel;
-
+import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.StringHelper;
 
 import java.io.ByteArrayOutputStream;

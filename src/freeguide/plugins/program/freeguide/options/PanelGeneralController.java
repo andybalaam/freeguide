@@ -1,14 +1,10 @@
 package freeguide.plugins.program.freeguide.options;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.plugins.program.freeguide.viewer.MainController;
-
 import freeguide.common.lib.fgspecific.Application;
-
 import freeguide.common.lib.general.LanguageHelper;
-import freeguide.common.lib.general.LookAndFeelManager;
-
+import freeguide.plugins.program.freeguide.lib.general.LookAndFeelManager;
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
 import java.awt.Component;

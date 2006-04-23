@@ -1,6 +1,5 @@
 package freeguide.plugins.ui.vertical.simple;
 
-import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 import java.util.Date;

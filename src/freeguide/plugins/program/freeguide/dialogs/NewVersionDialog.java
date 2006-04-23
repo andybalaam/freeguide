@@ -12,11 +12,9 @@
  */
 package freeguide.plugins.program.freeguide.dialogs;
 
-import freeguide.*;
-
 import freeguide.common.lib.fgspecific.Application;
-
 import freeguide.common.lib.general.*;
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import java.awt.*;
 

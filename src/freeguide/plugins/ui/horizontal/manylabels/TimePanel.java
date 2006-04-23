@@ -1,21 +1,12 @@
 /*
-
  *  FreeGuide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
 package freeguide.plugins.ui.horizontal.manylabels;
 
@@ -79,7 +70,6 @@ public class TimePanel extends JPanel
     private void initComponents(  )
     {
         setLayout( new java.awt.BorderLayout(  ) );
-
     }
 
     /**
@@ -94,25 +84,19 @@ public class TimePanel extends JPanel
         if( display )
         {
             super.paintComponent( g );
-
             int wid = this.getPreferredSize(  ).width;
-
             if( wid > 0 )
             {
-
                 SimpleDateFormat fmt;
-
                 //DMT use preferences for 24 hour or 12 hour display
                 if( config.display24time )
                 {
                     fmt = time24format;
-
                 }
 
                 else
                 {
                     fmt = timeformat;
-
                 }
 
                 fmt.setTimeZone( Application.getInstance(  ).getTimeZone(  ) );
@@ -160,9 +144,7 @@ public class TimePanel extends JPanel
 
                             // Hours
                             g.drawLine( xPos, 0, xPos, 10 );
-
                             g.drawLine( xPos + 1, 0, xPos + 1, 10 );
-
                             g.drawString( 
                                 fmt.format( tmpTime.getTime(  ) ), xPos - 17,
                                 21 );
@@ -171,51 +153,36 @@ public class TimePanel extends JPanel
 
                         else if( tmpTime.get( Calendar.MINUTE ) == 30 )
                         {
-
                             // Half hours
                             g.drawLine( xPos, 0, xPos, 7 );
 
                             g.drawString( 
                                 fmt.format( tmpTime.getTime(  ) ), xPos - 17,
                                 21 );
-
                         }
 
                         else if( ( tmpTime.get( Calendar.MINUTE ) % 10 ) == 0 )
                         {
-
                             // 10 mins
                             g.drawLine( xPos, 0, xPos, 4 );
-
                         }
 
                         else
                         {
                             g.drawLine( xPos, 0, xPos, 1 );
-
                         }
                     }
 
                     // Add another 5 mins
                     tmpTime.add( Calendar.MINUTE, 5 );
-
-                }
-
-                //while
+                } //while
+                
                 // Draw the "now" line
                 int xPos = getNowScroll(  );
-
                 drawNowLine( g, xPos );
-
-            }
-
-            //if
-        }
-
-        //if
-    }
-
-    //paintComponent
+            }//if
+        }//if
+    }//paintComponent
 
     /**
      * Draws the "now line" on this panel as a black triangle.
@@ -225,20 +192,13 @@ public class TimePanel extends JPanel
      */
     protected void drawNowLine( final Graphics g, final int xPos )
     {
-
         int[] xPoints = { xPos - 5, xPos + 5, xPos };
-
         int[] yPoints = { 0, 0, 25 };
-
         int nPoints = 3;
-
         Graphics2D g2 = (Graphics2D)g;
-
         g2.setRenderingHint( 
             RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
-
         g2.fillPolygon( xPoints, yPoints, nPoints );
-
     }
 
     /**
@@ -248,9 +208,7 @@ public class TimePanel extends JPanel
      */
     public int getNowScroll(  )
     {
-
         return getScrollValue( GregorianCalendar.getInstance(  ) );
-
     }
 
     /**
@@ -262,20 +220,14 @@ public class TimePanel extends JPanel
      */
     public int getScrollValue( long showMillis )
     {
-
         if( display )
         {
-
             if( ( showMillis >= startTime ) && ( showMillis <= endTime ) )
             {
-
                 return (int)( ( showMillis - startTime ) / multiplier );
-
             }
         }
-
         return 0;
-
     }
 
     /**
@@ -287,9 +239,7 @@ public class TimePanel extends JPanel
      */
     public int getScrollValue( Calendar showTime )
     {
-
         return getScrollValue( showTime.getTimeInMillis(  ) );
-
     }
 
     /**
@@ -300,18 +250,11 @@ public class TimePanel extends JPanel
      */
     public void setTimes( long newStartTime, long newEndTime )
     {
-
         int wid = this.getPreferredSize(  ).width;
-
         multiplier = (double)( newEndTime - newStartTime ) / (double)( wid );
-
         startTime = newStartTime;
-
         endTime = newEndTime;
-
         display = true;
-
         repaint(  );
-
     }
 }

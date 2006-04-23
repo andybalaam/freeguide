@@ -21,7 +21,8 @@ import java.util.List;
 public class Startup
 {
 
-    protected static final String STARTUP_CLASS = "freeguide.FreeGuide";
+    protected static final String STARTUP_CLASS
+        = "freeguide.plugins.program.freeguide.FreeGuide";
     protected static final String STARTUP_METHOD = "main";
     protected static final String INSTALL_PREFIX = "--install_directory";
 

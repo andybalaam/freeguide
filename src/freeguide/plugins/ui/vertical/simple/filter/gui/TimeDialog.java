@@ -1,7 +1,5 @@
 package freeguide.plugins.ui.vertical.simple.filter.gui;
 
-import freeguide.common.lib.fgspecific.Application;
-
 import freeguide.plugins.ui.vertical.simple.VerticalViewer;
 import freeguide.plugins.ui.vertical.simple.filter.ProgrammeFilter;
 import freeguide.plugins.ui.vertical.simple.filter.TimeFilter;
@@ -317,21 +315,20 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
 
         return bClosedWithOk;
     }
-
     //public boolean isClosedWithOk()
 
     /**
      * DOCUMENT_ME!
      */
-    public void show(  )
+    public void setVisible( boolean show )
     {
-
-        //reset that
-        this.bClosedWithOk = false;
-        super.show(  );
+        if( show )
+        {
+            //reset that
+            this.bClosedWithOk = false;
+        }
+        super.setVisible( show );
     }
-
-    //public void show()
 
     /**
      * To test the dialog in development
@@ -348,7 +345,7 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
         TimeDialog dialog = new TimeDialog(  );
         dialog.setFilter( filter );
         dialog.init(  );
-        dialog.show(  );
+        dialog.setVisible( true );
         System.exit( 0 );
     }
 

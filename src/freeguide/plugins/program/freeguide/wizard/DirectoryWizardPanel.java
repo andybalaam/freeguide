@@ -1,32 +1,19 @@
 /*
-
  *  FreeGuide J2
-
  *
-
  *  Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
-
  *
-
  *  freeguide-tv.sourceforge.net
-
  *
-
  *  Released under the GNU General Public License
-
  *  with ABSOLUTELY NO WARRANTY.
-
  *
-
  *  See the file COPYING for more information.
-
  */
+ 
 package freeguide.plugins.program.freeguide.wizard;
 
-import freeguide.*;
-
 import freeguide.common.lib.fgspecific.Application;
-
 import javax.swing.JFileChooser;
 
 /**
@@ -38,7 +25,6 @@ import javax.swing.JFileChooser;
  */
 public class DirectoryWizardPanel extends AbstractFileWizardPanel
 {
-
     /**
      * Create a new FreeGuideDirectoryWizardPanel. This is almost, but not
      * quite identical to a FreeGuideFileWizardPanel.
@@ -46,9 +32,8 @@ public class DirectoryWizardPanel extends AbstractFileWizardPanel
     public DirectoryWizardPanel(  )
     {
         super(  );
-
     }
-
+    
     /**
      * Gets the fileSelectionMode attribute of the
      * FreeGuideDirectoryWizardPanel object
@@ -57,11 +42,9 @@ public class DirectoryWizardPanel extends AbstractFileWizardPanel
      */
     protected int getFileSelectionMode(  )
     {
-
         return JFileChooser.DIRECTORIES_ONLY;
-
     }
-
+    
     /**
      * Gets the fileChooserMessage attribute of the
      * FreeGuideDirectoryWizardPanel object
@@ -70,9 +53,7 @@ public class DirectoryWizardPanel extends AbstractFileWizardPanel
      */
     protected String getFileChooserMessage(  )
     {
-
         return Application.getInstance(  ).getLocalizedMessage( 
             "choose_directory" );
-
     }
 }

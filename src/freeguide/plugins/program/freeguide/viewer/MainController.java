@@ -2,18 +2,18 @@ package freeguide.plugins.program.freeguide.viewer;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
 
-import freeguide.plugins.program.freeguide.gui.ChannelSetListDialog;
+import freeguide.plugins.program.freeguide.dialogs.ChannelSetListDialog;
 
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.fgspecific.GrabberController;
+import freeguide.plugins.program.freeguide.lib.fgspecific.GrabberController;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
-import freeguide.common.lib.fgspecific.StoragePipe;
+import freeguide.plugins.program.freeguide.lib.fgspecific.StoragePipe;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;
 
 import freeguide.common.lib.general.LanguageHelper;
-import freeguide.common.lib.general.LookAndFeelManager;
+import freeguide.plugins.program.freeguide.lib.general.LookAndFeelManager;
 import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.BaseModule;
