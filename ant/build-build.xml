@@ -4,7 +4,7 @@
 
 	<import file="build-plugins-info.xml"/>
 	<import file="build-prebuild.xml"/>
-    <import file="build.xml"/>
+    <import file="../build.xml"/>
 	
     <target name="build-all" depends="build-plugins, build-app, build-doc"/>
 

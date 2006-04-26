@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin id="program-freeguide"
-        version="0.10.3"
+        version="0.10.4"
         class="freeguide.plugins.program.freeguide.viewer.MainController">
 
   <name lang="en">FreeGuide-TV</name>

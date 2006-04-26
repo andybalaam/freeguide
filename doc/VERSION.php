@@ -2,9 +2,9 @@
 
 	print "0\n";
 	print "10\n";
-	print "3\n";
+	print "4\n";
 
-	$userlog = fopen( "/tmp/persistent/freeguide-tv/userlog.txt", "a        " );
+	$userlog = fopen( "/tmp/persistent/freeguide-tv/userlog.txt", "a" );
 	
 	$dt = date( "Y-m-d H:i:s" );
 

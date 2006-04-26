@@ -21,7 +21,8 @@ public class PatchBuild
         final BufferedWriter out =
             new BufferedWriter( 
                 new OutputStreamWriter( 
-                    new FileOutputStream( "build-plugins-info.xml" ), "UTF-8" ) );
+                    new FileOutputStream( "ant/build-plugins-info.xml" ),
+                        "UTF-8" ) );
 
         writeHeader( out, plugins );
         listPlugins( out, plugins );

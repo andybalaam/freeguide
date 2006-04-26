@@ -22,7 +22,8 @@ import javax.xml.parsers.SAXParserFactory;
  */
 public class PatchAllFiles
 {
-
+    static final String program_plugin_name = "program-freeguide";
+    
     /**
      * DOCUMENT_ME!
      *
@@ -112,7 +113,6 @@ public class PatchAllFiles
 
         for( int i = 0; i < files.size(  ); i++ )
         {
-
             File xmlFile = (File)files.get( i );
             PluginInfo info = new PluginInfo(  );
             saxParser.parse( xmlFile, info );
@@ -129,11 +129,25 @@ public class PatchAllFiles
             {
                 public int compare( Object o1, Object o2 )
                 {
-
+                    
                     final PluginInfo p1 = (PluginInfo)o1;
                     final PluginInfo p2 = (PluginInfo)o2;
-
-                    return p1.getID(  ).compareTo( p2.getID(  ) );
+                    
+                    String id1 = p1.getID(  );
+                    String id2 = p2.getID(  );
+                    
+                    if( id1.equals( program_plugin_name ) )
+                    {
+                        return -1;
+                    }
+                    else if( id2.equals( program_plugin_name ) )
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return id1.compareTo( id2 );
+                    }
                 }
             } );
 

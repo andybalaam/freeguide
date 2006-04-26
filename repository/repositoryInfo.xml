@@ -3,7 +3,7 @@
 <packages>
   <mirror location="Europe - Dublin, Ireland" path="http://heanet.dl.sourceforge.net/sourceforge/freeguide-tv/"/>
   <mirror location="North America - Minneapolis, MN" path="http://umn.dl.sourceforge.net/sourceforge/freeguide-tv/"/>
-  <package id="freeguide" version="0.10.3" type="application" repositoryPath="package-freeguide-0.10.3.zip">
+  <package id="program-freeguide" version="0.10.4" type="application" repositoryPath="package-program-freeguide-0.10.4.zip">
     <name lang="en">FreeGuide-TV</name>
     <description lang="en">Main FreeGuide-TV application.</description>
     <name lang="fr">FreeGuide-TV</name>
@@ -45,6 +45,10 @@
     <name lang="fr">NTV Plus</name>
     <description lang="fr">Aspirateur pour http://www.ntvplus.ru</description>
   </package>
+  <package id="grabber-rbc" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-rbc-0.1.zip">
+    <name lang="en">rbc.ru</name>
+    <description lang="en">Grabber for http://tv.rbc.ru</description>
+  </package>
   <package id="grabber-vsetv" version="2" type="plugin-grabber" repositoryPath="package-grabber-vsetv-2.zip">
     <name lang="be">Всё ТВ</name>
     <description lang="be">Праграма тэлебачання з http://www.vsetv.com</description>
@@ -58,6 +62,10 @@
     <description lang="en">XMLTV grabber (http://xmltv.sf.net)</description>
     <name lang="fr">XMLTV</name>
     <description lang="fr">Aspirateur XMLTV (http://xmltv.sf.net)</description>
+  </package>
+  <package id="importexport-html" version="1" type="plugin-importexport" repositoryPath="package-importexport-html-1.zip">
+    <name lang="en">HTML</name>
+    <description lang="en">HTML export</description>
   </package>
   <package id="importexport-jtv" version="2" type="plugin-importexport" repositoryPath="package-importexport-jtv-2.zip">
     <name lang="en">JTV</name>
@@ -104,5 +112,11 @@
     <description lang="en">This is viewer with horizontal strips</description>
     <name lang="fr">Horizontal</name>
     <description lang="fr">Module de visualisation sous forme de bandes horizontales</description>
+  </package>
+  <package id="ui-vertical" version="2" type="plugin-ui" repositoryPath="package-ui-vertical-2.zip">
+    <name lang="de">Vertikal</name>
+    <description lang="de">Listenbasierte Anzeige</description>
+    <name lang="en">Vertical</name>
+    <description lang="en">List style viewer</description>
   </package>
 </packages>

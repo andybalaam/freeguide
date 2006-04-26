@@ -19,9 +19,8 @@ import java.io.OutputStreamWriter;
  */
 public class PatchApplication_java
 {
-
     protected static final String FILENAME =
-        "src/java-common/freeguide/lib/fgspecific/Application.java";
+        "src/freeguide/common/lib/fgspecific/Application.java";
     protected static final String TAG_BEG = "/*VER_BEG*/";
     protected static final String TAG_END = "/*VER_END*/";
 
@@ -35,7 +34,6 @@ public class PatchApplication_java
     public static void patch( final PluginInfo[] plugins )
         throws Exception
     {
-
         BufferedReader rd =
             new BufferedReader( 
                 new InputStreamReader( 
@@ -49,7 +47,6 @@ public class PatchApplication_java
 
             if( line == null )
             {
-
                 break;
             }
 
@@ -87,7 +84,6 @@ public class PatchApplication_java
 
     protected static String getVersionCos( final Version ver )
     {
-
         return " " + ver.getDotFormat(  ).replaceAll( "\\.", ", " ) + " ";
     }
 }

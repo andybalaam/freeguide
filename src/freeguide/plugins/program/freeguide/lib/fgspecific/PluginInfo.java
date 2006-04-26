@@ -43,7 +43,6 @@ public class PluginInfo extends DefaultHandler
      */
     public String getID(  )
     {
-
         return id;
     }
 
