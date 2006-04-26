@@ -839,7 +839,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                                      : HorizontalViewer.timeFormat12Hour, false );*/
             TemplateParser parser =
                 new TemplateParser( 
-                    "freeguide/plugins/ui/horizontal/manylabels/templates/TemplatePersonalGuide.html" );
+                    "resources/plugins/ui/horizontal/manylabels/templates/TemplatePersonalGuide.html" );
             parser.process( 
                 new HandlerPersonalGuide( 
                     getLocalizer(  ), currentData, new Date( theDate ),
@@ -873,7 +873,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                                      : HorizontalViewer.timeFormat12Hour, true );*/
             TemplateParser parser =
                 new TemplateParser( 
-                    "freeguide/plugins/ui/horizontal/manylabels/templates/TemplatePersonalGuide.html" );
+                    "resources/plugins/ui/horizontal/manylabels/templates/TemplatePersonalGuide.html" );
             parser.process( 
                 new HandlerPersonalGuide( 
                     getLocalizer(  ), currentData, new Date( theDate ),
@@ -904,7 +904,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
             final TemplateParser parser =
                 new TemplateParser( 
-                    "freeguide/plugins/ui/horizontal/manylabels/templates/TemplateProgrammeInfo.html" );
+                    "resources/plugins/ui/horizontal/manylabels/templates/TemplateProgrammeInfo.html" );
             StringWriter out = new StringWriter(  );
             parser.process( 
                 new HandlerProgrammeInfo( 

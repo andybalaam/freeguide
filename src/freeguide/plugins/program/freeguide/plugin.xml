@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="program-freeguide"
+        version="0.10.3"
+        class="freeguide.plugins.program.freeguide.viewer.MainController">
+
+  <name lang="en">FreeGuide-TV</name>
+  <description lang="en">Main FreeGuide-TV application.</description>
+  <name lang="fr">FreeGuide-TV</name>
+  <description lang="fr">Le programme Freeguide-TV</description>
+
+  <files>
+    <file path="startup.jar"/>
+    <file path="lib/common.jar"/>
+    <file path="lib/FreeGuide.jar"/>
+    <file path="lib/"/>
+    <file path="doc/userguide.html"/>
+    <file path="doc/timezone.html"/>
+    <file path="doc/stylesheet.css"/>
+    <file path="doc/index.html"/>
+    <file path="doc/developers.html"/>
+    <file path="doc/developers-translating.html"/>
+    <file path="doc/developers-cvs.html"/>
+    <file path="doc/developers-compiling.html"/>
+    <file path="doc/design.html"/>
+    <file path="doc/contributors.html"/>
+    <file path="doc/TODO"/>
+    <file path="doc/README.html"/>
+    <file path="doc/MVC-README.txt"/>
+    <file path="doc/LookAndFeel.html"/>
+    <file path="doc/INSTALL-linux-noxmltv.html"/>
+    <file path="doc/FreeGuide-0_7-Linux-MetalLookAndFeel.png"/>
+    <file path="doc/FAQ.html"/>
+    <file path="doc/COPYING"/>
+    <file path="doc/"/>
+  </files>
+</plugin>

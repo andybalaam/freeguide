@@ -133,7 +133,6 @@ public class PluginInfo extends DefaultHandler
      */
     public String getClassName(  )
     {
-
         return className;
     }
 
@@ -167,24 +166,20 @@ public class PluginInfo extends DefaultHandler
 
         if( instance == null )
         {
-            instanciate(  );
+            instantiate(  );
         }
 
         return instance;
     }
 
-    protected synchronized void instanciate(  )
+    protected synchronized void instantiate(  )
     {
-
         if( instance == null )
         {
-
             if( className != null )
             {
-
                 try
                 {
-
                     Class moduleClass =
                         getClass(  ).getClassLoader(  ).loadClass( className );
                     instance = (IModule)moduleClass.newInstance(  );

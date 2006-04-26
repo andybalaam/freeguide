@@ -461,11 +461,9 @@ class XMLTVImportHandler extends DefaultHandler
 
             try
             {
-
                 return new InputSource( 
                     LanguageHelper.getUncachedStream( 
-                        getClass(  ).getPackage(  ).getName(  ).replace( 
-                            '.', '/' ) + "/xmltv.dtd" ) );
+                        "resources/main/xmltv.dtd" ) );
             }
             catch( IOException ex )
             {

@@ -103,7 +103,7 @@ public class HallmarkInfo extends DefaultHandler
         InputSource ins =
             new InputSource( 
                 HallmarkInfo.class.getClassLoader(  ).getResourceAsStream( 
-                    "freeguide/plugins/grabber/hallmark/info.xml" ) );
+                    "resources/plugins/grabber/hallmark/info.xml" ) );
         SAXParserFactory factory = SAXParserFactory.newInstance(  );
 
         try

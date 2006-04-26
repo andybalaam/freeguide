@@ -100,7 +100,7 @@ public class FreeGuide
     {
         startupMessages =
             new LanguageHelper( 
-                "i18n/Startup",
+                "resources/i18n/Startup",
                 LanguageHelper.getPreferredLocale( 
                     new Locale[] { Locale.getDefault(  ) },
                     LanguageHelper.getLocaleList( "i18n/Startup" ) ) );

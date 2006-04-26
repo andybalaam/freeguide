@@ -72,7 +72,7 @@ public class PrepareInfo
         wr = new BufferedWriter( 
                 new OutputStreamWriter( 
                     new FileOutputStream( 
-                        "src/plugins/grabber-hallmark/java/freeguide/plugins/grabber/hallmark/info.xml" ),
+                        "src/resources/plugins/grabber/hallmark/info.xml" ),
                     "UTF-8" ) );
         writeHeader(  );
 

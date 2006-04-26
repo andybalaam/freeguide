@@ -15,6 +15,7 @@ import freeguide.common.plugininterfaces.IModuleStorage;
 import freeguide.common.plugininterfaces.IModuleViewer;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -59,7 +60,7 @@ public class PluginsManager
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public static void loadModules(  ) throws Exception
+    public static void loadModules(  ) throws IOException
     {
         grabbersList = new ArrayList(  );
         storagesList = new ArrayList(  );
@@ -69,117 +70,134 @@ public class PluginsManager
         importersList = new ArrayList(  );
         exportersList = new ArrayList(  );
 
-        SAXParserFactory factory = SAXParserFactory.newInstance(  );
-        SAXParser saxParser = factory.newSAXParser(  );
-
-        URL[] info;
-
-        if( System.getProperty( "debugPlugins" ) != null )
+        try
         {
-            info = findInDirectories(  );
-        }
-        else
-        {
-            info = findInClassLoader(  );
-        }
-
-        for( int i = 0; i < info.length; i++ )
-        {
-
+            SAXParserFactory factory = SAXParserFactory.newInstance(  );
+            SAXParser saxParser = factory.newSAXParser(  );
+        
+            URL[] info = new URL[0];
             try
             {
-                FreeGuide.log.finest( 
-                    "Loading XML from " + info[i].toString(  ) );
-
-                PluginInfo handler = new PluginInfo(  );
-
-                InputStream stream =
-                    LanguageHelper.getUncachedStream( info[i] );
-
+                info = findInClassLoader(  );
+            }
+            catch( IOException e )
+            {
+                
+                e.printStackTrace();
+            }
+            
+            if( info.length == 0 )
+            {
+                info = findInDirectories(  );
+            }
+            
+            for( int i = 0; i < info.length; i++ )
+            {
                 try
                 {
-                    saxParser.parse( stream, handler );
-                }
-                finally
-                {
-                    stream.close(  );
-                }
-
-                if( handler.getID(  ) == null )
-                {
-
-                    continue;
-                }
-
-                pluginsInfoByID.put( handler.getID(  ), handler );
-
-                if( "freeguide".equals( handler.getID(  ) ) )
-                {
-                    applicationInfo = handler;
-                }
-                else if( handler.getInstance(  ) instanceof IModuleGrabber )
-                {
-                    grabbersList.add( handler );
-                }
-                else if( handler.getInstance(  ) instanceof IModuleStorage )
-                {
-                    storagesList.add( handler );
-                }
-                else if( handler.getInstance(  ) instanceof IModuleViewer )
-                {
-                    viewersList.add( handler );
-                }
-                else if( handler.getInstance(  ) instanceof IModuleReminder )
-                {
-                    remindersList.add( handler );
-                }
-                else if( 
-                    handler.getInstance(  ) instanceof IModuleImport
-                        || handler.getInstance(  ) instanceof IModuleExport )
-                {
-                    impexpsList.add( handler );
-
-                    if( handler.getInstance(  ) instanceof IModuleImport )
+                    FreeGuide.log.finest( 
+                        "Loading XML from " + info[i].toString(  ) );
+    
+                    PluginInfo handler = new PluginInfo(  );
+    
+                    InputStream stream =
+                        LanguageHelper.getUncachedStream( info[i] );
+    
+                    try
                     {
-                        importersList.add( handler );
+                        saxParser.parse( stream, handler );
                     }
-
-                    if( handler.getInstance(  ) instanceof IModuleExport )
+                    finally
                     {
-                        exportersList.add( handler );
+                        stream.close(  );
                     }
-                }
-
-                if( handler.getInstance(  ) != null )
-                {
-
-                    Object config = handler.getInstance(  ).getConfig(  );
-
-                    if( config != null )
+    
+                    if( handler.getID(  ) == null )
                     {
-
-                        if( handler == applicationInfo )
+    
+                        continue;
+                    }
+    
+                    pluginsInfoByID.put( handler.getID(  ), handler );
+    
+                    if( "program-freeguide".equals( handler.getID(  ) ) )
+                    {
+                        applicationInfo = handler;
+                    }
+                    else if( handler.getInstance(  ) instanceof IModuleGrabber )
+                    {
+                        grabbersList.add( handler );
+                    }
+                    else if( handler.getInstance(  ) instanceof IModuleStorage )
+                    {
+                        storagesList.add( handler );
+                    }
+                    else if( handler.getInstance(  ) instanceof IModuleViewer )
+                    {
+                        viewersList.add( handler );
+                    }
+                    else if( handler.getInstance(  ) instanceof IModuleReminder )
+                    {
+                        remindersList.add( handler );
+                    }
+                    else if( 
+                        handler.getInstance(  ) instanceof IModuleImport
+                            || handler.getInstance(  ) instanceof IModuleExport )
+                    {
+                        impexpsList.add( handler );
+    
+                        if( handler.getInstance(  ) instanceof IModuleImport )
                         {
-                            PreferencesHelper.load( 
-                                Preferences.userRoot(  ).node( 
-                                    "/org/freeguide-tv/mainController" ),
-                                config );
+                            importersList.add( handler );
                         }
-                        else
+    
+                        if( handler.getInstance(  ) instanceof IModuleExport )
                         {
-                            PreferencesHelper.load( 
-                                Preferences.userRoot(  ).node( 
-                                    "/org/freeguide-tv/modules/"
-                                    + handler.getID(  ) ), config );
+                            exportersList.add( handler );
                         }
                     }
+    
+                    if( handler.getInstance(  ) != null )
+                    {
+    
+                        Object config = handler.getInstance(  ).getConfig(  );
+    
+                        if( config != null )
+                        {
+    
+                            if( handler == applicationInfo )
+                            {
+                                PreferencesHelper.load( 
+                                    Preferences.userRoot(  ).node( 
+                                        "/org/freeguide-tv/mainController" ),
+                                    config );
+                            }
+                            else
+                            {
+                                PreferencesHelper.load( 
+                                    Preferences.userRoot(  ).node( 
+                                        "/org/freeguide-tv/modules/"
+                                        + handler.getID(  ) ), config );
+                            }
+                        }
+                    }
+                }
+                catch( Exception ex )
+                {
+                    Application.getInstance(  ).getLogger(  ).log( 
+                        Level.SEVERE, "Error loading plugin", ex );
                 }
             }
-            catch( Exception ex )
-            {
-                Application.getInstance(  ).getLogger(  ).log( 
-                    Level.SEVERE, "Error loading plugin", ex );
-            }
+        }
+        catch( javax.xml.parsers.ParserConfigurationException e )
+        {
+            Application.getInstance(  ).getLogger(  ).log( 
+                Level.SEVERE, "Error loading plugin", e );
+        }
+        catch( org.xml.sax.SAXException e )
+        {
+            Application.getInstance(  ).getLogger(  ).log( 
+                Level.SEVERE, "Error loading plugin", e );
         }
     }
 
@@ -253,10 +271,52 @@ public class PluginsManager
 
         return (URL[])list.toArray( new URL[list.size(  )] );
     }
-
+    
     /**
-     * Find plugin info files in child directories. You need to send
-     * "debugPlugins" system property for do it.
+     * Go through all the subdirs of dir and add any
+     * plugin.xml files to the files list.
+     */
+    protected static void findPluginDirs( File dir, List files )
+    {
+        File[] plugin_files = dir.listFiles(
+            new FileFilter(  )
+            {
+                public boolean accept( File fl )
+                {
+                    return fl.toString().endsWith( "/plugin.xml" );
+                }
+            } );
+        for( int i = 0; i < plugin_files.length; ++i )
+        {
+            try
+            {
+                files.add( plugin_files[i].toURL(  ) );
+            }
+            catch( java.net.MalformedURLException e )
+            {
+                e.printStackTrace(  );
+            }
+        }
+         
+         File[] dirs = dir.listFiles(
+            new FileFilter(  )
+            {
+                public boolean accept( File fl )
+                {
+                    return fl.isDirectory(  )
+                        && !fl.toString(  ).contains( "/.svn" );
+                }
+            } );
+        
+        for( int i = 0; i < dirs.length; ++i )
+        {
+            findPluginDirs( dirs[i], files );
+        }
+    }
+    
+    /**
+     * Find plugin info files in child directories. This will be called if no
+     * plugins were found in JAR files.
      *
      * @return list of URLs
      *
@@ -264,37 +324,11 @@ public class PluginsManager
      */
     protected static URL[] findInDirectories(  ) throws IOException
     {
-
-        List list = new ArrayList(  );
-
-        List dirs = new ArrayList(  );
-        dirs.add( new File( "src" ) );
-
-        File[] dirFiles = new File( "src/plugins" ).listFiles(  );
-
-        if( dirFiles != null )
-        {
-            dirs.addAll( Arrays.asList( dirFiles ) );
-        }
-
-        for( int i = 0; i < dirs.size(  ); i++ )
-        {
-
-            File dir = (File)dirs.get( i );
-
-            if( dir.isDirectory(  ) )
-            {
-
-                File plugInfo = new File( dir, "java/plugin.xml" );
-
-                if( plugInfo.exists(  ) )
-                {
-                    list.add( plugInfo.toURL(  ) );
-                }
-            }
-        }
-
-        return (URL[])list.toArray( new URL[list.size(  )] );
+        List files = new ArrayList(  );
+        
+        findPluginDirs( new File( "freeguide/plugins" ), files );
+        
+        return (URL[])files.toArray( new URL[files.size(  )] );
     }
 
     /**

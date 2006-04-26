@@ -2,7 +2,7 @@
 
 <plugin id="impexp-jtv"
         version="2"
-        class="freeguide.plugins.impexp.jtv.JTV">
+        class="freeguide.plugins.importexport.jtv.JTV">
 
   <name lang="en">JTV</name>
   <description lang="en">JTV import/export module (http://jtvhost.chat.ru)</description>

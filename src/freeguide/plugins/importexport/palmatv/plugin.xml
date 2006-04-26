@@ -2,7 +2,7 @@
 
 <plugin id="impexp-palmatv"
         version="2"
-        class="freeguide.plugins.impexp.palmatv.ExportPalmAtv">
+        class="freeguide.plugins.importexport.palmatv.ExportPalmAtv">
 
   <name lang="en">ATV-palm</name>
   <description lang="en">Export to ATV for Palm OS. See http://zaval.org/products/atv</description>

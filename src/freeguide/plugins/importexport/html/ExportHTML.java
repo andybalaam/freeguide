@@ -149,8 +149,7 @@ public class ExportHTML extends BaseModule implements IModuleExport
 
             TemplateParser parser =
                 new TemplateParser( 
-                    ExportHTML.class.getPackage(  ).getName(  ).replace( 
-                        '.', '/' ) + "/template.html" );
+                    "resources/plugins/importexport/html/template.html" );
             final OutputStream outStream;
 
             if( lowerPath.endsWith( ".zip" ) )

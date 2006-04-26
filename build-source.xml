@@ -25,7 +25,7 @@
                 prefix="${application-id}-${application-version}" />
             <tarfileset dir="xmltv"
                 includes="*"
-                excludes="CVS/**"
+                excludes=".svn/**"
                 prefix="${application-id}-${application-version}/xmltv" />
             <tarfileset dir="stats"
                 includes="*.sh,*.py,barchart"
@@ -42,7 +42,7 @@
             <zipfileset dir="." includes="build*.xml" prefix="${application-id}-${application-version}" />
             <zipfileset dir="xmltv"
                 includes="*"
-                excludes="CVS/**"
+                excludes=".svn/**"
                 prefix="${application-id}-${application-version}/xmltv" />
             <zipfileset dir="stats"
                 includes="*.sh,*.py,barchart"

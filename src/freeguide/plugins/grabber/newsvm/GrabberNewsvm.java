@@ -153,8 +153,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
             this.storage = storage;
             this.logger = logger;
             nen = LanguageHelper.loadStrings( 
-                    getClass(  ).getPackage(  ).getName(  ).replace( '.', '/' )
-                    + "/nen.utf8.list" );
+                    "resources/plugins/grabber/newsvm/nen.utf8.list" );
         }
 
         void patchProgrammes( 

@@ -5,6 +5,7 @@ import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.LanguageHelper;
 
 import java.util.Locale;
+import java.util.logging.Level;
 
 import javax.swing.JDialog;
 
@@ -18,9 +19,9 @@ import javax.swing.JDialog;
  */
 public abstract class BaseModule implements IModule
 {
-
+    static final String plugin_package_name_prefix = "freeguide.plugins.";
     protected LanguageHelper i18n;
-
+    
     /**
      * IModule.getSuppotedLocales implementation. Read list of
      * "i18n.(locale).properties" files from current package, using ls file.
@@ -31,11 +32,7 @@ public abstract class BaseModule implements IModule
      */
     public Locale[] getSuppotedLocales(  ) throws Exception
     {
-
-        return LanguageHelper.getLocaleList( 
-            getClass(  ).getPackage(  ).getName(  ).replace( '.', '/' )
-            + "/i18n" );
-
+        return LanguageHelper.getLocaleList( "resources/i18n/" );
     }
 
     /**
@@ -48,10 +45,27 @@ public abstract class BaseModule implements IModule
      */
     public void setLocale( final Locale locale ) throws Exception
     {
-        i18n =
-            new LanguageHelper( 
-                getClass(  ).getPackage(  ).getName(  ).replace( '.', '/' )
-                + "/i18n", locale );
+        String package_name = getClass(  ).getPackage(  ).getName(  );
+        
+        if( package_name.startsWith( plugin_package_name_prefix ) )
+        {
+            System.err.println( "resources/i18n/"
+                + package_name.substring( plugin_package_name_prefix.length()
+                    ).replace( '.', '_' ) );
+            
+            i18n = new LanguageHelper( "resources/i18n/"
+                + package_name.substring( plugin_package_name_prefix.length()
+                    ).replace( '.', '_' ),
+                locale );
+        }
+        else
+        {
+            Application.getInstance(  ).getLogger(  ).log( 
+                Level.SEVERE, "Unable to set Locale for plugin '"
+                + package_name
+                + "' since the package name does not start with '"
+                + plugin_package_name_prefix + "'." );
+        }
     }
 
     /**
@@ -61,7 +75,6 @@ public abstract class BaseModule implements IModule
      */
     public ILocalizer getLocalizer(  )
     {
-
         return i18n;
     }
 

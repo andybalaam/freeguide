@@ -392,7 +392,7 @@ public class JLabelProgramme extends JLabel
             final StringWriter out = new StringWriter(  );
             TemplateParser parser =
                 new TemplateParser( 
-                    "freeguide/plugins/ui/horizontal/manylabels/templates/TemplateProgrammeTooltip.html" );
+                    "resources/plugins/ui/horizontal/manylabels/templates/TemplateProgrammeTooltip.html" );
             parser.process( 
                 new HandlerProgrammeInfo( 
                     controller.getLocalizer(  ), programme, timeFormat ), out );

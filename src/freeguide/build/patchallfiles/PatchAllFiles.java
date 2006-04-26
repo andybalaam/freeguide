@@ -65,36 +65,49 @@ public class PatchAllFiles
             "src/install/linux/rpm/freeguide-plugin.spec.template.in",
             "build/dist/linux/rpm/freeguide-", ".spec", plugins );
     }
-
+    
+    /**
+     * Go through all the subdirs of dir and add any
+     * plugin.xml files to the files list.
+     */
+    protected static void findPluginDirs( File dir, List files )
+    {
+        File[] plugin_files = dir.listFiles(
+            new FileFilter(  )
+            {
+                public boolean accept( File fl )
+                {
+                    return fl.toString().endsWith( "/plugin.xml" );
+                }
+            } );
+        for( int i = 0; i < plugin_files.length; ++i )
+        {
+            files.add( plugin_files[i] );
+        }
+         
+         File[] dirs = dir.listFiles(
+            new FileFilter(  )
+            {
+                public boolean accept( File fl )
+                {
+                    return fl.isDirectory(  );
+                }
+            } );
+        
+        for( int i = 0; i < dirs.length; ++i )
+        {
+            findPluginDirs( dirs[i], files );
+        }
+    }
+    
     protected static PluginInfo[] loadPluginsInfo(  ) throws Exception
     {
 
         SAXParser saxParser =
             SAXParserFactory.newInstance(  ).newSAXParser(  );
-        File[] dirs =
-            new File( "src/plugins/" ).listFiles( 
-                new FileFilter(  )
-                {
-                    public boolean accept( File pathname )
-                    {
-
-                        return pathname.isDirectory(  )
-                        && new File( pathname, "java/plugin.xml" ).exists(  );
-                    }
-                } );
-
         List files = new ArrayList(  );
-        files.add( new File( "src/java/plugin.xml" ) );
-
-        if( dirs != null )
-        {
-
-            for( int i = 0; i < dirs.length; i++ )
-            {
-                files.add( new File( dirs[i], "java/plugin.xml" ) );
-            }
-        }
-
+        findPluginDirs( new File( "src/freeguide/plugins/" ), files );
+        
         List result = new ArrayList( files.size(  ) );
 
         for( int i = 0; i < files.size(  ); i++ )

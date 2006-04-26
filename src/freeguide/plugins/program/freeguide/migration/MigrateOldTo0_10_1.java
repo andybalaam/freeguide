@@ -112,7 +112,8 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
             Map conv = new TreeMap(  );
             LanguageHelper.loadProperties( 
-                "freeguide/migration/regions.0.8.6.properties", conv );
+                "resources/plugins/program/freeguide/migration/regions.0.8.6.properties",
+                conv );
             putKey( "countryID", (String)conv.get( region ) );
         }
 

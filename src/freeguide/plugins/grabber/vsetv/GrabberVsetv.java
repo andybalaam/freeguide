@@ -310,8 +310,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
         final String[] nen =
             LanguageHelper.loadStrings( 
-                GrabberVsetv.class.getPackage(  ).getName(  ).replace( 
-                    '.', '/' ) + "/nen.utf8.list" );
+                "resources/plugins/grabber/vsetv/nen.utf8.list" );
         data.iterateProgrammes( 
             new TVIteratorProgrammes(  )
             {

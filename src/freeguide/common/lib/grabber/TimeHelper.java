@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 public class TimeHelper
 {
 
-    protected static Map monthes;
+    protected static Map months;
 
     /** Milliseconds per day. */
     public static final long MILLISECONDS_IN_DAY = 24L * 60L * 60L * 1000L;
@@ -33,17 +33,16 @@ public class TimeHelper
 
         try
         {
-            monthes = new HashMap(  );
+            months = new HashMap(  );
 
             final String resourceName =
-                TimeHelper.class.getPackage(  ).getName(  ).replace( '.', '/' )
-                + "/monthes.utf8.properties";
-            LanguageHelper.loadProperties( resourceName, monthes );
+                "resources/main/months.utf8.properties";
+            LanguageHelper.loadProperties( resourceName, months );
         }
         catch( Exception ex )
         {
             Application.getInstance(  ).getLogger(  ).log( 
-                Level.SEVERE, "Error read monthes names", ex );
+                Level.SEVERE, "Error reading month names", ex );
         }
     }
 
@@ -62,14 +61,12 @@ public class TimeHelper
     {
 
         int i;
-
         try
         {
             i = Integer.parseInt( monthName );
 
             if( ( i >= 1 ) && ( i <= 12 ) )
             {
-
                 return i - 1;
             }
         }
@@ -77,7 +74,7 @@ public class TimeHelper
         {
         }
 
-        String monthInd = (String)monthes.get( monthName.toLowerCase(  ) );
+        String monthInd = (String)months.get( monthName.toLowerCase(  ) );
 
         if( monthInd != null )
         {

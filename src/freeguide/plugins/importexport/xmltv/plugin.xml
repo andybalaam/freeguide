@@ -2,7 +2,7 @@
 
 <plugin id="impexp-xmltv"
         version="2"
-        class="freeguide.plugins.impexp.xmltv.ImpExpXmltv">
+        class="freeguide.plugins.importexport.xmltv.ImpExpXmltv">
 
   <name lang="en">XMLTV</name>
   <description lang="en">Export to XMLTV format. See http://xmltv.sf.net.</description>

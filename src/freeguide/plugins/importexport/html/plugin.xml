@@ -2,7 +2,7 @@
 
 <plugin id="impexp-html"
         version="1"
-        class="freeguide.plugins.impexp.html.ExportHTML">
+        class="freeguide.plugins.importexport.html.ExportHTML">
 
   <name lang="en">HTML</name>
   <description lang="en">HTML export</description>

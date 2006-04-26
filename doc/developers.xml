@@ -23,7 +23,7 @@ The contents of this section should be in the developers wiki now
 
     <para>All the code is formatted using <ulink
     url="http://jalopy.sourceforge.net/">Jalopy</ulink> before being committed
-    to CVS to ensure consistency of style.</para>
+    to SVN to ensure consistency of style.</para>
 
     <section id="developers.patches">
       <title>Patches</title>
