@@ -1,4 +1,0 @@
-!define NAME_VERSION "__ANT_NAME_VERSION__-without-xmltv"
-!define VERSION "__ANT_VERSION_MAJOR__.__ANT_VERSION_MINOR__.__ANT_VERSION_REVISION__"
-
-!include ..\..\..\src\install\windows\freeguide-base.nsi
