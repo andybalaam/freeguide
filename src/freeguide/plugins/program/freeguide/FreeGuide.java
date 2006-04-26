@@ -268,7 +268,7 @@ public class FreeGuide
     {
 
         IModuleImport xmltvHandler =
-            (IModuleImport)PluginsManager.getModuleByID( "impexp-xmltv" );
+            (IModuleImport)PluginsManager.getModuleByID( "importexport-xmltv" );
 
         if( xmltvHandler == null )
         {

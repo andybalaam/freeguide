@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<plugin id="impexp-jtv"
+<plugin id="importexport-jtv"
         version="2"
         class="freeguide.plugins.importexport.jtv.JTV">
 
@@ -10,7 +10,7 @@
   <description lang="fr">Module d'import/export pour JTV (http://jtvhost.chat.ru)</description>
 
   <files>
-    <file path="lib/impexp-jtv.jar"/>
+    <file path="lib/importexport-jtv.jar"/>
     <file path="lib/"/>
   </files>
 </plugin>

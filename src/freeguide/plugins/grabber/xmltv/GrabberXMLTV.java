@@ -6,7 +6,7 @@ import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.StringHelper;
 import freeguide.common.lib.general.Utils;
 
-import freeguide.common.lib.impexp.XMLTVImport;
+import freeguide.common.lib.importexport.XMLTVImport;
 
 import freeguide.common.plugininterfaces.BaseModule;
 import freeguide.common.plugininterfaces.ILogger;

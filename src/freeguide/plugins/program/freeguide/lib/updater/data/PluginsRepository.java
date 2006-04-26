@@ -27,7 +27,7 @@ public class PluginsRepository
     public static final String PACKAGE_TYPE_GRABBER = "plugin-grabber";
 
     /** Plugins import/export type. */
-    public static final String PACKAGE_TYPE_IMPEXP = "plugin-impexp";
+    public static final String PACKAGE_TYPE_IMPEXP = "plugin-importexport";
 
     /** Plugins storage type. */
     public static final String PACKAGE_TYPE_STORAGE = "plugin-storage";

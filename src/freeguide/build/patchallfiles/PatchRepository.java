@@ -35,12 +35,12 @@ public class PatchRepository
         PluginsRepository repository =
             RepositoryUtils.parse( 
                 new InputSource( 
-                    new FileInputStream( "src/repositoryInfo.xml" ) ),
+                    new FileInputStream( "repository/repositoryInfo.xml" ) ),
                 PATH_BASE );
         final BufferedWriter out =
             new BufferedWriter( 
                 new OutputStreamWriter( 
-                    new FileOutputStream( "src/repositoryInfo.xml.new" ),
+                    new FileOutputStream( "repository/repositoryInfo.xml.new" ),
                     "UTF-8" ) );
 
         writeHeader( out );
@@ -50,7 +50,7 @@ public class PatchRepository
         out.flush(  );
 
         out.close(  );
-        PatchAllFiles.changeOldFile( "src/repositoryInfo.xml" );
+        PatchAllFiles.changeOldFile( "repository/repositoryInfo.xml" );
     }
 
     protected static void listMirrors( 
@@ -84,9 +84,9 @@ public class PatchRepository
             {
                 packageType = "plugin-grabber";
             }
-            else if( plugins[i].getID(  ).startsWith( "impexp-" ) )
+            else if( plugins[i].getID(  ).startsWith( "importexport-" ) )
             {
-                packageType = "plugin-impexp";
+                packageType = "plugin-importexport";
             }
             else if( plugins[i].getID(  ).startsWith( "reminder-" ) )
             {

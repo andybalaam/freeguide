@@ -132,8 +132,8 @@
              manifest="${src}/resources/manifests/startup.mf" />
     </target>
     
-    <target name="build-doc" depends="prebuild-buildcode">
-    	<java classpath="${build}/buildcode"
+    <target name="build-doc" depends="prebuild-buildclasses">
+    	<java classpath="${build}/buildclasses"
     	    	classname="DocXSLT"
     	    	fork="true"/>
         <!--chmod file="${doc}/compile_manual.sh" perm="ugo+rx"/>

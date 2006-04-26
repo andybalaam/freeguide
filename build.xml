@@ -34,6 +34,7 @@
     <property name="src"        location="src"                />
     <property name="resources"  location="${src}/resources"   />
     <property name="doc"        location="doc"                />
+    <property name="lib"        location="lib"                />
     <property name="xmltv"      location="xmltv"              />
     <property name="share"      location="xmltv/share"        />
     <property name="build"      location="build"              />
@@ -49,19 +50,19 @@
     <target name="all" depends="prepare, source-all, build-all, dist-repository, dist-tgz" />
     
     <target name="prepare">
-        <ant antfile="build-prebuild.xml" />
+        <ant antfile="ant/build-prebuild.xml" />
     </target>
     <target name="source-all">
-        <ant antfile="build-source.xml" />
+        <ant antfile="ant/build-source.xml" />
     </target>
     <target name="build-all">
-        <ant antfile="build-build.xml" />
+        <ant antfile="ant/build-build.xml" />
     </target>
     <target name="dist-repository">
-        <ant antfile="build-dist.xml" target="dist-repository" />
+        <ant antfile="ant/build-dist.xml" target="dist-repository" />
     </target>
     <target name="dist-tgz">
-        <ant antfile="build-dist.xml" target="dist-tgz" />
+        <ant antfile="ant/build-dist.xml" target="dist-tgz" />
     </target>
 
     <target name="clean">
@@ -70,20 +71,20 @@
     </target>
     
     <target name="install-linux-run">
-        <ant antfile="build-install-linux.xml" target="install-linux-run" />
+        <ant antfile="ant/build-install-linux.xml" target="install-linux-run" />
     </target>
     
     <target name="install-linux-allinone">
-        <ant antfile="build-install-linux.xml" target="install-linux-allinone" />
+        <ant antfile="ant/build-install-linux.xml" target="install-linux-allinone" />
     </target>
     <target name="install-linux">
-        <ant antfile="build-install-linux.xml" />
+        <ant antfile="ant/build-install-linux.xml" />
     </target>
     <target name="dist-exe">
-        <ant antfile="build-dist-exe.xml" />
+        <ant antfile="ant/build-dist-exe.xml" />
     </target>
     <target name="dist-rpm">
-        <ant antfile="build-dist-rpm.xml" />
+        <ant antfile="ant/build-dist-rpm.xml" />
     </target>
 
 </project>

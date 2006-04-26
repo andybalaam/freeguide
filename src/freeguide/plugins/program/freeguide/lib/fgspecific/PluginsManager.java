@@ -50,7 +50,7 @@ public class PluginsManager
     protected static List storagesList;
     protected static List viewersList;
     protected static List remindersList;
-    protected static List impexpsList;
+    protected static List importexportsList;
     protected static List importersList;
     protected static List exportersList;
     protected static PluginInfo applicationInfo;
@@ -66,7 +66,7 @@ public class PluginsManager
         storagesList = new ArrayList(  );
         viewersList = new ArrayList(  );
         remindersList = new ArrayList(  );
-        impexpsList = new ArrayList(  );
+        importexportsList = new ArrayList(  );
         importersList = new ArrayList(  );
         exportersList = new ArrayList(  );
 
@@ -144,7 +144,7 @@ public class PluginsManager
                         handler.getInstance(  ) instanceof IModuleImport
                             || handler.getInstance(  ) instanceof IModuleExport )
                     {
-                        impexpsList.add( handler );
+                        importexportsList.add( handler );
     
                         if( handler.getInstance(  ) instanceof IModuleImport )
                         {
@@ -425,8 +425,8 @@ public class PluginsManager
     public static PluginInfo[] getImportersAndExporters(  )
     {
 
-        return (PluginInfo[])impexpsList.toArray( 
-            new PluginInfo[impexpsList.size(  )] );
+        return (PluginInfo[])importexportsList.toArray( 
+            new PluginInfo[importexportsList.size(  )] );
     }
 
     /**

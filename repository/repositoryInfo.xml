@@ -59,19 +59,19 @@
     <name lang="fr">XMLTV</name>
     <description lang="fr">Aspirateur XMLTV (http://xmltv.sf.net)</description>
   </package>
-  <package id="impexp-jtv" version="2" type="plugin-impexp" repositoryPath="package-impexp-jtv-2.zip">
+  <package id="importexport-jtv" version="2" type="plugin-importexport" repositoryPath="package-importexport-jtv-2.zip">
     <name lang="en">JTV</name>
     <description lang="en">JTV import/export module (http://jtvhost.chat.ru)</description>
     <name lang="fr">JTV</name>
     <description lang="fr">Module d&apos;import/export pour JTV (http://jtvhost.chat.ru)</description>
   </package>
-  <package id="impexp-palmatv" version="2" type="plugin-impexp" repositoryPath="package-impexp-palmatv-2.zip">
+  <package id="importexport-palmatv" version="2" type="plugin-importexport" repositoryPath="package-importexport-palmatv-2.zip">
     <name lang="en">ATV-palm</name>
     <description lang="en">Export to ATV for Palm OS. See http://zaval.org/products/atv</description>
     <name lang="fr">ATV-palm</name>
     <description lang="fr">Module d&apos;export vers ATV pour Palm OS. (http://zaval.org/products/atv)</description>
   </package>
-  <package id="impexp-xmltv" version="2" type="plugin-impexp" repositoryPath="package-impexp-xmltv-2.zip">
+  <package id="importexport-xmltv" version="2" type="plugin-importexport" repositoryPath="package-importexport-xmltv-2.zip">
     <name lang="en">XMLTV</name>
     <description lang="en">Export to XMLTV format. See http://xmltv.sf.net.</description>
     <name lang="fr">XMLTV</name>

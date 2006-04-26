@@ -4,8 +4,8 @@ import freeguide.common.gui.FileChooserExtension;
 
 import freeguide.common.lib.fgspecific.data.TVData;
 
-import freeguide.common.lib.impexp.XMLTVExport;
-import freeguide.common.lib.impexp.XMLTVImport;
+import freeguide.common.lib.importexport.XMLTVExport;
+import freeguide.common.lib.importexport.XMLTVImport;
 
 import freeguide.common.plugininterfaces.BaseModule;
 import freeguide.common.plugininterfaces.IModuleExport;

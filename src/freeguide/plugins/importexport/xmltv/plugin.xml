@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<plugin id="impexp-xmltv"
+<plugin id="importexport-xmltv"
         version="2"
         class="freeguide.plugins.importexport.xmltv.ImpExpXmltv">
 
@@ -10,7 +10,7 @@
   <description lang="fr">Export au format XMLTV. (http://xmltv.sf.net).</description>
 
   <files>
-    <file path="lib/impexp-xmltv.jar"/>
+    <file path="lib/importexport-xmltv.jar"/>
     <file path="lib/"/>
   </files>
 </plugin>

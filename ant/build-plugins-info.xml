@@ -35,15 +35,15 @@
       <param name="plugin-version" value="2"/>
     </antcall>
     <antcall target="${actual-target}">
-      <param name="plugin-id" value="impexp-jtv"/>
+      <param name="plugin-id" value="importexport-jtv"/>
       <param name="plugin-version" value="2"/>
     </antcall>
     <antcall target="${actual-target}">
-      <param name="plugin-id" value="impexp-palmatv"/>
+      <param name="plugin-id" value="importexport-palmatv"/>
       <param name="plugin-version" value="2"/>
     </antcall>
     <antcall target="${actual-target}">
-      <param name="plugin-id" value="impexp-xmltv"/>
+      <param name="plugin-id" value="importexport-xmltv"/>
       <param name="plugin-version" value="2"/>
     </antcall>
     <antcall target="${actual-target}">

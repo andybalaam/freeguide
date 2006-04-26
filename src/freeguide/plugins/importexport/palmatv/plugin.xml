@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<plugin id="impexp-palmatv"
+<plugin id="importexport-palmatv"
         version="2"
         class="freeguide.plugins.importexport.palmatv.ExportPalmAtv">
 
@@ -10,7 +10,7 @@
   <description lang="fr">Module d'export vers ATV pour Palm OS. (http://zaval.org/products/atv)</description>
 
   <files>
-    <file path="lib/impexp-palmatv.jar"/>
+    <file path="lib/importexport-palmatv.jar"/>
     <file path="lib/"/>
   </files>
 </plugin>

@@ -5,25 +5,25 @@
 <project name="freeguide-tv-prebuild" default="prepare">
 
     <target name="prebuild-mkdir">
-		<mkdir dir="${build}/buildcode"/>
+		<mkdir dir="${build}/buildclasses"/>
     </target>
 
-    <target name="prebuild-buildcode" depends="prebuild-mkdir">
+    <target name="prebuild-buildclasses" depends="prebuild-mkdir">
     	<javac 
-    		destdir="${build}/buildcode">
-    		<src path="${src}/build/java"/>
-    		<src path="${src}/java-common"/>
-    		<src path="${src}/java"/>
+    		destdir="${build}/buildclasses">
+    		<src path="${src}/freeguide/build/patchallfiles"/>
+            <src path="${src}/freeguide/plugins/program/freeguide"/>
+            <src path="${src}/freeguide/common"/>
     		<classpath>
-    			<fileset dir="${src}/lib" includes="**/*.jar"/>
+    			<fileset dir="${lib}" includes="**/*.jar"/>
     		</classpath>
             <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
     	</javac>
     </target>
 	
-    <target name="prepare" depends="prebuild-buildcode">
-    	<java classpath="${build}/buildcode"
-    	classname="PatchAllFiles"
+    <target name="prepare" depends="prebuild-buildclasses">
+    	<java classpath="${build}/buildclasses"
+    	classname="freeguide.build.patchallfiles.PatchAllFiles"
     	fork="true"/>
     </target>
 </project>
