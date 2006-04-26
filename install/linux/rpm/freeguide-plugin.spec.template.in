@@ -1,0 +1,45 @@
+###
+### RPM spec file for FreeGuide
+### 
+### Adapted from jEdit's spec file http://www.jedit.org
+###
+
+### To create the RPM from CVS, cd to src/install-linux and run:
+### ./buildrpm
+###
+### This will place the built RPMs into dist/
+
+### You will need to have ant installed
+### for this to work.
+
+Summary: A TV Guide
+Name: freeguide-__ANT_PLUGIN_NAME__
+Provides: freeguide-__ANT_PLUGIN_NAME__
+Requires: freeguide-base >= __ANT_VERSION_DOTTED__ __ANT_PLUGIN_REQUIRES_STRING__
+Version: __ANT_PLUGIN_VERSION__
+Release: __ANT_PLUGIN_RELEASE__
+Copyright: GPL
+Group: Accessories/
+Source0: __ANT_NAME_VERSION__.tar.gz
+URL: http://freeguide-tv.sourceforge.net/
+Vendor: Andy Balaam <axis3x3@users.sourceforge.net>
+Packager: Andy Balaam <axis3x3@users.sourceforge.net>
+BuildArch: noarch
+BuildRoot: %{_tmppath}/__ANT_NAME_VERSION__-__ANT_PLUGIN_NAME__.__ANT_PLUGIN_VERSION__.__ANT_PLUGIN_RELEASE__-root
+
+%description
+__ANT_PLUGIN_DESCRIPTION__
+
+%prep
+%setup -n __ANT_NAME_VERSION__
+
+%build
+ant build-all
+
+%install
+ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dinstall_doc_dir=$RPM_BUILD_ROOT/%{_datadir}/doc/freeguide -Dplugin_name=__ANT_PLUGIN_NAME__ install-linux-plugin
+
+
+%files
+%{_datadir}/freeguide/lib/__ANT_PLUGIN_NAME__.jar
+
