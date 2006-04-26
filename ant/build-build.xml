@@ -129,7 +129,7 @@
     	<mkdir dir="${build}/package/${application-id}/lib"/>
         <jar jarfile="${build}/package/${application-id}/startup.jar"
              basedir="${build}/classes/startup"
-             manifest="${src}/startup/META-INF/startup.mf" />
+             manifest="${src}/resources/manifests/startup.mf" />
     </target>
     
     <target name="build-doc" depends="prebuild-buildcode">
