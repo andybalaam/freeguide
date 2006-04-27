@@ -1,4 +1,4 @@
-package freeguide.common.lib.importexport;
+package freeguide.common.lib.impexp;
 
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;

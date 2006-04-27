@@ -1,10 +1,11 @@
-package freeguide.common.lib.importexport;
+package freeguide.common.lib.impexp;
 
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 import freeguide.common.lib.general.LanguageHelper;
+import freeguide.common.lib.impexp.XMLTVImport;
 
 import freeguide.common.plugininterfaces.IStoragePipe;
 
