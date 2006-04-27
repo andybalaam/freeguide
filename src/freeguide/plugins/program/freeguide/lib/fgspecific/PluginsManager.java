@@ -304,7 +304,7 @@ public class PluginsManager
                 public boolean accept( File fl )
                 {
                     return fl.isDirectory(  )
-                        && !fl.toString(  ).contains( "/.svn" );
+                        && fl.toString(  ).indexOf("/.svn" ) != -1;
                 }
             } );
         
