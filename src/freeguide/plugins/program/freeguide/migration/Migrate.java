@@ -61,28 +61,43 @@ public class Migrate
 
                 migr = new Migrate0_10_2To0_10_3( migr.getResult(  ) );
                 migr.migrate(  );
-
+                
+                migr = new Migrate0_10_3To0_10_4( migr.getResult(  ) );
+                migr.migrate(  );
+                
                 migr.saveTo( FreeGuide.PREF_ROOT_NAME );
             }
             else if( ver.compareTo( new Version( 0, 10, 1 ) ) == 0 )
             {
-
                 MigrationProcessBase migr =
                     new Migrate0_10_1To0_10_2( FreeGuide.PREF_ROOT_NAME );
                 migr.migrate(  );
 
                 migr = new Migrate0_10_2To0_10_3( migr.getResult(  ) );
                 migr.migrate(  );
+                
+                migr = new Migrate0_10_3To0_10_4( migr.getResult(  ) );
+                migr.migrate(  );
 
                 migr.saveTo( FreeGuide.PREF_ROOT_NAME );
             }
             else if( ver.compareTo( new Version( 0, 10, 2 ) ) == 0 )
             {
-
                 MigrationProcessBase migr =
                     new Migrate0_10_2To0_10_3( FreeGuide.PREF_ROOT_NAME );
                 migr.migrate(  );
+                
+                migr = new Migrate0_10_3To0_10_4( migr.getResult(  ) );
+                migr.migrate(  );
 
+                migr.saveTo( FreeGuide.PREF_ROOT_NAME );
+            }
+            else if( ver.compareTo( new Version( 0, 10, 3 ) ) == 0 )
+            {
+                MigrationProcessBase migr =
+                    new Migrate0_10_3To0_10_4( FreeGuide.PREF_ROOT_NAME );
+                migr.migrate(  );
+                
                 migr.saveTo( FreeGuide.PREF_ROOT_NAME );
             }
             else if( ver.compareTo( Application.VERSION ) > 0 )
