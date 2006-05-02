@@ -11,7 +11,7 @@
     <target name="build-common">
         <mkdir dir="${build}/classes/common"/>
         <!-- compile all the .java files -->
-        <javac srcdir="${src}/java-common"
+        <javac srcdir="${src}/freeguide/common"
             destdir="${build}/classes/common"
             deprecation="on" 
             source="1.4" 
@@ -19,18 +19,18 @@
             debug="yes"
             encoding="UTF-8">
             <classpath>
-                <fileset dir="${src}/lib" includes="**/*.jar"/>
+                <fileset dir="${lib}" includes="**/*.jar"/>
             </classpath>
             <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
           </javac>
-        <copy todir="${build}/classes/common">
+        <!--AJB - need to copy something? copy todir="${build}/classes/common">
             <fileset dir="${src}/java-common" excludes="**/*.java" />
-        </copy>
+        </copy-->
 
     	<mkdir dir="${build}/package/${application-id}/lib"/>
 		<jar jarfile="${build}/package/${application-id}/lib/common.jar" basedir="${build}/classes/common"/>
         <copy todir="${build}/package/${application-id}/lib">
-            <fileset dir="${src}/lib" includes="**/*.jar"/>
+            <fileset dir="${lib}" includes="**/*.jar"/>
         </copy>
     </target>
     
@@ -43,7 +43,7 @@
     <target name="subtask-build-one-plugin" depends="build-common">
         <mkdir dir="${build}/classes/${plugin-id}"/>
         <!-- compile all the .java files -->
-        <javac srcdir="${src}/plugins/${plugin-id}/java"
+        <javac srcdir="${src}/freeguide/plugins/${plugin-id}"
             destdir="${build}/classes/${plugin-id}"
             deprecation="on" 
             source="1.4" 
@@ -51,30 +51,32 @@
             debug="yes"
             encoding="UTF-8">
             <classpath>
-                <fileset dir="${src}/lib" includes="**/*.jar"/>
+                <fileset dir="${lib}" includes="**/*.jar"/>
                 <pathelement location="${build}/classes/common"/>
             </classpath>
           </javac>
 
-        <copy todir="${build}/classes/${plugin-id}">
+        <!-- AJB: copy resources here copy todir="${build}/classes/${plugin-id}">
             <fileset dir="${src}/plugins/${plugin-id}/java" excludes="**/*.java" />
-        </copy>
+        </copy -->
 
     	<mkdir dir="${build}/package/${plugin-id}/lib"/>
         <jar jarfile="${build}/package/${plugin-id}/lib/${plugin-id}.jar"
              basedir="${build}/classes/${plugin-id}"/>
     	
-    	<copy todir="${build}/package/${plugin-id}" failonerror="false">
+    	<!-- AJB: copy nosrc files copy todir="${build}/package/${plugin-id}" failonerror="false">
             <fileset dir="${src}/plugins/${plugin-id}/files"/>
             <fileset dir="${src}/plugins/${plugin-id}/files-nosrc"/>
-  		</copy>
+  		</copy -->
     	
+        <!-- AJB: what does this do ?-->
     	<mkdir dir="${build}/plain"/>
     	<copy todir="${build}/plain">
     		<fileset dir="${build}/package/${plugin-id}" includes="**/*.jar"/>
    		</copy>
     </target>
     
+    <!-- AJB: do we need this target now, or is the FreeGuide plugin enough? -->
     <target name="build-app" description="compile application" depends="build-common, build-startup">
         <mkdir dir="${build}/classes/${application-id}"/>
         <!-- compile all the .java files -->
