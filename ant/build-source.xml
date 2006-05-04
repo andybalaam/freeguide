@@ -13,40 +13,35 @@
         description="generate the source tar.gz and zip">
 
         <tar longfile="gnu"
-            destfile="${dist-src}/${application-id}-${application-version}-src.tar.gz" compression="gzip" >
-            <tarfileset dir="${src}" prefix="${application-id}-${application-version}/src">
+            destfile="${dist-src}/${application-id}-${application-version}-src.tar.gz"
+            compression="gzip">
+            
+            <tarfileset dir="." prefix="${application-id}-${application-version}">
                 <exclude name="**/.xvpics/**" />
-                <exclude name="**/*-nosrc/**" />
+                <exclude name="**/.svn/**"/>
+                <exclude name="build/**"/>
+                <exclude name="dist/**"/>
+                <exclude name="stats/**"/>
+                <exclude name="doc/nonlocal/**"/>
+                <exclude name="doc/html-web/**"/>
+                <exclude name="**/*.class"/>
             </tarfileset>
-            <tarfileset dir="${doc}" prefix="${application-id}-${application-version}/doc">
-                <exclude name="**/.xvpics/**" />
-            </tarfileset>
-            <tarfileset dir="." includes="build*.xml"
-                prefix="${application-id}-${application-version}" />
-            <tarfileset dir="xmltv"
-                includes="*"
-                excludes=".svn/**"
-                prefix="${application-id}-${application-version}/xmltv" />
-            <tarfileset dir="stats"
-                includes="*.sh,*.py,barchart"
-                prefix="${application-id}-${application-version}/stats" />
+            
         </tar>
+        
         <zip zipfile="${dist-src}/${application-id}-${application-version}-src.zip">
-            <zipfileset dir="${src}" prefix="${application-id}-${application-version}/src">
+        
+            <zipfileset dir="." prefix="${application-id}-${application-version}">
                 <exclude name="**/.xvpics/**" />
-                <exclude name="**/*-nosrc/**" />
+                <exclude name="**/.svn/**"/>
+                <exclude name="build/**"/>
+                <exclude name="dist/**"/>
+                <exclude name="stats/**"/>
+                <exclude name="doc/nonlocal/**"/>
+                <exclude name="doc/html-web/**"/>
+                <exclude name="**/*.class"/>
             </zipfileset>
-            <zipfileset dir="${doc}" prefix="${application-id}-${application-version}/doc">
-                <exclude name="**/.xvpics/**" />
-            </zipfileset>
-            <zipfileset dir="." includes="build*.xml" prefix="${application-id}-${application-version}" />
-            <zipfileset dir="xmltv"
-                includes="*"
-                excludes=".svn/**"
-                prefix="${application-id}-${application-version}/xmltv" />
-            <zipfileset dir="stats"
-                includes="*.sh,*.py,barchart"
-                prefix="${application-id}-${application-version}/stats" />
+            
         </zip>
         
     </target>

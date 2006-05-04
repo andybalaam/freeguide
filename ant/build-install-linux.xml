@@ -77,7 +77,7 @@
             install_share_dir = ~/.rpm/tmp/freeguide-0.8.2-root/usr/share
             install_doc_dir   = ~/.rpm/tmp/freeguide-0.8.2-...usr/doc/freeguide
             install_real_doc_dir = /usr/doc/freeguide
-            plugin-id = grabber-cosmostv
+            plugin-id = grabber/cosmostv
         -->
         
         <mkdir dir="${install_share_dir}/freeguide/lib/" />

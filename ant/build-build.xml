@@ -6,13 +6,13 @@
 	<import file="build-prebuild.xml"/>
     <import file="../build.xml"/>
 	
-    <target name="build-all" depends="build-plugins, build-app, build-doc"/>
+    <target name="build-all" depends="prepare, compile, jar-common, jar-plugins, jar-startup, compile-doc"/>
 
-    <target name="build-common">
-        <mkdir dir="${build}/classes/common"/>
+    <target name="compile">
+        <mkdir dir="${build}/classes"/>
         <!-- compile all the .java files -->
-        <javac srcdir="${src}/freeguide/common"
-            destdir="${build}/classes/common"
+        <javac srcdir="${src}"
+            destdir="${build}/classes"
             deprecation="on" 
             source="1.4" 
             target="1.4"
@@ -23,125 +23,94 @@
             </classpath>
             <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
           </javac>
-        <!--AJB - need to copy something? copy todir="${build}/classes/common">
+        <!-- AJB - I think this is not needed copy todir="${build}/classes/common">
             <fileset dir="${src}/java-common" excludes="**/*.java" />
         </copy-->
-
-    	<mkdir dir="${build}/package/${application-id}/lib"/>
-		<jar jarfile="${build}/package/${application-id}/lib/common.jar" basedir="${build}/classes/common"/>
-        <copy todir="${build}/package/${application-id}/lib">
+    </target>
+    
+    <target name="jar-common">
+        <!-- Create the common.jar file -->
+    	<mkdir dir="${build}/package/lib"/>
+        
+        <jar jarfile="${build}/package/lib/common.jar"
+             basedir="${build}/classes"
+             includes="freeguide/common/**">
+             <fileset dir="${src}" includes="resources/i18n/*"/>
+        </jar>
+        
+        <!-- Copy everything from within lib to the lib dir inside build/package -->
+        <copy todir="${build}/package/lib">
             <fileset dir="${lib}" includes="**/*.jar"/>
         </copy>
     </target>
     
-    <target name="build-plugins">
+    <target name="jar-plugins">
         <antcall target="all-plugins">
-            <param name="actual-target" value="subtask-build-one-plugin"/>
+            <param name="actual-target" value="subtask-jar-one-plugin"/>
         </antcall>
     </target>    
     
-    <target name="subtask-build-one-plugin" depends="build-common">
-        <mkdir dir="${build}/classes/${plugin-id}"/>
-        <!-- compile all the .java files -->
-        <javac srcdir="${src}/freeguide/plugins/${plugin-id}"
-            destdir="${build}/classes/${plugin-id}"
-            deprecation="on" 
-            source="1.4" 
-            target="1.4"
-            debug="yes"
-            encoding="UTF-8">
-            <classpath>
-                <fileset dir="${lib}" includes="**/*.jar"/>
-                <pathelement location="${build}/classes/common"/>
-            </classpath>
-          </javac>
-
-        <!-- AJB: copy resources here copy todir="${build}/classes/${plugin-id}">
-            <fileset dir="${src}/plugins/${plugin-id}/java" excludes="**/*.java" />
-        </copy -->
-
-    	<mkdir dir="${build}/package/${plugin-id}/lib"/>
-        <jar jarfile="${build}/package/${plugin-id}/lib/${plugin-id}.jar"
-             basedir="${build}/classes/${plugin-id}"/>
-    	
-    	<!-- AJB: copy nosrc files copy todir="${build}/package/${plugin-id}" failonerror="false">
-            <fileset dir="${src}/plugins/${plugin-id}/files"/>
-            <fileset dir="${src}/plugins/${plugin-id}/files-nosrc"/>
-  		</copy -->
-    	
-        <!-- AJB: what does this do ?-->
-    	<mkdir dir="${build}/plain"/>
-    	<copy todir="${build}/plain">
-    		<fileset dir="${build}/package/${plugin-id}" includes="**/*.jar"/>
-   		</copy>
+    <target name="subtask-jar-one-plugin">
+        
+    	<mkdir dir="${build}/package/lib"/>
+        
+        <!-- Ensure the classes dir exists or the jar file creation will bork -->
+        <!--mkdir dir="${build}/classes/freeguide/plugins/${plugin-dir}"/>
+        <copy todir="${build}/classes/freeguide/plugins/">
+            <fileset dir="${src}/freeguide/plugins/"
+                includes="${plugin-dir}/**"
+                excludes="*.java,*.class" />
+        </copy-->
+        
+        <!-- TODO: remove the following line and make it still work! -->
+        <mkdir dir="${src}/freeguide/plugins/${plugin-dir}"/>
+        
+        <!-- Build the JAR file for this plugin -->
+        <zip zipfile="${build}/package/lib/${plugin-id}.jar" whenempty="skip">
+            <fileset dir="${build}/classes" includes="freeguide/plugins/${plugin-dir}/**"/>
+            <fileset dir="${src}" includes="resources/plugins/${plugin-dir}/**"/>
+            <fileset dir="${src}/freeguide/plugins/${plugin-dir}"
+                includes="plugin.xml"/>
+        </zip>
+         
     </target>
     
-    <!-- AJB: do we need this target now, or is the FreeGuide plugin enough? -->
-    <target name="build-app" description="compile application" depends="build-common, build-startup">
-        <mkdir dir="${build}/classes/${application-id}"/>
-        <!-- compile all the .java files -->
-        <javac srcdir="${src}/java"
-            destdir="${build}/classes/${application-id}"
-            deprecation="on" 
-            source="1.4" 
-            target="1.4"
-            debug="yes"
-            encoding="UTF-8">
-            <classpath>
-                <fileset dir="${src}/lib" includes="**/*.jar"/>
-                <pathelement location="${build}/classes/common"/>
-            </classpath>
-          </javac>
-
-        <copy todir="${build}/classes/${application-id}">
-            <fileset dir="${src}/resources"/>
-            <fileset dir="${src}/java" excludes="**/*.java"/>
-        </copy>
-        
-        <!-- Make the jar file -->
-    	<mkdir dir="${build}/package/${application-id}/lib"/>
-        <jar jarfile="${build}/package/${application-id}/lib/${application-id}.jar"
-             basedir="${build}/classes/${application-id}"/>
-
-    	<mkdir dir="${build}/package/${application-id}/doc"/>
-        <copy todir="${build}/package/${application-id}/doc">
-            <fileset dir="doc" includes="*.html, *.css, *.txt, *.png, COPYING, TODO"/>
-        </copy>
-        <!-- gzip the man page -->
-        <gzip src="${src}/install/linux/freeguide.1" zipfile="${build}/package/${application-id}/freeguide.1.gz" />
-        
-        <mkdir dir="${build}/plain"/>
-        <copy todir="${build}/plain">
-            <fileset dir="${build}/package/${application-id}"/>
-        </copy>
-    </target>
-    
-    <target name="build-startup" depends="build-common">
-        <mkdir dir="${build}/classes/startup"/>
-        <!-- compile all the .java files -->
-        <javac srcdir="${src}/startup/java"
-            destdir="${build}/classes/startup"
-            deprecation="on" 
-            source="1.3" 
-            target="1.1"
-            debug="yes"
-            encoding="UTF-8">
-          </javac>
-
-    	<mkdir dir="${build}/package/${application-id}/lib"/>
-        <jar jarfile="${build}/package/${application-id}/startup.jar"
-             basedir="${build}/classes/startup"
+    <target name="jar-startup">
+        <mkdir dir="${build}/package/lib"/>
+        <jar jarfile="${build}/package/startup.jar"
+             basedir="${build}/classes"
+             includes="freeguide/startup/**"
              manifest="${src}/resources/manifests/startup.mf" />
     </target>
     
-    <target name="build-doc" depends="prebuild-buildclasses">
-    	<java classpath="${build}/buildclasses"
-    	    	classname="DocXSLT"
-    	    	fork="true"/>
-        <!--chmod file="${doc}/compile_manual.sh" perm="ugo+rx"/>
-        <exec dir="${doc}" executable="compile_manual.sh" resolveexecutable="true" failonerror="true"/-->
+    <target name="compile-doc">
+    	
+        <!-- The task below does not work with our docs for some reason.
+             For now, we compile the docs on Linux and commit them to SVN.
+             So all we have to do here is copy them in to the build dir. -->
+        
+        <copy todir="${build}/package/doc">
+            <fileset dir="${doc}/html-local"/>
+        </copy>
+        
     </target>
-    
+     
+     <target name="really-compile-doc-java" depends="prebuild-buildclasses"
+            description="DOES NOT WORK: use our own custom Java code to build the docs" >
+        <java classpath="${build}/buildclasses"
+    	    	classname="freeguide.build.docxslt.DocXSLT"
+    	    	fork="true"/>
+        <!-- TODO: copy the .html files etc. from doc/* -->
+     </target>
+     
+     <target name="really-compile-doc-sh"
+            description="If we're on Linux, make the docs using a shell script.">
+        <chmod file="${doc}/compile_manual.sh" perm="ugo+rx"/>
+        <exec dir="${doc}" executable="compile_manual.sh" resolveexecutable="true" failonerror="true"/>
+        <!-- NOTE: this script currently compiles from doc/* to doc/html-web/*,
+             but for this to work smoothly, it would need to compile to
+             build/package/doc. -->
+    </target>
     
 </project>
 

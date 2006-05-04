@@ -5,6 +5,7 @@
 	<import file="build-plugins-info.xml"/>
 
     <target name="dist-exe">
+        <!-- TODO: call GCJ from here? -->
     </target>
 </project>
 

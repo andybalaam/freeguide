@@ -10,7 +10,7 @@
         <mkdir dir="${dist-rpm}"/>
     </target>
     
-    <target name="dist-repository" depends="dist-init">
+    <!--target name="dist-repository" depends="dist-init">
         
         <zip destfile="${dist-repo}/freeguide-${application-id}-${application-version}.zip" 
     		basedir="build/package/${application-id}"/>
@@ -28,7 +28,7 @@
  
     <target name="dist-clean">
         <delete dir="${dist}" />
-    </target>
+    </target-->
     
 	
 	
@@ -36,7 +36,7 @@
 		<mkdir dir="${dist}/tgz"/>
 		<tar longfile="gnu"
 			 destfile="${dist}/tgz/freeguide-${application-id}-${application-version}.tar.gz" compression="gzip" >
-            <tarfileset dir="${build}/package/${application-id}" prefix="/usr/share/freeguide/">
+            <tarfileset dir="${build}/package" prefix="/usr/share/freeguide/">
 	            <exclude name="doc/**"/>
             </tarfileset>
             <tarfileset dir="${build}/package/${application-id}/doc" prefix="/usr/share/doc/freeguide/"/>

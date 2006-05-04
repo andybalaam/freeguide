@@ -11,7 +11,7 @@
     <target name="prebuild-buildclasses" depends="prebuild-mkdir">
     	<javac 
     		destdir="${build}/buildclasses">
-    		<src path="${src}/freeguide/build/patchallfiles"/>
+    		<src path="${src}/freeguide/build"/>
             <src path="${src}/freeguide/plugins/program/freeguide"/>
             <src path="${src}/freeguide/common"/>
     		<classpath>

@@ -5,13 +5,14 @@
   Main build file with meta tasks.
   Used tasks:
 
-    all: prepare, source-all, build-all, dist-repository, dist-tgz
+    all: prepare, source-all, build-all, dist-tgz
       prepare           - compile helper classes and apply versions and names from plugin.xml's to all files.
       source-all        - pack all sources to .zip and .tar.gz formats.
       build-all         - compile application and all plugins to jars.
-      dist-repository   - make .zip files for repository
       dist-tgz          - make .tar.gz files for slackware and other unpackaged linuxes
 
+      (currently unused)
+      dist-repository   - make .zip files for repository
 
   After builds we have:
     dist/src        - sources
@@ -47,7 +48,7 @@
         Ant build file for FreeGuide.
     </description>
     
-    <target name="all" depends="prepare, source-all, build-all, dist-repository, dist-tgz" />
+    <target name="all" depends="prepare, source-all, build-all, dist-tgz" />
     
     <target name="prepare">
         <ant antfile="ant/build-prebuild.xml" />
@@ -58,9 +59,9 @@
     <target name="build-all">
         <ant antfile="ant/build-build.xml" />
     </target>
-    <target name="dist-repository">
+    <!--target name="dist-repository">
         <ant antfile="ant/build-dist.xml" target="dist-repository" />
-    </target>
+    </target-->
     <target name="dist-tgz">
         <ant antfile="ant/build-dist.xml" target="dist-tgz" />
     </target>
