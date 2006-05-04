@@ -85,7 +85,7 @@
     <name lang="fr">XMLTV</name>
     <description lang="fr">Export au format XMLTV. (http://xmltv.sf.net).</description>
   </package>
-  <package id="other-xmltv-win32-exe" version="0.5.41" type="other" repositoryPath="package-other-xmltv-win32-exe-0.5.41.zip">
+  <package id="other-xmltvexe" version="0.5.41" type="other" repositoryPath="package-other-xmltvexe-0.5.41.zip">
     <name lang="en">XMLTV for Windows</name>
     <description lang="en">XMLTV for Windows execution from http://alpha-exe.xmltv.org/</description>
   </package>
