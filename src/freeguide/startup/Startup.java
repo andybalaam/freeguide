@@ -123,6 +123,7 @@ public class Startup
         }
         catch( NoClassDefFoundError ex )
         {
+            ex.printStackTrace(  );
             die( 
                 "Error E05",
                 "Wrong java version: " + System.getProperty( "java.version" )
@@ -130,6 +131,7 @@ public class Startup
         }
         catch( UnsupportedClassVersionError ex )
         {
+            ex.printStackTrace(  );
             die( 
                 "Error E06",
                 "Wrong java version: " + System.getProperty( "java.version" )

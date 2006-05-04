@@ -168,7 +168,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         prepareDateList(  );
 
-        if( dateExistList.length > 0 )
+        /*if( dateExistList.length > 0 )
         {
 
             if( 
@@ -178,7 +178,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             {
                 askForLoadData(  );
             }
-        }
+        }*/
 
         prepareChannelsSetList(  );
 
@@ -329,14 +329,14 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                     Level.WARNING, "Error reading TV data", ex );
             }
 
-            if( currentData.getChannelsCount(  ) == 0 )
+            /*if( currentData.getChannelsCount(  ) == 0 )
             {
                 askForLoadData(  );
-            }
+            }*/
         }
     }
 
-    protected void askForLoadData(  )
+    /*protected void askForLoadData(  )
     {
 
         int r =
@@ -351,7 +351,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         {
             Application.getInstance(  ).doStartGrabbers(  );
         }
-    }
+    }*/
 
     /**
      * Draw all the programmes and channels on screen.
@@ -901,7 +901,6 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         try
         {
-
             final TemplateParser parser =
                 new TemplateParser( 
                     "resources/plugins/ui/horizontal/manylabels/templates/TemplateProgrammeInfo.html" );

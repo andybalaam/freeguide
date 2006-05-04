@@ -49,10 +49,6 @@ public abstract class BaseModule implements IModule
         
         if( package_name.startsWith( plugin_package_name_prefix ) )
         {
-            System.err.println( "resources/i18n/"
-                + package_name.substring( plugin_package_name_prefix.length()
-                    ).replace( '.', '_' ) );
-            
             i18n = new LanguageHelper( "resources/i18n/"
                 + package_name.substring( plugin_package_name_prefix.length()
                     ).replace( '.', '_' ),

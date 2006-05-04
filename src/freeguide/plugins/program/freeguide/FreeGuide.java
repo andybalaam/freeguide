@@ -103,7 +103,8 @@ public class FreeGuide
                 "resources/i18n/Startup",
                 LanguageHelper.getPreferredLocale( 
                     new Locale[] { Locale.getDefault(  ) },
-                    LanguageHelper.getLocaleList( "i18n/Startup" ) ) );
+                    LanguageHelper.getLocaleList( "resources/i18n/Startup" ) )
+                        );
 
         // Check Java version.  If wrong, exit with error
         checkJavaVersion(  );

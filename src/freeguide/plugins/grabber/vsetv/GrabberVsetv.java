@@ -227,8 +227,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         {
             TIMEZONES.load( 
                 LanguageHelper.getUncachedStream( 
-                    this.getClass(  ).getPackage(  ).getName(  ).replace( 
-                        '.', '/' ) + "/timezones.properties" ) );
+                    "resources/plugins/grabber/vsetv/timezones.properties" ) );
 
         }
         catch( Exception ex )

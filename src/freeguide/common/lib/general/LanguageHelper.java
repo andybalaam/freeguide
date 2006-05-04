@@ -52,7 +52,7 @@ public class LanguageHelper implements ILocalizer
 
         String resourceName =
             resourcePrefix + "." + locale.getLanguage(  ) + ".properties";
-
+        
         translation = new TreeMap(  );
 
         loadProperties( resourceName, translation );
@@ -257,29 +257,20 @@ public class LanguageHelper implements ILocalizer
 
         if( translation != null )
         {
-
             final String result = (String)translation.get( key );
 
             if( result != null )
             {
-
                 return result;
-
             }
-
             else
             {
-
                 return "!" + key + "!";
-
             }
         }
-
         else
         {
-
             return "!" + key + "!(locale not selected)";
-
         }
     }
 

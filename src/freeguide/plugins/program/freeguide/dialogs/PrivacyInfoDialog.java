@@ -64,7 +64,7 @@ public class PrivacyInfoDialog extends JDialog
         {
             privacyInfo =
                 LanguageHelper.loadResourceAsString( 
-                    "i18n/PrivacyBundle."
+                    "resources/i18n/PrivacyBundle."
                     + Locale.getDefault(  ).getLanguage(  ) + ".html" );
         }
         catch( IOException ex )

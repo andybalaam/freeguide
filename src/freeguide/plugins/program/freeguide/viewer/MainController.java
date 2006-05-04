@@ -107,7 +107,7 @@ public class MainController extends BaseModule implements IApplication
     public Locale[] getSuppotedLocales(  ) throws Exception
     {
 
-        return LanguageHelper.getLocaleList( "i18n/MessagesBundle" );
+        return LanguageHelper.getLocaleList( "resources/i18n/MessagesBundle" );
     }
 
     /**
@@ -119,7 +119,7 @@ public class MainController extends BaseModule implements IApplication
      */
     public void setLocale( Locale locale ) throws Exception
     {
-        i18n = new LanguageHelper( "i18n/MessagesBundle", locale );
+        i18n = new LanguageHelper( "resources/i18n/MessagesBundle", locale );
     }
 
     /**
@@ -131,7 +131,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public String getLocalizedMessage( String key )
     {
-
         return i18n.getLocalizedMessage( key );
     }
 
@@ -145,7 +144,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public String getLocalizedMessage( String key, Object[] params )
     {
-
         return i18n.getLocalizedMessage( key, params );
     }
 

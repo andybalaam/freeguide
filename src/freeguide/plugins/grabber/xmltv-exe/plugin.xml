@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<plugin id="other-xmltv-win32-exe"
+<plugin id="other-xmltvexe"
         version="0.5.41">
 
   <name lang="en">XMLTV for Windows</name>

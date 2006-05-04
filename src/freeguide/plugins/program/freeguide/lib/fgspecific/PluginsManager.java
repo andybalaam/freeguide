@@ -119,7 +119,7 @@ public class PluginsManager
                     }
     
                     pluginsInfoByID.put( handler.getID(  ), handler );
-    
+                    
                     if( "program-freeguide".equals( handler.getID(  ) ) )
                     {
                         applicationInfo = handler;
@@ -262,13 +262,12 @@ public class PluginsManager
      */
     protected static URL[] findInClassLoader(  ) throws IOException
     {
-
         Enumeration urls =
             PluginsManager.class.getClassLoader(  ).getResources( 
                 "plugin.xml" );
-
+        
         List list = Collections.list( urls );
-
+        
         return (URL[])list.toArray( new URL[list.size(  )] );
     }
     
@@ -286,31 +285,35 @@ public class PluginsManager
                     return fl.toString().endsWith( "/plugin.xml" );
                 }
             } );
-        for( int i = 0; i < plugin_files.length; ++i )
-        {
-            try
-            {
-                files.add( plugin_files[i].toURL(  ) );
-            }
-            catch( java.net.MalformedURLException e )
-            {
-                e.printStackTrace(  );
-            }
-        }
-         
-         File[] dirs = dir.listFiles(
-            new FileFilter(  )
-            {
-                public boolean accept( File fl )
-                {
-                    return fl.isDirectory(  )
-                        && fl.toString(  ).indexOf("/.svn" ) != -1;
-                }
-            } );
         
-        for( int i = 0; i < dirs.length; ++i )
+        if( plugin_files != null )
         {
-            findPluginDirs( dirs[i], files );
+            for( int i = 0; i < plugin_files.length; ++i )
+            {
+                try
+                {
+                    files.add( plugin_files[i].toURL(  ) );
+                }
+                catch( java.net.MalformedURLException e )
+                {
+                    e.printStackTrace(  );
+                }
+            }
+             
+             File[] dirs = dir.listFiles(
+                new FileFilter(  )
+                {
+                    public boolean accept( File fl )
+                    {
+                        return fl.isDirectory(  )
+                            && fl.toString(  ).indexOf("/.svn" ) == -1;
+                    }
+                } );
+            
+            for( int i = 0; i < dirs.length; ++i )
+            {
+                findPluginDirs( dirs[i], files );
+            }
         }
     }
     

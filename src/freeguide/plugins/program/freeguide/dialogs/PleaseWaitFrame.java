@@ -57,7 +57,7 @@ public class PleaseWaitFrame extends JFrame
 
             byte[] data =
                 LanguageHelper.loadResourceAsByteArray( 
-                    "images/logo-16x16.png" );
+                    "resources/plugins/program/freeguide/images/logo-16x16.png" );
 
             if( data != null )
             {
@@ -68,7 +68,7 @@ public class PleaseWaitFrame extends JFrame
 
             byte[] data2 =
                 LanguageHelper.loadResourceAsByteArray( 
-                    "images/logo-256x256.png" );
+                    "resources/plugins/program/freeguide/images/logo-256x256.png" );
 
             if( data2 != null )
             {

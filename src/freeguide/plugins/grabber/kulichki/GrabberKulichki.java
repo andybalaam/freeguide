@@ -336,8 +336,8 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         {
             TIME_ZONES.load( 
                 LanguageHelper.getUncachedStream( 
-                    this.getClass(  ).getPackage(  ).getName(  ).replace( 
-                        '.', '/' ) + "/timezones.properties" ) );
+                    "resources/plugins/grabber/kulichki/timezones.properties"
+                        ) );
 
         }
         catch( Exception ex )
@@ -355,8 +355,8 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         try
         {
             LanguageHelper.loadProperties( 
-                this.getClass(  ).getPackage(  ).getName(  ).replace( 
-                    '.', '/' ) + "/groupnames.properties", GROUP_NAMES );
+                "resources/plugins/grabber/kulichki/groupnames.properties",
+                    GROUP_NAMES );
         }
         catch( Exception ex )
         {

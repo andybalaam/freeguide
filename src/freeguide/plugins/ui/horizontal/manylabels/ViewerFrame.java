@@ -657,10 +657,11 @@ public class ViewerFrame extends JPanel
         {
             comTheDate.setSelectedIndex( comTheDate.getSelectedIndex(  ) + 1 );
         }
-        else
+        // TODO: say no data in a nice way - you could download more.
+        /*else
         {
             parent.askForLoadData(  );
-        }
+        }*/
     }
 
     /**
@@ -670,15 +671,15 @@ public class ViewerFrame extends JPanel
      */
     public void butPreviousDayActionPerformed( java.awt.event.ActionEvent evt )
     {
-
         if( comTheDate.getSelectedIndex(  ) > 0 )
         {
             comTheDate.setSelectedIndex( comTheDate.getSelectedIndex(  ) - 1 );
         }
-        else
+        // Say no data available
+        /*else
         {
             parent.askForLoadData(  );
-        }
+        }*/
     }
 
     /**

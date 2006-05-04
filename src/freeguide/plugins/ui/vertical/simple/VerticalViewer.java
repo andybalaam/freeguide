@@ -154,12 +154,12 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
                     Level.WARNING, "Error reading TV data", ex );
             }
 
-            if( 
+            /*if( 
                 ( currentData != null )
                     && ( currentData.getChannelsCount(  ) == 0 ) )
             {
                 askForLoadData(  );
-            }
+            }*/
         }
     }
 
@@ -169,7 +169,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
      * Ask the user if he wants to load the data because there are none.
      * Shamelessly copied from HorizontalViewer.java
      */
-    protected void askForLoadData(  )
+    /*protected void askForLoadData(  )
     {
 
         int r =
@@ -184,7 +184,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
         {
             Application.getInstance(  ).doStartGrabbers(  );
         }
-    }
+    }*/
 
     //protected void askForLoadData(  )
 

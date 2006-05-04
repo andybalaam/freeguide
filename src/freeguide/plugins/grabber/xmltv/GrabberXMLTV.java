@@ -212,8 +212,8 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             {
                 cmds.load( 
                     LanguageHelper.getUncachedStream( 
-                        GrabberXMLTV.class.getPackage(  ).getName(  ).replace( 
-                            '.', '/' ) + "/commands.properties" ) );
+                        "resources/plugins/grabber/xmltv/commands.properties"
+                            ) );
 
             }
             catch( IOException ex )
