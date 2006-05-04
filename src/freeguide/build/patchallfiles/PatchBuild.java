@@ -37,12 +37,15 @@ public class PatchBuild
         throws Exception
     {
 
-        for( int i = 1; i < plugins.length; i++ )
+        for( int i = 0; i < plugins.length; i++ )
         {
             out.write( "    <antcall target=\"${actual-target}\">\n" );
             out.write( 
                 "      <param name=\"plugin-id\" value=\""
                 + plugins[i].getID(  ) + "\"/>\n" );
+            out.write( 
+                "      <param name=\"plugin-dir\" value=\""
+                + plugins[i].getID(  ).replace( '-', '/' ) + "\"/>\n" );
             out.write( 
                 "      <param name=\"plugin-version\" value=\""
                 + plugins[i].getVersion(  ).getDotFormat(  ) + "\"/>\n" );
@@ -62,8 +65,7 @@ public class PatchBuild
         out.write( 
             "<project name=\"freeguide-tv-plugins-info\" basedir=\".\">\n" );
         out.write( 
-            "  <property name=\"application-id\" value=\""
-            + plugins[0].getID(  ) + "\"/>\n" );
+            "  <property name=\"application-id\" value=\"freeguide\"/>\n" );
         out.write( 
             "  <property name=\"application-version\" value=\""
             + plugins[0].getVersion(  ).getDotFormat(  ) + "\"/>\n" );

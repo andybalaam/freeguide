@@ -92,12 +92,10 @@ public class PatchFile
 
         while( true )
         {
-
             String line = rd.readLine(  );
 
             if( line == null )
             {
-
                 break;
             }
 
@@ -111,7 +109,6 @@ public class PatchFile
 
         for( int i = 0; i < plugins.length; i++ )
         {
-
             String result = replaceAppInfo( plugins[0], strData );
 
             result =
@@ -130,7 +127,8 @@ public class PatchFile
                 new BufferedWriter( 
                     new OutputStreamWriter( 
                         new FileOutputStream( 
-                            prefix + plugins[i].getID(  ) + suffix ), "UTF-8" ) );
+                            prefix + plugins[i].getID(  ) + suffix ),
+                                "UTF-8" ) );
             wr.write( result );
             wr.flush(  );
             wr.close(  );
