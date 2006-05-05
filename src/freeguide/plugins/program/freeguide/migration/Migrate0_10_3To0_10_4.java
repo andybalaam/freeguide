@@ -44,10 +44,13 @@ public class Migrate0_10_3To0_10_4 extends MigrationProcessBase
      */
     public void migrate(  ) throws Exception
     {
+        
         moveNode( "modules/impexp-html/", "modules/importexport-html/" );
         moveNode( "modules/impexp-jtv/", "modules/importexport-jtv/" );
         moveNode( "modules/impexp-palmatv/", "modules/importexport-palmatv/" );
         moveNode( "modules/impexp-xmltv/", "modules/importexport-xmltv/" );
+        
+        moveNode( "" );
         
         getAndRemoveKey( "version" );
         putKey( "version", "0.10.4" );

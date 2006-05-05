@@ -138,57 +138,72 @@ public class FreeGuide
         }
 
         config = new Config(  );
-
+        
+        if( arguments.containsKey( "dump_prefs" ) )
+        {
+            Migrate.setDumpPrefs( true );
+        }
+        
         try
         {
             Migrate.migrateBeforeWizard(  );
-
         }
         catch( Exception ex )
         {
             log.log( Level.WARNING, "Error on migration", ex );
         }
-
-        // load config
-        try
+        
+        if( Migrate.isDumpPrefs() )
         {
-            PreferencesHelper.load( 
-                Preferences.userRoot(  ).node( PREF_ROOT_NAME ), config );
-            config.version = Application.VERSION.getDotFormat(  );
+            Migrate.dumpPrefs( PREF_ROOT_NAME );
+            log.info( "The preferences were written to files in the current"
+                + " directory." );
+            System.exit( 0 );
         }
-        catch( Exception ex )
+        else
         {
-            log.log( Level.SEVERE, "Error load config", ex );
+            
+            // load config
+            try
+            {
+                PreferencesHelper.load( 
+                    Preferences.userRoot(  ).node( PREF_ROOT_NAME ), config );
+                config.version = Application.VERSION.getDotFormat(  );
+            }
+            catch( Exception ex )
+            {
+                log.log( Level.SEVERE, "Error load config", ex );
+            }
+    
+            PluginsManager.loadModules(  );
+    
+            if( PluginsManager.getApplicationModuleInfo(  ) == null )
+            {
+                die( 
+                    startupMessages.getLocalizedMessage( 
+                        "startup.NoApplicationModule" ) );
+            }
+    
+            Application.setInstance( 
+                (IApplication)PluginsManager.getApplicationModuleInfo(  )
+                                            .getInstance(  ) );
+    
+            setLocale( config.lang );
+    
+            String modID = null;
+    
+            if( Migrate.isNeedToRunWizard(  ) )
+            {
+                hidePleaseWait(  );
+    
+                final FirstTimeWizard wizard =
+                    new FirstTimeWizard( !Migrate.isFirstTime(  ) );
+                wizard.getFrame(  ).waitForClose(  );
+                modID = wizard.getSelectedModuleID(  );
+            }
+    
+            normalStartup( modID );
         }
-
-        PluginsManager.loadModules(  );
-
-        if( PluginsManager.getApplicationModuleInfo(  ) == null )
-        {
-            die( 
-                startupMessages.getLocalizedMessage( 
-                    "startup.NoApplicationModule" ) );
-        }
-
-        Application.setInstance( 
-            (IApplication)PluginsManager.getApplicationModuleInfo(  )
-                                        .getInstance(  ) );
-
-        setLocale( config.lang );
-
-        String modID = null;
-
-        if( Migrate.isNeedToRunWizard(  ) )
-        {
-            hidePleaseWait(  );
-
-            final FirstTimeWizard wizard =
-                new FirstTimeWizard( !Migrate.isFirstTime(  ) );
-            wizard.getFrame(  ).waitForClose(  );
-            modID = wizard.getSelectedModuleID(  );
-        }
-
-        normalStartup( modID );
     }
 
     /**

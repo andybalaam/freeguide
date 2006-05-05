@@ -420,7 +420,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
      */
     public static void migrateAfterWizard(  ) throws Exception
     {
-
         if( icons != null )
         {
 

@@ -1,10 +1,13 @@
-.TH freeguide "1" "July 2004" "freeguide-0.10.2" "User Commands"
+.TH freeguide "1" "July 2004" "freeguide-0.10.4" "User Commands"
 .SH NAME
 freeguide \- display TV listings
 .SH SYNOPSIS
-.B freeguide
+.B freeguide [--dump_prefs]
 .SH DESCRIPTION
 Display TV listings.  Run the program with no arguments to launch the main window.  Open the "Help" menu and choose "User Guide" for more information.
+.SH OPTIONS
+.IP --dump_prefs
+Write out the entire set of preferences FreeGuide is using, and exit.  The preferences are written to the current directory into a file called prefs_cur-VERSION.txt where VERSION is the current version of FreeGuide.  Additionally, if a migration is needed to update FreeGuide's preferences, several more files are written, with names like prefs_old-VERSION.txt and prefs_new-VERSION.txt.  These reflect the preferences stored before and after each stage of the migration process.
 .SH AUTHOR
 Written by Andy Balaam and the FreeGuide contributors.
 

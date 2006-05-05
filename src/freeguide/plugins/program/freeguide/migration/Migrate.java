@@ -1,12 +1,17 @@
 package freeguide.plugins.program.freeguide.migration;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.common.lib.fgspecific.Application;
-
 import freeguide.common.lib.general.Version;
 
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.prefs.Preferences;
+import java.util.Iterator;
+import java.util.prefs.BackingStoreException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Main class for migration. It checks version and run migrations.
@@ -15,10 +20,10 @@ import java.util.prefs.Preferences;
  */
 public class Migrate
 {
-
     protected static boolean firstTime = true;
     protected static boolean needToRunWizard = false;
     protected static boolean needToRunAfter = false;
+    protected static boolean dumpPrefs = false;
 
     /**
      * DOCUMENT_ME!
@@ -114,7 +119,6 @@ public class Migrate
      */
     public static boolean isNeedToRunWizard(  )
     {
-
         return needToRunWizard;
     }
 
@@ -125,8 +129,17 @@ public class Migrate
      */
     public static boolean isFirstTime(  )
     {
-
         return firstTime;
+    }
+    
+    public static boolean isDumpPrefs(  )
+    {
+        return dumpPrefs;
+    }
+    
+    public static void setDumpPrefs( boolean iDumpPrefs )
+    {
+        dumpPrefs = iDumpPrefs;
     }
 
     /**
@@ -136,7 +149,6 @@ public class Migrate
      */
     public static void migrateAfterWizard(  ) throws Exception
     {
-
         if( needToRunAfter )
         {
             MigrateOldTo0_10_1.migrateAfterWizard(  );
@@ -162,4 +174,74 @@ public class Migrate
 
         return new Version( storedVersionName );
     }
+    
+    public static void dumpPrefs( String node_name )
+    {
+        try
+        {
+            Map prefs = new TreeMap(  );
+            loadMap( "", Preferences.userRoot(  ).node( node_name ), prefs );
+            dumpPrefs( prefs, "prefs_cur" );
+        }
+        catch( BackingStoreException e )
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void dumpPrefs( final Map prefs, String prefix )
+    {
+        if( Migrate.isDumpPrefs(  ) )
+        {
+            String versionName = (String)(
+                prefs.get( "misc.install_version" ) );
+            if( versionName == null )
+            {
+                versionName = (String)( prefs.get( "version" ) );
+            }
+            
+            try
+            {
+                
+                File fl = new File( prefix + "-" + versionName + ".txt" );
+                
+                FileWriter writer = new FileWriter( fl );
+                
+                for( Iterator it = prefs.entrySet(  ).iterator(  );
+                    it.hasNext(  ); )
+                {
+        
+                    Map.Entry entry = (Map.Entry)it.next(  );
+                    writer.write(
+                        entry.getKey(  ) + "=" + entry.getValue(  ) + "\n" );
+                }
+                writer.close();
+            }
+            catch( IOException e )
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public static void loadMap( final String path,
+        final Preferences node, Map prefs ) throws BackingStoreException
+        {
+        final String[] keys = node.keys(  );
+
+        for( int i = 0; i < keys.length; i++ )
+        {
+            prefs.put( path + keys[i], node.get( keys[i], null ) );
+        }
+
+        final String[] childrenNames = node.childrenNames(  );
+
+        for( int i = 0; i < childrenNames.length; i++ )
+        {
+            loadMap( 
+                path + childrenNames[i] + "/", node.node( childrenNames[i] ),
+                    prefs );
+        }
+    }
+    
 }

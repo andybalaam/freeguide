@@ -27,6 +27,7 @@ abstract public class MigrationProcessBase
     public MigrationProcessBase( final Map source )
     {
         prefFrom = source;
+        Migrate.dumpPrefs( prefFrom, "prefs_old" );
         prefTo = new TreeMap(  );
     }
 
@@ -42,6 +43,7 @@ abstract public class MigrationProcessBase
     {
         prefFrom = new TreeMap(  );
         loadFrom( "", Preferences.userRoot(  ).node( nodeName ) );
+        Migrate.dumpPrefs( prefFrom, "prefs_old" );
         prefTo = new TreeMap(  );
     }
 
@@ -59,19 +61,6 @@ abstract public class MigrationProcessBase
      */
     public Map getResult(  )
     {
-
-        /*if( prefFrom.size(  ) > 0 )
-        {
-            System.out.println(
-                "Leaved after migration " + getClass(  ).getName(  ) + ":" );
-        }
-
-        for( Iterator it = prefFrom.entrySet(  ).iterator(  ); it.hasNext(  ); )
-        {
-
-            Map.Entry entry = (Map.Entry)it.next(  );
-            System.out.println( entry.getKey(  ) + "=" + entry.getValue(  ) );
-        }*/
         return prefTo;
     }
 
@@ -154,24 +143,10 @@ abstract public class MigrationProcessBase
         prefTo.put( key, value );
     }
 
-    protected void loadFrom( final String path, final Preferences node )
-        throws BackingStoreException
+    protected void loadFrom( final String path,
+        final Preferences node ) throws BackingStoreException
     {
-
-        final String[] keys = node.keys(  );
-
-        for( int i = 0; i < keys.length; i++ )
-        {
-            prefFrom.put( path + keys[i], node.get( keys[i], null ) );
-        }
-
-        final String[] childrenNames = node.childrenNames(  );
-
-        for( int i = 0; i < childrenNames.length; i++ )
-        {
-            loadFrom( 
-                path + childrenNames[i] + "/", node.node( childrenNames[i] ) );
-        }
+        Migrate.loadMap( path, node, prefFrom );
     }
 
     /**
@@ -184,8 +159,8 @@ abstract public class MigrationProcessBase
     public void saveTo( final String rootNodeName )
         throws BackingStoreException
     {
-        getResult(  );
-
+        Migrate.dumpPrefs( prefTo, "prefs_new" );
+        
         Preferences.userRoot(  ).node( rootNodeName ).removeNode(  );
 
         Preferences root = Preferences.userRoot(  ).node( rootNodeName );
@@ -212,4 +187,7 @@ abstract public class MigrationProcessBase
             node.put( key.substring( pos + 1 ), value );
         }
     }
+    
+    
+    
 }
