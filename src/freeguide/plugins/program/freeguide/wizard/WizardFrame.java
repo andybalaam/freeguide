@@ -71,7 +71,7 @@ public class WizardFrame extends JWaitFrame
             Image icon =
                 ( new ImageIcon( 
                     LanguageHelper.loadResourceAsByteArray( 
-                        "images/logo-16x16.png" ), "icon" ) ).getImage(  );
+                        "resources/plugins/program/freeguide/images/logo-16x16.png" ), "icon" ) ).getImage(  );
             setIconImage( icon );
         }
         catch( IOException ex )

@@ -39,6 +39,8 @@ import java.util.Properties;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.Handler;
+import java.util.logging.ConsoleHandler;
 import java.util.prefs.Preferences;
 
 import javax.swing.JFrame;
@@ -110,13 +112,58 @@ public class FreeGuide
         checkJavaVersion(  );
 
         arguments = CmdArgs.parse( args );
-
+		
+		if( arguments.containsKey( "log_level" ) )
+		{
+			Level lev;
+			String strlev = arguments.getProperty( "log_level" ).toUpperCase();
+			
+			if( strlev.equals( "SEVERE" ) )
+			{
+				lev = Level.SEVERE;
+			}
+			else if( strlev.equals( "WARNING" ) )
+			{
+				lev = Level.WARNING;
+			}
+			else if( strlev.equals( "INFO" ) )
+			{
+				lev = Level.INFO;
+			}
+			else if( strlev.equals( "CONFIG" ) )
+			{
+				lev = Level.CONFIG;
+			}
+			else if( strlev.equals( "FINE" ) )
+			{
+				lev = Level.FINE;
+			}
+			else if( strlev.equals( "FINER" ) )
+			{
+				lev = Level.FINER;
+			}
+			else if( strlev.equals( "FINEST" ) )
+			{
+				lev = Level.FINEST;
+			}
+			else
+			{
+				lev = Level.INFO;
+				log.warning(
+					"Unrecognised log level \"" + strlev + "\", defaulting to info" );
+			}
+			
+			// I know this looks wrong and totally stupid, but this is what you have to do:
+			log.setLevel( lev );
+			log.getParent().setLevel( lev );
+			log.getParent().getHandlers()[0].setLevel( lev );
+		}
+		
         // Find out what the documents directory is from the command line
         if( arguments.containsKey( "doc_directory" ) )
         {
             runtimeInfo.docDirectory =
                 arguments.getProperty( "doc_directory" );
-
         }
         else
         {
@@ -128,15 +175,13 @@ public class FreeGuide
         {
             runtimeInfo.installDirectory =
                 arguments.getProperty( "install_directory" );
-
         }
-
         else
         {
             warning( 
                 startupMessages.getLocalizedMessage( "startup.NoInstallDir" ) );
         }
-
+		
         config = new Config(  );
         
         if( arguments.containsKey( "dump_prefs" ) )
