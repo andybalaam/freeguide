@@ -16,7 +16,6 @@ import java.util.TreeSet;
  */
 public class HandlerDates extends HtmlHelper.DefaultContentHandler
 {
-
     protected boolean grab;
     protected Set result = new TreeSet(  );
 
@@ -34,10 +33,8 @@ public class HandlerDates extends HtmlHelper.DefaultContentHandler
         String uri, String localName, String qName, Attributes atts )
         throws SAXException
     {
-
         if( "select".equals( qName ) )
         {
-
             if( "selectdate".equalsIgnoreCase( atts.getValue( "name" ) ) )
             {
                 grab = true;
@@ -47,7 +44,6 @@ public class HandlerDates extends HtmlHelper.DefaultContentHandler
 
         else if( grab && "option".equals( qName ) )
         {
-
             final String value = atts.getValue( "value" );
 
             if( value != null )
@@ -70,7 +66,6 @@ public class HandlerDates extends HtmlHelper.DefaultContentHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-
         if( "select".equals( qName ) )
         {
             grab = false;
@@ -85,7 +80,6 @@ public class HandlerDates extends HtmlHelper.DefaultContentHandler
      */
     public String[] getResult(  )
     {
-
         return (String[])result.toArray( new String[result.size(  )] );
 
     }

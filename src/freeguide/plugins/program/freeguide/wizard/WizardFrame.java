@@ -15,7 +15,6 @@ package freeguide.plugins.program.freeguide.wizard;
 import freeguide.common.gui.JWaitFrame;
 
 import freeguide.common.lib.fgspecific.Application;
-
 import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.Utils;
 
@@ -40,7 +39,6 @@ import javax.swing.JPanel;
  */
 public class WizardFrame extends JWaitFrame
 {
-
     private WizardPanel[] panels;
     private javax.swing.JPanel panButtons;
     private javax.swing.JButton butCancel;
@@ -51,7 +49,7 @@ public class WizardFrame extends JWaitFrame
     private Runnable finishMethod;
     private Runnable exitMethod;
 
-    /**
+/**
      * Construct this wizard
      *
      * @param title the String title of the wizard
@@ -64,14 +62,13 @@ public class WizardFrame extends JWaitFrame
         String title, WizardPanel[] panels, Runnable finishMethod,
         Runnable exitMethod )
     {
-
         try
         {
-
             Image icon =
                 ( new ImageIcon( 
                     LanguageHelper.loadResourceAsByteArray( 
-                        "resources/plugins/program/freeguide/images/logo-16x16.png" ), "icon" ) ).getImage(  );
+                        "resources/plugins/program/freeguide/images/logo-16x16.png" ),
+                    "icon" ) ).getImage(  );
             setIconImage( icon );
         }
         catch( IOException ex )
@@ -97,7 +94,6 @@ public class WizardFrame extends JWaitFrame
      */
     private void initComponents( String title )
     {
-
         GridBagConstraints gridBagConstraints;
 
         // Set up the panels ready to be used
@@ -281,11 +277,9 @@ public class WizardFrame extends JWaitFrame
      */
     private void butBackActionPerformed( java.awt.event.ActionEvent evt )
     {
-
         // Save the info on this panel and check we're allowed to leave it
         if( ( panelCounter > 0 ) && panels[panelCounter].onExit(  ) )
         {
-
             // Go to the previous panel
             panelCounter--;
 
@@ -301,13 +295,11 @@ public class WizardFrame extends JWaitFrame
      */
     private void butNextActionPerformed( java.awt.event.ActionEvent evt )
     {
-
         // Save the info on this panel and check we're allowed to leave it
         if( 
             ( panelCounter < panels.length )
                 && panels[panelCounter].onExit(  ) )
         {
-
             // Go to the next panel
             panelCounter++;
 
@@ -323,7 +315,6 @@ public class WizardFrame extends JWaitFrame
      */
     private void displayPanel( WizardPanel newPanel )
     {
-
         java.awt.GridBagConstraints gridBagConstraints;
 
         java.awt.Container contentPane = getContentPane(  );
@@ -367,12 +358,11 @@ public class WizardFrame extends JWaitFrame
     }
 
     /**
-     * Enable the buttons according to where we are in the wizard: beginning,
-     * middle, or end.
+     * Enable the buttons according to where we are in the wizard:
+     * beginning, middle, or end.
      */
     private void refreshButtons(  )
     {
-
         if( panelCounter == 0 )
         { // Beginning
             butBack.setEnabled( false );
@@ -417,8 +407,8 @@ public class WizardFrame extends JWaitFrame
     }
 
     /**
-     * Close this wizard and invoke the method given to be invoked when the
-     * user prematurely stops the wizard.
+     * Close this wizard and invoke the method given to be invoked
+     * when the user prematurely stops the wizard.
      */
     private void quit(  )
     {

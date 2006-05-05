@@ -13,13 +13,12 @@ import java.io.IOException;
  */
 public class EndianInputStream
 {
-
     String charsetName;
     boolean littleEndian = true;
     byte[] data;
     int pos;
 
-    /**
+/**
      * Creates a new EndianInputStream object.
      *
      * @param file DOCUMENT ME!
@@ -31,7 +30,7 @@ public class EndianInputStream
         this( file, null );
     }
 
-    /**
+/**
      * Creates a new EndianInputStream object.
      *
      * @param file DOCUMENT ME!
@@ -51,12 +50,10 @@ public class EndianInputStream
 
         while( true )
         {
-
             int len = fin.read( buf );
 
             if( len < 0 )
             {
-
                 break;
             }
 
@@ -68,7 +65,7 @@ public class EndianInputStream
         pos = 0;
     }
 
-    /**
+/**
      * Creates a new EndianInputStream object.
      *
      * @param data DOCUMENT ME!
@@ -88,12 +85,10 @@ public class EndianInputStream
      */
     public String readSPasString(  ) throws IOException
     {
-
         short len = readShort(  );
 
         if( len == 0 )
         {
-
             return new String( "" );
         }
 
@@ -158,19 +153,16 @@ public class EndianInputStream
      */
     public short readShort(  )
     {
-
         short result;
 
         if( littleEndian )
         {
-            result =
-                (short)( ( ( data[pos + 1] & 0xff ) << 8 )
+            result = (short)( ( ( data[pos + 1] & 0xff ) << 8 )
                 | ( data[pos + 0] & 0xff ) );
         }
         else
         {
-            result =
-                (short)( ( ( data[pos + 0] & 0xff ) << 8 )
+            result = (short)( ( ( data[pos + 0] & 0xff ) << 8 )
                 | ( data[pos + 1] & 0xff ) );
         }
 
@@ -188,7 +180,6 @@ public class EndianInputStream
      */
     public char readChar(  ) throws IOException
     {
-
         return (char)readUnsignedShort(  );
     }
 
@@ -201,7 +192,6 @@ public class EndianInputStream
      */
     public int readUnsignedShort(  ) throws IOException
     {
-
         int result;
 
         if( littleEndian )
@@ -229,19 +219,18 @@ public class EndianInputStream
      */
     public int readInt(  ) throws IOException
     {
-
         int result;
 
         if( littleEndian )
         {
-            result =
-                ( data[pos + 3] << 24 ) | ( ( data[pos + 2] & 0xff ) << 16 )
+            result = ( data[pos + 3] << 24 )
+                | ( ( data[pos + 2] & 0xff ) << 16 )
                 | ( ( data[pos + 1] & 0xff ) << 8 ) | ( data[pos + 0] & 0xff );
         }
         else
         {
-            result =
-                ( data[pos + 0] << 24 ) | ( ( data[pos + 1] & 0xff ) << 16 )
+            result = ( data[pos + 0] << 24 )
+                | ( ( data[pos + 1] & 0xff ) << 16 )
                 | ( ( data[pos + 2] & 0xff ) << 8 ) | ( data[pos + 3] & 0xff );
         }
 
@@ -259,21 +248,18 @@ public class EndianInputStream
      */
     public long readUnsignedInt(  ) throws IOException
     {
-
         long result;
 
         if( littleEndian )
         {
-            result =
-                ( ( (long)data[pos + 3] ) << 24 )
+            result = ( ( (long)data[pos + 3] ) << 24 )
                 | ( ( (long)data[pos + 2] & 0xff ) << 16 )
                 | ( ( (long)data[pos + 1] & 0xff ) << 8 )
                 | ( (long)data[pos + 0] & 0xff );
         }
         else
         {
-            result =
-                ( ( (long)data[pos + 0] ) << 24 )
+            result = ( ( (long)data[pos + 0] ) << 24 )
                 | ( ( (long)data[pos + 1] & 0xff ) << 16 )
                 | ( ( (long)data[pos + 2] & 0xff ) << 8 )
                 | ( (long)data[pos + 3] & 0xff );
@@ -291,13 +277,11 @@ public class EndianInputStream
      */
     public long readLong(  )
     {
-
         long result;
 
         if( littleEndian )
         {
-            result =
-                ( ( (long)data[pos + 7] ) << 56 )
+            result = ( ( (long)data[pos + 7] ) << 56 )
                 | ( ( (long)data[pos + 6] & 0xff ) << 48 )
                 | ( ( (long)data[pos + 5] & 0xff ) << 40 )
                 | ( ( (long)data[pos + 4] & 0xff ) << 32 )
@@ -308,8 +292,7 @@ public class EndianInputStream
         }
         else
         {
-            result =
-                ( ( (long)data[pos + 0] ) << 56 )
+            result = ( ( (long)data[pos + 0] ) << 56 )
                 | ( ( (long)data[pos + 1] & 0xff ) << 48 )
                 | ( ( (long)data[pos + 2] & 0xff ) << 40 )
                 | ( ( (long)data[pos + 3] & 0xff ) << 32 )
@@ -333,7 +316,6 @@ public class EndianInputStream
      */
     public double readDouble(  ) throws IOException
     {
-
         return Double.longBitsToDouble( readLong(  ) );
     }
 
@@ -346,7 +328,6 @@ public class EndianInputStream
      */
     public float readFloat(  ) throws IOException
     {
-
         return Float.intBitsToFloat( readInt(  ) );
     }
 
@@ -356,26 +337,15 @@ public class EndianInputStream
      * null) return new String(d); else return new String(d, charset); } return
      * null; }
      */
-    /*
-     * public String readSPasString(String charset) throws IOException { int len =
-     * readUShort(); if (len > 0) { byte[] d = new byte[len]; read(d); if
-     * (charset == null) return new String(d); else return new String(d,
-     * charset); } return null; }
-     */
-    /*
-     * public String readSPasString0(String charset) throws IOException { int
-     * len = readUShort(); if (len > 0) { byte[] d = new byte[len]; read(d);
-     * read(); if (charset == null) return new String(d); else return new
-     * String(d, charset); } return null; }
-     */
-    /*
-     * public int skipBytes(int n) throws IOException { return in.skipBytes(n); }
+    /**
+     * DOCUMENT_ME!
      *
-     * public String readUTF() throws IOException { return in.readUTF(); }
+     * @return DOCUMENT_ME!
+     *
+     * @throws IOException DOCUMENT_ME!
      */
     public byte readByte(  ) throws IOException
     {
-
         return data[pos++];
     }
 
@@ -388,7 +358,6 @@ public class EndianInputStream
      */
     public int readUnsignedByte(  ) throws IOException
     {
-
         return data[pos++];
     }
 
@@ -401,7 +370,6 @@ public class EndianInputStream
      */
     public boolean readBoolean(  ) throws IOException
     {
-
         return data[pos++] != 0;
     }
 }

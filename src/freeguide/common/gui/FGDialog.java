@@ -16,14 +16,14 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 /**
- * A dialog that returns whether anything was changed while it was being used.
+ * A dialog that returns whether anything was changed while it was being
+ * used.
  *
  * @author Andy Balaam
  * @version 1
  */
 public class FGDialog extends JDialog
 {
-
     /**
      * This flag indicated whether any of the parameters on the
      * CustomiserDialog have been updated during this session.
@@ -33,7 +33,7 @@ public class FGDialog extends JDialog
     /** This flag indicated whether parameters should be saved after exit. */
     private boolean isSave = false;
 
-    /**
+/**
      * Constructor - just creates a modal dialog with the given title and
      * owner
      *
@@ -47,7 +47,7 @@ public class FGDialog extends JDialog
         init(  );
     }
 
-    /**
+/**
      * Constructor - just creates a modal dialog with the given title and
      * owner
      *
@@ -85,8 +85,9 @@ public class FGDialog extends JDialog
     }
 
     /**
-     * Method showDialog calls the default show method but additionally
-     * returns a simple flag to indicate whether anything has been changed.
+     * Method showDialog calls the default show method but
+     * additionally returns a simple flag to indicate whether anything has
+     * been changed.
      *
      * @return Returns <code>true</code> if any of the settings in the dialog
      *         have been changed, and <code>false</code> otherwise.
@@ -99,7 +100,6 @@ public class FGDialog extends JDialog
     }
 
     // ------------------------------------------------------------------------
-
     /**
      * Closes the form and goes back to the viewer.
      */

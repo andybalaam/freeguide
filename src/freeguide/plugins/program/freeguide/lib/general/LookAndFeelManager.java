@@ -29,18 +29,15 @@ import javax.swing.UIManager;
  */
 public class LookAndFeelManager
 {
-
     /**
-     * Place to store name/classname of available L&F's so we only have to
-     * check availability the hard way once.
+     * Place to store name/classname of available L&F's so we only
+     * have to check availability the hard way once.
      */
     private static Map availableLAFs = null;
 
     /** Looks and Feels we know of */
     private static final Map knownLAFs = new HashMap(  );
 
-    // initialize the knownLAFs map
-    // Sun's defaults and those listed at www.javootoo.com
     static
     {
         knownLAFs.put( "GTK+", "com.sun.java.swing.plaf.gtk.GTKLookAndFeel" );
@@ -160,7 +157,6 @@ public class LookAndFeelManager
      */
     public static String getLookAndFeelClassName( String lookAndFeelName )
     {
-
         Map map = getMap(  );
 
         return (String)map.get( lookAndFeelName );
@@ -174,7 +170,6 @@ public class LookAndFeelManager
      */
     public static List getAvailableLooksAndFeels(  )
     {
-
         Map map = getMap(  );
 
         Set keys = map.keySet(  );
@@ -189,7 +184,6 @@ public class LookAndFeelManager
 
     private static Map getMap(  )
     {
-
         if( availableLAFs == null )
         {
             createMap(  );
@@ -241,7 +235,6 @@ public class LookAndFeelManager
             // Compare values in case our names are different
             if( !availableLAFs.containsValue( value ) )
             {
-
                 if( isAvailable( value.toString(  ) ) )
                 {
                     availableLAFs.put( key, value );
@@ -253,12 +246,10 @@ public class LookAndFeelManager
 
     private static boolean isAvailable( String lookAndFeelClassName )
     {
-
         boolean value = false;
 
         try
         {
-
             Class lafClass = Class.forName( lookAndFeelClassName );
 
             LookAndFeel laf = (LookAndFeel)( lafClass.newInstance(  ) );

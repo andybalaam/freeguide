@@ -13,7 +13,6 @@ import java.util.TreeMap;
  */
 public class TVData implements Serializable
 {
-
     private final static long serialVersionUID = 10;
     protected Map channels = new TreeMap(  );
     protected long timeEarliest;
@@ -29,10 +28,8 @@ public class TVData implements Serializable
      */
     public TVChannel get( final String channelID )
     {
-
         synchronized( this )
         {
-
             TVChannel result = (TVChannel)channels.get( channelID );
 
             if( result == null )
@@ -57,10 +54,8 @@ public class TVData implements Serializable
      */
     public boolean containsChannel( final String channelID )
     {
-
         synchronized( this )
         {
-
             return channels.containsKey( channelID );
         }
     }
@@ -78,7 +73,6 @@ public class TVData implements Serializable
 
         while( it.hasNext(  ) )
         {
-
             TVChannel ch = (TVChannel)it.next(  );
 
             TVChannel myCh = get( ch.getID(  ) );
@@ -93,13 +87,11 @@ public class TVData implements Serializable
      */
     public synchronized int getProgrammesCount(  )
     {
-
         int result = 0;
         Iterator it = getChannelsIterator(  );
 
         while( it.hasNext(  ) )
         {
-
             TVChannel ch = (TVChannel)it.next(  );
             result += ch.getProgrammesCount(  );
         }
@@ -118,7 +110,6 @@ public class TVData implements Serializable
 
         while( it.hasNext(  ) )
         {
-
             TVChannel ch = (TVChannel)it.next(  );
             ch.normalizeTime(  );
         }
@@ -135,7 +126,6 @@ public class TVData implements Serializable
 
         while( it.hasNext(  ) )
         {
-
             TVChannel ch = (TVChannel)it.next(  );
             ch.clearProgrammes(  );
         }
@@ -148,7 +138,6 @@ public class TVData implements Serializable
      */
     public int getChannelsCount(  )
     {
-
         return channels.size(  );
 
     }
@@ -160,7 +149,6 @@ public class TVData implements Serializable
      */
     public boolean hasData(  )
     {
-
         return channels.size(  ) > 0;
 
     }
@@ -172,11 +160,10 @@ public class TVData implements Serializable
      */
     public String[] getChannelIDs(  )
     {
-
         synchronized( this )
         {
-
-            return (String[])channels.keySet(  ).toArray( 
+            return (String[])channels.keySet(  )
+                                     .toArray( 
                 new String[channels.keySet(  ).size(  )] );
 
         }
@@ -189,7 +176,6 @@ public class TVData implements Serializable
      */
     public Iterator getChannelsIterator(  )
     {
-
         return channels.values(  ).iterator(  );
 
     }
@@ -201,7 +187,6 @@ public class TVData implements Serializable
      */
     public void iterate( final TVIterator iterator )
     {
-
         if( iterator instanceof TVIteratorChannels )
         {
             iterateChannels( (TVIteratorChannels)iterator );
@@ -219,14 +204,12 @@ public class TVData implements Serializable
      */
     public void iterateChannels( final TVIteratorChannels iterator )
     {
-
         synchronized( this )
         {
             iterator.it = channels.values(  ).iterator(  );
 
             while( iterator.it.hasNext(  ) )
             {
-
                 TVChannel ch = (TVChannel)iterator.it.next(  );
 
                 iterator.onChannel( ch );
@@ -241,14 +224,12 @@ public class TVData implements Serializable
      */
     public void iterateProgrammes( final TVIteratorProgrammes iterator )
     {
-
         synchronized( this )
         {
             iterator.itChannels = channels.values(  ).iterator(  );
 
             while( iterator.itChannels.hasNext(  ) )
             {
-
                 TVChannel ch = (TVChannel)iterator.itChannels.next(  );
 
                 iterator.needToIterateChannel = true;
@@ -261,13 +242,11 @@ public class TVData implements Serializable
 
                     while( iterator.itProgrammes.hasNext(  ) )
                     {
-
                         TVProgramme pr =
                             (TVProgramme)iterator.itProgrammes.next(  );
 
                         if( !iterator.needToIterateChannel )
                         {
-
                             break;
                         }
 

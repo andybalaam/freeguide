@@ -3,7 +3,6 @@ package freeguide.common.lib.importexport;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-
 import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.importexport.XMLTVImport;
 
@@ -34,7 +33,6 @@ import java.util.regex.Pattern;
  */
 class XMLTVImportHandler extends DefaultHandler
 {
-
     final protected IStoragePipe storage;
     final protected XMLTVImport.Filter filter;
     final protected String channelPrefix;
@@ -52,7 +50,7 @@ class XMLTVImportHandler extends DefaultHandler
     private SimpleDateFormat f3 = new SimpleDateFormat( "yyyyMMddHHmmss z" );
     private SimpleDateFormat f4 = new SimpleDateFormat( "yyyyMMddHHmmss Z" );
 
-    /**
+/**
      * Creates a new Handler object.
      *
      * @param storage variable for store results
@@ -129,7 +127,6 @@ class XMLTVImportHandler extends DefaultHandler
 
             try
             {
-
                 String start = attributes.getValue( "start" );
                 String stop = attributes.getValue( "stop" );
 
@@ -154,15 +151,15 @@ class XMLTVImportHandler extends DefaultHandler
                 }
                 else
                 {
-                    currentChannelID =
-                        channelPrefix + attributes.getValue( "channel" );
+                    currentChannelID = channelPrefix
+                        + attributes.getValue( "channel" );
                 }
             }
             catch( ParseException ex )
             {
                 currentProgramme = null;
-                Application.getInstance(  ).getLogger(  ).log( 
-                    Level.FINE, "Error parse XMLTV data", ex );
+                Application.getInstance(  ).getLogger(  )
+                           .log( Level.FINE, "Error parse XMLTV data", ex );
             }
         }
     }
@@ -170,7 +167,6 @@ class XMLTVImportHandler extends DefaultHandler
     protected void parseStartChannel( 
         final String tag, final Attributes attributes )
     {
-
         if( "icon".equals( tag ) )
         { // tv:channel:icon
             currentChannel.setIconURL( attributes.getValue( "src" ) );
@@ -180,10 +176,8 @@ class XMLTVImportHandler extends DefaultHandler
     protected void parseStartProgramme( 
         final String tag, final Attributes attributes )
     {
-
         if( "previously-shown".equals( tag ) )
         {
-
             // tv:programme:previously-shown
         }
         else if( "title".equals( tag ) )
@@ -229,10 +223,8 @@ class XMLTVImportHandler extends DefaultHandler
 
     protected void parseEndChannel( final String tag )
     {
-
         if( "display-name".equals( tag ) )
         {
-
             if( 
                 ( currentChannel.getDisplayName(  ) == null )
                     || "".equals( currentChannel.getDisplayName(  ) ) )
@@ -244,10 +236,8 @@ class XMLTVImportHandler extends DefaultHandler
 
     protected void parseEndProgramme( final String tag )
     {
-
         if( "title".equals( tag ) )
         {
-
             if( currentProgramme.getTitle(  ) == null )
             {
                 currentProgramme.setTitle( charData.toString(  ) );
@@ -255,7 +245,6 @@ class XMLTVImportHandler extends DefaultHandler
         }
         else if( "sub-title".equals( tag ) )
         {
-
             if( currentProgramme.getSubTitle(  ) == null )
             {
                 currentProgramme.setSubTitle( charData.toString(  ) );
@@ -267,7 +256,6 @@ class XMLTVImportHandler extends DefaultHandler
         }
         else if( "category".equals( tag ) )
         {
-
             String category = charData.toString(  );
             currentProgramme.addCategory( category );
 
@@ -288,7 +276,6 @@ class XMLTVImportHandler extends DefaultHandler
         }
         else if( "url".equals( tag ) )
         {
-
             try
             {
                 currentProgramme.setLink( new URL( charData.toString(  ) ) );
@@ -296,14 +283,14 @@ class XMLTVImportHandler extends DefaultHandler
             }
             catch( java.net.MalformedURLException ex )
             {
-                Application.getInstance(  ).getLogger(  ).log( 
+                Application.getInstance(  ).getLogger(  )
+                           .log( 
                     Level.FINE,
                     "Invalid URL for programme : " + charData.toString(  ), ex );
             }
         }
         else
         {
-
             if( charData.length(  ) > 0 )
             {
                 programmeEndExtraTag( tag, "", charData.toString(  ) );
@@ -323,10 +310,8 @@ class XMLTVImportHandler extends DefaultHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-
         try
         {
-
             if( "tv".equals( qName ) )
             {
                 currentSite = null;
@@ -385,7 +370,6 @@ class XMLTVImportHandler extends DefaultHandler
     protected void programmeStartExtraTag( 
         final String name, final Attributes attrs )
     {
-
         for( int i = 0; i < attrs.getLength(  ); i++ )
         {
             currentProgramme.setExtraTag( 
@@ -410,7 +394,6 @@ class XMLTVImportHandler extends DefaultHandler
      */
     private Calendar parseDate( String strDate ) throws ParseException
     {
-
         Matcher m;
 
         m = p1.matcher( strDate );
@@ -456,10 +439,8 @@ class XMLTVImportHandler extends DefaultHandler
     public InputSource resolveEntity( String publicId, String systemId )
         throws SAXException
     {
-
         if( systemId.endsWith( "xmltv.dtd" ) )
         {
-
             try
             {
                 return new InputSource( 
@@ -473,7 +454,6 @@ class XMLTVImportHandler extends DefaultHandler
         }
         else
         {
-
             return null;
         }
     }

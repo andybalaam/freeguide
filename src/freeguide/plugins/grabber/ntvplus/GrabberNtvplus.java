@@ -1,7 +1,6 @@
 package freeguide.plugins.grabber.ntvplus;
 
 import freeguide.common.lib.fgspecific.Application;
-
 import freeguide.common.lib.grabber.ListTVParser;
 
 import freeguide.common.plugininterfaces.BaseModule;
@@ -20,7 +19,6 @@ import java.util.TimeZone;
  */
 public class GrabberNtvplus extends BaseModule implements IModuleGrabber
 {
-
     protected static final TimeZone TIMEZONE =
         TimeZone.getTimeZone( "Europe/Moscow" );
     boolean isStopped;
@@ -32,7 +30,6 @@ public class GrabberNtvplus extends BaseModule implements IModuleGrabber
      */
     public Object getConfig(  )
     {
-
         return null;
     }
 

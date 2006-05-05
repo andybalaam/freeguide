@@ -23,7 +23,6 @@ import javax.swing.JTextField;
  */
 public class ConfigureUIPanel extends JPanel
 {
-
     private JLabel labelHeight;
     private JLabel labelWidth;
     private JLabel labelFont;
@@ -56,7 +55,7 @@ public class ConfigureUIPanel extends JPanel
     private JCheckBox cbDisplayTooltips;
     private JPanel jPanel = null;
 
-    /**
+/**
      * This is the default constructor
      *
      * @param localizer DOCUMENT ME!
@@ -76,7 +75,6 @@ public class ConfigureUIPanel extends JPanel
      */
     private void initialize(  )
     {
-
         GridBagConstraints gridBagConstraints110 = new GridBagConstraints(  );
         gridBagConstraints110.gridx = 1;
         gridBagConstraints110.gridy = 9;
@@ -456,7 +454,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JTextField getTextFont(  )
     {
-
         if( textFont == null )
         {
             textFont = new JTextField(  );
@@ -476,7 +473,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JButton getBtnFont(  )
     {
-
         if( btnFont == null )
         {
             btnFont = new JButton(  );
@@ -496,7 +492,6 @@ public class ConfigureUIPanel extends JPanel
      */
     private JPanel getPanelSpacer(  )
     {
-
         if( panelSpacer == null )
         {
             panelSpacer = new JPanel(  );
@@ -516,7 +511,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JTextField getTextHeight(  )
     {
-
         if( textHeight == null )
         {
             textHeight = new JTextField(  );
@@ -538,7 +532,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JTextField getTextWidth(  )
     {
-
         if( textWidth == null )
         {
             textWidth = new JTextField(  );
@@ -560,14 +553,14 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JSlider getSliderWidth(  )
     {
-
         if( sliderWidth == null )
         {
             sliderWidth = new JSlider(  );
 
             sliderWidth.setPreferredSize( new java.awt.Dimension( 40, 16 ) );
 
-            sliderWidth.getAccessibleContext(  ).setAccessibleName( 
+            sliderWidth.getAccessibleContext(  )
+                       .setAccessibleName( 
                 localizer.getLocalizedMessage( "width_of_1hr" ) );
 
             sliderWidth.setMinimum( 100 );
@@ -587,14 +580,14 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JSlider getSliderHeight(  )
     {
-
         if( sliderHeight == null )
         {
             sliderHeight = new JSlider(  );
 
             sliderHeight.setPreferredSize( new java.awt.Dimension( 40, 16 ) );
 
-            sliderHeight.getAccessibleContext(  ).setAccessibleName( 
+            sliderHeight.getAccessibleContext(  )
+                        .setAccessibleName( 
                 localizer.getLocalizedMessage( "channel_height" ) );
 
             sliderHeight.setMinimum( 10 );
@@ -612,7 +605,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JPanel getPanelColorNormal(  )
     {
-
         if( panelColorNormal == null )
         {
             panelColorNormal = new JPanel(  );
@@ -630,7 +622,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JButton getBtnColorNormal(  )
     {
-
         if( btnColorNormal == null )
         {
             btnColorNormal = new JButton(  );
@@ -650,7 +641,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JPanel getPanelColorMovie(  )
     {
-
         if( panelColorMovie == null )
         {
             panelColorMovie = new JPanel(  );
@@ -668,7 +658,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JPanel getPanelColorChannel(  )
     {
-
         if( panelColorChannel == null )
         {
             panelColorChannel = new JPanel(  );
@@ -686,7 +675,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JButton getBtnColorMovie(  )
     {
-
         if( btnColorMovie == null )
         {
             btnColorMovie = new JButton(  );
@@ -706,7 +694,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JButton getBtnColorChannel(  )
     {
-
         if( btnColorChannel == null )
         {
             btnColorChannel = new JButton(  );
@@ -726,7 +713,6 @@ public class ConfigureUIPanel extends JPanel
      */
     public JTextField getDayStart(  )
     {
-
         if( dayStart == null )
         {
             dayStart = new JTextField(  );
@@ -745,10 +731,8 @@ public class ConfigureUIPanel extends JPanel
      */
     private JPanel getPanelTimeFormat(  )
     {
-
         if( panelTimeFormat == null )
         {
-
             FlowLayout flowLayout8 = new FlowLayout(  );
 
             panelTimeFormat = new JPanel(  );
@@ -780,7 +764,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JRadioButton getRbTime12(  )
     {
-
         if( rbTime12 == null )
         {
             rbTime12 = new JRadioButton(  );
@@ -803,7 +786,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JRadioButton getRbTime24(  )
     {
-
         if( rbTime24 == null )
         {
             rbTime24 = new JRadioButton(  );
@@ -826,7 +808,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JCheckBox getCbDrawTime(  )
     {
-
         if( cbDrawTime == null )
         {
             cbDrawTime = new JCheckBox(  );
@@ -850,7 +831,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JCheckBox getCbAlignLeft(  )
     {
-
         if( cbAlignLeft == null )
         {
             cbAlignLeft = new JCheckBox(  );
@@ -874,7 +854,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JCheckBox getCbPrintDelta(  )
     {
-
         if( cbPrintDelta == null )
         {
             cbPrintDelta = new JCheckBox(  );
@@ -898,7 +877,6 @@ public class ConfigureUIPanel extends JPanel
      */
     protected JCheckBox getCbDisplayTooltips(  )
     {
-
         if( cbDisplayTooltips == null )
         {
             cbDisplayTooltips = new JCheckBox(  );
@@ -922,7 +900,6 @@ public class ConfigureUIPanel extends JPanel
      */
     private JPanel getJPanel(  )
     {
-
         if( jPanel == null )
         {
             jPanel = new JPanel(  );

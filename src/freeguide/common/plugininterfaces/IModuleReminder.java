@@ -23,7 +23,6 @@ import javax.swing.JPopupMenu;
  */
 public interface IModuleReminder extends IModule
 {
-
     /**
      * Read programmes and schedule again.
      */
@@ -52,6 +51,7 @@ public interface IModuleReminder extends IModule
      * Select/deselect programme.
      *
      * @param programme programme
+     * @param newSelection DOCUMENT ME!
      */
     public void setProgrammeSelection( 
         final TVProgramme programme, final boolean newSelection );

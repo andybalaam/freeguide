@@ -27,15 +27,14 @@ import java.util.TreeMap;
  */
 public class LanguageHelper implements ILocalizer
 {
-
     /**
-     * Translations for selected locale. Map(String(key), String(localized
-     * string)).
+     * Translations for selected locale. Map(String(key),
+     * String(localized string)).
      */
     protected Map translation;
     final protected Locale locale;
 
-    /**
+/**
      * Create language support object. We use it instead ResourceBundle,
      * because it works with UTF-8 property files.
      *
@@ -52,13 +51,13 @@ public class LanguageHelper implements ILocalizer
 
         String resourceName =
             resourcePrefix + "." + locale.getLanguage(  ) + ".properties";
-        
+
         translation = new TreeMap(  );
 
         loadProperties( resourceName, translation );
 
-        resourceName =
-            resourcePrefix + "." + locale.toString(  ) + ".properties";
+        resourceName = resourcePrefix + "." + locale.toString(  )
+            + ".properties";
 
         loadProperties( resourceName, translation );
     }
@@ -76,7 +75,6 @@ public class LanguageHelper implements ILocalizer
     public static Locale[] getLocaleList( final String resourcePrefix )
         throws IOException
     {
-
         final String packageName;
 
         final String fPrefix;
@@ -93,7 +91,7 @@ public class LanguageHelper implements ILocalizer
             packageName = "";
             fPrefix = resourcePrefix + ".";
         }
-        
+
         final String[] propertiesFiles = loadStrings( packageName + "/ls" );
 
         final List result = new ArrayList(  );
@@ -199,7 +197,6 @@ public class LanguageHelper implements ILocalizer
 
     }
     }*/
-
     /**
      * DOCUMENT_ME!
      *
@@ -207,7 +204,6 @@ public class LanguageHelper implements ILocalizer
      */
     public Set getKeys(  )
     {
-
         return translation.keySet(  );
 
     }
@@ -221,7 +217,6 @@ public class LanguageHelper implements ILocalizer
      */
     public String getLocalizedMessage( final String key )
     {
-
         return getString( key );
 
     }
@@ -237,7 +232,6 @@ public class LanguageHelper implements ILocalizer
     public String getLocalizedMessage( 
         final String key, final Object[] messageArguments )
     {
-
         MessageFormat formatter =
             new MessageFormat( getString( key ), getLocale(  ) );
 
@@ -254,7 +248,6 @@ public class LanguageHelper implements ILocalizer
      */
     public String getString( final String key )
     {
-
         if( translation != null )
         {
             final String result = (String)translation.get( key );
@@ -281,7 +274,6 @@ public class LanguageHelper implements ILocalizer
      */
     public Locale getLocale(  )
     {
-
         return locale;
 
     }
@@ -297,18 +289,15 @@ public class LanguageHelper implements ILocalizer
     public static void loadProperties( 
         final String resourceName, final Map result ) throws IOException
     {
-
         final InputStream in = getUncachedStream( resourceName );
 
         if( in == null )
         {
-
             return;
         }
 
         try
         {
-
             final BufferedReader rd =
                 new BufferedReader( new InputStreamReader( in, "UTF-8" ) );
 
@@ -316,10 +305,8 @@ public class LanguageHelper implements ILocalizer
 
             while( ( line = rd.readLine(  ) ) != null )
             {
-
                 if( line.startsWith( "#" ) || line.startsWith( ";" ) )
                 {
-
                     continue;
 
                 }
@@ -328,7 +315,6 @@ public class LanguageHelper implements ILocalizer
 
                 if( i == -1 )
                 {
-
                     continue;
 
                 }
@@ -358,18 +344,15 @@ public class LanguageHelper implements ILocalizer
     public static String[] loadStrings( final String resourceName )
         throws IOException
     {
-
         final InputStream in = getUncachedStream( resourceName );
 
         if( in == null )
         {
-
             return new String[0];
         }
 
         try
         {
-
             final BufferedReader rd =
                 new BufferedReader( new InputStreamReader( in, "UTF-8" ) );
 
@@ -379,12 +362,10 @@ public class LanguageHelper implements ILocalizer
 
             while( ( line = rd.readLine(  ) ) != null )
             {
-
                 if( 
                     line.startsWith( "#" ) || line.startsWith( ";" )
                         || "".equals( line.trim(  ) ) )
                 {
-
                     continue;
 
                 }
@@ -413,20 +394,17 @@ public class LanguageHelper implements ILocalizer
     public static String loadResourceAsString( final String resourceName )
         throws IOException
     {
-
         final String lineSeparator = System.getProperty( "line.separator" );
 
         final InputStream in = getUncachedStream( resourceName );
 
         if( in == null )
         {
-
             return null;
         }
 
         try
         {
-
             final BufferedReader rd =
                 new BufferedReader( new InputStreamReader( in, "UTF-8" ) );
 
@@ -460,18 +438,15 @@ public class LanguageHelper implements ILocalizer
     public static byte[] loadResourceAsByteArray( final String resourceName )
         throws IOException
     {
-
         final InputStream in = getUncachedStream( resourceName );
 
         if( in == null )
         {
-
             return null;
         }
 
         try
         {
-
             final ByteArrayOutputStream out = new ByteArrayOutputStream(  );
             int len;
             byte[] buffer = new byte[65536];
@@ -500,12 +475,10 @@ public class LanguageHelper implements ILocalizer
     public static Locale getPreferredLocale( 
         final Locale[] want, final Locale[] supported )
     {
-
         Locale result = findPreferredLocale( want, supported );
 
         if( result != null )
         {
-
             return result;
         }
 
@@ -513,15 +486,14 @@ public class LanguageHelper implements ILocalizer
 
         for( int i = 0; i < want.length; i++ )
         {
-            wantc[i] =
-                new Locale( want[i].getLanguage(  ), want[i].getCountry(  ) );
+            wantc[i] = new Locale( 
+                    want[i].getLanguage(  ), want[i].getCountry(  ) );
         }
 
         result = findPreferredLocale( wantc, supported );
 
         if( result != null )
         {
-
             return result;
         }
 
@@ -536,7 +508,6 @@ public class LanguageHelper implements ILocalizer
 
         if( result != null )
         {
-
             return result;
         }
 
@@ -546,16 +517,12 @@ public class LanguageHelper implements ILocalizer
     protected static Locale findPreferredLocale( 
         final Locale[] want, final Locale[] supported )
     {
-
         for( int i = 0; i < want.length; i++ )
         {
-
             for( int j = 0; j < supported.length; j++ )
             {
-
                 if( want[i].equals( supported[j] ) )
                 {
-
                     return want[i];
                 }
             }
@@ -576,10 +543,8 @@ public class LanguageHelper implements ILocalizer
     public static InputStream getUncachedStream( final URL url )
         throws IOException
     {
-
         if( url != null )
         {
-
             URLConnection conn = url.openConnection(  );
             conn.setUseCaches( false );
 
@@ -587,7 +552,6 @@ public class LanguageHelper implements ILocalizer
         }
         else
         {
-
             return null;
         }
     }
@@ -604,7 +568,6 @@ public class LanguageHelper implements ILocalizer
     public static InputStream getUncachedStream( final String resourceName )
         throws IOException
     {
-
         return getUncachedStream( 
             LanguageHelper.class.getClassLoader(  ).getResource( resourceName ) );
     }

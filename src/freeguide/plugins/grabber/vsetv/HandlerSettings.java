@@ -18,7 +18,6 @@ import java.util.TimeZone;
  */
 public class HandlerSettings extends HtmlHelper.DefaultContentHandler
 {
-
     protected static final int MODES_NONE = 0;
     protected static final int MODES_MERIDIAN = 1;
     int meridianValue;
@@ -26,7 +25,7 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
     List channelIDs;
     protected int mode;
 
-    /**
+/**
      * Creates a new HandlerSettings object.
      */
     public HandlerSettings(  )
@@ -55,10 +54,8 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
         String uri, String localName, String qName, Attributes atts )
         throws SAXException
     {
-
         if( "select".equals( qName ) )
         {
-
             if( "MERIDIAN".equalsIgnoreCase( atts.getValue( "name" ) ) )
             {
                 mode = MODES_MERIDIAN;
@@ -70,7 +67,6 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
 
         else if( ( mode == MODES_MERIDIAN ) && "option".equals( qName ) )
         {
-
             if( atts.getValue( "selected" ) != null )
             {
                 meridianValue = Integer.parseInt( atts.getValue( "value" ) );
@@ -82,14 +78,12 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
             "input".equals( qName )
                 && "checkbox".equalsIgnoreCase( atts.getValue( "type" ) ) )
         {
-
             String name = atts.getValue( "name" );
 
             boolean checked = atts.getValue( "checked" ) != null;
 
             if( name != null )
             {
-
                 if( name.startsWith( "pgch" ) && checked )
                 {
                     needUpdateCheckboxes = true;
@@ -104,7 +98,6 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
 
                 else
                 {
-
                     if( name.startsWith( "cch" ) && !checked )
                     {
                         needUpdateCheckboxes = true;
@@ -133,7 +126,6 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-
         if( "select".equals( qName ) )
         {
             mode = MODES_NONE;
@@ -148,7 +140,6 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
      */
     public boolean isNeedUpdate(  )
     {
-
         return needUpdateCheckboxes;
 
     }
@@ -160,7 +151,6 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
      */
     public String[] getChannelIDs(  )
     {
-
         return (String[])channelIDs.toArray( new String[channelIDs.size(  )] );
 
     }
@@ -174,13 +164,11 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
      */
     public TimeZone getTimeZone( final Properties TIMEZONES )
     {
-
         String tz =
             TIMEZONES.getProperty( Integer.toString( meridianValue ), null );
 
         if( tz == null )
         {
-
             StringBuffer tzName = new StringBuffer( 10 );
 
             tzName.append( "GMT" );

@@ -18,7 +18,6 @@ import javax.swing.*;
  */
 public class VerticalViewer extends BaseModule implements IModuleViewer
 {
-
     protected static VerticalViewer instance;
 
     /** Day in milliseconds. */
@@ -32,7 +31,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
     /** The current date in milliseconds */
     private long theDate;
 
-    /**
+/**
      * Creates a new VerticalViewer object.
      */
     public VerticalViewer(  )
@@ -48,7 +47,6 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
     }
 
     //public VerticalViewer()
-
     /**
      * DOCUMENT_ME!
      *
@@ -56,12 +54,10 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
      */
     public Object getConfig(  )
     {
-
         return config;
     }
 
     //public Object getConfig()
-
     /**
      * Return the main UI panel
      *
@@ -69,7 +65,6 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
      */
     public JPanel getPanel(  )
     {
-
         return this.pnlMain;
     }
 
@@ -83,13 +78,11 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
     }
 
     //public void open()
-
     /**
      * Close viewer.
      */
     public void close(  )
     {
-
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -102,25 +95,20 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
     }
 
     //public void onDataChanged()
-
     /**
      * Load the data into the model
      */
     protected void loadData(  )
     {
-
         synchronized( this )
         {
-
             TVData currentData = null;
 
             try
             {
-
                 //get the data
-                currentData =
-                    Application.getInstance(  ).getDataStorage(  ).get( 
-                        getDisplayedInfo(  ) );
+                currentData = Application.getInstance(  ).getDataStorage(  )
+                                         .get( getDisplayedInfo(  ) );
 
                 //prepare the model
                 model.prepareRows( currentData.getProgrammesCount(  ) );
@@ -150,11 +138,11 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
             }
             catch( Exception ex )
             {
-                Application.getInstance(  ).getLogger(  ).log( 
-                    Level.WARNING, "Error reading TV data", ex );
+                Application.getInstance(  ).getLogger(  )
+                           .log( Level.WARNING, "Error reading TV data", ex );
             }
 
-            /*if( 
+            /*if(
                 ( currentData != null )
                     && ( currentData.getChannelsCount(  ) == 0 ) )
             {
@@ -164,20 +152,20 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
     }
 
     //protected void loadData()
-
     /**
-     * Ask the user if he wants to load the data because there are none.
-     * Shamelessly copied from HorizontalViewer.java
+     * Ask the user if he wants to load the data because there are
+     * none. Shamelessly copied from HorizontalViewer.java
      */
+
     /*protected void askForLoadData(  )
     {
 
         int r =
-            JOptionPane.showConfirmDialog( 
+            JOptionPane.showConfirmDialog(
                 Application.getInstance(  ).getCurrentFrame(  ),
-                Application.getInstance(  ).getLocalizedMessage( 
+                Application.getInstance(  ).getLocalizedMessage(
                     "there_are_missing_listings_for_today" ),
-                Application.getInstance(  ).getLocalizedMessage( 
+                Application.getInstance(  ).getLocalizedMessage(
                     "download_listings_q" ), JOptionPane.YES_NO_OPTION );
 
         if( r == 0 )
@@ -187,13 +175,11 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
     }*/
 
     //protected void askForLoadData(  )
-
     /**
      * DOCUMENT_ME!
      */
     public void onChannelsSetsChanged(  )
     {
-
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -202,7 +188,6 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
      */
     public void redraw(  )
     {
-
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -211,7 +196,6 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
      */
     public void redrawCurrentProgramme(  )
     {
-
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -220,7 +204,6 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
      */
     public void printHTML(  )
     {
-
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -231,7 +214,6 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
      */
     public JButton getDefaultButton(  )
     {
-
         return null; //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -242,10 +224,9 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
      */
     public IModuleStorage.Info getDisplayedInfo(  )
     {
-
         final IModuleStorage.Info info = new IModuleStorage.Info(  );
-        info.channelsList =
-            Application.getInstance(  ).getDataStorage(  ).getInfo(  ).channelsList;
+        info.channelsList = Application.getInstance(  ).getDataStorage(  )
+                                       .getInfo(  ).channelsList;
         info.minDate = theDate;
         info.maxDate = theDate + MILLISECONDS_PER_DAY;
 
@@ -259,7 +240,6 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
      */
     public static VerticalViewer getInstance(  )
     {
-
         return VerticalViewer.instance;
     }
 
@@ -272,12 +252,9 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
      */
     public String getLocalizedMessage( String key )
     {
-
         return this.getLocalizer(  ).getLocalizedMessage( key );
     }
 
     //public String getLocalizedMessage(String key)
 }
-
-
 //public class VerticalViewer extends BaseModule implements IModuleViewer

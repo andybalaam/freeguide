@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
  */
 public class VerticalViewerConfig
 {
-
     /** Time formatter for 24 hour clock */
     public final static SimpleDateFormat listTimeFormat24Hour =
         new SimpleDateFormat( "HH:mm" );
@@ -36,6 +35,4 @@ public class VerticalViewerConfig
     /** Default colour of a selected programme */
     public final static Color colorSelected = new Color( 204, 204, 204 );
 }
-
-
 //public class VerticalViewerConfig

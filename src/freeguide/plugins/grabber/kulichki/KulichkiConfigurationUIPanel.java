@@ -19,14 +19,13 @@ import javax.swing.JTextPane;
  */
 public class KulichkiConfigurationUIPanel extends JPanel
 {
-
     private final ILocalizer localizer;
     private JTextPane textDescription = null;
     private JButton btnRefresh = null;
     private JScrollPane jScrollPane = null;
     private TVChannelsTree treeChannels = null;
 
-    /**
+/**
      * This is the default constructor
      *
      * @param localizer DOCUMENT ME!
@@ -46,7 +45,6 @@ public class KulichkiConfigurationUIPanel extends JPanel
      */
     private void initialize(  )
     {
-
         GridBagConstraints gridBagConstraints4 = new GridBagConstraints(  );
 
         GridBagConstraints gridBagConstraints2 = new GridBagConstraints(  );
@@ -98,7 +96,6 @@ public class KulichkiConfigurationUIPanel extends JPanel
      */
     private JTextPane getTextDescription(  )
     {
-
         if( textDescription == null )
         {
             textDescription = new JTextPane(  );
@@ -120,7 +117,6 @@ public class KulichkiConfigurationUIPanel extends JPanel
      */
     public JButton getBtnRefresh(  )
     {
-
         if( btnRefresh == null )
         {
             btnRefresh = new JButton(  );
@@ -140,7 +136,6 @@ public class KulichkiConfigurationUIPanel extends JPanel
      */
     private JScrollPane getJScrollPane(  )
     {
-
         if( jScrollPane == null )
         {
             jScrollPane = new JScrollPane(  );
@@ -160,7 +155,6 @@ public class KulichkiConfigurationUIPanel extends JPanel
      */
     public TVChannelsTree getTreeChannels(  )
     {
-
         if( treeChannels == null )
         {
             treeChannels = new TVChannelsTree(  );
@@ -171,6 +165,4 @@ public class KulichkiConfigurationUIPanel extends JPanel
 
     }
 }
-
-
 //  @jve:decl-index=0:

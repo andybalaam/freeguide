@@ -26,11 +26,10 @@ import javax.swing.tree.TreePath;
  */
 public class TVChannelsTree extends JTree
 {
-
     protected TVChannelsSelection channels;
     protected final Map nodesByChannelID = new TreeMap(  );
 
-    /**
+/**
      * Creates a new TVChannelsTree object.
      */
     public TVChannelsTree(  )
@@ -67,7 +66,6 @@ public class TVChannelsTree extends JTree
      */
     public TVChannelsSelection getData(  )
     {
-
         return channels;
 
     }
@@ -79,7 +77,6 @@ public class TVChannelsTree extends JTree
      */
     public String[] getSelectedChannelIDs(  )
     {
-
         return (String[])channels.selectedChannelIDs.toArray( 
             new String[channels.selectedChannelIDs.size(  )] );
 
@@ -92,14 +89,12 @@ public class TVChannelsTree extends JTree
      */
     public DefaultMutableTreeNode getTreeByChannelsSet(  )
     {
-
         DefaultMutableTreeNode root = new DefaultMutableTreeNode( null );
 
         Iterator it = channels.allChannels.getChannels(  ).iterator(  );
 
         while( it.hasNext(  ) )
         {
-
             TVChannelsSet.Channel ch = (TVChannelsSet.Channel)it.next(  );
 
             DefaultMutableTreeNode node =
@@ -124,10 +119,8 @@ public class TVChannelsTree extends JTree
     public DefaultMutableTreeNode getNodeByPath( 
         DefaultMutableTreeNode root, String channelID )
     {
-
         if( channelID == null )
         {
-
             return root;
 
         }
@@ -137,7 +130,6 @@ public class TVChannelsTree extends JTree
 
         if( node != null )
         {
-
             return node;
 
         }
@@ -169,7 +161,6 @@ public class TVChannelsTree extends JTree
     public DefaultMutableTreeNode getNodeByPathOld( 
         DefaultMutableTreeNode root, TVChannelsSet.Channel channel )
     {
-
         String[] pathElements = channel.getChannelID(  ).split( "\\/" );
 
         DefaultMutableTreeNode currentNode = root;
@@ -214,10 +205,9 @@ public class TVChannelsTree extends JTree
 
     protected class Renderer extends JCheckBox implements TreeCellRenderer
     {
-
         TVChannelsSet.Channel currentChannel;
 
-        /**
+/**
          * Creates a new Renderer object.
          */
         public Renderer(  )
@@ -243,7 +233,6 @@ public class TVChannelsTree extends JTree
             JTree tree, Object value, boolean selected, boolean expanded,
             boolean leaf, int row, boolean hasFocus )
         {
-
             DefaultMutableTreeNode node = (DefaultMutableTreeNode)value;
 
             if( !( node.getUserObject(  ) instanceof TVChannelsSet.Channel ) )
@@ -288,7 +277,6 @@ public class TVChannelsTree extends JTree
 
     class NodeSelectionListener extends MouseAdapter
     {
-
         /**
          * DOCUMENT_ME!
          *
@@ -296,7 +284,6 @@ public class TVChannelsTree extends JTree
          */
         public void mouseClicked( MouseEvent e )
         {
-
             int x = e.getX(  );
 
             int y = e.getY(  );
@@ -307,7 +294,6 @@ public class TVChannelsTree extends JTree
 
             if( path != null )
             {
-
                 DefaultMutableTreeNode node =
                     (DefaultMutableTreeNode)path.getLastPathComponent(  );
 
@@ -316,7 +302,6 @@ public class TVChannelsTree extends JTree
 
                 if( channel != null )
                 {
-
                     final String channelID = channel.getChannelID(  );
 
                     if( channels.selectedChannelIDs.contains( channelID ) )

@@ -1,11 +1,9 @@
 package freeguide.plugins.program.freeguide.updater;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.common.lib.fgspecific.Application;
-
 import freeguide.common.lib.general.Utils;
 
+import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.lib.updater.RepositoryUtils;
 import freeguide.plugins.program.freeguide.lib.updater.data.PluginPackage;
 import freeguide.plugins.program.freeguide.lib.updater.data.PluginsRepository;
@@ -31,12 +29,11 @@ import javax.swing.JOptionPane;
  */
 public class UpdaterController
 {
-
     protected final UpdaterUI ui;
     protected PluginsRepository repository;
     protected JFrame parent;
 
-    /**
+/**
      * Creates a new UpdaterController object.
      *
      * @param parent DOCUMENT ME!
@@ -49,7 +46,6 @@ public class UpdaterController
 
     protected void setGoButtonState(  )
     {
-
         if( repository != null )
         {
             ui.getBtnGo(  ).setEnabled( repository.needToUpdate(  ) );
@@ -70,24 +66,23 @@ public class UpdaterController
             {
                 public void actionPerformed( ActionEvent e )
                 {
-
                     try
                     {
-                        repository =
-                            RepositoryUtils.downloadRepositoryInfo(  );
-                        ui.getTablePackages(  ).setModel( 
-                            new TablePluginsModel( repository ) );
+                        repository = RepositoryUtils.downloadRepositoryInfo(  );
+                        ui.getTablePackages(  )
+                          .setModel( new TablePluginsModel( repository ) );
 
                         ModifiedDefaultTableCellRenderer rend =
                             new ModifiedDefaultTableCellRenderer(  );
 
                         //                        rend.setHorizontalAlignment(JLabel.CENTER);
                         ui.getTablePackages(  ).getColumnModel(  ).getColumn( 
-                            0 ).setMaxWidth( 
+                            0 )
+                          .setMaxWidth( 
                             ui.getTablePackages(  ).getRowHeight(  ) + 10 );
                         ui.getTablePackages(  ).getColumnModel(  ).getColumn( 
-                            0 ).setWidth( 
-                            ui.getTablePackages(  ).getRowHeight(  ) );
+                            0 )
+                          .setWidth( ui.getTablePackages(  ).getRowHeight(  ) );
                         ui.getTablePackages(  ).getColumnModel(  ).getColumn( 
                             1 ).setCellRenderer( rend );
                         ui.getTablePackages(  ).getColumnModel(  ).getColumn( 
@@ -96,7 +91,8 @@ public class UpdaterController
                             3 ).setCellRenderer( rend );
                         ui.getTablePackages(  ).doLayout(  );
                         setGoButtonState(  );
-                        ui.getCbMirror(  ).setModel( 
+                        ui.getCbMirror(  )
+                          .setModel( 
                             new DefaultComboBoxModel( 
                                 repository.getMirrorLocations(  ) ) );
                     }
@@ -119,7 +115,6 @@ public class UpdaterController
             {
                 public void actionPerformed( ActionEvent e )
                 {
-
                     final String[] filesForDelete =
                         repository.getFilesForDelete(  );
 
@@ -133,10 +128,12 @@ public class UpdaterController
                     {
                         JOptionPane.showMessageDialog( 
                             ui,
-                            Application.getInstance(  ).getLocalizedMessage( 
+                            Application.getInstance(  )
+                                       .getLocalizedMessage( 
                                 "UpdateManager.UpdateCannot.Text",
                                 new String[] { ex.getMessage(  ) } ),
-                            Application.getInstance(  ).getLocalizedMessage( 
+                            Application.getInstance(  )
+                                       .getLocalizedMessage( 
                                 "UpdateManager.UpdateCannot.Header" ),
                             JOptionPane.ERROR_MESSAGE );
 
@@ -162,30 +159,35 @@ public class UpdaterController
 
                         JOptionPane.showMessageDialog( 
                             ui,
-                            Application.getInstance(  ).getLocalizedMessage( 
+                            Application.getInstance(  )
+                                       .getLocalizedMessage( 
                                 "UpdateManager.UpdateRestart.Text" ),
-                            Application.getInstance(  ).getLocalizedMessage( 
+                            Application.getInstance(  )
+                                       .getLocalizedMessage( 
                                 "UpdateManager.UpdateRestart.Header" ),
                             JOptionPane.INFORMATION_MESSAGE );
                     }
                     catch( Exception ex )
                     {
-                        Application.getInstance(  ).getLogger(  ).log( 
+                        Application.getInstance(  ).getLogger(  )
+                                   .log( 
                             Level.WARNING, "Error download updates", ex );
                         JOptionPane.showMessageDialog( 
                             ui,
-                            Application.getInstance(  ).getLocalizedMessage( 
+                            Application.getInstance(  )
+                                       .getLocalizedMessage( 
                                 "UpdateManager.UpdateError.Text",
                                 new String[] { ex.getMessage(  ) } ),
-                            Application.getInstance(  ).getLocalizedMessage( 
+                            Application.getInstance(  )
+                                       .getLocalizedMessage( 
                                 "UpdateManager.UpdateError.Header" ),
                             JOptionPane.ERROR_MESSAGE );
                     }
                 }
             } );
         setGoButtonState(  );
-        ui.getTablePackages(  ).setDefaultRenderer( 
-            Boolean.class, new ModifiedBooleanRenderer(  ) );
+        ui.getTablePackages(  )
+          .setDefaultRenderer( Boolean.class, new ModifiedBooleanRenderer(  ) );
 
         ui.getTablePackages(  ).setModel( new TablePluginsModel(  ) );
 
@@ -196,7 +198,6 @@ public class UpdaterController
             {
                 public void mouseClicked( MouseEvent e )
                 {
-
                     TablePluginsModel model =
                         (TablePluginsModel)ui.getTablePackages(  ).getModel(  );
                     Object rowObj =
@@ -208,12 +209,10 @@ public class UpdaterController
 
                     if( rowObj instanceof PluginPackage && ( colIndex == 0 ) )
                     {
-
                         PluginPackage pkg = (PluginPackage)rowObj;
 
                         if( pkg.isInstalled(  ) )
                         {
-
                             if( pkg.isMarkedForRemove(  ) )
                             {
                                 pkg.markOff(  );
@@ -225,7 +224,6 @@ public class UpdaterController
                         }
                         else
                         {
-
                             if( pkg.isMarkedForInstall(  ) )
                             {
                                 pkg.markOff(  );

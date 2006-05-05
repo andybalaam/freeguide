@@ -22,7 +22,6 @@ import javax.swing.border.Border;
  */
 public class JLabelChannel extends JLabel
 {
-
     protected static Border DEFAULT_BORDER =
         BorderFactory.createLineBorder( Color.BLACK );
 
@@ -32,7 +31,7 @@ public class JLabelChannel extends JLabel
     /** Parent controller. */
     final protected HorizontalViewer controller;
 
-    /**
+/**
      * Creates a new JLabelChannel object.
      *
      * @param channel DOCUMENT ME!
@@ -63,7 +62,6 @@ public class JLabelChannel extends JLabel
      */
     public TVChannel getChannel(  )
     {
-
         return channel;
     }
 
@@ -74,7 +72,6 @@ public class JLabelChannel extends JLabel
      */
     public int getRequiredWidth(  )
     {
-
         FontMetrics myFM = this.getFontMetrics( getFont(  ) );
         int ans = myFM.stringWidth( getText(  ) );
         Icon ic = super.getIcon(  );
@@ -100,12 +97,10 @@ public class JLabelChannel extends JLabel
      */
     protected void setupIcon(  )
     {
-
         ImageIcon icon = TVChannelIconHelper.getIcon( channel );
 
         if( icon == null )
         {
-
             return;
         }
 
@@ -134,7 +129,6 @@ public class JLabelChannel extends JLabel
 
         if( new_icon_height > max_height )
         {
-
             double new_over_old2 =
                 (double)max_height / (double)new_icon_height;
 
@@ -146,7 +140,8 @@ public class JLabelChannel extends JLabel
 
         setIcon( 
             new ImageIcon( 
-                icon.getImage(  ).getScaledInstance( 
+                icon.getImage(  )
+                    .getScaledInstance( 
                     new_icon_width, new_icon_height, Image.SCALE_AREA_AVERAGING ) ) );
     }
 }

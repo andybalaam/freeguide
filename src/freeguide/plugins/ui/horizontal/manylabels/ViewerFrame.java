@@ -23,19 +23,17 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 /**
- * The form that displays the listings information. Now contains only the GUI
- * code with everything else moved out.
+ * The form that displays the listings information. Now contains only the
+ * GUI code with everything else moved out.
  *
  * @author Andy Balaam
  * @author Alex Buloichik (alex73 at zaval.org)
  */
 public class ViewerFrame extends JPanel
 {
-
     /** true if user doesn't want to download missing files */
 
     // public boolean dontDownload;
-
     /** The listener for when a scroll event happens */
     private AdjustmentListener comProgramScrollListener;
 
@@ -65,7 +63,6 @@ public class ViewerFrame extends JPanel
 
     // }}}
     // {{{ Static GUI
-
     /** The JEditorPane where the printedGuide is shown */
     public JEditorPane printedGuideArea;
 
@@ -79,8 +76,8 @@ public class ViewerFrame extends JPanel
     private JButton butDownload;
 
     /**
-     * The splitpane splitting the main panel from the printed guide and
-     * programme details
+     * The splitpane splitting the main panel from the printed guide
+     * and programme details
      */
     public JSplitPane splitPaneMainDet;
 
@@ -105,7 +102,7 @@ public class ViewerFrame extends JPanel
     /** Constructor for the FreeGuideViewer object */
     HorizontalViewer parent;
 
-    /**
+/**
      * Creates a new ViewerFrame object.
      *
      * @param parent DOCUMENT ME!
@@ -124,7 +121,6 @@ public class ViewerFrame extends JPanel
      */
     private void initialize(  )
     {
-
         // {{{ Initialisations
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -301,8 +297,8 @@ public class ViewerFrame extends JPanel
         butDownload.setFont( new java.awt.Font( "Dialog", 0, 10 ) );
 
         butDownload.setText( 
-            parent.getLocalizer(  ).getLocalizedMessage( 
-                "HorizontalViewer.Download" ) );
+            parent.getLocalizer(  )
+                  .getLocalizedMessage( "HorizontalViewer.Download" ) );
 
         butDownload.setMnemonic( KeyEvent.VK_D );
 
@@ -392,6 +388,7 @@ public class ViewerFrame extends JPanel
 
 
         */
+
         /*
 
 
@@ -481,8 +478,8 @@ public class ViewerFrame extends JPanel
         butPrint.setFont( new java.awt.Font( "Dialog", 0, 10 ) );
 
         butPrint.setText( 
-            parent.getLocalizer(  ).getLocalizedMessage( 
-                "HorizontalViewer.Print" ) );
+            parent.getLocalizer(  )
+                  .getLocalizedMessage( "HorizontalViewer.Print" ) );
 
         butPrint.setMnemonic( KeyEvent.VK_P );
 
@@ -529,6 +526,7 @@ public class ViewerFrame extends JPanel
 
 
         */
+
         // getRootPane( ).setDefaultButton( butGoToNow );
         // }}}
         // {{{ Event listeners
@@ -549,8 +547,7 @@ public class ViewerFrame extends JPanel
         // FreeGuide.prefs.screen.getBoolean( "align_text_to_left", true );
         if( alignTextToLeftOfScreen )
         {
-
-            /**
+/**
              * Listen for scroll events to make programmes off the left still
              * visible.
              */
@@ -574,8 +571,8 @@ public class ViewerFrame extends JPanel
     }
 
     /**
-     * In future this will launch the config step of the grabber. Currently
-     * unimplemented.
+     * In future this will launch the config step of the grabber.
+     * Currently unimplemented.
      *
      * @param evt The event object
      */
@@ -626,7 +623,6 @@ public class ViewerFrame extends JPanel
 
 
     */
-
     /**
      * Event handler for the channel -> change icon menu entry
      *
@@ -639,7 +635,6 @@ public class ViewerFrame extends JPanel
      */
     public void butPrintActionPerformed( java.awt.event.ActionEvent evt )
     {
-
         //printedGuideArea.writeOutAsHTML(  );
         parent.printHTML(  );
     }
@@ -651,12 +646,12 @@ public class ViewerFrame extends JPanel
      */
     public void butNextDayActionPerformed( java.awt.event.ActionEvent evt )
     {
-
         if( 
             ( comTheDate.getSelectedIndex(  ) + 1 ) < comTheDate.getItemCount(  ) )
         {
             comTheDate.setSelectedIndex( comTheDate.getSelectedIndex(  ) + 1 );
         }
+
         // TODO: say no data in a nice way - you could download more.
         /*else
         {
@@ -675,6 +670,7 @@ public class ViewerFrame extends JPanel
         {
             comTheDate.setSelectedIndex( comTheDate.getSelectedIndex(  ) - 1 );
         }
+
         // Say no data available
         /*else
         {
@@ -683,8 +679,8 @@ public class ViewerFrame extends JPanel
     }
 
     /**
-     * The event procedure for the vertical scrollpane listener - just calls
-     * the scrollChannelNames method.
+     * The event procedure for the vertical scrollpane listener - just
+     * calls the scrollChannelNames method.
      *
      * @param evt The event object
      */
@@ -697,13 +693,14 @@ public class ViewerFrame extends JPanel
 
     // }}}
     // {{{ Reactions to events
-
     /**
-     * Scrolls the channel names to the same y-position as the main panel.
+     * Scrolls the channel names to the same y-position as the main
+     * panel.
      */
     public void scrollChannelNames(  )
     {
-        channelNameScrollPane.getVerticalScrollBar(  ).setValue( 
+        channelNameScrollPane.getVerticalScrollBar(  )
+                             .setValue( 
             programmesScrollPane.getVerticalScrollBar(  ).getValue(  ) );
 
     }
@@ -715,16 +712,15 @@ public class ViewerFrame extends JPanel
      */
     void scrollToReference( String reference )
     {
-
         // TODO should focus the programme referred by reference
         getPrintedGuideArea(  ).scrollToReference( reference );
 
     }
 
     /**
-     * When a scoll event happens, repaint the main panel, to allow the text
-     * to be adjusted to be visible even if the programme starts off to the
-     * left.
+     * When a scoll event happens, repaint the main panel, to allow
+     * the text to be adjusted to be visible even if the programme starts off
+     * to the left.
      *
      * @param e DOCUMENT ME!
      */
@@ -742,13 +738,12 @@ public class ViewerFrame extends JPanel
      */
     public void scrollTo( final Calendar showTime, final String channelID )
     {
-
         //---   getProgrammesPanel(  ).focus( showTime.getTimeInMillis(  ) );
-        getProgrammesScrollPane(  ).getHorizontalScrollBar(  ).setValue( 
-            getTimePanel(  ).getScrollValue( showTime ) );
+        getProgrammesScrollPane(  ).getHorizontalScrollBar(  )
+            .setValue( getTimePanel(  ).getScrollValue( showTime ) );
 
-        getProgrammesScrollPane(  ).getVerticalScrollBar(  ).setValue( 
-            getChannelNamePanel(  ).getScrollValue( channelID ) );
+        getProgrammesScrollPane(  ).getVerticalScrollBar(  )
+            .setValue( getChannelNamePanel(  ).getScrollValue( channelID ) );
     }
 
     /**
@@ -758,7 +753,6 @@ public class ViewerFrame extends JPanel
      */
     public JComboBox getComboDate(  )
     {
-
         return comTheDate;
 
     }
@@ -770,7 +764,6 @@ public class ViewerFrame extends JPanel
      */
     public JComboBox getComboChannelsSet(  )
     {
-
         return comChannelSet;
 
     }
@@ -782,7 +775,6 @@ public class ViewerFrame extends JPanel
      */
     public JPanelProgramme getProgrammesPanel(  )
     {
-
         return programmesPanel;
     }
 
@@ -793,7 +785,6 @@ public class ViewerFrame extends JPanel
      */
     public JScrollPane getProgrammesScrollPane(  )
     {
-
         return programmesScrollPane;
 
     }
@@ -805,7 +796,6 @@ public class ViewerFrame extends JPanel
      */
     public JEditorPane getPrintedGuideArea(  )
     {
-
         return printedGuideArea;
 
     }
@@ -817,7 +807,6 @@ public class ViewerFrame extends JPanel
      */
     public JPanelChannel getChannelNamePanel(  )
     {
-
         return channelNamePanel;
     }
 
@@ -828,7 +817,6 @@ public class ViewerFrame extends JPanel
      */
     public TimePanel getTimePanel(  )
     {
-
         return timePanel;
 
     }
@@ -840,7 +828,6 @@ public class ViewerFrame extends JPanel
      */
     public JEditorPane getDetailsPanel(  )
     {
-
         return detailsPanel;
 
     }
@@ -852,7 +839,6 @@ public class ViewerFrame extends JPanel
      */
     public JButton getButtonGoToNow(  )
     {
-
         return butGoToNow;
 
     }
@@ -864,7 +850,6 @@ public class ViewerFrame extends JPanel
      */
     public JButton getButtonDownload(  )
     {
-
         return butDownload;
 
     }
@@ -876,13 +861,11 @@ public class ViewerFrame extends JPanel
      */
     public JButton getDefaultButton(  )
     {
-
         return butGoToNow;
     }
 
     static class BorderChanger implements FocusListener
     {
-
         /** ToDo: DOCUMENT ME! */
         static final Border focusedBorder = new LineBorder( Color.black, 2 );
 
@@ -892,7 +875,7 @@ public class ViewerFrame extends JPanel
         /** ToDo: DOCUMENT ME! */
         JComponent borderChangee;
 
-        /**
+/**
          * Creates a new BorderChanger object.
          *
          * @param borderChangee DOCUMENT ME!
@@ -928,8 +911,7 @@ public class ViewerFrame extends JPanel
 
     static class FocusJScrollPane extends JScrollPane
     {
-
-        /**
+/**
          * Creates a new FocusJScrollPane object. ToDo: DOCUMENT ME!
          */
         FocusJScrollPane(  )
@@ -947,6 +929,11 @@ public class ViewerFrame extends JPanel
         *
         * @see javax.swing.JScrollPane#setViewportView(java.awt.Component)
         */
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param view DOCUMENT_ME!
+         */
         public void setViewportView( Component view )
         {
             super.setViewportView( view );

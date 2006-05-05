@@ -10,8 +10,7 @@ import java.util.prefs.BackingStoreException;
  */
 public class Migrate0_10_1To0_10_2 extends MigrationProcessBase
 {
-
-    /**
+/**
      * Creates a new Migrate0_10_1To0_10_2 object.
      *
      * @param source DOCUMENT ME!
@@ -21,7 +20,7 @@ public class Migrate0_10_1To0_10_2 extends MigrationProcessBase
         super( source );
     }
 
-    /**
+/**
      * Creates a new Migrate0_10_1To0_10_2 object.
      *
      * @param nodeName DOCUMENT ME!
@@ -74,18 +73,15 @@ public class Migrate0_10_1To0_10_2 extends MigrationProcessBase
 
     protected void patchGrabbersList(  )
     {
-
         String size =
             getAndRemoveKey( "mainController/activeGrabberIDs.size" );
 
         if( size != null )
         {
-
             int sizeI = Integer.parseInt( size );
 
             for( int i = 0; i < sizeI; i++ )
             {
-
                 String gr =
                     getAndRemoveKey( "mainController/activeGrabberIDs." + i );
                 putKey( 

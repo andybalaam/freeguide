@@ -26,7 +26,6 @@ import java.util.List;
  */
 public class HandlerPersonalGuide
 {
-
     protected final ILocalizer localizer;
     protected final TVData currentData;
     protected final Date theDate;
@@ -34,7 +33,7 @@ public class HandlerPersonalGuide
     protected final DateFormat timeFormat;
     protected final boolean forPrint;
 
-    /**
+/**
      * Creates a new ParserPersonalizedGuide object.
      *
      * @param localizer DOCUMENT ME!
@@ -66,8 +65,8 @@ public class HandlerPersonalGuide
      */
     public String getEnds( final TVProgramme programme )
     {
-
-        return Application.getInstance(  ).getLocalizedMessage( 
+        return Application.getInstance(  )
+                          .getLocalizedMessage( 
             "ends_template", new Object[] { getProgrammeEndTime( programme ) } );
     }
 
@@ -78,7 +77,6 @@ public class HandlerPersonalGuide
      */
     public String getTitle(  )
     {
-
         Object[] messageArguments = { dateFormat.format( theDate ) };
 
         return localizer.getLocalizedMessage( 
@@ -92,7 +90,6 @@ public class HandlerPersonalGuide
      */
     public String getHeader(  )
     {
-
         Object[] args = { dateFormat.format( theDate ) };
 
         return localizer.getLocalizedMessage( 
@@ -107,7 +104,6 @@ public class HandlerPersonalGuide
      */
     public String getHelp(  )
     {
-
         return localizer.getLocalizedMessage( 
             "select_programmes_by_clicking_on_them" );
     }
@@ -121,7 +117,6 @@ public class HandlerPersonalGuide
      */
     public String getProgrammeStartTime( final TVProgramme programme )
     {
-
         return timeFormat.format( new Date( programme.getStart(  ) ) );
     }
 
@@ -134,7 +129,6 @@ public class HandlerPersonalGuide
      */
     public String getProgrammeEndTime( final TVProgramme programme )
     {
-
         return timeFormat.format( new Date( programme.getEnd(  ) ) );
     }
 
@@ -147,7 +141,6 @@ public class HandlerPersonalGuide
      */
     public String getProgrammeURL( final TVProgramme programme )
     {
-
         return ProgrammeFormat.createLinkReference( programme );
     }
 
@@ -160,7 +153,6 @@ public class HandlerPersonalGuide
      */
     public String getProgrammeCategory( final TVProgramme programme )
     {
-
         return programme.getCategory(  );
     }
 
@@ -173,7 +165,6 @@ public class HandlerPersonalGuide
      */
     public String getProgrammeTitle( final TVProgramme programme )
     {
-
         return programme.getTitle(  );
     }
 
@@ -186,15 +177,12 @@ public class HandlerPersonalGuide
      */
     public String getProgrammeSubTitle( final TVProgramme programme )
     {
-
         if( programme.getSubTitle(  ) != null )
         {
-
             return ": " + programme.getTitle(  );
         }
         else
         {
-
             return "";
         }
     }
@@ -208,7 +196,6 @@ public class HandlerPersonalGuide
      */
     public String getProgrammeDescription( final TVProgramme programme )
     {
-
         return programme.getDescription(  );
     }
 
@@ -221,7 +208,6 @@ public class HandlerPersonalGuide
      */
     public String getProgrammeChannelName( final TVProgramme programme )
     {
-
         return programme.getChannel(  ).getDisplayName(  );
     }
 
@@ -234,17 +220,14 @@ public class HandlerPersonalGuide
      */
     public String getPreviouslyShown( final TVProgramme programme )
     {
-
         if( programme.getPreviouslyShown(  ) )
         {
-
             return " "
             + Application.getInstance(  ).getLocalizedMessage( "repeat" );
 
         }
         else
         {
-
             return "";
         }
     }
@@ -258,18 +241,15 @@ public class HandlerPersonalGuide
      */
     public String getStarRating( final TVProgramme programme )
     {
-
         if( 
             programme.getIsMovie(  ) && ( programme.getStarRating(  ) != null ) )
         {
-
             return " "
             + Application.getInstance(  ).getLocalizedMessage( "rating" )
             + ": " + programme.getStarRating(  );
         }
         else
         {
-
             return "";
         }
     }
@@ -281,7 +261,6 @@ public class HandlerPersonalGuide
      */
     public Collection getProgrammes(  )
     {
-
         final IModuleReminder[] reminders =
             Application.getInstance(  ).getReminders(  );
         final List result = new ArrayList(  );
@@ -294,17 +273,14 @@ public class HandlerPersonalGuide
 
                 protected void onProgramme( TVProgramme programme )
                 {
-
                     if( 
                         ( programme.getEnd(  ) < System.currentTimeMillis(  ) ) )
                     {
-
                         return;
                     }
 
                     for( int i = 0; i < reminders.length; i++ )
                     {
-
                         if( reminders[i].isSelected( programme ) )
                         {
                             result.add( programme );

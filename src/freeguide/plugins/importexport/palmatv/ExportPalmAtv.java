@@ -4,7 +4,6 @@ import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-
 import freeguide.common.lib.general.EndianInputStream;
 import freeguide.common.lib.general.EndianOutputByteArray;
 
@@ -28,7 +27,6 @@ import javax.swing.filechooser.FileFilter;
  */
 public class ExportPalmAtv extends BaseModule implements IModuleExport
 {
-
     /** Offset to Palm's time. */
     public static final long PALM_TIME_DELTA = 24107L * 24 * 60 * 60;
     protected static final String hPDBName = "all";
@@ -48,7 +46,6 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
      */
     public Object getConfig(  )
     {
-
         return config;
     }
 
@@ -63,7 +60,6 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
     public void exportData( final TVData data, final JFrame parent )
         throws IOException
     {
-
         JFileChooser chooser = new JFileChooser(  );
 
         if( config.path != null )
@@ -76,13 +72,11 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
             {
                 public String getDescription(  )
                 {
-
                     return "Palm .pdb databases";
                 }
 
                 public boolean accept( File pathname )
                 {
-
                     return pathname.isDirectory(  )
                     || pathname.getName(  ).endsWith( ".pdb" );
                 }
@@ -92,7 +86,6 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
 
         if( chooser.showSaveDialog( parent ) == JFileChooser.APPROVE_OPTION )
         {
-
             File destination = chooser.getSelectedFile(  );
 
             if( !destination.getPath(  ).endsWith( ".pdb" ) )
@@ -132,7 +125,6 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
         final TVData data, final String pdbName, final File outFile )
         throws IOException
     {
-
         StoreIterator iterator = new StoreIterator( pdbName );
         data.iterate( iterator );
         iterator.sync(  );
@@ -147,7 +139,6 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
 
     protected long readTime(  ) throws IOException
     {
-
         long tm = ( rd.readInt(  ) - PALM_TIME_DELTA ) * 1000;
 
         return tm /*-TimeEngine.getOffset(tm,TimeEngine.localTZ)*/;
@@ -163,19 +154,17 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
      */
     public IModuleConfigurationUI getConfigurationUI( JDialog parentDialog )
     {
-
         return new PalmUIController( this );
     }
 
     protected class StoreIterator extends TVIteratorProgrammes
     {
-
         final List programmes = new ArrayList(  );
         protected IOException ex;
         final PDBFile pdb;
         protected EndianOutputByteArray wr;
 
-        /**
+/**
          * Creates a new StoreIterator object.
          *
          * @param pdbName DOCUMENT ME!
@@ -190,7 +179,6 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
 
         protected void onChannel( TVChannel channel )
         {
-
             if( getCurrentChannel(  ) != null )
             {
                 sync(  );
@@ -207,10 +195,8 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
          */
         public void sync(  )
         {
-
             if( ex != null )
             {
-
                 return;
             }
 
@@ -218,10 +204,8 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
 
             while( mprev < programmes.size(  ) )
             {
-
                 try
                 {
-
                     String channelID = getCurrentChannel(  ).getID(  );
                     int pos = channelID.lastIndexOf( '/' );
 
@@ -256,7 +240,6 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
             String channelName, List programmes, String sitename, int beginfrom )
             throws IOException
         {
-
             int sz = 0;
 
             sz += ( wr.calcSPasString0( 
@@ -266,7 +249,6 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
 
             for( int i = beginfrom; i < programmes.size(  ); i++ )
             {
-
                 TVProgramme pr = (TVProgramme)programmes.get( i );
                 sz += 4;
                 sz += 2;
@@ -277,15 +259,12 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
 
                 if( sz > PDBFile.MAX_RECORD_SIZE )
                 {
-
                     if( i == beginfrom )
                     {
-
                         return i + 1;
                     }
                     else
                     {
-
                         return i;
                     }
                 }
@@ -306,7 +285,6 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
 
             for( int i = from; i < to; i++ )
             {
-
                 TVProgramme pr = (TVProgramme)programmes.get( i );
                 writeTime( pr.getStart(  ) );
                 wr.writeShort( 
@@ -337,7 +315,6 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
      */
     public static class Config
     {
-
         /** Path of last saved file. */
         public String path;
 

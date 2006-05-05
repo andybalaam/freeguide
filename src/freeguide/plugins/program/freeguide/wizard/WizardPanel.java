@@ -11,9 +11,13 @@
  *  See the file COPYING for more information.
  */
 package freeguide.plugins.program.freeguide.wizard;
-import freeguide.plugins.program.freeguide.FreeGuide;
+
 import freeguide.common.lib.fgspecific.Application;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
+
 import javax.swing.JOptionPane;
+
 /**
  * A JPanel to go on a WizardFrame. It is subclassed by TextWizardPanel,
  * FileWizardPanel, DirectoryWizardPanel, CommandsWizardPanel, or
@@ -33,27 +37,33 @@ public class WizardPanel extends javax.swing.JPanel
     /** The config group if there is to be a guess */
     protected String topMessage;
     protected int topMnemonic;
+
     /** The config entry if there is to be a guess */
     protected String bottomMessage;
+
     /** Description of the Field */
     protected String configGroup;
+
     // The config group if there is to be a guess
     /** Description of the Field */
     protected String configEntry;
+
     // The config entry if there is to be a guess
     /** Description of the Field */
     protected OnEnter onEnter;
     protected OnExit onExit;
-    /**
+
+/**
      * Constructor for the WizardPanel superclass. This panel can be linked to
      * a config entry, or it can have an onExit Method, or both.
      */
     public WizardPanel(  )
     {
     }
+
     /**
-     * Set up the messages that will appear above and below the box on the
-     * panel.
+     * Set up the messages that will appear above and below the box on
+     * the panel.
      *
      * @param topMessage The new messages value
      * @param bottomMessage The new messages value
@@ -63,6 +73,7 @@ public class WizardPanel extends javax.swing.JPanel
         this.topMessage = topMessage;
         this.bottomMessage = bottomMessage;
     }
+
     /**
      * DOCUMENT_ME!
      *
@@ -77,11 +88,12 @@ public class WizardPanel extends javax.swing.JPanel
         this.bottomMessage = bottomMessage;
         this.topMnemonic = topMnemonic;
     }
+
     /**
-     * Sets up a method to be executed when we exit this panel. It must take
-     * an single argument: the object that is being got from the user by this
-     * panel e.g. a File object if this panel asks for a directory. Its
-     * return value will be ignored if there is one.
+     * Sets up a method to be executed when we exit this panel. It
+     * must take an single argument: the object that is being got from the
+     * user by this panel e.g. a File object if this panel asks for a
+     * directory. Its return value will be ignored if there is one.
      *
      * @param onExit The new onExit value
      */
@@ -89,9 +101,10 @@ public class WizardPanel extends javax.swing.JPanel
     {
         this.onExit = onExit;
     }
+
     /**
-     * Sets up a method to be executed when we enter this panel. It must take
-     * no args and return value to be put in this panel's box.
+     * Sets up a method to be executed when we enter this panel. It
+     * must take no args and return value to be put in this panel's box.
      *
      * @param onEnter The new onEnter value
      */
@@ -99,6 +112,7 @@ public class WizardPanel extends javax.swing.JPanel
     {
         this.onEnter = onEnter;
     }
+
     // -------------------------------------
     /**
      * Construct the GUI of this Wizard Panel.
@@ -107,6 +121,7 @@ public class WizardPanel extends javax.swing.JPanel
     {
         // Will be overridden
     }
+
     // ---------------------------------------------
     /**
      * Prepare as we enter this panel.
@@ -118,9 +133,10 @@ public class WizardPanel extends javax.swing.JPanel
             onEnter.onEnter( this );
         }
     }
+
     /**
-     * Clear up as we leave this panel. Return false if it's not ok to leave,
-     * otherwise leave.
+     * Clear up as we leave this panel. Return false if it's not ok to
+     * leave, otherwise leave.
      *
      * @return Description of the Return Value
      */
@@ -130,6 +146,7 @@ public class WizardPanel extends javax.swing.JPanel
         if( configEntry != null )
         {
             String error = checkValue(  );
+
             if( error != null )
             {
                 // If we have an error, ask the user if they want
@@ -139,25 +156,31 @@ public class WizardPanel extends javax.swing.JPanel
                     JOptionPane.showConfirmDialog( 
                         this,
                         error + lb
-                        + Application.getInstance(  ).getLocalizedMessage( 
+                        + Application.getInstance(  )
+                                     .getLocalizedMessage( 
                             "do_you_want_to_continue" ),
                         Application.getInstance(  ).getLocalizedMessage( 
                             "error" ), JOptionPane.YES_NO_OPTION );
+
                 if( ignore == JOptionPane.NO_OPTION )
                 {
                     // If not, go back
                     return false;
                 }
+
                 // Otherwise, go on with saving the value
             }
         }
+
         // Execute an onExit method if there is one
         if( onExit != null )
         {
             onExit.onExit( this );
         }
+
         return true;
     }
+
     // -----------------------------------------
     /**
      * Returns an error if this value is faulty, or null it's ok
@@ -168,23 +191,26 @@ public class WizardPanel extends javax.swing.JPanel
     {
         return null;
     }
+
     // -------------------------------
     /**
-     * Gets the value that's in this panel's box. The box just means the
-     * textfield or whatever that the user is typing into or choosing items
-     * in.
+     * Gets the value that's in this panel's box. The box just means
+     * the textfield or whatever that the user is typing into or choosing
+     * items in.
      *
      * @return The boxValue value
      */
     protected Object getBoxValue(  )
     {
         return null;
+
         // Should never get here
     }
+
     /**
-     * Sets the value that's in this panel's box. The box just means the
-     * textfield or whatever that the user is typing into or choosing items
-     * in.
+     * Sets the value that's in this panel's box. The box just means
+     * the textfield or whatever that the user is typing into or choosing
+     * items in.
      *
      * @param val The new boxValue value
      */
@@ -192,7 +218,8 @@ public class WizardPanel extends javax.swing.JPanel
     {
         // Should never get here
     }
-    /**
+
+/**
      * DOCUMENT ME!
      *
      * @author $author$
@@ -202,7 +229,8 @@ public class WizardPanel extends javax.swing.JPanel
     {
         void onEnter( WizardPanel panel );
     }
-    /**
+
+/**
      * DOCUMENT ME!
      *
      * @author $author$
@@ -212,5 +240,6 @@ public class WizardPanel extends javax.swing.JPanel
     {
         void onExit( WizardPanel panel );
     }
+
     // Method to execute on entry
 }

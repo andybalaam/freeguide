@@ -13,7 +13,6 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TvTableModel extends AbstractTableModel
 {
-
     /** DOCUMENT ME! */
     public static String[] arColNames = { "Date", "Time", "Title", "Channel" };
 
@@ -34,12 +33,11 @@ public class TvTableModel extends AbstractTableModel
     protected TVProgramme[] arProgrammes = new TVProgramme[0];
     protected int nCurrentTransferProgram = 0;
 
-    /**
+/**
      * Creates a new TvTableModel object.
      */
     public TvTableModel(  )
     {
-
         /*
         arColNames = new String[] {
             VerticalViewer.getInstance().getLocalizedMessage("table.column.date"),
@@ -56,12 +54,10 @@ public class TvTableModel extends AbstractTableModel
      */
     public int getColumnCount(  )
     {
-
         return arColNames.length;
     }
 
     //public int getColumnCount()
-
     /**
      * How many rows we have
      *
@@ -69,15 +65,13 @@ public class TvTableModel extends AbstractTableModel
      */
     public int getRowCount(  )
     {
-
         return this.arProgrammes.length;
     }
 
     //public int getRowCount()
-
     /**
-     * Get the value at the given column of the given row for display in the
-     * list
+     * Get the value at the given column of the given row for display
+     * in the list
      *
      * @param row DOCUMENT ME!
      * @param col DOCUMENT ME!
@@ -86,16 +80,13 @@ public class TvTableModel extends AbstractTableModel
      */
     public Object getValueAt( int row, int col )
     {
-
         if( arProgrammes[row] == null )
         {
-
             return "-";
         }
 
         switch( col )
         {
-
         case COL_TITLE:
             return arProgrammes[row].getTitle(  );
 
@@ -123,7 +114,6 @@ public class TvTableModel extends AbstractTableModel
     }
 
     //public Object getValueAt(int row, int col)
-
     /**
      * Returns the questioned column name
      *
@@ -133,12 +123,10 @@ public class TvTableModel extends AbstractTableModel
      */
     public String getColumnName( int col )
     {
-
         return arColNames[col];
     }
 
     //public String getColumnName(int col)
-
     /**
      * Add a single tv program to the model.
      *
@@ -151,10 +139,9 @@ public class TvTableModel extends AbstractTableModel
     }
 
     //public void addProgramme(TVProgramme programme)
-
     /**
-     * Before the programs are transferred to this model, we need to prepare
-     * the array
+     * Before the programs are transferred to this model, we need to
+     * prepare the array
      *
      * @param programmesCount DOCUMENT ME!
      */
@@ -165,13 +152,12 @@ public class TvTableModel extends AbstractTableModel
     }
 
     //public void prepareRows(int programmesCount)
-
     /**
-     * The programs have been transferred, so we can sort them now by time.
+     * The programs have been transferred, so we can sort them now by
+     * time.
      */
     public void postpare(  )
     {
-
         //Sort them by time
         java.util.Arrays.sort( 
             this.arProgrammes, new ProgrammeTimeComparator(  ) );
@@ -179,6 +165,4 @@ public class TvTableModel extends AbstractTableModel
 
     //public void postpare()
 }
-
-
 //public class TvTableModel extends AbstractTableModel

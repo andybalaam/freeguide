@@ -3,9 +3,7 @@ package freeguide.plugins.grabber.newsvm;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-
 import freeguide.common.lib.general.LanguageHelper;
-
 import freeguide.common.lib.grabber.HtmlHelper;
 import freeguide.common.lib.grabber.HttpBrowser;
 import freeguide.common.lib.grabber.LineProgrammeHelper;
@@ -38,14 +36,13 @@ import java.util.regex.Pattern;
  */
 public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 {
-
     protected static Pattern reDate =
         Pattern.compile( 
             "(\\p{L}+)\\s*,\\s*(\\d{1,2})\\s+(\\p{L}+)",
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE );
     protected static TimeZone tz = TimeZone.getTimeZone( "Europe/Minsk" );
     protected static final String[] DAYS =
-    { "mo", "tu", "we", "th", "fr", "sa", "su" };
+        { "mo", "tu", "we", "th", "fr", "sa", "su" };
     boolean isStopped;
 
     /**
@@ -55,7 +52,6 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
      */
     public Object getConfig(  )
     {
-
         return null;
     }
 
@@ -108,7 +104,6 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
             if( isStopped )
             {
-
                 return;
             }
 
@@ -133,13 +128,12 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
     protected static class PageParser extends HtmlHelper.DefaultContentHandler
     {
-
         protected StringBuffer out;
         protected final IStoragePipe storage;
         protected final ILogger logger;
         protected final String[] nen;
 
-        /**
+/**
          * Creates a new PageParser object.
          *
          * @param storage DOCUMENT ME!
@@ -159,22 +153,17 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         void patchProgrammes( 
             final String channelID, final TVProgramme[] programmes )
         {
-
             if( !nen[0].equals( channelID ) )
             {
-
                 return;
             }
 
             for( int i = 0; i < programmes.length; i++ )
             {
-
                 if( programmes[i].getTitle(  ) != null )
                 {
-
                     for( int j = 2; j < nen.length; j++ )
                     {
-
                         if( programmes[i].getTitle(  ).indexOf( nen[j] ) != -1 )
                         {
                             programmes[i].setTitle( nen[1] );
@@ -200,7 +189,6 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
             String uri, String localName, String qName, Attributes atts )
             throws SAXException
         {
-
             if( "table".equals( qName ) )
             {
                 out = new StringBuffer(  );
@@ -223,10 +211,8 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         public void endElement( String uri, String localName, String qName )
             throws SAXException
         {
-
             if( "table".equals( qName ) && ( out != null ) )
             {
-
                 if( out.length(  ) > 4096 )
                 {
                     parseText( out.toString(  ) );
@@ -252,7 +238,6 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         public void characters( char[] ch, int start, int length )
             throws SAXException
         {
-
             if( out != null )
             {
                 out.append( ch, start, length );
@@ -261,7 +246,6 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
         protected void parseText( final String text ) throws SAXException
         {
-
             BufferedReader rd = new BufferedReader( new StringReader( text ) );
             long basedate = 0;
             long prevTime = 0;
@@ -272,29 +256,24 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
             try
             {
-
                 while( ( line = rd.readLine(  ) ) != null )
                 {
                     line = line.trim(  );
 
                     if( "".equals( line ) )
                     {
-
                         continue;
                     }
 
                     if( basedate == 0 )
                     {
-
                         Matcher mDate = reDate.matcher( line );
 
                         if( mDate.matches(  ) )
                         {
-
                             try
                             {
-                                basedate =
-                                    TimeHelper.getBaseDate( 
+                                basedate = TimeHelper.getBaseDate( 
                                         tz, mDate.group( 2 ), mDate.group( 3 ),
                                         null, mDate.group( 1 ) );
                             }
@@ -306,13 +285,10 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
                     else
                     {
-
                         if( LineProgrammeHelper.isProgram( line ) )
                         {
-
                             try
                             {
-
                                 TVProgramme[] programmes =
                                     LineProgrammeHelper.parse( 
                                         logger, line, basedate, prevTime );
@@ -336,17 +312,16 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                         }
                         else
                         {
-
                             String channelName = line;
 
                             if( 
-                                ( channelName.toLowerCase(  ).indexOf( 
-                                        "перепечатка" ) == -1 )
-                                    && ( channelName.toLowerCase(  ).indexOf( 
+                                ( channelName.toLowerCase(  )
+                                                 .indexOf( "перепечатка" ) == -1 )
+                                    && ( channelName.toLowerCase(  )
+                                                        .indexOf( 
                                         "профилактика" ) == -1 ) )
                             {
-                                currentChannelID =
-                                    "newsvm/"
+                                currentChannelID = "newsvm/"
                                     + channelName.replace( '/', '_' );
 
                                 try

@@ -10,10 +10,9 @@ import javax.swing.JPanel;
  */
 public interface IModuleViewer extends IModule
 {
-
     /**
-     * Get panel for viewer. This panel will be displayed inside main frame.
-     * Method calls AFTER setDataStorage and setMenu methods.
+     * Get panel for viewer. This panel will be displayed inside main
+     * frame. Method calls AFTER setDataStorage and setMenu methods.
      *
      * @return JPanel
      */

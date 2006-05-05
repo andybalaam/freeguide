@@ -8,12 +8,12 @@ package freeguide.common.plugininterfaces;
  */
 public interface IModuleGrabber extends IModule
 {
-
     /**
      * Get data from site.
      *
      * @param progress IProgress
      * @param logger ILogger
+     * @param storage DOCUMENT ME!
      *
      * @throws Exception
      */

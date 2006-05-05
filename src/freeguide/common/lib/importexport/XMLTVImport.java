@@ -25,11 +25,10 @@ import javax.xml.parsers.SAXParserFactory;
  */
 public class XMLTVImport
 {
-
     protected SAXParserFactory factory;
     protected SAXParser saxParser;
 
-    /**
+/**
      * Creates a new XMLTVImport object.
      *
      * @throws ParserConfigurationException DOCUMENT ME!
@@ -58,7 +57,6 @@ public class XMLTVImport
         File file, final IStoragePipe storage, Filter filter,
         final String channelPrefix ) throws SAXException, IOException
     {
-
         XMLTVImportHandler handler =
             new XMLTVImportHandler( storage, filter, channelPrefix );
         InputSource ins =
@@ -82,7 +80,6 @@ public class XMLTVImport
         InputStream in, final IStoragePipe storage, Filter filter,
         final String channelPrefix ) throws Exception
     {
-
         XMLTVImportHandler handler =
             new XMLTVImportHandler( storage, filter, channelPrefix );
         InputSource ins = new InputSource( in );
@@ -92,14 +89,13 @@ public class XMLTVImport
     }
 
     /**
-     * Base filter for load. You can redefine some methods for filter data on
-     * load.
+     * Base filter for load. You can redefine some methods for filter
+     * data on load.
      *
      * @author Alex Buloichik (mailto: alex73 at zaval.org)
      */
     public static class Filter
     {
-
         /**
          * Check chanels on start channel tag.
          *
@@ -109,7 +105,6 @@ public class XMLTVImport
          */
         public boolean checkChannelStart( final String channelID )
         {
-
             return true;
 
         }
@@ -124,8 +119,8 @@ public class XMLTVImport
         }
 
         /**
-         * Check programme on start programme tag. Only start time and length
-         * defined.
+         * Check programme on start programme tag. Only start time
+         * and length defined.
          *
          * @param programme programme data
          *
@@ -133,7 +128,6 @@ public class XMLTVImport
          */
         public boolean checkProgrammeStart( final TVProgramme programme )
         {
-
             return true;
 
         }

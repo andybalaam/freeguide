@@ -19,18 +19,18 @@ import javax.swing.JPanel;
 import javax.swing.JViewport;
 
 /**
- * Panel implementation for JLabelProgrammes with support of focus movement.
+ * Panel implementation for JLabelProgrammes with support of focus
+ * movement.
  */
 public class JPanelProgramme extends JPanel
 {
-
     protected final HorizontalViewer controller;
     protected long startDate;
     protected List[] rows = new List[0];
     protected Map labelsForProgrammes = new HashMap(  );
     protected DateFormat timeFormat;
 
-    /**
+/**
      * Creates a new JPanelProgramme object.
      *
      * @param controller DOCUMENT ME!
@@ -69,7 +69,6 @@ public class JPanelProgramme extends JPanel
     protected JLabelProgramme getLabelForProgramme( 
         final TVProgramme programme )
     {
-
         return (JLabelProgramme)labelsForProgrammes.get( programme );
     }
 
@@ -81,7 +80,6 @@ public class JPanelProgramme extends JPanel
      */
     public void addProgramme( final TVProgramme programme, final int row )
     {
-
         JLabelProgramme label =
             new JLabelProgramme( 
                 programme, controller, controller.config.displayAlignToLeft,
@@ -99,7 +97,6 @@ public class JPanelProgramme extends JPanel
      */
     public void sort(  )
     {
-
         for( int i = 0; i < rows.length; i++ )
         {
             Collections.sort( 
@@ -108,7 +105,6 @@ public class JPanelProgramme extends JPanel
                 {
                     public int compare( Object arg0, Object arg1 )
                     {
-
                         JLabelProgramme lab0 = (JLabelProgramme)arg0;
                         JLabelProgramme lab1 = (JLabelProgramme)arg1;
 
@@ -129,7 +125,6 @@ public class JPanelProgramme extends JPanel
     protected void setupBounds( 
         final JLabelProgramme label, final TVProgramme programme, final int row )
     {
-
         //int x = (int)( ( ( programme.getStart(  ) - startDate ) * main.config.sizeProgrammePanelWidth ) / main.MILLISECONDS_PER_DAY ) + 1;
         //int y = ( main.config.sizeChannelHeight * row ) + 1;
         //int height = main.config.sizeChannelHeight - 2;
@@ -150,7 +145,6 @@ public class JPanelProgramme extends JPanel
 
         if( x < 0 )
         {
-
             // trunc for window if programme starts before current day
             int dt = -x;
             x += dt;
@@ -159,7 +153,6 @@ public class JPanelProgramme extends JPanel
 
         if( x > controller.config.sizeProgrammePanelWidth )
         {
-
             // trunc for window if programme ends after current day
             int dt = x - controller.config.sizeProgrammePanelWidth;
             width -= dt;
@@ -175,18 +168,15 @@ public class JPanelProgramme extends JPanel
      */
     public void focusMoveUp( final JLabelProgramme label )
     {
-
         int row = getRowOfLabel( label );
 
         if( row < 0 )
         {
-
             return;
         }
 
         for( int i = row - 1; i >= 0; i-- )
         {
-
             JLabelProgramme newLabel =
                 getNearestFor( 
                     i,
@@ -209,18 +199,15 @@ public class JPanelProgramme extends JPanel
      */
     public void focusMoveDown( final JLabelProgramme label )
     {
-
         int row = getRowOfLabel( label );
 
         if( row < 0 )
         {
-
             return;
         }
 
         for( int i = row + 1; i < rows.length; i++ )
         {
-
             JLabelProgramme newLabel =
                 getNearestFor( 
                     i,
@@ -243,12 +230,10 @@ public class JPanelProgramme extends JPanel
      */
     public void focusMoveLeft( final JLabelProgramme label )
     {
-
         int row = getRowOfLabel( label );
 
         if( row < 0 )
         {
-
             return;
         }
 
@@ -256,7 +241,6 @@ public class JPanelProgramme extends JPanel
 
         if( pos > 0 )
         {
-
             JLabelProgramme newLabel =
                 (JLabelProgramme)rows[row].get( pos - 1 );
             focusAndShow( newLabel );
@@ -270,12 +254,10 @@ public class JPanelProgramme extends JPanel
      */
     public void focusMoveRight( final JLabelProgramme label )
     {
-
         int row = getRowOfLabel( label );
 
         if( row < 0 )
         {
-
             return;
         }
 
@@ -283,7 +265,6 @@ public class JPanelProgramme extends JPanel
 
         if( pos < ( rows[row].size(  ) - 1 ) )
         {
-
             JLabelProgramme newLabel =
                 (JLabelProgramme)rows[row].get( pos + 1 );
             focusAndShow( newLabel );
@@ -299,13 +280,10 @@ public class JPanelProgramme extends JPanel
      */
     protected int getRowOfLabel( final JLabelProgramme label )
     {
-
         for( int i = 0; i < rows.length; i++ )
         {
-
             if( rows[i].contains( label ) )
             {
-
                 return i;
             }
         }
@@ -324,10 +302,8 @@ public class JPanelProgramme extends JPanel
     protected JLabelProgramme getNearestFor( 
         final int row, final long middleTime )
     {
-
         for( int i = 0; i < rows[row].size(  ); i++ )
         {
-
             JLabelProgramme current = (JLabelProgramme)rows[row].get( i );
 
             if( 
@@ -335,7 +311,6 @@ public class JPanelProgramme extends JPanel
                         middleTime, startDate,
                         startDate + controller.MILLISECONDS_PER_DAY ) )
             {
-
                 return current;
             }
         }
@@ -377,12 +352,10 @@ public class JPanelProgramme extends JPanel
 
         if( r2.x > origin.x )
         {
-
             // label on the right of visible window begin
         }
         else if( r2.x < origin.x )
         {
-
             // label on the left of visible window begin
             r2.x += dx;
         }

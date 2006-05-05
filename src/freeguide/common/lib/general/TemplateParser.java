@@ -18,7 +18,6 @@ import java.util.Map;
  */
 public class TemplateParser
 {
-
     protected static final int NEXT_ITERATOR_START = 1;
     protected static final int NEXT_ITERATOR_END = 2;
     protected static final int NEXT_VALUE = 3;
@@ -43,7 +42,7 @@ public class TemplateParser
     /** Output stream. */
     protected Writer out;
 
-    /**
+/**
      * Creates a new TemplateParser.
      *
      * @param templateClassPath classpathpath to template
@@ -74,7 +73,8 @@ public class TemplateParser
     }
 
     /**
-     * Internal processing handler. It calls on every part of template.
+     * Internal processing handler. It calls on every part of
+     * template.
      *
      * @param currentObject object for processing. Can be null for empty part.
      *
@@ -83,10 +83,8 @@ public class TemplateParser
     protected void internalProcess( final Object currentObject )
         throws Exception
     {
-
         while( true )
         {
-
             final int posIteratorStart = getNextPos( PREFIX_ITERATOR_START );
             final int posIteratorEnd = getNextPos( PREFIX_ITERATOR_END );
             final int posValue = getNextPos( PREFIX_VALUE );
@@ -103,7 +101,6 @@ public class TemplateParser
 
             switch( nextType )
             {
-
             case NEXT_ITERATOR_START:
 
                 if( currentObject != null )
@@ -177,7 +174,6 @@ public class TemplateParser
 
                 if( currentObject != null )
                 {
-
                     Object value =
                         calculate( 
                             template.substring( posIfStart, currentPos - 1 ),
@@ -192,7 +188,6 @@ public class TemplateParser
 
                     if( Boolean.TRUE.equals( value ) )
                     {
-
                         // write to out
                         internalProcess( currentObject );
                     }
@@ -232,7 +227,6 @@ public class TemplateParser
      */
     protected int getNextPos( final String subString )
     {
-
         final int pos = template.indexOf( subString, currentPos );
 
         return ( pos < 0 ) ? template.length(  ) : pos;
@@ -247,13 +241,11 @@ public class TemplateParser
      */
     protected static int getNextPosIndex( final int[] pos )
     {
-
         int newPos = pos[0];
         int resultIndex = 0;
 
         for( int i = 1; i < pos.length; i++ )
         {
-
             if( pos[i] < newPos )
             {
                 resultIndex = i;
@@ -278,7 +270,6 @@ public class TemplateParser
         final String str, final Object currentObject )
         throws Exception
     {
-
         Object value = calculate( str, currentObject );
 
         return ( value != null ) ? value.toString(  ) : "";
@@ -295,18 +286,15 @@ public class TemplateParser
     protected void iterate( final String str, final Object currentObject )
         throws Exception
     {
-
         boolean processed = false;
 
         if( currentObject != null )
         {
-
             int pos = currentPos;
             Object value = calculate( str, currentObject );
 
             if( value instanceof Collection )
             {
-
                 for( 
                     Iterator it = ( (Collection)value ).iterator(  );
                         it.hasNext(  ); )
@@ -337,7 +325,6 @@ public class TemplateParser
     protected Object calculate( String expr, final Object currentObject )
         throws Exception
     {
-
         int pos = expr.indexOf( ':' );
 
         if( pos >= 0 )
@@ -360,7 +347,6 @@ public class TemplateParser
      */
     protected static class Calculator
     {
-
         protected static final int EXPR_OPEN = 1;
         protected static final int EXPR_CLOSE = 2;
         protected static final int EXPR_NEXT = 3;
@@ -368,7 +354,7 @@ public class TemplateParser
         protected final String expr;
         protected int currentPos;
 
-        /**
+/**
          * Creates a new Calculator object.
          *
          * @param expr expression to calculate
@@ -394,7 +380,6 @@ public class TemplateParser
             final Object rootObject, final Object currentObject )
             throws Exception
         {
-
             final int posOpen = getNextPos( '(' );
             final int posClose = getNextPos( ')' );
             final int posNext = getNextPos( ',' );
@@ -409,14 +394,12 @@ public class TemplateParser
 
             switch( nextType )
             {
-
             case EXPR_OPEN:
                 methodName = expr.substring( currentPos, posOpen );
                 currentPos = posOpen + 1;
 
                 while( true )
                 {
-
                     Object param = calculate( rootObject, currentObject );
 
                     if( param != null )
@@ -426,7 +409,6 @@ public class TemplateParser
 
                     if( expr.charAt( currentPos - 1 ) == ')' )
                     {
-
                         break;
                     }
                 }
@@ -452,10 +434,9 @@ public class TemplateParser
 
                 if( calledObject != null )
                 {
-
                     final Method method =
-                        calledObject.getClass(  ).getMethod( 
-                            methodName, parameterTypes );
+                        calledObject.getClass(  )
+                                    .getMethod( methodName, parameterTypes );
 
                     // invoke methods for Map.Entry by hand, because it can't be invoked through reflection - cannot access to protected class HashMap$Entry
                     if( 
@@ -463,7 +444,6 @@ public class TemplateParser
                             && ( method.getParameterTypes(  ).length == 0 )
                             && calledObject instanceof Map.Entry )
                     {
-
                         final Map.Entry entry = (Map.Entry)calledObject;
                         value = entry.getKey(  );
                     }
@@ -472,14 +452,13 @@ public class TemplateParser
                             && ( method.getParameterTypes(  ).length == 0 )
                             && calledObject instanceof Map.Entry )
                     {
-
                         final Map.Entry entry = (Map.Entry)calledObject;
                         value = entry.getValue(  );
                     }
                     else
                     {
-                        value =
-                            method.invoke( calledObject, params.toArray(  ) );
+                        value = method.invoke( 
+                                calledObject, params.toArray(  ) );
                     }
                 }
                 else
@@ -490,8 +469,7 @@ public class TemplateParser
                 return value;
 
             case EXPR_CLOSE:
-                value =
-                    getField( 
+                value = getField( 
                         expr.substring( currentPos, posClose ), rootObject,
                         currentObject );
                 currentPos = posClose + 1;
@@ -499,8 +477,7 @@ public class TemplateParser
                 return value;
 
             case EXPR_NEXT:
-                value =
-                    getField( 
+                value = getField( 
                         expr.substring( currentPos, posNext ), rootObject,
                         currentObject );
                 currentPos = posNext + 1;
@@ -515,22 +492,18 @@ public class TemplateParser
             final String name, final Object rootObject,
             final Object currentObject )
         {
-
             if( "this".equals( name ) )
             {
-
                 return currentObject;
             }
             else
             {
-
                 return null;
             }
         }
 
         protected int getNextPos( final char subString )
         {
-
             final int pos = expr.indexOf( subString, currentPos );
 
             return ( pos < 0 ) ? expr.length(  ) : pos;

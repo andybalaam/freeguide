@@ -10,8 +10,7 @@ import javax.swing.JPopupMenu;
  */
 public class MenuChannel extends JPopupMenu
 {
-
-    /**
+/**
      * Creates a new MenuChannel object.
      *
      * @param labelChannel DOCUMENT ME!
@@ -20,7 +19,6 @@ public class MenuChannel extends JPopupMenu
     public MenuChannel( 
         final JLabelChannel labelChannel, final HorizontalViewer main )
     {
-
         JMenuItem mbtChangeIcon =
             new javax.swing.JMenuItem( 
                 main.getLocalizer(  ).getLocalizedMessage( "change_icon" ) );
@@ -37,11 +35,10 @@ public class MenuChannel extends JPopupMenu
 
         if( labelChannel.getIcon(  ) != null )
         {
-
             JMenuItem mbtResetIcon =
                 new javax.swing.JMenuItem( 
-                    main.getLocalizer(  ).getLocalizedMessage( 
-                        "reset_to_default_icon" ) );
+                    main.getLocalizer(  )
+                        .getLocalizedMessage( "reset_to_default_icon" ) );
             mbtResetIcon.addActionListener( 
                 new java.awt.event.ActionListener(  )
                 {

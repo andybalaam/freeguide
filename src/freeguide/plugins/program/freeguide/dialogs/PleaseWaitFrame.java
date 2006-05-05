@@ -12,10 +12,10 @@
  */
 package freeguide.plugins.program.freeguide.dialogs;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.Utils;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import java.awt.Image;
 
@@ -34,11 +34,10 @@ import javax.swing.JLabel;
  */
 public class PleaseWaitFrame extends JFrame
 {
-
     private javax.swing.JLabel imageLabel;
     private javax.swing.ImageIcon image;
 
-    /**
+/**
      * Creates this form, makes it visible, and starts the StartupChecker -
      * called on launching the program
      */
@@ -51,17 +50,14 @@ public class PleaseWaitFrame extends JFrame
 
     private void initComponents(  )
     {
-
         try
         {
-
             byte[] data =
                 LanguageHelper.loadResourceAsByteArray( 
                     "resources/plugins/program/freeguide/images/logo-16x16.png" );
 
             if( data != null )
             {
-
                 Image icon = ( new ImageIcon( data, "icon" ) ).getImage(  );
                 setIconImage( icon );
             }
@@ -73,8 +69,8 @@ public class PleaseWaitFrame extends JFrame
             if( data2 != null )
             {
                 image = new ImageIcon( data2, "Please Wait" );
-                imageLabel =
-                    new JLabel( image, javax.swing.SwingConstants.CENTER );
+                imageLabel = new JLabel( 
+                        image, javax.swing.SwingConstants.CENTER );
                 imageLabel.setBorder( 
                     BorderFactory.createLineBorder( java.awt.Color.BLACK ) );
                 getContentPane(  ).add( 

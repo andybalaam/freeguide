@@ -29,7 +29,6 @@ import javax.swing.event.ChangeListener;
  */
 public class ConfigureUIController implements IModuleConfigurationUI
 {
-
     final protected HorizontalViewer parent;
     final protected JDialog inDialog;
     protected ConfigureUIPanel panel;
@@ -40,7 +39,6 @@ public class ConfigureUIController implements IModuleConfigurationUI
         {
             public void stateChanged( ChangeEvent e )
             {
-
                 JTextField textField = null;
 
                 if( e.getSource(  ) == panel.getSliderHeight(  ) )
@@ -67,7 +65,6 @@ public class ConfigureUIController implements IModuleConfigurationUI
         {
             public void actionPerformed( ActionEvent e )
             {
-
                 JPanel panelColor = null;
 
                 if( e.getSource(  ) == panel.getBtnColorChannel(  ) )
@@ -91,8 +88,9 @@ public class ConfigureUIController implements IModuleConfigurationUI
                 Color col =
                     JColorChooser.showDialog( 
                         inDialog,
-                        parent.getLocalizer(  ).getLocalizedMessage( 
-                            "choose_a_colour" ), panelColor.getBackground(  ) );
+                        parent.getLocalizer(  )
+                              .getLocalizedMessage( "choose_a_colour" ),
+                        panelColor.getBackground(  ) );
 
                 if( col != null )
                 {
@@ -102,7 +100,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
             }
         };
 
-    /**
+/**
      * Creates a new ConfigureUIController object.
      *
      * @param parent DOCUMENT ME!
@@ -143,15 +141,13 @@ public class ConfigureUIController implements IModuleConfigurationUI
 
         config.sizeChannelHeight = panel.getSliderHeight(  ).getValue(  );
 
-        config.sizeProgrammePanelWidth =
-            panel.getSliderWidth(  ).getValue(  ) * 24;
+        config.sizeProgrammePanelWidth = panel.getSliderWidth(  ).getValue(  ) * 24;
 
         config.colorChannel = panel.getPanelColorChannel(  ).getBackground(  );
 
         config.colorMovie = panel.getPanelColorMovie(  ).getBackground(  );
 
-        config.colorNonTicked =
-            panel.getPanelColorNormal(  ).getBackground(  );
+        config.colorNonTicked = panel.getPanelColorNormal(  ).getBackground(  );
 
         config.displayTooltips = panel.getCbDisplayTooltips(  ).isSelected(  );
 
@@ -185,24 +181,24 @@ public class ConfigureUIController implements IModuleConfigurationUI
      */
     public Component getPanel(  )
     {
-
         return panel;
 
     }
 
     protected void setup(  )
     {
-        currentFont =
-            new Font( config.fontName, config.fontStyle, config.fontSize );
+        currentFont = new Font( 
+                config.fontName, config.fontStyle, config.fontSize );
 
         setupFont(  );
 
-        panel.getTextHeight(  ).setText( 
-            Integer.toString( config.sizeChannelHeight ) );
+        panel.getTextHeight(  )
+             .setText( Integer.toString( config.sizeChannelHeight ) );
 
         panel.getSliderHeight(  ).setValue( config.sizeChannelHeight );
 
-        panel.getTextWidth(  ).setText( 
+        panel.getTextWidth(  )
+             .setText( 
             Integer.toString( config.sizeProgrammePanelWidth / 24 ) );
 
         panel.getSliderWidth(  ).setValue( 
@@ -219,12 +215,11 @@ public class ConfigureUIController implements IModuleConfigurationUI
             {
                 public void actionPerformed( ActionEvent e )
                 {
-
                     FontChooserDialog fontDialog =
                         new FontChooserDialog( 
                             inDialog,
-                            parent.getLocalizer(  ).getLocalizedMessage( 
-                                "choose_font" ), true,
+                            parent.getLocalizer(  )
+                                  .getLocalizedMessage( "choose_font" ), true,
                             new Font( 
                                 config.fontName, config.fontStyle,
                                 config.fontSize ) );
@@ -290,7 +285,8 @@ public class ConfigureUIController implements IModuleConfigurationUI
     {
         panel.getTextFont(  ).setFont( currentFont );
 
-        panel.getTextFont(  ).setText( 
+        panel.getTextFont(  )
+             .setText( 
             currentFont.getFontName(  ) + ", " + currentFont.getSize(  ) );
 
     }

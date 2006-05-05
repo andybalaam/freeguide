@@ -33,7 +33,6 @@ import javax.swing.JPanel;
  */
 public class TimePanel extends JPanel
 {
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
     private long startTime;
@@ -52,7 +51,7 @@ public class TimePanel extends JPanel
         new SimpleDateFormat( "h:mm aa" );
     HorizontalViewerConfig config;
 
-    /**
+/**
      * Constructor for the TimePanel object
      *
      * @param config DOCUMENT ME!
@@ -79,15 +78,17 @@ public class TimePanel extends JPanel
      */
     public void paintComponent( Graphics g )
     {
-
         //FreeGuide.log.info("Painting Time Panel.");
         if( display )
         {
             super.paintComponent( g );
+
             int wid = this.getPreferredSize(  ).width;
+
             if( wid > 0 )
             {
                 SimpleDateFormat fmt;
+
                 //DMT use preferences for 24 hour or 12 hour display
                 if( config.display24time )
                 {
@@ -127,7 +128,6 @@ public class TimePanel extends JPanel
                 // Step through each 5 mins
                 while( tmpTime.getTimeInMillis(  ) < endTime )
                 {
-
                     int xPos =
                         (int)( ( tmpTime.getTimeInMillis(  ) - startTime ) / multiplier );
 
@@ -137,11 +137,9 @@ public class TimePanel extends JPanel
                             && ( ( xPos - 50 ) <= ( drawHere.x
                             + drawHere.width ) ) )
                     {
-
                         // Make a mark
                         if( tmpTime.get( Calendar.MINUTE ) == 0 )
                         {
-
                             // Hours
                             g.drawLine( xPos, 0, xPos, 10 );
                             g.drawLine( xPos + 1, 0, xPos + 1, 10 );
@@ -176,13 +174,13 @@ public class TimePanel extends JPanel
                     // Add another 5 mins
                     tmpTime.add( Calendar.MINUTE, 5 );
                 } //while
-                
+
                 // Draw the "now" line
                 int xPos = getNowScroll(  );
                 drawNowLine( g, xPos );
-            }//if
-        }//if
-    }//paintComponent
+            } //if
+        } //if
+    } //paintComponent
 
     /**
      * Draws the "now line" on this panel as a black triangle.
@@ -227,6 +225,7 @@ public class TimePanel extends JPanel
                 return (int)( ( showMillis - startTime ) / multiplier );
             }
         }
+
         return 0;
     }
 

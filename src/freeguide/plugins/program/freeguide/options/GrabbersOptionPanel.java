@@ -1,16 +1,15 @@
 package freeguide.plugins.program.freeguide.options;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.common.gui.FGDialog;
 
-import freeguide.plugins.program.freeguide.viewer.MainController;
-
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 
 import freeguide.common.plugininterfaces.IModuleGrabber;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
+import freeguide.plugins.program.freeguide.viewer.MainController;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -29,14 +28,12 @@ import javax.swing.JCheckBox;
  */
 public class GrabbersOptionPanel extends OptionPanel
 {
-
     protected Set activeGrabberIDs = new TreeSet(  );
     ActionListener cbAction =
         new ActionListener(  )
         {
             public void actionPerformed( java.awt.event.ActionEvent e )
             {
-
                 JCheckBox cb = (JCheckBox)e.getSource(  );
 
                 if( cb.isSelected(  ) )
@@ -53,7 +50,7 @@ public class GrabbersOptionPanel extends OptionPanel
             }
         };
 
-    /**
+/**
      * Creates a new GrabbersOptionPanel object.
      *
      * @param parent DOCUMENT ME!
@@ -72,7 +69,6 @@ public class GrabbersOptionPanel extends OptionPanel
 
         for( int i = 0; i < grabbers.length; i++ )
         {
-
             GridBagConstraints gc = new GridBagConstraints(  );
 
             gc.gridx = 0;
@@ -131,9 +127,8 @@ public class GrabbersOptionPanel extends OptionPanel
      */
     public String toString(  )
     {
-
-        return Application.getInstance(  ).getLocalizedMessage( 
-            "OptionsDialog.Tree.Grabbers" );
+        return Application.getInstance(  )
+                          .getLocalizedMessage( "OptionsDialog.Tree.Grabbers" );
 
     }
 }

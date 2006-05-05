@@ -18,16 +18,15 @@ import java.util.logging.Level;
 import java.util.prefs.Preferences;
 
 /**
- * Helper for store non-transient non-final non-static public fields of object
- * in Preferences, using reflection. It supports types: List, String, int,
- * long. When List variable defined, then class should have static variable
- * fieldname_TYPE, which store class for create list.
+ * Helper for store non-transient non-final non-static public fields of
+ * object in Preferences, using reflection. It supports types: List, String,
+ * int, long. When List variable defined, then class should have static
+ * variable fieldname_TYPE, which store class for create list.
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
 public class PreferencesHelper
 {
-
     /**
      * DOCUMENT_ME!
      *
@@ -55,7 +54,6 @@ public class PreferencesHelper
         final Preferences prefNode, final String namePrefix, final Object obj )
         throws Exception
     {
-
         final Set existKeys =
             new TreeSet( Arrays.asList( prefNode.keys(  ) ) );
 
@@ -63,12 +61,10 @@ public class PreferencesHelper
 
         for( int i = 0; i < fields.length; i++ )
         {
-
             final Field field = fields[i];
 
             if( !isFieldSerialized( field ) )
             {
-
                 continue;
             }
 
@@ -79,7 +75,6 @@ public class PreferencesHelper
 
                 if( existKeys.contains( keyName ) )
                 {
-
                     if( boolean.class == field.getType(  ) )
                     {
                         field.setBoolean( 
@@ -100,10 +95,8 @@ public class PreferencesHelper
 
                 if( String.class == field.getType(  ) )
                 {
-
                     if( existKeys.contains( keyName ) )
                     {
-
                         Object value = prefNode.get( keyName, null );
 
                         field.set( obj, value );
@@ -113,10 +106,8 @@ public class PreferencesHelper
 
                 else if( Color.class.isAssignableFrom( field.getType(  ) ) )
                 {
-
                     if( existKeys.contains( keyName ) )
                     {
-
                         int value = prefNode.getInt( keyName, 0 );
 
                         field.set( obj, new Color( value ) );
@@ -125,10 +116,8 @@ public class PreferencesHelper
                 }
                 else if( Locale.class.isAssignableFrom( field.getType(  ) ) )
                 {
-
                     if( existKeys.contains( keyName + ".language" ) )
                     {
-
                         String language =
                             prefNode.get( keyName + ".language", "" );
                         String country =
@@ -142,7 +131,6 @@ public class PreferencesHelper
                 }
                 else if( Map.class.isAssignableFrom( field.getType(  ) ) )
                 {
-
                     Class keyType =
                         checkTypeDefined( 
                             obj, field.getName(  ) + "_KEY_TYPE" );
@@ -161,7 +149,6 @@ public class PreferencesHelper
                 else if( 
                     Collection.class.isAssignableFrom( field.getType(  ) ) )
                 {
-
                     Field typeField =
                         obj.getClass(  ).getField( 
                             field.getName(  ) + "_TYPE" );
@@ -188,7 +175,6 @@ public class PreferencesHelper
                 }
                 else
                 {
-
                     // Object fieldObj = field.getType().newInstance();
                     loadObject( prefNode, keyName + ".", field.get( obj ) );
 
@@ -201,7 +187,6 @@ public class PreferencesHelper
     protected static Class checkTypeDefined( 
         final Object obj, final String fieldName ) throws Exception
     {
-
         Field typeField = obj.getClass(  ).getField( fieldName );
 
         int modsT = typeField.getModifiers(  );
@@ -235,10 +220,8 @@ public class PreferencesHelper
         final Collection list, final Class elementClass )
         throws Exception
     {
-
         if( prefNode.get( namePrefix + "size", null ) == null )
         {
-
             return;
 
         }
@@ -272,10 +255,8 @@ public class PreferencesHelper
         final Class keyClass, final Class valueClass )
         throws Exception
     {
-
         if( prefNode.get( namePrefix + "size", null ) == null )
         {
-
             return;
 
         }
@@ -286,7 +267,6 @@ public class PreferencesHelper
 
         for( int i = 0; i < size; i++ )
         {
-
             Object key =
                 loadAndCreateObject( 
                     prefNode, keyClass, namePrefix + i + ".key." );
@@ -304,16 +284,14 @@ public class PreferencesHelper
         final Preferences prefNode, final Class objClass, String namePrefix )
         throws Exception
     {
-
         final Object obj;
 
         if( objClass == String.class )
         {
-
             if( namePrefix.endsWith( "." ) )
             {
-                namePrefix =
-                    namePrefix.substring( 0, namePrefix.length(  ) - 1 );
+                namePrefix = namePrefix.substring( 
+                        0, namePrefix.length(  ) - 1 );
 
             }
 
@@ -344,7 +322,6 @@ public class PreferencesHelper
     public static void save( final Preferences prefNode, final Object obj )
         throws Exception
     {
-
         final String[] keys = prefNode.keys(  );
 
         for( int i = 0; i < keys.length; i++ )
@@ -359,21 +336,17 @@ public class PreferencesHelper
         final Preferences prefNode, final Object obj, final String namePrefix )
         throws Exception
     {
-
         if( obj == null )
         {
-
             return;
         }
 
         if( obj.getClass(  ).isPrimitive(  ) )
         {
-
             // primitive type
         }
         else
         {
-
             // not primitive type
         }
 
@@ -383,14 +356,12 @@ public class PreferencesHelper
         }
         else if( Color.class.isAssignableFrom( obj.getClass(  ) ) )
         {
-
             int value = ( (Color)obj ).getRGB(  );
 
             prefNode.putInt( namePrefix, value );
         }
         else if( Locale.class.isAssignableFrom( obj.getClass(  ) ) )
         {
-
             final Locale value = (Locale)obj;
 
             prefNode.put( namePrefix + ".language", value.getLanguage(  ) );
@@ -407,17 +378,14 @@ public class PreferencesHelper
         }
         else
         {
-
             final Field[] fields = obj.getClass(  ).getFields(  );
 
             for( int i = 0; i < fields.length; i++ )
             {
-
                 final Field field = fields[i];
 
                 if( !isFieldSerialized( field ) )
                 {
-
                     continue;
                 }
 
@@ -428,7 +396,6 @@ public class PreferencesHelper
 
                 if( field.getType(  ).isPrimitive(  ) )
                 {
-
                     if( boolean.class == field.getType(  ) )
                     {
                         prefNode.putBoolean( 
@@ -464,7 +431,6 @@ public class PreferencesHelper
         final Preferences prefNode, final String namePrefix,
         final Collection elements ) throws Exception
     {
-
         Iterator it = elements.iterator(  );
 
         int i;
@@ -482,14 +448,12 @@ public class PreferencesHelper
         final Preferences prefNode, final String namePrefix, final Map map )
         throws Exception
     {
-
         Iterator it = map.keySet(  ).iterator(  );
 
         int i;
 
         for( i = 0; it.hasNext(  ); i++ )
         {
-
             Object key = it.next(  );
 
             Object value = map.get( key );
@@ -505,7 +469,6 @@ public class PreferencesHelper
 
     protected static boolean isFieldSerialized( final Field field )
     {
-
         int mods = field.getModifiers(  );
 
         if( 
@@ -513,7 +476,6 @@ public class PreferencesHelper
                 || ( Modifier.isTransient( mods ) && Modifier.isFinal( mods ) )
                 || Modifier.isStatic( mods ) )
         {
-
             return false;
 
         }
@@ -530,20 +492,16 @@ public class PreferencesHelper
      */
     public static void cloneObject( final Object from, final Object to )
     {
-
         try
         {
-
             Field[] fields = from.getClass(  ).getFields(  );
 
             for( int i = 0; i < fields.length; i++ )
             {
-
                 Field field = fields[i];
 
                 if( !isFieldSerialized( field ) )
                 {
-
                     continue;
 
                 }
@@ -578,8 +536,8 @@ public class PreferencesHelper
 
         catch( Exception ex )
         {
-            Application.getInstance(  ).getLogger(  ).log( 
-                Level.WARNING, "Error clone simple object", ex );
+            Application.getInstance(  ).getLogger(  )
+                       .log( Level.WARNING, "Error clone simple object", ex );
         }
     }
 }

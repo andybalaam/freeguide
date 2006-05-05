@@ -11,7 +11,6 @@
 package freeguide.common.gui;
 
 import freeguide.common.lib.fgspecific.Application;
-
 import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.ILogger;
@@ -37,7 +36,6 @@ import javax.swing.SwingUtilities;
  */
 public class ExecutorDialog extends JDialog implements IProgress, ILogger
 {
-
     // ------------------------------------------------------------------------
     final private JProgressBar secondProgressBar;
     private javax.swing.JButton butCancel;
@@ -52,7 +50,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
     protected int minHeight;
     protected int maxHeight;
 
-    /**
+/**
      * Creates a new ExecutorDialog object.
      *
      * @param owner DOCUMENT ME!
@@ -69,14 +67,12 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
 
     private void initComponents(  )
     {
-
         java.awt.GridBagConstraints gridBagConstraints;
         getContentPane(  ).setLayout( new java.awt.GridBagLayout(  ) );
         setTitle( 
             Application.getInstance(  ).getLocalizedMessage( 
                 "executing_command" ) );
-        butCancel =
-            new javax.swing.JButton( 
+        butCancel = new javax.swing.JButton( 
                 Application.getInstance(  ).getLocalizedMessage( "cancel" ) );
         butCancel.setMaximumSize( new java.awt.Dimension( 115, 23 ) );
         butCancel.setMinimumSize( new java.awt.Dimension( 115, 23 ) );
@@ -88,8 +84,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( butCancel, gridBagConstraints );
-        butDetails =
-            new javax.swing.JButton( 
+        butDetails = new javax.swing.JButton( 
                 Application.getInstance(  ).getLocalizedMessage( 
                     "show_output" ) );
         butDetails.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
@@ -111,8 +106,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( butDetails, gridBagConstraints );
-        labPleaseWait =
-            new javax.swing.JLabel( 
+        labPleaseWait = new javax.swing.JLabel( 
                 Application.getInstance(  ).getLocalizedMessage( 
                     "please_wait" ), javax.swing.SwingConstants.CENTER );
         labPleaseWait.setBorder( 
@@ -170,7 +164,6 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      */
     public JButton getCancelButton(  )
     {
-
         return butCancel;
     }
 
@@ -190,7 +183,8 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         logScroll.setVisible( !logScroll.isVisible(  ) );
         log.setVisible( !log.isVisible(  ) );
         butDetails.setText( 
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 log.isVisible(  ) ? "hide_output" : "show_output" ) );
 
         int width = getWidth(  );
@@ -246,7 +240,6 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      */
     public void setStepNumber( final int stepNumber )
     {
-
         if( stepCount < stepNumber )
         {
             stepCount = stepNumber;
@@ -285,14 +278,14 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
             {
                 public void run(  )
                 {
-
                     // Set the please wait message
                     Object[] messageArguments = { message };
 
                     if( label == null )
                     {
                         labPleaseWait.setText( 
-                            Application.getInstance(  ).getLocalizedMessage( 
+                            Application.getInstance(  )
+                                       .getLocalizedMessage( 
                                 "comma_please_wait_template", messageArguments ) );
                     }
                     else
@@ -331,7 +324,6 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      */
     public boolean isLogVisible(  )
     {
-
         return log.isVisible(  );
     }
 
@@ -398,8 +390,8 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
     }
 
     /**
-     * There are no grabbers configured/existing. We show a message to tell
-     * the user that
+     * There are no grabbers configured/existing. We show a message to
+     * tell the user that
      */
     public void showNoGrabberMessage(  )
     {

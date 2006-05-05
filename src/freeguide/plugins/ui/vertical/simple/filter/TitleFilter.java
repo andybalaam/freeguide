@@ -9,10 +9,9 @@ import freeguide.common.lib.fgspecific.data.TVProgramme;
  */
 public class TitleFilter extends ProgrammeFilter
 {
-
     protected String searchString = null;
 
-    /**
+/**
      * Creates a new TitleFilter object.
      */
     public TitleFilter(  )
@@ -20,7 +19,6 @@ public class TitleFilter extends ProgrammeFilter
     }
 
     //public TitleFilter()
-
     /**
      * DOCUMENT_ME!
      *
@@ -32,7 +30,6 @@ public class TitleFilter extends ProgrammeFilter
     }
 
     //public void setSearchString(String searchString)
-
     /**
      * DOCUMENT_ME!
      *
@@ -41,7 +38,6 @@ public class TitleFilter extends ProgrammeFilter
      */
     public void setSearchString( String searchString, boolean notify )
     {
-
         if( ( searchString != null ) && searchString.equals( "" ) )
         {
             searchString = null;
@@ -59,7 +55,6 @@ public class TitleFilter extends ProgrammeFilter
     }
 
     //public void setSearchString(String searchString, boolean notify)
-
     /**
      * DOCUMENT_ME!
      *
@@ -67,12 +62,10 @@ public class TitleFilter extends ProgrammeFilter
      */
     public String getSearchString(  )
     {
-
         return this.searchString;
     }
 
     //public String getSearchString()
-
     /**
      * DOCUMENT_ME!
      *
@@ -82,14 +75,12 @@ public class TitleFilter extends ProgrammeFilter
      */
     public boolean showProgramme( TVProgramme programme )
     {
-
         //TODO: Make search case insensitive
         return ( this.searchString == null )
         || ( programme.getTitle(  ).indexOf( this.searchString ) != -1 );
     }
 
     //public boolean showProgramme(TVProgramme programme)
-
     /**
      * DOCUMENT_ME!
      *
@@ -97,12 +88,10 @@ public class TitleFilter extends ProgrammeFilter
      */
     public boolean isDeactivated(  )
     {
-
         return this.searchString == null;
     }
 
     //public boolean isDeactivated()
-
     /**
      * DOCUMENT_ME!
      */
@@ -113,7 +102,6 @@ public class TitleFilter extends ProgrammeFilter
     }
 
     //public void deactivate()
-
     /**
      * DOCUMENT_ME!
      *
@@ -121,12 +109,10 @@ public class TitleFilter extends ProgrammeFilter
      */
     public String exportSettings(  )
     {
-
         return this.searchString;
     }
 
     //public String exportSettings()
-
     /**
      * DOCUMENT_ME!
      *
@@ -139,6 +125,4 @@ public class TitleFilter extends ProgrammeFilter
 
     //public void importSettings(String strSettings)
 }
-
-
 //public class TitleFilter extends ProgrammeFilter

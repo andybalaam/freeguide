@@ -13,7 +13,6 @@ import java.awt.Font;
  */
 public class HorizontalViewerConfig
 {
-
     /** DOCUMENT ME! */
     public String currentChannelSetName;
 
@@ -41,7 +40,6 @@ public class HorizontalViewerConfig
     /** Default width of the channels scrolling panel */
 
     //public int sizeChannelPanelWidth = 400;
-
     /** Default colour of a movie */
     public Color colorMovie = new Color( 255, 230, 230 );
 
@@ -88,7 +86,6 @@ public class HorizontalViewerConfig
      */
     public Object clone(  )
     {
-
         HorizontalViewerConfig result = new HorizontalViewerConfig(  );
 
         PreferencesHelper.cloneObject( this, result );

@@ -11,13 +11,11 @@ import freeguide.common.plugininterfaces.IApplication;
  */
 public class Application
 {
-
     /** Application ID. */
     public static final String ID = "freeguide";
 
     /** Application version. */
-    public static final Version VERSION = new Version( 
-        /*VER_BEG*/ 0, 10, 4 /*VER_END*/ );
+    public static final Version VERSION = new Version( /*VER_BEG*/ 0, 10, 4 /*VER_END*/ );
     protected static IApplication instance;
 
     /**

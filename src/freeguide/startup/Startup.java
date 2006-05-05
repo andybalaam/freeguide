@@ -20,9 +20,8 @@ import java.util.List;
  */
 public class Startup
 {
-
-    protected static final String STARTUP_CLASS
-        = "freeguide.plugins.program.freeguide.FreeGuide";
+    protected static final String STARTUP_CLASS =
+        "freeguide.plugins.program.freeguide.FreeGuide";
     protected static final String STARTUP_METHOD = "main";
     protected static final String INSTALL_PREFIX = "--install_directory";
 
@@ -33,10 +32,8 @@ public class Startup
      */
     public static void main( final String[] args )
     {
-
         try
         {
-
             try
             {
                 new StartupUpdates(  ).update( getInstallDirectory( args ) );
@@ -74,7 +71,6 @@ public class Startup
     protected static ClassLoader getAllClasses( final String[] args )
         throws MalformedURLException
     {
-
         List jarUrls = new ArrayList(  );
 
         File libDirectory = new File( getInstallDirectory( args ), "lib" );
@@ -83,7 +79,6 @@ public class Startup
 
         if( libs != null )
         {
-
             for( int i = 0; i < libs.length; i++ )
             {
                 System.err.println( "Load module jar: " + libs[i].getPath(  ) );
@@ -99,7 +94,6 @@ public class Startup
 
     protected static void run( final String[] args ) throws Exception
     {
-
         final ClassLoader classLoader;
 
         if( System.getProperty( "debugPlugins" ) != null )
@@ -113,7 +107,6 @@ public class Startup
 
         try
         {
-
             Class startupClass = classLoader.loadClass( STARTUP_CLASS );
             Method startupMethod =
                 startupClass.getMethod( 
@@ -167,19 +160,15 @@ public class Startup
 
     protected static File getInstallDirectory( final String[] args )
     {
-
         for( int i = 0; i < args.length; i++ )
         {
-
             if( 
                 args[i].equals( INSTALL_PREFIX ) && ( ( i + 1 ) < args.length ) )
             {
-
                 return new File( args[i + 1] );
             }
             else if( args[i].startsWith( INSTALL_PREFIX + "=" ) )
             {
-
                 return new File( 
                     args[i].substring( INSTALL_PREFIX.length(  ) + 1 ) );
             }

@@ -10,7 +10,6 @@ import java.awt.Component;
  */
 public interface IModuleConfigurationUI
 {
-
     /**
      * Get component with configuration UI.
      *

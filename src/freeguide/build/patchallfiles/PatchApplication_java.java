@@ -1,8 +1,8 @@
 package freeguide.build.patchallfiles;
 
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
-
 import freeguide.common.lib.general.Version;
+
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -42,7 +42,6 @@ public class PatchApplication_java
 
         while( true )
         {
-
             String line = rd.readLine(  );
 
             if( line == null )
@@ -67,8 +66,7 @@ public class PatchApplication_java
                 "Application.java must include /*VER_BEG*/ and /*VER_END*/ tags" );
         }
 
-        strData =
-            strData.substring( 0, posBeg + TAG_BEG.length(  ) )
+        strData = strData.substring( 0, posBeg + TAG_BEG.length(  ) )
             + getVersionCos( plugins[0].getVersion(  ) )
             + strData.substring( posEnd );
 

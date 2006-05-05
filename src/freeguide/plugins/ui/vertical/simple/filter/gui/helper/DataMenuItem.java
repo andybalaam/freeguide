@@ -9,11 +9,10 @@ import javax.swing.*;
  */
 public class DataMenuItem extends JMenuItem
 {
-
     /** Everyone can access that */
     public Object data;
 
-    /**
+/**
      * Creates a new DataMenuItem object.
      */
     public DataMenuItem(  )
@@ -21,7 +20,7 @@ public class DataMenuItem extends JMenuItem
         super(  );
     }
 
-    /**
+/**
      * Creates a new DataMenuItem object.
      *
      * @param string DOCUMENT ME!
@@ -31,7 +30,7 @@ public class DataMenuItem extends JMenuItem
         super( string );
     }
 
-    /**
+/**
      * Creates a new DataMenuItem object.
      *
      * @param string DOCUMENT ME!
@@ -50,7 +49,6 @@ public class DataMenuItem extends JMenuItem
      */
     public Object getData(  )
     {
-
         return data;
     }
 
@@ -64,6 +62,4 @@ public class DataMenuItem extends JMenuItem
         this.data = data;
     }
 }
-
-
 //public class DataMenuItem

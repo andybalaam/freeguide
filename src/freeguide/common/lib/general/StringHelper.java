@@ -11,7 +11,6 @@ import java.io.IOException;
  */
 public class StringHelper
 {
-
     /**
      * DOCUMENT_ME!
      *
@@ -21,10 +20,8 @@ public class StringHelper
      */
     public static String toXML( final String in )
     {
-
         if( in == null )
         {
-
             return null;
         }
 
@@ -47,7 +44,6 @@ public class StringHelper
      */
     public static String encodeURL( final String in )
     {
-
         String result = replaceAll( in, " ", "%20" );
 
         return result;
@@ -65,7 +61,6 @@ public class StringHelper
     public static String replaceAll( 
         final String in, final String mask, final String to )
     {
-
         String result = in;
         int pos = -1;
 
@@ -75,12 +70,10 @@ public class StringHelper
 
             if( pos == -1 )
             {
-
                 break;
             }
 
-            result =
-                result.substring( 0, pos ) + to
+            result = result.substring( 0, pos ) + to
                 + result.substring( pos + mask.length(  ) );
         }
 
@@ -98,7 +91,6 @@ public class StringHelper
     public static void saveToFile( final String data, final File outFile )
         throws IOException
     {
-
         final FileOutputStream out = new FileOutputStream( outFile );
 
         try

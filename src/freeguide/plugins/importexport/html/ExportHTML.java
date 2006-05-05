@@ -3,7 +3,6 @@ package freeguide.plugins.importexport.html;
 import freeguide.common.gui.FileChooserExtension;
 
 import freeguide.common.lib.fgspecific.data.TVData;
-
 import freeguide.common.lib.general.TemplateParser;
 
 import freeguide.common.plugininterfaces.BaseModule;
@@ -32,7 +31,6 @@ import javax.swing.filechooser.FileFilter;
  */
 public class ExportHTML extends BaseModule implements IModuleExport
 {
-
     protected final Config config = new Config(  );
 
     /**
@@ -46,7 +44,6 @@ public class ExportHTML extends BaseModule implements IModuleExport
     public void exportData( TVData data, JFrame parent )
         throws Exception
     {
-
         JFileChooser chooser = new JFileChooser(  );
 
         if( config.path != null )
@@ -59,13 +56,11 @@ public class ExportHTML extends BaseModule implements IModuleExport
             {
                 public String getDescription(  )
                 {
-
                     return "Zipped HTML file (*.zip)";
                 }
 
                 public boolean accept( File f )
                 {
-
                     return !f.isDirectory(  )
                     && f.getName(  ).endsWith( ".zip" );
                 }
@@ -76,13 +71,11 @@ public class ExportHTML extends BaseModule implements IModuleExport
             {
                 public String getDescription(  )
                 {
-
                     return "Gzipped HTML file (*.gz)";
                 }
 
                 public boolean accept( File f )
                 {
-
                     return !f.isDirectory(  )
                     && f.getName(  ).endsWith( ".gz" );
                 }
@@ -93,13 +86,11 @@ public class ExportHTML extends BaseModule implements IModuleExport
             {
                 public String getDescription(  )
                 {
-
                     return "HTML file (*.html, *.htm)";
                 }
 
                 public boolean accept( File f )
                 {
-
                     return !f.isDirectory(  )
                     && ( f.getName(  ).endsWith( ".htm" )
                     || f.getName(  ).endsWith( ".html" ) );
@@ -118,7 +109,6 @@ public class ExportHTML extends BaseModule implements IModuleExport
 
         if( chooser.showSaveDialog( parent ) == JFileChooser.APPROVE_OPTION )
         {
-
             String path = chooser.getSelectedFile(  ).getPath(  );
             String lowerPath = path.toLowerCase(  );
 
@@ -154,7 +144,6 @@ public class ExportHTML extends BaseModule implements IModuleExport
 
             if( lowerPath.endsWith( ".zip" ) )
             {
-
                 ZipOutputStream zipOut =
                     new ZipOutputStream( new FileOutputStream( path ) );
                 ZipEntry zipEntry = new ZipEntry( "tv.html" );
@@ -163,8 +152,8 @@ public class ExportHTML extends BaseModule implements IModuleExport
             }
             else if( lowerPath.endsWith( ".gz" ) )
             {
-                outStream =
-                    new GZIPOutputStream( new FileOutputStream( path ) );
+                outStream = new GZIPOutputStream( 
+                        new FileOutputStream( path ) );
             }
             else
             {
@@ -194,7 +183,6 @@ public class ExportHTML extends BaseModule implements IModuleExport
      */
     public Object getConfig(  )
     {
-
         return config;
     }
 
@@ -206,7 +194,6 @@ public class ExportHTML extends BaseModule implements IModuleExport
      */
     public static class Config
     {
-
         /** Path of last saved file. */
         public String path;
     }

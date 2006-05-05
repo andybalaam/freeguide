@@ -1,9 +1,8 @@
 package freeguide.build.patchallfiles;
 
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
-
 import freeguide.common.lib.general.StringHelper;
 
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.updater.RepositoryUtils;
 import freeguide.plugins.program.freeguide.lib.updater.data.PluginsRepository;
 
@@ -26,12 +25,10 @@ import java.util.Map;
  */
 public class PatchRepository
 {
-
     protected static final String PATH_BASE = "dist/repository/";
 
     static void patch( final PluginInfo[] plugins ) throws Exception
     {
-
         PluginsRepository repository =
             RepositoryUtils.parse( 
                 new InputSource( 
@@ -57,7 +54,6 @@ public class PatchRepository
         final BufferedWriter out, final PluginsRepository repository,
         final String[] list ) throws Exception
     {
-
         for( int i = 0; i < list.length; i++ )
         {
             out.write( 
@@ -70,10 +66,8 @@ public class PatchRepository
         final BufferedWriter out, PluginInfo[] plugins )
         throws Exception
     {
-
         for( int i = 0; i < plugins.length; i++ )
         {
-
             String packageType;
 
             if( "program-freeguide".equals( plugins[i].getID(  ) ) )
@@ -133,7 +127,6 @@ public class PatchRepository
 
     protected static String getRepositoryPath( final PluginInfo plugin )
     {
-
         return "package-" + plugin.getID(  ) + "-"
         + plugin.getVersion(  ).getDotFormat(  ) + ".zip";
     }
@@ -142,7 +135,6 @@ public class PatchRepository
         final BufferedWriter out, final PluginInfo plugin )
         throws Exception
     {
-
         final Map names = plugin.getNames(  );
         final Map descriptions = plugin.getDescriptions(  );
 
@@ -150,7 +142,6 @@ public class PatchRepository
 
         while( it.hasNext(  ) )
         {
-
             final String locale = (String)it.next(  );
             final String name = (String)names.get( locale );
             final String desc = (String)descriptions.get( locale );

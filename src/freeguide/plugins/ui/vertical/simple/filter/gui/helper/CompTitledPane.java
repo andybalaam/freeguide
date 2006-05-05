@@ -13,7 +13,6 @@ import javax.swing.JPanel;
  */
 public class CompTitledPane extends JPanel
 {
-
     private static final long serialVersionUID = 1L;
     protected CompTitledBorder border;
     protected JComponent component;
@@ -21,7 +20,7 @@ public class CompTitledPane extends JPanel
     protected boolean transmittingAllowed;
     protected StateTransmitter transmitter;
 
-    /**
+/**
      * Creates a new CompTitledPane object.
      */
     public CompTitledPane(  )
@@ -34,7 +33,7 @@ public class CompTitledPane extends JPanel
         // label.setBackground(Color.yellow);
     }
 
-    /**
+/**
      * Creates a new CompTitledPane object.
      *
      * @param component DOCUMENT ME!
@@ -59,7 +58,6 @@ public class CompTitledPane extends JPanel
      */
     public JComponent getTitleComponent(  )
     {
-
         return component;
     }
 
@@ -85,7 +83,6 @@ public class CompTitledPane extends JPanel
      */
     public Component add( Component c )
     {
-
         return this.add( c, true );
     }
 
@@ -99,7 +96,6 @@ public class CompTitledPane extends JPanel
      */
     public Component add( Component c, boolean bToContentPane )
     {
-
         if( bToContentPane )
         {
             this.getContentPane(  ).add( c );
@@ -130,7 +126,6 @@ public class CompTitledPane extends JPanel
      */
     public JPanel getContentPane(  )
     {
-
         return panel;
     }
 
@@ -139,7 +134,6 @@ public class CompTitledPane extends JPanel
      */
     public void doLayout(  )
     {
-
         Insets insets = getInsets(  );
         Rectangle rect = getBounds(  );
         rect.x = 0;
@@ -171,7 +165,6 @@ public class CompTitledPane extends JPanel
      */
     public boolean getTransmittingAllowed(  )
     {
-
         return transmittingAllowed;
     }
 
@@ -192,7 +185,6 @@ public class CompTitledPane extends JPanel
      */
     public StateTransmitter getTransmitter(  )
     {
-
         return transmitter;
     }
 

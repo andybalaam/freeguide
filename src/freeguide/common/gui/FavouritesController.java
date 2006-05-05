@@ -21,7 +21,6 @@ import javax.swing.JFrame;
  */
 public class FavouritesController
 {
-
     private TVChannelsSet allChannelsSet;
     private final List favourites;
     private Favourite favourite;
@@ -31,7 +30,7 @@ public class FavouritesController
     private final FavouritesListDialog listDialog;
     private boolean changed = false;
 
-    /**
+/**
      * Creates a new FavouritesController object.
      *
      * @param owner DOCUMENT ME!
@@ -48,7 +47,6 @@ public class FavouritesController
 
         for( int i = 0; i < fav.size(  ); i++ )
         {
-
             Favourite fave = (Favourite)fav.get( i );
             this.favourites.add( fave.clone(  ) );
         }
@@ -68,7 +66,6 @@ public class FavouritesController
      */
     public FavouritesListDialog getListDialog(  )
     {
-
         return listDialog;
     }
 
@@ -79,7 +76,6 @@ public class FavouritesController
      */
     public boolean isChanged(  )
     {
-
         return changed;
     }
 
@@ -93,7 +89,6 @@ public class FavouritesController
             {
                 public void actionPerformed( ActionEvent e )
                 {
-
                     Favourite newFav = new Favourite(  );
                     favourites.add( newFav );
 
@@ -123,7 +118,6 @@ public class FavouritesController
 
                     if( i != -1 )
                     {
-
                         Favourite fav = (Favourite)favourites.get( i );
 
                         if( 
@@ -188,7 +182,6 @@ public class FavouritesController
      */
     public List getFavourites(  )
     {
-
         return favourites;
     }
 

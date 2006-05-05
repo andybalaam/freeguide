@@ -12,9 +12,9 @@
  */
 package freeguide.plugins.program.freeguide.wizard;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.common.lib.fgspecific.Application;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import java.awt.event.KeyEvent;
 
@@ -34,11 +34,10 @@ import javax.swing.JTextField;
  */
 public abstract class AbstractFileWizardPanel extends WizardPanel
 {
-
     // ------------------------------
     private JTextField textfield;
 
-    /**
+/**
      * Create a new FreeGuideFileWizardPanel.
      */
     AbstractFileWizardPanel(  )
@@ -52,7 +51,6 @@ public abstract class AbstractFileWizardPanel extends WizardPanel
      */
     public void construct(  )
     {
-
         java.awt.GridBagConstraints gridBagConstraints;
 
         JPanel midPanel = new JPanel(  );
@@ -144,7 +142,6 @@ public abstract class AbstractFileWizardPanel extends WizardPanel
      */
     private void browse(  )
     {
-
         JFileChooser chooser = new JFileChooser(  );
 
         chooser.setCurrentDirectory( new File( textfield.getText(  ) ) );
@@ -164,14 +161,16 @@ public abstract class AbstractFileWizardPanel extends WizardPanel
     }
 
     /**
-     * Gets the fileSelectionMode attribute of the AbstractFileWizard object
+     * Gets the fileSelectionMode attribute of the AbstractFileWizard
+     * object
      *
      * @return The fileSelectionMode value
      */
     protected abstract int getFileSelectionMode(  );
 
     /**
-     * Gets the fileChooserMessage attribute of the AbstractFileWizard object
+     * Gets the fileChooserMessage attribute of the AbstractFileWizard
+     * object
      *
      * @return The fileChooserMessage value
      */
@@ -184,7 +183,6 @@ public abstract class AbstractFileWizardPanel extends WizardPanel
      */
     protected Object getBoxValue(  )
     {
-
         return new File( textfield.getText(  ) );
 
     }

@@ -23,7 +23,7 @@ import javax.xml.parsers.SAXParserFactory;
 public class PatchAllFiles
 {
     static final String program_plugin_name = "program-freeguide";
-    
+
     /**
      * DOCUMENT_ME!
      *
@@ -33,7 +33,6 @@ public class PatchAllFiles
      */
     public static void main( final String[] args ) throws Exception
     {
-
         PluginInfo[] plugins = loadPluginsInfo(  );
         PatchRepository.patch( plugins );
         PatchBuild.patch( plugins );
@@ -66,49 +65,54 @@ public class PatchAllFiles
             "install/linux/rpm/freeguide-plugin.spec.template.in",
             "build/dist/linux/rpm/freeguide-", ".spec", plugins );
     }
-    
+
     /**
-     * Go through all the subdirs of dir and add any
-     * plugin.xml files to the files list.
+     * Go through all the subdirs of dir and add any plugin.xml files
+     * to the files list.
+     *
+     * @param dir DOCUMENT ME!
+     * @param files DOCUMENT ME!
      */
     protected static void findPluginDirs( File dir, List files )
     {
-        File[] plugin_files = dir.listFiles(
-            new FileFilter(  )
-            {
-                public boolean accept( File fl )
+        File[] plugin_files =
+            dir.listFiles( 
+                new FileFilter(  )
                 {
-                    return fl.toString().endsWith( "/plugin.xml" );
-                }
-            } );
+                    public boolean accept( File fl )
+                    {
+                        return fl.toString(  ).endsWith( "/plugin.xml" );
+                    }
+                } );
+
         for( int i = 0; i < plugin_files.length; ++i )
         {
             files.add( plugin_files[i] );
         }
-         
-         File[] dirs = dir.listFiles(
-            new FileFilter(  )
-            {
-                public boolean accept( File fl )
+
+        File[] dirs =
+            dir.listFiles( 
+                new FileFilter(  )
                 {
-                    return fl.isDirectory(  );
-                }
-            } );
-        
+                    public boolean accept( File fl )
+                    {
+                        return fl.isDirectory(  );
+                    }
+                } );
+
         for( int i = 0; i < dirs.length; ++i )
         {
             findPluginDirs( dirs[i], files );
         }
     }
-    
+
     protected static PluginInfo[] loadPluginsInfo(  ) throws Exception
     {
-
         SAXParser saxParser =
             SAXParserFactory.newInstance(  ).newSAXParser(  );
         List files = new ArrayList(  );
         findPluginDirs( new File( "src/freeguide/plugins/" ), files );
-        
+
         List result = new ArrayList( files.size(  ) );
 
         for( int i = 0; i < files.size(  ); i++ )
@@ -129,13 +133,12 @@ public class PatchAllFiles
             {
                 public int compare( Object o1, Object o2 )
                 {
-                    
                     final PluginInfo p1 = (PluginInfo)o1;
                     final PluginInfo p2 = (PluginInfo)o2;
-                    
+
                     String id1 = p1.getID(  );
                     String id2 = p2.getID(  );
-                    
+
                     if( id1.equals( program_plugin_name ) )
                     {
                         return -1;

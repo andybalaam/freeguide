@@ -12,9 +12,9 @@
  */
 package freeguide.plugins.program.freeguide.wizard;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.common.lib.fgspecific.Application;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
@@ -32,9 +32,7 @@ import javax.swing.JPanel;
  */
 public class InstallWizardPanel extends WizardPanel
 {
-
     // -------------------------------------------
-
     /** DOCUMENT ME! */
     public JCheckBox readmeCheckBox;
 
@@ -42,7 +40,7 @@ public class InstallWizardPanel extends WizardPanel
     public JCheckBox configgrabberCheckBox;
     private JPanel middlePanel;
 
-    /**
+/**
      * Creates a new InstallWizardPanel object.
      */
     public InstallWizardPanel(  )
@@ -56,26 +54,23 @@ public class InstallWizardPanel extends WizardPanel
      */
     public void construct(  )
     {
-
         java.awt.GridBagConstraints gridBagConstraints;
 
         JLabel topLabel = new JLabel(  );
 
         middlePanel = new JPanel(  );
 
-        readmeCheckBox =
-            new JCheckBox( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "display_the_readme" ), true );
+        readmeCheckBox = new JCheckBox( 
+                Application.getInstance(  )
+                           .getLocalizedMessage( "display_the_readme" ), true );
 
         readmeCheckBox.setMnemonic( KeyEvent.VK_R );
 
         readmeCheckBox.setSelected( true );
 
-        configgrabberCheckBox =
-            new JCheckBox( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "choose_channels_now" ), true );
+        configgrabberCheckBox = new JCheckBox( 
+                Application.getInstance(  )
+                           .getLocalizedMessage( "choose_channels_now" ), true );
 
         configgrabberCheckBox.setMnemonic( KeyEvent.VK_G );
 
@@ -142,16 +137,14 @@ public class InstallWizardPanel extends WizardPanel
     }
 
     // ----------------------------------
-
     /**
-     * A little cheat here - we return a reference to this Panel so that
-     * observers can access the values of the checkboxes.
+     * A little cheat here - we return a reference to this Panel so
+     * that observers can access the values of the checkboxes.
      *
      * @return DOCUMENT_ME!
      */
     protected Object getBoxValue(  )
     {
-
         return this;
 
     }

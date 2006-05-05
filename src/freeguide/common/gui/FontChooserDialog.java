@@ -78,13 +78,13 @@ import javax.swing.JPanel;
  */
 public class FontChooserDialog extends StandardDialog
 {
-
     /**
-     * The panel within the dialog that contains the font selection controls.
+     * The panel within the dialog that contains the font selection
+     * controls.
      */
     private FontChooserPanel fontChooserPanel;
 
-    /**
+/**
      * Standard constructor - builds a font chooser dialog owned by another
      * dialog.
      *
@@ -103,7 +103,7 @@ public class FontChooserDialog extends StandardDialog
 
     }
 
-    /**
+/**
      * Standard constructor - builds a font chooser dialog owned by a frame.
      *
      * @param owner the frame that 'owns' this dialog.
@@ -128,7 +128,6 @@ public class FontChooserDialog extends StandardDialog
      */
     public Font getSelectedFont(  )
     {
-
         return fontChooserPanel.getSelectedFont(  );
 
     }
@@ -142,7 +141,6 @@ public class FontChooserDialog extends StandardDialog
      */
     private JPanel createContent( Font font )
     {
-
         JPanel content = new JPanel( new BorderLayout(  ) );
 
         content.setBorder( BorderFactory.createEmptyBorder( 4, 4, 4, 4 ) );

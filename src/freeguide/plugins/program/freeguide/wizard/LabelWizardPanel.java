@@ -10,14 +10,13 @@
  *
  *  See the file COPYING for more information.
  */
- 
 package freeguide.plugins.program.freeguide.wizard;
 
 import javax.swing.*;
 
 /**
- * A JPanel to go on a FreeGuideWizard that just informs the user of something
- * using 3 labels.
+ * A JPanel to go on a FreeGuideWizard that just informs the user of
+ * something using 3 labels.
  *
  * @author Andy Balaam
  * @version 1
@@ -26,7 +25,8 @@ public class LabelWizardPanel extends WizardPanel
 {
     // -------------------------------------------
     private String middleMessage;
-    /**
+
+/**
      * Create a new FreeGuideLabelWizardPanel.
      *
      * @param middleMessage Description of the Parameter
@@ -36,7 +36,7 @@ public class LabelWizardPanel extends WizardPanel
         super(  );
         this.middleMessage = middleMessage;
     }
-    
+
     /**
      * Construct the GUI of this Wizard Panel.
      */

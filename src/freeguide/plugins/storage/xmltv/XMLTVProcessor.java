@@ -1,16 +1,15 @@
 package freeguide.plugins.storage.xmltv;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-
 import freeguide.common.lib.importexport.XMLTVImport;
 
 import freeguide.common.plugininterfaces.BaseModule;
 import freeguide.common.plugininterfaces.IModuleStorage;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -25,7 +24,6 @@ import java.util.logging.Level;
  */
 public class XMLTVProcessor extends BaseModule //implements IStorage
 {
-
     protected IModuleStorage.Info cachedInfo;
 
     /**
@@ -35,7 +33,6 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
      */
     public Object getConfig(  )
     {
-
         return null;
     }
 
@@ -46,10 +43,8 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
      */
     public synchronized IModuleStorage.Info getInfo(  )
     {
-
         if( cachedInfo == null )
         {
-
             GetInfoFilter filter = new GetInfoFilter(  );
         }
 
@@ -58,8 +53,8 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
     }
 
     /**
-     * Load data from external storage in xmltv XML format to in-memory
-     * storage.
+     * Load data from external storage in xmltv XML format to
+     * in-memory storage.
      *
      * @param channels filter
      * @param minDate DOCUMENT ME!
@@ -69,11 +64,10 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
      *
      * @throws Exception
      */
-    public TVData load(
+    public TVData load( 
         final TVChannelsSet channels, long minDate, long maxDate )
         throws Exception
     {
-
         final TVData result = new TVData(  );
 
         //processAllFiles( result, filter );
@@ -124,7 +118,6 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
     protected void processAllFiles( TVData data, XMLTVImport.Filter filter )
         throws Exception
     {
-
         /*
                 String working_directory = FreeGuide.config.workingDirectory;
 
@@ -174,7 +167,6 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
 
     protected static class GetInfoFilter extends XMLTVImport.Filter
     {
-
         protected IModuleStorage.Info info;
 
         protected GetInfoFilter(  )
@@ -196,9 +188,8 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
          */
         public void performChannelEnd( final TVChannel currentChannel )
         {
-
             TVChannelsSet.Channel ch =
-                new TVChannelsSet.Channel(
+                new TVChannelsSet.Channel( 
                     currentChannel.getID(  ), currentChannel.getDisplayName(  ) );
 
             if( !info.channelsList.contains( ch.getChannelID(  ) ) )
@@ -217,7 +208,6 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
          */
         public boolean checkProgrammeStart( TVProgramme programme )
         {
-
             if( programme.getStart(  ) < info.minDate )
             {
                 info.minDate = programme.getStart(  );

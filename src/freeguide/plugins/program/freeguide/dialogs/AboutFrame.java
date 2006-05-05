@@ -13,7 +13,6 @@
 package freeguide.plugins.program.freeguide.dialogs;
 
 import freeguide.common.lib.fgspecific.Application;
-
 import freeguide.common.lib.general.FileHelper;
 import freeguide.common.lib.general.Utils;
 
@@ -23,7 +22,6 @@ import javax.swing.event.HyperlinkListener;
 
 // To Be Added Shortly (Rob)
 //import freeguide.common.lib.general.*;
-
 /**
  * A small About box.
  *
@@ -32,12 +30,11 @@ import javax.swing.event.HyperlinkListener;
  */
 public class AboutFrame extends JDialog implements HyperlinkListener
 {
-
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextPane jTextPane1;
 
-    /**
+/**
      * Constructor for the About object
      *
      * @param parent Description of the Parameter
@@ -58,12 +55,12 @@ public class AboutFrame extends JDialog implements HyperlinkListener
             "<table width=\"100%\" height=\"100%\" border=\"0\"><tr><td height=\"100%\" align=\"center\">" );
         str.append( 
             "<h1><font face=\"arial, helvetica, helv, sans serif\" size=\"5\">FreeGuide " )
-           .append( Application.VERSION.getDotFormat(  ) ).append( 
-            "</font></h1>" );
+           .append( Application.VERSION.getDotFormat(  ) )
+           .append( "</font></h1>" );
         str.append( "<p>" );
         str.append( 
-            Application.getInstance(  ).getLocalizedMessage( 
-                "free_software_by_contributors" ) );
+            Application.getInstance(  )
+                       .getLocalizedMessage( "free_software_by_contributors" ) );
         str.append( "</p><p>" );
         str.append( Application.getInstance(  ).getLocalizedMessage( "web" ) );
         str.append( 
@@ -89,8 +86,7 @@ public class AboutFrame extends JDialog implements HyperlinkListener
                     closeDialog( evt );
                 }
             } );
-        jButton1 =
-            new javax.swing.JButton( 
+        jButton1 = new javax.swing.JButton( 
                 Application.getInstance(  ).getLocalizedMessage( "ok" ) );
         jButton1.addActionListener( 
             new java.awt.event.ActionListener(  )
@@ -141,7 +137,6 @@ public class AboutFrame extends JDialog implements HyperlinkListener
      */
     public void hyperlinkUpdate( HyperlinkEvent e )
     {
-
         if( HyperlinkEvent.EventType.ACTIVATED == e.getEventType(  ) )
         {
             FileHelper.openURL( e.getURL(  ) );

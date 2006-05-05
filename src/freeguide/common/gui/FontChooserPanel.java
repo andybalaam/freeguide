@@ -63,7 +63,6 @@
  */
 package freeguide.common.gui;
 
-
 import freeguide.common.lib.fgspecific.Application;
 
 import java.awt.BorderLayout;
@@ -78,21 +77,21 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 /**
- * A panel for choosing a font from the available system fonts - still a bit
- * of a hack at the moment, but good enough for demonstration applications.
+ * A panel for choosing a font from the available system fonts - still a
+ * bit of a hack at the moment, but good enough for demonstration
+ * applications.
  *
  * @author DG
  */
 public class FontChooserPanel extends JPanel
 {
-
     /** The font sizes that can be selected. */
     public static final String[] SIZES =
-    {
-        "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "28",
-        
-        "36", "48", "72"
-    };
+        {
+            "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "28",
+            
+            "36", "48", "72"
+        };
 
     /** The list of fonts. */
     private JList fontlist;
@@ -106,7 +105,7 @@ public class FontChooserPanel extends JPanel
     /** The checkbox that indicates whether or not the font is italic. */
     private JCheckBox italic;
 
-    /**
+/**
      * Standard constructor - builds a FontChooserPanel initialised with the
      * specified font.
      *
@@ -114,7 +113,6 @@ public class FontChooserPanel extends JPanel
      */
     public FontChooserPanel( Font font )
     {
-
         GraphicsEnvironment g =
             GraphicsEnvironment.getLocalGraphicsEnvironment(  );
 
@@ -160,12 +158,10 @@ public class FontChooserPanel extends JPanel
 
         JPanel attributes = new JPanel( new GridLayout( 1, 2 ) );
 
-        bold =
-            new JCheckBox( 
+        bold = new JCheckBox( 
                 Application.getInstance(  ).getLocalizedMessage( "bold" ) );
 
-        italic =
-            new JCheckBox( 
+        italic = new JCheckBox( 
                 Application.getInstance(  ).getLocalizedMessage( "italic" ) );
 
         attributes.add( bold );
@@ -193,7 +189,6 @@ public class FontChooserPanel extends JPanel
      */
     public Font getSelectedFont(  )
     {
-
         return new Font( 
             getSelectedName(  ), getSelectedStyle(  ), getSelectedSize(  ) );
 
@@ -206,7 +201,6 @@ public class FontChooserPanel extends JPanel
      */
     public String getSelectedName(  )
     {
-
         return (String)fontlist.getSelectedValue(  );
 
     }
@@ -218,31 +212,26 @@ public class FontChooserPanel extends JPanel
      */
     public int getSelectedStyle(  )
     {
-
         if( bold.isSelected(  ) && italic.isSelected(  ) )
         {
-
             return Font.BOLD + Font.ITALIC;
 
         }
 
         if( bold.isSelected(  ) )
         {
-
             return Font.BOLD;
 
         }
 
         if( italic.isSelected(  ) )
         {
-
             return Font.ITALIC;
 
         }
 
         else
         {
-
             return Font.PLAIN;
 
         }
@@ -255,19 +244,16 @@ public class FontChooserPanel extends JPanel
      */
     public int getSelectedSize(  )
     {
-
         String selected = (String)sizelist.getSelectedValue(  );
 
         if( selected != null )
         {
-
             return Integer.parseInt( selected );
 
         }
 
         else
         {
-
             return 10;
 
         }

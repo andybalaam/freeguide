@@ -41,7 +41,6 @@ import java.util.List;
  */
 public class PDBFile
 {
-
     protected static final int HEADER_SIZE = 78;
     protected static final int MAX_RECORD_SIZE = 65000;
     protected static short dmHdrAttrStream = 0x0080;
@@ -50,10 +49,10 @@ public class PDBFile
         new byte[] { 'D', 'B', 'L', 'K' };
     protected String PDBName;
     protected byte[] filler =
-    {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0
-    };
+        {
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0
+        };
     protected short fileAttributes = 8; //24;
     protected short version = 1;
     protected int creationDate; // to be set by constructor
@@ -76,7 +75,7 @@ public class PDBFile
     //protected Addable SortInfoBlock = null;
     protected int[][] recordList;
 
-    /**
+/**
      * Creates a new PDBFile object.
      *
      * @param pdbName DOCUMENT ME!
@@ -88,14 +87,12 @@ public class PDBFile
     public PDBFile( String pdbName, String creatorId, String databaseType )
         throws IOException
     {
-
         // find the current time, and convert into number of seconds since Jan 1, 1904
         cl = Calendar.getInstance(  );
 
         Date d = new Date(  ); // Get current time.
         cl.set( 2036, 0, 1 ); // Jan 1, 2036  1970-2036 = 1904 - 1970
-        creationDate =
-            (int)( ( d.getTime(  ) + cl.getTime(  ).getTime(  ) ) / 1000 ); // secs since 1970 + secs between 1904 to 1970 (1970 to 2036)
+        creationDate = (int)( ( d.getTime(  ) + cl.getTime(  ).getTime(  ) ) / 1000 ); // secs since 1970 + secs between 1904 to 1970 (1970 to 2036)
         modificationDate = creationDate;
         lastBackupDate = modificationDate;
 
@@ -108,11 +105,11 @@ public class PDBFile
 
         this.PDBName = pdbName;
         this.creatorID = ( creatorId + "    " ).substring( 0, 4 ).getBytes(  );
-        this.databaseType =
-            ( databaseType + "    " ).substring( 0, 4 ).getBytes(  );
+        this.databaseType = ( databaseType + "    " ).substring( 0, 4 )
+                              .getBytes(  );
     }
 
-    /**
+/**
      * Creates a new PDBFile object.
      *
      * @param fileName DOCUMENT ME!
@@ -125,9 +122,13 @@ public class PDBFile
     }
 
     //protected Addable recordType = null;
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
     public int getRecordCount(  )
     {
-
         return records.size(  );
     }
 
@@ -140,7 +141,6 @@ public class PDBFile
      */
     public void addRecord( byte[] arr ) throws IOException
     {
-
         if( arr.length > MAX_RECORD_SIZE )
         {
             throw new IOException( 
@@ -159,7 +159,6 @@ public class PDBFile
      */
     public void writeFile( File file ) throws IOException
     {
-
         EndianOutputByteArray out = new EndianOutputByteArray( false );
         writeHeader( out );
         writeRecordList( out );
@@ -184,7 +183,6 @@ public class PDBFile
     protected void writeHeader( EndianOutputByteArray out )
         throws IOException
     {
-
         // write all the data straight to the file
         out.writeString0( PDBName, 32 );
         out.writeShort( fileAttributes );
@@ -212,7 +210,6 @@ public class PDBFile
     protected void writeRecordList( EndianOutputByteArray out )
         throws IOException
     {
-
         int runningTotal = HEADER_SIZE; // size of the header
         runningTotal += ( ( 8 * records.size(  ) ) + 2 ); // size of record list and filler
 
@@ -244,7 +241,6 @@ public class PDBFile
         if (AppInfoBlock != null)
           out.write(AppInfoBlock.getBytes(), 0, AppInfoBlock.size());
       }*/
-
     /**
      * writes 2 blank bytes.  see <a
      * href="http://www.roadcoders.com/pdb.html">pdb reference</a>.
@@ -269,10 +265,8 @@ public class PDBFile
     protected void writeRecords( FileOutputStream out )
         throws IOException
     {
-
         for( int i = 0; i < records.size(  ); i++ )
         {
-
             byte[] record = (byte[])records.get( i );
 
             if( record.length > 65505 )
@@ -294,7 +288,6 @@ public class PDBFile
      */
     private void readFile( String fileName ) throws IOException
     {
-
         EndianInputStream in = new EndianInputStream( new File( fileName ) );
         in.setBigEndian(  );
         readHeader( in );
@@ -312,7 +305,6 @@ public class PDBFile
      */
     protected void readHeader( EndianInputStream in ) throws IOException
     {
-
         byte[] buffer = new byte[32];
         in.read( buffer );
 
@@ -375,7 +367,6 @@ public class PDBFile
     protected void readAppInfoBlock( EndianInputStream in )
         throws IOException
     {
-
         if( appInfoArea != 0 )
         {
             in.skip( sortInfoArea - appInfoArea );
@@ -385,12 +376,10 @@ public class PDBFile
     protected void readRecords( EndianInputStream in )
         throws IOException
     {
-
         byte[] buffer;
 
         if( numRecs == 0 )
         {
-
             return;
         }
 
@@ -421,7 +410,6 @@ public class PDBFile
      */
     public void dumpToH( String fileName ) throws IOException
     {
-
         PrintStream out =
             new PrintStream( 
                 new BufferedOutputStream( new FileOutputStream( fileName ) ) );
@@ -436,7 +424,6 @@ public class PDBFile
 
             for( int j = 0; j < rec.length; j++ )
             {
-
                 if( j > 0 )
                 {
                     out.print( ", " );
@@ -452,7 +439,6 @@ public class PDBFile
 
         for( int i = 0; i < records.size(  ); i++ )
         {
-
             if( i > 0 )
             {
                 out.print( ", " );
@@ -483,7 +469,6 @@ public class PDBFile
         final byte[] data, String pdbName, String creatorId,
         String databaseType ) throws IOException
     {
-
         PDBFile pdb = new PDBFile( pdbName, creatorId, databaseType );
         pdb.fileAttributes |= PDBFile.dmHdrAttrStream;
 
@@ -491,7 +476,6 @@ public class PDBFile
 
         for( int i = 0; i < data.length; i += STREAM_BLOCK_SIZE )
         {
-
             int len = STREAM_BLOCK_SIZE;
 
             if( ( i + len ) > data.length )

@@ -12,7 +12,6 @@ import org.xml.sax.SAXException;
  */
 public class HtmlHelper
 {
-
     /*    public static Element getFirstElement(final Segment src, final String elementTag, String attributeName, String attributeValue) {
 
 
@@ -101,9 +100,15 @@ public class HtmlHelper
 
 
     }*/
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param in DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
     public static String strongTrim( final String in )
     {
-
         int len = in.length(  );
 
         int st = 0;
@@ -139,7 +144,6 @@ public class HtmlHelper
      */
     public static class DefaultContentHandler implements ContentHandler
     {
-
         /**
          * DOCUMENT_ME!
          *

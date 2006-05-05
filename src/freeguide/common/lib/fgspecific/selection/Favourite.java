@@ -10,7 +10,6 @@
  *
  *  See the file COPYING for more information.
  */
-
 package freeguide.common.lib.fgspecific.selection;
 
 import freeguide.common.lib.fgspecific.Application;
@@ -34,29 +33,36 @@ public class Favourite
     // ------------------------------------------------------------------------
     /** The user-specified name of this favourite */
     public String name;
+
     /** Exact match for the title */
     public String titleString;
+
     /** String contained in the title */
     public String titleContains;
+
     /** Regular expression to match the title */
     public String titleRegex;
     transient protected Pattern titleRegexPattern;
+
     /** The channel it must be on */
     public String channelID;
+
     /** The time it must be on after */
     public Time afterTime = new Time(  );
+
     /** The time it must be on before */
     public Time beforeTime = new Time(  );
+
     /** Day of week, or -1 if any. */
     public int dayOfWeek = -1;
-    
-    /**
+
+/**
      * Constructor for the Favourite object
      */
     public Favourite(  )
     {
     }
-    
+
     /**
      * DOCUMENT_ME!
      *
@@ -73,21 +79,24 @@ public class Favourite
         result.afterTime = afterTime;
         result.beforeTime = beforeTime;
         result.dayOfWeek = dayOfWeek;
+
         return result;
     }
-    
+
     protected Pattern getTitleRegexPattern(  )
     {
         if( ( titleRegexPattern == null ) && ( titleRegex != null ) )
         {
             titleRegexPattern = Pattern.compile( titleRegex );
         }
+
         return titleRegexPattern;
     }
-    
+
     // ------------------------------------------------------------------------
     /**
-     * matches Decides whether or not a programme matches this favourite.
+     * matches Decides whether or not a programme matches this
+     * favourite.
      *
      * @param prog the programme to check
      *
@@ -96,11 +105,13 @@ public class Favourite
     public boolean matches( TVProgramme prog )
     {
         String progTitle = prog.getTitle(  );
+
         // Match the title exactly
         if( ( titleString != null ) && !titleString.equals( progTitle ) )
         {
             return false;
         }
+
         // Match the title to containing a string
         if( 
             ( titleContains != null )
@@ -108,6 +119,7 @@ public class Favourite
         {
             return false;
         }
+
         // Match the title to a regular expression
         if( 
             ( titleRegex != null )
@@ -115,6 +127,7 @@ public class Favourite
         {
             return false;
         }
+
         // Match the channel ID
         if( 
             ( channelID != null )
@@ -122,20 +135,25 @@ public class Favourite
         {
             return false;
         }
+
         Time progStartTime = new Time( new Date( prog.getStart(  ) ) );
+
         // Match the time it must be after
         if( !afterTime.isEmpty(  ) && afterTime.after( progStartTime ) )
         {
             return false;
         }
+
         // Match the time it must be before
         if( !beforeTime.isEmpty(  ) && beforeTime.before( progStartTime ) )
         {
             return false;
         }
+
         Calendar cal = GregorianCalendar.getInstance(  );
         cal.setTimeZone( Application.getInstance(  ).getTimeZone(  ) );
         cal.setTimeInMillis( prog.getStart(  ) );
+
         // Match the day of the week
         if( 
             ( dayOfWeek != -1 )
@@ -143,9 +161,10 @@ public class Favourite
         {
             return false;
         }
+
         return true;
     }
-    
+
     // ------------------------------------------------------------------------
     // Accessors
     /**
@@ -157,7 +176,7 @@ public class Favourite
     {
         return name;
     }
-    
+
     /**
      * Gets the titleString attribute of the Favourite object
      *
@@ -167,7 +186,7 @@ public class Favourite
     {
         return titleString;
     }
-    
+
     /**
      * Gets the titleContains attribute of the Favourite object
      *
@@ -177,7 +196,7 @@ public class Favourite
     {
         return titleContains;
     }
-    
+
     /**
      * Gets the titleRegex attribute of the Favourite object
      *
@@ -187,7 +206,7 @@ public class Favourite
     {
         return titleRegex;
     }
-    
+
     /**
      * Gets the channel attribute of the Favourite object
      *
@@ -197,7 +216,7 @@ public class Favourite
     {
         return channelID;
     }
-    
+
     /**
      * Gets the afterTime attribute of the Favourite object
      *
@@ -207,7 +226,7 @@ public class Favourite
     {
         return afterTime;
     }
-    
+
     /**
      * Gets the beforeTime attribute of the Favourite object
      *
@@ -217,7 +236,7 @@ public class Favourite
     {
         return beforeTime;
     }
-    
+
     /**
      * Gets the dayOfWeek attribute of the Favourite object
      *
@@ -227,7 +246,7 @@ public class Favourite
     {
         return dayOfWeek;
     }
-    
+
     /**
      * Sets the name attribute of the Favourite object
      *
@@ -237,7 +256,7 @@ public class Favourite
     {
         this.name = name;
     }
-    
+
     /**
      * Sets the titleString attribute of the Favourite object
      *
@@ -247,7 +266,7 @@ public class Favourite
     {
         this.titleString = titleString;
     }
-    
+
     /**
      * Sets the titleContains attribute of the Favourite object
      *
@@ -257,7 +276,7 @@ public class Favourite
     {
         this.titleContains = titleContains;
     }
-    
+
     /**
      * Sets the titleRegex attribute of the Favourite object
      *
@@ -268,7 +287,7 @@ public class Favourite
         this.titleRegex = titleRegex;
         this.titleRegexPattern = null;
     }
-    
+
     /**
      * Sets the channelID attribute of the Favourite object
      *
@@ -278,7 +297,7 @@ public class Favourite
     {
         this.channelID = channelID;
     }
-    
+
     /**
      * Sets the afterTime attribute of the Favourite object
      *
@@ -288,7 +307,7 @@ public class Favourite
     {
         this.afterTime = afterTime;
     }
-    
+
     /**
      * Sets the beforeTime attribute of the Favourite object
      *
@@ -298,7 +317,7 @@ public class Favourite
     {
         this.beforeTime = beforeTime;
     }
-    
+
     /**
      * Sets the dayOfWeek attribute of the Favourite object
      *
@@ -308,6 +327,6 @@ public class Favourite
     {
         this.dayOfWeek = dayOfWeek;
     }
-    
+
     // The day of the week it's on
 }

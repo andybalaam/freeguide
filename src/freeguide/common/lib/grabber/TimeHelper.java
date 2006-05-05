@@ -2,7 +2,6 @@ package freeguide.common.lib.grabber;
 
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
-
 import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.Time;
 
@@ -22,7 +21,6 @@ import java.util.regex.Pattern;
  */
 public class TimeHelper
 {
-
     protected static Map months;
 
     /** Milliseconds per day. */
@@ -30,7 +28,6 @@ public class TimeHelper
 
     static
     {
-
         try
         {
             months = new HashMap(  );
@@ -41,8 +38,8 @@ public class TimeHelper
         }
         catch( Exception ex )
         {
-            Application.getInstance(  ).getLogger(  ).log( 
-                Level.SEVERE, "Error reading month names", ex );
+            Application.getInstance(  ).getLogger(  )
+                       .log( Level.SEVERE, "Error reading month names", ex );
         }
     }
 
@@ -53,14 +50,13 @@ public class TimeHelper
      */
     public static Pattern getTimePattern(  )
     {
-
         return LineProgrammeHelper.reTime;
     }
 
     protected static int getMonth( String monthName ) throws ParseException
     {
-
         int i;
+
         try
         {
             i = Integer.parseInt( monthName );
@@ -78,7 +74,6 @@ public class TimeHelper
 
         if( monthInd != null )
         {
-
             return Integer.parseInt( monthInd );
         }
 
@@ -103,7 +98,6 @@ public class TimeHelper
         TimeZone tz, String day, String month, String year, String dow )
         throws ParseException
     {
-
         Calendar cal = Calendar.getInstance( tz );
 
         int iyear = 0;
@@ -111,7 +105,6 @@ public class TimeHelper
 
         if( year != null )
         {
-
             try
             {
                 iyear = Integer.parseInt( year );
@@ -138,7 +131,6 @@ public class TimeHelper
         }
         catch( Exception e )
         {
-
             return -1;
         }
 
@@ -159,7 +151,6 @@ public class TimeHelper
     public static long correctTime( 
         Time tm, final long baseDate, final long prevTime )
     {
-
         long newTime =
             baseDate
             + ( ( ( tm.getHours(  ) * 60 ) + tm.getMinutes(  ) ) * 60L * 1000 );

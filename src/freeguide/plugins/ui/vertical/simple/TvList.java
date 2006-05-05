@@ -15,7 +15,6 @@ import javax.swing.*;
  */
 public class TvList extends JTable implements MouseListener
 {
-
     TvTableModel model;
     ProgrammeFilterModel filterModel;
     ProgrammeCellRenderer cellRenderer = null;
@@ -26,7 +25,7 @@ public class TvList extends JTable implements MouseListener
     protected TitleFilter titleFilter;
     protected TimeFilter timeFilter;
 
-    /**
+/**
      * Creates a new TvList object.
      */
     public TvList(  )
@@ -60,7 +59,6 @@ public class TvList extends JTable implements MouseListener
     //public TvList()
     protected void setColumnWidths(  )
     {
-
         //TODO: save settings
         this.getColumnModel(  ).getColumn( 0 ).setPreferredWidth( 80 );
         this.getColumnModel(  ).getColumn( 1 ).setPreferredWidth( 100 );
@@ -69,10 +67,9 @@ public class TvList extends JTable implements MouseListener
     }
 
     //protected void setColumnWidths()
-
     /**
-     * This method is called when the viewer has finished getting new data.
-     * Then we can re-initialize channels and so.
+     * This method is called when the viewer has finished getting new
+     * data. Then we can re-initialize channels and so.
      */
     public void postpare(  )
     {
@@ -81,7 +78,6 @@ public class TvList extends JTable implements MouseListener
     }
 
     //public void postpare()
-
     /**
      * The mouse has been clicked on a header
      *
@@ -89,14 +85,12 @@ public class TvList extends JTable implements MouseListener
      */
     public void mouseClicked( MouseEvent mouseEvent )
     {
-
         int nColumn =
-            this.getTableHeader(  ).getColumnModel(  ).getColumnIndexAtX( 
-                mouseEvent.getX(  ) );
+            this.getTableHeader(  ).getColumnModel(  )
+                .getColumnIndexAtX( mouseEvent.getX(  ) );
 
         switch( nColumn )
         {
-
         case TvTableModel.COL_CHANNEL:
             this.mnuChannels.show( 
                 mouseEvent.getComponent(  ), mouseEvent.getX(  ),
@@ -108,8 +102,7 @@ public class TvList extends JTable implements MouseListener
 
             if( this.mnuTitle == null )
             {
-                this.mnuTitle =
-                    new GenericFilterMenu( 
+                this.mnuTitle = new GenericFilterMenu( 
                         this.titleFilter, TitleDialog.class );
             }
 
@@ -123,8 +116,8 @@ public class TvList extends JTable implements MouseListener
 
             if( this.mnuTime == null )
             {
-                this.mnuTime =
-                    new GenericFilterMenu( timeFilter, TimeDialog.class );
+                this.mnuTime = new GenericFilterMenu( 
+                        timeFilter, TimeDialog.class );
             }
 
             this.mnuTime.show( 
@@ -136,7 +129,6 @@ public class TvList extends JTable implements MouseListener
     }
 
     //public void mouseClicked(MouseEvent mouseEvent)
-
     /**
      * DOCUMENT_ME!
      *
@@ -173,6 +165,4 @@ public class TvList extends JTable implements MouseListener
     {
     }
 }
-
-
 //public class TvList extends JTable

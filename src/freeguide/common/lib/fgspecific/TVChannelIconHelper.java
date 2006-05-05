@@ -1,7 +1,7 @@
 package freeguide.common.lib.fgspecific;
 
-import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.general.StringHelper;
 
 import java.io.ByteArrayOutputStream;
@@ -24,7 +24,6 @@ import javax.swing.ImageIcon;
  */
 public class TVChannelIconHelper
 {
-
     /**
      * Get channel's icon. Get icon from web if required.
      *
@@ -34,12 +33,10 @@ public class TVChannelIconHelper
      */
     public static File getIconFile( final TVChannel channel )
     {
-
         File result = new File( getIconFileName( channel ) );
 
         if( !result.canRead(  ) )
         {
-
             if( !loadIcon( channel.getIconURL(  ), result ) )
             {
                 result = null;
@@ -58,12 +55,10 @@ public class TVChannelIconHelper
      */
     public static ImageIcon getIcon( final TVChannel channel )
     {
-
         final File iconFile = getIconFile( channel );
 
         if( iconFile == null )
         {
-
             return null;
         }
 
@@ -79,7 +74,6 @@ public class TVChannelIconHelper
      */
     public static String getIconFileName( final TVChannel channel )
     {
-
         StringBuffer sb = new StringBuffer(  );
 
         sb.append( Application.getInstance(  ).getWorkingDirectory(  ) );
@@ -98,8 +92,8 @@ public class TVChannelIconHelper
         }
 
         sb.append( 
-            channel.getID(  ).replace( '.', '_' ).replaceAll( 
-                "[^a-zA-Z0-9_]", "-" ) );
+            channel.getID(  ).replace( '.', '_' )
+                   .replaceAll( "[^a-zA-Z0-9_]", "-" ) );
 
         return sb.toString(  );
     }
@@ -115,24 +109,20 @@ public class TVChannelIconHelper
     protected static boolean loadIcon( 
         final String urlString, final File outFile )
     {
-
         if( urlString == null )
         {
-
             // there is no icon for channel
             return false;
         }
 
         try
         {
-
             URL url = new URL( StringHelper.encodeURL( urlString ) );
 
             InputStream i = url.openStream(  );
 
             try
             {
-
                 ByteArrayOutputStream o = new ByteArrayOutputStream(  );
 
                 byte[] buffer = new byte[4096];
@@ -165,15 +155,15 @@ public class TVChannelIconHelper
         }
         catch( MalformedURLException ex )
         {
-            Application.getInstance(  ).getLogger(  ).log( 
-                Level.FINE, "Error cache channel icon", ex );
+            Application.getInstance(  ).getLogger(  )
+                       .log( Level.FINE, "Error cache channel icon", ex );
 
             return false;
         }
         catch( IOException ex )
         {
-            Application.getInstance(  ).getLogger(  ).log( 
-                Level.FINE, "Error cache channel icon", ex );
+            Application.getInstance(  ).getLogger(  )
+                       .log( Level.FINE, "Error cache channel icon", ex );
 
             return false;
         }

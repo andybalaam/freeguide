@@ -1,8 +1,8 @@
 package freeguide.plugins.program.freeguide.options;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.common.lib.fgspecific.Application;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -19,7 +19,6 @@ import javax.swing.JTextField;
  */
 public class PanelGeneralUI extends JPanel
 {
-
     private JLabel labelWorkDir = null;
     private JLabel labelLF = null;
     private JTextField textWorkingDir = null;
@@ -27,7 +26,7 @@ public class PanelGeneralUI extends JPanel
     private JLabel labelLang = null;
     private JComboBox cbLang = null;
 
-    /**
+/**
      * This is the default constructor
      */
     public PanelGeneralUI(  )
@@ -60,8 +59,9 @@ public class PanelGeneralUI extends JPanel
         gridBagConstraints1.anchor = java.awt.GridBagConstraints.WEST;
         labelWorkDir.setText( "Working dir:" );
         labelWorkDir.setText( 
-            Application.getInstance(  ).getLocalizedMessage( 
-                "Options.General.WorkingDir" ) + ":" );
+            Application.getInstance(  )
+                       .getLocalizedMessage( "Options.General.WorkingDir" )
+            + ":" );
         gridBagConstraints2.gridx = 0;
         gridBagConstraints2.gridy = 1;
         gridBagConstraints2.insets = new java.awt.Insets( 3, 3, 3, 3 );
@@ -72,8 +72,8 @@ public class PanelGeneralUI extends JPanel
         labelWorkDir.setLabelFor( getTextWorkingDir(  ) );
         labelWorkDir.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_W );
         labelLF.setText( 
-            Application.getInstance(  ).getLocalizedMessage( 
-                "Options.General.LF" ) + ":" );
+            Application.getInstance(  )
+                       .getLocalizedMessage( "Options.General.LF" ) + ":" );
         gridBagConstraints3.gridx = 1;
         gridBagConstraints3.gridy = 0;
         gridBagConstraints3.weightx = 1.0;
@@ -88,8 +88,9 @@ public class PanelGeneralUI extends JPanel
         gridBagConstraints5.gridy = 2;
         labelLang.setText( "Language:" );
         labelLang.setText( 
-            Application.getInstance(  ).getLocalizedMessage( 
-                "Options.General.Language" ) + ":" );
+            Application.getInstance(  )
+                       .getLocalizedMessage( "Options.General.Language" )
+            + ":" );
         labelLang.setLabelFor( getCbLang(  ) );
         labelLang.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_L );
         gridBagConstraints6.gridx = 1;
@@ -114,7 +115,6 @@ public class PanelGeneralUI extends JPanel
      */
     public JTextField getTextWorkingDir(  )
     {
-
         if( textWorkingDir == null )
         {
             textWorkingDir = new JTextField(  );
@@ -130,7 +130,6 @@ public class PanelGeneralUI extends JPanel
      */
     public JComboBox getCbLF(  )
     {
-
         if( cbLF == null )
         {
             cbLF = new JComboBox(  );
@@ -146,7 +145,6 @@ public class PanelGeneralUI extends JPanel
      */
     public JComboBox getCbLang(  )
     {
-
         if( cbLang == null )
         {
             cbLang = new JComboBox(  );

@@ -63,7 +63,6 @@
  */
 package freeguide.common.gui;
 
-
 import freeguide.common.lib.fgspecific.Application;
 
 import java.awt.Dialog;
@@ -83,11 +82,10 @@ import javax.swing.JPanel;
  */
 public class StandardDialog extends JDialog implements ActionListener
 {
-
     /** Flag that indicates whether or not the dialog was cancelled. */
     private boolean cancelled;
 
-    /**
+/**
      * Standard constructor - builds a dialog...
      *
      * @param owner the owner.
@@ -102,7 +100,7 @@ public class StandardDialog extends JDialog implements ActionListener
 
     }
 
-    /**
+/**
      * Standard constructor - builds a dialog...
      *
      * @param owner the owner.
@@ -118,14 +116,13 @@ public class StandardDialog extends JDialog implements ActionListener
     }
 
     /**
-     * Returns a flag that indicates whether or not the dialog has been
-     * cancelled.
+     * Returns a flag that indicates whether or not the dialog has
+     * been cancelled.
      *
      * @return boolean.
      */
     public boolean isCancelled(  )
     {
-
         return this.cancelled;
 
     }
@@ -137,12 +134,10 @@ public class StandardDialog extends JDialog implements ActionListener
      */
     public void actionPerformed( ActionEvent event )
     {
-
         String command = event.getActionCommand(  );
 
         if( command.equals( "helpButton" ) )
         {
-
             // display help information
         }
 
@@ -164,14 +159,13 @@ public class StandardDialog extends JDialog implements ActionListener
     }
 
     /**
-     * Builds and returns the user interface for the dialog.  This method is
-     * shared among the constructors.
+     * Builds and returns the user interface for the dialog.  This
+     * method is shared among the constructors.
      *
      * @return the button panel.
      */
     protected L1R2ButtonPanel createButtonPanel(  )
     {
-
         L1R2ButtonPanel buttons =
             new L1R2ButtonPanel( 
                 Application.getInstance(  ).getLocalizedMessage( "help" ),

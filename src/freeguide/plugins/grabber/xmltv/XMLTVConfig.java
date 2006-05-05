@@ -10,7 +10,6 @@ import java.util.List;
  */
 public class XMLTVConfig
 {
-
     /** Info for loading by Preferences Helper. */
     public static final Class modules_TYPE = ModuleInfo.class;
 
@@ -24,12 +23,10 @@ public class XMLTVConfig
      */
     public Object clone(  )
     {
-
         XMLTVConfig result = new XMLTVConfig(  );
 
         synchronized( modules )
         {
-
             for( int i = 0; i < modules.size(  ); i++ )
             {
                 result.modules.add( 
@@ -49,7 +46,6 @@ public class XMLTVConfig
      */
     public static class ModuleInfo
     {
-
         /** DOCUMENT ME! */
         public String moduleName;
 
@@ -67,7 +63,6 @@ public class XMLTVConfig
          */
         public Object clone(  )
         {
-
             ModuleInfo result = new ModuleInfo(  );
             result.moduleName = moduleName;
             result.commandToRun = commandToRun;

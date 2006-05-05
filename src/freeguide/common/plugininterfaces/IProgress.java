@@ -8,30 +8,29 @@ package freeguide.common.plugininterfaces;
  */
 public interface IProgress
 {
-
     /**
-     * Set percent of work ready. You can use setStepCount/setStepNumber
-     * instead this method.
+     * Set percent of work ready. You can use
+     * setStepCount/setStepNumber instead this method.
      *
      * @param percent percent value
      */
     void setProgressValue( int percent );
 
     /**
-     * Set step count for progress.  It is more friendly method for calculate
-     * percents.  Module can setup step count on startup, and set step number
-     * after each step. In this case, progress bar should calculate
-     * percentage himself.
+     * Set step count for progress.  It is more friendly method for
+     * calculate percents.  Module can setup step count on startup, and set
+     * step number after each step. In this case, progress bar should
+     * calculate percentage himself.
      *
      * @param stepCount
      */
     void setStepCount( int stepCount );
 
     /**
-     * Set step number for progress.  It is more friendly method for calculate
-     * percents.  Module can setup step count on startup, and set step number
-     * after each step. In this case, progress bar should calculate
-     * percentage himself.
+     * Set step number for progress.  It is more friendly method for
+     * calculate percents.  Module can setup step count on startup, and set
+     * step number after each step. In this case, progress bar should
+     * calculate percentage himself.
      *
      * @param stepNumber
      */

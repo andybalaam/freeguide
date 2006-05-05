@@ -20,10 +20,9 @@ import javax.swing.table.TableCellRenderer;
 public class ModifiedBooleanRenderer extends JCheckBox
     implements TableCellRenderer, UIResource
 {
-
     private static final Border noFocusBorder = new EmptyBorder( 1, 1, 1, 1 );
 
-    /**
+/**
      * Creates a new ModifiedBooleanRenderer object.
      */
     public ModifiedBooleanRenderer(  )
@@ -49,7 +48,6 @@ public class ModifiedBooleanRenderer extends JCheckBox
         JTable table, Object value, boolean isSelected, boolean hasFocus,
         int row, int column )
     {
-
         if( isSelected )
         {
             setForeground( table.getSelectionForeground(  ) );
@@ -79,7 +77,6 @@ public class ModifiedBooleanRenderer extends JCheckBox
         }
         else
         {
-
             return null;
         }
     }

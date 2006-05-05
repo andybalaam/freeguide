@@ -14,8 +14,7 @@ import javax.swing.JFrame;
  */
 public class JWaitFrame extends JFrame
 {
-
-    /**
+/**
      * Creates a new JWaitFrame object.
      */
     public JWaitFrame(  )
@@ -26,7 +25,6 @@ public class JWaitFrame extends JFrame
             {
                 public void windowClosed( WindowEvent e )
                 {
-
                     synchronized( JWaitFrame.this )
                     {
                         JWaitFrame.this.notifyAll(  );
@@ -40,10 +38,8 @@ public class JWaitFrame extends JFrame
      */
     public void waitForClose(  )
     {
-
         try
         {
-
             synchronized( this )
             {
                 wait(  );
@@ -59,7 +55,6 @@ public class JWaitFrame extends JFrame
      */
     public void cleanupListeners(  )
     {
-
         WindowListener[] listeners = getWindowListeners(  );
 
         for( int i = 0; i < listeners.length; i++ )

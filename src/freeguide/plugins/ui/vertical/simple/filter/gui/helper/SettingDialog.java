@@ -12,7 +12,6 @@ import freeguide.plugins.ui.vertical.simple.filter.ProgrammeFilter;
  */
 public interface SettingDialog
 {
-
     /**
      * DOCUMENT_ME!
      *
@@ -37,6 +36,4 @@ public interface SettingDialog
      */
     public void show(  );
 }
-
-
 //public interface SettingDialog

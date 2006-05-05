@@ -19,7 +19,6 @@ import javax.xml.parsers.SAXParserFactory;
  */
 public class HallmarkInfo extends DefaultHandler
 {
-
     protected static Country[] countriesList;
     protected final List countries = new ArrayList(  );
     protected final List languages = new ArrayList(  );
@@ -39,7 +38,6 @@ public class HallmarkInfo extends DefaultHandler
         String uri, String localName, String qName, Attributes attributes )
         throws SAXException
     {
-
         if( "country".equals( qName ) )
         {
             currentCountry = new Country(  );
@@ -51,7 +49,6 @@ public class HallmarkInfo extends DefaultHandler
         }
         else if( "language".equals( qName ) )
         {
-
             Language info = new Language(  );
             info.id = attributes.getValue( "id" );
             info.name = attributes.getValue( "name" );
@@ -71,11 +68,9 @@ public class HallmarkInfo extends DefaultHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-
         if( "country".equals( qName ) )
         {
-            currentCountry.languages =
-                (Language[])languages.toArray( 
+            currentCountry.languages = (Language[])languages.toArray( 
                     new Language[languages.size(  )] );
         }
     }
@@ -87,7 +82,6 @@ public class HallmarkInfo extends DefaultHandler
      */
     public synchronized static Country[] getCountriesList(  )
     {
-
         if( countriesList == null )
         {
             countriesList = parseInfo(  );
@@ -98,17 +92,16 @@ public class HallmarkInfo extends DefaultHandler
 
     protected static Country[] parseInfo(  )
     {
-
         HallmarkInfo handler = new HallmarkInfo(  );
         InputSource ins =
             new InputSource( 
-                HallmarkInfo.class.getClassLoader(  ).getResourceAsStream( 
+                HallmarkInfo.class.getClassLoader(  )
+                                  .getResourceAsStream( 
                     "resources/plugins/grabber/hallmark/info.xml" ) );
         SAXParserFactory factory = SAXParserFactory.newInstance(  );
 
         try
         {
-
             SAXParser saxParser = factory.newSAXParser(  );
             saxParser.parse( ins, handler );
         }
@@ -130,15 +123,12 @@ public class HallmarkInfo extends DefaultHandler
      */
     public static Country getCountry( final String id )
     {
-
         Country[] countries = getCountriesList(  );
 
         for( int i = 0; i < countries.length; i++ )
         {
-
             if( countries[i].id.equals( id ) )
             {
-
                 return countries[i];
             }
         }
@@ -154,7 +144,6 @@ public class HallmarkInfo extends DefaultHandler
      */
     public static class Country
     {
-
         /** Country ID. */
         public String id;
 
@@ -174,7 +163,6 @@ public class HallmarkInfo extends DefaultHandler
          */
         public String toString(  )
         {
-
             return name;
         }
 
@@ -187,13 +175,10 @@ public class HallmarkInfo extends DefaultHandler
          */
         public Language getLanguage( final String name )
         {
-
             for( int j = 0; j < languages.length; j++ )
             {
-
                 if( languages[j].name.equals( name ) )
                 {
-
                     return languages[j];
                 }
             }
@@ -210,7 +195,6 @@ public class HallmarkInfo extends DefaultHandler
      */
     public static class Language
     {
-
         /** Language parameter ID. */
         public String id;
 
@@ -224,7 +208,6 @@ public class HallmarkInfo extends DefaultHandler
          */
         public String toString(  )
         {
-
             return name;
         }
     }

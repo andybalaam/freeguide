@@ -10,19 +10,22 @@
  *
  *  See the file COPYING for more information.
  */
-
 package freeguide.plugins.program.freeguide.options;
 
 import freeguide.common.gui.FGDialog;
-import freeguide.plugins.program.freeguide.FreeGuide;
-import freeguide.plugins.program.freeguide.dialogs.*;
-import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
+
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.*;
 
+import freeguide.plugins.program.freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.dialogs.*;
+import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
+
 import java.awt.*;
 import java.awt.event.*;
+
 import java.util.Map;
+
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -33,6 +36,12 @@ import javax.swing.event.*;
  * @created    12 Dec 2003
  * @version    1
  */
+/**
+ * DOCUMENT ME!
+ *
+ * @author $author$
+ * @version $Revision$
+  */
 public class BrowserOptionPanel extends OptionPanel
 {
     // ----------------------------------
@@ -40,7 +49,8 @@ public class BrowserOptionPanel extends OptionPanel
     private JTextArea commandTextArea;
     private Map browsers;
     private ItemListener browserComboBoxItemListener;
-    /**
+
+/**
      * Creates a new BrowserOptionPanel object.
      *
      * @param parent DOCUMENT ME!
@@ -49,30 +59,34 @@ public class BrowserOptionPanel extends OptionPanel
     {
         super( parent );
     }
-    
+
     /**
      * DOCUMENT_ME!
      */
     public void doConstruct(  )
     {
         browsers = FirstTimeWizard.getAllBrowsers(  );
+
         // Make the objects
         JLabel browserLabel =
             newLeftJLabel( 
                 Application.getInstance(  ).getLocalizedMessage( 
                     "web_browser" ) + ":" );
-        browserComboBox =
-            newRightJComboBox( browsers.keySet(  ).toArray( new String[0] ) );
+        browserComboBox = newRightJComboBox( 
+                browsers.keySet(  ).toArray( new String[0] ) );
         browserLabel.setLabelFor( browserComboBox );
         browserLabel.setDisplayedMnemonic( KeyEvent.VK_W );
+
         JLabel commandLabel =
             newLeftJLabel( 
                 Application.getInstance(  ).getLocalizedMessage( 
                     "full_command" ) + ":" );
         commandTextArea = newRightJTextArea(  );
+
         JScrollPane commandScrollPane = new JScrollPane( commandTextArea );
         commandLabel.setLabelFor( commandTextArea );
         commandLabel.setDisplayedMnemonic( KeyEvent.VK_F );
+
         // Lay them out in a GridBag layout
         GridBagEasy gbe = new GridBagEasy( this );
         gbe.default_insets = new Insets( 1, 1, 1, 1 );
@@ -94,13 +108,13 @@ public class BrowserOptionPanel extends OptionPanel
                 } );
         browserComboBox.addItemListener( browserComboBoxItemListener );
     }
-    
+
     protected void doLoad( String prefix )
     {
         browserComboBox.setSelectedItem( FreeGuide.config.browserName );
         commandTextArea.setText( FreeGuide.config.browserCommand );
     }
-    
+
     /**
      * Saves the values in this option pane.
      *
@@ -108,12 +122,12 @@ public class BrowserOptionPanel extends OptionPanel
      */
     public boolean doSave(  )
     {
-        FreeGuide.config.browserName =
-            (String)browserComboBox.getSelectedItem(  );
+        FreeGuide.config.browserName = (String)browserComboBox.getSelectedItem(  );
         FreeGuide.config.browserCommand = commandTextArea.getText(  );
+
         return true;
     }
-    
+
     /**
      * Used to find the name of this panel when displayed in a JTree.
      *
@@ -123,7 +137,7 @@ public class BrowserOptionPanel extends OptionPanel
     {
         return Application.getInstance(  ).getLocalizedMessage( "browser" );
     }
-    
+
     protected void browserComboBoxItemStateChanged( 
         java.awt.event.ItemEvent evt )
     {

@@ -14,7 +14,6 @@ package freeguide.plugins.program.freeguide;
  */
 public interface Progressor
 {
-
     /**
      * Sets the progress to a percentage
      *

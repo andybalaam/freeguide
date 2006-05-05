@@ -14,21 +14,20 @@ import java.lang.reflect.Modifier;
  */
 public class EndianOutputByteArray
 {
-
     String charsetName;
     boolean littleEndian = true;
     byte[] data = new byte[256];
     int size;
     int pos;
 
-    /**
+/**
      * Creates a new EndianOutputByteArray object.
      */
     public EndianOutputByteArray(  )
     {
     }
 
-    /**
+/**
      * Creates a new EndianOutputByteArray object.
      *
      * @param littleEndian DOCUMENT ME!
@@ -38,7 +37,7 @@ public class EndianOutputByteArray
         this.littleEndian = littleEndian;
     }
 
-    /**
+/**
      * Creates a new EndianOutputByteArray object.
      *
      * @param littleEndian DOCUMENT ME!
@@ -53,10 +52,8 @@ public class EndianOutputByteArray
 
     protected void checkMemory( final int blockSize )
     {
-
         if( ( pos + blockSize ) > data.length )
         {
-
             byte[] newdata =
                 new byte[Math.max( ( data.length * 12 ) / 10, pos + blockSize )];
             System.arraycopy( data, 0, newdata, 0, size );
@@ -66,7 +63,6 @@ public class EndianOutputByteArray
 
     protected void fixSize(  )
     {
-
         if( pos > size )
         {
             size = pos;
@@ -80,7 +76,6 @@ public class EndianOutputByteArray
      */
     public byte[] getBytes(  )
     {
-
         byte[] result = new byte[size];
 
         System.arraycopy( data, 0, result, 0, size );
@@ -108,6 +103,11 @@ public class EndianOutputByteArray
      * public void write(int v) throws IOException { out.write(v); }
      *
      * public void writeByte(int v) throws IOException { write(v); }
+     */
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param v DOCUMENT_ME!
      */
     public void writeShort( int v )
     {
@@ -225,7 +225,6 @@ public class EndianOutputByteArray
      */
     public void writeChars( String s ) throws IOException
     {
-
         for( int i = 0; i < s.length(  ); i++ )
         {
             writeChar( s.charAt( i ) );
@@ -250,16 +249,21 @@ public class EndianOutputByteArray
      * sb = str.getBytes(); else sb = str.getBytes(charset); int len =
      * sb.length; writeInt(len); write(sb); } }
      */
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param str DOCUMENT_ME!
+     *
+     * @throws IOException DOCUMENT_ME!
+     */
     public void writeBPasString( String str ) throws IOException
     {
-
         if( str == null )
         {
             writeByte( 0 );
         }
         else
         {
-
             byte[] sb;
 
             if( charsetName == null )
@@ -294,7 +298,6 @@ public class EndianOutputByteArray
      */
     public int writeSPasString( String str ) throws IOException
     {
-
         if( str == null )
         {
             writeShort( 0 );
@@ -303,7 +306,6 @@ public class EndianOutputByteArray
         }
         else
         {
-
             byte[] sb;
 
             if( charsetName == null )
@@ -342,15 +344,12 @@ public class EndianOutputByteArray
     public int calcSPasString( String str, String charset )
         throws IOException
     {
-
         if( str == null )
         {
-
             return 2;
         }
         else
         {
-
             byte[] sb;
 
             if( charset == null )
@@ -382,7 +381,6 @@ public class EndianOutputByteArray
      */
     public void writeString0( String str ) throws IOException
     {
-
         byte[] data;
 
         if( getCharsetName(  ) == null )
@@ -409,7 +407,6 @@ public class EndianOutputByteArray
     public void writeStringXor0( String str, int length )
         throws IOException
     {
-
         byte[] data;
 
         if( getCharsetName(  ) == null )
@@ -442,7 +439,6 @@ public class EndianOutputByteArray
     public void writeString0( String str, int length )
         throws IOException
     {
-
         byte[] data;
 
         if( getCharsetName(  ) == null )
@@ -477,7 +473,6 @@ public class EndianOutputByteArray
     public int writeSPasString0( String str, String charset )
         throws IOException
     {
-
         if( str == null )
         {
             writeShort( 0 );
@@ -487,7 +482,6 @@ public class EndianOutputByteArray
         }
         else
         {
-
             byte[] sb;
 
             if( charset == null )
@@ -527,15 +521,12 @@ public class EndianOutputByteArray
     public int calcSPasString0( String str, String charset )
         throws IOException
     {
-
         if( str == null )
         {
-
             return 3;
         }
         else
         {
-
             byte[] sb;
 
             if( charset == null )
@@ -575,7 +566,6 @@ public class EndianOutputByteArray
      */
     public int getCurrentPos(  )
     {
-
         return pos;
     }
 
@@ -609,16 +599,18 @@ public class EndianOutputByteArray
      */
     public int length(  ) throws IOException
     {
-
         return size;
     }
 
     /*
      * public void writeUTF(String str) throws IOException { out.writeUTF(str); }
      */
-    /*
-     * public void writeBytes(String str) throws IOException {
-     * out.writeBytes(str); }
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param b DOCUMENT_ME!
+     * @param off DOCUMENT_ME!
+     * @param len DOCUMENT_ME!
      */
     public void write( byte[] b, int off, int len )
     {
@@ -673,7 +665,6 @@ public class EndianOutputByteArray
      */
     public void skipBytes( int len ) throws IOException
     {
-
         for( int i = 0; i < len; i++ )
         {
             writeByte( 0 );
@@ -687,7 +678,6 @@ public class EndianOutputByteArray
      */
     public String getCharsetName(  )
     {
-
         return charsetName;
     }
 
@@ -696,7 +686,6 @@ public class EndianOutputByteArray
      */
     public void alignToShort(  )
     {
-
         if( ( pos % 2 ) == 1 )
         {
             writeByte( 0 );
@@ -712,10 +701,8 @@ public class EndianOutputByteArray
      */
     public void serialize( final Object obj ) throws Exception
     {
-
         if( obj.getClass(  ).isArray(  ) )
         {
-
             for( int i = 0; i < Array.getLength( obj ); i++ )
             {
                 serialize( Array.get( obj, i ) );
@@ -735,24 +722,20 @@ public class EndianOutputByteArray
         }
         else
         {
-
             Field[] fields = obj.getClass(  ).getFields(  );
 
             for( int i = 0; i < fields.length; i++ )
             {
-
                 if( 
                     !Modifier.isPublic( fields[i].getModifiers(  ) )
                         || Modifier.isTransient( fields[i].getModifiers(  ) )
                         || Modifier.isStatic( fields[i].getModifiers(  ) ) )
                 {
-
                     continue;
                 }
 
                 if( fields[i].getType(  ) == String.class )
                 {
-
                     int len =
                         obj.getClass(  )
                            .getField( fields[i].getName(  ) + "_LENGTH" )

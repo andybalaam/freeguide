@@ -17,12 +17,11 @@ public class PatchBuild
 {
     static void patch( final PluginInfo[] plugins ) throws Exception
     {
-
         final BufferedWriter out =
             new BufferedWriter( 
                 new OutputStreamWriter( 
                     new FileOutputStream( "ant/build-plugins-info.xml" ),
-                        "UTF-8" ) );
+                    "UTF-8" ) );
 
         writeHeader( out, plugins );
         listPlugins( out, plugins );
@@ -36,7 +35,6 @@ public class PatchBuild
         final BufferedWriter out, PluginInfo[] plugins )
         throws Exception
     {
-
         for( int i = 0; i < plugins.length; i++ )
         {
             out.write( "    <antcall target=\"${actual-target}\">\n" );

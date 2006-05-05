@@ -11,7 +11,6 @@ import freeguide.common.lib.fgspecific.data.TVProgramme;
  */
 public interface IModuleStorage extends IModule
 {
-
     /**
      * Get info about data in storage.
      *
@@ -65,7 +64,6 @@ public interface IModuleStorage extends IModule
      */
     public class Info
     {
-
         /** DOCUMENT ME! */
         public TVChannelsSet channelsList = new TVChannelsSet(  );
 
@@ -82,7 +80,6 @@ public interface IModuleStorage extends IModule
          */
         public Info cloneInfo(  )
         {
-
             Info result = new Info(  );
 
             result.channelsList = (TVChannelsSet)channelsList.clone(  );
@@ -102,7 +99,6 @@ public interface IModuleStorage extends IModule
      */
     abstract public static class EarliestCheckAllow
     {
-
         /**
          * DOCUMENT_ME!
          *

@@ -20,7 +20,6 @@ import java.util.regex.Pattern;
  */
 public class GrabberRbc extends BaseModule implements IModuleGrabber
 {
-
     protected Pattern reChannel =
         Pattern.compile( 
             "^(.+)</b></font><.+>(\\p{L}+),\\s+(\\d{1,2})\\s+(\\p{L}+)\\s+(\\d{4})",
@@ -57,7 +56,6 @@ public class GrabberRbc extends BaseModule implements IModuleGrabber
      */
     public Object getConfig(  )
     {
-
         return null;
     }
 
@@ -81,7 +79,6 @@ public class GrabberRbc extends BaseModule implements IModuleGrabber
         IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
-
         /*        NumberFormat nf = NumberFormat.getInstance();
                 nf.setMinimumIntegerDigits(2);
 
@@ -164,9 +161,14 @@ public class GrabberRbc extends BaseModule implements IModuleGrabber
 
     return result;
     }*/
+    /**
+     * DOCUMENT ME!
+     *
+     * @author $author$
+     * @version $Revision$
+      */
     public static class DataParser extends DefaultHandler
     {
-
         /**
          * DOCUMENT_ME!
          *
@@ -174,7 +176,6 @@ public class GrabberRbc extends BaseModule implements IModuleGrabber
          */
         public boolean wasEmpty(  )
         {
-
             return true;
         }
     }

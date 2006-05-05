@@ -9,7 +9,6 @@ import java.util.Iterator;
  */
 abstract public class TVIteratorChannels extends TVIterator
 {
-
     protected Iterator it;
 
     abstract protected void onChannel( final TVChannel channel );
@@ -21,7 +20,6 @@ abstract public class TVIteratorChannels extends TVIterator
      */
     public Iterator getIterator(  )
     {
-
         return it;
     }
 }

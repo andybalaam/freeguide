@@ -2,7 +2,6 @@ package freeguide.plugins.ui.horizontal.manylabels;
 
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-
 import freeguide.common.lib.general.TemplateParser;
 
 import freeguide.common.plugininterfaces.BaseModuleReminder;
@@ -40,7 +39,6 @@ import javax.swing.border.Border;
  */
 public class JLabelProgramme extends JLabel
 {
-
     protected static Border DEFAULT_BORDER;
     protected static Border MOVIE_BORDER;
     protected static Border INGUIDE_BORDER;
@@ -54,7 +52,6 @@ public class JLabelProgramme extends JLabel
 
     static
     {
-
         GeneralPath path = new GeneralPath(  );
 
         path.moveTo( 300, 200 );
@@ -83,7 +80,7 @@ public class JLabelProgramme extends JLabel
     protected final boolean moveNames;
     protected final DateFormat timeFormat;
 
-    /**
+/**
      * Creates a new JLabelProgramme object.
      *
      * @param programme DOCUMENT ME!
@@ -131,7 +128,6 @@ public class JLabelProgramme extends JLabel
      */
     protected String getTitle( final TVProgramme programme )
     {
-
         final StringBuffer toAppendTo = new StringBuffer(  );
 
         long programmeStart = programme.getStart(  );
@@ -181,7 +177,6 @@ public class JLabelProgramme extends JLabel
      */
     public TVProgramme getProgramme(  )
     {
-
         return programme;
     }
 
@@ -190,7 +185,6 @@ public class JLabelProgramme extends JLabel
      */
     public void setupColors(  )
     {
-
         if( ( REMINDER != null ) && REMINDER.isSelected( programme ) )
         {
             setBackground( controller.config.colorTicked );
@@ -221,7 +215,6 @@ public class JLabelProgramme extends JLabel
      */
     public static void setupLabel( final HorizontalViewer main )
     {
-
         // TODO change
         IModuleReminder[] rems = Application.getInstance(  ).getReminders(  );
 
@@ -234,20 +227,16 @@ public class JLabelProgramme extends JLabel
             REMINDER = null;
         }
 
-        DEFAULT_BORDER =
-            BorderFactory.createCompoundBorder( 
+        DEFAULT_BORDER = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
                 BorderFactory.createLineBorder( main.config.colorNonTicked, 2 ) );
-        MOVIE_BORDER =
-            BorderFactory.createCompoundBorder( 
+        MOVIE_BORDER = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
                 BorderFactory.createLineBorder( main.config.colorMovie, 2 ) );
-        INGUIDE_BORDER =
-            BorderFactory.createCompoundBorder( 
+        INGUIDE_BORDER = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
                 BorderFactory.createLineBorder( main.config.colorTicked, 2 ) );
-        FOCUSED_BORDER =
-            BorderFactory.createCompoundBorder( 
+        FOCUSED_BORDER = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
                 BorderFactory.createLineBorder( main.config.colorNonTicked, 1 ) );
     }
@@ -257,15 +246,14 @@ public class JLabelProgramme extends JLabel
      */
     protected void setupHeart(  )
     {
-
         if( REMINDER == null )
         {
             isDrawHeart = false;
         }
         else
         {
-            isDrawHeart =
-                ( (BaseModuleReminder)REMINDER ).getFavourite( programme ) != null;
+            isDrawHeart = ( (BaseModuleReminder)REMINDER ).getFavourite( 
+                    programme ) != null;
         }
     }
 
@@ -276,10 +264,8 @@ public class JLabelProgramme extends JLabel
      */
     protected void paintComponent( Graphics g )
     {
-
         if( moveNames )
         {
-
             // Paint our own text, aligning to the left of the screen
             g.setClip( this.getVisibleRect(  ) );
 
@@ -327,7 +313,6 @@ public class JLabelProgramme extends JLabel
 
         if( !isDrawHeart )
         {
-
             return;
         }
 
@@ -363,10 +348,8 @@ public class JLabelProgramme extends JLabel
      */
     public String getToolTipText(  )
     {
-
         if( !controller.config.displayTooltips )
         {
-
             return null;
         }
 
@@ -374,7 +357,6 @@ public class JLabelProgramme extends JLabel
 
         if( tooltip != null )
         {
-
             return tooltip;
         }
 
@@ -382,13 +364,11 @@ public class JLabelProgramme extends JLabel
 
         if( ( this.tooltip != null ) && !printDelta )
         {
-
             return this.tooltip;
         }
 
         try
         {
-
             final StringWriter out = new StringWriter(  );
             TemplateParser parser =
                 new TemplateParser( 
@@ -400,8 +380,8 @@ public class JLabelProgramme extends JLabel
         }
         catch( Exception ex )
         {
-            Application.getInstance(  ).getLogger(  ).log( 
-                Level.WARNING, "Error generate tooltip text", ex );
+            Application.getInstance(  ).getLogger(  )
+                       .log( Level.WARNING, "Error generate tooltip text", ex );
         }
 
         return this.tooltip;
@@ -417,7 +397,6 @@ public class JLabelProgramme extends JLabel
      */
     public long getMiddle( final long startMin, final long endMax )
     {
-
         long start = Math.max( getProgramme(  ).getStart(  ), startMin );
         long end = Math.min( getProgramme(  ).getEnd(  ), endMax );
 
@@ -436,7 +415,6 @@ public class JLabelProgramme extends JLabel
     public boolean isOverlap( 
         final long middleTime, final long startMin, final long endMax )
     {
-
         long start = Math.max( getProgramme(  ).getStart(  ), startMin );
         long end = Math.min( getProgramme(  ).getEnd(  ), endMax );
 

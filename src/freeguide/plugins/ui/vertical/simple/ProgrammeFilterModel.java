@@ -16,7 +16,6 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ProgrammeFilterModel extends AbstractTableModel
 {
-
     protected TvTableModel model = null;
     protected TvList list = null;
 
@@ -29,7 +28,7 @@ public class ProgrammeFilterModel extends AbstractTableModel
     /** Association of local row numbers to submodel row numbers */
     protected int[] arRowAssociation;
 
-    /**
+/**
      * Creates a new ProgrammeFilterModel object.
      *
      * @param model DOCUMENT ME!
@@ -42,7 +41,6 @@ public class ProgrammeFilterModel extends AbstractTableModel
     }
 
     //public ProgrammeFilterModel(TvTableModel model)
-
     /**
      * Add a filter to the filter list.
      *
@@ -55,7 +53,6 @@ public class ProgrammeFilterModel extends AbstractTableModel
     }
 
     //public void addFilter(ProgrammeFilter filter)
-
     /**
      * Return the first filter of the given class
      *
@@ -65,7 +62,6 @@ public class ProgrammeFilterModel extends AbstractTableModel
      */
     public ProgrammeFilter getFilter( Class filterClass )
     {
-
         Iterator it = this.filters.iterator(  );
         ProgrammeFilter filter;
 
@@ -75,7 +71,6 @@ public class ProgrammeFilterModel extends AbstractTableModel
 
             if( filter.getClass(  ).equals( filterClass ) )
             {
-
                 return filter;
             }
         }
@@ -84,7 +79,6 @@ public class ProgrammeFilterModel extends AbstractTableModel
     }
 
     //public ProgrammeFilter getFilter(Class filterClass)
-
     /**
      * Remove the filter from the filter list
      *
@@ -96,14 +90,12 @@ public class ProgrammeFilterModel extends AbstractTableModel
     }
 
     //public void removeFilter(ProgrammeFilter filter)
-
     /**
-     * The working horse: The filters are applied here. This method has to be
-     * called whenever a filter has been changed.
+     * The working horse: The filters are applied here. This method
+     * has to be called whenever a filter has been changed.
      */
     public void applyFilter(  )
     {
-
         int nModelRowCount = this.model.getRowCount(  );
         this.arRowAssociation = new int[nModelRowCount];
         this.nRowCount = 0;
@@ -114,18 +106,15 @@ public class ProgrammeFilterModel extends AbstractTableModel
 
         if( arFilter.length > 0 )
         {
-
             //apply the filters
             for( int nA = 0; nA < nModelRowCount; nA++ )
             {
-                programme =
-                    (TVProgramme)this.model.getValueAt( 
+                programme = (TVProgramme)this.model.getValueAt( 
                         nA, TvTableModel.COL_PROGRAMME );
                 bShowProgramme = true;
 
                 for( int nFilter = 0; nFilter < arFilter.length; nFilter++ )
                 {
-
                     if( !arFilter[nFilter].showProgramme( programme ) )
                     {
                         bShowProgramme = false;
@@ -142,7 +131,6 @@ public class ProgrammeFilterModel extends AbstractTableModel
         }
         else
         {
-
             //no filters? pass through.
             this.nRowCount = nModelRowCount;
 
@@ -154,7 +142,6 @@ public class ProgrammeFilterModel extends AbstractTableModel
     }
 
     //public void applyFilter()
-
     /**
      * Get an array of all filters.
      *
@@ -162,7 +149,6 @@ public class ProgrammeFilterModel extends AbstractTableModel
      */
     public ProgrammeFilter[] getAllFilters(  )
     {
-
         ProgrammeFilter[] arFilter =
             new ProgrammeFilter[this.filters.size(  )];
         Iterator it = this.filters.iterator(  );
@@ -177,7 +163,6 @@ public class ProgrammeFilterModel extends AbstractTableModel
     }
 
     //public ProgrammeFilter[] getAllFilters()
-
     /**
      * DOCUMENT_ME!
      *
@@ -185,12 +170,10 @@ public class ProgrammeFilterModel extends AbstractTableModel
      */
     public int getColumnCount(  )
     {
-
         return this.model.getColumnCount(  );
     }
 
     //public int getColumnCount()
-
     /**
      * DOCUMENT_ME!
      *
@@ -198,12 +181,10 @@ public class ProgrammeFilterModel extends AbstractTableModel
      */
     public int getRowCount(  )
     {
-
         return this.nRowCount;
     }
 
     //public int getRowCount()
-
     /**
      * DOCUMENT_ME!
      *
@@ -214,12 +195,10 @@ public class ProgrammeFilterModel extends AbstractTableModel
      */
     public Object getValueAt( int row, int col )
     {
-
         return this.model.getValueAt( this.arRowAssociation[row], col );
     }
 
     //public Object getValueAt(int row, int col)
-
     /**
      * DOCUMENT_ME!
      *
@@ -227,12 +206,10 @@ public class ProgrammeFilterModel extends AbstractTableModel
      */
     public TvTableModel getModel(  )
     {
-
         return this.model;
     }
 
     //public TvTableModel getModel()
-
     /**
      * DOCUMENT_ME!
      *
@@ -242,15 +219,13 @@ public class ProgrammeFilterModel extends AbstractTableModel
      */
     public String getColumnName( int col )
     {
-
         return this.model.getColumnName( col );
     }
 
     //public String getColumnName(int col)
-
     /**
-     * A filter notifies the model that it has been changed and filters need
-     * to be re-applied
+     * A filter notifies the model that it has been changed and
+     * filters need to be re-applied
      */
     public void filterChanged(  )
     {
@@ -260,6 +235,4 @@ public class ProgrammeFilterModel extends AbstractTableModel
 
     //public void filterChanged()
 }
-
-
 //public class ProgrammeFilterModel extends AbstractTableModel

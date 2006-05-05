@@ -9,7 +9,6 @@ import java.util.Iterator;
  */
 abstract public class TVIteratorProgrammes extends TVIterator
 {
-
     boolean needToIterateChannel = false;
     TVChannel currentChannel;
     protected Iterator itChannels;
@@ -25,7 +24,6 @@ abstract public class TVIteratorProgrammes extends TVIterator
 
     protected TVChannel getCurrentChannel(  )
     {
-
         return currentChannel;
     }
 
@@ -41,7 +39,6 @@ abstract public class TVIteratorProgrammes extends TVIterator
      */
     public Iterator getIteratorChannels(  )
     {
-
         return itChannels;
     }
 
@@ -52,7 +49,6 @@ abstract public class TVIteratorProgrammes extends TVIterator
      */
     public Iterator getIteratorProgrammes(  )
     {
-
         return itProgrammes;
     }
 }

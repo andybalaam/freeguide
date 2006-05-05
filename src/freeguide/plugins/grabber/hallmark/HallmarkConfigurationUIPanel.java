@@ -16,7 +16,6 @@ import javax.swing.JTextField;
  */
 public class HallmarkConfigurationUIPanel extends JPanel
 {
-
     private JLabel jLabel = null;
     private JLabel jLabel1 = null;
     private JComboBox cbCountry = null;
@@ -24,7 +23,7 @@ public class HallmarkConfigurationUIPanel extends JPanel
     private JLabel jLabel2 = null;
     private JTextField textWeeks = null;
 
-    /**
+/**
      * This is the default constructor
      */
     public HallmarkConfigurationUIPanel(  )
@@ -38,7 +37,6 @@ public class HallmarkConfigurationUIPanel extends JPanel
      */
     private void initialize(  )
     {
-
         GridBagConstraints gridBagConstraints5 = new GridBagConstraints(  );
         gridBagConstraints5.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints5.gridy = 2;
@@ -103,7 +101,6 @@ public class HallmarkConfigurationUIPanel extends JPanel
      */
     public JComboBox getCbCountry(  )
     {
-
         if( cbCountry == null )
         {
             cbCountry = new JComboBox(  );
@@ -119,7 +116,6 @@ public class HallmarkConfigurationUIPanel extends JPanel
      */
     public JComboBox getCbLanguage(  )
     {
-
         if( cbLanguage == null )
         {
             cbLanguage = new JComboBox(  );
@@ -135,7 +131,6 @@ public class HallmarkConfigurationUIPanel extends JPanel
      */
     public JTextField getTextWeeks(  )
     {
-
         if( textWeeks == null )
         {
             textWeeks = new JTextField(  );

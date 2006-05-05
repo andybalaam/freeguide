@@ -11,10 +11,9 @@ import javax.swing.JDialog;
  */
 public interface IModule
 {
-
     /**
-     * Get supported locales list. This method called BEFORE setLocale. Each
-     * module MUST support "en" locale.
+     * Get supported locales list. This method called BEFORE
+     * setLocale. Each module MUST support "en" locale.
      *
      * @return List of supported locales
      *

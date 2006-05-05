@@ -26,11 +26,10 @@ import javax.swing.JPanel;
  */
 public class BooleanWizardPanel extends WizardPanel
 {
-
     // -------------------------------------------
     private JCheckBox checkbox;
 
-    /**
+/**
      * Constructor for the BooleanWizardPanel object
      */
     BooleanWizardPanel(  )
@@ -44,7 +43,6 @@ public class BooleanWizardPanel extends WizardPanel
      */
     public void construct(  )
     {
-
         java.awt.GridBagConstraints gridBagConstraints;
 
         JPanel midPanel = new JPanel(  );
@@ -104,7 +102,6 @@ public class BooleanWizardPanel extends WizardPanel
      */
     protected Object getBoxValue(  )
     {
-
         return new Boolean( checkbox.isSelected(  ) );
 
     }

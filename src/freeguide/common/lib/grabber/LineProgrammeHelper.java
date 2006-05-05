@@ -1,7 +1,6 @@
 package freeguide.common.lib.grabber;
 
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-
 import freeguide.common.lib.general.Time;
 
 import freeguide.common.plugininterfaces.ILogger;
@@ -20,7 +19,6 @@ import java.util.regex.Pattern;
  */
 public class LineProgrammeHelper
 {
-
     protected static Pattern reProgram =
         Pattern.compile( 
             "^(\\d{1,2}[\\.|:]\\d{2})([ |,]*)(.+)$", Pattern.CASE_INSENSITIVE );
@@ -38,7 +36,6 @@ public class LineProgrammeHelper
      */
     public static boolean isProgram( String str )
     {
-
         Matcher m = reProgram.matcher( str );
 
         return m.matches(  );
@@ -61,19 +58,16 @@ public class LineProgrammeHelper
         ILogger logger, String str, long baseDate, long prevTime )
         throws ParseException
     {
-
         List timelist = new ArrayList(  );
 
         String p = str;
 
         while( true )
         {
-
             Matcher m = reProgram.matcher( p );
 
             if( !m.matches(  ) )
             {
-
                 break;
 
             }
@@ -104,7 +98,6 @@ public class LineProgrammeHelper
 
         for( int i = 0; i < timelist.size(  ); i++ )
         {
-
             Time tm = ( (Time)timelist.get( i ) );
 
             TVProgramme prog = new TVProgramme(  );
@@ -133,15 +126,12 @@ public class LineProgrammeHelper
      */
     public static Time parseTime( String tm ) throws ParseException
     {
-
         Matcher ma = reTime.matcher( tm );
 
         if( ma.matches(  ) )
         {
-
             try
             {
-
                 int h = Integer.parseInt( ma.group( 1 ) );
                 int m = Integer.parseInt( ma.group( 2 ) );
 
@@ -164,15 +154,12 @@ public class LineProgrammeHelper
         }
         else
         {
-
             Matcher maUS = reTimeUS.matcher( tm );
 
             if( maUS.matches(  ) )
             {
-
                 try
                 {
-
                     int h = Integer.parseInt( maUS.group( 1 ) );
                     int m = Integer.parseInt( maUS.group( 2 ) );
                     boolean isPM = "PM".equals( maUS.group( 3 ) );

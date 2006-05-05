@@ -16,13 +16,12 @@ import javax.swing.JScrollPane;
  */
 public class XMLTVConfigureUIPanel extends JScrollPane
 {
-
     private JPanel jPanel = null;
     private JButton btnAdd = null;
     private JPanel panelModules = null;
     protected final ILocalizer localizer;
 
-    /**
+/**
      * This is the default constructor
      *
      * @param localizer DOCUMENT ME!
@@ -52,10 +51,8 @@ public class XMLTVConfigureUIPanel extends JScrollPane
      */
     private JPanel getJPanel(  )
     {
-
         if( jPanel == null )
         {
-
             GridBagConstraints gridBagConstraints9 =
                 new GridBagConstraints(  );
             GridBagConstraints gridBagConstraints8 =
@@ -92,7 +89,6 @@ public class XMLTVConfigureUIPanel extends JScrollPane
      */
     public JButton getBtnAdd(  )
     {
-
         if( btnAdd == null )
         {
             btnAdd = new JButton(  );
@@ -111,7 +107,6 @@ public class XMLTVConfigureUIPanel extends JScrollPane
      */
     public JPanel getPanelModules(  )
     {
-
         if( panelModules == null )
         {
             panelModules = new JPanel(  );

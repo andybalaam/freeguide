@@ -19,28 +19,30 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TablePluginsModel extends DefaultTableModel
 {
-
     protected final String[] COLUMNS =
         new String[]
         {
             " ",
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 "UpdateManager.TableColumns.Name" ),
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 "UpdateManager.TableColumns.Version" ),
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 "UpdateManager.TableColumns.Status" )
         };
     final protected List rows = new ArrayList(  );
 
-    /**
+/**
      * Creates a new TablePluginsModel object based on runned plugins.
      */
     public TablePluginsModel(  )
     {
     }
 
-    /**
+/**
      * Creates a new TablePluginsModel object based on repository information.
      *
      * @param repository repository description
@@ -48,31 +50,38 @@ public class TablePluginsModel extends DefaultTableModel
     public TablePluginsModel( final PluginsRepository repository )
     {
         addSubList( 
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 "UpdateManager.TableGroupName.Programme" ) + ":",
             PluginsRepository.PACKAGE_TYPE_APPLICATION, repository );
         addSubList( 
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 "UpdateManager.TableGroupName.UI" ) + ":",
             PluginsRepository.PACKAGE_TYPE_UI, repository );
         addSubList( 
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 "UpdateManager.TableGroupName.Grabbers" ) + ":",
             PluginsRepository.PACKAGE_TYPE_GRABBER, repository );
         addSubList( 
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 "UpdateManager.TableGroupName.Storages" ) + ":",
             PluginsRepository.PACKAGE_TYPE_STORAGE, repository );
         addSubList( 
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 "UpdateManager.TableGroupName.Reminders" ) + ":",
             PluginsRepository.PACKAGE_TYPE_REMINDER, repository );
         addSubList( 
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 "UpdateManager.TableGroupName.ImpExp" ) + ":",
             PluginsRepository.PACKAGE_TYPE_IMPEXP, repository );
         addSubList( 
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 "UpdateManager.TableGroupName.Other" ) + ":",
             PluginsRepository.PACKAGE_TYPE_OTHER, repository );
     }
@@ -91,12 +100,10 @@ public class TablePluginsModel extends DefaultTableModel
             {
                 public int compare( Object arg0, Object arg1 )
                 {
-
                     if( 
                         arg0 instanceof PluginPackage
                             && arg1 instanceof PluginPackage )
                     {
-
                         PluginPackage pkg0 = (PluginPackage)arg0;
                         PluginPackage pkg1 = (PluginPackage)arg1;
 
@@ -105,13 +112,11 @@ public class TablePluginsModel extends DefaultTableModel
 
                         if( ( name0 != null ) && ( name1 != null ) )
                         {
-
-                            return pkg0.getName( "en" ).compareTo( 
-                                pkg1.getName( "en" ) );
+                            return pkg0.getName( "en" )
+                                       .compareTo( pkg1.getName( "en" ) );
                         }
                         else
                         {
-
                             return 0;
                         }
                     }
@@ -129,7 +134,6 @@ public class TablePluginsModel extends DefaultTableModel
      */
     public int getColumnCount(  )
     {
-
         return COLUMNS.length;
     }
 
@@ -140,10 +144,8 @@ public class TablePluginsModel extends DefaultTableModel
      */
     public int getRowCount(  )
     {
-
         if( rows == null )
         {
-
             return 0;
         }
 
@@ -159,7 +161,6 @@ public class TablePluginsModel extends DefaultTableModel
      */
     public String getColumnName( int column )
     {
-
         return COLUMNS[column];
     }
 
@@ -172,15 +173,12 @@ public class TablePluginsModel extends DefaultTableModel
      */
     public Class getColumnClass( int columnIndex )
     {
-
         if( columnIndex == 0 )
         {
-
             return Boolean.class;
         }
         else
         {
-
             return super.getColumnClass( columnIndex );
         }
     }
@@ -195,7 +193,6 @@ public class TablePluginsModel extends DefaultTableModel
      */
     public boolean isCellEditable( int row, int column )
     {
-
         return false;
     }
 
@@ -209,7 +206,6 @@ public class TablePluginsModel extends DefaultTableModel
      */
     public Object getValueAt( int row, int column )
     {
-
         Object rowObject = rows.get( row );
         PluginPackage pkg = null;
 
@@ -219,32 +215,26 @@ public class TablePluginsModel extends DefaultTableModel
         }
         else
         {
-
             if( column == 1 )
             {
-
                 return rowObject;
             }
             else
             {
-
                 return null;
             }
         }
 
         switch( column )
         {
-
         case 0:
 
             if( pkg.isInstalled(  ) )
             {
-
                 return Boolean.valueOf( !pkg.isMarkedForRemove(  ) );
             }
             else
             {
-
                 return Boolean.valueOf( pkg.isMarkedForInstall(  ) );
             }
 
@@ -263,64 +253,57 @@ public class TablePluginsModel extends DefaultTableModel
 
     protected String getName( final PluginPackage pkg )
     {
-
         return pkg.getName( "en" );
     }
 
     protected String getCategory( final PluginPackage pkg )
     {
-
         return pkg.getType(  );
     }
 
     protected String getVersion( final PluginPackage pkg )
     {
-
         return pkg.getVersion(  ).getDotFormat(  );
     }
 
     protected String getStatus( final PluginPackage pkg )
     {
-
         if( pkg.isInstalled(  ) )
         {
-
             if( pkg.isMarkedForRemove(  ) )
             {
-
-                return Application.getInstance(  ).getLocalizedMessage( 
+                return Application.getInstance(  )
+                                  .getLocalizedMessage( 
                     "UpdateManager.Status.WillRemoved" );
             }
             else
             {
-
                 if( pkg.needToUpdate(  ) )
                 {
-
-                    return Application.getInstance(  ).getLocalizedMessage( 
+                    return Application.getInstance(  )
+                                      .getLocalizedMessage( 
                         "UpdateManager.Status.WillUpdated" );
                 }
                 else
                 {
-
-                    return Application.getInstance(  ).getLocalizedMessage( 
+                    return Application.getInstance(  )
+                                      .getLocalizedMessage( 
                         "UpdateManager.Status.Installed" );
                 }
             }
         }
         else
         {
-
             if( pkg.isMarkedForInstall(  ) )
             {
-
-                return Application.getInstance(  ).getLocalizedMessage( 
+                return Application.getInstance(  )
+                                  .getLocalizedMessage( 
                     "UpdateManager.Status.WillInstalled" );
             }
             else
             {
-
-                return Application.getInstance(  ).getLocalizedMessage( 
+                return Application.getInstance(  )
+                                  .getLocalizedMessage( 
                     "UpdateManager.Status.Removed" );
             }
         }
@@ -334,10 +317,9 @@ public class TablePluginsModel extends DefaultTableModel
      */
     public static class SubListTitle
     {
-
         protected final String title;
 
-        /**
+/**
          * Creates a new SubListTitle object.
          *
          * @param title DOCUMENT ME!
@@ -354,7 +336,6 @@ public class TablePluginsModel extends DefaultTableModel
          */
         public String toString(  )
         {
-
             return title;
         }
     }

@@ -107,7 +107,7 @@
         <blanklines>
             <after>
                 <block>1</block>
-                <braceLeft>-1</braceLeft>
+                <braceLeft>0</braceLeft>
                 <class>1</class>
                 <declaration>0</declaration>
                 <header>0</header>

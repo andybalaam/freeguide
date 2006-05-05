@@ -24,11 +24,10 @@ import javax.swing.JTextField;
  */
 public class TextWizardPanel extends WizardPanel
 {
-
     // -------------------------------------------
     private JTextField textfield;
 
-    /**
+/**
      * Create a new FreeGuideTextWizardPanel.
      */
     public TextWizardPanel(  )
@@ -42,7 +41,6 @@ public class TextWizardPanel extends WizardPanel
      */
     public void construct(  )
     {
-
         java.awt.GridBagConstraints gridBagConstraints;
 
         JPanel midPanel = new JPanel(  );
@@ -100,19 +98,20 @@ public class TextWizardPanel extends WizardPanel
     }
 
     /**
-     * Gets the boxValue attribute of the FreeGuideTextWizardPanel object
+     * Gets the boxValue attribute of the FreeGuideTextWizardPanel
+     * object
      *
      * @return The boxValue value
      */
     protected Object getBoxValue(  )
     {
-
         return textfield.getText(  );
 
     }
 
     /**
-     * Sets the boxValue attribute of the FreeGuideTextWizardPanel object
+     * Sets the boxValue attribute of the FreeGuideTextWizardPanel
+     * object
      *
      * @param val The new boxValue value
      */

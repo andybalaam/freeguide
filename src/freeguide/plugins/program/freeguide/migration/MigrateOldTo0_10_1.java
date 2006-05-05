@@ -1,14 +1,13 @@
 package freeguide.plugins.program.freeguide.migration;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.common.lib.fgspecific.TVChannelIconHelper;
 import freeguide.common.lib.fgspecific.data.TVChannel;
-
 import freeguide.common.lib.general.FileHelper;
 import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.StringHelper;
 import freeguide.common.lib.general.Time;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import java.awt.Color;
 
@@ -32,11 +31,10 @@ import java.util.prefs.BackingStoreException;
  */
 public class MigrateOldTo0_10_1 extends MigrationProcessBase
 {
-
     protected static String xmltvConfig;
     protected static Map icons;
 
-    /**
+/**
      * Creates a new MigrateOldTo0_10_1 object.
      *
      * @param source DOCUMENT ME!
@@ -46,7 +44,7 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
         super( source );
     }
 
-    /**
+/**
      * Creates a new MigrateOldTo0_10_1 object.
      *
      * @param nodeName DOCUMENT ME!
@@ -66,16 +64,13 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
      */
     public void migrate(  ) throws IOException
     {
-
         String workDir = getAndRemoveKey( "misc/working_directory" );
 
         if( workDir != null )
         {
-            workDir =
-                StringHelper.replaceAll( 
+            workDir = StringHelper.replaceAll( 
                     workDir, "%home%", System.getProperty( "user.home" ) );
-            workDir =
-                StringHelper.replaceAll( 
+            workDir = StringHelper.replaceAll( 
                     workDir, "%misc.install_directory%",
                     FreeGuide.runtimeInfo.installDirectory );
             putKey( "workingDirectory", workDir );
@@ -86,7 +81,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
                     {
                         public boolean accept( File pathname )
                         {
-
                             return !pathname.isDirectory(  )
                             && pathname.getName(  ).endsWith( ".xmltv" );
                         }
@@ -94,7 +88,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
             if( dataFiles != null )
             {
-
                 for( int i = 0; i < dataFiles.length; i++ )
                 {
                     dataFiles[i].delete(  );
@@ -109,7 +102,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
         if( region != null )
         {
-
             Map conv = new TreeMap(  );
             LanguageHelper.loadProperties( 
                 "resources/plugins/program/freeguide/migration/regions.0.8.6.properties",
@@ -140,7 +132,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
             if( ( name == null ) || ( channels == null ) )
             {
-
                 break;
             }
 
@@ -172,7 +163,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
             if( name == null )
             {
-
                 break;
             }
 
@@ -221,7 +211,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
             if( afterTime != null )
             {
-
                 final Time t = new Time( afterTime );
                 putKey( 
                     "mainController/selection/favouritesList." + i
@@ -240,7 +229,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
             if( beforeTime != null )
             {
-
                 final Time t = new Time( beforeTime );
                 putKey( 
                     "mainController/selection/favouritesList." + i
@@ -262,7 +250,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
         for( i = 0; i < iconKeys.length; i++ )
         {
-
             final String key =
                 "xmltv/"
                 + iconKeys[i].substring( "screen/customIcon.".length(  ) );
@@ -337,11 +324,9 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
         if( xmltvConfig != null )
         {
-            xmltvConfig =
-                StringHelper.replaceAll( 
+            xmltvConfig = StringHelper.replaceAll( 
                     xmltvConfig, "%home%", System.getProperty( "user.home" ) );
-            xmltvConfig =
-                StringHelper.replaceAll( 
+            xmltvConfig = StringHelper.replaceAll( 
                     xmltvConfig, "%misc.install_directory%",
                     FreeGuide.runtimeInfo.installDirectory );
         }
@@ -380,7 +365,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
     protected void copyColor( final String newKey, final String oldPrefix )
     {
-
         final String color = readColor( oldPrefix );
 
         if( color != null )
@@ -391,7 +375,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
     protected String readColor( String prefix )
     {
-
         String r = getAndRemoveKey( prefix + ".r" );
 
         String g = getAndRemoveKey( prefix + ".g" );
@@ -400,7 +383,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
         if( ( r != null ) && ( ( g != null ) & ( b != null ) ) )
         {
-
             return Integer.toString( 
                 new Color( 
                     Integer.parseInt( r ), Integer.parseInt( g ),
@@ -408,7 +390,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
         }
         else
         {
-
             return null;
         }
     }
@@ -422,10 +403,8 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
     {
         if( icons != null )
         {
-
             for( Iterator it = icons.keySet(  ).iterator(  ); it.hasNext(  ); )
             {
-
                 final String key = (String)it.next(  );
                 final File fromPath = new File( (String)icons.get( key ) );
                 final String toPath =
@@ -452,7 +431,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
     protected static void loadConfigFile( File f ) throws IOException
     {
-
         String fn = FreeGuide.config.workingDirectory + "/xmltv-configs/";
         new File( fn ).mkdirs(  );
 
@@ -470,12 +448,10 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
         while( true )
         {
-
             int len = in.read( buf );
 
             if( len < 0 )
             {
-
                 break;
 
             }

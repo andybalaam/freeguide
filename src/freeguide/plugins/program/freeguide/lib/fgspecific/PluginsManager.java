@@ -1,10 +1,8 @@
 package freeguide.plugins.program.freeguide.lib.fgspecific;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
+import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.PreferencesHelper;
-import freeguide.common.lib.fgspecific.Application;
 
 import freeguide.common.plugininterfaces.IModule;
 import freeguide.common.plugininterfaces.IModuleExport;
@@ -13,6 +11,8 @@ import freeguide.common.plugininterfaces.IModuleImport;
 import freeguide.common.plugininterfaces.IModuleReminder;
 import freeguide.common.plugininterfaces.IModuleStorage;
 import freeguide.common.plugininterfaces.IModuleViewer;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -43,7 +43,6 @@ import javax.xml.parsers.SAXParserFactory;
  */
 public class PluginsManager
 {
-
     // protected static List allPlugins = new ArrayList(  );
     protected static Map pluginsInfoByID = new TreeMap(  );
     protected static List grabbersList;
@@ -58,7 +57,7 @@ public class PluginsManager
     /**
      * Load all modules.
      *
-     * @throws Exception DOCUMENT_ME!
+     * @throws IOException DOCUMENT_ME!
      */
     public static void loadModules(  ) throws IOException
     {
@@ -72,37 +71,38 @@ public class PluginsManager
 
         try
         {
-            SAXParserFactory factory = SAXParserFactory.newInstance(  );
+            SAXParserFactory factory = SAXParserFactory
+                .newInstance(  );
             SAXParser saxParser = factory.newSAXParser(  );
-        
+
             URL[] info = new URL[0];
+
             try
             {
                 info = findInClassLoader(  );
             }
             catch( IOException e )
             {
-                
-                e.printStackTrace();
+                e.printStackTrace(  );
             }
-            
+
             if( info.length == 0 )
             {
                 info = findInDirectories(  );
             }
-            
+
             for( int i = 0; i < info.length; i++ )
             {
                 try
                 {
                     FreeGuide.log.finest( 
                         "Loading XML from " + info[i].toString(  ) );
-    
+
                     PluginInfo handler = new PluginInfo(  );
-    
+
                     InputStream stream =
                         LanguageHelper.getUncachedStream( info[i] );
-    
+
                     try
                     {
                         saxParser.parse( stream, handler );
@@ -111,15 +111,14 @@ public class PluginsManager
                     {
                         stream.close(  );
                     }
-    
+
                     if( handler.getID(  ) == null )
                     {
-    
                         continue;
                     }
-    
+
                     pluginsInfoByID.put( handler.getID(  ), handler );
-                    
+
                     if( "program-freeguide".equals( handler.getID(  ) ) )
                     {
                         applicationInfo = handler;
@@ -136,7 +135,8 @@ public class PluginsManager
                     {
                         viewersList.add( handler );
                     }
-                    else if( handler.getInstance(  ) instanceof IModuleReminder )
+                    else if( 
+                        handler.getInstance(  ) instanceof IModuleReminder )
                     {
                         remindersList.add( handler );
                     }
@@ -145,37 +145,37 @@ public class PluginsManager
                             || handler.getInstance(  ) instanceof IModuleExport )
                     {
                         importexportsList.add( handler );
-    
+
                         if( handler.getInstance(  ) instanceof IModuleImport )
                         {
                             importersList.add( handler );
                         }
-    
+
                         if( handler.getInstance(  ) instanceof IModuleExport )
                         {
                             exportersList.add( handler );
                         }
                     }
-    
+
                     if( handler.getInstance(  ) != null )
                     {
-    
                         Object config = handler.getInstance(  ).getConfig(  );
-    
+
                         if( config != null )
                         {
-    
                             if( handler == applicationInfo )
                             {
                                 PreferencesHelper.load( 
-                                    Preferences.userRoot(  ).node( 
+                                    Preferences.userRoot(  )
+                                               .node( 
                                         "/org/freeguide-tv/mainController" ),
                                     config );
                             }
                             else
                             {
                                 PreferencesHelper.load( 
-                                    Preferences.userRoot(  ).node( 
+                                    Preferences.userRoot(  )
+                                               .node( 
                                         "/org/freeguide-tv/modules/"
                                         + handler.getID(  ) ), config );
                             }
@@ -184,20 +184,20 @@ public class PluginsManager
                 }
                 catch( Exception ex )
                 {
-                    Application.getInstance(  ).getLogger(  ).log( 
-                        Level.SEVERE, "Error loading plugin", ex );
+                    Application.getInstance(  ).getLogger(  )
+                               .log( Level.SEVERE, "Error loading plugin", ex );
                 }
             }
         }
         catch( javax.xml.parsers.ParserConfigurationException e )
         {
-            Application.getInstance(  ).getLogger(  ).log( 
-                Level.SEVERE, "Error loading plugin", e );
+            Application.getInstance(  ).getLogger(  )
+                       .log( Level.SEVERE, "Error loading plugin", e );
         }
         catch( org.xml.sax.SAXException e )
         {
-            Application.getInstance(  ).getLogger(  ).log( 
-                Level.SEVERE, "Error loading plugin", e );
+            Application.getInstance(  ).getLogger(  )
+                       .log( Level.SEVERE, "Error loading plugin", e );
         }
     }
 
@@ -206,38 +206,35 @@ public class PluginsManager
      */
     public static void saveAllConfigs(  )
     {
-
         final Iterator it = pluginsInfoByID.values(  ).iterator(  );
 
         while( it.hasNext(  ) )
         {
-
             PluginInfo handler = (PluginInfo)it.next(  );
 
             try
             {
-
                 IModule moduleInstance = handler.getInstance(  );
 
                 if( moduleInstance != null )
                 {
-
                     Object config = handler.getInstance(  ).getConfig(  );
 
                     if( config != null )
                     {
-
                         if( handler == applicationInfo )
                         {
                             PreferencesHelper.save( 
-                                Preferences.userRoot(  ).node( 
+                                Preferences.userRoot(  )
+                                           .node( 
                                     "/org/freeguide-tv/mainController" ),
                                 config );
                         }
                         else
                         {
                             PreferencesHelper.save( 
-                                Preferences.userRoot(  ).node( 
+                                Preferences.userRoot(  )
+                                           .node( 
                                     "/org/freeguide-tv/modules/"
                                     + handler.getID(  ) ), config );
                         }
@@ -246,7 +243,8 @@ public class PluginsManager
             }
             catch( Exception ex )
             {
-                Application.getInstance(  ).getLogger(  ).log( 
+                Application.getInstance(  ).getLogger(  )
+                           .log( 
                     Level.SEVERE,
                     "Error save config for module " + handler.getID(  ), ex );
             }
@@ -265,27 +263,31 @@ public class PluginsManager
         Enumeration urls =
             PluginsManager.class.getClassLoader(  ).getResources( 
                 "plugin.xml" );
-        
+
         List list = Collections.list( urls );
-        
+
         return (URL[])list.toArray( new URL[list.size(  )] );
     }
-    
+
     /**
-     * Go through all the subdirs of dir and add any
-     * plugin.xml files to the files list.
+     * Go through all the subdirs of dir and add any plugin.xml files
+     * to the files list.
+     *
+     * @param dir DOCUMENT ME!
+     * @param files DOCUMENT ME!
      */
     protected static void findPluginDirs( File dir, List files )
     {
-        File[] plugin_files = dir.listFiles(
-            new FileFilter(  )
-            {
-                public boolean accept( File fl )
+        File[] plugin_files =
+            dir.listFiles( 
+                new FileFilter(  )
                 {
-                    return fl.toString().endsWith( "/plugin.xml" );
-                }
-            } );
-        
+                    public boolean accept( File fl )
+                    {
+                        return fl.toString(  ).endsWith( "/plugin.xml" );
+                    }
+                } );
+
         if( plugin_files != null )
         {
             for( int i = 0; i < plugin_files.length; ++i )
@@ -299,27 +301,28 @@ public class PluginsManager
                     e.printStackTrace(  );
                 }
             }
-             
-             File[] dirs = dir.listFiles(
-                new FileFilter(  )
-                {
-                    public boolean accept( File fl )
+
+            File[] dirs =
+                dir.listFiles( 
+                    new FileFilter(  )
                     {
-                        return fl.isDirectory(  )
-                            && fl.toString(  ).indexOf("/.svn" ) == -1;
-                    }
-                } );
-            
+                        public boolean accept( File fl )
+                        {
+                            return fl.isDirectory(  )
+                            && ( fl.toString(  ).indexOf( "/.svn" ) == -1 );
+                        }
+                    } );
+
             for( int i = 0; i < dirs.length; ++i )
             {
                 findPluginDirs( dirs[i], files );
             }
         }
     }
-    
+
     /**
-     * Find plugin info files in child directories. This will be called if no
-     * plugins were found in JAR files.
+     * Find plugin info files in child directories. This will be
+     * called if no plugins were found in JAR files.
      *
      * @return list of URLs
      *
@@ -328,9 +331,9 @@ public class PluginsManager
     protected static URL[] findInDirectories(  ) throws IOException
     {
         List files = new ArrayList(  );
-        
+
         findPluginDirs( new File( "freeguide/plugins" ), files );
-        
+
         return (URL[])files.toArray( new URL[files.size(  )] );
     }
 
@@ -343,17 +346,14 @@ public class PluginsManager
      */
     public static IModule getModuleByID( final String id )
     {
-
         PluginInfo info = (PluginInfo)pluginsInfoByID.get( id );
 
         if( info != null )
         {
-
             return info.getInstance(  );
         }
         else
         {
-
             return null;
         }
     }
@@ -367,7 +367,6 @@ public class PluginsManager
      */
     public static PluginInfo getPluginInfoByID( final String id )
     {
-
         return (PluginInfo)pluginsInfoByID.get( id );
     }
 
@@ -378,23 +377,20 @@ public class PluginsManager
      */
     public static void setLocale( Locale[] locales )
     {
-
         Iterator it = pluginsInfoByID.values(  ).iterator(  );
 
         while( it.hasNext(  ) )
         {
-
             PluginInfo info = (PluginInfo)it.next(  );
 
             if( info.getInstance(  ) != null )
             {
-
                 try
                 {
-
                     Locale[] modLocales =
                         info.getInstance(  ).getSuppotedLocales(  );
-                    info.getInstance(  ).setLocale( 
+                    info.getInstance(  )
+                        .setLocale( 
                         LanguageHelper.getPreferredLocale( 
                             locales, modLocales ) );
                 }
@@ -415,7 +411,6 @@ public class PluginsManager
      */
     public static PluginInfo[] getGrabbers(  )
     {
-
         return (PluginInfo[])grabbersList.toArray( 
             new PluginInfo[grabbersList.size(  )] );
     }
@@ -427,7 +422,6 @@ public class PluginsManager
      */
     public static PluginInfo[] getImportersAndExporters(  )
     {
-
         return (PluginInfo[])importexportsList.toArray( 
             new PluginInfo[importexportsList.size(  )] );
     }
@@ -439,7 +433,6 @@ public class PluginsManager
      */
     public static PluginInfo[] getReminders(  )
     {
-
         return (PluginInfo[])remindersList.toArray( 
             new PluginInfo[remindersList.size(  )] );
     }
@@ -451,7 +444,6 @@ public class PluginsManager
      */
     public static PluginInfo[] getStorages(  )
     {
-
         return (PluginInfo[])storagesList.toArray( 
             new PluginInfo[storagesList.size(  )] );
     }
@@ -508,7 +500,6 @@ public class PluginsManager
      */
     public static boolean isInstalled( final String id )
     {
-
         return pluginsInfoByID.containsKey( id );
     }
 }

@@ -1,11 +1,9 @@
 package freeguide.plugins.program.freeguide.lib.updater;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.common.lib.fgspecific.Application;
-
 import freeguide.common.lib.grabber.HttpBrowser;
 
+import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.lib.updater.data.PluginsRepository;
 
 import org.xml.sax.InputSource;
@@ -29,14 +27,12 @@ import javax.xml.parsers.SAXParserFactory;
  */
 public class RepositoryUtils
 {
-
     /** Repository URL. */
     public static String REPOSITORY_URL =
         "http://freeguide-tv.sourceforge.net/repositoryInfo.xml";
 
     static
     {
-
         // for debugging
         if( System.getProperty( "repositoryUrl" ) != null )
         {
@@ -54,13 +50,13 @@ public class RepositoryUtils
     public static PluginsRepository downloadRepositoryInfo(  )
         throws Exception
     {
-
         HttpBrowser browser = new HttpBrowser(  );
         InputSource src;
 
         try
         {
-            Application.getInstance(  ).getLogger(  ).fine( 
+            Application.getInstance(  ).getLogger(  )
+                       .fine( 
                 "Loading repository info from " + REPOSITORY_URL + ".gz" );
             browser.loadURL( REPOSITORY_URL + ".gz" );
             src = new InputSource( 
@@ -69,7 +65,8 @@ public class RepositoryUtils
         }
         catch( IOException ex )
         {
-            Application.getInstance(  ).getLogger(  ).fine( 
+            Application.getInstance(  ).getLogger(  )
+                       .fine( 
                 "Loading repository info from " + REPOSITORY_URL );
             browser.loadURL( REPOSITORY_URL );
             src = new InputSource( 
@@ -92,7 +89,6 @@ public class RepositoryUtils
         final String baseUrl, final String[] files, final File toDirectory )
         throws IOException
     {
-
         HttpBrowser browser = new HttpBrowser(  );
 
         for( int i = 0; i < files.length; i++ )
@@ -114,7 +110,8 @@ public class RepositoryUtils
                 fout.close(  );
             }
 
-            Application.getInstance(  ).getLogger(  ).finer( 
+            Application.getInstance(  ).getLogger(  )
+                       .finer( 
                 "Download package '" + files[i] + "' to "
                 + toDirectory.getPath(  ) );
         }
@@ -134,7 +131,6 @@ public class RepositoryUtils
         final InputSource input, final String baseDirectory )
         throws Exception
     {
-
         SAXParserFactory factory = SAXParserFactory.newInstance(  );
         SAXParser saxParser = factory.newSAXParser(  );
 
@@ -157,10 +153,8 @@ public class RepositoryUtils
         final File baseDirectory, final String[] files )
         throws IOException
     {
-
         for( int i = 0; i < files.length; i++ )
         {
-
             final File file = new File( baseDirectory, files[i] );
 
             if( file.exists(  ) && !file.canWrite(  ) )
@@ -181,7 +175,6 @@ public class RepositoryUtils
     public static void prepareForDelete( 
         final File dest, final String[] names ) throws IOException
     {
-
         BufferedWriter out =
             new BufferedWriter( 
                 new OutputStreamWriter( 
@@ -189,7 +182,6 @@ public class RepositoryUtils
 
         try
         {
-
             for( int i = 0; i < names.length; i++ )
             {
                 out.write( names[i] );

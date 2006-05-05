@@ -17,9 +17,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Processes and stores the command line arguments passed to an application.
- * Arguments should be in GNU style. It means arguments can be like
- * --key=data or  --key style.
+ * Processes and stores the command line arguments passed to an
+ * application. Arguments should be in GNU style. It means arguments can be
+ * like --key=data or  --key style.
  *
  * @author Andy Balaam
  * @author Alex Buloichik (alex73 at zaval.org)
@@ -27,7 +27,6 @@ import java.util.TreeSet;
  */
 public class CmdArgs
 {
-
     protected static final Set KEY_TRIGGERS = new TreeSet(  );
 
     static
@@ -45,16 +44,13 @@ public class CmdArgs
      */
     public static Properties parse( final String[] args )
     {
-
         final Properties result = new Properties(  );
 
         // Go through each element of the arguments
         for( int i = 0; i < args.length; i++ )
         {
-
             if( args[i].startsWith( "--" ) )
             {
-
                 final int pos = args[i].indexOf( '=' );
                 final String key;
                 final String value;

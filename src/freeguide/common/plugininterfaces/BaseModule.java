@@ -1,7 +1,6 @@
 package freeguide.common.plugininterfaces;
 
 import freeguide.common.lib.fgspecific.Application;
-
 import freeguide.common.lib.general.LanguageHelper;
 
 import java.util.Locale;
@@ -21,7 +20,7 @@ public abstract class BaseModule implements IModule
 {
     static final String plugin_package_name_prefix = "freeguide.plugins.";
     protected LanguageHelper i18n;
-    
+
     /**
      * IModule.getSuppotedLocales implementation. Read list of
      * "i18n.(locale).properties" files from current package, using ls file.
@@ -36,8 +35,8 @@ public abstract class BaseModule implements IModule
     }
 
     /**
-     * IModule.setLocale implementation. Loads i18n.(locale).properties file
-     * from current package to i18n variable.
+     * IModule.setLocale implementation. Loads
+     * i18n.(locale).properties file from current package to i18n variable.
      *
      * @param locale locale
      *
@@ -46,19 +45,21 @@ public abstract class BaseModule implements IModule
     public void setLocale( final Locale locale ) throws Exception
     {
         String package_name = getClass(  ).getPackage(  ).getName(  );
-        
+
         if( package_name.startsWith( plugin_package_name_prefix ) )
         {
-            i18n = new LanguageHelper( "resources/i18n/"
-                + package_name.substring( plugin_package_name_prefix.length()
-                    ).replace( '.', '_' ),
-                locale );
+            i18n = new LanguageHelper( 
+                    "resources/i18n/"
+                    + package_name.substring( 
+                        plugin_package_name_prefix.length(  ) )
+                                  .replace( '.', '_' ), locale );
         }
         else
         {
-            Application.getInstance(  ).getLogger(  ).log( 
-                Level.SEVERE, "Unable to set Locale for plugin '"
-                + package_name
+            Application.getInstance(  ).getLogger(  )
+                       .log( 
+                Level.SEVERE,
+                "Unable to set Locale for plugin '" + package_name
                 + "' since the package name does not start with '"
                 + plugin_package_name_prefix + "'." );
         }
@@ -88,7 +89,6 @@ public abstract class BaseModule implements IModule
      */
     public IModuleConfigurationUI getConfigurationUI( JDialog parentDialog )
     {
-
         return null;
     }
 }

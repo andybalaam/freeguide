@@ -3,9 +3,7 @@ package freeguide.plugins.grabber.hallmark;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-
 import freeguide.common.lib.general.Time;
-
 import freeguide.common.lib.grabber.HtmlHelper;
 import freeguide.common.lib.grabber.LineProgrammeHelper;
 import freeguide.common.lib.grabber.TimeHelper;
@@ -32,7 +30,6 @@ import java.util.regex.Pattern;
  */
 public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
 {
-
     protected static final Pattern RE_DATE =
         Pattern.compile( "\\s+(\\d{2})/(\\d{2})" );
     protected static final Pattern RE_DESCKEY =
@@ -56,7 +53,7 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
     protected final Map descriptionsMap;
     protected final boolean isUS;
 
-    /**
+/**
      * Creates a new HallmarkScheduleParser object.
      *
      * @param channel DOCUMENT ME!
@@ -137,7 +134,6 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-
         if( parse )
         {
             parseEnd( qName );
@@ -156,7 +152,6 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
     public void parseStart( String qName, Attributes atts )
         throws SAXException
     {
-
         if( parse && "tr".equals( qName ) )
         {
             row++;
@@ -172,7 +167,6 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
 
             if( onMouseOver != null )
             {
-
                 Matcher m = RE_MOUSE.matcher( onMouseOver );
 
                 if( m.matches(  ) )
@@ -183,12 +177,10 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
         }
         else if( "a".equals( qName ) && ( row > 0 ) && ( col > 0 ) )
         {
-
             String ref = atts.getValue( "href" );
 
             if( ref != null )
             {
-
                 Matcher m = RE_DESCKEY.matcher( ref );
 
                 if( m.find(  ) )
@@ -208,10 +200,8 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
      */
     public void parseEnd( String qName ) throws SAXException
     {
-
         if( "tr".equals( qName ) )
         {
-
             return;
         }
 
@@ -221,7 +211,6 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
         }
         else
         {
-
             if( col > 7 )
             {
                 throw new SAXException( "Invalid column: " + col );
@@ -255,7 +244,6 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
 
                     try
                     {
-
                         String day;
                         String month;
 
@@ -270,8 +258,7 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
                             month = m.group( 2 );
                         }
 
-                        baseDates[col - 1] =
-                            TimeHelper.getBaseDate( 
+                        baseDates[col - 1] = TimeHelper.getBaseDate( 
                                 timeZone, day, month, null, null );
                     }
                     catch( ParseException ex )
@@ -283,14 +270,12 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
             }
             else
             {
-
                 if( col == 0 )
                 { // time
 
                     try
                     {
-                        currentTime =
-                            LineProgrammeHelper.parseTime( 
+                        currentTime = LineProgrammeHelper.parseTime( 
                                 text.toString(  ).trim(  ) );
                     }
                     catch( ParseException ex )
@@ -301,12 +286,10 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
                 }
                 else
                 {
-
                     String title = HtmlHelper.strongTrim( text.toString(  ) );
 
                     if( !"".equals( title ) && ( channel != null ) )
                     {
-
                         TVProgramme prog = new TVProgramme(  );
                         prog.setStart( 
                             TimeHelper.correctTime( 
@@ -334,16 +317,13 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
     protected void addToDescriptionsMap( 
         final String key, final TVProgramme prog )
     {
-
         if( descriptionsMap == null )
         {
-
             return;
         }
 
         if( descriptionKey != null )
         {
-
             List list = (List)descriptionsMap.get( key );
 
             if( list == null )
@@ -366,10 +346,8 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
     public synchronized static TimeZone getTimeZone( 
         final String hallmarkTimezone )
     {
-
         if( TIMEZONES.size(  ) == 0 )
         {
-
             try
             {
                 TIMEZONES.load( 
@@ -381,7 +359,8 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
             }
             catch( IOException ex )
             {
-                Application.getInstance(  ).getLogger(  ).severe( 
+                Application.getInstance(  ).getLogger(  )
+                           .severe( 
                     "Error loading timezones info: " + ex.getMessage(  ) );
             }
         }
@@ -390,14 +369,13 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
 
         if( tzName == null )
         {
-            Application.getInstance(  ).getLogger(  ).warning( 
-                "Unknown timezone: " + tzName );
+            Application.getInstance(  ).getLogger(  )
+                       .warning( "Unknown timezone: " + tzName );
 
             return TimeZone.getDefault(  );
         }
         else
         {
-
             return TimeZone.getTimeZone( tzName );
         }
     }

@@ -26,11 +26,10 @@ import javax.swing.JTextArea;
  */
 public class CommandsWizardPanel extends WizardPanel
 {
-
     // -------------------------------------------
     private JTextArea textarea;
 
-    /**
+/**
      * Create a new FreeGuideCommandsWizardPanel.
      */
     public CommandsWizardPanel(  )
@@ -44,7 +43,6 @@ public class CommandsWizardPanel extends WizardPanel
      */
     public void construct(  )
     {
-
         java.awt.GridBagConstraints gridBagConstraints;
 
         JLabel topLabel = new JLabel(  );
@@ -107,7 +105,6 @@ public class CommandsWizardPanel extends WizardPanel
      */
     protected Object getBoxValue(  )
     {
-
         //return textarea.getText().split(System.getProperty("line.separator"));
         return textarea.getText(  ).split( "\n" );
 
@@ -120,7 +117,6 @@ public class CommandsWizardPanel extends WizardPanel
      */
     protected void setBoxValue( Object val )
     {
-
         String[] vals = (String[])val;
 
         String lb = System.getProperty( "line.separator" );

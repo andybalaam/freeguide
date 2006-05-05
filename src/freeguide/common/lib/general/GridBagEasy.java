@@ -21,11 +21,15 @@ import java.awt.*;
  * @created    10 Dec 2003
  * @version    2
  */
+/**
+ * DOCUMENT ME!
+ *
+ * @author $author$
+ * @version $Revision$
+  */
 public class GridBagEasy
 {
-
     // ----------------------------------------
-
     /** DOCUMENT ME! */
     public final static int FILL_NONE = GridBagConstraints.NONE;
 
@@ -84,7 +88,7 @@ public class GridBagEasy
     /** DOCUMENT ME! */
     public int default_weighty = 0;
 
-    /**
+/**
      * Creates a new GridBagEasy object.
      *
      * @param container DOCUMENT ME!
@@ -98,6 +102,13 @@ public class GridBagEasy
     }
 
     // ----------------------------------------------
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param comp DOCUMENT_ME!
+     * @param gridx DOCUMENT_ME!
+     * @param gridy DOCUMENT_ME!
+     */
     public void add( Component comp, int gridx, int gridy )
     {
         gbc.anchor = default_anchor;

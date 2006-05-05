@@ -1,7 +1,6 @@
 package freeguide.plugins.grabber.hallmark;
 
 import freeguide.common.lib.general.StringHelper;
-
 import freeguide.common.lib.grabber.HtmlHelper;
 import freeguide.common.lib.grabber.HttpBrowser;
 
@@ -27,7 +26,6 @@ import java.util.regex.Pattern;
  */
 public class PrepareInfo
 {
-
     protected static Writer wr;
     protected static Pattern RE_CNTRY_URL =
         Pattern.compile( "http://([a-z]{2}).hallmarkchannel.com" );
@@ -43,7 +41,6 @@ public class PrepareInfo
      */
     public static void main( final String[] args ) throws Exception
     {
-
         /*String[] tzn = TimeZone.getAvailableIDs(  );
         Arrays.sort( tzn );
 
@@ -82,7 +79,6 @@ public class PrepareInfo
             Iterator it = countries.countries.keySet(  ).iterator(  );
                 it.hasNext(  ); i++ )
         {
-
             String country = (String)it.next(  );
             String url = (String)countries.countries.get( country );
             System.out.println( 
@@ -122,7 +118,6 @@ public class PrepareInfo
             for( Iterator it2 = langs.keySet(  ).iterator(  );
                     it2.hasNext(  ); )
             {
-
                 String langName = (String)it2.next(  );
                 String langParam = (String)langs.get( langName );
                 writeLanguage( langName, langParam );
@@ -142,25 +137,20 @@ public class PrepareInfo
     protected static String getCntry( final String url )
         throws Exception
     {
-
         Matcher m = RE_CNTRY_URL.matcher( url );
 
         if( m.matches(  ) )
         {
-
             return m.group( 1 ).toUpperCase(  );
         }
         else
         {
-
             if( STR_CNTRY_USA.equals( url ) )
             {
-
                 return "US";
             }
             else
             {
-
                 return null;
             }
         }
@@ -169,7 +159,6 @@ public class PrepareInfo
     protected static Map getLanguages( final String url, final String cntry )
         throws Exception
     {
-
         final HttpBrowser browser = new HttpBrowser(  );
         browser.loadURL( 
             url + "/framework.jsp?BODY=weekSchedCal.jsp&CNTRY=" + cntry );
@@ -182,7 +171,6 @@ public class PrepareInfo
 
         for( Iterator it = langs.keySet(  ).iterator(  ); it.hasNext(  ); )
         {
-
             String langName = (String)it.next(  );
             String langParam = (String)langs.get( langName );
             Matcher m = RE_LANG.matcher( langParam );
@@ -236,10 +224,8 @@ public class PrepareInfo
         wr.write( "    <language name=\"" + name + "\" id=\"" + id + "\"/>\n" );
     }
 
-    protected static class HandlerCountries
-        extends HtmlHelper.DefaultContentHandler
+    protected static class HandlerCountries extends HtmlHelper.DefaultContentHandler
     {
-
         Map countries = new TreeMap(  );
         protected boolean process = false;
         protected String currentOptionValue;
@@ -259,7 +245,6 @@ public class PrepareInfo
             String uri, String localName, String qName, Attributes atts )
             throws SAXException
         {
-
             if( 
                 "select".equals( qName )
                     && "CNTRY".equals( atts.getValue( "name" ) ) )
@@ -294,7 +279,6 @@ public class PrepareInfo
         public void endElement( String uri, String localName, String qName )
             throws SAXException
         {
-
             if( "select".equals( qName ) )
             {
                 process = false;
@@ -320,7 +304,6 @@ public class PrepareInfo
         public void characters( char[] ch, int start, int length )
             throws SAXException
         {
-
             if( currentOptionValue != null )
             {
                 currentText.append( ch, start, length );
@@ -328,10 +311,8 @@ public class PrepareInfo
         }
     }
 
-    protected static class HandlerLanguages
-        extends HtmlHelper.DefaultContentHandler
+    protected static class HandlerLanguages extends HtmlHelper.DefaultContentHandler
     {
-
         Map languages = new TreeMap(  );
         protected boolean process = false;
         protected String currentOptionValue;
@@ -351,7 +332,6 @@ public class PrepareInfo
             String uri, String localName, String qName, Attributes atts )
             throws SAXException
         {
-
             if( 
                 "select".equals( qName )
                     && "LANG".equals( atts.getValue( "name" ) ) )
@@ -384,7 +364,6 @@ public class PrepareInfo
         public void endElement( String uri, String localName, String qName )
             throws SAXException
         {
-
             if( "select".equals( qName ) )
             {
                 process = false;
@@ -411,7 +390,6 @@ public class PrepareInfo
         public void characters( char[] ch, int start, int length )
             throws SAXException
         {
-
             if( currentOptionValue != null )
             {
                 currentText.append( ch, start, length );
@@ -425,7 +403,6 @@ public class PrepareInfo
          */
         public Map getLanguages(  )
         {
-
             return languages;
         }
     }

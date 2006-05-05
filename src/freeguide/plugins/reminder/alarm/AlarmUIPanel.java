@@ -19,7 +19,6 @@ import javax.swing.JTextField;
  */
 public class AlarmUIPanel extends JPanel
 {
-
     private JCheckBox cbRemind = null;
     private JLabel jLabel = null;
     private JTextField textWarning = null;
@@ -27,7 +26,7 @@ public class AlarmUIPanel extends JPanel
     private JTextField textGiveup = null;
     private ILocalizer localizer;
 
-    /**
+/**
      * This is the default constructor
      *
      * @param localizer DOCUMENT ME!
@@ -44,7 +43,6 @@ public class AlarmUIPanel extends JPanel
      */
     private void initialize(  )
     {
-
         GridBagConstraints gridBagConstraints41 = new GridBagConstraints(  );
         gridBagConstraints41.gridx = 2;
         gridBagConstraints41.gridy = 1;
@@ -116,7 +114,6 @@ public class AlarmUIPanel extends JPanel
      */
     public JCheckBox getCbRemind(  )
     {
-
         if( cbRemind == null )
         {
             cbRemind = new JCheckBox(  );
@@ -136,7 +133,6 @@ public class AlarmUIPanel extends JPanel
      */
     public JTextField getTextWarning(  )
     {
-
         if( textWarning == null )
         {
             textWarning = new JTextField(  );
@@ -152,7 +148,6 @@ public class AlarmUIPanel extends JPanel
      */
     public JTextField getTextGiveup(  )
     {
-
         if( textGiveup == null )
         {
             textGiveup = new JTextField(  );

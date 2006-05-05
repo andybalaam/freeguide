@@ -11,7 +11,6 @@ import java.util.TreeSet;
  */
 public class TVChannelsSelection
 {
-
     /** DOCUMENT ME! */
     public static final Class selectedChannelIDs_TYPE = String.class;
 
@@ -28,7 +27,6 @@ public class TVChannelsSelection
      */
     public Object clone(  )
     {
-
         TVChannelsSelection result = new TVChannelsSelection(  );
 
         result.allChannels = allChannels;
@@ -44,14 +42,12 @@ public class TVChannelsSelection
      */
     public void normalize(  )
     {
-
         Set ids = new TreeSet(  );
 
         Iterator it = allChannels.getChannels(  ).iterator(  );
 
         while( it.hasNext(  ) )
         {
-
             TVChannelsSet.Channel ch = (TVChannelsSet.Channel)it.next(  );
 
             ids.add( ch.getChannelID(  ) );
@@ -62,7 +58,6 @@ public class TVChannelsSelection
 
         while( it.hasNext(  ) )
         {
-
             if( !ids.contains( it.next(  ) ) )
             {
                 it.remove(  );
@@ -80,21 +75,17 @@ public class TVChannelsSelection
      */
     public boolean isSelected( final String channelID )
     {
-
         for( Iterator it = selectedChannelIDs.iterator(  ); it.hasNext(  ); )
         {
-
             final String selectedChannelID = (String)it.next(  );
 
             if( channelID.equals( selectedChannelID ) )
             {
-
                 return true;
             }
 
             if( channelID.startsWith( selectedChannelID + '/' ) )
             {
-
                 return true;
             }
         }
@@ -111,15 +102,12 @@ public class TVChannelsSelection
      */
     public boolean isChildSelected( final String channelID )
     {
-
         for( Iterator it = selectedChannelIDs.iterator(  ); it.hasNext(  ); )
         {
-
             final String selectedChannelID = (String)it.next(  );
 
             if( selectedChannelID.startsWith( channelID + '/' ) )
             {
-
                 return true;
             }
         }

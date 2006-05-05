@@ -28,7 +28,6 @@ import javax.swing.KeyStroke;
  */
 public class HorizontalViewerHandlers
 {
-
     protected final HorizontalViewer controller;
 
     /** The action listener for when the item changes in the date combo */
@@ -37,17 +36,14 @@ public class HorizontalViewerHandlers
         {
             public void itemStateChanged( ItemEvent evt )
             {
-
                 // Do nothing if this isn't an item selection
                 if( evt.getStateChange(  ) == ItemEvent.SELECTED )
                 {
-
                     long oldDate = controller.theDate;
 
                     // Set theDate to the date chosen
-                    controller.theDate =
-                        controller.dateExistList[controller.panel.getComboDate(  )
-                                                                 .getSelectedIndex(  )];
+                    controller.theDate = controller.dateExistList[controller.panel.getComboDate(  )
+                                                                                  .getSelectedIndex(  )];
 
                     if( oldDate != controller.theDate )
                     {
@@ -65,11 +61,9 @@ public class HorizontalViewerHandlers
         {
             public void itemStateChanged( ItemEvent evt )
             {
-
                 // Do nothing if this isn't an item selection
                 if( evt.getStateChange(  ) == ItemEvent.SELECTED )
                 {
-
                     int selectedInd =
                         controller.panel.getComboChannelsSet(  )
                                         .getSelectedIndex(  );
@@ -95,9 +89,8 @@ public class HorizontalViewerHandlers
 
                     else
                     { // select set
-                        controller.config.currentChannelSetName =
-                            (String)controller.panel.getComboChannelsSet(  )
-                                                    .getSelectedItem(  );
+                        controller.config.currentChannelSetName = (String)controller.panel.getComboChannelsSet(  )
+                                                                                          .getSelectedItem(  );
 
                         controller.loadData(  );
 
@@ -136,10 +129,8 @@ public class HorizontalViewerHandlers
 
             protected void maybeShowPopup( MouseEvent evt )
             {
-
                 if( evt.isPopupTrigger(  ) )
                 {
-
                     JLabelChannel labelChannel =
                         (JLabelChannel)evt.getComponent(  );
                     new MenuChannel( labelChannel, controller ).show( 
@@ -158,10 +149,10 @@ public class HorizontalViewerHandlers
 
                 if( evt.getClickCount(  ) == 2 )
                 {
-
                     JLabelProgramme label =
                         (JLabelProgramme)evt.getComponent(  );
-                    label.getActionMap(  ).get( "select" ).actionPerformed( 
+                    label.getActionMap(  ).get( "select" )
+                         .actionPerformed( 
                         new ActionEvent( label, 0, "select" ) );
                 }
             }
@@ -188,10 +179,8 @@ public class HorizontalViewerHandlers
 
             private void maybeShowPopup( java.awt.event.MouseEvent evt )
             {
-
                 if( evt.isPopupTrigger(  ) )
                 {
-
                     JLabelProgramme labelProgramme =
                         (JLabelProgramme)evt.getComponent(  );
                     new MenuProgramme( 
@@ -207,7 +196,6 @@ public class HorizontalViewerHandlers
         {
             public void focusGained( FocusEvent e )
             {
-
                 final JLabelProgramme labelProgramme =
                     (JLabelProgramme)e.getComponent(  );
                 controller.currentProgrammeLabel = labelProgramme;
@@ -218,7 +206,6 @@ public class HorizontalViewerHandlers
 
             public void focusLost( FocusEvent e )
             {
-
                 final JLabelProgramme labelProgramme =
                     (JLabelProgramme)e.getComponent(  );
                 labelProgramme.setupColors(  );
@@ -231,7 +218,7 @@ public class HorizontalViewerHandlers
     /** Map for programme labels. */
     public InputMap labelProgrammeInputMap = new LabelProgrammeInputMap(  );
 
-    /**
+/**
      * Creates a new HorizontalViewerHandlers object.
      *
      * @param controller DOCUMENT ME!
@@ -249,8 +236,7 @@ public class HorizontalViewerHandlers
      */
     public static class LabelProgrammeActionMap extends ActionMap
     {
-
-        /**
+/**
          * Creates a new LabelProgrammeActionMap object.
          */
         public LabelProgrammeActionMap(  )
@@ -301,7 +287,6 @@ public class HorizontalViewerHandlers
                 {
                     public void actionPerformed( ActionEvent e )
                     {
-
                         JLabelProgramme label =
                             (JLabelProgramme)e.getSource(  );
 
@@ -310,7 +295,6 @@ public class HorizontalViewerHandlers
 
                         if( reminders.length < 1 )
                         {
-
                             return;
                         }
 
@@ -330,7 +314,6 @@ public class HorizontalViewerHandlers
                 {
                     public void actionPerformed( ActionEvent e )
                     {
-
                         JLabelProgramme label =
                             (JLabelProgramme)e.getSource(  );
                         final TVProgramme programme = label.getProgramme(  );
@@ -339,7 +322,6 @@ public class HorizontalViewerHandlers
 
                         if( reminders.length < 1 )
                         {
-
                             return;
                         }
 
@@ -351,7 +333,8 @@ public class HorizontalViewerHandlers
                             reminder.removeFavourite( fav );
 
                             JLabelProgramme labelNew =
-                                ( (ViewerFrame)label.controller.getPanel(  ) ).getProgrammesPanel(  )
+                                ( (ViewerFrame)label.controller
+                                  .getPanel(  ) ).getProgrammesPanel(  )
                                   .getLabelForProgramme( programme );
 
                             if( labelNew != null )
@@ -369,7 +352,8 @@ public class HorizontalViewerHandlers
                             label.controller.redraw(  );
 
                             JLabelProgramme labelNew =
-                                ( (ViewerFrame)label.controller.getPanel(  ) ).getProgrammesPanel(  )
+                                ( (ViewerFrame)label.controller
+                                  .getPanel(  ) ).getProgrammesPanel(  )
                                   .getLabelForProgramme( programme );
 
                             if( labelNew != null )
@@ -383,13 +367,11 @@ public class HorizontalViewerHandlers
 
         protected JPanelProgramme getPanel( ActionEvent e )
         {
-
             return (JPanelProgramme)getLabel( e ).getParent(  );
         }
 
         protected JLabelProgramme getLabel( ActionEvent e )
         {
-
             return (JLabelProgramme)e.getSource(  );
         }
     }
@@ -402,8 +384,7 @@ public class HorizontalViewerHandlers
      */
     public static class LabelProgrammeInputMap extends InputMap
     {
-
-        /**
+/**
          * Creates a new LabelProgrammeInputMap object.
          */
         public LabelProgrammeInputMap(  )

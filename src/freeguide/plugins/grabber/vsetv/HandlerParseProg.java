@@ -3,9 +3,7 @@ package freeguide.plugins.grabber.vsetv;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-
 import freeguide.common.lib.general.Time;
-
 import freeguide.common.lib.grabber.HtmlHelper;
 import freeguide.common.lib.grabber.LineProgrammeHelper;
 import freeguide.common.lib.grabber.TimeHelper;
@@ -30,7 +28,6 @@ import java.util.regex.Pattern;
  */
 public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 {
-
     protected static final int MODES_NONE = 0;
     protected static final int MODES_TITLE = 1;
     protected static final int MODES_CHANNEL_NAME = 2;
@@ -53,7 +50,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
     protected ILogger logger;
     protected final StringBuffer currentText = new StringBuffer(  );
 
-    /**
+/**
      * Creates a new HandlerParseProg object.
      *
      * @param logger DOCUMENT ME!
@@ -99,7 +96,6 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 
         if( mode == MODES_NONE )
         {
-
             if( 
                 "td".equals( qName )
                     && "channeltitle".equals( atts.getValue( "class" ) ) )
@@ -148,12 +144,10 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-
         String text = HtmlHelper.strongTrim( currentText.toString(  ) );
 
         switch( mode )
         {
-
         case MODES_TITLE:
 
             Matcher titleMatcher = DATE_PATTERN.matcher( text );
@@ -166,8 +160,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 
             try
             {
-                currentDate =
-                    TimeHelper.getBaseDate( 
+                currentDate = TimeHelper.getBaseDate( 
                         tz, titleMatcher.group( 2 ), titleMatcher.group( 3 ),
                         titleMatcher.group( 4 ), titleMatcher.group( 1 ) );
                 prevTime = 0;
@@ -190,8 +183,8 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
             }
 
             String channelName = text;
-            currentChannel =
-                data.get( "vsetv/" + channelName.replace( '/', '_' ) );
+            currentChannel = data.get( 
+                    "vsetv/" + channelName.replace( '/', '_' ) );
             currentChannel.setDisplayName( channelName );
 
             mode = MODES_NONE;
@@ -211,7 +204,6 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 
             try
             {
-
                 Time tm = LineProgrammeHelper.parseTime( text );
                 long time =
                     TimeHelper.correctTime( tm, currentDate, prevTime );
@@ -235,7 +227,6 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 
             if( currentProg != null )
             {
-
                 if( "td".equals( qName ) )
                 {
                     currentProg.setTitle( text );
@@ -259,7 +250,6 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 
             try
             {
-
                 Time tm = LineProgrammeHelper.parseTime( text );
                 long time = TimeHelper.correctTime( tm, currentDate, 0 );
                 long timeCor =
@@ -268,8 +258,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 
                 if( currentProg == null )
                 {
-                    currentProg =
-                        currentChannel.getProgrammeByTime( 
+                    currentProg = currentChannel.getProgrammeByTime( 
                             time + TimeHelper.MILLISECONDS_IN_DAY );
                 }
 

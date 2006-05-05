@@ -25,12 +25,11 @@ import java.util.Set;
  */
 public class TemplateHandler
 {
-
     protected final boolean selectedOnly;
     protected final IModuleStorage.Info info;
     protected final DateFormat timeFormat;
 
-    /**
+/**
      * Creates a new TemplateHandler object.
      *
      * @param ext DOCUMENT ME!
@@ -51,7 +50,6 @@ public class TemplateHandler
      */
     public String getTitle(  )
     {
-
         return "listing";
     }
 
@@ -62,7 +60,6 @@ public class TemplateHandler
      */
     public String getHeader(  )
     {
-
         return "listing";
     }
 
@@ -73,7 +70,6 @@ public class TemplateHandler
      */
     public Collection getChannels(  )
     {
-
         return info.channelsList.getChannels(  );
     }
 
@@ -89,7 +85,6 @@ public class TemplateHandler
     public Collection getProgrammes( final TVChannelsSet.Channel channel )
         throws Exception
     {
-
         final IModuleStorage.Info filter = info.cloneInfo(  );
         filter.channelsList.getChannels(  ).clear(  );
         filter.channelsList.getChannels(  ).add( channel );
@@ -101,16 +96,14 @@ public class TemplateHandler
 
         if( selectedOnly )
         {
-
             // remove non selected programmes from list
             for( Iterator it = programmes.iterator(  ); it.hasNext(  ); )
             {
-
                 final TVProgramme programme = (TVProgramme)it.next(  );
 
                 if( 
-                    !Application.getInstance(  ).getReminders(  )[0]
-                        .isSelected( programme ) )
+                    !Application.getInstance(  ).getReminders(  )[0].isSelected( 
+                            programme ) )
                 {
                     it.remove(  );
                 }
@@ -129,7 +122,6 @@ public class TemplateHandler
      */
     public String getProgrammeStartTime( final TVProgramme programme )
     {
-
         return timeFormat.format( new Date( programme.getStart(  ) ) );
     }
 }

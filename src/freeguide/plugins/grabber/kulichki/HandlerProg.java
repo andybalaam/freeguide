@@ -2,7 +2,6 @@ package freeguide.plugins.grabber.kulichki;
 
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-
 import freeguide.common.lib.grabber.HtmlHelper;
 import freeguide.common.lib.grabber.LineProgrammeHelper;
 import freeguide.common.lib.grabber.TimeHelper;
@@ -31,7 +30,6 @@ import java.util.regex.Pattern;
  */
 public class HandlerProg extends HtmlHelper.DefaultContentHandler
 {
-
     protected static final int MODES_NONE = 0;
     protected static final int MODES_CHANNEL_NAME = 1;
     protected static final int MODES_DATA = 2;
@@ -47,7 +45,7 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
     protected int mode;
     protected String channelIDprefix;
 
-    /**
+/**
      * Creates a new HandlerProg object.
      *
      * @param storage DOCUMENT ME!
@@ -109,7 +107,6 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
         String uri, String localName, String qName, Attributes atts )
         throws SAXException
     {
-
         if( "font".equals( qName ) )
         {
             mode = MODES_CHANNEL_NAME;
@@ -135,7 +132,6 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-
         if( "font".equals( qName ) )
         {
             mode = MODES_NONE;
@@ -163,10 +159,8 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
     public void characters( char[] ch, int start, int length )
         throws SAXException
     {
-
         switch( mode )
         {
-
         case MODES_CHANNEL_NAME:
 
             String data =
@@ -175,15 +169,13 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
 
             if( m.matches(  ) )
             {
-
                 try
                 {
-                    currentDate =
-                        TimeHelper.getBaseDate( 
+                    currentDate = TimeHelper.getBaseDate( 
                             tz, m.group( 2 ), m.group( 3 ), null, m.group( 1 ) );
 
-                    currentChannelID =
-                        channelIDprefix + m.group( 4 ).replace( '/', '_' );
+                    currentChannelID = channelIDprefix
+                        + m.group( 4 ).replace( '/', '_' );
 
                     try
                     {
@@ -217,7 +209,6 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
 
             if( currentChannelID != null )
             {
-
                 BufferedReader rd =
                     new BufferedReader( 
                         new StringReader( new String( ch, start, length ) ) );
@@ -234,18 +225,15 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
 
                         if( "".equals( line ) )
                         {
-
                             continue;
 
                         }
 
                         if( LineProgrammeHelper.isProgram( line ) )
                         {
-
                             try
                             {
-                                currentProgs =
-                                    LineProgrammeHelper.parse( 
+                                currentProgs = LineProgrammeHelper.parse( 
                                         logger, line, currentDate,
                                         ( currentProgs != null )
                                         ? currentProgs[0].getStart(  ) : 0 );
@@ -270,10 +258,8 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
 
                         else
                         {
-
                             if( currentProgs != null )
                             {
-
                                 for( int i = 0; i < currentProgs.length;
                                         i++ )
                                 {

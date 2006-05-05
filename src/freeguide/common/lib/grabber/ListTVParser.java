@@ -29,7 +29,6 @@ import java.util.zip.ZipInputStream;
  */
 public class ListTVParser
 {
-
     protected static final String CHARSET = "Cp1251";
     protected static final Pattern DATE_PATTERN1 =
         Pattern.compile( "(\\d{1,2})\\s+(\\S+)\\s+(\\d{4})\\s*\\.(.+)" );
@@ -42,7 +41,7 @@ public class ListTVParser
     protected final String channelPrefix;
     protected final IStoragePipe storage;
 
-    /**
+/**
      * Creates a new ListTVParser object.
      *
      * @param channelPrefix DOCUMENT ME!
@@ -69,7 +68,6 @@ public class ListTVParser
         String[] urls, TimeZone tz, IProgress progress, ILogger logger )
         throws Exception
     {
-
         HttpBrowser browser = new HttpBrowser(  );
 
         progress.setStepCount( urls.length * 2 );
@@ -103,7 +101,6 @@ public class ListTVParser
             // walk by files in zip
             while( zip.getNextEntry(  ) != null )
             {
-
                 // read file to memory
                 ByteArrayOutputStream out = new ByteArrayOutputStream(  );
                 int len;
@@ -115,7 +112,6 @@ public class ListTVParser
 
                     if( len < 0 )
                     {
-
                         break;
                     }
 
@@ -142,7 +138,6 @@ public class ListTVParser
     protected void parseListTV( byte[] data, TimeZone tz, ILogger logger )
         throws Exception
     {
-
         BufferedReader rd =
             new BufferedReader( 
                 new InputStreamReader( 
@@ -164,37 +159,32 @@ public class ListTVParser
 
             if( ( currentProgs == null ) && testForDate( tz, line, logger ) )
             {
-
                 continue;
             }
 
             if( currentChannelID != null )
             {
-
                 if( LineProgrammeHelper.isProgram( line ) )
                 {
-
                     try
                     {
                         finishProgrammes(  );
-                        currentProgs =
-                            LineProgrammeHelper.parse( 
+                        currentProgs = LineProgrammeHelper.parse( 
                                 logger, line, currentDate, prevTime );
                         prevTime = currentProgs[0].getStart(  );
                     }
                     catch( ParseException ex )
                     {
-                        Application.getInstance(  ).getLogger(  ).log( 
+                        Application.getInstance(  ).getLogger(  )
+                                   .log( 
                             Level.FINE, "Error parse programme line : " + line,
                             ex );
                     }
                 }
                 else
                 {
-
                     if( currentProgs != null )
                     {
-
                         for( int i = 0; i < currentProgs.length; i++ )
                         {
                             currentProgs[i].addDesc( line );
@@ -210,7 +200,6 @@ public class ListTVParser
 
     protected void finishProgrammes(  ) throws Exception
     {
-
         if( currentProgs != null )
         {
             storage.addProgrammes( currentChannelID, currentProgs );
@@ -221,7 +210,6 @@ public class ListTVParser
     protected boolean testForDate( TimeZone tz, String line, ILogger logger )
         throws Exception
     {
-
         Matcher mDate;
 
         String channelName = null;
@@ -230,11 +218,9 @@ public class ListTVParser
 
         if( mDate.matches(  ) )
         {
-
             try
             {
-                currentDate =
-                    TimeHelper.getBaseDate( 
+                currentDate = TimeHelper.getBaseDate( 
                         tz, mDate.group( 1 ), mDate.group( 2 ),
                         mDate.group( 3 ), null );
                 channelName = mDate.group( 4 ).trim(  );
@@ -256,8 +242,7 @@ public class ListTVParser
 
                 try
                 {
-                    currentDate =
-                        TimeHelper.getBaseDate( 
+                    currentDate = TimeHelper.getBaseDate( 
                             tz, mDate.group( 1 ), mDate.group( 2 ),
                             mDate.group( 3 ), null );
                     channelName = mDate.group( 4 ).trim(  );
@@ -285,7 +270,6 @@ public class ListTVParser
         }
         else
         {
-
             return false;
         }
     }

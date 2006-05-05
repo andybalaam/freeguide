@@ -17,11 +17,10 @@ import javax.swing.DefaultComboBoxModel;
 public class HallmarkConfigurationUIController
     implements IModuleConfigurationUI
 {
-
     protected final GrabberHallmark parent;
     protected HallmarkConfigurationUIPanel panel;
 
-    /**
+/**
      * Creates a new HallmarkConfigurationUIController object.
      *
      * @param parent DOCUMENT ME!
@@ -38,25 +37,25 @@ public class HallmarkConfigurationUIController
      */
     public Component getPanel(  )
     {
-
         if( panel == null )
         {
             panel = new HallmarkConfigurationUIPanel(  );
-            panel.getCbCountry(  ).setModel( 
+            panel.getCbCountry(  )
+                 .setModel( 
                 new DefaultComboBoxModel( HallmarkInfo.getCountriesList(  ) ) );
             panel.getCbCountry(  ).addActionListener( 
                 new ActionListener(  )
                 {
                     public void actionPerformed( ActionEvent e )
                     {
-
                         HallmarkInfo.Country country =
                             (HallmarkInfo.Country)panel.getCbCountry(  )
                                                        .getSelectedItem(  );
 
                         if( country != null )
                         {
-                            panel.getCbLanguage(  ).setModel( 
+                            panel.getCbLanguage(  )
+                                 .setModel( 
                                 new DefaultComboBoxModel( country.languages ) );
                         }
                     }
@@ -67,27 +66,25 @@ public class HallmarkConfigurationUIController
 
             for( int i = 0; i < countries.length; i++ )
             {
-
                 if( countries[i].id.equals( parent.config.countryId ) )
                 {
                     panel.getCbCountry(  ).setSelectedItem( countries[i] );
 
                     for( int j = 0; j < countries[i].languages.length; j++ )
                     {
-
                         if( 
                             countries[i].languages[j].name.equals( 
                                     parent.config.languageName ) )
                         {
-                            panel.getCbLanguage(  ).setSelectedItem( 
-                                countries[i].languages[j] );
+                            panel.getCbLanguage(  )
+                                 .setSelectedItem( countries[i].languages[j] );
                         }
                     }
                 }
             }
 
-            panel.getTextWeeks(  ).setText( 
-                Integer.toString( parent.config.weeksNumber ) );
+            panel.getTextWeeks(  )
+                 .setText( Integer.toString( parent.config.weeksNumber ) );
         }
 
         return panel;
@@ -105,7 +102,6 @@ public class HallmarkConfigurationUIController
      */
     public void save(  )
     {
-
         HallmarkInfo.Country country =
             (HallmarkInfo.Country)panel.getCbCountry(  ).getSelectedItem(  );
 
@@ -130,8 +126,8 @@ public class HallmarkConfigurationUIController
             parent.config.languageName = null;
         }
 
-        parent.config.weeksNumber =
-            Integer.parseInt( panel.getTextWeeks(  ).getText(  ) );
+        parent.config.weeksNumber = Integer.parseInt( 
+                panel.getTextWeeks(  ).getText(  ) );
     }
 
     /**

@@ -10,18 +10,21 @@
  *
  *  See the file COPYING for more information.
  */
- 
 package freeguide.plugins.program.freeguide.options;
 
 import freeguide.common.gui.FGDialog;
-import freeguide.plugins.program.freeguide.dialogs.*;
-import freeguide.plugins.program.freeguide.viewer.MainController;
+
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.*;
+
+import freeguide.plugins.program.freeguide.dialogs.*;
 import freeguide.plugins.program.freeguide.lib.general.LookAndFeelManager;
+import freeguide.plugins.program.freeguide.viewer.MainController;
 
 import java.awt.Insets;
+
 import java.util.*;
+
 import javax.swing.*;
 
 /*
@@ -31,11 +34,18 @@ import javax.swing.*;
  * @created    9 Dec 2003
  * @version    3
  */
+/**
+ * DOCUMENT ME!
+ *
+ * @author $author$
+ * @version $Revision$
+  */
 public class LayoutOptionPanel extends OptionPanel
 {
     // ----------------------------------
     private JComboBox lookAndFeelCombo;
-    /**
+
+/**
      * Creates a new LayoutOptionPanel object.
      *
      * @param parent DOCUMENT ME!
@@ -44,7 +54,7 @@ public class LayoutOptionPanel extends OptionPanel
     {
         super( parent );
     }
-    
+
     /**
      * DOCUMENT_ME!
      */
@@ -57,12 +67,15 @@ public class LayoutOptionPanel extends OptionPanel
                     "look_and_feel" ) + ":" );
         lookAndFeelCombo = new JComboBox(  );
         lookAndFeelCombo.setEditable( true );
+
         List lafs = LookAndFeelManager.getAvailableLooksAndFeels(  );
         Iterator lafsIterator = lafs.iterator(  );
+
         while( lafsIterator.hasNext(  ) )
         {
             lookAndFeelCombo.addItem( lafsIterator.next(  ) );
         }
+
         // Lay them out in a GridBag layout
         GridBagEasy gbe = new GridBagEasy( this );
         gbe.default_insets = new Insets( 1, 1, 1, 1 );
@@ -73,18 +86,20 @@ public class LayoutOptionPanel extends OptionPanel
         // Load in the values from config
         load(  );
     }
-    
+
     protected void doLoad( String prefix )
     {
         LookAndFeel currentLAF = UIManager.getLookAndFeel(  );
         String defaultLAFName = "Metal";
+
         if( currentLAF != null )
         {
             defaultLAFName = currentLAF.getName(  );
         }
+
         lookAndFeelCombo.setSelectedItem( MainController.config.ui.LFname );
     }
-    
+
     /**
      * DOCUMENT_ME!
      *
@@ -92,12 +107,13 @@ public class LayoutOptionPanel extends OptionPanel
      */
     public boolean doSave(  )
     {
-        MainController.config.ui.LFname =
-            lookAndFeelCombo.getSelectedItem(  ).toString(  );
+        MainController.config.ui.LFname = lookAndFeelCombo.getSelectedItem(  )
+                                                          .toString(  );
         ( (MainController)Application.getInstance(  ) ).setLookAndFeel(  );
+
         return true;
     }
-    
+
     /**
      * Used to find the name of this panel when displayed in a JTree.
      *

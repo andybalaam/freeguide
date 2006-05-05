@@ -26,12 +26,11 @@ import java.util.TreeMap;
  */
 public class HandlerProgrammeInfo
 {
-
     protected final TVProgramme programme;
     protected final DateFormat timeFormat;
     protected final ILocalizer localizer;
 
-    /**
+/**
      * Creates a new HandlerProgrammeInfo object.
      *
      * @param localizer DOCUMENT ME!
@@ -54,7 +53,6 @@ public class HandlerProgrammeInfo
      */
     public String getNoneMessage(  )
     {
-
         return localizer.getLocalizedMessage( "no_programme_selected" );
     }
 
@@ -65,7 +63,6 @@ public class HandlerProgrammeInfo
      */
     public String getProgrammeStartTime(  )
     {
-
         return timeFormat.format( new Date( programme.getStart(  ) ) );
     }
 
@@ -76,7 +73,6 @@ public class HandlerProgrammeInfo
      */
     public String getProgrammeEndTime(  )
     {
-
         return timeFormat.format( new Date( programme.getEnd(  ) ) );
     }
 
@@ -87,7 +83,6 @@ public class HandlerProgrammeInfo
      */
     public StringBuffer getTimeDelta(  )
     {
-
         final StringBuffer result = new StringBuffer(  );
         result.append( " <i>(" );
         ProgrammeFormat.calcTimeDelta( programme.getStart(  ), result );
@@ -103,7 +98,6 @@ public class HandlerProgrammeInfo
      */
     public boolean hasExtraTags(  )
     {
-
         return programme.getExtraTags(  ) != null;
     }
 
@@ -114,7 +108,6 @@ public class HandlerProgrammeInfo
      */
     public boolean hasProgramme(  )
     {
-
         return programme != null;
     }
 
@@ -125,7 +118,6 @@ public class HandlerProgrammeInfo
      */
     public boolean noProgramme(  )
     {
-
         return programme == null;
     }
 
@@ -136,15 +128,12 @@ public class HandlerProgrammeInfo
      */
     public Collection getExtraTags(  )
     {
-
         if( programme.getExtraTags(  ) != null )
         {
-
             return programme.getExtraTags(  ).entrySet(  );
         }
         else
         {
-
             return null;
         }
     }
@@ -158,7 +147,6 @@ public class HandlerProgrammeInfo
      */
     public Object getHashOfAttr( final HashMap hashOfAttrs )
     {
-
         return hashOfAttrs.get( "" );
     }
 
@@ -171,7 +159,6 @@ public class HandlerProgrammeInfo
      */
     public Collection getTagAttrs( final HashMap attrs )
     {
-
         final Map result = new TreeMap( attrs );
         result.remove( "" );
 
@@ -185,7 +172,6 @@ public class HandlerProgrammeInfo
      */
     public String getProgrammeTitle(  )
     {
-
         return programme.getTitle(  );
     }
 
@@ -196,15 +182,12 @@ public class HandlerProgrammeInfo
      */
     public String getProgrammeSubTitle(  )
     {
-
         if( programme.getSubTitle(  ) != null )
         {
-
             return ": " + programme.getTitle(  );
         }
         else
         {
-
             return "";
         }
     }
@@ -216,7 +199,6 @@ public class HandlerProgrammeInfo
      */
     public String getProgrammeDescription(  )
     {
-
         return programme.getDescription(  );
     }
 
@@ -227,7 +209,6 @@ public class HandlerProgrammeInfo
      */
     public String getProgrammeChannelName(  )
     {
-
         return programme.getChannel(  ).getDisplayName(  );
     }
 
@@ -238,7 +219,6 @@ public class HandlerProgrammeInfo
      */
     public String getProgrammeCategory(  )
     {
-
         return programme.getCategory(  );
     }
 
@@ -249,17 +229,14 @@ public class HandlerProgrammeInfo
      */
     public String getPreviouslyShown(  )
     {
-
         if( programme.getPreviouslyShown(  ) )
         {
-
             return " "
             + Application.getInstance(  ).getLocalizedMessage( "repeat" );
 
         }
         else
         {
-
             return "";
         }
     }
@@ -271,18 +248,15 @@ public class HandlerProgrammeInfo
      */
     public String getStarRating(  )
     {
-
         if( 
             programme.getIsMovie(  ) && ( programme.getStarRating(  ) != null ) )
         {
-
             return " "
             + Application.getInstance(  ).getLocalizedMessage( "rating" )
             + ": " + programme.getStarRating(  );
         }
         else
         {
-
             return "";
         }
     }
@@ -294,7 +268,6 @@ public class HandlerProgrammeInfo
      */
     public boolean hasProgrammeIcon(  )
     {
-
         return programme.getIconURL(  ) != null;
     }
 
@@ -305,7 +278,6 @@ public class HandlerProgrammeInfo
      */
     public String getProgrammeIconURL(  )
     {
-
         return programme.getIconURL(  );
     }
 
@@ -316,7 +288,6 @@ public class HandlerProgrammeInfo
      */
     public boolean hasChannelIcon(  )
     {
-
         return TVChannelIconHelper.getIconFile( programme.getChannel(  ) ) != null;
     }
 
@@ -329,7 +300,6 @@ public class HandlerProgrammeInfo
      */
     public String getChannelIconURL(  ) throws IOException
     {
-
         final File file =
             TVChannelIconHelper.getIconFile( programme.getChannel(  ) );
 
@@ -343,7 +313,6 @@ public class HandlerProgrammeInfo
      */
     public String getChannelTitle(  )
     {
-
         return programme.getChannel(  ).getDisplayName(  );
     }
 }

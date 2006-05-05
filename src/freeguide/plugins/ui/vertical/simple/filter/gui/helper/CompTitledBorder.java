@@ -12,17 +12,17 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 /**
- * Found at http://www.objects.com.au/java/examples/swing/CheckBoxBorder.do
+ * Found at
+ * http://www.objects.com.au/java/examples/swing/CheckBoxBorder.do
  *
  * @version 1.0 08/12/99
  */
 public class CompTitledBorder extends TitledBorder
 {
-
     private static final long serialVersionUID = 1L;
     protected JComponent component;
 
-    /**
+/**
      * Creates a new CompTitledBorder object.
      *
      * @param component DOCUMENT ME!
@@ -32,7 +32,7 @@ public class CompTitledBorder extends TitledBorder
         this( null, component, LEFT, TOP );
     }
 
-    /**
+/**
      * Creates a new CompTitledBorder object.
      *
      * @param border DOCUMENT ME!
@@ -42,7 +42,7 @@ public class CompTitledBorder extends TitledBorder
         this( border, null, LEFT, TOP );
     }
 
-    /**
+/**
      * Creates a new CompTitledBorder object.
      *
      * @param border DOCUMENT ME!
@@ -53,7 +53,7 @@ public class CompTitledBorder extends TitledBorder
         this( border, component, LEFT, TOP );
     }
 
-    /**
+/**
      * Creates a new CompTitledBorder object.
      *
      * @param border DOCUMENT ME!
@@ -87,7 +87,6 @@ public class CompTitledBorder extends TitledBorder
     public void paintBorder( 
         Component c, Graphics g, int x, int y, int width, int height )
     {
-
         Rectangle borderR =
             new Rectangle( 
                 x + EDGE_SPACING, y + EDGE_SPACING,
@@ -110,7 +109,6 @@ public class CompTitledBorder extends TitledBorder
 
         switch( titlePosition )
         {
-
         case ABOVE_TOP:
             diff = compR.height + TEXT_SPACING;
             borderR.y += diff;
@@ -163,7 +161,6 @@ public class CompTitledBorder extends TitledBorder
      */
     public Insets getBorderInsets( Component c, Insets insets )
     {
-
         Insets borderInsets;
 
         if( border != null )
@@ -182,7 +179,6 @@ public class CompTitledBorder extends TitledBorder
 
         if( ( c == null ) || ( component == null ) )
         {
-
             return insets;
         }
 
@@ -195,7 +191,6 @@ public class CompTitledBorder extends TitledBorder
 
         switch( titlePosition )
         {
-
         case ABOVE_TOP:
             insets.top += ( compHeight + TEXT_SPACING );
 
@@ -240,7 +235,6 @@ public class CompTitledBorder extends TitledBorder
      */
     public JComponent getTitleComponent(  )
     {
-
         return component;
     }
 
@@ -264,13 +258,11 @@ public class CompTitledBorder extends TitledBorder
      */
     public Rectangle getComponentRect( Rectangle rect, Insets borderInsets )
     {
-
         Dimension compD = component.getPreferredSize(  );
         Rectangle compR = new Rectangle( 0, 0, compD.width, compD.height );
 
         switch( titlePosition )
         {
-
         case ABOVE_TOP:
             compR.y = EDGE_SPACING;
 
@@ -278,8 +270,7 @@ public class CompTitledBorder extends TitledBorder
 
         case TOP:
         case DEFAULT_POSITION:
-            compR.y =
-                EDGE_SPACING
+            compR.y = EDGE_SPACING
                 + ( ( borderInsets.top - EDGE_SPACING - TEXT_SPACING
                 - compD.height ) / 2 );
 
@@ -296,8 +287,7 @@ public class CompTitledBorder extends TitledBorder
             break;
 
         case BOTTOM:
-            compR.y =
-                rect.height - borderInsets.bottom + TEXT_SPACING
+            compR.y = rect.height - borderInsets.bottom + TEXT_SPACING
                 + ( ( borderInsets.bottom - EDGE_SPACING - TEXT_SPACING
                 - compD.height ) / 2 );
 
@@ -311,7 +301,6 @@ public class CompTitledBorder extends TitledBorder
 
         switch( titleJustification )
         {
-
         case LEFT:
         case DEFAULT_JUSTIFICATION:
             compR.x = TEXT_INSET_H + borderInsets.left;
@@ -319,8 +308,8 @@ public class CompTitledBorder extends TitledBorder
             break;
 
         case RIGHT:
-            compR.x =
-                rect.width - borderInsets.right - TEXT_INSET_H - compR.width;
+            compR.x = rect.width - borderInsets.right - TEXT_INSET_H
+                - compR.width;
 
             break;
 

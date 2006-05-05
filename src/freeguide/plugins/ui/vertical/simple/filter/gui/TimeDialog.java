@@ -15,15 +15,14 @@ import java.awt.event.AdjustmentListener;
 import javax.swing.*;
 
 /**
- * Dialog in which the user can configure a TimeFilter. The layout has been
- * copied shamelessly from nextVEPG.
+ * Dialog in which the user can configure a TimeFilter. The layout has
+ * been copied shamelessly from nextVEPG.
  *
  * @author Christian Weiske (cweiske at cweiske.de)
  */
 public class TimeDialog extends JDialog implements AdjustmentListener,
     ActionListener, SettingDialog
 {
-
     /** The filter to modify */
     TimeFilter timeFilter;
 
@@ -38,7 +37,7 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
     protected JButton btnCancel;
     protected boolean bClosedWithOk = false;
 
-    /**
+/**
      * Creates a new TimeDialog object.
      *
      * @throws HeadlessException DOCUMENT ME!
@@ -49,7 +48,6 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
     }
 
     //public TimeDialog() throws HeadlessException
-
     /**
      * DOCUMENT_ME!
      *
@@ -61,7 +59,6 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
     }
 
     //public void setFilter(ProgrammeFilter filter)
-
     /**
      * DOCUMENT_ME!
      */
@@ -73,7 +70,6 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
     }
 
     //public void init()
-
     /**
      * Create the GUI elements
      */
@@ -82,22 +78,20 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
         this.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         this.getContentPane(  ).setLayout( new BorderLayout(  ) );
         this.setTitle( 
-            VerticalViewer.getInstance(  ).getLocalizedMessage( 
-                "timedialog.title" ) );
+            VerticalViewer.getInstance(  )
+                          .getLocalizedMessage( "timedialog.title" ) );
         this.setSize( 400, 200 );
 
         /** Buttons */
         JPanel pnlButtons = new JPanel( new BorderLayout(  ) );
-        this.btnOk =
-            new JButton( 
-                VerticalViewer.getInstance(  ).getLocalizedMessage( 
-                    "timedialog.ok" ) );
+        this.btnOk = new JButton( 
+                VerticalViewer.getInstance(  )
+                              .getLocalizedMessage( "timedialog.ok" ) );
         this.btnOk.setDefaultCapable( true );
         this.btnOk.addActionListener( this );
-        this.btnCancel =
-            new JButton( 
-                VerticalViewer.getInstance(  ).getLocalizedMessage( 
-                    "timedialog.cancel" ) );
+        this.btnCancel = new JButton( 
+                VerticalViewer.getInstance(  )
+                              .getLocalizedMessage( "timedialog.cancel" ) );
         this.btnCancel.addActionListener( this );
 
         pnlButtons.add( btnCancel, BorderLayout.WEST );
@@ -109,10 +103,9 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
         /** Controls */
         JPanel contentPane;
 
-        this.chkUseStart =
-            new JCheckBox( 
-                VerticalViewer.getInstance(  ).getLocalizedMessage( 
-                    "timedialog.check.from" ) );
+        this.chkUseStart = new JCheckBox( 
+                VerticalViewer.getInstance(  )
+                              .getLocalizedMessage( "timedialog.check.from" ) );
 
         CompTitledPane pnlFrom = new CompTitledPane( chkUseStart );
         this.lblStartValue = new JLabel( "00:00" );
@@ -124,10 +117,9 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
         contentPane.add( this.lblStartValue, BorderLayout.WEST );
         contentPane.add( this.scrStart, BorderLayout.CENTER );
 
-        this.chkUseEnd =
-            new JCheckBox( 
-                VerticalViewer.getInstance(  ).getLocalizedMessage( 
-                    "timedialog.check.to" ) );
+        this.chkUseEnd = new JCheckBox( 
+                VerticalViewer.getInstance(  )
+                              .getLocalizedMessage( "timedialog.check.to" ) );
 
         CompTitledPane pnlTo = new CompTitledPane( this.chkUseEnd );
         this.lblEndValue = new JLabel( "00:00" );
@@ -147,13 +139,11 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
     }
 
     //protected void buildLayout()
-
     /**
      * Loads the settings that the filter already has into the GUI
      */
     protected void loadFilterSettings(  )
     {
-
         int nStart = this.timeFilter.getStartTime(  );
 
         if( nStart != -1 )
@@ -180,7 +170,6 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
     }
 
     //protected void loadFilterSettings()
-
     /**
      * A scrollbar value has been changed
      *
@@ -188,10 +177,8 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
      */
     public void adjustmentValueChanged( AdjustmentEvent adjustmentEvent )
     {
-
         if( adjustmentEvent.getSource(  ) == this.scrStart )
         {
-
             int nStart = this.scrStart.getValue(  );
             this.lblStartValue.setText( 
                 TimeFilter.getTimeFromInt( getTimeIntFromScrollInt( nStart ) ) );
@@ -206,7 +193,6 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
         }
         else
         {
-
             int nEnd = this.scrEnd.getValue(  );
             this.lblEndValue.setText( 
                 TimeFilter.getTimeFromInt( getTimeIntFromScrollInt( nEnd ) ) );
@@ -222,11 +208,10 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
     }
 
     //public void adjustmentValueChanged(AdjustmentEvent adjustmentEvent)
-
     /**
-     * Converts a scroll bar integer to a "time integer" Scrollbars use a step
-     * of 1 to increment 5 minutes, and this methods converts from the
-     * scrollbar value to a TimeFilter value of e.g. "2015" for "20:15"
+     * Converts a scroll bar integer to a "time integer" Scrollbars
+     * use a step of 1 to increment 5 minutes, and this methods converts from
+     * the scrollbar value to a TimeFilter value of e.g. "2015" for "20:15"
      *
      * @param nScroll DOCUMENT ME!
      *
@@ -234,14 +219,12 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
      */
     protected static int getTimeIntFromScrollInt( int nScroll )
     {
-
         int nMinutes = nScroll % 12;
 
         return ( ( nScroll - nMinutes ) / 12 * 100 ) + ( nMinutes * 5 );
     }
 
     //protected static int getTimeIntFromScrollInt(int nScroll)
-
     /**
      * Reverse function to getTimeIntFromScrollInt(int nScroll)
      *
@@ -251,14 +234,12 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
      */
     protected static int getScrollIntFromTimeInt( int nTime )
     {
-
         int nMinutes = nTime % 100;
 
         return ( ( nTime - nMinutes ) / 100 * 12 ) + ( nMinutes / 5 );
     }
 
     //protected static int getScrollIntFromTimeInt(int nTime)
-
     /**
      * A button has been clicked
      *
@@ -266,10 +247,8 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
      */
     public void actionPerformed( ActionEvent actionEvent )
     {
-
         if( actionEvent.getSource(  ) == this.btnOk )
         {
-
             //OK - apply the settings to the filter
             if( this.chkUseStart.isSelected(  ) )
             {
@@ -297,14 +276,12 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
         }
         else
         {
-
             //Should be Cancel button
             this.dispose(  );
         }
     }
 
     //public void actionPerformed(ActionEvent actionEvent)
-
     /**
      * DOCUMENT_ME!
      *
@@ -312,13 +289,14 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
      */
     public boolean isClosedWithOk(  )
     {
-
         return bClosedWithOk;
     }
-    //public boolean isClosedWithOk()
 
+    //public boolean isClosedWithOk()
     /**
      * DOCUMENT_ME!
+     *
+     * @param show DOCUMENT ME!
      */
     public void setVisible( boolean show )
     {
@@ -327,6 +305,7 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
             //reset that
             this.bClosedWithOk = false;
         }
+
         super.setVisible( show );
     }
 
@@ -337,7 +316,6 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
      */
     public static void main( String[] args )
     {
-
         TimeFilter filter = new TimeFilter(  );
         filter.setStartTime( 2015 );
         filter.setEndTime( -1 );
@@ -351,6 +329,4 @@ public class TimeDialog extends JDialog implements AdjustmentListener,
 
     //public static void main(String[] args)
 }
-
-
 //public class TimeDialog extends JDialog

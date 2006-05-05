@@ -1,11 +1,11 @@
 package freeguide.plugins.program.freeguide.lib.updater.data;
 
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
-
 import freeguide.common.lib.general.Version;
 
 import freeguide.common.plugininterfaces.IModule;
+
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -17,7 +17,6 @@ import java.util.TreeMap;
  */
 public class PluginPackage
 {
-
     protected final static char[] HEX_DIGITS =
         new char[]
         {
@@ -57,7 +56,7 @@ public class PluginPackage
     protected Boolean changed;
     protected PluginsRepository parent;
 
-    /**
+/**
      * Creates a new PluginPackage object.
      *
      * @param id DOCUMENT ME!
@@ -76,7 +75,6 @@ public class PluginPackage
      */
     public String getID(  )
     {
-
         return id;
     }
 
@@ -97,7 +95,6 @@ public class PluginPackage
      */
     public String getType(  )
     {
-
         return type;
     }
 
@@ -108,7 +105,6 @@ public class PluginPackage
      */
     public Version getVersion(  )
     {
-
         return version;
     }
 
@@ -129,7 +125,6 @@ public class PluginPackage
      */
     public String getRepositoryPath(  )
     {
-
         return repositoryPath;
     }
 
@@ -174,7 +169,6 @@ public class PluginPackage
      */
     public String getName( final String lang )
     {
-
         return (String)names.get( lang );
     }
 
@@ -187,7 +181,6 @@ public class PluginPackage
      */
     public String getDescription( final String lang )
     {
-
         return (String)descriptions.get( lang );
     }
 
@@ -204,7 +197,6 @@ public class PluginPackage
      */
     public void markForRemove(  )
     {
-
         if( !PluginsRepository.PACKAGE_TYPE_APPLICATION.equals( type ) )
         {
             mark = STATE_MARKED_FOR_REMOVE;
@@ -226,7 +218,6 @@ public class PluginPackage
      */
     public boolean isMarkedForInstall(  )
     {
-
         return mark == STATE_MARKED_FOR_INSTALL;
     }
 
@@ -237,7 +228,6 @@ public class PluginPackage
      */
     public boolean isMarkedForRemove(  )
     {
-
         return mark == STATE_MARKED_FOR_REMOVE;
     }
 
@@ -248,7 +238,6 @@ public class PluginPackage
      */
     public boolean isInstalled(  )
     {
-
         return PluginsManager.isInstalled( id );
     }
 
@@ -259,38 +248,31 @@ public class PluginPackage
      */
     public boolean needToUpdate(  )
     {
-
         if( mark != STATE_NOT_MARKED )
         {
-
             return true;
         }
 
         if( isInstalled(  ) )
         {
-
             return isChanged(  );
         }
         else
         {
-
             return false;
         }
     }
 
     protected synchronized boolean isChanged(  )
     {
-
         PluginInfo info = PluginsManager.getPluginInfoByID( id );
 
         if( info == null )
         {
-
             return true;
         }
         else
         {
-
             return info.getVersion(  ).lessThan( version );
         }
     }

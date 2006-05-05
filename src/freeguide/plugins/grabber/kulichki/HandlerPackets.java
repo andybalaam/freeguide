@@ -18,7 +18,6 @@ import java.util.TreeSet;
  */
 public class HandlerPackets extends HtmlHelper.DefaultContentHandler
 {
-
     protected boolean grab;
     protected String lastPacketID;
     protected Set weekList = new TreeSet(  );
@@ -51,10 +50,8 @@ public class HandlerPackets extends HtmlHelper.DefaultContentHandler
         String uri, String localName, String qName, Attributes atts )
         throws SAXException
     {
-
         if( "form".equals( qName ) )
         {
-
             if( "cgi-bin/gpack.cgi".equals( atts.getValue( "action" ) ) )
             {
                 grab = true;
@@ -64,7 +61,6 @@ public class HandlerPackets extends HtmlHelper.DefaultContentHandler
 
         else if( grab && "input".equals( qName ) )
         {
-
             String name = atts.getValue( "name" );
 
             String value = atts.getValue( "value" );
@@ -77,7 +73,6 @@ public class HandlerPackets extends HtmlHelper.DefaultContentHandler
 
             else if( "pakets".equals( name ) )
             {
-
                 if( !"anons".equals( value ) )
                 {
                     lastPacketID = value;
@@ -105,7 +100,6 @@ public class HandlerPackets extends HtmlHelper.DefaultContentHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-
         if( "table".equals( qName ) )
         {
             grab = false;
@@ -125,7 +119,6 @@ public class HandlerPackets extends HtmlHelper.DefaultContentHandler
     public void characters( char[] ch, int start, int length )
         throws SAXException
     {
-
         if( lastPacketID != null )
         {
             packetList.put( lastPacketID, new String( ch, start, length ) );
@@ -142,7 +135,6 @@ public class HandlerPackets extends HtmlHelper.DefaultContentHandler
      */
     public String[] getWeeks(  )
     {
-
         return (String[])weekList.toArray( new String[weekList.size(  )] );
 
     }
@@ -154,9 +146,8 @@ public class HandlerPackets extends HtmlHelper.DefaultContentHandler
      */
     public String[] getPacketIDs(  )
     {
-
-        return (String[])packetList.keySet(  ).toArray( 
-            new String[packetList.size(  )] );
+        return (String[])packetList.keySet(  )
+                                   .toArray( new String[packetList.size(  )] );
 
     }
 }

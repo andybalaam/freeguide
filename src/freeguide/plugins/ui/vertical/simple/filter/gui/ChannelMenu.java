@@ -22,11 +22,10 @@ import javax.swing.*;
  */
 public class ChannelMenu extends JPopupMenu implements ActionListener
 {
-
     ChannelFilter filter;
     HashMap channelMap;
 
-    /**
+/**
      * Creates a new ChannelMenu object.
      *
      * @param filter DOCUMENT ME!
@@ -38,21 +37,19 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
     }
 
     //public ChannelMenu(ChannelFilter filter)
-
     /**
      * Initializes the menu items
      */
     public void init(  )
     {
-
         //Needed in case this is no the first init
         this.removeAll(  );
 
         //Add a "no channels" button
         ChannelsetMenuItem nullItem =
             new ChannelsetMenuItem( 
-                VerticalViewer.getInstance(  ).getLocalizedMessage( 
-                    "channelmenu.all" ), null );
+                VerticalViewer.getInstance(  )
+                              .getLocalizedMessage( "channelmenu.all" ), null );
         this.add( nullItem );
         nullItem.addActionListener( this );
 
@@ -62,7 +59,6 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
 
         for( int i = 0; i < channelsetList.size(  ); i++ )
         {
-
             TVChannelsSet set = (TVChannelsSet)channelsetList.get( i );
             ChannelsetMenuItem item =
                 new ChannelsetMenuItem( set.getName(  ), set );
@@ -82,7 +78,6 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
                                                                                        .iterator(  );
                 it.hasNext(  ); )
         {
-
             TVChannelsSet.Channel listCh = (TVChannelsSet.Channel)it.next(  );
             JCheckBoxMenuItem item =
                 new ChannelCheckBoxMenuItem( 
@@ -94,7 +89,6 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
     }
 
     //public void init()
-
     /**
      * DOCUMENT_ME!
      *
@@ -102,12 +96,10 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
      */
     public void actionPerformed( ActionEvent actionEvent )
     {
-
         Object source = actionEvent.getSource(  );
 
         if( source.getClass(  ).equals( ChannelCheckBoxMenuItem.class ) )
         {
-
             //Single channel
             ChannelCheckBoxMenuItem item = (ChannelCheckBoxMenuItem)source;
 
@@ -122,7 +114,6 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
         }
         else
         {
-
             //has to be channel set
             //remove all channel selections
             this.filter.removeAllChannels( false );
@@ -137,13 +128,11 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
             //add the channel selection for the channel set channels
             if( ( (ChannelsetMenuItem)source ).set != null )
             {
-
                 Object[] arChannels =
                     ( (ChannelsetMenuItem)source ).set.getChannels(  ).toArray(  );
 
                 for( int nA = 0; nA < arChannels.length; nA++ )
                 {
-
                     TVChannelsSet.Channel channel =
                         (TVChannelsSet.Channel)arChannels[nA];
                     ChannelCheckBoxMenuItem item =
@@ -165,11 +154,10 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
     //public void actionPerformed(ActionEvent actionEvent)
     class ChannelCheckBoxMenuItem extends JCheckBoxMenuItem
     {
-
         /** DOCUMENT ME! */
         public String channelId = null;
 
-        /**
+/**
          * Creates a new ChannelCheckBoxMenuItem object.
          *
          * @param title DOCUMENT ME!
@@ -185,11 +173,10 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
     //class ChannelCheckBoxMenuItem extends JCheckBoxMenuItem
     class ChannelsetMenuItem extends JMenuItem
     {
-
         /** DOCUMENT ME! */
         public TVChannelsSet set;
 
-        /**
+/**
          * Creates a new ChannelsetMenuItem object.
          *
          * @param title DOCUMENT ME!
@@ -204,6 +191,4 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
 
     //class ChannelsetMenuItem extends JMenuItem
 }
-
-
 //public class ChannelMenu extends JPopupMenu implements ActionListener

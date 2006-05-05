@@ -31,7 +31,6 @@ import javax.swing.text.Document;
  */
 public class XMLTVConfigureUIController implements IModuleConfigurationUI
 {
-
     final protected GrabberXMLTV parent;
     final protected XMLTVConfigureUIPanel panel;
     final protected XMLTVConfig config;
@@ -45,7 +44,6 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         {
             public void actionPerformed( final ActionEvent e )
             {
-
                 JButton btn = (JButton)e.getSource(  );
 
                 //                config.commandsRun.remove( btn.getName(  ) );
@@ -62,7 +60,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
             }
         };
 
-    /**
+/**
      * Creates a new ConfigureUIController object.
      *
      * @param parent DOCUMENT ME!
@@ -71,8 +69,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
     {
         this.parent = parent;
 
-        modules =
-            GrabberXMLTV.getMods( 
+        modules = GrabberXMLTV.getMods( 
                 "",
                 ".run."
                 + ( Application.getInstance(  ).isUnix(  ) ? "lin" : "win" ) );
@@ -91,7 +88,6 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
             {
                 public void actionPerformed( ActionEvent e )
                 {
-
                     XMLTVConfig.ModuleInfo info =
                         new XMLTVConfig.ModuleInfo(  );
 
@@ -130,7 +126,6 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
      */
     public Component getPanel(  )
     {
-
         return panel;
 
     }
@@ -144,7 +139,6 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
     private void addModule( final XMLTVConfig.ModuleInfo moduleInfo )
     {
-
         GridBagConstraints gc = new GridBagConstraints(  );
         gc.gridx = 0;
         gc.gridy = latestY;
@@ -165,15 +159,15 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
      */
     public JPanel getOnePanel( final XMLTVConfig.ModuleInfo moduleInfo )
     {
-
         final XMLTVConfigureUIPanelModule confPanel =
             new XMLTVConfigureUIPanelModule( 
                 parent.getLocalizer(  ), moduleInfo, new TextChanged(  ) );
 
-        confPanel.getBtnChannels(  ).addActionListener( 
+        confPanel.getBtnChannels(  )
+                 .addActionListener( 
             new BtnChannelsAction( parent, moduleInfo ) );
-        confPanel.getBtnCommandReset(  ).addActionListener( 
-            new BtnCommandResetAction( confPanel ) );
+        confPanel.getBtnCommandReset(  )
+                 .addActionListener( new BtnCommandResetAction( confPanel ) );
 
         confPanel.getBtnCommandReset(  ).addActionListener( BtnResetAction );
 
@@ -184,13 +178,11 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
             {
                 public void actionPerformed( ActionEvent e )
                 {
-
                     if( 
                         JOptionPane.showConfirmDialog( 
                                 panel, "Are you sure ?", "Delete",
                                 JOptionPane.OK_CANCEL_OPTION ) == JOptionPane.OK_OPTION )
                     {
-
                         synchronized( config.modules )
                         {
                             config.modules.remove( confPanel.moduleInfo );
@@ -203,15 +195,15 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
                 }
             } );
 
-        confPanel.getComboModules(  ).setModel( 
-            new DefaultComboBoxModel( modules ) );
+        confPanel.getComboModules(  )
+                 .setModel( new DefaultComboBoxModel( modules ) );
         confPanel.getComboModules(  ).setSelectedItem( moduleInfo.moduleName );
-        confPanel.getComboModules(  ).addActionListener( 
-            new ComboModulesAction( confPanel ) );
+        confPanel.getComboModules(  )
+                 .addActionListener( new ComboModulesAction( confPanel ) );
 
         setTextFieldSet( confPanel );
-        confPanel.getTextCommand(  ).getDocument(  ).addDocumentListener( 
-            confPanel.textChangedEvent );
+        confPanel.getTextCommand(  ).getDocument(  )
+                 .addDocumentListener( confPanel.textChangedEvent );
         confPanel.textChangedEvent.allowEvent = true;
 
         return confPanel;
@@ -226,11 +218,11 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
     protected void setTextFieldSet( final XMLTVConfigureUIPanelModule panel )
     {
-
         if( panel.moduleInfo.commandToRun == null )
         {
             panel.getTextCommand(  ).setForeground( textNoEdited );
-            panel.getTextCommand(  ).setText( 
+            panel.getTextCommand(  )
+                 .setText( 
                 GrabberXMLTV.getCommand( panel.moduleInfo.moduleName, "run" ) );
         }
         else
@@ -242,11 +234,10 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
     protected static class BtnChannelsAction implements ActionListener
     {
-
         final protected GrabberXMLTV parent;
         final protected XMLTVConfig.ModuleInfo moduleInfo;
 
-        /**
+/**
          * Creates a new BtnChannelsAction object.
          *
          * @param parent DOCUMENT ME!
@@ -270,7 +261,6 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
                 {
                     public void run(  )
                     {
-
                         JButton btn = (JButton)e.getSource(  );
 
                         parent.configureChannels( moduleInfo );
@@ -283,10 +273,9 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
     protected class BtnCommandResetAction implements ActionListener
     {
-
         final protected XMLTVConfigureUIPanelModule confPanel;
 
-        /**
+/**
          * Creates a new BtnCommandResetAction object.
          *
          * @param confPanel DOCUMENT ME!
@@ -313,10 +302,9 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
     protected class ComboModulesAction implements ActionListener
     {
-
         protected final XMLTVConfigureUIPanelModule confPanel;
 
-        /**
+/**
          * Creates a new ComboModulesAction object.
          *
          * @param confPanel DOCUMENT ME!
@@ -335,8 +323,8 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         public void actionPerformed( final ActionEvent e )
         {
             confPanel.textChangedEvent.allowEvent = false;
-            confPanel.moduleInfo.moduleName =
-                (String)( (JComboBox)e.getSource(  ) ).getSelectedItem(  );
+            confPanel.moduleInfo.moduleName = (String)( (JComboBox)e.getSource(  ) )
+                .getSelectedItem(  );
             confPanel.moduleInfo.commandToRun = null;
             setTextFieldSet( confPanel );
             confPanel.textChangedEvent.allowEvent = true;
@@ -345,7 +333,6 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
     protected class TextChanged implements DocumentListener
     {
-
         protected XMLTVConfigureUIPanelModule panel;
         protected boolean allowEvent = true;
 
@@ -384,10 +371,8 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
         protected void onChanged( DocumentEvent e )
         {
-
             if( !allowEvent )
             {
-
                 return;
             }
 
@@ -395,8 +380,8 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
             try
             {
-                panel.moduleInfo.commandToRun =
-                    doc.getText( 0, doc.getLength(  ) );
+                panel.moduleInfo.commandToRun = doc.getText( 
+                        0, doc.getLength(  ) );
             }
             catch( BadLocationException ex )
             {

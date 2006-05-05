@@ -52,7 +52,7 @@ public interface IApplication
 
     IMainMenu getMainMenu(  );
 
-    /**
+/**
      * DOCUMENT ME!
      *
      * @author $author$

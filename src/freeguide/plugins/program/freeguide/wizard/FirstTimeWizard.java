@@ -12,18 +12,16 @@
  */
 package freeguide.plugins.program.freeguide.wizard;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
-
 import freeguide.common.lib.general.FileHelper;
 import freeguide.common.lib.general.LanguageHelper;
 
-import freeguide.plugins.program.freeguide.migration.Migrate;
-
 import freeguide.common.plugininterfaces.IModuleConfigureFromWizard;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
+import freeguide.plugins.program.freeguide.migration.Migrate;
 
 import java.awt.event.KeyEvent;
 
@@ -43,7 +41,6 @@ import java.util.logging.Level;
  */
 public class FirstTimeWizard
 {
-
     static private String defaultBrowser;
     private FreeGuide.Config config;
 
@@ -59,7 +56,7 @@ public class FirstTimeWizard
     private WizardFrame wizardFrame;
     protected String selectedModuleID;
 
-    /**
+/**
      * Constructor for the FirstTimeWizard object
      *
      * @param upgrade DOCUMENT ME!
@@ -88,32 +85,31 @@ public class FirstTimeWizard
 
         if( upgrade )
         {
-            panels[0] =
-                new LabelWizardPanel( 
+            panels[0] = new LabelWizardPanel( 
                     "<html>"
-                    + Application.getInstance(  ).getLocalizedMessage( 
+                    + Application.getInstance(  )
+                                 .getLocalizedMessage( 
                         "advanced_settings_will_be_overwritten" ) + "<html>" );
 
             panels[0].setMessages( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "about_to_upgrade.1" ),
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "about_to_upgrade.2" ) );
+                Application.getInstance(  )
+                           .getLocalizedMessage( "about_to_upgrade.1" ),
+                Application.getInstance(  )
+                           .getLocalizedMessage( "about_to_upgrade.2" ) );
 
         }
 
         else
         {
-            panels[0] =
-                new LabelWizardPanel( 
-                    Application.getInstance(  ).getLocalizedMessage( 
-                        "need_to_ask_questions" ) );
+            panels[0] = new LabelWizardPanel( 
+                    Application.getInstance(  )
+                               .getLocalizedMessage( "need_to_ask_questions" ) );
 
             panels[0].setMessages( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "welcome_to_freeguide.1" ),
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "welcome_to_freeguide.2" ) );
+                Application.getInstance(  )
+                           .getLocalizedMessage( "welcome_to_freeguide.1" ),
+                Application.getInstance(  )
+                           .getLocalizedMessage( "welcome_to_freeguide.2" ) );
 
         }
 
@@ -128,10 +124,11 @@ public class FirstTimeWizard
             } );
 
         panels[1].setMessages( 
-            Application.getInstance(  ).getLocalizedMessage( 
-                "choose_your_region.1" ),
-            Application.getInstance(  ).getLocalizedMessage( 
-                "choose_your_region.2" ), KeyEvent.VK_C );
+            Application.getInstance(  )
+                       .getLocalizedMessage( "choose_your_region.1" ),
+            Application.getInstance(  )
+                       .getLocalizedMessage( "choose_your_region.2" ),
+            KeyEvent.VK_C );
 
         panels[1].setOnEnter( 
             new WizardPanel.OnEnter(  )
@@ -149,17 +146,19 @@ public class FirstTimeWizard
             {
                 public void onExit( WizardPanel panel )
                 {
-                    config.countryID =
-                        (String)isoByRegion.get( panel.getBoxValue(  ) );
+                    config.countryID = (String)isoByRegion.get( 
+                            panel.getBoxValue(  ) );
                 }
             } );
 
         panels[2] = new DirectoryWizardPanel(  );
 
         panels[2].setMessages( 
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 "choose_your_working_directory.1" ),
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 "choose_your_working_directory.2" ), KeyEvent.VK_C );
 
         panels[2].setOnEnter( 
@@ -177,8 +176,8 @@ public class FirstTimeWizard
             {
                 public void onExit( WizardPanel panel )
                 {
-                    config.workingDirectory =
-                        ( (File)panel.getBoxValue(  ) ).getPath(  );
+                    config.workingDirectory = ( (File)panel.getBoxValue(  ) )
+                        .getPath(  );
 
                 }
             } );
@@ -186,9 +185,11 @@ public class FirstTimeWizard
         panels[3] = new ChoiceWizardPanel( allBrowsers.keySet(  ) );
 
         panels[3].setMessages( 
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 "what_is_the_name_of_your_web_browser.1" ),
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 "what_is_the_name_of_your_web_browser.2" ), KeyEvent.VK_W );
 
         if( config.browserName == null )
@@ -251,12 +252,10 @@ public class FirstTimeWizard
             {
                 public void onExit( WizardPanel panel )
                 {
-                    showREADME =
-                        ( (InstallWizardPanel)panel ).readmeCheckBox
+                    showREADME = ( (InstallWizardPanel)panel ).readmeCheckBox
                         .isSelected(  );
 
-                    configGrabber =
-                        ( (InstallWizardPanel)panel ).configgrabberCheckBox
+                    configGrabber = ( (InstallWizardPanel)panel ).configgrabberCheckBox
                         .isSelected(  );
 
                     FreeGuide.config.browserName = config.browserName;
@@ -265,15 +264,15 @@ public class FirstTimeWizard
 
                     FreeGuide.config.countryID = config.countryID;
 
-                    FreeGuide.config.workingDirectory =
-                        config.workingDirectory;
+                    FreeGuide.config.workingDirectory = config.workingDirectory;
 
                 }
             } );
 
         wizardFrame =
             new WizardFrame( 
-                Application.getInstance(  ).getLocalizedMessage( 
+                Application.getInstance(  )
+                           .getLocalizedMessage( 
                     "freeguide_first_time_wizard" ), panels,
                 new Runnable(  )
                 {
@@ -303,14 +302,12 @@ public class FirstTimeWizard
      */
     public WizardFrame getFrame(  )
     {
-
         return wizardFrame;
     }
 
     protected static Map readMap( final String resourceName )
         throws IOException
     {
-
         Map props = new TreeMap(  );
 
         LanguageHelper.loadProperties( resourceName, props );
@@ -326,10 +323,8 @@ public class FirstTimeWizard
      */
     public static Map getAllBrowsers(  )
     {
-
         try
         {
-
             Map result =
                 readMap( 
                     "main/browsers-"
@@ -355,7 +350,6 @@ public class FirstTimeWizard
      */
     private void getAllRegions(  )
     {
-
         final TreeMap allRegions = new TreeMap(  );
         allRegionsGrabbers = new TreeMap(  );
         isoByRegion = new TreeMap(  );
@@ -365,11 +359,9 @@ public class FirstTimeWizard
 
         for( int i = 0; i < grabbers.length; i++ )
         {
-
             if( 
                 grabbers[i].getInstance(  ) instanceof IModuleConfigureFromWizard )
             {
-
                 IModuleConfigureFromWizard configurator =
                     (IModuleConfigureFromWizard)grabbers[i].getInstance(  );
                 IModuleConfigureFromWizard.CountryInfo[] grabberInfo =
@@ -377,7 +369,6 @@ public class FirstTimeWizard
 
                 for( int j = 0; j < grabberInfo.length; j++ )
                 {
-
                     IModuleConfigureFromWizard.CountryInfo prevValue =
                         (IModuleConfigureFromWizard.CountryInfo)allRegions.get( 
                             grabberInfo[j].getCountry(  ) );
@@ -385,8 +376,7 @@ public class FirstTimeWizard
 
                     if( prevValue != null )
                     {
-                        needToSet =
-                            grabberInfo[j].getPriority(  ) > prevValue
+                        needToSet = grabberInfo[j].getPriority(  ) > prevValue
                             .getPriority(  );
                     }
                     else
@@ -396,7 +386,6 @@ public class FirstTimeWizard
 
                     if( needToSet )
                     {
-
                         Locale country =
                             new Locale( "", grabberInfo[j].getCountry(  ) );
                         String countryName = country.getDisplayCountry(  );
@@ -420,7 +409,8 @@ public class FirstTimeWizard
     public void onExit(  )
     {
         FreeGuide.log.info( 
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  )
+                       .getLocalizedMessage( 
                 "the_user_quit_the_install_before_it_completed" ) );
         onFinish(  );
     }
@@ -471,7 +461,6 @@ public class FirstTimeWizard
      */
     public String getSelectedModuleID(  )
     {
-
         return selectedModuleID;
     }
 }

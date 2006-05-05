@@ -18,7 +18,6 @@ import javax.swing.JTextField;
  */
 public class XMLTVConfigureUIPanelModule extends JPanel
 {
-
     protected final XMLTVConfig.ModuleInfo moduleInfo;
     protected final XMLTVConfigureUIController.TextChanged textChangedEvent;
     private JButton btnChannels = null;
@@ -30,7 +29,7 @@ public class XMLTVConfigureUIPanelModule extends JPanel
     private JComboBox comboModules = null;
     protected final ILocalizer localizer;
 
-    /**
+/**
      * This is the default constructor
      *
      * @param localizer DOCUMENT ME!
@@ -56,7 +55,6 @@ public class XMLTVConfigureUIPanelModule extends JPanel
      */
     private void initialize(  )
     {
-
         GridBagConstraints gridBagConstraints5 = new GridBagConstraints(  );
         GridBagConstraints gridBagConstraints21 = new GridBagConstraints(  );
         GridBagConstraints gridBagConstraints1 = new GridBagConstraints(  );
@@ -86,7 +84,6 @@ public class XMLTVConfigureUIPanelModule extends JPanel
      */
     public JButton getBtnChannels(  )
     {
-
         if( btnChannels == null )
         {
             btnChannels = new JButton(  );
@@ -108,7 +105,6 @@ public class XMLTVConfigureUIPanelModule extends JPanel
      */
     public JTextField getTextCommand(  )
     {
-
         if( textCommand == null )
         {
             textCommand = new JTextField(  );
@@ -128,7 +124,6 @@ public class XMLTVConfigureUIPanelModule extends JPanel
      */
     public JButton getBtnCommandReset(  )
     {
-
         if( btnCommandReset == null )
         {
             btnCommandReset = new JButton(  );
@@ -151,7 +146,6 @@ public class XMLTVConfigureUIPanelModule extends JPanel
      */
     public JButton getBtnDelete(  )
     {
-
         if( btnDelete == null )
         {
             btnDelete = new JButton(  );
@@ -171,10 +165,8 @@ public class XMLTVConfigureUIPanelModule extends JPanel
      */
     private JPanel getJPanel(  )
     {
-
         if( jPanel == null )
         {
-
             GridBagConstraints gridBagConstraints6 =
                 new GridBagConstraints(  );
             GridBagConstraints gridBagConstraints4 =
@@ -215,7 +207,6 @@ public class XMLTVConfigureUIPanelModule extends JPanel
      */
     private JPanel getJPanel1(  )
     {
-
         if( jPanel1 == null )
         {
             jPanel1 = new JPanel(  );
@@ -233,7 +224,6 @@ public class XMLTVConfigureUIPanelModule extends JPanel
      */
     public JComboBox getComboModules(  )
     {
-
         if( comboModules == null )
         {
             comboModules = new JComboBox(  );

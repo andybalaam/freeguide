@@ -1,19 +1,9 @@
 package freeguide.plugins.program.freeguide.viewer;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
-import freeguide.plugins.program.freeguide.dialogs.ChannelSetListDialog;
-
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.plugins.program.freeguide.lib.fgspecific.GrabberController;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
-import freeguide.plugins.program.freeguide.lib.fgspecific.StoragePipe;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;
-
 import freeguide.common.lib.general.LanguageHelper;
-import freeguide.plugins.program.freeguide.lib.general.LookAndFeelManager;
 import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.BaseModule;
@@ -24,6 +14,14 @@ import freeguide.common.plugininterfaces.IModuleImport;
 import freeguide.common.plugininterfaces.IModuleReminder;
 import freeguide.common.plugininterfaces.IModuleStorage;
 import freeguide.common.plugininterfaces.IModuleViewer;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.dialogs.ChannelSetListDialog;
+import freeguide.plugins.program.freeguide.lib.fgspecific.GrabberController;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
+import freeguide.plugins.program.freeguide.lib.fgspecific.StoragePipe;
+import freeguide.plugins.program.freeguide.lib.general.LookAndFeelManager;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -54,7 +52,6 @@ import javax.swing.UIManager;
  */
 public class MainController extends BaseModule implements IApplication
 {
-
     /** DOCUMENT ME! */
     public static final Config config = new Config(  );
 
@@ -74,7 +71,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public Object getConfig(  )
     {
-
         return config;
     }
 
@@ -85,7 +81,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public IMainMenu getMainMenu(  )
     {
-
         return mainFrame.getMainMenuForExport(  );
     }
 
@@ -106,7 +101,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public Locale[] getSuppotedLocales(  ) throws Exception
     {
-
         return LanguageHelper.getLocaleList( "resources/i18n/MessagesBundle" );
     }
 
@@ -154,10 +148,8 @@ public class MainController extends BaseModule implements IApplication
      */
     public IModuleReminder[] getReminders(  )
     {
-
         if( reminders == null )
         {
-
             PluginInfo[] infos = PluginsManager.getReminders(  );
             reminders = new IModuleReminder[infos.length];
 
@@ -190,8 +182,8 @@ public class MainController extends BaseModule implements IApplication
 
         new MenuHandler( this );
 
-        mainFrame.getContentPane(  ).add( 
-            viewer.getPanel(  ), BorderLayout.CENTER );
+        mainFrame.getContentPane(  )
+                 .add( viewer.getPanel(  ), BorderLayout.CENTER );
 
         mainFrame.addWindowListener( 
             new java.awt.event.WindowAdapter(  )
@@ -264,12 +256,10 @@ public class MainController extends BaseModule implements IApplication
      */
     public void setViewer( String viewerId )
     {
-
         if( 
             ( (MainController.Config)this.getConfig(  ) ).viewerId.equals( 
                     viewerId ) )
         {
-
             //Viewer is already active
             return;
         }
@@ -282,35 +272,35 @@ public class MainController extends BaseModule implements IApplication
 
         ( (MainController.Config)this.getConfig(  ) ).viewerId = viewerId;
         this.viewer = (IModuleViewer)PluginsManager.getModuleByID( viewerId );
-        mainFrame.getContentPane(  ).add( 
-            this.viewer.getPanel(  ), BorderLayout.CENTER );
+        mainFrame.getContentPane(  )
+                 .add( this.viewer.getPanel(  ), BorderLayout.CENTER );
         this.viewer.open(  );
 
         this.viewer.getPanel(  ).updateUI(  );
     }
 
     /**
-     * Checks whether the XMLTVLoader managed to get any data, and asks the
-     * user to download more if not.
+     * Checks whether the XMLTVLoader managed to get any data, and
+     * asks the user to download more if not.
      */
     protected void checkForNoData(  )
     {
-
         if( 
             !Application.getInstance(  ).getDataStorage(  ).getInfo(  ).channelsList
                 .isEmpty(  ) )
         {
-
             return;
         }
 
         int r =
             JOptionPane.showConfirmDialog( 
                 Application.getInstance(  ).getApplicationFrame(  ),
-                Application.getInstance(  ).getLocalizedMessage( 
+                Application.getInstance(  )
+                           .getLocalizedMessage( 
                     "there_are_missing_listings_for_today" ),
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "download_listings_q" ), JOptionPane.YES_NO_OPTION );
+                Application.getInstance(  )
+                           .getLocalizedMessage( "download_listings_q" ),
+                JOptionPane.YES_NO_OPTION );
 
         if( r == 0 )
         {
@@ -329,7 +319,6 @@ public class MainController extends BaseModule implements IApplication
 
         for( int i = 0; i < grabbers.length; i++ )
         {
-
             IModuleGrabber grabber =
                 (IModuleGrabber)grabbers[i].getInstance(  );
             grabber.start(  );
@@ -339,7 +328,6 @@ public class MainController extends BaseModule implements IApplication
 
         for( int i = 0; i < reminders.length; i++ )
         {
-
             IModuleReminder reminder =
                 (IModuleReminder)reminders[i].getInstance(  );
             reminder.addItemsToMenu( mainFrame.getMenuTools(  ) );
@@ -348,13 +336,12 @@ public class MainController extends BaseModule implements IApplication
     }
 
     /**
-     * Shuts down all running reminders and grabbers via their stop() method.
-     * The viewer is closed after all, too. It's called before FreeGuide is
-     * closed.
+     * Shuts down all running reminders and grabbers via their stop()
+     * method. The viewer is closed after all, too. It's called before
+     * FreeGuide is closed.
      */
     protected void stopModules(  )
     {
-
         //stop reminders
         final PluginInfo[] reminders = PluginsManager.getReminders(  );
 
@@ -368,7 +355,6 @@ public class MainController extends BaseModule implements IApplication
 
         for( int i = 0; i < grabbers.length; i++ )
         {
-
             IModuleGrabber grabber =
                 (IModuleGrabber)grabbers[i].getInstance(  );
             grabber.stop(  );
@@ -379,7 +365,6 @@ public class MainController extends BaseModule implements IApplication
 
         for( int i = 0; i < storages.length; i++ )
         {
-
             IModuleStorage storage =
                 (IModuleStorage)storages[i].getInstance(  );
             storage.cleanup(  );
@@ -394,7 +379,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public static void remindersReschedule(  )
     {
-
         final PluginInfo[] reminders = PluginsManager.getReminders(  );
 
         for( int i = 0; i < reminders.length; i++ )
@@ -417,7 +401,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public void setLookAndFeel(  )
     {
-
         final String inspectedLFClassName;
         final String currentLAFClassName;
 
@@ -427,8 +410,8 @@ public class MainController extends BaseModule implements IApplication
         }
         else
         {
-            inspectedLFClassName =
-                LookAndFeelManager.getLookAndFeelClassName( config.ui.LFname );
+            inspectedLFClassName = LookAndFeelManager.getLookAndFeelClassName( 
+                    config.ui.LFname );
         }
 
         final LookAndFeel currentLAF = UIManager.getLookAndFeel(  );
@@ -444,7 +427,6 @@ public class MainController extends BaseModule implements IApplication
 
         if( !inspectedLFClassName.equals( currentLAFClassName ) )
         {
-
             try
             {
                 UIManager.setLookAndFeel( inspectedLFClassName );
@@ -465,7 +447,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public void doEditChannelsSets(  )
     {
-
         ChannelSetListDialog dialog =
             new ChannelSetListDialog( 
                 mainFrame, getDataStorage(  ).getInfo(  ).channelsList,
@@ -483,8 +464,8 @@ public class MainController extends BaseModule implements IApplication
     }
 
     /**
-     * Activates the grabber controller. That basically shows the grabber
-     * dialog if grabbing is runnning, or starts the grabbing process
+     * Activates the grabber controller. That basically shows the
+     * grabber dialog if grabbing is runnning, or starts the grabbing process
      */
     public void doStartGrabbers(  )
     {
@@ -512,7 +493,6 @@ public class MainController extends BaseModule implements IApplication
             {
                 public void run(  )
                 {
-
                     IModuleStorage.Info info =
                         getDataStorage(  ).getInfo(  ).cloneInfo(  );
 
@@ -543,10 +523,8 @@ public class MainController extends BaseModule implements IApplication
             {
                 public void run(  )
                 {
-
                     try
                     {
-
                         final StoragePipe pipe = new StoragePipe(  );
                         imp.importDataUI( mainFrame, pipe );
                         pipe.finish(  );
@@ -577,7 +555,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public JFrame getApplicationFrame(  )
     {
-
         return mainFrame;
 
     }
@@ -589,7 +566,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public JFrame getCurrentFrame(  )
     {
-
         return applicationFrame;
 
     }
@@ -601,7 +577,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public List getChannelsSetsList(  )
     {
-
         return config.channelsSetsList;
 
     }
@@ -613,7 +588,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public IModuleStorage getDataStorage(  )
     {
-
         return FreeGuide.storage;
 
     }
@@ -625,7 +599,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public IModuleViewer getViewer(  )
     {
-
         return viewer;
     }
 
@@ -636,7 +609,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public boolean isUnix(  )
     {
-
         // TODO Auto-generated method stub
         return FreeGuide.runtimeInfo.isUnix;
     }
@@ -648,7 +620,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public TimeZone getTimeZone(  )
     {
-
         return FreeGuide.getTimeZone(  );
     }
 
@@ -659,7 +630,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public String getBrowserCommand(  )
     {
-
         return FreeGuide.config.browserCommand;
     }
 
@@ -670,7 +640,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public String getInstallDirectory(  )
     {
-
         return FreeGuide.runtimeInfo.installDirectory;
     }
 
@@ -681,7 +650,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public Logger getLogger(  )
     {
-
         // TODO Auto-generated method stub
         return FreeGuide.log;
     }
@@ -693,7 +661,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public String getWorkingDirectory(  )
     {
-
         // TODO Auto-generated method stub
         return FreeGuide.config.workingDirectory;
     }
@@ -714,7 +681,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public static class Config
     {
-
         /** The list of available channel sets (all are ChannelSet objects) */
         public static final Class channelsSetsList_TYPE = TVChannelsSet.class;
 
@@ -741,19 +707,17 @@ public class MainController extends BaseModule implements IApplication
          */
         public static class UI
         {
-
             /** DOCUMENT ME! */
             public Rectangle mainWindowPosition;
 
             /** DOCUMENT ME! */
             public String LFname;
 
-            /**
+/**
              * Creates a new UI object.
              */
             public UI(  )
             {
-
                 Dimension screenSize =
                     Toolkit.getDefaultToolkit(  ).getScreenSize(  );
 

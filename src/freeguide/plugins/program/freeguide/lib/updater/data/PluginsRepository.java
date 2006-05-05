@@ -1,7 +1,6 @@
 package freeguide.plugins.program.freeguide.lib.updater.data;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 
@@ -19,7 +18,6 @@ import java.util.TreeMap;
  */
 public class PluginsRepository
 {
-
     /** Program type. */
     public static final String PACKAGE_TYPE_APPLICATION = "application";
 
@@ -48,7 +46,7 @@ public class PluginsRepository
     protected Map mirrors = new TreeMap(  );
     protected File baseDirectory;
 
-    /**
+/**
      * Creates a new PluginsRepository object.
      *
      * @param baseDirectory DOCUMENT ME!
@@ -86,7 +84,6 @@ public class PluginsRepository
      */
     public List getAllPackages(  )
     {
-
         return packages;
     }
 
@@ -97,9 +94,8 @@ public class PluginsRepository
      */
     public String[] getMirrorLocations(  )
     {
-
-        return (String[])mirrors.keySet(  ).toArray( 
-            new String[mirrors.size(  )] );
+        return (String[])mirrors.keySet(  )
+                                .toArray( new String[mirrors.size(  )] );
     }
 
     /**
@@ -111,7 +107,6 @@ public class PluginsRepository
      */
     public String getPathByMirrorsLocation( final String location )
     {
-
         return (String)mirrors.get( location );
     }
 
@@ -124,12 +119,10 @@ public class PluginsRepository
      */
     public List getPackagesByType( final String typeName )
     {
-
         List result = new ArrayList(  );
 
         for( int i = 0; i < packages.size(  ); i++ )
         {
-
             PluginPackage pkg = (PluginPackage)packages.get( i );
 
             if( typeName.equals( pkg.getType(  ) ) )
@@ -142,24 +135,21 @@ public class PluginsRepository
     }
 
     /**
-     * Check for need to update any packages, like upgrade, install or remove.
+     * Check for need to update any packages, like upgrade, install or
+     * remove.
      *
      * @return true if packages need to update
      */
     public boolean needToUpdate(  )
     {
-
         for( int i = 0; i < packages.size(  ); i++ )
         {
-
             PluginPackage pkg = (PluginPackage)packages.get( i );
 
             try
             {
-
                 if( pkg.needToUpdate(  ) )
                 {
-
                     return true;
                 }
             }
@@ -180,12 +170,10 @@ public class PluginsRepository
      */
     public String[] getFilesForDownload(  )
     {
-
         final List result = new ArrayList(  );
 
         for( int i = 0; i < packages.size(  ); i++ )
         {
-
             PluginPackage pkg = (PluginPackage)packages.get( i );
 
             if( 
@@ -206,17 +194,14 @@ public class PluginsRepository
      */
     public String[] getFilesForDelete(  )
     {
-
         List result = new ArrayList(  );
 
         for( int i = 0; i < packages.size(  ); i++ )
         {
-
             PluginPackage pkg = (PluginPackage)packages.get( i );
 
             if( pkg.isChanged(  ) || pkg.isMarkedForRemove(  ) )
             {
-
                 PluginInfo info =
                     PluginsManager.getPluginInfoByID( pkg.getID(  ) );
 

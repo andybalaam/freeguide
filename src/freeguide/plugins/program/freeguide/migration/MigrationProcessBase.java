@@ -15,11 +15,10 @@ import java.util.prefs.Preferences;
  */
 abstract public class MigrationProcessBase
 {
-
     protected final Map prefFrom;
     protected final Map prefTo;
 
-    /**
+/**
      * Creates a new MigrationProcessBase object.
      *
      * @param source DOCUMENT ME!
@@ -31,7 +30,7 @@ abstract public class MigrationProcessBase
         prefTo = new TreeMap(  );
     }
 
-    /**
+/**
      * Creates a new MigrationProcessBase object.
      *
      * @param nodeName DOCUMENT ME!
@@ -66,7 +65,6 @@ abstract public class MigrationProcessBase
 
     protected void moveKey( final String keyFrom, final String keyTo )
     {
-
         final String value = (String)prefFrom.remove( keyFrom );
 
         if( value != null )
@@ -87,17 +85,14 @@ abstract public class MigrationProcessBase
 
     protected void moveNode( final String fromName, final String toName )
     {
-
         final String[] keys =
             (String[])prefFrom.keySet(  ).toArray( 
                 new String[prefFrom.size(  )] );
 
         for( int i = 0; i < keys.length; i++ )
         {
-
             if( keys[i].startsWith( fromName ) )
             {
-
                 final String newKey =
                     toName + keys[i].substring( fromName.length(  ) );
                 final String value = (String)prefFrom.remove( keys[i] );
@@ -108,7 +103,6 @@ abstract public class MigrationProcessBase
 
     protected String getAndRemoveKey( final String keyFrom )
     {
-
         return (String)prefFrom.remove( keyFrom );
     }
 
@@ -121,12 +115,10 @@ abstract public class MigrationProcessBase
      */
     protected String[] listKeys( final String prefix )
     {
-
         final List result = new ArrayList(  );
 
         for( Iterator it = prefFrom.keySet(  ).iterator(  ); it.hasNext(  ); )
         {
-
             final String key = (String)it.next(  );
 
             if( key.startsWith( prefix ) )
@@ -143,8 +135,8 @@ abstract public class MigrationProcessBase
         prefTo.put( key, value );
     }
 
-    protected void loadFrom( final String path,
-        final Preferences node ) throws BackingStoreException
+    protected void loadFrom( final String path, final Preferences node )
+        throws BackingStoreException
     {
         Migrate.loadMap( path, node, prefFrom );
     }
@@ -160,14 +152,13 @@ abstract public class MigrationProcessBase
         throws BackingStoreException
     {
         Migrate.dumpPrefs( prefTo, "prefs_new" );
-        
+
         Preferences.userRoot(  ).node( rootNodeName ).removeNode(  );
 
         Preferences root = Preferences.userRoot(  ).node( rootNodeName );
 
         for( Iterator it = prefTo.entrySet(  ).iterator(  ); it.hasNext(  ); )
         {
-
             Map.Entry entry = (Map.Entry)it.next(  );
             final String key = (String)entry.getKey(  );
             final String value = (String)entry.getValue(  );
@@ -187,7 +178,4 @@ abstract public class MigrationProcessBase
             node.put( key.substring( pos + 1 ), value );
         }
     }
-    
-    
-    
 }

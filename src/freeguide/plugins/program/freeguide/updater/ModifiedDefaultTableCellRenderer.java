@@ -15,7 +15,6 @@ import javax.swing.table.TableCellRenderer;
  */
 public class ModifiedDefaultTableCellRenderer implements TableCellRenderer
 {
-
     protected final JLabel defaultLabel = new JLabel(  );
     protected final JLabel boldLabel = new JLabel(  );
 
@@ -35,7 +34,6 @@ public class ModifiedDefaultTableCellRenderer implements TableCellRenderer
         JTable table, Object value, boolean isSelected, boolean hasFocus,
         int row, int column )
     {
-
         JLabel result;
 
         if( 

@@ -31,14 +31,13 @@ import javax.swing.JPanel;
  */
 public class ChoiceWizardPanel extends WizardPanel
 {
-
     // -------------------------------------------
     private JComboBox combobox;
 
     // The combobox for the choice
     private Set choices;
 
-    /**
+/**
      * Create a new FreeGuideChoiceWizardPanel.
      *
      * @param choices Description of the Parameter
@@ -56,7 +55,6 @@ public class ChoiceWizardPanel extends WizardPanel
      */
     public void construct(  )
     {
-
         java.awt.GridBagConstraints gridBagConstraints;
 
         JPanel midPanel = new JPanel(  );
@@ -118,7 +116,6 @@ public class ChoiceWizardPanel extends WizardPanel
     }
 
     // --------------------------------------------
-
     /**
      * Change the choices available in the combobox
      *
@@ -137,7 +134,6 @@ public class ChoiceWizardPanel extends WizardPanel
      */
     private void updateChoices(  )
     {
-
         String[] data =
             (String[])choices.toArray( new String[choices.size(  )] );
         Arrays.sort( data );
@@ -157,7 +153,6 @@ public class ChoiceWizardPanel extends WizardPanel
      */
     protected Object getBoxValue(  )
     {
-
         return combobox.getSelectedItem(  );
 
     }
@@ -169,7 +164,6 @@ public class ChoiceWizardPanel extends WizardPanel
      */
     protected void setBoxValue( Object val )
     {
-
         if( val != null )
         {
             combobox.setSelectedItem( val );

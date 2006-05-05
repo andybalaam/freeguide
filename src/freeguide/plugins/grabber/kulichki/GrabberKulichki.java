@@ -3,9 +3,7 @@ package freeguide.plugins.grabber.kulichki;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
-
 import freeguide.common.lib.general.LanguageHelper;
-
 import freeguide.common.lib.grabber.HttpBrowser;
 
 import freeguide.common.plugininterfaces.BaseModule;
@@ -32,7 +30,6 @@ import javax.swing.JDialog;
  */
 public class GrabberKulichki extends BaseModule implements IModuleGrabber
 {
-
     protected Properties TIME_ZONES;
     protected Map GROUP_NAMES;
     protected TimeZone TIME_ZONE_DEFAULT =
@@ -46,7 +43,6 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
      */
     public Object getConfig(  )
     {
-
         return config;
     }
 
@@ -80,7 +76,6 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
      */
     public TVChannelsSet getChannelsList(  ) throws Exception
     {
-
         final TVChannelsSet result = new TVChannelsSet(  );
 
         result.add( new TVChannelsSet.Channel( "kulichki", "All" ) );
@@ -125,7 +120,6 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
             while( it.hasNext(  ) )
             {
-
                 String key = (String)it.next(  );
 
                 String channelID = getChannelIdByTag( key );
@@ -155,10 +149,8 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
-
         if( config.channels.selectedChannelIDs.size(  ) == 0 )
         {
-
             return;
         }
 
@@ -175,7 +167,6 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         for( Iterator it = GROUP_NAMES.entrySet(  ).iterator(  );
                 it.hasNext(  ); )
         {
-
             Map.Entry entry = (Map.Entry)it.next(  );
             storage.addChannel( 
                 new TVChannel( 
@@ -220,13 +211,11 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
             for( int j = 0; j < packets.length; j++ )
             {
-
                 if( 
                     !config.channels.isSelected( "kulichki/" + packets[j] )
                         && !config.channels.isChildSelected( 
                             "kulichki/" + packets[j] ) )
                 {
-
                     continue;
                 }
 
@@ -273,7 +262,6 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
                         handlerChanels.channelList.keySet(  ).iterator(  );
                         it.hasNext(  ); )
                 {
-
                     String channelID =
                         "kulichki/" + packets[j] + "/"
                         + getChannelIdByTag( (String)it.next(  ) );
@@ -299,17 +287,14 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
     protected String getChannelIdByTag( final String tag )
     {
-
         int pos = tag.lastIndexOf( '.' );
 
         if( pos != -1 )
         {
-
             return tag.substring( 0, pos );
         }
         else
         {
-
             return tag;
         }
     }
@@ -323,7 +308,6 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
      */
     public IModuleConfigurationUI getConfigurationUI( JDialog parentDialog )
     {
-
         return new KulichkiConfigurationUIController( this );
 
     }
@@ -336,13 +320,13 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         {
             TIME_ZONES.load( 
                 LanguageHelper.getUncachedStream( 
-                    "resources/plugins/grabber/kulichki/timezones.properties"
-                        ) );
+                    "resources/plugins/grabber/kulichki/timezones.properties" ) );
 
         }
         catch( Exception ex )
         {
-            Application.getInstance(  ).getLogger(  ).log( 
+            Application.getInstance(  ).getLogger(  )
+                       .log( 
                 Level.SEVERE,
                 "Error loading timezone settings for tv.kulichki.net", ex );
         }
@@ -356,11 +340,12 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         {
             LanguageHelper.loadProperties( 
                 "resources/plugins/grabber/kulichki/groupnames.properties",
-                    GROUP_NAMES );
+                GROUP_NAMES );
         }
         catch( Exception ex )
         {
-            Application.getInstance(  ).getLogger(  ).log( 
+            Application.getInstance(  ).getLogger(  )
+                       .log( 
                 Level.SEVERE,
                 "Error loading groupnames settings for tv.kulichki.net", ex );
         }

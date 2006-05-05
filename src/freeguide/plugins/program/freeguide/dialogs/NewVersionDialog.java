@@ -14,6 +14,7 @@ package freeguide.plugins.program.freeguide.dialogs;
 
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.*;
+
 import freeguide.plugins.program.freeguide.FreeGuide;
 
 import java.awt.*;
@@ -28,12 +29,11 @@ import javax.swing.*;
  */
 public class NewVersionDialog extends JDialog
 {
-
     private JButton butOK;
     private JButton butURL;
     private JCheckBox chkTellMeAgain;
 
-    /**
+/**
      * Constructor which sets the customiser up as a JDialog...
      *
      * @param parent DOCUMENT ME!
@@ -42,14 +42,13 @@ public class NewVersionDialog extends JDialog
     {
         super( 
             parent,
-            Application.getInstance(  ).getLocalizedMessage( 
-                "new_version_available" ), true );
+            Application.getInstance(  )
+                       .getLocalizedMessage( "new_version_available" ), true );
         initComponents(  );
     }
 
     private void initComponents(  )
     {
-
         java.awt.GridBagConstraints gridBagConstraints;
         Object[] messageArguments = { "http://freeguide-tv.sourceforge.net" };
         Container pane = getContentPane(  );
@@ -57,7 +56,8 @@ public class NewVersionDialog extends JDialog
 
         JLabel labTopMessage =
             new javax.swing.JLabel( 
-                Application.getInstance(  ).getLocalizedMessage( 
+                Application.getInstance(  )
+                           .getLocalizedMessage( 
                     "new_version_available_at_template", messageArguments ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
@@ -65,10 +65,9 @@ public class NewVersionDialog extends JDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pane.add( labTopMessage, gridBagConstraints );
-        butURL =
-            new javax.swing.JButton( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "go_to_the_web_site" ) );
+        butURL = new javax.swing.JButton( 
+                Application.getInstance(  )
+                           .getLocalizedMessage( "go_to_the_web_site" ) );
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         pane.add( butURL, gridBagConstraints );
@@ -80,15 +79,14 @@ public class NewVersionDialog extends JDialog
                     butURLActionPerformed( evt );
                 }
             } );
-        chkTellMeAgain =
-            new javax.swing.JCheckBox( 
-                Application.getInstance(  ).getLocalizedMessage( 
+        chkTellMeAgain = new javax.swing.JCheckBox( 
+                Application.getInstance(  )
+                           .getLocalizedMessage( 
                     "check_new_version_every_time" ), true );
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
         pane.add( chkTellMeAgain, gridBagConstraints );
-        butOK =
-            new javax.swing.JButton( 
+        butOK = new javax.swing.JButton( 
                 Application.getInstance(  ).getLocalizedMessage( "ok" ) );
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.NONE;
@@ -122,7 +120,6 @@ public class NewVersionDialog extends JDialog
      */
     private void butOKActionPerformed( java.awt.event.ActionEvent evt )
     {
-
         if( !chkTellMeAgain.isSelected(  ) )
         {
             FreeGuide.config.privacyInfo = "no";
@@ -138,7 +135,6 @@ public class NewVersionDialog extends JDialog
      */
     private void butURLActionPerformed( java.awt.event.ActionEvent evt )
     {
-
         String[] cmds =
             Utils.substitute( 
                 new String[] { FreeGuide.config.browserCommand }, "%url%",

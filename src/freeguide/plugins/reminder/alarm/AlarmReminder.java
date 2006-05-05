@@ -5,7 +5,6 @@ import freeguide.common.gui.FavouritesController;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.fgspecific.selection.Favourite;
-
 import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.BaseModuleReminder;
@@ -41,7 +40,6 @@ import javax.swing.KeyStroke;
 public class AlarmReminder extends BaseModuleReminder
     implements IModuleReminder
 {
-
     /** Config object. */
     protected final ConfigAlarm config = new ConfigAlarm(  );
     protected TVProgramme scheduledProgramme;
@@ -58,7 +56,6 @@ public class AlarmReminder extends BaseModuleReminder
      */
     public Object getConfig(  )
     {
-
         return config;
     }
 
@@ -86,7 +83,6 @@ public class AlarmReminder extends BaseModuleReminder
      */
     public IModuleConfigurationUI getConfigurationUI( JDialog parentDialog )
     {
-
         return new AlarmUIController( this, parentDialog );
     }
 
@@ -99,7 +95,6 @@ public class AlarmReminder extends BaseModuleReminder
     public void addItemsToPopupMenu( 
         final TVProgramme programme, final JPopupMenu menu )
     {
-
         final JMenuItem sel = new JMenuItem(  );
 
         if( !isSelected( programme ) )
@@ -141,7 +136,6 @@ public class AlarmReminder extends BaseModuleReminder
                 {
                     public void actionPerformed( ActionEvent e )
                     {
-
                         Favourite f = new Favourite(  );
 
                         f.setTitleString( programme.getTitle(  ) );
@@ -160,7 +154,6 @@ public class AlarmReminder extends BaseModuleReminder
                 {
                     public void actionPerformed( ActionEvent e )
                     {
-
                         Favourite fav = getFavourite( programme );
 
                         if( fav != null )
@@ -181,7 +174,6 @@ public class AlarmReminder extends BaseModuleReminder
      */
     public void removeFavourite( final Favourite favourite )
     {
-
         Object[] messageArguments = { favourite.getName(  ) };
 
         int r =
@@ -201,7 +193,6 @@ public class AlarmReminder extends BaseModuleReminder
 
     protected void onMenuItem(  )
     {
-
         FavouritesController favController =
             new FavouritesController( 
                 Application.getInstance(  ).getApplicationFrame(  ),
@@ -227,12 +218,10 @@ public class AlarmReminder extends BaseModuleReminder
 
     protected void favSelectionChanged( final boolean onlyOneProgramme )
     {
-
         IModuleViewer viewer = Application.getInstance(  ).getViewer(  );
 
         if( viewer != null )
         {
-
             if( onlyOneProgramme )
             {
                 viewer.redrawCurrentProgramme(  );
@@ -253,30 +242,26 @@ public class AlarmReminder extends BaseModuleReminder
 
         synchronized( this )
         {
-
             if( scheduledDialog != null )
             {
-                timeForClose =
-                    scheduledDialogDisplayTime + config.reminderGiveUp;
+                timeForClose = scheduledDialogDisplayTime
+                    + config.reminderGiveUp;
             }
 
             scheduledProgramme = null;
 
             if( config.reminderOn )
             {
-
                 try
                 {
                     scheduledProgramme =
-                        Application.getInstance(  ).getDataStorage(  )
-                                   .findEarliest( 
+                        Application.getInstance(  ).getDataStorage(  ).findEarliest( 
                             System.currentTimeMillis(  )
                             + config.reminderWarning,
                             new IModuleStorage.EarliestCheckAllow(  )
                             {
                                 public boolean isAllow( TVProgramme programme )
                                 {
-
                                     return isSelected( programme );
 
                                 }
@@ -284,15 +269,15 @@ public class AlarmReminder extends BaseModuleReminder
 
                     if( scheduledProgramme != null )
                     {
-                        timeForDisplay =
-                            scheduledProgramme.getStart(  )
+                        timeForDisplay = scheduledProgramme.getStart(  )
                             - config.reminderWarning;
                     }
                 }
 
                 catch( Exception ex )
                 {
-                    Application.getInstance(  ).getLogger(  ).log( 
+                    Application.getInstance(  ).getLogger(  )
+                               .log( 
                         Level.WARNING, "Error find next programme", ex );
                 }
             }
@@ -305,13 +290,10 @@ public class AlarmReminder extends BaseModuleReminder
 
     protected void onTime(  )
     {
-
         synchronized( this )
         {
-
             if( scheduledDialog != null )
             {
-
                 if( 
                     ( timeForClose <= System.currentTimeMillis(  ) )
                         || ( timeForDisplay <= System.currentTimeMillis(  ) ) )
@@ -325,7 +307,6 @@ public class AlarmReminder extends BaseModuleReminder
                 ( scheduledProgramme != null )
                     && ( timeForDisplay <= System.currentTimeMillis(  ) ) )
             {
-
                 String message =
                     i18n.getLocalizedMessage( 
                         "alarm.text",
@@ -334,8 +315,7 @@ public class AlarmReminder extends BaseModuleReminder
                 JOptionPane optionPane =
                     new JOptionPane( message, JOptionPane.INFORMATION_MESSAGE );
 
-                scheduledDialog =
-                    optionPane.createDialog( 
+                scheduledDialog = optionPane.createDialog( 
                         Application.getInstance(  ).getApplicationFrame(  ),
                         i18n.getString( "alarm.title" ) );
 
@@ -349,7 +329,6 @@ public class AlarmReminder extends BaseModuleReminder
 
     protected class MListsner implements MouseListener
     {
-
         TVProgramme programme;
 
         /**
@@ -359,10 +338,8 @@ public class AlarmReminder extends BaseModuleReminder
          */
         public void mouseClicked( MouseEvent e )
         {
-
             if( e.getClickCount(  ) <= 1 )
             {
-
                 return;
             }
 
@@ -385,7 +362,6 @@ public class AlarmReminder extends BaseModuleReminder
          */
         public void mouseEntered( MouseEvent e )
         {
-
             // TODO Auto-generated method stub
         }
 
@@ -396,7 +372,6 @@ public class AlarmReminder extends BaseModuleReminder
          */
         public void mouseExited( MouseEvent e )
         {
-
             // TODO Auto-generated method stub
         }
 
@@ -407,7 +382,6 @@ public class AlarmReminder extends BaseModuleReminder
          */
         public void mousePressed( MouseEvent e )
         {
-
             // TODO Auto-generated method stub
         }
 
@@ -418,7 +392,6 @@ public class AlarmReminder extends BaseModuleReminder
          */
         public void mouseReleased( MouseEvent e )
         {
-
             // TODO Auto-generated method stub
         }
     }
@@ -431,7 +404,6 @@ public class AlarmReminder extends BaseModuleReminder
      */
     public static class ConfigAlarm extends Config
     {
-
         /** Is reminder on. */
         public boolean reminderOn = true;
 

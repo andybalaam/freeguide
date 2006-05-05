@@ -20,12 +20,11 @@ import javax.swing.JPanel;
  */
 public class FileChooserExtension extends JPanel
 {
-
     private JCheckBox cbSelected = null;
     private JCheckBox cbToday = null;
     private JCheckBox cbChannelsList = null;
 
-    /**
+/**
      * This is the default constructor
      */
     public FileChooserExtension(  )
@@ -53,7 +52,6 @@ public class FileChooserExtension extends JPanel
      */
     public void addComponent( final JComponent comp )
     {
-
         final GridBagConstraints cst = new GridBagConstraints(  );
         cst.gridx = 0;
         cst.anchor = GridBagConstraints.WEST;
@@ -67,13 +65,12 @@ public class FileChooserExtension extends JPanel
      */
     private JCheckBox getCbSelected(  )
     {
-
         if( cbSelected == null )
         {
             cbSelected = new JCheckBox(  );
             cbSelected.setText( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "File.Chooser.SelectedOnly" ) );
+                Application.getInstance(  )
+                           .getLocalizedMessage( "File.Chooser.SelectedOnly" ) );
         }
 
         return cbSelected;
@@ -86,13 +83,12 @@ public class FileChooserExtension extends JPanel
      */
     private JCheckBox getCbToday(  )
     {
-
         if( cbToday == null )
         {
             cbToday = new JCheckBox(  );
             cbToday.setText( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "File.Chooser.TodayOnly" ) );
+                Application.getInstance(  )
+                           .getLocalizedMessage( "File.Chooser.TodayOnly" ) );
         }
 
         return cbToday;
@@ -105,7 +101,6 @@ public class FileChooserExtension extends JPanel
      */
     public boolean isSelectedOnly(  )
     {
-
         return getCbSelected(  ).isSelected(  );
     }
 
@@ -116,7 +111,6 @@ public class FileChooserExtension extends JPanel
      */
     public boolean isTodayOnly(  )
     {
-
         return getCbToday(  ).isSelected(  );
     }
 
@@ -127,7 +121,6 @@ public class FileChooserExtension extends JPanel
      */
     public boolean isChannelsList(  )
     {
-
         return getCbChannelsList(  ).isSelected(  );
     }
 
@@ -138,13 +131,12 @@ public class FileChooserExtension extends JPanel
      */
     private JCheckBox getCbChannelsList(  )
     {
-
         if( cbChannelsList == null )
         {
             cbChannelsList = new JCheckBox(  );
             cbChannelsList.setText( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "File.Chooser.ChannelsList" ) );
+                Application.getInstance(  )
+                           .getLocalizedMessage( "File.Chooser.ChannelsList" ) );
         }
 
         return cbChannelsList;
@@ -157,7 +149,6 @@ public class FileChooserExtension extends JPanel
      */
     public IModuleStorage.Info getSaveInfo(  )
     {
-
         final IModuleStorage.Info result =
             Application.getInstance(  ).getDataStorage(  ).getInfo(  )
                        .cloneInfo(  );

@@ -12,12 +12,11 @@
  */
 package freeguide.plugins.program.freeguide.dialogs;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.common.lib.fgspecific.Application;
-
 import freeguide.common.lib.general.GridBagEasy;
 import freeguide.common.lib.general.LanguageHelper;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -40,30 +39,27 @@ import javax.swing.JScrollPane;
  */
 public class PrivacyInfoDialog extends JDialog
 {
-
-    /**
+/**
      * Constructor which sets the customiser up as a JDialog...
      */
     public PrivacyInfoDialog(  )
     {
         super(  );
         setTitle( 
-            Application.getInstance(  ).getLocalizedMessage( 
-                "privacy_information" ) );
+            Application.getInstance(  )
+                       .getLocalizedMessage( "privacy_information" ) );
         setModal( true );
         initComponents(  );
     }
 
     private void initComponents(  )
     {
-
         java.awt.GridBagConstraints gridBagConstraints;
         String privacyInfo;
 
         try
         {
-            privacyInfo =
-                LanguageHelper.loadResourceAsString( 
+            privacyInfo = LanguageHelper.loadResourceAsString( 
                     "resources/i18n/PrivacyBundle."
                     + Locale.getDefault(  ).getLanguage(  ) + ".html" );
         }

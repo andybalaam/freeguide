@@ -19,7 +19,6 @@ import java.util.logging.Level;
  */
 public class FileHelper
 {
-
     /**
      * ToDo: DOCUMENT ME!
      *
@@ -31,17 +30,14 @@ public class FileHelper
     public static void copy( final File in, final File out )
         throws IOException
     {
-
         FileInputStream rd = new FileInputStream( in );
 
         try
         {
-
             FileOutputStream wr = new FileOutputStream( out );
 
             try
             {
-
                 byte[] buffer = new byte[65536];
                 int len;
 
@@ -51,7 +47,6 @@ public class FileHelper
 
                     if( len < 0 )
                     {
-
                         break;
                     }
 
@@ -78,10 +73,8 @@ public class FileHelper
      */
     public static void openFile( final String filename )
     {
-
         try
         {
-
             String cmd =
                 StringHelper.replaceAll( 
                     Application.getInstance(  ).getBrowserCommand(  ), "%url%",
@@ -90,8 +83,8 @@ public class FileHelper
         }
         catch( Exception ex )
         {
-            Application.getInstance(  ).getLogger(  ).log( 
-                Level.WARNING, "Error open file " + filename, ex );
+            Application.getInstance(  ).getLogger(  )
+                       .log( Level.WARNING, "Error open file " + filename, ex );
         }
     }
 
@@ -102,10 +95,8 @@ public class FileHelper
      */
     public static void openURL( final URL url )
     {
-
         try
         {
-
             String cmd =
                 StringHelper.replaceAll( 
                     Application.getInstance(  ).getBrowserCommand(  ), "%url%",
@@ -114,28 +105,27 @@ public class FileHelper
         }
         catch( Exception ex )
         {
-            Application.getInstance(  ).getLogger(  ).log( 
+            Application.getInstance(  ).getLogger(  )
+                       .log( 
                 Level.WARNING, "Error open url " + url.toExternalForm(  ), ex );
         }
     }
 
     /**
-     * Deletes a whole directory recursively (also deletes a single file).
+     * Deletes a whole directory recursively (also deletes a single
+     * file).
      *
      * @param dir The directory to delete
      */
     public static void deleteDir( File dir )
     {
-
         if( !dir.exists(  ) )
         {
-
             return;
         }
 
         if( dir.isDirectory(  ) )
         {
-
             String[] list = dir.list(  );
 
             for( int i = 0; i < list.length; i++ )
@@ -159,7 +149,6 @@ public class FileHelper
     public static void write( final String fileName, final String data )
         throws IOException
     {
-
         OutputStreamWriter out =
             new OutputStreamWriter( new FileOutputStream( fileName ), "UTF-8" );
 

@@ -16,7 +16,6 @@ import freeguide.common.plugininterfaces.IModuleStorage;
  */
 public class StorageHelper
 {
-
     /**
      * DOCUMENT_ME!
      *
@@ -30,7 +29,6 @@ public class StorageHelper
         final TVData data, final long minDate,
         final IModuleStorage.EarliestCheckAllow checker )
     {
-
         EarliestIteratorProgrammes iterator =
             new EarliestIteratorProgrammes( minDate, checker );
         data.iterate( iterator );
@@ -47,7 +45,6 @@ public class StorageHelper
     public static void performInInfo( 
         final IModuleStorage.Info info, final TVProgramme programme )
     {
-
         if( !info.channelsList.contains( programme.getChannel(  ).getID(  ) ) )
         {
             info.channelsList.add( 
@@ -81,7 +78,6 @@ public class StorageHelper
             {
                 protected void onChannel( TVChannel channel )
                 {
-
                     if( !info.channelsList.contains( channel.getID(  ) ) )
                     {
                         info.channelsList.add( 
@@ -92,7 +88,6 @@ public class StorageHelper
 
                 protected void onProgramme( TVProgramme programme )
                 {
-
                     if( info.minDate > programme.getStart(  ) )
                     {
                         info.minDate = programme.getStart(  );
@@ -109,12 +104,11 @@ public class StorageHelper
     protected static class EarliestIteratorProgrammes
         extends TVIteratorProgrammes
     {
-
         protected TVProgramme prog;
         final protected IModuleStorage.EarliestCheckAllow checker;
         final protected long minDate;
 
-        /**
+/**
          * Creates a new EarliestIteratorProgrammes object.
          *
          * @param minDate DOCUMENT ME!
@@ -135,20 +129,16 @@ public class StorageHelper
 
         protected void onProgramme( TVProgramme programme )
         {
-
             if( programme.getStart(  ) < minDate )
             {
-
                 return;
 
             }
 
             if( prog != null )
             {
-
                 if( programme.getStart(  ) < prog.getStart(  ) )
                 {
-
                     if( checker.isAllow( programme ) )
                     {
                         prog = programme;
@@ -167,7 +157,6 @@ public class StorageHelper
 
             else
             {
-
                 if( checker.isAllow( programme ) )
                 {
                     prog = programme;

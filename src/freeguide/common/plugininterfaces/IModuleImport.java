@@ -11,13 +11,13 @@ import javax.swing.JFrame;
  */
 public interface IModuleImport extends IModule
 {
-
     /**
      * Load data by UI.
      *
-     * @param inFile
+     * @param parent
+     * @param storage DOCUMENT ME!
      *
-     * @throws IOException
+     * @throws Exception
      */
     void importDataUI( final JFrame parent, final IStoragePipe storage )
         throws Exception;
@@ -25,9 +25,10 @@ public interface IModuleImport extends IModule
     /**
      * Load data from file.
      *
-     * @param inFile
+     * @param path
+     * @param storage DOCUMENT ME!
      *
-     * @throws IOException
+     * @throws Exception
      */
     void importData( final File path, final IStoragePipe storage )
         throws Exception;

@@ -7,7 +7,6 @@ package freeguide.plugins.ui.vertical.simple.filter.gui.helper;
  */
 public interface StateTransmitter
 {
-
     /**
      * DOCUMENT_ME!
      *

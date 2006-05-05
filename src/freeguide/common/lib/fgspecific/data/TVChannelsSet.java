@@ -12,7 +12,6 @@ import java.util.List;
  */
 public class TVChannelsSet
 {
-
     /** Info for loading data by PreferencesHelper. */
     public static final Class channels_TYPE = Channel.class;
 
@@ -29,7 +28,6 @@ public class TVChannelsSet
      */
     public boolean isEmpty(  )
     {
-
         return channels.isEmpty(  );
     }
 
@@ -42,15 +40,12 @@ public class TVChannelsSet
      */
     public int getChannelIndex( final String channelID )
     {
-
         for( int i = 0; i < channels.size(  ); i++ )
         {
-
             Channel ch = (Channel)channels.get( i );
 
             if( channelID.equals( ch.channelID ) )
             {
-
                 return i;
 
             }
@@ -67,7 +62,6 @@ public class TVChannelsSet
      */
     public String getName(  )
     {
-
         return name;
 
     }
@@ -90,7 +84,6 @@ public class TVChannelsSet
      */
     public Collection getChannels(  )
     {
-
         return channels;
 
     }
@@ -115,17 +108,14 @@ public class TVChannelsSet
      */
     public boolean contains( final String channelID )
     {
-
         final Iterator it = channels.iterator(  );
 
         while( it.hasNext(  ) )
         {
-
             Channel ch = (Channel)it.next(  );
 
             if( channelID.equals( ch.getChannelID(  ) ) )
             {
-
                 return true;
 
             }
@@ -142,12 +132,10 @@ public class TVChannelsSet
      */
     public void remove( final String channelID )
     {
-
         final Iterator it = channels.iterator(  );
 
         while( it.hasNext(  ) )
         {
-
             Channel ch = (Channel)it.next(  );
 
             if( channelID.equals( ch.getChannelID(  ) ) )
@@ -165,7 +153,6 @@ public class TVChannelsSet
      */
     public String toString(  )
     {
-
         return name;
 
     }
@@ -179,10 +166,8 @@ public class TVChannelsSet
      */
     public boolean equals( Object obj )
     {
-
         if( obj == null )
         {
-
             return false;
 
         }
@@ -191,21 +176,18 @@ public class TVChannelsSet
 
         if( channels.size(  ) != cs.channels.size(  ) )
         {
-
             return false;
 
         }
 
         for( int i = 0; i < channels.size(  ); i++ )
         {
-
             Channel ch1 = (Channel)channels.get( i );
 
             Channel ch2 = (Channel)cs.channels.get( i );
 
             if( !ch1.equals( ch2 ) )
             {
-
                 return false;
 
             }
@@ -222,7 +204,6 @@ public class TVChannelsSet
      */
     public Object clone(  )
     {
-
         final TVChannelsSet result = new TVChannelsSet(  );
 
         result.name = name;
@@ -231,7 +212,6 @@ public class TVChannelsSet
 
         for( int i = 0; i < channels.size(  ); i++ )
         {
-
             Channel ch = (Channel)channels.get( i );
 
             result.channels.add( ch.clone(  ) );
@@ -249,21 +229,20 @@ public class TVChannelsSet
      */
     public static class Channel
     {
-
         /** DOCUMENT ME! */
         public String channelID;
 
         /** DOCUMENT ME! */
         public String displayName;
 
-        /**
+/**
          * Creates a new Channel object.
          */
         public Channel(  )
         {
         }
 
-        /**
+/**
          * Creates a new Channel object.
          *
          * @param channelID DOCUMENT ME!
@@ -277,7 +256,7 @@ public class TVChannelsSet
 
         }
 
-        /**
+/**
          * Creates a new Channel object.
          *
          * @param channel DOCUMENT ME!
@@ -297,7 +276,6 @@ public class TVChannelsSet
          */
         public String getChannelID(  )
         {
-
             return channelID;
 
         }
@@ -309,7 +287,6 @@ public class TVChannelsSet
          */
         public String getDisplayName(  )
         {
-
             return displayName;
 
         }
@@ -323,17 +300,14 @@ public class TVChannelsSet
          */
         public boolean equals( Object obj )
         {
-
             if( obj instanceof String )
             {
-
                 return channelID.equals( obj );
 
             }
 
             else
             {
-
                 Channel o = (Channel)obj;
 
                 return channelID.equals( o.channelID );
@@ -348,14 +322,12 @@ public class TVChannelsSet
          */
         public String toString(  )
         {
-
             return displayName;
 
         }
 
         protected Object clone(  )
         {
-
             return new Channel( channelID, displayName );
 
         }

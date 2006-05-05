@@ -7,7 +7,6 @@ package freeguide.plugins.grabber.vsetv;
  */
 public class VsetvConfig
 {
-
     /** DOCUMENT ME! */
     public boolean isAuth = false;
 

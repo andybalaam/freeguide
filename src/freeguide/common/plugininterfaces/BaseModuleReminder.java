@@ -26,7 +26,6 @@ import javax.swing.JMenuItem;
 abstract public class BaseModuleReminder extends BaseModule
     implements IModuleReminder
 {
-
     final protected static String MENU_ITEM_LABEL = "menu.label";
     protected Scheduler thread;
 
@@ -44,7 +43,6 @@ abstract public class BaseModuleReminder extends BaseModule
      */
     public void stop(  )
     {
-
         if( thread != null )
         {
             thread.finish(  );
@@ -54,7 +52,6 @@ abstract public class BaseModuleReminder extends BaseModule
 
     protected Config getReminderConfig(  )
     {
-
         return (Config)getConfig(  );
     }
 
@@ -65,7 +62,6 @@ abstract public class BaseModuleReminder extends BaseModule
      */
     public void addItemsToMenu( final JMenu menu )
     {
-
         JMenuItem item = new JMenuItem(  );
         item.setText( i18n.getString( MENU_ITEM_LABEL ) );
         menu.insert( item, 0 );
@@ -86,7 +82,6 @@ abstract public class BaseModuleReminder extends BaseModule
      */
     public void reschedule(  )
     {
-
         if( thread != null )
         {
             thread.reschedule(  );
@@ -102,20 +97,17 @@ abstract public class BaseModuleReminder extends BaseModule
      */
     public Favourite getFavourite( TVProgramme programme )
     {
-
         synchronized( getReminderConfig(  ) )
         {
-
             for( int i = 0; i < getReminderConfig(  ).favouritesList.size(  );
                     i++ )
             {
-
                 Favourite fav =
-                    (Favourite)getReminderConfig(  ).favouritesList.get( i );
+                    (Favourite)getReminderConfig(  ).favouritesList
+                    .get( i );
 
                 if( fav.matches( programme ) )
                 {
-
                     return fav;
 
                 }
@@ -134,23 +126,19 @@ abstract public class BaseModuleReminder extends BaseModule
      */
     public ManualSelection getManualSelection( TVProgramme programme )
     {
-
         synchronized( getReminderConfig(  ) )
         {
-
             for( 
                 int i = 0;
                     i < getReminderConfig(  ).manualSelectionList.size(  );
                     i++ )
             {
-
                 ManualSelection sel =
                     (ManualSelection)getReminderConfig(  ).manualSelectionList
                     .get( i );
 
                 if( sel.matches( programme ) )
                 {
-
                     return sel;
 
                 }
@@ -169,22 +157,18 @@ abstract public class BaseModuleReminder extends BaseModule
      */
     public boolean isSelected( TVProgramme programme )
     {
-
         synchronized( getReminderConfig(  ) )
         {
-
             ManualSelection sel = getManualSelection( programme );
 
             if( sel != null )
             {
-
                 return sel.isSelected(  );
 
             }
 
             else
             {
-
                 Favourite fav = getFavourite( programme );
 
                 return fav != null;
@@ -202,10 +186,8 @@ abstract public class BaseModuleReminder extends BaseModule
     public void setProgrammeSelection( 
         final TVProgramme programme, final boolean newSelection )
     {
-
         synchronized( getReminderConfig(  ) )
         {
-
             ManualSelection sel = getManualSelection( programme );
 
             if( sel != null )
@@ -230,7 +212,6 @@ abstract public class BaseModuleReminder extends BaseModule
      */
     public void addFavourite( final Favourite favourite )
     {
-
         synchronized( getReminderConfig(  ) )
         {
             getReminderConfig(  ).favouritesList.add( favourite );
@@ -245,7 +226,6 @@ abstract public class BaseModuleReminder extends BaseModule
      */
     public void removeFavourite( final Favourite favourite )
     {
-
         synchronized( getReminderConfig(  ) )
         {
             getReminderConfig(  ).favouritesList.remove( favourite );
@@ -262,7 +242,6 @@ abstract public class BaseModuleReminder extends BaseModule
      */
     public static class Config
     {
-
         /** Favourite element type. */
         public static final Class favouritesList_TYPE = Favourite.class;
 
@@ -279,7 +258,6 @@ abstract public class BaseModuleReminder extends BaseModule
 
     protected class Scheduler extends Thread
     {
-
         protected static final int STATE_WORK = 0;
         protected static final int STATE_RESCHEDULE = 1;
         protected static final int STATE_STOP = 99;
@@ -291,19 +269,14 @@ abstract public class BaseModuleReminder extends BaseModule
          */
         public void run(  )
         {
-
             synchronized( this )
             {
-
                 try
                 {
-
                     while( true )
                     {
-
                         switch( state )
                         {
-
                         case STATE_WORK:
                             onTime(  );
                             scheduledTime = getNextTime(  );
@@ -330,7 +303,8 @@ abstract public class BaseModuleReminder extends BaseModule
                 }
                 catch( InterruptedException ex )
                 {
-                    Application.getInstance(  ).getLogger(  ).log( 
+                    Application.getInstance(  ).getLogger(  )
+                               .log( 
                         Level.WARNING, "Reminder thread interrupted ", ex );
                 }
             }
@@ -338,7 +312,6 @@ abstract public class BaseModuleReminder extends BaseModule
 
         protected void reschedule(  )
         {
-
             synchronized( this )
             {
                 state = STATE_RESCHEDULE;
@@ -348,7 +321,6 @@ abstract public class BaseModuleReminder extends BaseModule
 
         protected void finish(  )
         {
-
             synchronized( this )
             {
                 state = STATE_STOP;

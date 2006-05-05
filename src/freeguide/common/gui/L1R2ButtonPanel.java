@@ -70,14 +70,13 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
- * A 'ready-made' panel that has one button on the left and two buttons on the
- * right - nested panels and layout managers take care of resizing.
+ * A 'ready-made' panel that has one button on the left and two buttons on
+ * the right - nested panels and layout managers take care of resizing.
  *
  * @author DG
  */
 public class L1R2ButtonPanel extends JPanel
 {
-
     /** The left button. */
     private JButton left;
 
@@ -87,7 +86,7 @@ public class L1R2ButtonPanel extends JPanel
     /** The second button on the right of the panel. */
     private JButton right2;
 
-    /**
+/**
      * Standard constructor - creates a three button panel with the specified
      * button labels.
      *
@@ -120,40 +119,37 @@ public class L1R2ButtonPanel extends JPanel
     }
 
     /**
-     * Returns a reference to button 1, allowing the caller to set labels,
-     * action-listeners etc.
+     * Returns a reference to button 1, allowing the caller to set
+     * labels, action-listeners etc.
      *
      * @return the left button.
      */
     public JButton getLeftButton(  )
     {
-
         return left;
 
     }
 
     /**
-     * Returns a reference to button 2, allowing the caller to set labels,
-     * action-listeners etc.
+     * Returns a reference to button 2, allowing the caller to set
+     * labels, action-listeners etc.
      *
      * @return the right button 1.
      */
     public JButton getRightButton1(  )
     {
-
         return right1;
 
     }
 
     /**
-     * Returns a reference to button 3, allowing the caller to set labels,
-     * action-listeners etc.
+     * Returns a reference to button 3, allowing the caller to set
+     * labels, action-listeners etc.
      *
      * @return the right button 2.
      */
     public JButton getRightButton2(  )
     {
-
         return right2;
 
     }

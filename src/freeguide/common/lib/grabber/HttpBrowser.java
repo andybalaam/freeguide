@@ -32,7 +32,6 @@ import java.util.TreeMap;
  */
 public class HttpBrowser
 {
-
     /** DOCUMENT ME! */
     public static final String HEADER_PROXY_AUTH = "Proxy-Authorization";
 
@@ -103,14 +102,14 @@ public class HttpBrowser
     /** DOCUMENT ME! */
     public byte[] dataBytes;
 
-    /**
+/**
      * Creates a new HttpBrowser object.
      */
     public HttpBrowser(  )
     {
     }
 
-    /**
+/**
      * Creates a new HttpBrowser object.
      *
      * @param versionString DOCUMENT ME!
@@ -127,7 +126,6 @@ public class HttpBrowser
      */
     public String getData(  )
     {
-
         return data;
     }
 
@@ -138,7 +136,6 @@ public class HttpBrowser
      */
     public byte[] getBinaryData(  )
     {
-
         return dataBytes;
     }
 
@@ -200,7 +197,6 @@ public class HttpBrowser
 
         if( connAbstract instanceof HttpURLConnection )
         {
-
             HttpURLConnection conn = (HttpURLConnection)connAbstract;
             setHeader( HEADER_COOKIE, makeCookies(  ) );
             applyHeaders( conn );
@@ -228,12 +224,10 @@ public class HttpBrowser
 
             if( conn.getResponseCode(  ) == HttpURLConnection.HTTP_MOVED_TEMP )
             {
-
                 String newloc = conn.getHeaderField( "Location" );
 
                 if( newloc != null )
                 {
-
                     if( newloc.startsWith( "http://" ) )
                     { // other URL
                         u = new URL( newloc );
@@ -281,7 +275,6 @@ public class HttpBrowser
         }
         else
         {
-
             String contentType;
 
             if( url.endsWith( ".html" ) || url.endsWith( ".htm" ) )
@@ -301,7 +294,6 @@ public class HttpBrowser
         final InputStream input, final String contentType )
         throws IOException
     {
-
         ByteArrayOutputStream bo = new ByteArrayOutputStream(  );
         byte[] buffer = new byte[1024];
         int len;
@@ -312,7 +304,6 @@ public class HttpBrowser
 
             if( len < 0 )
             {
-
                 break;
             }
 
@@ -323,7 +314,6 @@ public class HttpBrowser
 
         if( ( contentType != null ) && contentType.startsWith( "text/html" ) )
         {
-
             Parser p = new Parser(  );
             HandlerCharset handler = new HandlerCharset(  );
             p.setContentHandler( handler );
@@ -369,16 +359,13 @@ public class HttpBrowser
      */
     public String getCookie( String key )
     {
-
         return (String)cookies.get( key );
     }
 
     protected String makeCookies(  )
     {
-
         if( cookies.size(  ) == 0 )
         {
-
             return null;
         }
 
@@ -388,7 +375,6 @@ public class HttpBrowser
 
         while( it.hasNext(  ) )
         {
-
             final String key = (String)it.next(  );
             final String value = (String)cookies.get( key );
             result.append( separator );
@@ -409,7 +395,6 @@ public class HttpBrowser
      */
     public void setHeader( String key, String value )
     {
-
         if( value != null )
         {
             headers.put( key, value );
@@ -422,12 +407,10 @@ public class HttpBrowser
 
     protected void applyHeaders( HttpURLConnection conn )
     {
-
         Iterator it = headers.keySet(  ).iterator(  );
 
         while( it.hasNext(  ) )
         {
-
             final String key = (String)it.next(  );
             final String value = (String)headers.get( key );
             conn.setRequestProperty( key, value );
@@ -436,7 +419,6 @@ public class HttpBrowser
 
     protected void retrieveCookies( HttpURLConnection conn )
     {
-
         if( cookies == null )
         {
             cookies = new TreeMap(  );
@@ -448,14 +430,12 @@ public class HttpBrowser
 
         while( ( key = conn.getHeaderFieldKey( i ) ) != null )
         {
-
             if( "Set-cookie".equalsIgnoreCase( key ) )
             {
                 value = conn.getHeaderField( i );
 
                 if( value != null )
                 {
-
                     int r = value.indexOf( ';' );
 
                     if( r != -1 )
@@ -479,20 +459,17 @@ public class HttpBrowser
 
     protected String mapToParam( final Map map )
     {
-
         StringBuffer result = new StringBuffer(  );
         String sep = "";
         Iterator it = map.keySet(  ).iterator(  );
 
         while( it.hasNext(  ) )
         {
-
             String key = (String)it.next(  );
             Object value = map.get( key );
 
             if( value instanceof String[] )
             {
-
                 String[] valueCollection = (String[])value;
 
                 for( int i = 0; i < valueCollection.length; i++ )
@@ -506,7 +483,6 @@ public class HttpBrowser
             }
             else if( value instanceof Collection )
             {
-
                 Collection valueCollection = (Collection)value;
                 Iterator itc = valueCollection.iterator(  );
 
@@ -543,7 +519,6 @@ public class HttpBrowser
     public void parse( final ContentHandler handler )
         throws IOException, SAXException
     {
-
         Parser p = new Parser(  );
         p.setContentHandler( handler );
         p.parse( new InputSource( new StringReader( data ) ) );
@@ -558,7 +533,6 @@ public class HttpBrowser
      */
     public void saveAs( String fileName ) throws IOException
     {
-
         OutputStream ou = new FileOutputStream( fileName );
         ou.write( dataBytes );
         ou.flush(  );
@@ -574,15 +548,12 @@ public class HttpBrowser
      */
     public static String getCharsetByContentType( String contentType )
     {
-
         if( contentType != null )
         {
-
             int pos = contentType.toLowerCase(  ).indexOf( "charset=" );
 
             if( pos != -1 )
             {
-
                 return contentType.substring( pos + "charset=".length(  ) );
             }
         }
@@ -598,7 +569,6 @@ public class HttpBrowser
      */
     public static class HandlerCharset extends HtmlHelper.DefaultContentHandler
     {
-
         protected String contentType = null;
 
         /**
@@ -615,10 +585,8 @@ public class HttpBrowser
             String uri, String localName, String qName, Attributes atts )
             throws SAXException
         {
-
             if( "meta".equals( qName ) )
             {
-
                 if( 
                     "Content-Type".equalsIgnoreCase( 
                             atts.getValue( "http-equiv" ) ) )
@@ -635,7 +603,6 @@ public class HttpBrowser
          */
         public String getContentType(  )
         {
-
             return contentType;
         }
     }

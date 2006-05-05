@@ -1,10 +1,10 @@
 package freeguide.plugins.program.freeguide.lib.fgspecific;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.common.lib.general.Version;
 
 import freeguide.common.plugininterfaces.IModule;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -25,7 +25,6 @@ import java.util.logging.Level;
  */
 public class PluginInfo extends DefaultHandler
 {
-
     protected String id;
     protected String className;
     protected Version version;
@@ -53,7 +52,6 @@ public class PluginInfo extends DefaultHandler
      */
     public Version getVersion(  )
     {
-
         return version;
     }
 
@@ -64,7 +62,6 @@ public class PluginInfo extends DefaultHandler
      */
     public List getFiles(  )
     {
-
         return Collections.unmodifiableList( files );
     }
 
@@ -75,7 +72,6 @@ public class PluginInfo extends DefaultHandler
      */
     public Map getNames(  )
     {
-
         return Collections.unmodifiableMap( names );
     }
 
@@ -86,7 +82,6 @@ public class PluginInfo extends DefaultHandler
      */
     public Map getDescriptions(  )
     {
-
         return Collections.unmodifiableMap( descriptions );
     }
 
@@ -109,7 +104,6 @@ public class PluginInfo extends DefaultHandler
      */
     public String getName( final Locale loc )
     {
-
         String result = (String)names.get( loc.toString(  ) );
 
         if( result == null )
@@ -144,7 +138,6 @@ public class PluginInfo extends DefaultHandler
      */
     public String getDescription( final Locale loc )
     {
-
         String result = (String)descriptions.get( loc.toString(  ) );
 
         if( result == null )
@@ -162,7 +155,6 @@ public class PluginInfo extends DefaultHandler
      */
     public IModule getInstance(  )
     {
-
         if( instance == null )
         {
             instantiate(  );
@@ -215,7 +207,6 @@ public class PluginInfo extends DefaultHandler
         String uri, String localName, String qName, Attributes attributes )
         throws SAXException
     {
-
         if( "plugin".equals( qName ) )
         {
             id = attributes.getValue( "id" );
@@ -260,7 +251,6 @@ public class PluginInfo extends DefaultHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-
         if( "name".equals( qName ) )
         {
             names.put( currentLocaleName, currentText.toString(  ) );

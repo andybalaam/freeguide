@@ -16,7 +16,6 @@ import java.util.TreeSet;
  */
 public class HandlerZips extends HtmlHelper.DefaultContentHandler
 {
-
     protected Set zips = new TreeSet(  );
 
     /**
@@ -33,15 +32,12 @@ public class HandlerZips extends HtmlHelper.DefaultContentHandler
         String uri, String localName, String qName, Attributes atts )
         throws SAXException
     {
-
         if( "a".equals( qName ) )
         {
-
             String href = atts.getValue( "href" );
 
             if( href != null )
             {
-
                 if( href.trim(  ).toLowerCase(  ).endsWith( ".zip" ) )
                 {
                     zips.add( href );
@@ -58,7 +54,6 @@ public class HandlerZips extends HtmlHelper.DefaultContentHandler
      */
     public String[] getZips(  )
     {
-
         return (String[])zips.toArray( new String[zips.size(  )] );
 
     }

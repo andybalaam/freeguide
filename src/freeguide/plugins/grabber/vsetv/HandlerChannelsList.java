@@ -16,7 +16,6 @@ import java.util.List;
  */
 public class HandlerChannelsList extends HtmlHelper.DefaultContentHandler
 {
-
     protected boolean grab;
     protected boolean grabChannelName;
     protected List result = new ArrayList(  );
@@ -35,10 +34,8 @@ public class HandlerChannelsList extends HtmlHelper.DefaultContentHandler
         String uri, String localName, String qName, Attributes atts )
         throws SAXException
     {
-
         if( "select".equals( qName ) )
         {
-
             if( "selectchannels".equalsIgnoreCase( atts.getValue( "name" ) ) )
             {
                 grab = true;
@@ -48,7 +45,6 @@ public class HandlerChannelsList extends HtmlHelper.DefaultContentHandler
 
         else if( grab && "option".equals( qName ) )
         {
-
             String value = atts.getValue( "value" );
 
             if( ( value != null ) && value.toLowerCase(  ).startsWith( "ch" ) )
@@ -71,7 +67,6 @@ public class HandlerChannelsList extends HtmlHelper.DefaultContentHandler
     public void characters( char[] ch, int start, int length )
         throws SAXException
     {
-
         if( grabChannelName )
         {
             result.add( new String( ch, start, length ) );
@@ -91,7 +86,6 @@ public class HandlerChannelsList extends HtmlHelper.DefaultContentHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-
         if( "select".equals( qName ) )
         {
             grab = false;
@@ -106,7 +100,6 @@ public class HandlerChannelsList extends HtmlHelper.DefaultContentHandler
      */
     public String[] getResult(  )
     {
-
         return (String[])result.toArray( new String[result.size(  )] );
 
     }

@@ -30,7 +30,6 @@ import javax.xml.parsers.SAXParserFactory;
  */
 public class PatchPlugins
 {
-
     /** Path for repository root. */
     public static final String PATH_BASE = "dist/repository/";
     protected static final Pattern ZIP_NAME_MASK =
@@ -56,14 +55,12 @@ public class PatchPlugins
                 {
                     public boolean accept( File pathname )
                     {
-
                         return pathname.getPath(  ).endsWith( ".zip" );
                     }
                 } );
 
         if( packages != null )
         {
-
             for( int i = 0; i < packages.length; i++ )
             {
                 patchByZip( new ZipFile( packages[i] ) );
@@ -74,7 +71,6 @@ public class PatchPlugins
     protected static void patchByZip( final ZipFile zip )
         throws Exception
     {
-
         final Matcher m = ZIP_NAME_MASK.matcher( zip.getName(  ) );
 
         if( !m.matches(  ) )
@@ -116,7 +112,6 @@ public class PatchPlugins
 
         while( enu.hasMoreElements(  ) )
         {
-
             ZipEntry entry = (ZipEntry)enu.nextElement(  );
 
             // in reverse order, because we should remove directory at end
@@ -130,7 +125,6 @@ public class PatchPlugins
     protected static PluginInfo loadFrom( final File xmlFile )
         throws Exception
     {
-
         PluginInfo handler = new PluginInfo(  );
 
         saxParser.parse( xmlFile, handler );
@@ -141,7 +135,6 @@ public class PatchPlugins
     protected static void saveTo( final File xmlFile, final PluginInfo info )
         throws IOException
     {
-
         BufferedWriter out =
             new BufferedWriter( 
                 new OutputStreamWriter( 
@@ -182,12 +175,10 @@ public class PatchPlugins
         final Map map, final BufferedWriter out, final String tag )
         throws IOException
     {
-
         final Iterator it = map.keySet(  ).iterator(  );
 
         while( it.hasNext(  ) )
         {
-
             Object key = it.next(  );
             out.write( 
                 "  <" + tag + " lang=\"" + key.toString(  ) + "\">"

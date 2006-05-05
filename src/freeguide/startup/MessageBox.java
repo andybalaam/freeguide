@@ -32,7 +32,6 @@ public class MessageBox extends Dialog
      */
     public static void display( final String title, final String text )
     {
-
         final MessageBox box = new MessageBox( title );
 
         box.setLayout( new BorderLayout( 5, 5 ) );

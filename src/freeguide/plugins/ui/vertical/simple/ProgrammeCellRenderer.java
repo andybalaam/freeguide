@@ -17,7 +17,6 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class ProgrammeCellRenderer extends DefaultTableCellRenderer
 {
-
     private IModuleReminder reminder = null;
 
     /**
@@ -25,7 +24,6 @@ public class ProgrammeCellRenderer extends DefaultTableCellRenderer
      */
     public void init(  )
     {
-
         IModuleReminder[] rems = Application.getInstance(  ).getReminders(  );
 
         if( rems.length > 0 )
@@ -35,7 +33,6 @@ public class ProgrammeCellRenderer extends DefaultTableCellRenderer
     }
 
     //public void init()
-
     /**
      * DOCUMENT_ME!
      *
@@ -52,22 +49,19 @@ public class ProgrammeCellRenderer extends DefaultTableCellRenderer
         JTable table, Object value, boolean isSelected, boolean hasFocus,
         int row, int column )
     {
-
         Component c =
             super.getTableCellRendererComponent( 
                 table, value, isSelected, hasFocus, row, column );
         TVProgramme programme =
-            (TVProgramme)table.getModel(  ).getValueAt( 
-                row, TvTableModel.COL_PROGRAMME );
+            (TVProgramme)table.getModel(  )
+                              .getValueAt( row, TvTableModel.COL_PROGRAMME );
 
         if( isSelected || hasFocus )
         {
-
             //c.setBackground(VerticalViewerConfig.colorSelected);
         }
         else if( this.reminder != null )
         {
-
             if( this.reminder.isSelected( programme ) )
             {
                 c.setBackground( VerticalViewerConfig.colorTicked );
@@ -88,6 +82,4 @@ public class ProgrammeCellRenderer extends DefaultTableCellRenderer
 
     //public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
 }
-
-
 //public class ProgrammeCellRenderer extends DefaultTableCellRenderer

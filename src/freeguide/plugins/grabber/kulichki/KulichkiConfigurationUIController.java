@@ -18,12 +18,11 @@ import java.util.logging.Level;
 public class KulichkiConfigurationUIController
     implements IModuleConfigurationUI
 {
-
     final protected GrabberKulichki parent;
     final protected KulichkiConfigurationUIPanel panel;
     final protected KulichkiConfig config;
 
-    /**
+/**
      * Creates a new ConfigurationUIController object.
      *
      * @param parent DOCUMENT ME!
@@ -43,11 +42,9 @@ public class KulichkiConfigurationUIController
             {
                 public void actionPerformed( ActionEvent e )
                 {
-
                     try
                     {
-                        config.channels.allChannels =
-                            parent.getChannelsList(  );
+                        config.channels.allChannels = parent.getChannelsList(  );
 
                         config.channels.normalize(  );
 
@@ -55,7 +52,8 @@ public class KulichkiConfigurationUIController
                     }
                     catch( Exception ex )
                     {
-                        Application.getInstance(  ).getLogger(  ).log( 
+                        Application.getInstance(  ).getLogger(  )
+                                   .log( 
                             Level.WARNING,
                             "Error load channels list from tv.kulichki.net", ex );
                     }
@@ -70,7 +68,6 @@ public class KulichkiConfigurationUIController
      */
     public Component getPanel(  )
     {
-
         return panel;
 
     }

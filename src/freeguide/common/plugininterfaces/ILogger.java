@@ -9,7 +9,6 @@ package freeguide.common.plugininterfaces;
  */
 public interface ILogger
 {
-
     /**
      * Info level message.
      *

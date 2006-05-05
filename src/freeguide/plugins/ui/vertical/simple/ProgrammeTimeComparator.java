@@ -12,7 +12,6 @@ import java.util.Comparator;
  */
 public class ProgrammeTimeComparator implements Comparator
 {
-
     /**
      * DOCUMENT_ME!
      *
@@ -23,39 +22,31 @@ public class ProgrammeTimeComparator implements Comparator
      */
     public int compare( Object object1, Object object2 )
     {
-
         TVProgramme p1 = (TVProgramme)object1;
         TVProgramme p2 = (TVProgramme)object2;
 
         if( p1.getStart(  ) > p2.getStart(  ) )
         {
-
             return 1;
         }
         else if( p1.getStart(  ) < p2.getStart(  ) )
         {
-
             return -1;
         }
         else if( p1.getEnd(  ) > p2.getEnd(  ) )
         {
-
             return 1;
         }
         else if( p1.getEnd(  ) < p2.getEnd(  ) )
         {
-
             return -1;
         }
         else
         {
-
             return 0;
         }
     }
 
     //public int compare(Object object1, Object object2)
 }
-
-
 //public class ProgrammeTimeComparator

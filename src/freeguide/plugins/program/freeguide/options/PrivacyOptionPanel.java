@@ -12,11 +12,13 @@
  */
 package freeguide.plugins.program.freeguide.options;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-import freeguide.plugins.program.freeguide.dialogs.*;
+import freeguide.common.gui.FGDialog;
+
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.*;
-import freeguide.common.gui.FGDialog;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.dialogs.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -32,16 +34,21 @@ import javax.swing.event.*;
  * @created    12 Dec 2003
  * @version    1
  */
+/**
+ * DOCUMENT ME!
+ *
+ * @author $author$
+ * @version $Revision$
+  */
 public class PrivacyOptionPanel extends OptionPanel implements ActionListener
 {
-
     // ----------------------------------
     private JComboBox checkComboBox;
     private JComboBox provideComboBox;
     private JButton infoButton;
     private JTextField nicknameTextField;
 
-    /**
+/**
      * Creates a new PrivacyOptionPanel object.
      *
      * @param parent DOCUMENT ME!
@@ -57,12 +64,11 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
      */
     public void doConstruct(  )
     {
-
         // Make the objects
         JLabel checkLabel =
             newLeftJLabel( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "check_for_new_versions" ) );
+                Application.getInstance(  )
+                           .getLocalizedMessage( "check_for_new_versions" ) );
 
         Object[] options = new Object[2];
 
@@ -87,9 +93,8 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
 
         options[1] = Application.getInstance(  ).getLocalizedMessage( "ip" );
 
-        options[2] =
-            Application.getInstance(  ).getLocalizedMessage( "nickname" )
-            + ":";
+        options[2] = Application.getInstance(  ).getLocalizedMessage( 
+                "nickname" ) + ":";
 
         provideComboBox = newRightJComboBox( options );
 
@@ -108,8 +113,7 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
 
         nicknameLabel.setDisplayedMnemonic( KeyEvent.VK_N );
 
-        infoButton =
-            newRightJButton( 
+        infoButton = newRightJButton( 
                 Application.getInstance(  ).getLocalizedMessage( "more_info" ) );
 
         infoButton.setMnemonic( KeyEvent.VK_M );
@@ -151,7 +155,6 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
 
     protected void doLoad( String prefix )
     {
-
         String privacy = FreeGuide.config.privacyInfo;
 
         if( privacy.startsWith( "yes_nick:" ) )
@@ -194,7 +197,6 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
      */
     public boolean doSave(  )
     {
-
         if( checkComboBox.getSelectedIndex(  ) == 1 )
         {
             FreeGuide.config.privacyInfo = "no";
@@ -203,10 +205,8 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
 
         else
         {
-
             switch( provideComboBox.getSelectedIndex(  ) )
             {
-
             case 0:
                 FreeGuide.config.privacyInfo = "yes_nothing";
 
@@ -218,8 +218,8 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
                 break;
 
             case 2:
-                FreeGuide.config.privacyInfo =
-                    "yes_nick:" + nicknameTextField.getText(  );
+                FreeGuide.config.privacyInfo = "yes_nick:"
+                    + nicknameTextField.getText(  );
 
                 break;
             }
@@ -236,7 +236,6 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
      */
     public void actionPerformed( ActionEvent e )
     {
-
         if( e.getSource(  ) == infoButton )
         {
             new PrivacyInfoDialog(  ).setVisible( true );
@@ -245,7 +244,6 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
 
         else
         {
-
             boolean check = ( checkComboBox.getSelectedIndex(  ) == 0 );
 
             boolean provide = ( provideComboBox.getSelectedIndex(  ) == 2 );
@@ -264,7 +262,6 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
      */
     public String toString(  )
     {
-
         return Application.getInstance(  ).getLocalizedMessage( "privacy" );
 
     }

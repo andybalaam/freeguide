@@ -9,7 +9,6 @@ import freeguide.common.lib.fgspecific.data.TVProgramme;
  */
 public class ManualSelection
 {
-
     /** DOCUMENT ME! */
     public String channelID;
 
@@ -19,14 +18,14 @@ public class ManualSelection
     /** DOCUMENT ME! */
     public boolean selected;
 
-    /**
+/**
      * Creates a new ManualSelection object.
      */
     public ManualSelection(  )
     {
     }
 
-    /**
+/**
      * Creates a new ManualSelection object.
      *
      * @param programme DOCUMENT ME!
@@ -52,12 +51,10 @@ public class ManualSelection
      */
     public boolean matches( final TVProgramme programme )
     {
-
         if( 
             channelID.equals( programme.getChannel(  ).getID(  ) )
                 && ( programmeTime == programme.getStart(  ) ) )
         {
-
             return true;
 
         }
@@ -73,7 +70,6 @@ public class ManualSelection
      */
     public boolean isSelected(  )
     {
-
         return selected;
 
     }

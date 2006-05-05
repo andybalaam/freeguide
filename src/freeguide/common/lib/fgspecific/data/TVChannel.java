@@ -16,7 +16,6 @@ import java.util.TreeSet;
  */
 public class TVChannel implements Serializable
 {
-
     private final static long serialVersionUID = 10;
 
     /** DOCUMENT ME! */
@@ -39,7 +38,7 @@ public class TVChannel implements Serializable
     /** List of programmes for channel. */
     protected Set programmes = new TreeSet(  );
 
-    /**
+/**
      * Create channel with specified ID. It should be locale-insensitive.
      *
      * @param id channel ID
@@ -50,7 +49,7 @@ public class TVChannel implements Serializable
 
     }
 
-    /**
+/**
      * Create channel with specified ID and display name.
      *
      * @param id channel ID
@@ -69,7 +68,6 @@ public class TVChannel implements Serializable
      */
     public void mergeHeaderFrom( final TVChannel channel )
     {
-
         if( 
             ( channel.displayName != null )
                 && ( channel.displayName.length(  ) > 0 ) )
@@ -96,7 +94,6 @@ public class TVChannel implements Serializable
 
         while( it.hasNext(  ) )
         {
-
             TVProgramme p = (TVProgramme)it.next(  );
             put( p );
         }
@@ -111,7 +108,6 @@ public class TVChannel implements Serializable
      */
     public String getID(  )
     {
-
         return id;
 
     }
@@ -134,7 +130,6 @@ public class TVChannel implements Serializable
      */
     public String getDisplayName(  )
     {
-
         return displayName;
 
     }
@@ -157,7 +152,6 @@ public class TVChannel implements Serializable
      */
     public String getIconURL(  )
     {
-
         return iconURL;
 
     }
@@ -180,7 +174,6 @@ public class TVChannel implements Serializable
      */
     public String getIconFileName(  )
     {
-
         StringBuffer sb = new StringBuffer(  );
 
         sb.append( Application.getInstance(  ).getWorkingDirectory(  ) );
@@ -223,7 +216,6 @@ public class TVChannel implements Serializable
      */
     public void put( final TVProgramme[] programme )
     {
-
         for( int i = 0; i < programme.length; i++ )
         {
             put( programme[i] );
@@ -237,7 +229,6 @@ public class TVChannel implements Serializable
      */
     public Set getProgrammes(  )
     {
-
         return programmes;
     }
 
@@ -248,7 +239,6 @@ public class TVChannel implements Serializable
      */
     public int getProgrammesCount(  )
     {
-
         return programmes.size(  );
     }
 
@@ -261,17 +251,14 @@ public class TVChannel implements Serializable
      */
     public TVProgramme getProgrammeByTime( final long startTime )
     {
-
         Iterator it = getProgrammes(  ).iterator(  );
 
         while( it.hasNext(  ) )
         {
-
             TVProgramme prog = (TVProgramme)it.next(  );
 
             if( prog.getStart(  ) == startTime )
             {
-
                 return prog;
 
             }
@@ -290,7 +277,6 @@ public class TVChannel implements Serializable
      */
     public boolean equals( Object obj )
     {
-
         TVChannel ch = (TVChannel)obj;
 
         return id.equals( ch.id );
@@ -302,19 +288,16 @@ public class TVChannel implements Serializable
      */
     public void normalizeTime(  )
     {
-
         TVProgramme prevProg = null;
 
         Iterator it = getProgrammes(  ).iterator(  );
 
         while( it.hasNext(  ) )
         {
-
             TVProgramme prog = (TVProgramme)it.next(  );
 
             if( ( prevProg != null ) && ( prevProg.getEnd(  ) == 0 ) )
             {
-
                 if( 
                     ( prog.getStart(  ) - prevProg.getStart(  ) ) <= PROG_LENGTH_MAX )
                 {

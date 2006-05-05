@@ -5,7 +5,6 @@ import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-
 import freeguide.common.lib.general.EndianInputStream;
 import freeguide.common.lib.general.EndianOutputByteArray;
 
@@ -37,7 +36,6 @@ import javax.swing.filechooser.FileFilter;
  */
 public class JTV extends BaseModule implements IModuleImport, IModuleExport
 {
-
     protected static final byte[] SIGNATURE =
         new String( "JTV 3.x TV Program Data\n\n\n" ).getBytes(  );
     protected static final long DATE_DELTA = 134774L * 24L * 60L * 60L * 1000L; // milliseconds from Jan 1 1601 to Jan 1 1970
@@ -50,7 +48,6 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
      */
     public Object getConfig(  )
     {
-
         return null;
     }
 
@@ -65,20 +62,17 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
     public void importDataUI( JFrame parent, final IStoragePipe storage )
         throws Exception
     {
-
         JFileChooser chooser = new JFileChooser(  );
         chooser.setFileFilter( 
             new FileFilter(  )
             {
                 public String getDescription(  )
                 {
-
                     return "JTV files";
                 }
 
                 public boolean accept( File pathname )
                 {
-
                     return pathname.isDirectory(  )
                     || pathname.getName(  ).endsWith( ".ndx" )
                     || pathname.getName(  ).endsWith( ".pdt" );
@@ -89,13 +83,11 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
 
         if( chooser.showOpenDialog( parent ) == JFileChooser.APPROVE_OPTION )
         {
-
             File[] files = chooser.getSelectedFiles(  );
             Set fUniq = new TreeSet(  );
 
             for( int i = 0; i < files.length; i++ )
             {
-
                 String path = files[i].getPath(  );
 
                 if( path.endsWith( ".ndx" ) || path.endsWith( ".pdt" ) )
@@ -109,7 +101,6 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
 
             while( it.hasNext(  ) )
             {
-
                 String fileName = (String)it.next(  );
                 loadFromFile( fileName, storage );
             }
@@ -134,7 +125,6 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
         final String fileName, final IStoragePipe storage )
         throws Exception
     {
-
         final EndianInputStream inndx =
             new EndianInputStream( new File( fileName + ".ndx" ), CHARSET );
         final EndianInputStream inpdt =
@@ -158,7 +148,6 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
 
         for( int i = 0; i < progCount; i++ )
         {
-
             final TVProgramme prog = new TVProgramme(  );
             inndx.readShort(  );
             prog.setStart( readTime( inndx ) );
@@ -174,7 +163,6 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
 
     protected long readTime( final EndianInputStream in )
     {
-
         Calendar c = Calendar.getInstance(  );
         c.setTimeZone( Application.getInstance(  ).getTimeZone(  ) );
 
@@ -198,7 +186,6 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
     public void exportData( TVData data, JFrame parent )
         throws IOException
     {
-
         ExportIterator ex = new ExportIterator(  );
         data.iterate( ex );
 
@@ -210,13 +197,12 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
 
     protected static class ExportIterator extends TVIteratorProgrammes
     {
-
         EndianOutputByteArray wrndx;
         EndianOutputByteArray wrpdt;
         IOException ex;
         Calendar c = Calendar.getInstance(  );
 
-        /**
+/**
          * Creates a new ExportIterator object.
          */
         public ExportIterator(  )
@@ -267,10 +253,8 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
 
         protected void save( byte[] data, String fileName )
         {
-
             try
             {
-
                 FileOutputStream fndx = new FileOutputStream( fileName );
                 fndx.write( data );
                 fndx.flush(  );

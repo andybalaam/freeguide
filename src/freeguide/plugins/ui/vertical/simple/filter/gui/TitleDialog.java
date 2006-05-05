@@ -14,7 +14,6 @@ import javax.swing.*;
  */
 public class TitleDialog implements SettingDialog
 {
-
     protected TitleFilter filter;
     protected boolean bClosedWithOk = false;
 
@@ -25,12 +24,10 @@ public class TitleDialog implements SettingDialog
      */
     public boolean isClosedWithOk(  )
     {
-
         return this.bClosedWithOk;
     }
 
     //public boolean isClosedWithOk()
-
     /**
      * DOCUMENT_ME!
      */
@@ -49,23 +46,20 @@ public class TitleDialog implements SettingDialog
     }
 
     //public void setFilter(ProgrammeFilter filter)
-
     /**
      * DOCUMENT_ME!
      */
     public void show(  )
     {
-
         String strAnswer =
             JOptionPane.showInputDialog( 
-                VerticalViewer.getInstance(  ).getLocalizedMessage( 
-                    "titledialog.question" ), this.filter.getSearchString(  ) );
+                VerticalViewer.getInstance(  )
+                              .getLocalizedMessage( "titledialog.question" ),
+                this.filter.getSearchString(  ) );
         this.filter.setSearchString( strAnswer );
         this.bClosedWithOk = ( strAnswer != null );
     }
 
     //public void show()
 }
-
-
 //public class TitleDialog

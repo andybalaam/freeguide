@@ -20,7 +20,6 @@ import java.util.Locale;
  */
 public class PatchFile
 {
-
     /**
      * DOCUMENT_ME!
      *
@@ -34,7 +33,6 @@ public class PatchFile
         final String inFileName, final String outFileName,
         final PluginInfo[] plugins ) throws IOException
     {
-
         BufferedReader rd =
             new BufferedReader( 
                 new InputStreamReader( 
@@ -43,12 +41,10 @@ public class PatchFile
 
         while( true )
         {
-
             String line = rd.readLine(  );
 
             if( line == null )
             {
-
                 break;
             }
 
@@ -83,7 +79,6 @@ public class PatchFile
         final String templateFileName, final String prefix, final String suffix,
         final PluginInfo[] plugins ) throws IOException
     {
-
         BufferedReader rd =
             new BufferedReader( 
                 new InputStreamReader( 
@@ -111,15 +106,12 @@ public class PatchFile
         {
             String result = replaceAppInfo( plugins[0], strData );
 
-            result =
-                result.replaceAll( 
+            result = result.replaceAll( 
                     "__ANT_PLUGIN_NAME__", "" + plugins[i].getID(  ) );
-            result =
-                result.replaceAll( 
+            result = result.replaceAll( 
                     "__ANT_PLUGIN_VERSION_DOTTED__",
                     "" + plugins[i].getVersion(  ).getDotFormat(  ) );
-            result =
-                result.replaceAll( 
+            result = result.replaceAll( 
                     "__ANT_PLUGIN_DESCRIPTION__",
                     "" + plugins[i].getDescription( Locale.ENGLISH ) );
 
@@ -127,8 +119,7 @@ public class PatchFile
                 new BufferedWriter( 
                     new OutputStreamWriter( 
                         new FileOutputStream( 
-                            prefix + plugins[i].getID(  ) + suffix ),
-                                "UTF-8" ) );
+                            prefix + plugins[i].getID(  ) + suffix ), "UTF-8" ) );
             wr.write( result );
             wr.flush(  );
             wr.close(  );
@@ -138,27 +129,20 @@ public class PatchFile
     protected static String replaceAppInfo( 
         final PluginInfo appInfo, final String in )
     {
-
         String strData = in;
-        strData =
-            strData.replaceAll( 
+        strData = strData.replaceAll( 
                 "__ANT_VERSION_MAJOR__", "" + appInfo.getVersion(  ).major );
-        strData =
-            strData.replaceAll( 
+        strData = strData.replaceAll( 
                 "__ANT_VERSION_MINOR__", "" + appInfo.getVersion(  ).minor );
-        strData =
-            strData.replaceAll( 
+        strData = strData.replaceAll( 
                 "__ANT_VERSION_REVISION__",
                 "" + appInfo.getVersion(  ).revision );
-        strData =
-            strData.replaceAll( 
+        strData = strData.replaceAll( 
                 "__ANT_VERSION_BUILD__", "" + appInfo.getVersion(  ).build );
-        strData =
-            strData.replaceAll( 
+        strData = strData.replaceAll( 
                 "__ANT_NAME_VERSION__",
                 "freeguide-" + appInfo.getVersion(  ).getDotFormat(  ) );
-        strData =
-            strData.replaceAll( 
+        strData = strData.replaceAll( 
                 "__ANT_VERSION_DOTTED__",
                 appInfo.getVersion(  ).getDotFormat(  ) );
 

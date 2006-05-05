@@ -6,9 +6,7 @@ import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-
 import freeguide.common.lib.general.LanguageHelper;
-
 import freeguide.common.lib.grabber.HttpBrowser;
 
 import freeguide.common.plugininterfaces.BaseModule;
@@ -38,7 +36,6 @@ import javax.swing.JDialog;
  */
 public class GrabberVsetv extends BaseModule implements IModuleGrabber
 {
-
     protected VsetvConfig config = new VsetvConfig(  );
     protected Properties TIMEZONES;
 
@@ -49,7 +46,6 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
      */
     public Object getConfig(  )
     {
-
         return config;
     }
 
@@ -85,7 +81,6 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
     protected TVChannelsSet getChannelList(  )
         throws IOException, SAXException
     {
-
         HttpBrowser browser = new HttpBrowser(  );
 
         browser.setHeader( "Accept-Language", "ru" );
@@ -118,7 +113,6 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
-
         if( TIMEZONES == null )
         {
             loadTimeZones(  );
@@ -232,7 +226,8 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         }
         catch( Exception ex )
         {
-            Application.getInstance(  ).getLogger(  ).log( 
+            Application.getInstance(  ).getLogger(  )
+                       .log( 
                 Level.SEVERE,
                 "Error loading timezone settings for www.vsetv.com", ex );
         }
@@ -299,14 +294,12 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
      */
     public IModuleConfigurationUI getConfigurationUI( JDialog parentDialog )
     {
-
         return new VsetvConfigurationUIController( this );
 
     }
 
     protected static void patch( final TVData data ) throws IOException
     {
-
         final String[] nen =
             LanguageHelper.loadStrings( 
                 "resources/plugins/grabber/vsetv/nen.utf8.list" );
@@ -315,7 +308,6 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
             {
                 protected void onChannel( TVChannel channel )
                 {
-
                     if( !nen[0].equals( channel.getDisplayName(  ) ) )
                     {
                         stopIterateChanel(  );
@@ -324,16 +316,13 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
                 protected void onProgramme( TVProgramme programme )
                 {
-
                     if( programme.getTitle(  ) == null )
                     {
-
                         return;
                     }
 
                     for( int i = 2; i < nen.length; i++ )
                     {
-
                         if( programme.getTitle(  ).indexOf( nen[i] ) != -1 )
                         {
                             programme.setTitle( nen[1] );

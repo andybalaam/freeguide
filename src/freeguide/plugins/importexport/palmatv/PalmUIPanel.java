@@ -16,12 +16,11 @@ import javax.swing.JPanel;
  */
 public class PalmUIPanel extends JPanel
 {
-
     private JComboBox cbCharset = null;
     private JLabel jLabel = null;
     protected ILocalizer localizer;
 
-    /**
+/**
      * This is the default constructor
      *
      * @param parent DOCUMENT ME!
@@ -38,7 +37,6 @@ public class PalmUIPanel extends JPanel
      */
     private void initialize(  )
     {
-
         GridBagConstraints gridBagConstraints = new GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -67,7 +65,6 @@ public class PalmUIPanel extends JPanel
      */
     public JComboBox getCbCharset(  )
     {
-
         if( cbCharset == null )
         {
             cbCharset = new JComboBox(  );

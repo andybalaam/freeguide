@@ -1,9 +1,9 @@
 package freeguide.plugins.program.freeguide.lib.fgspecific;
 
+import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-import freeguide.common.lib.fgspecific.Application;
 
 import freeguide.common.plugininterfaces.IModuleStorage;
 import freeguide.common.plugininterfaces.IStoragePipe;
@@ -16,7 +16,6 @@ import freeguide.common.plugininterfaces.IStoragePipe;
  */
 public class StoragePipe implements IStoragePipe
 {
-
     protected static final int MAX_CACHE_SIZE = 5000;
     protected final IModuleStorage storage;
     protected final TVData cache;
@@ -24,7 +23,7 @@ public class StoragePipe implements IStoragePipe
     protected int cacheCount;
     protected int normalizedCacheCount;
 
-    /**
+/**
      * Creates a new StoragePipe object.
      */
     public StoragePipe(  )
@@ -60,7 +59,6 @@ public class StoragePipe implements IStoragePipe
     public void addProgramme( String channelID, TVProgramme programme )
         throws Exception
     {
-
         final TVChannel cachedChannel = cache.get( channelID );
         cachedChannel.put( programme );
         cacheCount++;
@@ -78,7 +76,6 @@ public class StoragePipe implements IStoragePipe
     public void addProgrammes( String channelID, TVProgramme[] programmes )
         throws Exception
     {
-
         final TVChannel cachedChannel = cache.get( channelID );
         cachedChannel.put( programmes );
         cacheCount += programmes.length;
@@ -110,14 +107,12 @@ public class StoragePipe implements IStoragePipe
 
     protected void checkForMaxCache(  ) throws Exception
     {
-
         if( ( cacheCount + normalizedCacheCount ) > MAX_CACHE_SIZE )
         {
-
             if( normalizedCacheCount == 0 )
             {
-                Application.getInstance(  ).getLogger(  ).warning( 
-                    "Cache was forced normalized" );
+                Application.getInstance(  ).getLogger(  )
+                           .warning( "Cache was forced normalized" );
                 normalizeCache(  );
             }
 
@@ -147,11 +142,10 @@ public class StoragePipe implements IStoragePipe
      */
     public void finish(  ) throws Exception
     {
-
         if( cacheCount > 0 )
         {
-            Application.getInstance(  ).getLogger(  ).warning( 
-                "Cache was forced normalized" );
+            Application.getInstance(  ).getLogger(  )
+                       .warning( "Cache was forced normalized" );
             normalizeCache(  );
         }
 

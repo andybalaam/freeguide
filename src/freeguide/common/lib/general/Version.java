@@ -26,7 +26,6 @@ import java.util.regex.Pattern;
  */
 public class Version
 {
-
     protected static final Pattern VERSION_PATTERN =
         Pattern.compile( "(\\d+)(?:\\.(\\d+)(?:\\.(\\d+)(?:[_-](\\d+))?)?)?" );
 
@@ -42,7 +41,7 @@ public class Version
     /** Build value. */
     public int build;
 
-    /**
+/**
      * Creates a new Version object.
      *
      * @param major DOCUMENT ME!
@@ -56,7 +55,7 @@ public class Version
 
     }
 
-    /**
+/**
      * Create a Version object with the given major, minor and revision
      * numbers
      *
@@ -74,7 +73,7 @@ public class Version
 
     }
 
-    /**
+/**
      * Create a Version object with the given major, minor, revision and build
      * numbers
      *
@@ -94,7 +93,7 @@ public class Version
         this.build = build;
     }
 
-    /**
+/**
      * Create a Version object from a string that looks like this: d.d.d_x
      * where d represents any number of digits . is a literal dot _ is either
      * an _, - or . character x is any sequence of characters
@@ -105,10 +104,8 @@ public class Version
      */
     public Version( String versionString ) throws NumberFormatException
     {
-
         if( versionString == null )
         {
-
             return;
         }
 
@@ -125,10 +122,8 @@ public class Version
 
     protected int parseDigs( final String text )
     {
-
         if( text == null )
         {
-
             return 0;
         }
 
@@ -136,28 +131,28 @@ public class Version
     }
 
     // ----------------------------------------------------------------------
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
     public String getDotFormat(  )
     {
-
         if( ( minor == 0 ) && ( revision == 0 ) && ( build == 0 ) )
         {
-
             return Integer.toString( major );
         }
 
         if( ( revision == 0 ) && ( build == 0 ) )
         {
-
             return major + "." + minor;
         }
         else if( build == 0 )
         {
-
             return major + "." + minor + "." + revision;
         }
         else
         {
-
             return major + "." + minor + "." + revision + "." + build;
         }
     }
@@ -171,55 +166,46 @@ public class Version
      */
     public int compareTo( Version other )
     {
-
         if( major > other.major )
         {
-
             return 1;
 
         }
         else if( major < other.major )
         {
-
             return -1;
 
         }
 
         if( minor > other.minor )
         {
-
             return 1;
 
         }
         else if( minor < other.minor )
         {
-
             return -1;
 
         }
 
         if( revision > other.revision )
         {
-
             return 1;
 
         }
         else if( revision < other.revision )
         {
-
             return -1;
 
         }
 
         if( build > other.build )
         {
-
             return 1;
 
         }
         else if( build < other.build )
         {
-
             return -1;
 
         }
@@ -237,7 +223,6 @@ public class Version
      */
     public boolean greaterThan( Version other )
     {
-
         return ( compareTo( other ) == 1 );
 
     }
@@ -251,7 +236,6 @@ public class Version
      */
     public boolean lessThan( Version other )
     {
-
         return ( compareTo( other ) == -1 );
 
     }
@@ -265,11 +249,9 @@ public class Version
      */
     public boolean equals( Object other )
     {
-
         // If the passed in object is not a Version, they are not equal
         if( !( other instanceof Version ) )
         {
-
             return false;
 
         }
@@ -285,7 +267,6 @@ public class Version
      */
     public static Version getJavaVersion(  )
     {
-
         return new Version( System.getProperty( "java.version" ) );
     }
 }

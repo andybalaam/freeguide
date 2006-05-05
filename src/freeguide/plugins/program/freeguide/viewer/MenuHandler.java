@@ -1,21 +1,19 @@
 package freeguide.plugins.program.freeguide.viewer;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
-import freeguide.plugins.program.freeguide.dialogs.AboutFrame;
-import freeguide.plugins.program.freeguide.options.OptionsDialog;
-import freeguide.plugins.program.freeguide.updater.UpdaterController;
-import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
-
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
-
 import freeguide.common.lib.general.FileHelper;
 import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.IModuleExport;
 import freeguide.common.plugininterfaces.IModuleImport;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.dialogs.AboutFrame;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
+import freeguide.plugins.program.freeguide.options.OptionsDialog;
+import freeguide.plugins.program.freeguide.updater.UpdaterController;
+import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,7 +32,6 @@ import javax.swing.JOptionPane;
  */
 public class MenuHandler
 {
-
     protected MainController controller;
 
     protected MenuHandler( final MainController controller )
@@ -46,9 +43,9 @@ public class MenuHandler
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
-
                     WindowListener[] listeners =
-                        controller.mainFrame.getWindowListeners(  );
+                        controller.mainFrame
+                        .getWindowListeners(  );
 
                     for( int i = 0; i < listeners.length; i++ )
                     {
@@ -67,7 +64,6 @@ public class MenuHandler
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
-
                     OptionsDialog dg =
                         new OptionsDialog( controller.mainFrame );
                     Utils.centreDialog( controller.mainFrame, dg );
@@ -155,14 +151,15 @@ public class MenuHandler
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
-
                     if( FreeGuide.arguments.containsKey( "no-plugin-manager" ) )
                     {
                         JOptionPane.showMessageDialog( 
                             controller.mainFrame,
-                            Application.getInstance(  ).getLocalizedMessage( 
+                            Application.getInstance(  )
+                                       .getLocalizedMessage( 
                                 "UpdateManager.Disabled.Text" ),
-                            Application.getInstance(  ).getLocalizedMessage( 
+                            Application.getInstance(  )
+                                       .getLocalizedMessage( 
                                 "UpdateManager.Disabled.Header" ),
                             JOptionPane.ERROR_MESSAGE );
                     }
@@ -181,10 +178,8 @@ public class MenuHandler
         }
         else
         {
-
             for( int i = 0; i < exporters.length; i++ )
             {
-
                 final IModuleExport ex =
                     (IModuleExport)exporters[i].getInstance(  );
                 final JMenuItem item =
@@ -210,10 +205,8 @@ public class MenuHandler
         }
         else
         {
-
             for( int i = 0; i < importers.length; i++ )
             {
-
                 final IModuleImport im =
                     (IModuleImport)importers[i].getInstance(  );
                 final JMenuItem item =

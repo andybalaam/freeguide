@@ -3,7 +3,6 @@ package freeguide.common.lib.importexport;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-
 import freeguide.common.lib.general.StringHelper;
 
 import java.io.BufferedWriter;
@@ -28,11 +27,10 @@ import java.util.TimeZone;
  */
 public class XMLTVExport
 {
-
     protected DateFormat DATE_FORMAT =
         new SimpleDateFormat( "yyyyMMddHHmmss Z", Locale.ENGLISH );
 
-    /**
+/**
      * Creates a new XMLTVExport object.
      */
     public XMLTVExport(  )
@@ -52,7 +50,6 @@ public class XMLTVExport
     public void export( final File outFile, final TVData data )
         throws IOException
     {
-
         final BufferedWriter out =
             new BufferedWriter( 
                 new OutputStreamWriter( 
@@ -64,7 +61,6 @@ public class XMLTVExport
 
         while( itCh.hasNext(  ) )
         {
-
             TVChannel ch = (TVChannel)itCh.next(  );
 
             writeChannelInfo( out, ch );
@@ -75,14 +71,12 @@ public class XMLTVExport
 
         while( itCh.hasNext(  ) )
         {
-
             TVChannel ch = (TVChannel)itCh.next(  );
 
             final Iterator itP = ch.getProgrammes(  ).iterator(  );
 
             while( itP.hasNext(  ) )
             {
-
                 TVProgramme programme = (TVProgramme)itP.next(  );
 
                 writeProgrammeInfo( out, programme );
@@ -162,18 +156,15 @@ public class XMLTVExport
 
         if( prog.getExtraTags(  ) != null )
         {
-
             Iterator itExtra = prog.getExtraTags(  ).keySet(  ).iterator(  );
 
             while( itExtra.hasNext(  ) )
             {
-
                 String tag = (String)itExtra.next(  );
                 Map attrs = (Map)prog.getExtraTags(  ).get( tag );
 
                 if( attrs != null )
                 {
-
                     if( ( attrs.size(  ) == 1 ) && attrs.containsKey( "" ) )
                     {
                         out.write( "    <" + tag + ">" );
@@ -189,7 +180,6 @@ public class XMLTVExport
 
                         while( itAttr.hasNext(  ) )
                         {
-
                             String attr = (String)itAttr.next(  );
                             String value = (String)attrs.get( attr );
                             out.write( " " + attr + "=\"" );

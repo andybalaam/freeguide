@@ -13,18 +13,19 @@
 package freeguide.plugins.program.freeguide.wizard;
 
 import freeguide.common.lib.fgspecific.Application;
+
 import javax.swing.JFileChooser;
 
 /**
- * A JPanel to go on a FreeGuideWizard to choose a directory. Inherits from
- * the file chooser but sends "true" to the browse() method.
+ * A JPanel to go on a FreeGuideWizard to choose a directory. Inherits
+ * from the file chooser but sends "true" to the browse() method.
  *
  * @author Andy Balaam
  * @version 1
  */
 public class FileWizardPanel extends AbstractFileWizardPanel
 {
-    /**
+/**
      * Create a new FreeGuideDirectoryWizardPanel. This is almost, but not
      * quite identical to a FreeGuideFileWizardPanel.
      */
@@ -32,10 +33,10 @@ public class FileWizardPanel extends AbstractFileWizardPanel
     {
         super(  );
     }
-    
+
     /**
-     * Gets the fileSelectionMode attribute of the FreeGuideFileWizardPanel
-     * object
+     * Gets the fileSelectionMode attribute of the
+     * FreeGuideFileWizardPanel object
      *
      * @return The fileSelectionMode value
      */
@@ -43,10 +44,10 @@ public class FileWizardPanel extends AbstractFileWizardPanel
     {
         return JFileChooser.FILES_AND_DIRECTORIES;
     }
-    
+
     /**
-     * Gets the fileChooserMessage attribute of the FreeGuideFileWizardPanel
-     * object
+     * Gets the fileChooserMessage attribute of the
+     * FreeGuideFileWizardPanel object
      *
      * @return The fileChooserMessage value
      */

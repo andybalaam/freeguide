@@ -1,7 +1,6 @@
 package freeguide.plugins.grabber.cosmostv;
 
 import freeguide.common.lib.fgspecific.Application;
-
 import freeguide.common.lib.grabber.HttpBrowser;
 import freeguide.common.lib.grabber.ListTVParser;
 
@@ -21,7 +20,6 @@ import java.util.TimeZone;
  */
 public class GrabberCosmostv extends BaseModule implements IModuleGrabber
 {
-
     protected static final TimeZone TIMEZONE =
         TimeZone.getTimeZone( "Europe/Minsk" );
     boolean isStopped;
@@ -33,7 +31,6 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
      */
     public Object getConfig(  )
     {
-
         return null;
     }
 
@@ -64,7 +61,6 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
         IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
-
         HttpBrowser browser = new HttpBrowser(  );
 
         browser.setHeader( "Accept-Language", "ru" );

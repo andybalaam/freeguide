@@ -1,12 +1,11 @@
 package freeguide.plugins.program.freeguide.lib.fgspecific;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.common.gui.ExecutorDialog;
 
-import freeguide.plugins.program.freeguide.viewer.MainController;
-
 import freeguide.common.plugininterfaces.IModuleGrabber;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.viewer.MainController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +24,6 @@ import javax.swing.JProgressBar;
  */
 public class GrabberController
 {
-
     protected ExecutorDialog progressDialog;
     protected JProgressBar secondProgressBar;
     protected boolean wasError;
@@ -33,26 +31,22 @@ public class GrabberController
     protected boolean isFinished;
 
     /**
-     * Show grabber dialog when grabbing running, or start grabbing in new
-     * thread.
+     * Show grabber dialog when grabbing running, or start grabbing in
+     * new thread.
      *
      * @param controller DOCUMENT ME!
      */
     public void activate( final MainController controller )
     {
-
         synchronized( this )
         {
-
             if( progressDialog != null )
             {
-
                 // Show dialog
                 progressDialog.setVisible( true );
             }
             else
             {
-
                 // Start new grabbing
                 new Thread(  )
                     {
@@ -115,17 +109,15 @@ public class GrabberController
         }
         else
         {
-
-            Iterator it = MainController.config.activeGrabberIDs.iterator(  );
+            Iterator it = MainController.config.activeGrabberIDs
+                .iterator(  );
 
             while( it.hasNext(  ) )
             {
-
                 String grabberID = (String)it.next(  );
 
                 try
                 {
-
                     IModuleGrabber grabber =
                         (IModuleGrabber)PluginsManager.getModuleByID( 
                             grabberID );
@@ -146,7 +138,6 @@ public class GrabberController
 
                     if( isFinished )
                     {
-
                         break;
                     }
 
@@ -156,7 +147,6 @@ public class GrabberController
 
                     if( isFinished )
                     {
-
                         break;
                     }
                 }
@@ -190,7 +180,6 @@ public class GrabberController
         }
         else
         {
-
             synchronized( this )
             {
                 secondProgressBar.setVisible( false );
@@ -206,7 +195,6 @@ public class GrabberController
      */
     public void closeDialog(  )
     {
-
         synchronized( this )
         {
             isFinished = true;

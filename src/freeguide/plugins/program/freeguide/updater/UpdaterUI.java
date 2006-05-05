@@ -21,7 +21,6 @@ import javax.swing.JTable;
  */
 public class UpdaterUI extends JDialog
 {
-
     private JPanel jContentPane = null;
     private JLabel labelTitle = null;
     private JPanel panelButtons = null;
@@ -34,7 +33,7 @@ public class UpdaterUI extends JDialog
     private JLabel labelMirror = null;
     private JComboBox cbMirror = null;
 
-    /**
+/**
      * This is the default constructor
      *
      * @param parent DOCUMENT ME!
@@ -53,8 +52,8 @@ public class UpdaterUI extends JDialog
         this.setModal( true );
         this.setTitle( "Plugins update manager" );
         this.setTitle( 
-            Application.getInstance(  ).getLocalizedMessage( 
-                "UpdateManager.Header" ) );
+            Application.getInstance(  )
+                       .getLocalizedMessage( "UpdateManager.Header" ) );
         this.setDefaultCloseOperation( 
             javax.swing.WindowConstants.DISPOSE_ON_CLOSE );
         this.setSize( new java.awt.Dimension( 400, 200 ) );
@@ -68,10 +67,8 @@ public class UpdaterUI extends JDialog
      */
     private JPanel getJContentPane(  )
     {
-
         if( jContentPane == null )
         {
-
             GridBagConstraints gridBagConstraints2 =
                 new GridBagConstraints(  );
             gridBagConstraints2.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -89,8 +86,8 @@ public class UpdaterUI extends JDialog
             gridBagConstraints11.anchor = java.awt.GridBagConstraints.EAST;
             labelMirror = new JLabel(  );
             labelMirror.setText( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "UpdateManager.MirrorPrompt" ) );
+                Application.getInstance(  )
+                           .getLocalizedMessage( "UpdateManager.MirrorPrompt" ) );
 
             GridBagConstraints gridBagConstraints4 =
                 new GridBagConstraints(  );
@@ -122,8 +119,8 @@ public class UpdaterUI extends JDialog
             gridBagConstraints1.gridwidth = 2;
             labelTitle = new JLabel(  );
             labelTitle.setText( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "UpdateManager.Prompt" ) );
+                Application.getInstance(  )
+                           .getLocalizedMessage( "UpdateManager.Prompt" ) );
             jContentPane = new JPanel(  );
             jContentPane.setLayout( new GridBagLayout(  ) );
             jContentPane.add( getCbMirror(  ), gridBagConstraints2 );
@@ -143,10 +140,8 @@ public class UpdaterUI extends JDialog
      */
     private JPanel getPanelButtons(  )
     {
-
         if( panelButtons == null )
         {
-
             GridBagConstraints gridBagConstraints8 =
                 new GridBagConstraints(  );
             gridBagConstraints8.gridx = 1;
@@ -189,7 +184,6 @@ public class UpdaterUI extends JDialog
      */
     public JTable getTablePackages(  )
     {
-
         if( tablePackages == null )
         {
             tablePackages = new JTable(  );
@@ -205,7 +199,6 @@ public class UpdaterUI extends JDialog
      */
     private JScrollPane getJScrollPane(  )
     {
-
         if( jScrollPane == null )
         {
             jScrollPane = new JScrollPane(  );
@@ -222,14 +215,13 @@ public class UpdaterUI extends JDialog
      */
     public JButton getBtnCheck(  )
     {
-
         if( btnCheck == null )
         {
             btnCheck = new JButton(  );
             btnCheck.setText( "Check repository" );
             btnCheck.setText( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "UpdateManager.Button.Check" ) );
+                Application.getInstance(  )
+                           .getLocalizedMessage( "UpdateManager.Button.Check" ) );
         }
 
         return btnCheck;
@@ -242,13 +234,13 @@ public class UpdaterUI extends JDialog
      */
     public JButton getBtnGo(  )
     {
-
         if( btnGo == null )
         {
             btnGo = new JButton(  );
             btnGo.setText( "Update" );
             btnGo.setText( 
-                Application.getInstance(  ).getLocalizedMessage( 
+                Application.getInstance(  )
+                           .getLocalizedMessage( 
                     "UpdateManager.Button.Update" ) );
         }
 
@@ -262,14 +254,13 @@ public class UpdaterUI extends JDialog
      */
     public JButton getBtnClose(  )
     {
-
         if( btnClose == null )
         {
             btnClose = new JButton(  );
             btnClose.setText( "Close" );
             btnClose.setText( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "UpdateManager.Button.Close" ) );
+                Application.getInstance(  )
+                           .getLocalizedMessage( "UpdateManager.Button.Close" ) );
         }
 
         return btnClose;
@@ -282,7 +273,6 @@ public class UpdaterUI extends JDialog
      */
     private JPanel getJPanel(  )
     {
-
         if( jPanel == null )
         {
             jPanel = new JPanel(  );
@@ -298,7 +288,6 @@ public class UpdaterUI extends JDialog
      */
     public JComboBox getCbMirror(  )
     {
-
         if( cbMirror == null )
         {
             cbMirror = new JComboBox(  );

@@ -21,7 +21,6 @@ import javax.swing.JScrollPane;
  */
 public class FavouritesListDialog extends JDialog
 {
-
     private javax.swing.JPanel jContentPane = null;
     private JPanel jPanel = null;
     private JButton btnOK = null;
@@ -36,7 +35,7 @@ public class FavouritesListDialog extends JDialog
     private JList list = null;
     private JPanel jPanel4 = null;
 
-    /**
+/**
      * This is the default constructor
      *
      * @param owner DOCUMENT ME!
@@ -67,7 +66,6 @@ public class FavouritesListDialog extends JDialog
      */
     private javax.swing.JPanel getJContentPane(  )
     {
-
         if( jContentPane == null )
         {
             jContentPane = new javax.swing.JPanel(  );
@@ -86,10 +84,8 @@ public class FavouritesListDialog extends JDialog
      */
     private JPanel getJPanel(  )
     {
-
         if( jPanel == null )
         {
-
             GridBagConstraints gridBagConstraints11 =
                 new GridBagConstraints(  );
             GridBagConstraints gridBagConstraints10 =
@@ -123,7 +119,6 @@ public class FavouritesListDialog extends JDialog
      */
     protected JButton getBtnOK(  )
     {
-
         if( btnOK == null )
         {
             btnOK = new JButton(  );
@@ -142,7 +137,6 @@ public class FavouritesListDialog extends JDialog
      */
     protected JButton getBtnCancel(  )
     {
-
         if( btnCancel == null )
         {
             btnCancel = new JButton(  );
@@ -161,10 +155,8 @@ public class FavouritesListDialog extends JDialog
      */
     private JPanel getJPanel1(  )
     {
-
         if( jPanel1 == null )
         {
-
             GridBagConstraints gridBagConstraints8 =
                 new GridBagConstraints(  );
             GridBagConstraints gridBagConstraints7 =
@@ -224,7 +216,6 @@ public class FavouritesListDialog extends JDialog
      */
     protected JButton getBtnRemove(  )
     {
-
         if( btnRemove == null )
         {
             btnRemove = new JButton(  );
@@ -243,7 +234,6 @@ public class FavouritesListDialog extends JDialog
      */
     protected JButton getBtnAdd(  )
     {
-
         if( btnAdd == null )
         {
             btnAdd = new JButton(  );
@@ -262,7 +252,6 @@ public class FavouritesListDialog extends JDialog
      */
     protected JButton getBtnEdit(  )
     {
-
         if( btnEdit == null )
         {
             btnEdit = new JButton(  );
@@ -281,7 +270,6 @@ public class FavouritesListDialog extends JDialog
      */
     private JPanel getJPanel2(  )
     {
-
         if( jPanel2 == null )
         {
             jPanel2 = new JPanel(  );
@@ -297,7 +285,6 @@ public class FavouritesListDialog extends JDialog
      */
     private JPanel getJPanel3(  )
     {
-
         if( jPanel3 == null )
         {
             jPanel3 = new JPanel(  );
@@ -313,7 +300,6 @@ public class FavouritesListDialog extends JDialog
      */
     private JScrollPane getJScrollPane(  )
     {
-
         if( jScrollPane == null )
         {
             jScrollPane = new JScrollPane(  );
@@ -330,7 +316,6 @@ public class FavouritesListDialog extends JDialog
      */
     protected JList getList(  )
     {
-
         if( list == null )
         {
             list = new JList(  );
@@ -346,7 +331,6 @@ public class FavouritesListDialog extends JDialog
      */
     private JPanel getJPanel4(  )
     {
-
         if( jPanel4 == null )
         {
             jPanel4 = new JPanel(  );

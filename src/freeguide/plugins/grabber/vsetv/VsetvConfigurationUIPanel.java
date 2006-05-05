@@ -22,7 +22,6 @@ import javax.swing.JTextPane;
  */
 public class VsetvConfigurationUIPanel extends JPanel
 {
-
     private JTextField textUser = null;
     private JTextField textPass = null;
     private JTextPane message = null;
@@ -37,7 +36,7 @@ public class VsetvConfigurationUIPanel extends JPanel
     private JScrollPane jScrollPane = null;
     private JCheckBox cbGetAll = null;
 
-    /**
+/**
      * This is the default constructor
      *
      * @param localizer DOCUMENT ME!
@@ -57,7 +56,6 @@ public class VsetvConfigurationUIPanel extends JPanel
      */
     private void initialize(  )
     {
-
         ButtonGroup gr = new ButtonGroup(  );
 
         gr.add( getRbAuth(  ) );
@@ -117,7 +115,6 @@ public class VsetvConfigurationUIPanel extends JPanel
      */
     public JTextField getTextUser(  )
     {
-
         if( textUser == null )
         {
             textUser = new JTextField(  );
@@ -137,7 +134,6 @@ public class VsetvConfigurationUIPanel extends JPanel
      */
     public JTextField getTextPass(  )
     {
-
         if( textPass == null )
         {
             textPass = new JTextField(  );
@@ -157,7 +153,6 @@ public class VsetvConfigurationUIPanel extends JPanel
      */
     public JTextPane getMessage(  )
     {
-
         if( message == null )
         {
             message = new JTextPane(  );
@@ -185,10 +180,8 @@ public class VsetvConfigurationUIPanel extends JPanel
      */
     private JPanel getPanelAuthorized(  )
     {
-
         if( panelAuthorized == null )
         {
-
             GridBagConstraints gridBagConstraints16 =
                 new GridBagConstraints(  );
 
@@ -312,10 +305,8 @@ public class VsetvConfigurationUIPanel extends JPanel
      */
     private JPanel getPanelNonAuthorized(  )
     {
-
         if( panelNonAuthorized == null )
         {
-
             GridBagConstraints gridBagConstraints15 =
                 new GridBagConstraints(  );
 
@@ -367,7 +358,6 @@ public class VsetvConfigurationUIPanel extends JPanel
      */
     public JList getListChannels(  )
     {
-
         if( listChannels == null )
         {
             listChannels = new JList(  );
@@ -388,7 +378,6 @@ public class VsetvConfigurationUIPanel extends JPanel
      */
     public JRadioButton getRbNoAuth(  )
     {
-
         if( rbNoAuth == null )
         {
             rbNoAuth = new JRadioButton(  );
@@ -412,7 +401,6 @@ public class VsetvConfigurationUIPanel extends JPanel
      */
     public JRadioButton getRbAuth(  )
     {
-
         if( rbAuth == null )
         {
             rbAuth = new JRadioButton(  );
@@ -436,7 +424,6 @@ public class VsetvConfigurationUIPanel extends JPanel
      */
     private JScrollPane getJScrollPane(  )
     {
-
         if( jScrollPane == null )
         {
             jScrollPane = new JScrollPane(  );
@@ -456,7 +443,6 @@ public class VsetvConfigurationUIPanel extends JPanel
      */
     public JCheckBox getCbGetAll(  )
     {
-
         if( cbGetAll == null )
         {
             cbGetAll = new JCheckBox(  );

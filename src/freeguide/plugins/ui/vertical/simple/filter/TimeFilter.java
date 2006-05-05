@@ -15,17 +15,16 @@ import java.util.Date;
  */
 public class TimeFilter extends ProgrammeFilter
 {
-
     /**
-     * The time at which the program has to start (or later) -1 means that
-     * this field is not used for filtering. If it's not -1, the meaning is
-     * "HHmm" as integer (2-digit hour with 24 hour format)
+     * The time at which the program has to start (or later) -1 means
+     * that this field is not used for filtering. If it's not -1, the meaning
+     * is "HHmm" as integer (2-digit hour with 24 hour format)
      */
     protected int nStartTime = -1;
 
     /**
-     * The time at which the program may start at last -1 deactivates that
-     * field, normal format is "HHmm"
+     * The time at which the program may start at last -1 deactivates
+     * that field, normal format is "HHmm"
      */
     protected int nEndTime = -1;
 
@@ -33,7 +32,8 @@ public class TimeFilter extends ProgrammeFilter
     protected SimpleDateFormat time = new SimpleDateFormat( "HHmm" );
 
     /**
-     * Decides if the given program shall be shown or gets filtered out.
+     * Decides if the given program shall be shown or gets filtered
+     * out.
      *
      * @param programme DOCUMENT ME!
      *
@@ -41,7 +41,6 @@ public class TimeFilter extends ProgrammeFilter
      */
     public boolean showProgramme( TVProgramme programme )
     {
-
         //I think that here is too expensive, but tell me how to make it faster..
         int nTime =
             Integer.parseInt( 
@@ -52,7 +51,6 @@ public class TimeFilter extends ProgrammeFilter
     }
 
     //public boolean showProgramme(TVProgramme programme)
-
     /**
      * DOCUMENT_ME!
      *
@@ -60,12 +58,10 @@ public class TimeFilter extends ProgrammeFilter
      */
     public int getStartTime(  )
     {
-
         return nStartTime;
     }
 
     //public int getStartTime()
-
     /**
      * DOCUMENT_ME!
      *
@@ -77,7 +73,6 @@ public class TimeFilter extends ProgrammeFilter
     }
 
     //public void setStartTime(int nStartTime)
-
     /**
      * DOCUMENT_ME!
      *
@@ -95,7 +90,6 @@ public class TimeFilter extends ProgrammeFilter
     }
 
     //public void setStartTime(int nStartTime, boolean bNotify)
-
     /**
      * DOCUMENT_ME!
      *
@@ -103,12 +97,10 @@ public class TimeFilter extends ProgrammeFilter
      */
     public int getEndTime(  )
     {
-
         return nEndTime;
     }
 
     //public int getEndTime()
-
     /**
      * DOCUMENT_ME!
      *
@@ -120,7 +112,6 @@ public class TimeFilter extends ProgrammeFilter
     }
 
     //public void setEndTime(int nEndTime)
-
     /**
      * DOCUMENT_ME!
      *
@@ -138,13 +129,11 @@ public class TimeFilter extends ProgrammeFilter
     }
 
     //public void setEndTime(int nEndTime, boolean bNotify)
-
     /**
      * sets the title dependent on the start and ending time
      */
     protected void setTitle(  )
     {
-
         if( ( this.nStartTime == -1 ) && ( this.nEndTime == -1 ) )
         {
             this.setTitle( 
@@ -153,11 +142,11 @@ public class TimeFilter extends ProgrammeFilter
         }
         else
         {
-
             StringBuffer strTitle = new StringBuffer( 20 );
             strTitle.append( 
-                VerticalViewer.getInstance(  ).getLocalizedMessage( 
-                    "timefilter.begins" ) ).append( " " );
+                VerticalViewer.getInstance(  )
+                              .getLocalizedMessage( "timefilter.begins" ) )
+                    .append( " " );
 
             if( this.nStartTime != -1 )
             {
@@ -165,15 +154,16 @@ public class TimeFilter extends ProgrammeFilter
 
                 if( this.nEndTime != -1 )
                 {
-                    strTitle.append( " - " ).append( 
-                        getTimeFromInt( this.nEndTime ) );
+                    strTitle.append( " - " )
+                            .append( getTimeFromInt( this.nEndTime ) );
                 }
             }
             else
             {
                 strTitle.append( 
-                    VerticalViewer.getInstance(  ).getLocalizedMessage( 
-                        "timefilter.until" ) ).append( " " ).append( 
+                    VerticalViewer.getInstance(  )
+                                  .getLocalizedMessage( "timefilter.until" ) )
+                        .append( " " ).append( 
                     getTimeFromInt( this.nEndTime ) );
             }
 
@@ -182,7 +172,6 @@ public class TimeFilter extends ProgrammeFilter
     }
 
     //protected void setTitle()
-
     /**
      * Make a time string "HH:mm" out of the TimeFilter time integer
      *
@@ -192,7 +181,6 @@ public class TimeFilter extends ProgrammeFilter
      */
     public static String getTimeFromInt( int nTime )
     {
-
         StringBuffer strTime = new StringBuffer( 5 );
         strTime.append( nTime );
 
@@ -209,7 +197,6 @@ public class TimeFilter extends ProgrammeFilter
     }
 
     //public static String getTimeFromInt(int nTime)
-
     /**
      * Our own notification method because we have to set the title.
      */
@@ -220,7 +207,6 @@ public class TimeFilter extends ProgrammeFilter
     }
 
     //public void notifyFilterChange()
-
     /**
      * DOCUMENT_ME!
      *
@@ -228,12 +214,10 @@ public class TimeFilter extends ProgrammeFilter
      */
     public String exportSettings(  )
     {
-
         return "" + ( ( this.nStartTime * 10000 ) + this.nEndTime );
     }
 
     //public String exportSettings()
-
     /**
      * DOCUMENT_ME!
      *
@@ -241,7 +225,6 @@ public class TimeFilter extends ProgrammeFilter
      */
     public void importSettings( String strValue )
     {
-
         int nValue = Integer.parseInt( strValue );
         this.nEndTime = nValue % 10000;
         this.nStartTime = ( nValue - this.nEndTime ) / 10000;
@@ -250,7 +233,6 @@ public class TimeFilter extends ProgrammeFilter
     }
 
     //public void importSettings(String strValue)
-
     /**
      * DOCUMENT_ME!
      */
@@ -262,7 +244,6 @@ public class TimeFilter extends ProgrammeFilter
     }
 
     //public void deactivate()
-
     /**
      * DOCUMENT_ME!
      *
@@ -270,12 +251,9 @@ public class TimeFilter extends ProgrammeFilter
      */
     public boolean isDeactivated(  )
     {
-
         return ( this.nStartTime == -1 ) && ( this.nEndTime == -1 );
     }
 
     //public boolean isDeactivated()
 }
-
-
 //public class TimeFilter extends ProgrammeFilter

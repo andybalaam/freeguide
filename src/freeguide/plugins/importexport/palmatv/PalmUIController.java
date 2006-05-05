@@ -22,11 +22,10 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class PalmUIController implements IModuleConfigurationUI
 {
-
     protected PalmUIPanel panel;
     protected final ExportPalmAtv parent;
 
-    /**
+/**
      * Creates a new PalmUIController object.
      *
      * @param parent DOCUMENT ME!
@@ -43,12 +42,11 @@ public class PalmUIController implements IModuleConfigurationUI
      */
     public Component getPanel(  )
     {
-
         if( panel == null )
         {
             panel = new PalmUIPanel( parent );
-            panel.getCbCharset(  ).setModel( 
-                new DefaultComboBoxModel( getCharsets(  ) ) );
+            panel.getCbCharset(  )
+                 .setModel( new DefaultComboBoxModel( getCharsets(  ) ) );
             panel.getCbCharset(  ).setSelectedItem( parent.config.charset );
         }
 
@@ -67,8 +65,7 @@ public class PalmUIController implements IModuleConfigurationUI
      */
     public void save(  )
     {
-        parent.config.charset =
-            (String)panel.getCbCharset(  ).getSelectedItem(  );
+        parent.config.charset = (String)panel.getCbCharset(  ).getSelectedItem(  );
     }
 
     /**
@@ -85,13 +82,11 @@ public class PalmUIController implements IModuleConfigurationUI
      */
     public String[] getCharsets(  )
     {
-
         final List result = new ArrayList(  );
         SortedMap list = Charset.availableCharsets(  );
 
         for( Iterator it = list.entrySet(  ).iterator(  ); it.hasNext(  ); )
         {
-
             Map.Entry entry = (Map.Entry)it.next(  );
             Charset ch = (Charset)entry.getValue(  );
             result.add( entry.getKey(  ) );

@@ -36,18 +36,17 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
 /**
- * Handles HyperlinkEvents created by the HTML document displayed in the HTML
- * program guide.
+ * Handles HyperlinkEvents created by the HTML document displayed in the
+ * HTML program guide.
  *
  * @author Mike Dean
  * @version 1
  */
 public class ViewerFramePersonalGuideListener implements HyperlinkListener
 {
-
     private HorizontalViewer controller;
 
-    /**
+/**
      * Creates a new HTMLGuideListener object.
      *
      * @param controller the HorizontalViewer controller used to access other
@@ -60,20 +59,18 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
     }
 
     /**
-     * Requests the ViewerFrame scroll the program listing to the time encoded
-     * in the link's hypertext reference, and shows the clicked programme in
-     * the programme details panel. The method is called when a hypertext
-     * link is updated ("ACTIVATED", "ENTERED", or "EXITED"). Only events of
-     * type "ACTIVATED" are important.
+     * Requests the ViewerFrame scroll the program listing to the time
+     * encoded in the link's hypertext reference, and shows the clicked
+     * programme in the programme details panel. The method is called when a
+     * hypertext link is updated ("ACTIVATED", "ENTERED", or "EXITED"). Only
+     * events of type "ACTIVATED" are important.
      *
      * @param e the event triggering this method call.
      */
     public void hyperlinkUpdate( HyperlinkEvent e )
     {
-
         if( HyperlinkEvent.EventType.ACTIVATED == e.getEventType(  ) )
         {
-
             String desc;
 
             try
@@ -117,7 +114,6 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
      */
     public TVProgramme getProgrammeFromReference( String reference )
     {
-
         // FIXME: this is a really slow way of doing it: we should cache
         // programme references somewhere - why not in programmes themselves?
         // FIXME: this is copied and pasted from ViewerFrameHTMLGuide
@@ -134,10 +130,8 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
 
                 protected void onProgramme( TVProgramme programme )
                 {
-
                     for( int i = 0; i < reminders.length; i++ )
                     {
-
                         if( reminders[i].isSelected( programme ) )
                         {
                             tickedProgrammes.add( programme );
@@ -152,13 +146,11 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
 
         while( it.hasNext(  ) )
         {
-
             TVProgramme prog = (TVProgramme)( it.next(  ) );
             String this_ref = ProgrammeFormat.createLinkReference( prog );
 
             if( this_ref.equals( reference ) )
             {
-
                 return prog;
             }
         }
@@ -167,7 +159,7 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
 
     }
 
-    /**
+/**
      * Utility method to create a unique ASCII-only name (reference) to
      * identify each program in the HTML program guide.
      */

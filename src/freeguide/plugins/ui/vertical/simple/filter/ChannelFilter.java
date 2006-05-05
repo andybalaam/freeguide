@@ -5,14 +5,13 @@ import freeguide.common.lib.fgspecific.data.TVProgramme;
 import java.util.ArrayList;
 
 /**
- * Filter programs by channel. If there are no channels set, all programs are
- * shown.
+ * Filter programs by channel. If there are no channels set, all programs
+ * are shown.
  *
  * @author Christian Weiske (cweiske at cweiske.de)
  */
 public class ChannelFilter extends ProgrammeFilter
 {
-
     protected ArrayList arAllowedChannelIds = new ArrayList(  );
 
     /**
@@ -26,7 +25,6 @@ public class ChannelFilter extends ProgrammeFilter
     }
 
     //public void addChannel(String strChannelId)
-
     /**
      * DOCUMENT_ME!
      *
@@ -44,7 +42,6 @@ public class ChannelFilter extends ProgrammeFilter
     }
 
     //public void addChannel(String strChannelId, boolean notify)
-
     /**
      * DOCUMENT_ME!
      *
@@ -56,7 +53,6 @@ public class ChannelFilter extends ProgrammeFilter
     }
 
     //public void removeChannel(String strChannelId)
-
     /**
      * DOCUMENT_ME!
      *
@@ -74,7 +70,6 @@ public class ChannelFilter extends ProgrammeFilter
     }
 
     //public void removeChannel(String strChannelId, boolean notify)
-
     /**
      * DOCUMENT_ME!
      */
@@ -84,7 +79,6 @@ public class ChannelFilter extends ProgrammeFilter
     }
 
     //public void removeAllChannels()
-
     /**
      * DOCUMENT_ME!
      *
@@ -101,7 +95,6 @@ public class ChannelFilter extends ProgrammeFilter
     }
 
     //public void removeAllChannels(boolean notify)
-
     /**
      * DOCUMENT_ME!
      *
@@ -111,7 +104,6 @@ public class ChannelFilter extends ProgrammeFilter
      */
     public boolean showProgramme( TVProgramme programme )
     {
-
         return ( this.arAllowedChannelIds.size(  ) == 0 )
         || this.arAllowedChannelIds.contains( 
             programme.getChannel(  ).getID(  ) );
@@ -119,6 +111,4 @@ public class ChannelFilter extends ProgrammeFilter
 
     //public boolean showProgramme(TVProgramme programme)
 }
-
-
 //public class ChannelFilter extends ProgrammeFilter

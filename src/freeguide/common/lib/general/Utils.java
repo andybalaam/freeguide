@@ -10,6 +10,7 @@
  *
  *  See the file COPYING for more information.
  */
+
 /*
  *  parseCommand() method Copyright (c) by Slava Pestov
  *
@@ -40,7 +41,6 @@ import java.util.logging.Level;
  */
 public class Utils
 {
-
     // ----------------------------------------------
     private final static char dosSlash = 127;
 
@@ -51,7 +51,6 @@ public class Utils
      */
     public static void execNoWait( String[] cmds )
     {
-
         //  execNoWait( cmds, null );
     }
 
@@ -62,12 +61,11 @@ public class Utils
      */
     public static void execNoWait( String cmd )
     {
-        Application.getInstance(  ).getLogger(  ).info( 
-            "Execute system command: " + cmd );
+        Application.getInstance(  ).getLogger(  )
+                   .info( "Execute system command: " + cmd );
 
         try
         {
-
             // Parse the command into arguments and execute
             Runtime.getRuntime(  ).exec( parseCommand( cmd ) );
 
@@ -75,15 +73,16 @@ public class Utils
 
         catch( java.io.IOException ex )
         {
-            Application.getInstance(  ).getLogger(  ).log( 
+            Application.getInstance(  ).getLogger(  )
+                       .log( 
                 Level.WARNING, "Error execute command : " + cmd, ex );
         }
     }
 
     /**
-     * Convert a command into an array of arguments. Adapted from a method
-     * written by Slava Pestov for the JEdit project www.jedit.org Thanks
-     * Slava!
+     * Convert a command into an array of arguments. Adapted from a
+     * method written by Slava Pestov for the JEdit project www.jedit.org
+     * Thanks Slava!
      *
      * @param command Description of the Parameter
      *
@@ -91,7 +90,6 @@ public class Utils
      */
     public static String[] parseCommand( String command )
     {
-
         Vector args = new Vector(  );
 
         String[] ans;
@@ -125,10 +123,8 @@ loop:
 
             while( true )
             {
-
                 switch( st.nextToken(  ) )
                 {
-
                 case StreamTokenizer.TT_EOF:
                     break loop;
 
@@ -145,7 +141,6 @@ loop:
 
         catch( java.io.IOException io )
         {
-
             // won't happen
         }
 
@@ -158,10 +153,9 @@ loop:
     }
 
     // --------------------------------------------------------------------
-
     /**
-     * In each of the string in str, replace any occurences of oldStr with
-     * newStr.
+     * In each of the string in str, replace any occurences of oldStr
+     * with newStr.
      *
      * @param str Description of the Parameter
      * @param oldStr Description of the Parameter
@@ -172,13 +166,11 @@ loop:
     public static String[] substitute( 
         String[] str, String oldStr, String newStr )
     {
-
         String[] ans = new String[str.length];
 
         // Go through each string we're processing
         for( int i = 0; i < str.length; i++ )
         {
-
             // Copy it into the output array
             ans[i] = str[i];
 
@@ -194,8 +186,7 @@ loop:
 
                 if( k < ans[i].length(  ) )
                 {
-                    ans[i] =
-                        ans[i].substring( 0, j ) + newStr
+                    ans[i] = ans[i].substring( 0, j ) + newStr
                         + ans[i].substring( k );
 
                 }
@@ -224,7 +215,6 @@ loop:
     public static void centreDialog( 
         final Component parent, final Window dialog )
     {
-
         Dimension thisSize = parent.getSize(  );
 
         Dimension dialogSize = dialog.getSize(  );
@@ -243,7 +233,6 @@ loop:
      */
     public static void centreDialog( final Window dialog )
     {
-
         Dimension screenSize = Toolkit.getDefaultToolkit(  ).getScreenSize(  );
 
         Dimension dialogSize = dialog.getSize(  );

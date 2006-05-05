@@ -7,7 +7,6 @@ package freeguide.common.plugininterfaces;
  */
 public interface IModuleConfigureFromWizard
 {
-
     /**
      * DOCUMENT_ME!
      *
@@ -32,13 +31,12 @@ public interface IModuleConfigureFromWizard
      */
     public static class CountryInfo
     {
-
         // ISO Country Code. See http://www.iso.ch/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html.
         final protected String country;
         final protected int priority;
         final protected boolean supportSelectChannel;
 
-        /**
+/**
          * Creates a new CountryInfo object.
          *
          * @param country DOCUMENT ME!
@@ -61,7 +59,6 @@ public interface IModuleConfigureFromWizard
          */
         public String getCountry(  )
         {
-
             return country;
         }
 
@@ -72,7 +69,6 @@ public interface IModuleConfigureFromWizard
          */
         public int getPriority(  )
         {
-
             return priority;
         }
 
@@ -83,7 +79,6 @@ public interface IModuleConfigureFromWizard
          */
         public boolean isSupportSelectChannel(  )
         {
-
             return supportSelectChannel;
         }
     }

@@ -16,7 +16,6 @@ import javax.xml.transform.stream.StreamSource;
  */
 public class DocXSLT
 {
-
     /**
      * DOCUMENT_ME!
      *
@@ -26,14 +25,16 @@ public class DocXSLT
      */
     public static void main( final String[] args ) throws Exception
     {
-
-        final TransformerFactory factory = TransformerFactory.newInstance(  );
+        final TransformerFactory factory = TransformerFactory
+            .newInstance(  );
 
         final InputStream xslt =
             new FileInputStream( "doc/docbook-xsl-1.69.1/xhtml/chunk.xsl" );
-        final String systemId = new File("doc/docbook-xsl-1.69.1/xhtml/").toURL().toExternalForm();
+        final String systemId =
+            new File( "doc/docbook-xsl-1.69.1/xhtml/" ).toURL(  )
+                                                       .toExternalForm(  );
         final Transformer trans =
-            factory.newTransformer( new StreamSource( xslt,systemId ) );
+            factory.newTransformer( new StreamSource( xslt, systemId ) );
 
         trans.transform( 
             new StreamSource( new FileInputStream( "doc/manual.xml" ) ), null );

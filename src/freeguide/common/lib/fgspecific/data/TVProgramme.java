@@ -24,7 +24,6 @@ import java.util.Vector;
  */
 public class TVProgramme implements Comparable, Serializable
 {
-
     private final static long serialVersionUID = 10;
 
     /** Description of the Field */
@@ -72,7 +71,7 @@ public class TVProgramme implements Comparable, Serializable
     /** Any unrecognised tags go in here. */
     private Map extraTags;
 
-    /**
+/**
      * Constructor for the Programme object
      */
     public TVProgramme(  )
@@ -86,7 +85,6 @@ public class TVProgramme implements Comparable, Serializable
      */
     public Object clone(  )
     {
-
         final TVProgramme result = new TVProgramme(  );
 
         result.title = title;
@@ -127,7 +125,6 @@ public class TVProgramme implements Comparable, Serializable
      */
     public long getStart(  )
     {
-
         return start;
 
     }
@@ -139,7 +136,6 @@ public class TVProgramme implements Comparable, Serializable
      */
     public long getEnd(  )
     {
-
         return end;
 
     }
@@ -173,7 +169,6 @@ public class TVProgramme implements Comparable, Serializable
      */
     public boolean getIsMovie(  )
     {
-
         return this.isMovie;
 
     }
@@ -196,7 +191,6 @@ public class TVProgramme implements Comparable, Serializable
      */
     public boolean getPreviouslyShown(  )
     {
-
         return this.previouslyShown;
 
     }
@@ -219,7 +213,6 @@ public class TVProgramme implements Comparable, Serializable
      */
     public String getStarRating(  )
     {
-
         return this.starRating;
 
     }
@@ -231,12 +224,10 @@ public class TVProgramme implements Comparable, Serializable
      */
     public String getStarString(  )
     {
-
         String rating = getStarRating(  );
 
         if( rating == null )
         {
-
             return "";
 
         }
@@ -245,23 +236,19 @@ public class TVProgramme implements Comparable, Serializable
 
         if( i > 0 )
         {
-
             try
             {
-
                 double num = Double.parseDouble( rating.substring( 0, i ) );
 
                 if( num == 0 )
                 {
-
-                    return Application.getInstance(  ).getLocalizedMessage( 
-                        "no_stars" );
+                    return Application.getInstance(  )
+                                      .getLocalizedMessage( "no_stars" );
 
                 }
 
                 if( Math.floor( num ) == num )
                 {
-
                     return "("
                     + STARS.substring( 
                         0, (int)Math.round( Math.floor( num ) ) ) + ")";
@@ -270,7 +257,6 @@ public class TVProgramme implements Comparable, Serializable
 
                 else
                 {
-
                     return "("
                     + STARS.substring( 
                         0, (int)Math.round( Math.floor( num ) ) ) + " 1/2)";
@@ -280,7 +266,6 @@ public class TVProgramme implements Comparable, Serializable
 
             catch( Exception ex )
             {
-
                 return "";
 
             }
@@ -317,7 +302,6 @@ public class TVProgramme implements Comparable, Serializable
      */
     public String getTitle(  )
     {
-
         return title;
 
     }
@@ -329,7 +313,6 @@ public class TVProgramme implements Comparable, Serializable
      */
     public String getSubTitle(  )
     {
-
         return subtitle;
 
     }
@@ -341,7 +324,6 @@ public class TVProgramme implements Comparable, Serializable
      */
     public void addDesc( String desc )
     {
-
         if( description == null )
         {
             description = desc;
@@ -372,7 +354,6 @@ public class TVProgramme implements Comparable, Serializable
      */
     public String getDescription(  )
     {
-
         return description;
 
     }
@@ -384,7 +365,6 @@ public class TVProgramme implements Comparable, Serializable
      */
     public TVChannel getChannel(  )
     {
-
         return channel;
 
     }
@@ -418,19 +398,18 @@ public class TVProgramme implements Comparable, Serializable
      */
     public boolean isSubtitled(  )
     {
-
         return isSubtitled;
 
     }
 
     /**
-     * Adds a feature to the Category attribute of the Programme object
+     * Adds a feature to the Category attribute of the Programme
+     * object
      *
      * @param newCategory The feature to be added to the Category attribute
      */
     public void addCategory( String newCategory )
     {
-
         if( category == null )
         {
             category = new Vector(  );
@@ -448,18 +427,15 @@ public class TVProgramme implements Comparable, Serializable
      */
     public String getCategory(  )
     {
-
         // FIXME just returns first one
         if( ( category != null ) && ( category.size(  ) > 0 ) )
         {
-
             return (String)category.get( 0 );
 
         }
 
         else
         {
-
             return null;
 
         }
@@ -483,15 +459,14 @@ public class TVProgramme implements Comparable, Serializable
      */
     public URL getLink(  )
     {
-
         return link;
 
     }
 
     /**
-     * Decides whether two programme objects refer to the same programme
-     * Programmes are assumed to be uniquely identified by their title, start
-     * time and channel.
+     * Decides whether two programme objects refer to the same
+     * programme Programmes are assumed to be uniquely identified by their
+     * title, start time and channel.
      *
      * @param obj Description of the Parameter
      *
@@ -499,17 +474,14 @@ public class TVProgramme implements Comparable, Serializable
      */
     public boolean equals( Object obj )
     {
-
         if( obj == null )
         {
-
             return false;
 
         }
 
         if( !( obj instanceof TVProgramme ) )
         {
-
             return false;
 
         }
@@ -521,7 +493,6 @@ public class TVProgramme implements Comparable, Serializable
                 && ( start == other.getStart(  ) )
                 && channel.equals( other.getChannel(  ) ) )
         {
-
             return true;
 
         }
@@ -531,14 +502,13 @@ public class TVProgramme implements Comparable, Serializable
     }
 
     /**
-     * Returns a hashcode for the programme. Implemented to keep consistency
-     * since the equals method was overridden.
+     * Returns a hashcode for the programme. Implemented to keep
+     * consistency since the equals method was overridden.
      *
      * @return Description of the Return Value
      */
     public int hashCode(  )
     {
-
         // Just add up 3 values - stupid?
         byte[] titleBytes = title.getBytes(  );
 
@@ -574,7 +544,6 @@ public class TVProgramme implements Comparable, Serializable
     public void setExtraTag( 
         final String tagName, final String attrName, final String value )
     {
-
         if( extraTags == null )
         {
             extraTags = new HashMap(  );
@@ -609,10 +578,8 @@ public class TVProgramme implements Comparable, Serializable
      */
     public String getIconURL(  )
     {
-
         if( iconURL == null )
         {
-
             return null;
 
         }
@@ -643,11 +610,9 @@ public class TVProgramme implements Comparable, Serializable
         // then verify if the file is in the cache
         if( !cache.canRead(  ) )
         {
-
             // if not, we try to fetch it from the url
             try
             {
-
                 URL iconURL;
 
                 iconURL = new URL( this.iconURL );
@@ -674,14 +639,12 @@ public class TVProgramme implements Comparable, Serializable
 
             catch( MalformedURLException e )
             {
-
                 return null;
 
             }
 
             catch( IOException e )
             {
-
                 return null;
 
             }
@@ -689,14 +652,12 @@ public class TVProgramme implements Comparable, Serializable
 
         try
         {
-
             return cache.toURL(  ).toString(  );
 
         }
 
         catch( MalformedURLException e )
         {
-
             return null;
 
         }
@@ -720,7 +681,6 @@ public class TVProgramme implements Comparable, Serializable
      */
     public Map getExtraTags(  )
     {
-
         return extraTags;
     }
 
@@ -733,26 +693,22 @@ public class TVProgramme implements Comparable, Serializable
      */
     public int compareTo( Object arg0 )
     {
-
         long result = start - ( (TVProgramme)arg0 ).start;
 
         if( result < 0 )
         {
-
             return -1;
 
         }
 
         else if( result > 0 )
         {
-
             return 1;
 
         }
 
         else
         {
-
             return 0;
 
         }
@@ -765,7 +721,6 @@ public class TVProgramme implements Comparable, Serializable
      */
     public String toString(  )
     {
-
         return new Date( start ) + " " + title;
 
     }

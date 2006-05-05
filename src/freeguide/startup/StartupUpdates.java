@@ -21,7 +21,6 @@ import java.util.zip.ZipFile;
  */
 public class StartupUpdates
 {
-
     /**
      * DOCUMENT_ME!
      *
@@ -39,14 +38,12 @@ public class StartupUpdates
     protected void unzipFiles( final File installDir )
         throws IOException
     {
-
         File[] files =
             new File( installDir, "updates" ).listFiles( 
                 new FileFilter(  )
                 {
                     public boolean accept( File pathname )
                     {
-
                         return !pathname.isDirectory(  )
                         && pathname.getName(  ).toLowerCase(  ).endsWith( 
                             ".zip" );
@@ -55,7 +52,6 @@ public class StartupUpdates
 
         if( files != null )
         {
-
             for( int i = 0; i < files.length; i++ )
             {
                 System.out.println( 
@@ -66,12 +62,10 @@ public class StartupUpdates
 
                 try
                 {
-
                     Enumeration zipEntries = zip.entries(  );
 
                     while( zipEntries.hasMoreElements(  ) )
                     {
-
                         ZipEntry entry = (ZipEntry)zipEntries.nextElement(  );
                         File outFile =
                             new File( installDir, entry.getName(  ) );
@@ -82,7 +76,6 @@ public class StartupUpdates
                         }
                         else
                         {
-
                             InputStream in = zip.getInputStream( entry );
 
                             try
@@ -113,7 +106,6 @@ public class StartupUpdates
     protected void unzipFile( final InputStream from, final File to )
         throws IOException
     {
-
         byte[] buffer = new byte[65536];
         int len;
         BufferedOutputStream out =
@@ -121,7 +113,6 @@ public class StartupUpdates
 
         try
         {
-
             while( ( len = from.read( buffer ) ) > 0 )
             {
                 out.write( buffer, 0, len );
@@ -138,12 +129,10 @@ public class StartupUpdates
     protected void deleteFiles( final File installDir )
         throws IOException
     {
-
         File deleteList = new File( installDir, "updates/delete.list" );
 
         if( deleteList.exists(  ) )
         {
-
             BufferedReader in =
                 new BufferedReader( 
                     new InputStreamReader( 
@@ -151,15 +140,12 @@ public class StartupUpdates
 
             try
             {
-
                 while( true )
                 {
-
                     String line = in.readLine(  );
 
                     if( line == null )
                     {
-
                         break;
                     }
 
@@ -167,7 +153,6 @@ public class StartupUpdates
 
                     if( !toDelete.delete(  ) )
                     {
-
                         if( 
                             !toDelete.isDirectory(  )
                                 && !"startup.jar".equals( 

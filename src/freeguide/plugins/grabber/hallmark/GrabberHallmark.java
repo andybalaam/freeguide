@@ -2,7 +2,6 @@ package freeguide.plugins.grabber.hallmark;
 
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-
 import freeguide.common.lib.grabber.HttpBrowser;
 
 import freeguide.common.plugininterfaces.BaseModule;
@@ -32,7 +31,6 @@ import javax.swing.JDialog;
  */
 public class GrabberHallmark extends BaseModule implements IModuleGrabber
 {
-
     protected final Config config = new Config(  );
 
     /**
@@ -42,7 +40,6 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
      */
     public Object getConfig(  )
     {
-
         return config;
     }
 
@@ -73,7 +70,6 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
         IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
-
         final HttpBrowser browser = new HttpBrowser(  );
         HallmarkInfo.Country country =
             HallmarkInfo.getCountry( config.countryId );
@@ -128,7 +124,6 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
 
             for( int i = 0; i < list.size(  ); i++ )
             {
-
                 TVProgramme prog = (TVProgramme)list.get( i );
 
                 if( prog.getDescription(  ) != null )
@@ -151,7 +146,6 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
         final String url, final Language lang, final String key )
         throws IOException, SAXException
     {
-
         final HttpBrowser browser = new HttpBrowser(  );
         StringBuffer urlSched = new StringBuffer(  );
         urlSched.append( url );
@@ -187,7 +181,6 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
      */
     public IModuleConfigurationUI getConfigurationUI( JDialog parentDialog )
     {
-
         return new HallmarkConfigurationUIController( this );
     }
 
@@ -199,7 +192,6 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
      */
     public static class Config
     {
-
         /** Selected Country ID. */
         public String countryId;
 

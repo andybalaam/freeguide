@@ -3,7 +3,6 @@ package freeguide.plugins.importexport.xmltv;
 import freeguide.common.gui.FileChooserExtension;
 
 import freeguide.common.lib.fgspecific.data.TVData;
-
 import freeguide.common.lib.importexport.XMLTVExport;
 import freeguide.common.lib.importexport.XMLTVImport;
 
@@ -27,7 +26,6 @@ import javax.swing.filechooser.FileFilter;
 public class ImpExpXmltv extends BaseModule implements IModuleImport,
     IModuleExport
 {
-
     /**
      * DOCUMENT_ME!
      *
@@ -35,7 +33,6 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
      */
     public Object getConfig(  )
     {
-
         return null;
     }
 
@@ -50,20 +47,17 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
     public void importDataUI( final JFrame parent, final IStoragePipe storage )
         throws Exception
     {
-
         JFileChooser chooser = new JFileChooser(  );
         chooser.setFileFilter( 
             new FileFilter(  )
             {
                 public String getDescription(  )
                 {
-
                     return "XMLTV .xmltv file";
                 }
 
                 public boolean accept( File pathname )
                 {
-
                     return pathname.isDirectory(  )
                     || pathname.getName(  ).endsWith( ".xmltv" );
                 }
@@ -73,13 +67,11 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
 
         if( chooser.showOpenDialog( parent ) == JFileChooser.APPROVE_OPTION )
         {
-
             File[] files = chooser.getSelectedFiles(  );
             XMLTVImport imp = new XMLTVImport(  );
 
             if( files != null )
             {
-
                 for( int i = 0; i < files.length; i++ )
                 {
                     imp.process( 
@@ -115,20 +107,17 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
     public void exportData( TVData data, JFrame parent )
         throws IOException
     {
-
         JFileChooser chooser = new JFileChooser(  );
         chooser.setFileFilter( 
             new FileFilter(  )
             {
                 public String getDescription(  )
                 {
-
                     return "XMLTV .xmltv file";
                 }
 
                 public boolean accept( File pathname )
                 {
-
                     return pathname.isDirectory(  )
                     || pathname.getName(  ).endsWith( ".xmltv" );
                 }
@@ -140,7 +129,6 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
 
         if( chooser.showSaveDialog( parent ) == JFileChooser.APPROVE_OPTION )
         {
-
             File destination = chooser.getSelectedFile(  );
 
             if( !destination.getPath(  ).endsWith( ".xmltv" ) )

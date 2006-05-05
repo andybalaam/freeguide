@@ -19,7 +19,6 @@ import javax.swing.*;
  */
 public class GenericFilterMenu extends JPopupMenu implements ActionListener
 {
-
     protected static final int nRecentItems = 15;
     protected ProgrammeFilter filter;
     protected Class dialogClass;
@@ -30,7 +29,7 @@ public class GenericFilterMenu extends JPopupMenu implements ActionListener
     /** List with all "recent" time items */
     protected LinkedList history = new LinkedList(  );
 
-    /**
+/**
      * Creates a new GenericFilterMenu object.
      *
      * @param filter DOCUMENT ME!
@@ -47,23 +46,22 @@ public class GenericFilterMenu extends JPopupMenu implements ActionListener
     //public GenericFilterMenu(TimeFilter filter)
     protected void buildMenu(  )
     {
-        this.mnuEdit =
-            new JMenuItem( 
-                VerticalViewer.getInstance(  ).getLocalizedMessage( 
+        this.mnuEdit = new JMenuItem( 
+                VerticalViewer.getInstance(  )
+                              .getLocalizedMessage( 
                     "genericfilter.menu.editfilter" ) );
         this.mnuEdit.addActionListener( this );
         this.add( this.mnuEdit );
 
-        this.mnuNoFilter =
-            new JMenuItem( 
-                VerticalViewer.getInstance(  ).getLocalizedMessage( 
+        this.mnuNoFilter = new JMenuItem( 
+                VerticalViewer.getInstance(  )
+                              .getLocalizedMessage( 
                     "genericfilter.menu.nofilter" ) );
         this.mnuNoFilter.addActionListener( this );
         this.add( this.mnuNoFilter );
     }
 
     //protected void buildMenu()
-
     /**
      * DOCUMENT_ME!
      *
@@ -71,7 +69,6 @@ public class GenericFilterMenu extends JPopupMenu implements ActionListener
      */
     public void actionPerformed( ActionEvent e )
     {
-
         if( e.getSource(  ) == this.mnuEdit )
         {
             showSettingDialog(  );
@@ -82,7 +79,6 @@ public class GenericFilterMenu extends JPopupMenu implements ActionListener
         }
         else
         {
-
             //import the filter setting
             this.filter.importSettings( 
                 (String)( (DataMenuItem)e.getSource(  ) ).getData(  ) );
@@ -90,17 +86,14 @@ public class GenericFilterMenu extends JPopupMenu implements ActionListener
     }
 
     //public void actionPerformed(ActionEvent e)
-
     /**
-     * Shows the time setting dialog and calls the addRecent() method if the
-     * dialog has been closed with Ok
+     * Shows the time setting dialog and calls the addRecent() method
+     * if the dialog has been closed with Ok
      */
     protected void showSettingDialog(  )
     {
-
         if( this.dialog == null )
         {
-
             try
             {
                 this.dialog = (SettingDialog)dialogClass.newInstance(  );
@@ -125,16 +118,13 @@ public class GenericFilterMenu extends JPopupMenu implements ActionListener
     }
 
     //protected void showSettingDialog()
-
     /**
      * adds a "recent time" menu item
      */
     protected void addRecent(  )
     {
-
         if( this.filter.isDeactivated(  ) )
         {
-
             return;
         }
 
@@ -151,7 +141,6 @@ public class GenericFilterMenu extends JPopupMenu implements ActionListener
 
         for( int nA = 0; nA < arItems.length; nA++ )
         {
-
             if( 
                 ( (DataMenuItem)arItems[nA] ).getData(  ).equals( 
                         strExportValue ) )
@@ -164,7 +153,6 @@ public class GenericFilterMenu extends JPopupMenu implements ActionListener
 
         if( !bExists )
         {
-
             JMenuItem item =
                 new DataMenuItem( this.filter.getTitle(  ), strExportValue );
             item.addActionListener( this );
@@ -174,7 +162,6 @@ public class GenericFilterMenu extends JPopupMenu implements ActionListener
             //Remove the oldest item when we reached the max size
             if( this.history.size(  ) > nRecentItems )
             {
-
                 DataMenuItem oldItem = (DataMenuItem)this.history.getFirst(  );
                 this.remove( oldItem );
                 this.history.remove( oldItem );
@@ -184,6 +171,4 @@ public class GenericFilterMenu extends JPopupMenu implements ActionListener
 
     //protected void addRecent()
 }
-
-
 //public class GenericFilterMenu

@@ -31,9 +31,14 @@ import javax.swing.JTextField;
  * @created    12 Dec 2003
  * @version    1
  */
+/**
+ * DOCUMENT ME!
+ *
+ * @author $author$
+ * @version $Revision$
+  */
 public class AlarmUIController implements IModuleConfigurationUI
 {
-
     // ----------------------------------
     private JComboBox remindComboBox;
     private JTextField warningTextField;
@@ -41,7 +46,7 @@ public class AlarmUIController implements IModuleConfigurationUI
     protected final AlarmUIPanel panel;
     protected final AlarmReminder parent;
 
-    /**
+/**
      * Creates a new AlarmUIController object.
      *
      * @param parent DOCUMENT ME!
@@ -53,11 +58,11 @@ public class AlarmUIController implements IModuleConfigurationUI
         this.parent = parent;
         panel = new AlarmUIPanel( parent.getLocalizer(  ) );
         panel.getCbRemind(  ).setSelected( parent.config.reminderOn );
-        panel.getTextWarning(  ).setText( 
-            String.valueOf( parent.config.reminderWarning / 1000 ) );
+        panel.getTextWarning(  )
+             .setText( String.valueOf( parent.config.reminderWarning / 1000 ) );
 
-        panel.getTextGiveup(  ).setText( 
-            String.valueOf( parent.config.reminderGiveUp / 1000 ) );
+        panel.getTextGiveup(  )
+             .setText( String.valueOf( parent.config.reminderGiveUp / 1000 ) );
     }
 
     /**
@@ -65,7 +70,6 @@ public class AlarmUIController implements IModuleConfigurationUI
      */
     public void cancel(  )
     {
-
         // TODO Auto-generated method stub
     }
 
@@ -76,7 +80,6 @@ public class AlarmUIController implements IModuleConfigurationUI
      */
     public Component getPanel(  )
     {
-
         return panel;
     }
 
@@ -85,7 +88,6 @@ public class AlarmUIController implements IModuleConfigurationUI
      */
     public void resetToDefaults(  )
     {
-
         // TODO Auto-generated method stub
     }
 
@@ -95,9 +97,9 @@ public class AlarmUIController implements IModuleConfigurationUI
     public void save(  )
     {
         parent.config.reminderOn = panel.getCbRemind(  ).isSelected(  );
-        parent.config.reminderWarning =
-            Long.parseLong( panel.getTextWarning(  ).getText(  ) ) * 1000L;
-        parent.config.reminderGiveUp =
-            Long.parseLong( panel.getTextGiveup(  ).getText(  ) ) * 1000L;
+        parent.config.reminderWarning = Long.parseLong( 
+                panel.getTextWarning(  ).getText(  ) ) * 1000L;
+        parent.config.reminderGiveUp = Long.parseLong( 
+                panel.getTextGiveup(  ).getText(  ) ) * 1000L;
     }
 }

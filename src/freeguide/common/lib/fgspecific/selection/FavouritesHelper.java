@@ -18,12 +18,11 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Maintains a List of favourites and provides methods for matching programmes
- * to favourites.
+ * Maintains a List of favourites and provides methods for matching
+ * programmes to favourites.
  */
 class FavouritesHelper
 {
-
     /**
      * Returns the Favourite associated with the given Programme.
      *
@@ -35,7 +34,6 @@ class FavouritesHelper
     public static Favourite getFavourite( 
         List favourites, TVProgramme programme )
     {
-
         Favourite value = null;
 
         Iterator favouritesIterator = favourites.iterator(  );
@@ -95,7 +93,6 @@ class FavouritesHelper
      */
     public static boolean isFavourite( List favourites, TVProgramme programme )
     {
-
         boolean value = false;
 
         Favourite fav = getFavourite( favourites, programme );

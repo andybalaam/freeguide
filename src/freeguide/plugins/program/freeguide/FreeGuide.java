@@ -12,16 +12,7 @@
  */
 package freeguide.plugins.program.freeguide;
 
-import freeguide.plugins.program.freeguide.dialogs.PleaseWaitFrame;
-import freeguide.plugins.program.freeguide.viewer.MainController;
-import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
-import freeguide.plugins.program.freeguide.migration.Migrate;
-
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
-import freeguide.plugins.program.freeguide.lib.fgspecific.StoragePipe;
-
-import freeguide.plugins.program.freeguide.lib.general.CmdArgs;
 import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.PreferencesHelper;
 import freeguide.common.lib.general.Version;
@@ -31,16 +22,24 @@ import freeguide.common.plugininterfaces.IModuleImport;
 import freeguide.common.plugininterfaces.IModuleStorage;
 import freeguide.common.plugininterfaces.IModuleViewer;
 
+import freeguide.plugins.program.freeguide.dialogs.PleaseWaitFrame;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
+import freeguide.plugins.program.freeguide.lib.fgspecific.StoragePipe;
+import freeguide.plugins.program.freeguide.lib.general.CmdArgs;
+import freeguide.plugins.program.freeguide.migration.Migrate;
+import freeguide.plugins.program.freeguide.viewer.MainController;
+import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
+
 import java.io.File;
 import java.io.FileFilter;
 
 import java.util.Locale;
 import java.util.Properties;
 import java.util.TimeZone;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.logging.Handler;
-import java.util.logging.ConsoleHandler;
 import java.util.prefs.Preferences;
 
 import javax.swing.JFrame;
@@ -55,7 +54,6 @@ import javax.swing.JOptionPane;
  */
 public class FreeGuide
 {
-
     /** Predefined UI module. */
     public static final String VIEWER_ID = "ui-horizontal";
 
@@ -76,7 +74,6 @@ public class FreeGuide
     protected static LanguageHelper startupMessages;
 
     //------------------------------------------------------------------------
-
     /** Holds all commandline arguments */
     public static Properties arguments;
 
@@ -87,7 +84,7 @@ public class FreeGuide
     /** DOCUMENT ME! */
     protected static PleaseWaitFrame pleaseWaitFrame;
 
-    /**
+/**
      * Run FreeGuide.  Command line arguments are: --language lang     Set the
      * language FreeGuide uses, e.g. "en" for English, "de" for German
      * --country  ctry     Set the country variant for localisation, e.g.
@@ -100,70 +97,69 @@ public class FreeGuide
      */
     public FreeGuide( String[] args ) throws Exception
     {
-        startupMessages =
-            new LanguageHelper( 
+        startupMessages = new LanguageHelper( 
                 "resources/i18n/Startup",
                 LanguageHelper.getPreferredLocale( 
                     new Locale[] { Locale.getDefault(  ) },
-                    LanguageHelper.getLocaleList( "resources/i18n/Startup" ) )
-                        );
+                    LanguageHelper.getLocaleList( "resources/i18n/Startup" ) ) );
 
         // Check Java version.  If wrong, exit with error
         checkJavaVersion(  );
 
         arguments = CmdArgs.parse( args );
-		
-		if( arguments.containsKey( "log_level" ) )
-		{
-			Level lev;
-			String strlev = arguments.getProperty( "log_level" ).toUpperCase();
-			
-			if( strlev.equals( "SEVERE" ) )
-			{
-				lev = Level.SEVERE;
-			}
-			else if( strlev.equals( "WARNING" ) )
-			{
-				lev = Level.WARNING;
-			}
-			else if( strlev.equals( "INFO" ) )
-			{
-				lev = Level.INFO;
-			}
-			else if( strlev.equals( "CONFIG" ) )
-			{
-				lev = Level.CONFIG;
-			}
-			else if( strlev.equals( "FINE" ) )
-			{
-				lev = Level.FINE;
-			}
-			else if( strlev.equals( "FINER" ) )
-			{
-				lev = Level.FINER;
-			}
-			else if( strlev.equals( "FINEST" ) )
-			{
-				lev = Level.FINEST;
-			}
-			else
-			{
-				lev = Level.INFO;
-				log.warning(
-					"Unrecognised log level \"" + strlev + "\", defaulting to info" );
-			}
-			
-			// I know this looks wrong and totally stupid, but this is what you have to do:
-			log.setLevel( lev );
-			log.getParent().setLevel( lev );
-			log.getParent().getHandlers()[0].setLevel( lev );
-		}
-		
+
+        if( arguments.containsKey( "log_level" ) )
+        {
+            Level lev;
+            String strlev =
+                arguments.getProperty( "log_level" ).toUpperCase(  );
+
+            if( strlev.equals( "SEVERE" ) )
+            {
+                lev = Level.SEVERE;
+            }
+            else if( strlev.equals( "WARNING" ) )
+            {
+                lev = Level.WARNING;
+            }
+            else if( strlev.equals( "INFO" ) )
+            {
+                lev = Level.INFO;
+            }
+            else if( strlev.equals( "CONFIG" ) )
+            {
+                lev = Level.CONFIG;
+            }
+            else if( strlev.equals( "FINE" ) )
+            {
+                lev = Level.FINE;
+            }
+            else if( strlev.equals( "FINER" ) )
+            {
+                lev = Level.FINER;
+            }
+            else if( strlev.equals( "FINEST" ) )
+            {
+                lev = Level.FINEST;
+            }
+            else
+            {
+                lev = Level.INFO;
+                log.warning( 
+                    "Unrecognised log level \"" + strlev
+                    + "\", defaulting to info" );
+            }
+
+            // I know this looks wrong and totally stupid, but this is what you have to do:
+            log.setLevel( lev );
+            log.getParent(  ).setLevel( lev );
+            log.getParent(  ).getHandlers(  )[0].setLevel( lev );
+        }
+
         // Find out what the documents directory is from the command line
         if( arguments.containsKey( "doc_directory" ) )
         {
-            runtimeInfo.docDirectory =
-                arguments.getProperty( "doc_directory" );
+            runtimeInfo.docDirectory = arguments.getProperty( "doc_directory" );
         }
         else
         {
@@ -173,22 +169,22 @@ public class FreeGuide
 
         if( arguments.containsKey( "install_directory" ) )
         {
-            runtimeInfo.installDirectory =
-                arguments.getProperty( "install_directory" );
+            runtimeInfo.installDirectory = arguments.getProperty( 
+                    "install_directory" );
         }
         else
         {
             warning( 
                 startupMessages.getLocalizedMessage( "startup.NoInstallDir" ) );
         }
-		
+
         config = new Config(  );
-        
+
         if( arguments.containsKey( "dump_prefs" ) )
         {
             Migrate.setDumpPrefs( true );
         }
-        
+
         try
         {
             Migrate.migrateBeforeWizard(  );
@@ -197,17 +193,17 @@ public class FreeGuide
         {
             log.log( Level.WARNING, "Error on migration", ex );
         }
-        
-        if( Migrate.isDumpPrefs() )
+
+        if( Migrate.isDumpPrefs(  ) )
         {
             Migrate.dumpPrefs( PREF_ROOT_NAME );
-            log.info( "The preferences were written to files in the current"
+            log.info( 
+                "The preferences were written to files in the current"
                 + " directory." );
             System.exit( 0 );
         }
         else
         {
-            
             // load config
             try
             {
@@ -219,34 +215,34 @@ public class FreeGuide
             {
                 log.log( Level.SEVERE, "Error load config", ex );
             }
-    
+
             PluginsManager.loadModules(  );
-    
+
             if( PluginsManager.getApplicationModuleInfo(  ) == null )
             {
                 die( 
                     startupMessages.getLocalizedMessage( 
                         "startup.NoApplicationModule" ) );
             }
-    
+
             Application.setInstance( 
                 (IApplication)PluginsManager.getApplicationModuleInfo(  )
                                             .getInstance(  ) );
-    
+
             setLocale( config.lang );
-    
+
             String modID = null;
-    
+
             if( Migrate.isNeedToRunWizard(  ) )
             {
                 hidePleaseWait(  );
-    
+
                 final FirstTimeWizard wizard =
                     new FirstTimeWizard( !Migrate.isFirstTime(  ) );
                 wizard.getFrame(  ).waitForClose(  );
                 modID = wizard.getSelectedModuleID(  );
             }
-    
+
             normalStartup( modID );
         }
     }
@@ -256,7 +252,6 @@ public class FreeGuide
      */
     public static void saveConfig(  )
     {
-
         try
         {
             PreferencesHelper.save( 
@@ -271,9 +266,9 @@ public class FreeGuide
     }
 
     /**
-     * Perform a normal startup. Loads the selected/default user interface
-     * (horizontal/vertical), loads the storage module, tries to import XMLTV
-     * data and starts the application
+     * Perform a normal startup. Loads the selected/default user
+     * interface (horizontal/vertical), loads the storage module, tries to
+     * import XMLTV data and starts the application
      *
      * @param grabberFromWizard DOCUMENT ME!
      *
@@ -282,7 +277,6 @@ public class FreeGuide
     public void normalStartup( String grabberFromWizard )
         throws Exception
     {
-
         IModuleViewer viewer =
             (IModuleViewer)PluginsManager.getModuleByID( 
                 ( (MainController.Config)( (MainController)Application
@@ -291,14 +285,12 @@ public class FreeGuide
 
         if( viewer == null )
         {
-
             if( PluginsManager.getViewers(  ).length == 0 )
             {
                 die( startupMessages.getLocalizedMessage( "startup.NoUI" ) );
             }
 
-            viewer =
-                (IModuleViewer)PluginsManager.getModuleByID( 
+            viewer = (IModuleViewer)PluginsManager.getModuleByID( 
                     PluginsManager.getViewers(  )[0].getID(  ) );
         }
 
@@ -327,13 +319,11 @@ public class FreeGuide
      */
     protected void importXMLTV(  ) throws Exception
     {
-
         IModuleImport xmltvHandler =
             (IModuleImport)PluginsManager.getModuleByID( "importexport-xmltv" );
 
         if( xmltvHandler == null )
         {
-
             return;
         }
 
@@ -343,7 +333,6 @@ public class FreeGuide
                 {
                     public boolean accept( File pathname )
                     {
-
                         return !pathname.isDirectory(  )
                         && pathname.getName(  ).endsWith( ".xmltv" );
                     }
@@ -351,10 +340,8 @@ public class FreeGuide
 
         if( xmltvFiles != null )
         {
-
             for( int i = 0; i < xmltvFiles.length; i++ )
             {
-
                 final StoragePipe pipe = new StoragePipe(  );
                 xmltvHandler.importData( xmltvFiles[i], pipe );
                 pipe.finish(  );
@@ -370,7 +357,6 @@ public class FreeGuide
      */
     public static void main( String[] args )
     {
-
         try
         {
             showPleaseWait(  );
@@ -413,7 +399,6 @@ public class FreeGuide
      */
     public static void showPleaseWait(  )
     {
-
         if( pleaseWaitFrame == null )
         {
             pleaseWaitFrame = new PleaseWaitFrame(  );
@@ -427,7 +412,6 @@ public class FreeGuide
      */
     public static void hidePleaseWait(  )
     {
-
         if( pleaseWaitFrame != null )
         {
             pleaseWaitFrame.dispose(  );
@@ -442,7 +426,6 @@ public class FreeGuide
      */
     public static JFrame getPleaseWaitFrame(  )
     {
-
         return pleaseWaitFrame;
     }
 
@@ -453,17 +436,14 @@ public class FreeGuide
      */
     public static TimeZone getTimeZone(  )
     {
-
         if( config.timeZoneName == null )
         {
-
             return TimeZone.getDefault(  );
 
         }
 
         else
         {
-
             return TimeZone.getTimeZone( config.timeZoneName );
 
         }
@@ -476,7 +456,6 @@ public class FreeGuide
      */
     public static void setLocale( final Locale newLocale )
     {
-
         final Locale locale =
             ( newLocale == null ) ? runtimeInfo.defaultLocale : newLocale;
 
@@ -490,7 +469,6 @@ public class FreeGuide
      */
     public static void checkJavaVersion(  )
     {
-
         if( Version.getJavaVersion(  ).lessThan( MINIMUM_JAVA_VERSION ) )
         {
             die( 
@@ -508,7 +486,6 @@ public class FreeGuide
      */
     public static class Config
     {
-
         /** Freeguide version of stored config. */
         public String version = Application.VERSION.getDotFormat(  );
 
@@ -533,7 +510,7 @@ public class FreeGuide
         /** User's locale, or null if it use default locale. */
         public Locale lang;
 
-        /**
+/**
          * Creates a new Config object and setup default values.
          */
         public Config(  )
@@ -554,7 +531,6 @@ public class FreeGuide
          */
         public Object clone(  )
         {
-
             Config result = new Config(  );
 
             PreferencesHelper.cloneObject( this, result );
@@ -572,7 +548,6 @@ public class FreeGuide
      */
     public static class RuntimeInfo
     {
-
         /** True is working on Unix, false - on windows. */
         public boolean isUnix;
 
@@ -585,7 +560,7 @@ public class FreeGuide
         /** Default system locale or from --language, --country flags. */
         public Locale defaultLocale;
 
-        /**
+/**
          * Creates a new RuntimeInfo object.
          */
         public RuntimeInfo(  )

@@ -11,7 +11,6 @@ import freeguide.plugins.ui.vertical.simple.ProgrammeFilterModel;
  */
 public abstract class ProgrammeFilter
 {
-
     /** The title in the list */
     String strTitle = "unnamed";
 
@@ -20,6 +19,8 @@ public abstract class ProgrammeFilter
 
     /**
      * If the given program shall be displayed or not
+     *
+     * @param programme DOCUMENT ME!
      *
      * @return true if the program shall be displayed
      */
@@ -36,7 +37,6 @@ public abstract class ProgrammeFilter
     }
 
     //public void setTitle(String strTitle)
-
     /**
      * DOCUMENT_ME!
      *
@@ -44,12 +44,10 @@ public abstract class ProgrammeFilter
      */
     public String getTitle(  )
     {
-
         return this.strTitle;
     }
 
     //public String getTitle()
-
     /**
      * DOCUMENT_ME!
      *
@@ -57,14 +55,13 @@ public abstract class ProgrammeFilter
      */
     public String toString(  )
     {
-
         return this.strTitle;
     }
 
     //public String toString()
-
     /**
-     * Used by the model, so that the filter change notification can work
+     * Used by the model, so that the filter change notification can
+     * work
      *
      * @param filterModel DOCUMENT ME!
      */
@@ -74,14 +71,12 @@ public abstract class ProgrammeFilter
     }
 
     //public void setModel(ProgrammeFilterModel filterModel)
-
     /**
-     * Filters have to call this method if some filter criteria change, so
-     * that the model can re-apply the filters
+     * Filters have to call this method if some filter criteria
+     * change, so that the model can re-apply the filters
      */
     public void notifyFilterChange(  )
     {
-
         if( this.filterModel != null )
         {
             this.filterModel.filterChanged(  );
@@ -89,13 +84,11 @@ public abstract class ProgrammeFilter
     }
 
     //public void notifyFilterChange()
-
     /**
      * DOCUMENT_ME!
      */
     public void deactivate(  )
     {
-
         //Override me!
         System.err.println( 
             "The deactivate() method of ProgrammeFilter in "
@@ -103,7 +96,6 @@ public abstract class ProgrammeFilter
     }
 
     //public void deactivate()
-
     /**
      * DOCUMENT_ME!
      *
@@ -111,7 +103,6 @@ public abstract class ProgrammeFilter
      */
     public String exportSettings(  )
     {
-
         //Override me!
         System.err.println( 
             "The exportSettings() method of ProgrammeFilter in "
@@ -127,7 +118,6 @@ public abstract class ProgrammeFilter
      */
     public void importSettings( String strSettings )
     {
-
         //Override me!
         System.err.println( 
             "The importSettings() method of ProgrammeFilter in "
@@ -141,7 +131,6 @@ public abstract class ProgrammeFilter
      */
     public boolean isDeactivated(  )
     {
-
         //Override me!
         System.err.println( 
             "The isDeactivated() method of ProgrammeFilter in "
@@ -150,6 +139,4 @@ public abstract class ProgrammeFilter
         return false;
     }
 }
-
-
 //public abstract class ProgrammeFilter

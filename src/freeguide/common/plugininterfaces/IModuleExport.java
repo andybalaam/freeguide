@@ -15,14 +15,13 @@ import javax.swing.JFrame;
  */
 public interface IModuleExport extends IModule
 {
-
     /**
      * Save data to file(s).
      *
      * @param data
      * @param parent
      *
-     * @throws IOException
+     * @throws Exception
      */
     void exportData( final TVData data, final JFrame parent )
         throws Exception;

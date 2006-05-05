@@ -17,13 +17,12 @@ import javax.swing.DefaultListModel;
  */
 public class VsetvConfigurationUIController implements IModuleConfigurationUI
 {
-
     protected static final String CHPREFIX = "ChannelGroup.";
     protected final GrabberVsetv parent;
     protected final VsetvConfigurationUIPanel panel;
     protected final List chs = new ArrayList(  );
 
-    /**
+/**
      * Creates a new ConfigurationUIController object.
      *
      * @param parent DOCUMENT ME!
@@ -46,12 +45,10 @@ public class VsetvConfigurationUIController implements IModuleConfigurationUI
 
         while( it.hasNext(  ) )
         {
-
             String key = (String)it.next(  );
 
             if( key.startsWith( CHPREFIX ) )
             {
-
                 String value =
                     parent.getLocalizer(  ).getLocalizedMessage( key );
 
@@ -103,7 +100,6 @@ public class VsetvConfigurationUIController implements IModuleConfigurationUI
      */
     public Component getPanel(  )
     {
-
         return panel;
 
     }
@@ -128,8 +124,8 @@ public class VsetvConfigurationUIController implements IModuleConfigurationUI
 
         parent.config.isGetAll = panel.getCbGetAll(  ).isSelected(  );
 
-        parent.config.channelGroup =
-            (String)chs.get( panel.getListChannels(  ).getSelectedIndex(  ) );
+        parent.config.channelGroup = (String)chs.get( 
+                panel.getListChannels(  ).getSelectedIndex(  ) );
 
     }
 

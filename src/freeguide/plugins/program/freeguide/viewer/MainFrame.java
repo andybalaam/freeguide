@@ -1,16 +1,15 @@
 package freeguide.plugins.program.freeguide.viewer;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import freeguide.common.gui.JWaitFrame;
 
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
-
 import freeguide.common.lib.general.LanguageHelper;
 
 import freeguide.common.plugininterfaces.IApplication;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
@@ -32,7 +31,6 @@ import javax.swing.*;
  */
 public class MainFrame extends JWaitFrame
 {
-
     private javax.swing.JPanel jContentPane;
     private javax.swing.JMenuBar mainMenu;
     private javax.swing.JMenu menuFile;
@@ -57,12 +55,11 @@ public class MainFrame extends JWaitFrame
         {
             public JMenu getTools(  )
             {
-
                 return getMenuTools(  );
             }
         };
 
-    /**
+/**
      * This is the default constructor
      */
     public MainFrame(  )
@@ -71,14 +68,12 @@ public class MainFrame extends JWaitFrame
 
         try
         {
-
             byte[] data =
                 LanguageHelper.loadResourceAsByteArray( 
                     "images/logo-16x16.png" );
 
             if( data != null )
             {
-
                 Image icon = ( new ImageIcon( data, "icon" ) ).getImage(  );
                 setIconImage( icon );
             }
@@ -98,13 +93,11 @@ public class MainFrame extends JWaitFrame
      */
     public IApplication.IMainMenu getMainMenuForExport(  )
     {
-
         return menuForExport;
     }
 
     protected String getLocalizedString( final String key )
     {
-
         return Application.getInstance(  ).getLocalizedMessage( key );
 
     }
@@ -130,7 +123,6 @@ public class MainFrame extends JWaitFrame
      */
     private javax.swing.JPanel getJContentPane(  )
     {
-
         if( jContentPane == null )
         {
             jContentPane = new javax.swing.JPanel(  );
@@ -151,7 +143,6 @@ public class MainFrame extends JWaitFrame
      */
     public javax.swing.JMenuBar getMainMenu(  )
     {
-
         if( mainMenu == null )
         {
             mainMenu = new javax.swing.JMenuBar(  );
@@ -177,7 +168,6 @@ public class MainFrame extends JWaitFrame
      */
     public javax.swing.JMenu getMenuFile(  )
     {
-
         if( menuFile == null )
         {
             menuFile = new javax.swing.JMenu(  );
@@ -210,7 +200,6 @@ public class MainFrame extends JWaitFrame
      */
     public JMenuItem getMenuItemOptions(  )
     {
-
         if( menuItemOptions == null )
         {
             menuItemOptions = new JMenuItem(  );
@@ -236,7 +225,6 @@ public class MainFrame extends JWaitFrame
      */
     public javax.swing.JMenuItem getMenuItemExit(  )
     {
-
         if( menuItemExit == null )
         {
             menuItemExit = new javax.swing.JMenuItem(  );
@@ -261,7 +249,6 @@ public class MainFrame extends JWaitFrame
      */
     public javax.swing.JMenu getMenuHelp(  )
     {
-
         if( menuHelp == null )
         {
             menuHelp = new javax.swing.JMenu(  );
@@ -289,7 +276,6 @@ public class MainFrame extends JWaitFrame
      */
     public JMenuItem getMenuItemAbout(  )
     {
-
         if( menuItemAbout == null )
         {
             menuItemAbout = new JMenuItem(  );
@@ -315,7 +301,6 @@ public class MainFrame extends JWaitFrame
      */
     public JMenuItem getMenuItemUserGuide(  )
     {
-
         if( menuItemUserGuide == null )
         {
             menuItemUserGuide = new JMenuItem(  );
@@ -332,17 +317,16 @@ public class MainFrame extends JWaitFrame
     }
 
     /**
-     * This method initializes the View menu. It automatically creates the
-     * submenu with all available viewers. I had to make an "addMenuView",
-     * because it's determined here if we need this menu. If we don't need
-     * the menu, we can't return it, and adding a NULL to a component isn't
-     * good
+     * This method initializes the View menu. It automatically creates
+     * the submenu with all available viewers. I had to make an
+     * "addMenuView", because it's determined here if we need this menu. If
+     * we don't need the menu, we can't return it, and adding a NULL to a
+     * component isn't good
      *
      * @return javax.swing.JMenu
      */
     public JMenu addMenuView(  )
     {
-
         if( menuView == null )
         {
             menuView = new JMenu(  );
@@ -350,11 +334,10 @@ public class MainFrame extends JWaitFrame
             menuView.setMnemonic( KeyEvent.VK_V );
             class JDataRadioButtonMenuItem extends JRadioButtonMenuItem
             {
-
                 /** DOCUMENT ME! */
                 public String data = null;
 
-                /**
+/**
                  * Creates a new JDataRadioButtonMenuItem object.
                  *
                  * @param string DOCUMENT ME!
@@ -369,7 +352,6 @@ public class MainFrame extends JWaitFrame
 
             if( viewers.length <= 1 )
             {
-
                 //Don't show viewers menu if there is only one
                 return null;
             }
@@ -378,7 +360,6 @@ public class MainFrame extends JWaitFrame
 
             for( int i = 0; i < viewers.length; i++ )
             {
-
                 PluginInfo viewer = viewers[i];
                 JDataRadioButtonMenuItem item =
                     new JDataRadioButtonMenuItem( 
@@ -397,7 +378,8 @@ public class MainFrame extends JWaitFrame
                     } );
 
                 if( 
-                    viewer.getID(  ).equals( 
+                    viewer.getID(  )
+                              .equals( 
                             ( (MainController.Config)( (MainController)Application
                             .getInstance(  ) ).getConfig(  ) ).viewerId ) )
                 {
@@ -421,7 +403,6 @@ public class MainFrame extends JWaitFrame
      */
     public JMenu getMenuTools(  )
     {
-
         if( menuTools == null )
         {
             menuTools = new JMenu(  );
@@ -449,7 +430,6 @@ public class MainFrame extends JWaitFrame
      */
     public JMenuItem getMenuItemDownload(  )
     {
-
         if( menuItemDownload == null )
         {
             menuItemDownload = new JMenuItem(  );
@@ -476,7 +456,6 @@ public class MainFrame extends JWaitFrame
      */
     public JMenuItem getMenuItemExport(  )
     {
-
         if( menuItemExport == null )
         {
             menuItemExport = new JMenu(  );
@@ -495,7 +474,6 @@ public class MainFrame extends JWaitFrame
      */
     public JMenuItem getMenuItemPrint(  )
     {
-
         if( menuItemPrint == null )
         {
             menuItemPrint = new JMenuItem(  );
@@ -522,7 +500,6 @@ public class MainFrame extends JWaitFrame
      */
     public JMenuItem getMenuItemWizard(  )
     {
-
         if( menuItemWizard == null )
         {
             menuItemWizard = new JMenuItem(  );
@@ -542,7 +519,6 @@ public class MainFrame extends JWaitFrame
      */
     public JMenuItem getMenuItemChannelsSets(  )
     {
-
         if( menuItemChannelsSets == null )
         {
             menuItemChannelsSets = new JMenuItem(  );
@@ -568,7 +544,6 @@ public class MainFrame extends JWaitFrame
      */
     private JPanel getJPanel(  )
     {
-
         if( jPanel == null )
         {
             jPanel = new JPanel(  );
@@ -586,7 +561,6 @@ public class MainFrame extends JWaitFrame
      */
     public JProgressBar getProgressBar(  )
     {
-
         if( progressBar == null )
         {
             progressBar = new JProgressBar(  );
@@ -603,7 +577,6 @@ public class MainFrame extends JWaitFrame
      */
     public JMenuItem getMenuItemUpdater(  )
     {
-
         if( menuItemUpdater == null )
         {
             menuItemUpdater = new JMenuItem(  );
@@ -626,7 +599,6 @@ public class MainFrame extends JWaitFrame
      */
     public JMenuItem getMenuItemImport(  )
     {
-
         if( menuItemImport == null )
         {
             menuItemImport = new JMenu(  );

@@ -17,8 +17,7 @@ import javax.swing.JPopupMenu;
  */
 public class MenuProgramme extends JPopupMenu
 {
-
-    /**
+/**
      * Creates a new MenuProgramme object.
      *
      * @param main DOCUMENT ME!
@@ -27,7 +26,6 @@ public class MenuProgramme extends JPopupMenu
     public MenuProgramme( 
         final HorizontalViewer main, final TVProgramme programme )
     {
-
         IModuleReminder[] reminders =
             Application.getInstance(  ).getReminders(  );
 
@@ -38,11 +36,10 @@ public class MenuProgramme extends JPopupMenu
 
         if( programme.getLink(  ) != null )
         {
-
             JMenuItem item = new JMenuItem(  );
             item.setText( 
-                Application.getInstance(  ).getLocalizedMessage( 
-                    "go_to_web_site" ) );
+                Application.getInstance(  )
+                           .getLocalizedMessage( "go_to_web_site" ) );
 
             // Event handler for when the Go to web site popup menu item is clicked 
             item.addActionListener( 
@@ -50,7 +47,6 @@ public class MenuProgramme extends JPopupMenu
                 {
                     public void actionPerformed( ActionEvent evt )
                     {
-
                         //        String[] cmds =
                         //          Utils.substitute( 
                         //            FreeGuide.prefs.commandline.getStrings( "browser_command" ),
