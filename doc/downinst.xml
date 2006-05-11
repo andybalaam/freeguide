@@ -166,6 +166,10 @@
         url="http://atrpms.physik.fu-berlin.de/name/xmltv/">http://atrpms.physik.fu-berlin.de/name/xmltv/</ulink>
         and if you run Debian you can find xmltv in
         <emphasis>unstable</emphasis>.</para>
+		
+		<para>On Ubuntu, install the xmltv-gui package from the universe repository.</para>
+		
+		<para>On Debian, install the xmltv-gui package.</para>
 
         <para>To install from source (which can be tricky due to the large
         number of prerequisites) download the <ulink
