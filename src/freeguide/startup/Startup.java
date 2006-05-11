@@ -1,6 +1,7 @@
 package freeguide.startup;
 
 import java.io.File;
+import java.io.FileFilter;
 
 import java.lang.reflect.Method;
 
@@ -73,9 +74,21 @@ public class Startup
     {
         List jarUrls = new ArrayList(  );
 
-        File libDirectory = new File( getInstallDirectory( args ), "lib" );
+        File installDirectory = getInstallDirectory( args );
+        File libDirectory = new File( installDirectory, "lib" );
+        
+        if( !libDirectory.isDirectory() )
+        {
+            libDirectory = new File( installDirectory, "../lib" );
+        }
 
-        File[] libs = libDirectory.listFiles(  );
+        File[] libs = libDirectory.listFiles( new FileFilter(  )
+            {
+                public boolean accept( File fl )
+                {
+                    return fl.toString().endsWith( ".jar" );
+                }
+            } );
 
         if( libs != null )
         {
