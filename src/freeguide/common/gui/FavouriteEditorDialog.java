@@ -46,7 +46,7 @@ import javax.swing.JDialog;
  *
  * @author $author$
  * @version $Revision$
-  */
+ */
 public class FavouriteEditorDialog extends FGDialog
 {
     private final static SimpleDateFormat dayOfWeekFormat =

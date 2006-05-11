@@ -40,7 +40,7 @@ import javax.swing.JFrame;
  *
  * @author $author$
  * @version $Revision$
-  */
+ */
 public class ChannelSetListDialog extends FGDialog
 {
     private javax.swing.JButton butAdd;

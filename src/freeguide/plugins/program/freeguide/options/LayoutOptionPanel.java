@@ -39,7 +39,7 @@ import javax.swing.*;
  *
  * @author $author$
  * @version $Revision$
-  */
+ */
 public class LayoutOptionPanel extends OptionPanel
 {
     // ----------------------------------

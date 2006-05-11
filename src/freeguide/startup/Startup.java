@@ -76,19 +76,21 @@ public class Startup
 
         File installDirectory = getInstallDirectory( args );
         File libDirectory = new File( installDirectory, "lib" );
-        
-        if( !libDirectory.isDirectory() )
+
+        if( !libDirectory.isDirectory(  ) )
         {
             libDirectory = new File( installDirectory, "../lib" );
         }
 
-        File[] libs = libDirectory.listFiles( new FileFilter(  )
-            {
-                public boolean accept( File fl )
+        File[] libs =
+            libDirectory.listFiles( 
+                new FileFilter(  )
                 {
-                    return fl.toString().endsWith( ".jar" );
-                }
-            } );
+                    public boolean accept( File fl )
+                    {
+                        return fl.toString(  ).endsWith( ".jar" );
+                    }
+                } );
 
         if( libs != null )
         {

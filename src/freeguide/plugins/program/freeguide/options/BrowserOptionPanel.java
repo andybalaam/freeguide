@@ -41,7 +41,7 @@ import javax.swing.event.*;
  *
  * @author $author$
  * @version $Revision$
-  */
+ */
 public class BrowserOptionPanel extends OptionPanel
 {
     // ----------------------------------

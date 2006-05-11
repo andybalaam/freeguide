@@ -35,7 +35,7 @@ import javax.swing.border.*;
  *
  * @author $author$
  * @version $Revision$
-  */
+ */
 public abstract class OptionPanel extends JPanel
 {
     private boolean isConstructed = false;

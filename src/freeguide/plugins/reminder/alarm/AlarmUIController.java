@@ -36,7 +36,7 @@ import javax.swing.JTextField;
  *
  * @author $author$
  * @version $Revision$
-  */
+ */
 public class AlarmUIController implements IModuleConfigurationUI
 {
     // ----------------------------------

@@ -39,7 +39,7 @@ import javax.swing.event.*;
  *
  * @author $author$
  * @version $Revision$
-  */
+ */
 public class PrivacyOptionPanel extends OptionPanel implements ActionListener
 {
     // ----------------------------------

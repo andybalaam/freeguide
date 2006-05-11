@@ -36,7 +36,7 @@ import javax.swing.DefaultListModel;
  *
  * @author $author$
  * @version $Revision$
-  */
+ */
 public class ChannelSetEditorDialog extends FGDialog
 {
     private javax.swing.JButton addButton;

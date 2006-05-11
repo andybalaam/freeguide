@@ -166,7 +166,7 @@ public class GrabberRbc extends BaseModule implements IModuleGrabber
      *
      * @author $author$
      * @version $Revision$
-      */
+     */
     public static class DataParser extends DefaultHandler
     {
         /**

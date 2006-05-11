@@ -26,7 +26,7 @@ import java.awt.*;
  *
  * @author $author$
  * @version $Revision$
-  */
+ */
 public class GridBagEasy
 {
     // ----------------------------------------
