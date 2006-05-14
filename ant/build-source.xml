@@ -1,19 +1,13 @@
 <?xml version="1.0"?>
 
-<project name="freeguide-tv-source" default="source-all">
+<project name="freeguide-tv-source" default="dist-src">
 
-    <import file="build-plugins-info.xml"/>
-
-    <target name="source-init">
-        <mkdir dir="${dist}" />
-        <mkdir dir="${dist-src}" />
-    </target>
-    
-    <target name="source-all" depends="source-init"
+    <target name="dist-src"
         description="generate the source tar.gz and zip">
-
+        
+        <mkdir dir="${dist-src}" />
         <tar longfile="gnu"
-            destfile="${dist-src}/${application-id}-${application-version}-src.tar.gz"
+            destfile="${dist-src}/${application-id}-${application-version}.tar.gz"
             compression="gzip">
             
             <tarfileset dir="." prefix="${application-id}-${application-version}">
@@ -29,7 +23,7 @@
             
         </tar>
         
-        <zip zipfile="${dist-src}/${application-id}-${application-version}-src.zip">
+        <zip zipfile="${dist-src}/${application-id}-${application-version}.zip">
         
             <zipfileset dir="." prefix="${application-id}-${application-version}">
                 <exclude name="**/.xvpics/**" />

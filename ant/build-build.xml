@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 
-<project name="freeguide-tv-build" default="build-all">
+<project name="freeguide-tv-build" default="jars">
 
 	<import file="build-plugins-info.xml"/>
 	<import file="build-prebuild.xml"/>
     <import file="../build.xml"/>
 	
-    <target name="build-all" depends="prepare, compile, jar-common, jar-plugins, jar-startup, compile-doc"/>
+    <target name="jars" depends="prepare, compile, jar-common, jar-plugins, jar-startup, compile-doc"/>
 
     <target name="compile">
         <mkdir dir="${build}/classes"/>
@@ -23,9 +23,6 @@
             </classpath>
             <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
           </javac>
-        <!-- AJB - I think this is not needed copy todir="${build}/classes/common">
-            <fileset dir="${src}/java-common" excludes="**/*.java" />
-        </copy-->
     </target>
     
     <target name="jar-common">
@@ -53,14 +50,6 @@
     <target name="subtask-jar-one-plugin">
         
     	<mkdir dir="${build}/package/lib"/>
-        
-        <!-- Ensure the classes dir exists or the jar file creation will bork -->
-        <!--mkdir dir="${build}/classes/freeguide/plugins/${plugin-dir}"/>
-        <copy todir="${build}/classes/freeguide/plugins/">
-            <fileset dir="${src}/freeguide/plugins/"
-                includes="${plugin-dir}/**"
-                excludes="*.java,*.class" />
-        </copy-->
         
         <!-- TODO: remove the following line and make it still work! -->
         <mkdir dir="${src}/freeguide/plugins/${plugin-dir}"/>

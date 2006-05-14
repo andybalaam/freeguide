@@ -2,12 +2,12 @@
 
 <project name="freeguide-tv-dist-rpm" default="dist-rpm">
     
-	<target name="source-all">
-        <ant antfile="build-source.xml" />
-    </target>
+	<import file="build-build.xml"/>
+    <import file="build-source.xml"/>
     
-	<target name="dist-rpm" depends="source-all">
-		<exec os="linux" dir="${src}/install/linux/rpm" executable="buildrpm" resolveexecutable="true" failonerror="true"/>
+	<target name="dist-rpm" depends="prepare,dist-src">
+        <mkdir dir="${dist-rpm}"/>
+		<exec dir="install/linux/rpm" executable="buildrpm" resolveexecutable="true" failonerror="true"/>
 	</target>
     
 </project>

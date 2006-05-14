@@ -38,32 +38,25 @@ public class PatchAllFiles
         PatchBuild.patch( plugins );
         PatchApplication_java.patch( plugins );
 
-        new File( "build/dist/windows" ).mkdirs(  );
-        new File( "build/dist/linux/rpm" ).mkdirs(  );
+        new File( "build/install/windows" ).mkdirs(  );
+        new File( "build/install/linux/rpm" ).mkdirs(  );
 
         PatchFile.patch( "doc/VERSION.php.in", "doc/VERSION.php", plugins );
         PatchFile.patch( 
             "install/windows/freeguide-without-xmltv.nsi.in",
-            "build/dist/windows/freeguide-without-xmltv.nsi", plugins );
+            "build/install/windows/freeguide-without-xmltv.nsi", plugins );
         PatchFile.patch( 
             "install/windows/freeguide-with-xmltv.nsi.in",
-            "build/dist/windows/freeguide-with-xmltv.nsi", plugins );
+            "build/install/windows/freeguide-with-xmltv.nsi", plugins );
         PatchFile.patch( 
             "install/linux/rpm/freeguide.spec.in",
-            "build/dist/linux/rpm/freeguide.spec", plugins );
-        PatchFile.patch( 
-            "install/linux/rpm/freeguide-base.spec.in",
-            "build/dist/linux/rpm/freeguide-base.spec", plugins );
+            "build/install/linux/rpm/freeguide.spec", plugins );
+        PatchSpec.patch( "build/install/linux/rpm/freeguide.spec",
+            "build/install/linux/rpm/freeguide.spec", plugins );
 
-        /*        PatchFile.patch(
-                    "install/linux/rpm/freeguide-plugin.spec.template",
-                    "build/dist/linux/rpm/freeguide-plugin.spec.template", plugins );*/
         PatchFile.patch( 
-            "install/linux/freeguide.1.in", "build/dist/linux/freeguide.1",
+            "install/linux/freeguide.1.in", "build/install/linux/freeguide.1",
             plugins );
-        PatchFile.patchAllPlugins( 
-            "install/linux/rpm/freeguide-plugin.spec.template.in",
-            "build/dist/linux/rpm/freeguide-", ".spec", plugins );
     }
 
     /**

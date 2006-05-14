@@ -1,10 +1,12 @@
 #!/bin/bash
 
-# I call this script (_not_ as root) from within this directory
-# to build the FreeGuide RPMs and SRPMs.  It builds the rpms in $HOME/.rpm
+# I call this script (_not_ as root) from the base directory using ant:
+# ant dist-rom
+# to build the FreeGuide RPMs and SRPMs.  It builds the rpms in
+# dist/rpm and dist/src
 
 RPM_TOPDIR=$HOME/.rpm
-FG_TOPDIR=../../../..
+FG_TOPDIR=../../..
 BUILDRPM_DIR=`pwd`
 
 cd $FG_TOPDIR
@@ -27,8 +29,7 @@ cp -f dist/src/freeguide-*.tar.gz $RPM_TOPDIR/SOURCES/
 
 # Build the RPMs, in the right order
 cd $BUILDRPM_DIR
-#SPECS="freeguide-base.spec freeguide-*-*.spec freeguide.spec"
-SPECS="freeguide-allinone.spec"
+SPECS="../../../build/install/linux/rpm/freeguide.spec"
 
 for SPEC in $SPECS; do {
     echo $ rpmbuild --quiet --define="_topdir $RPM_TOPDIR" --define="_tmppath $RPM_TOPDIR/tmp" -ba $SPEC
@@ -38,6 +39,6 @@ for SPEC in $SPECS; do {
 # Copy the RPMs into my "dist" directory ready for upload
 mkdir -p $FG_TOPDIR/dist/rpm/
 cp $RPM_TOPDIR/RPMS/noarch/freeguide-*.rpm $FG_TOPDIR/dist/rpm/
-mkdir -p $FG_TOPDIR/dist/src/
-cp $RPM_TOPDIR/SRPMS/freeguide-*.rpm $FG_TOPDIR/dist/src/
+mkdir -p $FG_TOPDIR/dist/srpm/
+cp $RPM_TOPDIR/SRPMS/freeguide-*.rpm $FG_TOPDIR/dist/srpm/
 

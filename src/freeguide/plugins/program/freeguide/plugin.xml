@@ -10,10 +10,16 @@
   <description lang="fr">Le programme Freeguide-TV</description>
 
   <files>
-    <file path="startup.jar"/>
-    <file path="lib/common.jar"/>
-    <file path="lib/FreeGuide.jar"/>
-    <file path="lib/"/>
+    <file path="doc/contact.html"/>
+    <file path="doc/downinst.html"/>
+    <file path="doc/downinst.linux.html"/>
+    <file path="doc/help.html"/>
+    <file path="doc/license.html"/>
+    <file path="doc/sflogo.png"/>
+    <file path="doc/toc.html"/>
+    <file path="doc/userguide.features.html"/>
+    <file path="doc/userguide.look_and_feel.html"/>
+    <file path="doc/userguide.mainscreen.html"/>
     <file path="doc/userguide.html"/>
     <file path="doc/timezone.html"/>
     <file path="doc/stylesheet.css"/>
@@ -26,12 +32,15 @@
     <file path="doc/contributors.html"/>
     <file path="doc/TODO"/>
     <file path="doc/README.html"/>
-    <file path="doc/MVC-README.txt"/>
     <file path="doc/LookAndFeel.html"/>
     <file path="doc/INSTALL-linux-noxmltv.html"/>
     <file path="doc/FreeGuide-0_7-Linux-MetalLookAndFeel.png"/>
     <file path="doc/FAQ.html"/>
     <file path="doc/COPYING"/>
     <file path="doc/"/>
+    <file path="startup.jar"/>
+    <file path="lib/common.jar"/>
+    <file path="lib/program-freeguide.jar"/>
+    <file path="lib/"/>
   </files>
 </plugin>

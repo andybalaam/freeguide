@@ -4,20 +4,20 @@
 ### Adapted from jEdit's spec file http://www.jedit.org
 ###
 
-### To create the RPM from CVS, cd to src/install-linux and run:
-### ./buildrpm
+### To create the RPM from CVS, type:
 ###
+### ant dist-rpm
+###
+### from the freeguide root directory.
 ### This will place the built RPMs into dist/
 
-### You will need to have ant installed
-### for this to work.
+### You will need to have ant installed for this to work.
 
 Summary: A TV Guide
 Name: freeguide
 Provides: freeguide
-Requires: freeguide-base             >= 0.10.2, freeguide-grabber-cosmostv >= 1, freeguide-grabber-kulichki >= 1, freeguide-grabber-newsvm   >= 1, freeguide-grabber-ntvplus  >= 1, freeguide-grabber-vsetv    >= 1, freeguide-grabber-xmltv    >= 1, freeguide-impexp-jtv       >= 1, freeguide-impexp-palmatv   >= 1, freeguide-impexp-xmltv     >= 1, freeguide-reminder-alarm   >= 1, freeguide-storage-serfiles >= 1, freeguide-ui-horizontal    >= 1
 Version: __ANT_VERSION_DOTTED__
-Release: 2
+Release: 1
 # REMINDER: bump this with each RPM
 Copyright: GPL
 Group: Accessories/
@@ -45,11 +45,20 @@ The freeguide package depends on all the plugins available for freeguide, so if 
 %setup -n __ANT_NAME_VERSION__
 
 %build
-ant build-all
+ant jars
 
 %install
-ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dinstall_doc_dir=$RPM_BUILD_ROOT/%{_datadir}/doc/freeguide install-linux-all 
+ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dinstall_doc_dir=$RPM_BUILD_ROOT/%{_datadir}/doc/freeguide install-linux
 
 %files
-%{_datadir}/freeguide/freeguide.empty
-
+%{_bindir}/freeguide
+%{_datadir}/pixmaps/freeguide.png
+%{_datadir}/pixmaps/freeguide/logo-16x16.png
+%{_datadir}/pixmaps/freeguide/logo-32x32.png
+%{_datadir}/pixmaps/freeguide/logo-48x48.png
+%{_datadir}/pixmaps/freeguide/logo-64x64.png
+%{_datadir}/pixmaps/freeguide/logo-72x72.png
+%{_datadir}/pixmaps/freeguide/logo-96x96.png
+%{_datadir}/applications/freeguide.desktop
+%{_datadir}/man/man1/freeguide.1.gz
+%{_datadir}/freeguide/lib/tagsoup-1.0rc3.jar
