@@ -40,7 +40,7 @@ public class StoragePipe implements IStoragePipe
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public void addChannel( final TVChannel channel ) throws Exception
+    public void addChannel( final TVChannel channel )
     {
         cacheCount += channel.getProgrammesCount(  );
 
@@ -57,7 +57,6 @@ public class StoragePipe implements IStoragePipe
      * @throws Exception DOCUMENT_ME!
      */
     public void addProgramme( String channelID, TVProgramme programme )
-        throws Exception
     {
         final TVChannel cachedChannel = cache.get( channelID );
         cachedChannel.put( programme );
@@ -74,7 +73,6 @@ public class StoragePipe implements IStoragePipe
      * @throws Exception DOCUMENT_ME!
      */
     public void addProgrammes( String channelID, TVProgramme[] programmes )
-        throws Exception
     {
         final TVChannel cachedChannel = cache.get( channelID );
         cachedChannel.put( programmes );
@@ -89,7 +87,7 @@ public class StoragePipe implements IStoragePipe
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public void addData( TVData data ) throws Exception
+    public void addData( TVData data )
     {
         cacheCount += data.getProgrammesCount(  );
         cache.moveFrom( data );
@@ -97,15 +95,13 @@ public class StoragePipe implements IStoragePipe
 
     /**
      * Normalize programmes time.
-     *
-     * @throws Exception DOCUMENT ME!
      */
-    public void finishBlock(  ) throws Exception
+    public void finishBlock(  )
     {
         normalizeCache(  );
     }
 
-    protected void checkForMaxCache(  ) throws Exception
+    protected void checkForMaxCache(  )
     {
         if( ( cacheCount + normalizedCacheCount ) > MAX_CACHE_SIZE )
         {
@@ -128,7 +124,7 @@ public class StoragePipe implements IStoragePipe
         cacheCount = 0;
     }
 
-    protected void flushNormalized(  ) throws Exception
+    protected void flushNormalized(  )
     {
         storage.store( normalizedCache );
         normalizedCache.clearProgrammes(  );
@@ -140,7 +136,7 @@ public class StoragePipe implements IStoragePipe
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public void finish(  ) throws Exception
+    public void finish(  )
     {
         if( cacheCount > 0 )
         {

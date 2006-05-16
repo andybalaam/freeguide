@@ -14,6 +14,8 @@ import freeguide.common.plugininterfaces.IStoragePipe;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
+import java.io.IOException;
+
 import java.text.ParseException;
 
 import java.util.TimeZone;
@@ -334,9 +336,16 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public void store( final IStoragePipe storage ) throws Exception
+    public void store( final IStoragePipe storage )
     {
-        GrabberVsetv.patch( data );
+        try
+        {
+            GrabberVsetv.patch( data );
+        }
+        catch( IOException e )
+        {
+            e.printStackTrace(  );
+        }
         storage.addData( data );
         storage.finishBlock(  );
     }

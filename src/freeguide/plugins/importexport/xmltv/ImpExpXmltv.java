@@ -17,6 +17,9 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 /**
  * XMLTV import/export plugin.
@@ -45,7 +48,6 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
      * @throws Exception DOCUMENT_ME!
      */
     public void importDataUI( final JFrame parent, final IStoragePipe storage )
-        throws Exception
     {
         JFileChooser chooser = new JFileChooser(  );
         chooser.setFileFilter( 
@@ -68,15 +70,34 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
         if( chooser.showOpenDialog( parent ) == JFileChooser.APPROVE_OPTION )
         {
             File[] files = chooser.getSelectedFiles(  );
-            XMLTVImport imp = new XMLTVImport(  );
-
-            if( files != null )
+            try
             {
-                for( int i = 0; i < files.length; i++ )
+                XMLTVImport imp = new XMLTVImport(  );
+            
+                if( files != null )
                 {
-                    imp.process( 
-                        files[i], storage, new XMLTVImport.Filter(  ), "" );
+                    for( int i = 0; i < files.length; i++ )
+                    {
+                        try
+                        {
+                            imp.process( 
+                                files[i], storage, new XMLTVImport.Filter(  ),
+                                    "" );
+                        }
+                        catch( IOException e )
+                        {
+                            e.printStackTrace(  );
+                        }
+                    }
                 }
+            }
+            catch( SAXException e )
+            {
+                e.printStackTrace(  );
+            }
+            catch( ParserConfigurationException e )
+            {
+                e.printStackTrace(  );
             }
         }
     }

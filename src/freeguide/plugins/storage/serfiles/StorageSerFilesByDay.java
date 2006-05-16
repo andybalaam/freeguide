@@ -297,7 +297,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public synchronized void store( TVData data ) throws Exception
+    public synchronized void store( TVData data )
     {
         WriteIterator it = new WriteIterator(  );
         data.iterate( it );

@@ -184,7 +184,7 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
                     }
                     catch( Exception ex )
                     {
-                        throw new SAXException( ex );
+                        throw new SAXException( ex.getMessage(  ), ex );
                     }
                 }
 
@@ -245,7 +245,7 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
                                 }
                                 catch( Exception ex )
                                 {
-                                    throw new SAXException( ex );
+                                    throw new SAXException( ex.getMessage(  ), ex );
                                 }
                             }
 
@@ -274,7 +274,7 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
                 catch( IOException ex )
                 {
                     throw new SAXException( 
-                        "Error parse text block: " + ex.getMessage(  ) );
+                        "Error parse text block: " + ex.getMessage(  ), ex );
 
                 }
             }

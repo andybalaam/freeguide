@@ -169,6 +169,8 @@ public class PluginInfo extends DefaultHandler
         {
             if( className != null )
             {
+                FreeGuide.log.finest( "Loading class '" + className + "'." );
+                
                 try
                 {
                     Class moduleClass =
@@ -182,8 +184,6 @@ public class PluginInfo extends DefaultHandler
                         Level.SEVERE, "Cannot create instance for "
                         + className, ex );
                 }
-
-                FreeGuide.log.finest( "Class '" + className + "' loaded" );
             }
         }
     }

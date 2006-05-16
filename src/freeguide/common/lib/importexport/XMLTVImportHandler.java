@@ -342,13 +342,9 @@ class XMLTVImportHandler extends DefaultHandler
 
             charData.setLength( 0 );
         }
-        catch( SAXException ex )
-        {
-            throw ex;
-        }
         catch( Exception ex )
         {
-            throw new SAXException( ex );
+            ex.printStackTrace(  );
         }
     }
 
@@ -449,12 +445,9 @@ class XMLTVImportHandler extends DefaultHandler
             }
             catch( IOException ex )
             {
-                throw new SAXException( ex );
+                ex.printStackTrace(  );
             }
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 }

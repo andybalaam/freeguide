@@ -32,6 +32,9 @@ import java.util.logging.Level;
 
 import javax.swing.JDialog;
 import javax.swing.JMenuItem;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 /**
  * Grabber implementation for XMLTV.
@@ -568,12 +571,10 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             final IStoragePipe storage, InputStream in, ILogger logger )
         {
             this.in = in;
-
             this.logger = logger;
-
             this.storage = storage;
         }
-
+	
         /**
          * DOCUMENT_ME!
          */
@@ -584,16 +585,42 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                 new XMLTVImport(  ).process( 
                     in, storage, new XMLTVImport.Filter(  ), "xmltv/" );
             }
-
-            catch( Exception ex )
+            catch( SAXException ex )
             {
-                logger.error( "Error execute grabber: " + ex.getMessage(  ) );
-
+                String msg = ex.getException(  ).getMessage(  );
+                
+                logger.error( "SAX Error executing grabber: " + msg );
+                
                 Application.getInstance(  ).getLogger(  )
                            .log( 
                     Level.WARNING,
-                    "Error execute grabber: " + ex.getMessage(  ), ex );
+                    "SAX Error executing grabber: " + msg,
+                        ex.getException(  ) );
             }
+            catch( ParserConfigurationException ex )
+            {
+                String msg = ex.getMessage(  );
+                
+                logger.error(
+                    "ParserConfigurationException executing grabber: " + msg );
+                
+                Application.getInstance(  ).getLogger(  )
+                           .log( 
+                    Level.WARNING,
+                    "ParserConfigurationException executing grabber: "
+                    + msg, ex );
+	    }
+	    catch( IOException ex )
+	    {
+		String msg = ex.getMessage(  );
+		
+                logger.error( "Error executing grabber: " + msg );
+		
+                Application.getInstance(  ).getLogger(  )
+                           .log( 
+                    Level.WARNING,
+                    "Error executing grabber: " + msg, ex );
+	    }
         }
     }
 }

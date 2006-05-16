@@ -49,7 +49,7 @@ public interface IModuleStorage extends IModule
      *
      * @throws Exception
      */
-    void store( TVData data ) throws Exception;
+    void store( TVData data );
 
     /**
      * Cleans up old data (e.g. files that are older than some weeks)

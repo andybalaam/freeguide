@@ -17,16 +17,18 @@
   After builds we have:
     dist/src        - sources
     dist/repository - zip files for repository
-    dist/rpm        - rpm files
+    dist/rpm        - rpm Linux installer file
+    dist/srpm       - srpm source rpm file
+    dist/tgz        - tar.gz binary file
+    dist/exe        - Windows installers (must be built with NSIS from script
+                      in build/install/windows)
     
-    
-    For build project you just need to run "ant clean", then "ant".
+    To build the project you just need to run "ant clean", then "ant".
       After that you can run :
-        dist-exe  - package to .exe
         dist-rpm  - package to .rpm
         
-    For create other-xmltv-win32-exe plugin, you need to put xmltv.exe into
-      "src/plugins/other-xmltv-win32-exe/files-nosrc/xmltv" directory.
+    To package the XMLTV exe, you need to unzip the xmltv-win32
+    zip into the xmltv directory.
 -->
 
 <project name="freeguide-tv" default="all" basedir=".">

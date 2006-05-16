@@ -327,7 +327,7 @@ public class FirstTimeWizard
         {
             Map result =
                 readMap( 
-                    "main/browsers-"
+                    "resources/main/browsers-"
                     + ( FreeGuide.runtimeInfo.isUnix ? "lin" : "win" )
                     + ".properties" );
 
@@ -434,7 +434,7 @@ public class FirstTimeWizard
         }
         catch( Exception ex )
         {
-            FreeGuide.log.log( Level.WARNING, "Error finish migration", ex );
+            FreeGuide.log.log( Level.WARNING, "Error finishing migration", ex );
         }
 
         PluginInfo mod =

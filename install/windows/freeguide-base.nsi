@@ -99,10 +99,13 @@ Section "FreeGuide program"
 
   ; -------------------- main jar --------------------
 
+  Delete "$INSTDIR\lib\*.*"
+  Delete "$INSTDIR\doc\*.*"
+
   SetOutPath $INSTDIR
   
-  File /r build\plain\*.*
-  File /r src\install\windows\run.cmd
+  File /r build\package\*.*
+  File /r install\windows\run.cmd
   
   ; --------------------- make uninstaller ---------------------
   
@@ -114,7 +117,7 @@ Section "FreeGuide program"
 
   SetOutPath $INSTDIR\doc\
 
-  File build\doc\html\*.*
+  File doc\html-local\*.*
   
   ; -------------------------- xmltv -------------------------
 
@@ -124,7 +127,7 @@ Section "FreeGuide program"
 
   SetOutPath $INSTDIR\xmltv\
 
-  File /r src\plugins\other-xmltv-win32-exe\files-nosrc\xmltv\*.*
+  File /r xmltv\*.*
 
 !endif
 
@@ -132,7 +135,7 @@ Section "FreeGuide program"
   
   CreateDirectory $INSTDIR\icons\
   
-  File /oname=$INSTDIR\icons\logo.ico src\install\windows\icons\logo.ico
+  File /oname=$INSTDIR\icons\logo.ico install\windows\icons\logo.ico
   
   ; ---------------- add/remove programs entry ------------------
   

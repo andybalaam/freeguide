@@ -304,7 +304,7 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
                         }
                         catch( Exception ex )
                         {
-                            throw new SAXException( ex );
+                            throw new SAXException( ex.getMessage(  ), ex );
                         }
 
                         addToDescriptionsMap( descriptionKey, prog );

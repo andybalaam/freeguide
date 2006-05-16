@@ -523,18 +523,10 @@ public class MainController extends BaseModule implements IApplication
             {
                 public void run(  )
                 {
-                    try
-                    {
-                        final StoragePipe pipe = new StoragePipe(  );
-                        imp.importDataUI( mainFrame, pipe );
-                        pipe.finish(  );
-                        viewer.onDataChanged(  );
-                    }
-                    catch( Exception ex )
-                    {
-                        FreeGuide.log.log( 
-                            Level.WARNING, "Error import data", ex );
-                    }
+                    final StoragePipe pipe = new StoragePipe(  );
+                    imp.importDataUI( mainFrame, pipe );
+                    pipe.finish(  );
+                    viewer.onDataChanged(  );
                 }
             }.start(  );
     }

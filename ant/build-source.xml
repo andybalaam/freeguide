@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
 <project name="freeguide-tv-source" default="dist-src">
-
+    
+    <import file="build-plugins-info.xml"/>
+    
     <target name="dist-src"
         description="generate the source tar.gz and zip">
         

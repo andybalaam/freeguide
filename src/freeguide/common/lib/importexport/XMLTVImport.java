@@ -74,11 +74,14 @@ public class XMLTVImport
      * @param filter DOCUMENT_ME!
      * @param channelPrefix DOCUMENT ME!
      *
-     * @throws Exception DOCUMENT_ME!
+     * @throws SAXException DOCUMENT_ME!
+     * @throws IOException DOCUMENT_ME!
+     * @throws ParserConfigurationException DOCUMENT_ME!
      */
     public void process( 
         InputStream in, final IStoragePipe storage, Filter filter,
-        final String channelPrefix ) throws Exception
+        final String channelPrefix ) throws SAXException, IOException,
+		ParserConfigurationException
     {
         XMLTVImportHandler handler =
             new XMLTVImportHandler( storage, filter, channelPrefix );

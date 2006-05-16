@@ -303,7 +303,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                                 }
                                 catch( Exception ex )
                                 {
-                                    throw new SAXException( ex );
+                                    throw new SAXException( ex.getMessage(  ), ex );
                                 }
                             }
                             catch( ParseException ex )
@@ -332,7 +332,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                                 }
                                 catch( Exception ex )
                                 {
-                                    throw new SAXException( ex );
+                                    throw new SAXException( ex.getMessage(  ), ex );
                                 }
 
                                 prevTime = 0;
@@ -343,7 +343,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
             }
             catch( IOException ex )
             {
-                throw new SAXException( "IOError", ex );
+                throw new SAXException( "IOError: "+ ex.getMessage(  ), ex );
             }
         }
     }

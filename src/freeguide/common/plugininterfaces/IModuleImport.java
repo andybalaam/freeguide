@@ -19,8 +19,7 @@ public interface IModuleImport extends IModule
      *
      * @throws Exception
      */
-    void importDataUI( final JFrame parent, final IStoragePipe storage )
-        throws Exception;
+    void importDataUI( final JFrame parent, final IStoragePipe storage );
 
     /**
      * Load data from file.

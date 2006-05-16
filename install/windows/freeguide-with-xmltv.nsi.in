@@ -3,4 +3,4 @@
 
 !define XMLTV
 
-!include ..\..\..\src\install\windows\freeguide-base.nsi
+!include ..\..\..\install\windows\freeguide-base.nsi

@@ -60,7 +60,6 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
      * @throws Exception DOCUMENT_ME!
      */
     public void importDataUI( JFrame parent, final IStoragePipe storage )
-        throws Exception
     {
         JFileChooser chooser = new JFileChooser(  );
         chooser.setFileFilter( 
@@ -102,7 +101,14 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
             while( it.hasNext(  ) )
             {
                 String fileName = (String)it.next(  );
-                loadFromFile( fileName, storage );
+                try
+                {
+                    loadFromFile( fileName, storage );
+                }
+                catch( IOException e )
+                {
+                    e.printStackTrace(  );
+                }
             }
         }
     }
@@ -123,7 +129,7 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
 
     protected void loadFromFile( 
         final String fileName, final IStoragePipe storage )
-        throws Exception
+	throws IOException
     {
         final EndianInputStream inndx =
             new EndianInputStream( new File( fileName + ".ndx" ), CHARSET );

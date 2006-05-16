@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileFilter;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
+
+import java.io.IOException;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -33,44 +36,25 @@ public class Startup
      */
     public static void main( final String[] args )
     {
-        try
-        {
+        //try
+        //{
             try
             {
                 new StartupUpdates(  ).update( getInstallDirectory( args ) );
             }
-            catch( Exception ex )
+            catch( IOException ex )
             {
                 ex.printStackTrace(  );
                 MessageBox.display( 
-                    "Warning W01", "Error unpack updates: "
+                    "Warning W01", "Error unpacking updates: "
                     + ex.getMessage(  ) );
             }
 
             run( args );
-        }
-        catch( MalformedURLException ex )
-        {
-            die( "Error E01", "Error in ClassLoader URL", ex );
-        }
-        catch( ClassNotFoundException ex )
-        {
-            die( 
-                "Error E02", "Main class('" + STARTUP_CLASS + "') not found",
-                null );
-        }
-        catch( NoSuchMethodException ex )
-        {
-            die( "Error E03", "Main method not found in startup class", ex );
-        }
-        catch( Exception ex )
-        {
-            die( "Error E04", "Main method threw an unknown exception", ex );
-        }
+        //}
     }
 
     protected static ClassLoader getAllClasses( final String[] args )
-        throws MalformedURLException
     {
         List jarUrls = new ArrayList(  );
 
@@ -97,9 +81,15 @@ public class Startup
             for( int i = 0; i < libs.length; i++ )
             {
                 System.err.println( "Load module jar: " + libs[i].getPath(  ) );
-
-                jarUrls.add( libs[i].toURL(  ) );
-
+                
+                try
+                {
+                    jarUrls.add( libs[i].toURL(  ) );
+                }
+                catch( MalformedURLException e )
+                {
+                    e.printStackTrace(  );
+                }
             }
         }
 
@@ -107,7 +97,7 @@ public class Startup
             (URL[])jarUrls.toArray( new URL[jarUrls.size(  )] ) );
     }
 
-    protected static void run( final String[] args ) throws Exception
+    protected static void run( final String[] args )
     {
         final ClassLoader classLoader;
 
@@ -144,6 +134,39 @@ public class Startup
                 "Error E06",
                 "Wrong java version: " + System.getProperty( "java.version" )
                 + ". You need at least version 1.4", null );
+        }
+        catch( ClassNotFoundException ex )
+        {
+            ex.printStackTrace(  );
+            die(
+                "Error E07",
+                "Main class not found", ex );
+        }
+        catch( NoSuchMethodException ex )
+        {
+            ex.printStackTrace(  );
+            die(
+                "Error E08",
+                "Main method not found", ex );
+        }
+        catch( IllegalAccessException ex )
+        {
+            ex.printStackTrace(  );
+            die(
+                "Error E09",
+                "Main method not accessible", ex );
+        }
+        catch( InvocationTargetException ex )
+        {
+            ex.printStackTrace(  );
+            Throwable t = ex.getCause(  );
+            if( t != null )
+            {
+                t.printStackTrace(  );
+            }
+            die(
+                "Error E10",
+                "Exception in main method", ex );
         }
     }
 

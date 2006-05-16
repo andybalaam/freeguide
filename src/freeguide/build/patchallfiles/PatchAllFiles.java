@@ -74,7 +74,7 @@ public class PatchAllFiles
                 {
                     public boolean accept( File fl )
                     {
-                        return fl.toString(  ).endsWith( "/plugin.xml" );
+                        return fl.toString(  ).endsWith( "plugin.xml" );
                     }
                 } );
 

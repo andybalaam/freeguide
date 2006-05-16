@@ -3,12 +3,11 @@
 <!-- Tasks for prepare build, i.e. for change application and plugins info in the all files. -->
 
 <project name="freeguide-tv-prebuild" default="prepare">
-
-    <target name="prebuild-mkdir">
-		<mkdir dir="${build}/buildclasses"/>
-    </target>
-
-    <target name="prebuild-buildclasses" depends="prebuild-mkdir">
+    
+    <target name="prebuild-buildclasses">
+    	
+    	<mkdir dir="${build}/buildclasses"/>
+    	
     	<javac 
     		destdir="${build}/buildclasses">
     		<src path="${src}/freeguide/build"/>

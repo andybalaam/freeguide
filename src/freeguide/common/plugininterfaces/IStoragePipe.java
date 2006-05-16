@@ -11,16 +11,14 @@ import freeguide.common.lib.fgspecific.data.TVProgramme;
  */
 public interface IStoragePipe
 {
-    void addChannel( final TVChannel channel ) throws Exception;
+    void addChannel( final TVChannel channel );
 
-    void addProgramme( final String channelID, final TVProgramme programme )
-        throws Exception;
+    void addProgramme( final String channelID, final TVProgramme programme );
 
     void addProgrammes( 
-        final String channelID, final TVProgramme[] programmes )
-        throws Exception;
+        final String channelID, final TVProgramme[] programmes );
 
-    void addData( final TVData data ) throws Exception;
+    void addData( final TVData data );
 
-    void finishBlock(  ) throws Exception;
+    void finishBlock(  );
 }

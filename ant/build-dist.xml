@@ -8,7 +8,7 @@
 		<mkdir dir="${dist-tgz}"/>
         
 		<tar longfile="gnu"
-			 destfile="${dist-tgz}/freeguide-${application-id}-${application-version}-bin.tar.gz" compression="gzip" >
+			 destfile="${dist-tgz}/${application-id}-${application-version}-bin.tar.gz" compression="gzip" >
             <tarfileset dir="${build}/package" prefix="/usr/share/freeguide/" />
         </tar>
 	</target>
