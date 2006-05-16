@@ -1,0 +1,67 @@
+NAME
+    tv_grab_br - Captura da programação Brasileira.
+
+SYNOPSIS
+    tv_grab_br --help
+
+    tv_grab_br [--config-file FILE] --configure [--gui OPTION]
+
+    tv_grab_br [--config-file FILE] [--output FILE] [--days N] [--offset N]
+    [--quiet]
+
+    tv_grab_br --list-channels
+
+    tv_grab_br --capabilities
+
+    tv_grab_br --version
+
+DESCRIPTION
+    Script desenvolvido para capturar a programação da TV brasileira a
+    partir do site www.tvmagazine.com.br. Este script le algumas páginas do
+    site e a interpreta. Sendo assim, ele pode parar de funcionar a qualquer
+    momento.
+
+    NOTA: Observamos que de tempos em tempos o site fica sem informações,
+    assim o script roda e não baixa nenhum programa, veja que este não é um
+    problema do script e sim do site, por tanto, antes de fazer qualquer
+    comentário sobre este assunto, verifique se o site
+    (www.tvmagazine.com.br) está com as informações disponibilizadas.
+
+    Primeiro execute tv_grab_br --configure para escolher os canais que você
+    deseja obter. Depois execute tv_grab_br sem argumentos para obter a
+    lista de programas em XML.
+
+    --configure Pergunta quais canais deseja obter, e escreve a
+    configuração.
+
+    --config-file FILE Muda o nome do arquivo de configuração, o padrão é
+    ~/.xmltv/tv_grab_br.conf. este é o arquivo gerado pelo comando
+    --configure.
+
+    --output FILE Cria um arquivo de saída.
+
+    --days N Obtenha N dias. O padrão é 3.
+
+    --offset N Obtem a partir do dia N.
+
+    --quiet Não mostra a saída (output)
+
+    --help Imprime informações de ajuda e sai.
+
+    --capabilities Show which capabilities the grabber supports. For more
+    information, see
+    <http://membled.com/twiki/bin/view/Main/XmltvCapabilities>
+
+    --version Show the version of the grabber.
+
+SEE ALSO
+    xmltv(5).
+
+AUTHOR
+    Ronaldo Richieri <rrichieri@yahoo.com.br> Marcelo Toledo
+    <marcelo@marcelotoledo.org> with some patches from : Marcos Paulo
+    Serafim <mpserafim@yahoo.com.br>
+
+    baseado nos diversos grabbers disponiveis.
+
+BUGS

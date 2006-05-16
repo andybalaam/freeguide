@@ -407,18 +407,22 @@ meaningless.
 colour: 'yes' for colour, 'no' for black-and-white.
 
 aspect: The horizontal:vertical aspect ratio, eg '4:3' or '16:9'.
+
+quality: information on the quality, eg 'HDTV', '800x600'.
+
 -->
-<!ELEMENT video (present?, colour?, aspect?)>
+<!ELEMENT video (present?, colour?, aspect?, quality?)>
 <!ELEMENT present (#PCDATA)>
 <!ELEMENT colour (#PCDATA)>
 <!ELEMENT aspect (#PCDATA)>
+<!ELEMENT quality (#PCDATA)>
 
 <!-- Audio details, similar to video details above.
 
 present: whether this programme has any sound at all, 'yes' or 'no'.
 
 stereo: Description of the stereo-ness of the sound.  Legal values
-are currently 'mono' and 'stereo' and 'surround'; others like 'quad'
+are currently 'mono','stereo','dolby','dolby digital' and 'surround'; others like 'quad'
 might be added later.
 -->
 <!ELEMENT audio (present?, stereo?)>

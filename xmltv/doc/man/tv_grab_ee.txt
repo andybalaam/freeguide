@@ -1,0 +1,69 @@
+NAME
+    tv_grab_ee - Grab TV listings for Estonia.
+
+SYNOPSIS
+    tv_grab_ee --help
+
+    tv_grab_ee [--config-file FILE] --configure [--gui OPTION]
+
+    tv_grab_ee [--config-file FILE] [--output FILE] [--days N] [--offset N]
+    [--quiet]
+
+    tv_grab_ee --list-channels
+
+    tv_grab_ee --capabilities
+
+    tv_grab_ee --version
+
+DESCRIPTION
+    Output TV listings for several channels available in Estonia. The data
+    comes from http://ajaviide.delfi.ee/events/tv/.
+
+    First run tv_grab_ee --configure to choose, which channels you want to
+    download. Then running tv_grab_ee with no arguments will output listings
+    in XML format to standard output.
+
+    --configure Prompt for which channels, and write the configuration file.
+
+    --config-file FILE Set the name of the configuration file, the default
+    is ~/.xmltv/tv_grab_ee.conf. This is the file written by --configure and
+    read when grabbing.
+
+    --gui OPTION Use this option to enable a graphical interface to be used.
+    OPTION may be 'Tk', or left blank for the best available choice.
+    Additional allowed values of OPTION are 'Term' for normal terminal
+    output (default) and 'TermNoProgressBar' to disable the use of
+    XMLTV::ProgressBar.
+
+    --output FILE Write to FILE rather than standard output.
+
+    --days N Grab N days. The default is -1 which means everything
+
+    --offset N Start N days in the future. The default is to start from
+    today.
+
+    --quiet Suppress the progress messages normally written to standard
+    error.
+
+    --list-channels Write output giving <channel> elements for every channel
+    available (ignoring the config file), but no programmes.
+
+    --capabilities Show which capabilities the grabber supports. For more
+    information, see
+    <http://membled.com/twiki/bin/view/Main/XmltvCapabilities>
+
+    --version Show the version of the grabber.
+
+    --help Print a help message and exit.
+
+SEE ALSO
+    xmltv(5).
+
+AUTHOR
+    Cougar < cougar at random.ee >
+
+BUGS
+    The data source does not include full channels information and the
+    channels are identified by short names rather than the RFC2838 form
+    recommended by the XMLTV DTD.
+
