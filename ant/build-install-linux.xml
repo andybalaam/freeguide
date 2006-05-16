@@ -4,7 +4,7 @@
 
     <import file="build-build.xml"/>
     
-    <target name="install-linux">
+    <target name="install-linux" depends="jars,compile-doc">
         
         <!-- These properties are passed in (example values shown):
             install_share_dir = ~/.rpm/tmp/freeguide-0.8.2-root/usr/share
@@ -91,7 +91,7 @@
         </antcall>
     </target-->
     
-    <target name="install-linux-run" depends="jars">
+    <!--target name="install-linux-run" depends="jars">
         <delete dir="run"/>
         <antcall target="install-linux">
             <param name="install_share_dir" value="run/usr/share"/>
@@ -100,7 +100,7 @@
             <param name="install_real_dir" value="usr/share/freeguide"/>
             <param name="install_real_doc_dir" value="usr/share/doc/freeguide"/>
         </antcall>
-    </target>
+    </target-->
     
 </project>
 

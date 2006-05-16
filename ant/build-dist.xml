@@ -1,15 +1,25 @@
 <?xml version="1.0"?>
 
-<project name="freeguide-tv-dist">
+<project name="freeguide-tv-dist"  default="dist-tgz">
 
 	<import file="build-plugins-info.xml"/>
+	<import file="build-install-linux.xml"/>
 
 	<target name="dist-tgz">
+	
+		<delete dir="${build}/tgz"/>
+        <antcall target="install-linux">
+            <param name="install_share_dir" value="${build}/tgz/usr/share"/>
+            <param name="install_bin_dir" value="${build}/tgz/bin"/>
+            <param name="install_doc_dir" value="${build}/tgz/usr/share/freeguide/doc"/>
+            <param name="install_real_dir" value="usr/share/freeguide"/>
+            <param name="install_real_doc_dir" value="usr/share/freeguide/doc"/>
+        </antcall>
+		
 		<mkdir dir="${dist-tgz}"/>
-        
 		<tar longfile="gnu"
 			 destfile="${dist-tgz}/${application-id}-${application-version}-bin.tar.gz" compression="gzip" >
-            <tarfileset dir="${build}/package" prefix="/usr/share/freeguide/" />
+            <tarfileset dir="${build}/tgz" />
         </tar>
 	</target>
     

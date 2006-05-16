@@ -6,7 +6,7 @@
 	<import file="build-prebuild.xml"/>
     <import file="../build.xml"/>
 	
-    <target name="jars" depends="prepare, compile, jar-common, jar-plugins, jar-startup, compile-doc"/>
+    <target name="jars" depends="prepare, compile, jar-common, jar-plugins, jar-startup"/>
 
     <target name="compile">
         <mkdir dir="${build}/classes"/>
@@ -75,7 +75,7 @@
     
     <target name="compile-doc">
     	
-        <!-- The task below does not work with our docs for some reason.
+        <!-- "really-compile-doc-java" does not work with our docs for some reason.
              For now, we compile the docs on Linux and commit them to SVN.
              So all we have to do here is copy them in to the build dir. -->
         
