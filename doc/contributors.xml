@@ -3,7 +3,7 @@
     <title>Contributors</title>
 
     <para>FreeGuide is led by Andy Balaam. A number of people have contributed
-    code, ideas and patches (alphabetical order):</para>
+    code, art, ideas and patches (alphabetical order):</para>
 
     <itemizedlist>
       <listitem>
@@ -85,6 +85,10 @@
       <listitem>
         <para>Dave Torok</para>
       </listitem>
+	  
+	  <listitem>
+        <para>Alban Tsui</para>
+      </listitem>
 
       <listitem>
         <para>Christian Weiske</para>
@@ -112,7 +116,7 @@
     code and applications.</para>
 
     <para>Contributions to FreeGuide are welcomed in the areas of testing,
-    documentation and code. It's only with your help that we can make it
+    documentation, art and code. It's only with your help that we can make it
     better. Get in touch on <ulink
     url="mailto:freeguide-tv-devel@lists.sourceforge.net">freeguide-tv-devel@lists.sourceforge.net</ulink>.</para>
 
