@@ -19,10 +19,14 @@ import freeguide.common.plugininterfaces.IModuleViewer;
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerPersonalGuide;
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;
 
+import freeguide.common.gui.SearchDialog;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -48,6 +52,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JList;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
@@ -104,6 +110,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     protected final HorizontalViewerHandlers handlers =
         new HorizontalViewerHandlers( this );
     protected JLabelProgramme currentProgrammeLabel;
+
+    final JMenuItem menuSearch = new JMenuItem(  );
 
     /**
      * Get config object.
@@ -202,6 +210,42 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         panel.getProgrammesScrollPane(  ).validate(  );
         goToNow(  );
+        
+        //Add Search Menu
+        menuSearch.setText( getLocalizer(  ).getLocalizedMessage( "Search" ) );
+        Application.getInstance(  ).getMainMenu(  ).getTools(  ).insert( 
+            menuSearch, 0 );
+
+        menuSearch.addActionListener( 
+            new ActionListener(  )
+            {
+                public void actionPerformed( ActionEvent e )
+                {
+                    SearchDialog sd = new SearchDialog(Application.getInstance(  ).getCurrentFrame(  ),
+                        new MouseAdapter() 
+                        {
+                            public void mouseClicked(MouseEvent e)
+                            {
+                                if (e.getClickCount( ) == 2)
+                                {
+                                    JList programmeList = ( JList ) e.getSource(  );
+
+                                    // Go to the time of the programme selected
+                                    TVProgramme programme = (TVProgramme ) programmeList.getSelectedValue(  );
+                                    goToDate( programme.getStart(  ) ); 
+                                    // Scroll to the time
+                                    panel.getProgrammesScrollPane(  ).getHorizontalScrollBar(  ).setValue( 
+                                        panel.getTimePanel(  ).getScrollValue( programme.getStart(  ) ) - 100 );
+                                    redraw(  );
+                                }
+                            }
+                        }
+
+                    );	
+                }
+
+            } );
+ 
     }
 
     /**
@@ -210,6 +254,11 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     public void close(  )
     {
         saveConfigNow(  );
+        
+        // Remove Search Menu
+        Application.getInstance(  ).getMainMenu(  ).getTools(  )
+            .remove( menuSearch );
+        
         panel = null;
     }
 
