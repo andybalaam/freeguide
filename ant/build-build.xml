@@ -8,9 +8,10 @@
 	
     <target name="jars" depends="prepare, compile, jar-common, jar-plugins, jar-startup"/>
 
-    <target name="compile">
+    <target name="compile"
+    	description="Compile all the .java files into the build dir.">
+	
         <mkdir dir="${build}/classes"/>
-        <!-- compile all the .java files -->
         <javac srcdir="${src}"
             destdir="${build}/classes"
             deprecation="on" 
@@ -23,6 +24,24 @@
             </classpath>
             <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
           </javac>
+	  
+    </target>
+    
+    <target name="compile-in-place"
+    	description="Compile all the .java files inside the src dir.">
+	
+        <javac srcdir="${src}"
+            deprecation="on" 
+            source="1.4" 
+            target="1.4"
+            debug="yes"
+            encoding="UTF-8">
+            <classpath>
+                <fileset dir="${lib}" includes="**/*.jar"/>
+            </classpath>
+            <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
+          </javac>
+	  
     </target>
     
     <target name="jar-common">

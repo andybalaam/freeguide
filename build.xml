@@ -60,8 +60,12 @@
     <target name="compile">
         <ant antfile="ant/build-build.xml" target="compile" />
     </target>
-	
-	<target name="compile-doc">
+    
+    <target name="compile-in-place">
+        <ant antfile="ant/build-build.xml" target="compile-in-place" />
+    </target>
+    
+    <target name="compile-doc">
         <ant antfile="ant/build-build.xml" target="compile-doc" />
     </target>
 	
