@@ -59,7 +59,7 @@ public class PluginsManager
      *
      * @throws IOException DOCUMENT_ME!
      */
-    public static void loadModules(  ) throws IOException
+    public static void loadModules(  String  installDirectory ) throws IOException
     {
         grabbersList = new ArrayList(  );
         storagesList = new ArrayList(  );
@@ -88,7 +88,7 @@ public class PluginsManager
 
             if( info.length == 0 )
             {
-                info = findInDirectories(  );
+                info = findInDirectories( installDirectory );
             }
 
             for( int i = 0; i < info.length; i++ )
@@ -278,6 +278,7 @@ public class PluginsManager
      */
     protected static void findPluginDirs( File dir, List files )
     {
+    	// finding plugin.xml in the current directory
         File[] plugin_files =
             dir.listFiles( 
                 new FileFilter(  )
@@ -287,7 +288,7 @@ public class PluginsManager
                         return fl.toString(  ).endsWith( "plugin.xml" );
                     }
                 } );
-
+        
         if( plugin_files != null )
         {
             for( int i = 0; i < plugin_files.length; ++i )
@@ -301,18 +302,21 @@ public class PluginsManager
                     e.printStackTrace(  );
                 }
             }
-
-            File[] dirs =
-                dir.listFiles( 
-                    new FileFilter(  )
+        }
+        // go down into sub-directories other than .svn to find other plugin.xml
+        File[] dirs =
+            dir.listFiles( 
+                new FileFilter(  )
+                {
+                    public boolean accept( File fl )
                     {
-                        public boolean accept( File fl )
-                        {
-                            return fl.isDirectory(  )
-                            && ( fl.toString(  ).indexOf( "/.svn" ) == -1 );
-                        }
-                    } );
-
+                        return fl.isDirectory(  )
+                            && ( fl.toString(  ).indexOf( ".svn" ) == -1 );
+                    }
+                } );
+        
+        if( dirs != null )
+        {
             for( int i = 0; i < dirs.length; ++i )
             {
                 findPluginDirs( dirs[i], files );
@@ -328,11 +332,13 @@ public class PluginsManager
      *
      * @throws IOException
      */
-    protected static URL[] findInDirectories(  ) throws IOException
+    protected static URL[] findInDirectories( String installDirectory )
+        throws IOException
     {
         List files = new ArrayList(  );
-
-        findPluginDirs( new File( "freeguide/plugins" ), files );
+        
+        findPluginDirs( new File(
+            installDirectory + "freeguide/plugins" ), files );
 
         return (URL[])files.toArray( new URL[files.size(  )] );
     }

@@ -163,8 +163,24 @@ public class FreeGuide
         }
         else
         {
-            warning( 
-                startupMessages.getLocalizedMessage( "startup.NoDocDir" ) );
+            File fl = new File( "./doc" );
+            if( fl.exists(  ) )
+            {
+                runtimeInfo.docDirectory = fl.toString(  );
+            }
+            else
+            {
+                fl = new File( "../doc" );
+                if( fl.exists(  ) )
+                {
+                    runtimeInfo.docDirectory = fl.toString(  );
+                }
+                else
+                {
+                    warning( startupMessages.getLocalizedMessage(
+                        "startup.NoDocDir" ) );
+                }
+            }
         }
 
         if( arguments.containsKey( "install_directory" ) )
@@ -174,8 +190,24 @@ public class FreeGuide
         }
         else
         {
-            warning( 
-                startupMessages.getLocalizedMessage( "startup.NoInstallDir" ) );
+            File fl = new File( "./lib" );
+            if( fl.exists(  ) )
+            {
+                runtimeInfo.installDirectory = ".";
+            }
+            else
+            {
+                fl = new File( "../lib" );
+                if( fl.exists(  ) )
+                {
+                    runtimeInfo.installDirectory = "..";
+                }
+                else
+                {
+                    warning( startupMessages.getLocalizedMessage(
+                        "startup.NoInstallDir" ) );
+                }
+            }
         }
 
         config = new Config(  );
@@ -215,9 +247,9 @@ public class FreeGuide
             {
                 log.log( Level.SEVERE, "Error load config", ex );
             }
-
-            PluginsManager.loadModules(  );
-
+            
+            PluginsManager.loadModules( runtimeInfo.installDirectory );
+            
             if( PluginsManager.getApplicationModuleInfo(  ) == null )
             {
                 die( 
