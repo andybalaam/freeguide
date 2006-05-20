@@ -212,7 +212,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         goToNow(  );
         
         //Add Search Menu
-        menuSearch.setText( getLocalizer(  ).getLocalizedMessage( "search" ) );
+        menuSearch.setText( Application.getInstance(  ).getLocalizedMessage(
+            "search" ) );
         Application.getInstance(  ).getMainMenu(  ).getTools(  ).insert( 
             menuSearch, 0 );
 

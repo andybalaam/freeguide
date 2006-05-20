@@ -248,7 +248,7 @@ public class FreeGuide
                 log.log( Level.SEVERE, "Error load config", ex );
             }
             
-            PluginsManager.loadModules( runtimeInfo.installDirectory );
+            PluginsManager.loadModules(  );
             
             if( PluginsManager.getApplicationModuleInfo(  ) == null )
             {

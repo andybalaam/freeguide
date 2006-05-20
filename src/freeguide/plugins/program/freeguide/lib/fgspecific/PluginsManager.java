@@ -59,7 +59,7 @@ public class PluginsManager
      *
      * @throws IOException DOCUMENT_ME!
      */
-    public static void loadModules(  String  installDirectory ) throws IOException
+    public static void loadModules(  ) throws IOException
     {
         grabbersList = new ArrayList(  );
         storagesList = new ArrayList(  );
@@ -75,33 +75,32 @@ public class PluginsManager
                 .newInstance(  );
             SAXParser saxParser = factory.newSAXParser(  );
 
-            URL[] info = new URL[0];
+            List info = new ArrayList(  );
 
             try
             {
-                info = findInClassLoader(  );
+                findInClassLoader( info );
             }
             catch( IOException e )
             {
                 e.printStackTrace(  );
             }
-
-            if( info.length == 0 )
+            
+            findInDirectories( info );
+            
+            Iterator it;
+            for( it = info.iterator(  ); it.hasNext(  ); )
             {
-                info = findInDirectories( installDirectory );
-            }
-
-            for( int i = 0; i < info.length; i++ )
-            {
+                URL url = (URL)( it.next(  ) );
                 try
                 {
-                    FreeGuide.log.finest( 
-                        "Loading XML from " + info[i].toString(  ) );
+                    FreeGuide.log.finest(
+                        "Loading XML from " + url.toString(  ) );
 
                     PluginInfo handler = new PluginInfo(  );
 
                     InputStream stream =
-                        LanguageHelper.getUncachedStream( info[i] );
+                        LanguageHelper.getUncachedStream( url );
 
                     try
                     {
@@ -258,15 +257,17 @@ public class PluginsManager
      *
      * @throws IOException
      */
-    protected static URL[] findInClassLoader(  ) throws IOException
+    protected static void findInClassLoader( List ret ) throws IOException
     {
-        Enumeration urls =
+        Enumeration e =
             PluginsManager.class.getClassLoader(  ).getResources( 
                 "plugin.xml" );
-
-        List list = Collections.list( urls );
-
-        return (URL[])list.toArray( new URL[list.size(  )] );
+        
+        while( e.hasMoreElements(  ) )
+        {
+            URL url = (URL)( e.nextElement(  ) );
+            ret.add( url );
+        }
     }
 
     /**
@@ -332,15 +333,14 @@ public class PluginsManager
      *
      * @throws IOException
      */
-    protected static URL[] findInDirectories( String installDirectory )
+    protected static void findInDirectories( List ret )
         throws IOException
     {
         List files = new ArrayList(  );
         
-        findPluginDirs( new File(
-            installDirectory + "freeguide/plugins" ), files );
-
-        return (URL[])files.toArray( new URL[files.size(  )] );
+        findPluginDirs( new File( "freeguide/plugins" ), files );
+        
+        ret.addAll( files );
     }
 
     /**
