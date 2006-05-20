@@ -170,7 +170,7 @@ public class FreeGuide
             }
             else
             {
-                fl = new File( "../doc" );
+                fl = new File( "../doc/html-local" );
                 if( fl.exists(  ) )
                 {
                     runtimeInfo.docDirectory = fl.toString(  );
