@@ -58,49 +58,27 @@
         
     </target>
     
-    <!--target name="install-linux-plugin">
-        
-        <- These properties are passed in (example values shown):
-            install_share_dir = ~/.rpm/tmp/freeguide-0.8.2-root/usr/share
-            install_doc_dir   = ~/.rpm/tmp/freeguide-0.8.2-...usr/doc/freeguide
-            install_real_doc_dir = /usr/doc/freeguide
-            plugin-id = grabber/cosmostv
-        -
-        
-        <mkdir dir="${install_share_dir}/freeguide/lib/" />
-        <copy file="${build}/package/${plugin-id}/lib/${plugin-id}.jar" todir="${install_share_dir}/freeguide/lib/" />
-    </target->
-    
-    <!-target name="install-linux-allinone">
-	<- Used by the freeguide-allinone.spec file to create an RPM with all plugins
-             and the base system all included -
-        <antcall target="install-linux-base">
-            <param name="install_share_dir" value="${install_share_dir}"/>
-            <param name="install_bin_dir" value="${install_bin_dir}"/>
-            <param name="install_doc_dir" value="${install_doc_dir}"/>
-            <param name="install_real_dir" value="${install_real_dir}"/>
-            <param name="install_real_doc_dir" value="${install_real_doc_dir}"/>
-        </antcall>
-        
-        <antcall target="all-plugins">
-            <param name="actual-target" value="install-linux-plugin"/>
-            <param name="install_share_dir" value="${install_share_dir}"/>
-            <param name="install_doc_dir" value="${install_doc_dir}"/>
-            <param name="install_real_doc_dir" value="${install_real_doc_dir}"/>
-            <param name="plugin-id" value="${plugin-id}"/>
-        </antcall>
-    </target-->
-    
-    <!--target name="install-linux-run" depends="jars">
-        <delete dir="run"/>
+    <target name="install-linux-destdir">
         <antcall target="install-linux">
-            <param name="install_share_dir" value="run/usr/share"/>
-            <param name="install_bin_dir" value="run"/>
-            <param name="install_doc_dir" value="run/usr/share/doc/freeguide"/>
+            <param name="install_share_dir" value="${DESTDIR}/usr/share"/>
+            <param name="install_bin_dir" value="${DESTDIR}/usr/bin"/>
+            <param name="install_doc_dir" value="${DESTDIR}/usr/share/doc/freeguide"/>
+            <param name="install_real_dir" value="/usr/share/freeguide"/>
+            <param name="install_real_doc_dir" value="/usr/share/doc/freeguide"/>
+        </antcall>
+    </target>
+    
+    <target name="install-linux-run"
+        description="Create a local install inside the 'run' directory.">
+        <delete dir="${run}"/>
+        <antcall target="install-linux">
+            <param name="install_share_dir" value="${run}/usr/share"/>
+            <param name="install_bin_dir" value="${run}"/>
+            <param name="install_doc_dir" value="${run}/usr/share/doc/freeguide"/>
             <param name="install_real_dir" value="usr/share/freeguide"/>
             <param name="install_real_doc_dir" value="usr/share/doc/freeguide"/>
         </antcall>
-    </target-->
+    </target>
     
 </project>
 

@@ -41,6 +41,7 @@
     <property name="xmltv"      location="xmltv"              />
     <property name="share"      location="xmltv/share"        />
     <property name="build"      location="build"              />
+    <property name="run"        location="run"                />
     <property name="dist"       location="dist"               />
     <property name="dist-tgz"   location="${dist}/tgz"        />
     <property name="dist-src"   location="${dist}/src"        />
@@ -76,13 +77,20 @@
     <target name="clean">
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
+	<delete dir="${run}"/>
     </target>
 	
     <target name="install-linux">
         <ant antfile="ant/build-install-linux.xml" />
     </target>
-	
-	<target name="dist-src">
+    <target name="install-linux-destdir">
+        <ant antfile="ant/build-install-linux.xml" target="install-linux-destdir" />
+    </target>
+    <target name="install-linux-run">
+        <ant antfile="ant/build-install-linux.xml" target="install-linux-run" />
+    </target>
+    
+    <target name="dist-src">
         <ant antfile="ant/build-source.xml" />
     </target>
     <target name="dist-exe">
