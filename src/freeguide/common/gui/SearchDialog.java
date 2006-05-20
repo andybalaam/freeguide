@@ -176,7 +176,7 @@ public class SearchDialog extends JDialog
         resultList = new javax.swing.JList( foundModel );
         resultList.setCellRenderer(new FoundProgrammeCellRenderer(  ) );
         resultList.addMouseListener(programmeMouseListener);
-        resultList.addMouseListener(new ProgrammeSelectedHandler (  ) );
+        //resultList.addMouseListener(new ProgrammeSelectedHandler (  ) );
         
         javax.swing.JScrollPane listScroller =
             new javax.swing.JScrollPane( resultList );
@@ -246,7 +246,7 @@ public class SearchDialog extends JDialog
     /**
      * Example MouseAdaptor that constructing classes can use to get selection.
      */
-    class ProgrammeSelectedHandler extends MouseAdapter
+    /*class ProgrammeSelectedHandler extends MouseAdapter
     {
         public void mouseClicked(MouseEvent e)
         {
@@ -259,5 +259,5 @@ public class SearchDialog extends JDialog
                     .toString(  ) );
             }
         }
-    }
+    }*/
 }
