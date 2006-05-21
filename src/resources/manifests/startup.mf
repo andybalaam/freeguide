@@ -1,2 +1,2 @@
 Manifest-Version: 1.0
-Main-Class: freeguide/startup/Startup
+Main-Class: freeguide.startup.Startup
