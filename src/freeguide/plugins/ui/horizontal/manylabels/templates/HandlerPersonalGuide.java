@@ -179,7 +179,7 @@ public class HandlerPersonalGuide
     {
         if( programme.getSubTitle(  ) != null )
         {
-            return ": " + programme.getTitle(  );
+            return ": " + programme.getSubTitle(  );
         }
         else
         {

@@ -1,9 +1,12 @@
 package freeguide.common.lib.general;
 
+import freeguide.common.lib.fgspecific.Application;
+
 import java.io.IOException;
 import java.io.Writer;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -378,7 +381,7 @@ public class TemplateParser
          */
         public Object calculate( 
             final Object rootObject, final Object currentObject )
-            throws Exception
+            throws IOException
         {
             final int posOpen = getNextPos( '(' );
             final int posClose = getNextPos( ')' );
@@ -434,31 +437,59 @@ public class TemplateParser
 
                 if( calledObject != null )
                 {
-                    final Method method =
-                        calledObject.getClass(  )
-                                    .getMethod( methodName, parameterTypes );
-
-                    // invoke methods for Map.Entry by hand, because it can't be invoked through reflection - cannot access to protected class HashMap$Entry
-                    if( 
-                        method.getName(  ).equals( "getKey" )
-                            && ( method.getParameterTypes(  ).length == 0 )
-                            && calledObject instanceof Map.Entry )
+                    try
                     {
-                        final Map.Entry entry = (Map.Entry)calledObject;
-                        value = entry.getKey(  );
+                        final Method method =
+                            calledObject.getClass(  )
+                                        .getMethod( methodName, parameterTypes );
+    
+                        // invoke methods for Map.Entry by hand, because it can't be invoked through reflection - cannot access to protected class HashMap$Entry
+                        if( 
+                            method.getName(  ).equals( "getKey" )
+                                && ( method.getParameterTypes(  ).length == 0 )
+                                && calledObject instanceof Map.Entry )
+                        {
+                            final Map.Entry entry = (Map.Entry)calledObject;
+                            value = entry.getKey(  );
+                        }
+                        else if( 
+                            method.getName(  ).equals( "getValue" )
+                                && ( method.getParameterTypes(  ).length == 0 )
+                                && calledObject instanceof Map.Entry )
+                        {
+                            final Map.Entry entry = (Map.Entry)calledObject;
+                            value = entry.getValue(  );
+                        }
+                        else
+                        {
+                            try
+                            {
+                                value = method.invoke( 
+                                    calledObject, params.toArray(  ) );
+                            }
+                            catch( IllegalAccessException e )
+                            {
+                                e.printStackTrace(  );
+                                value = null;
+                            }
+                            catch( InvocationTargetException e )
+                            {
+                                Application.getInstance(  )
+                                    .getLogger(  ).warning(
+                                    "Error running method '" + methodName
+                                    + "' on object class '" 
+                                    + calledObject.getClass(  ).toString(  )
+                                    + "'." );
+                                
+                                e.printStackTrace(  );
+                                value = null;
+                            }
+                        }
                     }
-                    else if( 
-                        method.getName(  ).equals( "getValue" )
-                            && ( method.getParameterTypes(  ).length == 0 )
-                            && calledObject instanceof Map.Entry )
+                    catch( NoSuchMethodException e )
                     {
-                        final Map.Entry entry = (Map.Entry)calledObject;
-                        value = entry.getValue(  );
-                    }
-                    else
-                    {
-                        value = method.invoke( 
-                                calledObject, params.toArray(  ) );
+                        e.printStackTrace(  );
+                        value = null;
                     }
                 }
                 else

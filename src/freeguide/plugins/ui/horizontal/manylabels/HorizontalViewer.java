@@ -399,17 +399,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         JLabelProgramme.setupLabel( this );
 
         /** The chosen time formatter */
-        DateFormat timeFormat;
-
-        if( config.displayTime )
-        {
-            timeFormat = getCurrentDateFormat(  );
-        }
-        else
-        {
-            timeFormat = null;
-        }
-
+        DateFormat timeFormat = getCurrentDateFormat(  );
+        
         final Font font =
             new Font( config.fontName, config.fontStyle, config.fontSize );
 

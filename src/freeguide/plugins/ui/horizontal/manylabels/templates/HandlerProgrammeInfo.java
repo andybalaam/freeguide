@@ -184,7 +184,7 @@ public class HandlerProgrammeInfo
     {
         if( programme.getSubTitle(  ) != null )
         {
-            return ": " + programme.getTitle(  );
+            return ": " + programme.getSubTitle(  );
         }
         else
         {
