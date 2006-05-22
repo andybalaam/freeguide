@@ -108,7 +108,10 @@ public class SearchDialog extends JDialog
             owner, Application.getInstance(  ).getLocalizedMessage( "search" ) );
 
         initComponents(  );
+
         Utils.centreDialog( owner, this );
+
+        setVisible( true );
     }
 
     /**
@@ -126,6 +129,8 @@ public class SearchDialog extends JDialog
         initComponents(  );
         addMouseListener( m );
         Utils.centreDialog( owner, this );
+
+        setVisible( true );
     }
 
     /**
@@ -260,8 +265,6 @@ public class SearchDialog extends JDialog
 
         getRootPane(  ).setDefaultButton( searchButton );
         pack(  );
-
-        setVisible( true );
     }
 
     /**
