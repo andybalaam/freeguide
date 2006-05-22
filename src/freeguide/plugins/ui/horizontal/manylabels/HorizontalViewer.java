@@ -123,6 +123,43 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     protected boolean searchMenuAdded = false;
 
     /**
+     * Defines the action when a mouse is used in the search window.
+     * The current action is when a programme is double clicked, the
+     * main viewer goes to the time of that programme
+     */
+    protected MouseAdapter searchMouseAdapter =
+        new MouseAdapter(  )
+        {
+            public void mouseClicked( MouseEvent e )
+            {
+                if( e.getClickCount(  ) == 2 )
+                {
+                    if ( panel != null )
+                    {
+                        JList programmeList =
+                            (JList)e
+                            .getSource(  );
+
+                        // Go to the time of the programme selected
+                        TVProgramme programme =
+                            (TVProgramme)programmeList
+                            .getSelectedValue(  );
+                        goToDate( programme.getStart(  ) );
+                        // Scroll to the time
+                        panel.getProgrammesScrollPane(  )
+                            .getHorizontalScrollBar(  )
+                            .setValue( 
+                                    panel.getTimePanel(  )
+                                    .getScrollValue( 
+                                        programme.getStart(  ) )
+                                    - 100 );
+                        redraw(  );
+                    }
+                }
+            }
+        };
+
+    /**
      * Get config object.
      *
      * @return config object
@@ -236,33 +273,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                         SearchDialog sd =
                             new SearchDialog( 
                                 Application.getInstance(  ).getCurrentFrame(  ),
-                                new MouseAdapter(  )
-                                {
-                                    public void mouseClicked( MouseEvent e )
-                                    {
-                                        if( e.getClickCount(  ) == 2 )
-                                        {
-                                            JList programmeList =
-                                                (JList)e
-                                                .getSource(  );
-
-                                            // Go to the time of the programme selected
-                                            TVProgramme programme =
-                                                (TVProgramme)programmeList
-                                                .getSelectedValue(  );
-                                            goToDate( programme.getStart(  ) );
-                                            // Scroll to the time
-                                            panel.getProgrammesScrollPane(  )
-                                                 .getHorizontalScrollBar(  )
-                                                 .setValue( 
-                                                panel.getTimePanel(  )
-                                                     .getScrollValue( 
-                                                    programme.getStart(  ) )
-                                                - 100 );
-                                            redraw(  );
-                                        }
-                                    }
-                                } );
+                                searchMouseAdapter);
                     }
                 } );
 
