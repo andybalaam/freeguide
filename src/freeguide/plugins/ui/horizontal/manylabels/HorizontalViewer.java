@@ -1,5 +1,7 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
+import freeguide.common.gui.SearchDialog;
+
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.TVChannelIconHelper;
 import freeguide.common.lib.fgspecific.data.TVChannel;
@@ -18,8 +20,6 @@ import freeguide.common.plugininterfaces.IModuleViewer;
 
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerPersonalGuide;
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;
-
-import freeguide.common.gui.SearchDialog;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -111,7 +111,16 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         new HorizontalViewerHandlers( this );
     protected JLabelProgramme currentProgrammeLabel;
 
+    /** Menu item for searching through programmes */
     final JMenuItem menuSearch = new JMenuItem(  );
+
+    /**
+     * Flag to indicate search menu item had already been added.
+     * Ideally, the menu item would be added when the Viewer is created, but
+     * at this point, the main menu has not been created, so it cannot be
+     * added.  Instead, add it once when the view is first opened.
+     */
+    protected boolean searchMenuAdded = false;
 
     /**
      * Get config object.
@@ -210,43 +219,57 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         panel.getProgrammesScrollPane(  ).validate(  );
         goToNow(  );
-        
-        //Add Search Menu
-        menuSearch.setText( Application.getInstance(  ).getLocalizedMessage(
-            "search" ) );
-        Application.getInstance(  ).getMainMenu(  ).getTools(  ).insert( 
-            menuSearch, 0 );
 
-        menuSearch.addActionListener( 
-            new ActionListener(  )
-            {
-                public void actionPerformed( ActionEvent e )
+        //Add Search Menu if not already added
+        if( !searchMenuAdded )
+        {
+            menuSearch.setText( 
+                Application.getInstance(  ).getLocalizedMessage( "search" ) );
+            Application.getInstance(  ).getMainMenu(  ).getTools(  )
+                       .insert( menuSearch, 0 );
+
+            menuSearch.addActionListener( 
+                new ActionListener(  )
                 {
-                    SearchDialog sd = new SearchDialog(Application.getInstance(  ).getCurrentFrame(  ),
-                        new MouseAdapter() 
-                        {
-                            public void mouseClicked(MouseEvent e)
-                            {
-                                if (e.getClickCount( ) == 2)
+                    public void actionPerformed( ActionEvent e )
+                    {
+                        SearchDialog sd =
+                            new SearchDialog( 
+                                Application.getInstance(  ).getCurrentFrame(  ),
+                                new MouseAdapter(  )
                                 {
-                                    JList programmeList = ( JList ) e.getSource(  );
+                                    public void mouseClicked( MouseEvent e )
+                                    {
+                                        if( e.getClickCount(  ) == 2 )
+                                        {
+                                            JList programmeList =
+                                                (JList)e
+                                                .getSource(  );
 
-                                    // Go to the time of the programme selected
-                                    TVProgramme programme = (TVProgramme ) programmeList.getSelectedValue(  );
-                                    goToDate( programme.getStart(  ) ); 
-                                    // Scroll to the time
-                                    panel.getProgrammesScrollPane(  ).getHorizontalScrollBar(  ).setValue( 
-                                        panel.getTimePanel(  ).getScrollValue( programme.getStart(  ) ) - 100 );
-                                    redraw(  );
-                                }
-                            }
-                        }
+                                            // Go to the time of the programme selected
+                                            TVProgramme programme =
+                                                (TVProgramme)programmeList
+                                                .getSelectedValue(  );
+                                            goToDate( programme.getStart(  ) );
+                                            // Scroll to the time
+                                            panel.getProgrammesScrollPane(  )
+                                                 .getHorizontalScrollBar(  )
+                                                 .setValue( 
+                                                panel.getTimePanel(  )
+                                                     .getScrollValue( 
+                                                    programme.getStart(  ) )
+                                                - 100 );
+                                            redraw(  );
+                                        }
+                                    }
+                                } );
+                    }
+                } );
 
-                    );	
-                }
+            searchMenuAdded = true;
+        }
 
-            } );
- 
+        menuSearch.setVisible( true );
     }
 
     /**
@@ -255,11 +278,10 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     public void close(  )
     {
         saveConfigNow(  );
-        
+
         // Remove Search Menu
-        Application.getInstance(  ).getMainMenu(  ).getTools(  )
-            .remove( menuSearch );
-        
+        menuSearch.setVisible( false );
+
         panel = null;
     }
 
