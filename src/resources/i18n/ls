@@ -26,6 +26,7 @@ MessagesBundle.en.properties
 MessagesBundle.en.REVERSECAPS.properties
 MessagesBundle.en_US.properties
 MessagesBundle.fr.properties
+MessagesBundle.zh.properties
 months.utf8.properties
 PrivacyBundle.en.html
 PrivacyBundle.en.REVERSECAPS.html
