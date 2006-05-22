@@ -70,32 +70,30 @@ public class ConfigureUIController implements IModuleConfigurationUI
                 if( e.getSource(  ) == panel.getBtnColorChannel(  ) )
                 {
                     panelColor = panel.getPanelColorChannel(  );
-
                 }
-
                 else if( e.getSource(  ) == panel.getBtnColorMovie(  ) )
                 {
                     panelColor = panel.getPanelColorMovie(  );
-
                 }
-
+                else if( e.getSource(  ) == panel.getBtnColorSelected(  ) )
+                {
+                    panelColor = panel.getPanelColorSelected(  );
+                }
                 else if( e.getSource(  ) == panel.getBtnColorNormal(  ) )
                 {
                     panelColor = panel.getPanelColorNormal(  );
-
                 }
-
+                
                 Color col =
                     JColorChooser.showDialog( 
                         inDialog,
                         parent.getLocalizer(  )
                               .getLocalizedMessage( "choose_a_colour" ),
                         panelColor.getBackground(  ) );
-
+                
                 if( col != null )
                 {
                     panelColor.setBackground( col );
-
                 }
             }
         };
@@ -134,37 +132,24 @@ public class ConfigureUIController implements IModuleConfigurationUI
     public void save(  )
     {
         config.fontName = currentFont.getName(  );
-
         config.fontSize = currentFont.getSize(  );
-
         config.fontStyle = currentFont.getStyle(  );
-
         config.sizeChannelHeight = panel.getSliderHeight(  ).getValue(  );
-
-        config.sizeProgrammePanelWidth = panel.getSliderWidth(  ).getValue(  ) * 24;
-
+        config.sizeProgrammePanelWidth = panel.getSliderWidth(  ).getValue(  )
+            * 24;
         config.colorChannel = panel.getPanelColorChannel(  ).getBackground(  );
-
         config.colorMovie = panel.getPanelColorMovie(  ).getBackground(  );
-
+        config.colorTicked = panel.getPanelColorSelected(  )
+            .getBackground(  );
         config.colorNonTicked = panel.getPanelColorNormal(  ).getBackground(  );
-
         config.displayTooltips = panel.getCbDisplayTooltips(  ).isSelected(  );
-
         config.displayTime = panel.getCbDrawTime(  ).isSelected(  );
-
         config.displayDelta = panel.getCbPrintDelta(  ).isSelected(  );
-
         config.displayAlignToLeft = panel.getCbAlignLeft(  ).isSelected(  );
-
         config.display24time = panel.getRbTime24(  ).isSelected(  );
-
         config.dayStartTime = new Time( panel.getDayStart(  ).getText(  ) );
-
         parent.config = config;
-
         parent.redraw(  );
-
     }
 
     /**
@@ -189,25 +174,18 @@ public class ConfigureUIController implements IModuleConfigurationUI
     {
         currentFont = new Font( 
                 config.fontName, config.fontStyle, config.fontSize );
-
         setupFont(  );
-
         panel.getTextHeight(  )
              .setText( Integer.toString( config.sizeChannelHeight ) );
-
         panel.getSliderHeight(  ).setValue( config.sizeChannelHeight );
-
         panel.getTextWidth(  )
              .setText( 
             Integer.toString( config.sizeProgrammePanelWidth / 24 ) );
-
         panel.getSliderWidth(  ).setValue( 
             config.sizeProgrammePanelWidth / 24 );
-
         panel.getPanelColorChannel(  ).setBackground( config.colorChannel );
-
         panel.getPanelColorMovie(  ).setBackground( config.colorMovie );
-
+        panel.getPanelColorSelected(  ).setBackground( config.colorTicked );
         panel.getPanelColorNormal(  ).setBackground( config.colorNonTicked );
 
         panel.getBtnFont(  ).addActionListener( 
@@ -223,64 +201,43 @@ public class ConfigureUIController implements IModuleConfigurationUI
                             new Font( 
                                 config.fontName, config.fontStyle,
                                 config.fontSize ) );
-
                     Dimension fontDialogSize = new Dimension( 300, 200 );
-
                     Dimension parentSize = inDialog.getSize(  );
-
                     Point parentLocation = inDialog.getLocationOnScreen(  );
-
                     fontDialog.setLocation( 
                         parentLocation.x
                         + ( ( parentSize.width - fontDialogSize.width ) / 2 ),
                         parentLocation.y
                         + ( ( parentSize.height - fontDialogSize.height ) / 2 ) );
-
+                    
                     fontDialog.setSize( fontDialogSize );
-
                     fontDialog.setVisible( true );
-
                     currentFont = fontDialog.getSelectedFont(  );
-
                     setupFont(  );
-
                 }
             } );
-
         panel.getBtnColorChannel(  ).addActionListener( colorBtnAction );
-
+        panel.getBtnColorSelected(  ).addActionListener( colorBtnAction );
         panel.getBtnColorMovie(  ).addActionListener( colorBtnAction );
-
         panel.getBtnColorNormal(  ).addActionListener( colorBtnAction );
-
         panel.getSliderHeight(  ).addChangeListener( sliderChange );
-
         panel.getSliderWidth(  ).addChangeListener( sliderChange );
-
         panel.getCbDisplayTooltips(  ).setSelected( config.displayTooltips );
-
         panel.getCbDrawTime(  ).setSelected( config.displayTime );
-
         panel.getCbPrintDelta(  ).setSelected( config.displayDelta );
-
         panel.getCbAlignLeft(  ).setSelected( config.displayAlignToLeft );
-
+        
         if( config.display24time )
         {
             panel.getRbTime24(  ).setSelected( true );
-
         }
-
         else
         {
             panel.getRbTime12(  ).setSelected( true );
-
         }
-
         panel.getDayStart(  ).setText( config.dayStartTime.getHHMMString(  ) );
-
     }
-
+    
     protected void setupFont(  )
     {
         panel.getTextFont(  ).setFont( currentFont );

@@ -381,25 +381,18 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
     public void actionPerformed( ActionEvent e )
     {
         Object source = e.getSource(  );
-
-        if( source == defaultButton )
+        if( source == defaultButton && currentOptionPanel != null )
         {
             currentOptionPanel.resetToDefaults(  );
-
         }
-
         else if( source == cancelButton )
         {
             quit(  );
-
         }
-
         else if( source == okButton )
         {
             saveAll(  );
-
             quit(  );
-
         }
     }
 

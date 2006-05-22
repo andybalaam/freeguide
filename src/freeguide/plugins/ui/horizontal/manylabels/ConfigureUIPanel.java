@@ -38,10 +38,13 @@ public class ConfigureUIPanel extends JPanel
     private JButton btnColorNormal;
     private JLabel labelColorMovie;
     private JLabel labelColorChannel;
+    private JLabel labelColorSelected;
     private JPanel panelColorMovie;
+    private JPanel panelColorSelected;
     private JPanel panelColorChannel;
     private JButton btnColorMovie;
     private JButton btnColorChannel;
+    private JButton btnColorSelected;
     protected ILocalizer localizer;
     private JTextField dayStart;
     private JLabel jLabel;
@@ -82,73 +85,49 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints110.weightx = 0.1D;
 
         GridBagConstraints gridBagConstraints31 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints21 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints11 = new GridBagConstraints(  );
 
         labelTimeFormat = new JLabel(  );
-
         jLabel = new JLabel(  );
 
         GridBagConstraints gridBagConstraints42 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints51 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints61 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints72 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints92 = new GridBagConstraints(  );
 
         labelColorNormal = new JLabel(  );
-
         labelColorChannel = new JLabel(  );
-
+        labelColorSelected = new JLabel(  );
         labelColorMovie = new JLabel(  );
 
         GridBagConstraints gridBagConstraints19 = new GridBagConstraints(  );
-
+        GridBagConstraints gridBagConstraints20 = new GridBagConstraints(  );
         GridBagConstraints gridBagConstraints18 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints15 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints14 = new GridBagConstraints(  );
-
+        GridBagConstraints gridBagConstraints16 = new GridBagConstraints(  );
         GridBagConstraints gridBagConstraints81 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints71 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints6 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints101 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints111 = new GridBagConstraints(  );
-
+        GridBagConstraints gridBagConstraints50 = new GridBagConstraints(  );
         GridBagConstraints gridBagConstraints5 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints41 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints3 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints2 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints13 = new GridBagConstraints(  );
 
         labelFont = new JLabel(  );
-
         labelWidth = new JLabel(  );
-
         labelHeight = new JLabel(  );
-
+        
         GridBagConstraints gridBagConstraints1 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints4 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints7 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints8 = new GridBagConstraints(  );
-
         GridBagConstraints gridBagConstraints9 = new GridBagConstraints(  );
 
         this.setLayout( new GridBagLayout(  ) );
@@ -160,8 +139,6 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints1.anchor = java.awt.GridBagConstraints.WEST;
 
         gridBagConstraints1.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        labelHeight.setText( "channel_height:" );
-
         labelHeight.setText( 
             localizer.getLocalizedMessage( "channel_height" ) + ":" );
 
@@ -172,8 +149,6 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints6.gridx = 0;
 
         gridBagConstraints6.gridy = 3;
-
-        labelColorNormal.setText( "normal_prog_colour" );
 
         labelColorNormal.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_N );
         labelColorNormal.setLabelFor( getBtnColorNormal(  ) );
@@ -199,85 +174,80 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints81.insets = new java.awt.Insets( 5, 5, 0, 5 );
 
         gridBagConstraints101.gridx = 0;
-
-        gridBagConstraints101.gridy = 5;
-
-        labelColorMovie.setText( "movie_colour" );
-
+        gridBagConstraints101.gridy = 6;
         labelColorMovie.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_M );
         labelColorMovie.setLabelFor( getBtnColorMovie(  ) );
         labelColorMovie.setText( 
             localizer.getLocalizedMessage( "movie_colour" ) );
 
         gridBagConstraints111.gridx = 0;
-
-        gridBagConstraints111.gridy = 6;
-
-        labelColorChannel.setText( "channel_colour" );
-
+        gridBagConstraints111.gridy = 7;
         labelColorChannel.setLabelFor( getBtnColorChannel(  ) );
         labelColorChannel.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_C );
         labelColorChannel.setText( 
             localizer.getLocalizedMessage( "channel_colour" ) );
+        
+        gridBagConstraints50.gridx = 0;
+        gridBagConstraints50.gridy = 5;
+        labelColorSelected.setLabelFor( getBtnColorSelected(  ) );
+        labelColorSelected.setDisplayedMnemonic(
+            java.awt.event.KeyEvent.VK_A );
+        labelColorSelected.setText( 
+            localizer.getLocalizedMessage( "selected_colour" ) );
 
         gridBagConstraints101.anchor = java.awt.GridBagConstraints.WEST;
 
         gridBagConstraints101.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraints111.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints50.anchor = java.awt.GridBagConstraints.WEST;
 
         gridBagConstraints111.insets = new java.awt.Insets( 5, 5, 0, 0 );
+        gridBagConstraints50.insets = new java.awt.Insets( 5, 5, 0, 0 );
+        
         gridBagConstraints14.gridx = 1;
-
-        gridBagConstraints14.gridy = 5;
-
+        gridBagConstraints14.gridy = 6;
         gridBagConstraints14.fill = java.awt.GridBagConstraints.BOTH;
-
         gridBagConstraints14.gridwidth = 2;
-
         gridBagConstraints14.insets = new java.awt.Insets( 5, 5, 0, 0 );
+        
+        gridBagConstraints16.gridx = 1;
+        gridBagConstraints16.gridy = 5;
+        gridBagConstraints16.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints16.gridwidth = 2;
+        gridBagConstraints16.insets = new java.awt.Insets( 5, 5, 0, 0 );
+        
         gridBagConstraints15.gridx = 1;
-
-        gridBagConstraints15.gridy = 6;
-
+        gridBagConstraints15.gridy = 7;
         gridBagConstraints15.fill = java.awt.GridBagConstraints.BOTH;
-
         gridBagConstraints15.gridwidth = 2;
-
         gridBagConstraints15.insets = new java.awt.Insets( 5, 5, 0, 0 );
+        
         gridBagConstraints18.gridx = 3;
-
-        gridBagConstraints18.gridy = 5;
-
+        gridBagConstraints18.gridy = 6;
         gridBagConstraints18.insets = new java.awt.Insets( 5, 5, 0, 5 );
+        
         gridBagConstraints19.gridx = 3;
-
-        gridBagConstraints19.gridy = 6;
-
+        gridBagConstraints19.gridy = 7;
         gridBagConstraints19.insets = new java.awt.Insets( 5, 5, 0, 5 );
+        
+        gridBagConstraints20.gridx = 3;
+        gridBagConstraints20.gridy = 5;
+        gridBagConstraints20.insets = new java.awt.Insets( 5, 5, 0, 5 );
+        
         gridBagConstraints4.gridx = 0;
-
         gridBagConstraints4.gridy = 1;
-
         gridBagConstraints4.anchor = java.awt.GridBagConstraints.WEST;
-
         gridBagConstraints4.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        labelWidth.setText( "width_of_1hr:" );
 
         labelWidth.setText( 
             localizer.getLocalizedMessage( "width_of_1hr" ) + ":" );
-
         labelWidth.setLabelFor( getSliderWidth(  ) );
-
         labelWidth.setDisplayedMnemonic( KeyEvent.VK_W );
-
+        
         gridBagConstraints7.gridx = 0;
-
         gridBagConstraints7.gridy = 2;
-
         gridBagConstraints7.anchor = java.awt.GridBagConstraints.WEST;
-
         gridBagConstraints7.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        labelFont.setText( "font:" );
 
         labelFont.setText( localizer.getLocalizedMessage( "font" ) + ":" );
 
@@ -352,7 +322,6 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints51.anchor = java.awt.GridBagConstraints.WEST;
 
         gridBagConstraints51.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        jLabel.setText( "day_starts_at:" );
 
         jLabel.setLabelFor( getDayStart(  ) );
         jLabel.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_S );
@@ -375,7 +344,6 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints72.anchor = java.awt.GridBagConstraints.WEST;
 
         gridBagConstraints72.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        labelTimeFormat.setText( "time_format:" );
 
         labelTimeFormat.setLabelFor( getRbTime12(  ) );
         labelTimeFormat.setText( 
@@ -437,11 +405,14 @@ public class ConfigureUIPanel extends JPanel
         this.add( getPanelColorChannel(  ), gridBagConstraints15 );
         this.add( getBtnColorMovie(  ), gridBagConstraints18 );
         this.add( getPanelColorMovie(  ), gridBagConstraints14 );
+        this.add( getPanelColorSelected(  ), gridBagConstraints16 );
         this.add( getBtnColorNormal(  ), gridBagConstraints81 );
         this.add( getPanelColorNormal(  ), gridBagConstraints71 );
         this.add( labelColorNormal, gridBagConstraints6 );
         this.add( getBtnColorChannel(  ), gridBagConstraints19 );
+        this.add( getBtnColorSelected(  ), gridBagConstraints20 );
         this.add( labelColorChannel, gridBagConstraints111 );
+        this.add( labelColorSelected, gridBagConstraints50 );
         this.add( labelColorMovie, gridBagConstraints101 );
         this.add( getPanelSpacer(  ), gridBagConstraints13 );
         this.add( getJPanel(  ), gridBagConstraints110 );
@@ -635,7 +606,7 @@ public class ConfigureUIPanel extends JPanel
     }
 
     /**
-     * This method initializes jPanel4
+     * Return the movie colour box.
      *
      * @return javax.swing.JPanel
      */
@@ -644,13 +615,24 @@ public class ConfigureUIPanel extends JPanel
         if( panelColorMovie == null )
         {
             panelColorMovie = new JPanel(  );
-
         }
-
         return panelColorMovie;
-
     }
-
+    
+    /**
+     * Return the favourite colout box
+     *
+     * @return javax.swing.JPanel
+     */
+    protected JPanel getPanelColorSelected(  )
+    {
+        if( panelColorSelected == null )
+        {
+            panelColorSelected = new JPanel(  );
+        }
+        return panelColorSelected;
+    }
+    
     /**
      * This method initializes jPanel5
      *
@@ -688,7 +670,7 @@ public class ConfigureUIPanel extends JPanel
     }
 
     /**
-     * This method initializes jButton3
+     * Returns the "..." button to change channel colour
      *
      * @return javax.swing.JButton
      */
@@ -697,15 +679,26 @@ public class ConfigureUIPanel extends JPanel
         if( btnColorChannel == null )
         {
             btnColorChannel = new JButton(  );
-
             btnColorChannel.setText( "..." );
-
         }
-
         return btnColorChannel;
-
     }
-
+    
+    /**
+     * Returns the "..." button to change favourite colour
+     *
+     * @return javax.swing.JButton
+     */
+    protected JButton getBtnColorSelected(  )
+    {
+        if( btnColorSelected == null )
+        {
+            btnColorSelected = new JButton(  );
+            btnColorSelected.setText( "..." );
+        }
+        return btnColorSelected;
+    }
+    
     /**
      * This method initializes jTextField
      *
@@ -768,8 +761,6 @@ public class ConfigureUIPanel extends JPanel
         {
             rbTime12 = new JRadioButton(  );
 
-            rbTime12.setText( "12 hour" );
-
             rbTime12.setMnemonic( java.awt.event.KeyEvent.VK_1 );
             rbTime12.setText( localizer.getLocalizedMessage( "12_hour" ) );
 
@@ -790,7 +781,6 @@ public class ConfigureUIPanel extends JPanel
         {
             rbTime24 = new JRadioButton(  );
 
-            rbTime24.setText( "24 hour" );
 
             rbTime24.setMnemonic( java.awt.event.KeyEvent.VK_2 );
             rbTime24.setText( localizer.getLocalizedMessage( "24_hour" ) );
@@ -811,8 +801,6 @@ public class ConfigureUIPanel extends JPanel
         if( cbDrawTime == null )
         {
             cbDrawTime = new JCheckBox(  );
-
-            cbDrawTime.setText( "Show programme time ?" );
 
             cbDrawTime.setMnemonic( java.awt.event.KeyEvent.VK_O );
             cbDrawTime.setText( 
@@ -835,8 +823,6 @@ public class ConfigureUIPanel extends JPanel
         {
             cbAlignLeft = new JCheckBox(  );
 
-            cbAlignLeft.setText( "Moving names ?" );
-
             cbAlignLeft.setMnemonic( java.awt.event.KeyEvent.VK_V );
             cbAlignLeft.setText( 
                 localizer.getLocalizedMessage( "moving_names" ) );
@@ -858,8 +844,6 @@ public class ConfigureUIPanel extends JPanel
         {
             cbPrintDelta = new JCheckBox(  );
 
-            cbPrintDelta.setText( "Print time delta ?" );
-
             cbPrintDelta.setMnemonic( java.awt.event.KeyEvent.VK_P );
             cbPrintDelta.setText( 
                 localizer.getLocalizedMessage( "print_time_delta" ) );
@@ -880,8 +864,6 @@ public class ConfigureUIPanel extends JPanel
         if( cbDisplayTooltips == null )
         {
             cbDisplayTooltips = new JCheckBox(  );
-
-            cbDisplayTooltips.setText( "Show tooltips ?" );
 
             cbDisplayTooltips.setMnemonic( java.awt.event.KeyEvent.VK_L );
             cbDisplayTooltips.setText( 
@@ -909,3 +891,4 @@ public class ConfigureUIPanel extends JPanel
         return jPanel;
     }
 }
+
