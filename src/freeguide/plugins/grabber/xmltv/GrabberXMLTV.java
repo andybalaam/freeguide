@@ -168,8 +168,13 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             Application.getInstance(  ).getWorkingDirectory(  )
             + "/xmltv-configs/" ).mkdirs(  );
 
-        String cmd = getCommand( moduleInfo.moduleName, "cfg" );
-
+        String cmd = moduleInfo.configCommandToRun;
+        
+        if( cmd == null )
+        {
+            cmd = getCommand( moduleInfo.moduleName, "cfg" );
+        }
+        
         if( cmd == null )
         {
             Application.getInstance(  ).getLogger(  )

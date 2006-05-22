@@ -35,7 +35,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
     final protected XMLTVConfigureUIPanel panel;
     final protected XMLTVConfig config;
     protected Color textNoEdited;
-    protected Color textEdited = Color.RED;
+    protected Color textEdited = Color.BLUE;
     protected Map textListeners = new TreeMap(  );
     protected int latestY = 0;
     final protected String[] modules;
@@ -161,7 +161,8 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
     {
         final XMLTVConfigureUIPanelModule confPanel =
             new XMLTVConfigureUIPanelModule( 
-                parent.getLocalizer(  ), moduleInfo, new TextChanged(  ) );
+                parent.getLocalizer(  ), moduleInfo, new TextChanged(  ),
+                new ConfigTextChanged(  ) );
 
         confPanel.getBtnChannels(  )
                  .addActionListener( 
@@ -205,6 +206,11 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         confPanel.getTextCommand(  ).getDocument(  )
                  .addDocumentListener( confPanel.textChangedEvent );
         confPanel.textChangedEvent.allowEvent = true;
+        
+        setConfigTextFieldSet( confPanel );
+        confPanel.getTextConfigCommand(  ).getDocument(  )
+                 .addDocumentListener( confPanel.configTextChangedEvent );
+        confPanel.configTextChangedEvent.allowEvent = true;
 
         return confPanel;
 
@@ -214,6 +220,12 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         final XMLTVConfigureUIPanelModule panel )
     {
         panel.getTextCommand(  ).setForeground( textEdited );
+    }
+    
+    protected void setConfigTextFieldMarkAsEdited( 
+        final XMLTVConfigureUIPanelModule panel )
+    {
+        panel.getTextConfigCommand(  ).setForeground( textEdited );
     }
 
     protected void setTextFieldSet( final XMLTVConfigureUIPanelModule panel )
@@ -229,6 +241,24 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         {
             panel.getTextCommand(  ).setForeground( textEdited );
             panel.getTextCommand(  ).setText( panel.moduleInfo.commandToRun );
+        }
+    }
+    
+    protected void setConfigTextFieldSet(
+        final XMLTVConfigureUIPanelModule panel )
+    {
+        if( panel.moduleInfo.configCommandToRun == null )
+        {
+            panel.getTextConfigCommand(  ).setForeground( textNoEdited );
+            panel.getTextConfigCommand(  )
+                 .setText( 
+                GrabberXMLTV.getCommand( panel.moduleInfo.moduleName, "cfg" ) );
+        }
+        else
+        {
+            panel.getTextConfigCommand(  ).setForeground( textEdited );
+            panel.getTextConfigCommand(  ).setText(
+                panel.moduleInfo.configCommandToRun );
         }
     }
 
@@ -294,9 +324,13 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         public void actionPerformed( final ActionEvent e )
         {
             confPanel.textChangedEvent.allowEvent = false;
+            confPanel.configTextChangedEvent.allowEvent = false;
             confPanel.moduleInfo.commandToRun = null;
+            confPanel.moduleInfo.configCommandToRun = null;
             setTextFieldSet( confPanel );
+            setConfigTextFieldSet( confPanel );
             confPanel.textChangedEvent.allowEvent = true;
+            confPanel.configTextChangedEvent.allowEvent = true;
         }
     }
 
@@ -323,11 +357,15 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         public void actionPerformed( final ActionEvent e )
         {
             confPanel.textChangedEvent.allowEvent = false;
+            confPanel.configTextChangedEvent.allowEvent = false;
             confPanel.moduleInfo.moduleName = (String)( (JComboBox)e.getSource(  ) )
                 .getSelectedItem(  );
             confPanel.moduleInfo.commandToRun = null;
+            confPanel.moduleInfo.configCommandToRun = null;
             setTextFieldSet( confPanel );
+            setConfigTextFieldSet( confPanel );
             confPanel.textChangedEvent.allowEvent = true;
+            confPanel.configTextChangedEvent.allowEvent = true;
         }
     }
 
@@ -381,7 +419,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
             try
             {
                 panel.moduleInfo.commandToRun = doc.getText( 
-                        0, doc.getLength(  ) );
+                    0, doc.getLength(  ) );
             }
             catch( BadLocationException ex )
             {
@@ -391,4 +429,66 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
         }
     }
+    
+    protected class ConfigTextChanged implements DocumentListener
+    {
+        protected XMLTVConfigureUIPanelModule panel;
+        protected boolean allowEvent = true;
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param e DOCUMENT_ME!
+         */
+        public void changedUpdate( DocumentEvent e )
+        {
+            onChanged( e );
+
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param e DOCUMENT_ME!
+         */
+        public void insertUpdate( DocumentEvent e )
+        {
+            onChanged( e );
+
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param e DOCUMENT_ME!
+         */
+        public void removeUpdate( DocumentEvent e )
+        {
+            onChanged( e );
+
+        }
+
+        protected void onChanged( DocumentEvent e )
+        {
+            if( !allowEvent )
+            {
+                return;
+            }
+
+            Document doc = e.getDocument(  );
+
+            try
+            {
+                panel.moduleInfo.configCommandToRun = doc.getText( 
+                        0, doc.getLength(  ) );
+            }
+            catch( BadLocationException ex )
+            {
+            }
+
+            setConfigTextFieldMarkAsEdited( panel );
+
+        }
+    }
+    
 }

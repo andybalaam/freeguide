@@ -49,8 +49,11 @@ public class XMLTVConfig
         /** DOCUMENT ME! */
         public String moduleName;
 
-        /** DOCUMENT ME! */
+        /** The grabbing command */
         public String commandToRun;
+        
+        /** The configuration command */
+        public String configCommandToRun;
 
         /** DOCUMENT ME! */
         public String configFileName =
@@ -66,6 +69,7 @@ public class XMLTVConfig
             ModuleInfo result = new ModuleInfo(  );
             result.moduleName = moduleName;
             result.commandToRun = commandToRun;
+            result.configCommandToRun = configCommandToRun;
             result.configFileName = configFileName;
 
             return result;

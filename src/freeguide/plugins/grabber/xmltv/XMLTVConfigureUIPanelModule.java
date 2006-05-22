@@ -20,8 +20,11 @@ public class XMLTVConfigureUIPanelModule extends JPanel
 {
     protected final XMLTVConfig.ModuleInfo moduleInfo;
     protected final XMLTVConfigureUIController.TextChanged textChangedEvent;
+    protected final XMLTVConfigureUIController.ConfigTextChanged
+        configTextChangedEvent;
     private JButton btnChannels = null;
     private JTextField textCommand = null;
+    private JTextField textConfigCommand = null;
     private JButton btnCommandReset = null;
     private JButton btnDelete = null;
     private JPanel jPanel = null;
@@ -38,13 +41,17 @@ public class XMLTVConfigureUIPanelModule extends JPanel
      */
     public XMLTVConfigureUIPanelModule( 
         final ILocalizer localizer, final XMLTVConfig.ModuleInfo moduleInfo,
-        final XMLTVConfigureUIController.TextChanged textChangedEvent )
+        final XMLTVConfigureUIController.TextChanged textChangedEvent,
+        final XMLTVConfigureUIController.ConfigTextChanged 
+            configTextChangedEvent )
     {
         super(  );
         this.localizer = localizer;
         this.moduleInfo = moduleInfo;
         this.textChangedEvent = textChangedEvent;
         this.textChangedEvent.panel = this;
+        this.configTextChangedEvent = configTextChangedEvent;
+        this.configTextChangedEvent.panel = this;
 
         initialize(  );
 
@@ -99,7 +106,7 @@ public class XMLTVConfigureUIPanelModule extends JPanel
     }
 
     /**
-     * This method initializes jTextField
+     * Return the text field for the XMLTV grabbing command line
      *
      * @return javax.swing.JTextField
      */
@@ -114,6 +121,25 @@ public class XMLTVConfigureUIPanelModule extends JPanel
         }
 
         return textCommand;
+
+    }
+    
+    /**
+     * Return the text field for the XMLTV configuration command line
+     *
+     * @return javax.swing.JTextField
+     */
+    public JTextField getTextConfigCommand(  )
+    {
+        if( textConfigCommand == null )
+        {
+            textConfigCommand = new JTextField(  );
+
+            textConfigCommand.setColumns( 10 );
+
+        }
+
+        return textConfigCommand;
 
     }
 
@@ -173,6 +199,8 @@ public class XMLTVConfigureUIPanelModule extends JPanel
                 new GridBagConstraints(  );
             GridBagConstraints gridBagConstraints3 =
                 new GridBagConstraints(  );
+            GridBagConstraints gridBagConstraints5 =
+                new GridBagConstraints(  );
             jPanel = new JPanel(  );
             jPanel.setLayout( new GridBagLayout(  ) );
             gridBagConstraints3.gridx = 1;
@@ -184,6 +212,12 @@ public class XMLTVConfigureUIPanelModule extends JPanel
             gridBagConstraints4.weightx = 1.0;
             gridBagConstraints4.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints4.insets = new Insets( 5, 5, 5, 5 );
+            gridBagConstraints5.gridx = 0;
+            gridBagConstraints5.gridy = 2;
+            gridBagConstraints5.gridwidth = 2;
+            gridBagConstraints5.weightx = 1.0;
+            gridBagConstraints5.fill = GridBagConstraints.HORIZONTAL;
+            gridBagConstraints5.insets = new Insets( 5, 5, 5, 5 );
             jPanel.setBorder( 
                 javax.swing.BorderFactory.createEtchedBorder( 
                     javax.swing.border.EtchedBorder.RAISED ) );
@@ -195,6 +229,7 @@ public class XMLTVConfigureUIPanelModule extends JPanel
             jPanel.add( getComboModules(  ), gridBagConstraints6 );
             jPanel.add( getBtnCommandReset(  ), gridBagConstraints3 );
             jPanel.add( getTextCommand(  ), gridBagConstraints4 );
+            jPanel.add( getTextConfigCommand(  ), gridBagConstraints5 );
         }
 
         return jPanel;
