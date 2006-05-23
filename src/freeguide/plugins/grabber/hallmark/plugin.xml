@@ -4,9 +4,6 @@
         version="2"
         class="freeguide.plugins.grabber.hallmark.GrabberHallmark">
 
-  <name lang="en">Hallmark Channel</name>
-  <description lang="en">Grabber for http://www.hallmarkchannel.com</description>
-
   <files>
     <file path="lib/grabber-hallmark.jar"/>
     <file path="lib/"/>

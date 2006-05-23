@@ -4,15 +4,6 @@
         version="2"
         class="freeguide.plugins.reminder.alarm.AlarmReminder">
 
-  <name lang="be">Alarm reminder</name>
-  <description lang="be">Alarm reminder like in previous versions</description>
-  <name lang="de">Alarm reminder</name>
-  <description lang="de">Alarm reminder like in previous versions</description>
-  <name lang="en">Alarm reminder</name>
-  <description lang="en">Alarm reminder like in previous versions</description>
-  <name lang="fr">Alarme de rappel</name>
-  <description lang="fr">Alarme de rappel comme dans les anciennes versions</description>
-
   <files>
     <file path="lib/reminder-alarm.jar"/>
     <file path="lib/"/>

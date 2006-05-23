@@ -200,7 +200,9 @@ public class SearchDialog extends JDialog
 
         // Add a panel to display the result
         jPanelResult = new Box( BoxLayout.Y_AXIS );
-        jPanelResult.add( new JLabel( "Results" ) );
+        jPanelResult.add( 
+            new JLabel( 
+                Application.getInstance(  ).getLocalizedMessage( "results" ) ) );
         jPanelResult.setBorder( BorderFactory.createEtchedBorder(  ) );
 
         resultList = new JList( foundModel );

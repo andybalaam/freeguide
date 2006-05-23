@@ -494,8 +494,16 @@ public class FreeGuide
      */
     public static void setLocale( final Locale newLocale )
     {
-        final Locale locale =
-            ( newLocale == null ) ? runtimeInfo.defaultLocale : newLocale;
+        final Locale locale;
+
+        if( newLocale == null )
+        {
+            locale = runtimeInfo.defaultLocale;
+        }
+        else
+        {
+            locale = newLocale;
+        }
 
         PluginsManager.setLocale( new Locale[] { locale } );
         Locale.setDefault( locale );

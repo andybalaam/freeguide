@@ -43,7 +43,7 @@ public class PleaseWaitFrame extends JFrame
      */
     public PleaseWaitFrame(  )
     {
-        super( "Please Wait" );
+        super( "FreeGuide" );
         initComponents(  );
         Utils.centreDialog( this );
     }
@@ -68,7 +68,7 @@ public class PleaseWaitFrame extends JFrame
 
             if( data2 != null )
             {
-                image = new ImageIcon( data2, "Please Wait" );
+                image = new ImageIcon( data2, "FreeGuide" );
                 imageLabel = new JLabel( 
                         image, javax.swing.SwingConstants.CENTER );
                 imageLabel.setBorder( 
@@ -100,7 +100,7 @@ public class PleaseWaitFrame extends JFrame
      */
     private void exitForm( java.awt.event.WindowEvent evt )
     {
-        FreeGuide.log.info( "Halting due to user closing Please Wait dialog." );
+        FreeGuide.log.info( "Halting due to user closing splash screen." );
         System.exit( 0 );
     }
 }

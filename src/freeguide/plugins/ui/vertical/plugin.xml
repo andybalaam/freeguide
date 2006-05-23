@@ -4,11 +4,6 @@
         version="2"
         class="freeguide.plugins.ui.vertical.simple.VerticalViewer">
 
-  <name lang="en">Vertical</name>
-  <description lang="en">List style viewer</description>
-  <name lang="de">Vertikal</name>
-  <description lang="de">Listenbasierte Anzeige</description>
-
   <files>
     <file path="lib/ui-vertical.jar"/>
     <file path="lib/"/>

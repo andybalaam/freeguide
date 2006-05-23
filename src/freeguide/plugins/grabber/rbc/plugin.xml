@@ -4,10 +4,6 @@
         version="0.1"
         class="freeguide.plugins.grabber.rbc.GrabberRbc">
 
-  <name lang="en">rbc.ru</name>
-  <description lang="be">Праграмма тэлебачання з http://tv.rbc.ru</description>
-  <description lang="en">Grabber for http://tv.rbc.ru</description>
-
   <files>
     <file path="lib/grabber-rbc.jar"/>
     <file path="lib/"/>

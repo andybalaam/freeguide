@@ -183,8 +183,7 @@ public class MenuHandler
                 final IModuleExport ex =
                     (IModuleExport)exporters[i].getInstance(  );
                 final JMenuItem item =
-                    new JMenuItem( 
-                        exporters[i].getName( Locale.getDefault(  ) ) );
+                    new JMenuItem( exporters[i].getName(  ) );
                 controller.mainFrame.getMenuItemExport(  ).add( item );
                 item.addActionListener( 
                     new ActionListener(  )
@@ -210,8 +209,7 @@ public class MenuHandler
                 final IModuleImport im =
                     (IModuleImport)importers[i].getInstance(  );
                 final JMenuItem item =
-                    new JMenuItem( 
-                        importers[i].getName( Locale.getDefault(  ) ) );
+                    new JMenuItem( importers[i].getName(  ) );
                 controller.mainFrame.getMenuItemImport(  ).add( item );
                 item.addActionListener( 
                     new ActionListener(  )

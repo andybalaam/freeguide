@@ -22,6 +22,15 @@ public interface IModule
     Locale[] getSuppotedLocales(  ) throws Exception;
 
     /**
+     * Used to find the filename of the file in resources/i18n that
+     * contains translations for this plugin.
+     *
+     * @return the String package of this plugin with the freeguide.plugins
+     *         part removed and each '.' replaced with '_'.
+     */
+    public String getI18nName(  );
+
+    /**
      * Set locale for module.
      *
      * @param locale locale. Can be null.
@@ -36,6 +45,13 @@ public interface IModule
      * @return config object
      */
     Object getConfig(  );
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public ILocalizer getLocalizer(  );
 
     /**
      * Get configuration interface for support Option panel.

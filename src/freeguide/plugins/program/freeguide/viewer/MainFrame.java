@@ -362,8 +362,7 @@ public class MainFrame extends JWaitFrame
             {
                 PluginInfo viewer = viewers[i];
                 JDataRadioButtonMenuItem item =
-                    new JDataRadioButtonMenuItem( 
-                        viewer.getName( Locale.getDefault(  ) ) );
+                    new JDataRadioButtonMenuItem( viewer.getName(  ) );
                 item.data = viewer.getID(  );
                 item.addActionListener( 
                     new ActionListener(  )

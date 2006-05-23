@@ -106,15 +106,6 @@ public class PatchFile
         {
             String result = replaceAppInfo( plugins[0], strData );
 
-            result = result.replaceAll( 
-                    "__ANT_PLUGIN_NAME__", "" + plugins[i].getID(  ) );
-            result = result.replaceAll( 
-                    "__ANT_PLUGIN_VERSION_DOTTED__",
-                    "" + plugins[i].getVersion(  ).getDotFormat(  ) );
-            result = result.replaceAll( 
-                    "__ANT_PLUGIN_DESCRIPTION__",
-                    "" + plugins[i].getDescription( Locale.ENGLISH ) );
-
             BufferedWriter wr =
                 new BufferedWriter( 
                     new OutputStreamWriter( 

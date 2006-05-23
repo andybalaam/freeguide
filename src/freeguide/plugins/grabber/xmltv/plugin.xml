@@ -4,11 +4,6 @@
         version="2"
         class="freeguide.plugins.grabber.xmltv.GrabberXMLTV">
 
-  <name lang="en">XMLTV</name>
-  <description lang="en">XMLTV grabber (http://xmltv.sf.net)</description>
-  <name lang="fr">XMLTV</name>
-  <description lang="fr">Aspirateur XMLTV (http://xmltv.sf.net)</description>
-
   <files>
     <file path="lib/grabber-xmltv.jar"/>
     <file path="lib/"/>

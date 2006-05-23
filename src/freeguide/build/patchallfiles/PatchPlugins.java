@@ -149,9 +149,6 @@ public class PatchPlugins
                 + "\"\n" );
             out.write( "        class=\"" + info.getClassName(  ) + "\">\n\n" );
 
-            iterateTo( info.getNames(  ), out, "name" );
-            iterateTo( info.getDescriptions(  ), out, "description" );
-
             out.write( "\n  <files>\n" );
 
             List files = info.getFiles(  );
@@ -168,21 +165,6 @@ public class PatchPlugins
         {
             out.flush(  );
             out.close(  );
-        }
-    }
-
-    protected static void iterateTo( 
-        final Map map, final BufferedWriter out, final String tag )
-        throws IOException
-    {
-        final Iterator it = map.keySet(  ).iterator(  );
-
-        while( it.hasNext(  ) )
-        {
-            Object key = it.next(  );
-            out.write( 
-                "  <" + tag + " lang=\"" + key.toString(  ) + "\">"
-                + map.get( key ) + "</" + tag + ">\n" );
         }
     }
 }

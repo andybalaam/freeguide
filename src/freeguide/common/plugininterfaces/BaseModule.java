@@ -31,7 +31,31 @@ public abstract class BaseModule implements IModule
      */
     public Locale[] getSuppotedLocales(  ) throws Exception
     {
-        return LanguageHelper.getLocaleList( "resources/i18n/" );
+        return LanguageHelper.getLocaleList( 
+            "resources/i18n/" + getI18nName(  ) );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String getI18nName(  )
+    {
+        String ret =
+            getClass(  ).getName(  )
+                .substring( plugin_package_name_prefix.length(  ) );
+
+        int i = ret.lastIndexOf( '.' );
+
+        if( i != -1 )
+        {
+            ret = ret.substring( 0, i );
+        }
+
+        ret = ret.replace( '.', '_' );
+
+        return ret;
     }
 
     /**

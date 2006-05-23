@@ -293,12 +293,9 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
                 DefaultMutableTreeNode modBranch =
                     new DefaultMutableTreeNode( 
-                        new ModuleNode( 
-                            confUI, plugins[i].getName( Locale.getDefault(  ) ) ) );
+                        new ModuleNode( confUI, plugins[i].getName(  ) ) );
 
-                optionsPane.add( 
-                    confUI.getPanel(  ),
-                    plugins[i].getName( Locale.getDefault(  ) ) );
+                optionsPane.add( confUI.getPanel(  ), plugins[i].getName(  ) );
                 branch.add( modBranch );
 
             }

@@ -4,11 +4,6 @@
         version="2"
         class="freeguide.plugins.importexport.palmatv.ExportPalmAtv">
 
-  <name lang="en">ATV-palm</name>
-  <description lang="en">Export to ATV for Palm OS. See http://zaval.org/products/atv</description>
-  <name lang="fr">ATV-palm</name>
-  <description lang="fr">Module d'export vers ATV pour Palm OS. (http://zaval.org/products/atv)</description>
-
   <files>
     <file path="lib/importexport-palmatv.jar"/>
     <file path="lib/"/>

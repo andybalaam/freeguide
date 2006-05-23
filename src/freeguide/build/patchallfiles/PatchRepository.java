@@ -110,8 +110,6 @@ public class PatchRepository
                 + packageType + "\" repositoryPath=\""
                 + getRepositoryPath( plugins[i] ) + "\">\n" );
 
-            writeTexts( out, plugins[i] );
-
             out.write( "  </package>\n" );
 
             /*if(
@@ -129,29 +127,6 @@ public class PatchRepository
     {
         return "package-" + plugin.getID(  ) + "-"
         + plugin.getVersion(  ).getDotFormat(  ) + ".zip";
-    }
-
-    protected static void writeTexts( 
-        final BufferedWriter out, final PluginInfo plugin )
-        throws Exception
-    {
-        final Map names = plugin.getNames(  );
-        final Map descriptions = plugin.getDescriptions(  );
-
-        final Iterator it = names.keySet(  ).iterator(  );
-
-        while( it.hasNext(  ) )
-        {
-            final String locale = (String)it.next(  );
-            final String name = (String)names.get( locale );
-            final String desc = (String)descriptions.get( locale );
-            out.write( 
-                "    <name lang=\"" + locale + "\">"
-                + StringHelper.toXML( name ) + "</name>\n" );
-            out.write( 
-                "    <description lang=\"" + locale + "\">"
-                + StringHelper.toXML( desc ) + "</description>\n" );
-        }
     }
 
     protected static void writeHeader( final BufferedWriter out )

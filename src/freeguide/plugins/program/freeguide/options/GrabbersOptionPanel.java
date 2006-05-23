@@ -81,9 +81,8 @@ public class GrabbersOptionPanel extends OptionPanel
 
             cb.setName( grabbers[i].getID(  ) );
 
-            cb.setText( grabbers[i].getName( Locale.getDefault(  ) ) );
-            cb.setToolTipText( 
-                grabbers[i].getDescription( Locale.getDefault(  ) ) );
+            cb.setText( grabbers[i].getName(  ) );
+            cb.setToolTipText( grabbers[i].getDescription(  ) );
 
             if( 
                 MainController.config.activeGrabberIDs.contains( 

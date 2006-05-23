@@ -4,11 +4,6 @@
         version="2"
         class="freeguide.plugins.storage.serfiles.StorageSerFilesByDay">
 
-  <name lang="en">Serialized</name>
-  <description lang="en">Store data in serialized files</description>
-  <name lang="fr">Serialized</name>
-  <description lang="fr">Stocke les données sous formes de fichiers sérialisés</description>
-
   <files>
     <file path="lib/storage-serfiles.jar"/>
     <file path="lib/"/>
