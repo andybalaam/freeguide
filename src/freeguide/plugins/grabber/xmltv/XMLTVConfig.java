@@ -51,7 +51,7 @@ public class XMLTVConfig
 
         /** The grabbing command */
         public String commandToRun;
-        
+
         /** The configuration command */
         public String configCommandToRun;
 

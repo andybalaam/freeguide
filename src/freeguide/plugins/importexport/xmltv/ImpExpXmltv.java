@@ -11,15 +11,16 @@ import freeguide.common.plugininterfaces.IModuleExport;
 import freeguide.common.plugininterfaces.IModuleImport;
 import freeguide.common.plugininterfaces.IStoragePipe;
 
+import org.xml.sax.SAXException;
+
 import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
-import javax.xml.parsers.ParserConfigurationException;
 
-import org.xml.sax.SAXException;
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * XMLTV import/export plugin.
@@ -44,8 +45,6 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
      *
      * @param parent DOCUMENT_ME!
      * @param storage DOCUMENT ME!
-     *
-     * @throws Exception DOCUMENT_ME!
      */
     public void importDataUI( final JFrame parent, final IStoragePipe storage )
     {
@@ -70,10 +69,11 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
         if( chooser.showOpenDialog( parent ) == JFileChooser.APPROVE_OPTION )
         {
             File[] files = chooser.getSelectedFiles(  );
+
             try
             {
                 XMLTVImport imp = new XMLTVImport(  );
-            
+
                 if( files != null )
                 {
                     for( int i = 0; i < files.length; i++ )
@@ -82,7 +82,7 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
                         {
                             imp.process( 
                                 files[i], storage, new XMLTVImport.Filter(  ),
-                                    "" );
+                                "" );
                         }
                         catch( IOException e )
                         {

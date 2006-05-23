@@ -20,8 +20,7 @@ public class XMLTVConfigureUIPanelModule extends JPanel
 {
     protected final XMLTVConfig.ModuleInfo moduleInfo;
     protected final XMLTVConfigureUIController.TextChanged textChangedEvent;
-    protected final XMLTVConfigureUIController.ConfigTextChanged
-        configTextChangedEvent;
+    protected final XMLTVConfigureUIController.ConfigTextChanged configTextChangedEvent;
     private JButton btnChannels = null;
     private JTextField textCommand = null;
     private JTextField textConfigCommand = null;
@@ -42,8 +41,7 @@ public class XMLTVConfigureUIPanelModule extends JPanel
     public XMLTVConfigureUIPanelModule( 
         final ILocalizer localizer, final XMLTVConfig.ModuleInfo moduleInfo,
         final XMLTVConfigureUIController.TextChanged textChangedEvent,
-        final XMLTVConfigureUIController.ConfigTextChanged 
-            configTextChangedEvent )
+        final XMLTVConfigureUIController.ConfigTextChanged configTextChangedEvent )
     {
         super(  );
         this.localizer = localizer;
@@ -123,7 +121,7 @@ public class XMLTVConfigureUIPanelModule extends JPanel
         return textCommand;
 
     }
-    
+
     /**
      * Return the text field for the XMLTV configuration command line
      *

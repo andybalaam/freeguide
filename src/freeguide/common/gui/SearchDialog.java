@@ -18,7 +18,6 @@ import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-
 import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.IModuleStorage;
@@ -32,27 +31,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import java.lang.IllegalAccessException;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.DefaultListModel;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
 
 import java.text.DateFormat;
 
@@ -62,22 +45,34 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
+
 /**
- * Provides search options and displays results.
- * Results are displayed in a scrolling list of 
- * {@link TVProgramme}.  Views (or any other class
- * for that matter) can register for mouse events
- * on this list by specifying a {@link MouseListener} 
- * in the constructor.  An example of how to use 
- * this is the class {@link ProgrammeSelectedHandler}
- *  
+ * Provides search options and displays results. Results are displayed in
+ * a scrolling list of  {@link TVProgramme}.  Views (or any other class for
+ * that matter) can register for mouse events on this list by specifying a
+ * {@link MouseListener}  in the constructor.  An example of how to use  this
+ * is the class {@link ProgrammeSelectedHandler}
+ *
  * @author Graham Benton
  * @version 2
- *
  */
 public class SearchDialog extends JDialog
 {
-
     private JTextField searchForText;
     private JButton searchButton;
     private JButton closeButton;
@@ -96,7 +91,7 @@ public class SearchDialog extends JDialog
     private DefaultListModel foundModel = new DefaultListModel(  );
     private JScrollPane listScroller;
 
-    /**
+/**
      * Class Constructor from owner.
      *
      * @param owner the <code>JFrame</code> from which the dialog is
@@ -114,7 +109,7 @@ public class SearchDialog extends JDialog
         setVisible( true );
     }
 
-    /**
+/**
      * Class Constructor from owner and  a Mouse listener.
      *
      * @param owner the <code>JFrame</code> from which the dialog is
@@ -136,53 +131,11 @@ public class SearchDialog extends JDialog
     /**
      * Adds l to MouseListener list of the programme list.
      *
-     * @param l the MouseListener to handle MouseEvents from the Result List. 
+     * @param l the MouseListener to handle MouseEvents from the Result List.
      */
-    public void addMouseListener(MouseListener l)
+    public void addMouseListener( MouseListener l )
     {
         resultList.addMouseListener( l );
-    }
- 
-    /**
-     * Class for displaying programme information in a JList.
-     *
-     * Displays Channel, Date, Time and Title.
-     */
-    class FoundProgrammeCellRenderer extends JLabel implements ListCellRenderer
-    {
-        public Component getListCellRendererComponent( 
-                JList list,
-                Object value,
-                int index,
-                boolean isSelected,
-                boolean cellHasFocus)
-        {
-            TVProgramme programme = ( TVProgramme )value;
-
-            String progInfo =
-                programme.getChannel(  ).getDisplayName(  ) + " "
-                + DateFormat.getInstance(  )
-                            .format( 
-                    new Date( programme.getStart(  ) ) ) + " "
-                + programme.getTitle(  );
-            setText( progInfo );
-
-            if (isSelected) 
-            {
-                setBackground(list.getSelectionBackground());
-                setForeground(list.getSelectionForeground());
-            }
-            else 
-            {
-                setBackground(list.getBackground());
-                setForeground(list.getForeground());
-            }
-            setEnabled(list.isEnabled());
-            setFont(list.getFont());
-            setOpaque(true);
-            return this;
-
-        }
     }
 
     /**
@@ -195,10 +148,9 @@ public class SearchDialog extends JDialog
         // Set up the question part of the gui
         searchForText = new JTextField( 20 );
         jPanelQuestion.add( searchForText );
-        
 
         // Add buttons to do the work or close
-        jPanelButtons = new Box( BoxLayout.X_AXIS ); 
+        jPanelButtons = new Box( BoxLayout.X_AXIS );
         searchButton = new JButton( 
                 Application.getInstance(  ).getLocalizedMessage( "search" ) );
         searchButton.addActionListener( 
@@ -226,23 +178,25 @@ public class SearchDialog extends JDialog
         jPanelButtons.add( closeButton );
 
         // Show the options to the question
-        jPanelOptions = new JPanel( new GridLayout( 2,2 ) );
-        caseSensitive = new JCheckBox(Application.getInstance(
-            ).getLocalizedMessage( "case_sensitive" ) );
+        jPanelOptions = new JPanel( new GridLayout( 2, 2 ) );
+        caseSensitive = new JCheckBox( 
+                Application.getInstance(  )
+                           .getLocalizedMessage( "case_sensitive" ) );
         jPanelOptions.add( caseSensitive );
-        includeFinished = new JCheckBox(Application.getInstance(
-            ).getLocalizedMessage( "include_finished" ) );
+        includeFinished = new JCheckBox( 
+                Application.getInstance(  )
+                           .getLocalizedMessage( "include_finished" ) );
         jPanelOptions.add( includeFinished );
-        searchDescription = new JCheckBox(Application.getInstance(
-            ).getLocalizedMessage( "search_descriptions" ) );
+        searchDescription = new JCheckBox( 
+                Application.getInstance(  )
+                           .getLocalizedMessage( "search_descriptions" ) );
         jPanelOptions.add( searchDescription );
 
         // Put all the inputs into a panel
         jPanelInput = new Box( BoxLayout.Y_AXIS );
-        jPanelInput.add ( jPanelQuestion );
-        jPanelInput.add ( jPanelButtons );
+        jPanelInput.add( jPanelQuestion );
+        jPanelInput.add( jPanelButtons );
         jPanelInput.add( jPanelOptions );
-
 
         // Add a panel to display the result
         jPanelResult = new Box( BoxLayout.Y_AXIS );
@@ -250,12 +204,11 @@ public class SearchDialog extends JDialog
         jPanelResult.setBorder( BorderFactory.createEtchedBorder(  ) );
 
         resultList = new JList( foundModel );
-        resultList.setCellRenderer(new FoundProgrammeCellRenderer(  ) );
+        resultList.setCellRenderer( new FoundProgrammeCellRenderer(  ) );
+
         //  Example way of getting input to user
         //resultList.addMouseListener(new ProgrammeSelectedHandler (  ) );
-
-        JScrollPane listScroller =
-            new JScrollPane( resultList );
+        JScrollPane listScroller = new JScrollPane( resultList );
         listScroller.setAlignmentX( JScrollPane.LEFT_ALIGNMENT );
         listScroller.setPreferredSize( new Dimension( 300, 250 ) );
         jPanelResult.add( listScroller );
@@ -291,10 +244,10 @@ public class SearchDialog extends JDialog
         }
         catch( Exception ex )
         {
-//             FreeGuide.log.log( Level.WARNING, "Error Searching data", ex );
-           JOptionPane.showMessageDialog( this, ex.toString(  ),
-                  "Exception while loading Channel data",
-                  JOptionPane.ERROR_MESSAGE); 
+            //             FreeGuide.log.log( Level.WARNING, "Error Searching data", ex );
+            JOptionPane.showMessageDialog( 
+                this, ex.toString(  ), "Exception while loading Channel data",
+                JOptionPane.ERROR_MESSAGE );
 
             return;
         }
@@ -303,40 +256,45 @@ public class SearchDialog extends JDialog
             new TVIteratorProgrammes(  )
             {
                 /**
-                 * Called for every channel iterated through.
-                 * If we need some progress for the user, this
-                 * would be a good place to add it.
+                 * Called for every channel iterated
+                 * through. If we need some progress for the user, this would
+                 * be a good place to add it.
+                 *
+                 * @param channel DOCUMENT ME!
                  */
                 protected void onChannel( TVChannel channel )
                 {
                 }
 
                 /**
-                 * Checks to see if the given string matches according to 
-                 * the options set.
+                 * Checks to see if the given string
+                 * matches according to  the options set.
                  *
-                 * @param toMatch - toMatch the string to check 
+                 * @param toMatch - toMatch the string to check
+                 *
+                 * @return DOCUMENT_ME!
                  */
-                protected boolean matchText ( String toMatch )
+                protected boolean matchText( String toMatch )
                 {
-                    if (toMatch == null || toMatch == "")
+                    if( ( toMatch == null ) || ( toMatch == "" ) )
                     {
                         return false;
                     }
 
-                    String myMatch = new String (toMatch );
-                    String lookingFor = new String( searchForText.getText(  ) );
+                    String myMatch = new String( toMatch );
+                    String lookingFor =
+                        new String( searchForText.getText(  ) );
 
-                    if ( !caseSensitive.isSelected(  ) )
+                    if( !caseSensitive.isSelected(  ) )
                     {
                         myMatch = myMatch.toLowerCase(  );
                         lookingFor = lookingFor.toLowerCase(  );
                     }
 
-                    if ( myMatch.indexOf( lookingFor ) == -1 )
+                    if( myMatch.indexOf( lookingFor ) == -1 )
                     {
                         return false;
-                    } 
+                    }
                     else
                     {
                         return true;
@@ -344,27 +302,28 @@ public class SearchDialog extends JDialog
                 }
 
                 /**
-                 * Called for every Programme.
-                 * Check that the programme matches the parameters,
-                 * and if so add it to the list.
+                 * Called for every Programme. Check that
+                 * the programme matches the parameters, and if so add it to
+                 * the list.
+                 *
+                 * @param programme DOCUMENT ME!
                  */
                 protected void onProgramme( TVProgramme programme )
                 {
-
                     // If Title does not contain looked for text
-                    if ( matchText( programme.getTitle(  ) ) == false )
+                    if( matchText( programme.getTitle(  ) ) == false )
                     {
                         // Check other fields if selected
-                        if ( searchDescription.isSelected(  ) )
+                        if( searchDescription.isSelected(  ) )
                         {
-                            if ( matchText ( programme.getSubTitle(  ) ) == false  
-                                    &&
-                                    matchText ( programme.getDescription(  ) ) == false  )
+                            if( 
+                                ( matchText( programme.getSubTitle(  ) ) == false )
+                                    && ( matchText( 
+                                        programme.getDescription(  ) ) == false ) )
                             {
                                 // Can't find text in other fields either
                                 return;
                             }
-
                         }
                         else
                         {
@@ -374,9 +333,10 @@ public class SearchDialog extends JDialog
 
                     // Here we have a record with matching text                    
                     // Check finishing time is after now, if required
-                    if ( !includeFinished.isSelected(  ) )
+                    if( !includeFinished.isSelected(  ) )
                     {
-                        if (programme.getEnd(  ) < System.currentTimeMillis(  ) )
+                        if( 
+                            programme.getEnd(  ) < System.currentTimeMillis(  ) )
                         {
                             return;
                         }
@@ -389,18 +349,75 @@ public class SearchDialog extends JDialog
     }
 
     /**
-     * Example MouseAdaptor that constructing classes can use to get selection.
+     * Class for displaying programme information in a JList. Displays
+     * Channel, Date, Time and Title.
+     */
+    class FoundProgrammeCellRenderer extends JLabel implements ListCellRenderer
+    {
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param list DOCUMENT_ME!
+         * @param value DOCUMENT_ME!
+         * @param index DOCUMENT_ME!
+         * @param isSelected DOCUMENT_ME!
+         * @param cellHasFocus DOCUMENT_ME!
+         *
+         * @return DOCUMENT_ME!
+         */
+        public Component getListCellRendererComponent( 
+            JList list, Object value, int index, boolean isSelected,
+            boolean cellHasFocus )
+        {
+            TVProgramme programme = (TVProgramme)value;
+
+            String progInfo =
+                programme.getChannel(  ).getDisplayName(  ) + " "
+                + DateFormat.getInstance(  )
+                            .format( new Date( programme.getStart(  ) ) )
+                + " " + programme.getTitle(  );
+            setText( progInfo );
+
+            if( isSelected )
+            {
+                setBackground( list.getSelectionBackground(  ) );
+                setForeground( list.getSelectionForeground(  ) );
+            }
+            else
+            {
+                setBackground( list.getBackground(  ) );
+                setForeground( list.getForeground(  ) );
+            }
+
+            setEnabled( list.isEnabled(  ) );
+            setFont( list.getFont(  ) );
+            setOpaque( true );
+
+            return this;
+
+        }
+    }
+
+    /**
+     * Example MouseAdaptor that constructing classes can use to get
+     * selection.
      */
     class ProgrammeSelectedHandler extends MouseAdapter
     {
-        public void mouseClicked(MouseEvent e)
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param e DOCUMENT_ME!
+         */
+        public void mouseClicked( MouseEvent e )
         {
-            if (e.getClickCount( ) == 2)
+            if( e.getClickCount(  ) == 2 )
             {
-                JList programmeList = ( JList ) e.getSource(  );
+                JList programmeList = (JList)e.getSource(  );
 
                 // Print out the value of the program selected
-                System.out.println(programmeList.getSelectedValue(  ).toString(  ) );
+                System.out.println( 
+                    programmeList.getSelectedValue(  ).toString(  ) );
             }
         }
     }

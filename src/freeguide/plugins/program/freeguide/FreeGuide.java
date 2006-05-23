@@ -164,6 +164,7 @@ public class FreeGuide
         else
         {
             File fl = new File( "./doc" );
+
             if( fl.exists(  ) )
             {
                 runtimeInfo.docDirectory = fl.toString(  );
@@ -171,14 +172,16 @@ public class FreeGuide
             else
             {
                 fl = new File( "../doc/html-local" );
+
                 if( fl.exists(  ) )
                 {
                     runtimeInfo.docDirectory = fl.toString(  );
                 }
                 else
                 {
-                    warning( startupMessages.getLocalizedMessage(
-                        "startup.NoDocDir" ) );
+                    warning( 
+                        startupMessages.getLocalizedMessage( 
+                            "startup.NoDocDir" ) );
                 }
             }
         }
@@ -191,6 +194,7 @@ public class FreeGuide
         else
         {
             File fl = new File( "./lib" );
+
             if( fl.exists(  ) )
             {
                 runtimeInfo.installDirectory = ".";
@@ -198,14 +202,16 @@ public class FreeGuide
             else
             {
                 fl = new File( "../lib" );
+
                 if( fl.exists(  ) )
                 {
                     runtimeInfo.installDirectory = "..";
                 }
                 else
                 {
-                    warning( startupMessages.getLocalizedMessage(
-                        "startup.NoInstallDir" ) );
+                    warning( 
+                        startupMessages.getLocalizedMessage( 
+                            "startup.NoInstallDir" ) );
                 }
             }
         }
@@ -247,9 +253,9 @@ public class FreeGuide
             {
                 log.log( Level.SEVERE, "Error load config", ex );
             }
-            
+
             PluginsManager.loadModules(  );
-            
+
             if( PluginsManager.getApplicationModuleInfo(  ) == null )
             {
                 die( 

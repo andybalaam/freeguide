@@ -170,7 +170,7 @@ public class PluginInfo extends DefaultHandler
             if( className != null )
             {
                 FreeGuide.log.finest( "Loading class '" + className + "'." );
-                
+
                 try
                 {
                     Class moduleClass =

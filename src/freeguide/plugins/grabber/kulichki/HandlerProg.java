@@ -245,7 +245,8 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
                                 }
                                 catch( Exception ex )
                                 {
-                                    throw new SAXException( ex.getMessage(  ), ex );
+                                    throw new SAXException( 
+                                        ex.getMessage(  ), ex );
                                 }
                             }
 

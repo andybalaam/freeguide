@@ -51,7 +51,8 @@ public class PatchAllFiles
         PatchFile.patch( 
             "install/linux/rpm/freeguide.spec.in",
             "build/install/linux/rpm/freeguide.spec", plugins );
-        PatchSpec.patch( "build/install/linux/rpm/freeguide.spec",
+        PatchSpec.patch( 
+            "build/install/linux/rpm/freeguide.spec",
             "build/install/linux/rpm/freeguide.spec", plugins );
 
         PatchFile.patch( 

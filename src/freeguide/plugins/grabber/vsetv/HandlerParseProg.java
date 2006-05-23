@@ -333,8 +333,6 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
      * DOCUMENT_ME!
      *
      * @param storage DOCUMENT_ME!
-     *
-     * @throws Exception DOCUMENT_ME!
      */
     public void store( final IStoragePipe storage )
     {
@@ -346,6 +344,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
         {
             e.printStackTrace(  );
         }
+
         storage.addData( data );
         storage.finishBlock(  );
     }

@@ -83,14 +83,14 @@ public class ConfigureUIController implements IModuleConfigurationUI
                 {
                     panelColor = panel.getPanelColorNormal(  );
                 }
-                
+
                 Color col =
                     JColorChooser.showDialog( 
                         inDialog,
                         parent.getLocalizer(  )
                               .getLocalizedMessage( "choose_a_colour" ),
                         panelColor.getBackground(  ) );
-                
+
                 if( col != null )
                 {
                     panelColor.setBackground( col );
@@ -135,12 +135,10 @@ public class ConfigureUIController implements IModuleConfigurationUI
         config.fontSize = currentFont.getSize(  );
         config.fontStyle = currentFont.getStyle(  );
         config.sizeChannelHeight = panel.getSliderHeight(  ).getValue(  );
-        config.sizeProgrammePanelWidth = panel.getSliderWidth(  ).getValue(  )
-            * 24;
+        config.sizeProgrammePanelWidth = panel.getSliderWidth(  ).getValue(  ) * 24;
         config.colorChannel = panel.getPanelColorChannel(  ).getBackground(  );
         config.colorMovie = panel.getPanelColorMovie(  ).getBackground(  );
-        config.colorTicked = panel.getPanelColorSelected(  )
-            .getBackground(  );
+        config.colorTicked = panel.getPanelColorSelected(  ).getBackground(  );
         config.colorNonTicked = panel.getPanelColorNormal(  ).getBackground(  );
         config.displayTooltips = panel.getCbDisplayTooltips(  ).isSelected(  );
         config.displayTime = panel.getCbDrawTime(  ).isSelected(  );
@@ -209,7 +207,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
                         + ( ( parentSize.width - fontDialogSize.width ) / 2 ),
                         parentLocation.y
                         + ( ( parentSize.height - fontDialogSize.height ) / 2 ) );
-                    
+
                     fontDialog.setSize( fontDialogSize );
                     fontDialog.setVisible( true );
                     currentFont = fontDialog.getSelectedFont(  );
@@ -226,7 +224,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
         panel.getCbDrawTime(  ).setSelected( config.displayTime );
         panel.getCbPrintDelta(  ).setSelected( config.displayDelta );
         panel.getCbAlignLeft(  ).setSelected( config.displayAlignToLeft );
-        
+
         if( config.display24time )
         {
             panel.getRbTime24(  ).setSelected( true );
@@ -235,9 +233,10 @@ public class ConfigureUIController implements IModuleConfigurationUI
         {
             panel.getRbTime12(  ).setSelected( true );
         }
+
         panel.getDayStart(  ).setText( config.dayStartTime.getHHMMString(  ) );
     }
-    
+
     protected void setupFont(  )
     {
         panel.getTextFont(  ).setFont( currentFont );

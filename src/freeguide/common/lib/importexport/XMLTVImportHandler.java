@@ -448,6 +448,7 @@ class XMLTVImportHandler extends DefaultHandler
                 ex.printStackTrace(  );
             }
         }
+
         return null;
     }
 }

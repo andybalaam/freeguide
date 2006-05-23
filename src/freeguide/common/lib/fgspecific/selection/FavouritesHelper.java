@@ -37,15 +37,19 @@ class FavouritesHelper
         Favourite value = null;
         Iterator favouritesIterator = favourites.iterator(  );
         Favourite currentFavourite;
+
         while( favouritesIterator.hasNext(  ) )
         {
             currentFavourite = (Favourite)favouritesIterator.next(  );
+
             if( currentFavourite.matches( programme ) )
             {
                 value = currentFavourite;
+
                 break;
             }
         }
+
         return value;
     }
 

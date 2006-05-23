@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-import java.util.Locale;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * DOCUMENT ME!
@@ -55,21 +55,23 @@ public class PatchSpec
         }
 
         rd.close(  );
-        
+
         BufferedWriter wr =
             new BufferedWriter( 
                 new OutputStreamWriter( 
                     new FileOutputStream( outFileName ), "UTF-8" ) );
         wr.write( data.toString(  ) );
-        
+
         for( int i = 0; i < plugins.length; ++i )
         {
             List files = plugins[i].getFiles(  );
-            
+
             Iterator it = files.iterator(  );
+
             while( it.hasNext(  ) )
             {
                 String fl = (String)it.next(  );
+
                 // Ignore directories, and a hack to avoid the xmltv EXE
                 // since it's not needed on Linux.
                 if( !fl.endsWith( "/" ) && !fl.equals( "xmltv/xmltv.exe" ) )
@@ -82,12 +84,12 @@ public class PatchSpec
                     {
                         fl = "freeguide/" + fl;
                     }
-                    
+
                     wr.write( "%{_datadir}/" + fl + "\n" );
                 }
             }
         }
-        
+
         wr.flush(  );
         wr.close(  );
     }

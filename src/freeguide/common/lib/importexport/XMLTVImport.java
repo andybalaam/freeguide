@@ -80,8 +80,8 @@ public class XMLTVImport
      */
     public void process( 
         InputStream in, final IStoragePipe storage, Filter filter,
-        final String channelPrefix ) throws SAXException, IOException,
-		ParserConfigurationException
+        final String channelPrefix )
+        throws SAXException, IOException, ParserConfigurationException
     {
         XMLTVImportHandler handler =
             new XMLTVImportHandler( storage, filter, channelPrefix );

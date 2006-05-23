@@ -37,8 +37,6 @@ public class StoragePipe implements IStoragePipe
      * DOCUMENT_ME!
      *
      * @param channel DOCUMENT_ME!
-     *
-     * @throws Exception DOCUMENT_ME!
      */
     public void addChannel( final TVChannel channel )
     {
@@ -53,8 +51,6 @@ public class StoragePipe implements IStoragePipe
      *
      * @param channelID DOCUMENT_ME!
      * @param programme DOCUMENT_ME!
-     *
-     * @throws Exception DOCUMENT_ME!
      */
     public void addProgramme( String channelID, TVProgramme programme )
     {
@@ -69,8 +65,6 @@ public class StoragePipe implements IStoragePipe
      *
      * @param channelID DOCUMENT_ME!
      * @param programmes DOCUMENT_ME!
-     *
-     * @throws Exception DOCUMENT_ME!
      */
     public void addProgrammes( String channelID, TVProgramme[] programmes )
     {
@@ -84,8 +78,6 @@ public class StoragePipe implements IStoragePipe
      * DOCUMENT_ME!
      *
      * @param data DOCUMENT_ME!
-     *
-     * @throws Exception DOCUMENT_ME!
      */
     public void addData( TVData data )
     {
@@ -133,8 +125,6 @@ public class StoragePipe implements IStoragePipe
 
     /**
      * DOCUMENT_ME!
-     *
-     * @throws Exception DOCUMENT_ME!
      */
     public void finish(  )
     {

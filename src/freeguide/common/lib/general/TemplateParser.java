@@ -5,8 +5,8 @@ import freeguide.common.lib.fgspecific.Application;
 import java.io.IOException;
 import java.io.Writer;
 
-import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -376,7 +376,6 @@ public class TemplateParser
          *
          * @return calculated value
          *
-         * @throws Exception
          * @throws IOException DOCUMENT ME!
          */
         public Object calculate( 
@@ -441,8 +440,9 @@ public class TemplateParser
                     {
                         final Method method =
                             calledObject.getClass(  )
-                                        .getMethod( methodName, parameterTypes );
-    
+                                        .getMethod( 
+                                methodName, parameterTypes );
+
                         // invoke methods for Map.Entry by hand, because it can't be invoked through reflection - cannot access to protected class HashMap$Entry
                         if( 
                             method.getName(  ).equals( "getKey" )
@@ -465,7 +465,7 @@ public class TemplateParser
                             try
                             {
                                 value = method.invoke( 
-                                    calledObject, params.toArray(  ) );
+                                        calledObject, params.toArray(  ) );
                             }
                             catch( IllegalAccessException e )
                             {
@@ -474,13 +474,13 @@ public class TemplateParser
                             }
                             catch( InvocationTargetException e )
                             {
-                                Application.getInstance(  )
-                                    .getLogger(  ).warning(
+                                Application.getInstance(  ).getLogger(  )
+                                           .warning( 
                                     "Error running method '" + methodName
-                                    + "' on object class '" 
+                                    + "' on object class '"
                                     + calledObject.getClass(  ).toString(  )
                                     + "'." );
-                                
+
                                 e.printStackTrace(  );
                                 value = null;
                             }

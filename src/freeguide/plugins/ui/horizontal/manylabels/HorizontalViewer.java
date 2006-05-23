@@ -124,8 +124,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
     /**
      * Defines the action when a mouse is used in the search window.
-     * The current action is when a programme is double clicked, the
-     * main viewer goes to the time of that programme
+     * The current action is when a programme is double clicked, the main
+     * viewer goes to the time of that programme
      */
     protected MouseAdapter searchMouseAdapter =
         new MouseAdapter(  )
@@ -134,25 +134,22 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             {
                 if( e.getClickCount(  ) == 2 )
                 {
-                    if ( panel != null )
+                    if( panel != null )
                     {
-                        JList programmeList =
-                            (JList)e
+                        JList programmeList = (JList)e
                             .getSource(  );
 
                         // Go to the time of the programme selected
                         TVProgramme programme =
-                            (TVProgramme)programmeList
-                            .getSelectedValue(  );
+                            (TVProgramme)programmeList.getSelectedValue(  );
                         goToDate( programme.getStart(  ) );
                         // Scroll to the time
                         panel.getProgrammesScrollPane(  )
-                            .getHorizontalScrollBar(  )
-                            .setValue( 
-                                    panel.getTimePanel(  )
-                                    .getScrollValue( 
-                                        programme.getStart(  ) )
-                                    - 100 );
+                             .getHorizontalScrollBar(  )
+                             .setValue( 
+                            panel.getTimePanel(  )
+                                 .getScrollValue( programme.getStart(  ) )
+                            - 100 );
                         redraw(  );
                     }
                 }
@@ -273,7 +270,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                         SearchDialog sd =
                             new SearchDialog( 
                                 Application.getInstance(  ).getCurrentFrame(  ),
-                                searchMouseAdapter);
+                                searchMouseAdapter );
                     }
                 } );
 
@@ -433,7 +430,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         /** The chosen time formatter */
         DateFormat timeFormat = getCurrentDateFormat(  );
-        
+
         final Font font =
             new Font( config.fontName, config.fontStyle, config.fontSize );
 

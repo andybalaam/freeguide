@@ -2,11 +2,10 @@ package freeguide.startup;
 
 import java.io.File;
 import java.io.FileFilter;
-
-import java.lang.reflect.Method;
-import java.lang.reflect.InvocationTargetException;
-
 import java.io.IOException;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -38,19 +37,19 @@ public class Startup
     {
         //try
         //{
-            try
-            {
-                new StartupUpdates(  ).update( getInstallDirectory( args ) );
-            }
-            catch( IOException ex )
-            {
-                ex.printStackTrace(  );
-                MessageBox.display( 
-                    "Warning W01", "Error unpacking updates: "
-                    + ex.getMessage(  ) );
-            }
+        try
+        {
+            new StartupUpdates(  ).update( getInstallDirectory( args ) );
+        }
+        catch( IOException ex )
+        {
+            ex.printStackTrace(  );
+            MessageBox.display( 
+                "Warning W01", "Error unpacking updates: " + ex.getMessage(  ) );
+        }
 
-            run( args );
+        run( args );
+
         //}
     }
 
@@ -81,7 +80,7 @@ public class Startup
             for( int i = 0; i < libs.length; i++ )
             {
                 System.err.println( "Load module jar: " + libs[i].getPath(  ) );
-                
+
                 try
                 {
                     jarUrls.add( libs[i].toURL(  ) );
@@ -138,35 +137,30 @@ public class Startup
         catch( ClassNotFoundException ex )
         {
             ex.printStackTrace(  );
-            die(
-                "Error E07",
-                "Main class not found", ex );
+            die( "Error E07", "Main class not found", ex );
         }
         catch( NoSuchMethodException ex )
         {
             ex.printStackTrace(  );
-            die(
-                "Error E08",
-                "Main method not found", ex );
+            die( "Error E08", "Main method not found", ex );
         }
         catch( IllegalAccessException ex )
         {
             ex.printStackTrace(  );
-            die(
-                "Error E09",
-                "Main method not accessible", ex );
+            die( "Error E09", "Main method not accessible", ex );
         }
         catch( InvocationTargetException ex )
         {
             ex.printStackTrace(  );
+
             Throwable t = ex.getCause(  );
+
             if( t != null )
             {
                 t.printStackTrace(  );
             }
-            die(
-                "Error E10",
-                "Exception in main method", ex );
+
+            die( "Error E10", "Exception in main method", ex );
         }
     }
 

@@ -294,8 +294,6 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
      * DOCUMENT_ME!
      *
      * @param data DOCUMENT_ME!
-     *
-     * @throws Exception DOCUMENT_ME!
      */
     public synchronized void store( TVData data )
     {

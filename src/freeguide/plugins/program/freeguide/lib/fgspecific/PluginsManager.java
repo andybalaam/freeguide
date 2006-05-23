@@ -85,16 +85,18 @@ public class PluginsManager
             {
                 e.printStackTrace(  );
             }
-            
+
             findInDirectories( info );
-            
+
             Iterator it;
+
             for( it = info.iterator(  ); it.hasNext(  ); )
             {
                 URL url = (URL)( it.next(  ) );
+
                 try
                 {
-                    FreeGuide.log.finest(
+                    FreeGuide.log.finest( 
                         "Loading XML from " + url.toString(  ) );
 
                     PluginInfo handler = new PluginInfo(  );
@@ -253,16 +255,17 @@ public class PluginsManager
     /**
      * Find plugin info files in classloader.
      *
-     * @return list of URLs
+     * @param ret DOCUMENT ME!
      *
      * @throws IOException
      */
-    protected static void findInClassLoader( List ret ) throws IOException
+    protected static void findInClassLoader( List ret )
+        throws IOException
     {
         Enumeration e =
             PluginsManager.class.getClassLoader(  ).getResources( 
                 "plugin.xml" );
-        
+
         while( e.hasMoreElements(  ) )
         {
             URL url = (URL)( e.nextElement(  ) );
@@ -279,7 +282,7 @@ public class PluginsManager
      */
     protected static void findPluginDirs( File dir, List files )
     {
-    	// finding plugin.xml in the current directory
+        // finding plugin.xml in the current directory
         File[] plugin_files =
             dir.listFiles( 
                 new FileFilter(  )
@@ -289,7 +292,7 @@ public class PluginsManager
                         return fl.toString(  ).endsWith( "plugin.xml" );
                     }
                 } );
-        
+
         if( plugin_files != null )
         {
             for( int i = 0; i < plugin_files.length; ++i )
@@ -304,6 +307,7 @@ public class PluginsManager
                 }
             }
         }
+
         // go down into sub-directories other than .svn to find other plugin.xml
         File[] dirs =
             dir.listFiles( 
@@ -312,10 +316,10 @@ public class PluginsManager
                     public boolean accept( File fl )
                     {
                         return fl.isDirectory(  )
-                            && ( fl.toString(  ).indexOf( ".svn" ) == -1 );
+                        && ( fl.toString(  ).indexOf( ".svn" ) == -1 );
                     }
                 } );
-        
+
         if( dirs != null )
         {
             for( int i = 0; i < dirs.length; ++i )
@@ -329,7 +333,7 @@ public class PluginsManager
      * Find plugin info files in child directories. This will be
      * called if no plugins were found in JAR files.
      *
-     * @return list of URLs
+     * @param ret DOCUMENT ME!
      *
      * @throws IOException
      */
@@ -337,9 +341,9 @@ public class PluginsManager
         throws IOException
     {
         List files = new ArrayList(  );
-        
+
         findPluginDirs( new File( "freeguide/plugins" ), files );
-        
+
         ret.addAll( files );
     }
 

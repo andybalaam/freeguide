@@ -16,8 +16,6 @@ public interface IModuleImport extends IModule
      *
      * @param parent
      * @param storage DOCUMENT ME!
-     *
-     * @throws Exception
      */
     void importDataUI( final JFrame parent, final IStoragePipe storage );
 

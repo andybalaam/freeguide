@@ -123,7 +123,7 @@ public class ConfigureUIPanel extends JPanel
         labelFont = new JLabel(  );
         labelWidth = new JLabel(  );
         labelHeight = new JLabel(  );
-        
+
         GridBagConstraints gridBagConstraints1 = new GridBagConstraints(  );
         GridBagConstraints gridBagConstraints4 = new GridBagConstraints(  );
         GridBagConstraints gridBagConstraints7 = new GridBagConstraints(  );
@@ -186,12 +186,11 @@ public class ConfigureUIPanel extends JPanel
         labelColorChannel.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_C );
         labelColorChannel.setText( 
             localizer.getLocalizedMessage( "channel_colour" ) );
-        
+
         gridBagConstraints50.gridx = 0;
         gridBagConstraints50.gridy = 5;
         labelColorSelected.setLabelFor( getBtnColorSelected(  ) );
-        labelColorSelected.setDisplayedMnemonic(
-            java.awt.event.KeyEvent.VK_A );
+        labelColorSelected.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_A );
         labelColorSelected.setText( 
             localizer.getLocalizedMessage( "selected_colour" ) );
 
@@ -203,37 +202,37 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints111.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraints50.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        
+
         gridBagConstraints14.gridx = 1;
         gridBagConstraints14.gridy = 6;
         gridBagConstraints14.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints14.gridwidth = 2;
         gridBagConstraints14.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        
+
         gridBagConstraints16.gridx = 1;
         gridBagConstraints16.gridy = 5;
         gridBagConstraints16.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints16.gridwidth = 2;
         gridBagConstraints16.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        
+
         gridBagConstraints15.gridx = 1;
         gridBagConstraints15.gridy = 7;
         gridBagConstraints15.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints15.gridwidth = 2;
         gridBagConstraints15.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        
+
         gridBagConstraints18.gridx = 3;
         gridBagConstraints18.gridy = 6;
         gridBagConstraints18.insets = new java.awt.Insets( 5, 5, 0, 5 );
-        
+
         gridBagConstraints19.gridx = 3;
         gridBagConstraints19.gridy = 7;
         gridBagConstraints19.insets = new java.awt.Insets( 5, 5, 0, 5 );
-        
+
         gridBagConstraints20.gridx = 3;
         gridBagConstraints20.gridy = 5;
         gridBagConstraints20.insets = new java.awt.Insets( 5, 5, 0, 5 );
-        
+
         gridBagConstraints4.gridx = 0;
         gridBagConstraints4.gridy = 1;
         gridBagConstraints4.anchor = java.awt.GridBagConstraints.WEST;
@@ -243,7 +242,7 @@ public class ConfigureUIPanel extends JPanel
             localizer.getLocalizedMessage( "width_of_1hr" ) + ":" );
         labelWidth.setLabelFor( getSliderWidth(  ) );
         labelWidth.setDisplayedMnemonic( KeyEvent.VK_W );
-        
+
         gridBagConstraints7.gridx = 0;
         gridBagConstraints7.gridy = 2;
         gridBagConstraints7.anchor = java.awt.GridBagConstraints.WEST;
@@ -616,9 +615,10 @@ public class ConfigureUIPanel extends JPanel
         {
             panelColorMovie = new JPanel(  );
         }
+
         return panelColorMovie;
     }
-    
+
     /**
      * Return the favourite colout box
      *
@@ -630,9 +630,10 @@ public class ConfigureUIPanel extends JPanel
         {
             panelColorSelected = new JPanel(  );
         }
+
         return panelColorSelected;
     }
-    
+
     /**
      * This method initializes jPanel5
      *
@@ -681,9 +682,10 @@ public class ConfigureUIPanel extends JPanel
             btnColorChannel = new JButton(  );
             btnColorChannel.setText( "..." );
         }
+
         return btnColorChannel;
     }
-    
+
     /**
      * Returns the "..." button to change favourite colour
      *
@@ -696,9 +698,10 @@ public class ConfigureUIPanel extends JPanel
             btnColorSelected = new JButton(  );
             btnColorSelected.setText( "..." );
         }
+
         return btnColorSelected;
     }
-    
+
     /**
      * This method initializes jTextField
      *
@@ -780,7 +783,6 @@ public class ConfigureUIPanel extends JPanel
         if( rbTime24 == null )
         {
             rbTime24 = new JRadioButton(  );
-
 
             rbTime24.setMnemonic( java.awt.event.KeyEvent.VK_2 );
             rbTime24.setText( localizer.getLocalizedMessage( "24_hour" ) );
@@ -891,4 +893,3 @@ public class ConfigureUIPanel extends JPanel
         return jPanel;
     }
 }
-

@@ -56,8 +56,6 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
      *
      * @param parent DOCUMENT_ME!
      * @param storage DOCUMENT ME!
-     *
-     * @throws Exception DOCUMENT_ME!
      */
     public void importDataUI( JFrame parent, final IStoragePipe storage )
     {
@@ -101,6 +99,7 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
             while( it.hasNext(  ) )
             {
                 String fileName = (String)it.next(  );
+
                 try
                 {
                     loadFromFile( fileName, storage );
@@ -129,7 +128,7 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
 
     protected void loadFromFile( 
         final String fileName, final IStoragePipe storage )
-	throws IOException
+        throws IOException
     {
         final EndianInputStream inndx =
             new EndianInputStream( new File( fileName + ".ndx" ), CHARSET );

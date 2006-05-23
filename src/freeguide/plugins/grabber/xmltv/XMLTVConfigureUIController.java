@@ -206,7 +206,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         confPanel.getTextCommand(  ).getDocument(  )
                  .addDocumentListener( confPanel.textChangedEvent );
         confPanel.textChangedEvent.allowEvent = true;
-        
+
         setConfigTextFieldSet( confPanel );
         confPanel.getTextConfigCommand(  ).getDocument(  )
                  .addDocumentListener( confPanel.configTextChangedEvent );
@@ -221,7 +221,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
     {
         panel.getTextCommand(  ).setForeground( textEdited );
     }
-    
+
     protected void setConfigTextFieldMarkAsEdited( 
         final XMLTVConfigureUIPanelModule panel )
     {
@@ -243,8 +243,8 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
             panel.getTextCommand(  ).setText( panel.moduleInfo.commandToRun );
         }
     }
-    
-    protected void setConfigTextFieldSet(
+
+    protected void setConfigTextFieldSet( 
         final XMLTVConfigureUIPanelModule panel )
     {
         if( panel.moduleInfo.configCommandToRun == null )
@@ -257,8 +257,8 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         else
         {
             panel.getTextConfigCommand(  ).setForeground( textEdited );
-            panel.getTextConfigCommand(  ).setText(
-                panel.moduleInfo.configCommandToRun );
+            panel.getTextConfigCommand(  )
+                 .setText( panel.moduleInfo.configCommandToRun );
         }
     }
 
@@ -419,7 +419,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
             try
             {
                 panel.moduleInfo.commandToRun = doc.getText( 
-                    0, doc.getLength(  ) );
+                        0, doc.getLength(  ) );
             }
             catch( BadLocationException ex )
             {
@@ -429,7 +429,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
         }
     }
-    
+
     protected class ConfigTextChanged implements DocumentListener
     {
         protected XMLTVConfigureUIPanelModule panel;
@@ -490,5 +490,4 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
         }
     }
-    
 }

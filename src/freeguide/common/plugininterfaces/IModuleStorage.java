@@ -46,8 +46,6 @@ public interface IModuleStorage extends IModule
      * Add data to storage. Implementation can change data object.
      *
      * @param data
-     *
-     * @throws Exception
      */
     void store( TVData data );
 
