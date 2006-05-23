@@ -56,6 +56,27 @@ public class TemplateHandler
     /**
      * DOCUMENT_ME!
      *
+     * @param programme DOCUMENT ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String getSubTitle( final TVProgramme programme )
+    {
+        final String subTitle = programme.getSubTitle(  );
+
+        if( subTitle != null )
+        {
+            return ": " + subTitle;
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
      * @return DOCUMENT_ME!
      */
     public String getHeader(  )
