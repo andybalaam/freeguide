@@ -72,11 +72,6 @@
       <param name="plugin-version" value="2"/>
     </antcall>
     <antcall target="${actual-target}">
-      <param name="plugin-id" value="other-xmltvexe"/>
-      <param name="plugin-dir" value="other/xmltvexe"/>
-      <param name="plugin-version" value="0.5.41"/>
-    </antcall>
-    <antcall target="${actual-target}">
       <param name="plugin-id" value="reminder-alarm"/>
       <param name="plugin-dir" value="reminder/alarm"/>
       <param name="plugin-version" value="2"/>

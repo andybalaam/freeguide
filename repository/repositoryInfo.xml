@@ -4,119 +4,37 @@
   <mirror location="Europe - Dublin, Ireland" path="http://heanet.dl.sourceforge.net/sourceforge/freeguide-tv/"/>
   <mirror location="North America - Minneapolis, MN" path="http://umn.dl.sourceforge.net/sourceforge/freeguide-tv/"/>
   <package id="program-freeguide" version="0.10.4" type="application" repositoryPath="package-program-freeguide-0.10.4.zip">
-    <name lang="en">FreeGuide-TV</name>
-    <description lang="en">Main FreeGuide-TV application.</description>
-    <name lang="fr">FreeGuide-TV</name>
-    <description lang="fr">Le programme Freeguide-TV</description>
   </package>
   <package id="grabber-cosmostv" version="2" type="plugin-grabber" repositoryPath="package-grabber-cosmostv-2.zip">
-    <name lang="be">Cosmos TV</name>
-    <description lang="be">Праграмма тэлебачання з http://www.cosmostv.com</description>
-    <name lang="en">Cosmos TV</name>
-    <description lang="en">Grabber for http://www.cosmostv.com</description>
-    <name lang="fr">Cosmos TV</name>
-    <description lang="fr">Aspirateur pour http://www.cosmostv.com</description>
   </package>
   <package id="grabber-hallmark" version="2" type="plugin-grabber" repositoryPath="package-grabber-hallmark-2.zip">
-    <name lang="en">Hallmark Channel</name>
-    <description lang="en">Grabber for http://www.hallmarkchannel.com</description>
   </package>
   <package id="grabber-kulichki" version="2" type="plugin-grabber" repositoryPath="package-grabber-kulichki-2.zip">
-    <name lang="be">Программа ТВ на Куличках</name>
-    <description lang="be">Праграмма тэлебачання з http://kulichki.tv</description>
-    <name lang="en">Kulichki.tv</name>
-    <description lang="en">Grabber for http://kulichki.tv</description>
-    <name lang="fr">Kulichki.tv</name>
-    <description lang="fr">Aspirateur pour http://kulichki.tv</description>
   </package>
   <package id="grabber-newsvm" version="2" type="plugin-grabber" repositoryPath="package-grabber-newsvm-2.zip">
-    <name lang="be">Вечерний Минск</name>
-    <description lang="be">Праграмма тэлебачання з газэты &quot;Вечерний Минск&quot;(http://newsvm.com)</description>
-    <name lang="en">Newsvm.com</name>
-    <description lang="en">Grabber for http://newsvm.com</description>
-    <name lang="fr">Newsvm.com</name>
-    <description lang="fr">Aspirateur pour http://newsvm.com</description>
   </package>
   <package id="grabber-ntvplus" version="2" type="plugin-grabber" repositoryPath="package-grabber-ntvplus-2.zip">
-    <name lang="be">НТВ-Плюс</name>
-    <description lang="be">Праграмма тэлебачання з http://www.ntvplus.com</description>
-    <name lang="en">NTV Plus</name>
-    <description lang="en">Grabber for http://www.ntvplus.ru</description>
-    <name lang="fr">NTV Plus</name>
-    <description lang="fr">Aspirateur pour http://www.ntvplus.ru</description>
   </package>
   <package id="grabber-rbc" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-rbc-0.1.zip">
-    <name lang="en">rbc.ru</name>
-    <description lang="en">Grabber for http://tv.rbc.ru</description>
   </package>
   <package id="grabber-vsetv" version="2" type="plugin-grabber" repositoryPath="package-grabber-vsetv-2.zip">
-    <name lang="be">Всё ТВ</name>
-    <description lang="be">Праграма тэлебачання з http://www.vsetv.com</description>
-    <name lang="en">Vsetv.com</name>
-    <description lang="en">Grabber for http://www.vsetv.com</description>
-    <name lang="fr">Vsetv.com</name>
-    <description lang="fr">Aspirateur pour http://www.vsetv.com</description>
   </package>
   <package id="grabber-xmltv" version="2" type="plugin-grabber" repositoryPath="package-grabber-xmltv-2.zip">
-    <name lang="en">XMLTV</name>
-    <description lang="en">XMLTV grabber (http://xmltv.sf.net)</description>
-    <name lang="fr">XMLTV</name>
-    <description lang="fr">Aspirateur XMLTV (http://xmltv.sf.net)</description>
   </package>
   <package id="importexport-html" version="1" type="plugin-importexport" repositoryPath="package-importexport-html-1.zip">
-    <name lang="en">HTML</name>
-    <description lang="en">HTML export</description>
   </package>
   <package id="importexport-jtv" version="2" type="plugin-importexport" repositoryPath="package-importexport-jtv-2.zip">
-    <name lang="en">JTV</name>
-    <description lang="en">JTV import/export module (http://jtvhost.chat.ru)</description>
-    <name lang="fr">JTV</name>
-    <description lang="fr">Module d&apos;import/export pour JTV (http://jtvhost.chat.ru)</description>
   </package>
   <package id="importexport-palmatv" version="2" type="plugin-importexport" repositoryPath="package-importexport-palmatv-2.zip">
-    <name lang="en">ATV-palm</name>
-    <description lang="en">Export to ATV for Palm OS. See http://zaval.org/products/atv</description>
-    <name lang="fr">ATV-palm</name>
-    <description lang="fr">Module d&apos;export vers ATV pour Palm OS. (http://zaval.org/products/atv)</description>
   </package>
   <package id="importexport-xmltv" version="2" type="plugin-importexport" repositoryPath="package-importexport-xmltv-2.zip">
-    <name lang="en">XMLTV</name>
-    <description lang="en">Export to XMLTV format. See http://xmltv.sf.net.</description>
-    <name lang="fr">XMLTV</name>
-    <description lang="fr">Export au format XMLTV. (http://xmltv.sf.net).</description>
-  </package>
-  <package id="other-xmltvexe" version="0.5.41" type="other" repositoryPath="package-other-xmltvexe-0.5.41.zip">
-    <name lang="en">XMLTV for Windows</name>
-    <description lang="en">XMLTV for Windows execution from http://alpha-exe.xmltv.org/</description>
   </package>
   <package id="reminder-alarm" version="2" type="plugin-reminder" repositoryPath="package-reminder-alarm-2.zip">
-    <name lang="be">Alarm reminder</name>
-    <description lang="be">Alarm reminder like in previous versions</description>
-    <name lang="de">Alarm reminder</name>
-    <description lang="de">Alarm reminder like in previous versions</description>
-    <name lang="en">Alarm reminder</name>
-    <description lang="en">Alarm reminder like in previous versions</description>
-    <name lang="fr">Alarme de rappel</name>
-    <description lang="fr">Alarme de rappel comme dans les anciennes versions</description>
   </package>
   <package id="storage-serfiles" version="2" type="plugin-storage" repositoryPath="package-storage-serfiles-2.zip">
-    <name lang="en">Serialized</name>
-    <description lang="en">Store data in serialized files</description>
-    <name lang="fr">Serialized</name>
-    <description lang="fr">Stocke les données sous formes de fichiers sérialisés</description>
   </package>
   <package id="ui-horizontal" version="2" type="plugin-ui" repositoryPath="package-ui-horizontal-2.zip">
-    <name lang="be">Гарызантальны</name>
-    <description lang="be">Гэты модуль адлюстроўвае праграму тэлебачання ў выглядзе гарызантальных палос.</description>
-    <name lang="en">Horizontal</name>
-    <description lang="en">This is viewer with horizontal strips</description>
-    <name lang="fr">Horizontal</name>
-    <description lang="fr">Module de visualisation sous forme de bandes horizontales</description>
   </package>
   <package id="ui-vertical" version="2" type="plugin-ui" repositoryPath="package-ui-vertical-2.zip">
-    <name lang="de">Vertikal</name>
-    <description lang="de">Listenbasierte Anzeige</description>
-    <name lang="en">Vertical</name>
-    <description lang="en">List style viewer</description>
   </package>
 </packages>
