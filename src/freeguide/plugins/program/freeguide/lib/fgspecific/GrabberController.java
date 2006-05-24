@@ -10,6 +10,8 @@ import freeguide.plugins.program.freeguide.viewer.MainController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.nio.channels.ClosedByInterruptException;
+
 import java.util.Iterator;
 import java.util.logging.Level;
 
@@ -27,12 +29,11 @@ public class GrabberController
     protected ExecutorDialog progressDialog;
     protected JProgressBar secondProgressBar;
     protected boolean wasError;
-    protected IModuleGrabber currentGrabber;
-    protected boolean isFinished;
+    protected Thread grabberThread;
 
     /**
-     * Show grabber dialog when grabbing running, or start grabbing in
-     * new thread.
+     * Show grabber dialog when grabbing running, or start grabbing in new
+     * thread.
      *
      * @param controller DOCUMENT ME!
      */
@@ -48,19 +49,30 @@ public class GrabberController
             else
             {
                 // Start new grabbing
-                new Thread(  )
-                    {
-                        public void run(  )
+                grabberThread =
+                    new Thread(  )
                         {
-                            FreeGuide.log.finest( "start grabbing" );
-                            grab( 
-                                controller.getApplicationFrame(  ),
-                                controller.mainFrame.getProgressBar(  ) );
-                            controller.viewer.onDataChanged(  );
-                            controller.remindersReschedule(  );
-                            FreeGuide.log.finest( "stop grabbing" );
-                        }
-                    }.start(  );
+                            public void run(  )
+                            {
+                                FreeGuide.log.finest( "start grabbing" );
+
+                                try
+                                {
+                                    grab( 
+                                        controller.getApplicationFrame(  ),
+                                        controller.mainFrame.getProgressBar(  ) );
+                                    controller.viewer.onDataChanged(  );
+                                    MainController.remindersReschedule(  );
+                                }
+                                catch( Exception ex )
+                                {
+                                    ex.printStackTrace(  );
+                                }
+
+                                FreeGuide.log.finest( "stop grabbing" );
+                            }
+                        };
+                grabberThread.start(  );
             }
         }
     }
@@ -71,15 +83,14 @@ public class GrabberController
      * @param owner DOCUMENT_ME!
      * @param secondProgressBar DOCUMENT ME!
      */
-    public void grab( JFrame owner, JProgressBar secondProgressBar )
+    public void grab( 
+        final JFrame owner, final JProgressBar secondProgressBar )
     {
         this.secondProgressBar = secondProgressBar;
 
         synchronized( this )
         {
             wasError = false;
-            currentGrabber = null;
-            isFinished = false;
             progressDialog = new ExecutorDialog( owner, secondProgressBar );
 
             progressDialog.getCancelButton(  ).addActionListener( 
@@ -87,7 +98,17 @@ public class GrabberController
                 {
                     public void actionPerformed( ActionEvent evt )
                     {
-                        closeDialog(  );
+                        synchronized( GrabberController.this )
+                        {
+                            grabberThread.interrupt(  );
+
+                            // leave dialog when details open or was error
+                            if( progressDialog != null )
+                            {
+                                progressDialog.dispose(  );
+                                progressDialog = null;
+                            }
+                        }
                     }
                 } );
         }
@@ -109,8 +130,7 @@ public class GrabberController
         }
         else
         {
-            Iterator it = MainController.config.activeGrabberIDs
-                .iterator(  );
+            Iterator it = MainController.config.activeGrabberIDs.iterator(  );
 
             while( it.hasNext(  ) )
             {
@@ -131,12 +151,7 @@ public class GrabberController
 
                     }
 
-                    synchronized( this )
-                    {
-                        currentGrabber = grabber;
-                    }
-
-                    if( isFinished )
+                    if( Thread.interrupted(  ) )
                     {
                         break;
                     }
@@ -145,26 +160,37 @@ public class GrabberController
                     grabber.grabData( progressDialog, progressDialog, pipe );
                     pipe.finish(  );
 
-                    if( isFinished )
+                    if( Thread.interrupted(  ) )
                     {
                         break;
                     }
+                }
+                catch( ClosedByInterruptException ex )
+                {
+                    break;
+                }
+                catch( InterruptedException ex )
+                {
+                    break;
                 }
                 catch( Throwable ex )
                 {
                     wasError = true;
 
-                    if( ex instanceof Exception )
+                    if( progressDialog != null )
                     {
-                        progressDialog.error( 
-                            "Error grab data by grabber '" + grabberID + "'",
-                            (Exception)ex );
-                    }
-                    else
-                    {
-                        progressDialog.error( 
-                            "Error grab data by grabber '" + grabberID + "': "
-                            + ex.getClass(  ).getName(  ) );
+                        if( ex instanceof Exception )
+                        {
+                            progressDialog.error( 
+                                "Error grab data by grabber '" + grabberID
+                                + "'", (Exception)ex );
+                        }
+                        else
+                        {
+                            progressDialog.error( 
+                                "Error grab data by grabber '" + grabberID
+                                + "': " + ex.getClass(  ).getName(  ) );
+                        }
                     }
 
                     FreeGuide.log.log( 
@@ -174,44 +200,26 @@ public class GrabberController
             }
         }
 
-        if( !wasError && !progressDialog.isLogVisible(  ) )
-        {
-            closeDialog(  );
-        }
-        else
-        {
-            synchronized( this )
-            {
-                secondProgressBar.setVisible( false );
-                progressDialog.setDefaultCloseOperation( 
-                    JDialog.DISPOSE_ON_CLOSE );
-                progressDialog.setCloseLabel(  );
-            }
-        }
-    }
-
-    /**
-     * DOCUMENT_ME!
-     */
-    public void closeDialog(  )
-    {
         synchronized( this )
         {
-            isFinished = true;
-
-            if( currentGrabber != null )
-            {
-                currentGrabber.stopGrabbing(  );
-            }
-
-            secondProgressBar.setVisible( false );
-
-            // leave dialog when details open or was error
-            if( progressDialog != null )
+            if( 
+                !wasError && ( progressDialog != null )
+                    && !progressDialog.isLogVisible(  ) )
             {
                 progressDialog.dispose(  );
                 progressDialog = null;
             }
+            else
+            {
+                if( progressDialog != null )
+                {
+                    progressDialog.setDefaultCloseOperation( 
+                        JDialog.DISPOSE_ON_CLOSE );
+                    progressDialog.setCloseLabel(  );
+                }
+            }
         }
+
+        secondProgressBar.setVisible( false );
     }
 }
