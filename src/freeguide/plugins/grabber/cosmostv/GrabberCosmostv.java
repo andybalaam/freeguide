@@ -22,7 +22,6 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
 {
     protected static final TimeZone TIMEZONE =
         TimeZone.getTimeZone( "Europe/Minsk" );
-    boolean isStopped;
 
     /**
      * DOCUMENT_ME!
@@ -84,14 +83,5 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
 
         new ListTVParser( "cosmostv/", storage ).parseZips( 
             zips, TIMEZONE, progress, logger );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     */
-    public void stopGrabbing(  )
-    {
-        isStopped = true;
-
     }
 }
