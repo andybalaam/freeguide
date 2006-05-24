@@ -19,6 +19,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
+import java.nio.channels.ClosedByInterruptException;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
@@ -102,14 +104,14 @@ public class HttpBrowser
     /** DOCUMENT ME! */
     public byte[] dataBytes;
 
-/**
+    /**
      * Creates a new HttpBrowser object.
      */
     public HttpBrowser(  )
     {
     }
 
-/**
+    /**
      * Creates a new HttpBrowser object.
      *
      * @param versionString DOCUMENT ME!
@@ -301,6 +303,11 @@ public class HttpBrowser
         while( true )
         {
             len = input.read( buffer );
+
+            if( Thread.interrupted(  ) )
+            {
+                throw new ClosedByInterruptException(  );
+            }
 
             if( len < 0 )
             {
