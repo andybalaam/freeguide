@@ -62,13 +62,6 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
     /**
      * DOCUMENT_ME!
-     */
-    public void stopGrabbing(  )
-    {
-    }
-
-    /**
-     * DOCUMENT_ME!
      *
      * @return DOCUMENT_ME!
      *
@@ -325,8 +318,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         }
         catch( Exception ex )
         {
-            Application.getInstance(  ).getLogger(  )
-                       .log( 
+            Application.getInstance(  ).getLogger(  ).log( 
                 Level.SEVERE,
                 "Error loading timezone settings for tv.kulichki.net", ex );
         }
@@ -344,8 +336,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         }
         catch( Exception ex )
         {
-            Application.getInstance(  ).getLogger(  )
-                       .log( 
+            Application.getInstance(  ).getLogger(  ).log( 
                 Level.SEVERE,
                 "Error loading groupnames settings for tv.kulichki.net", ex );
         }
