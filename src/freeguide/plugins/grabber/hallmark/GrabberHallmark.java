@@ -167,13 +167,6 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
 
     /**
      * DOCUMENT_ME!
-     */
-    public void stopGrabbing(  )
-    {
-    }
-
-    /**
-     * DOCUMENT_ME!
      *
      * @param parentDialog DOCUMENT_ME!
      *
