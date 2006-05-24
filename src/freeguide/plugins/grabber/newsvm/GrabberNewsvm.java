@@ -42,8 +42,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE );
     protected static TimeZone tz = TimeZone.getTimeZone( "Europe/Minsk" );
     protected static final String[] DAYS =
-        { "mo", "tu", "we", "th", "fr", "sa", "su" };
-    boolean isStopped;
+    { "mo", "tu", "we", "th", "fr", "sa", "su" };
 
     /**
      * DOCUMENT_ME!
@@ -82,7 +81,6 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
-        isStopped = false;
         progress.setProgressValue( 0 );
 
         HttpBrowser browser = new HttpBrowser(  );
@@ -91,18 +89,16 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
         browser.setHeader( HttpBrowser.HEADER_ACCEPT_CHARSET, "windows-1251" );
 
-        isStopped = false;
-
         progress.setProgressMessage( 
             Application.getInstance(  ).getLocalizedMessage( "downloading" ) );
 
         PageParser parser = new PageParser( storage, logger );
 
-        for( int i = 0; ( i < DAYS.length ) && !isStopped; i++ )
+        for( int i = 0; i < DAYS.length; i++ )
         {
             progress.setProgressValue( ( i * 100 ) / 7 );
 
-            if( isStopped )
+            if( Thread.interrupted(  ) )
             {
                 return;
             }
@@ -117,15 +113,6 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         progress.setProgressValue( 100 );
     }
 
-    /**
-     * DOCUMENT_ME!
-     */
-    public void stopGrabbing(  )
-    {
-        isStopped = true;
-
-    }
-
     protected static class PageParser extends HtmlHelper.DefaultContentHandler
     {
         protected StringBuffer out;
@@ -133,7 +120,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         protected final ILogger logger;
         protected final String[] nen;
 
-/**
+        /**
          * Creates a new PageParser object.
          *
          * @param storage DOCUMENT ME!
@@ -273,7 +260,8 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                         {
                             try
                             {
-                                basedate = TimeHelper.getBaseDate( 
+                                basedate =
+                                    TimeHelper.getBaseDate( 
                                         tz, mDate.group( 2 ), mDate.group( 3 ),
                                         null, mDate.group( 1 ) );
                             }
@@ -316,13 +304,13 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                             String channelName = line;
 
                             if( 
-                                ( channelName.toLowerCase(  )
-                                                 .indexOf( "перепечатка" ) == -1 )
-                                    && ( channelName.toLowerCase(  )
-                                                        .indexOf( 
+                                ( channelName.toLowerCase(  ).indexOf( 
+                                        "перепечатка" ) == -1 )
+                                    && ( channelName.toLowerCase(  ).indexOf( 
                                         "профилактика" ) == -1 ) )
                             {
-                                currentChannelID = "newsvm/"
+                                currentChannelID =
+                                    "newsvm/"
                                     + channelName.replace( '/', '_' );
 
                                 try
