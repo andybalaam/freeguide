@@ -2,7 +2,8 @@ package freeguide.common.plugininterfaces;
 
 /**
  * Interface for grabber modules. Each grabber module should implement this
- * interface.
+ * interface. Each grabber should be ready to be interrupted by
+ * Thread.interrupt().
  *
  * @author Alex Buloichik (mailto: alex73 at zaval.org)
  */
@@ -19,11 +20,6 @@ public interface IModuleGrabber extends IModule
      */
     void grabData( IProgress progress, ILogger logger, IStoragePipe storage )
         throws Exception;
-
-    /**
-     * Stop grabbing.
-     */
-    void stopGrabbing(  );
 
     /**
      * Start module. Called when application starts.
