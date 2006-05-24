@@ -65,13 +65,6 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
     /**
      * DOCUMENT_ME!
-     */
-    public void stopGrabbing(  )
-    {
-    }
-
-    /**
-     * DOCUMENT_ME!
      *
      * @return DOCUMENT_ME!
      *
@@ -97,7 +90,6 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
         //return handler.getResult(  );
         return null;
-
     }
 
     /**
@@ -132,6 +124,11 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
         browser.loadURL( "http://www.vsetv.com" );
 
+        if( Thread.interrupted(  ) )
+        {
+            return;
+        }
+
         HandlerDates handlerDates = new HandlerDates(  );
 
         browser.parse( handlerDates );
@@ -144,15 +141,16 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         if( config.isAuth )
         {
             login( logger, browser );
-
             tz = checkSettings( logger, browser );
-
         }
-
         else
         {
             tz = TimeZone.getTimeZone( "Europe/Kiev" );
+        }
 
+        if( Thread.interrupted(  ) )
+        {
+            return;
         }
 
         progress.setStepNumber( 2 );
@@ -181,6 +179,11 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
         for( int i = 0; i < dates.length; i++ )
         {
+            if( Thread.interrupted(  ) )
+            {
+                return;
+            }
+
             request.put( "selectdate", dates[i] );
 
             logger.info( 
@@ -194,6 +197,11 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
             handler.setAnnounces( false );
 
             browser.parse( handler );
+
+            if( Thread.interrupted(  ) )
+            {
+                return;
+            }
 
             logger.info( 
                 "Load announce page [" + ( i + 1 ) + "/" + dates.length + "]" );
@@ -226,8 +234,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         }
         catch( Exception ex )
         {
-            Application.getInstance(  ).getLogger(  )
-                       .log( 
+            Application.getInstance(  ).getLogger(  ).log( 
                 Level.SEVERE,
                 "Error loading timezone settings for www.vsetv.com", ex );
         }
@@ -254,6 +261,8 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
             values.put( "nowperiod", "60" );
 
+            values.put( "dosave", "1" );
+
             String[] chs = handler.getChannelIDs(  );
 
             for( int i = 0; i < chs.length; i++ )
@@ -262,8 +271,10 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
             }
 
+            browser.setHeader( 
+                "Referer", "http://www.vsetv.com/settings.php?fromscript=/" );
             browser.loadURL( 
-                "http://www.vsetv.com/savesettings.php", values, true );
+                "http://www.vsetv.com/settings.php", values, false );
 
         }
 
