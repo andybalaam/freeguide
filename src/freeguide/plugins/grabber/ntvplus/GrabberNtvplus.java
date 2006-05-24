@@ -21,7 +21,6 @@ public class GrabberNtvplus extends BaseModule implements IModuleGrabber
 {
     protected static final TimeZone TIMEZONE =
         TimeZone.getTimeZone( "Europe/Moscow" );
-    boolean isStopped;
 
     /**
      * DOCUMENT_ME!
@@ -66,14 +65,5 @@ public class GrabberNtvplus extends BaseModule implements IModuleGrabber
         new ListTVParser( "ntvplus/", storage ).parseZips( 
             new String[] { "http://www.ntvplus.ru/static/schedule/schedule.zip" },
             TIMEZONE, progress, logger );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     */
-    public void stopGrabbing(  )
-    {
-        isStopped = true;
-
     }
 }
