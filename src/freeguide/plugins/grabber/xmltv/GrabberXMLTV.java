@@ -34,6 +34,7 @@ import java.util.logging.Level;
 
 import javax.swing.JDialog;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -184,7 +185,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         Application.getInstance(  ).getLogger(  ).finest( 
             "Run command: " + cmd );
 
-        int resultCode = execCmdSimple( Utils.parseCommand( cmd ) );
+        int resultCode = execConfigCmd( Utils.parseCommand( cmd ) );
         Application.getInstance(  ).getLogger(  )
                    .finest( "Result code = " + resultCode );
     }
@@ -290,7 +291,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         logger.info( "Running command: " + cmd );
 
         int resultCode =
-            execCmd( storage, Utils.parseCommand( cmd ), progress, logger );
+            execGrabCmd( storage, Utils.parseCommand( cmd ), progress, logger );
 
         Application.getInstance(  ).getLogger(  )
                    .finest( "Result code = " + resultCode );
@@ -298,21 +299,17 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         logger.info( "Result code = " + resultCode );
     }
 
-    protected int execCmd( 
+    protected int execGrabCmd( 
         final IStoragePipe storage, final String[] args,
         final IProgress progress, final ILogger logger )
     {
         try
         {
-            pr = Runtime.getRuntime(  ).exec( args );
+            pr = execCmd( args );
 
         }
-
         catch( IOException ex )
         {
-            Application.getInstance(  ).getLogger(  )
-                       .log( Level.WARNING, "Error execute xmltv grabber", ex );
-
             return -1;
         }
 
@@ -357,18 +354,44 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         return res;
     }
 
-    protected int execCmdSimple( final String[] args )
+    protected Process execCmd( final String[] args ) throws IOException
     {
         try
         {
-            pr = Runtime.getRuntime(  ).exec( args );
-            new ReadProcess( pr.getInputStream(  ), Level.FINEST ).start(  );
-            new ReadProcess( pr.getErrorStream(  ), Level.FINE ).start(  );
-
-            return pr.waitFor(  );
-
+            return Runtime.getRuntime(  ).exec( args );
         }
+        catch( IOException ex )
+        {
+            JOptionPane.showMessageDialog( 
+                Application.getInstance(  ).getApplicationFrame(  ),
+                ex.getMessage(  ),
+                getLocalizer(  ).getLocalizedMessage( "ErrorBox.Title" ),
+                JOptionPane.ERROR_MESSAGE );
 
+            Application.getInstance(  ).getLogger(  )
+                       .log( Level.WARNING, "Error execute xmltv grabber", ex );
+            throw ex;
+        }
+    }
+
+    protected int execConfigCmd( final String[] args )
+    {
+        try
+        {
+            Process pr = execCmd( args );
+
+            if( pr != null )
+            {
+                new ReadProcess( pr.getInputStream(  ), Level.FINEST ).start(  );
+                new ReadProcess( pr.getErrorStream(  ), Level.FINE ).start(  );
+
+                return pr.waitFor(  );
+            }
+            else
+            {
+                return -1;
+            }
+        }
         catch( Exception ex )
         {
             Application.getInstance(  ).getLogger(  )
