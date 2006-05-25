@@ -3,7 +3,7 @@
 <project name="freeguide-tv-dist"  default="dist-tgz">
 
 	<import file="plugins-info.xml"/>
-	<import file="build-install-linux.xml"/>
+	<import file="install-linux.xml"/>
 
 	<target name="dist-tgz">
 	

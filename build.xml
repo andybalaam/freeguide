@@ -52,7 +52,7 @@
     </description>
     
     <target name="all" depends="prepare, jars, compile-doc" />
-	<target name="dist-all" depends="dist-src,dist-exe,dist-rpm,dist-tgz" />
+	<target name="dist-all" depends="dist-src,dist-rpm,dist-tgz" />
     
     <target name="prepare">
         <ant antfile="ant/prepare.xml" />
@@ -81,23 +81,23 @@
     </target>
 	
     <target name="install-linux">
-        <ant antfile="ant/build-install-linux.xml" />
+        <ant antfile="ant/install-linux.xml" />
     </target>
     <target name="install-linux-destdir">
-        <ant antfile="ant/build-install-linux.xml" target="install-linux-destdir" />
+        <ant antfile="ant/install-linux.xml" target="install-linux-destdir" />
     </target>
     <target name="install-linux-run">
-        <ant antfile="ant/build-install-linux.xml" target="install-linux-run" />
+        <ant antfile="ant/install-linux.xml" target="install-linux-run" />
     </target>
     
     <target name="dist-src">
         <ant antfile="ant/dist-src.xml" />
     </target>
     <target name="dist-rpm">
-        <ant antfile="ant/build-dist-rpm.xml" />
+        <ant antfile="ant/dist-rpm.xml" />
     </target>
 	<target name="dist-tgz">
-        <ant antfile="ant/build-dist.xml" />
+        <ant antfile="ant/dist-tgz.xml" />
     </target>
 
 </project>
