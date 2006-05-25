@@ -347,9 +347,6 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         catch( InterruptedException ex )
         {
-            Application.getInstance(  ).getLogger(  )
-                       .log( Level.SEVERE, "Interrupted xmltv process", ex );
-
             res = -1;
         }
 
@@ -474,9 +471,11 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
 /**
          * Creates a new ReadProcess object.
-         *
-         * @param stream DOCUMENT ME!
-         * @param level DOCUMENT ME!
+         * 
+         * @param stream
+         *            DOCUMENT ME!
+         * @param level
+         *            DOCUMENT ME!
          */
         public ReadProcess( final InputStream stream, final Level level )
         {
@@ -515,9 +514,11 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
 /**
          * Creates a new Read object.
-         *
-         * @param rd DOCUMENT ME!
-         * @param logger DOCUMENT ME!
+         * 
+         * @param rd
+         *            DOCUMENT ME!
+         * @param logger
+         *            DOCUMENT ME!
          */
         public ReadErrors( BufferedReader rd, final ILogger logger )
         {
@@ -560,10 +561,13 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
 /**
          * Creates a new ReadOutputData object.
-         *
-         * @param storage DOCUMENT ME!
-         * @param in DOCUMENT ME!
-         * @param logger DOCUMENT ME!
+         * 
+         * @param storage
+         *            DOCUMENT ME!
+         * @param in
+         *            DOCUMENT ME!
+         * @param logger
+         *            DOCUMENT ME!
          */
         public ReadOutput( 
             final IStoragePipe storage, InputStream in, ILogger logger )
@@ -585,14 +589,17 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             }
             catch( SAXException ex )
             {
-                String msg = ex.getException(  ).getMessage(  );
+                if( !Thread.interrupted(  ) && ( ex.getException(  ) != null ) )
+                {
+                    String msg = ex.getException(  ).getMessage(  );
 
-                logger.error( "SAX Error executing grabber: " + msg );
+                    logger.error( "SAX Error executing grabber: " + msg );
 
-                Application.getInstance(  ).getLogger(  )
-                           .log( 
-                    Level.WARNING, "SAX Error executing grabber: " + msg,
-                    ex.getException(  ) );
+                    Application.getInstance(  ).getLogger(  )
+                               .log( 
+                        Level.WARNING, "SAX Error executing grabber: " + msg,
+                        ex.getException(  ) );
+                }
             }
             catch( ParserConfigurationException ex )
             {
