@@ -54,11 +54,13 @@ reminder_alarm.en.properties
 reminder_alarm.en_RC.properties
 reminder_alarm.en_US.properties
 reminder_alarm.fr.properties
+reminder_alarm.zh.properties
 Startup.be.properties
 Startup.de.properties
 Startup.en.properties
 Startup.en_RC.properties
 Startup.fr.properties
+Startup.zh.properties
 storage_serfiles.en.properties
 storage_serfiles.en_RC.properties
 storage_serfiles.en_US.properties
