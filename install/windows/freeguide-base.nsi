@@ -19,7 +19,38 @@ OutFile dist\windows\${NAME_VERSION}-win32.exe
 InstallDir $PROGRAMFILES\FreeGuide 
 
 ;--------------------------------
+XPStyle on
 
+LoadLanguageFile "${NSISDIR}\Contrib\Language Files\English.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language Files\Belarusian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language Files\French.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language Files\German.nlf"
+
+Function .onInit
+	ExecWait 'javaw.exe' $0
+	IfErrors 0 +3
+	MessageBox MB_OK "Java not found on you computer. Please install it before running FreeGuide." 
+	Abort
+
+	;Language selection dialog
+	Push ""
+	Push ${LANG_ENGLISH}
+	Push English
+	Push ${LANG_BELARUSIAN}
+	Push Belarusian
+	Push ${LANG_FRENCH}
+	Push French
+	Push ${LANG_GERMAN}
+	Push German
+	Push A ; A means auto count languages
+	       ; for the auto count to work the first empty push (Push "") must remain
+	LangDLL::LangDialog "Installer Language" "Please select the language of the installer"
+
+	Pop $LANGUAGE
+	StrCmp $LANGUAGE "cancel" 0 +2
+		Abort
+FunctionEnd
+;--------------------------------
 ; Pages
 
 Page directory
@@ -95,7 +126,8 @@ SectionEnd
 ;--------------------------------
 
 ; The stuff to install
-Section "FreeGuide program"
+Section "!FreeGuide program"
+  SectionIn RO
 
   ; -------------------- main jar --------------------
 
