@@ -234,7 +234,8 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         }
         catch( Exception ex )
         {
-            Application.getInstance(  ).getLogger(  ).log( 
+            Application.getInstance(  ).getLogger(  )
+                       .log( 
                 Level.SEVERE,
                 "Error loading timezone settings for www.vsetv.com", ex );
         }

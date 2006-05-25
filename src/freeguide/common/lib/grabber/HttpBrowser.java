@@ -104,14 +104,14 @@ public class HttpBrowser
     /** DOCUMENT ME! */
     public byte[] dataBytes;
 
-    /**
+/**
      * Creates a new HttpBrowser object.
      */
     public HttpBrowser(  )
     {
     }
 
-    /**
+/**
      * Creates a new HttpBrowser object.
      *
      * @param versionString DOCUMENT ME!

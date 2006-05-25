@@ -42,7 +42,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE );
     protected static TimeZone tz = TimeZone.getTimeZone( "Europe/Minsk" );
     protected static final String[] DAYS =
-    { "mo", "tu", "we", "th", "fr", "sa", "su" };
+        { "mo", "tu", "we", "th", "fr", "sa", "su" };
 
     /**
      * DOCUMENT_ME!
@@ -120,7 +120,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         protected final ILogger logger;
         protected final String[] nen;
 
-        /**
+/**
          * Creates a new PageParser object.
          *
          * @param storage DOCUMENT ME!
@@ -260,8 +260,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                         {
                             try
                             {
-                                basedate =
-                                    TimeHelper.getBaseDate( 
+                                basedate = TimeHelper.getBaseDate( 
                                         tz, mDate.group( 2 ), mDate.group( 3 ),
                                         null, mDate.group( 1 ) );
                             }
@@ -304,13 +303,13 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                             String channelName = line;
 
                             if( 
-                                ( channelName.toLowerCase(  ).indexOf( 
-                                        "перепечатка" ) == -1 )
-                                    && ( channelName.toLowerCase(  ).indexOf( 
+                                ( channelName.toLowerCase(  )
+                                                 .indexOf( "перепечатка" ) == -1 )
+                                    && ( channelName.toLowerCase(  )
+                                                        .indexOf( 
                                         "профилактика" ) == -1 ) )
                             {
-                                currentChannelID =
-                                    "newsvm/"
+                                currentChannelID = "newsvm/"
                                     + channelName.replace( '/', '_' );
 
                                 try

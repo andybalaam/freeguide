@@ -32,8 +32,8 @@ public class GrabberController
     protected Thread grabberThread;
 
     /**
-     * Show grabber dialog when grabbing running, or start grabbing in new
-     * thread.
+     * Show grabber dialog when grabbing running, or start grabbing in
+     * new thread.
      *
      * @param controller DOCUMENT ME!
      */
@@ -54,7 +54,8 @@ public class GrabberController
                         {
                             public void run(  )
                             {
-                                FreeGuide.log.finest( "start grabbing" );
+                                FreeGuide.log
+                                .finest( "start grabbing" );
 
                                 try
                                 {
@@ -130,7 +131,8 @@ public class GrabberController
         }
         else
         {
-            Iterator it = MainController.config.activeGrabberIDs.iterator(  );
+            Iterator it = MainController.config.activeGrabberIDs
+                .iterator(  );
 
             while( it.hasNext(  ) )
             {
