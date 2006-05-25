@@ -70,7 +70,7 @@ public class MainFrame extends JWaitFrame
         {
             byte[] data =
                 LanguageHelper.loadResourceAsByteArray( 
-                    "images/logo-16x16.png" );
+                    "resources/plugins/program/freeguide/images/logo-16x16.png" );
 
             if( data != null )
             {
