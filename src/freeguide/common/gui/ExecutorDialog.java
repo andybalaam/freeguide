@@ -174,31 +174,48 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      */
     private void butDetailsActionPerformed( java.awt.event.ActionEvent evt )
     {
-        showDetails(  );
-    }
-
-    // -----------------------------------------------------------------------
-    private void showDetails(  )
-    {
-        logScroll.setVisible( !logScroll.isVisible(  ) );
-        log.setVisible( !log.isVisible(  ) );
-        butDetails.setText( 
-            Application.getInstance(  )
-                       .getLocalizedMessage( 
-                log.isVisible(  ) ? "hide_output" : "show_output" ) );
-
-        int width = getWidth(  );
-        int height;
-
-        if( log.isVisible(  ) )
+        if( !logScroll.isVisible(  ) )
         {
-            height = maxHeight;
+            showDetails(  );
         }
         else
         {
-            maxHeight = getHeight(  );
-            height = minHeight;
+            hideDetails(  );
         }
+    }
+
+    // -----------------------------------------------------------------------
+    /**
+     * Show details panel.
+     */
+    public void showDetails(  )
+    {
+        logScroll.setVisible( true );
+        log.setVisible( true );
+        butDetails.setText( 
+            Application.getInstance(  ).getLocalizedMessage( "hide_output" ) );
+
+        int width = getWidth(  );
+        int height = maxHeight;
+
+        setSize( width, height );
+        validate(  );
+    }
+
+    /**
+     * Hide details panel.
+     */
+    public void hideDetails(  )
+    {
+        logScroll.setVisible( false );
+        log.setVisible( false );
+        butDetails.setText( 
+            Application.getInstance(  ).getLocalizedMessage( "show_output" ) );
+
+        int width = getWidth(  );
+        maxHeight = getHeight(  );
+
+        int height = minHeight;
 
         setSize( width, height );
         validate(  );
