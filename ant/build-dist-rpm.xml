@@ -2,8 +2,8 @@
 
 <project name="freeguide-tv-dist-rpm" default="dist-rpm">
     
-	<import file="build-build.xml"/>
-    <import file="build-source.xml"/>
+	<import file="compile.xml"/>
+    <import file="dist-src.xml"/>
     
 	<target name="dist-rpm" depends="prepare,dist-src">
         <mkdir dir="${dist-rpm}"/>

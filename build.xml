@@ -55,23 +55,23 @@
 	<target name="dist-all" depends="dist-src,dist-exe,dist-rpm,dist-tgz" />
     
     <target name="prepare">
-        <ant antfile="ant/build-prebuild.xml" />
+        <ant antfile="ant/prepare.xml" />
     </target>
     
     <target name="compile">
-        <ant antfile="ant/build-build.xml" target="compile" />
+        <ant antfile="ant/compile.xml" target="compile" />
     </target>
     
     <target name="compile-in-place">
-        <ant antfile="ant/build-build.xml" target="compile-in-place" />
+        <ant antfile="ant/compile.xml" target="compile-in-place" />
     </target>
     
     <target name="compile-doc">
-        <ant antfile="ant/build-build.xml" target="compile-doc" />
+        <ant antfile="ant/compile.xml" target="compile-doc" />
     </target>
 	
     <target name="jars">
-        <ant antfile="ant/build-build.xml" />
+        <ant antfile="ant/compile.xml" />
     </target>
     
     <target name="clean">
@@ -91,10 +91,7 @@
     </target>
     
     <target name="dist-src">
-        <ant antfile="ant/build-source.xml" />
-    </target>
-    <target name="dist-exe">
-        <ant antfile="ant/build-dist-exe.xml" />
+        <ant antfile="ant/dist-src.xml" />
     </target>
     <target name="dist-rpm">
         <ant antfile="ant/build-dist-rpm.xml" />

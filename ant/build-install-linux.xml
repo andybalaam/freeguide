@@ -2,7 +2,7 @@
 
 <project name="freeguide-tv-install-linux" default="install-linux">
 
-    <import file="build-build.xml"/>
+    <import file="compile.xml"/>
     
     <target name="install-linux" depends="jars,compile-doc">
         

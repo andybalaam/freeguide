@@ -2,8 +2,8 @@
 
 <project name="freeguide-tv-build" default="jars">
 
-	<import file="build-plugins-info.xml"/>
-	<import file="build-prebuild.xml"/>
+	<import file="plugins-info.xml"/>
+	<import file="prepare.xml"/>
     <import file="../build.xml"/>
 	
     <target name="jars" depends="prepare, compile, jar-common, jar-plugins, jar-startup"/>
