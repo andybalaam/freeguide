@@ -67,7 +67,7 @@ public class PatchApplication_java
         }
 
         strData = strData.substring( 0, posBeg + TAG_BEG.length(  ) )
-            + getVersionCos( plugins[0].getVersion(  ) )
+            + "\n            " + getVersionCos( plugins[0].getVersion(  ) )
             + strData.substring( posEnd );
 
         BufferedWriter wr =
