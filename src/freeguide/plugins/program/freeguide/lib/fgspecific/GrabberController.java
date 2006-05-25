@@ -2,6 +2,8 @@ package freeguide.plugins.program.freeguide.lib.fgspecific;
 
 import freeguide.common.gui.ExecutorDialog;
 
+import freeguide.common.lib.fgspecific.Application;
+
 import freeguide.common.plugininterfaces.IModuleGrabber;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
@@ -93,6 +95,8 @@ public class GrabberController
         {
             wasError = false;
             progressDialog = new ExecutorDialog( owner, secondProgressBar );
+            progressDialog.setStepCount( 1 );
+            progressDialog.setStepNumber( 0 );
 
             progressDialog.getCancelButton(  ).addActionListener( 
                 new ActionListener(  )
@@ -204,20 +208,38 @@ public class GrabberController
 
         synchronized( this )
         {
-            if( 
-                !wasError && ( progressDialog != null )
-                    && !progressDialog.isLogVisible(  ) )
+            if( progressDialog != null )
             {
-                progressDialog.dispose(  );
-                progressDialog = null;
-            }
-            else
-            {
-                if( progressDialog != null )
+                if( !wasError )
+                {
+                    if( !progressDialog.isLogVisible(  ) )
+                    {
+                        progressDialog.dispose(  );
+                        progressDialog = null;
+                    }
+                    else
+                    {
+                        progressDialog.setDefaultCloseOperation( 
+                            JDialog.DISPOSE_ON_CLOSE );
+                        progressDialog.setCloseLabel(  );
+                        progressDialog.setProgressMessage( 
+                            null,
+                            Application.getInstance(  )
+                                       .getLocalizedMessage( 
+                                "ExecutionDialog.Finish.OK" ) );
+                    }
+                }
+                else
                 {
                     progressDialog.setDefaultCloseOperation( 
                         JDialog.DISPOSE_ON_CLOSE );
                     progressDialog.setCloseLabel(  );
+                    progressDialog.setProgressMessage( 
+                        null,
+                        Application.getInstance(  )
+                                   .getLocalizedMessage( 
+                            "ExecutionDialog.Finish.Error" ) );
+                    progressDialog.showDetails(  );
                 }
             }
         }
