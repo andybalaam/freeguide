@@ -29,7 +29,7 @@ LoadLanguageFile "${NSISDIR}\Contrib\Language Files\German.nlf"
 Function .onInit
 	ExecWait 'javaw.exe' $0
 	IfErrors 0 +3
-	MessageBox MB_OK "Java not found on you computer. Please install it before running FreeGuide." 
+	MessageBox MB_OK "You don't have Java installed, but FreeGuide needs Java to work. Please go to http://java.com/getjava and download Java." 
 	Abort
 
 	;Language selection dialog
