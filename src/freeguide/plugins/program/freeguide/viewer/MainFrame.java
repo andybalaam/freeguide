@@ -412,7 +412,8 @@ public class MainFrame extends JWaitFrame
             menuTools.add( getMenuItemChannelsSets(  ) ); // Channel Sets
             menuTools.add( new JSeparator(  ) );
             menuTools.add( getMenuItemWizard(  ) ); // First time wiz
-            menuTools.add( getMenuItemUpdater(  ) ); // Plugins man
+
+            // menuTools.add( getMenuItemUpdater(  ) ); // Plugins man
             menuTools.add( new JSeparator(  ) );
             menuTools.add( getMenuItemOptions(  ) ); // Options
             menuTools.add( new JSeparator(  ) );
