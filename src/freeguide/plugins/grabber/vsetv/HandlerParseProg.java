@@ -94,10 +94,13 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
         String uri, String localName, String qName, Attributes atts )
         throws SAXException
     {
+        String text = HtmlHelper.strongTrim( currentText.toString(  ) );
         currentText.setLength( 0 );
 
-        if( mode == MODES_NONE )
+        switch( mode )
         {
+        case MODES_NONE:
+
             if( 
                 "td".equals( qName )
                     && "channeltitle".equals( atts.getValue( "class" ) ) )
@@ -131,6 +134,22 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
             {
                 mode = MODES_ANON_TEXT;
             }
+
+            break;
+
+        case MODES_ANON_TEXT:
+
+            if( currentProg != null )
+            {
+                currentProg.addDesc( text );
+
+                if( "br".equals( qName ) )
+                {
+                    currentProg.addDesc( "<br>" );
+                }
+            }
+
+            break;
         }
     }
 
@@ -147,6 +166,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
         throws SAXException
     {
         String text = HtmlHelper.strongTrim( currentText.toString(  ) );
+        currentText.setLength( 0 );
 
         switch( mode )
         {
@@ -229,7 +249,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 
             if( currentProg != null )
             {
-                if( "td".equals( qName ) )
+                if( "td".equals( qName ) || "a".equals( qName ) )
                 {
                     currentProg.setTitle( text );
                     mode = MODES_NONE;
