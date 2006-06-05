@@ -47,6 +47,7 @@ public class XMLTVImport
      *
      * @param file DOCUMENT_ME!
      * @param storage DOCUMENT_ME!
+     * @param countCallback DOCUMENT ME!
      * @param filter DOCUMENT_ME!
      * @param channelPrefix DOCUMENT ME!
      *
@@ -54,11 +55,13 @@ public class XMLTVImport
      * @throws IOException DOCUMENT_ME!
      */
     public void process( 
-        File file, final IStoragePipe storage, Filter filter,
+        File file, final IStoragePipe storage,
+        final ProgrammesCountCallback countCallback, Filter filter,
         final String channelPrefix ) throws SAXException, IOException
     {
         XMLTVImportHandler handler =
-            new XMLTVImportHandler( storage, filter, channelPrefix );
+            new XMLTVImportHandler( 
+                storage, countCallback, filter, channelPrefix );
         InputSource ins =
             new InputSource( 
                 new BufferedInputStream( new FileInputStream( file ) ) );
@@ -70,6 +73,7 @@ public class XMLTVImport
      * DOCUMENT_ME!
      *
      * @param in DOCUMENT_ME!
+     * @param storage DOCUMENT ME!
      * @param filter DOCUMENT_ME!
      * @param filter DOCUMENT_ME!
      * @param channelPrefix DOCUMENT ME!
@@ -79,12 +83,14 @@ public class XMLTVImport
      * @throws ParserConfigurationException DOCUMENT_ME!
      */
     public void process( 
-        InputStream in, final IStoragePipe storage, Filter filter,
+        InputStream in, final IStoragePipe storage,
+        final ProgrammesCountCallback countCallback, Filter filter,
         final String channelPrefix )
         throws SAXException, IOException, ParserConfigurationException
     {
         XMLTVImportHandler handler =
-            new XMLTVImportHandler( storage, filter, channelPrefix );
+            new XMLTVImportHandler( 
+                storage, countCallback, filter, channelPrefix );
         InputSource ins = new InputSource( in );
         ins.setSystemId( "memory://data" );
         saxParser.parse( ins, handler );
@@ -134,5 +140,21 @@ public class XMLTVImport
             return true;
 
         }
+    }
+
+    /**
+     * Callback for calculate parsed programmes count.
+     *
+     * @author $author$
+     * @version $Revision$
+     */
+    public abstract static class ProgrammesCountCallback
+    {
+        /**
+         * On new programme.
+         *
+         * @param count programme number
+         */
+        public abstract void onProgramme( final int count );
     }
 }
