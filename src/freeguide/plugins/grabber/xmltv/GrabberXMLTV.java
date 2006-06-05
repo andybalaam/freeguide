@@ -14,6 +14,8 @@ import freeguide.common.plugininterfaces.IModuleGrabber;
 import freeguide.common.plugininterfaces.IProgress;
 import freeguide.common.plugininterfaces.IStoragePipe;
 
+import freeguide.plugins.program.freeguide.FreeGuide;
+
 import org.xml.sax.SAXException;
 
 import java.awt.event.ActionEvent;
@@ -253,6 +255,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     protected void grabOne( 
         final IStoragePipe storage, final XMLTVConfig.ModuleInfo moduleInfo,
         final IProgress progress, final ILogger logger )
+        throws Exception
     {
         progress.setProgressMessage( 
             Application.getInstance(  ).getLocalizedMessage( "downloading" ) );
@@ -302,13 +305,11 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     protected int execGrabCmd( 
         final IStoragePipe storage, final String[] args,
         final IProgress progress, final ILogger logger )
+        throws Exception
     {
-        try
-        {
-            pr = execCmd( args );
+        pr = execCmd( args );
 
-        }
-        catch( IOException ex )
+        if( pr == null )
         {
             return -1;
         }
@@ -319,7 +320,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                 new InputStreamReader( pr.getErrorStream(  ) ) );
 
         final Thread threadData =
-            new ReadOutput( storage, pr.getInputStream(  ), logger );
+            new ReadOutput( storage, pr.getInputStream(  ), progress, logger );
         final Thread threadErrors = new ReadErrors( prErr, logger );
 
         threadData.start(  );
@@ -356,22 +357,74 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
     protected Process execCmd( final String[] args ) throws IOException
     {
+        if( !checkXmltvExists( args ) )
+        {
+            final String messageID =
+                FreeGuide.runtimeInfo.isUnix ? "ErrorBox.Text.Linux"
+                                             : "ErrorBox.Text.Windows";
+            JOptionPane.showMessageDialog( 
+                Application.getInstance(  ).getApplicationFrame(  ),
+                getLocalizer(  ).getLocalizedMessage( messageID ),
+                getLocalizer(  ).getLocalizedMessage( "ErrorBox.Title" ),
+                JOptionPane.ERROR_MESSAGE );
+
+            return null;
+        }
+
         try
         {
             return Runtime.getRuntime(  ).exec( args );
         }
         catch( IOException ex )
         {
-            JOptionPane.showMessageDialog( 
-                Application.getInstance(  ).getApplicationFrame(  ),
-                ex.getMessage(  ),
-                getLocalizer(  ).getLocalizedMessage( "ErrorBox.Title" ),
-                JOptionPane.ERROR_MESSAGE );
-
             Application.getInstance(  ).getLogger(  )
                        .log( Level.WARNING, "Error execute xmltv grabber", ex );
             throw ex;
         }
+    }
+
+    /**
+     * Check if xmltv exists in path.
+     *
+     * @param args command line for run
+     *
+     * @return true if exists
+     *
+     * @throws IOException
+     */
+    protected boolean checkXmltvExists( final String[] args )
+        throws IOException
+    {
+        if( ( args == null ) || ( args.length == 0 ) )
+        {
+            throw new IOException( "Invalid command line" );
+        }
+
+        final String xmltvName = args[0];
+
+        if( new File( xmltvName ).exists(  ) )
+        {
+            return true;
+        }
+
+        final String path = System.getenv( "PATH" );
+
+        if( path != null )
+        {
+            final String[] dirs = path.split( File.pathSeparator );
+
+            for( int i = 0; i < dirs.length; i++ )
+            {
+                final File check = new File( dirs[i], args[0] );
+
+                if( check.exists(  ) )
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     protected int execConfigCmd( final String[] args )
@@ -580,6 +633,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     {
         final protected ILogger logger;
         final protected InputStream in;
+        final protected IProgress progress;
         final protected IStoragePipe storage;
 
 /**
@@ -593,10 +647,12 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
          *            DOCUMENT ME!
          */
         public ReadOutput( 
-            final IStoragePipe storage, InputStream in, ILogger logger )
+            final IStoragePipe storage, final InputStream in,
+            final IProgress progress, final ILogger logger )
         {
             this.in = in;
             this.logger = logger;
+            this.progress = progress;
             this.storage = storage;
         }
 
@@ -605,10 +661,26 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
          */
         public void run(  )
         {
+            final XMLTVImport.ProgrammesCountCallback callback =
+                new XMLTVImport.ProgrammesCountCallback(  )
+                {
+                    public void onProgramme( int count )
+                    {
+                        if( ( count % 10 ) == 0 )
+                        {
+                            progress.setProgressMessage( 
+                                getLocalizer(  )
+                                    .getLocalizedMessage( 
+                                    "Message.Count",
+                                    new Object[] { new Integer( count ) } ) );
+                        }
+                    }
+                };
+
             try
             {
                 new XMLTVImport(  ).process( 
-                    in, storage, new XMLTVImport.Filter(  ), "xmltv/" );
+                    in, storage, callback, new XMLTVImport.Filter(  ), "xmltv/" );
             }
             catch( SAXException ex )
             {
