@@ -34,6 +34,7 @@ import java.util.regex.Pattern;
 class XMLTVImportHandler extends DefaultHandler
 {
     final protected IStoragePipe storage;
+    final protected XMLTVImport.ProgrammesCountCallback countCallback;
     final protected XMLTVImport.Filter filter;
     final protected String channelPrefix;
     protected String currentSite;
@@ -49,6 +50,7 @@ class XMLTVImportHandler extends DefaultHandler
     private SimpleDateFormat f2 = new SimpleDateFormat( "yyyyMMddHHmmss" );
     private SimpleDateFormat f3 = new SimpleDateFormat( "yyyyMMddHHmmss z" );
     private SimpleDateFormat f4 = new SimpleDateFormat( "yyyyMMddHHmmss Z" );
+    protected int programmesCount;
 
 /**
      * Creates a new Handler object.
@@ -58,10 +60,12 @@ class XMLTVImportHandler extends DefaultHandler
      * @param channelPrefix DOCUMENT ME!
      */
     public XMLTVImportHandler( 
-        final IStoragePipe storage, final XMLTVImport.Filter filter,
-        final String channelPrefix )
+        final IStoragePipe storage,
+        final XMLTVImport.ProgrammesCountCallback countCallback,
+        final XMLTVImport.Filter filter, final String channelPrefix )
     {
         this.storage = storage;
+        this.countCallback = countCallback;
         this.filter = filter;
         this.channelPrefix = channelPrefix;
     }
@@ -77,6 +81,7 @@ class XMLTVImportHandler extends DefaultHandler
         currentChannel = null;
         currentProgramme = null;
         isStarRating = false;
+        programmesCount = 0;
     }
 
     /**
@@ -124,6 +129,13 @@ class XMLTVImportHandler extends DefaultHandler
         else if( "programme".equals( qName ) )
         { // tv:programme
             currentProgramme = new TVProgramme(  );
+
+            programmesCount++;
+
+            if( countCallback != null )
+            {
+                countCallback.onProgramme( programmesCount );
+            }
 
             try
             {
