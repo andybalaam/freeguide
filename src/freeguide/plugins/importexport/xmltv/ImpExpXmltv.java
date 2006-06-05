@@ -81,8 +81,8 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
                         try
                         {
                             imp.process( 
-                                files[i], storage, new XMLTVImport.Filter(  ),
-                                "" );
+                                files[i], storage, null,
+                                new XMLTVImport.Filter(  ), "" );
                         }
                         catch( IOException e )
                         {
@@ -114,7 +114,7 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
         throws Exception
     {
         new XMLTVImport(  ).process( 
-            file, storage, new XMLTVImport.Filter(  ), "" );
+            file, storage, null, new XMLTVImport.Filter(  ), "" );
     }
 
     /**
