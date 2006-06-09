@@ -322,7 +322,7 @@ public class TVChannelsSet
          */
         public String toString(  )
         {
-            return displayName;
+            return displayName + " (" + channelID + ")";
 
         }
 
