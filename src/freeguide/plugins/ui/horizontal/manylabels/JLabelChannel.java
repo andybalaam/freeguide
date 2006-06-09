@@ -41,7 +41,7 @@ public class JLabelChannel extends JLabel
     public JLabelChannel( 
         final TVChannel channel, final HorizontalViewer main, final Font font )
     {
-        super( channel.getDisplayName(  )+" ("+channel.getID()+")" );
+        super( channel.getDisplayName(  ) );
         this.channel = channel;
         this.controller = main;
 
