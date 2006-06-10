@@ -138,7 +138,9 @@ public class JLabelProgramme extends JLabel
 
         String programmeStarString = programme.getStarString(  );
 
-        if( timeFormat != null )
+        if( 
+            ( (HorizontalViewerConfig)controller.getConfig(  ) ).displayTime
+                && ( timeFormat != null ) )
         {
             toAppendTo.append( 
                 timeFormat.format( new Date( programmeStart ) ) ).append( " " );
@@ -360,9 +362,7 @@ public class JLabelProgramme extends JLabel
             return tooltip;
         }
 
-        boolean printDelta = controller.config.displayDelta;
-
-        if( ( this.tooltip != null ) && !printDelta )
+        if( ( this.tooltip != null ) )
         {
             return this.tooltip;
         }

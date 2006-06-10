@@ -142,7 +142,6 @@ public class ConfigureUIController implements IModuleConfigurationUI
         config.colorNonTicked = panel.getPanelColorNormal(  ).getBackground(  );
         config.displayTooltips = panel.getCbDisplayTooltips(  ).isSelected(  );
         config.displayTime = panel.getCbDrawTime(  ).isSelected(  );
-        config.displayDelta = panel.getCbPrintDelta(  ).isSelected(  );
         config.displayAlignToLeft = panel.getCbAlignLeft(  ).isSelected(  );
         config.display24time = panel.getRbTime24(  ).isSelected(  );
         config.dayStartTime = new Time( panel.getDayStart(  ).getText(  ) );
@@ -222,7 +221,6 @@ public class ConfigureUIController implements IModuleConfigurationUI
         panel.getSliderWidth(  ).addChangeListener( sliderChange );
         panel.getCbDisplayTooltips(  ).setSelected( config.displayTooltips );
         panel.getCbDrawTime(  ).setSelected( config.displayTime );
-        panel.getCbPrintDelta(  ).setSelected( config.displayDelta );
         panel.getCbAlignLeft(  ).setSelected( config.displayAlignToLeft );
 
         if( config.display24time )

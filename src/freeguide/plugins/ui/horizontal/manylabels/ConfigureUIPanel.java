@@ -85,7 +85,6 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints110.weightx = 0.1D;
 
         GridBagConstraints gridBagConstraints31 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints21 = new GridBagConstraints(  );
         GridBagConstraints gridBagConstraints11 = new GridBagConstraints(  );
 
         labelTimeFormat = new JLabel(  );
@@ -366,18 +365,10 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints11.gridwidth = 4;
 
         gridBagConstraints11.insets = new java.awt.Insets( 5, 5, 0, 5 );
-        gridBagConstraints21.gridx = 0;
 
-        gridBagConstraints21.gridy = 14;
-
-        gridBagConstraints21.anchor = java.awt.GridBagConstraints.WEST;
-
-        gridBagConstraints21.gridwidth = 4;
-
-        gridBagConstraints21.insets = new java.awt.Insets( 5, 5, 0, 5 );
         gridBagConstraints31.gridx = 0;
 
-        gridBagConstraints31.gridy = 15;
+        gridBagConstraints31.gridy = 14;
 
         gridBagConstraints31.gridwidth = 4;
 
@@ -385,7 +376,6 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints31.insets = new java.awt.Insets( 5, 5, 5, 5 );
         this.add( getCbDisplayTooltips(  ), gridBagConstraints31 );
-        this.add( getCbPrintDelta(  ), gridBagConstraints21 );
         this.add( getCbAlignLeft(  ), gridBagConstraints11 );
         this.add( getCbDrawTime(  ), gridBagConstraints92 );
         this.add( labelTimeFormat, gridBagConstraints72 );
@@ -832,27 +822,6 @@ public class ConfigureUIPanel extends JPanel
         }
 
         return cbAlignLeft;
-
-    }
-
-    /**
-     * This method initializes jCheckBox2
-     *
-     * @return javax.swing.JCheckBox
-     */
-    protected JCheckBox getCbPrintDelta(  )
-    {
-        if( cbPrintDelta == null )
-        {
-            cbPrintDelta = new JCheckBox(  );
-
-            cbPrintDelta.setMnemonic( java.awt.event.KeyEvent.VK_P );
-            cbPrintDelta.setText( 
-                localizer.getLocalizedMessage( "print_time_delta" ) );
-
-        }
-
-        return cbPrintDelta;
 
     }
 
