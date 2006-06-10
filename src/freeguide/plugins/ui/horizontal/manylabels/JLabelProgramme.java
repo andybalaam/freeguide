@@ -313,34 +313,32 @@ public class JLabelProgramme extends JLabel
             super.paintComponent( g );
         }
 
-        if( !isDrawHeart )
+        if( isDrawHeart )
         {
-            return;
+            Graphics2D graphics = (Graphics2D)g;
+            AffineTransform originalTransform = graphics.getTransform(  );
+    
+            graphics.setColor( Color.RED );
+    
+            // switch on anti-aliasing
+            graphics.setRenderingHint( 
+                RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
+    
+            // Scale and position appropriately--taking into account the borders
+            Rectangle bounds = HEART_SHAPE.getBounds(  );
+    
+            double scale = 0.45 * ( getHeight(  ) / bounds.getHeight(  ) );
+    
+            double right = getWidth(  ) - 2 - ( scale * bounds.getWidth(  ) );
+    
+            graphics.translate( right, 2 );
+    
+            graphics.scale( scale, scale );
+    
+            graphics.fill( HEART_SHAPE );
+    
+            graphics.setTransform( originalTransform );
         }
-
-        Graphics2D graphics = (Graphics2D)g;
-        AffineTransform originalTransform = graphics.getTransform(  );
-
-        graphics.setColor( Color.RED );
-
-        // switch on anti-aliasing
-        graphics.setRenderingHint( 
-            RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
-
-        // Scale and position appropriately--taking into account the borders
-        Rectangle bounds = HEART_SHAPE.getBounds(  );
-
-        double scale = 0.45 * ( getHeight(  ) / bounds.getHeight(  ) );
-
-        double right = getWidth(  ) - 2 - ( scale * bounds.getWidth(  ) );
-
-        graphics.translate( right, 2 );
-
-        graphics.scale( scale, scale );
-
-        graphics.fill( HEART_SHAPE );
-
-        graphics.setTransform( originalTransform );
     }
 
     /**
