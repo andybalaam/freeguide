@@ -175,17 +175,16 @@ public class JPanelProgramme extends JPanel
         {
             return;
         }
-        
+
         if( cursorHorizontalPos == -1 )
         {
             cursorHorizontalPos = label.getMiddle( 
-                startDate, startDate + controller.MILLISECONDS_PER_DAY );
+                    startDate, startDate + controller.MILLISECONDS_PER_DAY );
         }
-        
+
         for( int i = row - 1; i >= 0; i-- )
         {
-            JLabelProgramme newLabel =
-                getNearestFor( i, cursorHorizontalPos );
+            JLabelProgramme newLabel = getNearestFor( i, cursorHorizontalPos );
 
             if( newLabel != null )
             {
@@ -209,17 +208,16 @@ public class JPanelProgramme extends JPanel
         {
             return;
         }
-        
+
         if( cursorHorizontalPos == -1 )
         {
             cursorHorizontalPos = label.getMiddle( 
-                startDate, startDate + controller.MILLISECONDS_PER_DAY );
+                    startDate, startDate + controller.MILLISECONDS_PER_DAY );
         }
-        
+
         for( int i = row + 1; i < rows.length; i++ )
         {
-            JLabelProgramme newLabel =
-                getNearestFor( i, cursorHorizontalPos );
+            JLabelProgramme newLabel = getNearestFor( i, cursorHorizontalPos );
 
             if( newLabel != null )
             {
@@ -251,9 +249,9 @@ public class JPanelProgramme extends JPanel
             JLabelProgramme newLabel =
                 (JLabelProgramme)rows[row].get( pos - 1 );
             focusAndShow( newLabel );
-            
+
             cursorHorizontalPos = newLabel.getMiddle( 
-                startDate, startDate + controller.MILLISECONDS_PER_DAY );
+                    startDate, startDate + controller.MILLISECONDS_PER_DAY );
         }
     }
 
@@ -278,9 +276,9 @@ public class JPanelProgramme extends JPanel
             JLabelProgramme newLabel =
                 (JLabelProgramme)rows[row].get( pos + 1 );
             focusAndShow( newLabel );
-            
+
             cursorHorizontalPos = newLabel.getMiddle( 
-                startDate, startDate + controller.MILLISECONDS_PER_DAY );
+                    startDate, startDate + controller.MILLISECONDS_PER_DAY );
         }
     }
 
