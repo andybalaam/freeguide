@@ -68,7 +68,7 @@ public class HorizontalViewerConfig
     /** DOCUMENT ME! */
     public boolean display24time = true;
 
-    /** DOCUMENT ME! */
+    /** Not used any more but left for config compatibility. */
     public boolean displayDelta = true;
 
     /** DOCUMENT ME! */
