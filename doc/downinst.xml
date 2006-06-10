@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
   <chapter id="downinst">
     <title>Download and Install</title>
-
-    <para>Before downloading, installing and finally using FreeGuide, you
-    should make sure you already have some required software installed: Java
-    and XMLTV. The installation instructions here tell you how you get all of
-    this done.</para>
-
+    
+    <para>If you are in North America, you need to get a Data Direct account
+    from Zap2it before you install FreeGuide.  To do this, go to
+    <ulink url="http://labs.zap2it.com">http://labs.zap2it.com</ulink>
+    and click the "New User? Sign-Up" link.  Use the certificate code
+    <varname>TUYO-DCXM-CBUT</varname>.
+    Make a note of the username and password you choose as you will need to
+    enter them during FreeGuide's first-time wizard.  NOTE: You should enter
+    your password despite the warning.</para>
+    
     <section id="downinst.windows">
       <title>Windows</title>
-
-      <para>Go to the <ulink
-      url="http://sourceforge.net/project/showfiles.php?group_id=35309">sourceforge
+      
+      <para>Before you do anything else, you will need the
+      <ulink url="http://java.sun.com/getjava/">Java 2
+      Runtime Environment</ulink> version 1.4 or above: You can check this by
+      typing <command>java -version</command> in a DOS or Cmd window.
+      Ask on the FreeGuide Users'
+      mailing list (see the <link linkend="contact">Contact</link> page) if you
+      have trouble installing Java.</para>
+      
+      <para>Now, to get FreeGuide, go to the <ulink
+  url="http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789">sourceforge
       download page</ulink> and pick the file like this:
       "<filename>freeguide-x.x.x-with-xmltv-win32.exe</filename>" with the highest
       version number to get the windows installer.</para>
@@ -28,64 +40,6 @@
         
         <para>As soon as it's installed, FreeGuide should be ready to go,
         unless you are behind a firewall or proxy server.</para>
-        
-        <!-- Time zone is not needed by XMLTV any more.
-        <section id="downinst.windows.timezone">
-          <title>Timezone</title>
-
-          <section>
-            <title>With Windows 2000/XP</title>
-
-            <itemizedlist>
-              <listitem>
-                <para>Right Click "<guilabel>My Computer</guilabel>" -&gt;
-                <guimenuitem>Properties</guimenuitem></para>
-              </listitem>
-
-              <listitem>
-                <para>Choose the <guibutton>Advanced</guibutton> Tab and click
-                the <guibutton>Environment Variables</guibutton> button at the
-                bottom middle of the window.</para>
-              </listitem>
-
-              <listitem>
-                <para>Click the "<guibutton>New</guibutton>" button in the
-                <guilabel>Global Variables</guilabel> section.</para>
-              </listitem>
-
-              <listitem>
-                <para>Variable Name: <varname>TZ</varname></para>
-              </listitem>
-
-              <listitem>
-                <para>Variable Value: <literal>EST5EDT</literal></para>
-              </listitem>
-
-              <listitem>
-                <para>Click <guibutton>OK</guibutton></para>
-              </listitem>
-
-              <listitem>
-                <para>Click <guibutton>OK</guibutton></para>
-              </listitem>
-            </itemizedlist>
-          </section>
-
-          <section>
-            <title>With Windows 95/98/ME</title>
-
-            <itemizedlist>
-              <listitem>
-                <para>Add a line <programlisting>set TZ=EST5EDT</programlisting>to
-                the file <filename>c:\autoexec.bat</filename></para>
-              </listitem>
-
-              <listitem>
-                <para><guibutton>Restart</guibutton> your computer</para>
-              </listitem>
-            </itemizedlist>
-          </section>
-        </section>-->
 
         <section id="downinst.windows.proxy">
           <title>Proxy</title>
@@ -93,6 +47,10 @@
           <para>If you have a proxy server or are behind a firewall, you will
           need to follow the instructions below to allow FreeGuide to see
           past them to the Internet.</para>
+          
+          <para>NOTE: most home users will not need to do this - you are
+          ready to start FreeGuide!  Go straight to the
+          <link linkend="userguide">User Guide</link>.</para>
           
           <para>In the following replace "<uri>proxy.uni.ac.uk</uri>" with
           your proxy server address, and "<parameter>8080</parameter>" with
@@ -149,13 +107,20 @@
 
       <para>To use FreeGuide on Linux you need Java and XMLTV.</para>
 
-      <para>The <ulink url="http://java.sun.com/getjava/">Java 2 Runtime
-      Environment</ulink> version 1.4 or above: You can check this by typing
-      <command>java -version</command> in a terminal. (If you've installed the
-      new version of Java but "<command>java -version</command>" still says
-      the old one, you need to look at putting the new version of java in your
-      <varname>PATH</varname>.</para>
-
+      <para>You will need the <ulink url="http://java.sun.com/getjava/">Java 2
+      Runtime Environment</ulink> version 1.4 or above: You can check this by
+      typing <command>java -version</command> in a terminal. (If you've
+      installed the new version of Java but "<command>java -version</command>"
+      still says the old one, you need to look at putting the new version of
+      java in your <varname>PATH</varname>.  Ask on the FreeGuide Users'
+      mailing list (see the <link linkend="contact">Contact</link> page) if you
+      have trouble installing Java.</para>
+      
+      <para>Ubuntu users can install Sun's version of Java by typing:
+      <programlisting>sudo apt-get install
+      sun-java5-jre</programlisting> in a terminal, after making sure the
+      "multiverse" repository is enabled.</para>
+      
       <section id="downinst.linux.xmltv">
         <title>Installing XMLTV</title>
 
@@ -167,7 +132,8 @@
         and if you run Debian you can find xmltv in
         <emphasis>unstable</emphasis>.</para>
 		
-		<para>On Ubuntu, install the xmltv-gui package from the universe repository.</para>
+		<para>On Ubuntu, install the xmltv-gui package from the universe
+        repository.</para>
 		
 		<para>On Debian, install the xmltv-gui package.</para>
 
@@ -179,32 +145,7 @@
 
         <para>Install from source in the usual way with "<command>perl
         Makefile.PL &amp;&amp; make &amp;&amp; make install</command>".</para>
-<!--
-    Configuration is commented out on Andy's request
-    as FreeGuide can do that
-
-        <para>After installing XMLTV, you need to configure it. Connect to the
-        Internet before doing this. If you like, you can simply run the
-        FreeGuide installation (see below) and the grabber will be configured
-        within that. If you would like to do it manually, type (at a command
-        prompt):</para>
-
-        <programlisting>tv_grab_</programlisting>
-
-        <para>and then press TAB a couple of times. You should see a list of
-        the possible commands. You want the one for your country: e.g. "na_dd"
-        for North America, "uk_bleb" for UK, "dk" for Denmark. Continue typing
-        the command by adding the correct completion, and then a space, and
-        then - -configure. So the full command should look like this:</para>
-
-        <programlisting>tv_grab_fi - -configure</programlisting>
-
-        <para>(Except with "<varname>fi</varname>" relaced with the correct
-        country code.)</para>
-
-        <para>Now press return and follow the instructions to configure your
-        grabber.</para>
--->
+        
         <para>Continue with your distribution:</para>
 
         <itemizedlist>
@@ -222,10 +163,10 @@
             <para><link linkend="downinst.linux.gentoo">Gentoo</link></para>
           </listitem>
 
-          <!--listitem>
+          <listitem>
             <para><link linkend="downinst.linux.tarball">Others - Tarball
             installation</link></para>
-          </listitem-->
+          </listitem>
         </itemizedlist>
       </section>
 
@@ -234,7 +175,7 @@
         SuSE)</title>
 
         <para>Go to the <ulink
-        url="http://sourceforge.net/project/showfiles.php?group_id=35309">sourceforge
+        url="http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789">sourceforge
         download page</ulink>, download the
         <filename>FreeGuide-xx-noarch.rpm</filename> RPM file and install it
         like so:</para>
@@ -259,12 +200,10 @@
 
       <section id="downinst.linux.debian">
         <title>FreeGuide on Debian and Ubuntu</title>
-
+        
         <para>There are Debian packages available from <ulink
         url="http://packages.debian.org/freeguide">http://packages.debian.org/freeguide</ulink>.</para>
-<!--
-        <para>FIXME</para>
--->
+        
         <para>Now <link linkend="downinst.linux.config">configure your
         system</link>.</para>
       </section>
@@ -276,7 +215,7 @@
         ebuilds which can be installed manually.</para>
 
         <para>First, go to the <ulink
-        url="http://sourceforge.net/project/showfiles.php?group_id=35309">sourceforge
+        url="http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789">sourceforge
         download page</ulink> and download the
         <filename>freeguide_gentoo_ebuilds_x.y.z.tar.bz2</filename>
         file.</para>
@@ -301,33 +240,26 @@
         <para>Now <link linkend="downinst.linux.config">configure your
         system</link>.</para>
       </section>
-<!--
+
       <section id="downinst.linux.tarball">
         <title>FreeGuide on other distros - Tarball installation</title>
 
-        <para>FIXME</para>
+        <para>Go to the <ulink
+        url="http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789">sourceforge
+        download page</ulink> and download 
+        <filename>freeguide-x.y.z-bin.tar.gz</filename>.</para>
+        
+        <para>You can either unzip this tarball in <filename>/</filename> as
+        root, or unzip it somewhere else and modify the file 
+        <filename>usr/bin/freeguide</filename> to point at the correct
+        paths.</para>
 
         <para>Now <link linkend="downinst.linux.config">configure your
         system</link>.</para>
       </section>
--->
+
       <section id="downinst.linux.config">
         <title>Configuring your System</title>
-
-        <!--<section id="downinst.linux.config.timezone">
-          <title>Timezone</title>
-
-          <para>Before you use FreeGuide you need to set your environment
-          variable "<varname>TZ</varname>" to your time zone.
-          ("<literal>EST5EDT</literal>" refers to New York timezone, so you'll
-          need to adjust it, e.g to "<literal>GMT</literal>" for London. For a
-          complete list of timezones, have a look at the <ulink
-          url="http://en.wikipedia.org/wiki/Time_zone">Wikipedia Timezone
-          article</ulink>)</para>
-
-          <para>Add a line <programlisting>export TZ=EST5EDT</programlisting>to
-          the file <filename>~/.bash_profile</filename>.</para>
-        </section>-->
 
         <section id="downinst.linux.config.proxy">
           <title>Proxy</title>
@@ -335,6 +267,10 @@
           <para>If you have a proxy server or are behind a firewall, you may
           need to follow the instructions below to allow FreeGuide to see
           past them to the Internet.</para>
+          
+          <para>NOTE: most home users will not need to do this - you are
+          ready to start FreeGuide!  Go straight to the
+          <link linkend="userguide">User Guide</link>.</para>
           
           <para>Add 2 lines to the file
           <filename>~/.bash_profile</filename>:</para>

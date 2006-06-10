@@ -74,6 +74,22 @@
       <para>Check out the "<guimenuitem>Options</guimenuitem>" item on the
       "<guimenu>Tools</guimenu>" menu to customise FreeGuide and alter lots of
       options.</para>
+      
+      <para>To search for programmes, click "<guimenuitem>Search</guimenuitem>"
+      on the "<guimenu>Tools</guimenu>" menu.</para>
+      
+      <para>To view today's programmes in a list format, choose
+      "<guimenuitem>Vertical</guimenuitem>"
+      on the "<guimenu>Tools</guimenu>" menu.  To get back to the normal view,
+      choose "<guimenuitem>Horizontal</guimenuitem>" from the same menu.</para>
+      
+      <para>To change the order of the channels or to see smaller groups of
+      channels instead of everything at once, click the drop-down in the
+      top right which says "<guimenuitem>All Channels</guimenuitem>" and choose
+      "<guimenuitem>Edit channel sets...</guimenuitem>".  When you have
+      created a channel set, its name will appear in this list.  Choose it
+      and the set of channels you can see will change to your selection.</para>
+      
     </section>
 
     <section id="userguide.look_and_feel">

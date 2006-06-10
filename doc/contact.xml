@@ -16,20 +16,5 @@
     url="http://sourceforge.net/mailarchive/forum.php?forum_id=7396">devel
     list archives</ulink>.</para>
 
-    <section>
-      <title>Subscribing to the mailing lists</title>
-
-      <para>
-      To subscribe to a mailing list, go to the corresponding mailing list
-      manager page where everything is explained:
-      </para>
-
-      <itemizedlist>
-       <listitem><ulink url="http://lists.sourceforge.net/mailman/listinfo/freeguide-tv-users">freeguide-tv-users</ulink></listitem>
-       <listitem><ulink url="http://lists.sourceforge.net/mailman/listinfo/freeguide-tv-beta-testing">freeguide-tv-beta-testing</ulink></listitem>
-       <listitem><ulink url="http://lists.sourceforge.net/mailman/listinfo/freeguide-tv-devel">freeguide-tv-devel</ulink></listitem>
-       <listitem><ulink url="http://lists.sourceforge.net/mailman/listinfo/freeguide-tv-cvs">freeguide-tv-cvs</ulink></listitem>
-      </itemizedlist>
-    </section>
   </chapter>
 
