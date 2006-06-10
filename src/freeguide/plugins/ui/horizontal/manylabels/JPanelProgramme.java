@@ -29,6 +29,7 @@ public class JPanelProgramme extends JPanel
     protected List[] rows = new List[0];
     protected Map labelsForProgrammes = new HashMap(  );
     protected DateFormat timeFormat;
+    private long cursorHorizontalPos = -1;
 
 /**
      * Creates a new JPanelProgramme object.
@@ -174,14 +175,17 @@ public class JPanelProgramme extends JPanel
         {
             return;
         }
-
+        
+        if( cursorHorizontalPos == -1 )
+        {
+            cursorHorizontalPos = label.getMiddle( 
+                startDate, startDate + controller.MILLISECONDS_PER_DAY );
+        }
+        
         for( int i = row - 1; i >= 0; i-- )
         {
             JLabelProgramme newLabel =
-                getNearestFor( 
-                    i,
-                    label.getMiddle( 
-                        startDate, startDate + controller.MILLISECONDS_PER_DAY ) );
+                getNearestFor( i, cursorHorizontalPos );
 
             if( newLabel != null )
             {
@@ -205,14 +209,17 @@ public class JPanelProgramme extends JPanel
         {
             return;
         }
-
+        
+        if( cursorHorizontalPos == -1 )
+        {
+            cursorHorizontalPos = label.getMiddle( 
+                startDate, startDate + controller.MILLISECONDS_PER_DAY );
+        }
+        
         for( int i = row + 1; i < rows.length; i++ )
         {
             JLabelProgramme newLabel =
-                getNearestFor( 
-                    i,
-                    label.getMiddle( 
-                        startDate, startDate + controller.MILLISECONDS_PER_DAY ) );
+                getNearestFor( i, cursorHorizontalPos );
 
             if( newLabel != null )
             {
@@ -244,6 +251,9 @@ public class JPanelProgramme extends JPanel
             JLabelProgramme newLabel =
                 (JLabelProgramme)rows[row].get( pos - 1 );
             focusAndShow( newLabel );
+            
+            cursorHorizontalPos = newLabel.getMiddle( 
+                startDate, startDate + controller.MILLISECONDS_PER_DAY );
         }
     }
 
@@ -268,6 +278,9 @@ public class JPanelProgramme extends JPanel
             JLabelProgramme newLabel =
                 (JLabelProgramme)rows[row].get( pos + 1 );
             focusAndShow( newLabel );
+            
+            cursorHorizontalPos = newLabel.getMiddle( 
+                startDate, startDate + controller.MILLISECONDS_PER_DAY );
         }
     }
 
