@@ -17,8 +17,6 @@ import freeguide.plugins.reminder.alarm.AlarmUIController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -29,7 +27,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
-import javax.swing.KeyStroke;
 
 /**
  * Alarm reminder module. It works like previous reminder and just display
@@ -57,21 +54,6 @@ public class AlarmReminder extends BaseModuleReminder
     public Object getConfig(  )
     {
         return config;
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param menu DOCUMENT_ME!
-     */
-    public void addItemsToMenu( JMenu menu )
-    {
-        super.addItemsToMenu( menu );
-
-        JMenuItem it = menu.getItem( 0 );
-        it.setMnemonic( KeyEvent.VK_F );
-        it.setAccelerator( 
-            KeyStroke.getKeyStroke( KeyEvent.VK_F, InputEvent.CTRL_MASK ) );
     }
 
     /**

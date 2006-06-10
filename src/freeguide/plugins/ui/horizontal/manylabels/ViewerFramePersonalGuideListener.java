@@ -21,6 +21,8 @@ import freeguide.common.plugininterfaces.IModuleReminder;
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerPersonalGuide;
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;
 
+import java.awt.event.ActionEvent;
+
 import java.io.UnsupportedEncodingException;
 
 import java.net.URLDecoder;
@@ -28,7 +30,6 @@ import java.net.URLDecoder;
 import java.text.ParsePosition;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -82,26 +83,18 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
                 desc = e.getDescription(  );
             }
 
-            int pos = desc.indexOf( ';' );
-
-            String channelID = ( pos > 0 ) ? desc.substring( pos + 1 ) : "";
-
-            GregorianCalendar showTime = new GregorianCalendar(  );
-
-            // FIXME: Really, instead of scrolling to the start of the programme
-            // we should select the actual ProgrammeJLabel.  We know what
-            // programme it is from the stff below to find the right programme
-            // to show in the programme details panel.
-            showTime.setTime( 
-                ProgrammeFormat.LINK_DATE_FORMAT.parse( 
-                    desc.substring( 0, pos ), new ParsePosition( 1 ) ) );
-
-            controller.panel.scrollTo( showTime, channelID );
-
-            controller.updateProgrammeInfo( 
+            TVProgramme programme =
                 getProgrammeFromReference( 
-                    e.getDescription(  ).substring( 1 ) ) );
-            controller.currentProgrammeLabel = null;
+                    e.getDescription(  ).substring( 1 ) );
+
+            JLabelProgramme label =
+                controller.panel.getProgrammesPanel(  )
+                                .getLabelForProgramme( programme );
+
+            controller.panel.scrollTo( programme );
+
+            label.getActionMap(  ).get( "click" )
+                 .actionPerformed( new ActionEvent( label, 0, "click" ) );
         }
     }
 

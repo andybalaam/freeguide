@@ -145,8 +145,6 @@ public class HorizontalViewerHandlers
         {
             public void mouseClicked( java.awt.event.MouseEvent evt )
             {
-                evt.getComponent(  ).requestFocusInWindow(  );
-
                 if( evt.getClickCount(  ) == 2 )
                 {
                     JLabelProgramme label =
@@ -159,7 +157,10 @@ public class HorizontalViewerHandlers
 
             public void mousePressed( java.awt.event.MouseEvent evt )
             {
-                evt.getComponent(  ).requestFocus(  );
+                JLabelProgramme label = (JLabelProgramme)evt.getComponent(  );
+                label.getActionMap(  ).get( "click" )
+                     .actionPerformed( new ActionEvent( label, 0, "click" ) );
+
                 maybeShowPopup( evt );
 
             }
@@ -280,6 +281,15 @@ public class HorizontalViewerHandlers
                         getPanel( e ).focusMoveRight( getLabel( e ) );
                     }
                     ;
+                } );
+            put( 
+                "click",
+                new AbstractAction(  )
+                {
+                    public void actionPerformed( ActionEvent e )
+                    {
+                        getLabel( e ).requestFocusInWindow(  );
+                    }
                 } );
             put( 
                 "select",

@@ -1,5 +1,7 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
+import freeguide.common.lib.fgspecific.data.TVProgramme;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionListener;
@@ -10,6 +12,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -733,15 +736,42 @@ public class ViewerFrame extends JPanel
     /**
      * DOCUMENT_ME!
      *
+     * @param programme DOCUMENT_ME!
+     */
+    public void scrollTo( final TVProgramme programme )
+    {
+        Calendar cal = GregorianCalendar.getInstance(  );
+        cal.setTimeInMillis( programme.getStart(  ) );
+        scrollToPadded( cal, programme.getChannel(  ).getID(  ) );
+    }
+
+    private void scrollToPadded( 
+        final Calendar showTime, final String channelID )
+    {
+        getProgrammesScrollPane(  ).getHorizontalScrollBar(  )
+            .setValue( 
+            getTimePanel(  ).getScrollValue( showTime )
+            - HorizontalViewer.PIXELS_PADDING_FROM_LEFT );
+
+        scrollToChannel( channelID );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
      * @param showTime DOCUMENT_ME!
      * @param channelID DOCUMENT ME!
      */
     public void scrollTo( final Calendar showTime, final String channelID )
     {
-        //---   getProgrammesPanel(  ).focus( showTime.getTimeInMillis(  ) );
         getProgrammesScrollPane(  ).getHorizontalScrollBar(  )
             .setValue( getTimePanel(  ).getScrollValue( showTime ) );
 
+        scrollToChannel( channelID );
+    }
+
+    private void scrollToChannel( final String channelID )
+    {
         getProgrammesScrollPane(  ).getVerticalScrollBar(  )
             .setValue( getChannelNamePanel(  ).getScrollValue( channelID ) );
     }

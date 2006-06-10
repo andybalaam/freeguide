@@ -25,6 +25,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -56,6 +58,7 @@ import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
 
 /**
@@ -64,6 +67,9 @@ import javax.swing.filechooser.FileFilter;
 public class HorizontalViewer extends BaseModule implements IModuleViewer
 {
     protected static final String REMINDER_MAIN = "reminder-alarm";
+
+    /** DOCUMENT ME! */
+    public static final int PIXELS_PADDING_FROM_LEFT = 100;
 
     /** Time formatter for 12 hour clock */
     public final static SimpleDateFormat timeFormat12Hour =
@@ -132,26 +138,28 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         {
             public void mouseClicked( MouseEvent e )
             {
-                if( e.getClickCount(  ) == 2 )
+                if( panel != null )
                 {
-                    if( panel != null )
-                    {
-                        JList programmeList = (JList)e
-                            .getSource(  );
+                    JList programmeList = (JList)e
+                        .getSource(  );
 
-                        // Go to the time of the programme selected
-                        TVProgramme programme =
-                            (TVProgramme)programmeList.getSelectedValue(  );
-                        goToDate( programme.getStart(  ) );
-                        // Scroll to the time
-                        panel.getProgrammesScrollPane(  )
-                             .getHorizontalScrollBar(  )
-                             .setValue( 
-                            panel.getTimePanel(  )
-                                 .getScrollValue( programme.getStart(  ) )
-                            - 100 );
-                        redraw(  );
-                    }
+                    // Go to the time of the programme selected
+                    TVProgramme programme =
+                        (TVProgramme)programmeList.getSelectedValue(  );
+
+                    goToDate( programme.getStart(  ) );
+
+                    JLabelProgramme label =
+                        panel.getProgrammesPanel(  )
+                             .getLabelForProgramme( programme );
+
+                    panel.getProgrammesPanel(  ).requestFocus(  );
+
+                    panel.scrollTo( programme );
+
+                    label.getActionMap(  ).get( "click" )
+                         .actionPerformed( 
+                        new ActionEvent( label, 0, "click" ) );
                 }
             }
         };
@@ -259,6 +267,10 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         {
             menuSearch.setText( 
                 Application.getInstance(  ).getLocalizedMessage( "search" ) );
+
+            menuSearch.setAccelerator( 
+                KeyStroke.getKeyStroke( KeyEvent.VK_F, InputEvent.CTRL_MASK ) );
+
             Application.getInstance(  ).getMainMenu(  ).getTools(  )
                        .insert( menuSearch, 0 );
 
@@ -357,9 +369,10 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     {
         long now = System.currentTimeMillis(  );
 
-        //---panel.getProgrammesPanel(  ).focus( now );
         panel.getProgrammesScrollPane(  ).getHorizontalScrollBar(  )
-             .setValue( panel.getTimePanel(  ).getScrollValue( now ) - 100 );
+             .setValue( 
+            panel.getTimePanel(  ).getScrollValue( now )
+            - PIXELS_PADDING_FROM_LEFT );
     }
 
     /**
