@@ -26,6 +26,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -130,39 +131,53 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
     /**
      * Defines the action when a mouse is used in the search window.
-     * The current action is when a programme is double clicked, the main
-     * viewer goes to the time of that programme
+     * The current action is when a programme is clicked, the main viewer
+     * goes to that programme.
      */
     protected MouseAdapter searchMouseAdapter =
         new MouseAdapter(  )
         {
             public void mouseClicked( MouseEvent e )
             {
-                if( panel != null )
+                JList programmeList = (JList)( e.getSource(  ) );
+                searchResultClicked( programmeList );
+            }
+        };
+
+    protected KeyAdapter searchKeyAdapter =
+        new KeyAdapter(  )
+        {
+            public void keyPressed( KeyEvent e )
+            {
+                if( e.getKeyCode(  ) == KeyEvent.VK_SPACE )
                 {
-                    JList programmeList = (JList)e
-                        .getSource(  );
-
-                    // Go to the time of the programme selected
-                    TVProgramme programme =
-                        (TVProgramme)programmeList.getSelectedValue(  );
-
-                    goToDate( programme.getStart(  ) );
-
-                    JLabelProgramme label =
-                        panel.getProgrammesPanel(  )
-                             .getLabelForProgramme( programme );
-
-                    panel.getProgrammesPanel(  ).requestFocus(  );
-
-                    panel.scrollTo( programme );
-
-                    label.getActionMap(  ).get( "click" )
-                         .actionPerformed( 
-                        new ActionEvent( label, 0, "click" ) );
+                    JList programmeList = (JList)( e.getSource(  ) );
+                    searchResultClicked( programmeList );
                 }
             }
         };
+
+    private void searchResultClicked( JList programmeList )
+    {
+        if( panel != null )
+        {
+            // Go to the time of the programme selected
+            TVProgramme programme =
+                (TVProgramme)( programmeList.getSelectedValue(  ) );
+
+            goToDate( programme.getStart(  ) );
+
+            JLabelProgramme label =
+                panel.getProgrammesPanel(  ).getLabelForProgramme( programme );
+
+            panel.getProgrammesPanel(  ).requestFocus(  );
+
+            panel.scrollTo( programme );
+
+            label.getActionMap(  ).get( "click" )
+                 .actionPerformed( new ActionEvent( label, 0, "click" ) );
+        }
+    }
 
     /**
      * Get config object.
@@ -282,7 +297,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                         SearchDialog sd =
                             new SearchDialog( 
                                 Application.getInstance(  ).getCurrentFrame(  ),
-                                searchMouseAdapter );
+                                searchMouseAdapter, searchKeyAdapter );
                     }
                 } );
 

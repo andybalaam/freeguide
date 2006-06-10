@@ -31,6 +31,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -86,28 +87,11 @@ public class SearchDialog extends JDialog
     private JCheckBox caseSensitive;
     private JCheckBox includeFinished;
     private JCheckBox searchDescription;
+    private JCheckBox searchSubtitle;
 
     // The programmes found from the last search
     private DefaultListModel foundModel = new DefaultListModel(  );
     private JScrollPane listScroller;
-
-/**
-     * Class Constructor from owner.
-     *
-     * @param owner the <code>JFrame</code> from which the dialog is
-     *        displayed
-     */
-    public SearchDialog( JFrame owner )
-    {
-        super( 
-            owner, Application.getInstance(  ).getLocalizedMessage( "search" ) );
-
-        initComponents(  );
-
-        Utils.centreDialog( owner, this );
-
-        setVisible( true );
-    }
 
 /**
      * Class Constructor from owner and  a Mouse listener.
@@ -116,13 +100,17 @@ public class SearchDialog extends JDialog
      *        displayed
      * @param m the MouseListener to handle MouseEvents from Result List. 
      */
-    public SearchDialog( JFrame owner, java.awt.event.MouseListener m )
+    public SearchDialog( 
+        JFrame owner, MouseListener mouseListener, KeyListener keyListener )
     {
         super( 
             owner, Application.getInstance(  ).getLocalizedMessage( "search" ) );
 
         initComponents(  );
-        addMouseListener( m );
+
+        resultList.addMouseListener( mouseListener );
+        resultList.addKeyListener( keyListener );
+
         Utils.centreDialog( owner, this );
 
         setVisible( true );
@@ -161,6 +149,7 @@ public class SearchDialog extends JDialog
                     searchButtonActionPerformed( evt );
                 }
             } );
+        searchButton.setMnemonic( KeyEvent.VK_S );
         jPanelButtons.add( searchButton );
 
         closeButton = new JButton( 
@@ -174,6 +163,7 @@ public class SearchDialog extends JDialog
                     dispose(  );
                 }
             } );
+        closeButton.setMnemonic( KeyEvent.VK_C );
 
         jPanelButtons.add( closeButton );
 
@@ -182,15 +172,28 @@ public class SearchDialog extends JDialog
         caseSensitive = new JCheckBox( 
                 Application.getInstance(  )
                            .getLocalizedMessage( "case_sensitive" ) );
+        caseSensitive.setMnemonic( KeyEvent.VK_A );
+
         jPanelOptions.add( caseSensitive );
         includeFinished = new JCheckBox( 
                 Application.getInstance(  )
                            .getLocalizedMessage( "include_finished" ) );
+        includeFinished.setMnemonic( KeyEvent.VK_F );
+
         jPanelOptions.add( includeFinished );
+
         searchDescription = new JCheckBox( 
                 Application.getInstance(  )
                            .getLocalizedMessage( "search_descriptions" ) );
+        searchDescription.setMnemonic( KeyEvent.VK_D );
         jPanelOptions.add( searchDescription );
+
+        searchSubtitle = new JCheckBox( 
+                Application.getInstance(  )
+                           .getLocalizedMessage( "search_subtitles" ) );
+        searchSubtitle.setMnemonic( KeyEvent.VK_U );
+        searchSubtitle.setSelected( true );
+        jPanelOptions.add( searchSubtitle );
 
         // Put all the inputs into a panel
         jPanelInput = new Box( BoxLayout.Y_AXIS );
@@ -219,6 +222,7 @@ public class SearchDialog extends JDialog
         getContentPane(  ).add( jPanelResult, BorderLayout.CENTER );
 
         getRootPane(  ).setDefaultButton( searchButton );
+
         pack(  );
     }
 
@@ -312,40 +316,24 @@ public class SearchDialog extends JDialog
                  */
                 protected void onProgramme( TVProgramme programme )
                 {
-                    // If Title does not contain looked for text
-                    if( matchText( programme.getTitle(  ) ) == false )
+                    // If we are allowed old programmes, or this one is new
+                    if( 
+                        includeFinished.isSelected(  )
+                            || ( programme.getEnd(  ) > System
+                            .currentTimeMillis(  ) ) )
                     {
-                        // Check other fields if selected
-                        if( searchDescription.isSelected(  ) )
-                        {
-                            if( 
-                                ( matchText( programme.getSubTitle(  ) ) == false )
-                                    && ( matchText( 
-                                        programme.getDescription(  ) ) == false ) )
-                            {
-                                // Can't find text in other fields either
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-
-                    // Here we have a record with matching text                    
-                    // Check finishing time is after now, if required
-                    if( !includeFinished.isSelected(  ) )
-                    {
+                        // If our title matches or our description or our
+                        // subtitle then add a match.
                         if( 
-                            programme.getEnd(  ) < System.currentTimeMillis(  ) )
+                            ( matchText( programme.getTitle(  ) ) )
+                                || ( searchDescription.isSelected(  )
+                                && matchText( programme.getDescription(  ) ) )
+                                || ( searchSubtitle.isSelected(  )
+                                && matchText( programme.getSubTitle(  ) ) ) )
                         {
-                            return;
+                            foundModel.addElement( programme );
                         }
                     }
-
-                    // Programme matches all criteria, so add it to the list
-                    foundModel.addElement( programme );
                 }
             } );
     }
