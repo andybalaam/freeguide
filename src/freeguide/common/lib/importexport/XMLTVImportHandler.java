@@ -190,22 +190,25 @@ class XMLTVImportHandler extends DefaultHandler
     {
         if( "previously-shown".equals( tag ) )
         {
-            // tv:programme:previously-shown
+            // Note: we are potentially throwing away the time
+	    // and channel where this was shown.
+            currentProgramme.setPreviouslyShown( true );
         }
         else if( "title".equals( tag ) )
         {
+            // Handled in parseEndProgramme
         }
         else if( "sub-title".equals( tag ) )
         {
+            // Handled in parseEndProgramme
         }
         else if( "desc".equals( tag ) )
         {
+            // Handled in parseEndProgramme
         }
         else if( "category".equals( tag ) )
         {
-        }
-        else if( "title".equals( tag ) )
-        {
+            // Handled in parseEndProgramme
         }
         else if( "rating".equals( tag ) )
         { // tv:programme:rating
@@ -248,7 +251,7 @@ class XMLTVImportHandler extends DefaultHandler
 
     protected void parseEndProgramme( final String tag )
     {
-        if( "title".equals( tag ) )
+	if( "title".equals( tag ) )
         {
             if( currentProgramme.getTitle(  ) == null )
             {
