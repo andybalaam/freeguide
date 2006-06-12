@@ -407,7 +407,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             return true;
         }
 
-        /*final String path = System.getenv( "PATH" );
+        final String path = System.getenv( "java.library.path" );
 
         if( path != null )
         {
@@ -424,8 +424,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             }
         }
 
-        return false;*/
-	return true;
+        return false;
     }
 
     protected int execConfigCmd( final String[] args )
