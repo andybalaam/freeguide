@@ -407,7 +407,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             return true;
         }
 
-        final String path = System.getenv( "java.library.path" );
+        final String path = System.getProperty( "java.library.path" );
 
         if( path != null )
         {
