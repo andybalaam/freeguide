@@ -65,6 +65,7 @@ storage_serfiles.en.properties
 storage_serfiles.en_RC.properties
 storage_serfiles.en_US.properties
 storage_serfiles.fr.properties
+storage_serfiles.zh_TW.properties
 ui_horizontal_manylabels.be.properties
 ui_horizontal_manylabels.de.properties
 ui_horizontal_manylabels.en.properties
