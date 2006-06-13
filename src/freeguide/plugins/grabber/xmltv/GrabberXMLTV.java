@@ -416,7 +416,16 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         }
         catch( Error ex )
         {
-            return true;
+            // Ugly hack to work around brokenness in Java 1.4.x - we assume
+            // the XMLTV EXE exists if getenv is not supported.
+            if( ex.getMessage(  ).startsWith( "getenv no longer supported" ) )
+            {
+                return true;
+            }
+            else
+            {
+                throw ex;
+            }
         }
 
         if( path != null )
