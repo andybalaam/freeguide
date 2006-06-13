@@ -191,7 +191,7 @@ class XMLTVImportHandler extends DefaultHandler
         if( "previously-shown".equals( tag ) )
         {
             // Note: we are potentially throwing away the time
-	    // and channel where this was shown.
+            // and channel where this was shown.
             currentProgramme.setPreviouslyShown( true );
         }
         else if( "title".equals( tag ) )
@@ -251,7 +251,7 @@ class XMLTVImportHandler extends DefaultHandler
 
     protected void parseEndProgramme( final String tag )
     {
-	if( "title".equals( tag ) )
+        if( "title".equals( tag ) )
         {
             if( currentProgramme.getTitle(  ) == null )
             {
