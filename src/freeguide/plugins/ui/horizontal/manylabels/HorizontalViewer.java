@@ -85,13 +85,21 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         new SimpleDateFormat( "yyyyMMdd" );
 
     /** Date formatter */
-    public SimpleDateFormat comboBoxDateFormat =
-        new SimpleDateFormat( "EEEE d MMM yy" );
+    public DateFormat comboBoxDateFormat =
+        new SimpleDateFormat( "d MMM yy" );
 
     /** Date formatter */
-    public SimpleDateFormat htmlDateFormat =
-        new SimpleDateFormat( "EEEE dd MMMM yyyy" );
+    public DateFormat htmlDateFormat =
+        new SimpleDateFormat( "dd MMMM yyyy" );
 
+   /** Date formatter */
+    public DateFormat weekdayFormat =
+        new SimpleDateFormat( "EEEE" );
+	
+   /** Date formatter */
+    public DateFormat shortWeekdayFormat =
+        new SimpleDateFormat( "EE" );
+		
     /** Config object. */
     protected HorizontalViewerConfig config = new HorizontalViewerConfig(  );
 
@@ -199,8 +207,10 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     public void setLocale( Locale locale ) throws Exception
     {
         super.setLocale( locale );
-        comboBoxDateFormat = new SimpleDateFormat( "EEEE d MMM yy", locale );
-        htmlDateFormat = new SimpleDateFormat( "EEEE dd MMMM yyyy", locale );
+	comboBoxDateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
+	htmlDateFormat =  DateFormat.getDateInstance(DateFormat.LONG, locale); 
+	weekdayFormat = new SimpleDateFormat( "EEEE", locale );
+	shortWeekdayFormat = new SimpleDateFormat( "EE", locale );
     }
 
     /**
@@ -776,7 +786,9 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         {
             panel.getComboDate(  )
                  .insertItemAt( 
-                comboBoxDateFormat.format( new Date( dateExistList[i] ) ), i );
+		 shortWeekdayFormat.format( new Date( dateExistList[i] ) ) + " " +
+		 comboBoxDateFormat.format( new Date( dateExistList[i] ) )
+		, i );
 
             if( dateExistList[i] <= theDate )
             {
@@ -914,7 +926,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             parser.process( 
                 new HandlerPersonalGuide( 
                     getLocalizer(  ), currentData, new Date( theDate ),
-                    htmlDateFormat, getCurrentDateFormat(  ), true ), buffy );
+                    htmlDateFormat, weekdayFormat, getCurrentDateFormat(  ), true ), buffy );
             buffy.close(  );
 
             FileHelper.openFile( f.getPath(  ) );
@@ -946,7 +958,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             parser.process( 
                 new HandlerPersonalGuide( 
                     getLocalizer(  ), currentData, new Date( theDate ),
-                    htmlDateFormat, getCurrentDateFormat(  ), false ), str );
+                    htmlDateFormat, weekdayFormat, getCurrentDateFormat(  ), false ), str );
         }
         catch( Exception ex )
         {
