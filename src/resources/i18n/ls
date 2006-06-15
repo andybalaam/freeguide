@@ -30,6 +30,7 @@ grabber_xmltv.fr.properties
 grabber_xmltv.zh_TW.properties
 importexport_html.en.properties
 importexport_html.en_RC.properties
+importexport_html.zh_TW.properties
 importexport_jtv.en.properties
 importexport_jtv.en_RC.properties
 importexport_jtv.fr.properties
