@@ -113,7 +113,95 @@
               <para>Now try downloading and see whether it works.</para>
             </answer>
           </qandaentry>
+          
+          <qandaentry id="help.faq.uninstall-windows">
+            <question>
+              <para>How do I completely uninstall FreeGuide on Windows?</para>
+            </question>
 
+            <answer>
+              <para>You can uninstall FreeGuide on Windows by going to the
+              "Add/Remove Programs" screen in the Control Panel.  That should
+              be all you need to do.</para>
+              
+              <para>However, uninstalling FreeGuide leaves your settings
+              (such as favourites, colours etc.) on your computer.  Often,
+              this is useful, since if you ever re-install FreeGuide it will
+              already be set up for you, but sometimes you might want to
+              delete these settings, for example if something has gone
+              wrong and you want to start again from scratch, or if you
+              just don't like programs leaving stuff all over your
+              computer.</para>
+              
+              <para>To remove the FreeGuide settings from the Windows registry,
+              follow these instructions:</para>
+              
+              <para>WARNING: messing with the registry can break your computer!
+              Don't do it if you're not confident.</para>
+              
+              <itemizedlist>
+                
+                <listitem>
+                  <para>First, uninstall FreeGuide from the Add/Remove
+                  Programs screen.  (Under Control Panel).</para>
+                </listitem>
+                
+                <listitem>
+                  <para>Click the Start button then "Run".</para>
+                </listitem>
+                
+                <listitem>
+                  <para>Type "regedit" and press Return.</para>
+                </listitem>
+                
+                <listitem>
+                  <para>In the menu at the top chose "Edit" and click "Find"</para>
+                </listitem>
+
+                <listitem>
+                  <para>Make sure all three "look at" boxes are checked.</para>
+                </listitem>
+                
+                <listitem>
+                  <para>Type "freeguide-tv" in the search box.</para>
+                </listitem>
+                
+                <listitem>
+                  <para>Click "Find Next".</para>
+                </listitem>
+                
+                <listitem>
+                  <para>Regedit should find a node called freeguide-tv.
+                  Right-click the node and choose "Delete".</para>
+                </listitem>
+                
+                <listitem>
+                  <para>Now press F3 on the keyboard to find any other
+                  nodes also called freeguide-tv, and delete all of them
+                  in the same way.</para>
+                </listitem>
+                
+              </itemizedlist>
+              
+              <para>This should remove all trace of FreeGuide from your computer.</para>
+              
+            </answer>
+          </qandaentry>
+          
+          <qandaentry id="help.faq.uninstall-linux">
+            <question>
+              <para>How do I completely uninstall FreeGuide on Linux?</para>
+            </question>
+
+            <answer>
+              
+              <para>First, uninstall FreeGuide using your normal package management tool.</para>
+              
+              <para>Now, for each user that used FreeGuide, delete the ~/.freeguide and ~/.java/.userPrefs/org/freeguide-tv directories.</para>
+              
+            </answer>
+          </qandaentry>
+          
           <qandaentry id="help.faq.choosechannelerror">
             <question>
               <para>The "<guilabel>Choose Channels</guilabel>" grabber
