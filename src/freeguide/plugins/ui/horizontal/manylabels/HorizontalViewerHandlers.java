@@ -42,8 +42,10 @@ public class HorizontalViewerHandlers
                     long oldDate = controller.theDate;
 
                     // Set theDate to the date chosen
-                    controller.theDate = controller.dateExistList[controller.panel.getComboDate(  )
-                                                                                  .getSelectedIndex(  )];
+                    int dateIndex =
+                        controller.panel.getComboDate(  ).getSelectedIndex(  );
+
+                    controller.theDate = controller.dateExistList[dateIndex];
 
                     if( oldDate != controller.theDate )
                     {

@@ -128,6 +128,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
     /** Menu item for searching through programmes */
     final JMenuItem menuSearch = new JMenuItem(  );
+    private boolean alreadyAskedForLoadData = false;
 
     /**
      * Flag to indicate search menu item had already been added.
@@ -434,29 +435,36 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                            .log( Level.WARNING, "Error reading TV data", ex );
             }
 
-            /*if( currentData.getChannelsCount(  ) == 0 )
+            if( currentData.getChannelsCount(  ) == 0 )
             {
                 askForLoadData(  );
-            }*/
+            }
         }
     }
 
-    /*protected void askForLoadData(  )
+    protected void askForLoadData(  )
     {
-
-        int r =
-            JOptionPane.showConfirmDialog(
-                Application.getInstance(  ).getCurrentFrame(  ),
-                Application.getInstance(  ).getLocalizedMessage(
-                    "there_are_missing_listings_for_today" ),
-                Application.getInstance(  ).getLocalizedMessage(
-                    "download_listings_q" ), JOptionPane.YES_NO_OPTION );
-
-        if( r == 0 )
+        if( !alreadyAskedForLoadData )
         {
-            Application.getInstance(  ).doStartGrabbers(  );
+            alreadyAskedForLoadData = true;
+
+            int r =
+                JOptionPane.showConfirmDialog( 
+                    Application.getInstance(  ).getCurrentFrame(  ),
+                    Application.getInstance(  )
+                               .getLocalizedMessage( 
+                        "there_are_missing_listings_for_today" ),
+                    Application.getInstance(  )
+                               .getLocalizedMessage( "download_listings_q" ),
+                    JOptionPane.YES_NO_OPTION );
+
+            if( r == 0 )
+            {
+                Application.getInstance(  ).doStartGrabbers(  );
+            }
         }
-    }*/
+    }
+
     /**
      * Draw all the programmes and channels on screen.
      */
@@ -583,6 +591,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
      */
     private void goToDate( long newDate )
     {
+        boolean moved = false;
+
         for( int i = 0; i < dateExistList.length; i++ )
         {
             if( 
@@ -590,8 +600,35 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                     && ( newDate < ( dateExistList[i] + MILLISECONDS_PER_DAY ) ) )
             {
                 panel.getComboDate(  ).setSelectedIndex( i );
+                moved = true;
 
+                break;
             }
+        }
+
+        if( !moved )
+        {
+            // Add this date to our list of existing dates
+            List dates = new ArrayList(  );
+
+            for( int i = 0; i < dateExistList.length; ++i )
+            {
+                dates.add( new Long( dateExistList[i] ) );
+            }
+
+            dates.add( new Long( newDate ) );
+
+            dateExistList = new long[dates.size(  )];
+
+            for( int i = 0; i < dates.size(  ); i++ )
+            {
+                dateExistList[i] = ( (Long)dates.get( i ) ).longValue(  );
+            }
+
+            // Add it to the combo box
+            String thisDate = comboBoxDateFormat.format( new Date( newDate ) );
+            panel.getComboDate(  ).addItem( thisDate );
+            panel.getComboDate(  ).setSelectedItem( thisDate );
         }
     }
 
@@ -760,7 +797,6 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         for( int i = 0; i < dates.size(  ); i++ )
         {
             dateExistList[i] = ( (Long)dates.get( i ) ).longValue(  );
-
         }
 
 /**
