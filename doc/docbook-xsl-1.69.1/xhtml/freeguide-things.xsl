@@ -8,12 +8,11 @@
 
 <xsl:template match="autotoc">
     <xsl:call-template name="make.toc">
-        <xsl:with-param name="toc-context" select="/book/"/>
+        <xsl:with-param name="toc-context" select="/book"/>
         <xsl:with-param name="nodes" select="/"/>
         <xsl:with-param name="toc.title.p" select="false()"/>
     </xsl:call-template>
 </xsl:template>
-
 
 <!--
  That allows us to have an extra navigation line at

@@ -1,6 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<chapter id="index">
-
   <title>FreeGuide - your TV Guide</title>
 
     <para>FreeGuide is a TV guide program. It uses parser programs to extract
@@ -71,4 +68,3 @@
     <ulink url="http://freeguide-tv.sourceforge.net/screenshots.html">more
     screenshots</ulink></para>
 
-</chapter>

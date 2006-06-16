@@ -676,17 +676,23 @@
     <div class="navheader">
       <xsl:if test="$row1 or $row2">
         <table width="100%" summary="Navigation header">
+
           <xsl:if test="$row1">
             <tr>
               <th colspan="3" align="center">
-                <xsl:apply-templates select="." mode="object.title.markup"/>
+                <xsl:choose>
+                  <xsl:when test="count($up) &gt; 0                                   and generate-id($up) != generate-id($home)                                   and $navig.showtitles != 0">
+                    <xsl:apply-templates select="$up" mode="object.title.markup"/>
+                  </xsl:when>
+                  <xsl:otherwise>&#160;</xsl:otherwise>
+                </xsl:choose>
               </th>
             </tr>
           </xsl:if>
-
-          <xsl:if test="$row2">
+		  
+		  <xsl:if test="$row2">
             <tr>
-              <td width="20%" align="left">
+			  <td width="20%" align="left">
                 <xsl:if test="count($prev)&gt;0">
                   <a accesskey="p">
                     <xsl:attribute name="href">
@@ -702,14 +708,9 @@
                 <xsl:text>&#160;</xsl:text>
               </td>
               <th width="60%" align="center">
-                <xsl:choose>
-                  <xsl:when test="count($up) &gt; 0                                   and generate-id($up) != generate-id($home)                                   and $navig.showtitles != 0">
-                    <xsl:apply-templates select="$up" mode="object.title.markup"/>
-                  </xsl:when>
-                  <xsl:otherwise>&#160;</xsl:otherwise>
-                </xsl:choose>
+                <xsl:apply-templates select="." mode="object.title.markup"/>
               </th>
-              <td width="20%" align="right">
+			  <td width="20%" align="right">
                 <xsl:text>&#160;</xsl:text>
                 <xsl:if test="count($next)&gt;0">
                   <a accesskey="n">
@@ -726,6 +727,7 @@
               </td>
             </tr>
           </xsl:if>
+		  
         </table>
       </xsl:if>
       <xsl:if test="$header.rule != 0">
