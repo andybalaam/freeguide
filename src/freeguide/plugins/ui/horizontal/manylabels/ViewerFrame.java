@@ -638,7 +638,6 @@ public class ViewerFrame extends JPanel
      */
     public void butPrintActionPerformed( java.awt.event.ActionEvent evt )
     {
-        //printedGuideArea.writeOutAsHTML(  );
         parent.printHTML(  );
     }
 
@@ -649,17 +648,7 @@ public class ViewerFrame extends JPanel
      */
     public void butNextDayActionPerformed( java.awt.event.ActionEvent evt )
     {
-        if( 
-            ( comTheDate.getSelectedIndex(  ) + 1 ) < comTheDate.getItemCount(  ) )
-        {
-            comTheDate.setSelectedIndex( comTheDate.getSelectedIndex(  ) + 1 );
-        }
-
-        // TODO: say no data in a nice way - you could download more.
-        /*else
-        {
-            parent.askForLoadData(  );
-        }*/
+        parent.goToNextDay(  );
     }
 
     /**
@@ -669,16 +658,7 @@ public class ViewerFrame extends JPanel
      */
     public void butPreviousDayActionPerformed( java.awt.event.ActionEvent evt )
     {
-        if( comTheDate.getSelectedIndex(  ) > 0 )
-        {
-            comTheDate.setSelectedIndex( comTheDate.getSelectedIndex(  ) - 1 );
-        }
-
-        // Say no data available
-        /*else
-        {
-            parent.askForLoadData(  );
-        }*/
+        parent.goToPrevDay(  );
     }
 
     /**

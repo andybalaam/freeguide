@@ -11,6 +11,7 @@ import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.FileHelper;
 import freeguide.common.lib.general.TemplateParser;
+import freeguide.common.lib.general.Time;
 
 import freeguide.common.plugininterfaces.BaseModule;
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
@@ -46,13 +47,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
@@ -85,21 +89,17 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         new SimpleDateFormat( "yyyyMMdd" );
 
     /** Date formatter */
-    public DateFormat comboBoxDateFormat =
-        new SimpleDateFormat( "d MMM yy" );
+    public DateFormat comboBoxDateFormat = new SimpleDateFormat( "d MMM yy" );
 
     /** Date formatter */
-    public DateFormat htmlDateFormat =
-        new SimpleDateFormat( "dd MMMM yyyy" );
+    public DateFormat htmlDateFormat = new SimpleDateFormat( "dd MMMM yyyy" );
 
-   /** Date formatter */
-    public DateFormat weekdayFormat =
-        new SimpleDateFormat( "EEEE" );
-	
-   /** Date formatter */
-    public DateFormat shortWeekdayFormat =
-        new SimpleDateFormat( "EE" );
-		
+    /** Date formatter */
+    public DateFormat weekdayFormat = new SimpleDateFormat( "EEEE" );
+
+    /** Date formatter */
+    public DateFormat shortWeekdayFormat = new SimpleDateFormat( "EE" );
+
     /** Config object. */
     protected HorizontalViewerConfig config = new HorizontalViewerConfig(  );
 
@@ -114,9 +114,9 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
     /**
      * A list of dates that have data worked out from the filenames in
-     * the data dirctory.
+     * the data directory.  (Members of this list are Longs.)
      */
-    public long[] dateExistList;
+    public LinkedList dateExistList = new LinkedList(  );
 
     /** Day in milliseconds. */
     public long MILLISECONDS_PER_DAY = 24L * 60L * 60L * 1000L;
@@ -208,10 +208,11 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     public void setLocale( Locale locale ) throws Exception
     {
         super.setLocale( locale );
-	comboBoxDateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
-	htmlDateFormat =  DateFormat.getDateInstance(DateFormat.LONG, locale); 
-	weekdayFormat = new SimpleDateFormat( "EEEE", locale );
-	shortWeekdayFormat = new SimpleDateFormat( "EE", locale );
+        comboBoxDateFormat = DateFormat.getDateInstance( 
+                DateFormat.MEDIUM, locale );
+        htmlDateFormat = DateFormat.getDateInstance( DateFormat.LONG, locale );
+        weekdayFormat = new SimpleDateFormat( "EEEE", locale );
+        shortWeekdayFormat = new SimpleDateFormat( "EE", locale );
     }
 
     /**
@@ -245,19 +246,6 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         theDate = System.currentTimeMillis(  );
 
-        prepareDateList(  );
-
-        /*if( dateExistList.length > 0 )
-        {
-
-            if(
-                ( System.currentTimeMillis(  ) < dateExistList[0] )
-                    || ( System.currentTimeMillis(  ) > ( dateExistList[dateExistList.length
-                    - 1] + MILLISECONDS_PER_DAY ) ) )
-            {
-                askForLoadData(  );
-            }
-        }*/
         prepareChannelsSetList(  );
 
         onDataChanged(  );
@@ -286,7 +274,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             new ViewerFramePersonalGuideListener( this ) );
 
         panel.getProgrammesScrollPane(  ).validate(  );
-        goToNow(  );
+
+        scrollToNow(  );
 
         //Add Search Menu if not already added
         if( !searchMenuAdded )
@@ -412,7 +401,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         info.channelsList = getChannelsSetByName( 
                 config.currentChannelSetName );
         info.minDate = theDate;
-        info.maxDate = theDate + MILLISECONDS_PER_DAY;
+        info.maxDate = theDate + Time.DAY;
 
         return info;
     }
@@ -547,8 +536,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         panel.getTimePanel(  ).setMaximumSize( tmp );
 
-        panel.getTimePanel(  ).setTimes( 
-            theDate, theDate + MILLISECONDS_PER_DAY );
+        panel.getTimePanel(  ).setTimes( theDate, theDate + Time.DAY );
 
         // Create labels for all programmes
         currentData.iterate( 
@@ -592,44 +580,128 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     private void goToDate( long newDate )
     {
         boolean moved = false;
+        JComboBox cmbDate = panel.getComboDate(  );
 
-        for( int i = 0; i < dateExistList.length; i++ )
+        int lastResortIndex = 0;
+        ListIterator it = dateExistList.listIterator( 0 );
+
+        while( it.hasNext(  ) )
         {
-            if( 
-                ( dateExistList[i] <= newDate )
-                    && ( newDate < ( dateExistList[i] + MILLISECONDS_PER_DAY ) ) )
-            {
-                panel.getComboDate(  ).setSelectedIndex( i );
-                moved = true;
+            long itemdt = ( (Long)( it.next(  ) ) ).longValue(  );
 
-                break;
+            if( newDate >= itemdt )
+            {
+                lastResortIndex = it.previousIndex(  );
+
+                if( newDate < ( itemdt + Time.DAY ) )
+                {
+                    // If there is already an item in the combo box for this
+                    // date, select it.
+                    cmbDate.setSelectedIndex( lastResortIndex );
+
+                    moved = true;
+
+                    break;
+                }
             }
         }
 
         if( !moved )
         {
-            // Add this date to our list of existing dates
-            List dates = new ArrayList(  );
+            // If the day asked for is not in the past, create an entry
+            // for it in the combo box.
+            long now = System.currentTimeMillis(  );
 
-            for( int i = 0; i < dateExistList.length; ++i )
+            if( newDate >= ( now - Time.DAY ) )
             {
-                dates.add( new Long( dateExistList[i] ) );
+                // Check whether we need to insert into the list
+                it = dateExistList.listIterator( 0 );
+
+                long prevdt = 0;
+
+                while( it.hasNext(  ) )
+                {
+                    long itemdt = ( (Long)( it.next(  ) ) ).longValue(  );
+
+                    if( ( prevdt < newDate ) && ( newDate < itemdt ) )
+                    {
+                        addDateExistItem( 
+                            cmbDate, newDate, it.previousIndex(  ) );
+                        moved = true;
+
+                        break;
+                    }
+
+                    prevdt = itemdt;
+                }
+
+                if( !moved )
+                {
+                    addDateExistItem( cmbDate, newDate, it.nextIndex(  ) );
+                }
             }
-
-            dates.add( new Long( newDate ) );
-
-            dateExistList = new long[dates.size(  )];
-
-            for( int i = 0; i < dates.size(  ); i++ )
+            else
             {
-                dateExistList[i] = ( (Long)dates.get( i ) ).longValue(  );
-            }
+                // We were not allowed to go to the requested date because
+                // it is in the past.  Go to a date before that, if data
+                // exists for any of them, or one after if before would
+                // leave us not changing at all.
+                long lastresortlong =
+                    ( (Long)( dateExistList.get( lastResortIndex ) ) )
+                    .longValue(  );
 
-            // Add it to the combo box
-            String thisDate = comboBoxDateFormat.format( new Date( newDate ) );
-            panel.getComboDate(  ).addItem( thisDate );
-            panel.getComboDate(  ).setSelectedItem( thisDate );
+                if( 
+                    ( cmbDate.getSelectedIndex(  ) == lastResortIndex )
+                        && ( newDate > lastresortlong ) )
+                {
+                    // If we asked for a date after the current selection,
+                    // but that is still before today, and there is no
+                    // data for that day, go to the next day after that which
+                    // does have data.
+                    ++lastResortIndex;
+                }
+
+                cmbDate.setSelectedIndex( lastResortIndex );
+            }
         }
+    }
+
+    private void addDateExistItem( JComboBox cmbDate, long newDate, int idx )
+    {
+        Calendar cal =
+            GregorianCalendar.getInstance( 
+                Application.getInstance(  ).getTimeZone(  ), Locale.ENGLISH );
+
+        cal.setTimeInMillis( newDate );
+
+        config.dayStartTime.adjustCalendar( cal );
+
+        Date date = cal.getTime(  );
+
+        String thisDate =
+            shortWeekdayFormat.format( date ) + " "
+            + comboBoxDateFormat.format( date );
+
+        dateExistList.add( idx, new Long( cal.getTimeInMillis(  ) ) );
+
+        cmbDate.insertItemAt( thisDate, idx );
+        cmbDate.setSelectedIndex( idx );
+    }
+
+    /**
+     * Move forward in time one day.
+     */
+    public void goToNextDay(  )
+    {
+        goToDate( theDate + Time.DAY );
+    }
+
+    /**
+     * Move backward in time one day.
+     */
+    public void goToPrevDay(  )
+    {
+        goToDate( theDate - Time.DAY );
     }
 
     /**
@@ -766,14 +838,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         cal.setTimeInMillis( info.minDate );
 
-        cal.set( Calendar.HOUR_OF_DAY, config.dayStartTime.getHours(  ) );
-
-        cal.set( Calendar.MINUTE, config.dayStartTime.getMinutes(  ) );
-
-        cal.set( Calendar.SECOND, config.dayStartTime.getSeconds(  ) );
-
-        cal.set( 
-            Calendar.MILLISECOND, config.dayStartTime.getMilliseconds(  ) );
+        config.dayStartTime.adjustCalendar( cal );
 
         if( cal.getTimeInMillis(  ) > info.minDate )
         {
@@ -782,67 +847,43 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         }
 
-        List dates = new ArrayList(  );
+        dateExistList.clear(  );
 
         for( 
             ; cal.getTimeInMillis(  ) <= info.maxDate;
                 cal.add( Calendar.DATE, 1 ) )
         {
-            dates.add( new Long( cal.getTimeInMillis(  ) ) );
-
+            dateExistList.add( new Long( cal.getTimeInMillis(  ) ) );
         }
 
-        dateExistList = new long[dates.size(  )];
-
-        for( int i = 0; i < dates.size(  ); i++ )
-        {
-            dateExistList[i] = ( (Long)dates.get( i ) ).longValue(  );
-        }
-
-/**
-         * Create the combobox lists for the dates and channel sets
-         */
+        JComboBox cmbDate = panel.getComboDate(  );
 
         // Stop listening to item events temporarily while we mess about
-        panel.getComboDate(  )
-             .removeItemListener( handlers.comboDateItemListener );
+        cmbDate.removeItemListener( handlers.comboDateItemListener );
 
         // Remove all the items from the combo box:
         // Working around a bug with JComboBox.removeAllItems()
         //comTheDate.removeAllItems();
-        ( (DefaultComboBoxModel)panel.getComboDate(  ).getModel(  ) )
-        .removeAllElements(  );
+        ( (DefaultComboBoxModel)cmbDate.getModel(  ) ).removeAllElements(  );
 
         comboBoxDateFormat.setTimeZone( 
             Application.getInstance(  ).getTimeZone(  ) );
 
         int ind = 0;
 
-        for( int i = 0; i < dateExistList.length; i++ )
+        ListIterator it = dateExistList.listIterator(  );
+
+        while( it.hasNext(  ) )
         {
-            panel.getComboDate(  )
-                 .insertItemAt( 
-		 shortWeekdayFormat.format( new Date( dateExistList[i] ) ) + " " +
-		 comboBoxDateFormat.format( new Date( dateExistList[i] ) )
-		, i );
+            long dt = ( (Long)( it.next(  ) ) ).longValue(  );
+            Date date = new Date( dt );
 
-            if( dateExistList[i] <= theDate )
-            {
-                ind = i;
-
-            }
+            cmbDate.addItem( 
+                shortWeekdayFormat.format( date ) + " "
+                + comboBoxDateFormat.format( date ) );
         }
 
-        if( ind < dateExistList.length )
-        {
-            theDate = dateExistList[ind];
-
-            panel.getComboDate(  ).setSelectedIndex( ind );
-
-        }
-
-        panel.getComboDate(  ).addItemListener( 
-            handlers.comboDateItemListener );
+        cmbDate.addItemListener( handlers.comboDateItemListener );
 
     }
 
@@ -951,18 +992,14 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                     new OutputStreamWriter( 
                         new FileOutputStream( f ), "UTF-8" ) );
 
-            /*new PersonalizedHTMLGuide(  ).createHTML(
-                buffy, getLocalizer(  ), new Date( theDate ), currentData,
-                htmlDateFormat,
-                config.display24time ? HorizontalViewer.timeFormat24Hour
-                                     : HorizontalViewer.timeFormat12Hour, false );*/
             TemplateParser parser =
                 new TemplateParser( 
                     "resources/plugins/ui/horizontal/manylabels/templates/TemplatePersonalGuide.html" );
             parser.process( 
                 new HandlerPersonalGuide( 
                     getLocalizer(  ), currentData, new Date( theDate ),
-                    htmlDateFormat, weekdayFormat, getCurrentDateFormat(  ), true ), buffy );
+                    htmlDateFormat, weekdayFormat, getCurrentDateFormat(  ),
+                    true ), buffy );
             buffy.close(  );
 
             FileHelper.openFile( f.getPath(  ) );
@@ -983,18 +1020,14 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         try
         {
-            /*new PersonalizedHTMLGuide(  ).createHTML(
-                str, getLocalizer(  ), new Date( theDate ), currentData,
-                htmlDateFormat,
-                config.display24time ? HorizontalViewer.timeFormat24Hour
-                                     : HorizontalViewer.timeFormat12Hour, true );*/
             TemplateParser parser =
                 new TemplateParser( 
                     "resources/plugins/ui/horizontal/manylabels/templates/TemplatePersonalGuide.html" );
             parser.process( 
                 new HandlerPersonalGuide( 
                     getLocalizer(  ), currentData, new Date( theDate ),
-                    htmlDateFormat, weekdayFormat, getCurrentDateFormat(  ), false ), str );
+                    htmlDateFormat, weekdayFormat, getCurrentDateFormat(  ),
+                    false ), str );
         }
         catch( Exception ex )
         {

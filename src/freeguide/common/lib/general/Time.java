@@ -29,10 +29,17 @@ import java.util.GregorianCalendar;
  */
 public class Time
 {
-    private final static long oneSecond = 1000;
-    private final static long oneMinute = oneSecond * 60;
-    private final static long oneHour = oneMinute * 60;
-    private final static long oneDay = oneHour * 24;
+    /** The number of milliseconds in a second. */
+    public final static long SECOND = 1000;
+
+    /** The number of milliseconds in a minute. */
+    public final static long MINUTE = SECOND * 60;
+
+    /** The number of milliseconds in an hour. */
+    public final static long HOUR = MINUTE * 60;
+
+    /** The number of milliseconds in a day. */
+    public final static long DAY = HOUR * 24;
 
     // ------------------------------------------------------------------------
     // ------------------------------------------------------------------------
@@ -154,7 +161,7 @@ public class Time
      */
     public void setTime( int hour )
     {
-        setMillisecondsSinceMidnight( hour * oneHour );
+        setMillisecondsSinceMidnight( hour * HOUR );
     }
 
     /**
@@ -176,8 +183,7 @@ public class Time
      */
     public void setTime( int hour, int minute )
     {
-        setMillisecondsSinceMidnight( 
-            ( hour * oneHour ) + ( minute * oneMinute ) );
+        setMillisecondsSinceMidnight( ( hour * HOUR ) + ( minute * MINUTE ) );
     }
 
     /**
@@ -190,7 +196,7 @@ public class Time
     public void setTime( int hour, int minute, int second )
     {
         setMillisecondsSinceMidnight( 
-            ( hour * oneHour ) + ( minute * oneMinute ) + ( second * oneSecond ) );
+            ( hour * HOUR ) + ( minute * MINUTE ) + ( second * SECOND ) );
     }
 
     /**
@@ -204,7 +210,7 @@ public class Time
     public void setTime( int hour, int minute, int second, int millisecond )
     {
         setMillisecondsSinceMidnight( 
-            ( hour * oneHour ) + ( minute * oneMinute ) + ( second * oneSecond )
+            ( hour * HOUR ) + ( minute * MINUTE ) + ( second * SECOND )
             + millisecond );
     }
 
@@ -277,7 +283,7 @@ public class Time
      */
     public void setHours( int hours )
     {
-        addMilliseconds( ( hours - getHours(  ) ) * oneHour );
+        addMilliseconds( ( hours - getHours(  ) ) * HOUR );
     }
 
     /**
@@ -287,7 +293,7 @@ public class Time
      */
     public void setMinutes( int minutes )
     {
-        addMilliseconds( ( minutes - getMinutes(  ) ) * oneMinute );
+        addMilliseconds( ( minutes - getMinutes(  ) ) * MINUTE );
     }
 
     /**
@@ -297,7 +303,7 @@ public class Time
      */
     public void setSeconds( int seconds )
     {
-        addMilliseconds( ( seconds - getSeconds(  ) ) * oneSecond );
+        addMilliseconds( ( seconds - getSeconds(  ) ) * SECOND );
     }
 
     /**
@@ -317,7 +323,7 @@ public class Time
      */
     public void addHours( int incHours )
     {
-        addMilliseconds( incHours * oneHour );
+        addMilliseconds( incHours * HOUR );
     }
 
     /**
@@ -327,7 +333,7 @@ public class Time
      */
     public void addMinutes( int incMinutes )
     {
-        addMilliseconds( incMinutes * oneMinute );
+        addMilliseconds( incMinutes * MINUTE );
     }
 
     /**
@@ -337,7 +343,7 @@ public class Time
      */
     public void addSeconds( int incSeconds )
     {
-        addMilliseconds( incSeconds * oneSecond );
+        addMilliseconds( incSeconds * SECOND );
     }
 
     /**
@@ -383,7 +389,7 @@ public class Time
      */
     public int getHours(  )
     {
-        return (int)( milliseconds / oneHour );
+        return (int)( milliseconds / HOUR );
     }
 
     /**
@@ -393,7 +399,7 @@ public class Time
      */
     public int getMinutes(  )
     {
-        return (int)( ( milliseconds % oneHour ) / oneMinute );
+        return (int)( ( milliseconds % HOUR ) / MINUTE );
     }
 
     /**
@@ -403,7 +409,7 @@ public class Time
      */
     public int getSeconds(  )
     {
-        return (int)( ( milliseconds % oneMinute ) / oneSecond );
+        return (int)( ( milliseconds % MINUTE ) / SECOND );
     }
 
     /**
@@ -413,7 +419,7 @@ public class Time
      */
     public int getMilliseconds(  )
     {
-        return (int)( milliseconds % oneSecond );
+        return (int)( milliseconds % SECOND );
     }
 
     /**
@@ -609,12 +615,12 @@ public class Time
         // Adjust either of the times if they're before the divide time
         if( thisMS < divideMS )
         {
-            thisMS += oneDay;
+            thisMS += DAY;
         }
 
         if( otherMS < divideMS )
         {
-            otherMS += oneDay;
+            otherMS += DAY;
         }
 
         // And finally compare them
@@ -629,19 +635,19 @@ public class Time
     }
 
     // ------------------------------------------------------------------------
-    // Get milliseconds within [0:oneDay)
+    // Get milliseconds within [0:DAY)
     /**
      * Description of the Method
      */
     private void wrap(  )
     {
-        // Get it within (-oneDay, oneDay)
-        milliseconds %= oneDay;
+        // Get it within (-DAY, DAY)
+        milliseconds %= DAY;
 
         // Finish off
         if( milliseconds < 0 )
         {
-            milliseconds += oneDay;
+            milliseconds += DAY;
         }
     }
 

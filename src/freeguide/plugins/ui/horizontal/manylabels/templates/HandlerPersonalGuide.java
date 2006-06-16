@@ -49,14 +49,14 @@ public class HandlerPersonalGuide
         final ILocalizer localizer, final TVData currentData,
         final Date theDate, final DateFormat dateFormat,
         final DateFormat weekdayFormat, final DateFormat timeFormat,
-	final boolean forPrint )
+        final boolean forPrint )
     {
         this.localizer = localizer;
         this.currentData = currentData;
         this.theDate = theDate;
         this.dateFormat = dateFormat;
         this.timeFormat = timeFormat;
-	this.weekdayFormat = weekdayFormat;
+        this.weekdayFormat = weekdayFormat;
         this.forPrint = forPrint;
     }
 
@@ -81,7 +81,11 @@ public class HandlerPersonalGuide
      */
     public String getTitle(  )
     {
-        Object[] messageArguments = { weekdayFormat.format( theDate ) + " " + dateFormat.format( theDate ) };
+        Object[] messageArguments =
+            {
+                weekdayFormat.format( theDate ) + " "
+                + dateFormat.format( theDate )
+            };
 
         return localizer.getLocalizedMessage( 
             "tv_guide_for_template", messageArguments );
@@ -94,7 +98,11 @@ public class HandlerPersonalGuide
      */
     public String getHeader(  )
     {
-        Object[] args = { weekdayFormat.format( theDate ) + " " + dateFormat.format( theDate ) };
+        Object[] args =
+            {
+                weekdayFormat.format( theDate ) + " "
+                + dateFormat.format( theDate )
+            };
 
         return localizer.getLocalizedMessage( 
             forPrint ? "tv_guide_for_template"
