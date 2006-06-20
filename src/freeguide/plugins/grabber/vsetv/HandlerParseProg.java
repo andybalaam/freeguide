@@ -218,8 +218,10 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 
             if( currentChannel == null )
             {
-                throw new SAXException( 
-                    "Error in page format: channel not found" );
+                currentProg = null;
+                mode = MODES_NONE;
+
+                break;
             }
 
             currentProg = null;
