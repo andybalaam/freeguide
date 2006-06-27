@@ -100,5 +100,9 @@
         <ant antfile="ant/dist-tgz.xml" />
     </target>
 
+    <target name="run">
+        <ant antfile="ant/run.xml" />
+    </target>
+
 </project>
 
