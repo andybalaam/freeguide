@@ -28,6 +28,8 @@ public class Version
 {
     protected static final Pattern VERSION_PATTERN =
         Pattern.compile( "(\\d+)(?:\\.(\\d+)(?:\\.(\\d+)(?:[_-](\\d+))?)?)?" );
+    protected static final Pattern VERSION_PATTERN_LITE =
+        Pattern.compile( "(\\d+)(?:\\.(\\d+)).*" );
 
     /** Major value. */
     public int major;
@@ -41,7 +43,7 @@ public class Version
     /** Build value. */
     public int build;
 
-/**
+    /**
      * Creates a new Version object.
      *
      * @param major DOCUMENT ME!
@@ -55,7 +57,7 @@ public class Version
 
     }
 
-/**
+    /**
      * Create a Version object with the given major, minor and revision
      * numbers
      *
@@ -73,7 +75,7 @@ public class Version
 
     }
 
-/**
+    /**
      * Create a Version object with the given major, minor, revision and build
      * numbers
      *
@@ -93,7 +95,7 @@ public class Version
         this.build = build;
     }
 
-/**
+    /**
      * Create a Version object from a string that looks like this: d.d.d_x
      * where d represents any number of digits . is a literal dot _ is either
      * an _, - or . character x is any sequence of characters
@@ -117,6 +119,19 @@ public class Version
             minor = parseDigs( m.group( 2 ) );
             revision = parseDigs( m.group( 3 ) );
             build = parseDigs( m.group( 4 ) );
+        }
+        else
+        {
+            final Matcher mLite =
+                VERSION_PATTERN_LITE.matcher( versionString );
+
+            if( mLite.matches(  ) )
+            {
+                major = parseDigs( mLite.group( 1 ) );
+                minor = parseDigs( mLite.group( 2 ) );
+                revision = 0;
+                build = 0;
+            }
         }
     }
 
