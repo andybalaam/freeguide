@@ -29,4 +29,6 @@ cp COPYING TODO *.html $BUILDDIR/
 
 # Comment out for local
 #cp VERSION.php $BUILDDIR/
+#cp upload-web.nosh $BUILDDIR/upload-web.sh
+#chmod u+x $BUILDDIR/upload-web.sh
 

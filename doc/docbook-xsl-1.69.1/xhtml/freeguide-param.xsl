@@ -22,6 +22,7 @@ Changes to the original docbook stylesheets:
 
 <xsl:param name="use.id.as.filename" select="'1'"/>
 <xsl:param name="base.dir" select="'html-local/'"/>
+<!--xsl:param name="base.dir" select="'html-web/'"/-->
 <!-- removing the book line causes the initial toc not to be generated -->
 <xsl:param name="generate.toc">
 appendix  toc,title

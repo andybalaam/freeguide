@@ -8,29 +8,38 @@
       java in your <code class="varname">PATH</code>.  Ask on the FreeGuide Users'
       mailing list (see the <a href="contact.html" title="Chapter 4. Contact Us">Contact</a> page) if you
       have trouble installing Java.</p><p>Ubuntu users can install Sun's version of Java by typing:
-      </p><pre class="programlisting">sudo apt-get install
-      sun-java5-jre</pre><p> in a terminal, after making sure the
-      "multiverse" repository is enabled.</p><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="downinst.linux.xmltv"></a>Installing XMLTV</h3></div></div></div><p>For Linux, you need to install the latest version of
-        XMLTV.</p><p>You can find RPMs for RedHat and Fedora at <a href="http://atrpms.physik.fu-berlin.de/name/xmltv/" target="_top">http://atrpms.physik.fu-berlin.de/name/xmltv/</a>
-        and if you run Debian you can find xmltv in
-        <span class="emphasis"><em>unstable</em></span>.</p><p>On Ubuntu, install the xmltv-gui package from the universe
-        repository.</p><p>On Debian, install the xmltv-gui package.</p><p>To install from source (which can be tricky due to the large
-        number of prerequisites) download the <a href="http://sourceforge.net/project/showfiles.php?group_id=39046&amp;package_id=31217" target="_top">latest
-        version</a> plus the <a href="http://sourceforge.net/project/showfiles.php?group_id=39046&amp;package_id=91929" target="_top">prerequisites</a>.</p><p>Install from source in the usual way with "<span><strong class="command">perl
-        Makefile.PL &amp;&amp; make &amp;&amp; make install</strong></span>".</p><p>Continue with your distribution:</p><div class="itemizedlist"><ul type="disc"><li><p><a href="downinst.linux.html#downinst.linux.rpm" title="FreeGuide on RPM-based distributions (RedHat/Fedora, Mandrake,&#10;        SuSE)">RPM-based distributions
+      </p><pre class="programlisting">sudo apt-get install sun-java5-jre</pre><p>
+      in a terminal, after making sure the "multiverse" repository is
+      enabled.</p><p>Continue with your distribution:</p><div class="itemizedlist"><ul type="disc"><li><p><a href="downinst.linux.html#downinst.linux.rpm" title="FreeGuide on RPM-based distributions (RedHat/Fedora, Mandrake,&#10;        SuSE)">RPM-based distributions
             (RedHat/Fedora, Mandrake, SuSE)</a></p></li><li><p><a href="downinst.linux.html#downinst.linux.debian" title="FreeGuide on Debian and Ubuntu">Debian and
             Ubuntu</a></p></li><li><p><a href="downinst.linux.html#downinst.linux.gentoo" title="FreeGuide on Gentoo">Gentoo</a></p></li><li><p><a href="downinst.linux.html#downinst.linux.tarball" title="FreeGuide on other distros - Tarball installation">Others - Tarball
-            installation</a></p></li></ul></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="downinst.linux.rpm"></a>FreeGuide on RPM-based distributions (RedHat/Fedora, Mandrake,
-        SuSE)</h3></div></div></div><p>Go to the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789" target="_top">sourceforge
+            installation</a></p></li></ul></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="downinst.linux.rpm"></a>FreeGuide on RPM-based distributions (RedHat/Fedora, Mandrake,
+        SuSE)</h3></div></div></div><p>First, you will need the latest version of XMLTV.  This is made
+        fairly easy for RedHat and Fedora users who can sign up for the ATRPMs
+        package repository by following the instructions at
+        <a href="http://atrpms.net/install.html" target="_top">atrpms.net/install.html</a>
+        and then install XMLTV by simply typing
+        </p><pre class="programlisting">su -c "yum install xmltv"</pre><p>
+        or similar.</p><p>For other RPM-based distros, you should find XMLTV in your
+        favourite package repository (let us know so we can add it here).</p><p>If you want to do it the hard way, you can find RPMs (for RedHat
+        and Fedora) at <a href="http://atrpms.physik.fu-berlin.de/name/xmltv/" target="_top">http://atrpms.physik.fu-berlin.de/name/xmltv/</a>.</p><p>Now, to download FreeGuide, go to the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789" target="_top">sourceforge
         download page</a>, download the
         <code class="filename">FreeGuide-xx-noarch.rpm</code> RPM file and install it
-        like so:</p><pre class="programlisting">su -c "rpm -i FreeGuide-xx-noarch.rpm". </pre><p>This will install FreeGuide and put a shortcut to it in the
+        like so:</p><pre class="programlisting">su -c "rpm -i FreeGuide-xx-noarch.rpm"</pre><p>This will install FreeGuide and put a shortcut to it in the
         menu.</p><p>You can now run FreeGuide by choosing it from the menu (in
         RedHat it's under "<span class="guimenu">Accessories</span>" or
-        "<span class="guimenuitem">Other</span>") or alternatively by typing:</p><pre class="programlisting">java -jar /usr/share/freeguide/startup.jar</pre><p>You'll now need to answer a few questions, and then you're ready
+        "<span class="guimenuitem">Other</span>") or alternatively by typing into a
+        terminal:</p><pre class="programlisting">freeguide</pre><p>You'll now need to answer a few questions, and then you're ready
         to go.</p><p>Now <a href="downinst.linux.html#downinst.linux.config" title="Configuring your System">configure your
-        system</a>.</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="downinst.linux.debian"></a>FreeGuide on Debian and Ubuntu</h3></div></div></div><p>There are Debian packages available from <a href="http://packages.debian.org/freeguide" target="_top">http://packages.debian.org/freeguide</a>.</p><p>Now <a href="downinst.linux.html#downinst.linux.config" title="Configuring your System">configure your
-        system</a>.</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="downinst.linux.gentoo"></a>FreeGuide on Gentoo</h3></div></div></div><p>FreeGuide isn't officially supported by Gentoo, but there are
+        system</a>.</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="downinst.linux.debian"></a>FreeGuide on Debian and Ubuntu</h3></div></div></div><p>First, you will need the latest version of XMLTV which you can
+        get by typing:</p><pre class="programlisting">sudo apt-get install xmltv</pre><p>or just:</p><pre class="programlisting">apt-get install xmltv</pre><p>logged in as root.  On Ubuntu, the xmltv package is in the
+        "universe" repository, so ensure that is enabled.  On Debian,
+        the best version is usually in "unstable".</p><p>Now download and install the FreeGuide Debian packages from <a href="http://packages.debian.org/freeguide" target="_top">http://packages.debian.org/freeguide</a>.</p><p>You can now run FreeGuide by choosing it from the menu or
+        alternatively by typing into a terminal:</p><pre class="programlisting">freeguide</pre><p>You'll now need to answer a few questions, and then you're ready
+        to go.</p><p>Now <a href="downinst.linux.html#downinst.linux.config" title="Configuring your System">configure your
+        system</a>.</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="downinst.linux.gentoo"></a>FreeGuide on Gentoo</h3></div></div></div><p>First, you will need to install XMLTV.  Either use emerge if the
+        xmltv package is available, or, if you have to,
+        <a href="downinst.linux.html#downinst.linux.xmltv" title="Installing XMLTV from source">install XMLTV from source</a>.</p><p>FreeGuide isn't officially supported by Gentoo, but there are
         ebuilds which can be installed manually.</p><p>First, go to the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789" target="_top">sourceforge
         download page</a> and download the
         <code class="filename">freeguide_gentoo_ebuilds_x.y.z.tar.bz2</code>
@@ -38,16 +47,27 @@
         Wiki: Installing 3rdParty ebuilds</a>.</p><p>After you have set up your local portage overlay dir, extract
         the freeguide ebuild file into the directory and do a</p><pre class="programlisting">ACCEPT_KEYWORDS="~x86" emerge install freeguide</pre><p>There are several freeguide packages in portage, but "freeguide"
         alone installs the most necessary ones. If you need another grabber or
-        other plugins, type</p><pre class="programlisting">emerge search freeguide</pre><p>and choose the right ones for you.</p><p>Now <a href="downinst.linux.html#downinst.linux.config" title="Configuring your System">configure your
-        system</a>.</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="downinst.linux.tarball"></a>FreeGuide on other distros - Tarball installation</h3></div></div></div><p>Go to the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789" target="_top">sourceforge
+        other plugins, type</p><pre class="programlisting">emerge search freeguide</pre><p>and choose the right ones for you.</p><p>You can now run FreeGuide by choosing it from the menu or
+        alternatively by typing into a terminal:</p><pre class="programlisting">freeguide</pre><p>You'll now need to answer a few questions, and then you're ready
+        to go.</p><p>Now <a href="downinst.linux.html#downinst.linux.config" title="Configuring your System">configure your
+        system</a>.</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="downinst.linux.tarball"></a>FreeGuide on other distros - Tarball installation</h3></div></div></div><p>First, you will need to install XMLTV.  Either use your operating
+        system's package management system, or, if you have to,
+        <a href="downinst.linux.html#downinst.linux.xmltv" title="Installing XMLTV from source">install XMLTV from source</a>.</p><p>Go to the <a href="http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789" target="_top">sourceforge
         download page</a> and download 
         <code class="filename">freeguide-x.y.z-bin.tar.gz</code>.</p><p>You can either unzip this tarball in <code class="filename">/</code> as
         root, or unzip it somewhere else and modify the file 
         <code class="filename">usr/bin/freeguide</code> to point at the correct
-        paths.</p><p>Now <a href="downinst.linux.html#downinst.linux.config" title="Configuring your System">configure your
-        system</a>.</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="downinst.linux.config"></a>Configuring your System</h3></div></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="downinst.linux.config.proxy"></a>Proxy</h4></div></div></div><p>If you have a proxy server or are behind a firewall, you may
+        paths.</p><p>You can now run FreeGuide by typing:</p><pre class="programlisting">freeguide</pre><p>You'll now need to answer a few questions, and then you're ready
+        to go.</p><p>Now <a href="downinst.linux.html#downinst.linux.config" title="Configuring your System">configure your
+        system</a>.</p><p>NOTE: if you use a different operating system or Linux
+        distribution and would like to contribute either more detailed
+        installation instructions or a specific installer, we'd welcome your
+        contribution!  Please contact the developers' mailing list.</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="downinst.linux.xmltv"></a>Installing XMLTV from source</h3></div></div></div><p>Most people will not need to do this.  See the instructions
+        above for your distro on how to get XMLTV.</p><p>To install XMLTV from source (which can be tricky due to the large
+        number of prerequisites) download the <a href="http://sourceforge.net/project/showfiles.php?group_id=39046&amp;package_id=31217" target="_top">latest
+        version</a> plus the <a href="http://sourceforge.net/project/showfiles.php?group_id=39046&amp;package_id=91929" target="_top">prerequisites</a>.</p><p>Install from source in the usual way with:</p><pre class="programlisting">perl Makefile.PL</pre><pre class="programlisting">make</pre><pre class="programlisting">su -c "make install"</pre></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="downinst.linux.config"></a>Configuring your System</h3></div></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="downinst.linux.config.proxy"></a>Proxy</h4></div></div></div><p>If you have a proxy server or are behind a firewall, you may
           need to follow the instructions below to allow FreeGuide to see
-          past them to the Internet.</p><p>NOTE: most home users will not need to do this - you are
+          past them to the Internet.</p><p>NOTE: most home users will NOT need to do this - you are
           ready to start FreeGuide!  Go straight to the
           <a href="userguide.html" title="Chapter 2. User Guide">User Guide</a>.</p><p>Add 2 lines to the file
           <code class="filename">~/.bash_profile</code>:</p><pre class="programlisting"><code class="code">export http_proxy=http://proxy.uni.ac.uk:8080

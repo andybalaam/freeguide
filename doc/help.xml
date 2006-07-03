@@ -211,8 +211,8 @@
             <answer>
               <para>If your grabber fails to configure or run because it can't
               seem to get any data from the Internet, it may be because you
-              need to use a proxy server. Read <link
-              linkend="downinst.windows.proxy">this question</link> for
+              need to use a proxy server. Read the <link
+              linkend="downinst.windows.proxy">proxy section</link> for
               information on how to set one up.</para>
             </answer>
           </qandaentry>
@@ -324,7 +324,7 @@
               <para>Now type the following 2 lines:</para>
 
               <programlisting>cd "C:\Program Files\FreeGuide" &lt;PRESS RETURN&gt;
-java -jar startup.jar --install_directory "C:\Program Files\FreeGuide" --doc_directory "C:\Program Files\FreeGuide\doc" &gt; log.txt &lt;PRESS RETURN&gt;</programlisting>
+java -jar startup.jar &gt; log.txt &lt;PRESS RETURN&gt;</programlisting>
 
               <para>Now copy and paste the contents of <filename>C:\Program
               Files\FreeGuide\log.txt</filename> into an email, remembering to
@@ -384,21 +384,89 @@ java -jar startup.jar --install_directory "C:\Program Files\FreeGuide" --doc_dir
             </answer>
           </qandaentry>
 
-I went to http://minnie.tuhs.org/twiki/bin/view/TVGuide/ and signed up for an account,
-then i dloaded http://www.wireplay.org/xmltv_au/tv_grab_au.exe
- 
-then i just went into tools, options, advanced,grabbers,xmltv, picked any one and changed the command path to C:\Program Files\video\FreeGuide\TVGuideGrabber\tv_grab_au_tuhs.exe --config-file "C:\Program Files\video\FreeGuide\TVGuideGrabber\tv_grab_au_tuhs.xml"
- 
-
-          <qandaentry id="help.faq.skins">
+          <qandaentry id="help.faq.skins_not_recognised">
             <question>
-              <para>Does FreeGuide support skins or themes? How do I use
-              them?</para>
+              <para>FreeGuide doesn't list the look-and-feel I installed - how
+              do I use it?</para>
             </question>
 
             <answer>
-              <para>Yes! See the <link linkend="userguide.look_and_feel">Look and Feel
-              Guide</link>.</para>
+              <para>If you have installed a look-and-feel that FreeGuide was
+              unable to identify, you may type its class name into the combo
+              box in the General section of the Options screen.
+              Note that you must provide the fully-qualified classname - one
+              that includes several words separated by periods, such as
+              <filename>javax.swing.plaf.metal.MetalLookAndFeel</filename>.
+              The fully qualified classname should be given in the
+              look-and-feel's documentation.</para>
+
+              <para>If you type in the class name and nothing happens,
+              FreeGuide is unable to find the specified class. Make sure you
+              spelled the class name correctly. If everything is spelled
+              correctly, make sure you installed the look-and-feel
+              correctly.</para>
+            </answer>
+          </qandaentry>
+
+          <qandaentry id="help.faq.skins_gtk_change">
+            <question>
+              <para>How do I change my GTK theme?</para>
+            </question>
+
+            <answer>
+              <para>If you're using a Unix-like operating system, use the tool
+              provided by your distribution vendor to install and select the
+              theme. Now, simply start FreeGuide and, if you haven't already
+              done so, select the GTK+ look-and-feel and enjoy the new look. In
+              general, themes are installed by extracting their files into the
+              <filename>${USER}/.themes</filename> directory. If you do not
+              have a tool for working with GTK+ themes, <ulink
+              url="http://www.muhri.net/nav.php3?node=gts">GTK Theme Switch
+              2</ulink> is a nice lightweight program for installing and
+              selecting themes. Note: If you do not want to install and/or
+              select the theme, you may follow the Windows instructions
+              below.</para>
+
+              <para>If you're using Windows (or you don't want to install the
+              theme on your Unix-like operating system), it's not necessary to
+              install the theme. Extract the theme files to a directory,
+              keeping each theme in its own directory, and keep all the theme
+              directories together in a single directory to make them easy to
+              find (I recommend using <filename>C:\gtk</filename> since it's
+              short and easy to type).</para>
+
+              <para>Since most of the themes will be distributed in "tarballs"
+              (a common way to distribute software for Unix-like operating
+              systems), you will need an extraction tool that can handle tape
+              archive files (tar files) and GZIP and/or BZIP2 compression. One
+              such tool for Windows is <ulink
+              url="http://www.7-zip.org/">7-Zip</ulink>.</para>
+
+              <para>Once you've extracted the themes, you're ready to use
+              them. To do so, just specify the location of the
+              <filename>gtkrc</filename> file in the
+              <filename>swing.gtkthemefile</filename> system property on the
+              command line, as shown below:</para>
+
+              <programlisting>java -Dswing.gtkthemefile="C:\gtk\Theme Name\gtk-2.0\gtkrc" ...</programlisting>
+              
+              <para>Where "..." means fill in the rest of the shortcut command
+              that was already present.</para>
+
+            </answer>
+          </qandaentry>
+          
+          <qandaentry id="help.faq.othersites">
+            <question>
+              <para>Are there any other web sites about FreeGuide?</para>
+            </question>
+
+            <answer>
+              <para>Richard Turnbull has assembled lots of useful information
+              about FreeGuide on his site, along with a clever script to keep
+              you up-to-date with the very latest versions of XMLTV and
+              FreeGuide.  You can find all this at
+              <ulink url="http://www.kudos.byethost15.com/freeguide/">www.kudos.byethost15.com/freeguide/</ulink>.</para>
             </answer>
           </qandaentry>
 
