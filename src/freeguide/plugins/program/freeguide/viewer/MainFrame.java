@@ -7,7 +7,6 @@ import freeguide.common.lib.general.LanguageHelper;
 
 import freeguide.common.plugininterfaces.IApplication;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 
@@ -19,8 +18,6 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import java.io.IOException;
-
-import java.util.Locale;
 
 import javax.swing.*;
 

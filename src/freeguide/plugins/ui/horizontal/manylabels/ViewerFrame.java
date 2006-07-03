@@ -4,7 +4,6 @@ import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.FocusEvent;

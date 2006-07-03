@@ -45,7 +45,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -669,7 +668,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     private void addDateExistItem( JComboBox cmbDate, long newDate, int idx )
     {
         Calendar cal =
-            GregorianCalendar.getInstance( 
+            Calendar.getInstance( 
                 Application.getInstance(  ).getTimeZone(  ), Locale.ENGLISH );
 
         cal.setTimeInMillis( newDate );
@@ -833,7 +832,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             Application.getInstance(  ).getDataStorage(  ).getInfo(  );
 
         Calendar cal =
-            GregorianCalendar.getInstance( 
+            Calendar.getInstance( 
                 Application.getInstance(  ).getTimeZone(  ), Locale.ENGLISH );
 
         cal.setTimeInMillis( info.minDate );
@@ -869,8 +868,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         comboBoxDateFormat.setTimeZone( 
             Application.getInstance(  ).getTimeZone(  ) );
 
-        int ind = 0;
-
+        
         ListIterator it = dateExistList.listIterator(  );
 
         while( it.hasNext(  ) )

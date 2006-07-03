@@ -18,16 +18,7 @@ import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 import freeguide.common.plugininterfaces.IModuleReminder;
 
-import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerPersonalGuide;
-import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;
-
 import java.awt.event.ActionEvent;
-
-import java.io.UnsupportedEncodingException;
-
-import java.net.URLDecoder;
-
-import java.text.ParsePosition;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -72,17 +63,6 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
     {
         if( HyperlinkEvent.EventType.ACTIVATED == e.getEventType(  ) )
         {
-            String desc;
-
-            try
-            {
-                desc = URLDecoder.decode( e.getDescription(  ), "UTF-8" );
-            }
-            catch( UnsupportedEncodingException ex )
-            {
-                desc = e.getDescription(  );
-            }
-
             TVProgramme programme =
                 getProgrammeFromReference( 
                     e.getDescription(  ).substring( 1 ) );

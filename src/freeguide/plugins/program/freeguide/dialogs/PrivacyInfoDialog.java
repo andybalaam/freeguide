@@ -54,7 +54,6 @@ public class PrivacyInfoDialog extends JDialog
 
     private void initComponents(  )
     {
-        java.awt.GridBagConstraints gridBagConstraints;
         String privacyInfo;
 
         try
@@ -80,8 +79,8 @@ public class PrivacyInfoDialog extends JDialog
                 Application.getInstance(  ).getLocalizedMessage( "ok" ) );
         GridBagEasy gbe = new GridBagEasy( getContentPane(  ) );
         gbe.default_insets = new java.awt.Insets( 5, 5, 5, 5 );
-        gbe.addFWXWY( scrollPane, 0, 0, gbe.FILL_BOTH, 1, 1 );
-        gbe.addAWXWY( OKButton, 0, 1, gbe.ANCH_EAST, 1, 0 );
+        gbe.addFWXWY( scrollPane, 0, 0, GridBagEasy.FILL_BOTH, 1, 1 );
+        gbe.addAWXWY( OKButton, 0, 1, GridBagEasy.ANCH_EAST, 1, 0 );
         OKButton.addActionListener( 
             new java.awt.event.ActionListener(  )
             {

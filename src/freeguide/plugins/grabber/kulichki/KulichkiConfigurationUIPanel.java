@@ -19,8 +19,7 @@ import javax.swing.JTextPane;
  */
 public class KulichkiConfigurationUIPanel extends JPanel
 {
-    private final ILocalizer localizer;
-    private JTextPane textDescription = null;
+     private JTextPane textDescription = null;
     private JButton btnRefresh = null;
     private JScrollPane jScrollPane = null;
     private TVChannelsTree treeChannels = null;
@@ -34,8 +33,7 @@ public class KulichkiConfigurationUIPanel extends JPanel
     {
         super(  );
 
-        this.localizer = localizer;
-
+ 
         initialize(  );
 
     }

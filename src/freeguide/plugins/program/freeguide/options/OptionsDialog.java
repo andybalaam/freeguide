@@ -26,7 +26,6 @@ import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 
 import java.awt.CardLayout;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +34,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Locale;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -122,9 +120,9 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         // Lay them out in a GridBag layout
         GridBagEasy gbe = new GridBagEasy( getContentPane(  ) );
 
-        gbe.addFWXWYGW( splitPane, 0, 0, gbe.FILL_BOTH, 1, 1, 3 );
+        gbe.addFWXWYGW( splitPane, 0, 0, GridBagEasy.FILL_BOTH, 1, 1, 3 );
 
-        gbe.addAWXWY( defaultButton, 0, 1, gbe.ANCH_WEST, 1, 0 );
+        gbe.addAWXWY( defaultButton, 0, 1, GridBagEasy.ANCH_WEST, 1, 0 );
 
         gbe.addWXWY( okButton, 1, 1, 0, 0 );
 

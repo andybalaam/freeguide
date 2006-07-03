@@ -58,7 +58,6 @@ public class VersionCheckerThread implements Runnable
      */
     public void run(  )
     {
-        int ans;
         int major;
         int minor;
         int revision;

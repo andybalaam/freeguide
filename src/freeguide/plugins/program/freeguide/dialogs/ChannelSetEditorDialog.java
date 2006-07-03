@@ -442,7 +442,7 @@ public class ChannelSetEditorDialog extends FGDialog
 
         for( int j = selected.length - 1; j >= 0; j-- )
         {
-            Object o = csetModel.remove( selected[j] );
+            csetModel.remove( selected[j] );
         }
 
         checkUpAndDownButtons(  );
@@ -469,7 +469,7 @@ public class ChannelSetEditorDialog extends FGDialog
 
         for( int j = selected.length - 1; j >= 0; j-- )
         {
-            Object o = allModel.remove( selected[j] );
+            allModel.remove( selected[j] );
         }
 
         checkUpAndDownButtons(  );

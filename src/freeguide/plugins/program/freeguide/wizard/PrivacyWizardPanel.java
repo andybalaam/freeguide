@@ -14,7 +14,6 @@ package freeguide.plugins.program.freeguide.wizard;
 
 import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.dialogs.PrivacyInfoDialog;
 
 import java.awt.Color;

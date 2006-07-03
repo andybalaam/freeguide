@@ -14,7 +14,6 @@ package freeguide.common.gui;
 
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
-import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
@@ -23,7 +22,6 @@ import freeguide.common.lib.general.Utils;
 import freeguide.common.plugininterfaces.IModuleStorage;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -36,15 +34,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import java.lang.IllegalAccessException;
-
 import java.text.DateFormat;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -83,7 +75,6 @@ public class SearchDialog extends JDialog
     private JPanel jPanelOptions;
     private Box jPanelButtons;
     private Box jPanelResult;
-    private Box backgroundBox;
     private JCheckBox caseSensitive;
     private JCheckBox includeFinished;
     private JCheckBox searchDescription;
@@ -91,7 +82,6 @@ public class SearchDialog extends JDialog
 
     // The programmes found from the last search
     private DefaultListModel foundModel = new DefaultListModel(  );
-    private JScrollPane listScroller;
 
 /**
      * Class Constructor from owner and  a Mouse listener.

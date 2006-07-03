@@ -14,10 +14,6 @@ package freeguide.plugins.program.freeguide.options;
 
 import freeguide.common.gui.FGDialog;
 
-import freeguide.common.lib.fgspecific.*;
-
-import freeguide.plugins.program.freeguide.dialogs.*;
-
 import java.awt.*;
 
 import javax.swing.*;

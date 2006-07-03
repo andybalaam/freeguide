@@ -19,11 +19,9 @@ import java.io.UnsupportedEncodingException;
 
 import java.net.URLEncoder;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
-import java.util.regex.Pattern;
 
 /**
  * Formats Programme information.
@@ -49,19 +47,11 @@ public class ProgrammeFormat
     /** DOCUMENT ME! */
     public final static String LINE_FEED =
         System.getProperty( "line.separator", "\r\n" );
-    private final static int MARGIN = 78;
 
     /** Format used for dates in the HTML links. */
     public static SimpleDateFormat LINK_DATE_FORMAT =
         new SimpleDateFormat( "yyyyMMddHHmmss" );
-    private String newline = LINE_FEED;
-    private final Pattern defaultWrapPattern =
-        Pattern.compile( "(.{1," + MARGIN + "})(?:\\s|$)" );
-    private int outputFormat = TEXT_FORMAT;
-    private boolean printTimeDelta = false;
-    private DateFormat dateFormat = null;
-    private boolean wrap = false;
-    private boolean onScreen = true;
+
 
     /*private static StringBuffer wrap( CharSequence input, int preferredMargin )
     {

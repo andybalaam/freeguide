@@ -14,15 +14,8 @@ package freeguide.plugins.reminder.alarm;
 
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JTextField;
 
 /*
  *  A panel full of options about time
@@ -40,9 +33,10 @@ import javax.swing.JTextField;
 public class AlarmUIController implements IModuleConfigurationUI
 {
     // ----------------------------------
-    private JComboBox remindComboBox;
-    private JTextField warningTextField;
-    private JTextField giveupTextField;
+//    private JComboBox remindComboBox;
+//    private JTextField warningTextField;
+//    private JTextField giveupTextField;
+	
     protected final AlarmUIPanel panel;
     protected final AlarmReminder parent;
 

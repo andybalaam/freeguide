@@ -23,7 +23,6 @@ import java.awt.event.MouseListener;
 import java.util.logging.Level;
 
 import javax.swing.JDialog;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;

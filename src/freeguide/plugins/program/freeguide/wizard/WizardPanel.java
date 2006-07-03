@@ -14,8 +14,6 @@ package freeguide.plugins.program.freeguide.wizard;
 
 import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import javax.swing.JOptionPane;
 
 /**

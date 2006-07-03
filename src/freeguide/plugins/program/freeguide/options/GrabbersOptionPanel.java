@@ -4,9 +4,7 @@ import freeguide.common.gui.FGDialog;
 
 import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.common.plugininterfaces.IModuleGrabber;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 import freeguide.plugins.program.freeguide.viewer.MainController;
@@ -15,7 +13,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 
-import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 

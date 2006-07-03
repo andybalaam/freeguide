@@ -42,7 +42,6 @@ public class LabelWizardPanel extends WizardPanel
      */
     public void construct(  )
     {
-        java.awt.GridBagConstraints gridBagConstraints;
         JLabel topLabel = new JLabel(  );
         JLabel middlePane = new JLabel(  );
         JLabel bottomLabel = new JLabel(  );

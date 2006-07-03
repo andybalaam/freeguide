@@ -14,8 +14,6 @@ package freeguide.plugins.program.freeguide.wizard;
 
 import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 
@@ -54,8 +52,6 @@ public class InstallWizardPanel extends WizardPanel
      */
     public void construct(  )
     {
-        java.awt.GridBagConstraints gridBagConstraints;
-
         JLabel topLabel = new JLabel(  );
 
         middlePanel = new JPanel(  );

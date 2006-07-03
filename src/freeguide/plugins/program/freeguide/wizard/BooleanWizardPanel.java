@@ -12,7 +12,6 @@
  */
 package freeguide.plugins.program.freeguide.wizard;
 
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -50,8 +49,6 @@ public class BooleanWizardPanel extends WizardPanel
         JLabel topLabel = new JLabel(  );
 
         JLabel bottomLabel = new JLabel(  );
-
-        JButton butBrowse = new JButton(  );
 
         checkbox = new JCheckBox(  );
 

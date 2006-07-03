@@ -54,7 +54,6 @@ public class ConfigureUIPanel extends JPanel
     private JRadioButton rbTime24;
     private JCheckBox cbDrawTime;
     private JCheckBox cbAlignLeft;
-    private JCheckBox cbPrintDelta;
     private JCheckBox cbDisplayTooltips;
     private JPanel jPanel = null;
 

@@ -1,6 +1,5 @@
 package freeguide.plugins.program.freeguide.lib.fgspecific;
 
-import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.Version;
 
 import freeguide.common.plugininterfaces.IModule;
@@ -14,9 +13,6 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.logging.Level;
 
 /**

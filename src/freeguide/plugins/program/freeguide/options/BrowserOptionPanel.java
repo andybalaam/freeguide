@@ -18,7 +18,6 @@ import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.*;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
-import freeguide.plugins.program.freeguide.dialogs.*;
 import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
 
 import java.awt.*;
@@ -27,7 +26,6 @@ import java.awt.event.*;
 import java.util.Map;
 
 import javax.swing.*;
-import javax.swing.event.*;
 
 /*
  *  A panel full of options about time
@@ -92,10 +90,10 @@ public class BrowserOptionPanel extends OptionPanel
         gbe.default_insets = new Insets( 1, 1, 1, 1 );
         gbe.default_ipadx = 5;
         gbe.default_ipady = 5;
-        gbe.addFWX( browserLabel, 0, 0, gbe.FILL_HOR, 0.2 );
-        gbe.addFWX( browserComboBox, 1, 0, gbe.FILL_HOR, 0.8 );
-        gbe.addAFWX( commandLabel, 0, 1, gbe.ANCH_NORTH, gbe.FILL_HOR, 0.2 );
-        gbe.addFWXWY( commandScrollPane, 1, 1, gbe.FILL_BOTH, 0.8, 0.5 );
+        gbe.addFWX( browserLabel, 0, 0, GridBagEasy.FILL_HOR, 0.2 );
+        gbe.addFWX( browserComboBox, 1, 0, GridBagEasy.FILL_HOR, 0.8 );
+        gbe.addAFWX( commandLabel, 0, 1, GridBagEasy.ANCH_NORTH, GridBagEasy.FILL_HOR, 0.2 );
+        gbe.addFWXWY( commandScrollPane, 1, 1, GridBagEasy.FILL_BOTH, 0.8, 0.5 );
         // Load in the values from config
         load(  );
         browserComboBoxItemListener = ( new java.awt.event.ItemListener(  )

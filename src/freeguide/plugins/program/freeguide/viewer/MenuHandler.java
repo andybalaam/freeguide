@@ -20,8 +20,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import java.util.Locale;
-
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 

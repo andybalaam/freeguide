@@ -9,14 +9,6 @@ import freeguide.common.lib.importexport.XMLTVImport;
 import freeguide.common.plugininterfaces.BaseModule;
 import freeguide.common.plugininterfaces.IModuleStorage;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
-
-import java.util.logging.Level;
-
 /**
  * XMLTV xml storage loader.
  *
@@ -43,13 +35,7 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
      */
     public synchronized IModuleStorage.Info getInfo(  )
     {
-        if( cachedInfo == null )
-        {
-            GetInfoFilter filter = new GetInfoFilter(  );
-        }
-
         return cachedInfo;
-
     }
 
     /**

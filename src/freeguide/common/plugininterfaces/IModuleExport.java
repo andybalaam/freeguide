@@ -2,8 +2,6 @@ package freeguide.common.plugininterfaces;
 
 import freeguide.common.lib.fgspecific.data.TVData;
 
-import java.io.IOException;
-
 import javax.swing.JFrame;
 
 /**

@@ -73,7 +73,6 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
 
 /**
  * The base class for standard dialogs.

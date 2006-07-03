@@ -24,7 +24,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
-import javax.swing.event.*;
 
 /*
  *  A panel full of options about privacy and checking for new version of
@@ -127,19 +126,19 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
 
         gbe.default_ipady = 5;
 
-        gbe.addFWX( checkLabel, 0, 0, gbe.FILL_HOR, 0.2 );
+        gbe.addFWX( checkLabel, 0, 0, GridBagEasy.FILL_HOR, 0.2 );
 
-        gbe.addFWX( checkComboBox, 1, 0, gbe.FILL_HOR, 0.8 );
+        gbe.addFWX( checkComboBox, 1, 0, GridBagEasy.FILL_HOR, 0.8 );
 
-        gbe.addFWX( provideLabel, 0, 1, gbe.FILL_HOR, 0.2 );
+        gbe.addFWX( provideLabel, 0, 1, GridBagEasy.FILL_HOR, 0.2 );
 
-        gbe.addFWX( provideComboBox, 1, 1, gbe.FILL_HOR, 0.8 );
+        gbe.addFWX( provideComboBox, 1, 1, GridBagEasy.FILL_HOR, 0.8 );
 
-        gbe.addFWX( nicknameLabel, 0, 2, gbe.FILL_HOR, 0.2 );
+        gbe.addFWX( nicknameLabel, 0, 2, GridBagEasy.FILL_HOR, 0.2 );
 
-        gbe.addFWX( nicknameTextField, 1, 2, gbe.FILL_HOR, 0.8 );
+        gbe.addFWX( nicknameTextField, 1, 2, GridBagEasy.FILL_HOR, 0.8 );
 
-        gbe.addAWX( infoButton, 1, 3, gbe.ANCH_WEST, 0.8 );
+        gbe.addAWX( infoButton, 1, 3, GridBagEasy.ANCH_WEST, 0.8 );
 
         // Events
         checkComboBox.addActionListener( this );

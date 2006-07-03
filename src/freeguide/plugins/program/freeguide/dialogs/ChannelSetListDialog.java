@@ -389,7 +389,7 @@ public class ChannelSetListDialog extends FGDialog
                 Application.getInstance(  )
                            .getLocalizedMessage( "add_a_new_channel_set" ),
                 allChannels, newCset );
-        boolean changed = channels.showDialog(  );
+        channels.showDialog(  );
         setChanged(  );
         latestIndex = channelsetModel.size(  );
         reShow(  );

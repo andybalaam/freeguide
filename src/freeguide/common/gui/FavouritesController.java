@@ -23,10 +23,8 @@ public class FavouritesController
 {
     private TVChannelsSet allChannelsSet;
     private final List favourites;
-    private Favourite favourite;
     private DefaultListModel favouritesModel;
     private int latestIndex;
-    private JFrame owner = null;
     private final FavouritesListDialog listDialog;
     private boolean changed = false;
 
@@ -41,7 +39,6 @@ public class FavouritesController
         JFrame owner, List fav, TVChannelsSet allChannelsSet )
     {
         listDialog = new FavouritesListDialog( owner );
-        this.owner = owner;
         this.allChannelsSet = allChannelsSet;
         this.favourites = new ArrayList( fav.size(  ) );
 

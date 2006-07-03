@@ -2,8 +2,6 @@ package freeguide.plugins.program.freeguide.lib.updater.data;
 
 import freeguide.common.lib.general.Version;
 
-import freeguide.common.plugininterfaces.IModule;
-
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 

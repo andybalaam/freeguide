@@ -3,9 +3,6 @@ package freeguide.common.plugininterfaces;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.fgspecific.selection.Favourite;
 
-import java.awt.Graphics2D;
-
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 

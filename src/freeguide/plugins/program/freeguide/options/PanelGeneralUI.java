@@ -2,8 +2,6 @@ package freeguide.plugins.program.freeguide.options;
 
 import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.plugins.program.freeguide.FreeGuide;
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 

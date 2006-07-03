@@ -17,7 +17,6 @@ import freeguide.common.gui.FGDialog;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.*;
 
-import freeguide.plugins.program.freeguide.dialogs.*;
 import freeguide.plugins.program.freeguide.lib.general.LookAndFeelManager;
 import freeguide.plugins.program.freeguide.viewer.MainController;
 
@@ -81,22 +80,14 @@ public class LayoutOptionPanel extends OptionPanel
         gbe.default_insets = new Insets( 1, 1, 1, 1 );
         gbe.default_ipadx = 5;
         gbe.default_ipady = 5;
-        gbe.addFWX( lookAndFeelLabel, 0, 0, gbe.FILL_HOR, 0.2 );
-        gbe.addFWXWYGW( lookAndFeelCombo, 1, 0, gbe.FILL_HOR, 0.1, 0, 2 );
+        gbe.addFWX( lookAndFeelLabel, 0, 0, GridBagEasy.FILL_HOR, 0.2 );
+        gbe.addFWXWYGW( lookAndFeelCombo, 1, 0, GridBagEasy.FILL_HOR, 0.1, 0, 2 );
         // Load in the values from config
         load(  );
     }
 
     protected void doLoad( String prefix )
     {
-        LookAndFeel currentLAF = UIManager.getLookAndFeel(  );
-        String defaultLAFName = "Metal";
-
-        if( currentLAF != null )
-        {
-            defaultLAFName = currentLAF.getName(  );
-        }
-
         lookAndFeelCombo.setSelectedItem( MainController.config.ui.LFname );
     }
 
