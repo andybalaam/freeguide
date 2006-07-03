@@ -11,10 +11,6 @@ SYNOPSIS
 
     tv_grab_br --list-channels
 
-    tv_grab_br --capabilities
-
-    tv_grab_br --version
-
 DESCRIPTION
     Script desenvolvido para capturar a programação da TV brasileira a
     partir do site www.tvmagazine.com.br. Este script le algumas páginas do
@@ -38,9 +34,9 @@ DESCRIPTION
     ~/.xmltv/tv_grab_br.conf. este é o arquivo gerado pelo comando
     --configure.
 
-    --output FILE Cria um arquivo de saída.
+    --output FILE cria um arquivo de saída.
 
-    --days N Obtenha N dias. O padrão é 3.
+    --days N obtenha N dias. O padrão é 3.
 
     --offset N Obtem a partir do dia N.
 
@@ -48,19 +44,16 @@ DESCRIPTION
 
     --help Imprime informações de ajuda e sai.
 
-    --capabilities Show which capabilities the grabber supports. For more
-    information, see
-    <http://membled.com/twiki/bin/view/Main/XmltvCapabilities>
-
-    --version Show the version of the grabber.
-
 SEE ALSO
     xmltv(5).
 
 AUTHOR
-    Ronaldo Richieri <rrichieri@yahoo.com.br> Marcelo Toledo
-    <marcelo@marcelotoledo.org> with some patches from : Marcos Paulo
-    Serafim <mpserafim@yahoo.com.br>
+    Marcelo Toledo <marcelo@marcelotoledo.org> Ronaldo Richieri
+    <rrichieri@yahoo.com.br>
+
+CONTRIBUTORS
+    Wagner Sartori Junior <wsartori@gmail.com> Marcos Paulo Serafim
+    <mpserafim@yahoo.com.br>
 
     baseado nos diversos grabbers disponiveis.
 
