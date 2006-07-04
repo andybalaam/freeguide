@@ -22,7 +22,7 @@
 		
 		<mkdir dir="${dist-install-tgz}"/>
 		<tar longfile="gnu"
-			 destfile="${dist-install-tgz}/${application-id}-${application-version}-bin.tar.gz" compression="gzip" >
+			 destfile="${dist-install-tgz}/${application-id}-${application-version}-install-bin.tar.gz" compression="gzip" >
             <tarfileset dir="${build}/install-tgz" />
         </tar>
 	</target>
