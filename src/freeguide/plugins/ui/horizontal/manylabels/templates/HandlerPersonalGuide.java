@@ -104,9 +104,20 @@ public class HandlerPersonalGuide
                 + dateFormat.format( theDate )
             };
 
-        return localizer.getLocalizedMessage( 
-            forPrint ? "tv_guide_for_template"
-                     : "your_personalised_tv_guide_for_template", args );
+        String ans;
+
+        if( forPrint )
+        {
+            ans = localizer.getLocalizedMessage( 
+                    "tv_guide_for_template", args );
+        }
+        else
+        {
+            ans = localizer.getLocalizedMessage( 
+                    "your_personalised_tv_guide_for_template", args );
+        }
+
+        return ans;
     }
 
     /**
