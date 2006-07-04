@@ -63,6 +63,15 @@
               everything may still be alright - click
               "<guibutton>Continue</guibutton>" to see.</para>
 
+              <para>If you get a message about "Username not specified" or
+              "Config file not found" or "re-run --configure", try going to
+              the "<guimenu>Tools</guimenu>" menu and clicking
+              "<guimenuitem>Choose channels for XMLTV</guimenuitem>",
+              and following the instructions to choose your channels again.
+              If you are in North America, don't forget to enter your
+              username and and password, even though it says this is not
+              recommended.</para>
+
               <para>If you keep getting the "<guilabel>Execution
               Error</guilabel>" message and you don't see any listings when
               you click "<guibutton>Continue</guibutton>" then click
@@ -353,7 +362,7 @@ java -jar startup.jar &gt; log.txt &lt;PRESS RETURN&gt;</programlisting>
               <para>If something gets messed up and listings won't download, click the
               button labelled "Default" to get the old command back.</para>
               <para>Note that some of the listings sources do not provide listings for
-              such a long time into the future, and some of the XMTLV grabbers for
+              such a long time into the future, and some of the XMLTV grabbers for
               some countries do not listen to the --days option, so this change may
               not make any difference for some people.</para>
             </answer>
