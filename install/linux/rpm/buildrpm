@@ -9,36 +9,66 @@ RPM_TOPDIR=$HOME/.rpm
 FG_TOPDIR=../../..
 BUILDRPM_DIR=`pwd`
 
+echo \$ cd $FG_TOPDIR
 cd $FG_TOPDIR
 
+echo \$ mkdir -p $RPM_TOPDIR/RPMS/noarch
+mkdir -p $RPM_TOPDIR/RPMS/noarch
+echo \$ mkdir -p $RPM_TOPDIR/SRPMS
+mkdir -p $RPM_TOPDIR/SRPMS
+echo \$ mkdir -p $RPM_TOPDIR/SOURCES
+mkdir -p $RPM_TOPDIR/SOURCES
+echo \$ mkdir -p $RPM_TOPDIR/BUILD
+mkdir -p $RPM_TOPDIR/BUILD
+echo \$ mkdir -p $RPM_TOPDIR/tmp
+mkdir -p $RPM_TOPDIR/tmp
+
 # Clean
-#ant clean
+echo \$ rm -f $RPM_TOPDIR/RPMS/noarch/freeguide-*.rpm
 rm -f $RPM_TOPDIR/RPMS/noarch/freeguide-*.rpm
+echo \$ rm -f $RPM_TOPDIR/SRPMS/freeguide-*.rpm
 rm -f $RPM_TOPDIR/SRPMS/freeguide-*.rpm
+echo \$ rm -f $RPM_TOPDIR/SOURCES/freeguide-*.tar.gz
 rm -f $RPM_TOPDIR/SOURCES/freeguide-*.tar.gz
-rm -rf $RPM_TOPDIR/BUILD/freeguide-*
+echo \$ rm -f $RPM_TOPDIR/BUILD/freeguide-*
+rm -f $RPM_TOPDIR/BUILD/freeguide-*
+echo \$ rm -rf $RPM_TOPDIR/tmp/*
 rm -rf $RPM_TOPDIR/tmp/*
 
-# Build the source package and the spec files
-#ant source-all
-#ant dist-rpm-init
+# The following are not needed if you build using "ant dist-rpm"
+
+# Build the spec file
+#echo \$ ant prepare
+#ant prepare
+
+# Build the source package
+#echo \$ ant dist-src
+#ant dist-src
 
 # Copy in the newly-built source package
 echo cp -f dist/src/freeguide-*.tar.gz $RPM_TOPDIR/SOURCES/
 cp -f dist/src/freeguide-*.tar.gz $RPM_TOPDIR/SOURCES/
 
 # Build the RPMs, in the right order
+echo \$ cd $BUILDRPM_DIR
 cd $BUILDRPM_DIR
 SPECS="../../../build/install/linux/rpm/freeguide.spec"
 
 for SPEC in $SPECS; do {
-    echo $ rpmbuild --quiet --define="_topdir $RPM_TOPDIR" --define="_tmppath $RPM_TOPDIR/tmp" -ba $SPEC
+    echo \$ rpmbuild --quiet --define="_topdir $RPM_TOPDIR" --define="_tmppath $RPM_TOPDIR/tmp" -ba $SPEC
     rpmbuild --quiet --define="_topdir $RPM_TOPDIR" --define="_tmppath $RPM_TOPDIR/tmp" -ba $SPEC
 }; done
 
 # Copy the RPMs into my "dist" directory ready for upload
+echo \$ mkdir -p $FG_TOPDIR/dist/rpm/
 mkdir -p $FG_TOPDIR/dist/rpm/
+
+echo \$ cp $RPM_TOPDIR/RPMS/noarch/freeguide-*.rpm $FG_TOPDIR/dist/rpm/
 cp $RPM_TOPDIR/RPMS/noarch/freeguide-*.rpm $FG_TOPDIR/dist/rpm/
+
+echo \$ mkdir -p $FG_TOPDIR/dist/srpm/
 mkdir -p $FG_TOPDIR/dist/srpm/
+
+echo \$ cp $RPM_TOPDIR/SRPMS/freeguide-*.rpm $FG_TOPDIR/dist/srpm/
 cp $RPM_TOPDIR/SRPMS/freeguide-*.rpm $FG_TOPDIR/dist/srpm/
 

@@ -19,7 +19,7 @@ Provides: freeguide
 Version: __ANT_VERSION_DOTTED__
 Release: 1
 # REMINDER: bump this with each RPM
-Copyright: GPL
+License: GPL
 Group: Accessories/
 Source0: __ANT_NAME_VERSION__.tar.gz
 URL: http://freeguide-tv.sourceforge.net/
