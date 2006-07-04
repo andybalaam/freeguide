@@ -4,7 +4,6 @@ import freeguide.common.gui.FGDialog;
 
 import freeguide.common.lib.fgspecific.Application;
 
-
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 import freeguide.plugins.program.freeguide.viewer.MainController;

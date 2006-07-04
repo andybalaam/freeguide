@@ -15,6 +15,7 @@ package freeguide.plugins.reminder.alarm;
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
 import java.awt.Component;
+
 import javax.swing.JDialog;
 
 /*
@@ -32,11 +33,6 @@ import javax.swing.JDialog;
  */
 public class AlarmUIController implements IModuleConfigurationUI
 {
-    // ----------------------------------
-//    private JComboBox remindComboBox;
-//    private JTextField warningTextField;
-//    private JTextField giveupTextField;
-	
     protected final AlarmUIPanel panel;
     protected final AlarmReminder parent;
 

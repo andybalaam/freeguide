@@ -19,7 +19,7 @@ import javax.swing.JTextPane;
  */
 public class KulichkiConfigurationUIPanel extends JPanel
 {
-     private JTextPane textDescription = null;
+    private JTextPane textDescription = null;
     private JButton btnRefresh = null;
     private JScrollPane jScrollPane = null;
     private TVChannelsTree treeChannels = null;
@@ -33,7 +33,6 @@ public class KulichkiConfigurationUIPanel extends JPanel
     {
         super(  );
 
- 
         initialize(  );
 
     }

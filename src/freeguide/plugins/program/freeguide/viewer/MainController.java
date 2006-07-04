@@ -424,7 +424,9 @@ public class MainController extends BaseModule implements IApplication
             currentLAFClassName = null;
         }
 
-        if( inspectedLFClassName != null && !inspectedLFClassName.equals( currentLAFClassName ) )
+        if( 
+            ( inspectedLFClassName != null )
+                && !inspectedLFClassName.equals( currentLAFClassName ) )
         {
             try
             {

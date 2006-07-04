@@ -92,8 +92,11 @@ public class BrowserOptionPanel extends OptionPanel
         gbe.default_ipady = 5;
         gbe.addFWX( browserLabel, 0, 0, GridBagEasy.FILL_HOR, 0.2 );
         gbe.addFWX( browserComboBox, 1, 0, GridBagEasy.FILL_HOR, 0.8 );
-        gbe.addAFWX( commandLabel, 0, 1, GridBagEasy.ANCH_NORTH, GridBagEasy.FILL_HOR, 0.2 );
-        gbe.addFWXWY( commandScrollPane, 1, 1, GridBagEasy.FILL_BOTH, 0.8, 0.5 );
+        gbe.addAFWX( 
+            commandLabel, 0, 1, GridBagEasy.ANCH_NORTH, GridBagEasy.FILL_HOR,
+            0.2 );
+        gbe.addFWXWY( 
+            commandScrollPane, 1, 1, GridBagEasy.FILL_BOTH, 0.8, 0.5 );
         // Load in the values from config
         load(  );
         browserComboBoxItemListener = ( new java.awt.event.ItemListener(  )

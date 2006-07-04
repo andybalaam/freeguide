@@ -1,4 +1,4 @@
- package freeguide.startup;
+package freeguide.startup;
 
 import java.io.File;
 import java.io.FileFilter;

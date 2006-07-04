@@ -1,6 +1,5 @@
 package freeguide.build.patchallfiles;
 
-
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.updater.RepositoryUtils;
 import freeguide.plugins.program.freeguide.lib.updater.data.PluginsRepository;
@@ -12,7 +11,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-
 
 /**
  * DOCUMENT ME!

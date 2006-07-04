@@ -52,7 +52,6 @@ public class ProgrammeFormat
     public static SimpleDateFormat LINK_DATE_FORMAT =
         new SimpleDateFormat( "yyyyMMddHHmmss" );
 
-
     /*private static StringBuffer wrap( CharSequence input, int preferredMargin )
     {
         int newlineLength = newline.length(  );

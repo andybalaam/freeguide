@@ -81,7 +81,8 @@ public class LayoutOptionPanel extends OptionPanel
         gbe.default_ipadx = 5;
         gbe.default_ipady = 5;
         gbe.addFWX( lookAndFeelLabel, 0, 0, GridBagEasy.FILL_HOR, 0.2 );
-        gbe.addFWXWYGW( lookAndFeelCombo, 1, 0, GridBagEasy.FILL_HOR, 0.1, 0, 2 );
+        gbe.addFWXWYGW( 
+            lookAndFeelCombo, 1, 0, GridBagEasy.FILL_HOR, 0.1, 0, 2 );
         // Load in the values from config
         load(  );
     }

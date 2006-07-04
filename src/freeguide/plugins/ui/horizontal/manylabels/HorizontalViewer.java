@@ -868,7 +868,6 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         comboBoxDateFormat.setTimeZone( 
             Application.getInstance(  ).getTimeZone(  ) );
 
-        
         ListIterator it = dateExistList.listIterator(  );
 
         while( it.hasNext(  ) )
