@@ -1,27 +1,38 @@
-<?xml version="1.0"?>
-
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Creates a .tar.gz file that can be extracted to somewhere
+    and run from that place. It does not try to resemble
+    the standard linux directory structure as dist-install-tgz does
+-->
 <project name="freeguide-tv-dist"  default="dist-tgz">
 
-	<import file="plugins-info.xml"/>
-	<import file="install-linux.xml"/>
+    <import file="plugins-info.xml"/>
+    <import file="install-linux.xml"/>
 
-	<target name="dist-tgz">
-	
-		<delete dir="${build}/tgz"/>
+    <target name="dist-tgz">
+        <property name="builddir" value="${build}/tgz/${application-id}-${application-version}-bin"/>
+        <delete dir="${build}/tgz"/>
         <antcall target="install-linux">
-            <param name="install_share_dir" value="${build}/tgz/usr/share"/>
-            <param name="install_bin_dir" value="${build}/tgz/bin"/>
-            <param name="install_doc_dir" value="${build}/tgz/usr/share/freeguide/doc"/>
-            <param name="install_real_dir" value="usr/share/freeguide"/>
-            <param name="install_real_doc_dir" value="usr/share/freeguide/doc"/>
+            <param name="install_share_dir" value="${builddir}/share"/>
+            <param name="install_bin_dir" value="${builddir}"/>
+            <param name="install_doc_dir" value="${builddir}/doc"/>
+            <param name="install_real_dir" value="."/>
+            <param name="install_real_doc_dir" value="./doc"/>
         </antcall>
-		
-		<mkdir dir="${dist-tgz}"/>
-		<tar longfile="gnu"
-			 destfile="${dist-tgz}/${application-id}-${application-version}-bin.tar.gz" compression="gzip" >
+
+        <!-- There is no way to get install-linux not to create a freeguide
+         directory in share, so we need to move the files out there -->
+        <move todir="${builddir}">
+            <fileset dir="${builddir}/share/freeguide/"/>
+        </move>
+        <delete dir="${builddir}/share"/>
+
+        <mkdir dir="${dist-tgz}"/>
+        <tar longfile="gnu"
+            destfile="${dist-tgz}/${application-id}-${application-version}-bin.tar.gz" compression="gzip" >
             <tarfileset dir="${build}/tgz" />
         </tar>
-	</target>
+    </target>
     
 </project>
 

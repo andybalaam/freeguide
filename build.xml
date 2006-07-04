@@ -34,18 +34,19 @@
 <project name="freeguide-tv" default="all" basedir=".">
 
     <!-- set global properties for this build -->
-    <property name="src"        location="src"                />
-    <property name="resources"  location="${src}/resources"   />
-    <property name="doc"        location="doc"                />
-    <property name="lib"        location="lib"                />
-    <property name="xmltv"      location="xmltv"              />
-    <property name="share"      location="xmltv/share"        />
-    <property name="build"      location="build"              />
-    <property name="run"        location="run"                />
-    <property name="dist"       location="dist"               />
-    <property name="dist-tgz"   location="${dist}/tgz"        />
-    <property name="dist-src"   location="${dist}/src"        />
-    <property name="dist-rpm"   location="${dist}/rpm"        />
+    <property name="src"                location="src"                />
+    <property name="resources"          location="${src}/resources"   />
+    <property name="doc"                location="doc"                />
+    <property name="lib"                location="lib"                />
+    <property name="xmltv"              location="xmltv"              />
+    <property name="share"              location="xmltv/share"        />
+    <property name="build"              location="build"              />
+    <property name="run"                location="run"                />
+    <property name="dist"               location="dist"               />
+    <property name="dist-install-tgz"   location="${dist}/install-tgz"/>
+    <property name="dist-tgz"           location="${dist}/tgz"        />
+    <property name="dist-src"           location="${dist}/src"        />
+    <property name="dist-rpm"           location="${dist}/rpm"        />
     
     <description>
         Ant build file for FreeGuide.
@@ -98,6 +99,9 @@
     </target>
 	<target name="dist-tgz">
         <ant antfile="ant/dist-tgz.xml" />
+    </target>
+    <target name="dist-install-tgz">
+        <ant antfile="ant/dist-install-tgz.xml" />
     </target>
 
     <target name="run">
