@@ -246,7 +246,7 @@ public class LanguageHelper implements ILocalizer
      *
      * @return string
      */
-    public String getString( final String key )
+    private String getString( final String key )
     {
         if( translation != null )
         {

@@ -573,59 +573,6 @@ public class ViewerFrame extends JPanel
     }
 
     /**
-     * In future this will launch the config step of the grabber.
-     * Currently unimplemented.
-     *
-     * @param evt The event object
-     */
-
-    /*
-
-
-    * public void mbtConfigureActionPerformed( java.awt.event.ActionEvent evt ) {
-
-
-    *
-
-
-    * String preconfig_message = null;
-
-
-    *
-
-
-    * //FreeGuide.prefs.misc.get( "preconfig_message" ); if( preconfig_message !=
-
-
-    * null ) { JOptionPane.showMessageDialog( this, preconfig_message );
-
-
-    *  }
-
-
-    *
-
-
-    * Calendar cal = GregorianCalendar.getInstance( ); cal.setTimeInMillis(
-
-
-    * theDate );
-
-
-    *
-
-
-    * //new GrabberController( ).grabXMLTV( // parent,
-
-
-    * FreeGuide.prefs.getCommands( "tv_config" ), //FreeGuide.msg.getString(
-
-
-    * "configuring" ), cal ); }
-
-
-    */
-    /**
      * Event handler for the channel -> change icon menu entry
      *
      * @param evt

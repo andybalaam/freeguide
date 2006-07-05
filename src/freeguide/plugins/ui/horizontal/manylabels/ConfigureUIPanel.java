@@ -246,7 +246,8 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints7.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints7.insets = new java.awt.Insets( 5, 5, 0, 0 );
 
-        labelFont.setText( localizer.getLocalizedMessage( "font" ) + ":" );
+        labelFont.setText( 
+            localizer.getLocalizedMessage( "ui_horiz_font" ) + ":" );
 
         labelFont.setLabelFor( btnFont );
 

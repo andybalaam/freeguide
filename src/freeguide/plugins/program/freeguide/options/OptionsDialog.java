@@ -225,10 +225,6 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         //optionsPane.add(panel, panel.toString());
         trunk.add( advancedBranch );
 
-        /*TreePath pathViewers =
-        addBranchWithModules(
-        trunk, FreeGuide.msg.getString( "OptionsDialog.Tree.Viewers" ),
-        PluginsManager.getViewers(  ) );*/
         panel = new GrabbersOptionPanel( this );
         panel.construct(  );
         optionsPane.add( panel, panel.toString(  ) );

@@ -24,7 +24,6 @@ import javax.swing.JMenuItem;
 abstract public class BaseModuleReminder extends BaseModule
     implements IModuleReminder
 {
-    final protected static String MENU_ITEM_LABEL = "menu.label";
     protected Scheduler thread;
 
     /**
@@ -61,7 +60,7 @@ abstract public class BaseModuleReminder extends BaseModule
     public void addItemsToMenu( final JMenu menu )
     {
         JMenuItem item = new JMenuItem(  );
-        item.setText( i18n.getString( MENU_ITEM_LABEL ) );
+        item.setText( i18n.getLocalizedMessage( "menu.label" ) );
         menu.insert( item, 0 );
         item.addActionListener( 
             new ActionListener(  )

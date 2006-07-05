@@ -298,7 +298,7 @@ public class AlarmReminder extends BaseModuleReminder
 
                 scheduledDialog = optionPane.createDialog( 
                         Application.getInstance(  ).getApplicationFrame(  ),
-                        i18n.getString( "alarm.title" ) );
+                        i18n.getLocalizedMessage( "alarm.title" ) );
 
                 scheduledDialog.setModal( false );
 
