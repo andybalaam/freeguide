@@ -2,15 +2,15 @@
 
 <project name="freeguide-tv-build" default="jars">
 
-	<import file="plugins-info.xml"/>
-	<import file="prepare.xml"/>
+    <import file="plugins-info.xml"/>
+    <import file="prepare.xml"/>
     <import file="../build.xml"/>
-	
+
     <target name="jars" depends="prepare, compile, jar-common, jar-plugins, jar-startup"/>
 
     <target name="compile"
-    	description="Compile all the .java files into the build dir.">
-	
+        description="Compile all the .java files into the build dir.">
+
         <mkdir dir="${build}/classes"/>
         <javac srcdir="${src}"
             destdir="${build}/classes"
@@ -24,12 +24,12 @@
             </classpath>
             <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
           </javac>
-	  
+
     </target>
     
     <target name="compile-in-place"
     	description="Compile all the .java files inside the src dir.">
-	
+
         <javac srcdir="${src}"
             deprecation="on" 
             source="1.4" 
@@ -41,17 +41,17 @@
             </classpath>
             <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
           </javac>
-	  
+
     </target>
     
     <target name="jar-common">
         <!-- Create the common.jar file -->
-    	<mkdir dir="${build}/package/lib"/>
+        <mkdir dir="${build}/package/lib"/>
         
         <jar jarfile="${build}/package/lib/common.jar"
              basedir="${build}/classes"
              includes="freeguide/common/**">
-	     <fileset dir="${src}" includes="resources/main/*"/>
+         <fileset dir="${src}" includes="resources/main/*"/>
              <fileset dir="${src}" includes="resources/i18n/*"/>
         </jar>
         
@@ -69,7 +69,7 @@
     
     <target name="subtask-jar-one-plugin">
         
-    	<mkdir dir="${build}/package/lib"/>
+        <mkdir dir="${build}/package/lib"/>
         
         <!-- TODO: remove the following line and make it still work! -->
         <mkdir dir="${src}/freeguide/plugins/${plugin-dir}"/>
@@ -93,7 +93,7 @@
     </target>
     
     <target name="compile-doc">
-    	
+
         <!-- "really-compile-doc-java" does not work with our docs for some reason.
              For now, we compile the docs on Linux and commit them to SVN.
              So all we have to do here is copy them in to the build dir. -->
@@ -107,8 +107,8 @@
      <target name="really-compile-doc-java" depends="prebuild-buildclasses"
             description="DOES NOT WORK: use our own custom Java code to build the docs" >
         <java classpath="${build}/buildclasses"
-    	    	classname="freeguide.build.docxslt.DocXSLT"
-    	    	fork="true"/>
+                classname="freeguide.build.docxslt.DocXSLT"
+                fork="true"/>
         <!-- TODO: copy the .html files etc. from doc/* -->
      </target>
      

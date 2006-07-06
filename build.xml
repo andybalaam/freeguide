@@ -53,7 +53,7 @@
     </description>
     
     <target name="all" depends="prepare, jars, compile-doc" />
-	<target name="dist-all" depends="dist-src,dist-rpm,dist-tgz" />
+    <target name="dist-all" depends="dist-src,dist-rpm,dist-tgz" />
     
     <target name="prepare">
         <ant antfile="ant/prepare.xml" />
@@ -70,7 +70,7 @@
     <target name="compile-doc">
         <ant antfile="ant/compile.xml" target="compile-doc" />
     </target>
-	
+
     <target name="jars">
         <ant antfile="ant/compile.xml" />
     </target>
@@ -78,9 +78,9 @@
     <target name="clean">
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
-	<delete dir="${run}"/>
+    <delete dir="${run}"/>
     </target>
-	
+
     <target name="install-linux">
         <ant antfile="ant/install-linux.xml" />
     </target>
@@ -97,7 +97,7 @@
     <target name="dist-rpm">
         <ant antfile="ant/dist-rpm.xml" />
     </target>
-	<target name="dist-tgz">
+    <target name="dist-tgz">
         <ant antfile="ant/dist-tgz.xml" />
     </target>
     <target name="dist-install-tgz">
@@ -109,4 +109,3 @@
     </target>
 
 </project>
-
