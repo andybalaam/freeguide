@@ -26,11 +26,21 @@ LoadLanguageFile "${NSISDIR}\Contrib\Language Files\Belarusian.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language Files\French.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language Files\German.nlf"
 
+Var JAVA_PATH
+
 Function .onInit
-	ExecWait 'javaw.exe' $0
-	IfErrors 0 +3
-	MessageBox MB_OK "You don't have Java installed, but FreeGuide needs Java to work. Please go to http://java.com/getjava and download Java." 
-	Abort
+	; check java in path
+	StrCpy $JAVA_PATH 'javaw.exe'
+	ExecWait $JAVA_PATH $0
+	IfErrors 0 GoLabel
+	
+	Call DetectJRE
+	StrCmp $JAVA_PATH "" 0 GoLabel
+  	
+	MessageBox MB_YESNO "You don't have Java installed, but FreeGuide needs Java to work. Please go to http://java.com/getjava and download Java. Install it anyway ?" IDYES GoLabel IDNO AbortLabel
+	AbortLabel:
+		Abort
+	GoLabel:
 
 	;Language selection dialog
 	Push ""
@@ -50,6 +60,30 @@ Function .onInit
 	StrCmp $LANGUAGE "cancel" 0 +2
 		Abort
 FunctionEnd
+
+Function DetectJRE
+  ReadRegStr $2 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment" "CurrentVersion"
+  StrCmp $2 "" DetectTry2
+  ReadRegStr $3 HKLM "SOFTWARE\JavaSoft\Java Runtime Environment\$2" "JavaHome"
+  StrCmp $3 "" DetectTry2
+  Goto GetJRE
+ 
+DetectTry2:
+  ReadRegStr $2 HKLM "SOFTWARE\JavaSoft\Java Development Kit" "CurrentVersion"
+  StrCmp $2 "" NoFound
+  ReadRegStr $3 HKLM "SOFTWARE\JavaSoft\Java Development Kit\$2" "JavaHome"
+  StrCmp $3 "" NoFound
+ 
+GetJRE:
+  IfFileExists "$3\bin\javaw.exe" 0 NoFound
+  StrCpy $JAVA_PATH "$3\bin\javaw.exe"
+  Return
+ 
+NoFound:
+  StrCpy $JAVA_PATH ""
+  Return
+FunctionEnd
+
 ;--------------------------------
 ; Pages
 
@@ -97,7 +131,7 @@ Section "Desktop icon"
 
     SetOutPath $INSTDIR
 
-    CreateShortCut "$DESKTOP\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\startup.jar" --doc_directory="$INSTDIR\doc" --install_directory="$INSTDIR"' $INSTDIR\icons\logo.ico
+    CreateShortCut "$DESKTOP\FreeGuide TV Guide.lnk" $JAVA_PATH '-jar "$INSTDIR\startup.jar" --doc_directory="$INSTDIR\doc" --install_directory="$INSTDIR"' $INSTDIR\icons\logo.ico
 
 SectionEnd
 
@@ -109,7 +143,7 @@ Section "Start menu folder"
   
     SetOutPath $INSTDIR
 
-    CreateShortCut "$SMPROGRAMS\FreeGuide\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\startup.jar" --doc_directory="$INSTDIR\doc" --install_directory="$INSTDIR"' $INSTDIR\icons\logo.ico
+    CreateShortCut "$SMPROGRAMS\FreeGuide\FreeGuide TV Guide.lnk" $JAVA_PATH '-jar "$INSTDIR\startup.jar" --doc_directory="$INSTDIR\doc" --install_directory="$INSTDIR"' $INSTDIR\icons\logo.ico
 
 SectionEnd
 
@@ -119,7 +153,7 @@ Section "Quicklaunch icon"
 
     SetOutPath $INSTDIR
 
-    CreateShortCut "$QUICKLAUNCH\FreeGuide TV Guide.lnk" javaw.exe '-jar "$INSTDIR\startup.jar" --doc_directory="$INSTDIR\doc" --install_directory="$INSTDIR"' $INSTDIR\icons\logo.ico
+    CreateShortCut "$QUICKLAUNCH\FreeGuide TV Guide.lnk" $JAVA_PATH '-jar "$INSTDIR\startup.jar" --doc_directory="$INSTDIR\doc" --install_directory="$INSTDIR"' $INSTDIR\icons\logo.ico
 
 SectionEnd
 
