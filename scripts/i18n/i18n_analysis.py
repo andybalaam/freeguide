@@ -2,7 +2,12 @@
 
 # Run this script from within its own directory
 
-import re, os
+import re, os, sys
+
+if len( sys.argv ) > 1:
+	restrict_to_langs = sys.argv[1:]
+else:
+	restrict_to_langs = None
 
 MISSING_STR = "__MISSING__"
 
@@ -200,60 +205,63 @@ for ( lang,
 	  unused_strings, 
 	  translated_twice_strings ) in languages:
 	
-	title = "Report for language %s:" % lang
-	print
-	print title
-	print "-" * len( title )
-	
-	if lang != main_language:
-		if len( not_translated_filenames ) > 0:
-			print "  The following i18n files were not copied from %s:" \
-				% main_language
-			for fn in not_translated_filenames:
-				print "    %s" % fn
-			print
-		else:
-			print "  All required files were copied from %s." % main_language
-	
-	if lang not in ignore_missing_strings_languages:
-		if len( not_translated_strings ) > 0:
-			print "  The following strings were not present:"
-			for ( s, fn ) in not_translated_strings:
-				print "    %40s : %s" % ( fn, s )
-			print
-		else:
-			print "  All strings were present."
-	
-	if lang != main_language:
-		if len( just_en_translation_strings ) > 0:
-			print "  The following strings were identical to the %s version:" \
-				% main_language
-			for ( s, fn ) in just_en_translation_strings:
-				print "    %40s : %s" % ( fn, s )
-			print
-		else:
-			print "  No strings were identical to the %s version." \
-				% main_language
-	
-	if len( unused_strings ) > 0:
-		print "  The following strings were unused:"
-		for key in unused_strings.keys():
-			print "    %40s : %s" % ( key, unused_strings[key] )
-		print
-	else:
-		print "  No strings were unused."
+	if not restrict_to_langs or lang in restrict_to_langs:
 		
-	if len( translated_twice_strings ) > 0:
-		print "  The following strings were translated twice:"
-		for key in translated_twice_strings.keys():
-			print "    %40s : " % key,
-			s = ""
-			for fn in translated_twice_strings[key]:
-				s += fn + ", "
-			print s[:-2]
+		title = "Report for language %s:" % lang
 		print
-	else:
-		print "  No strings were translated twice."
-	
-	print
+		print title
+		print "-" * len( title )
+		
+		if lang != main_language and \
+				lang not in ignore_missing_strings_languages:
+			if len( not_translated_filenames ) > 0:
+				print "  The following i18n files were not copied from %s:" \
+					% main_language
+				for fn in not_translated_filenames:
+					print "    %s" % fn
+				print
+			else:
+				print "  All required files were copied from %s." % main_language
+		
+		if lang not in ignore_missing_strings_languages:
+			if len( not_translated_strings ) > 0:
+				print "  The following strings were not present:"
+				for ( s, fn ) in not_translated_strings:
+					print "    %40s : %s" % ( fn, s )
+				print
+			else:
+				print "  All strings were present."
+		
+		if lang != main_language:
+			if len( just_en_translation_strings ) > 0:
+				print "  The following strings were identical to the %s version:" \
+					% main_language
+				for ( s, fn ) in just_en_translation_strings:
+					print "    %40s : %s" % ( fn, s )
+				print
+			else:
+				print "  No strings were identical to the %s version." \
+					% main_language
+		
+		if len( unused_strings ) > 0:
+			print "  The following strings were unused:"
+			for key in unused_strings.keys():
+				print "    %40s : %s" % ( key, unused_strings[key] )
+			print
+		else:
+			print "  No strings were unused."
+			
+		if len( translated_twice_strings ) > 0:
+			print "  The following strings were translated twice:"
+			for key in translated_twice_strings.keys():
+				print "    %40s : " % key,
+				s = ""
+				for fn in translated_twice_strings[key]:
+					s += fn + ", "
+				print s[:-2]
+			print
+		else:
+			print "  No strings were translated twice."
+		
+		print
 
