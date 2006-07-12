@@ -363,7 +363,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             {
                 JOptionPane.showMessageDialog( 
                     Application.getInstance(  ).getApplicationFrame(  ),
-                    getLocalizer(  ).getLocalizedMessage(
+                    getLocalizer(  ).getLocalizedMessage( 
                         "ErrorBox.Text.Linux" ),
                     getLocalizer(  ).getLocalizedMessage( "ErrorBox.Title" ),
                     JOptionPane.ERROR_MESSAGE );
@@ -372,12 +372,12 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             {
                 JOptionPane.showMessageDialog( 
                     Application.getInstance(  ).getApplicationFrame(  ),
-                    getLocalizer(  ).getLocalizedMessage(
-                        "ErrorBox.Text.Windows" ),
+                    getLocalizer(  )
+                        .getLocalizedMessage( "ErrorBox.Text.Windows" ),
                     getLocalizer(  ).getLocalizedMessage( "ErrorBox.Title" ),
                     JOptionPane.ERROR_MESSAGE );
             }
-            
+
             return null;
         }
 
