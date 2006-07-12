@@ -359,15 +359,25 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     {
         if( !checkXmltvExists( args ) )
         {
-            final String messageID =
-                FreeGuide.runtimeInfo.isUnix ? "ErrorBox.Text.Linux"
-                                             : "ErrorBox.Text.Windows";
-            JOptionPane.showMessageDialog( 
-                Application.getInstance(  ).getApplicationFrame(  ),
-                getLocalizer(  ).getLocalizedMessage( messageID ),
-                getLocalizer(  ).getLocalizedMessage( "ErrorBox.Title" ),
-                JOptionPane.ERROR_MESSAGE );
-
+            if( FreeGuide.runtimeInfo.isUnix )
+            {
+                JOptionPane.showMessageDialog( 
+                    Application.getInstance(  ).getApplicationFrame(  ),
+                    getLocalizer(  ).getLocalizedMessage(
+                        "ErrorBox.Text.Linux" ),
+                    getLocalizer(  ).getLocalizedMessage( "ErrorBox.Title" ),
+                    JOptionPane.ERROR_MESSAGE );
+            }
+            else
+            {
+                JOptionPane.showMessageDialog( 
+                    Application.getInstance(  ).getApplicationFrame(  ),
+                    getLocalizer(  ).getLocalizedMessage(
+                        "ErrorBox.Text.Windows" ),
+                    getLocalizer(  ).getLocalizedMessage( "ErrorBox.Title" ),
+                    JOptionPane.ERROR_MESSAGE );
+            }
+            
             return null;
         }
 
