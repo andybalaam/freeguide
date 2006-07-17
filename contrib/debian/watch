@@ -1,3 +1,2 @@
-# Homepage Pattern Version Action
-version=2
-http://osdn.dl.sourceforge.net/sourceforge/freeguide-tv/FreeGuide-(.*)\.tar\.gz debian uupdate
+version=3
+http://heanet.dl.sourceforge.net/sourceforge/freeguide-tv/ freeguide-(.*)-src\.tar\.gz debian uupdate

@@ -2,13 +2,13 @@ Source: freeguide
 Section: contrib/misc
 Priority: optional
 Maintainer: Shaun Jackman <sjackman@debian.org>
-Build-Depends: debhelper (>> 4.0.0)
-Build-Depends-Indep: j2sdk1.5 | java2-compiler, ant
-Standards-Version: 3.6.1.0
+Build-Depends: debhelper
+Build-Depends-Indep: java-gcj-compat-dev | java2-compiler, ant
+Standards-Version: 3.6.2.2
 
 Package: freeguide
 Architecture: all
-Depends: xmltv, j2sdk1.5 | java2-runtime, j2sdk1.5 | java-virtual-machine
+Depends: xmltv-gui, j2sdk1.5 | java2-runtime, j2sdk1.5 | java-virtual-machine
 Recommends: xmltv-util
 Description: Displays TV listings
  FreeGuide displays TV listings. It uses XMLTV to extract the TV

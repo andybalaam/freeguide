@@ -2,22 +2,27 @@
 
 build: build-stamp
 build-stamp:
-	ant FreeGuide-Linux-NoXMLTV
-	touch build-stamp
+	ant build-all
+	touch $@
+
+install: build
+	dh_clean -k
+	ant -DDESTDIR=debian/tmp install-linux-destdir
+	rm debian/tmp/usr/share/doc/freeguide/COPYING
+	cp debian/freeguide.xpm debian/tmp/usr/share/pixmaps/
 
 clean:
-	rm -f build-stamp FreeGuide.jar freeguide.png
-	ant clean
+	rm -f build-stamp
 	dh_clean
+	ant clean
 
-binary-indep: build
-	dh_clean -k
-	cp src/images/logo-256x256.png freeguide.png
-	cp dist/FreeGuide-*.jar FreeGuide.jar
-	dh_install -i
+binary-indep binary: install
+	dh_install -i --sourcedir=debian/tmp
+	dh_installchangelogs -i
 	dh_installdocs -i
 	dh_installman -i
-	dh_installchangelogs -i
+	dh_installmenu -i
+	dh_installdeb -i
 	dh_compress -i
 	dh_fixperms -i
 	dh_gencontrol -i
@@ -25,7 +30,5 @@ binary-indep: build
 	dh_builddeb -i
 
 binary-arch:
-
-binary: binary-indep binary-arch
 
 .PHONY: build clean install binary-indep binary-arch binary

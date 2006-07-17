@@ -1,3 +1,43 @@
+freeguide (0.10.3-1) unstable; urgency=low
+
+  * New upstream release.
+  * Use ant to install the package to debian/tmp.
+  * Help/About links work. Closes: #288526.
+  * Load font preferences at startup. Closes: #288517.
+  * Check for valid widget size. Closes: #288528.
+
+ -- Shaun Jackman <sjackman@debian.org>  Thu, 13 Apr 2006 09:40:22 -0600
+
+freeguide (0.10.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Change Debian policy to version 3.6.2.2. No changes necessary.
+  * Build using java-gcj-compat-dev instead of j2sdk1.5.
+
+ -- Shaun Jackman <sjackman@debian.org>  Sun, 26 Mar 2006 15:41:03 -0700
+
+freeguide (0.8.6-1) unstable; urgency=low
+
+  * New upstream release.
+  * Create ~/.xmltv. Closes: #285715.
+
+ -- Shaun Jackman <sjackman@debian.org>  Sun,  9 Oct 2005 12:07:10 -0600
+
+freeguide (0.8.5-1) unstable; urgency=low
+
+  * New upstream release.
+  * Change __ANT_DOC_DIRECTORY__ to /usr/share/doc/freeguide.
+  * Add sensible-browser to the list of web browsers (closes: #288518).
+  * Add menu entry and xpm icon (closes: #288813). 
+
+ -- Shaun Jackman <sjackman@debian.org>  Wed, 16 Mar 2005 14:26:41 -0800
+
+freeguide (0.8.4-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Shaun Jackman <sjackman@debian.org>  Tue, 15 Mar 2005 11:27:24 -0800
+
 freeguide (0.8.1-1) unstable; urgency=low
 
   * New upstream release.
