@@ -48,7 +48,8 @@ The freeguide package depends on all the plugins available for freeguide, so if 
 ant jars
 
 %install
-ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dinstall_doc_dir=$RPM_BUILD_ROOT/%{_datadir}/doc/freeguide install-linux
+ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dinstall_doc_dir=$RPM_BUILD_ROOT/%{_datadir}/doc/freeguide install-linux -Dinstall_real_dir=%{_datadir}/freeguide -Dinstall_real_doc_dir=%{_datadir}/doc/freeguide
+
 
 %files
 %{_bindir}/freeguide
