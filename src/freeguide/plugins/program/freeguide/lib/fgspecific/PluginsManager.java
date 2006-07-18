@@ -340,7 +340,7 @@ public class PluginsManager
     {
         List files = new ArrayList(  );
 
-        findPluginDirs( new File( "src/freeguide/plugins" ), files );
+        findPluginDirs( new File( "freeguide/plugins" ), files );
 
         ret.addAll( files );
     }
