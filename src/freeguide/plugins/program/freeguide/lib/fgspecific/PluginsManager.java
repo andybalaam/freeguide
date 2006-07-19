@@ -280,6 +280,11 @@ public class PluginsManager
      */
     protected static void findPluginDirs( File dir, List files )
     {
+        if( !dir.exists(  ) )
+        {
+            return;
+        }
+
         // finding plugin.xml in the current directory
         File[] plugin_files =
             dir.listFiles( 
@@ -341,6 +346,7 @@ public class PluginsManager
         List files = new ArrayList(  );
 
         findPluginDirs( new File( "freeguide/plugins" ), files );
+        findPluginDirs( new File( "src/freeguide/plugins" ), files );
 
         ret.addAll( files );
     }
