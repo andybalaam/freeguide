@@ -353,9 +353,7 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
                 TIMEZONES.load( 
                     HallmarkParserSchedule.class.getClassLoader(  )
                                                 .getResourceAsStream( 
-                        HallmarkParserSchedule.class.getPackage(  ).getName(  )
-                                                    .replace( '.', '/' )
-                        + "/timezones.properties" ) );
+                        "resources/plugins/grabber/hallmark/timezones.properties" ) );
             }
             catch( IOException ex )
             {
