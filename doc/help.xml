@@ -11,6 +11,10 @@
       question is not answered here, have a look at the <link
       linkend="contact">Getting in contact</link> section.</para>
 
+	  <!--The radio stations have disappeared since we changed the default listings provider over to the Radio Times instead of bleb.org.  We did this because bleb started limiting all downloads to 10 channels or less.
+
+If you'd like to go back to add bleb as well as Radio Times, go to the Tools menu, choose Options, open the Advanced node, then Grabbers, and click XMLTV.  Now click "Add a new XMLTV grabber" in the top right, and from the blank drop-down choose "uk_bleb".  Now click "Configure" above and choose your radio stations (the TV stations will still be downloaded via Radio Times, so you don't need to choose them).  Click OK to save your changes.-->
+	  
       <qandaset>
         <qandadiv>
           <qandaentry id="help.faq.whatis">
