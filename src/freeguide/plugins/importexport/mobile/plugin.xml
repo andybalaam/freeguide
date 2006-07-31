@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="importexport-mobile"
+        version="1"
+        class="freeguide.plugins.importexport.mobile.ExpMobile">
+
+  <name lang="en">Mobile</name>
+  <description lang="en">Export to mobile format</description>
+
+  <files>
+    <file path="lib/importexport-mobile.jar"/>
+    <file path="lib/"/>
+  </files>
+</plugin>
