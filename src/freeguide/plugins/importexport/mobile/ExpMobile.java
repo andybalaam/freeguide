@@ -7,6 +7,7 @@ import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorChannels;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.general.Time;
 
 import freeguide.common.plugininterfaces.BaseModule;
 import freeguide.common.plugininterfaces.IModuleExport;
@@ -21,12 +22,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPOutputStream;
@@ -41,6 +43,8 @@ import javax.swing.JFrame;
  */
 public class ExpMobile extends BaseModule implements IModuleExport
 {
+    protected static Time DAY_BEGIN = new Time( 5 );
+
     /** Pattern for data files. */
     protected static Pattern DATA_FILE_RE =
         Pattern.compile( "\\d{4}-\\d{2}-\\d{2}" );
@@ -276,6 +280,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
     {
         protected static final long MSEC_PER_DAY = 24L * 60L * 60L * 1000L;
         protected final SimpleDateFormat dateFormat;
+        protected final Calendar calendar = GregorianCalendar.getInstance(  );
 
         /**
          * Map for store TVData by day. Key is day, value is
@@ -283,13 +288,12 @@ public class ExpMobile extends BaseModule implements IModuleExport
          */
         protected Map filesData = new TreeMap(  );
 
-        /**
+/**
          * Creates a new DivideIterator object.
          */
         public DivideIterator(  )
         {
             dateFormat = new SimpleDateFormat( "yyyy-MM-dd" );
-            dateFormat.setTimeZone( TimeZone.getTimeZone( "GMT" ) );
         }
 
         protected void onChannel( TVChannel channel )
@@ -314,6 +318,15 @@ public class ExpMobile extends BaseModule implements IModuleExport
 
         protected String getFileName( long date )
         {
+            calendar.setTime( new Date( date ) );
+
+            Time pTime = new Time( calendar );
+
+            if( pTime.compareTo( DAY_BEGIN ) < 0 )
+            {
+                date -= MSEC_PER_DAY;
+            }
+
             return dateFormat.format( new Date( date ) );
         }
     }
