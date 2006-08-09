@@ -178,12 +178,26 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             JLabelProgramme label =
                 panel.getProgrammesPanel(  ).getLabelForProgramme( programme );
 
-            panel.getProgrammesPanel(  ).requestFocus(  );
+            if( label != null )
+            {
+                panel.getProgrammesPanel(  ).requestFocus(  );
 
-            panel.scrollTo( programme );
+                panel.scrollTo( programme );
 
-            label.getActionMap(  ).get( "click" )
-                 .actionPerformed( new ActionEvent( label, 0, "click" ) );
+                label.getActionMap(  ).get( "click" )
+                     .actionPerformed( new ActionEvent( label, 0, "click" ) );
+            }
+            else
+            {
+                JOptionPane.showMessageDialog( 
+                    Application.getInstance(  ).getCurrentFrame(  ),
+                    Application.getInstance(  )
+                               .getLocalizedMessage( 
+                        "this_channel_is_not_visible" ),
+                    Application.getInstance(  )
+                               .getLocalizedMessage( "channel_not_visible" ),
+                    JOptionPane.PLAIN_MESSAGE );
+            }
         }
     }
 

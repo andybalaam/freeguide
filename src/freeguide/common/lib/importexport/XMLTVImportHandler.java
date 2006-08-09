@@ -113,12 +113,12 @@ class XMLTVImportHandler extends DefaultHandler
             currentSite = attributes.getValue( "generator-info-name" );
 
             // Files prepared by XMLTVGui don't have generator-info-name
-        	// which screws everything up, so we use generator-url instead.
-            if(currentSite == null)
+            // which screws everything up, so we use generator-url instead.
+            if( currentSite == null )
             {
-            	currentSite = attributes.getValue( "generator-url" );
+                currentSite = attributes.getValue( "generator-url" );
             }
-            
+
             currentChannel = null;
             currentProgramme = null;
         }
