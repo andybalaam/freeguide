@@ -43,6 +43,15 @@ public class JLabelProgramme extends JLabel
     protected static Border MOVIE_BORDER;
     protected static Border INGUIDE_BORDER;
     protected static Border FOCUSED_BORDER;
+    /**
+     * Setup border colors
+     * 
+     *  @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+     *  
+     *  inserted: borders for favourite and selected 
+     */
+    protected static Border FAVOURITE_BORDER;
+    protected static Border GUIDE_BORDER;
 
     /** Standard reminder. */
     protected static IModuleReminder REMINDER;
@@ -66,14 +75,20 @@ public class JLabelProgramme extends JLabel
 
     }
 
+    /** Square shape. */
+    protected final static Rectangle SQUARE_SHAPE = new Rectangle( 125, 650, 350, 350 );
+
     /** Programme for current label. */
     final protected TVProgramme programme;
 
     /** Parent controller. */
     final protected HorizontalViewer controller;
 
-    /** Need to draw heart. */
+    /** Need to draw heart symbol. */
     protected boolean isDrawHeart;
+
+    /** Need to draw square symbol (=record). */
+    protected boolean isDrawSquare;
 
     /** Cached tooltip text. */
     private String tooltip;
@@ -98,7 +113,7 @@ public class JLabelProgramme extends JLabel
         this.moveNames = moveNames;
         setText( getTitle( programme ) );
         setupColors(  );
-        setupHeart(  );
+        setupSymbols(  );
         setOpaque( true );
         setFocusable( true );
         addMouseListener( main.handlers.labelProgrammeMouseListener );
@@ -184,10 +199,24 @@ public class JLabelProgramme extends JLabel
 
     /**
      * Setup colors for current label.
+     * 
+     *  @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+     *  changed: is Highlighted instead of selected 
      */
     public void setupColors(  )
+    {										// is favourite?
+        if( ( REMINDER != null ) && REMINDER.getFavourite( programme ) != null && REMINDER.isHighlighted( programme ))
     {
-        if( ( REMINDER != null ) && REMINDER.isSelected( programme ) )
+            setBackground( controller.config.colorFavourite );
+            setBorder( FAVOURITE_BORDER );
+
+        }
+        else if( ( REMINDER != null) && REMINDER.isSelected( programme ) && REMINDER.isHighlighted( programme ))  // is selected??
+    {
+            setBackground( controller.config.colorGuide );
+            setBorder( GUIDE_BORDER );
+        }
+        else if( ( REMINDER != null ) && REMINDER.isHighlighted( programme ) )  // is highlighted?
         {
             setBackground( controller.config.colorTicked );
             setBorder( INGUIDE_BORDER );
@@ -241,21 +270,36 @@ public class JLabelProgramme extends JLabel
         FOCUSED_BORDER = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
                 BorderFactory.createLineBorder( main.config.colorNonTicked, 1 ) );
+        /**
+         * Setup border colors
+         * 
+         *  @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+         *  
+         *  inserted: borders for favourite and selected 
+         */
+        GUIDE_BORDER = BorderFactory.createCompoundBorder( 
+                BorderFactory.createLineBorder( Color.BLACK, 1 ),
+                BorderFactory.createLineBorder( main.config.colorGuide, 2 ) );
+        FAVOURITE_BORDER = BorderFactory.createCompoundBorder( 
+                BorderFactory.createLineBorder( Color.BLACK, 1 ),
+                BorderFactory.createLineBorder( main.config.colorFavourite, 2 ) );
     }
 
     /**
      * Setup need to draw heart for current label.
      */
-    protected void setupHeart(  )
+    protected void setupSymbols(  )
     {
         if( REMINDER == null )
         {
             isDrawHeart = false;
+            isDrawSquare = false; // for recording.
         }
         else
         {
-            isDrawHeart = ( (BaseModuleReminder)REMINDER ).getFavourite( 
-                    programme ) != null;
+            freeguide.common.lib.fgspecific.selection.Favourite f = ( (BaseModuleReminder)REMINDER ).getFavourite( programme );
+            isDrawHeart = (f != null);
+            isDrawSquare = (f != null && f.getRecord( ) );
         }
     }
 
@@ -338,8 +382,15 @@ public class JLabelProgramme extends JLabel
 
             graphics.fill( HEART_SHAPE );
 
+            if( isDrawSquare )
+            {
+              graphics.setColor( new Color( 175, 0, 0 ) );
+              graphics.fill( SQUARE_SHAPE );
+            }
+
             graphics.setTransform( originalTransform );
         }
+
     }
 
     /**

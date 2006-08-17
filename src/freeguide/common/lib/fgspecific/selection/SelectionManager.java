@@ -97,7 +97,7 @@ public class SelectionManager
             else
             {
                 storage.manualSelectionList.add( 
-                    new ManualSelection( programme, true ) );
+                    new ManualSelection( programme, true , true) );
 
             }
         }
@@ -123,7 +123,7 @@ public class SelectionManager
             else
             {
                 storage.manualSelectionList.add( 
-                    new ManualSelection( programme, false ) );
+                    new ManualSelection( programme, false, false) );
 
             }
         }

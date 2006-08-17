@@ -49,6 +49,15 @@ public class HorizontalViewerConfig
 
     /** Default colour of a ticked programme */
     public Color colorTicked = new Color( 204, 255, 204 );
+    
+	/**
+	 * new entries for favourite colour and guide colour
+	 *
+	 * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+	 */
+    /** Default colour of a favourite and guide programme */
+    public Color colorFavourite = new Color( 204, 204, 255 );
+    public Color colorGuide = new Color( 255, 223, 181 );
 
     /** DOCUMENT ME! */
     public boolean displayAlignToLeft = true;

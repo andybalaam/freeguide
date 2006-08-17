@@ -79,6 +79,20 @@ public class ConfigureUIController implements IModuleConfigurationUI
                 {
                     panelColor = panel.getPanelColorSelected(  );
                 }
+                
+            	/**
+            	 * new entries for favourite colour and guide colour
+            	 *
+            	 * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+            	 */
+                else if( e.getSource(  ) == panel.getBtnColorFavourite(  ) )
+                {
+                    panelColor = panel.getPanelColorFavourite(  );
+                }
+                else if( e.getSource(  ) == panel.getBtnColorGuide(  ) )
+                {
+                    panelColor = panel.getPanelColorGuide(  );
+                }
                 else if( e.getSource(  ) == panel.getBtnColorNormal(  ) )
                 {
                     panelColor = panel.getPanelColorNormal(  );
@@ -139,6 +153,15 @@ public class ConfigureUIController implements IModuleConfigurationUI
         config.colorChannel = panel.getPanelColorChannel(  ).getBackground(  );
         config.colorMovie = panel.getPanelColorMovie(  ).getBackground(  );
         config.colorTicked = panel.getPanelColorSelected(  ).getBackground(  );
+        
+    	/**
+    	 * new entries for favourite colour and guide colour
+    	 *
+    	 * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+    	 */
+        config.colorFavourite = panel.getPanelColorFavourite(  ).getBackground(  );
+        config.colorGuide = panel.getPanelColorGuide(  ).getBackground(  );
+        
         config.colorNonTicked = panel.getPanelColorNormal(  ).getBackground(  );
         config.displayTooltips = panel.getCbDisplayTooltips(  ).isSelected(  );
         config.displayTime = panel.getCbDrawTime(  ).isSelected(  );
@@ -183,6 +206,15 @@ public class ConfigureUIController implements IModuleConfigurationUI
         panel.getPanelColorChannel(  ).setBackground( config.colorChannel );
         panel.getPanelColorMovie(  ).setBackground( config.colorMovie );
         panel.getPanelColorSelected(  ).setBackground( config.colorTicked );
+        
+    	/**
+    	 * new entries for favourite colour and guide colour
+    	 *
+    	 * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+    	 */
+        panel.getPanelColorFavourite(  ).setBackground( config.colorFavourite );
+        panel.getPanelColorGuide(  ).setBackground( config.colorGuide );
+        
         panel.getPanelColorNormal(  ).setBackground( config.colorNonTicked );
 
         panel.getBtnFont(  ).addActionListener( 
@@ -215,6 +247,15 @@ public class ConfigureUIController implements IModuleConfigurationUI
             } );
         panel.getBtnColorChannel(  ).addActionListener( colorBtnAction );
         panel.getBtnColorSelected(  ).addActionListener( colorBtnAction );
+        
+        /**
+    	 * new entries for favourite colour and guide colour
+    	 *
+    	 * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+    	 */
+        panel.getBtnColorFavourite(  ).addActionListener( colorBtnAction );
+        panel.getBtnColorGuide(  ).addActionListener( colorBtnAction );
+        
         panel.getBtnColorMovie(  ).addActionListener( colorBtnAction );
         panel.getBtnColorNormal(  ).addActionListener( colorBtnAction );
         panel.getSliderHeight(  ).addChangeListener( sliderChange );

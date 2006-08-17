@@ -56,6 +56,9 @@ public class Favourite
     /** Day of week, or -1 if any. */
     public int dayOfWeek = -1;
 
+    /** Do we want to record it or not. */
+    public boolean doRecord = false;
+
 /**
      * Constructor for the Favourite object
      */
@@ -79,6 +82,7 @@ public class Favourite
         result.afterTime = afterTime;
         result.beforeTime = beforeTime;
         result.dayOfWeek = dayOfWeek;
+        result.doRecord = doRecord;
 
         return result;
     }
@@ -248,6 +252,16 @@ public class Favourite
     }
 
     /**
+     * Getst he doRecord attribute of the Favourite object
+     *
+     * @return The doRecord value
+     */
+    public boolean getRecord( )
+    {
+      return doRecord;
+    }
+
+    /**
      * Sets the name attribute of the Favourite object
      *
      * @param name The new name value
@@ -326,6 +340,17 @@ public class Favourite
     public void setDayOfWeek( int dayOfWeek )
     {
         this.dayOfWeek = dayOfWeek;
+    }
+
+
+    /**
+     * Sets the record flag.
+     *
+     * @param doRecord If we want it to have the record flag or not.
+     */
+    public void setRecord( boolean doRecord )
+    {
+      this.doRecord = doRecord;
     }
 
     // The day of the week it's on

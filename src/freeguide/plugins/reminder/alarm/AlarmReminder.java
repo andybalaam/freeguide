@@ -39,10 +39,14 @@ public class AlarmReminder extends BaseModuleReminder
     /** Config object. */
     protected final ConfigAlarm config = new ConfigAlarm(  );
     protected TVProgramme scheduledProgramme;
+    protected TVProgramme recordingProgramme;
     protected JDialog scheduledDialog;
     protected long timeForClose;
     protected long timeForDisplay;
     protected long scheduledDialogDisplayTime;
+    protected long timeForRecordStart;
+    protected long timeForRecordStop;
+    protected boolean recording = false;
     protected MListsner mouseListener = new MListsner(  );
 
     /**
@@ -76,6 +80,44 @@ public class AlarmReminder extends BaseModuleReminder
     public void addItemsToPopupMenu( 
         final TVProgramme programme, final JPopupMenu menu )
     {
+    	
+    	/**
+    	 * menu item for highlighting
+    	 *
+    	 * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+    	 */
+        final JMenuItem hil = new JMenuItem(  ); 
+        
+        // is highlighted?
+        if( !isHighlighted( programme ) )
+        {
+            hil.setText( i18n.getLocalizedMessage( "popup.highlight.add" ) );
+            hil.addActionListener( 
+                new ActionListener(  )
+                {
+                    public void actionPerformed( ActionEvent e )
+                    {
+                        setProgrammeSelection( programme, isSelected(programme) , true);
+                        favSelectionChanged( true );
+                    }
+                } );
+        }
+        else
+        {
+            hil.setText( i18n.getLocalizedMessage( "popup.highlight.del" ) );
+            hil.addActionListener( 
+                new ActionListener(  )
+                {
+                    public void actionPerformed( ActionEvent e )
+                    {
+                    	setProgrammeSelection( programme, isSelected(programme), false);
+                        favSelectionChanged( true );
+                    }
+                } );
+        }
+
+        menu.add( hil );
+    	
         final JMenuItem sel = new JMenuItem(  );
 
         if( !isSelected( programme ) )
@@ -86,7 +128,7 @@ public class AlarmReminder extends BaseModuleReminder
                 {
                     public void actionPerformed( ActionEvent e )
                     {
-                        setProgrammeSelection( programme, true );
+                        setProgrammeSelection( programme, true, true);
                         favSelectionChanged( true );
                     }
                 } );
@@ -99,7 +141,7 @@ public class AlarmReminder extends BaseModuleReminder
                 {
                     public void actionPerformed( ActionEvent e )
                     {
-                        setProgrammeSelection( programme, false );
+                        setProgrammeSelection( programme, false, false);
                         favSelectionChanged( true );
                     }
                 } );
@@ -107,9 +149,71 @@ public class AlarmReminder extends BaseModuleReminder
 
         menu.add( sel );
 
+        final JMenuItem rec = new JMenuItem(  );
+
+        Favourite favourite = getFavourite( programme );
+
+        if( favourite == null || !favourite.getRecord() )
+        {
+            rec.setText( i18n.getLocalizedMessage( "popup.record.add" ) );
+            if( favourite == null )
+            { // not yet in favourites, hence add.
+              rec.addActionListener( 
+                  new ActionListener(  )
+                  {
+                      public void actionPerformed( ActionEvent e )
+                      {
+                          Favourite fav = new Favourite(  );
+
+                          fav.setTitleString( programme.getTitle(  ) );
+                          fav.setName( programme.getTitle(  ) );
+                          fav.setRecord( true );
+
+                          addFavourite( fav );
+                          favSelectionChanged( false );
+                      }
+                  } );
+           }
+           else // if( !f.getRecord() )
+           { // is in favourites but not yet as recorded.
+              rec.addActionListener( 
+                  new ActionListener(  )
+                  {
+                      public void actionPerformed( ActionEvent e )
+                      {
+                          Favourite fav = getFavourite( programme );
+                          if( fav != null )
+                          {
+                            fav.setRecord( true );
+                            favSelectionChanged( false );
+                          }
+                      }
+                  } );
+           }
+        }
+        else
+        {
+            rec.setText( i18n.getLocalizedMessage( "popup.record.del" ) );
+            rec.addActionListener( 
+                new ActionListener(  )
+                {
+                    public void actionPerformed( ActionEvent e )
+                    {
+                        Favourite fav = getFavourite( programme );
+                        if( fav != null )
+                        {
+                          fav.setRecord( false );
+                          favSelectionChanged( false );
+                        }
+                    }
+                } );
+        }
+
+        menu.add( rec );
+
         final JMenuItem fav = new JMenuItem(  );
 
-        if( getFavourite( programme ) == null )
+        if( favourite == null )
         {
             fav.setText( i18n.getLocalizedMessage( "popup.favourite.add" ) );
             fav.addActionListener( 
@@ -220,6 +324,8 @@ public class AlarmReminder extends BaseModuleReminder
     {
         timeForClose = Long.MAX_VALUE;
         timeForDisplay = Long.MAX_VALUE;
+        timeForRecordStart = Long.MAX_VALUE;
+        timeForRecordStop = Long.MAX_VALUE;
 
         synchronized( this )
         {
@@ -231,7 +337,7 @@ public class AlarmReminder extends BaseModuleReminder
 
             scheduledProgramme = null;
 
-            if( config.reminderOn )
+            if( config.reminderOn)
             {
                 try
                 {
@@ -253,6 +359,40 @@ public class AlarmReminder extends BaseModuleReminder
                         timeForDisplay = scheduledProgramme.getStart(  )
                             - config.reminderWarning;
                     }
+
+                }
+
+                catch( Exception ex )
+                {
+                    Application.getInstance(  ).getLogger(  )
+                               .log( 
+                        Level.WARNING, "Error find next programme", ex );
+                }
+            }
+            if( config.recordOn)
+            {
+                try
+                {
+                   if( !recording )
+                   { 
+                      recordingProgramme = 
+                        Application.getInstance(  ).getDataStorage(  ).findEarliest( 
+                            System.currentTimeMillis(  )
+                            + 0, // 1min before actual start.
+                            new IModuleStorage.EarliestCheckAllow(  )
+                            {
+                                public boolean isAllow( TVProgramme programme )
+                                {
+                                    return isRecord( programme );
+                                }
+                            } );
+                   }
+                   if( recordingProgramme != null )
+                   {
+                     if( !recording )
+                        timeForRecordStart = recordingProgramme.getStart(  ) - 0;
+                      timeForRecordStop = recordingProgramme.getEnd( ) + 0;
+                   }
                 }
 
                 catch( Exception ex )
@@ -264,7 +404,7 @@ public class AlarmReminder extends BaseModuleReminder
             }
 
             return Math.min( 
-                Math.min( timeForClose, timeForDisplay ),
+                Math.min( Math.min( Math.min( timeForClose, timeForDisplay ), timeForRecordStart ), timeForRecordStop ),
                 System.currentTimeMillis(  ) + 300000 );
         }
     }
@@ -305,8 +445,75 @@ public class AlarmReminder extends BaseModuleReminder
                 scheduledDialog.setVisible( true );
                 scheduledDialogDisplayTime = System.currentTimeMillis(  );
             }
+            // check for recording start
+            if( recordingProgramme != null )
+            {
+              if( !recording && timeForRecordStart <= System.currentTimeMillis(  ) )
+              {
+                startRecording();
+                recording = true;
+              }
+              if( recording && timeForRecordStop <= System.currentTimeMillis(  ) )
+              {
+                stopRecording();
+                recordingProgramme = null;
+                recording = false;
+              }
         }
     }
+
+    }
+
+    /**
+     * Is called when a recording should be started.
+     * 
+     * The programme to record is stored in recrdingProgramme.
+     * 
+     * @return true if command execution was successfull
+     * @see onTime()
+     */
+    protected boolean startRecording(  )
+    {
+      JOptionPane optionPane =
+          new JOptionPane( recordingProgramme.getTitle(  ), JOptionPane.INFORMATION_MESSAGE );
+      JDialog dlg = optionPane.createDialog( 
+              Application.getInstance(  ).getApplicationFrame(  ),
+              "Start Recording..." );
+                dlg.setModal( false );
+
+                dlg.setVisible( true );
+
+      return true;
+
+    }
+
+    /**
+     * Is called when a recording should be sopped.
+     * 
+     * The programme we are currently recording is stored in recrdingProgramme.
+     * 
+     * @return true if command execution was successfull
+     * @see onTime()
+     */
+    protected boolean stopRecording(  )
+    {
+      JOptionPane optionPane =
+          new JOptionPane( recordingProgramme.getTitle(  ), JOptionPane.INFORMATION_MESSAGE );
+      JDialog dlg = optionPane.createDialog( 
+              Application.getInstance(  ).getApplicationFrame(  ),
+              "Stop Recording..." );
+                dlg.setModal( false );
+
+                dlg.setVisible( true );
+      return true;
+    }
+
+    
+	/**
+	 * setProgrammSelection: set highlighting according to the selection
+	 *
+	 * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+	 */
 
     protected class MListsner implements MouseListener
     {
@@ -316,6 +523,9 @@ public class AlarmReminder extends BaseModuleReminder
          * DOCUMENT_ME!
          *
          * @param e DOCUMENT_ME!
+         * 
+	     * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+	     * add parameter for highlight
          */
         public void mouseClicked( MouseEvent e )
         {
@@ -326,11 +536,11 @@ public class AlarmReminder extends BaseModuleReminder
 
             if( !isSelected( programme ) )
             {
-                setProgrammeSelection( programme, true );
+                setProgrammeSelection( programme, true, true);
             }
             else
             {
-                setProgrammeSelection( programme, false );
+                setProgrammeSelection( programme, false, false);
             }
 
             favSelectionChanged( true );
@@ -393,5 +603,14 @@ public class AlarmReminder extends BaseModuleReminder
 
         /** Time in milliseconds. */
         public long reminderWarning = 300000L;
+
+        /** Do we record. */
+        public boolean recordOn = false;
+
+        /** Command to issue when a programme starts. */
+        public String recordStartCommand = "";
+
+        /** Command to issue when a programme stops. */
+        public String recordStopCommand = "";
     }
 }
