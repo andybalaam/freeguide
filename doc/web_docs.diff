@@ -1,0 +1,54 @@
+Index: compile_manual.sh
+===================================================================
+--- compile_manual.sh	(revision 1469)
++++ compile_manual.sh	(working copy)
+@@ -6,8 +6,8 @@
+ #   server instead of locally.
+ #   You also need to change freeguide-param.xsl (same dir) to build into the
+ #   correct directory.   Would be good to make this easier.
+-#BUILDDIR="html-web"
+-BUILDDIR="html-local"
++BUILDDIR="html-web"
++#BUILDDIR="html-local"
+ 
+ # Might be needed when we are really building into the build dir
+ #if [ ! -d $BUILDDIR ]; then
+@@ -29,6 +29,6 @@
+ 
+ # Comment out for local
+ #cp VERSION.php $BUILDDIR/
+-#cp upload-web.nosh $BUILDDIR/upload-web.sh
+-#chmod u+x $BUILDDIR/upload-web.sh
++cp upload-web.nosh $BUILDDIR/upload-web.sh
++chmod u+x $BUILDDIR/upload-web.sh
+ 
+Index: docbook-xsl-1.69.1/xhtml/freeguide-things.xsl
+===================================================================
+--- docbook-xsl-1.69.1/xhtml/freeguide-things.xsl	(revision 1469)
++++ docbook-xsl-1.69.1/xhtml/freeguide-things.xsl	(working copy)
+@@ -30,8 +30,8 @@
+ 
+   <div style="float:right" class="sourceforgelogo">
+     <a href="http://sourceforge.net/projects/freeguide-tv/">
+-       <!--img src="http://sourceforge.net/sflogo.php?group_id=35309&amp;type=1" width="88" height="31" border="0" alt="SourceForge Logo"/--> 
+-       <img src="sflogo.png" width="88" height="31" border="0" alt="SourceForge Logo"/>
++       <img src="http://sourceforge.net/sflogo.php?group_id=35309&amp;type=1" width="88" height="31" border="0" alt="SourceForge Logo"/> 
++       <!--img src="sflogo.png" width="88" height="31" border="0" alt="SourceForge Logo"/-->
+     </a>
+   </div>
+ 
+Index: docbook-xsl-1.69.1/xhtml/freeguide-param.xsl
+===================================================================
+--- docbook-xsl-1.69.1/xhtml/freeguide-param.xsl	(revision 1469)
++++ docbook-xsl-1.69.1/xhtml/freeguide-param.xsl	(working copy)
+@@ -22,8 +22,8 @@
+ 
+ <xsl:param name="use.id.as.filename" select="'1'"/>
+ 
+-<xsl:param name="base.dir" select="'html-local/'"/>
+-<!--xsl:param name="base.dir" select="'html-web/'"/-->
++<!--xsl:param name="base.dir" select="'html-local/'"/-->
++<xsl:param name="base.dir" select="'html-web/'"/>
+ 
+ <!-- removing the book line causes the initial toc not to be generated -->
+ <xsl:param name="generate.toc">
