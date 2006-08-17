@@ -18,6 +18,7 @@ import freeguide.common.lib.general.*;
 import freeguide.plugins.program.freeguide.FreeGuide;
 
 import java.awt.*;
+import java.util.logging.Level;
 
 import javax.swing.*;
 
@@ -135,11 +136,20 @@ public class NewVersionDialog extends JDialog
      */
     private void butURLActionPerformed( java.awt.event.ActionEvent evt )
     {
-        String[] cmds =
-            Utils.substitute( 
-                new String[] { FreeGuide.config.browserCommand }, "%url%",
-                "http://freeguide-tv.sourceforge.net" );
-        Utils.execNoWait( cmds );
+        try
+        {
+            String cmd =
+                StringHelper.replaceAll( 
+                    Application.getInstance(  ).getBrowserCommand(  ), "%url%",
+                    "http://freeguide-tv.sourceforge.net" );
+            Utils.execNoWait( cmd );
+        }
+        catch( Exception ex )
+        {
+            Application.getInstance(  ).getLogger(  )
+                       .log( 
+                Level.WARNING, "Error open home url", ex );
+        }
     }
 
     /**

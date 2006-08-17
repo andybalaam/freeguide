@@ -44,7 +44,7 @@ public class PrivacyInfoDialog extends JDialog
      */
     public PrivacyInfoDialog(  )
     {
-        super(  );
+        super( Application.getInstance().getApplicationFrame() );
         setTitle( 
             Application.getInstance(  )
                        .getLocalizedMessage( "privacy_information" ) );

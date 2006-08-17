@@ -21,6 +21,7 @@ import freeguide.plugins.program.freeguide.lib.fgspecific.GrabberController;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 import freeguide.plugins.program.freeguide.lib.fgspecific.StoragePipe;
+import freeguide.plugins.program.freeguide.lib.fgspecific.VersionCheckerThread;
 import freeguide.plugins.program.freeguide.lib.general.LookAndFeelManager;
 
 import java.awt.BorderLayout;
@@ -29,6 +30,7 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.ObjectInputStream.GetField;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -241,6 +243,12 @@ public class MainController extends BaseModule implements IApplication
         FreeGuide.hidePleaseWait(  );
 
         applicationFrame = mainFrame;
+        
+        
+        // Check the FreeGuide version
+        if( !"no".equals(FreeGuide.config.privacyInfo) ) {
+            new VersionCheckerThread( getApplicationFrame() ).start();
+        }
 
         //checkForNoData(  );
         mainFrame.waitForClose(  );
