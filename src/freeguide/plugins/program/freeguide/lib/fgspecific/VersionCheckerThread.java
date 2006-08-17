@@ -81,11 +81,8 @@ public class VersionCheckerThread implements Runnable
             }
 
             /* if privacy=no     then we won't get here.
-
             * if privacy=yes_ip then we don't add anything to the url - the
-
             *                   server finds the ip automatically.
-
             */
             URL fgversion = new URL( url );
             BufferedReader in =
