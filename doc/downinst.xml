@@ -274,16 +274,25 @@
         <para>Go to the <ulink
         url="http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789">sourceforge
         download page</ulink> and download 
-        <filename>freeguide-x.y.z-bin.tar.gz</filename>.</para>
+        .</para>
         
-        <para>You can either unzip this tarball in <filename>/</filename> as
-        root, or unzip it somewhere else and modify the file 
-        <filename>usr/bin/freeguide</filename> to point at the correct
-        paths.</para>
+        <para>To install FreeGuide in its normal place, download
+        <filename>freeguide-x.y.z-install-bin.tar.gz</filename>, and unzip
+        this tarball in <filename>/</filename> as
+        root.</para>
         
         <para>You can now run FreeGuide by typing:</para>
 
         <programlisting>freeguide</programlisting>
+        
+        <para>To install FreeGuide in a local directory, download
+        and unzip <filename>freeguide-x.y.z-install-bin.tar.gz</filename>.</para>
+        
+        <para>You can now run FreeGuide by typing:</para>
+
+        <programlisting>./freeguide</programlisting>
+        
+        <para>in the directory into which you unzipped the file.</para>
 
         <para>You'll now need to answer a few questions, and then you're ready
         to go.</para>
