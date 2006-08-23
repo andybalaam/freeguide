@@ -156,12 +156,12 @@
         <programlisting>su -c "yum install xmltv"</programlisting>
         or similar.</para>
         
+        <para>(If you want to do it the hard way, you can find RPMs (for RedHat
+        and Fedora) at <ulink
+        url="http://atrpms.physik.fu-berlin.de/name/xmltv/">http://atrpms.physik.fu-berlin.de/name/xmltv/</ulink>.)</para>
+
         <para>For other RPM-based distros, you should find XMLTV in your
         favourite package repository (let us know so we can add it here).</para>
-        
-        <para>If you want to do it the hard way, you can find RPMs (for RedHat
-        and Fedora) at <ulink
-        url="http://atrpms.physik.fu-berlin.de/name/xmltv/">http://atrpms.physik.fu-berlin.de/name/xmltv/</ulink>.</para>
         
         <para>Now, to download FreeGuide, go to the <ulink
         url="http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789">sourceforge
