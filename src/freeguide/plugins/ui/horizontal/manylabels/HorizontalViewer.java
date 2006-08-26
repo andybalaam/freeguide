@@ -126,7 +126,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     protected JLabelProgramme currentProgrammeLabel;
 
     /** Menu item for searching through programmes */
-    final JMenuItem menuSearch = new JMenuItem(  );
+    JMenuItem menuSearch = null;
     private boolean alreadyAskedForLoadData = false;
 
     /**
@@ -237,6 +237,9 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     {
         if( panel == null )
         {
+            if (this.menuSearch == null) {
+                this.menuSearch = new JMenuItem(  );
+            }
             panel = new ViewerFrame( this );
         }
 
