@@ -6,7 +6,7 @@ import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-import freeguide.common.lib.general.LanguageHelper;
+import freeguide.common.lib.general.ResourceHelper;
 import freeguide.common.lib.grabber.HttpBrowser;
 
 import freeguide.common.plugininterfaces.BaseModule;
@@ -228,7 +228,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         try
         {
             TIMEZONES.load( 
-                LanguageHelper.getUncachedStream( 
+                ResourceHelper.getUncachedStream(
                     "resources/plugins/grabber/vsetv/timezones.properties" ) );
 
         }
@@ -313,7 +313,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
     protected static void patch( final TVData data ) throws IOException
     {
         final String[] nen =
-            LanguageHelper.loadStrings( 
+            ResourceHelper.loadStrings(
                 "resources/plugins/grabber/vsetv/nen.utf8.list" );
         data.iterateProgrammes( 
             new TVIteratorProgrammes(  )

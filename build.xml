@@ -36,6 +36,8 @@
     <!-- set global properties for this build -->
     <property name="src"                location="src"                />
     <property name="resources"          location="${src}/resources"   />
+    <property name="properties"         location="${resources}/i18n"  />
+    <property name="properties.utf8"    location="${properties}/utf-8"/>
     <property name="doc"                location="doc"                />
     <property name="lib"                location="lib"                />
     <property name="xmltv"              location="xmltv"              />
@@ -58,7 +60,11 @@
     <target name="prepare">
         <ant antfile="ant/prepare.xml" />
     </target>
-    
+
+    <target name="prepare-properties">
+        <ant antfile="ant/prepare.xml" target="prepare-properties" />
+    </target>
+
     <target name="compile">
         <ant antfile="ant/compile.xml" target="compile" />
     </target>

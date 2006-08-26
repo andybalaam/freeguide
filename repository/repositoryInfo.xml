@@ -25,6 +25,8 @@
   </package>
   <package id="importexport-jtv" version="2" type="plugin-importexport" repositoryPath="package-importexport-jtv-2.zip">
   </package>
+  <package id="importexport-mobile" version="1" type="plugin-importexport" repositoryPath="package-importexport-mobile-1.zip">
+  </package>
   <package id="importexport-palmatv" version="2" type="plugin-importexport" repositoryPath="package-importexport-palmatv-2.zip">
   </package>
   <package id="importexport-xmltv" version="2" type="plugin-importexport" repositoryPath="package-importexport-xmltv-2.zip">

@@ -96,25 +96,13 @@ public class MainController extends BaseModule implements IApplication
     /**
      * DOCUMENT_ME!
      *
-     * @return DOCUMENT_ME!
-     *
-     * @throws Exception DOCUMENT_ME!
-     */
-    public Locale[] getSuppotedLocales(  ) throws Exception
-    {
-        return LanguageHelper.getLocaleList( "resources/i18n/MessagesBundle" );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
      * @param locale DOCUMENT_ME!
      *
      * @throws Exception DOCUMENT_ME!
      */
     public void setLocale( Locale locale ) throws Exception
     {
-        i18n = new LanguageHelper( "resources/i18n/MessagesBundle", locale );
+        i18n = new LanguageHelper( "resources.i18n.MessagesBundle", locale );
     }
 
     /**
@@ -440,7 +428,9 @@ public class MainController extends BaseModule implements IApplication
             {
                 UIManager.setLookAndFeel( inspectedLFClassName );
 
-                SwingUtilities.updateComponentTreeUI( mainFrame );
+                if (mainFrame != null) {
+                    SwingUtilities.updateComponentTreeUI( mainFrame );
+                }
             }
             catch( Exception ex )
             {

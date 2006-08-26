@@ -55,7 +55,7 @@ public class TemplateParser
     public TemplateParser( final String templateClassPath )
         throws IOException
     {
-        template = LanguageHelper.loadResourceAsString( templateClassPath );
+        template = ResourceHelper.loadResourceAsString( templateClassPath );
     }
 
     /**
@@ -226,7 +226,7 @@ public class TemplateParser
      *
      * @param subString substring to find
      *
-     * @return
+     * @return The next substring position
      */
     protected int getNextPos( final String subString )
     {

@@ -17,6 +17,7 @@ import freeguide.common.gui.JWaitFrame;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.Utils;
+import freeguide.common.lib.general.ResourceHelper;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -66,7 +67,7 @@ public class WizardFrame extends JWaitFrame
         {
             Image icon =
                 ( new ImageIcon( 
-                    LanguageHelper.loadResourceAsByteArray( 
+                    ResourceHelper.loadResourceAsByteArray( 
                         "resources/plugins/program/freeguide/images/logo-16x16.png" ),
                     "icon" ) ).getImage(  );
             setIconImage( icon );

@@ -101,7 +101,7 @@ public class PluginInfo extends DefaultHandler
     {
         return instance.getLocalizer(  )
                        .getLocalizedMessage( 
-            instance.getI18nName(  ) + "desc" );
+            instance.getI18nName(  ) + "_desc" );
     }
 
     /**

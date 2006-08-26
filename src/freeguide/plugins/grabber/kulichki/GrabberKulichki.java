@@ -4,6 +4,7 @@ import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.general.LanguageHelper;
+import freeguide.common.lib.general.ResourceHelper;
 import freeguide.common.lib.grabber.HttpBrowser;
 
 import freeguide.common.plugininterfaces.BaseModule;
@@ -312,7 +313,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         try
         {
             TIME_ZONES.load( 
-                LanguageHelper.getUncachedStream( 
+                ResourceHelper.getUncachedStream(
                     "resources/plugins/grabber/kulichki/timezones.properties" ) );
 
         }
@@ -327,13 +328,10 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
     protected void loadGroupNames(  )
     {
-        GROUP_NAMES = new TreeMap(  );
-
         try
         {
-            LanguageHelper.loadProperties( 
-                "resources/plugins/grabber/kulichki/groupnames.properties",
-                GROUP_NAMES );
+            GROUP_NAMES = new LanguageHelper(
+                "resources.plugins.grabber.kulichki.groupnames").getMap();
         }
         catch( Exception ex )
         {

@@ -1,9 +1,13 @@
 <?xml version="1.0"?>
-
-<!-- Tasks for prepare build, i.e. for change application and plugins info in the all files. -->
+<!-- Tasks for prepare build, i.e. for change application and
+     plugins info in the all files.
+     Also converts utf-8 properties files into java-ascii ones
+-->
 
 <project name="freeguide-tv-prebuild" default="prepare">
-    
+    <!-- import the variables -->
+    <import file="../build.xml"/>
+
     <target name="prebuild-buildclasses">
 
         <mkdir dir="${build}/buildclasses"/>
@@ -19,6 +23,29 @@
             <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
         </javac>
     </target>
+
+
+   <target name="prepare-properties"
+        description="Converts the utf-8 properties files with the
+         native 2ascii tool to a format java understands">
+
+        <native2ascii encoding="UTF-8"
+            src="${properties.utf8}"
+            dest="${properties}"
+            includes="*.properties">
+<!--            includes="*.properties.utf-8">-->
+<!--            <mapper type="glob" from="*.properties.utf-8" to="*.properties"/>-->
+        </native2ascii>
+
+        <!-- the utf-8 files contain a comment line that indicate
+                a utf-8 encoding. This shall be changed to ascii -->
+        <replaceregexp byline="true">
+            <regexp pattern="#encoding: utf-8"/>
+            <substitution expression="#encoding: ascii"/>
+            <fileset dir="${properties}" includes="*.properties" />
+        </replaceregexp>
+    </target>
+
 
     <target name="prepare" depends="prebuild-buildclasses">
         <java classpath="${build}/buildclasses"

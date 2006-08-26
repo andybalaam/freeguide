@@ -12,16 +12,6 @@ import javax.swing.JDialog;
 public interface IModule
 {
     /**
-     * Get supported locales list. This method called BEFORE
-     * setLocale. Each module MUST support "en" locale.
-     *
-     * @return List of supported locales
-     *
-     * @throws Exception
-     */
-    Locale[] getSuppotedLocales(  ) throws Exception;
-
-    /**
      * Used to find the filename of the file in resources/i18n that
      * contains translations for this plugin.
      *
@@ -47,9 +37,9 @@ public interface IModule
     Object getConfig(  );
 
     /**
-     * DOCUMENT_ME!
+     * Returns the language helper that has methods to translate strings
      *
-     * @return DOCUMENT_ME!
+     * @return Localizer object
      */
     public ILocalizer getLocalizer(  );
 
@@ -58,7 +48,7 @@ public interface IModule
      *
      * @param parentDialog
      *
-     * @return
+     * @return configuration
      */
     IModuleConfigurationUI getConfigurationUI( JDialog parentDialog );
 }

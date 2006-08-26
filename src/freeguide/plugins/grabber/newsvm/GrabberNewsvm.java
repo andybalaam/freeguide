@@ -4,6 +4,7 @@ import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.LanguageHelper;
+import freeguide.common.lib.general.ResourceHelper;
 import freeguide.common.lib.grabber.HtmlHelper;
 import freeguide.common.lib.grabber.HttpBrowser;
 import freeguide.common.lib.grabber.LineProgrammeHelper;
@@ -133,7 +134,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         {
             this.storage = storage;
             this.logger = logger;
-            nen = LanguageHelper.loadStrings( 
+            nen = ResourceHelper.loadStrings( 
                     "resources/plugins/grabber/newsvm/nen.utf8.list" );
         }
 

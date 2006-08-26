@@ -89,17 +89,16 @@ public class FreeGuide
      * "GB" for Great Britain --log-prefs         Write every Java
      * Preferences change to the log.
      *
-     * @param args DOCUMENT ME!
+     * @param args Command line arguments
      *
      * @throws Exception DOCUMENT ME!
      */
     public FreeGuide( String[] args ) throws Exception
     {
         startupMessages = new LanguageHelper( 
-                "resources/i18n/Startup",
-                LanguageHelper.getPreferredLocale( 
-                    new Locale[] { Locale.getDefault(  ) },
-                    LanguageHelper.getLocaleList( "resources/i18n/Startup" ) ) );
+                "resources.i18n.Startup",
+                Locale.getDefault()
+        );
 
         // Check Java version.  If wrong, exit with error
         checkJavaVersion(  );
@@ -486,9 +485,9 @@ public class FreeGuide
     }
 
     /**
-     * DOCUMENT_ME!
+     * Sets the locale language used for translation
      *
-     * @param newLocale DOCUMENT_ME!
+     * @param newLocale The new locale
      */
     public static void setLocale( final Locale newLocale )
     {
@@ -496,20 +495,22 @@ public class FreeGuide
 
         if( newLocale == null )
         {
-            locale = runtimeInfo.defaultLocale;
+            locale = Locale.getDefault();
         }
         else
         {
             locale = newLocale;
         }
 
-        PluginsManager.setLocale( new Locale[] { locale } );
         Locale.setDefault( locale );
+        PluginsManager.setLocale( locale );
         FreeGuide.log.fine( "Set locale to " + locale.getDisplayName(  ) );
     }
 
     /**
-     * DOCUMENT_ME!
+     * Checks if the version of java with which freeguide is currently
+     * run is at least the minimum required version.
+     * The method die()s the whole app if it lower.
      */
     public static void checkJavaVersion(  )
     {

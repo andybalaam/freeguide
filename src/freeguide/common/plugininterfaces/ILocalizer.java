@@ -9,6 +9,9 @@ import java.util.Set;
  */
 public interface ILocalizer
 {
+    /**
+     * @deprecated
+     */
     Set getKeys(  );
 
     String getLocalizedMessage( String key );

@@ -3,7 +3,7 @@ package freeguide.plugins.program.freeguide.viewer;
 import freeguide.common.gui.JWaitFrame;
 
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.general.LanguageHelper;
+import freeguide.common.lib.general.ResourceHelper;
 
 import freeguide.common.plugininterfaces.IApplication;
 
@@ -66,7 +66,7 @@ public class MainFrame extends JWaitFrame
         try
         {
             byte[] data =
-                LanguageHelper.loadResourceAsByteArray( 
+                ResourceHelper.loadResourceAsByteArray(
                     "resources/plugins/program/freeguide/images/logo-16x16.png" );
 
             if( data != null )

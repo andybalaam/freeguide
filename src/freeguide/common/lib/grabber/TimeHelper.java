@@ -30,11 +30,7 @@ public class TimeHelper
     {
         try
         {
-            months = new HashMap(  );
-
-            final String resourceName =
-                "resources/main/months.utf8.properties";
-            LanguageHelper.loadProperties( resourceName, months );
+            months = new LanguageHelper( "resources.main.months").getMap();
         }
         catch( Exception ex )
         {

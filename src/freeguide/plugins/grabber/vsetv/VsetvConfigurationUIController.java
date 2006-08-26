@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.DefaultListModel;
+import javax.swing.*;
 
 /**
  * DOCUMENT ME!
@@ -124,9 +124,11 @@ public class VsetvConfigurationUIController implements IModuleConfigurationUI
 
         parent.config.isGetAll = panel.getCbGetAll(  ).isSelected(  );
 
-        parent.config.channelGroup = (String)chs.get( 
-                panel.getListChannels(  ).getSelectedIndex(  ) );
-
+        JList channels = panel.getListChannels(  );
+        if (!channels.isSelectionEmpty()) {
+            parent.config.channelGroup = (String)chs.get(
+                    channels.getSelectedIndex(  ) );
+        }
     }
 
     /**

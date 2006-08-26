@@ -31,7 +31,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
     /** The current date in milliseconds */
     private long theDate;
 
-/**
+    /**
      * Creates a new VerticalViewer object.
      */
     public VerticalViewer(  )
@@ -46,7 +46,6 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
         this.pnlMain.add( sp, BorderLayout.CENTER );
     }
 
-    //public VerticalViewer()
     /**
      * DOCUMENT_ME!
      *

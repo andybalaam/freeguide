@@ -308,12 +308,7 @@ public class FirstTimeWizard
     protected static Map readMap( final String resourceName )
         throws IOException
     {
-        Map props = new TreeMap(  );
-
-        LanguageHelper.loadProperties( resourceName, props );
-
-        return props;
-
+        return new LanguageHelper(resourceName).getMap();
     }
 
     /**
@@ -327,9 +322,9 @@ public class FirstTimeWizard
         {
             Map result =
                 readMap( 
-                    "resources/main/browsers-"
+                    "resources.main.browsers-"
                     + ( FreeGuide.runtimeInfo.isUnix ? "lin" : "win" )
-                    + ".properties" );
+                    );
 
             defaultBrowser = (String)result.remove( "DEFAULT" );
 

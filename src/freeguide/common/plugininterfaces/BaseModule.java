@@ -22,20 +22,6 @@ public abstract class BaseModule implements IModule
     protected LanguageHelper i18n;
 
     /**
-     * IModule.getSuppotedLocales implementation. Read list of
-     * "i18n.(locale).properties" files from current package, using ls file.
-     *
-     * @return List of supported locales.
-     *
-     * @throws Exception
-     */
-    public Locale[] getSuppotedLocales(  ) throws Exception
-    {
-        return LanguageHelper.getLocaleList( 
-            "resources/i18n/" + getI18nName(  ) );
-    }
-
-    /**
      * DOCUMENT_ME!
      *
      * @return DOCUMENT_ME!
@@ -72,9 +58,9 @@ public abstract class BaseModule implements IModule
 
         if( package_name.startsWith( plugin_package_name_prefix ) )
         {
-            i18n = new LanguageHelper( 
-                    "resources/i18n/"
-                    + package_name.substring( 
+            i18n = new LanguageHelper(
+                    "resources.i18n."
+                    + package_name.substring(
                         plugin_package_name_prefix.length(  ) )
                                   .replace( '.', '_' ), locale );
         }

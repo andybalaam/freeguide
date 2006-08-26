@@ -14,7 +14,7 @@ package freeguide.plugins.program.freeguide.dialogs;
 
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.GridBagEasy;
-import freeguide.common.lib.general.LanguageHelper;
+import freeguide.common.lib.general.ResourceHelper;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
 
@@ -58,7 +58,7 @@ public class PrivacyInfoDialog extends JDialog
 
         try
         {
-            privacyInfo = LanguageHelper.loadResourceAsString( 
+            privacyInfo = ResourceHelper.loadResourceAsString(
                     "resources/i18n/PrivacyBundle."
                     + Locale.getDefault(  ).getLanguage(  ) + ".html" );
         }

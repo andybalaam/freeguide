@@ -3,6 +3,7 @@ package freeguide.plugins.program.freeguide.lib.fgspecific;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.PreferencesHelper;
+import freeguide.common.lib.general.ResourceHelper;
 
 import freeguide.common.plugininterfaces.IModule;
 import freeguide.common.plugininterfaces.IModuleExport;
@@ -100,7 +101,7 @@ public class PluginsManager
                     PluginInfo handler = new PluginInfo(  );
 
                     InputStream stream =
-                        LanguageHelper.getUncachedStream( url );
+                        ResourceHelper.getUncachedStream( url );
 
                     try
                     {
@@ -385,11 +386,11 @@ public class PluginsManager
     }
 
     /**
-     * DOCUMENT_ME!
+     * Sets a new locale in all plugins
      *
-     * @param locales DOCUMENT_ME!
+     * @param locale The new locale to use
      */
-    public static void setLocale( Locale[] locales )
+    public static void setLocale( Locale locale )
     {
         Iterator it = pluginsInfoByID.values(  ).iterator(  );
 
@@ -401,12 +402,7 @@ public class PluginsManager
             {
                 try
                 {
-                    Locale[] modLocales =
-                        info.getInstance(  ).getSuppotedLocales(  );
-                    info.getInstance(  )
-                        .setLocale( 
-                        LanguageHelper.getPreferredLocale( 
-                            locales, modLocales ) );
+                    info.getInstance(  ).setLocale(locale);
                 }
                 catch( Exception ex )
                 {

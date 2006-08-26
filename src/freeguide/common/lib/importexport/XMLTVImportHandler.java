@@ -4,6 +4,7 @@ import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.LanguageHelper;
+import freeguide.common.lib.general.ResourceHelper;
 import freeguide.common.lib.importexport.XMLTVImport;
 
 import freeguide.common.plugininterfaces.IStoragePipe;
@@ -462,7 +463,7 @@ class XMLTVImportHandler extends DefaultHandler
             try
             {
                 return new InputSource( 
-                    LanguageHelper.getUncachedStream( 
+                    ResourceHelper.getUncachedStream( 
                         "resources/main/xmltv.dtd" ) );
             }
             catch( IOException ex )
