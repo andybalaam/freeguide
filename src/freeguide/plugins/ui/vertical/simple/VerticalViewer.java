@@ -36,14 +36,6 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
      */
     public VerticalViewer(  )
     {
-        VerticalViewer.instance = this;
-        this.pnlMain = new JPanel( new BorderLayout(  ) );
-        this.list = new TvList(  );
-        this.filterModel = (ProgrammeFilterModel)this.list.getModel(  );
-        this.model = this.filterModel.getModel(  );
-
-        JScrollPane sp = new JScrollPane( this.list );
-        this.pnlMain.add( sp, BorderLayout.CENTER );
     }
 
     /**
@@ -64,6 +56,15 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
      */
     public JPanel getPanel(  )
     {
+        if (this.pnlMain == null) {
+            this.pnlMain = new JPanel( new BorderLayout(  ) );
+            this.list = new TvList(  );
+            this.filterModel = (ProgrammeFilterModel)this.list.getModel(  );
+            this.model = this.filterModel.getModel(  );
+
+            JScrollPane sp = new JScrollPane( this.list );
+            this.pnlMain.add( sp, BorderLayout.CENTER );
+        }
         return this.pnlMain;
     }
 
@@ -72,6 +73,9 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
      */
     public void open(  )
     {
+        VerticalViewer.instance = this;
+        this.getPanel();
+
         theDate = System.currentTimeMillis(  );
         onDataChanged(  );
     }
@@ -101,7 +105,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
     {
         synchronized( this )
         {
-            TVData currentData = null;
+            TVData currentData;
 
             try
             {

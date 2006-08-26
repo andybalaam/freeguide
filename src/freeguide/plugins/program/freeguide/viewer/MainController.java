@@ -169,6 +169,8 @@ public class MainController extends BaseModule implements IApplication
         mainFrame.setTitle( 
             "FreeGuide " + Application.VERSION.getDotFormat(  ) );
 
+        setLookAndFeel(  );
+
         new MenuHandler( this );
 
         mainFrame.getContentPane(  )
@@ -215,8 +217,6 @@ public class MainController extends BaseModule implements IApplication
         {
             config.activeGrabberIDs.add( grabberFromWizard );
         }
-
-        setLookAndFeel(  );
 
         mainFrame.pack(  );
 
