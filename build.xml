@@ -82,9 +82,7 @@
     </target>
     
     <target name="clean">
-        <delete dir="${build}"/>
-        <delete dir="${dist}"/>
-    <delete dir="${run}"/>
+        <ant antfile="ant/clean.xml" />
     </target>
 
     <target name="install-linux">
