@@ -47,7 +47,7 @@
     </target>
 
 
-    <target name="prepare" depends="prebuild-buildclasses">
+    <target name="prepare" depends="prepare-properties,prebuild-buildclasses">
         <java classpath="${build}/buildclasses"
         classname="freeguide.build.patchallfiles.PatchAllFiles"
         fork="true"/>
