@@ -2,7 +2,8 @@
 
 build: build-stamp
 build-stamp:
-	ant build-all
+	rm -f doc/html-local/{README.html,developers-*.html}
+	ant
 	touch $@
 
 install: build

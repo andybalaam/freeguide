@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Shaun Jackman <sjackman@debian.org>
 Build-Depends: debhelper
 Build-Depends-Indep: java-gcj-compat-dev | java2-compiler, ant
-Standards-Version: 3.6.2.2
+Standards-Version: 3.7.2.1
 
 Package: freeguide
 Architecture: all
