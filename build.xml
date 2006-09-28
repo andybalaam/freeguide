@@ -112,4 +112,8 @@
         <ant antfile="ant/run.xml" />
     </target>
 
+    <target name="format-sources">
+        <ant antfile="ant/prepare.xml" target="format-sources"/>
+    </target>
+
 </project>

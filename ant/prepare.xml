@@ -44,6 +44,14 @@
             <substitution expression="#encoding: ascii"/>
             <fileset dir="${properties}" includes="*.properties" />
         </replaceregexp>
+
+        <native2ascii encoding="UTF-8"
+            src="${resources}/main/utf-8"
+            dest="${resources}/main"
+            includes="*.properties">
+<!--            includes="*.properties.utf-8">-->
+<!--            <mapper type="glob" from="*.properties.utf-8" to="*.properties"/>-->
+        </native2ascii>
     </target>
 
 
@@ -51,5 +59,20 @@
         <java classpath="${build}/buildclasses"
         classname="freeguide.build.patchallfiles.PatchAllFiles"
         fork="true"/>
+    </target>
+
+
+    <taskdef name="jalopy" classname="de.hunsicker.jalopy.plugin.ant.AntPlugin">
+        <classpath>
+            <fileset dir="ant/tasks" includes="*.jar"/>
+        </classpath>
+    </taskdef>
+
+    <target name="format-sources" depends="prepare">
+    	<jalopy convention="scripts\source_formatting\freeguide-jalopy.xml" encoding="UTF-8" fileformat="UNIX" failOnError="true" loglevel="ERROR">
+    		<fileset dir="src">
+	    		<include name="**/*.java"/>
+    		</fileset>
+    	</jalopy>
     </target>
 </project>
