@@ -3,10 +3,13 @@ package freeguide.common.lib.fgspecific;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.data.TVIteratorChannels;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 import freeguide.common.plugininterfaces.IModuleStorage;
+
+import java.util.Iterator;
 
 /**
  * DOCUMENT ME!
@@ -65,7 +68,7 @@ public class StorageHelper
     }
 
     /**
-     * DOCUMENT_ME!
+     * Perform data for info about all channels.
      *
      * @param info DOCUMENT_ME!
      * @param data DOCUMENT_ME!
@@ -74,31 +77,47 @@ public class StorageHelper
         final IModuleStorage.Info info, final TVData data )
     {
         data.iterate( 
-            new TVIteratorProgrammes(  )
+            new TVIteratorChannels(  )
             {
                 protected void onChannel( TVChannel channel )
                 {
-                    if( !info.channelsList.contains( channel.getID(  ) ) )
-                    {
-                        info.channelsList.add( 
-                            new TVChannelsSet.Channel( 
-                                channel.getID(  ), channel.getDisplayName(  ) ) );
-                    }
-                }
-
-                protected void onProgramme( TVProgramme programme )
-                {
-                    if( info.minDate > programme.getStart(  ) )
-                    {
-                        info.minDate = programme.getStart(  );
-                    }
-
-                    if( info.maxDate < programme.getEnd(  ) )
-                    {
-                        info.maxDate = programme.getEnd(  );
-                    }
+                    performInInfo( info, channel );
                 }
             } );
+    }
+
+    /**
+     * Perform channel info for info about all channels.
+     *
+     * @param info
+     * @param channel
+     */
+    public static void performInInfo( 
+        final IModuleStorage.Info info, final TVChannel channel )
+    {
+        if( !info.channelsList.contains( channel.getID(  ) ) )
+        {
+            info.channelsList.add( 
+                new TVChannelsSet.Channel( 
+                    channel.getID(  ), channel.getDisplayName(  ) ) );
+        }
+
+        for( 
+            final Iterator it = channel.getProgrammes(  ).iterator(  );
+                it.hasNext(  ); )
+        {
+            final TVProgramme programme = (TVProgramme)it.next(  );
+
+            if( info.minDate > programme.getStart(  ) )
+            {
+                info.minDate = programme.getStart(  );
+            }
+
+            if( info.maxDate < programme.getEnd(  ) )
+            {
+                info.maxDate = programme.getEnd(  );
+            }
+        }
     }
 
     protected static class EarliestIteratorProgrammes
