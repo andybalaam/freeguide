@@ -44,7 +44,7 @@ public class PrivacyInfoDialog extends JDialog
      */
     public PrivacyInfoDialog(  )
     {
-        super( Application.getInstance().getApplicationFrame() );
+        super( Application.getInstance(  ).getApplicationFrame(  ) );
         setTitle( 
             Application.getInstance(  )
                        .getLocalizedMessage( "privacy_information" ) );
@@ -58,7 +58,7 @@ public class PrivacyInfoDialog extends JDialog
 
         try
         {
-            privacyInfo = ResourceHelper.loadResourceAsString(
+            privacyInfo = ResourceHelper.loadResourceAsString( 
                     "resources/i18n/PrivacyBundle."
                     + Locale.getDefault(  ).getLanguage(  ) + ".html" );
         }

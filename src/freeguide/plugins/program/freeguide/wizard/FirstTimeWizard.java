@@ -68,14 +68,14 @@ public class FirstTimeWizard
         // setStandardProps(  );
         // If we haven't got a region, assume it's UK.
         /*if( FreeGuide.prefs.misc.get( "region" ) == null )
-
-
+        
+        
         {
-
-
+        
+        
         FreeGuide.prefs.misc.put( "region", "UK" );
-
-
+        
+        
         }*/
         getAllRegions(  );
 
@@ -308,7 +308,7 @@ public class FirstTimeWizard
     protected static Map readMap( final String resourceName )
         throws IOException
     {
-        return new LanguageHelper(resourceName).getMap();
+        return new LanguageHelper( resourceName ).getMap(  );
     }
 
     /**
@@ -323,8 +323,7 @@ public class FirstTimeWizard
             Map result =
                 readMap( 
                     "resources.main.browsers-"
-                    + ( FreeGuide.runtimeInfo.isUnix ? "lin" : "win" )
-                    );
+                    + ( FreeGuide.runtimeInfo.isUnix ? "lin" : "win" ) );
 
             defaultBrowser = (String)result.remove( "DEFAULT" );
 

@@ -237,9 +237,11 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     {
         if( panel == null )
         {
-            if (this.menuSearch == null) {
+            if( this.menuSearch == null )
+            {
                 this.menuSearch = new JMenuItem(  );
             }
+
             panel = new ViewerFrame( this );
         }
 

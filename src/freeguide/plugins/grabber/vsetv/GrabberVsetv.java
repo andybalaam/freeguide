@@ -228,7 +228,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         try
         {
             TIMEZONES.load( 
-                ResourceHelper.getUncachedStream(
+                ResourceHelper.getUncachedStream( 
                     "resources/plugins/grabber/vsetv/timezones.properties" ) );
 
         }
@@ -313,7 +313,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
     protected static void patch( final TVData data ) throws IOException
     {
         final String[] nen =
-            ResourceHelper.loadStrings(
+            ResourceHelper.loadStrings( 
                 "resources/plugins/grabber/vsetv/nen.utf8.list" );
         data.iterateProgrammes( 
             new TVIteratorProgrammes(  )

@@ -51,7 +51,7 @@ public class PanelGeneralController implements IModuleConfigurationUI
 
             try
             {
-                locales = LanguageHelper.getSupportedLocales();
+                locales = LanguageHelper.getSupportedLocales(  );
 
                 String[] langNames = new String[locales.length + 1];
                 langNames[0] = Application.getInstance(  )

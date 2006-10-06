@@ -256,9 +256,9 @@ public class Favourite
      *
      * @return The doRecord value
      */
-    public boolean getRecord( )
+    public boolean getRecord(  )
     {
-      return doRecord;
+        return doRecord;
     }
 
     /**
@@ -342,7 +342,6 @@ public class Favourite
         this.dayOfWeek = dayOfWeek;
     }
 
-
     /**
      * Sets the record flag.
      *
@@ -350,7 +349,7 @@ public class Favourite
      */
     public void setRecord( boolean doRecord )
     {
-      this.doRecord = doRecord;
+        this.doRecord = doRecord;
     }
 
     // The day of the week it's on

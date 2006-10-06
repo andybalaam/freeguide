@@ -31,7 +31,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
     /** The current date in milliseconds */
     private long theDate;
 
-    /**
+/**
      * Creates a new VerticalViewer object.
      */
     public VerticalViewer(  )
@@ -56,7 +56,8 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
      */
     public JPanel getPanel(  )
     {
-        if (this.pnlMain == null) {
+        if( this.pnlMain == null )
+        {
             this.pnlMain = new JPanel( new BorderLayout(  ) );
             this.list = new TvList(  );
             this.filterModel = (ProgrammeFilterModel)this.list.getModel(  );
@@ -65,6 +66,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
             JScrollPane sp = new JScrollPane( this.list );
             this.pnlMain.add( sp, BorderLayout.CENTER );
         }
+
         return this.pnlMain;
     }
 
@@ -74,7 +76,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
     public void open(  )
     {
         VerticalViewer.instance = this;
-        this.getPanel();
+        this.getPanel(  );
 
         theDate = System.currentTimeMillis(  );
         onDataChanged(  );
@@ -162,7 +164,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
 
     /*protected void askForLoadData(  )
     {
-
+    
         int r =
             JOptionPane.showConfirmDialog(
                 Application.getInstance(  ).getCurrentFrame(  ),
@@ -170,7 +172,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
                     "there_are_missing_listings_for_today" ),
                 Application.getInstance(  ).getLocalizedMessage(
                     "download_listings_q" ), JOptionPane.YES_NO_OPTION );
-
+    
         if( r == 0 )
         {
             Application.getInstance(  ).doStartGrabbers(  );

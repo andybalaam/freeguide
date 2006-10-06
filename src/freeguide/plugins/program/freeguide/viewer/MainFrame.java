@@ -66,7 +66,7 @@ public class MainFrame extends JWaitFrame
         try
         {
             byte[] data =
-                ResourceHelper.loadResourceAsByteArray(
+                ResourceHelper.loadResourceAsByteArray( 
                     "resources/plugins/program/freeguide/images/logo-16x16.png" );
 
             if( data != null )

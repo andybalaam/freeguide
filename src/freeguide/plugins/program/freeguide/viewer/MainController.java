@@ -30,6 +30,7 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import java.io.ObjectInputStream.GetField;
 
 import java.util.ArrayList;
@@ -231,11 +232,11 @@ public class MainController extends BaseModule implements IApplication
         FreeGuide.hidePleaseWait(  );
 
         applicationFrame = mainFrame;
-        
-        
+
         // Check the FreeGuide version
-        if( !"no".equals(FreeGuide.config.privacyInfo) ) {
-            new VersionCheckerThread( getApplicationFrame() ).start();
+        if( !"no".equals( FreeGuide.config.privacyInfo ) )
+        {
+            new VersionCheckerThread( getApplicationFrame(  ) ).start(  );
         }
 
         //checkForNoData(  );
@@ -287,7 +288,7 @@ public class MainController extends BaseModule implements IApplication
         {
             return;
         }
-
+    
         int r =
             JOptionPane.showConfirmDialog(
                 Application.getInstance(  ).getApplicationFrame(  ),
@@ -297,7 +298,7 @@ public class MainController extends BaseModule implements IApplication
                 Application.getInstance(  )
                            .getLocalizedMessage( "download_listings_q" ),
                 JOptionPane.YES_NO_OPTION );
-
+    
         if( r == 0 )
         {
             Application.getInstance(  ).doStartGrabbers(  );
@@ -428,7 +429,8 @@ public class MainController extends BaseModule implements IApplication
             {
                 UIManager.setLookAndFeel( inspectedLFClassName );
 
-                if (mainFrame != null) {
+                if( mainFrame != null )
+                {
                     SwingUtilities.updateComponentTreeUI( mainFrame );
                 }
             }

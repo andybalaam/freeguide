@@ -125,8 +125,10 @@ public class VsetvConfigurationUIController implements IModuleConfigurationUI
         parent.config.isGetAll = panel.getCbGetAll(  ).isSelected(  );
 
         JList channels = panel.getListChannels(  );
-        if (!channels.isSelectionEmpty()) {
-            parent.config.channelGroup = (String)chs.get(
+
+        if( !channels.isSelectionEmpty(  ) )
+        {
+            parent.config.channelGroup = (String)chs.get( 
                     channels.getSelectedIndex(  ) );
         }
     }

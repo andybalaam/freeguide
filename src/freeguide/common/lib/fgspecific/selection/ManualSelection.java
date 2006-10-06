@@ -35,7 +35,8 @@ public class ManualSelection
      * @param selected DOCUMENT ME!
      */
     public ManualSelection( 
-        final TVProgramme programme, final boolean selected, final boolean highlighted )
+        final TVProgramme programme, final boolean selected,
+        final boolean highlighted )
     {
         this.channelID = programme.getChannel(  ).getID(  );
 
@@ -69,8 +70,6 @@ public class ManualSelection
 
     /**
      * Get Highlight
-     * 
-     * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
      *
      * @return Returns the highlighted status.
      */
@@ -82,8 +81,6 @@ public class ManualSelection
 
     /**
      * Set Highlight
-     * 
-     * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
      *
      * @param highlighted the highlighted to set.
      */
@@ -91,8 +88,8 @@ public class ManualSelection
     {
         this.highlighted = highlighted;
 
-    }    
-    
+    }
+
     /**
      * DOCUMENT ME!
      *

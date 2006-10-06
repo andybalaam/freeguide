@@ -96,9 +96,7 @@ public class FreeGuide
     public FreeGuide( String[] args ) throws Exception
     {
         startupMessages = new LanguageHelper( 
-                "resources.i18n.Startup",
-                Locale.getDefault()
-        );
+                "resources.i18n.Startup", Locale.getDefault(  ) );
 
         // Check Java version.  If wrong, exit with error
         checkJavaVersion(  );
@@ -495,7 +493,7 @@ public class FreeGuide
 
         if( newLocale == null )
         {
-            locale = Locale.getDefault();
+            locale = Locale.getDefault(  );
         }
         else
         {
@@ -509,8 +507,8 @@ public class FreeGuide
 
     /**
      * Checks if the version of java with which freeguide is currently
-     * run is at least the minimum required version.
-     * The method die()s the whole app if it lower.
+     * run is at least the minimum required version. The method die()s the
+     * whole app if it lower.
      */
     public static void checkJavaVersion(  )
     {

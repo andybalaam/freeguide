@@ -43,21 +43,21 @@ public class PrepareInfo
     {
         /*String[] tzn = TimeZone.getAvailableIDs(  );
         Arrays.sort( tzn );
-
+        
         Date today = new Date(  );
-
+        
         for( int i = 0; i < tzn.length; i++ )
         {
-
+        
             TimeZone tz = TimeZone.getTimeZone( tzn[i] );
             String shortName =
                 tz.getDisplayName( tz.inDaylightTime( today ), TimeZone.SHORT );
             String longName =
                 tz.getDisplayName( tz.inDaylightTime( today ), TimeZone.LONG );
-
+        
             System.out.println( tzn[i] + " - " + shortName + "/" + longName );
         }
-
+        
         System.exit( 1 );*/
         final HttpBrowser browser = new HttpBrowser(  );
         browser.loadURL( "http://www.hallmarkchannel.com/chooseCountry.jsp" );
@@ -87,7 +87,7 @@ public class PrepareInfo
 
             /*if( !"BELARUS".equals( country ) )
             {
-
+            
                 continue;
             }*/
             final String cntry = getCntry( url );

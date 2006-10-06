@@ -151,7 +151,7 @@ public class FavouriteEditorDialog extends FGDialog
             cmbDayOfWeek.setSelectedIndex( favourite.getDayOfWeek(  ) );
         }
 
-        chkRecord.setSelected( favourite.getRecord() );
+        chkRecord.setSelected( favourite.getRecord(  ) );
 
         calcTxtName(  );
     }
@@ -336,8 +336,9 @@ public class FavouriteEditorDialog extends FGDialog
         {
             favourite.setDayOfWeek( -1 );
         }
+
         // set the record flag
-        favourite.setRecord( chkRecord.isSelected() );
+        favourite.setRecord( chkRecord.isSelected(  ) );
 
         setSave(  );
     }
@@ -693,9 +694,8 @@ public class FavouriteEditorDialog extends FGDialog
         getContentPane(  ).add( txtName, gridBagConstraints );
 
         chkRecord = new javax.swing.JCheckBox( 
-                Application.getInstance(  )
-                           .getLocalizedMessage( "record" ) );
-        gridBagConstraints = new java.awt.GridBagConstraints( );
+                Application.getInstance(  ).getLocalizedMessage( "record" ) );
+        gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 3;
@@ -703,7 +703,6 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 ); // TODO what's this, correct?
         gridBagConstraints.weightx = 0.9;
         getContentPane(  ).add( chkRecord, gridBagConstraints );
-
 
         jPanel1 = new javax.swing.JPanel( new java.awt.GridBagLayout(  ) );
         butOK = new javax.swing.JButton( 

@@ -13,8 +13,8 @@
 package freeguide.plugins.program.freeguide.dialogs;
 
 import freeguide.common.lib.general.LanguageHelper;
-import freeguide.common.lib.general.Utils;
 import freeguide.common.lib.general.ResourceHelper;
+import freeguide.common.lib.general.Utils;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
 
@@ -54,7 +54,7 @@ public class PleaseWaitFrame extends JFrame
         try
         {
             byte[] data =
-                ResourceHelper.loadResourceAsByteArray(
+                ResourceHelper.loadResourceAsByteArray( 
                     "resources/plugins/program/freeguide/images/logo-16x16.png" );
 
             if( data != null )

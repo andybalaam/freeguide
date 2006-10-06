@@ -145,15 +145,12 @@ abstract public class BaseModuleReminder extends BaseModule
         return null;
     }
 
-
     /**
      * Check if programme is highlighted.
      *
      * @param programme programme
      *
      * @return true if programme highlighted
-     * 
-   	 * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
      */
     public boolean isHighlighted( TVProgramme programme )
     {
@@ -177,7 +174,6 @@ abstract public class BaseModuleReminder extends BaseModule
         }
     }
 
-    
     /**
      * Check if programme in the favourites or manual selection list.
      *
@@ -219,40 +215,39 @@ abstract public class BaseModuleReminder extends BaseModule
         synchronized( getReminderConfig(  ) )
         {
             Favourite fav = getFavourite( programme );
-            return ( fav != null && fav.getRecord() );
+
+            return ( ( fav != null ) && fav.getRecord(  ) );
         }
     }
-
 
     /**
      * Add/remove programme to selection list.
      *
      * @param programme programme
-     * @param newSelection DOCUMENT ME!
-     * 
-	 * new entries for favourite colour and guide colour
-	 *
-	 * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+     * @param newSelection DOCUMENT ME!  new entries for favourite colour and
+     *        guide colour
+     * @param newHighlight DOCUMENT ME!
      */
     public void setProgrammeSelection( 
-        final TVProgramme programme, final boolean newSelection, final boolean newHighlight)
+        final TVProgramme programme, final boolean newSelection,
+        final boolean newHighlight )
     {
         synchronized( getReminderConfig(  ) )
         {
             ManualSelection sel = getManualSelection( programme );
 
-            
             if( sel != null )
             {
                 sel.setSelected( newSelection );
-                sel.setHighlighted(newHighlight);
+                sel.setHighlighted( newHighlight );
 
             }
 
             else
             {
                 getReminderConfig(  ).manualSelectionList.add( 
-                    new ManualSelection( programme, newSelection , newHighlight) );
+                    new ManualSelection( 
+                        programme, newSelection, newHighlight ) );
             }
         }
     }

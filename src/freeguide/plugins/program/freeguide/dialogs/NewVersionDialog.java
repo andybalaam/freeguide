@@ -18,6 +18,7 @@ import freeguide.common.lib.general.*;
 import freeguide.plugins.program.freeguide.FreeGuide;
 
 import java.awt.*;
+
 import java.util.logging.Level;
 
 import javax.swing.*;
@@ -147,8 +148,7 @@ public class NewVersionDialog extends JDialog
         catch( Exception ex )
         {
             Application.getInstance(  ).getLogger(  )
-                       .log( 
-                Level.WARNING, "Error open home url", ex );
+                       .log( Level.WARNING, "Error open home url", ex );
         }
     }
 

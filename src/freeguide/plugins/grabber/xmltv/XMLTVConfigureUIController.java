@@ -49,12 +49,12 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
                 //                config.commandsRun.remove( btn.getName(  ) );
 
                 /*         JTextField tf = (JTextField)textFields.get( btn.getName(  ) );
-
+                
                 tf.getDocument(  ).removeDocumentListener(
                 (TextChanged)textListeners.get( btn.getName(  ) ) );
-
+                
                 setTextField( btn.getName(  ), true );
-
+                
                 tf.getDocument(  ).addDocumentListener(
                 (TextChanged)textListeners.get( btn.getName(  ) ) );*/
             }

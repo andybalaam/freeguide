@@ -1,7 +1,8 @@
 package freeguide.common.lib.general;
 
-import freeguide.common.plugininterfaces.ILocalizer;
 import freeguide.common.lib.fgspecific.Application;
+
+import freeguide.common.plugininterfaces.ILocalizer;
 
 import java.io.IOException;
 
@@ -20,7 +21,7 @@ public class LanguageHelper implements ILocalizer
     final protected Locale locale;
     final protected ResourceBundle bundle;
 
-    /**
+/**
      * Create language support object.
      *
      * @param resourcePrefix package prefix in form
@@ -28,11 +29,11 @@ public class LanguageHelper implements ILocalizer
      */
     public LanguageHelper( final String resourcePrefix )
     {
-        this.locale = Locale.getDefault();
-        this.bundle = ResourceBundle.getBundle(resourcePrefix, locale);
+        this.locale = Locale.getDefault(  );
+        this.bundle = ResourceBundle.getBundle( resourcePrefix, locale );
     }
 
-    /**
+/**
      * Create language support object.
      *
      * @param resourcePrefix package prefix in form
@@ -41,32 +42,44 @@ public class LanguageHelper implements ILocalizer
      */
     public LanguageHelper( final String resourcePrefix, final Locale locale )
     {
-        if (resourcePrefix.indexOf("/") >= 0) {
-            System.err.println("Still using old resource path format: " + resourcePrefix);
+        if( resourcePrefix.indexOf( "/" ) >= 0 )
+        {
+            System.err.println( 
+                "Still using old resource path format: " + resourcePrefix );
         }
+
         this.locale = locale;
-        this.bundle = ResourceBundle.getBundle(resourcePrefix, locale);
+        this.bundle = ResourceBundle.getBundle( resourcePrefix, locale );
     }
 
     /**
      * DOCUMENT_ME!
      *
      * @return DOCUMENT_ME!
+     *
      * @deprecated
      */
     public Set getKeys(  )
     {
-        return new HashSet();
+        return new HashSet(  );
     }
 
-    public Map getMap()
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Map getMap(  )
     {
-        Map map = new HashMap();
-        Enumeration keys = this.bundle.getKeys();
-        while (keys.hasMoreElements()) {
-            Object el = keys.nextElement();
-            map.put(el, this.bundle.getObject(el + ""));
+        Map map = new HashMap(  );
+        Enumeration keys = this.bundle.getKeys(  );
+
+        while( keys.hasMoreElements(  ) )
+        {
+            Object el = keys.nextElement(  );
+            map.put( el, this.bundle.getObject( el + "" ) );
         }
+
         return map;
     }
 
@@ -90,7 +103,7 @@ public class LanguageHelper implements ILocalizer
      *
      * @return localized messages
      */
-    public String getLocalizedMessage(
+    public String getLocalizedMessage( 
         final String key, final Object[] messageArguments )
     {
         MessageFormat formatter =
@@ -110,20 +123,32 @@ public class LanguageHelper implements ILocalizer
         return locale;
     }
 
-
-    public static Locale[] getSupportedLocales() throws IOException
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     *
+     * @throws IOException DOCUMENT_ME!
+     */
+    public static Locale[] getSupportedLocales(  ) throws IOException
     {
-
-        String[] codes = ResourceHelper.loadStrings("resources/main/languages.properties");
+        String[] codes =
+            ResourceHelper.loadStrings( "resources/main/languages.properties" );
         Locale[] locales = new Locale[codes.length];
-        for (int i = 0; i < codes.length; i++) {
-            if (codes[i].indexOf("_") > -1) {
-                String[] split = codes[i].split("_");
-                locales[i] = new Locale(split[0], split[1]);
-            } else {
-                locales[i] = new Locale(codes[i]);
+
+        for( int i = 0; i < codes.length; i++ )
+        {
+            if( codes[i].indexOf( "_" ) > -1 )
+            {
+                String[] split = codes[i].split( "_" );
+                locales[i] = new Locale( split[0], split[1] );
+            }
+            else
+            {
+                locales[i] = new Locale( codes[i] );
             }
         }
+
         return locales;
     }
 }

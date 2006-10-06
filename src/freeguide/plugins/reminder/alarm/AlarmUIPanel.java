@@ -104,7 +104,8 @@ public class AlarmUIPanel extends JPanel
         gridBagConstraints1.insets = new java.awt.Insets( 5, 5, 0, 5 );
 
         // record
-        GridBagConstraints gridBagConstraintsRecord = new GridBagConstraints(  );
+        GridBagConstraints gridBagConstraintsRecord =
+            new GridBagConstraints(  );
         gridBagConstraintsRecord.gridx = 0;
         gridBagConstraintsRecord.gridy = 6;
         gridBagConstraintsRecord.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -112,18 +113,20 @@ public class AlarmUIPanel extends JPanel
         gridBagConstraintsRecord.insets = new java.awt.Insets( 5, 5, 0, 5 );
 
         // startcommand
-        GridBagConstraints gridBagConstraintsStart = new GridBagConstraints(  );
+        GridBagConstraints gridBagConstraintsStart =
+            new GridBagConstraints(  );
         gridBagConstraintsStart.gridx = 0;
         gridBagConstraintsStart.gridy = 7;
         gridBagConstraintsStart.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraintsStart.anchor = java.awt.GridBagConstraints.WEST;
-        labelStart = new JLabel( );
-        labelStart.setText(
+        labelStart = new JLabel(  );
+        labelStart.setText( 
             localizer.getLocalizedMessage( "options.execute_on_start" ) );
         labelStart.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_S );
         labelStart.setLabelFor( getTextStart(  ) );
 
-        GridBagConstraints gridBagConstraintsTextStart = new GridBagConstraints(  );
+        GridBagConstraints gridBagConstraintsTextStart =
+            new GridBagConstraints(  );
         gridBagConstraintsTextStart.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraintsTextStart.gridx = 1;
         gridBagConstraintsTextStart.gridy = 7;
@@ -136,20 +139,19 @@ public class AlarmUIPanel extends JPanel
         gridBagConstraintsStop.gridy = 8;
         gridBagConstraintsStop.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraintsStop.anchor = java.awt.GridBagConstraints.WEST;
-        labelStop = new JLabel( );
-        labelStop.setText(
+        labelStop = new JLabel(  );
+        labelStop.setText( 
             localizer.getLocalizedMessage( "options.execute_on_stop" ) );
         labelStop.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_T );
         labelStop.setLabelFor( getTextStop(  ) );
 
-        GridBagConstraints gridBagConstraintsTextStop = new GridBagConstraints(  );
+        GridBagConstraints gridBagConstraintsTextStop =
+            new GridBagConstraints(  );
         gridBagConstraintsTextStop.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraintsTextStop.gridx = 1;
         gridBagConstraintsTextStop.gridy = 8;
         gridBagConstraintsTextStop.weightx = 1.0;
         gridBagConstraintsTextStop.insets = new java.awt.Insets( 5, 5, 0, 5 );
-
-
 
         this.setLayout( new GridBagLayout(  ) );
         this.setSize( 300, 200 );

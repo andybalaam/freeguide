@@ -10,6 +10,10 @@ import java.util.Set;
 public interface ILocalizer
 {
     /**
+     * DOCUMENT ME!
+     *
+     * @return DOCUMENT_ME!
+     *
      * @deprecated
      */
     Set getKeys(  );

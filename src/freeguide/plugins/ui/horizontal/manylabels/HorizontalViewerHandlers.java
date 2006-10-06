@@ -240,12 +240,12 @@ public class HorizontalViewerHandlers
      */
     public static class LabelProgrammeActionMap extends ActionMap
     {
-    	 /**
+/**
          * Creates a new LabelProgrammeActionMap object.
          * 
-    	 * set highlighting according to the favourite selection
-    	 *
-    	 * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+         * set highlighting according to the favourite selection
+         *
+         * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
          */
         public LabelProgrammeActionMap(  )
         {
@@ -321,16 +321,24 @@ public class HorizontalViewerHandlers
                             reminder.isSelected( label.getProgramme(  ) );
                         final boolean isHighlighted =
                             reminder.isHighlighted( label.getProgramme(  ) );
-                        if (isSelected && !isHighlighted) {
-                        reminder.setProgrammeSelection( 
-                                    label.getProgramme(  ), !isSelected , false);
-                        } else if (!isSelected && isHighlighted) {
-                        	reminder.setProgrammeSelection( 
-                                    label.getProgramme(  ), !isSelected , true);
-                        } else {
-                        	reminder.setProgrammeSelection( 
-                                 label.getProgramme(  ), !isSelected , !isHighlighted);
+
+                        if( isSelected && !isHighlighted )
+                        {
+                            reminder.setProgrammeSelection( 
+                                label.getProgramme(  ), !isSelected, false );
                         }
+                        else if( !isSelected && isHighlighted )
+                        {
+                            reminder.setProgrammeSelection( 
+                                label.getProgramme(  ), !isSelected, true );
+                        }
+                        else
+                        {
+                            reminder.setProgrammeSelection( 
+                                label.getProgramme(  ), !isSelected,
+                                !isHighlighted );
+                        }
+
                         label.controller.redrawCurrentProgramme(  );
                     }
                     ;

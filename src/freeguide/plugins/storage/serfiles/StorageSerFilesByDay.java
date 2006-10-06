@@ -54,26 +54,30 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
     protected SimpleDateFormat dateFormat;
     protected Info cachedInfo;
 
-    /** Directory where data will be stored, or null if need to use application working directory. */
-    protected final File storageDir; 
-
     /**
+     * Directory where data will be stored, or null if need to use
+     * application working directory.
+     */
+    protected final File storageDir;
+
+/**
      * Creates a new StorageSerFiles object on application storage dir.
      */
     public StorageSerFilesByDay(  )
     {
-        this(null);
+        this( null );
     }
-    
-    /**
+
+/**
      * Create storage on custom directory. Used not for FreeGuide GUI application.
      * 
      * @param dir directory where files will be stored
      */
-    public StorageSerFilesByDay(final File dir) {
+    public StorageSerFilesByDay( final File dir )
+    {
         dateFormat = new SimpleDateFormat( "yyyy-MM-dd" );
         dateFormat.setTimeZone( TimeZone.getTimeZone( "GMT" ) );
-        this.storageDir=dir;
+        this.storageDir = dir;
     }
 
     /**
@@ -85,13 +89,18 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
     {
         return null;
     }
-    
+
     /**
-     * Get storage directory. It is program working directory if doesn't defined other.
+     * Get storage directory. It is program working directory if
+     * doesn't defined other.
+     *
      * @return
      */
-    public File getStorageDirectory() {
-        return storageDir!=null?storageDir: new File(Application.getInstance(  ).getWorkingDirectory(  ));
+    public File getStorageDirectory(  )
+    {
+        return ( storageDir != null ) ? storageDir
+                                      : new File( 
+            Application.getInstance(  ).getWorkingDirectory(  ) );
     }
 
     /**
@@ -104,8 +113,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
         if( cachedInfo == null )
         {
             File[] files =
-                getStorageDirectory()
-                .listFiles( new FilterFiles(  ) );
+                getStorageDirectory(  ).listFiles( new FilterFiles(  ) );
 
             cachedInfo = new Info(  );
 
@@ -128,9 +136,9 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
 
     /**
      * Load data from the specified file.
-     * 
+     *
      * @param f file for load
-     * 
+     *
      * @return data
      */
     protected TVData load( final File f )
@@ -203,9 +211,9 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
 
     /**
      * Calculate file name by date.
-     * 
+     *
      * @param date date for loading
-     * 
+     *
      * @return file which include data for this date
      */
     protected File getFile( long date )
@@ -213,8 +221,8 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
         long letterNum = ( date % MSEC_PER_DAY ) / MSEC_PARTS;
 
         return new File( 
-            getStorageDirectory(), "/" + "day-"
-            + dateFormat.format( new Date( date ) ) + "-"
+            getStorageDirectory(  ),
+            "/" + "day-" + dateFormat.format( new Date( date ) ) + "-"
             + (char)( 'A' + letterNum ) + ".ser" );
     }
 
@@ -223,9 +231,11 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
      */
     protected void createDir(  )
     {
-        final File dir=getStorageDirectory();
-        if (!dir.exists()) {
-            dir.mkdirs();
+        final File dir = getStorageDirectory(  );
+
+        if( !dir.exists(  ) )
+        {
+            dir.mkdirs(  );
         }
     }
 
@@ -350,8 +360,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
     public void cleanup(  )
     {
         File[] files =
-            getStorageDirectory()
-            .listFiles( new FilterFiles(  ) );
+            getStorageDirectory(  ).listFiles( new FilterFiles(  ) );
 
         if( files != null )
         {

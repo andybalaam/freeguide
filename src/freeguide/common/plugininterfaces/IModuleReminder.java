@@ -38,14 +38,11 @@ public interface IModuleReminder extends IModule
     /**
      * Check if programme is highlighted.
      *
-     * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
-     *
      * @param programme programme
      *
      * @return true if highlighted
      */
     public boolean isHighlighted( TVProgramme programme );
-
 
     /**
      * Check if programme is selected.
@@ -61,12 +58,11 @@ public interface IModuleReminder extends IModule
      *
      * @param programme programme
      * @param newSelection DOCUMENT ME!
-     *
-     * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
-     * add parameter for highlight
+     * @param newHighlight DOCUMENT ME!
      */
     public void setProgrammeSelection( 
-        final TVProgramme programme, final boolean newSelection, final boolean newHighlight);
+        final TVProgramme programme, final boolean newSelection,
+        final boolean newHighlight );
 
     /**
      * Add items to main frame menu.

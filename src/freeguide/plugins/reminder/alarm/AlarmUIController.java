@@ -54,10 +54,8 @@ public class AlarmUIController implements IModuleConfigurationUI
              .setText( String.valueOf( parent.config.reminderGiveUp / 1000 ) );
 
         panel.getCbRecord(  ).setSelected( parent.config.recordOn );
-        panel.getTextStart(  )
-            .setText( parent.config.recordStartCommand );
-        panel.getTextStop(  )
-            .setText( parent.config.recordStopCommand );
+        panel.getTextStart(  ).setText( parent.config.recordStartCommand );
+        panel.getTextStop(  ).setText( parent.config.recordStopCommand );
     }
 
     /**
@@ -97,9 +95,7 @@ public class AlarmUIController implements IModuleConfigurationUI
         parent.config.reminderGiveUp = Long.parseLong( 
                 panel.getTextGiveup(  ).getText(  ) ) * 1000L;
         parent.config.recordOn = panel.getCbRecord(  ).isSelected(  );
-        parent.config.recordStartCommand = panel.getTextStart(  )
-            .getText(  );
-        parent.config.recordStopCommand = panel.getTextStop(  )
-            .getText(  );
+        parent.config.recordStartCommand = panel.getTextStart(  ).getText(  );
+        parent.config.recordStopCommand = panel.getTextStop(  ).getText(  );
     }
 }

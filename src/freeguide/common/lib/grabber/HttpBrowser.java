@@ -50,52 +50,52 @@ public class HttpBrowser
     public static final String HEADER_COOKIE = "Cookie";
 
     /*static
-
+    
     {
-
-
+    
+    
     ProxySelector ps =
-
+    
     new ProxySelector(  )
-
+    
     {
-
+    
     public List select( URI uri )
-
+    
     {
-
-
+    
+    
     List result = new ArrayList(  );
-
+    
     result.add(
-
+    
         new Proxy(
-
+    
             Proxy.Type.HTTP,
-
+    
             new InetSocketAddress( "localhost", 3128 ) ) );
-
-
+    
+    
     return result;
-
+    
     }
-
-
+    
+    
     public void connectFailed(
-
+    
     URI uri, SocketAddress sa, IOException ioe )
-
+    
     {
-
+    
     ioe.printStackTrace(  );
-
+    
     }
-
+    
     };
-
-
+    
+    
     ProxySelector.setDefault( ps );
-
+    
     }   */
     protected Map cookies = new TreeMap(  );
     protected Map headers = new TreeMap(  );

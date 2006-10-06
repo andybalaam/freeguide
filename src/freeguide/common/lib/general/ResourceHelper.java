@@ -1,18 +1,19 @@
 package freeguide.common.lib.general;
 
 import java.io.*;
-import java.net.URLConnection;
+
 import java.net.URL;
-import java.util.Map;
+import java.net.URLConnection;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Helper method to load resources
  */
 public class ResourceHelper
 {
-
     /**
      * Load UTF-8 properties file.
      *
@@ -20,9 +21,10 @@ public class ResourceHelper
      * @param result DOCUMENT ME!
      *
      * @throws IOException DOCUMENT ME!
+     *
      * @deprecated
      */
-    public static void loadProperties(
+    public static void loadProperties( 
         final String resourceName, final Map result ) throws IOException
     {
         final InputStream in = getUncachedStream( resourceName );
@@ -98,7 +100,7 @@ public class ResourceHelper
 
             while( ( line = rd.readLine(  ) ) != null )
             {
-                if(
+                if( 
                     line.startsWith( "#" ) || line.startsWith( ";" )
                         || "".equals( line.trim(  ) ) )
                 {
@@ -237,8 +239,7 @@ public class ResourceHelper
     public static InputStream getUncachedStream( final String resourceName )
         throws IOException
     {
-        return getUncachedStream(
+        return getUncachedStream( 
             ResourceHelper.class.getClassLoader(  ).getResource( resourceName ) );
     }
-
 }

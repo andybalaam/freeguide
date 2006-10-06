@@ -37,7 +37,8 @@ public interface IModule
     Object getConfig(  );
 
     /**
-     * Returns the language helper that has methods to translate strings
+     * Returns the language helper that has methods to translate
+     * strings
      *
      * @return Localizer object
      */

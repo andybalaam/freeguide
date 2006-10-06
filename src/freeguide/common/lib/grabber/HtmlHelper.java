@@ -13,92 +13,92 @@ import org.xml.sax.SAXException;
 public class HtmlHelper
 {
     /*    public static Element getFirstElement(final Segment src, final String elementTag, String attributeName, String attributeValue) {
-
-
+    
+    
     List elems = src.findAllElements(elementTag);
-
-
+    
+    
     for (int i = 0; i < elems.size(); i++) {
-
-
+    
+    
     Element elem = (Element) elems.get(i);
-
-
+    
+    
     if (attributeValue.equalsIgnoreCase(elem.getAttributes().getValue(attributeName))) {
-
-
+    
+    
     return elem;
-
-
+    
+    
     }
-
-
+    
+    
     }
-
-
+    
+    
     return null;
-
-
+    
+    
     }
-
-
+    
+    
     public static List<Element> getAllElements(final Segment src, final String elementTag, String attributeName, String attributeValue) {
-
-
+    
+    
     List<Element> result = new ArrayList<Element>();
-
-
+    
+    
     List elems = src.findAllElements(elementTag);
-
-
+    
+    
     for (int i = 0; i < elems.size(); i++) {
-
-
+    
+    
     Element elem = (Element) elems.get(i);
-
-
+    
+    
     if (attributeValue.equalsIgnoreCase(elem.getAttributes().getValue(attributeName))) {
-
-
+    
+    
     result.add(elem);
-
-
+    
+    
     }
-
-
+    
+    
     }
-
-
+    
+    
     return result;
-
-
+    
+    
     }
-
-
+    
+    
     public static List<Element> getAllElements(final Segment src, final String elementTag) {
-
-
+    
+    
     List<Element> result = new ArrayList<Element>();
-
-
+    
+    
     List elems = src.findAllElements(elementTag);
-
-
+    
+    
     for (int i = 0; i < elems.size(); i++) {
-
-
+    
+    
     Element elem = (Element) elems.get(i);
-
-
+    
+    
     result.add(elem);
-
-
+    
+    
     }
-
-
+    
+    
     return result;
-
-
+    
+    
     }*/
     /**
      * DOCUMENT_ME!

@@ -139,35 +139,35 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
 
     /*  public static String createLinkReference( TVProgramme programme )
     {
-
+    
     String reference = null;
-
+    
     // According to HTML spec, name must be unique and use only ASCII chars
     StringBuffer ref =
     new StringBuffer(
     HTMLGuideListener.LinkDateFormat.format(
       new Date( programme.getStart(  ) ) ) );
-
+    
     ref.append( programme.getChannel(  ).getID(  ) );
-
+    
     ref.append( programme.getTitle(  ) );
-
+    
     ref.append( programme.getSubTitle(  ) );
-
+    
     try
     {
     reference = URLEncoder.encode( ref.toString(  ), "UTF-8" );
-
+    
     }
-
+    
     catch( UnsupportedEncodingException e )
     {
-
+    
     // Won't happen.  All JVM's must support "UTF-8"
     // (and it's the character set recommended by the W3C).
     }
-
+    
     return reference;
-
+    
     }*/
 }

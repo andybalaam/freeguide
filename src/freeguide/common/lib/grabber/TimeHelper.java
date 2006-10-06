@@ -30,7 +30,7 @@ public class TimeHelper
     {
         try
         {
-            months = new LanguageHelper( "resources.main.months").getMap();
+            months = new LanguageHelper( "resources.main.months" ).getMap(  );
         }
         catch( Exception ex )
         {
