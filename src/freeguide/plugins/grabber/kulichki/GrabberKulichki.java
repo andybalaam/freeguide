@@ -14,7 +14,10 @@ import freeguide.common.plugininterfaces.IModuleGrabber;
 import freeguide.common.plugininterfaces.IProgress;
 import freeguide.common.plugininterfaces.IStoragePipe;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TimeZone;
@@ -90,20 +93,21 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         String[] weeks = handlerPackets.getWeeks(  );
 
-        String[] packetIDs = handlerPackets.getPacketIDs(  );
+        final Collection packetIDs = handlerPackets.getPacketIDs(  );
 
         Map request = new TreeMap(  );
 
         request.put( "week", weeks[0] );
 
-        for( int j = 0; j < packetIDs.length; j++ )
+        for( final Iterator itPa = packetIDs.iterator(  ); itPa.hasNext(  ); )
         {
+            final String packetName = (String)itPa.next(  );
             result.add( 
                 new TVChannelsSet.Channel( 
-                    "kulichki/" + packetIDs[j],
-                    (String)handlerPackets.packetList.get( packetIDs[j] ) ) );
+                    "kulichki/" + packetName,
+                    (String)handlerPackets.packetList.get( packetName ) ) );
 
-            request.put( "pakets", packetIDs[j] );
+            request.put( "pakets", packetName );
 
             browser.loadURL( 
                 "http://tv.kulichki.net/cgi-bin/gpack.cgi", request, true );
@@ -120,14 +124,12 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
                 result.add( 
                     new TVChannelsSet.Channel( 
-                        "kulichki/" + packetIDs[j] + "/" + channelID,
+                        "kulichki/" + packetName + "/" + channelID,
                         (String)handlerChanels.channelList.get( key ) ) );
-
             }
         }
 
         return result;
-
     }
 
     /**
@@ -186,9 +188,26 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         browser.parse( handlerPackets );
 
-        String[] weeks = handlerPackets.getWeeks(  );
+        final String[] weeks = handlerPackets.getWeeks(  );
 
-        String[] packets = handlerPackets.getPacketIDs(  );
+        final List packetsList =
+            new ArrayList( handlerPackets.getPacketIDs(  ) );
+
+        for( final Iterator it = packetsList.iterator(  ); it.hasNext(  ); )
+        {
+            final String packetName = (String)it.next(  );
+
+            if( 
+                !config.channels.isSelected( "kulichki/" + packetName )
+                    && !config.channels.isChildSelected( 
+                        "kulichki/" + packetName ) )
+            {
+                it.remove(  );
+            }
+        }
+
+        final String[] packets =
+            (String[])packetsList.toArray( new String[packetsList.size(  )] );
 
         Map request = new TreeMap(  );
 
@@ -196,6 +215,9 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         requestChannels.put( 
             "day", new String[] { "1", "2", "3", "4", "5", "6", "7" } );
+
+        progress.setStepCount( weeks.length * packets.length );
+        progress.setStepNumber( 0 );
 
         for( int i = 0; i < weeks.length; i++ )
         {
@@ -205,14 +227,6 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
             for( int j = 0; j < packets.length; j++ )
             {
-                if( 
-                    !config.channels.isSelected( "kulichki/" + packets[j] )
-                        && !config.channels.isChildSelected( 
-                            "kulichki/" + packets[j] ) )
-                {
-                    continue;
-                }
-
                 request.put( "pakets", packets[j] );
 
                 handlerProg.setChannelIDprefix( 
@@ -275,6 +289,8 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
                 browser.parse( handlerProg );
                 storage.finishBlock(  );
+
+                progress.setStepNumber( ( i * packets.length ) + j + 1 );
             }
         }
     }

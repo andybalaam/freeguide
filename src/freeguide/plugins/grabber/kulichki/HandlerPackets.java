@@ -5,6 +5,7 @@ import freeguide.common.lib.grabber.HtmlHelper;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -144,10 +145,8 @@ public class HandlerPackets extends HtmlHelper.DefaultContentHandler
      *
      * @return DOCUMENT_ME!
      */
-    public String[] getPacketIDs(  )
+    public Collection getPacketIDs(  )
     {
-        return (String[])packetList.keySet(  )
-                                   .toArray( new String[packetList.size(  )] );
-
+        return packetList.keySet(  );
     }
 }
