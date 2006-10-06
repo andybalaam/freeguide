@@ -162,6 +162,7 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
         switch( mode )
         {
         case MODES_CHANNEL_NAME:
+            storage.finishBlock(  );
 
             String data =
                 HtmlHelper.strongTrim( new String( ch, start, length ) );
