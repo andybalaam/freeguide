@@ -2,6 +2,7 @@ package freeguide.plugins.importexport.mobile;
 
 import freeguide.common.gui.FileChooserExtension;
 
+import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorChannels;
@@ -24,11 +25,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPOutputStream;
@@ -82,7 +83,8 @@ public class ExpMobile extends BaseModule implements IModuleExport
             final File destination = chooser.getSelectedFile(  );
 
             clearDir( destination );
-            exportToDir( data, destination );
+            exportToDir( 
+                data, destination, Application.getInstance(  ).getTimeZone(  ) );
         }
     }
 
@@ -118,13 +120,16 @@ public class ExpMobile extends BaseModule implements IModuleExport
      *
      * @param data data for export
      * @param dir output directory
+     * @param tz DOCUMENT ME!
      *
      * @throws IOException DOCUMENT ME!
      */
-    public void exportToDir( final TVData data, final File dir )
+    public void exportToDir( 
+        final TVData data, final File dir, final TimeZone tz )
         throws IOException
     {
-        final DivideIterator itdivide = new DivideIterator(  );
+        final DivideIterator itdivide =
+            new DivideIterator( Calendar.getInstance( tz ) );
         data.iterate( itdivide );
 
         for( 
@@ -280,7 +285,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
     {
         protected static final long MSEC_PER_DAY = 24L * 60L * 60L * 1000L;
         protected final SimpleDateFormat dateFormat;
-        protected final Calendar calendar = GregorianCalendar.getInstance(  );
+        protected final Calendar calendar;
 
         /**
          * Map for store TVData by day. Key is day, value is
@@ -291,8 +296,9 @@ public class ExpMobile extends BaseModule implements IModuleExport
 /**
          * Creates a new DivideIterator object.
          */
-        public DivideIterator(  )
+        public DivideIterator( final Calendar calendar )
         {
+            this.calendar = calendar;
             dateFormat = new SimpleDateFormat( "yyyy-MM-dd" );
         }
 
