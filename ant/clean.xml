@@ -7,7 +7,7 @@
 
     <target name="clean-properties">
         <delete>
-            <fileset dir="${properties}" includes="*.properties"/>
+            <fileset dir="${resources}" includes="*.properties"/>
         </delete>
     </target>
 

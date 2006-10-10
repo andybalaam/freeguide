@@ -30,9 +30,9 @@
          native 2ascii tool to a format java understands">
 
         <native2ascii encoding="UTF-8"
-            src="${properties.utf8}"
-            dest="${properties}"
-            includes="*.properties">
+            src="${resources-utf8}"
+            dest="${resources}"
+            includes="**/*.properties">
 <!--            includes="*.properties.utf-8">-->
 <!--            <mapper type="glob" from="*.properties.utf-8" to="*.properties"/>-->
         </native2ascii>
@@ -42,16 +42,8 @@
         <replaceregexp byline="true">
             <regexp pattern="#encoding: utf-8"/>
             <substitution expression="#encoding: ascii"/>
-            <fileset dir="${properties}" includes="*.properties" />
+            <fileset dir="${resources}" includes="**/*.properties" />
         </replaceregexp>
-
-        <native2ascii encoding="UTF-8"
-            src="${resources}/main/utf-8"
-            dest="${resources}/main"
-            includes="*.properties">
-<!--            includes="*.properties.utf-8">-->
-<!--            <mapper type="glob" from="*.properties.utf-8" to="*.properties"/>-->
-        </native2ascii>
     </target>
 
 
