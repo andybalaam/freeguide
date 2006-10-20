@@ -33,7 +33,7 @@ public class KulichkiConfigurationUIController
 
         this.config = (KulichkiConfig)parent.config.clone(  );
 
-        panel = new KulichkiConfigurationUIPanel( parent.getLocalizer(  ) );
+        panel = new KulichkiConfigurationUIPanel(  );
 
         panel.getTreeChannels(  ).setData( config.channels );
 

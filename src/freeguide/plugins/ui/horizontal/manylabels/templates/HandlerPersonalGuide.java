@@ -7,16 +7,17 @@ import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.common.plugininterfaces.ILocalizer;
 import freeguide.common.plugininterfaces.IModuleReminder;
 
 import java.text.DateFormat;
+import java.text.MessageFormat;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * DOCUMENT ME!
@@ -26,7 +27,7 @@ import java.util.List;
  */
 public class HandlerPersonalGuide
 {
-    protected final ILocalizer localizer;
+    protected final ResourceBundle localizer;
     protected final TVData currentData;
     protected final Date theDate;
     protected final DateFormat dateFormat;
@@ -46,7 +47,7 @@ public class HandlerPersonalGuide
      * @param forPrint DOCUMENT ME!
      */
     public HandlerPersonalGuide( 
-        final ILocalizer localizer, final TVData currentData,
+        final ResourceBundle localizer, final TVData currentData,
         final Date theDate, final DateFormat dateFormat,
         final DateFormat weekdayFormat, final DateFormat timeFormat,
         final boolean forPrint )
@@ -87,8 +88,8 @@ public class HandlerPersonalGuide
                 + dateFormat.format( theDate )
             };
 
-        return localizer.getLocalizedMessage( 
-            "tv_guide_for_template", messageArguments );
+        return MessageFormat.format( 
+            localizer.getString( "tv_guide_for_template" ), messageArguments );
     }
 
     /**
@@ -108,13 +109,14 @@ public class HandlerPersonalGuide
 
         if( forPrint )
         {
-            ans = localizer.getLocalizedMessage( 
-                    "tv_guide_for_template", args );
+            ans = MessageFormat.format( 
+                    localizer.getString( "tv_guide_for_template" ), args );
         }
         else
         {
-            ans = localizer.getLocalizedMessage( 
-                    "your_personalised_tv_guide_for_template", args );
+            ans = MessageFormat.format( 
+                    localizer.getString( 
+                        "your_personalised_tv_guide_for_template" ), args );
         }
 
         return ans;
@@ -127,8 +129,7 @@ public class HandlerPersonalGuide
      */
     public String getHelp(  )
     {
-        return localizer.getLocalizedMessage( 
-            "select_programmes_by_clicking_on_them" );
+        return localizer.getString( "select_programmes_by_clicking_on_them" );
     }
 
     /**

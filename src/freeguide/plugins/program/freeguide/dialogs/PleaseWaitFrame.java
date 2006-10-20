@@ -12,7 +12,6 @@
  */
 package freeguide.plugins.program.freeguide.dialogs;
 
-import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.ResourceHelper;
 import freeguide.common.lib.general.Utils;
 

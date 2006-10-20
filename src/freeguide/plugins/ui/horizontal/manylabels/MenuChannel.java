@@ -21,7 +21,7 @@ public class MenuChannel extends JPopupMenu
     {
         JMenuItem mbtChangeIcon =
             new javax.swing.JMenuItem( 
-                main.getLocalizer(  ).getLocalizedMessage( "change_icon" ) );
+                main.getLocalizer(  ).getString( "change_icon" ) );
         mbtChangeIcon.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
@@ -37,8 +37,7 @@ public class MenuChannel extends JPopupMenu
         {
             JMenuItem mbtResetIcon =
                 new javax.swing.JMenuItem( 
-                    main.getLocalizer(  )
-                        .getLocalizedMessage( "reset_to_default_icon" ) );
+                    main.getLocalizer(  ).getString( "reset_to_default_icon" ) );
             mbtResetIcon.addActionListener( 
                 new java.awt.event.ActionListener(  )
                 {

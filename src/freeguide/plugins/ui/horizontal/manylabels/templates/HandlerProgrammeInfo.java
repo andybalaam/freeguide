@@ -5,8 +5,6 @@ import freeguide.common.lib.fgspecific.ProgrammeFormat;
 import freeguide.common.lib.fgspecific.TVChannelIconHelper;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 
-import freeguide.common.plugininterfaces.ILocalizer;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -16,6 +14,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.TreeMap;
 
 /**
@@ -28,7 +27,7 @@ public class HandlerProgrammeInfo
 {
     protected final TVProgramme programme;
     protected final DateFormat timeFormat;
-    protected final ILocalizer localizer;
+    protected final ResourceBundle localizer;
 
 /**
      * Creates a new HandlerProgrammeInfo object.
@@ -38,7 +37,7 @@ public class HandlerProgrammeInfo
      * @param timeFormat DOCUMENT ME!
      */
     public HandlerProgrammeInfo( 
-        final ILocalizer localizer, final TVProgramme programme,
+        final ResourceBundle localizer, final TVProgramme programme,
         final DateFormat timeFormat )
     {
         this.localizer = localizer;
@@ -53,7 +52,7 @@ public class HandlerProgrammeInfo
      */
     public String getNoneMessage(  )
     {
-        return localizer.getLocalizedMessage( "no_programme_selected" );
+        return localizer.getString( "no_programme_selected" );
     }
 
     /**

@@ -1,7 +1,6 @@
 package freeguide.plugins.grabber.xmltv;
 
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.ResourceHelper;
 import freeguide.common.lib.general.StringHelper;
 import freeguide.common.lib.general.Utils;
@@ -28,11 +27,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import java.text.MessageFormat;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 
 import javax.swing.JDialog;
@@ -74,8 +76,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     public void start(  )
     {
         final JMenuItem menuLine = new JMenuItem(  );
-        menuLine.setText( 
-            getLocalizer(  ).getLocalizedMessage( "Menu.Tools.ChooseChannels" ) );
+        menuLine.setText( i18n.getString( "Menu.Tools.ChooseChannels" ) );
         Application.getInstance(  ).getMainMenu(  ).getTools(  )
                    .insert( menuLine, 0 );
 
@@ -364,18 +365,16 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             {
                 JOptionPane.showMessageDialog( 
                     Application.getInstance(  ).getApplicationFrame(  ),
-                    getLocalizer(  ).getLocalizedMessage( 
-                        "ErrorBox.Text.Linux" ),
-                    getLocalizer(  ).getLocalizedMessage( "ErrorBox.Title" ),
+                    i18n.getString( "ErrorBox.Text.Linux" ),
+                    i18n.getString( "ErrorBox.Title" ),
                     JOptionPane.ERROR_MESSAGE );
             }
             else
             {
                 JOptionPane.showMessageDialog( 
                     Application.getInstance(  ).getApplicationFrame(  ),
-                    getLocalizer(  )
-                        .getLocalizedMessage( "ErrorBox.Text.Windows" ),
-                    getLocalizer(  ).getLocalizedMessage( "ErrorBox.Title" ),
+                    i18n.getString( "ErrorBox.Text.Windows" ),
+                    i18n.getString( "ErrorBox.Title" ),
                     JOptionPane.ERROR_MESSAGE );
             }
 
@@ -692,9 +691,8 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                         if( ( count % 10 ) == 0 )
                         {
                             progress.setProgressMessage( 
-                                getLocalizer(  )
-                                    .getLocalizedMessage( 
-                                    "Message.Count",
+                                MessageFormat.format( 
+                                    i18n.getString( "Message.Count" ),
                                     new Object[] { new Integer( count ) } ) );
                         }
                     }

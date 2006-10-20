@@ -1,9 +1,9 @@
 package freeguide.plugins.importexport.palmatv;
 
-import freeguide.common.plugininterfaces.ILocalizer;
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+
+import java.util.ResourceBundle;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -18,24 +18,24 @@ public class PalmUIPanel extends JPanel
 {
     private JComboBox cbCharset = null;
     private JLabel jLabel = null;
-    protected ILocalizer localizer;
 
 /**
      * This is the default constructor
      *
      * @param parent DOCUMENT ME!
      */
-    public PalmUIPanel( final ExportPalmAtv parent )
+    public PalmUIPanel( final ResourceBundle i18n )
     {
         super(  );
-        localizer = parent.getLocalizer(  );
-        initialize(  );
+        initialize( i18n );
     }
 
     /**
      * This method initializes this
+     *
+     * @param i18n DOCUMENT ME!
      */
-    private void initialize(  )
+    private void initialize( final ResourceBundle i18n )
     {
         GridBagConstraints gridBagConstraints = new GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
@@ -43,7 +43,7 @@ public class PalmUIPanel extends JPanel
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 0 );
         gridBagConstraints.gridy = 0;
         jLabel = new JLabel(  );
-        jLabel.setText( localizer.getLocalizedMessage( "label.Text" ) + ":" );
+        jLabel.setText( i18n.getString( "label.Text" ) + ":" );
         jLabel.setLabelFor( getCbCharset(  ) );
 
         GridBagConstraints gridBagConstraints1 = new GridBagConstraints(  );

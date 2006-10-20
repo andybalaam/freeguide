@@ -1,6 +1,7 @@
 package freeguide.common.plugininterfaces;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.logging.Logger;
 
@@ -51,6 +52,8 @@ public interface IApplication
     String getBrowserCommand(  );
 
     IMainMenu getMainMenu(  );
+
+    Locale[] getSupportedLocales(  );
 
 /**
      * DOCUMENT ME!

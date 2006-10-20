@@ -1,9 +1,9 @@
 package freeguide.plugins.reminder.alarm;
 
-import freeguide.common.plugininterfaces.ILocalizer;
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+
+import java.util.ResourceBundle;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -28,17 +28,17 @@ public class AlarmUIPanel extends JPanel
     private JTextField textStart = null;
     private JLabel labelStop = null;
     private JTextField textStop = null;
-    private ILocalizer localizer;
+    private final ResourceBundle i18n;
 
 /**
      * This is the default constructor
      *
      * @param localizer DOCUMENT ME!
      */
-    public AlarmUIPanel( final ILocalizer localizer )
+    public AlarmUIPanel( final ResourceBundle i18n )
     {
         super(  );
-        this.localizer = localizer;
+        this.i18n = i18n;
         initialize(  );
     }
 
@@ -72,8 +72,7 @@ public class AlarmUIPanel extends JPanel
         gridBagConstraints4.anchor = java.awt.GridBagConstraints.WEST;
         jLabel1 = new JLabel(  );
         jLabel1.setText( "Give up after" );
-        jLabel1.setText( 
-            localizer.getLocalizedMessage( "options.give_up_after_secs" ) );
+        jLabel1.setText( i18n.getString( "options.give_up_after_secs" ) );
         jLabel1.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_G );
         jLabel1.setLabelFor( getTextGiveup(  ) );
 
@@ -91,8 +90,7 @@ public class AlarmUIPanel extends JPanel
         gridBagConstraints2.anchor = java.awt.GridBagConstraints.WEST;
         jLabel = new JLabel(  );
         jLabel.setText( "Seconds warning" );
-        jLabel.setText( 
-            localizer.getLocalizedMessage( "options.seconds_warning" ) );
+        jLabel.setText( i18n.getString( "options.seconds_warning" ) );
         jLabel.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_W );
         jLabel.setLabelFor( getTextWarning(  ) );
 
@@ -120,8 +118,7 @@ public class AlarmUIPanel extends JPanel
         gridBagConstraintsStart.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraintsStart.anchor = java.awt.GridBagConstraints.WEST;
         labelStart = new JLabel(  );
-        labelStart.setText( 
-            localizer.getLocalizedMessage( "options.execute_on_start" ) );
+        labelStart.setText( i18n.getString( "options.execute_on_start" ) );
         labelStart.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_S );
         labelStart.setLabelFor( getTextStart(  ) );
 
@@ -140,8 +137,7 @@ public class AlarmUIPanel extends JPanel
         gridBagConstraintsStop.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraintsStop.anchor = java.awt.GridBagConstraints.WEST;
         labelStop = new JLabel(  );
-        labelStop.setText( 
-            localizer.getLocalizedMessage( "options.execute_on_stop" ) );
+        labelStop.setText( i18n.getString( "options.execute_on_stop" ) );
         labelStop.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_T );
         labelStop.setLabelFor( getTextStop(  ) );
 
@@ -179,8 +175,7 @@ public class AlarmUIPanel extends JPanel
         {
             cbRemind = new JCheckBox(  );
             cbRemind.setText( "Remind me of progs" );
-            cbRemind.setText( 
-                localizer.getLocalizedMessage( "options.remind_me_of_progs" ) );
+            cbRemind.setText( i18n.getString( "options.remind_me_of_progs" ) );
             cbRemind.setMnemonic( java.awt.event.KeyEvent.VK_R );
         }
 
@@ -227,8 +222,7 @@ public class AlarmUIPanel extends JPanel
         if( cbRecord == null )
         {
             cbRecord = new JCheckBox(  );
-            cbRecord.setText( 
-                localizer.getLocalizedMessage( "options.record_progs" ) );
+            cbRecord.setText( i18n.getString( "options.record_progs" ) );
             cbRecord.setMnemonic( java.awt.event.KeyEvent.VK_E );
         }
 

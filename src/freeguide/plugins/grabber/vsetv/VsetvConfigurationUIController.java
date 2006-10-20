@@ -5,7 +5,7 @@ import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import java.awt.Component;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.swing.*;
@@ -41,16 +41,15 @@ public class VsetvConfigurationUIController implements IModuleConfigurationUI
 
         int sel = -1;
 
-        Iterator it = parent.getLocalizer(  ).getKeys(  ).iterator(  );
+        Enumeration it = parent.getLocalizer(  ).getKeys(  );
 
-        while( it.hasNext(  ) )
+        while( it.hasMoreElements(  ) )
         {
-            String key = (String)it.next(  );
+            String key = (String)it.nextElement(  );
 
             if( key.startsWith( CHPREFIX ) )
             {
-                String value =
-                    parent.getLocalizer(  ).getLocalizedMessage( key );
+                String value = parent.getLocalizer(  ).getString( key );
 
                 key = key.substring( CHPREFIX.length(  ) );
 

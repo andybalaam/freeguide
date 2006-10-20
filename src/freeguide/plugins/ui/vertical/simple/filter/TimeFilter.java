@@ -138,7 +138,7 @@ public class TimeFilter extends ProgrammeFilter
         {
             this.setTitle( 
                 VerticalViewer.getInstance(  ).getLocalizer(  )
-                              .getLocalizedMessage( "timefilter.anytime" ) );
+                              .getString( "timefilter.anytime" ) );
         }
         else
         {

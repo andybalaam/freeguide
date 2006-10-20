@@ -78,8 +78,7 @@ public class PluginInfo extends DefaultHandler
     public String getName(  )
     {
         return instance.getLocalizer(  )
-                       .getLocalizedMessage( 
-            instance.getI18nName(  ) + "_name" );
+                       .getString( instance.getI18nName(  ) + "_name" );
     }
 
     /**
@@ -100,8 +99,7 @@ public class PluginInfo extends DefaultHandler
     public String getDescription(  )
     {
         return instance.getLocalizer(  )
-                       .getLocalizedMessage( 
-            instance.getI18nName(  ) + "_desc" );
+                       .getString( instance.getI18nName(  ) + "_desc" );
     }
 
     /**
@@ -196,10 +194,10 @@ public class PluginInfo extends DefaultHandler
      * @throws SAXException DOCUMENT_ME!
      */
 
-    /*public void endElement( String uri, String localName, String qName )
-        throws SAXException
-    {
-    }*/
+    /*
+     * public void endElement( String uri, String localName, String qName )
+     * throws SAXException { }
+     */
     /**
      * DOCUMENT_ME!
      *

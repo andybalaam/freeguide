@@ -3,7 +3,6 @@ package freeguide.plugins.program.freeguide.viewer;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;
-import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.BaseModule;
@@ -31,8 +30,11 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import java.text.MessageFormat;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TimeZone;
@@ -99,8 +101,7 @@ public class MainController extends BaseModule implements IApplication
      */
     public void reloadResourceBundle(  ) throws Exception
     {
-        i18n = new LanguageHelper( 
-                ResourceBundle.getBundle( "resources/i18n/MessagesBundle" ) );
+        i18n = ResourceBundle.getBundle( "resources/i18n/MessagesBundle" );
     }
 
     /**
@@ -112,7 +113,7 @@ public class MainController extends BaseModule implements IApplication
      */
     public String getLocalizedMessage( String key )
     {
-        return i18n.getLocalizedMessage( key );
+        return i18n.getString( key );
     }
 
     /**
@@ -125,7 +126,7 @@ public class MainController extends BaseModule implements IApplication
      */
     public String getLocalizedMessage( String key, Object[] params )
     {
-        return i18n.getLocalizedMessage( key, params );
+        return MessageFormat.format( i18n.getString( key ), params );
     }
 
     /**
@@ -661,6 +662,30 @@ public class MainController extends BaseModule implements IApplication
     public void restart(  )
     {
         mainFrame.dispose(  );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Locale[] getSupportedLocales(  )
+    {
+        final List result = new ArrayList(  );
+        Locale[] all = Locale.getAvailableLocales(  );
+
+        for( int i = 0; i < all.length; i++ )
+        {
+            if( 
+                ResourceBundle.getBundle( 
+                        "resources/i18n/MessagesBundle", all[i] ).getLocale(  )
+                                  .equals( all[i] ) )
+            {
+                result.add( all[i] );
+            }
+        }
+
+        return (Locale[])result.toArray( new Locale[result.size(  )] );
     }
 
     /**

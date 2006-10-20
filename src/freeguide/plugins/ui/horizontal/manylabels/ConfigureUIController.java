@@ -101,8 +101,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
                 Color col =
                     JColorChooser.showDialog( 
                         inDialog,
-                        parent.getLocalizer(  )
-                              .getLocalizedMessage( "choose_a_colour" ),
+                        parent.getLocalizer(  ).getString( "choose_a_colour" ),
                         panelColor.getBackground(  ) );
 
                 if( col != null )
@@ -223,8 +222,8 @@ public class ConfigureUIController implements IModuleConfigurationUI
                     FontChooserDialog fontDialog =
                         new FontChooserDialog( 
                             inDialog,
-                            parent.getLocalizer(  )
-                                  .getLocalizedMessage( "choose_font" ), true,
+                            parent.getLocalizer(  ).getString( "choose_font" ),
+                            true,
                             new Font( 
                                 config.fontName, config.fontStyle,
                                 config.fontSize ) );

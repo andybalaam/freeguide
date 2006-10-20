@@ -1,9 +1,9 @@
 package freeguide.plugins.grabber.xmltv;
 
-import freeguide.common.plugininterfaces.ILocalizer;
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -19,17 +19,17 @@ public class XMLTVConfigureUIPanel extends JScrollPane
     private JPanel jPanel = null;
     private JButton btnAdd = null;
     private JPanel panelModules = null;
-    protected final ILocalizer localizer;
+    protected final ResourceBundle i18n;
 
 /**
      * This is the default constructor
      *
      * @param localizer DOCUMENT ME!
      */
-    public XMLTVConfigureUIPanel( final ILocalizer localizer )
+    public XMLTVConfigureUIPanel( final ResourceBundle i18n )
     {
         super(  );
-        this.localizer = localizer;
+        this.i18n = i18n;
         initialize(  );
     }
 
@@ -94,7 +94,7 @@ public class XMLTVConfigureUIPanel extends JScrollPane
             btnAdd = new JButton(  );
             btnAdd.setText( "Add" );
             btnAdd.setMnemonic( java.awt.event.KeyEvent.VK_A );
-            btnAdd.setText( localizer.getLocalizedMessage( "Options.Add" ) );
+            btnAdd.setText( i18n.getString( "Options.Add" ) );
         }
 
         return btnAdd;

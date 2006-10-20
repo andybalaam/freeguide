@@ -44,7 +44,7 @@ public class PalmUIController implements IModuleConfigurationUI
     {
         if( panel == null )
         {
-            panel = new PalmUIPanel( parent );
+            panel = new PalmUIPanel( parent.getLocalizer(  ) );
             panel.getCbCharset(  )
                  .setModel( new DefaultComboBoxModel( getCharsets(  ) ) );
             panel.getCbCharset(  ).setSelectedItem( parent.config.charset );

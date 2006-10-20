@@ -3,11 +3,10 @@ package freeguide.plugins.grabber.newsvm;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-import freeguide.common.lib.general.LanguageHelper;
-import freeguide.common.lib.general.ResourceHelper;
 import freeguide.common.lib.grabber.HtmlHelper;
 import freeguide.common.lib.grabber.HttpBrowser;
 import freeguide.common.lib.grabber.LineProgrammeHelper;
+import freeguide.common.lib.grabber.ListTVParser;
 import freeguide.common.lib.grabber.TimeHelper;
 
 import freeguide.common.plugininterfaces.BaseModule;
@@ -25,6 +24,7 @@ import java.io.StringReader;
 
 import java.text.ParseException;
 
+import java.util.Properties;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -119,7 +119,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         protected StringBuffer out;
         protected final IStoragePipe storage;
         protected final ILogger logger;
-        protected final String[] nen;
+        protected final Properties nen;
 
 /**
          * Creates a new PageParser object.
@@ -134,33 +134,11 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         {
             this.storage = storage;
             this.logger = logger;
-            nen = ResourceHelper.loadStrings( 
-                    "resources/plugins/grabber/newsvm/nen.utf8.list" );
-        }
-
-        void patchProgrammes( 
-            final String channelID, final TVProgramme[] programmes )
-        {
-            if( !nen[0].equals( channelID ) )
-            {
-                return;
-            }
-
-            for( int i = 0; i < programmes.length; i++ )
-            {
-                if( programmes[i].getTitle(  ) != null )
-                {
-                    for( int j = 2; j < nen.length; j++ )
-                    {
-                        if( programmes[i].getTitle(  ).indexOf( nen[j] ) != -1 )
-                        {
-                            programmes[i].setTitle( nen[1] );
-
-                            break;
-                        }
-                    }
-                }
-            }
+            nen = new Properties(  );
+            nen.load( 
+                PageParser.class.getClassLoader(  )
+                                .getResourceAsStream( 
+                    "resources/plugins/grabber/newsvm/nen.properties" ) );
         }
 
         /**
@@ -284,8 +262,8 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
                                 try
                                 {
-                                    patchProgrammes( 
-                                        currentChannelID, programmes );
+                                    ListTVParser.patch( 
+                                        currentChannelID, programmes, nen );
                                     storage.addProgrammes( 
                                         currentChannelID, programmes );
                                 }

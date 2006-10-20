@@ -1,7 +1,6 @@
 package freeguide.plugins.program.freeguide.lib.fgspecific;
 
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.PreferencesHelper;
 import freeguide.common.lib.general.ResourceHelper;
 

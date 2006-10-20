@@ -1,7 +1,6 @@
 package freeguide.common.plugininterfaces;
 
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.general.LanguageHelper;
 
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -19,7 +18,7 @@ import javax.swing.JDialog;
 public abstract class BaseModule implements IModule
 {
     static final String plugin_package_name_prefix = "freeguide.plugins.";
-    protected LanguageHelper i18n;
+    protected ResourceBundle i18n;
 
     /**
      * DOCUMENT_ME!
@@ -61,7 +60,7 @@ public abstract class BaseModule implements IModule
                 + package_name.substring( 
                     plugin_package_name_prefix.length(  ) ).replace( '.', '_' );
 
-            i18n = new LanguageHelper( ResourceBundle.getBundle( bundleName ) );
+            i18n = ResourceBundle.getBundle( bundleName );
         }
         else
         {
@@ -72,16 +71,6 @@ public abstract class BaseModule implements IModule
                 + "' since the package name does not start with '"
                 + plugin_package_name_prefix + "'." );
         }
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public ILocalizer getLocalizer(  )
-    {
-        return i18n;
     }
 
     protected void saveConfigNow(  )
@@ -99,5 +88,15 @@ public abstract class BaseModule implements IModule
     public IModuleConfigurationUI getConfigurationUI( JDialog parentDialog )
     {
         return null;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public ResourceBundle getLocalizer(  )
+    {
+        return i18n;
     }
 }

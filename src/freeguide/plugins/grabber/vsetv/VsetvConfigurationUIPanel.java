@@ -1,9 +1,9 @@
 package freeguide.plugins.grabber.vsetv;
 
-import freeguide.common.plugininterfaces.ILocalizer;
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+
+import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
@@ -25,7 +25,7 @@ public class VsetvConfigurationUIPanel extends JPanel
     private JTextField textUser = null;
     private JTextField textPass = null;
     private JTextPane message = null;
-    protected final ILocalizer localizer;
+    protected final ResourceBundle i18n;
     private JPanel panelAuthorized = null;
     private JPanel panelNonAuthorized = null;
     private JLabel labelUser = null;
@@ -41,11 +41,11 @@ public class VsetvConfigurationUIPanel extends JPanel
      *
      * @param localizer DOCUMENT ME!
      */
-    public VsetvConfigurationUIPanel( final ILocalizer localizer )
+    public VsetvConfigurationUIPanel( final ResourceBundle i18n )
     {
         super(  );
 
-        this.localizer = localizer;
+        this.i18n = i18n;
 
         initialize(  );
 
@@ -164,8 +164,7 @@ public class VsetvConfigurationUIPanel extends JPanel
             message.setText( 
                 "message sdagkn ashdkgjh asdgjhasdklgh laskhg kdfhgklsdfhjlghsdfh" );
 
-            message.setText( 
-                localizer.getLocalizedMessage( "Options.UI.Message" ) );
+            message.setText( i18n.getString( "Options.UI.Message" ) );
 
         }
 
@@ -236,8 +235,7 @@ public class VsetvConfigurationUIPanel extends JPanel
 
             labelUser.setLabelFor( getTextUser(  ) );
             labelUser.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_U );
-            labelUser.setText( 
-                localizer.getLocalizedMessage( "Options.UI.Username" ) );
+            labelUser.setText( i18n.getString( "Options.UI.Username" ) );
 
             gridBagConstraints7.gridx = 0;
 
@@ -247,8 +245,7 @@ public class VsetvConfigurationUIPanel extends JPanel
 
             labelPass.setLabelFor( getTextPass(  ) );
             labelPass.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_P );
-            labelPass.setText( 
-                localizer.getLocalizedMessage( "Options.UI.Password" ) );
+            labelPass.setText( i18n.getString( "Options.UI.Password" ) );
 
             gridBagConstraints7.anchor = java.awt.GridBagConstraints.WEST;
 
@@ -385,8 +382,7 @@ public class VsetvConfigurationUIPanel extends JPanel
             rbNoAuth.setText( "Non-Authorized" );
 
             rbNoAuth.setMnemonic( java.awt.event.KeyEvent.VK_N );
-            rbNoAuth.setText( 
-                localizer.getLocalizedMessage( "Options.UI.CB.NoAuth" ) );
+            rbNoAuth.setText( i18n.getString( "Options.UI.CB.NoAuth" ) );
 
         }
 
@@ -408,8 +404,7 @@ public class VsetvConfigurationUIPanel extends JPanel
             rbAuth.setText( "Authorized" );
 
             rbAuth.setMnemonic( java.awt.event.KeyEvent.VK_A );
-            rbAuth.setText( 
-                localizer.getLocalizedMessage( "Options.UI.CB.Auth" ) );
+            rbAuth.setText( i18n.getString( "Options.UI.CB.Auth" ) );
 
         }
 
@@ -450,8 +445,7 @@ public class VsetvConfigurationUIPanel extends JPanel
             cbGetAll.setText( "Get all site channels" );
 
             cbGetAll.setMnemonic( java.awt.event.KeyEvent.VK_G );
-            cbGetAll.setText( 
-                localizer.getLocalizedMessage( "Options.UI.Auth.GetAll" ) );
+            cbGetAll.setText( i18n.getString( "Options.UI.Auth.GetAll" ) );
 
         }
 

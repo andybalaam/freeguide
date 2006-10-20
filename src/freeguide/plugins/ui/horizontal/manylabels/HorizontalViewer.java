@@ -760,8 +760,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         // Add the "All Channels" item
         panel.getComboChannelsSet(  )
-             .insertItemAt( 
-            getLocalizer(  ).getLocalizedMessage( "all_channels" ), 0 );
+             .insertItemAt( getLocalizer(  ).getString( "all_channels" ), 0 );
 
         for( 
             int i = 0;
@@ -777,8 +776,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         }
 
         panel.getComboChannelsSet(  )
-             .addItem( 
-            getLocalizer(  ).getLocalizedMessage( "edit_channels_sets" ) );
+             .addItem( getLocalizer(  ).getString( "edit_channels_sets" ) );
 
         TVChannelsSet cs =
             getChannelsSetByName( config.currentChannelSetName );
@@ -952,8 +950,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
                 public String getDescription(  )
                 {
-                    return getLocalizer(  )
-                               .getLocalizedMessage( "images_gif_jpeg_png" );
+                    return getLocalizer(  ).getString( "images_gif_jpeg_png" );
 
                 }
             } );

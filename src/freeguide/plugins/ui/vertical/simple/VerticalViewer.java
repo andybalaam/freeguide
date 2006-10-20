@@ -257,7 +257,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
      */
     public String getLocalizedMessage( String key )
     {
-        return this.getLocalizer(  ).getLocalizedMessage( key );
+        return this.getLocalizer(  ).getString( key );
     }
 
     //public String getLocalizedMessage(String key)

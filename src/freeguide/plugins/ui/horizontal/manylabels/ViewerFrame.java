@@ -175,8 +175,7 @@ public class ViewerFrame extends JPanel
         topButtonsPanel.setLayout( new java.awt.GridBagLayout(  ) );
 
         butGoToNow.setFont( new java.awt.Font( "Dialog", 0, 10 ) );
-        butGoToNow.setText( 
-            parent.getLocalizer(  ).getLocalizedMessage( "go_to_now" ) );
+        butGoToNow.setText( parent.getLocalizer(  ).getString( "go_to_now" ) );
         butGoToNow.setMnemonic( KeyEvent.VK_N );
 
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -189,8 +188,7 @@ public class ViewerFrame extends JPanel
 
         topButtonsPanel.add( butGoToNow, gridBagConstraints );
 
-        butPreviousDay.setText( 
-            parent.getLocalizer(  ).getLocalizedMessage( "minus" ) );
+        butPreviousDay.setText( parent.getLocalizer(  ).getString( "minus" ) );
 
         butPreviousDay.setMnemonic( KeyEvent.VK_MINUS );
 
@@ -233,8 +231,7 @@ public class ViewerFrame extends JPanel
 
         topButtonsPanel.add( comTheDate, gridBagConstraints );
 
-        butNextDay.setText( 
-            parent.getLocalizer(  ).getLocalizedMessage( "plus" ) );
+        butNextDay.setText( parent.getLocalizer(  ).getString( "plus" ) );
 
         butNextDay.setMnemonic( KeyEvent.VK_EQUALS );
 
@@ -299,8 +296,7 @@ public class ViewerFrame extends JPanel
         butDownload.setFont( new java.awt.Font( "Dialog", 0, 10 ) );
 
         butDownload.setText( 
-            parent.getLocalizer(  )
-                  .getLocalizedMessage( "HorizontalViewer.Download" ) );
+            parent.getLocalizer(  ).getString( "HorizontalViewer.Download" ) );
 
         butDownload.setMnemonic( KeyEvent.VK_D );
 
@@ -480,8 +476,7 @@ public class ViewerFrame extends JPanel
         butPrint.setFont( new java.awt.Font( "Dialog", 0, 10 ) );
 
         butPrint.setText( 
-            parent.getLocalizer(  )
-                  .getLocalizedMessage( "HorizontalViewer.Print" ) );
+            parent.getLocalizer(  ).getString( "HorizontalViewer.Print" ) );
 
         butPrint.setMnemonic( KeyEvent.VK_P );
 

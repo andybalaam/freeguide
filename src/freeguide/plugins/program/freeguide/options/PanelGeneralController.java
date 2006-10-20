@@ -1,7 +1,6 @@
 package freeguide.plugins.program.freeguide.options;
 
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.general.LanguageHelper;
 
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
@@ -11,11 +10,8 @@ import freeguide.plugins.program.freeguide.viewer.MainController;
 
 import java.awt.Component;
 
-import java.io.IOException;
-
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
 
 import javax.swing.DefaultComboBoxModel;
 
@@ -49,27 +45,20 @@ public class PanelGeneralController implements IModuleConfigurationUI
             panel.getCbLF(  )
                  .setModel( new DefaultComboBoxModel( lfs.toArray(  ) ) );
 
-            try
+            locales = Application.getInstance(  ).getSupportedLocales(  );
+
+            String[] langNames = new String[locales.length + 1];
+            langNames[0] = Application.getInstance(  )
+                                      .getLocalizedMessage( 
+                    "Options.General.Language.default" );
+
+            for( int i = 0; i < locales.length; i++ )
             {
-                locales = LanguageHelper.getSupportedLocales(  );
-
-                String[] langNames = new String[locales.length + 1];
-                langNames[0] = Application.getInstance(  )
-                                          .getLocalizedMessage( 
-                        "Options.General.Language.default" );
-
-                for( int i = 0; i < locales.length; i++ )
-                {
-                    langNames[i + 1] = locales[i].getDisplayName(  );
-                }
-
-                panel.getCbLang(  )
-                     .setModel( new DefaultComboBoxModel( langNames ) );
+                langNames[i + 1] = locales[i].getDisplayName(  );
             }
-            catch( IOException ex )
-            {
-                FreeGuide.log.log( Level.SEVERE, "Error locading locale list" );
-            }
+
+            panel.getCbLang(  ).setModel( 
+                new DefaultComboBoxModel( langNames ) );
 
             resetToDefaults(  );
 

@@ -4,10 +4,12 @@ import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;
+import freeguide.common.lib.fgspecific.data.TVIteratorChannels;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.ResourceHelper;
 import freeguide.common.lib.grabber.HttpBrowser;
+import freeguide.common.lib.grabber.ListTVParser;
 
 import freeguide.common.plugininterfaces.BaseModule;
 import freeguide.common.plugininterfaces.ILogger;
@@ -22,6 +24,7 @@ import java.io.IOException;
 
 import java.util.Map;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -312,36 +315,19 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
     protected static void patch( final TVData data ) throws IOException
     {
-        final String[] nen =
-            ResourceHelper.loadStrings( 
-                "resources/plugins/grabber/vsetv/nen.utf8.list" );
-        data.iterateProgrammes( 
-            new TVIteratorProgrammes(  )
+        final Properties nen = new Properties(  );
+        nen.load( 
+            GrabberVsetv.class.getClassLoader(  )
+                              .getResourceAsStream( 
+                "resources/plugins/grabber/vsetv/nen.properties" ) );
+
+        data.iterateChannels( 
+            new TVIteratorChannels(  )
             {
                 protected void onChannel( TVChannel channel )
                 {
-                    if( !nen[0].equals( channel.getDisplayName(  ) ) )
-                    {
-                        stopIterateChanel(  );
-                    }
-                }
-
-                protected void onProgramme( TVProgramme programme )
-                {
-                    if( programme.getTitle(  ) == null )
-                    {
-                        return;
-                    }
-
-                    for( int i = 2; i < nen.length; i++ )
-                    {
-                        if( programme.getTitle(  ).indexOf( nen[i] ) != -1 )
-                        {
-                            programme.setTitle( nen[1] );
-
-                            break;
-                        }
-                    }
+                    ListTVParser.patch( 
+                        channel.getID(  ), channel.getProgrammes(  ), nen );
                 }
             } );
     }

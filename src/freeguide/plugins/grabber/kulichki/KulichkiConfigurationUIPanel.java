@@ -2,8 +2,6 @@ package freeguide.plugins.grabber.kulichki;
 
 import freeguide.common.lib.fgspecific.TVChannelsTree;
 
-import freeguide.common.plugininterfaces.ILocalizer;
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -29,7 +27,7 @@ public class KulichkiConfigurationUIPanel extends JPanel
      *
      * @param localizer DOCUMENT ME!
      */
-    public KulichkiConfigurationUIPanel( final ILocalizer localizer )
+    public KulichkiConfigurationUIPanel(  )
     {
         super(  );
 

@@ -1,10 +1,12 @@
 package freeguide.common.plugininterfaces;
 
+import java.util.ResourceBundle;
+
 import javax.swing.JDialog;
 
 /**
  * Basic interface for all modules for freeguide-tv.
- *
+ * 
  * @author Alex Buloichik (mailto: alex73 at zaval.org)
  */
 public interface IModule
@@ -26,19 +28,18 @@ public interface IModule
     void reloadResourceBundle(  ) throws Exception;
 
     /**
+     * Get resource bundle for module.
+     *
+     * @return resource bundle
+     */
+    ResourceBundle getLocalizer(  );
+
+    /**
      * Get config for store and load.
      *
      * @return config object
      */
     Object getConfig(  );
-
-    /**
-     * Returns the language helper that has methods to translate
-     * strings
-     *
-     * @return Localizer object
-     */
-    public ILocalizer getLocalizer(  );
 
     /**
      * Get configuration interface for support Option panel.

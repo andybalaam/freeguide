@@ -1,11 +1,11 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import freeguide.common.plugininterfaces.ILocalizer;
-
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.KeyEvent;
+
+import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -57,7 +57,7 @@ public class ConfigureUIPanel extends JPanel
     /** new entries for favourite colour and guide colour */
     private JButton btnColorFavourite;
     private JButton btnColorGuide;
-    protected ILocalizer localizer;
+    protected ResourceBundle localizer;
     private JTextField dayStart;
     private JLabel jLabel;
     private JPanel panelTimeFormat;
@@ -74,7 +74,7 @@ public class ConfigureUIPanel extends JPanel
      *
      * @param localizer DOCUMENT ME!
      */
-    public ConfigureUIPanel( final ILocalizer localizer )
+    public ConfigureUIPanel( final ResourceBundle localizer )
     {
         super(  );
 
@@ -173,8 +173,7 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints1.anchor = java.awt.GridBagConstraints.WEST;
 
         gridBagConstraints1.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        labelHeight.setText( 
-            localizer.getLocalizedMessage( "channel_height" ) + ":" );
+        labelHeight.setText( localizer.getString( "channel_height" ) + ":" );
 
         labelHeight.setLabelFor( getSliderHeight(  ) );
 
@@ -186,8 +185,7 @@ public class ConfigureUIPanel extends JPanel
 
         labelColorNormal.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_N );
         labelColorNormal.setLabelFor( getBtnColorNormal(  ) );
-        labelColorNormal.setText( 
-            localizer.getLocalizedMessage( "normal_prog_colour" ) );
+        labelColorNormal.setText( localizer.getString( "normal_prog_colour" ) );
 
         gridBagConstraints6.anchor = java.awt.GridBagConstraints.WEST;
 
@@ -211,22 +209,19 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints101.gridy = 6;
         labelColorMovie.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_M );
         labelColorMovie.setLabelFor( getBtnColorMovie(  ) );
-        labelColorMovie.setText( 
-            localizer.getLocalizedMessage( "movie_colour" ) );
+        labelColorMovie.setText( localizer.getString( "movie_colour" ) );
 
         gridBagConstraints111.gridx = 0;
         gridBagConstraints111.gridy = 7;
         labelColorChannel.setLabelFor( getBtnColorChannel(  ) );
         labelColorChannel.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_C );
-        labelColorChannel.setText( 
-            localizer.getLocalizedMessage( "channel_colour" ) );
+        labelColorChannel.setText( localizer.getString( "channel_colour" ) );
 
         gridBagConstraints50.gridx = 0;
         gridBagConstraints50.gridy = 5;
         labelColorSelected.setLabelFor( getBtnColorSelected(  ) );
         labelColorSelected.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_A );
-        labelColorSelected.setText( 
-            localizer.getLocalizedMessage( "selected_colour" ) );
+        labelColorSelected.setText( localizer.getString( "selected_colour" ) );
 /**
          * new entries for favourite colour and guide colour
          *
@@ -238,14 +233,13 @@ public class ConfigureUIPanel extends JPanel
         labelColorFavourite.setDisplayedMnemonic( 
             java.awt.event.KeyEvent.VK_F );
         labelColorFavourite.setText( 
-            localizer.getLocalizedMessage( "favourite_colour" ) );
+            localizer.getString( "favourite_colour" ) );
 
         gridBagConstraints113.gridx = 0;
         gridBagConstraints113.gridy = 9;
         labelColorGuide.setLabelFor( getBtnColorGuide(  ) );
         labelColorGuide.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_G );
-        labelColorGuide.setText( 
-            localizer.getLocalizedMessage( "guide_colour" ) );
+        labelColorGuide.setText( localizer.getString( "guide_colour" ) );
 
         gridBagConstraints101.anchor = java.awt.GridBagConstraints.WEST;
 
@@ -333,8 +327,7 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints4.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints4.insets = new java.awt.Insets( 5, 5, 0, 0 );
 
-        labelWidth.setText( 
-            localizer.getLocalizedMessage( "width_of_1hr" ) + ":" );
+        labelWidth.setText( localizer.getString( "width_of_1hr" ) + ":" );
         labelWidth.setLabelFor( getSliderWidth(  ) );
         labelWidth.setDisplayedMnemonic( KeyEvent.VK_W );
 
@@ -343,8 +336,7 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints7.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints7.insets = new java.awt.Insets( 5, 5, 0, 0 );
 
-        labelFont.setText( 
-            localizer.getLocalizedMessage( "ui_horiz_font" ) + ":" );
+        labelFont.setText( localizer.getString( "ui_horiz_font" ) + ":" );
 
         labelFont.setLabelFor( btnFont );
 
@@ -420,8 +412,7 @@ public class ConfigureUIPanel extends JPanel
 
         jLabel.setLabelFor( getDayStart(  ) );
         jLabel.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_S );
-        jLabel.setText( 
-            localizer.getLocalizedMessage( "day_starts_at" ) + ":" );
+        jLabel.setText( localizer.getString( "day_starts_at" ) + ":" );
 
         gridBagConstraints61.gridx = 1;
 
@@ -441,8 +432,7 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints72.insets = new java.awt.Insets( 5, 5, 0, 0 );
 
         labelTimeFormat.setLabelFor( getRbTime12(  ) );
-        labelTimeFormat.setText( 
-            localizer.getLocalizedMessage( "time_format" ) + ":" );
+        labelTimeFormat.setText( localizer.getString( "time_format" ) + ":" );
 
         gridBagConstraints92.gridx = 0;
 
@@ -645,7 +635,7 @@ public class ConfigureUIPanel extends JPanel
 
             sliderWidth.getAccessibleContext(  )
                        .setAccessibleName( 
-                localizer.getLocalizedMessage( "width_of_1hr" ) );
+                localizer.getString( "width_of_1hr" ) );
 
             sliderWidth.setMinimum( 100 );
 
@@ -672,7 +662,7 @@ public class ConfigureUIPanel extends JPanel
 
             sliderHeight.getAccessibleContext(  )
                         .setAccessibleName( 
-                localizer.getLocalizedMessage( "channel_height" ) );
+                localizer.getString( "channel_height" ) );
 
             sliderHeight.setMinimum( 10 );
 
@@ -941,7 +931,7 @@ public class ConfigureUIPanel extends JPanel
             rbTime12 = new JRadioButton(  );
 
             rbTime12.setMnemonic( java.awt.event.KeyEvent.VK_1 );
-            rbTime12.setText( localizer.getLocalizedMessage( "12_hour" ) );
+            rbTime12.setText( localizer.getString( "12_hour" ) );
 
         }
 
@@ -961,7 +951,7 @@ public class ConfigureUIPanel extends JPanel
             rbTime24 = new JRadioButton(  );
 
             rbTime24.setMnemonic( java.awt.event.KeyEvent.VK_2 );
-            rbTime24.setText( localizer.getLocalizedMessage( "24_hour" ) );
+            rbTime24.setText( localizer.getString( "24_hour" ) );
 
         }
 
@@ -981,8 +971,7 @@ public class ConfigureUIPanel extends JPanel
             cbDrawTime = new JCheckBox(  );
 
             cbDrawTime.setMnemonic( java.awt.event.KeyEvent.VK_O );
-            cbDrawTime.setText( 
-                localizer.getLocalizedMessage( "show_programme_times" ) );
+            cbDrawTime.setText( localizer.getString( "show_programme_times" ) );
 
         }
 
@@ -1002,8 +991,7 @@ public class ConfigureUIPanel extends JPanel
             cbAlignLeft = new JCheckBox(  );
 
             cbAlignLeft.setMnemonic( java.awt.event.KeyEvent.VK_V );
-            cbAlignLeft.setText( 
-                localizer.getLocalizedMessage( "moving_names" ) );
+            cbAlignLeft.setText( localizer.getString( "moving_names" ) );
 
         }
 
@@ -1023,8 +1011,7 @@ public class ConfigureUIPanel extends JPanel
             cbDisplayTooltips = new JCheckBox(  );
 
             cbDisplayTooltips.setMnemonic( java.awt.event.KeyEvent.VK_L );
-            cbDisplayTooltips.setText( 
-                localizer.getLocalizedMessage( "show_tooltips" ) );
+            cbDisplayTooltips.setText( localizer.getString( "show_tooltips" ) );
 
         }
 

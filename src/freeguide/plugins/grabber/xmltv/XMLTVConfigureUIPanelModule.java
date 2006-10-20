@@ -1,10 +1,10 @@
 package freeguide.plugins.grabber.xmltv;
 
-import freeguide.common.plugininterfaces.ILocalizer;
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -29,7 +29,7 @@ public class XMLTVConfigureUIPanelModule extends JPanel
     private JPanel jPanel = null;
     private JPanel jPanel1 = null;
     private JComboBox comboModules = null;
-    protected final ILocalizer localizer;
+    protected final ResourceBundle i18n;
 
 /**
      * This is the default constructor
@@ -39,12 +39,12 @@ public class XMLTVConfigureUIPanelModule extends JPanel
      * @param textChangedEvent DOCUMENT ME!
      */
     public XMLTVConfigureUIPanelModule( 
-        final ILocalizer localizer, final XMLTVConfig.ModuleInfo moduleInfo,
+        final ResourceBundle i18n, final XMLTVConfig.ModuleInfo moduleInfo,
         final XMLTVConfigureUIController.TextChanged textChangedEvent,
         final XMLTVConfigureUIController.ConfigTextChanged configTextChangedEvent )
     {
         super(  );
-        this.localizer = localizer;
+        this.i18n = i18n;
         this.moduleInfo = moduleInfo;
         this.textChangedEvent = textChangedEvent;
         this.textChangedEvent.panel = this;
@@ -95,8 +95,7 @@ public class XMLTVConfigureUIPanelModule extends JPanel
 
             btnChannels.setText( "Configure" );
             btnChannels.setMnemonic( java.awt.event.KeyEvent.VK_C );
-            btnChannels.setText( 
-                localizer.getLocalizedMessage( "Options.ChooseChannels" ) );
+            btnChannels.setText( i18n.getString( "Options.ChooseChannels" ) );
         }
 
         return btnChannels;
@@ -154,8 +153,7 @@ public class XMLTVConfigureUIPanelModule extends JPanel
 
             btnCommandReset.setText( "Default" );
             btnCommandReset.setMnemonic( java.awt.event.KeyEvent.VK_D );
-            btnCommandReset.setText( 
-                localizer.getLocalizedMessage( "Options.Reset" ) );
+            btnCommandReset.setText( i18n.getString( "Options.Reset" ) );
 
         }
 
@@ -175,8 +173,7 @@ public class XMLTVConfigureUIPanelModule extends JPanel
             btnDelete = new JButton(  );
             btnDelete.setText( "Delete" );
             btnDelete.setMnemonic( java.awt.event.KeyEvent.VK_E );
-            btnDelete.setText( 
-                localizer.getLocalizedMessage( "Options.Remove" ) );
+            btnDelete.setText( i18n.getString( "Options.Remove" ) );
         }
 
         return btnDelete;

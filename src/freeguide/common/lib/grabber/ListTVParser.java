@@ -15,6 +15,9 @@ import java.io.InputStreamReader;
 
 import java.text.ParseException;
 
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.Set;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
@@ -270,6 +273,91 @@ public class ListTVParser
         else
         {
             return false;
+        }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param channelID DOCUMENT_ME!
+     * @param programmes DOCUMENT_ME!
+     * @param props DOCUMENT_ME!
+     */
+    public static void patch( 
+        final String channelID, final TVProgramme[] programmes,
+        final Properties props )
+    {
+        if( !props.containsKey( "channel." + channelID ) )
+        {
+            return;
+        }
+
+        for( int i = 0; i < programmes.length; i++ )
+        {
+            if( programmes[i].getTitle(  ) != null )
+            {
+                for( Iterator it = props.keySet(  ).iterator(  );
+                        it.hasNext(  ); )
+                {
+                    final String key = (String)it.next(  );
+
+                    if( !key.startsWith( "prog." ) )
+                    {
+                        continue;
+                    }
+
+                    if( 
+                        programmes[i].getTitle(  ).indexOf( 
+                                key.substring( 5 ) ) != -1 )
+                    {
+                        programmes[i].setTitle( props.getProperty( key ) );
+
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param channelID DOCUMENT_ME!
+     * @param programmes DOCUMENT_ME!
+     * @param props DOCUMENT_ME!
+     */
+    public static void patch( 
+        final String channelID, final Set programmes, final Properties props )
+    {
+        if( !props.containsKey( "channel." + channelID ) )
+        {
+            return;
+        }
+
+        for( final Iterator itp = programmes.iterator(  ); itp.hasNext(  ); )
+        {
+            final TVProgramme prog = (TVProgramme)itp.next(  );
+
+            if( prog.getTitle(  ) != null )
+            {
+                for( Iterator it = props.keySet(  ).iterator(  );
+                        it.hasNext(  ); )
+                {
+                    final String key = (String)it.next(  );
+
+                    if( !key.startsWith( "prog." ) )
+                    {
+                        continue;
+                    }
+
+                    if( prog.getTitle(  ).indexOf( key.substring( 5 ) ) != -1 )
+                    {
+                        prog.setTitle( props.getProperty( key ) );
+
+                        break;
+                    }
+                }
+            }
         }
     }
 }

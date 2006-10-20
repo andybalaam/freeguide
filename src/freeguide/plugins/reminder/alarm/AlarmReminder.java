@@ -20,6 +20,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import java.text.MessageFormat;
+
 import java.util.logging.Level;
 
 import javax.swing.JDialog;
@@ -86,7 +88,7 @@ public class AlarmReminder extends BaseModuleReminder
         // is highlighted?
         if( !isHighlighted( programme ) )
         {
-            hil.setText( i18n.getLocalizedMessage( "popup.highlight.add" ) );
+            hil.setText( i18n.getString( "popup.highlight.add" ) );
             hil.addActionListener( 
                 new ActionListener(  )
                 {
@@ -100,7 +102,7 @@ public class AlarmReminder extends BaseModuleReminder
         }
         else
         {
-            hil.setText( i18n.getLocalizedMessage( "popup.highlight.del" ) );
+            hil.setText( i18n.getString( "popup.highlight.del" ) );
             hil.addActionListener( 
                 new ActionListener(  )
                 {
@@ -119,7 +121,7 @@ public class AlarmReminder extends BaseModuleReminder
 
         if( !isSelected( programme ) )
         {
-            sel.setText( i18n.getLocalizedMessage( "popup.selection.add" ) );
+            sel.setText( i18n.getString( "popup.selection.add" ) );
             sel.addActionListener( 
                 new ActionListener(  )
                 {
@@ -132,7 +134,7 @@ public class AlarmReminder extends BaseModuleReminder
         }
         else
         {
-            sel.setText( i18n.getLocalizedMessage( "popup.selection.del" ) );
+            sel.setText( i18n.getString( "popup.selection.del" ) );
             sel.addActionListener( 
                 new ActionListener(  )
                 {
@@ -152,7 +154,7 @@ public class AlarmReminder extends BaseModuleReminder
 
         if( ( favourite == null ) || !favourite.getRecord(  ) )
         {
-            rec.setText( i18n.getLocalizedMessage( "popup.record.add" ) );
+            rec.setText( i18n.getString( "popup.record.add" ) );
 
             if( favourite == null )
             { // not yet in favourites, hence add.
@@ -192,7 +194,7 @@ public class AlarmReminder extends BaseModuleReminder
         }
         else
         {
-            rec.setText( i18n.getLocalizedMessage( "popup.record.del" ) );
+            rec.setText( i18n.getString( "popup.record.del" ) );
             rec.addActionListener( 
                 new ActionListener(  )
                 {
@@ -215,7 +217,7 @@ public class AlarmReminder extends BaseModuleReminder
 
         if( favourite == null )
         {
-            fav.setText( i18n.getLocalizedMessage( "popup.favourite.add" ) );
+            fav.setText( i18n.getString( "popup.favourite.add" ) );
             fav.addActionListener( 
                 new ActionListener(  )
                 {
@@ -233,7 +235,7 @@ public class AlarmReminder extends BaseModuleReminder
         }
         else
         {
-            fav.setText( i18n.getLocalizedMessage( "popup.favourite.del" ) );
+            fav.setText( i18n.getString( "popup.favourite.del" ) );
             fav.addActionListener( 
                 new ActionListener(  )
                 {
@@ -264,9 +266,10 @@ public class AlarmReminder extends BaseModuleReminder
         int r =
             JOptionPane.showConfirmDialog( 
                 null, //controller.getPanel(  ),
-                i18n.getLocalizedMessage( 
-                    "popup.favourite.del.prompt", messageArguments ),
-                i18n.getLocalizedMessage( "popup.favourite.del.title" ),
+                MessageFormat.format( 
+                    i18n.getString( "popup.favourite.del.prompt" ),
+                    messageArguments ),
+                i18n.getString( "popup.favourite.del.title" ),
                 JOptionPane.YES_NO_OPTION );
 
         if( r == 0 )
@@ -437,8 +440,8 @@ public class AlarmReminder extends BaseModuleReminder
                     && ( timeForDisplay <= System.currentTimeMillis(  ) ) )
             {
                 String message =
-                    i18n.getLocalizedMessage( 
-                        "alarm.text",
+                    MessageFormat.format( 
+                        i18n.getString( "alarm.text" ),
                         new Object[] { scheduledProgramme.getTitle(  ) } );
 
                 JOptionPane optionPane =
@@ -446,7 +449,7 @@ public class AlarmReminder extends BaseModuleReminder
 
                 scheduledDialog = optionPane.createDialog( 
                         Application.getInstance(  ).getApplicationFrame(  ),
-                        i18n.getLocalizedMessage( "alarm.title" ) );
+                        i18n.getString( "alarm.title" ) );
 
                 scheduledDialog.setModal( false );
 
