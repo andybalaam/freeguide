@@ -3,8 +3,6 @@ package freeguide.plugins.grabber.kulichki;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
-import freeguide.common.lib.general.LanguageHelper;
-import freeguide.common.lib.general.ResourceHelper;
 import freeguide.common.lib.grabber.HttpBrowser;
 
 import freeguide.common.plugininterfaces.BaseModule;
@@ -13,6 +11,10 @@ import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import freeguide.common.plugininterfaces.IModuleGrabber;
 import freeguide.common.plugininterfaces.IProgress;
 import freeguide.common.plugininterfaces.IStoragePipe;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,7 +37,7 @@ import javax.swing.JDialog;
 public class GrabberKulichki extends BaseModule implements IModuleGrabber
 {
     protected Properties TIME_ZONES;
-    protected Map GROUP_NAMES;
+    protected Properties GROUP_NAMES;
     protected TimeZone TIME_ZONE_DEFAULT =
         TimeZone.getTimeZone( "Europe/Moscow" );
     protected KulichkiConfig config = new KulichkiConfig(  );
@@ -326,14 +328,22 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
     {
         TIME_ZONES = new Properties(  );
 
+        final InputStream in =
+            GrabberKulichki.class.getClassLoader(  )
+                                 .getResourceAsStream( 
+                "resources/plugins/grabber/kulichki/timezones.properties" );
+
         try
         {
-            TIME_ZONES.load( 
-                ResourceHelper.getUncachedStream( 
-                    "resources/plugins/grabber/kulichki/timezones.properties" ) );
+            if( in == null )
+            {
+                throw new FileNotFoundException(  );
+            }
 
+            TIME_ZONES.load( in );
+            in.close(  );
         }
-        catch( Exception ex )
+        catch( IOException ex )
         {
             Application.getInstance(  ).getLogger(  )
                        .log( 
@@ -344,12 +354,24 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
     protected void loadGroupNames(  )
     {
+        GROUP_NAMES = new Properties(  );
+
+        final InputStream in =
+            GrabberKulichki.class.getClassLoader(  )
+                                 .getResourceAsStream( 
+                "resources/plugins/grabber/kulichki/groupnames.properties" );
+
         try
         {
-            GROUP_NAMES = new LanguageHelper( 
-                    "resources.plugins.grabber.kulichki.groupnames" ).getMap(  );
+            if( in == null )
+            {
+                throw new FileNotFoundException(  );
+            }
+
+            GROUP_NAMES.load( in );
+            in.close(  );
         }
-        catch( Exception ex )
+        catch( IOException ex )
         {
             Application.getInstance(  ).getLogger(  )
                        .log( 

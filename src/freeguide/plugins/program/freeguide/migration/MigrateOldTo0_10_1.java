@@ -3,7 +3,6 @@ package freeguide.plugins.program.freeguide.migration;
 import freeguide.common.lib.fgspecific.TVChannelIconHelper;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.general.FileHelper;
-import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.StringHelper;
 import freeguide.common.lib.general.Time;
 
@@ -21,6 +20,7 @@ import java.io.IOException;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 import java.util.TreeMap;
 import java.util.prefs.BackingStoreException;
 
@@ -102,10 +102,11 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
         if( region != null )
         {
-            Map conv =
-                new LanguageHelper( 
-                    "resources.plugins.program.freeguide.migration.regions.0.8.6" )
-                .getMap(  );
+            Properties conv = new Properties(  );
+            conv.load( 
+                MigrateOldTo0_10_1.class.getClassLoader(  )
+                                        .getResourceAsStream( 
+                    "resources/plugins/program/freeguide/migration/regions.0.8.6.properties" ) );
             putKey( "countryID", (String)conv.get( region ) );
         }
 

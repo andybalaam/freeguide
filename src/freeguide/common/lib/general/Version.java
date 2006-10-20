@@ -12,6 +12,15 @@
  */
 package freeguide.common.lib.general;
 
+import freeguide.common.lib.fgspecific.Application;
+
+import freeguide.plugins.program.freeguide.FreeGuide;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import java.util.Properties;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

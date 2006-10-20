@@ -31,11 +31,9 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import java.io.ObjectInputStream.GetField;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.TreeSet;
@@ -97,13 +95,12 @@ public class MainController extends BaseModule implements IApplication
     /**
      * DOCUMENT_ME!
      *
-     * @param locale DOCUMENT_ME!
-     *
      * @throws Exception DOCUMENT_ME!
      */
-    public void setLocale( Locale locale ) throws Exception
+    public void reloadResourceBundle(  ) throws Exception
     {
-        i18n = new LanguageHelper( "resources.i18n.MessagesBundle", locale );
+        i18n = new LanguageHelper( 
+                ResourceBundle.getBundle( "resources/i18n/MessagesBundle" ) );
     }
 
     /**

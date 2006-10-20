@@ -13,7 +13,6 @@
 package freeguide.plugins.program.freeguide;
 
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.PreferencesHelper;
 import freeguide.common.lib.general.Version;
 
@@ -33,8 +32,11 @@ import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
 import java.io.File;
 import java.io.FileFilter;
 
+import java.text.MessageFormat;
+
 import java.util.Locale;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,9 +71,10 @@ public class FreeGuide
 
     /** Application config info. */
     public static Config config;
-    protected static LanguageHelper startupMessages;
+    protected static final ResourceBundle startupMessages =
+        ResourceBundle.getBundle( "resources.i18n.Startup" );
 
-    //------------------------------------------------------------------------
+    // ------------------------------------------------------------------------
     /** Holds all commandline arguments */
     public static Properties arguments;
 
@@ -83,22 +86,20 @@ public class FreeGuide
     protected static PleaseWaitFrame pleaseWaitFrame;
 
 /**
-     * Run FreeGuide.  Command line arguments are: --language lang     Set the
-     * language FreeGuide uses, e.g. "en" for English, "de" for German
-     * --country  ctry     Set the country variant for localisation, e.g.
-     * "GB" for Great Britain --log-prefs         Write every Java
-     * Preferences change to the log.
-     *
-     * @param args Command line arguments
-     *
-     * @throws Exception DOCUMENT ME!
+     * Run FreeGuide. Command line arguments are: --language lang Set the
+     * language FreeGuide uses, e.g. "en" for English, "de" for German --country
+     * ctry Set the country variant for localisation, e.g. "GB" for Great
+     * Britain --log-prefs Write every Java Preferences change to the log.
+     * 
+     * @param args
+     *            Command line arguments
+     * 
+     * @throws Exception
+     *             DOCUMENT ME!
      */
     public FreeGuide( String[] args ) throws Exception
     {
-        startupMessages = new LanguageHelper( 
-                "resources.i18n.Startup", Locale.getDefault(  ) );
-
-        // Check Java version.  If wrong, exit with error
+        // Check Java version. If wrong, exit with error
         checkJavaVersion(  );
 
         arguments = CmdArgs.parse( args );
@@ -145,7 +146,8 @@ public class FreeGuide
                     + "\", defaulting to info" );
             }
 
-            // I know this looks wrong and totally stupid, but this is what you have to do:
+            // I know this looks wrong and totally stupid, but this is what you
+            // have to do:
             log.setLevel( lev );
             log.getParent(  ).setLevel( lev );
             log.getParent(  ).getHandlers(  )[0].setLevel( lev );
@@ -174,9 +176,7 @@ public class FreeGuide
                 }
                 else
                 {
-                    warning( 
-                        startupMessages.getLocalizedMessage( 
-                            "startup.NoDocDir" ) );
+                    warning( startupMessages.getString( "startup.NoDocDir" ) );
                 }
             }
         }
@@ -205,8 +205,7 @@ public class FreeGuide
                 else
                 {
                     warning( 
-                        startupMessages.getLocalizedMessage( 
-                            "startup.NoInstallDir" ) );
+                        startupMessages.getString( "startup.NoInstallDir" ) );
                 }
             }
         }
@@ -254,8 +253,7 @@ public class FreeGuide
             if( PluginsManager.getApplicationModuleInfo(  ) == null )
             {
                 die( 
-                    startupMessages.getLocalizedMessage( 
-                        "startup.NoApplicationModule" ) );
+                    startupMessages.getString( "startup.NoApplicationModule" ) );
             }
 
             Application.setInstance( 
@@ -320,7 +318,7 @@ public class FreeGuide
         {
             if( PluginsManager.getViewers(  ).length == 0 )
             {
-                die( startupMessages.getLocalizedMessage( "startup.NoUI" ) );
+                die( startupMessages.getString( "startup.NoUI" ) );
             }
 
             viewer = (IModuleViewer)PluginsManager.getModuleByID( 
@@ -329,7 +327,7 @@ public class FreeGuide
 
         if( storage == null )
         {
-            die( startupMessages.getLocalizedMessage( "startup.NoStorage" ) );
+            die( startupMessages.getString( "startup.NoStorage" ) );
         }
 
         try
@@ -515,8 +513,8 @@ public class FreeGuide
         if( Version.getJavaVersion(  ).lessThan( MINIMUM_JAVA_VERSION ) )
         {
             die( 
-                startupMessages.getLocalizedMessage( 
-                    "startup.WrongJavaVersion",
+                MessageFormat.format( 
+                    startupMessages.getString( "startup.WrongJavaVersion" ),
                     new String[] { System.getProperty( "java.version" ) } ) );
         }
     }

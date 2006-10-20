@@ -3,7 +3,7 @@ package freeguide.common.plugininterfaces;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.LanguageHelper;
 
-import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 
 import javax.swing.JDialog;
@@ -48,21 +48,20 @@ public abstract class BaseModule implements IModule
      * IModule.setLocale implementation. Loads
      * i18n.(locale).properties file from current package to i18n variable.
      *
-     * @param locale locale
-     *
      * @throws Exception
      */
-    public void setLocale( final Locale locale ) throws Exception
+    public void reloadResourceBundle(  ) throws Exception
     {
         String package_name = getClass(  ).getPackage(  ).getName(  );
 
         if( package_name.startsWith( plugin_package_name_prefix ) )
         {
-            i18n = new LanguageHelper( 
-                    "resources.i18n."
-                    + package_name.substring( 
-                        plugin_package_name_prefix.length(  ) )
-                                  .replace( '.', '_' ), locale );
+            final String bundleName =
+                "resources/i18n/"
+                + package_name.substring( 
+                    plugin_package_name_prefix.length(  ) ).replace( '.', '_' );
+
+            i18n = new LanguageHelper( ResourceBundle.getBundle( bundleName ) );
         }
         else
         {

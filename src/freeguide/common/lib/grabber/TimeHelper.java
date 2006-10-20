@@ -2,14 +2,16 @@ package freeguide.common.lib.grabber;
 
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
-import freeguide.common.lib.general.LanguageHelper;
 import freeguide.common.lib.general.Time;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 import java.text.ParseException;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Properties;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
@@ -21,21 +23,35 @@ import java.util.regex.Pattern;
  */
 public class TimeHelper
 {
-    protected static Map months;
+    protected static Properties months;
 
     /** Milliseconds per day. */
     public static final long MILLISECONDS_IN_DAY = 24L * 60L * 60L * 1000L;
 
     static
     {
+        months = new Properties(  );
+
+        final InputStream in =
+            TimeHelper.class.getClassLoader(  )
+                            .getResourceAsStream( 
+                "resources.main.months.properties2" );
+
         try
         {
-            months = new LanguageHelper( "resources.main.months" ).getMap(  );
+            if( in == null )
+            {
+                throw new FileNotFoundException(  );
+            }
+
+            months.load( in );
+            in.close(  );
         }
-        catch( Exception ex )
+        catch( IOException ex )
         {
             Application.getInstance(  ).getLogger(  )
                        .log( Level.SEVERE, "Error reading month names", ex );
+            throw new RuntimeException( "Error reading months.properties", ex );
         }
     }
 

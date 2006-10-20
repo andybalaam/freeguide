@@ -214,18 +214,15 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     /**
      * Set locale handler.
      *
-     * @param locale new locale
-     *
      * @throws Exception
      */
-    public void setLocale( Locale locale ) throws Exception
+    public void reloadResourceBundle(  ) throws Exception
     {
-        super.setLocale( locale );
-        comboBoxDateFormat = DateFormat.getDateInstance( 
-                DateFormat.MEDIUM, locale );
-        htmlDateFormat = DateFormat.getDateInstance( DateFormat.LONG, locale );
-        weekdayFormat = new SimpleDateFormat( "EEEE", locale );
-        shortWeekdayFormat = new SimpleDateFormat( "EE", locale );
+        super.reloadResourceBundle(  );
+        comboBoxDateFormat = DateFormat.getDateInstance( DateFormat.MEDIUM );
+        htmlDateFormat = DateFormat.getDateInstance( DateFormat.LONG );
+        weekdayFormat = new SimpleDateFormat( "EEEE" );
+        shortWeekdayFormat = new SimpleDateFormat( "EE" );
     }
 
     /**

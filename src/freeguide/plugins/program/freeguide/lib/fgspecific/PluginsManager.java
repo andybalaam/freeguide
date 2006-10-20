@@ -402,7 +402,7 @@ public class PluginsManager
             {
                 try
                 {
-                    info.getInstance(  ).setLocale( locale );
+                    info.getInstance(  ).reloadResourceBundle(  );
                 }
                 catch( Exception ex )
                 {

@@ -1,7 +1,5 @@
 package freeguide.common.plugininterfaces;
 
-import java.util.Locale;
-
 import javax.swing.JDialog;
 
 /**
@@ -23,11 +21,9 @@ public interface IModule
     /**
      * Set locale for module.
      *
-     * @param locale locale. Can be null.
-     *
      * @throws Exception
      */
-    void setLocale( Locale locale ) throws Exception;
+    void reloadResourceBundle(  ) throws Exception;
 
     /**
      * Get config for store and load.

@@ -18,38 +18,18 @@ import java.util.logging.Level;
  */
 public class LanguageHelper implements ILocalizer
 {
-    final protected Locale locale;
     final protected ResourceBundle bundle;
 
 /**
      * Create language support object.
-     *
-     * @param resourcePrefix package prefix in form
-     *        "freeguide/plugins/module/messages"
-     */
-    public LanguageHelper( final String resourcePrefix )
-    {
-        this.locale = Locale.getDefault(  );
-        this.bundle = ResourceBundle.getBundle( resourcePrefix, locale );
-    }
-
-/**
-     * Create language support object.
-     *
-     * @param resourcePrefix package prefix in form
-     *        "freeguide/plugins/module/messages"
+     * 
+     * @param resourcePrefix
+     *            package prefix in form "freeguide/plugins/module/messages"
      * @param locale
      */
-    public LanguageHelper( final String resourcePrefix, final Locale locale )
+    public LanguageHelper( final ResourceBundle bundle )
     {
-        if( resourcePrefix.indexOf( "/" ) >= 0 )
-        {
-            System.err.println( 
-                "Still using old resource path format: " + resourcePrefix );
-        }
-
-        this.locale = locale;
-        this.bundle = ResourceBundle.getBundle( resourcePrefix, locale );
+        this.bundle = bundle;
     }
 
     /**
@@ -107,20 +87,11 @@ public class LanguageHelper implements ILocalizer
         final String key, final Object[] messageArguments )
     {
         MessageFormat formatter =
-            new MessageFormat( this.bundle.getString( key ), this.locale );
+            new MessageFormat( 
+                this.bundle.getString( key ), bundle.getLocale(  ) );
 
         return formatter.format( messageArguments );
 
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public Locale getLocale(  )
-    {
-        return locale;
     }
 
     /**
@@ -132,23 +103,20 @@ public class LanguageHelper implements ILocalizer
      */
     public static Locale[] getSupportedLocales(  ) throws IOException
     {
-        String[] codes =
-            ResourceHelper.loadStrings( "resources/main/languages.properties" );
-        Locale[] locales = new Locale[codes.length];
+        final List result = new ArrayList(  );
+        Locale[] all = Locale.getAvailableLocales(  );
 
-        for( int i = 0; i < codes.length; i++ )
+        for( int i = 0; i < all.length; i++ )
         {
-            if( codes[i].indexOf( "_" ) > -1 )
+            if( 
+                ResourceBundle.getBundle( 
+                        "resources/i18n/MessagesBundle", all[i] ).getLocale(  )
+                                  .equals( all[i] ) )
             {
-                String[] split = codes[i].split( "_" );
-                locales[i] = new Locale( split[0], split[1] );
-            }
-            else
-            {
-                locales[i] = new Locale( codes[i] );
+                result.add( all[i] );
             }
         }
 
-        return locales;
+        return (Locale[])result.toArray( new Locale[result.size(  )] );
     }
 }

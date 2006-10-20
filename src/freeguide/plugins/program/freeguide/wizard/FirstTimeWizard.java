@@ -14,7 +14,6 @@ package freeguide.plugins.program.freeguide.wizard;
 
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.FileHelper;
-import freeguide.common.lib.general.LanguageHelper;
 
 import freeguide.common.plugininterfaces.IModuleConfigureFromWizard;
 
@@ -26,10 +25,13 @@ import freeguide.plugins.program.freeguide.migration.Migrate;
 import java.awt.event.KeyEvent;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 import java.util.TreeMap;
 import java.util.logging.Level;
 
@@ -58,25 +60,26 @@ public class FirstTimeWizard
 
 /**
      * Constructor for the FirstTimeWizard object
-     *
-     * @param upgrade DOCUMENT ME!
+     * 
+     * @param upgrade
+     *            DOCUMENT ME!
      */
     public FirstTimeWizard( boolean upgrade )
     {
         config = (FreeGuide.Config)FreeGuide.config.clone(  );
 
-        // setStandardProps(  );
+        // setStandardProps( );
         // If we haven't got a region, assume it's UK.
-        /*if( FreeGuide.prefs.misc.get( "region" ) == null )
-        
-        
-        {
-        
-        
-        FreeGuide.prefs.misc.put( "region", "UK" );
-        
-        
-        }*/
+        /*
+         * if( FreeGuide.prefs.misc.get( "region" ) == null )
+         *
+         *  {
+         *
+         *
+         * FreeGuide.prefs.misc.put( "region", "UK" );
+         *
+         *  }
+         */
         getAllRegions(  );
 
         allBrowsers = getAllBrowsers(  );
@@ -308,7 +311,26 @@ public class FirstTimeWizard
     protected static Map readMap( final String resourceName )
         throws IOException
     {
-        return new LanguageHelper( resourceName ).getMap(  );
+        final Properties result = new Properties(  );
+        final InputStream in =
+            FirstTimeWizard.class.getClassLoader(  )
+                                 .getResourceAsStream( resourceName );
+
+        if( in == null )
+        {
+            throw new FileNotFoundException( resourceName );
+        }
+
+        try
+        {
+            result.load( in );
+        }
+        finally
+        {
+            in.close(  );
+        }
+
+        return result;
     }
 
     /**
@@ -322,8 +344,9 @@ public class FirstTimeWizard
         {
             Map result =
                 readMap( 
-                    "resources.main.browsers-"
-                    + ( FreeGuide.runtimeInfo.isUnix ? "lin" : "win" ) );
+                    "resources/main/browsers-"
+                    + ( FreeGuide.runtimeInfo.isUnix ? "lin" : "win" )
+                    + ".properties" );
 
             defaultBrowser = (String)result.remove( "DEFAULT" );
 
