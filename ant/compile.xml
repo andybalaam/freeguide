@@ -6,7 +6,7 @@
     <import file="prepare.xml"/>
     <import file="../build.xml"/>
 
-    <target name="jars" depends="prepare, compile, jar-common, jar-plugins, jar-startup"/>
+    <target name="jars" depends="prepare, compile, jar-common, jar-plugins, jar-startup, jar-docs, jar-xmltv-win"/>
 
     <target name="compile"
         description="Compile all the .java files into the build dir.">
@@ -59,6 +59,21 @@
         <copy todir="${build}/package/lib">
             <fileset dir="${lib}" includes="**/*.jar"/>
         </copy>
+    </target>
+    
+	<target name="jar-docs">
+		<mkdir dir="${build}/other-docs/other/docs/"/>
+		<copy todir="${build}/other-docs/other/docs/">
+			<fileset dir="${doc}/html-local"/>
+		</copy>
+    	<jar jarfile="${build}/package/lib/docs.jar" basedir="${build}/other-docs"/>
+    </target>
+    <target name="jar-xmltv-win">
+		<mkdir dir="${build}/other-xmltv-win/other/xmltv-win/"/>
+		<copy todir="${build}/other-xmltv-win/other/xmltv-win/">
+			<fileset dir="${xmltv}"/>
+		</copy>
+    	<jar jarfile="${build}/package/lib/xmltv-win.jar" basedir="${build}/other-xmltv-win"/>
     </target>
     
     <target name="jar-plugins">
