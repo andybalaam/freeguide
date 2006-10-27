@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<jnlp
+  spec="1.0+"
+  codebase="http://alex73.zaval.org/snapshots/freeguide-ws/"
+  href="control.jnlp">
+  <application-desc main-class="freeguide.plugins.program.freeguide.FreeGuide"/>
+  <resources>
+    <j2se version="1.4.2+"/>
+    <jar href="lib/program-freeguide.jar"/>
+    <jar href="lib/common.jar"/>
+    <jar href="lib/grabber-cosmostv.jar"/>
+    <jar href="lib/grabber-hallmark.jar"/>
+    <jar href="lib/grabber-kulichki.jar"/>
+    <jar href="lib/grabber-newsvm.jar"/>
+    <jar href="lib/grabber-ntvplus.jar"/>
+    <jar href="lib/grabber-rbc.jar"/>
+    <jar href="lib/grabber-vsetv.jar"/>
+    <jar href="lib/importexport-html.jar"/>
+    <jar href="lib/importexport-xmltv.jar"/>
+    <jar href="lib/importexport-jtv.jar"/>
+    <jar href="lib/importexport-mobile.jar"/>
+    <jar href="lib/importexport-palmatv.jar"/>
+    <jar href="lib/reminder-alarm.jar"/>
+    <jar href="lib/storage-serfiles.jar"/>
+    <jar href="lib/ui-horizontal.jar"/>
+    <jar href="lib/ui-vertical.jar"/>
+  </resources>
+  <security>
+      <all-permissions/>
+  </security>
+
+  <information>
+    <title>FreeGuide TV</title>
+    <vendor>FreeGuide developers</vendor>
+    <homepage href="http://freeguide-tv.sf.net"/>
+    <icon href="images/logo32x32.gif"/>
+    <icon kind="splash" href="images/splash.gif"/>
+    <offline-allowed/> 
+    <shortcut online="false">
+      <desktop/>
+      <menu submenu="FreeGuide TV from WebStart"/>
+    </shortcut>
+  </information>  
+</jnlp>
