@@ -35,6 +35,8 @@ import java.util.Properties;
 import java.util.TreeMap;
 import java.util.logging.Level;
 
+import javax.swing.JOptionPane;
+
 /**
  * A first time wizard for FreeGuide
  *
@@ -466,8 +468,13 @@ public class FirstTimeWizard
 
         if( showREADME )
         {
-            FileHelper.openFile( 
-                FreeGuide.runtimeInfo.docDirectory + "/userguide.html" );
+            try {                    
+                FileHelper.showDocs();
+                } catch (IOException ex) {
+                JOptionPane.showMessageDialog( 
+                        wizardFrame,ex.getMessage(),"Error display help",
+                        JOptionPane.ERROR_MESSAGE );
+                }
         }
     }
 

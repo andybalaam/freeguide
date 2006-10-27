@@ -48,13 +48,14 @@
     <property name="dist-tgz"           location="${dist}/tgz"        />
     <property name="dist-src"           location="${dist}/src"        />
     <property name="dist-rpm"           location="${dist}/rpm"        />
+    <property name="dist-webstart"      location="${dist}/webstart"   />
     
     <description>
         Ant build file for FreeGuide.
     </description>
     
     <target name="all" depends="prepare, jars, compile-doc" />
-    <target name="dist-all" depends="dist-src,dist-rpm,dist-tgz" />
+    <target name="dist-all" depends="dist-src,dist-rpm,dist-tgz,dist-webstart" />
     
     <target name="prepare">
         <ant antfile="ant/prepare.xml" />
@@ -105,6 +106,9 @@
     </target>
     <target name="dist-install-tgz">
         <ant antfile="ant/dist-install-tgz.xml" />
+    </target>
+    <target name="dist-webstart">
+        <ant antfile="ant/dist-webstart.xml" />
     </target>
 
     <target name="run">

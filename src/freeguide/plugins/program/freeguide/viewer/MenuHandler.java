@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -119,8 +120,13 @@ public class MenuHandler
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
-                    FileHelper.openFile( 
-                        FreeGuide.runtimeInfo.docDirectory + "/userguide.html" );
+                    try {                    
+                    FileHelper.showDocs();
+                    } catch (IOException ex) {
+                    JOptionPane.showMessageDialog( 
+                            controller.mainFrame,ex.getMessage(),"Error display help",
+                            JOptionPane.ERROR_MESSAGE );
+                    }
                 }
             } );
 

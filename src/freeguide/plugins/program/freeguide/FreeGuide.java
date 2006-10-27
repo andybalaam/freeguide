@@ -160,25 +160,8 @@ public class FreeGuide
         }
         else
         {
-            File fl = new File( "./doc" );
-
-            if( fl.exists(  ) )
-            {
-                runtimeInfo.docDirectory = fl.toString(  );
-            }
-            else
-            {
-                fl = new File( "../doc/html-local" );
-
-                if( fl.exists(  ) )
-                {
-                    runtimeInfo.docDirectory = fl.toString(  );
-                }
-                else
-                {
-                    warning( startupMessages.getString( "startup.NoDocDir" ) );
-                }
-            }
+            // we will unpack doc as need
+            runtimeInfo.docDirectory=null;
         }
 
         if( arguments.containsKey( "install_directory" ) )
@@ -188,26 +171,8 @@ public class FreeGuide
         }
         else
         {
-            File fl = new File( "./lib" );
-
-            if( fl.exists(  ) )
-            {
-                runtimeInfo.installDirectory = ".";
-            }
-            else
-            {
-                fl = new File( "../lib" );
-
-                if( fl.exists(  ) )
-                {
-                    runtimeInfo.installDirectory = "..";
-                }
-                else
-                {
-                    warning( 
-                        startupMessages.getString( "startup.NoInstallDir" ) );
-                }
-            }
+                           runtimeInfo.installDirectory=null;
+           
         }
 
         config = new Config(  );
@@ -556,9 +521,7 @@ public class FreeGuide
          */
         public Config(  )
         {
-            workingDirectory = ( runtimeInfo.isUnix
-                ? ( System.getProperty( "user.home" ) + "/.freeguide" )
-                : ( runtimeInfo.installDirectory + "/data" ) );
+            workingDirectory =  System.getProperty( "user.home" ) + File.separatorChar+".freeguide" ;
 
             countryID = "UK";
 

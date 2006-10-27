@@ -25,6 +25,7 @@
     <jar href="lib/storage-serfiles.jar"/>
     <jar href="lib/ui-horizontal.jar"/>
     <jar href="lib/ui-vertical.jar"/>
+    <jar href="lib/docs.jar"/>
   </resources>
   <security>
       <all-permissions/>
@@ -37,7 +38,7 @@
     <icon href="images/logo32x32.gif"/>
     <icon kind="splash" href="images/splash.gif"/>
     <offline-allowed/> 
-    <shortcut online="false">
+    <shortcut online="true">
       <desktop/>
       <menu submenu="FreeGuide TV from WebStart"/>
     </shortcut>

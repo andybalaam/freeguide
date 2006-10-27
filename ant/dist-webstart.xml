@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Creates a webstart hierarchy
+-->
+<project name="freeguide-tv-dist"  default="dist-webstart">
+
+    <import file="plugins-info.xml"/>
+    <import file="install-linux.xml"/>
+
+    <target name="dist-webstart">
+        <delete dir="${build}/webstart"/>
+
+        <mkdir dir="${dist-webstart}/images"/>
+        <copy todir="${dist-webstart}/images">
+			<fileset dir="install/webStart/images"/>
+		</copy>
+        <mkdir dir="${dist-webstart}/lib"/>
+        <copy todir="${dist-webstart}/lib">
+			<fileset dir="${build}/package/lib"/>
+		</copy>
+        <copy file="install/webStart/control.jnlp" todir="${dist-webstart}"/>
+    </target>
+    
+</project>
+
