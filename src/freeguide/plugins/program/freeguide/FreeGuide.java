@@ -161,7 +161,7 @@ public class FreeGuide
         else
         {
             // we will unpack doc as need
-            runtimeInfo.docDirectory=null;
+            runtimeInfo.docDirectory = null;
         }
 
         if( arguments.containsKey( "install_directory" ) )
@@ -171,8 +171,8 @@ public class FreeGuide
         }
         else
         {
-                           runtimeInfo.installDirectory=null;
-           
+            runtimeInfo.installDirectory = null;
+
         }
 
         config = new Config(  );
@@ -521,7 +521,8 @@ public class FreeGuide
          */
         public Config(  )
         {
-            workingDirectory =  System.getProperty( "user.home" ) + File.separatorChar+".freeguide" ;
+            workingDirectory = System.getProperty( "user.home" )
+                + File.separatorChar + ".freeguide";
 
             countryID = "UK";
 

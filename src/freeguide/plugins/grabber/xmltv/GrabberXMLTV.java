@@ -182,17 +182,21 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                 cmd, "%config_file%",
                 Application.getInstance(  ).getWorkingDirectory(  )
                 + "/xmltv-configs/" + moduleInfo.configFileName );
-        
-        
-        if (Application.getInstance().getInstallDirectory()==null) {
+
+        if( Application.getInstance(  ).getInstallDirectory(  ) == null )
+        {
             cmd = StringHelper.replaceAll( 
                     cmd, "%xmltv_path%",
-                    Application.getInstance(  ).getWorkingDirectory() + "/xmltv" );
-            } else {
-                cmd = StringHelper.replaceAll( 
-                        cmd, "%xmltv_path%",
-                        Application.getInstance(  ).getInstallDirectory() + "/xmltv" );
-            }
+                    Application.getInstance(  ).getWorkingDirectory(  )
+                    + "/xmltv" );
+        }
+        else
+        {
+            cmd = StringHelper.replaceAll( 
+                    cmd, "%xmltv_path%",
+                    Application.getInstance(  ).getInstallDirectory(  )
+                    + "/xmltv" );
+        }
 
         Application.getInstance(  ).getLogger(  ).finest( 
             "Run command: " + cmd );
@@ -294,14 +298,20 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                 cmd, "%config_file%",
                 Application.getInstance(  ).getWorkingDirectory(  )
                 + "/xmltv-configs/" + moduleInfo.configFileName );
-        if (Application.getInstance().getInstallDirectory()==null) {
-        cmd = StringHelper.replaceAll( 
-                cmd, "%xmltv_path%",
-                Application.getInstance(  ).getWorkingDirectory() + "/xmltv" );
-        } else {
+
+        if( Application.getInstance(  ).getInstallDirectory(  ) == null )
+        {
             cmd = StringHelper.replaceAll( 
                     cmd, "%xmltv_path%",
-                    Application.getInstance(  ).getInstallDirectory() + "/xmltv" );
+                    Application.getInstance(  ).getWorkingDirectory(  )
+                    + "/xmltv" );
+        }
+        else
+        {
+            cmd = StringHelper.replaceAll( 
+                    cmd, "%xmltv_path%",
+                    Application.getInstance(  ).getInstallDirectory(  )
+                    + "/xmltv" );
         }
 
         Application.getInstance(  ).getLogger(  ).finest( 
@@ -424,16 +434,30 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             throw new IOException( "Invalid command line" );
         }
 
+        if( !Application.getInstance(  ).isUnix(  ) )
+        {
+            final File xmltvDir =
+                new File( 
+                    Application.getInstance(  ).getWorkingDirectory(  ),
+                    "xmltv" );
+
+            if( !xmltvDir.exists(  ) )
+            {
+                FileHelper.unpackFiles( 
+                    "other/xmltv-win/ls-xmltv", "other/xmltv-win/",
+                    new File( 
+                        Application.getInstance(  ).getWorkingDirectory(  ),
+                        "xmltv" ) );
+            }
+        }
+
         final String xmltvName = args[0];
 
         if( new File( xmltvName ).exists(  ) )
         {
             return true;
         }
-        
-        try {
-        FileHelper.unpackFiles("other/xmltv-win/ls-xmltv", "other/xmltv-win/", new File(Application.getInstance().getWorkingDirectory(),"xmltv"));
-        } catch (IOException ex) {}
+
         final String path;
 
         try

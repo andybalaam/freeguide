@@ -468,13 +468,16 @@ public class FirstTimeWizard
 
         if( showREADME )
         {
-            try {                    
-                FileHelper.showDocs();
-                } catch (IOException ex) {
+            try
+            {
+                FileHelper.showDocs(  );
+            }
+            catch( IOException ex )
+            {
                 JOptionPane.showMessageDialog( 
-                        wizardFrame,ex.getMessage(),"Error display help",
-                        JOptionPane.ERROR_MESSAGE );
-                }
+                    wizardFrame, ex.getMessage(  ), "Error display help",
+                    JOptionPane.ERROR_MESSAGE );
+            }
         }
     }
 
