@@ -18,7 +18,9 @@
         <copy todir="${dist-webstart}/lib">
 			<fileset dir="${build}/package/lib"/>
 		</copy>
-        <copy file="install/webStart/control.jnlp" todir="${dist-webstart}"/>
+        <copy todir="${dist-webstart}">
+		<fileset dir="install/webStart/" includes="*.jnlp"/>
+        </copy>
     </target>
     
 </project>

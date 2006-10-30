@@ -27,6 +27,7 @@
     <jar href="lib/ui-horizontal.jar"/>
     <jar href="lib/ui-vertical.jar"/>
     <jar href="lib/docs.jar"/>
+    <jar href="lib/xmltv-win.jar"/>
   </resources>
   <security>
       <all-permissions/>
