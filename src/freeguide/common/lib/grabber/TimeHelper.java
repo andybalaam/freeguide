@@ -35,7 +35,7 @@ public class TimeHelper
         final InputStream in =
             TimeHelper.class.getClassLoader(  )
                             .getResourceAsStream( 
-                "resources.main.months.properties2" );
+                "resources/main/months.properties" );
 
         try
         {
