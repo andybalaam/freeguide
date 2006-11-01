@@ -31,6 +31,8 @@
   </package>
   <package id="importexport-xmltv" version="2" type="plugin-importexport" repositoryPath="package-importexport-xmltv-2.zip">
   </package>
+  <package id="reminder-advanced" version="1" type="plugin-reminder" repositoryPath="package-reminder-advanced-1.zip">
+  </package>
   <package id="reminder-alarm" version="2" type="plugin-reminder" repositoryPath="package-reminder-alarm-2.zip">
   </package>
   <package id="storage-serfiles" version="2" type="plugin-storage" repositoryPath="package-storage-serfiles-2.zip">
