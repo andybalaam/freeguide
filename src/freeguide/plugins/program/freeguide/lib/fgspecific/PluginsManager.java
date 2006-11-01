@@ -183,20 +183,18 @@ public class PluginsManager
                 }
                 catch( Exception ex )
                 {
-                    Application.getInstance(  ).getLogger(  )
-                               .log( Level.SEVERE, "Error loading plugin", ex );
+                    FreeGuide.log.log( 
+                        Level.SEVERE, "Error loading plugin", ex );
                 }
             }
         }
         catch( javax.xml.parsers.ParserConfigurationException e )
         {
-            Application.getInstance(  ).getLogger(  )
-                       .log( Level.SEVERE, "Error loading plugin", e );
+            FreeGuide.log.log( Level.SEVERE, "Error loading plugin", e );
         }
         catch( org.xml.sax.SAXException e )
         {
-            Application.getInstance(  ).getLogger(  )
-                       .log( Level.SEVERE, "Error loading plugin", e );
+            FreeGuide.log.log( Level.SEVERE, "Error loading plugin", e );
         }
     }
 
