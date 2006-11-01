@@ -8,6 +8,14 @@
 
     <target name="jars" depends="prepare, compile, jar-common, jar-plugins, jar-startup, jar-docs, jar-xmltv-win"/>
 
+
+    <taskdef name="retroweaver" classname="com.rc.retroweaver.ant.RetroWeaverTask">
+        <classpath>
+            <fileset dir="ant/tasks" includes="**/*.jar"/>
+            <pathelement location="retroweaver-all-1.2.5.jar"/>
+        </classpath>
+    </taskdef>
+
     <target name="compile"
         description="Compile all the .java files into the build dir.">
 
@@ -15,8 +23,8 @@
         <javac srcdir="${src}"
             destdir="${build}/classes"
             deprecation="on" 
-            source="1.4" 
-            target="1.4"
+            source="1.5" 
+            target="1.5"
             debug="yes"
             encoding="UTF-8">
             <classpath>
@@ -24,7 +32,7 @@
             </classpath>
             <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
           </javac>
-
+        <retroweaver srcdir="${build}/classes" target="1.4"/>
     </target>
     
     <target name="compile-in-place"
@@ -32,8 +40,8 @@
 
         <javac srcdir="${src}"
             deprecation="on" 
-            source="1.4" 
-            target="1.4"
+            source="1.5" 
+            target="1.5"
             debug="yes"
             encoding="UTF-8">
             <classpath>
