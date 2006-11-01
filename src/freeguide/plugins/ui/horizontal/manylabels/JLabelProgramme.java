@@ -4,7 +4,6 @@ import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.TemplateParser;
 
-import freeguide.common.plugininterfaces.BaseModuleReminder;
 import freeguide.common.plugininterfaces.IModuleReminder;
 
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;
@@ -297,7 +296,7 @@ public class JLabelProgramme extends JLabel
         else
         {
             freeguide.common.lib.fgspecific.selection.Favourite f =
-                ( (BaseModuleReminder)REMINDER ).getFavourite( programme );
+                REMINDER.getFavourite( programme );
             isDrawHeart = ( f != null );
             isDrawSquare = ( ( f != null ) && f.getRecord(  ) );
         }
