@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<plugin id="reminder-alarm"
+<fill/>
+<!--plugin id="reminder-alarm"
         version="2"
         class="freeguide.plugins.reminder.alarm.AlarmReminder">
 
@@ -8,4 +8,4 @@
     <file path="lib/reminder-alarm.jar"/>
     <file path="lib/"/>
   </files>
-</plugin>
+</plugin-->
