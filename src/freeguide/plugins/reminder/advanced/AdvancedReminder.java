@@ -25,16 +25,15 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
 {
     /** Config object. */
     protected final Config config = new Config(  );
+    protected SchedulerThread thread;
 
     /**
      * Start plugin.
      */
     public void start(  )
     {
-        config.reminders.clear(  );
-        config.reminders.add( new OneReminderConfig(  ) );
-        config.reminders.add( new OneReminderConfig(  ) );
-        config.reminders.add( new OneReminderConfig(  ) );
+        thread = new SchedulerThread(  );
+        thread.start(  );
     }
 
     /**
@@ -42,19 +41,15 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
      */
     public void stop(  )
     {
-    }
-
-    protected void onTime(  )
-    {
+        if( thread != null )
+        {
+            thread.finish(  );
+            thread = null;
+        }
     }
 
     protected void onMenuItem(  )
     {
-    }
-
-    protected long getNextTime(  )
-    {
-        return 0;
     }
 
     /**
@@ -115,7 +110,10 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
      */
     public void reschedule(  )
     {
-        // TODO Auto-generated method stub
+        if( thread != null )
+        {
+            thread.reschedule(  );
+        }
     }
 
     /**
@@ -170,9 +168,9 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
     }
 
     /**
-     * DOCUMENT_ME!
+     * Get config object.
      *
-     * @return DOCUMENT_ME!
+     * @return config object
      */
     public Object getConfig(  )
     {
@@ -180,7 +178,7 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
     }
 
     /**
-     * Config for reminder.
+     * Config for plugin.
      *
      * @author Alex Buloichik
      */
@@ -207,7 +205,10 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
     }
 
     /**
-     * This is config for one reminder.
+     * This is config for one user's reminder. All times is offset
+     * between event and start(or finish) programme in milliseconds. I.e. if
+     * we need something to do on 30 seconds before start programme, then
+     * time value will be "-30000".
      *
      * @author Alex Buloichik
      */
@@ -220,16 +221,16 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
         public boolean isPopup;
 
         /** Time when popup should be open before programme start. */
-        public long popupOpenTimeBefore = 300000L;
+        public long popupOpenTime = -300000L;
 
         /** Time when popup should be closed after programme start. */
-        public long popupCloseTimeAfter = 600000L;
+        public long popupCloseTime = +300000L;
 
         /** Play sound. */
         public boolean isSound;
 
         /** Time when sound should be played before programme start. */
-        public long soundPlayTimeBefore = 300000L;
+        public long soundPlayTime = -300000L;
 
         /** File which should be played. */
         public String soundFile;
@@ -238,10 +239,10 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
         public boolean isExecute;
 
         /** Time when execute start command programme start. */
-        public long executeStartTimeBefore = 300000L;
+        public long executeStartTime = -300000L;
 
         /** Time when execute stop command after programme end. */
-        public long executeStopTimeBefore = 300000L;
+        public long executeStopTimeOnFinishProgramme = +300000L;
 
         /** Start command. */
         public String executeStartCommand;

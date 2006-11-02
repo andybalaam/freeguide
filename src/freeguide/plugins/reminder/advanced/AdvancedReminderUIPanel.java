@@ -28,7 +28,7 @@ public class AdvancedReminderUIPanel extends JPanel
         new ArrayList<OneReminderPanel>(  );
     protected int latestLine;
 
-    /**
+/**
      * Creates a new AdvancedReminderUIPanel object.
      */
     public AdvancedReminderUIPanel(  )
@@ -37,6 +37,7 @@ public class AdvancedReminderUIPanel extends JPanel
         mainPanel = new JPanel(  );
 
         final JScrollPane scrollPane = new JScrollPane( mainPanel );
+        scrollPane.getVerticalScrollBar(  ).setUnitIncrement( 10 );
         add( scrollPane, BorderLayout.CENTER );
         btnAddReminder = new JButton( "Add reminder" );
 

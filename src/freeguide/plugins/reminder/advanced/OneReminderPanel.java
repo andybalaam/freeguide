@@ -1,5 +1,7 @@
 package freeguide.plugins.reminder.advanced;
 
+import freeguide.plugins.reminder.advanced.AdvancedReminder.OneReminderConfig;
+
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -35,11 +37,12 @@ public class OneReminderPanel extends JPanel
     protected JCheckBox cbPopup;
     protected JCheckBox cbSound;
     protected JCheckBox cbExecute;
+    protected OneReminderConfig config;
 
 /**
      * Creates a new OneReminderPanel object.
      */
-    public OneReminderPanel(  )
+    public OneReminderPanel( final OneReminderConfig config )
     {
         btnDelete = new JButton( "Delete" );
         txtName = new JTextField(  );
