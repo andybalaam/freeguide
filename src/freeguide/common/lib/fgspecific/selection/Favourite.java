@@ -58,6 +58,8 @@ public class Favourite
 
     /** Do we want to record it or not. */
     public boolean doRecord = false;
+    
+    public String reminderName;
 
 /**
      * Constructor for the Favourite object
@@ -83,6 +85,7 @@ public class Favourite
         result.beforeTime = beforeTime;
         result.dayOfWeek = dayOfWeek;
         result.doRecord = doRecord;
+        result.reminderName=reminderName;
 
         return result;
     }
@@ -108,6 +111,28 @@ public class Favourite
      */
     public boolean matches( TVProgramme prog )
     {
+//      Match the channel ID
+        if( 
+            ( channelID != null )
+                && !channelID.equals( prog.getChannel(  ).getID(  ) ) )
+        {
+            return false;
+        }
+        
+        Time progStartTime = new Time( new Date( prog.getStart(  ) ) );
+
+        // Match the time it must be after
+        if( !afterTime.isEmpty(  ) && afterTime.after( progStartTime ) )
+        {
+            return false;
+        }
+
+        // Match the time it must be before
+        if( !beforeTime.isEmpty(  ) && beforeTime.before( progStartTime ) )
+        {
+            return false;
+        }
+        
         String progTitle = prog.getTitle(  );
 
         // Match the title exactly
@@ -130,29 +155,7 @@ public class Favourite
                 && !getTitleRegexPattern(  ).matcher( progTitle ).matches(  ) )
         {
             return false;
-        }
-
-        // Match the channel ID
-        if( 
-            ( channelID != null )
-                && !channelID.equals( prog.getChannel(  ).getID(  ) ) )
-        {
-            return false;
-        }
-
-        Time progStartTime = new Time( new Date( prog.getStart(  ) ) );
-
-        // Match the time it must be after
-        if( !afterTime.isEmpty(  ) && afterTime.after( progStartTime ) )
-        {
-            return false;
-        }
-
-        // Match the time it must be before
-        if( !beforeTime.isEmpty(  ) && beforeTime.before( progStartTime ) )
-        {
-            return false;
-        }
+        }     
 
         Calendar cal = GregorianCalendar.getInstance(  );
         cal.setTimeZone( Application.getInstance(  ).getTimeZone(  ) );
