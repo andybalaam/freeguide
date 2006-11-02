@@ -151,7 +151,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
         pack(  );
 
-        //        setSize( new Dimension( 500, 350 ) );
+        setSize( new Dimension( 600, 440 ) );
     }
 
     /**
