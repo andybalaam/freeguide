@@ -24,12 +24,7 @@ public class ProgrammeCellRenderer extends DefaultTableCellRenderer
      */
     public void init(  )
     {
-        IModuleReminder[] rems = Application.getInstance(  ).getReminders(  );
-
-        if( rems.length > 0 )
-        {
-            this.reminder = rems[0];
-        }
+        reminder = Application.getInstance(  ).getReminder(  );
     }
 
     //public void init()

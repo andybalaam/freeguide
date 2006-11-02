@@ -63,7 +63,6 @@ public class MainController extends BaseModule implements IApplication
     /** DOCUMENT ME! */
     public IModuleViewer viewer;
     protected GrabberController grab = new GrabberController(  );
-    protected IModuleReminder[] reminders;
     protected JFrame applicationFrame;
 
     /**
@@ -130,24 +129,16 @@ public class MainController extends BaseModule implements IApplication
     }
 
     /**
-     * DOCUMENT_ME!
+     * Get reminder for applciation.
      *
-     * @return DOCUMENT_ME!
+     * @return reminder instance or null if not defined
      */
-    public IModuleReminder[] getReminders(  )
+    public IModuleReminder getReminder(  )
     {
-        if( reminders == null )
-        {
-            PluginInfo[] infos = PluginsManager.getReminders(  );
-            reminders = new IModuleReminder[infos.length];
+        final PluginInfo reminderInfo = PluginsManager.getReminder(  );
 
-            for( int i = 0; i < reminders.length; i++ )
-            {
-                reminders[i] = (IModuleReminder)infos[i].getInstance(  );
-            }
-        }
-
-        return reminders;
+        return ( reminderInfo != null )
+        ? (IModuleReminder)reminderInfo.getInstance(  ) : null;
     }
 
     /**
@@ -318,12 +309,10 @@ public class MainController extends BaseModule implements IApplication
             grabber.start(  );
         }
 
-        final PluginInfo[] reminders = PluginsManager.getReminders(  );
+        final IModuleReminder reminder = getReminder(  );
 
-        for( int i = 0; i < reminders.length; i++ )
+        if( reminder != null )
         {
-            IModuleReminder reminder =
-                (IModuleReminder)reminders[i].getInstance(  );
             reminder.addItemsToMenu( mainFrame.getMenuTools(  ) );
             reminder.start(  );
         }
@@ -336,12 +325,12 @@ public class MainController extends BaseModule implements IApplication
      */
     protected void stopModules(  )
     {
-        //stop reminders
-        final PluginInfo[] reminders = PluginsManager.getReminders(  );
+        //stop reminder
+        final IModuleReminder reminder = getReminder(  );
 
-        for( int i = 0; i < reminders.length; i++ )
+        if( reminder != null )
         {
-            ( (IModuleReminder)reminders[i].getInstance(  ) ).stop(  );
+            reminder.stop(  );
         }
 
         //stop grabbers
@@ -366,19 +355,6 @@ public class MainController extends BaseModule implements IApplication
 
         //close viewer
         viewer.close(  );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     */
-    public static void remindersReschedule(  )
-    {
-        final PluginInfo[] reminders = PluginsManager.getReminders(  );
-
-        for( int i = 0; i < reminders.length; i++ )
-        {
-            ( (IModuleReminder)reminders[i].getInstance(  ) ).reschedule(  );
-        }
     }
 
     /**

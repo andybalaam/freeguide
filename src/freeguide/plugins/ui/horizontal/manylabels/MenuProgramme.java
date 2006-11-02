@@ -26,12 +26,12 @@ public class MenuProgramme extends JPopupMenu
     public MenuProgramme( 
         final HorizontalViewer main, final TVProgramme programme )
     {
-        IModuleReminder[] reminders =
-            Application.getInstance(  ).getReminders(  );
+        final IModuleReminder reminder =
+            Application.getInstance(  ).getReminder(  );
 
-        for( int i = 0; i < reminders.length; i++ )
+        if( reminder != null )
         {
-            reminders[i].addItemsToPopupMenu( programme, this );
+            reminder.addItemsToPopupMenu( programme, this );
         }
 
         if( programme.getLink(  ) != null )

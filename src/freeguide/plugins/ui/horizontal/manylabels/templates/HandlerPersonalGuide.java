@@ -37,14 +37,21 @@ public class HandlerPersonalGuide
 
 /**
      * Creates a new ParserPersonalizedGuide object.
-     *
-     * @param localizer DOCUMENT ME!
-     * @param currentData DOCUMENT ME!
-     * @param theDate DOCUMENT ME!
-     * @param dateFormat DOCUMENT ME!
-     * @param timeFormat DOCUMENT ME!
-     * @param weekdayFormat DOCUMENT ME!
-     * @param forPrint DOCUMENT ME!
+     * 
+     * @param localizer
+     *            DOCUMENT ME!
+     * @param currentData
+     *            DOCUMENT ME!
+     * @param theDate
+     *            DOCUMENT ME!
+     * @param dateFormat
+     *            DOCUMENT ME!
+     * @param timeFormat
+     *            DOCUMENT ME!
+     * @param weekdayFormat
+     *            DOCUMENT ME!
+     * @param forPrint
+     *            DOCUMENT ME!
      */
     public HandlerPersonalGuide( 
         final ResourceBundle localizer, final TVData currentData,
@@ -285,36 +292,36 @@ public class HandlerPersonalGuide
      */
     public Collection getProgrammes(  )
     {
-        final IModuleReminder[] reminders =
-            Application.getInstance(  ).getReminders(  );
+        final IModuleReminder reminder =
+            Application.getInstance(  ).getReminder(  );
         final List result = new ArrayList(  );
-        currentData.iterate( 
-            new TVIteratorProgrammes(  )
-            {
-                protected void onChannel( TVChannel channel )
-                {
-                }
 
-                protected void onProgramme( TVProgramme programme )
+        if( reminder != null )
+        {
+            currentData.iterate( 
+                new TVIteratorProgrammes(  )
                 {
-                    if( 
-                        ( programme.getEnd(  ) < System.currentTimeMillis(  ) ) )
+                    protected void onChannel( TVChannel channel )
                     {
-                        return;
                     }
 
-                    for( int i = 0; i < reminders.length; i++ )
+                    protected void onProgramme( TVProgramme programme )
                     {
-                        if( reminders[i].isSelected( programme ) )
+                        if( 
+                            ( programme.getEnd(  ) < System.currentTimeMillis(  ) ) )
+                        {
+                            return;
+                        }
+
+                        if( reminder.isSelected( programme ) )
                         {
                             result.add( programme );
-
                         }
                     }
-                }
-            } );
+                } );
 
-        Collections.sort( result );
+            Collections.sort( result );
+        }
 
         return result;
     }

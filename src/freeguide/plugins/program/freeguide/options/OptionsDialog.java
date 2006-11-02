@@ -243,11 +243,17 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
                        .getLocalizedMessage( "OptionsDialog.Tree.Exporters" ),
             PluginsManager.getExporters(  ) );
 
-        addBranchWithModules( 
-            advancedBranch,
-            Application.getInstance(  )
-                       .getLocalizedMessage( "OptionsDialog.Tree.Reminders" ),
-            PluginsManager.getReminders(  ) );
+        final PluginInfo reminderPluginInfo = PluginsManager.getReminder(  );
+
+        if( reminderPluginInfo != null )
+        {
+            addBranchWithModules( 
+                advancedBranch,
+                Application.getInstance(  )
+                           .getLocalizedMessage( 
+                    "OptionsDialog.Tree.Reminders" ),
+                new PluginInfo[] { reminderPluginInfo } );
+        }
 
         menuTree = new JTree( trunk );
 

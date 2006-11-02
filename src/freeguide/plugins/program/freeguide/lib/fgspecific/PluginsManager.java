@@ -46,7 +46,7 @@ public class PluginsManager
     protected static List grabbersList;
     protected static List storagesList;
     protected static List viewersList;
-    protected static List remindersList;
+    protected static PluginInfo reminder;
     protected static List importexportsList;
     protected static List importersList;
     protected static List exportersList;
@@ -62,7 +62,6 @@ public class PluginsManager
         grabbersList = new ArrayList(  );
         storagesList = new ArrayList(  );
         viewersList = new ArrayList(  );
-        remindersList = new ArrayList(  );
         importexportsList = new ArrayList(  );
         importersList = new ArrayList(  );
         exportersList = new ArrayList(  );
@@ -137,7 +136,7 @@ public class PluginsManager
                     else if( 
                         handler.getInstance(  ) instanceof IModuleReminder )
                     {
-                        remindersList.add( handler );
+                        reminder = handler;
                     }
                     else if( 
                         handler.getInstance(  ) instanceof IModuleImport
@@ -438,10 +437,9 @@ public class PluginsManager
      *
      * @return DOCUMENT_ME!
      */
-    public static PluginInfo[] getReminders(  )
+    public static PluginInfo getReminder(  )
     {
-        return (PluginInfo[])remindersList.toArray( 
-            new PluginInfo[remindersList.size(  )] );
+        return reminder;
     }
 
     /**

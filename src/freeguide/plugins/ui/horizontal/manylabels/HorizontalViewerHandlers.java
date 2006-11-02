@@ -307,15 +307,13 @@ public class HorizontalViewerHandlers
                         JLabelProgramme label =
                             (JLabelProgramme)e.getSource(  );
 
-                        IModuleReminder[] reminders =
-                            Application.getInstance(  ).getReminders(  );
+                        final IModuleReminder reminder =
+                            Application.getInstance(  ).getReminder(  );
 
-                        if( reminders.length < 1 )
+                        if( reminder == null )
                         {
                             return;
                         }
-
-                        final IModuleReminder reminder = reminders[0];
 
                         final boolean isSelected =
                             reminder.isSelected( label.getProgramme(  ) );
@@ -352,15 +350,14 @@ public class HorizontalViewerHandlers
                         JLabelProgramme label =
                             (JLabelProgramme)e.getSource(  );
                         final TVProgramme programme = label.getProgramme(  );
-                        IModuleReminder[] reminders =
-                            Application.getInstance(  ).getReminders(  );
+                        final IModuleReminder reminder =
+                            Application.getInstance(  ).getReminder(  );
 
-                        if( reminders.length < 1 )
+                        if( reminder == null )
                         {
                             return;
                         }
 
-                        final IModuleReminder reminder = reminders[0];
                         Favourite fav = reminder.getFavourite( programme );
 
                         if( fav != null )

@@ -5,6 +5,7 @@ import freeguide.common.gui.ExecutorDialog;
 import freeguide.common.lib.fgspecific.Application;
 
 import freeguide.common.plugininterfaces.IModuleGrabber;
+import freeguide.common.plugininterfaces.IModuleReminder;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.viewer.MainController;
@@ -65,7 +66,15 @@ public class GrabberController
                                         controller.getApplicationFrame(  ),
                                         controller.mainFrame.getProgressBar(  ) );
                                     controller.viewer.onDataChanged(  );
-                                    MainController.remindersReschedule(  );
+
+                                    final IModuleReminder reminder =
+                                        Application.getInstance(  )
+                                                   .getReminder(  );
+
+                                    if( reminder != null )
+                                    {
+                                        reminder.reschedule(  );
+                                    }
                                 }
                                 catch( Exception ex )
                                 {
@@ -135,8 +144,7 @@ public class GrabberController
         }
         else
         {
-            Iterator it = MainController.config.activeGrabberIDs
-                .iterator(  );
+            Iterator it = MainController.config.activeGrabberIDs.iterator(  );
 
             while( it.hasNext(  ) )
             {

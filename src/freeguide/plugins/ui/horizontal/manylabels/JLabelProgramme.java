@@ -244,17 +244,7 @@ public class JLabelProgramme extends JLabel
      */
     public static void setupLabel( final HorizontalViewer main )
     {
-        // TODO change
-        IModuleReminder[] rems = Application.getInstance(  ).getReminders(  );
-
-        if( rems.length > 0 )
-        {
-            REMINDER = rems[0];
-        }
-        else
-        {
-            REMINDER = null;
-        }
+        REMINDER = Application.getInstance(  ).getReminder(  );
 
         DEFAULT_BORDER = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
