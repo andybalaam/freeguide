@@ -22,6 +22,7 @@ import java.awt.event.MouseListener;
 
 import java.text.MessageFormat;
 
+import java.util.Set;
 import java.util.logging.Level;
 
 import javax.swing.JDialog;
@@ -59,6 +60,16 @@ public class AlarmReminder extends BaseModuleReminder
     public Object getConfig(  )
     {
         return config;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Set<String> getReminderNames(  )
+    {
+        return null;
     }
 
     /**

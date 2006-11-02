@@ -3,6 +3,8 @@ package freeguide.common.plugininterfaces;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.fgspecific.selection.Favourite;
 
+import java.util.Set;
+
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
@@ -85,4 +87,6 @@ public interface IModuleReminder extends IModule
     void addFavourite( final Favourite favourite );
 
     void removeFavourite( final Favourite favourite );
+
+    Set<String> getReminderNames(  );
 }

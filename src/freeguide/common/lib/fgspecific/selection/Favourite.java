@@ -19,6 +19,8 @@ import freeguide.common.lib.general.Time;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 /**
@@ -30,6 +32,11 @@ import java.util.regex.Pattern;
  */
 public class Favourite
 {
+    /**
+     * DOCUMENT ME!
+     */
+    public static final Class reminders_TYPE = String.class;
+
     // ------------------------------------------------------------------------
     /** The user-specified name of this favourite */
     public String name;
@@ -59,8 +66,8 @@ public class Favourite
     /** Do we want to record it or not. */
     public boolean doRecord = false;
 
-    /** DOCUMENT ME! */
-    public String reminderName;
+    /** Reminders which remind this favourite. */
+    public Set<String> reminders = new TreeSet<String>(  );
 
 /**
      * Constructor for the Favourite object
@@ -86,7 +93,7 @@ public class Favourite
         result.beforeTime = beforeTime;
         result.dayOfWeek = dayOfWeek;
         result.doRecord = doRecord;
-        result.reminderName = reminderName;
+        result.reminders = new TreeSet<String>( reminders );
 
         return result;
     }

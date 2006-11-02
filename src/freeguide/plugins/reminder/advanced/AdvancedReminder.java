@@ -1,19 +1,30 @@
 package freeguide.plugins.reminder.advanced;
 
+import freeguide.common.gui.FavouritesController;
+
+import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.fgspecific.selection.Favourite;
+import freeguide.common.lib.fgspecific.selection.ManualSelection;
+import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.BaseModule;
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import freeguide.common.plugininterfaces.IModuleReminder;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javax.swing.JDialog;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 /**
@@ -48,18 +59,60 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
         }
     }
 
-    protected void onMenuItem(  )
-    {
-    }
-
     /**
      * DOCUMENT_ME!
      *
-     * @param programme DOCUMENT_ME!
-     * @param menu DOCUMENT_ME!
+     * @return DOCUMENT_ME!
+     */
+    public Set<String> getReminderNames(  )
+    {
+        final Set<String> result = new TreeSet<String>(  );
+
+        for( final OneReminderConfig cfg : config.reminders )
+        {
+            if( cfg.name != null )
+            {
+                result.add( cfg.name );
+            }
+        }
+
+        return result;
+    }
+
+    protected void onMenuItem(  )
+    {
+        FavouritesController favController =
+            new FavouritesController( 
+                Application.getInstance(  ).getApplicationFrame(  ),
+                config.favouritesList,
+                Application.getInstance(  ).getDataStorage(  ).getInfo(  ).channelsList );
+
+        Utils.centreDialog( 
+            Application.getInstance(  ).getApplicationFrame(  ),
+            favController.getListDialog(  ) );
+        favController.getListDialog(  ).setVisible( true );
+
+        if( favController.isChanged(  ) )
+        {
+            config.favouritesList = favController.getFavourites(  );
+
+            saveConfigNow(  );
+
+            Application.getInstance(  ).getViewer(  ).redraw(  );
+
+            reschedule(  );
+        }
+    }
+
+    /**
+     * Construct popup menu.
+     *
+     * @param programme programme
+     * @param menu menu
      */
     public void addItemsToPopupMenu( TVProgramme programme, JPopupMenu menu )
     {
+        PopupMenuHandler.fillMenu( menu, programme, this );
     }
 
     /**
@@ -102,7 +155,17 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
      */
     public void addItemsToMenu( JMenu menu )
     {
-        // TODO Auto-generated method stub
+        JMenuItem item = new JMenuItem(  );
+        item.setText( i18n.getString( "menu.label" ) );
+        menu.insert( item, 0 );
+        item.addActionListener( 
+            new ActionListener(  )
+            {
+                public void actionPerformed( ActionEvent e )
+                {
+                    onMenuItem(  );
+                }
+            } );
     }
 
     /**
@@ -193,6 +256,13 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
         /** DOCUMENT ME! */
         public static Class reminders_TYPE = OneReminderConfig.class;
 
+        /** Favourite element type. */
+        public static final Class favouritesList_TYPE = Favourite.class;
+
+        /** Selection element type. */
+        public static final Class manualSelectionList_TYPE =
+            ManualSelection.class;
+
         /** Path for cron file export. */
         public String cronOutputPath;
 
@@ -202,6 +272,13 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
         /** All user's created reminders. */
         public List<OneReminderConfig> reminders =
             new ArrayList<OneReminderConfig>(  );
+
+        /** Favourites list. */
+        public List<Favourite> favouritesList = new ArrayList<Favourite>(  );
+
+        /** Selections list. */
+        public List<ManualSelection> manualSelectionList =
+            new ArrayList<ManualSelection>(  );
     }
 
     /**

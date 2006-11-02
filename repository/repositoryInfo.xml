@@ -33,8 +33,6 @@
   </package>
   <package id="reminder-advanced" version="1" type="plugin-reminder" repositoryPath="package-reminder-advanced-1.zip">
   </package>
-  <package id="reminder-alarm" version="2" type="plugin-reminder" repositoryPath="package-reminder-alarm-2.zip">
-  </package>
   <package id="storage-serfiles" version="2" type="plugin-storage" repositoryPath="package-storage-serfiles-2.zip">
   </package>
   <package id="ui-horizontal" version="2" type="plugin-ui" repositoryPath="package-ui-horizontal-2.zip">

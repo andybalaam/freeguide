@@ -20,26 +20,33 @@ import freeguide.common.lib.fgspecific.selection.Favourite;
 import freeguide.common.lib.general.Time;
 import freeguide.common.lib.general.Utils;
 
+import freeguide.common.plugininterfaces.IModuleReminder;
+
 import java.text.SimpleDateFormat;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 
 /*
- *  FreeGuideFavouriteEditor
+ * FreeGuideFavouriteEditor
  *
- *  A screen for editing a single favourite.
+ * A screen for editing a single favourite.
  *
- *  @author     Brendan Corrigan (based on FreeGuideFavouriteEditor by Andy
- *              Balaam)
- *  @created    22nd August 2003
- *  @version    2
+ * @author Brendan Corrigan (based on FreeGuideFavouriteEditor by Andy Balaam)
+ * @created 22nd August 2003
+ *
+ * @version 2
  */
 /**
  * DOCUMENT ME!
@@ -64,9 +71,10 @@ public class FavouriteEditorDialog extends FGDialog
     private javax.swing.JLabel labDayOfWeek;
     private javax.swing.JLabel labName;
     private javax.swing.JLabel labTimeFormat;
-    private javax.swing.JCheckBox chkRecord;
+    private javax.swing.JLabel labReminder;
+    private List<JCheckBox> cbReminders;
 
-    //    private javax.swing.JLabel labTimeFormat1;
+    // private javax.swing.JLabel labTimeFormat1;
     private javax.swing.JLabel labTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtAfter;
@@ -77,13 +85,15 @@ public class FavouriteEditorDialog extends FGDialog
 
 /**
      * Constructor which sets the favourites editor up as a JDialog...
-     *
-     * @param owner - the <code>JFrame</code> from which the dialog is
-     *        displayed
-     * @param title - the <code>String</code> to display in the dialog's title
-     *        bar
-     * @param favourite - the <code>Favourite</code> to modify
-     * @param allChannelsSet DOCUMENT ME!
+     * 
+     * @param owner -
+     *            the <code>JFrame</code> from which the dialog is displayed
+     * @param title -
+     *            the <code>String</code> to display in the dialog's title bar
+     * @param favourite -
+     *            the <code>Favourite</code> to modify
+     * @param allChannelsSet
+     *            DOCUMENT ME!
      */
     public FavouriteEditorDialog( 
         JDialog owner, String title, Favourite favourite,
@@ -151,8 +161,7 @@ public class FavouriteEditorDialog extends FGDialog
             cmbDayOfWeek.setSelectedIndex( favourite.getDayOfWeek(  ) );
         }
 
-        chkRecord.setSelected( favourite.getRecord(  ) );
-
+        // cbReminders.setSelectedItem(favourite.reminderName);
         calcTxtName(  );
     }
 
@@ -289,7 +298,7 @@ public class FavouriteEditorDialog extends FGDialog
             !tmp.equals( "" ) && ( tmp.length(  ) == 5 )
                 && ( tmp.charAt( 2 ) == ':' ) )
         {
-            //String hhmm = tmp.substring(0,2) + tmp.substring(3);
+            // String hhmm = tmp.substring(0,2) + tmp.substring(3);
             favourite.setAfterTime( new Time( tmp ) );
         }
         else
@@ -304,7 +313,7 @@ public class FavouriteEditorDialog extends FGDialog
             !tmp.equals( "" ) && ( tmp.length(  ) == 5 )
                 && ( tmp.charAt( 2 ) == ':' ) )
         {
-            //String hhmm = tmp.substring(0,2) + tmp.substring(3);
+            // String hhmm = tmp.substring(0,2) + tmp.substring(3);
             favourite.setBeforeTime( new Time( tmp ) );
         }
         else
@@ -337,9 +346,7 @@ public class FavouriteEditorDialog extends FGDialog
             favourite.setDayOfWeek( -1 );
         }
 
-        // set the record flag
-        favourite.setRecord( chkRecord.isSelected(  ) );
-
+        // favourite.reminderName=(String)cbReminders.getSelectedItem();
         setSave(  );
     }
 
@@ -503,14 +510,7 @@ public class FavouriteEditorDialog extends FGDialog
                     cmbDayOfWeekActionPerformed( evt );
                 }
             } );
-        chkRecord.addActionListener( 
-            new java.awt.event.ActionListener(  )
-            {
-                public void actionPerformed( java.awt.event.ActionEvent evt )
-                {
-                    chkRecordActionPerformed( evt );
-                }
-            } );
+
         butOK.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
@@ -693,16 +693,46 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.weightx = 0.9;
         getContentPane(  ).add( txtName, gridBagConstraints );
 
-        chkRecord = new javax.swing.JCheckBox( 
-                Application.getInstance(  ).getLocalizedMessage( "record" ) );
-        gridBagConstraints = new java.awt.GridBagConstraints(  );
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 ); // TODO what's this, correct?
-        gridBagConstraints.weightx = 0.9;
-        getContentPane(  ).add( chkRecord, gridBagConstraints );
+        int line = 8;
+
+        final IModuleReminder reminder =
+            Application.getInstance(  ).getReminder(  );
+
+        if( reminder != null )
+        {
+            labReminder = new javax.swing.JLabel( 
+                    Application.getInstance(  )
+                               .getLocalizedMessage( 
+                        "FavoritesEditor.reminder" ),
+                    javax.swing.SwingConstants.RIGHT );
+            gridBagConstraints = new java.awt.GridBagConstraints(  );
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridy = 8;
+            gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+            gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
+            getContentPane(  ).add( labReminder, gridBagConstraints );
+
+            cbReminders = new ArrayList<JCheckBox>(  );
+
+            gridBagConstraints = new java.awt.GridBagConstraints(  );
+            gridBagConstraints.gridx = 1;
+            gridBagConstraints.gridwidth = 3;
+            gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+            gridBagConstraints.insets = new java.awt.Insets( 2, 5, 0, 5 ); // TODO
+                                                                           // what's
+                                                                           // this,
+                                                                           // correct?
+
+            gridBagConstraints.weightx = 0.9;
+
+            for( final String r : reminder.getReminderNames(  ) )
+            {
+                final JCheckBox cb = new JCheckBox( r );
+                gridBagConstraints.gridy = line;
+                getContentPane(  ).add( cb, gridBagConstraints );
+                line++;
+            }
+        }
 
         jPanel1 = new javax.swing.JPanel( new java.awt.GridBagLayout(  ) );
         butOK = new javax.swing.JButton( 
@@ -721,29 +751,25 @@ public class FavouriteEditorDialog extends FGDialog
         jPanel1.add( butCancel, gridBagConstraints );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = line;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         getContentPane(  ).add( jPanel1, gridBagConstraints );
 
-        /*labTimeFormat1 = new javax.swing.JLabel(
-        FreeGuide.msg.getString( "as_hhmm" ),
-        javax.swing.SwingConstants.LEFT );
-        labTimeFormat1.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
-        gridBagConstraints = new java.awt.GridBagConstraints(  );
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 0.4;
-        getContentPane(  ).add( labTimeFormat1, gridBagConstraints );
-        */
+        /*
+         * labTimeFormat1 = new javax.swing.JLabel( FreeGuide.msg.getString(
+         * "as_hhmm" ), javax.swing.SwingConstants.LEFT );
+         * labTimeFormat1.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
+         * gridBagConstraints = new java.awt.GridBagConstraints( );
+         * gridBagConstraints.gridx = 2; gridBagConstraints.gridy = 4;
+         * gridBagConstraints.gridwidth = 2; gridBagConstraints.fill =
+         * java.awt.GridBagConstraints.BOTH; gridBagConstraints.insets = new
+         * java.awt.Insets( 5, 5, 5, 5 ); gridBagConstraints.anchor =
+         * java.awt.GridBagConstraints.WEST; gridBagConstraints.weightx = 0.4;
+         * getContentPane( ).add( labTimeFormat1, gridBagConstraints );
+         */
         getRootPane(  ).setDefaultButton( butOK );
         pack(  );
-
-        setSize( new java.awt.Dimension( 400, 300 ) );
     }
 
     /**
@@ -804,10 +830,6 @@ public class FavouriteEditorDialog extends FGDialog
     private void cmbTitleActionPerformed( java.awt.event.ActionEvent evt )
     {
         calcTxtName(  );
-    }
-
-    private void chkRecordActionPerformed( java.awt.event.ActionEvent evt )
-    {
     }
 
     /**

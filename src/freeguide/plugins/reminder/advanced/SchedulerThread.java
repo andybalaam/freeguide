@@ -9,7 +9,7 @@ import java.util.logging.Level;
  *
  * @author $author$
  * @version $Revision$
-  */
+ */
 public class SchedulerThread extends Thread
 {
     protected static final int STATE_WORK = 0;
