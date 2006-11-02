@@ -58,7 +58,8 @@ public class Favourite
 
     /** Do we want to record it or not. */
     public boolean doRecord = false;
-    
+
+    /** DOCUMENT ME! */
     public String reminderName;
 
 /**
@@ -85,7 +86,7 @@ public class Favourite
         result.beforeTime = beforeTime;
         result.dayOfWeek = dayOfWeek;
         result.doRecord = doRecord;
-        result.reminderName=reminderName;
+        result.reminderName = reminderName;
 
         return result;
     }
@@ -111,14 +112,14 @@ public class Favourite
      */
     public boolean matches( TVProgramme prog )
     {
-//      Match the channel ID
+        //      Match the channel ID
         if( 
             ( channelID != null )
                 && !channelID.equals( prog.getChannel(  ).getID(  ) ) )
         {
             return false;
         }
-        
+
         Time progStartTime = new Time( new Date( prog.getStart(  ) ) );
 
         // Match the time it must be after
@@ -132,7 +133,7 @@ public class Favourite
         {
             return false;
         }
-        
+
         String progTitle = prog.getTitle(  );
 
         // Match the title exactly
@@ -155,7 +156,7 @@ public class Favourite
                 && !getTitleRegexPattern(  ).matcher( progTitle ).matches(  ) )
         {
             return false;
-        }     
+        }
 
         Calendar cal = GregorianCalendar.getInstance(  );
         cal.setTimeZone( Application.getInstance(  ).getTimeZone(  ) );
