@@ -315,27 +315,8 @@ public class HorizontalViewerHandlers
                             return;
                         }
 
-                        final boolean isSelected =
-                            reminder.isSelected( label.getProgramme(  ) );
-                        final boolean isHighlighted =
-                            reminder.isHighlighted( label.getProgramme(  ) );
-
-                        if( isSelected && !isHighlighted )
-                        {
-                            reminder.setProgrammeSelection( 
-                                label.getProgramme(  ), !isSelected, false );
-                        }
-                        else if( !isSelected && isHighlighted )
-                        {
-                            reminder.setProgrammeSelection( 
-                                label.getProgramme(  ), !isSelected, true );
-                        }
-                        else
-                        {
-                            reminder.setProgrammeSelection( 
-                                label.getProgramme(  ), !isSelected,
-                                !isHighlighted );
-                        }
+                        reminder.switchProgrammeSelection( 
+                            label.getProgramme(  ) );
 
                         label.controller.redrawCurrentProgramme(  );
                     }

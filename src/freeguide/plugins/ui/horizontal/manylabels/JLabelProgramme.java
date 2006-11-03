@@ -198,16 +198,21 @@ public class JLabelProgramme extends JLabel
     public void setupColors(  )
     { // is favourite?
 
-        if( 
+        if( REMINDER != null )
+        {
+            REMINDER.showProgramme( programme, this );
+        }
+
+        /*if(
             ( REMINDER != null )
                 && ( REMINDER.getFavourite( programme ) != null )
                 && REMINDER.isHighlighted( programme ) )
         {
             setBackground( controller.config.colorFavourite );
             setBorder( FAVOURITE_BORDER );
-
+        
         }
-        else if( 
+        else if(
             ( REMINDER != null ) && REMINDER.isSelected( programme )
                 && REMINDER.isHighlighted( programme ) ) // is selected??
         {
@@ -218,7 +223,7 @@ public class JLabelProgramme extends JLabel
         {
             setBackground( controller.config.colorTicked );
             setBorder( INGUIDE_BORDER );
-
+        
         }
         else if( !programme.getIsMovie(  ) )
         {
@@ -230,11 +235,11 @@ public class JLabelProgramme extends JLabel
             setBackground( controller.config.colorMovie );
             setBorder( MOVIE_BORDER );
         }
-
+        
         if( isFocusOwner(  ) )
         {
             setBorder( FOCUSED_BORDER );
-        }
+        }*/
     }
 
     /**

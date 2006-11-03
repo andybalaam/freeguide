@@ -7,6 +7,7 @@ import freeguide.common.lib.fgspecific.selection.ManualSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -14,23 +15,31 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 /**
- * DOCUMENT ME!
+ * Popup menu filler and handler.
  *
- * @author $author$
- * @version $Revision$
-  */
+ * @author Alex Buloichik
+ */
 public class PopupMenuHandler
 {
+    protected final AdvancedReminder parent;
+
     /**
-     * DOCUMENT_ME!
+     * Creates a new PopupMenuHandler object.
      *
-     * @param menu DOCUMENT_ME!
-     * @param programme DOCUMENT_ME!
-     * @param parent DOCUMENT_ME!
+     * @param parent DOCUMENT ME!
      */
-    public static void fillMenu( 
-        final JPopupMenu menu, final TVProgramme programme,
-        final AdvancedReminder parent )
+    public PopupMenuHandler( final AdvancedReminder parent )
+    {
+        this.parent = parent;
+    }
+
+    /**
+     * Fill popup menu items.
+     *
+     * @param menu menu
+     * @param programme programme for this menu
+     */
+    public void fillMenu( final JPopupMenu menu, final TVProgramme programme )
     {
         /** menu items for each reminder */
         final Map<String, Boolean> selMap = new TreeMap<String, Boolean>(  );
@@ -68,19 +77,19 @@ public class PopupMenuHandler
             {
                 menuItem.setText( "add to " + name );
                 menuItem.addActionListener( 
-                    new AddActionListener( parent.config, programme, name ) );
+                    new AddActionListener( programme, name ) );
             }
             else if( currentState.booleanValue(  ) )
             {
                 menuItem.setText( "remove from " + name );
                 menuItem.addActionListener( 
-                    new RemoveActionListener( parent.config, programme, name ) );
+                    new RemoveActionListener( programme, name ) );
             }
             else if( !currentState.booleanValue(  ) )
             {
                 menuItem.setText( "set default for " + name );
                 menuItem.addActionListener( 
-                    new DefaultActionListener( parent.config, programme, name ) );
+                    new DefaultActionListener( programme, name ) );
             }
 
             menu.add( menuItem );
@@ -88,46 +97,45 @@ public class PopupMenuHandler
     }
 
     /**
-     * DOCUMENT ME!
-     *
-     * @author $author$
-     * @version $Revision$
-      */
-    public static class AddActionListener implements ActionListener
+     * Allow remind programme.
+     */
+    public class AddActionListener implements ActionListener
     {
-        protected final AdvancedReminder.Config config;
         protected final String reminderName;
         protected final TVProgramme programme;
 
-        /**
+/**
          * Creates a new AddActionListener object.
-         *
-         * @param config DOCUMENT ME!
-         * @param programme DOCUMENT ME!
-         * @param reminderName DOCUMENT ME!
+         * 
+         * @param config
+         *            DOCUMENT ME!
+         * @param programme
+         *            DOCUMENT ME!
+         * @param reminderName
+         *            DOCUMENT ME!
          */
         public AddActionListener( 
-            final AdvancedReminder.Config config, final TVProgramme programme,
-            final String reminderName )
+            final TVProgramme programme, final String reminderName )
         {
-            this.config = config;
             this.programme = programme;
             this.reminderName = reminderName;
         }
 
         /**
-         * DOCUMENT_ME!
+         * Event.
          *
-         * @param e DOCUMENT_ME!
+         * @param e event
          */
         public void actionPerformed( ActionEvent e )
         {
             // find in selections
-            for( final ManualSelection sel : config.manualSelectionList )
+            for( final ManualSelection sel : parent.config.manualSelectionList )
             {
                 if( sel.matches( programme ) )
                 {
                     sel.reminders.put( reminderName, Boolean.TRUE );
+
+                    parent.reschedule(  );
 
                     return;
                 }
@@ -135,51 +143,52 @@ public class PopupMenuHandler
 
             final ManualSelection sel = new ManualSelection( programme );
             sel.reminders.put( reminderName, Boolean.TRUE );
-            config.manualSelectionList.add( sel );
+            parent.config.manualSelectionList.add( sel );
+
+            parent.reschedule(  );
         }
     }
 
     /**
-     * DOCUMENT ME!
-     *
-     * @author $author$
-     * @version $Revision$
-      */
-    public static class RemoveActionListener implements ActionListener
+     * Disable remind programme.
+     */
+    public class RemoveActionListener implements ActionListener
     {
-        protected final AdvancedReminder.Config config;
         protected final String reminderName;
         protected final TVProgramme programme;
 
-        /**
+/**
          * Creates a new RemoveActionListener object.
-         *
-         * @param config DOCUMENT ME!
-         * @param programme DOCUMENT ME!
-         * @param reminderName DOCUMENT ME!
+         * 
+         * @param config
+         *            DOCUMENT ME!
+         * @param programme
+         *            DOCUMENT ME!
+         * @param reminderName
+         *            DOCUMENT ME!
          */
         public RemoveActionListener( 
-            final AdvancedReminder.Config config, final TVProgramme programme,
-            final String reminderName )
+            final TVProgramme programme, final String reminderName )
         {
-            this.config = config;
             this.programme = programme;
             this.reminderName = reminderName;
         }
 
         /**
-         * DOCUMENT_ME!
+         * Event.
          *
-         * @param e DOCUMENT_ME!
+         * @param e event
          */
         public void actionPerformed( ActionEvent e )
         {
             // find in selections
-            for( final ManualSelection sel : config.manualSelectionList )
+            for( final ManualSelection sel : parent.config.manualSelectionList )
             {
                 if( sel.matches( programme ) )
                 {
                     sel.reminders.put( reminderName, Boolean.FALSE );
+
+                    parent.reschedule(  );
 
                     return;
                 }
@@ -187,51 +196,62 @@ public class PopupMenuHandler
 
             final ManualSelection sel = new ManualSelection( programme );
             sel.reminders.put( reminderName, Boolean.FALSE );
-            config.manualSelectionList.add( sel );
+            parent.config.manualSelectionList.add( sel );
+
+            parent.reschedule(  );
         }
     }
 
     /**
-     * DOCUMENT ME!
-     *
-     * @author $author$
-     * @version $Revision$
-      */
-    public static class DefaultActionListener implements ActionListener
+     * Set reminder to default for programme(as favourites settings).
+     */
+    public class DefaultActionListener implements ActionListener
     {
-        protected final AdvancedReminder.Config config;
         protected final String reminderName;
         protected final TVProgramme programme;
 
-        /**
+/**
          * Creates a new DefaultActionListener object.
-         *
-         * @param config DOCUMENT ME!
-         * @param programme DOCUMENT ME!
-         * @param reminderName DOCUMENT ME!
+         * 
+         * @param config
+         *            DOCUMENT ME!
+         * @param programme
+         *            DOCUMENT ME!
+         * @param reminderName
+         *            DOCUMENT ME!
          */
         public DefaultActionListener( 
-            final AdvancedReminder.Config config, final TVProgramme programme,
-            final String reminderName )
+            final TVProgramme programme, final String reminderName )
         {
-            this.config = config;
             this.programme = programme;
             this.reminderName = reminderName;
         }
 
         /**
-         * DOCUMENT_ME!
+         * Event.
          *
-         * @param e DOCUMENT_ME!
+         * @param e event
          */
         public void actionPerformed( ActionEvent e )
         {
             // find in selections
-            for( final ManualSelection sel : config.manualSelectionList )
+            for( 
+                final Iterator<ManualSelection> it =
+                    parent.config.manualSelectionList.iterator(  );
+                    it.hasNext(  ); )
             {
+                final ManualSelection sel = it.next(  );
+
                 if( sel.matches( programme ) )
                 {
                     sel.reminders.remove( reminderName );
+
+                    if( sel.reminders.size(  ) == 0 )
+                    {
+                        it.remove(  );
+                    }
+
+                    parent.reschedule(  );
 
                     return;
                 }

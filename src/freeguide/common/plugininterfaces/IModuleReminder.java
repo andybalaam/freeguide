@@ -3,8 +3,11 @@ package freeguide.common.plugininterfaces;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.fgspecific.selection.Favourite;
 
+import java.awt.Component;
+
 import java.util.Set;
 
+import javax.swing.JComponent;
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
@@ -38,33 +41,23 @@ public interface IModuleReminder extends IModule
     public void stop(  );
 
     /**
-     * Check if programme is highlighted.
+     * Check if programme is in the even one white list or in
+     * favourites.
      *
      * @param programme programme
      *
-     * @return true if highlighted
+     * @return true if in guide
      */
-    public boolean isHighlighted( TVProgramme programme );
+    public boolean isInGuide( TVProgramme programme );
 
     /**
-     * Check if programme is selected.
+     * Switch programme selection for all reminders.
      *
-     * @param programme programme
-     *
-     * @return true if selected
+     * @param programme DOCUMENT ME!
      */
-    public boolean isSelected( TVProgramme programme );
+    void switchProgrammeSelection( TVProgramme programme );
 
-    /**
-     * Select/deselect programme.
-     *
-     * @param programme programme
-     * @param newSelection DOCUMENT ME!
-     * @param newHighlight DOCUMENT ME!
-     */
-    public void setProgrammeSelection( 
-        final TVProgramme programme, final boolean newSelection,
-        final boolean newHighlight );
+    void showProgramme( TVProgramme programme, Component component );
 
     /**
      * Add items to main frame menu.

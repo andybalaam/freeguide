@@ -105,7 +105,7 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
 
                     protected void onProgramme( TVProgramme programme )
                     {
-                        if( reminder.isSelected( programme ) )
+                        if( reminder.isInGuide( programme ) )
                         {
                             tickedProgrammes.add( programme );
                         }

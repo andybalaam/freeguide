@@ -12,15 +12,19 @@ import freeguide.common.plugininterfaces.BaseModule;
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import freeguide.common.plugininterfaces.IModuleReminder;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JDialog;
 import javax.swing.JMenu;
@@ -34,6 +38,9 @@ import javax.swing.JPopupMenu;
  */
 public class AdvancedReminder extends BaseModule implements IModuleReminder
 {
+    protected static Logger LOG =
+        Logger.getLogger( "org.freeguide-tv.reminder" );
+
     /** Config object. */
     protected final Config config = new Config(  );
     protected SchedulerThread thread;
@@ -43,7 +50,7 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
      */
     public void start(  )
     {
-        thread = new SchedulerThread(  );
+        thread = new SchedulerThread( this );
         thread.start(  );
     }
 
@@ -112,40 +119,7 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
      */
     public void addItemsToPopupMenu( TVProgramme programme, JPopupMenu menu )
     {
-        PopupMenuHandler.fillMenu( menu, programme, this );
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param programme DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public Favourite getFavourite( TVProgramme programme )
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param favourite DOCUMENT_ME!
-     */
-    public void addFavourite( Favourite favourite )
-    {
-        // TODO Auto-generated method stub
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param favourite DOCUMENT_ME!
-     */
-    public void removeFavourite( Favourite favourite )
-    {
-        // TODO Auto-generated method stub
+        new PopupMenuHandler( this ).fillMenu( menu, programme );
     }
 
     /**
@@ -169,7 +143,7 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
     }
 
     /**
-     * DOCUMENT_ME!
+     * Reschedule all events.
      */
     public void reschedule(  )
     {
@@ -180,14 +154,90 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
     }
 
     /**
+     * Check if programme is in the even one white list or in
+     * favourites.
+     *
+     * @param programme programme
+     *
+     * @return true if in guide
+     */
+    public boolean isInGuide( final TVProgramme programme )
+    {
+        Set<String> deSelectedReminders = null;
+
+        for( final ManualSelection sel : config.manualSelectionList )
+        {
+            if( sel.matches( programme ) )
+            {
+                for( final Boolean value : sel.reminders.values(  ) )
+                {
+                    if( value.booleanValue(  ) )
+                    {
+                        return true;
+                    }
+                }
+
+                deSelectedReminders = sel.reminders.keySet(  );
+            }
+        }
+
+        for( final Favourite fav : config.favouritesList )
+        {
+            if( fav.matches( programme ) )
+            {
+                for( final String reminder : fav.reminders )
+                {
+                    if( 
+                        ( deSelectedReminders == null )
+                            || !deSelectedReminders.contains( reminder ) )
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Switch programme selection for all reminders.
+     *
+     * @param programme DOCUMENT ME!
+     */
+    public void switchProgrammeSelection( TVProgramme programme )
+    {
+        for( 
+            final Iterator<ManualSelection> it =
+                config.manualSelectionList.iterator(  ); it.hasNext(  ); )
+        {
+            final ManualSelection sel = it.next(  );
+
+            if( sel.matches( programme ) )
+            {
+                it.remove(  );
+
+                return;
+            }
+        }
+
+        final ManualSelection sel = new ManualSelection( programme );
+
+        for( final OneReminderConfig rem : config.reminders )
+        {
+            if( rem.name != null )
+            {
+                sel.reminders.put( rem.name, Boolean.TRUE );
+            }
+        }
+    }
+
+    /**
      * DOCUMENT_ME!
      *
-     * @param programme DOCUMENT_ME!
-     * @param newSelection DOCUMENT_ME!
-     * @param newHighlight DOCUMENT_ME!
+     * @param favourite DOCUMENT_ME!
      */
-    public void setProgrammeSelection( 
-        TVProgramme programme, boolean newSelection, boolean newHighlight )
+    public void addFavourite( Favourite favourite )
     {
         // TODO Auto-generated method stub
     }
@@ -199,23 +249,67 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
      *
      * @return DOCUMENT_ME!
      */
-    public boolean isHighlighted( TVProgramme programme )
+    public Favourite getFavourite( TVProgramme programme )
     {
         // TODO Auto-generated method stub
-        return false;
+        return null;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param favourite DOCUMENT_ME!
+     */
+    public void removeFavourite( Favourite favourite )
+    {
+        // TODO Auto-generated method stub
     }
 
     /**
      * DOCUMENT_ME!
      *
      * @param programme DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
+     * @param component DOCUMENT_ME!
      */
-    public boolean isSelected( TVProgramme programme )
+    public void showProgramme( TVProgramme programme, Component component )
     {
-        // TODO Auto-generated method stub
-        return false;
+        /*if(
+        ( REMINDER != null )
+            && ( REMINDER.getFavourite( programme ) != null )
+            && REMINDER.isHighlighted( programme ) )
+        {
+        setBackground( controller.config.colorFavourite );
+        setBorder( FAVOURITE_BORDER );
+        
+        }
+        else if(
+        ( REMINDER != null ) && REMINDER.isSelected( programme )
+            && REMINDER.isHighlighted( programme ) ) // is selected??
+        {
+        setBackground( controller.config.colorGuide );
+        setBorder( GUIDE_BORDER );
+        }
+        else if( ( REMINDER != null ) && REMINDER.isHighlighted( programme ) ) // is highlighted?
+        {
+        setBackground( controller.config.colorTicked );
+        setBorder( INGUIDE_BORDER );
+        
+        }
+        else if( !programme.getIsMovie(  ) )
+        {
+        setBackground( controller.config.colorNonTicked );
+        setBorder( DEFAULT_BORDER );
+        }
+        else
+        {
+        setBackground( controller.config.colorMovie );
+        setBorder( MOVIE_BORDER );
+        }
+        
+        if( isFocusOwner(  ) )
+        {
+        setBorder( FOCUSED_BORDER );
+        }*/
     }
 
     /**

@@ -55,20 +55,9 @@ public class ProgrammeCellRenderer extends DefaultTableCellRenderer
         {
             //c.setBackground(VerticalViewerConfig.colorSelected);
         }
-        else if( this.reminder != null )
+        else if( reminder != null )
         {
-            if( this.reminder.isSelected( programme ) )
-            {
-                c.setBackground( VerticalViewerConfig.colorTicked );
-            }
-            else if( programme.getIsMovie(  ) )
-            {
-                c.setBackground( VerticalViewerConfig.colorMovie );
-            }
-            else
-            {
-                c.setBackground( VerticalViewerConfig.colorNonTicked );
-            }
+            reminder.showProgramme( programme, c );
         }
 
         //TODO: Nifty percentage as maxemum tv guide does it

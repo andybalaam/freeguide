@@ -32,9 +32,7 @@ import java.util.regex.Pattern;
  */
 public class Favourite
 {
-    /**
-     * DOCUMENT ME!
-     */
+    /** DOCUMENT ME! */
     public static final Class reminders_TYPE = String.class;
 
     // ------------------------------------------------------------------------

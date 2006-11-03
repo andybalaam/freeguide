@@ -126,7 +126,7 @@ public class TemplateHandler
             {
                 final TVProgramme programme = (TVProgramme)it.next(  );
 
-                if( !reminder.isSelected( programme ) )
+                if( !reminder.isInGuide( programme ) )
                 {
                     it.remove(  );
                 }

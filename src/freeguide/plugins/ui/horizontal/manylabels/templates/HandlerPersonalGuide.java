@@ -313,7 +313,7 @@ public class HandlerPersonalGuide
                             return;
                         }
 
-                        if( reminder.isSelected( programme ) )
+                        if( reminder.isInGuide( programme ) )
                         {
                             result.add( programme );
                         }
