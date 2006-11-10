@@ -24,7 +24,7 @@ public class SchedulerThread extends Thread
     /** Queue of tasks. */
     protected final List<Task> queue = new ArrayList<Task>(  );
 
-    /**
+/**
      * Creates a new SchedulerThread object.
      *
      * @param parent DOCUMENT ME!

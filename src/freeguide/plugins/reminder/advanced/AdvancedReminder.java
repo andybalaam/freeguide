@@ -12,9 +12,14 @@ import freeguide.common.plugininterfaces.BaseModule;
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import freeguide.common.plugininterfaces.IModuleReminder;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.net.URL;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,9 +28,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -40,10 +45,13 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
 {
     protected static Logger LOG =
         Logger.getLogger( "org.freeguide-tv.reminder" );
+    protected static final String RESOURCES_PREFIX =
+        "resources/plugins/reminder/advanced/";
 
     /** Config object. */
     protected final Config config = new Config(  );
     protected SchedulerThread thread;
+    protected Map<String, Image> imagesCache = new TreeMap<String, Image>(  );
 
     /**
      * Start plugin.
@@ -251,7 +259,34 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
      */
     public Favourite getFavourite( TVProgramme programme )
     {
-        // TODO Auto-generated method stub
+        for( final Favourite fav : config.favouritesList )
+        {
+            if( fav.matches( programme ) )
+            {
+                return fav;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param programme DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public ManualSelection getManualSelection( TVProgramme programme )
+    {
+        for( final ManualSelection sel : config.manualSelectionList )
+        {
+            if( sel.matches( programme ) )
+            {
+                return sel;
+            }
+        }
+
         return null;
     }
 
@@ -270,46 +305,73 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
      *
      * @param programme DOCUMENT_ME!
      * @param component DOCUMENT_ME!
+     * @param g DOCUMENT ME!
      */
-    public void showProgramme( TVProgramme programme, Component component )
+    public void showProgramme( 
+        TVProgramme programme, Component component, Graphics g )
     {
-        /*if(
-        ( REMINDER != null )
-            && ( REMINDER.getFavourite( programme ) != null )
-            && REMINDER.isHighlighted( programme ) )
+        final Map<String, Boolean> whereSelected =
+            new TreeMap<String, Boolean>(  );
+
+        for( final ManualSelection sel : config.manualSelectionList )
         {
-        setBackground( controller.config.colorFavourite );
-        setBorder( FAVOURITE_BORDER );
-        
+            if( sel.matches( programme ) )
+            {
+                whereSelected.putAll( sel.reminders );
+
+                break;
+            }
         }
-        else if(
-        ( REMINDER != null ) && REMINDER.isSelected( programme )
-            && REMINDER.isHighlighted( programme ) ) // is selected??
+
+        for( final Favourite fav : config.favouritesList )
         {
-        setBackground( controller.config.colorGuide );
-        setBorder( GUIDE_BORDER );
+            if( fav.matches( programme ) )
+            {
+                for( final String reminder : fav.reminders )
+                {
+                    if( !whereSelected.containsKey( reminder ) )
+                    {
+                        whereSelected.put( reminder, Boolean.TRUE );
+                    }
+                }
+            }
         }
-        else if( ( REMINDER != null ) && REMINDER.isHighlighted( programme ) ) // is highlighted?
+
+        int y = 3;
+        int x = component.getWidth(  ) - 6;
+
+        for( final Map.Entry<String, Boolean> se : whereSelected.entrySet(  ) )
         {
-        setBackground( controller.config.colorTicked );
-        setBorder( INGUIDE_BORDER );
-        
+            if( se.getValue(  ).booleanValue(  ) )
+            {
+                final Image i = getImage( "red_heart.gif" );
+
+                if( i != null )
+                {
+                    x -= i.getWidth( null );
+                    g.drawImage( i, x, y, null );
+                }
+            }
         }
-        else if( !programme.getIsMovie(  ) )
+    }
+
+    protected Image getImage( final String name )
+    {
+        synchronized( imagesCache )
         {
-        setBackground( controller.config.colorNonTicked );
-        setBorder( DEFAULT_BORDER );
+            Image result = imagesCache.get( name );
+
+            if( result == null )
+            {
+                final URL u =
+                    this.getClass(  ).getClassLoader(  )
+                        .getResource( RESOURCES_PREFIX + name );
+                result = new ImageIcon( u ).getImage(  );
+                imagesCache.put( name, result );
+            }
+
+            return result;
         }
-        else
-        {
-        setBackground( controller.config.colorMovie );
-        setBorder( MOVIE_BORDER );
-        }
-        
-        if( isFocusOwner(  ) )
-        {
-        setBorder( FOCUSED_BORDER );
-        }*/
     }
 
     /**
@@ -373,6 +435,11 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
         /** Selections list. */
         public List<ManualSelection> manualSelectionList =
             new ArrayList<ManualSelection>(  );
+
+        /**
+         * DOCUMENT ME!
+         */
+        public Color selectedColor = Color.YELLOW;
     }
 
     /**

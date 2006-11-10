@@ -22,6 +22,12 @@ import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.IModuleReminder;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -34,9 +40,13 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /*
  * FreeGuideFavouriteEditor
@@ -64,23 +74,25 @@ public class FavouriteEditorDialog extends FGDialog
     private Map channels = new TreeMap(  );
     private javax.swing.JComboBox cmbDayOfWeek;
     private javax.swing.JComboBox cmbTitle;
-    private javax.swing.JLabel labAfter;
-    private javax.swing.JLabel labBefore;
-    private javax.swing.JLabel labBlankFields;
-    private javax.swing.JLabel labChannel;
-    private javax.swing.JLabel labDayOfWeek;
-    private javax.swing.JLabel labName;
-    private javax.swing.JLabel labTimeFormat;
-    private javax.swing.JLabel labReminder;
-    private List<JCheckBox> cbReminders;
+    private JLabel labAfter;
+    private JLabel labBefore;
+    private JLabel labBlankFields;
+    private JLabel labChannel;
+    private JLabel labDayOfWeek;
+    private JLabel labName;
+    private JLabel labTimeFormat;
+    private JLabel labReminder;
+    private JLabel labColor;
+    private Map<String, JCheckBox> cbReminders;
 
-    // private javax.swing.JLabel labTimeFormat1;
-    private javax.swing.JLabel labTitle;
+    // private JLabel labTimeFormat1;
+    private JLabel labTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtAfter;
     private javax.swing.JTextField txtBefore;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtTitle;
+    private javax.swing.JButton pnlColor;
     Favourite favourite;
 
 /**
@@ -161,7 +173,13 @@ public class FavouriteEditorDialog extends FGDialog
             cmbDayOfWeek.setSelectedIndex( favourite.getDayOfWeek(  ) );
         }
 
-        // cbReminders.setSelectedItem(favourite.reminderName);
+        pnlColor.setBackground( favourite.backgroundColor );
+
+        for( final String selectedReminder : favourite.reminders )
+        {
+            cbReminders.get( selectedReminder ).setSelected( true );
+        }
+
         calcTxtName(  );
     }
 
@@ -346,7 +364,18 @@ public class FavouriteEditorDialog extends FGDialog
             favourite.setDayOfWeek( -1 );
         }
 
-        // favourite.reminderName=(String)cbReminders.getSelectedItem();
+        favourite.backgroundColor = pnlColor.getBackground(  );
+
+        favourite.reminders.clear(  );
+
+        for( final Map.Entry<String, JCheckBox> entry : cbReminders.entrySet(  ) )
+        {
+            if( entry.getValue(  ).isSelected(  ) )
+            {
+                favourite.reminders.add( entry.getKey(  ) );
+            }
+        }
+
         setSave(  );
     }
 
@@ -527,6 +556,25 @@ public class FavouriteEditorDialog extends FGDialog
                     butCancelActionPerformed( evt );
                 }
             } );
+        pnlColor.addActionListener( 
+            new ActionListener(  )
+            {
+                public void actionPerformed( ActionEvent e )
+                {
+                    Color col =
+                        JColorChooser.showDialog( 
+                            FavouriteEditorDialog.this,
+                            Application.getInstance(  )
+                                       .getLocalizedMessage( 
+                                "FavoritesEditor.ColorDialogHeader" ),
+                            pnlColor.getBackground(  ) );
+
+                    if( col != null )
+                    {
+                        pnlColor.setBackground( col );
+                    }
+                }
+            } );
     }
 
     /**
@@ -536,7 +584,7 @@ public class FavouriteEditorDialog extends FGDialog
     {
         java.awt.GridBagConstraints gridBagConstraints;
         getContentPane(  ).setLayout( new java.awt.GridBagLayout(  ) );
-        labTitle = new javax.swing.JLabel( 
+        labTitle = new JLabel( 
                 Application.getInstance(  ).getLocalizedMessage( 
                     "title_matches" ) + ":", javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -564,7 +612,7 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( cmbTitle, gridBagConstraints );
-        labChannel = new javax.swing.JLabel( 
+        labChannel = new JLabel( 
                 Application.getInstance(  ).getLocalizedMessage( "channel_is" )
                 + ":", javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -583,7 +631,7 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         gridBagConstraints.weightx = 0.9;
         getContentPane(  ).add( cmbChannel, gridBagConstraints );
-        labAfter = new javax.swing.JLabel( 
+        labAfter = new JLabel( 
                 Application.getInstance(  ).getLocalizedMessage( "on_after" )
                 + ":", javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -612,7 +660,7 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
         getContentPane(  ).add( txtBefore, gridBagConstraints );
-        labBefore = new javax.swing.JLabel( 
+        labBefore = new JLabel( 
                 Application.getInstance(  ).getLocalizedMessage( "on_before" )
                 + ":", javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -621,7 +669,7 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( labBefore, gridBagConstraints );
-        labBlankFields = new javax.swing.JLabel( 
+        labBlankFields = new JLabel( 
                 Application.getInstance(  )
                            .getLocalizedMessage( 
                     "you_may_leave_any_fields_blank" ),
@@ -633,7 +681,7 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         getContentPane(  ).add( labBlankFields, gridBagConstraints );
-        labTimeFormat = new javax.swing.JLabel( 
+        labTimeFormat = new JLabel( 
                 "<html>"
                 + Application.getInstance(  )
                              .getLocalizedMessage( 
@@ -650,7 +698,7 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.4;
         getContentPane(  ).add( labTimeFormat, gridBagConstraints );
-        labDayOfWeek = new javax.swing.JLabel( 
+        labDayOfWeek = new JLabel( 
                 Application.getInstance(  ).getLocalizedMessage( 
                     "on_day_label" ) + ":", javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -659,7 +707,7 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( labDayOfWeek, gridBagConstraints );
-        labName = new javax.swing.JLabel( 
+        labName = new JLabel( 
                 Application.getInstance(  ).getLocalizedMessage( "name" )
                 + ":", javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -700,7 +748,7 @@ public class FavouriteEditorDialog extends FGDialog
 
         if( reminder != null )
         {
-            labReminder = new javax.swing.JLabel( 
+            labReminder = new JLabel( 
                     Application.getInstance(  )
                                .getLocalizedMessage( 
                         "FavoritesEditor.reminder" ),
@@ -712,7 +760,7 @@ public class FavouriteEditorDialog extends FGDialog
             gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
             getContentPane(  ).add( labReminder, gridBagConstraints );
 
-            cbReminders = new ArrayList<JCheckBox>(  );
+            cbReminders = new TreeMap<String, JCheckBox>(  );
 
             gridBagConstraints = new java.awt.GridBagConstraints(  );
             gridBagConstraints.gridx = 1;
@@ -728,11 +776,34 @@ public class FavouriteEditorDialog extends FGDialog
             for( final String r : reminder.getReminderNames(  ) )
             {
                 final JCheckBox cb = new JCheckBox( r );
+                cbReminders.put( r, cb );
                 gridBagConstraints.gridy = line;
                 getContentPane(  ).add( cb, gridBagConstraints );
                 line++;
             }
         }
+
+        labColor = new JLabel( 
+                Application.getInstance(  )
+                           .getLocalizedMessage( "FavoritesEditor.color" ),
+                javax.swing.SwingConstants.RIGHT );
+        gridBagConstraints = new java.awt.GridBagConstraints(  );
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = line;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
+        getContentPane(  ).add( labName, gridBagConstraints );
+        pnlColor = new JButton(  );
+        gridBagConstraints = new java.awt.GridBagConstraints(  );
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = line;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
+        gridBagConstraints.weightx = 0.9;
+        getContentPane(  ).add( pnlColor, gridBagConstraints );
+
+        line++;
 
         jPanel1 = new javax.swing.JPanel( new java.awt.GridBagLayout(  ) );
         butOK = new javax.swing.JButton( 
@@ -757,7 +828,7 @@ public class FavouriteEditorDialog extends FGDialog
         getContentPane(  ).add( jPanel1, gridBagConstraints );
 
         /*
-         * labTimeFormat1 = new javax.swing.JLabel( FreeGuide.msg.getString(
+         * labTimeFormat1 = new JLabel( FreeGuide.msg.getString(
          * "as_hhmm" ), javax.swing.SwingConstants.LEFT );
          * labTimeFormat1.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
          * gridBagConstraints = new java.awt.GridBagConstraints( );

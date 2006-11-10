@@ -349,7 +349,7 @@ public class ScheduleProcessor
         protected final long progStartTime;
         protected final String progTitle;
 
-        /**
+/**
          * Creates a new TaskInfo object.
          *
          * @param parent DOCUMENT ME!
@@ -401,7 +401,7 @@ public class ScheduleProcessor
         protected final long stopTime;
         protected boolean isStarted = false;
 
-        /**
+/**
          * Creates a new Task object.
          *
          * @param taskInfo DOCUMENT ME!
@@ -464,7 +464,7 @@ public class ScheduleProcessor
     {
         protected JDialog scheduledDialog;
 
-        /**
+/**
          * Creates a new TaskPopup object.
          *
          * @param taskInfo DOCUMENT ME!
@@ -554,7 +554,7 @@ public class ScheduleProcessor
     {
         protected final String file;
 
-        /**
+/**
          * Creates a new TaskSound object.
          *
          * @param taskInfo DOCUMENT ME!
@@ -618,7 +618,7 @@ public class ScheduleProcessor
         protected final String startCommand;
         protected final String stopCommand;
 
-        /**
+/**
          * Creates a new TaskExecute object.
          *
          * @param taskInfo DOCUMENT ME!

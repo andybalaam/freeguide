@@ -16,12 +16,17 @@ import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.Time;
 
+import java.awt.Color;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
+
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
 
 /**
  * FreeGuideFavourite A description of a favourite TV program, vague or
@@ -67,6 +72,11 @@ public class Favourite
     /** Reminders which remind this favourite. */
     public Set<String> reminders = new TreeSet<String>(  );
 
+    /**
+     * DOCUMENT ME!
+     */
+    public Color backgroundColor;
+
 /**
      * Constructor for the Favourite object
      */
@@ -92,6 +102,7 @@ public class Favourite
         result.dayOfWeek = dayOfWeek;
         result.doRecord = doRecord;
         result.reminders = new TreeSet<String>( reminders );
+        result.backgroundColor = backgroundColor;
 
         return result;
     }
@@ -104,6 +115,26 @@ public class Favourite
         }
 
         return titleRegexPattern;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public Color getBackgroundColor(  )
+    {
+        return backgroundColor;
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param backgroundColor DOCUMENT_ME!
+     */
+    public void setBackgroundColor( Color backgroundColor )
+    {
+        this.backgroundColor = backgroundColor;
     }
 
     // ------------------------------------------------------------------------

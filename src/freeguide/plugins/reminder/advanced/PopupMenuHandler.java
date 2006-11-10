@@ -23,7 +23,7 @@ public class PopupMenuHandler
 {
     protected final AdvancedReminder parent;
 
-    /**
+/**
      * Creates a new PopupMenuHandler object.
      *
      * @param parent DOCUMENT ME!

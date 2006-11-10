@@ -8,10 +8,20 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 
+import java.io.IOException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -26,6 +36,7 @@ public class OneReminderPanel extends JPanel
 {
     protected JButton btnDelete;
     protected JTextField txtName;
+    protected JComboBox cbIcons;
     protected JTextField tmPopupShow;
     protected JTextField tmPopupHide;
     protected JTextField tmSound;
@@ -44,6 +55,29 @@ public class OneReminderPanel extends JPanel
      */
     public OneReminderPanel( final OneReminderConfig config )
     {
+        Properties iconsList = new Properties(  );
+
+        try
+        {
+            iconsList.load( 
+                getClass(  ).getClassLoader(  )
+                    .getResourceAsStream( 
+                    AdvancedReminder.RESOURCES_PREFIX + "iconsList.properties" ) );
+        }
+        catch( IOException ex )
+        {
+        }
+
+        final List<CBItem> items = new ArrayList<CBItem>( iconsList.size(  ) );
+
+        for( final Map.Entry<String, String> e : ( (Map<String, String>)(Map)iconsList )
+            .entrySet(  ) )
+        {
+            items.add( new CBItem( e.getKey(  ), e.getValue(  ) ) );
+        }
+
+        cbIcons = new JComboBox( items.toArray( new CBItem[items.size(  )] ) );
+
         btnDelete = new JButton( "Delete" );
         txtName = new JTextField(  );
         tmPopupShow = new JTextField(  );
@@ -238,6 +272,52 @@ public class OneReminderPanel extends JPanel
         gbcInput.insets = new Insets( 0, 5, 5, 5 );
         add( txtExecuteStop, gbcInput );
 
+        line++;
+
+        label = new JLabel( "Icon" );
+        gbcLabel.gridx = 0;
+        gbcLabel.gridy = line;
+        add( label, gbcLabel );
+
+        gbcInput.gridx = 1;
+        gbcInput.gridy = line;
+        gbcInput.insets = new Insets( 0, 5, 5, 5 );
+        add( cbIcons, gbcInput );
+
         setBorder( BorderFactory.createEtchedBorder( EtchedBorder.RAISED ) );
+    }
+
+    /**
+     * DOCUMENT ME!
+     *
+     * @author $author$
+     * @version $Revision$
+      */
+    public static class CBItem
+    {
+        protected String key;
+        protected String value;
+
+        /**
+         * Creates a new CBItem object.
+         *
+         * @param key DOCUMENT ME!
+         * @param value DOCUMENT ME!
+         */
+        public CBItem( final String key, final String value )
+        {
+            this.key = key;
+            this.value = value;
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @return DOCUMENT_ME!
+         */
+        public String toString(  )
+        {
+            return value;
+        }
     }
 }

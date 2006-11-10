@@ -476,8 +476,6 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     {
         currentProgrammeLabel = null;
 
-        JLabelProgramme.setupLabel( this );
-
         /** The chosen time formatter */
         DateFormat timeFormat = getCurrentDateFormat(  );
 

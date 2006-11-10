@@ -60,4 +60,22 @@ public class ManualSelection
         return ( programmeTime == programme.getStart(  ) )
         && channelID.equals( programme.getChannel(  ).getID(  ) );
     }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public boolean isSelected(  )
+    {
+        for( Boolean val : reminders.values(  ) )
+        {
+            if( val.booleanValue(  ) )
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

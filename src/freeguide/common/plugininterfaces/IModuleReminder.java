@@ -2,8 +2,10 @@ package freeguide.common.plugininterfaces;
 
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.fgspecific.selection.Favourite;
+import freeguide.common.lib.fgspecific.selection.ManualSelection;
 
 import java.awt.Component;
+import java.awt.Graphics;
 
 import java.util.Set;
 
@@ -57,7 +59,8 @@ public interface IModuleReminder extends IModule
      */
     void switchProgrammeSelection( TVProgramme programme );
 
-    void showProgramme( TVProgramme programme, Component component );
+    void showProgramme( 
+        TVProgramme programme, Component component, Graphics g );
 
     /**
      * Add items to main frame menu.
@@ -80,6 +83,8 @@ public interface IModuleReminder extends IModule
     void addFavourite( final Favourite favourite );
 
     void removeFavourite( final Favourite favourite );
+
+    ManualSelection getManualSelection( TVProgramme programme );
 
     Set<String> getReminderNames(  );
 }
