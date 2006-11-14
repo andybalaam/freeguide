@@ -2,9 +2,11 @@ package freeguide.plugins.reminder.advanced;
 
 import freeguide.plugins.reminder.advanced.AdvancedReminder.OneReminderConfig;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 
@@ -17,6 +19,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -24,6 +27,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.border.EtchedBorder;
 
 /**
@@ -70,10 +74,9 @@ public class OneReminderPanel extends JPanel
 
         final List<CBItem> items = new ArrayList<CBItem>( iconsList.size(  ) );
 
-        for( final Map.Entry<String, String> e : ( (Map<String, String>)(Map)iconsList )
-            .entrySet(  ) )
+        for( final String fn : AdvancedReminder.getImagesNames(  ) )
         {
-            items.add( new CBItem( e.getKey(  ), e.getValue(  ) ) );
+            items.add( new CBItem( fn, AdvancedReminder.getImage( fn ) ) );
         }
 
         cbIcons = new JComboBox( items.toArray( new CBItem[items.size(  )] ) );
@@ -284,7 +287,53 @@ public class OneReminderPanel extends JPanel
         gbcInput.insets = new Insets( 0, 5, 5, 5 );
         add( cbIcons, gbcInput );
 
+        cbIcons.setRenderer( new IconsRenderer(  ) );
+
         setBorder( BorderFactory.createEtchedBorder( EtchedBorder.RAISED ) );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param name DOCUMENT_ME!
+     */
+    public void setIcon( final String name )
+    {
+        for( int i = 0; i < cbIcons.getItemCount(  ); i++ )
+        {
+            final CBItem item = (CBItem)cbIcons.getItemAt( i );
+
+            if( item.key.equals( name ) )
+            {
+                cbIcons.setSelectedIndex( i );
+
+                break;
+            }
+        }
+    }
+
+    /**
+     * DOCUMENT ME!
+     *
+     * @author $author$
+     * @version $Revision$
+     */
+    public static class CBItem
+    {
+        protected String key;
+        protected ImageIcon value;
+
+/**
+         * Creates a new CBItem object.
+         *
+         * @param key DOCUMENT ME!
+         * @param value DOCUMENT ME!
+         */
+        public CBItem( final String key, final ImageIcon value )
+        {
+            this.key = key;
+            this.value = value;
+        }
     }
 
     /**
@@ -293,31 +342,39 @@ public class OneReminderPanel extends JPanel
      * @author $author$
      * @version $Revision$
       */
-    public static class CBItem
+    public static class IconsRenderer extends JLabel
+        implements ListCellRenderer
     {
-        protected String key;
-        protected String value;
-
-        /**
-         * Creates a new CBItem object.
-         *
-         * @param key DOCUMENT ME!
-         * @param value DOCUMENT ME!
-         */
-        public CBItem( final String key, final String value )
-        {
-            this.key = key;
-            this.value = value;
-        }
-
         /**
          * DOCUMENT_ME!
          *
+         * @param list DOCUMENT_ME!
+         * @param value DOCUMENT_ME!
+         * @param index DOCUMENT_ME!
+         * @param isSelected DOCUMENT_ME!
+         * @param cellHasFocus DOCUMENT_ME!
+         *
          * @return DOCUMENT_ME!
          */
-        public String toString(  )
+        public Component getListCellRendererComponent( 
+            JList list, Object value, int index, boolean isSelected,
+            boolean cellHasFocus )
         {
-            return value;
+            if( isSelected )
+            {
+                setBackground( list.getSelectionBackground(  ) );
+                setForeground( list.getSelectionForeground(  ) );
+            }
+            else
+            {
+                setBackground( list.getBackground(  ) );
+                setForeground( list.getForeground(  ) );
+            }
+
+            final CBItem item = (CBItem)value;
+            setIcon( item.value );
+
+            return this;
         }
     }
 }

@@ -72,9 +72,7 @@ public class Favourite
     /** Reminders which remind this favourite. */
     public Set<String> reminders = new TreeSet<String>(  );
 
-    /**
-     * DOCUMENT ME!
-     */
+    /** DOCUMENT ME! */
     public Color backgroundColor;
 
 /**

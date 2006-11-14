@@ -96,6 +96,7 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
             Long.toString( config.executeStopTimeOnFinishProgramme / 1000 ) );
         remPanel.txtExecuteStop.setText( config.executeStopCommand );
         remPanel.config = config;
+        remPanel.setIcon( config.iconName );
     }
 
     /**
@@ -136,6 +137,10 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
             pc.executeStopTimeOnFinishProgramme = Long.parseLong( 
                     remPanel.tmExecuteStop.getText(  ) ) * 1000;
             pc.executeStopCommand = remPanel.txtExecuteStop.getText(  );
+
+            final OneReminderPanel.CBItem item =
+                (OneReminderPanel.CBItem)remPanel.cbIcons.getSelectedItem(  );
+            pc.iconName = ( item != null ) ? item.key : null;
 
             reminders.add( remPanel.config );
         }

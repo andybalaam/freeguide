@@ -377,7 +377,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     {
         if( currentProgrammeLabel != null )
         {
-            currentProgrammeLabel.setupColors(  );
+            currentProgrammeLabel.setupReminder(  );
             currentProgrammeLabel.repaint(  );
         }
 

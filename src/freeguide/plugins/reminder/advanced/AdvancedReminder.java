@@ -19,17 +19,22 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.io.IOException;
+
 import java.net.URL;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JMenu;
@@ -47,11 +52,12 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
         Logger.getLogger( "org.freeguide-tv.reminder" );
     protected static final String RESOURCES_PREFIX =
         "resources/plugins/reminder/advanced/";
+    protected static Map<String, ImageIcon> imagesCache =
+        new TreeMap<String, ImageIcon>(  );
 
     /** Config object. */
     protected final Config config = new Config(  );
     protected SchedulerThread thread;
-    protected Map<String, Image> imagesCache = new TreeMap<String, Image>(  );
 
     /**
      * Start plugin.
@@ -301,15 +307,18 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
     }
 
     /**
-     * DOCUMENT_ME!
+     * Show programme on setup component.
      *
-     * @param programme DOCUMENT_ME!
-     * @param component DOCUMENT_ME!
-     * @param g DOCUMENT ME!
+     * @param programme programme
+     * @param component component
+     * @param icons icons list for icons for this programme
      */
     public void showProgramme( 
-        TVProgramme programme, Component component, Graphics g )
+        TVProgramme programme, Component component, final List<ImageIcon> icons )
     {
+        Color color = null;
+        icons.clear(  );
+
         final Map<String, Boolean> whereSelected =
             new TreeMap<String, Boolean>(  );
 
@@ -318,6 +327,7 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
             if( sel.matches( programme ) )
             {
                 whereSelected.putAll( sel.reminders );
+                color = config.selectedColor;
 
                 break;
             }
@@ -334,43 +344,84 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
                         whereSelected.put( reminder, Boolean.TRUE );
                     }
                 }
-            }
-        }
 
-        int y = 3;
-        int x = component.getWidth(  ) - 6;
-
-        for( final Map.Entry<String, Boolean> se : whereSelected.entrySet(  ) )
-        {
-            if( se.getValue(  ).booleanValue(  ) )
-            {
-                final Image i = getImage( "red_heart.gif" );
-
-                if( i != null )
+                if( color == null )
                 {
-                    x -= i.getWidth( null );
-                    g.drawImage( i, x, y, null );
+                    color = fav.getBackgroundColor(  );
                 }
             }
         }
+
+        for( final OneReminderConfig cfg : config.reminders )
+        {
+            if( 
+                whereSelected.containsKey( cfg.name )
+                    && whereSelected.get( cfg.name ).booleanValue(  ) )
+            {
+                final ImageIcon i = getImage( cfg.iconName );
+
+                if( i != null )
+                {
+                    icons.add( i );
+                }
+            }
+        }
+
+        if( color == null )
+        {
+            color = Color.WHITE;
+        }
+
+        component.setBackground( color );
     }
 
-    protected Image getImage( final String name )
+    protected static ImageIcon getImage( final String name )
     {
         synchronized( imagesCache )
         {
-            Image result = imagesCache.get( name );
+            loadImages(  );
 
-            if( result == null )
+            return imagesCache.get( name );
+        }
+    }
+
+    protected static Set<String> getImagesNames(  )
+    {
+        synchronized( imagesCache )
+        {
+            loadImages(  );
+
+            return imagesCache.keySet(  );
+        }
+    }
+
+    protected static void loadImages(  )
+    {
+        if( imagesCache.size(  ) == 0 )
+        {
+            try
             {
-                final URL u =
-                    this.getClass(  ).getClassLoader(  )
-                        .getResource( RESOURCES_PREFIX + name );
-                result = new ImageIcon( u ).getImage(  );
-                imagesCache.put( name, result );
-            }
+                Properties iconsList = new Properties(  );
 
-            return result;
+                iconsList.load( 
+                    AdvancedReminder.class.getClassLoader(  )
+                                          .getResourceAsStream( 
+                        AdvancedReminder.RESOURCES_PREFIX
+                        + "iconsList.properties" ) );
+
+                for( String fn : (Set<String>)(Set)iconsList.keySet(  ) )
+                {
+                    final URL u =
+                        AdvancedReminder.class.getClassLoader(  )
+                                              .getResource( 
+                            RESOURCES_PREFIX + fn );
+                    imagesCache.put( fn, new ImageIcon( u ) );
+                }
+            }
+            catch( IOException ex )
+            {
+                LOG.log( Level.WARNING, "Error read icons", ex );
+            }
         }
     }
 
@@ -436,9 +487,7 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
         public List<ManualSelection> manualSelectionList =
             new ArrayList<ManualSelection>(  );
 
-        /**
-         * DOCUMENT ME!
-         */
+        /** DOCUMENT ME! */
         public Color selectedColor = Color.YELLOW;
     }
 
@@ -487,5 +536,8 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
 
         /** Stop command. */
         public String executeStopCommand;
+
+        /** Name of icon file. */
+        public String iconName;
     }
 }

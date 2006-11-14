@@ -7,8 +7,10 @@ import freeguide.common.lib.fgspecific.selection.ManualSelection;
 import java.awt.Component;
 import java.awt.Graphics;
 
+import java.util.List;
 import java.util.Set;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
@@ -60,7 +62,7 @@ public interface IModuleReminder extends IModule
     void switchProgrammeSelection( TVProgramme programme );
 
     void showProgramme( 
-        TVProgramme programme, Component component, Graphics g );
+        TVProgramme programme, Component component, List<ImageIcon> icons );
 
     /**
      * Add items to main frame menu.

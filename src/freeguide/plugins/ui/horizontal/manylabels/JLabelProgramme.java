@@ -2,40 +2,29 @@ package freeguide.plugins.ui.horizontal.manylabels;
 
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-import freeguide.common.lib.fgspecific.selection.Favourite;
-import freeguide.common.lib.fgspecific.selection.ManualSelection;
 import freeguide.common.lib.general.TemplateParser;
 
 import freeguide.common.plugininterfaces.IModuleReminder;
-
-import freeguide.plugins.reminder.advanced.AdvancedReminder;
 
 import freeguide.plugins.ui.horizontal.manylabels.templates.HandlerProgrammeInfo;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.GeneralPath;
 
 import java.io.StringWriter;
 
-import java.net.URL;
-
 import java.text.DateFormat;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -67,6 +56,7 @@ public class JLabelProgramme extends JLabel
     private String tooltip;
     protected final boolean moveNames;
     protected final DateFormat timeFormat;
+    protected final List<ImageIcon> icons = new ArrayList<ImageIcon>(  );
 
 /**
      * Creates a new JLabelProgramme object.
@@ -89,7 +79,7 @@ public class JLabelProgramme extends JLabel
         this.controller = main;
         this.moveNames = moveNames;
         setText( getTitle( programme ) );
-        setupColors(  );
+        setupReminder(  );
         setOpaque( true );
         setFocusable( true );
         addMouseListener( main.handlers.labelProgrammeMouseListener );
@@ -176,45 +166,20 @@ public class JLabelProgramme extends JLabel
     /**
      * Setup colors for current label.
      */
-    public void setupColors(  )
+    public void setupReminder(  )
     {
         final IModuleReminder reminder =
             Application.getInstance(  ).getReminder(  );
-        Color color = null;
 
         if( reminder != null )
         {
-            final ManualSelection sel =
-                reminder.getManualSelection( programme );
-
-            if( sel != null )
-            {
-                if( sel.isSelected(  ) )
-                {
-                    color = ( (AdvancedReminder.Config)reminder.getConfig(  ) ).selectedColor;
-                }
-            }
-
-            if( color == null )
-            {
-                final Favourite fav = reminder.getFavourite( programme );
-
-                if( fav != null )
-                {
-                    color = fav.getBackgroundColor(  );
-                }
-            }
+            reminder.showProgramme( programme, this, icons );
+            Collections.reverse( icons );
         }
 
-        if( color == null )
-        {
-            color = Color.WHITE;
-        }
-
-        setBackground( color );
         setBorder( 
-            isFocusOwner(  ) ? getFocusedBorder( color )
-                             : getUnfocusedBorder( color ) );
+            isFocusOwner(  ) ? getFocusedBorder( getBackground(  ) )
+                             : getUnfocusedBorder( getBackground(  ) ) );
     }
 
     /**
@@ -271,12 +236,14 @@ public class JLabelProgramme extends JLabel
             super.paintComponent( g );
         }
 
-        final IModuleReminder reminder =
-            Application.getInstance(  ).getReminder(  );
+        int y = 3;
+        int x = getWidth(  ) - 3;
 
-        if( reminder != null )
+        for( final ImageIcon img : icons )
         {
-            reminder.showProgramme( programme, this, g );
+            x -= img.getImage(  ).getWidth( null );
+            x -= 2;
+            g.drawImage( img.getImage(  ), x, y, null );
         }
     }
 
