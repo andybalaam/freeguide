@@ -13,9 +13,6 @@ import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import freeguide.common.plugininterfaces.IModuleReminder;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,7 +31,6 @@ import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JMenu;
@@ -54,6 +50,8 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
         "resources/plugins/reminder/advanced/";
     protected static Map<String, ImageIcon> imagesCache =
         new TreeMap<String, ImageIcon>(  );
+    protected static final long MAX_STORED_SELECTION_TIME =
+        3L * 24L * 60L * 60L * 1000L;
 
     /** Config object. */
     protected final Config config = new Config(  );
@@ -64,6 +62,7 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
      */
     public void start(  )
     {
+        removeOldSelections(  );
         thread = new SchedulerThread( this );
         thread.start(  );
     }
@@ -77,6 +76,26 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
         {
             thread.finish(  );
             thread = null;
+        }
+    }
+
+    /**
+     * Remove selections for too old programmes.
+     */
+    protected void removeOldSelections(  )
+    {
+        final long now = System.currentTimeMillis(  );
+
+        for( 
+            final Iterator<ManualSelection> it =
+                config.manualSelectionList.iterator(  ); it.hasNext(  ); )
+        {
+            final ManualSelection sel = it.next(  );
+
+            if( sel.programmeTime < ( now - MAX_STORED_SELECTION_TIME ) )
+            {
+                it.remove(  );
+            }
         }
     }
 
@@ -310,14 +329,14 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
      * Show programme on setup component.
      *
      * @param programme programme
-     * @param component component
      * @param icons icons list for icons for this programme
+     *
+     * @return DOCUMENT_ME!
      */
-    public void showProgramme( 
-        TVProgramme programme, Component component, final List<ImageIcon> icons )
+    public Color getProgrammeSettings( 
+        TVProgramme programme, final List<ImageIcon> icons )
     {
         Color color = null;
-        icons.clear(  );
 
         final Map<String, Boolean> whereSelected =
             new TreeMap<String, Boolean>(  );
@@ -347,7 +366,7 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
 
                 if( color == null )
                 {
-                    color = fav.getBackgroundColor(  );
+                    color = fav.getSelectedColor(  );
                 }
             }
         }
@@ -356,7 +375,8 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
         {
             if( 
                 whereSelected.containsKey( cfg.name )
-                    && whereSelected.get( cfg.name ).booleanValue(  ) )
+                    && whereSelected.get( cfg.name ).booleanValue(  )
+                    && ( cfg.iconName != null ) )
             {
                 final ImageIcon i = getImage( cfg.iconName );
 
@@ -367,12 +387,7 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
             }
         }
 
-        if( color == null )
-        {
-            color = Color.WHITE;
-        }
-
-        component.setBackground( color );
+        return color;
     }
 
     protected static ImageIcon getImage( final String name )

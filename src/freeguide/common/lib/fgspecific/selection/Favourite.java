@@ -25,9 +25,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
-import javax.swing.BorderFactory;
-import javax.swing.border.Border;
-
 /**
  * FreeGuideFavourite A description of a favourite TV program, vague or
  * specific.
@@ -66,14 +63,11 @@ public class Favourite
     /** Day of week, or -1 if any. */
     public int dayOfWeek = -1;
 
-    /** Do we want to record it or not. */
-    public boolean doRecord = false;
-
     /** Reminders which remind this favourite. */
     public Set<String> reminders = new TreeSet<String>(  );
 
     /** DOCUMENT ME! */
-    public Color backgroundColor;
+    public Color selectedColor;
 
 /**
      * Constructor for the Favourite object
@@ -98,9 +92,8 @@ public class Favourite
         result.afterTime = afterTime;
         result.beforeTime = beforeTime;
         result.dayOfWeek = dayOfWeek;
-        result.doRecord = doRecord;
         result.reminders = new TreeSet<String>( reminders );
-        result.backgroundColor = backgroundColor;
+        result.selectedColor = selectedColor;
 
         return result;
     }
@@ -120,9 +113,9 @@ public class Favourite
      *
      * @return DOCUMENT_ME!
      */
-    public Color getBackgroundColor(  )
+    public Color getSelectedColor(  )
     {
-        return backgroundColor;
+        return selectedColor;
     }
 
     /**
@@ -130,9 +123,9 @@ public class Favourite
      *
      * @param backgroundColor DOCUMENT_ME!
      */
-    public void setBackgroundColor( Color backgroundColor )
+    public void setSelectedColor( Color backgroundColor )
     {
-        this.backgroundColor = backgroundColor;
+        this.selectedColor = backgroundColor;
     }
 
     // ------------------------------------------------------------------------
@@ -290,16 +283,6 @@ public class Favourite
     }
 
     /**
-     * Getst he doRecord attribute of the Favourite object
-     *
-     * @return The doRecord value
-     */
-    public boolean getRecord(  )
-    {
-        return doRecord;
-    }
-
-    /**
      * Sets the name attribute of the Favourite object
      *
      * @param name The new name value
@@ -379,16 +362,4 @@ public class Favourite
     {
         this.dayOfWeek = dayOfWeek;
     }
-
-    /**
-     * Sets the record flag.
-     *
-     * @param doRecord If we want it to have the record flag or not.
-     */
-    public void setRecord( boolean doRecord )
-    {
-        this.doRecord = doRecord;
-    }
-
-    // The day of the week it's on
 }

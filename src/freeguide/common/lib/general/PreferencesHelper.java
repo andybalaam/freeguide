@@ -458,9 +458,9 @@ public class PreferencesHelper
 
             Object value = map.get( key );
 
-            saveObject( prefNode, key, namePrefix + i + ".key" );
+            saveObject( prefNode, key, namePrefix + "." + i + ".key" );
 
-            saveObject( prefNode, value, namePrefix + i + ".value" );
+            saveObject( prefNode, value, namePrefix + "." + i + ".value" );
         }
 
         prefNode.putInt( namePrefix + "size", i );

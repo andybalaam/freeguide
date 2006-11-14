@@ -173,7 +173,7 @@ public class FavouriteEditorDialog extends FGDialog
             cmbDayOfWeek.setSelectedIndex( favourite.getDayOfWeek(  ) );
         }
 
-        pnlColor.setBackground( favourite.backgroundColor );
+        pnlColor.setBackground( favourite.selectedColor );
 
         for( final String selectedReminder : favourite.reminders )
         {
@@ -364,7 +364,7 @@ public class FavouriteEditorDialog extends FGDialog
             favourite.setDayOfWeek( -1 );
         }
 
-        favourite.backgroundColor = pnlColor.getBackground(  );
+        favourite.selectedColor = pnlColor.getBackground(  );
 
         favourite.reminders.clear(  );
 

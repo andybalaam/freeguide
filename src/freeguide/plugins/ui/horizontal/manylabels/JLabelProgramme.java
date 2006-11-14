@@ -79,7 +79,9 @@ public class JLabelProgramme extends JLabel
         this.controller = main;
         this.moveNames = moveNames;
         setText( getTitle( programme ) );
-        setupReminder(  );
+
+        refresh(  );
+
         setOpaque( true );
         setFocusable( true );
         addMouseListener( main.handlers.labelProgrammeMouseListener );
@@ -166,16 +168,26 @@ public class JLabelProgramme extends JLabel
     /**
      * Setup colors for current label.
      */
-    public void setupReminder(  )
+    public void refresh(  )
     {
         final IModuleReminder reminder =
             Application.getInstance(  ).getReminder(  );
 
+        Color color = null;
+
         if( reminder != null )
         {
-            reminder.showProgramme( programme, this, icons );
+            icons.clear(  );
+            color = reminder.getProgrammeSettings( programme, icons );
             Collections.reverse( icons );
         }
+
+        if( color == null )
+        {
+            color = controller.config.colorNonTicked;
+        }
+
+        setBackground( color );
 
         setBorder( 
             isFocusOwner(  ) ? getFocusedBorder( getBackground(  ) )

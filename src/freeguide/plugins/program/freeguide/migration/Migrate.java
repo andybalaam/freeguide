@@ -106,6 +106,14 @@ public class Migrate
 
                 migr.saveTo( FreeGuide.PREF_ROOT_NAME );
             }
+            else if( ver.compareTo( new Version( 0, 10, 4 ) ) == 0 )
+            {
+                MigrationProcessBase migr =
+                    new Migrate0_10_4To0_10_5( FreeGuide.PREF_ROOT_NAME );
+                migr.migrate(  );
+
+                migr.saveTo( FreeGuide.PREF_ROOT_NAME );
+            }
             else if( ver.compareTo( Application.VERSION ) > 0 )
             {
                 needToRunWizard = true;

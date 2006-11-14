@@ -341,7 +341,7 @@ public class OneReminderPanel extends JPanel
      *
      * @author $author$
      * @version $Revision$
-      */
+     */
     public static class IconsRenderer extends JLabel
         implements ListCellRenderer
     {

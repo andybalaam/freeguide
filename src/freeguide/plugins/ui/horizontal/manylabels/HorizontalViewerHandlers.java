@@ -205,14 +205,14 @@ public class HorizontalViewerHandlers
                 controller.currentProgrammeLabel = labelProgramme;
                 controller.updateProgrammeInfo( 
                     labelProgramme.getProgramme(  ) );
-                labelProgramme.setupReminder(  );
+                labelProgramme.refresh(  );
             }
 
             public void focusLost( FocusEvent e )
             {
                 final JLabelProgramme labelProgramme =
                     (JLabelProgramme)e.getComponent(  );
-                labelProgramme.setupReminder(  );
+                labelProgramme.refresh(  );
             }
         };
 
