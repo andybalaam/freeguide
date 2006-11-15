@@ -5,7 +5,6 @@ import freeguide.common.lib.fgspecific.selection.Favourite;
 import freeguide.common.lib.fgspecific.selection.ManualSelection;
 
 import java.awt.Color;
-import java.awt.Component;
 
 import java.util.List;
 import java.util.Set;

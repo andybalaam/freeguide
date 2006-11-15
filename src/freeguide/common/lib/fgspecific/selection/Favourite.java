@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
  */
 public class Favourite
 {
-    /** DOCUMENT ME! */
+    /** Reminders collection type. */
     public static final Class reminders_TYPE = String.class;
 
     // ------------------------------------------------------------------------
@@ -77,9 +77,9 @@ public class Favourite
     }
 
     /**
-     * DOCUMENT_ME!
+     * Clone implementation for favourite.
      *
-     * @return DOCUMENT_ME!
+     * @return new object
      */
     public Object clone(  )
     {
@@ -109,9 +109,9 @@ public class Favourite
     }
 
     /**
-     * DOCUMENT_ME!
+     * Get color for favourite.
      *
-     * @return DOCUMENT_ME!
+     * @return color
      */
     public Color getSelectedColor(  )
     {
@@ -119,9 +119,9 @@ public class Favourite
     }
 
     /**
-     * DOCUMENT_ME!
+     * Set color for favourite.
      *
-     * @param backgroundColor DOCUMENT_ME!
+     * @param backgroundColor color
      */
     public void setSelectedColor( Color backgroundColor )
     {
@@ -147,6 +147,14 @@ public class Favourite
             return false;
         }
 
+        final String progTitle = prog.getTitle(  );
+
+        // Match the title exactly
+        if( ( titleString != null ) && !titleString.equals( progTitle ) )
+        {
+            return false;
+        }
+
         Time progStartTime = new Time( new Date( prog.getStart(  ) ) );
 
         // Match the time it must be after
@@ -157,14 +165,6 @@ public class Favourite
 
         // Match the time it must be before
         if( !beforeTime.isEmpty(  ) && beforeTime.before( progStartTime ) )
-        {
-            return false;
-        }
-
-        String progTitle = prog.getTitle(  );
-
-        // Match the title exactly
-        if( ( titleString != null ) && !titleString.equals( progTitle ) )
         {
             return false;
         }

@@ -19,7 +19,7 @@ public class TVChannelsSet
     public String name;
 
     /** Channels list. */
-    public List channels = new ArrayList(  );
+    public List<Channel> channels = new ArrayList<Channel>(  );
 
     /**
      * Check if channels list empty.
@@ -42,7 +42,7 @@ public class TVChannelsSet
     {
         for( int i = 0; i < channels.size(  ); i++ )
         {
-            Channel ch = (Channel)channels.get( i );
+            Channel ch = channels.get( i );
 
             if( channelID.equals( ch.channelID ) )
             {
@@ -108,21 +108,7 @@ public class TVChannelsSet
      */
     public boolean contains( final String channelID )
     {
-        final Iterator it = channels.iterator(  );
-
-        while( it.hasNext(  ) )
-        {
-            Channel ch = (Channel)it.next(  );
-
-            if( channelID.equals( ch.getChannelID(  ) ) )
-            {
-                return true;
-
-            }
-        }
-
-        return false;
-
+        return channels.contains( new Channel( channelID ) );
     }
 
     /**
@@ -132,18 +118,7 @@ public class TVChannelsSet
      */
     public void remove( final String channelID )
     {
-        final Iterator it = channels.iterator(  );
-
-        while( it.hasNext(  ) )
-        {
-            Channel ch = (Channel)it.next(  );
-
-            if( channelID.equals( ch.getChannelID(  ) ) )
-            {
-                it.remove(  );
-
-            }
-        }
+        channels.remove( new Channel( channelID ) );
     }
 
     /**
@@ -202,13 +177,13 @@ public class TVChannelsSet
      *
      * @return DOCUMENT_ME!
      */
-    public Object clone(  )
+    public TVChannelsSet clone(  )
     {
         final TVChannelsSet result = new TVChannelsSet(  );
 
         result.name = name;
 
-        result.channels = new ArrayList( channels.size(  ) );
+        result.channels = new ArrayList<Channel>( channels.size(  ) );
 
         for( int i = 0; i < channels.size(  ); i++ )
         {
@@ -240,6 +215,16 @@ public class TVChannelsSet
          */
         public Channel(  )
         {
+        }
+
+/**
+         * Creates a new Channel object.
+         *
+         * @param channelID channe id
+         */
+        public Channel( final String channelID )
+        {
+            this.channelID = channelID;
         }
 
 /**
@@ -303,15 +288,12 @@ public class TVChannelsSet
             if( obj instanceof String )
             {
                 return channelID.equals( obj );
-
             }
-
             else
             {
                 Channel o = (Channel)obj;
 
                 return channelID.equals( o.channelID );
-
             }
         }
 
@@ -326,7 +308,7 @@ public class TVChannelsSet
 
         }
 
-        protected Object clone(  )
+        protected Channel clone(  )
         {
             return new Channel( channelID, displayName );
 

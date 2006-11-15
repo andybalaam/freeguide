@@ -7,6 +7,7 @@ import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.fgspecific.selection.Favourite;
 import freeguide.common.lib.fgspecific.selection.ManualSelection;
+import freeguide.common.lib.general.StringHelper;
 import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.IModuleStorage;
@@ -333,7 +334,7 @@ public class ScheduleProcessor
             queue.add( 
                 new TaskExecute( 
                     taskInfo, execTime, stopTime, remConfig.executeStartCommand,
-                    remConfig.executeStopCommand ) );
+                    remConfig.executeStopCommand, programme ) );
         }
     }
 
@@ -351,10 +352,13 @@ public class ScheduleProcessor
 
 /**
          * Creates a new TaskInfo object.
-         *
-         * @param parent DOCUMENT ME!
-         * @param reminderName DOCUMENT ME!
-         * @param prog DOCUMENT ME!
+         * 
+         * @param parent
+         *            DOCUMENT ME!
+         * @param reminderName
+         *            DOCUMENT ME!
+         * @param prog
+         *            DOCUMENT ME!
          */
         public TaskInfo( 
             final AdvancedReminder parent, final String reminderName,
@@ -403,10 +407,13 @@ public class ScheduleProcessor
 
 /**
          * Creates a new Task object.
-         *
-         * @param taskInfo DOCUMENT ME!
-         * @param startTime DOCUMENT ME!
-         * @param stopTime DOCUMENT ME!
+         * 
+         * @param taskInfo
+         *            DOCUMENT ME!
+         * @param startTime
+         *            DOCUMENT ME!
+         * @param stopTime
+         *            DOCUMENT ME!
          */
         public Task( 
             final TaskInfo taskInfo, final long startTime, final long stopTime )
@@ -466,10 +473,13 @@ public class ScheduleProcessor
 
 /**
          * Creates a new TaskPopup object.
-         *
-         * @param taskInfo DOCUMENT ME!
-         * @param showTime DOCUMENT ME!
-         * @param hideTime DOCUMENT ME!
+         * 
+         * @param taskInfo
+         *            DOCUMENT ME!
+         * @param showTime
+         *            DOCUMENT ME!
+         * @param hideTime
+         *            DOCUMENT ME!
          */
         public TaskPopup( 
             final TaskInfo taskInfo, final long showTime, final long hideTime )
@@ -556,10 +566,13 @@ public class ScheduleProcessor
 
 /**
          * Creates a new TaskSound object.
-         *
-         * @param taskInfo DOCUMENT ME!
-         * @param playTime DOCUMENT ME!
-         * @param file DOCUMENT ME!
+         * 
+         * @param taskInfo
+         *            DOCUMENT ME!
+         * @param playTime
+         *            DOCUMENT ME!
+         * @param file
+         *            DOCUMENT ME!
          */
         public TaskSound( 
             final TaskInfo taskInfo, final long playTime, final String file )
@@ -617,23 +630,33 @@ public class ScheduleProcessor
     {
         protected final String startCommand;
         protected final String stopCommand;
+        protected final String title;
+        protected final String ch;
 
 /**
          * Creates a new TaskExecute object.
-         *
-         * @param taskInfo DOCUMENT ME!
-         * @param execTime DOCUMENT ME!
-         * @param stopTime DOCUMENT ME!
-         * @param startCommand DOCUMENT ME!
-         * @param stopCommand DOCUMENT ME!
+         * 
+         * @param taskInfo
+         *            DOCUMENT ME!
+         * @param execTime
+         *            DOCUMENT ME!
+         * @param stopTime
+         *            DOCUMENT ME!
+         * @param startCommand
+         *            DOCUMENT ME!
+         * @param stopCommand
+         *            DOCUMENT ME!
          */
         public TaskExecute( 
             final TaskInfo taskInfo, final long execTime, final long stopTime,
-            final String startCommand, final String stopCommand )
+            final String startCommand, final String stopCommand,
+            final TVProgramme prog )
         {
             super( taskInfo, execTime, stopTime );
             this.startCommand = startCommand;
             this.stopCommand = stopCommand;
+            title = prog.getTitle(  );
+            ch = prog.getChannel(  ).getID(  );
         }
 
         /**
@@ -642,7 +665,7 @@ public class ScheduleProcessor
         public void start(  )
         {
             isStarted = true;
-            execute( startCommand );
+            execute( substCommand( startCommand ) );
         }
 
         /**
@@ -650,7 +673,7 @@ public class ScheduleProcessor
          */
         public void stop(  )
         {
-            execute( stopCommand );
+            execute( substCommand( stopCommand ) );
         }
 
         /**
@@ -661,6 +684,25 @@ public class ScheduleProcessor
         public void loadFrom( final Task oldTask )
         {
             isStarted = oldTask.isStarted;
+        }
+
+        protected String substCommand( final String cmd )
+        {
+            final String hardwareId;
+            final Map<String, String> hmap =
+                ( (AdvancedReminder.Config)Application.getInstance(  )
+                                                      .getReminder(  )
+                                                      .getConfig(  ) ).channelsHardwareId;
+
+            synchronized( hmap )
+            {
+                hardwareId = hmap.get( ch );
+            }
+
+            String result = StringHelper.replaceAll( cmd, "%title", title );
+            result = StringHelper.replaceAll( result, "%ch", hardwareId );
+
+            return result;
         }
 
         protected void execute( final String command )

@@ -470,10 +470,10 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
     public static class Config
     {
         /** DOCUMENT ME! */
-        public static Class channels_KEY_TYPE = String.class;
+        public static Class channelsHardwareId_KEY_TYPE = String.class;
 
         /** DOCUMENT ME! */
-        public static Class channels_VALUE_TYPE = String.class;
+        public static Class channelsHardwareId_VALUE_TYPE = String.class;
 
         /** DOCUMENT ME! */
         public static Class reminders_TYPE = OneReminderConfig.class;
@@ -488,8 +488,9 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
         /** Path for cron file export. */
         public String cronOutputPath;
 
-        /** Map for chennels id into hardware channels. */
-        public Map<String, String> channels = new TreeMap<String, String>(  );
+        /** Map for channels id into hardware channels. */
+        public Map<String, String> channelsHardwareId =
+            new TreeMap<String, String>(  );
 
         /** All user's created reminders. */
         public List<OneReminderConfig> reminders =

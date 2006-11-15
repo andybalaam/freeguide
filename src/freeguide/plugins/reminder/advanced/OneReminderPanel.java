@@ -6,17 +6,13 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
-import java.awt.event.KeyEvent;
 
 import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -31,10 +27,9 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.EtchedBorder;
 
 /**
- * DOCUMENT ME!
+ * Panel for edit one reminder.
  *
- * @author $author$
- * @version $Revision$
+ * @author Alex Buloichik
  */
 public class OneReminderPanel extends JPanel
 {
@@ -289,7 +284,24 @@ public class OneReminderPanel extends JPanel
 
         cbIcons.setRenderer( new IconsRenderer(  ) );
 
+        line++;
+
+        gbcLabel.gridx = 0;
+        gbcLabel.gridy = line;
+        gbcLabel.gridwidth = 4;
+        gbcLabel.fill = GridBagConstraints.BOTH;
+        add( getHelpLabel(  ), gbcLabel );
+
         setBorder( BorderFactory.createEtchedBorder( EtchedBorder.RAISED ) );
+    }
+
+    protected JLabel getHelpLabel(  )
+    {
+        final JLabel result =
+            new JLabel( 
+                "<html>You can enter command with followed vars:<br>  %title - programme title,<br>  %ch - hardware channel id</html>" );
+
+        return result;
     }
 
     /**

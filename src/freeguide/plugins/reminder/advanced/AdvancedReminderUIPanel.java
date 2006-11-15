@@ -1,29 +1,40 @@
 package freeguide.plugins.reminder.advanced;
 
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
+
+import freeguide.common.plugininterfaces.IModuleStorage;
+
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.table.AbstractTableModel;
 
 /**
- * DOCUMENT ME!
+ * Panel for edit reminders.
  *
- * @author $author$
- * @version $Revision$
+ * @author Alex Buloichik
  */
 public class AdvancedReminderUIPanel extends JPanel
 {
-    protected JPanel mainPanel;
-    protected JButton btnAddReminder;
+    protected final JPanel mainPanel;
+    protected final JButton btnAddReminder;
     protected final List<OneReminderPanel> reminderPanels =
         new ArrayList<OneReminderPanel>(  );
     protected int latestLine;
+    protected final JTable tblChannels;
 
 /**
      * Creates a new AdvancedReminderUIPanel object.
@@ -45,12 +56,30 @@ public class AdvancedReminderUIPanel extends JPanel
         gbcButtonAdd.anchor = GridBagConstraints.EAST;
         mainPanel.add( btnAddReminder, gbcButtonAdd );
         latestLine = 5;
+
+        tblChannels = new JTable(  );
+
+        addChannelsTable(  );
+    }
+
+    protected void addChannelsTable(  )
+    {
+        final GridBagConstraints gbcTable = new GridBagConstraints(  );
+        gbcTable.gridy = 1;
+        gbcTable.fill = GridBagConstraints.BOTH;
+
+        final JScrollPane scTable = new JScrollPane( tblChannels );
+        scTable.setHorizontalScrollBarPolicy( 
+            ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
+        scTable.setPreferredSize( new Dimension( 50, 100 ) );
+
+        mainPanel.add( scTable, gbcTable );
     }
 
     /**
-     * DOCUMENT_ME!
+     * Add new reminder config panel.
      *
-     * @param panel DOCUMENT_ME!
+     * @param panel reminder config panel.
      */
     public void addReminderPanel( final OneReminderPanel panel )
     {
@@ -65,9 +94,9 @@ public class AdvancedReminderUIPanel extends JPanel
     }
 
     /**
-     * DOCUMENT_ME!
+     * Remove reminder config panel.
      *
-     * @param panel DOCUMENT_ME!
+     * @param panel reminder config panel
      */
     public void removeReminderPanel( final OneReminderPanel panel )
     {

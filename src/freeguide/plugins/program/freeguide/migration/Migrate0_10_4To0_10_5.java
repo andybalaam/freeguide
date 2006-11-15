@@ -9,10 +9,10 @@ import java.util.regex.Pattern;
  *
  * @author $author$
  * @version $Revision$
-  */
+ */
 public class Migrate0_10_4To0_10_5 extends MigrationProcessBase
 {
-    /**
+/**
      * Creates a new Migrate0_10_4To0_10_5 object.
      *
      * @param source DOCUMENT ME!
@@ -22,7 +22,7 @@ public class Migrate0_10_4To0_10_5 extends MigrationProcessBase
         super( source );
     }
 
-    /**
+/**
      * Creates a new Migrate0_10_4To0_10_5 object.
      *
      * @param nodeName DOCUMENT ME!

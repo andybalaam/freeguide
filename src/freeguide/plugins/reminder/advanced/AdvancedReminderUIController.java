@@ -1,6 +1,10 @@
 package freeguide.plugins.reminder.advanced;
 
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
+
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
+import freeguide.common.plugininterfaces.IModuleStorage;
 
 import freeguide.plugins.reminder.advanced.AdvancedReminder.OneReminderConfig;
 
@@ -10,18 +14,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import javax.swing.table.AbstractTableModel;
+
 /**
- * DOCUMENT ME!
+ * Controller for edit configuration.
  *
- * @author $author$
- * @version $Revision$
+ * @author Alex Buloichik
  */
 public class AdvancedReminderUIController implements IModuleConfigurationUI
 {
     protected final AdvancedReminderUIPanel panel;
     protected final AdvancedReminder.Config config;
+    protected List<ChannelInfo> channelsHardwareData;
     protected ActionListener actionAddReminder =
         new ActionListener(  )
         {
@@ -40,7 +48,7 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
      * Creates a new AdvancedReminderUIController object.
      * 
      * @param config
-     *            DOCUMENT ME!
+     *            config
      */
     public AdvancedReminderUIController( final AdvancedReminder.Config config )
     {
@@ -55,6 +63,8 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
         }
 
         panel.btnAddReminder.addActionListener( actionAddReminder );
+
+        panel.tblChannels.setModel( new ChannelsTableModel( config ) );
     }
 
     /**
@@ -147,19 +157,204 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
 
         config.reminders.clear(  );
         config.reminders.addAll( reminders );
+
+        synchronized( config.channelsHardwareId )
+        {
+            for( final ChannelInfo ch : channelsHardwareData )
+            {
+                if( ch.hardwareId != null )
+                {
+                    config.channelsHardwareId.put( 
+                        ch.channelID, ch.hardwareId );
+                }
+                else
+                {
+                    config.channelsHardwareId.remove( ch.channelID );
+                }
+            }
+        }
     }
 
     /**
-     * DOCUMENT_ME!
+     * Reset data to defaults.
      */
     public void resetToDefaults(  )
     {
     }
 
     /**
-     * DOCUMENT_ME!
+     * Cancel editing.
      */
     public void cancel(  )
     {
+    }
+
+    protected static class ChannelInfo
+    {
+        protected final String channelID;
+        protected final String name;
+        protected String hardwareId;
+
+        /**
+         * Creates a new ChannelInfo object.
+         *
+         * @param channelID DOCUMENT ME!
+         * @param name DOCUMENT ME!
+         * @param hardwareId DOCUMENT ME!
+         */
+        public ChannelInfo( 
+            final String channelID, final String name, final String hardwareId )
+        {
+            this.channelID = channelID;
+            this.name = name;
+            this.hardwareId = hardwareId;
+        }
+    }
+
+    protected class ChannelsTableModel extends AbstractTableModel
+    {
+        /**
+         * Creates a new ChannelsTableModel object.
+         *
+         * @param config DOCUMENT ME!
+         */
+        public ChannelsTableModel( final AdvancedReminder.Config config )
+        {
+            final IModuleStorage.Info info =
+                Application.getInstance(  ).getDataStorage(  ).getInfo(  );
+
+            if( info.channelsList != null )
+            {
+                channelsHardwareData = new ArrayList<ChannelInfo>( 
+                        info.channelsList.channels.size(  ) );
+
+                synchronized( config.channelsHardwareId )
+                {
+                    for( final TVChannelsSet.Channel ch : info.channelsList.channels )
+                    {
+                        channelsHardwareData.add( 
+                            new ChannelInfo( 
+                                ch.getChannelID(  ), ch.getDisplayName(  ),
+                                config.channelsHardwareId.get( 
+                                    ch.getChannelID(  ) ) ) );
+                    }
+                }
+            }
+            else
+            {
+                channelsHardwareData = new ArrayList<ChannelInfo>(  );
+            }
+
+            Collections.sort( 
+                channelsHardwareData,
+                new Comparator<ChannelInfo>(  )
+                {
+                    public int compare( 
+                        final ChannelInfo o1, final ChannelInfo o2 )
+                    {
+                        return o1.channelID.compareTo( o2.channelID );
+                    }
+                } );
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param rowIndex DOCUMENT_ME!
+         * @param columnIndex DOCUMENT_ME!
+         *
+         * @return DOCUMENT_ME!
+         */
+        public boolean isCellEditable( int rowIndex, int columnIndex )
+        {
+            return columnIndex == 2;
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @return DOCUMENT_ME!
+         */
+        public int getColumnCount(  )
+        {
+            return 3;
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @return DOCUMENT_ME!
+         */
+        public int getRowCount(  )
+        {
+            return channelsHardwareData.size(  );
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param column DOCUMENT_ME!
+         *
+         * @return DOCUMENT_ME!
+         */
+        public String getColumnName( int column )
+        {
+            switch( column )
+            {
+            case 0:
+                return "id";
+
+            case 1:
+                return "name";
+
+            case 2:
+                return "hardwareName";
+            }
+
+            return null;
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param rowIndex DOCUMENT_ME!
+         * @param columnIndex DOCUMENT_ME!
+         *
+         * @return DOCUMENT_ME!
+         */
+        public Object getValueAt( int rowIndex, int columnIndex )
+        {
+            final ChannelInfo line = channelsHardwareData.get( rowIndex );
+
+            switch( columnIndex )
+            {
+            case 0:
+                return line.channelID;
+
+            case 1:
+                return line.name;
+
+            case 2:
+                return line.hardwareId;
+            }
+
+            return null;
+        }
+
+        /**
+         * DOCUMENT_ME!
+         *
+         * @param aValue DOCUMENT_ME!
+         * @param rowIndex DOCUMENT_ME!
+         * @param columnIndex DOCUMENT_ME!
+         */
+        public void setValueAt( Object aValue, int rowIndex, int columnIndex )
+        {
+            if( columnIndex == 2 )
+            {
+                final ChannelInfo line = channelsHardwareData.get( rowIndex );
+                line.hardwareId = (String)aValue;
+            }
+        }
     }
 }
