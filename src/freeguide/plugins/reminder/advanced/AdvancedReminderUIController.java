@@ -90,20 +90,16 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
             } );
         remPanel.txtName.setText( config.name );
         remPanel.cbPopup.setSelected( config.isPopup );
-        remPanel.tmPopupShow.setText( 
-            Long.toString( config.popupOpenTime / 1000 ) );
-        remPanel.tmPopupHide.setText( 
-            Long.toString( config.popupCloseTime / 1000 ) );
+        remPanel.tmPopupShow.setValue( -config.popupOpenTime );
+        remPanel.tmPopupHide.setValue( config.popupCloseTime );
         remPanel.cbSound.setSelected( config.isSound );
-        remPanel.tmSound.setText( 
-            Long.toString( config.soundPlayTime / 1000 ) );
+        remPanel.tmSound.setValue( -config.soundPlayTime );
         remPanel.txtSoundFile.setText( config.soundFile );
         remPanel.cbExecute.setSelected( config.isExecute );
-        remPanel.tmExecuteStart.setText( 
-            Long.toString( config.executeStartTime / 1000 ) );
+        remPanel.tmExecuteStart.setValue( -config.executeStartTime );
         remPanel.txtExecuteStart.setText( config.executeStartCommand );
-        remPanel.tmExecuteStop.setText( 
-            Long.toString( config.executeStopTimeOnFinishProgramme / 1000 ) );
+        remPanel.tmExecuteStop.setValue( 
+            config.executeStopTimeOnFinishProgramme );
         remPanel.txtExecuteStop.setText( config.executeStopCommand );
         remPanel.config = config;
         remPanel.setIcon( config.iconName );
@@ -133,19 +129,16 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
 
             pc.name = remPanel.txtName.getText(  );
             pc.isPopup = remPanel.cbPopup.isSelected(  );
-            pc.popupOpenTime = Long.parseLong( 
-                    remPanel.tmPopupShow.getText(  ) ) * 1000;
-            pc.popupCloseTime = Long.parseLong( 
-                    remPanel.tmPopupHide.getText(  ) ) * 1000;
+            pc.popupOpenTime = -remPanel.tmPopupShow.getValue(  );
+            pc.popupCloseTime = remPanel.tmPopupHide.getValue(  );
             pc.isSound = remPanel.cbSound.isSelected(  );
-            pc.soundPlayTime = Long.parseLong( remPanel.tmSound.getText(  ) ) * 1000;
+            pc.soundPlayTime = -remPanel.tmSound.getValue(  );
             pc.soundFile = remPanel.txtSoundFile.getText(  );
             pc.isExecute = remPanel.cbExecute.isSelected(  );
-            pc.executeStartTime = Long.parseLong( 
-                    remPanel.tmExecuteStart.getText(  ) ) * 1000;
+            pc.executeStartTime = -remPanel.tmExecuteStart.getValue(  );
             pc.executeStartCommand = remPanel.txtExecuteStart.getText(  );
-            pc.executeStopTimeOnFinishProgramme = Long.parseLong( 
-                    remPanel.tmExecuteStop.getText(  ) ) * 1000;
+            pc.executeStopTimeOnFinishProgramme = remPanel.tmExecuteStop
+                .getValue(  );
             pc.executeStopCommand = remPanel.txtExecuteStop.getText(  );
 
             final OneReminderPanel.CBItem item =
@@ -195,12 +188,15 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
         protected final String name;
         protected String hardwareId;
 
-        /**
+/**
          * Creates a new ChannelInfo object.
-         *
-         * @param channelID DOCUMENT ME!
-         * @param name DOCUMENT ME!
-         * @param hardwareId DOCUMENT ME!
+         * 
+         * @param channelID
+         *            DOCUMENT ME!
+         * @param name
+         *            DOCUMENT ME!
+         * @param hardwareId
+         *            DOCUMENT ME!
          */
         public ChannelInfo( 
             final String channelID, final String name, final String hardwareId )
@@ -213,10 +209,11 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
 
     protected class ChannelsTableModel extends AbstractTableModel
     {
-        /**
+/**
          * Creates a new ChannelsTableModel object.
-         *
-         * @param config DOCUMENT ME!
+         * 
+         * @param config
+         *            DOCUMENT ME!
          */
         public ChannelsTableModel( final AdvancedReminder.Config config )
         {

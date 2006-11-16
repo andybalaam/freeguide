@@ -14,9 +14,13 @@ package freeguide.common.lib.general;
 
 import freeguide.common.lib.fgspecific.Application;
 
+import java.text.ParseException;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Time.java A (hopefully) very simple class just representing a time of
@@ -41,9 +45,13 @@ public class Time
     /** The number of milliseconds in a day. */
     public final static long DAY = HOUR * 24;
 
+    /** Mask for time string. */
+    protected static final Pattern TIME_PATTERN =
+        Pattern.compile( "(\\d{1,2}):(\\d{2})" );
+
     // ------------------------------------------------------------------------
     // ------------------------------------------------------------------------
-    /** DOCUMENT ME! */
+    /** Default value. */
     public long milliseconds = -1;
 
 /**
@@ -55,8 +63,9 @@ public class Time
 
 /**
      * Create a FreeGuideTime object with the same time as other.
-     *
-     * @param other Description of the Parameter
+     * 
+     * @param other
+     *            Description of the Parameter
      */
     public Time( Time other )
     {
@@ -65,8 +74,9 @@ public class Time
 
 /**
      * Create a FreeGuideTime object set to the given hour.
-     *
-     * @param hour Description of the Parameter
+     * 
+     * @param hour
+     *            Description of the Parameter
      */
     public Time( int hour )
     {
@@ -75,9 +85,11 @@ public class Time
 
 /**
      * Create a FreeGuideTime object set to the given hour and minute.
-     *
-     * @param hour Description of the Parameter
-     * @param minute Description of the Parameter
+     * 
+     * @param hour
+     *            Description of the Parameter
+     * @param minute
+     *            Description of the Parameter
      */
     public Time( int hour, int minute )
     {
@@ -86,10 +98,13 @@ public class Time
 
 /**
      * Create a FreeGuideTime object set to the given hour, minute and second.
-     *
-     * @param hour Description of the Parameter
-     * @param minute Description of the Parameter
-     * @param second Description of the Parameter
+     * 
+     * @param hour
+     *            Description of the Parameter
+     * @param minute
+     *            Description of the Parameter
+     * @param second
+     *            Description of the Parameter
      */
     public Time( int hour, int minute, int second )
     {
@@ -99,11 +114,15 @@ public class Time
 /**
      * Create a FreeGuideTime object set to the given hour, minute, second and
      * millisecond.
-     *
-     * @param hour Description of the Parameter
-     * @param minute Description of the Parameter
-     * @param second Description of the Parameter
-     * @param millisecond Description of the Parameter
+     * 
+     * @param hour
+     *            Description of the Parameter
+     * @param minute
+     *            Description of the Parameter
+     * @param second
+     *            Description of the Parameter
+     * @param millisecond
+     *            Description of the Parameter
      */
     public Time( int hour, int minute, int second, int millisecond )
     {
@@ -111,10 +130,11 @@ public class Time
     }
 
 /**
-     * Create a FreeGuideTime object by taking the just time-related bits of
-     * the given Date object.
-     *
-     * @param date Description of the Parameter
+     * Create a FreeGuideTime object by taking the just time-related bits of the
+     * given Date object.
+     * 
+     * @param date
+     *            Description of the Parameter
      */
     public Time( Date date )
     {
@@ -122,10 +142,11 @@ public class Time
     }
 
 /**
-     * Create a FreeGuideTime object by taking the just time-related bits of
-     * the given Calendar object.
-     *
-     * @param date Description of the Parameter
+     * Create a FreeGuideTime object by taking the just time-related bits of the
+     * given Calendar object.
+     * 
+     * @param date
+     *            Description of the Parameter
      */
     public Time( Calendar date )
     {
@@ -134,8 +155,9 @@ public class Time
 
 /**
      * Create a FreeGuideTime object from this string in the form HH:MM.
-     *
-     * @param hhmm Description of the Parameter
+     * 
+     * @param hhmm
+     *            Description of the Parameter
      */
     public Time( String hhmm )
     {
@@ -523,7 +545,9 @@ public class Time
      */
     public boolean after( Time other )
     {
-        return after( other, new Time( 0, 0 ) ); //FreeGuide.prefs.misc.getTime( "day_start_time" ) );
+        return after( other, new Time( 0, 0 ) ); // FreeGuide.prefs.misc.getTime(
+                                                 // "day_start_time" ) );
+
     }
 
     /**
@@ -557,7 +581,9 @@ public class Time
      */
     public boolean before( Time other )
     {
-        return before( other, new Time( 0, 0 ) ); //FreeGuide.prefs.misc.getTime( "day_start_time" ) );
+        return before( other, new Time( 0, 0 ) ); // FreeGuide.prefs.misc.getTime(
+                                                  // "day_start_time" ) );
+
     }
 
     /**
@@ -663,7 +689,7 @@ public class Time
     private String padded( String input, int length )
     {
         // When I figure out assertions in NetBeans:
-        //assert input.length() <= length;
+        // assert input.length() <= length;
         StringBuffer buffy = new StringBuffer( input );
 
         while( buffy.length(  ) < length )
@@ -672,5 +698,36 @@ public class Time
         }
 
         return buffy.toString(  );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @param text DOCUMENT_ME!
+     *
+     * @throws ParseException DOCUMENT_ME!
+     */
+    public static void checkTimeString( final String text )
+        throws ParseException
+    {
+        final Matcher ma = TIME_PATTERN.matcher( text );
+
+        if( !ma.matches(  ) )
+        {
+            throw new ParseException( text, 0 );
+        }
+
+        int h = Integer.parseInt( ma.group( 1 ) );
+        int m = Integer.parseInt( ma.group( 2 ) );
+
+        if( h >= 24 )
+        {
+            throw new ParseException( text, 0 );
+        }
+
+        if( m >= 60 )
+        {
+            throw new ParseException( text, 3 );
+        }
     }
 }

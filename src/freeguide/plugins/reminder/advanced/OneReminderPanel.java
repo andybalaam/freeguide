@@ -1,9 +1,10 @@
 package freeguide.plugins.reminder.advanced;
 
+import freeguide.common.gui.TimeEditor;
+
 import freeguide.plugins.reminder.advanced.AdvancedReminder.OneReminderConfig;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -36,12 +37,12 @@ public class OneReminderPanel extends JPanel
     protected JButton btnDelete;
     protected JTextField txtName;
     protected JComboBox cbIcons;
-    protected JTextField tmPopupShow;
-    protected JTextField tmPopupHide;
-    protected JTextField tmSound;
+    protected TimeEditor tmPopupShow;
+    protected TimeEditor tmPopupHide;
+    protected TimeEditor tmSound;
     protected JTextField txtSoundFile;
-    protected JTextField tmExecuteStart;
-    protected JTextField tmExecuteStop;
+    protected TimeEditor tmExecuteStart;
+    protected TimeEditor tmExecuteStop;
     protected JTextField txtExecuteStart;
     protected JTextField txtExecuteStop;
     protected JCheckBox cbPopup;
@@ -78,16 +79,14 @@ public class OneReminderPanel extends JPanel
 
         btnDelete = new JButton( "Delete" );
         txtName = new JTextField(  );
-        tmPopupShow = new JTextField(  );
-        tmPopupHide = new JTextField(  );
-        tmSound = new JTextField(  );
+        tmPopupShow = new TimeEditor( TimeEditor.MODE.SECONDS );
+        tmPopupHide = new TimeEditor( TimeEditor.MODE.SECONDS );
+        tmSound = new TimeEditor( TimeEditor.MODE.SECONDS );
         txtSoundFile = new JTextField(  );
-        tmExecuteStart = new JTextField(  );
+        tmExecuteStart = new TimeEditor( TimeEditor.MODE.SECONDS );
         txtExecuteStart = new JTextField(  );
-        tmExecuteStop = new JTextField(  );
+        tmExecuteStop = new TimeEditor( TimeEditor.MODE.SECONDS );
         txtExecuteStop = new JTextField(  );
-
-        tmPopupShow.setColumns( 5 );
 
         JLabel label;
 
@@ -277,10 +276,10 @@ public class OneReminderPanel extends JPanel
         gbcLabel.gridy = line;
         add( label, gbcLabel );
 
-        gbcInput.gridx = 1;
-        gbcInput.gridy = line;
-        gbcInput.insets = new Insets( 0, 5, 5, 5 );
-        add( cbIcons, gbcInput );
+        gbcInputTime.gridx = 1;
+        gbcInputTime.gridy = line;
+        gbcInputTime.insets = new Insets( 0, 5, 5, 5 );
+        add( cbIcons, gbcInputTime );
 
         cbIcons.setRenderer( new IconsRenderer(  ) );
 
@@ -337,9 +336,11 @@ public class OneReminderPanel extends JPanel
 
 /**
          * Creates a new CBItem object.
-         *
-         * @param key DOCUMENT ME!
-         * @param value DOCUMENT ME!
+         * 
+         * @param key
+         *            DOCUMENT ME!
+         * @param value
+         *            DOCUMENT ME!
          */
         public CBItem( final String key, final ImageIcon value )
         {
