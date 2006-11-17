@@ -17,6 +17,8 @@ public class SchedulerThread extends Thread
     protected static final int STATE_WORK = 0;
     protected static final int STATE_RESCHEDULE = 1;
     protected static final int STATE_STOP = 99;
+    protected static final long MIN_SLEEP_TIME = 10L;
+    protected static final long MAX_SLEEP_TIME = 60L * 1000L;
     protected int state = STATE_RESCHEDULE;
     protected long scheduledTime;
     protected final AdvancedReminder parent;
@@ -26,8 +28,9 @@ public class SchedulerThread extends Thread
 
 /**
      * Creates a new SchedulerThread object.
-     *
-     * @param parent DOCUMENT ME!
+     * 
+     * @param parent
+     *            DOCUMENT ME!
      */
     public SchedulerThread( final AdvancedReminder parent )
     {
@@ -54,11 +57,14 @@ public class SchedulerThread extends Thread
                     {
                         try
                         {
-                            mergeQueues( 
-                                new ScheduleProcessor( 
-                                    parent, System.currentTimeMillis(  ),
-                                    System.currentTimeMillis(  )
-                                    + ( 60 * 60 * 1000 ) ).createQueue(  ) );
+                            synchronized( parent.config )
+                            {
+                                mergeQueues( 
+                                    new ScheduleProcessor( 
+                                        parent, System.currentTimeMillis(  ),
+                                        System.currentTimeMillis(  )
+                                        + ( 60 * 60 * 1000 ) ).createQueue(  ) );
+                            }
                         }
                         catch( Exception ex )
                         {
@@ -80,14 +86,14 @@ public class SchedulerThread extends Thread
                     long waitTime =
                         scheduledTime - System.currentTimeMillis(  );
 
-                    if( waitTime < 10 )
+                    if( waitTime < MIN_SLEEP_TIME )
                     {
-                        waitTime = 10;
+                        waitTime = MIN_SLEEP_TIME;
                     }
 
-                    if( waitTime > 15000 )
+                    if( waitTime > MAX_SLEEP_TIME )
                     {
-                        waitTime = 15000;
+                        waitTime = MAX_SLEEP_TIME;
                     }
 
                     wait( waitTime );
@@ -146,14 +152,18 @@ public class SchedulerThread extends Thread
         {
             final Task task = it.next(  );
 
-            if( ( task.startTime <= nowProcessedTime ) && !task.isStarted )
+            if( task.startTime <= nowProcessedTime )
             {
                 task.start(  );
             }
 
-            if( ( task.stopTime <= nowProcessedTime ) && task.isStarted )
+            if( task.stopTime <= nowProcessedTime )
             {
                 task.stop(  );
+            }
+
+            if( task.taskState == Task.STATE.FINISHED )
+            {
                 it.remove(  );
             }
         }
@@ -170,12 +180,16 @@ public class SchedulerThread extends Thread
 
         for( final Task task : queue )
         {
-            if( !task.isStarted && ( task.startTime < nextTime ) )
+            if( 
+                ( task.taskState == Task.STATE.NOT_STARTED )
+                    && ( task.startTime < nextTime ) )
             {
                 nextTime = task.startTime;
             }
 
-            if( task.isStarted && ( task.stopTime < nextTime ) )
+            if( 
+                ( task.taskState == Task.STATE.RUNNING )
+                    && ( task.stopTime < nextTime ) )
             {
                 nextTime = task.stopTime;
             }
@@ -207,10 +221,7 @@ public class SchedulerThread extends Thread
 
         for( final Task oldTask : queue )
         {
-            if( oldTask.isStarted )
-            {
-                oldTask.stop(  );
-            }
+            oldTask.stop(  );
         }
 
         queue.clear(  );

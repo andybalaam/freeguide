@@ -44,55 +44,58 @@ public class PopupMenuHandler
         /** menu items for each reminder */
         final Map<String, Boolean> selMap = new TreeMap<String, Boolean>(  );
 
-        // find this programme in favourites
-        for( final Favourite fav : parent.config.favouritesList )
+        synchronized( parent.config )
         {
-            if( fav.matches( programme ) )
+            // find this programme in favourites
+            for( final Favourite fav : parent.config.favouritesList )
             {
-                for( final String rem : fav.reminders )
+                if( fav.matches( programme ) )
                 {
-                    selMap.put( rem, Boolean.TRUE );
+                    for( final String rem : fav.reminders )
+                    {
+                        selMap.put( rem, Boolean.TRUE );
+                    }
                 }
             }
-        }
 
-        // find in selections
-        for( final ManualSelection sel : parent.config.manualSelectionList )
-        {
-            if( sel.matches( programme ) )
+            // find in selections
+            for( final ManualSelection sel : parent.config.manualSelectionList )
             {
-                selMap.putAll( sel.reminders );
+                if( sel.matches( programme ) )
+                {
+                    selMap.putAll( sel.reminders );
 
-                break;
-            }
-        }
-
-        for( final String name : parent.getReminderNames(  ) )
-        {
-            final JMenuItem menuItem = new JMenuItem(  );
-
-            final Boolean currentState = selMap.get( name );
-
-            if( currentState == null )
-            {
-                menuItem.setText( "add to " + name );
-                menuItem.addActionListener( 
-                    new AddActionListener( programme, name ) );
-            }
-            else if( currentState.booleanValue(  ) )
-            {
-                menuItem.setText( "remove from " + name );
-                menuItem.addActionListener( 
-                    new RemoveActionListener( programme, name ) );
-            }
-            else if( !currentState.booleanValue(  ) )
-            {
-                menuItem.setText( "set default for " + name );
-                menuItem.addActionListener( 
-                    new DefaultActionListener( programme, name ) );
+                    break;
+                }
             }
 
-            menu.add( menuItem );
+            for( final String name : parent.getReminderNames(  ) )
+            {
+                final JMenuItem menuItem = new JMenuItem(  );
+
+                final Boolean currentState = selMap.get( name );
+
+                if( currentState == null )
+                {
+                    menuItem.setText( "add to " + name );
+                    menuItem.addActionListener( 
+                        new AddActionListener( programme, name ) );
+                }
+                else if( currentState.booleanValue(  ) )
+                {
+                    menuItem.setText( "remove from " + name );
+                    menuItem.addActionListener( 
+                        new RemoveActionListener( programme, name ) );
+                }
+                else if( !currentState.booleanValue(  ) )
+                {
+                    menuItem.setText( "set default for " + name );
+                    menuItem.addActionListener( 
+                        new DefaultActionListener( programme, name ) );
+                }
+
+                menu.add( menuItem );
+            }
         }
     }
 
@@ -128,22 +131,25 @@ public class PopupMenuHandler
          */
         public void actionPerformed( ActionEvent e )
         {
-            // find in selections
-            for( final ManualSelection sel : parent.config.manualSelectionList )
+            synchronized( parent.config )
             {
-                if( sel.matches( programme ) )
+                // find in selections
+                for( final ManualSelection sel : parent.config.manualSelectionList )
                 {
-                    sel.reminders.put( reminderName, Boolean.TRUE );
+                    if( sel.matches( programme ) )
+                    {
+                        sel.reminders.put( reminderName, Boolean.TRUE );
 
-                    parent.reschedule(  );
+                        parent.reschedule(  );
 
-                    return;
+                        return;
+                    }
                 }
-            }
 
-            final ManualSelection sel = new ManualSelection( programme );
-            sel.reminders.put( reminderName, Boolean.TRUE );
-            parent.config.manualSelectionList.add( sel );
+                final ManualSelection sel = new ManualSelection( programme );
+                sel.reminders.put( reminderName, Boolean.TRUE );
+                parent.config.manualSelectionList.add( sel );
+            }
 
             parent.reschedule(  );
         }
@@ -181,22 +187,25 @@ public class PopupMenuHandler
          */
         public void actionPerformed( ActionEvent e )
         {
-            // find in selections
-            for( final ManualSelection sel : parent.config.manualSelectionList )
+            synchronized( parent.config )
             {
-                if( sel.matches( programme ) )
+                // find in selections
+                for( final ManualSelection sel : parent.config.manualSelectionList )
                 {
-                    sel.reminders.put( reminderName, Boolean.FALSE );
+                    if( sel.matches( programme ) )
+                    {
+                        sel.reminders.put( reminderName, Boolean.FALSE );
 
-                    parent.reschedule(  );
+                        parent.reschedule(  );
 
-                    return;
+                        return;
+                    }
                 }
-            }
 
-            final ManualSelection sel = new ManualSelection( programme );
-            sel.reminders.put( reminderName, Boolean.FALSE );
-            parent.config.manualSelectionList.add( sel );
+                final ManualSelection sel = new ManualSelection( programme );
+                sel.reminders.put( reminderName, Boolean.FALSE );
+                parent.config.manualSelectionList.add( sel );
+            }
 
             parent.reschedule(  );
         }
@@ -234,26 +243,29 @@ public class PopupMenuHandler
          */
         public void actionPerformed( ActionEvent e )
         {
-            // find in selections
-            for( 
-                final Iterator<ManualSelection> it =
-                    parent.config.manualSelectionList.iterator(  );
-                    it.hasNext(  ); )
+            synchronized( parent.config )
             {
-                final ManualSelection sel = it.next(  );
-
-                if( sel.matches( programme ) )
+                // find in selections
+                for( 
+                    final Iterator<ManualSelection> it =
+                        parent.config.manualSelectionList.iterator(  );
+                        it.hasNext(  ); )
                 {
-                    sel.reminders.remove( reminderName );
+                    final ManualSelection sel = it.next(  );
 
-                    if( sel.reminders.size(  ) == 0 )
+                    if( sel.matches( programme ) )
                     {
-                        it.remove(  );
+                        sel.reminders.remove( reminderName );
+
+                        if( sel.reminders.size(  ) == 0 )
+                        {
+                            it.remove(  );
+                        }
+
+                        parent.reschedule(  );
+
+                        return;
                     }
-
-                    parent.reschedule(  );
-
-                    return;
                 }
             }
         }

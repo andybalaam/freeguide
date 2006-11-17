@@ -56,7 +56,7 @@ public class Migrate0_10_4To0_10_5 extends MigrationProcessBase
             final String base = fav.substring( 0, fav.length(  ) - 4 );
             putKey( base + "selectedColor", colorTicked );
             putKey( base + "reminders.size", "1" );
-            putKey( base + "reminders.0", "default" );
+            putKey( base + "reminders.0", "favourites" );
         }
 
         final String[] sels =
@@ -69,7 +69,7 @@ public class Migrate0_10_4To0_10_5 extends MigrationProcessBase
             final String base = sel.substring( 0, sel.length(  ) - 8 );
             final String selected = prefTo.remove( sel );
             putKey( base + "reminders.size", "1" );
-            putKey( base + "reminders.0.key", "default" );
+            putKey( base + "reminders.0.key", "favourites" );
             putKey( base + "reminders.0.value", selected );
         }
 
@@ -110,7 +110,7 @@ public class Migrate0_10_4To0_10_5 extends MigrationProcessBase
             Long.toString( -warn + giveUp ) );
 
         putKey( "modules/reminder-advanced/reminders.size", "1" );
-        putKey( "modules/reminder-advanced/reminders.0.name", "default" );
+        putKey( "modules/reminder-advanced/reminders.0.name", "favourites" );
         getAndRemoveKey( "version" );
         putKey( "version", "0.10.5" );
     }

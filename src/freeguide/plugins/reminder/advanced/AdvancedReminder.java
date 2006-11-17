@@ -86,15 +86,18 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
     {
         final long now = System.currentTimeMillis(  );
 
-        for( 
-            final Iterator<ManualSelection> it =
-                config.manualSelectionList.iterator(  ); it.hasNext(  ); )
+        synchronized( config )
         {
-            final ManualSelection sel = it.next(  );
-
-            if( sel.programmeTime < ( now - MAX_STORED_SELECTION_TIME ) )
+            for( 
+                final Iterator<ManualSelection> it =
+                    config.manualSelectionList.iterator(  ); it.hasNext(  ); )
             {
-                it.remove(  );
+                final ManualSelection sel = it.next(  );
+
+                if( sel.programmeTime < ( now - MAX_STORED_SELECTION_TIME ) )
+                {
+                    it.remove(  );
+                }
             }
         }
     }
@@ -108,11 +111,14 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
     {
         final Set<String> result = new TreeSet<String>(  );
 
-        for( final OneReminderConfig cfg : config.reminders )
+        synchronized( config )
         {
-            if( cfg.name != null )
+            for( final OneReminderConfig cfg : config.reminders )
             {
-                result.add( cfg.name );
+                if( cfg.name != null )
+                {
+                    result.add( cfg.name );
+                }
             }
         }
 
@@ -121,11 +127,15 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
 
     protected void onMenuItem(  )
     {
-        FavouritesController favController =
-            new FavouritesController( 
-                Application.getInstance(  ).getApplicationFrame(  ),
-                config.favouritesList,
-                Application.getInstance(  ).getDataStorage(  ).getInfo(  ).channelsList );
+        final FavouritesController favController;
+
+        synchronized( config )
+        {
+            favController = new FavouritesController( 
+                    Application.getInstance(  ).getApplicationFrame(  ),
+                    config.favouritesList,
+                    Application.getInstance(  ).getDataStorage(  ).getInfo(  ).channelsList );
+        }
 
         Utils.centreDialog( 
             Application.getInstance(  ).getApplicationFrame(  ),
@@ -134,7 +144,10 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
 
         if( favController.isChanged(  ) )
         {
-            config.favouritesList = favController.getFavourites(  );
+            synchronized( config )
+            {
+                config.favouritesList = favController.getFavourites(  );
+            }
 
             saveConfigNow(  );
 
@@ -198,33 +211,38 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
     {
         Set<String> deSelectedReminders = null;
 
-        for( final ManualSelection sel : config.manualSelectionList )
+        synchronized( config )
         {
-            if( sel.matches( programme ) )
+            for( final ManualSelection sel : config.manualSelectionList )
             {
-                for( final Boolean value : sel.reminders.values(  ) )
+                if( sel.matches( programme ) )
                 {
-                    if( value.booleanValue(  ) )
+                    for( final Boolean value : sel.reminders.values(  ) )
                     {
-                        return true;
+                        if( value.booleanValue(  ) )
+                        {
+                            return true;
+                        }
                     }
+
+                    deSelectedReminders = sel.reminders.keySet(  );
+
+                    break;
                 }
-
-                deSelectedReminders = sel.reminders.keySet(  );
             }
-        }
 
-        for( final Favourite fav : config.favouritesList )
-        {
-            if( fav.matches( programme ) )
+            for( final Favourite fav : config.favouritesList )
             {
-                for( final String reminder : fav.reminders )
+                if( fav.matches( programme ) )
                 {
-                    if( 
-                        ( deSelectedReminders == null )
-                            || !deSelectedReminders.contains( reminder ) )
+                    for( final String reminder : fav.reminders )
                     {
-                        return true;
+                        if( 
+                            ( deSelectedReminders == null )
+                                || !deSelectedReminders.contains( reminder ) )
+                        {
+                            return true;
+                        }
                     }
                 }
             }
@@ -240,27 +258,30 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
      */
     public void switchProgrammeSelection( TVProgramme programme )
     {
-        for( 
-            final Iterator<ManualSelection> it =
-                config.manualSelectionList.iterator(  ); it.hasNext(  ); )
+        synchronized( config )
         {
-            final ManualSelection sel = it.next(  );
-
-            if( sel.matches( programme ) )
+            for( 
+                final Iterator<ManualSelection> it =
+                    config.manualSelectionList.iterator(  ); it.hasNext(  ); )
             {
-                it.remove(  );
+                final ManualSelection sel = it.next(  );
 
-                return;
+                if( sel.matches( programme ) )
+                {
+                    it.remove(  );
+
+                    return;
+                }
             }
-        }
 
-        final ManualSelection sel = new ManualSelection( programme );
+            final ManualSelection sel = new ManualSelection( programme );
 
-        for( final OneReminderConfig rem : config.reminders )
-        {
-            if( rem.name != null )
+            for( final OneReminderConfig rem : config.reminders )
             {
-                sel.reminders.put( rem.name, Boolean.TRUE );
+                if( rem.name != null )
+                {
+                    sel.reminders.put( rem.name, Boolean.TRUE );
+                }
             }
         }
     }
@@ -341,48 +362,51 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
         final Map<String, Boolean> whereSelected =
             new TreeMap<String, Boolean>(  );
 
-        for( final ManualSelection sel : config.manualSelectionList )
+        synchronized( config )
         {
-            if( sel.matches( programme ) )
+            for( final ManualSelection sel : config.manualSelectionList )
             {
-                whereSelected.putAll( sel.reminders );
-                color = config.selectedColor;
-
-                break;
-            }
-        }
-
-        for( final Favourite fav : config.favouritesList )
-        {
-            if( fav.matches( programme ) )
-            {
-                for( final String reminder : fav.reminders )
+                if( sel.matches( programme ) )
                 {
-                    if( !whereSelected.containsKey( reminder ) )
+                    whereSelected.putAll( sel.reminders );
+                    color = config.selectedColor;
+
+                    break;
+                }
+            }
+
+            for( final Favourite fav : config.favouritesList )
+            {
+                if( fav.matches( programme ) )
+                {
+                    for( final String reminder : fav.reminders )
                     {
-                        whereSelected.put( reminder, Boolean.TRUE );
+                        if( !whereSelected.containsKey( reminder ) )
+                        {
+                            whereSelected.put( reminder, Boolean.TRUE );
+                        }
+                    }
+
+                    if( color == null )
+                    {
+                        color = fav.getSelectedColor(  );
                     }
                 }
-
-                if( color == null )
-                {
-                    color = fav.getSelectedColor(  );
-                }
             }
-        }
 
-        for( final OneReminderConfig cfg : config.reminders )
-        {
-            if( 
-                whereSelected.containsKey( cfg.name )
-                    && whereSelected.get( cfg.name ).booleanValue(  )
-                    && ( cfg.iconName != null ) )
+            for( final OneReminderConfig cfg : config.reminders )
             {
-                final ImageIcon i = getImage( cfg.iconName );
-
-                if( i != null )
+                if( 
+                    whereSelected.containsKey( cfg.name )
+                        && whereSelected.get( cfg.name ).booleanValue(  )
+                        && ( cfg.iconName != null ) )
                 {
-                    icons.add( i );
+                    final ImageIcon i = getImage( cfg.iconName );
+
+                    if( i != null )
+                    {
+                        icons.add( i );
+                    }
                 }
             }
         }

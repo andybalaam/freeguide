@@ -20,7 +20,7 @@ import javax.swing.text.Keymap;
  *
  * @author $author$
  * @version $Revision$
-  */
+ */
 public class TimeEditor extends JTextField
 {
     /** Mask for time string. */
@@ -78,7 +78,7 @@ public class TimeEditor extends JTextField
             }
         };
 
-    /**
+/**
      * Creates a new TimeEditor object.
      *
      * @param mode DOCUMENT ME!
@@ -303,7 +303,7 @@ public class TimeEditor extends JTextField
     {
         protected final int key;
 
-        /**
+/**
          * Creates a new KeyPressed object.
          *
          * @param key DOCUMENT ME!
@@ -340,8 +340,8 @@ public class TimeEditor extends JTextField
                 break;
 
             case KeyEvent.VK_LEFT:
-                setSelectPos( ( currentPos > 0 ) ? ( currentPos - 1 )
-                                                 : currentPos );
+                setSelectPos( 
+                    ( currentPos > 0 ) ? ( currentPos - 1 ) : currentPos );
 
                 break;
 
@@ -351,8 +351,8 @@ public class TimeEditor extends JTextField
                 break;
 
             case KeyEvent.VK_RIGHT:
-                setSelectPos( ( currentPos < 3 ) ? ( currentPos + 1 )
-                                                 : currentPos );
+                setSelectPos( 
+                    ( currentPos < 3 ) ? ( currentPos + 1 ) : currentPos );
 
                 break;
 

@@ -2,6 +2,8 @@ package freeguide.plugins.reminder.advanced;
 
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
+import freeguide.common.lib.fgspecific.selection.Favourite;
+import freeguide.common.lib.fgspecific.selection.ManualSelection;
 
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import freeguide.common.plugininterfaces.IModuleStorage;
@@ -17,6 +19,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -55,16 +61,19 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
         this.config = config;
         panel = new AdvancedReminderUIPanel(  );
 
-        for( final OneReminderConfig rem : config.reminders )
+        synchronized( config )
         {
-            final OneReminderPanel remPanel = new OneReminderPanel( rem );
-            panel.addReminderPanel( remPanel );
-            setupReminderPanel( remPanel, rem );
+            for( final OneReminderConfig rem : config.reminders )
+            {
+                final OneReminderPanel remPanel = new OneReminderPanel( rem );
+                panel.addReminderPanel( remPanel );
+                setupReminderPanel( remPanel, rem );
+            }
+
+            panel.tblChannels.setModel( new ChannelsTableModel( config ) );
         }
 
         panel.btnAddReminder.addActionListener( actionAddReminder );
-
-        panel.tblChannels.setModel( new ChannelsTableModel( config ) );
     }
 
     /**
@@ -123,9 +132,18 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
         List<OneReminderConfig> reminders =
             new ArrayList<OneReminderConfig>(  );
 
+        // map from old to new reminder names
+        final Map<String, String> oldToNewNames =
+            new TreeMap<String, String>(  );
+
         for( final OneReminderPanel remPanel : panel.reminderPanels )
         {
             final OneReminderConfig pc = remPanel.config;
+
+            if( pc.name != null )
+            {
+                oldToNewNames.put( pc.name, remPanel.txtName.getText(  ) );
+            }
 
             pc.name = remPanel.txtName.getText(  );
             pc.isPopup = remPanel.cbPopup.isSelected(  );
@@ -148,11 +166,13 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
             reminders.add( remPanel.config );
         }
 
-        config.reminders.clear(  );
-        config.reminders.addAll( reminders );
-
-        synchronized( config.channelsHardwareId )
+        synchronized( config )
         {
+            afterReminderRenamed( oldToNewNames );
+
+            config.reminders.clear(  );
+            config.reminders.addAll( reminders );
+
             for( final ChannelInfo ch : channelsHardwareData )
             {
                 if( ch.hardwareId != null )
@@ -165,6 +185,47 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
                     config.channelsHardwareId.remove( ch.channelID );
                 }
             }
+        }
+    }
+
+    protected void afterReminderRenamed( 
+        final Map<String, String> oldToNewNames )
+    {
+        for( final ManualSelection sel : config.manualSelectionList )
+        {
+            final Map<String, Boolean> newReminders =
+                new TreeMap<String, Boolean>(  );
+
+            for( final Map.Entry<String, Boolean> rem : sel.reminders.entrySet(  ) )
+            {
+                final String newName = oldToNewNames.get( rem.getKey(  ) );
+
+                if( newName != null )
+                {
+                    newReminders.put( newName, rem.getValue(  ) );
+                }
+            }
+
+            sel.reminders.clear(  );
+            sel.reminders.putAll( newReminders );
+        }
+
+        for( final Favourite fav : config.favouritesList )
+        {
+            final Set<String> newReminders = new TreeSet<String>(  );
+
+            for( final String rem : fav.reminders )
+            {
+                final String newName = oldToNewNames.get( rem );
+
+                if( newName != null )
+                {
+                    newReminders.add( newName );
+                }
+            }
+
+            fav.reminders.clear(  );
+            fav.reminders.addAll( newReminders );
         }
     }
 

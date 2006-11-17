@@ -224,6 +224,8 @@ public class ScheduleProcessor
                                     && fav.matches( programme ) )
                             {
                                 selected = true;
+
+                                break;
                             }
                         }
 
@@ -403,7 +405,7 @@ public class ScheduleProcessor
         protected final TaskInfo taskInfo;
         protected final long startTime;
         protected final long stopTime;
-        protected boolean isStarted = false;
+        protected STATE taskState;
 
 /**
          * Creates a new Task object.
@@ -422,31 +424,56 @@ public class ScheduleProcessor
             this.startTime = startTime;
             // stop time can be only after start time
             this.stopTime = Math.max( stopTime, startTime );
+            taskState = STATE.NOT_STARTED;
         }
 
         /**
          * DOCUMENT_ME!
          */
-        abstract public void start(  );
+        public final synchronized void start(  )
+        {
+            if( taskState == STATE.NOT_STARTED )
+            {
+                taskState = STATE.RUNNING;
+                startAction(  );
+            }
+        }
 
         /**
          * DOCUMENT_ME!
          */
-        abstract public void stop(  );
+        public final synchronized void stop(  )
+        {
+            if( taskState == STATE.RUNNING )
+            {
+                stopAction(  );
+                taskState = STATE.FINISHED;
+            }
+        }
 
         /**
-         * DOCUMENT_ME!
+         * Start task action.
+         */
+        abstract public void startAction(  );
+
+        /**
+         * Stop task action.
+         */
+        abstract public void stopAction(  );
+
+        /**
+         * Load data from old task.
          *
-         * @param oldTask DOCUMENT_ME!
+         * @param oldTask old task
          */
         abstract public void loadFrom( final Task oldTask );
 
         /**
-         * DOCUMENT_ME!
+         * Compare tasks.
          *
-         * @param obj DOCUMENT_ME!
+         * @param obj other task
          *
-         * @return DOCUMENT_ME!
+         * @return true if equals
          */
         public boolean equals( Object obj )
         {
@@ -461,6 +488,11 @@ public class ScheduleProcessor
             {
                 return false;
             }
+        }
+        public static enum STATE
+        {NOT_STARTED,
+            RUNNING,
+            FINISHED;
         }
     }
 
@@ -488,12 +520,10 @@ public class ScheduleProcessor
         }
 
         /**
-         * DOCUMENT_ME!
+         * Show popup on start task.
          */
-        public void start(  )
+        public void startAction(  )
         {
-            isStarted = true;
-
             if( AdvancedReminder.LOG.isLoggable( Level.INFO ) )
             {
                 AdvancedReminder.LOG.log( 
@@ -525,9 +555,9 @@ public class ScheduleProcessor
         }
 
         /**
-         * DOCUMENT_ME!
+         * Hide popup on stop task.
          */
-        public void stop(  )
+        public void stopAction(  )
         {
             if( AdvancedReminder.LOG.isLoggable( Level.INFO ) )
             {
@@ -546,13 +576,13 @@ public class ScheduleProcessor
         }
 
         /**
-         * DOCUMENT_ME!
+         * Load data from old task.
          *
-         * @param oldTask DOCUMENT_ME!
+         * @param oldTask old task
          */
         public void loadFrom( final Task oldTask )
         {
-            isStarted = oldTask.isStarted;
+            taskState = oldTask.taskState;
             scheduledDialog = ( (TaskPopup)oldTask ).scheduledDialog;
         }
     }
@@ -582,12 +612,10 @@ public class ScheduleProcessor
         }
 
         /**
-         * DOCUMENT_ME!
+         * Play sound on start task.
          */
-        public void start(  )
+        public void startAction(  )
         {
-            isStarted = true;
-
             if( AdvancedReminder.LOG.isLoggable( Level.INFO ) )
             {
                 AdvancedReminder.LOG.log( 
@@ -606,20 +634,20 @@ public class ScheduleProcessor
         }
 
         /**
-         * DOCUMENT_ME!
+         * Do nothing on stop task.
          */
-        public void stop(  )
+        public void stopAction(  )
         {
         }
 
         /**
-         * DOCUMENT_ME!
+         * Load data from old task.
          *
-         * @param oldTask DOCUMENT_ME!
+         * @param oldTask old task
          */
         public void loadFrom( final Task oldTask )
         {
-            isStarted = oldTask.isStarted;
+            taskState = oldTask.taskState;
         }
     }
 
@@ -660,30 +688,29 @@ public class ScheduleProcessor
         }
 
         /**
-         * DOCUMENT_ME!
+         * Execute command on start task.
          */
-        public void start(  )
+        public void startAction(  )
         {
-            isStarted = true;
             execute( substCommand( startCommand ) );
         }
 
         /**
-         * DOCUMENT_ME!
+         * Execute command on stop task.
          */
-        public void stop(  )
+        public void stopAction(  )
         {
             execute( substCommand( stopCommand ) );
         }
 
         /**
-         * DOCUMENT_ME!
+         * Load data from old task.
          *
-         * @param oldTask DOCUMENT_ME!
+         * @param oldTask old task
          */
         public void loadFrom( final Task oldTask )
         {
-            isStarted = oldTask.isStarted;
+            taskState = oldTask.taskState;
         }
 
         protected String substCommand( final String cmd )

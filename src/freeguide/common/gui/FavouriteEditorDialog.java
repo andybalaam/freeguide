@@ -177,7 +177,12 @@ public class FavouriteEditorDialog extends FGDialog
 
         for( final String selectedReminder : favourite.reminders )
         {
-            cbReminders.get( selectedReminder ).setSelected( true );
+            final JCheckBox cb = cbReminders.get( selectedReminder );
+
+            if( cb != null )
+            {
+                cb.setSelected( true );
+            }
         }
 
         calcTxtName(  );
