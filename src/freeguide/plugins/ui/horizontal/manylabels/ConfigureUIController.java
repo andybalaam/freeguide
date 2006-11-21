@@ -91,9 +91,11 @@ public class ConfigureUIController implements IModuleConfigurationUI
 
 /**
      * Creates a new ConfigureUIController object.
-     *
-     * @param parent DOCUMENT ME!
-     * @param parentDialog DOCUMENT ME!
+     * 
+     * @param parent
+     *            DOCUMENT ME!
+     * @param parentDialog
+     *            DOCUMENT ME!
      */
     public ConfigureUIController( 
         final HorizontalViewer parent, final JDialog parentDialog )
@@ -103,11 +105,6 @@ public class ConfigureUIController implements IModuleConfigurationUI
         this.inDialog = parentDialog;
 
         config = (HorizontalViewerConfig)parent.config.clone(  );
-
-        panel = new ConfigureUIPanel( parent.getLocalizer(  ) );
-
-        setup(  );
-
     }
 
     /**
@@ -122,20 +119,24 @@ public class ConfigureUIController implements IModuleConfigurationUI
      */
     public void save(  )
     {
-        config.fontName = currentFont.getName(  );
-        config.fontSize = currentFont.getSize(  );
-        config.fontStyle = currentFont.getStyle(  );
-        config.sizeChannelHeight = panel.getSliderHeight(  ).getValue(  );
-        config.sizeProgrammePanelWidth = panel.getSliderWidth(  ).getValue(  ) * 24;
-        config.colorChannel = panel.getPanelColorChannel(  ).getBackground(  );
-        config.colorNonTicked = panel.getPanelColorNormal(  ).getBackground(  );
-        config.displayTooltips = panel.getCbDisplayTooltips(  ).isSelected(  );
-        config.displayTime = panel.getCbDrawTime(  ).isSelected(  );
-        config.displayAlignToLeft = panel.getCbAlignLeft(  ).isSelected(  );
-        config.display24time = panel.getRbTime24(  ).isSelected(  );
-        config.dayStartTime = new Time( panel.getDayStart(  ).getText(  ) );
-        parent.config = config;
-        parent.redraw(  );
+        if( panel != null )
+        {
+            config.fontName = currentFont.getName(  );
+            config.fontSize = currentFont.getSize(  );
+            config.fontStyle = currentFont.getStyle(  );
+            config.sizeChannelHeight = panel.getSliderHeight(  ).getValue(  );
+            config.sizeProgrammePanelWidth = panel.getSliderWidth(  ).getValue(  ) * 24;
+            config.colorChannel = panel.getPanelColorChannel(  ).getBackground(  );
+            config.colorNonTicked = panel.getPanelColorNormal(  )
+                                         .getBackground(  );
+            config.displayTooltips = panel.getCbDisplayTooltips(  ).isSelected(  );
+            config.displayTime = panel.getCbDrawTime(  ).isSelected(  );
+            config.displayAlignToLeft = panel.getCbAlignLeft(  ).isSelected(  );
+            config.display24time = panel.getRbTime24(  ).isSelected(  );
+            config.dayStartTime = new Time( panel.getDayStart(  ).getText(  ) );
+            parent.config = config;
+            parent.redraw(  );
+        }
     }
 
     /**
@@ -152,8 +153,13 @@ public class ConfigureUIController implements IModuleConfigurationUI
      */
     public Component getPanel(  )
     {
-        return panel;
+        if( panel == null )
+        {
+            panel = new ConfigureUIPanel( parent.getLocalizer(  ) );
+            setup(  );
+        }
 
+        return panel;
     }
 
     protected void setup(  )

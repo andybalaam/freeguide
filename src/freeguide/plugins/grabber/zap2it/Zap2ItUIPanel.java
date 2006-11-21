@@ -17,14 +17,14 @@ import javax.swing.SpinnerNumberModel;
  *
  * @author $author$
  * @version $Revision$
-  */
+ */
 public class Zap2ItUIPanel extends JPanel
 {
     protected JTextField textUser;
     protected JTextField textPass;
     protected SpinnerNumberModel daysLoad;
 
-    /**
+/**
      * Creates a new Zap2ItUIPanel object.
      *
      * @param i18n DOCUMENT ME!

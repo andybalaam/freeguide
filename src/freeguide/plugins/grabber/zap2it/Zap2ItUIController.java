@@ -5,17 +5,16 @@ import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import java.awt.Component;
 
 /**
- * DOCUMENT ME!
+ * Controller for zap2it configuration.
  *
- * @author $author$
- * @version $Revision$
-  */
+ * @author Alex Buloichik
+ */
 public class Zap2ItUIController implements IModuleConfigurationUI
 {
-    protected final Zap2ItUIPanel panel;
+    protected Zap2ItUIPanel panel;
     protected final GrabberZap2It parent;
 
-    /**
+/**
      * Creates a new Zap2ItUIController object.
      *
      * @param parent DOCUMENT ME!
@@ -23,9 +22,6 @@ public class Zap2ItUIController implements IModuleConfigurationUI
     public Zap2ItUIController( final GrabberZap2It parent )
     {
         this.parent = parent;
-        panel = new Zap2ItUIPanel( parent.getLocalizer(  ) );
-        panel.textUser.setText( parent.config.username );
-        panel.textPass.setText( parent.config.password );
     }
 
     /**
@@ -35,6 +31,13 @@ public class Zap2ItUIController implements IModuleConfigurationUI
      */
     public Component getPanel(  )
     {
+        if( panel == null )
+        {
+            panel = new Zap2ItUIPanel( parent.getLocalizer(  ) );
+            panel.textUser.setText( parent.config.username );
+            panel.textPass.setText( parent.config.password );
+        }
+
         return panel;
     }
 
@@ -57,7 +60,10 @@ public class Zap2ItUIController implements IModuleConfigurationUI
      */
     public void save(  )
     {
-        parent.config.username = panel.textUser.getText(  );
-        parent.config.password = panel.textPass.getText(  );
+        if( panel != null )
+        {
+            parent.config.username = panel.textUser.getText(  );
+            parent.config.password = panel.textPass.getText(  );
+        }
     }
 }

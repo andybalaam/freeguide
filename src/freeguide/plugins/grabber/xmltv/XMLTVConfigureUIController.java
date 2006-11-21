@@ -32,7 +32,7 @@ import javax.swing.text.Document;
 public class XMLTVConfigureUIController implements IModuleConfigurationUI
 {
     final protected GrabberXMLTV parent;
-    final protected XMLTVConfigureUIPanel panel;
+    protected XMLTVConfigureUIPanel panel;
     final protected XMLTVConfig config;
     protected Color textNoEdited;
     protected Color textEdited = Color.BLUE;
@@ -75,32 +75,6 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
                 + ( Application.getInstance(  ).isUnix(  ) ? "lin" : "win" ) );
 
         config = (XMLTVConfig)parent.config.clone(  );
-
-        panel = new XMLTVConfigureUIPanel( parent.getLocalizer(  ) );
-
-        for( int i = 0; i < config.modules.size(  ); i++ )
-        {
-            addModule( (XMLTVConfig.ModuleInfo)config.modules.get( i ) );
-        }
-
-        panel.getBtnAdd(  ).addActionListener( 
-            new ActionListener(  )
-            {
-                public void actionPerformed( ActionEvent e )
-                {
-                    XMLTVConfig.ModuleInfo info =
-                        new XMLTVConfig.ModuleInfo(  );
-
-                    synchronized( config.modules )
-                    {
-                        config.modules.add( info );
-                    }
-
-                    addModule( info );
-                    panel.revalidate(  );
-                    panel.repaint(  );
-                }
-            } );
     }
 
     /**
@@ -126,8 +100,36 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
      */
     public Component getPanel(  )
     {
-        return panel;
+        if( panel == null )
+        {
+            panel = new XMLTVConfigureUIPanel( parent.getLocalizer(  ) );
 
+            for( int i = 0; i < config.modules.size(  ); i++ )
+            {
+                addModule( (XMLTVConfig.ModuleInfo)config.modules.get( i ) );
+            }
+
+            panel.getBtnAdd(  ).addActionListener( 
+                new ActionListener(  )
+                {
+                    public void actionPerformed( ActionEvent e )
+                    {
+                        XMLTVConfig.ModuleInfo info =
+                            new XMLTVConfig.ModuleInfo(  );
+
+                        synchronized( config.modules )
+                        {
+                            config.modules.add( info );
+                        }
+
+                        addModule( info );
+                        panel.revalidate(  );
+                        panel.repaint(  );
+                    }
+                } );
+        }
+
+        return panel;
     }
 
     /**

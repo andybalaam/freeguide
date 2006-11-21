@@ -45,6 +45,7 @@ import javax.swing.JFrame;
 public class ExpMobile extends BaseModule implements IModuleExport
 {
     protected static Time DAY_BEGIN = new Time( 5 );
+    protected static final long MSEC_PER_DAY = 24L * 60L * 60L * 1000L;
 
     /** Pattern for data files. */
     protected static Pattern DATA_FILE_RE =
@@ -129,7 +130,9 @@ public class ExpMobile extends BaseModule implements IModuleExport
         throws IOException
     {
         final DivideIterator itdivide =
-            new DivideIterator( Calendar.getInstance( tz ) );
+            new DivideIterator( 
+                Calendar.getInstance( tz ),
+                System.currentTimeMillis(  ) - ( MSEC_PER_DAY * 3 ) );
         data.iterate( itdivide );
 
         for( 
@@ -283,9 +286,9 @@ public class ExpMobile extends BaseModule implements IModuleExport
      */
     protected static class DivideIterator extends TVIteratorProgrammes
     {
-        protected static final long MSEC_PER_DAY = 24L * 60L * 60L * 1000L;
         protected final SimpleDateFormat dateFormat;
         protected final Calendar calendar;
+        protected final long minimumDate;
 
         /**
          * Map for store TVData by day. Key is day, value is
@@ -296,10 +299,12 @@ public class ExpMobile extends BaseModule implements IModuleExport
 /**
          * Creates a new DivideIterator object.
          */
-        public DivideIterator( final Calendar calendar )
+        public DivideIterator( 
+            final Calendar calendar, final long minimumDate )
         {
             this.calendar = calendar;
             dateFormat = new SimpleDateFormat( "yyyy-MM-dd" );
+            this.minimumDate = minimumDate;
         }
 
         protected void onChannel( TVChannel channel )
@@ -309,6 +314,13 @@ public class ExpMobile extends BaseModule implements IModuleExport
         protected void onProgramme( TVProgramme programme )
         {
             final String fileName = getFileName( programme.getStart(  ) );
+
+            if( fileName == null )
+            {
+                // too old programme for export
+                return;
+            }
+
             TVData data = (TVData)filesData.get( fileName );
 
             if( data == null )
@@ -324,16 +336,22 @@ public class ExpMobile extends BaseModule implements IModuleExport
 
         protected String getFileName( long date )
         {
-            calendar.setTime( new Date( date ) );
+            calendar.setTimeInMillis( date );
 
             Time pTime = new Time( calendar );
 
             if( pTime.compareTo( DAY_BEGIN ) < 0 )
             {
-                date -= MSEC_PER_DAY;
+                calendar.add( Calendar.DAY_OF_YEAR, -1 );
             }
 
-            return dateFormat.format( new Date( date ) );
+            calendar.set( Calendar.HOUR_OF_DAY, 0 );
+            calendar.set( Calendar.MINUTE, 0 );
+            calendar.set( Calendar.SECOND, 0 );
+            calendar.set( Calendar.MILLISECOND, 0 );
+
+            return ( calendar.getTimeInMillis(  ) >= minimumDate )
+            ? dateFormat.format( calendar.getTime(  ) ) : null;
         }
     }
 

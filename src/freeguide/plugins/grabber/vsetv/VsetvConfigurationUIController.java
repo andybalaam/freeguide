@@ -19,7 +19,7 @@ public class VsetvConfigurationUIController implements IModuleConfigurationUI
 {
     protected static final String CHPREFIX = "ChannelGroup.";
     protected final GrabberVsetv parent;
-    protected final VsetvConfigurationUIPanel panel;
+    protected VsetvConfigurationUIPanel panel;
     protected final List chs = new ArrayList(  );
 
 /**
@@ -30,66 +30,6 @@ public class VsetvConfigurationUIController implements IModuleConfigurationUI
     public VsetvConfigurationUIController( final GrabberVsetv parent )
     {
         this.parent = parent;
-
-        panel = new VsetvConfigurationUIPanel( parent.getLocalizer(  ) );
-
-        panel.getTextUser(  ).setText( parent.config.user );
-
-        panel.getTextPass(  ).setText( parent.config.pass );
-
-        DefaultListModel list = new DefaultListModel(  );
-
-        int sel = -1;
-
-        Enumeration it = parent.getLocalizer(  ).getKeys(  );
-
-        while( it.hasMoreElements(  ) )
-        {
-            String key = (String)it.nextElement(  );
-
-            if( key.startsWith( CHPREFIX ) )
-            {
-                String value = parent.getLocalizer(  ).getString( key );
-
-                key = key.substring( CHPREFIX.length(  ) );
-
-                list.addElement( value );
-
-                if( key.equals( parent.config.channelGroup ) )
-                {
-                    sel = chs.size(  );
-
-                }
-
-                chs.add( key );
-
-            }
-        }
-
-        panel.getListChannels(  ).setModel( list );
-
-        if( sel == -1 )
-        {
-            sel = chs.indexOf( "base" );
-
-        }
-
-        panel.getListChannels(  ).setSelectedIndex( sel );
-
-        if( parent.config.isAuth )
-        {
-            panel.getRbAuth(  ).setSelected( true );
-
-        }
-
-        else
-        {
-            panel.getRbNoAuth(  ).setSelected( true );
-
-        }
-
-        panel.getCbGetAll(  ).setSelected( parent.config.isGetAll );
-
     }
 
     /**
@@ -99,8 +39,69 @@ public class VsetvConfigurationUIController implements IModuleConfigurationUI
      */
     public Component getPanel(  )
     {
-        return panel;
+        if( panel == null )
+        {
+            panel = new VsetvConfigurationUIPanel( parent.getLocalizer(  ) );
 
+            panel.getTextUser(  ).setText( parent.config.user );
+
+            panel.getTextPass(  ).setText( parent.config.pass );
+
+            DefaultListModel list = new DefaultListModel(  );
+
+            int sel = -1;
+
+            Enumeration it = parent.getLocalizer(  ).getKeys(  );
+
+            while( it.hasMoreElements(  ) )
+            {
+                String key = (String)it.nextElement(  );
+
+                if( key.startsWith( CHPREFIX ) )
+                {
+                    String value = parent.getLocalizer(  ).getString( key );
+
+                    key = key.substring( CHPREFIX.length(  ) );
+
+                    list.addElement( value );
+
+                    if( key.equals( parent.config.channelGroup ) )
+                    {
+                        sel = chs.size(  );
+
+                    }
+
+                    chs.add( key );
+
+                }
+            }
+
+            panel.getListChannels(  ).setModel( list );
+
+            if( sel == -1 )
+            {
+                sel = chs.indexOf( "base" );
+
+            }
+
+            panel.getListChannels(  ).setSelectedIndex( sel );
+
+            if( parent.config.isAuth )
+            {
+                panel.getRbAuth(  ).setSelected( true );
+
+            }
+
+            else
+            {
+                panel.getRbNoAuth(  ).setSelected( true );
+
+            }
+
+            panel.getCbGetAll(  ).setSelected( parent.config.isGetAll );
+        }
+
+        return panel;
     }
 
     /**
@@ -115,6 +116,11 @@ public class VsetvConfigurationUIController implements IModuleConfigurationUI
      */
     public void save(  )
     {
+        if( panel == null )
+        {
+            return;
+        }
+
         parent.config.isAuth = panel.getRbAuth(  ).isSelected(  );
 
         parent.config.user = panel.getTextUser(  ).getText(  );

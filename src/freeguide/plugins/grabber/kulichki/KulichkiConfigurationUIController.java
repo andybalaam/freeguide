@@ -19,7 +19,7 @@ public class KulichkiConfigurationUIController
     implements IModuleConfigurationUI
 {
     final protected GrabberKulichki parent;
-    final protected KulichkiConfigurationUIPanel panel;
+    protected KulichkiConfigurationUIPanel panel;
     final protected KulichkiConfig config;
 
 /**
@@ -32,33 +32,6 @@ public class KulichkiConfigurationUIController
         this.parent = parent;
 
         this.config = (KulichkiConfig)parent.config.clone(  );
-
-        panel = new KulichkiConfigurationUIPanel(  );
-
-        panel.getTreeChannels(  ).setData( config.channels );
-
-        panel.getBtnRefresh(  ).addActionListener( 
-            new ActionListener(  )
-            {
-                public void actionPerformed( ActionEvent e )
-                {
-                    try
-                    {
-                        config.channels.allChannels = parent.getChannelsList(  );
-
-                        config.channels.normalize(  );
-
-                        panel.getTreeChannels(  ).setData( config.channels );
-                    }
-                    catch( Exception ex )
-                    {
-                        Application.getInstance(  ).getLogger(  )
-                                   .log( 
-                            Level.WARNING,
-                            "Error load channels list from tv.kulichki.net", ex );
-                    }
-                }
-            } );
     }
 
     /**
@@ -68,8 +41,40 @@ public class KulichkiConfigurationUIController
      */
     public Component getPanel(  )
     {
-        return panel;
+        if( panel == null )
+        {
+            panel = new KulichkiConfigurationUIPanel(  );
 
+            panel.getTreeChannels(  ).setData( config.channels );
+
+            panel.getBtnRefresh(  ).addActionListener( 
+                new ActionListener(  )
+                {
+                    public void actionPerformed( ActionEvent e )
+                    {
+                        try
+                        {
+                            config.channels.allChannels = parent
+                                .getChannelsList(  );
+
+                            config.channels.normalize(  );
+
+                            panel.getTreeChannels(  ).setData( 
+                                config.channels );
+                        }
+                        catch( Exception ex )
+                        {
+                            Application.getInstance(  ).getLogger(  )
+                                       .log( 
+                                Level.WARNING,
+                                "Error load channels list from tv.kulichki.net",
+                                ex );
+                        }
+                    }
+                } );
+        }
+
+        return panel;
     }
 
     /**

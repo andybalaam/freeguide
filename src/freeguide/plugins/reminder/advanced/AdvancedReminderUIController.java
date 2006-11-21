@@ -33,7 +33,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class AdvancedReminderUIController implements IModuleConfigurationUI
 {
-    protected final AdvancedReminderUIPanel panel;
+    protected AdvancedReminderUIPanel panel;
     protected final AdvancedReminder.Config config;
     protected List<ChannelInfo> channelsHardwareData;
     protected ActionListener actionAddReminder =
@@ -59,21 +59,6 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
     public AdvancedReminderUIController( final AdvancedReminder.Config config )
     {
         this.config = config;
-        panel = new AdvancedReminderUIPanel(  );
-
-        synchronized( config )
-        {
-            for( final OneReminderConfig rem : config.reminders )
-            {
-                final OneReminderPanel remPanel = new OneReminderPanel( rem );
-                panel.addReminderPanel( remPanel );
-                setupReminderPanel( remPanel, rem );
-            }
-
-            panel.tblChannels.setModel( new ChannelsTableModel( config ) );
-        }
-
-        panel.btnAddReminder.addActionListener( actionAddReminder );
     }
 
     /**
@@ -121,6 +106,26 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
      */
     public Component getPanel(  )
     {
+        if( panel == null )
+        {
+            panel = new AdvancedReminderUIPanel(  );
+
+            synchronized( config )
+            {
+                for( final OneReminderConfig rem : config.reminders )
+                {
+                    final OneReminderPanel remPanel =
+                        new OneReminderPanel( rem );
+                    panel.addReminderPanel( remPanel );
+                    setupReminderPanel( remPanel, rem );
+                }
+
+                panel.tblChannels.setModel( new ChannelsTableModel( config ) );
+            }
+
+            panel.btnAddReminder.addActionListener( actionAddReminder );
+        }
+
         return panel;
     }
 
@@ -129,6 +134,11 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
      */
     public void save(  )
     {
+        if( panel == null )
+        {
+            return;
+        }
+
         List<OneReminderConfig> reminders =
             new ArrayList<OneReminderConfig>(  );
 

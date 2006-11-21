@@ -84,11 +84,14 @@ public class PanelGeneralController implements IModuleConfigurationUI
      */
     public void resetToDefaults(  )
     {
-        panel.getTextWorkingDir(  ).setText( 
-            FreeGuide.config.workingDirectory );
+        if( panel != null )
+        {
+            panel.getTextWorkingDir(  )
+                 .setText( FreeGuide.config.workingDirectory );
 
-        panel.getCbLF(  ).setSelectedIndex( 0 );
-        panel.getCbLang(  ).setSelectedIndex( 0 );
+            panel.getCbLF(  ).setSelectedIndex( 0 );
+            panel.getCbLang(  ).setSelectedIndex( 0 );
+        }
     }
 
     /**
@@ -96,6 +99,11 @@ public class PanelGeneralController implements IModuleConfigurationUI
      */
     public void save(  )
     {
+        if( panel == null )
+        {
+            return;
+        }
+
         FreeGuide.config.workingDirectory = panel.getTextWorkingDir(  )
                                                  .getText(  );
 

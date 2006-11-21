@@ -25,15 +25,13 @@ import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 
-import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -59,14 +57,10 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
     // -----------------------------------------
     private JTree menuTree;
     private OptionPanel currentOptionPanel;
-    private JPanel optionsPane;
-    private CardLayout optionsPaneLayout;
     private JButton okButton;
     private JButton cancelButton;
     private JButton defaultButton;
-    protected List modulesConf = new ArrayList(  );
-    protected List modulesParents = new ArrayList(  );
-    JSplitPane splitPane;
+    protected JSplitPane splitPane;
 
 /**
      * Launch this screen as a normal options screen with everything on it.
@@ -88,10 +82,6 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
      */
     private void buildGUI(  )
     {
-        optionsPaneLayout = new CardLayout(  );
-        optionsPane = new JPanel( optionsPaneLayout );
-        optionsPane.add( new JPanel(  ), "" );
-
         // Make the standard objects
         DefaultMutableTreeNode defaultLeaf = buildMenuTree(  );
 
@@ -130,8 +120,6 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
         splitPane.setLeftComponent( menuScrollPane );
 
-        splitPane.setRightComponent( optionsPane );
-
         // Make the menu tree
         setTreeNode( defaultLeaf );
 
@@ -146,8 +134,6 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
         // Set dialog-wide stuff
         getRootPane(  ).setDefaultButton( okButton );
-
-        optionsPaneLayout.first( optionsPane );
 
         pack(  );
 
@@ -176,10 +162,6 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
                     ui,
                     Application.getInstance(  ).getLocalizedMessage( 
                         "general" ) ) );
-        optionsPane.add( 
-            ui.getPanel(  ),
-            Application.getInstance(  ).getLocalizedMessage( "general" ) );
-        modulesConf.add( ui );
 
         trunk.add( generalLeaf );
 
@@ -194,18 +176,12 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
                                .getLocalizedMessage( 
                         "Options.Tree.HorizontalViewer" ) ) );
 
-        optionsPane.add( 
-            ui.getPanel(  ),
-            Application.getInstance(  )
-                       .getLocalizedMessage( "Options.Tree.HorizontalViewer" ) );
-        modulesConf.add( ui );
         trunk.add( horzViewer );
 
         OptionPanel panel = new BrowserOptionPanel( this );
         DefaultMutableTreeNode browserLeaf =
             new DefaultMutableTreeNode( panel );
         panel.construct(  );
-        optionsPane.add( panel, panel.toString(  ) );
 
         trunk.add( browserLeaf );
 
@@ -214,7 +190,6 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         DefaultMutableTreeNode privateLeaf =
             new DefaultMutableTreeNode( panel );
         panel.construct(  );
-        optionsPane.add( panel, panel.toString(  ) );
 
         trunk.add( privateLeaf );
 
@@ -227,7 +202,6 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
         panel = new GrabbersOptionPanel( this );
         panel.construct(  );
-        optionsPane.add( panel, panel.toString(  ) );
 
         addBranchWithModules( 
             advancedBranch, panel, PluginsManager.getGrabbers(  ) );
@@ -289,15 +263,10 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
             if( confUI != null )
             {
-                modulesConf.add( confUI );
-
-                DefaultMutableTreeNode modBranch =
+                final DefaultMutableTreeNode modBranch =
                     new DefaultMutableTreeNode( 
                         new ModuleNode( confUI, plugins[i].getName(  ) ) );
-
-                optionsPane.add( confUI.getPanel(  ), plugins[i].getName(  ) );
                 branch.add( modBranch );
-
             }
         }
 
@@ -339,35 +308,37 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
             OptionPanel newOptionPanel = (OptionPanel)userObject;
 
             replaceOptionPanel( newOptionPanel );
-
         }
-
         else if( userObject instanceof ModuleNode )
         {
             replaceOptionPanel( (ModuleNode)userObject );
-
         }
-
         else
         {
             clearOptionPanel(  );
-
         }
     }
 
     private void replaceOptionPanel( OptionPanel newOptionPanel )
     {
-        optionsPaneLayout.show( optionsPane, newOptionPanel.toString(  ) );
+        showPanel( newOptionPanel );
     }
 
     private void replaceOptionPanel( ModuleNode moduleNode )
     {
-        optionsPaneLayout.show( optionsPane, moduleNode.toString(  ) );
+        showPanel( moduleNode.confUI.getPanel(  ) );
     }
 
     private void clearOptionPanel(  )
     {
-        optionsPaneLayout.first( optionsPane );
+        showPanel( new JPanel(  ) );
+    }
+
+    protected void showPanel( final Component comp )
+    {
+        int pos = splitPane.getDividerLocation(  );
+        splitPane.setRightComponent( comp );
+        splitPane.setDividerLocation( pos );
     }
 
     /**
@@ -413,18 +384,13 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
                     setChanged(  );
 
                     setSave(  );
-
                 }
             }
-        }
-
-        for( int i = 0; i < modulesConf.size(  ); i++ )
-        {
-            IModuleConfigurationUI m =
-                (IModuleConfigurationUI)modulesConf.get( i );
-
-            m.save(  );
-
+            else if( userObject instanceof ModuleNode )
+            {
+                IModuleConfigurationUI m = ( (ModuleNode)userObject ).confUI;
+                m.save(  );
+            }
         }
 
         PluginsManager.saveAllConfigs(  );
@@ -450,21 +416,18 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
     }
 
     /**
-     * DOCUMENT ME!
-     *
-     * @author $author$
-     * @version $Revision$
+     * Node which has title and IModuleConfigurationUI link.
      */
     public static class ModuleNode
     {
-        IModuleConfigurationUI confUI;
-        String title;
+        protected final IModuleConfigurationUI confUI;
+        protected final String title;
 
 /**
          * Creates a new ModuleNode object.
          *
-         * @param confUI DOCUMENT ME!
-         * @param title DOCUMENT ME!
+         * @param confUI configuration interface
+         * @param title node title
          */
         public ModuleNode( IModuleConfigurationUI confUI, final String title )
         {
@@ -473,14 +436,13 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         }
 
         /**
-         * DOCUMENT_ME!
+         * Show title.
          *
-         * @return DOCUMENT_ME!
+         * @return title
          */
         public String toString(  )
         {
             return title;
-
         }
     }
 }

@@ -102,6 +102,11 @@ public class HallmarkConfigurationUIController
      */
     public void save(  )
     {
+        if( panel == null )
+        {
+            return;
+        }
+
         HallmarkInfo.Country country =
             (HallmarkInfo.Country)panel.getCbCountry(  ).getSelectedItem(  );
 
