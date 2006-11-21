@@ -99,15 +99,15 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
             } );
         remPanel.txtName.setText( config.name );
         remPanel.cbPopup.setSelected( config.isPopup );
-        remPanel.tmPopupShow.setValue( -config.popupOpenTime );
-        remPanel.tmPopupHide.setValue( config.popupCloseTime );
+        remPanel.tmPopupShow.setTimeValue( -config.popupOpenTime );
+        remPanel.tmPopupHide.setTimeValue( config.popupCloseTime );
         remPanel.cbSound.setSelected( config.isSound );
-        remPanel.tmSound.setValue( -config.soundPlayTime );
+        remPanel.tmSound.setTimeValue( -config.soundPlayTime );
         remPanel.txtSoundFile.setText( config.soundFile );
         remPanel.cbExecute.setSelected( config.isExecute );
-        remPanel.tmExecuteStart.setValue( -config.executeStartTime );
+        remPanel.tmExecuteStart.setTimeValue( -config.executeStartTime );
         remPanel.txtExecuteStart.setText( config.executeStartCommand );
-        remPanel.tmExecuteStop.setValue( 
+        remPanel.tmExecuteStop.setTimeValue( 
             config.executeStopTimeOnFinishProgramme );
         remPanel.txtExecuteStop.setText( config.executeStopCommand );
         remPanel.config = config;
@@ -147,16 +147,16 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
 
             pc.name = remPanel.txtName.getText(  );
             pc.isPopup = remPanel.cbPopup.isSelected(  );
-            pc.popupOpenTime = -remPanel.tmPopupShow.getValue(  );
-            pc.popupCloseTime = remPanel.tmPopupHide.getValue(  );
+            pc.popupOpenTime = -remPanel.tmPopupShow.getTimeValue(  );
+            pc.popupCloseTime = remPanel.tmPopupHide.getTimeValue(  );
             pc.isSound = remPanel.cbSound.isSelected(  );
-            pc.soundPlayTime = -remPanel.tmSound.getValue(  );
+            pc.soundPlayTime = -remPanel.tmSound.getTimeValue(  );
             pc.soundFile = remPanel.txtSoundFile.getText(  );
             pc.isExecute = remPanel.cbExecute.isSelected(  );
-            pc.executeStartTime = -remPanel.tmExecuteStart.getValue(  );
+            pc.executeStartTime = -remPanel.tmExecuteStart.getTimeValue(  );
             pc.executeStartCommand = remPanel.txtExecuteStart.getText(  );
             pc.executeStopTimeOnFinishProgramme = remPanel.tmExecuteStop
-                .getValue(  );
+                .getTimeValue(  );
             pc.executeStopCommand = remPanel.txtExecuteStop.getText(  );
 
             final OneReminderPanel.CBItem item =

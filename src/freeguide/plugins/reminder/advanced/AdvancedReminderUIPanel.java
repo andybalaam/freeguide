@@ -1,18 +1,11 @@
 package freeguide.plugins.reminder.advanced;
 
-import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.fgspecific.data.TVChannelsSet;
-
-import freeguide.common.plugininterfaces.IModuleStorage;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -20,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.table.AbstractTableModel;
 
 /**
  * Panel for edit reminders.
