@@ -74,6 +74,8 @@ public class GrabberZap2It extends BaseModule implements IModuleGrabber
         IProgress progress, ILogger logger, IStoragePipe storage )
         throws Exception
     {
+        progress.setProgressValue(0);
+
         final SOAPRequest soapRequest =
             new SOAPRequest( config.username, config.password );
         Calendar start = Calendar.getInstance(  );
@@ -136,6 +138,8 @@ public class GrabberZap2It extends BaseModule implements IModuleGrabber
         }
 
         storage.finishBlock(  );
+        
+        progress.setProgressValue(100);
     }
 
     /**
