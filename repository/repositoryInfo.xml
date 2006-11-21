@@ -21,6 +21,8 @@
   </package>
   <package id="grabber-xmltv" version="2" type="plugin-grabber" repositoryPath="package-grabber-xmltv-2.zip">
   </package>
+  <package id="grabber-zap2it" version="1" type="plugin-grabber" repositoryPath="package-grabber-zap2it-1.zip">
+  </package>
   <package id="importexport-html" version="1" type="plugin-importexport" repositoryPath="package-importexport-html-1.zip">
   </package>
   <package id="importexport-jtv" version="2" type="plugin-importexport" repositoryPath="package-importexport-jtv-2.zip">

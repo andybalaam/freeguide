@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="grabber-zap2it"
+        version="1"
+        class="freeguide.plugins.grabber.zap2it.GrabberZap2It">
+
+  <files>
+    <file path="lib/grabber-zap2it.jar"/>
+    <file path="lib/"/>
+  </files>
+</plugin>

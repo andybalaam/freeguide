@@ -52,6 +52,11 @@
       <param name="plugin-version" value="2"/>
     </antcall>
     <antcall target="${actual-target}">
+      <param name="plugin-id" value="grabber-zap2it"/>
+      <param name="plugin-dir" value="grabber/zap2it"/>
+      <param name="plugin-version" value="1"/>
+    </antcall>
+    <antcall target="${actual-target}">
       <param name="plugin-id" value="importexport-html"/>
       <param name="plugin-dir" value="importexport/html"/>
       <param name="plugin-version" value="1"/>
