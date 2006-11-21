@@ -74,7 +74,7 @@ public class GrabberZap2It extends BaseModule implements IModuleGrabber
         IProgress progress, ILogger logger, IStoragePipe storage )
         throws Exception
     {
-        progress.setProgressValue(0);
+        progress.setProgressValue( 0 );
 
         final SOAPRequest soapRequest =
             new SOAPRequest( config.username, config.password );
@@ -90,9 +90,13 @@ public class GrabberZap2It extends BaseModule implements IModuleGrabber
                 it.hasNext(  ); )
         {
             final Station station = (Station)it.next(  );
-            storage.addChannel( 
+            final TVChannel ch =
                 new TVChannel( 
-                    "zap2it/" + station.getCallSign(  ), station.getName(  ) ) );
+                    "zap2it/" + station.getCallSign(  ), station.getName(  ) );
+            ch.setIconURL( 
+                "http://images.zap2it.com/station_logo/"
+                + station.getCallSign(  ).toLowerCase(  ) + ".jpg" );
+            storage.addChannel( ch );
         }
 
         for( Iterator it = xtvd.getSchedules(  ).iterator(  ); it.hasNext(  ); )
@@ -138,8 +142,8 @@ public class GrabberZap2It extends BaseModule implements IModuleGrabber
         }
 
         storage.finishBlock(  );
-        
-        progress.setProgressValue(100);
+
+        progress.setProgressValue( 100 );
     }
 
     /**
