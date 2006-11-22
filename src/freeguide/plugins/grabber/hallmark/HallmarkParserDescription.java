@@ -13,6 +13,10 @@ import org.xml.sax.SAXException;
  */
 public class HallmarkParserDescription extends HtmlHelper.DefaultContentHandler
 {
+    protected static final String TAG_SPAN = "span";
+    protected static final String TAG_BR = "br";
+    protected static final String ATTR_CLASS = "class";
+    protected static final String CLASS_GENERAL_TEXT = "generalText";
     protected boolean parse = false;
     protected StringBuffer text = new StringBuffer(  );
 
@@ -31,13 +35,13 @@ public class HallmarkParserDescription extends HtmlHelper.DefaultContentHandler
         throws SAXException
     {
         if( 
-            "span".equals( qName )
-                && "generalText".equals( atts.getValue( "class" ) ) )
+            TAG_SPAN.equals( qName )
+                && CLASS_GENERAL_TEXT.equals( atts.getValue( ATTR_CLASS ) ) )
         {
             parse = true;
             text.setLength( 0 );
         }
-        else if( parse && "br".equals( qName ) )
+        else if( parse && TAG_BR.equals( qName ) )
         {
             text.append( '\n' );
         }
@@ -55,7 +59,7 @@ public class HallmarkParserDescription extends HtmlHelper.DefaultContentHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-        if( "span".equals( qName ) )
+        if( TAG_SPAN.equals( qName ) )
         {
             parse = false;
         }

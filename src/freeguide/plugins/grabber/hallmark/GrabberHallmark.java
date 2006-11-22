@@ -17,7 +17,8 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 
-import java.util.Iterator;
+import java.text.MessageFormat;
+
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -31,6 +32,15 @@ import javax.swing.JDialog;
  */
 public class GrabberHallmark extends BaseModule implements IModuleGrabber
 {
+    protected static final String URL_COUNTRY_PREFIX =
+        "/framework.jsp?BODY=weekSchedCal.jsp&CNTRY=";
+    protected static final String URL_PROGRAMME_PREFIX =
+        "/program.jsp?CONTENT=";
+    protected static final String LANG_PARAM = "LANG";
+    protected static final String CHANNELS_PREFIX = "hallmark/";
+    protected static final String DEFAULT_LANGUAGE_NAME = "Default";
+    protected static final String CHANNEL_NAME = "Hallmark Channel";
+    protected static final String US_COUNTRY_CODE = "US";
     protected final Config config = new Config(  );
 
     /**
@@ -87,37 +97,42 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
 
         StringBuffer urlSched = new StringBuffer(  );
         urlSched.append( country.url );
-        urlSched.append( "/framework.jsp?BODY=weekSchedCal.jsp&CNTRY=" )
-                .append( country.id );
+        urlSched.append( URL_COUNTRY_PREFIX ).append( country.id );
 
         if( lang != null )
         {
-            urlSched.append( "&LANG=" ).append( lang.id );
+            urlSched.append( '&' ).append( LANG_PARAM ).append( '=' )
+                    .append( lang.id );
         }
 
         browser.loadURL( urlSched.toString(  ) );
 
         final String channelID =
-            "hallmark/" + config.countryId + "/"
-            + ( ( lang != null ) ? lang.name : "Default" ) + "/hallmark";
-        TVChannel channel = new TVChannel( channelID, "Hallmark Channel" );
+            CHANNELS_PREFIX + config.countryId + '/'
+            + ( ( lang != null ) ? lang.name : DEFAULT_LANGUAGE_NAME );
+        TVChannel channel = new TVChannel( channelID, CHANNEL_NAME );
 
-        Map descriptions = new TreeMap(  );
+        Map<String, List<TVProgramme>> descriptions =
+            new TreeMap<String, List<TVProgramme>>(  );
         HallmarkParserSchedule parser =
             new HallmarkParserSchedule( 
-                channel, descriptions, country.id.equals( "US" ) );
+                channel, descriptions, country.id.equals( US_COUNTRY_CODE ) );
         browser.parse( parser );
 
         int di = 0;
 
-        for( 
-            Iterator it = descriptions.entrySet(  ).iterator(  );
-                it.hasNext(  ); di++ )
+        for( final Map.Entry<String, List<TVProgramme>> entry : descriptions
+            .entrySet(  ) )
         {
+            di++;
             logger.info( 
-                "Load description [" + di + "/" + descriptions.size(  ) + "]" );
+                MessageFormat.format( 
+                    "Load description [$1/$2]",
+                    new Object[]
+                    {
+                        new Integer( di ), new Integer( descriptions.size(  ) )
+                    } ) );
 
-            Map.Entry entry = (Map.Entry)it.next(  );
             String key = (String)entry.getKey(  );
             String description = loadDescription( country.url, lang, key );
             List list = (List)entry.getValue(  );
@@ -129,7 +144,7 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
                 if( prog.getDescription(  ) != null )
                 {
                     prog.setDescription( 
-                        description + "\n" + prog.getDescription(  ) );
+                        description + '\n' + prog.getDescription(  ) );
                 }
                 else
                 {
@@ -149,11 +164,12 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
         final HttpBrowser browser = new HttpBrowser(  );
         StringBuffer urlSched = new StringBuffer(  );
         urlSched.append( url );
-        urlSched.append( "/program.jsp?CONTENT=" ).append( key );
+        urlSched.append( URL_PROGRAMME_PREFIX ).append( key );
 
         if( lang != null )
         {
-            urlSched.append( "&LANG=" ).append( lang.id );
+            urlSched.append( '&' ).append( LANG_PARAM ).append( '=' )
+                    .append( lang.id );
         }
 
         //browser.loadURL(url+"/program.jsp?LANG="+lang+"&CONTENT="+key);

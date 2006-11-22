@@ -30,6 +30,16 @@ import java.util.regex.Pattern;
  */
 public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
 {
+    protected static final String TAG_A = "a";
+    protected static final String TAG_TABLE = "table";
+    protected static final String TAG_TR = "tr";
+    protected static final String TAG_TD = "td";
+    protected static final String ATTR_HREF = "href";
+    protected static final String ATTR_ONMOUSEOVER = "onmouseover";
+    protected static final String LINK_TO_ADOBE_COM = "http://www.adobe.com/";
+    protected static final String TIMEZONES_FILE =
+        "resources/plugins/grabber/hallmark/timezones.properties";
+    protected static final String EMPTY_STRING = "";
     protected static final Pattern RE_DATE =
         Pattern.compile( "\\s+(\\d{2})/(\\d{2})" );
     protected static final Pattern RE_DESCKEY =
@@ -50,7 +60,7 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
     protected long[] prevTimes = new long[7];
     protected Time currentTime;
     protected final TVChannel channel;
-    protected final Map descriptionsMap;
+    protected final Map<String, List<TVProgramme>> descriptionsMap;
     protected final boolean isUS;
 
 /**
@@ -63,8 +73,9 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
      * @throws SAXException DOCUMENT ME!
      */
     public HallmarkParserSchedule( 
-        final TVChannel channel, final Map descriptionsMap, final boolean isUS )
-        throws SAXException
+        final TVChannel channel,
+        final Map<String, List<TVProgramme>> descriptionsMap,
+        final boolean isUS ) throws SAXException
     {
         this.channel = channel;
 
@@ -108,13 +119,12 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
             parseStart( qName, atts );
         }
         else if( 
-            "a".equals( qName ) && ( atts.getValue( "href" ) != null )
-                && atts.getValue( "href" ).startsWith( 
-                    "http://www.adobe.com/" ) )
+            TAG_A.equals( qName ) && ( atts.getValue( ATTR_HREF ) != null )
+                && atts.getValue( ATTR_HREF ).startsWith( LINK_TO_ADOBE_COM ) )
         {
             foundAcrobat = true;
         }
-        else if( "table".equals( qName ) && foundAcrobat )
+        else if( TAG_TABLE.equals( qName ) && foundAcrobat )
         {
             parse = true;
             foundAcrobat = false;
@@ -152,18 +162,18 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
     public void parseStart( String qName, Attributes atts )
         throws SAXException
     {
-        if( parse && "tr".equals( qName ) )
+        if( parse && TAG_TR.equals( qName ) )
         {
             row++;
             col = -1;
         }
-        else if( parse && "td".equals( qName ) )
+        else if( parse && TAG_TD.equals( qName ) )
         {
             col++;
             descriptionKey = null;
             descriptionText = null;
 
-            String onMouseOver = atts.getValue( "onmouseover" );
+            String onMouseOver = atts.getValue( ATTR_ONMOUSEOVER );
 
             if( onMouseOver != null )
             {
@@ -175,9 +185,9 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
                 }
             }
         }
-        else if( "a".equals( qName ) && ( row > 0 ) && ( col > 0 ) )
+        else if( TAG_A.equals( qName ) && ( row > 0 ) && ( col > 0 ) )
         {
-            String ref = atts.getValue( "href" );
+            String ref = atts.getValue( ATTR_HREF );
 
             if( ref != null )
             {
@@ -200,12 +210,12 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
      */
     public void parseEnd( String qName ) throws SAXException
     {
-        if( "tr".equals( qName ) )
+        if( TAG_TR.equals( qName ) )
         {
             return;
         }
 
-        if( "table".equals( qName ) )
+        if( TAG_TABLE.equals( qName ) )
         {
             parse = false;
         }
@@ -288,7 +298,7 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
                 {
                     String title = HtmlHelper.strongTrim( text.toString(  ) );
 
-                    if( !"".equals( title ) && ( channel != null ) )
+                    if( !EMPTY_STRING.equals( title ) && ( channel != null ) )
                     {
                         TVProgramme prog = new TVProgramme(  );
                         prog.setStart( 
@@ -324,11 +334,11 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
 
         if( descriptionKey != null )
         {
-            List list = (List)descriptionsMap.get( key );
+            List<TVProgramme> list = descriptionsMap.get( key );
 
             if( list == null )
             {
-                list = new ArrayList(  );
+                list = new ArrayList<TVProgramme>(  );
                 descriptionsMap.put( key, list );
             }
 
@@ -353,7 +363,7 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
                 TIMEZONES.load( 
                     HallmarkParserSchedule.class.getClassLoader(  )
                                                 .getResourceAsStream( 
-                        "resources/plugins/grabber/hallmark/timezones.properties" ) );
+                        TIMEZONES_FILE ) );
             }
             catch( IOException ex )
             {

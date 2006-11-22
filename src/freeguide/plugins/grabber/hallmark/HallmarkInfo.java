@@ -12,16 +12,23 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 /**
- * DOCUMENT ME!
+ * Parse hallmark info file.
  *
- * @author $author$
- * @version $Revision$
+ * @author Alex Buloichik
  */
 public class HallmarkInfo extends DefaultHandler
 {
+    protected static final String TAG_COUNTRY = "country";
+    protected static final String TAG_LANGUAGE = "language";
+    protected static final String ATTR_ID = "id";
+    protected static final String ATTR_COUNTRY = "country";
+    protected static final String ATTR_NAME = "name";
+    protected static final String ATTR_URL = "url";
+    protected static final String INFO_FILE_PATH =
+        "resources/plugins/grabber/hallmark/info.xml";
     protected static Country[] countriesList;
-    protected final List countries = new ArrayList(  );
-    protected final List languages = new ArrayList(  );
+    protected final List<Country> countries = new ArrayList<Country>(  );
+    protected final List<Language> languages = new ArrayList<Language>(  );
     protected Country currentCountry;
 
     /**
@@ -38,20 +45,20 @@ public class HallmarkInfo extends DefaultHandler
         String uri, String localName, String qName, Attributes attributes )
         throws SAXException
     {
-        if( "country".equals( qName ) )
+        if( TAG_COUNTRY.equals( qName ) )
         {
             currentCountry = new Country(  );
-            currentCountry.id = attributes.getValue( "id" );
-            currentCountry.name = attributes.getValue( "country" );
-            currentCountry.url = attributes.getValue( "url" );
+            currentCountry.id = attributes.getValue( ATTR_ID );
+            currentCountry.name = attributes.getValue( ATTR_COUNTRY );
+            currentCountry.url = attributes.getValue( ATTR_URL );
             countries.add( currentCountry );
             languages.clear(  );
         }
-        else if( "language".equals( qName ) )
+        else if( TAG_LANGUAGE.equals( qName ) )
         {
             Language info = new Language(  );
-            info.id = attributes.getValue( "id" );
-            info.name = attributes.getValue( "name" );
+            info.id = attributes.getValue( ATTR_ID );
+            info.name = attributes.getValue( ATTR_NAME );
             languages.add( info );
         }
     }
@@ -68,9 +75,9 @@ public class HallmarkInfo extends DefaultHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-        if( "country".equals( qName ) )
+        if( TAG_COUNTRY.equals( qName ) )
         {
-            currentCountry.languages = (Language[])languages.toArray( 
+            currentCountry.languages = languages.toArray( 
                     new Language[languages.size(  )] );
         }
     }
@@ -93,11 +100,10 @@ public class HallmarkInfo extends DefaultHandler
     protected static Country[] parseInfo(  )
     {
         HallmarkInfo handler = new HallmarkInfo(  );
-        InputSource ins =
+        final InputSource ins =
             new InputSource( 
                 HallmarkInfo.class.getClassLoader(  )
-                                  .getResourceAsStream( 
-                    "resources/plugins/grabber/hallmark/info.xml" ) );
+                                  .getResourceAsStream( INFO_FILE_PATH ) );
         SAXParserFactory factory = SAXParserFactory.newInstance(  );
 
         try
@@ -110,7 +116,7 @@ public class HallmarkInfo extends DefaultHandler
             ex.printStackTrace(  );
         }
 
-        return (Country[])handler.countries.toArray( 
+        return handler.countries.toArray( 
             new Country[handler.countries.size(  )] );
     }
 

@@ -13,15 +13,20 @@ import freeguide.common.plugininterfaces.IStoragePipe;
 import java.util.TimeZone;
 
 /**
- * DOCUMENT ME!
+ * Grabber for http://cosmostv.com.
  *
- * @author $author$
- * @version $Revision$
+ * @author Alex Buloichik
  */
 public class GrabberCosmostv extends BaseModule implements IModuleGrabber
 {
     protected static final TimeZone TIMEZONE =
         TimeZone.getTimeZone( "Europe/Minsk" );
+    protected static final String HEADER_ACCEPT_LANGUAGE = "Accept-Language";
+    protected static final String VALUE_ACCEPT_LANGUAGE = "ru";
+    protected static final String HEADER_ACCEPT_CHARSET = "Accept-Charset";
+    protected static final String VALUE_ACCEPT_CHARSET = "windows-1251";
+    protected static final String URL = "http://www.cosmostv.com/schedule.asp";
+    protected static final String CHANNELS_PREFIX = "cosmostv/";
 
     /**
      * DOCUMENT_ME!
@@ -62,9 +67,9 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
     {
         HttpBrowser browser = new HttpBrowser(  );
 
-        browser.setHeader( "Accept-Language", "ru" );
+        browser.setHeader( HEADER_ACCEPT_LANGUAGE, VALUE_ACCEPT_LANGUAGE );
 
-        browser.setHeader( "Accept-Charset", "windows-1251" );
+        browser.setHeader( HEADER_ACCEPT_CHARSET, VALUE_ACCEPT_CHARSET );
 
         progress.setProgressMessage( 
             Application.getInstance(  ).getLocalizedMessage( "downloading" ) );
@@ -73,7 +78,7 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
 
         HandlerZips handlerZips = new HandlerZips(  );
 
-        browser.loadURL( "http://www.cosmostv.com/schedule.asp" );
+        browser.loadURL( URL );
 
         browser.parse( handlerZips );
 
@@ -81,7 +86,7 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
 
         logger.info( "Load data files..." );
 
-        new ListTVParser( "cosmostv/", storage ).parseZips( 
+        new ListTVParser( CHANNELS_PREFIX, storage ).parseZips( 
             zips, TIMEZONE, progress, logger );
     }
 }

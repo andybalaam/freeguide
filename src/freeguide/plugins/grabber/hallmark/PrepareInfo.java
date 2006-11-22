@@ -1,23 +1,30 @@
 package freeguide.plugins.grabber.hallmark;
 
-import freeguide.common.lib.general.StringHelper;
 import freeguide.common.lib.grabber.HtmlHelper;
 import freeguide.common.lib.grabber.HttpBrowser;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.File;
 
-import java.util.Iterator;
+import java.text.MessageFormat;
+
+import java.util.Arrays;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 /**
  * Prepare information about all hallmark sites.
@@ -26,11 +33,17 @@ import java.util.regex.Pattern;
  */
 public class PrepareInfo
 {
-    protected static Writer wr;
-    protected static Pattern RE_CNTRY_URL =
+    protected static final Pattern RE_CNTRY_URL =
         Pattern.compile( "http://([a-z]{2}).hallmarkchannel.com" );
-    protected static Pattern RE_LANG = Pattern.compile( "LANG=([A-Z0-9_]+)" );
-    protected static String STR_CNTRY_USA = "http://www.hallmarkchannel.com";
+    protected static final Pattern RE_LANG =
+        Pattern.compile( "LANG=([A-Z0-9_]+)" );
+    protected static final String STR_CNTRY_USA =
+        "http://www.hallmarkchannel.com";
+    protected static final String URL_CHOOSE_COUNTRY =
+        "http://www.hallmarkchannel.com/chooseCountry.jsp";
+    protected static final String SRC_INFO_FILE_PATH =
+        "src/resources/plugins/grabber/hallmark/info.xml";
+    protected static final String UTF8_CHARSET = "UTF-8";
 
     /**
      * DOCUMENT_ME!
@@ -41,97 +54,80 @@ public class PrepareInfo
      */
     public static void main( final String[] args ) throws Exception
     {
-        /*String[] tzn = TimeZone.getAvailableIDs(  );
-        Arrays.sort( tzn );
-        
-        Date today = new Date(  );
-        
-        for( int i = 0; i < tzn.length; i++ )
+        String[] timezones = TimeZone.getAvailableIDs(  );
+        Arrays.sort( timezones );
+
+        for( String tz : timezones )
         {
-        
-            TimeZone tz = TimeZone.getTimeZone( tzn[i] );
-            String shortName =
-                tz.getDisplayName( tz.inDaylightTime( today ), TimeZone.SHORT );
-            String longName =
-                tz.getDisplayName( tz.inDaylightTime( today ), TimeZone.LONG );
-        
-            System.out.println( tzn[i] + " - " + shortName + "/" + longName );
+            System.out.println( tz );
         }
-        
-        System.exit( 1 );*/
+
         final HttpBrowser browser = new HttpBrowser(  );
-        browser.loadURL( "http://www.hallmarkchannel.com/chooseCountry.jsp" );
+        browser.loadURL( URL_CHOOSE_COUNTRY );
 
         HandlerCountries countries = new HandlerCountries(  );
         browser.parse( countries );
         System.out.println(  );
 
-        wr = new BufferedWriter( 
-                new OutputStreamWriter( 
-                    new FileOutputStream( 
-                        "src/resources/plugins/grabber/hallmark/info.xml" ),
-                    "UTF-8" ) );
-        writeHeader(  );
+        Document doc =
+            DocumentBuilderFactory.newInstance(  ).newDocumentBuilder(  )
+                                  .newDocument(  );
+        final Element docHallmark = doc.createElement( "hallmark" );
+        doc.appendChild( docHallmark );
 
         int i = 1;
 
-        for( 
-            Iterator it = countries.countries.keySet(  ).iterator(  );
-                it.hasNext(  ); i++ )
+        for( final Map.Entry<String, String> entry : countries.countries
+            .entrySet(  ) )
         {
-            String country = (String)it.next(  );
-            String url = (String)countries.countries.get( country );
+            String country = entry.getKey(  );
+            String url = entry.getValue(  );
+
             System.out.println( 
-                "Country " + country + " (" + i + "/"
-                + countries.countries.size(  ) + ") - " + url );
+                MessageFormat.format( 
+                    "Country {0} ({1}/{2}) - {3}",
+                    new Object[]
+                    {
+                        country, new Integer( i ),
+                        new Integer( countries.countries.size(  ) ), url
+                    } ) );
 
-            /*if( !"BELARUS".equals( country ) )
-            {
-            
-                continue;
-            }*/
-            final String cntry = getCntry( url );
-            System.out.println( "url = " + url + "   cntry = " + cntry );
+            final String id = getCntry( url );
+            System.out.println( "url = " + url + "   cntry = " + id );
 
-            if( cntry == null )
+            if( id == null )
             {
                 System.out.println( "Error read url: " + url );
 
                 continue;
             }
 
-            writeHeaderCountry( cntry, country, url );
+            final Element docCountry = doc.createElement( "country" );
+            docCountry.setAttribute( "id", id );
+            docCountry.setAttribute( "country", country );
+            docCountry.setAttribute( "url", url );
 
-            Map langs = new TreeMap(  );
-
-            try
+            for( final Map.Entry<String, String> lang : getLanguages( url, id )
+                                                            .entrySet(  ) )
             {
-                langs = getLanguages( url, cntry );
-            }
-            catch( Exception ex )
-            {
-                System.err.println( 
-                    "Error load from " + url + ": " + ex.getMessage(  ) );
-                ex.printStackTrace(  );
-            }
-
-            for( Iterator it2 = langs.keySet(  ).iterator(  );
-                    it2.hasNext(  ); )
-            {
-                String langName = (String)it2.next(  );
-                String langParam = (String)langs.get( langName );
-                writeLanguage( langName, langParam );
+                final Element docLanguage = doc.createElement( "language" );
+                docLanguage.setAttribute( "name", lang.getKey(  ) );
+                docLanguage.setAttribute( "id", lang.getValue(  ) );
+                docCountry.appendChild( docLanguage );
             }
 
-            writeFooterCountry(  );
-
-            wr.flush(  );
+            docHallmark.appendChild( docCountry );
+            i++;
         }
 
-        writeFooter(  );
+        final Transformer xformer =
+            TransformerFactory.newInstance(  ).newTransformer(  );
+        xformer.setOutputProperty( "indent", "yes" );
 
-        wr.flush(  );
-        wr.close(  );
+        xformer.transform( 
+            new DOMSource( doc ),
+            new StreamResult( new File( SRC_INFO_FILE_PATH ) ) );
+
     }
 
     protected static String getCntry( final String url )
@@ -147,7 +143,7 @@ public class PrepareInfo
         {
             if( STR_CNTRY_USA.equals( url ) )
             {
-                return "US";
+                return GrabberHallmark.US_COUNTRY_CODE;
             }
             else
             {
@@ -156,77 +152,41 @@ public class PrepareInfo
         }
     }
 
-    protected static Map getLanguages( final String url, final String cntry )
-        throws Exception
+    protected static Map<String, String> getLanguages( 
+        final String url, final String cntry ) throws Exception
     {
         final HttpBrowser browser = new HttpBrowser(  );
-        browser.loadURL( 
-            url + "/framework.jsp?BODY=weekSchedCal.jsp&CNTRY=" + cntry );
+        browser.loadURL( url + GrabberHallmark.URL_COUNTRY_PREFIX + cntry );
 
         HandlerLanguages h = new HandlerLanguages(  );
         browser.parse( h );
 
-        Map langs = h.getLanguages(  );
-        Map result = new TreeMap(  );
+        Map<String, String> langs = h.getLanguages(  );
+        Map<String, String> result = new TreeMap<String, String>(  );
 
-        for( Iterator it = langs.keySet(  ).iterator(  ); it.hasNext(  ); )
+        for( final Map.Entry<String, String> entry : langs.entrySet(  ) )
         {
-            String langName = (String)it.next(  );
-            String langParam = (String)langs.get( langName );
-            Matcher m = RE_LANG.matcher( langParam );
+            Matcher m = RE_LANG.matcher( entry.getValue(  ) );
 
             if( m.find(  ) )
             {
-                result.put( langName, m.group( 1 ) );
+                result.put( entry.getKey(  ), m.group( 1 ) );
             }
             else
             {
-                System.err.println( "Invalid language: " + langParam );
+                System.err.println( "Invalid language: " + entry.getValue(  ) );
             }
         }
 
-        HallmarkParserSchedule parserTimeZone =
+        /*HallmarkParserSchedule parserTimeZone =
             new HallmarkParserSchedule( null, null, cntry.equals( "US" ) );
-        browser.parse( parserTimeZone );
-
+        browser.parse( parserTimeZone );*/
         return result;
-    }
-
-    protected static void writeHeader(  ) throws IOException
-    {
-        wr.write( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" );
-        wr.write( "\n" );
-        wr.write( "<hallmark>\n" );
-    }
-
-    protected static void writeFooter(  ) throws IOException
-    {
-        wr.write( "</hallmark>\n" );
-    }
-
-    protected static void writeHeaderCountry( 
-        final String id, final String country, final String url )
-        throws IOException
-    {
-        wr.write( 
-            "  <country id=\"" + id + "\" country=\""
-            + StringHelper.toXML( country ) + "\" url=\"" + url + "\">\n" );
-    }
-
-    protected static void writeFooterCountry(  ) throws IOException
-    {
-        wr.write( "  </country>\n" );
-    }
-
-    protected static void writeLanguage( final String name, final String id )
-        throws IOException
-    {
-        wr.write( "    <language name=\"" + name + "\" id=\"" + id + "\"/>\n" );
     }
 
     protected static class HandlerCountries extends HtmlHelper.DefaultContentHandler
     {
-        Map countries = new TreeMap(  );
+        Map<String, String> countries = new TreeMap<String, String>(  );
         protected boolean process = false;
         protected String currentOptionValue;
         protected StringBuffer currentText = new StringBuffer(  );
@@ -313,7 +273,8 @@ public class PrepareInfo
 
     protected static class HandlerLanguages extends HtmlHelper.DefaultContentHandler
     {
-        Map languages = new TreeMap(  );
+        protected Map<String, String> languages =
+            new TreeMap<String, String>(  );
         protected boolean process = false;
         protected String currentOptionValue;
         protected StringBuffer currentText = new StringBuffer(  );
@@ -401,7 +362,7 @@ public class PrepareInfo
          *
          * @return DOCUMENT_ME!
          */
-        public Map getLanguages(  )
+        public Map<String, String> getLanguages(  )
         {
             return languages;
         }

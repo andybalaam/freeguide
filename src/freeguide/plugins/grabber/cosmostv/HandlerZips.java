@@ -9,14 +9,16 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * DOCUMENT ME!
+ * Gets zip files from page.
  *
- * @author $author$
- * @version $Revision$
+ * @author Alex Buloichik
  */
 public class HandlerZips extends HtmlHelper.DefaultContentHandler
 {
-    protected Set zips = new TreeSet(  );
+    protected static final String TAG_A = "a";
+    protected static final String ATTR_HREF = "href";
+    protected static final String FILENAME_ENDS = ".zip";
+    protected Set<String> zips = new TreeSet<String>(  );
 
     /**
      * DOCUMENT_ME!
@@ -32,13 +34,13 @@ public class HandlerZips extends HtmlHelper.DefaultContentHandler
         String uri, String localName, String qName, Attributes atts )
         throws SAXException
     {
-        if( "a".equals( qName ) )
+        if( TAG_A.equals( qName ) )
         {
-            String href = atts.getValue( "href" );
+            String href = atts.getValue( ATTR_HREF );
 
             if( href != null )
             {
-                if( href.trim(  ).toLowerCase(  ).endsWith( ".zip" ) )
+                if( href.trim(  ).toLowerCase(  ).endsWith( FILENAME_ENDS ) )
                 {
                     zips.add( href );
 
