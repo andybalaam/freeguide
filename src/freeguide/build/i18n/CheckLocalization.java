@@ -7,8 +7,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 /**
@@ -21,8 +25,7 @@ public class CheckLocalization
 {
     protected static Pattern PATTERN_MAIN =
         Pattern.compile( ".+[A-Za-z]{3,}\\.properties" );
-    protected static MODE mode;
-    protected static Properties translatedGlobal = new Properties(  );
+    protected static Map<String, String> translatedGlobal;
 
     /**
      * DOCUMENT_ME!
@@ -44,53 +47,95 @@ public class CheckLocalization
                     }
                 } );
 
-        translatedGlobal.load( 
-            new FileInputStream( 
-                "src/resources/i18n/MessagesBundle.properties" ) );
+        translatedGlobal = readPropertiesFile( 
+                new File( "src/resources/i18n/MessagesBundle.properties" ) );
+
+        System.out.println( 
+            "================= Files with untranslated strings =================" );
 
         for( final File f : propFiles )
         {
-            processFile( f );
+            processFileFindUntranslated( f );
+        }
+
+        System.out.println( 
+            "================= Translation with non-exists strings =================" );
+
+        for( final File f : propFiles )
+        {
+            processFileFindUnused( f );
+        }
+
+        for( final String lang : "be,de,it,fr".split( "," ) )
+        {
+            System.out.println( 
+                "================= Language info: " + lang
+                + " =================" );
+
+            for( final File f : propFiles )
+            {
+                processLang( lang, f );
+            }
         }
     }
 
-    protected static void findFile( 
-        final File dir, final List<File> files, final FileFilter filter )
+    protected static void processLang( final String lang, final File propFile )
+        throws IOException
     {
-        final File[] fs = dir.listFiles(  );
+        final Map<String, String> baseStrings = readPropertiesFile( propFile );
+        final File transFile =
+            new File( 
+                propFile.getPath(  )
+                        .replaceAll( 
+                    "\\.properties", '_' + lang + ".properties" ) );
 
-        if( fs == null )
+        if( !transFile.exists(  ) )
         {
+            System.out.println( 
+                "   There is no file : " + transFile.getPath(  ) );
+
             return;
         }
 
-        for( final File f : fs )
+        final Map<String, String> translatedStrings =
+            readPropertiesFile( transFile );
+
+        final Set<String> untranslated =
+            new TreeSet<String>( baseStrings.keySet(  ) );
+        removeFromSet( untranslated, translatedStrings.keySet(  ) );
+
+        if( untranslated.size(  ) > 0 )
         {
-            if( f.isFile(  ) )
+            System.out.println( 
+                "   Untranslated strings in " + propFile.getPath(  )
+                + " for language '" + lang + "':" );
+
+            for( String str : untranslated )
             {
-                if( filter.accept( f ) )
-                {
-                    files.add( f );
-                }
+                System.out.println( "         \"" + str + '"' );
             }
-            else
+        }
+
+        final Set<String> unused =
+            new TreeSet<String>( translatedStrings.keySet(  ) );
+        removeFromSet( unused, baseStrings.keySet(  ) );
+
+        if( unused.size(  ) > 0 )
+        {
+            System.out.println( 
+                "   Unused translations in " + propFile.getPath(  )
+                + " for language '" + lang + "':" );
+
+            for( String str : unused )
             {
-                if( !f.getName(  ).equals( ".svn" ) )
-                {
-                    findFile( f, files, filter );
-                }
+                System.out.println( "         \"" + str + '"' );
             }
         }
     }
 
-    protected static void processFile( final File propFile )
-        throws Exception
+    protected static File[] getJavaFilesForPropertiesFile( 
+        final File propFile )
     {
-        System.out.println( "Process file " + propFile.getName(  ) );
-
-        final Properties translated = new Properties(  );
-        translated.load( new FileInputStream( propFile ) );
-
         String classesDir = propFile.getName(  );
         classesDir = classesDir.substring( 
                 0, classesDir.length(  ) - ".properties".length(  ) );
@@ -108,13 +153,17 @@ public class CheckLocalization
                 }
             } );
 
-        for( final File f : allFiles )
-        {
-            System.out.println( "   " + f.getPath(  ) );
+        return allFiles.toArray( new File[allFiles.size(  )] );
+    }
 
-            StringBuffer buf = new StringBuffer(  );
-            InputStreamReader in =
-                new InputStreamReader( new FileInputStream( f ), "UTF-8" );
+    protected static String readFile( final File f ) throws IOException
+    {
+        final StringBuffer buf = new StringBuffer(  );
+        final InputStreamReader in =
+            new InputStreamReader( new FileInputStream( f ), "UTF-8" );
+
+        try
+        {
             char[] buffer = new char[65536];
 
             while( true )
@@ -128,19 +177,35 @@ public class CheckLocalization
 
                 buf.append( buffer, 0, len );
             }
-
-            processData( translated, buf.toString(  ) );
         }
+        finally
+        {
+            in.close(  );
+        }
+
+        return buf.toString(  );
     }
 
-    protected static void processData( 
-        final Properties translated, String data ) throws IOException
+    protected static Map<String, String> readPropertiesFile( final File f )
+        throws IOException
     {
-        mode = MODE.DATA;
+        final Properties result = new Properties(  );
+        result.load( new FileInputStream( f ) );
+
+        return (Map)result;
+    }
+
+    protected static Set<String> getStringsForTranslationFromFile( 
+        final File f ) throws IOException
+    {
+        MODE mode = MODE.DATA;
+        final Set<String> result = new TreeSet<String>(  );
 
         StringBuffer str = new StringBuffer(  );
         StringBuffer command = new StringBuffer(  );
         char prevC = '\0';
+
+        final String data = readFile( f );
 
         for( int i = 0; i < data.length(  ); i++ )
         {
@@ -190,19 +255,13 @@ public class CheckLocalization
                 {
                     mode = MODE.DATA;
 
-                    if( 
-                        !translated.containsKey( str.toString(  ) )
-                            && !translatedGlobal.containsKey( 
-                                str.toString(  ) ) )
-                    {
-                        String lines = command.toString(  );
+                    String lines = command.toString(  );
 
-                        if( 
-                            !lines.contains( "static" )
-                                || !lines.contains( "final" ) )
-                        {
-                            System.out.println( "         " + str );
-                        }
+                    if( 
+                        !lines.contains( "static" )
+                            || !lines.contains( "final" ) )
+                    {
+                        result.add( str.toString(  ) );
                     }
 
                     str.setLength( 0 );
@@ -228,6 +287,103 @@ public class CheckLocalization
             }
 
             prevC = c;
+        }
+
+        return result;
+    }
+
+    protected static void findFile( 
+        final File dir, final List<File> files, final FileFilter filter )
+    {
+        final File[] fs = dir.listFiles(  );
+
+        if( fs == null )
+        {
+            return;
+        }
+
+        for( final File f : fs )
+        {
+            if( f.isFile(  ) )
+            {
+                if( filter.accept( f ) )
+                {
+                    files.add( f );
+                }
+            }
+            else
+            {
+                if( !f.getName(  ).equals( ".svn" ) )
+                {
+                    findFile( f, files, filter );
+                }
+            }
+        }
+    }
+
+    protected static void processFileFindUntranslated( final File propFile )
+        throws Exception
+    {
+        System.out.println( "Translation '" + propFile.getName(  ) + "' :" );
+
+        final Map<String, String> translated = readPropertiesFile( propFile );
+
+        for( final File f : getJavaFilesForPropertiesFile( propFile ) )
+        {
+            final Set<String> forTranslation =
+                getStringsForTranslationFromFile( f );
+            removeFromSet( forTranslation, translated.keySet(  ) );
+            removeFromSet( forTranslation, translatedGlobal.keySet(  ) );
+
+            if( forTranslation.size(  ) > 0 )
+            {
+                System.out.println( 
+                    "   Untranslated strings in " + f.getPath(  ) + " :" );
+
+                for( String str : forTranslation )
+                {
+                    System.out.println( "         \"" + str + '"' );
+                }
+            }
+        }
+    }
+
+    protected static void processFileFindUnused( final File propFile )
+        throws Exception
+    {
+        final Map<String, String> translated = readPropertiesFile( propFile );
+        final Set<String> keys = translated.keySet(  );
+
+        for( final File f : getJavaFilesForPropertiesFile( propFile ) )
+        {
+            final Set<String> forTranslation =
+                getStringsForTranslationFromFile( f );
+
+            removeFromSet( keys, forTranslation );
+        }
+
+        if( keys.size(  ) > 0 )
+        {
+            System.out.println( 
+                "Unused strings in '" + propFile.getName(  ) + "' :" );
+
+            for( String str : keys )
+            {
+                System.out.println( "         \"" + str + '"' );
+            }
+        }
+    }
+
+    protected static void removeFromSet( 
+        final Set<String> sourceSet, final Set<String> removeSet )
+    {
+        for( final Iterator<String> it = sourceSet.iterator(  );
+                it.hasNext(  ); )
+        {
+            if( removeSet.contains( it.next(  ) ) )
+            {
+                it.remove(  );
+            }
         }
     }
     protected static enum MODE
