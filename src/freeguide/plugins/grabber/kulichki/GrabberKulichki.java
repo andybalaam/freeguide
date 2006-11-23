@@ -29,17 +29,31 @@ import java.util.logging.Level;
 import javax.swing.JDialog;
 
 /**
- * DOCUMENT ME!
+ * Grabber for tv.kulichki.net.
  *
- * @author $author$
- * @version $Revision$
+ * @author Alex Buloichik
  */
 public class GrabberKulichki extends BaseModule implements IModuleGrabber
 {
+    protected static final TimeZone TIME_ZONE_DEFAULT =
+        TimeZone.getTimeZone( "Europe/Moscow" );
+    protected static final String FILE_GROUPNAMES =
+        "resources/plugins/grabber/kulichki/groupnames.properties";
+    protected static final String FILE_TIMEZONES =
+        "resources/plugins/grabber/kulichki/timezones.properties";
+    protected static final String VALUE_ACCEPT_LANGUAGE = "ru";
+    protected static final String VALUE_ACCEPT_CHARSET = "windows-1251";
+    protected static final String URL_START = "http://tv.kulichki.net";
+    protected static final String URL_PACKET =
+        "http://tv.kulichki.net/cgi-bin/gpack.cgi";
+    protected static final String URL_DATA =
+        "http://tv.kulichki.net/andgon/cgi-bin/itv.cgi";
+    protected static final String PARAM_WEEK = "week";
+    protected static final String PARAM_PACKET = "pakets";
+    protected static final String CHANNEL_PREFIX_ID = "kulichki";
+    protected static final String CHANNEL_PREFIX = "kulichki/";
     protected Properties TIME_ZONES;
     protected Properties GROUP_NAMES;
-    protected TimeZone TIME_ZONE_DEFAULT =
-        TimeZone.getTimeZone( "Europe/Moscow" );
     protected KulichkiConfig config = new KulichkiConfig(  );
 
     /**
@@ -77,19 +91,21 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
     {
         final TVChannelsSet result = new TVChannelsSet(  );
 
-        result.add( new TVChannelsSet.Channel( "kulichki", "All" ) );
+        result.add( new TVChannelsSet.Channel( CHANNEL_PREFIX_ID, "All" ) );
 
         HttpBrowser browser = new HttpBrowser(  );
 
-        browser.setHeader( "Accept-Language", "ru" );
+        browser.setHeader( 
+            HttpBrowser.HEADER_ACCEPT_LANGUAGE, VALUE_ACCEPT_LANGUAGE );
 
-        browser.setHeader( "Accept-Charset", "windows-1251" );
+        browser.setHeader( 
+            HttpBrowser.HEADER_ACCEPT_CHARSET, VALUE_ACCEPT_CHARSET );
 
         HandlerPackets handlerPackets = new HandlerPackets(  );
 
         HandlerChannels handlerChanels = new HandlerChannels(  );
 
-        browser.loadURL( "http://tv.kulichki.net" );
+        browser.loadURL( URL_START );
 
         browser.parse( handlerPackets );
 
@@ -97,22 +113,21 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         final Collection packetIDs = handlerPackets.getPacketIDs(  );
 
-        Map request = new TreeMap(  );
+        final Map<String, String> request = new TreeMap<String, String>(  );
 
-        request.put( "week", weeks[0] );
+        request.put( PARAM_WEEK, weeks[0] );
 
         for( final Iterator itPa = packetIDs.iterator(  ); itPa.hasNext(  ); )
         {
             final String packetName = (String)itPa.next(  );
             result.add( 
                 new TVChannelsSet.Channel( 
-                    "kulichki/" + packetName,
+                    CHANNEL_PREFIX + packetName,
                     (String)handlerPackets.packetList.get( packetName ) ) );
 
-            request.put( "pakets", packetName );
+            request.put( PARAM_PACKET, packetName );
 
-            browser.loadURL( 
-                "http://tv.kulichki.net/cgi-bin/gpack.cgi", request, true );
+            browser.loadURL( URL_PACKET, request, true );
 
             browser.parse( handlerChanels );
 
@@ -126,7 +141,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
                 result.add( 
                     new TVChannelsSet.Channel( 
-                        "kulichki/" + packetName + "/" + channelID,
+                        CHANNEL_PREFIX + packetName + '/' + channelID,
                         (String)handlerChanels.channelList.get( key ) ) );
             }
         }
@@ -168,15 +183,17 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
             Map.Entry entry = (Map.Entry)it.next(  );
             storage.addChannel( 
                 new TVChannel( 
-                    "kulichki/" + (String)entry.getKey(  ),
+                    CHANNEL_PREFIX + (String)entry.getKey(  ),
                     (String)entry.getValue(  ) ) );
         }
 
         HttpBrowser browser = new HttpBrowser(  );
 
-        browser.setHeader( "Accept-Language", "ru" );
+        browser.setHeader( 
+            HttpBrowser.HEADER_ACCEPT_LANGUAGE, VALUE_ACCEPT_LANGUAGE );
 
-        browser.setHeader( "Accept-Charset", "windows-1251" );
+        browser.setHeader( 
+            HttpBrowser.HEADER_ACCEPT_CHARSET, VALUE_ACCEPT_CHARSET );
 
         HandlerPackets handlerPackets = new HandlerPackets(  );
 
@@ -186,7 +203,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         logger.info( "Load initial page" );
 
-        browser.loadURL( "http://tv.kulichki.net" );
+        browser.loadURL( URL_START );
 
         browser.parse( handlerPackets );
 
@@ -200,9 +217,9 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
             final String packetName = (String)it.next(  );
 
             if( 
-                !config.channels.isSelected( "kulichki/" + packetName )
+                !config.channels.isSelected( CHANNEL_PREFIX + packetName )
                     && !config.channels.isChildSelected( 
-                        "kulichki/" + packetName ) )
+                        CHANNEL_PREFIX + packetName ) )
             {
                 it.remove(  );
             }
@@ -213,7 +230,8 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         Map request = new TreeMap(  );
 
-        Map requestChannels = new TreeMap(  );
+        final Map<String, Object> requestChannels =
+            new TreeMap<String, Object>(  );
 
         requestChannels.put( 
             "day", new String[] { "1", "2", "3", "4", "5", "6", "7" } );
@@ -223,16 +241,16 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         for( int i = 0; i < weeks.length; i++ )
         {
-            request.put( "week", weeks[i] );
+            request.put( PARAM_WEEK, weeks[i] );
 
             requestChannels.put( "week", weeks[i] );
 
             for( int j = 0; j < packets.length; j++ )
             {
-                request.put( "pakets", packets[j] );
+                request.put( PARAM_PACKET, packets[j] );
 
                 handlerProg.setChannelIDprefix( 
-                    "kulichki/" + packets[j] + "/" );
+                    CHANNEL_PREFIX + packets[j] + '/' );
 
                 String tzName = TIME_ZONES.getProperty( packets[j] );
 
@@ -257,8 +275,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
                     + "] packet [" + ( j + 1 ) + "/" + packets.length
                     + "]: channel list" );
 
-                browser.loadURL( 
-                    "http://tv.kulichki.net/cgi-bin/gpack.cgi", request, true );
+                browser.loadURL( URL_PACKET, request, true );
 
                 browser.parse( handlerChanels );
 
@@ -273,7 +290,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
                         it.hasNext(  ); )
                 {
                     String channelID =
-                        "kulichki/" + packets[j] + "/"
+                        CHANNEL_PREFIX + packets[j] + '/'
                         + getChannelIdByTag( (String)it.next(  ) );
 
                     if( !config.channels.isSelected( channelID ) )
@@ -285,9 +302,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
                 requestChannels.put( 
                     "chanel", handlerChanels.channelList.keySet(  ) );
 
-                browser.loadURL( 
-                    "http://tv.kulichki.net/andgon/cgi-bin/itv.cgi",
-                    requestChannels, true );
+                browser.loadURL( URL_DATA, requestChannels, true );
 
                 browser.parse( handlerProg );
                 storage.finishBlock(  );
@@ -330,8 +345,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         final InputStream in =
             GrabberKulichki.class.getClassLoader(  )
-                                 .getResourceAsStream( 
-                "resources/plugins/grabber/kulichki/timezones.properties" );
+                                 .getResourceAsStream( FILE_TIMEZONES );
 
         try
         {
@@ -358,8 +372,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         final InputStream in =
             GrabberKulichki.class.getClassLoader(  )
-                                 .getResourceAsStream( 
-                "resources/plugins/grabber/kulichki/groupnames.properties" );
+                                 .getResourceAsStream( FILE_GROUPNAMES );
 
         try
         {

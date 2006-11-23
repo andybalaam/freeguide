@@ -16,7 +16,12 @@ import java.util.TreeMap;
  */
 public class HandlerChannels extends HtmlHelper.DefaultContentHandler
 {
-    protected Map channelList = new TreeMap(  );
+    protected static final String TAG_INPUT = "input";
+    protected static final String ATTR_NAME = "name";
+    protected static final String ATTR_VALUE = "value";
+    protected static final String CHANNEL_ATTR_VALUE = "chanel";
+    protected Map<String, String> channelList =
+        new TreeMap<String, String>(  );
     protected String lastChannelID;
 
     /**
@@ -47,10 +52,10 @@ public class HandlerChannels extends HtmlHelper.DefaultContentHandler
         throws SAXException
     {
         if( 
-            "input".equals( qName )
-                && "chanel".equals( atts.getValue( "name" ) ) )
+            TAG_INPUT.equals( qName )
+                && CHANNEL_ATTR_VALUE.equals( atts.getValue( ATTR_NAME ) ) )
         {
-            String value = atts.getValue( "value" );
+            String value = atts.getValue( ATTR_VALUE );
 
             if( value != null )
             {

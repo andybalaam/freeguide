@@ -37,13 +37,21 @@ import java.util.regex.Pattern;
  */
 public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 {
-    protected static Pattern reDate =
+    protected static final String VALUE_ACCEPT_LANGUAGE = "ru";
+    protected static final String VALUE_ACCEPT_CHARSET = "windows-1251";
+    protected static final String URL_PREFIX = "http://newsvm.com/tv/";
+    protected static final String URL_SUFFIX = ".shtml";
+    protected static final String TAG_TABLE = "table";
+    protected static final String TAG_TD = "td";
+    protected static final String TAG_BR = "br";
+    protected static final String CHANNEL_PREFIX = "newsvm/";
+    protected static final Pattern reDate =
         Pattern.compile( 
             "(\\p{L}+)\\s*,\\s*(\\d{1,2})\\s+(\\p{L}+)",
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE );
-    protected static TimeZone tz = TimeZone.getTimeZone( "Europe/Minsk" );
-    protected static final String[] DAYS =
-        { "mo", "tu", "we", "th", "fr", "sa", "su" };
+    protected static final TimeZone tz =
+        TimeZone.getTimeZone( "Europe/Minsk" );
+    protected static final String[] DAYS = "mo,tu,we,th,fr,sa,su".split( "," );
 
     /**
      * DOCUMENT_ME!
@@ -86,9 +94,11 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
         HttpBrowser browser = new HttpBrowser(  );
 
-        browser.setHeader( HttpBrowser.HEADER_ACCEPT_LANGUAGE, "ru" );
+        browser.setHeader( 
+            HttpBrowser.HEADER_ACCEPT_LANGUAGE, VALUE_ACCEPT_LANGUAGE );
 
-        browser.setHeader( HttpBrowser.HEADER_ACCEPT_CHARSET, "windows-1251" );
+        browser.setHeader( 
+            HttpBrowser.HEADER_ACCEPT_CHARSET, VALUE_ACCEPT_CHARSET );
 
         progress.setProgressMessage( 
             Application.getInstance(  ).getLocalizedMessage( "downloading" ) );
@@ -105,7 +115,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
             }
 
             //            progress.setProgressMessage(  "Load page [" + ( i + 1 ) + "/" + DAYS.length + "]" );
-            browser.loadURL( "http://newsvm.com/tv/" + DAYS[i] + ".shtml" );
+            browser.loadURL( URL_PREFIX + DAYS[i] + URL_SUFFIX );
 
             browser.parse( parser ); //logger, browser.getData(  ), result );
             storage.finishBlock(  );
@@ -155,11 +165,11 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
             String uri, String localName, String qName, Attributes atts )
             throws SAXException
         {
-            if( "table".equals( qName ) )
+            if( TAG_TABLE.equals( qName ) )
             {
                 out = new StringBuffer(  );
             }
-            else if( ( out != null ) && "br".equals( qName ) )
+            else if( ( out != null ) && TAG_BR.equals( qName ) )
             {
                 out.append( '\n' );
             }
@@ -177,7 +187,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         public void endElement( String uri, String localName, String qName )
             throws SAXException
         {
-            if( "table".equals( qName ) && ( out != null ) )
+            if( TAG_TABLE.equals( qName ) && ( out != null ) )
             {
                 if( out.length(  ) > 4096 )
                 {
@@ -186,7 +196,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
                 out = null;
             }
-            else if( ( out != null ) && "td".equals( qName ) )
+            else if( ( out != null ) && TAG_TD.equals( qName ) )
             {
                 out.append( '\n' );
             }
@@ -288,7 +298,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                                                         .indexOf( 
                                         "профилактика" ) == -1 ) )
                             {
-                                currentChannelID = "newsvm/"
+                                currentChannelID = CHANNEL_PREFIX
                                     + channelName.replace( '/', '_' );
 
                                 try

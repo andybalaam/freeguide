@@ -19,7 +19,8 @@ public class KulichkiConfig
     public KulichkiConfig(  )
     {
         channels.allChannels.add( 
-            new TVChannelsSet.Channel( "kulichki", "All" ) );
+            new TVChannelsSet.Channel( 
+                GrabberKulichki.CHANNEL_PREFIX_ID, "All" ) );
 
     }
 

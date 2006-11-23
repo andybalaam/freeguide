@@ -24,7 +24,6 @@ import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -46,9 +45,10 @@ public class ExpMobile extends BaseModule implements IModuleExport
 {
     protected static Time DAY_BEGIN = new Time( 5 );
     protected static final long MSEC_PER_DAY = 24L * 60L * 60L * 1000L;
+    protected static final String FILE_LIST = "list";
 
     /** Pattern for data files. */
-    protected static Pattern DATA_FILE_RE =
+    protected static final Pattern DATA_FILE_RE =
         Pattern.compile( "\\d{4}-\\d{2}-\\d{2}" );
 
     /**
@@ -105,7 +105,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
                 if( !files[i].isDirectory(  ) )
                 {
                     if( 
-                        "list".equals( files[i].getName(  ) )
+                        FILE_LIST.equals( files[i].getName(  ) )
                             || DATA_FILE_RE.matcher( files[i].getName(  ) )
                                                .matches(  ) )
                     {
@@ -148,7 +148,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
         final DataOutputStream dout =
             new DataOutputStream( 
                 new BufferedOutputStream( 
-                    new FileOutputStream( new File( dir, "list" ) ) ) );
+                    new FileOutputStream( new File( dir, FILE_LIST ) ) ) );
 
         try
         {

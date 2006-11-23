@@ -12,13 +12,15 @@ import freeguide.common.plugininterfaces.IStoragePipe;
 import java.util.TimeZone;
 
 /**
- * DOCUMENT ME!
+ * Grabber for www.ntvplus.ru.
  *
- * @author $author$
- * @version $Revision$
+ * @author Alex Buloichik
  */
 public class GrabberNtvplus extends BaseModule implements IModuleGrabber
 {
+    protected static final String CHANNEL_PREFIX = "ntvplus/";
+    protected static final String URL =
+        "http://www.ntvplus.ru/static/schedule/schedule.zip";
     protected static final TimeZone TIMEZONE =
         TimeZone.getTimeZone( "Europe/Moscow" );
 
@@ -62,8 +64,7 @@ public class GrabberNtvplus extends BaseModule implements IModuleGrabber
         progress.setProgressMessage( 
             Application.getInstance(  ).getLocalizedMessage( "downloading" ) );
 
-        new ListTVParser( "ntvplus/", storage ).parseZips( 
-            new String[] { "http://www.ntvplus.ru/static/schedule/schedule.zip" },
-            TIMEZONE, progress, logger );
+        new ListTVParser( CHANNEL_PREFIX, storage ).parseZips( 
+            new String[] { URL }, TIMEZONE, progress, logger );
     }
 }

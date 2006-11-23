@@ -30,10 +30,12 @@ import java.util.regex.Pattern;
  */
 public class HandlerProg extends HtmlHelper.DefaultContentHandler
 {
+    protected static final String TAG_FONT = "font";
+    protected static final String TAG_PRE = "pre";
     protected static final int MODES_NONE = 0;
     protected static final int MODES_CHANNEL_NAME = 1;
     protected static final int MODES_DATA = 2;
-    protected static Pattern RE_CHANNEL =
+    protected static final Pattern RE_CHANNEL =
         Pattern.compile( 
             "\\s*(\\S+)\\s*\\.\\s*(\\d{1,2})\\s+(\\S+)\\s*\\.\\s+(.+)" );
     protected final IStoragePipe storage;
@@ -107,13 +109,13 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
         String uri, String localName, String qName, Attributes atts )
         throws SAXException
     {
-        if( "font".equals( qName ) )
+        if( TAG_FONT.equals( qName ) )
         {
             mode = MODES_CHANNEL_NAME;
 
         }
 
-        else if( "pre".equals( qName ) )
+        else if( TAG_PRE.equals( qName ) )
         {
             mode = MODES_DATA;
 
@@ -132,13 +134,13 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-        if( "font".equals( qName ) )
+        if( TAG_FONT.equals( qName ) )
         {
             mode = MODES_NONE;
 
         }
 
-        else if( "pre".equals( qName ) )
+        else if( TAG_PRE.equals( qName ) )
         {
             mode = MODES_NONE;
 

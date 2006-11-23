@@ -127,7 +127,7 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
             di++;
             logger.info( 
                 MessageFormat.format( 
-                    "Load description [$1/$2]",
+                    "Load description [{0}/{1}]",
                     new Object[]
                     {
                         new Integer( di ), new Integer( descriptions.size(  ) )

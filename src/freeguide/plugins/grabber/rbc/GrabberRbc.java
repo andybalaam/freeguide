@@ -20,19 +20,20 @@ import java.util.regex.Pattern;
  */
 public class GrabberRbc extends BaseModule implements IModuleGrabber
 {
-    protected Pattern reChannel =
+    protected final static Pattern reChannel =
         Pattern.compile( 
             "^(.+)</b></font><.+>(\\p{L}+),\\s+(\\d{1,2})\\s+(\\p{L}+)\\s+(\\d{4})",
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE );
-    protected Pattern reProgram =
+    protected final static Pattern reProgram =
         Pattern.compile( 
             "^<b>(\\d{1,2}:\\d{2})</b>\\s*(.+?)<",
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE );
-    protected Pattern reAnn =
+    protected final static Pattern reAnn =
         Pattern.compile( 
             "my=window.open\\('(http://tv.rbc.ru/.+shtml)','anonse'",
             Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE );
-    protected TimeZone tz = TimeZone.getTimeZone( "Europe/Moscow" );
+    protected static final TimeZone tz =
+        TimeZone.getTimeZone( "Europe/Moscow" );
     protected HashMap anns = null;
 
     /**

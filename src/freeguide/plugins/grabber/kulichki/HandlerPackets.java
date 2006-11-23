@@ -12,17 +12,26 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
- * DOCUMENT ME!
+ * Handler for packets list parsing.
  *
- * @author $author$
- * @version $Revision$
+ * @author Alex Buloichik
  */
 public class HandlerPackets extends HtmlHelper.DefaultContentHandler
 {
+    protected static final String TAG_FORM = "form";
+    protected static final String TAG_TABLE = "table";
+    protected static final String TAG_INPUT = "input";
+    protected static final String ATTR_NAME = "name";
+    protected static final String ATTR_VALUE = "value";
+    protected static final String ATTR_ACTION = "action";
+    protected static final String PARAM_WEEK = "week";
+    protected static final String PARAM_PACKET = "pakets";
+    protected static final String ANONS_ATTR_VALUE = "anons";
+    protected static final String ACTION_NAME = "cgi-bin/gpack.cgi";
     protected boolean grab;
     protected String lastPacketID;
-    protected Set weekList = new TreeSet(  );
-    protected Map packetList = new TreeMap(  );
+    protected Set<String> weekList = new TreeSet<String>(  );
+    protected Map<String, String> packetList = new TreeMap<String, String>(  );
 
     /**
      * DOCUMENT_ME!
@@ -51,30 +60,30 @@ public class HandlerPackets extends HtmlHelper.DefaultContentHandler
         String uri, String localName, String qName, Attributes atts )
         throws SAXException
     {
-        if( "form".equals( qName ) )
+        if( TAG_FORM.equals( qName ) )
         {
-            if( "cgi-bin/gpack.cgi".equals( atts.getValue( "action" ) ) )
+            if( ACTION_NAME.equals( atts.getValue( ATTR_ACTION ) ) )
             {
                 grab = true;
 
             }
         }
 
-        else if( grab && "input".equals( qName ) )
+        else if( grab && TAG_INPUT.equals( qName ) )
         {
-            String name = atts.getValue( "name" );
+            String name = atts.getValue( ATTR_NAME );
 
-            String value = atts.getValue( "value" );
+            String value = atts.getValue( ATTR_VALUE );
 
-            if( "week".equals( name ) )
+            if( PARAM_WEEK.equals( name ) )
             {
                 weekList.add( value );
 
             }
 
-            else if( "pakets".equals( name ) )
+            else if( PARAM_PACKET.equals( name ) )
             {
-                if( !"anons".equals( value ) )
+                if( !ANONS_ATTR_VALUE.equals( value ) )
                 {
                     lastPacketID = value;
 
@@ -82,7 +91,7 @@ public class HandlerPackets extends HtmlHelper.DefaultContentHandler
             }
         }
 
-        else if( "table".equals( qName ) )
+        else if( TAG_TABLE.equals( qName ) )
         {
             grab = false;
 
@@ -101,7 +110,7 @@ public class HandlerPackets extends HtmlHelper.DefaultContentHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-        if( "table".equals( qName ) )
+        if( TAG_TABLE.equals( qName ) )
         {
             grab = false;
 
@@ -136,7 +145,7 @@ public class HandlerPackets extends HtmlHelper.DefaultContentHandler
      */
     public String[] getWeeks(  )
     {
-        return (String[])weekList.toArray( new String[weekList.size(  )] );
+        return weekList.toArray( new String[weekList.size(  )] );
 
     }
 
@@ -145,7 +154,7 @@ public class HandlerPackets extends HtmlHelper.DefaultContentHandler
      *
      * @return DOCUMENT_ME!
      */
-    public Collection getPacketIDs(  )
+    public Collection<String> getPacketIDs(  )
     {
         return packetList.keySet(  );
     }

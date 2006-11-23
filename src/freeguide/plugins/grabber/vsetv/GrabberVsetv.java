@@ -5,8 +5,6 @@ import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorChannels;
-import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
-import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.ResourceHelper;
 import freeguide.common.lib.grabber.HttpBrowser;
 import freeguide.common.lib.grabber.ListTVParser;
@@ -24,7 +22,6 @@ import java.io.IOException;
 
 import java.util.Map;
 import java.util.Properties;
-import java.util.ResourceBundle;
 import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -39,6 +36,13 @@ import javax.swing.JDialog;
  */
 public class GrabberVsetv extends BaseModule implements IModuleGrabber
 {
+    protected static final String URL = "http://www.vsetv.com";
+    protected static final String FILE_TIMEZONES =
+        "resources/plugins/grabber/vsetv/timezones.properties";
+    protected static final String VALUE_ACCEPT_LANGUAGE = "ru";
+    protected static final String VALUE_ACCEPT_CHARSET = "windows-1251";
+    protected static final TimeZone DEFAULT_TIMEZONE =
+        TimeZone.getTimeZone( "Europe/Kiev" );
     protected VsetvConfig config = new VsetvConfig(  );
     protected Properties TIMEZONES;
 
@@ -79,13 +83,15 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
     {
         HttpBrowser browser = new HttpBrowser(  );
 
-        browser.setHeader( "Accept-Language", "ru" );
+        browser.setHeader( 
+            HttpBrowser.HEADER_ACCEPT_LANGUAGE, VALUE_ACCEPT_LANGUAGE );
 
-        browser.setHeader( "Accept-Charset", "windows-1251" );
+        browser.setHeader( 
+            HttpBrowser.HEADER_ACCEPT_CHARSET, VALUE_ACCEPT_CHARSET );
 
-        browser.setHeader( "Referer", "http://www.vsetv.com" );
+        browser.setHeader( HttpBrowser.HEADER_REFERER, URL );
 
-        browser.loadURL( "http://www.vsetv.com" );
+        browser.loadURL( URL );
 
         HandlerChannelsList handler = new HandlerChannelsList(  );
 
@@ -117,15 +123,17 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         final TimeZone tz;
         HttpBrowser browser = new HttpBrowser(  );
 
-        browser.setHeader( "Accept-Language", "ru" );
+        browser.setHeader( 
+            HttpBrowser.HEADER_ACCEPT_LANGUAGE, VALUE_ACCEPT_LANGUAGE );
 
-        browser.setHeader( "Accept-Charset", "windows-1251" );
+        browser.setHeader( 
+            HttpBrowser.HEADER_ACCEPT_CHARSET, VALUE_ACCEPT_CHARSET );
 
-        browser.setHeader( "Referer", "http://www.vsetv.com" );
+        browser.setHeader( HttpBrowser.HEADER_REFERER, URL );
 
         logger.info( "Load initial page" );
 
-        browser.loadURL( "http://www.vsetv.com" );
+        browser.loadURL( URL );
 
         if( Thread.interrupted(  ) )
         {
@@ -148,7 +156,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         }
         else
         {
-            tz = TimeZone.getTimeZone( "Europe/Kiev" );
+            tz = DEFAULT_TIMEZONE;
         }
 
         if( Thread.interrupted(  ) )
@@ -231,8 +239,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         try
         {
             TIMEZONES.load( 
-                ResourceHelper.getUncachedStream( 
-                    "resources/plugins/grabber/vsetv/timezones.properties" ) );
+                ResourceHelper.getUncachedStream( FILE_TIMEZONES ) );
 
         }
         catch( Exception ex )
@@ -276,7 +283,8 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
             }
 
             browser.setHeader( 
-                "Referer", "http://www.vsetv.com/settings.php?fromscript=/" );
+                HttpBrowser.HEADER_REFERER,
+                "http://www.vsetv.com/settings.php?fromscript=/" );
             browser.loadURL( 
                 "http://www.vsetv.com/settings.php", values, false );
 

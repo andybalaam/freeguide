@@ -33,6 +33,10 @@ import javax.swing.JDialog;
  */
 public class GrabberZap2It extends BaseModule implements IModuleGrabber
 {
+    protected static final String LOGO_PREFIX =
+        "http://images.zap2it.com/station_logo/";
+    protected static final String LOGO_SUFFIX = ".jpg";
+    protected static final String CHANNEL_PREFIX = "zap2it/";
     protected Zap2ItConfig config = new Zap2ItConfig(  );
 
     /**
@@ -92,10 +96,11 @@ public class GrabberZap2It extends BaseModule implements IModuleGrabber
             final Station station = (Station)it.next(  );
             final TVChannel ch =
                 new TVChannel( 
-                    "zap2it/" + station.getCallSign(  ), station.getName(  ) );
+                    CHANNEL_PREFIX + station.getCallSign(  ),
+                    station.getName(  ) );
             ch.setIconURL( 
-                "http://images.zap2it.com/station_logo/"
-                + station.getCallSign(  ).toLowerCase(  ) + ".jpg" );
+                LOGO_PREFIX + station.getCallSign(  ).toLowerCase(  )
+                + LOGO_SUFFIX );
             storage.addChannel( ch );
         }
 
@@ -105,7 +110,7 @@ public class GrabberZap2It extends BaseModule implements IModuleGrabber
             final Station station =
                 (Station)xtvd.getStations(  )
                              .get( new Integer( schedule.getStation(  ) ) );
-            final String channelID = "zap2it/" + station.getCallSign(  );
+            final String channelID = CHANNEL_PREFIX + station.getCallSign(  );
             final Program program =
                 (Program)xtvd.getPrograms(  ).get( schedule.getProgram(  ) );
             final TVProgramme prog = new TVProgramme(  );
