@@ -533,7 +533,7 @@ public class ScheduleProcessor
             String message =
                 MessageFormat.format( 
                     taskInfo.parent.getLocalizer(  ).getString( "alarm.text" ),
-                    new Object[] { taskInfo.progTitle } );
+                    taskInfo.progTitle );
 
             JOptionPane optionPane =
                 new JOptionPane( message, JOptionPane.INFORMATION_MESSAGE );

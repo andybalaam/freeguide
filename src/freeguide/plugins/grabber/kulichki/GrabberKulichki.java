@@ -16,6 +16,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.text.MessageFormat;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -50,11 +52,14 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         "http://tv.kulichki.net/andgon/cgi-bin/itv.cgi";
     protected static final String PARAM_WEEK = "week";
     protected static final String PARAM_PACKET = "pakets";
+    protected static final String PARAM_CHANNEL = "chanel";
+    protected static final String PARAM_DAY = "day";
     protected static final String CHANNEL_PREFIX_ID = "kulichki";
     protected static final String CHANNEL_PREFIX = "kulichki/";
+    protected static final String[] DAYS_LIST = "1,2,3,4,5,6,7".split( "," );
     protected Properties TIME_ZONES;
     protected Properties GROUP_NAMES;
-    protected KulichkiConfig config = new KulichkiConfig(  );
+    protected KulichkiConfig config = new KulichkiConfig( i18n );
 
     /**
      * DOCUMENT_ME!
@@ -91,7 +96,9 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
     {
         final TVChannelsSet result = new TVChannelsSet(  );
 
-        result.add( new TVChannelsSet.Channel( CHANNEL_PREFIX_ID, "All" ) );
+        result.add( 
+            new TVChannelsSet.Channel( 
+                CHANNEL_PREFIX_ID, i18n.getString( "MainChannelName" ) ) );
 
         HttpBrowser browser = new HttpBrowser(  );
 
@@ -199,9 +206,9 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
 
         HandlerChannels handlerChanels = new HandlerChannels(  );
 
-        HandlerProg handlerProg = new HandlerProg( storage, logger );
+        HandlerProg handlerProg = new HandlerProg( storage, logger, i18n );
 
-        logger.info( "Load initial page" );
+        logger.info( i18n.getString( "Logging.LoadStartPage" ) );
 
         browser.loadURL( URL_START );
 
@@ -233,8 +240,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         final Map<String, Object> requestChannels =
             new TreeMap<String, Object>(  );
 
-        requestChannels.put( 
-            "day", new String[] { "1", "2", "3", "4", "5", "6", "7" } );
+        requestChannels.put( PARAM_DAY, DAYS_LIST );
 
         progress.setStepCount( weeks.length * packets.length );
         progress.setStepNumber( 0 );
@@ -243,7 +249,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         {
             request.put( PARAM_WEEK, weeks[i] );
 
-            requestChannels.put( "week", weeks[i] );
+            requestChannels.put( PARAM_WEEK, weeks[i] );
 
             for( int j = 0; j < packets.length; j++ )
             {
@@ -263,26 +269,27 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
                 else
                 {
                     logger.warning( 
-                        "Unknown timezone for packet '" + packets[j]
-                        + "'. Will use Europe/Moscow timezone." );
+                        MessageFormat.format( 
+                            i18n.getString( "Logging.UnknownTimeZone" ),
+                            packets[j] ) );
 
                     handlerProg.setTimeZone( TIME_ZONE_DEFAULT );
 
                 }
 
                 logger.info( 
-                    "Load week [" + ( i + 1 ) + "/" + weeks.length
-                    + "] packet [" + ( j + 1 ) + "/" + packets.length
-                    + "]: channel list" );
+                    MessageFormat.format( 
+                        i18n.getString( "Logging.LoadList" ), i + 1,
+                        weeks.length, j + 1, packets.length ) );
 
                 browser.loadURL( URL_PACKET, request, true );
 
                 browser.parse( handlerChanels );
 
                 logger.info( 
-                    "Load week [" + ( i + 1 ) + "/" + weeks.length
-                    + "] packet [" + ( j + 1 ) + "/" + packets.length
-                    + "]: channel data" );
+                    MessageFormat.format( 
+                        i18n.getString( "Logging.LoadData" ), i + 1,
+                        weeks.length, j + 1, packets.length ) );
 
                 for( 
                     Iterator it =
@@ -300,7 +307,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
                 }
 
                 requestChannels.put( 
-                    "chanel", handlerChanels.channelList.keySet(  ) );
+                    PARAM_CHANNEL, handlerChanels.channelList.keySet(  ) );
 
                 browser.loadURL( URL_DATA, requestChannels, true );
 

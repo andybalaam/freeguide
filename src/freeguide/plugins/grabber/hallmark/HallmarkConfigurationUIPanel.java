@@ -3,6 +3,8 @@ package freeguide.plugins.grabber.hallmark;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import java.util.ResourceBundle;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,16 +28,18 @@ public class HallmarkConfigurationUIPanel extends JPanel
 /**
      * This is the default constructor
      */
-    public HallmarkConfigurationUIPanel(  )
+    public HallmarkConfigurationUIPanel( final ResourceBundle i18n )
     {
         super(  );
-        initialize(  );
+        initialize( i18n );
     }
 
     /**
      * This method initializes this
+     *
+     * @param i18n DOCUMENT ME!
      */
-    private void initialize(  )
+    private void initialize( final ResourceBundle i18n )
     {
         GridBagConstraints gridBagConstraints5 = new GridBagConstraints(  );
         gridBagConstraints5.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -50,7 +54,7 @@ public class HallmarkConfigurationUIPanel extends JPanel
         gridBagConstraints4.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints4.gridy = 2;
         jLabel2 = new JLabel(  );
-        jLabel2.setText( "Weeks for load" );
+        jLabel2.setText( i18n.getString( "UI.Weeks" ) );
         jLabel2.setLabelFor( getTextWeeks(  ) );
 
         GridBagConstraints gridBagConstraints3 = new GridBagConstraints(  );
@@ -73,7 +77,7 @@ public class HallmarkConfigurationUIPanel extends JPanel
         gridBagConstraints1.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints1.gridy = 1;
         jLabel1 = new JLabel(  );
-        jLabel1.setText( "Language:" );
+        jLabel1.setText( i18n.getString( "UI.Language" ) );
         jLabel1.setLabelFor( getCbLanguage(  ) );
 
         GridBagConstraints gridBagConstraints = new GridBagConstraints(  );
@@ -82,7 +86,7 @@ public class HallmarkConfigurationUIPanel extends JPanel
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridy = 0;
         jLabel = new JLabel(  );
-        jLabel.setText( "Country:" );
+        jLabel.setText( i18n.getString( "UI.Country" ) );
         jLabel.setLabelFor( getCbCountry(  ) );
         this.setLayout( new GridBagLayout(  ) );
         this.setSize( 300, 200 );

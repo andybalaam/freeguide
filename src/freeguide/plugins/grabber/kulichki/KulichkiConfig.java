@@ -3,6 +3,8 @@ package freeguide.plugins.grabber.kulichki;
 import freeguide.common.lib.fgspecific.data.TVChannelsSelection;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 
+import java.util.ResourceBundle;
+
 /**
  * Class for store config information.
  *
@@ -16,12 +18,15 @@ public class KulichkiConfig
 /**
      * Creates a new Config object.
      */
-    public KulichkiConfig(  )
+    public KulichkiConfig( final ResourceBundle i18n )
     {
-        channels.allChannels.add( 
-            new TVChannelsSet.Channel( 
-                GrabberKulichki.CHANNEL_PREFIX_ID, "All" ) );
-
+        if( i18n != null )
+        {
+            channels.allChannels.add( 
+                new TVChannelsSet.Channel( 
+                    GrabberKulichki.CHANNEL_PREFIX_ID,
+                    i18n.getString( "MainChannelName" ) ) );
+        }
     }
 
     /**
@@ -31,7 +36,7 @@ public class KulichkiConfig
      */
     public Object clone(  )
     {
-        KulichkiConfig result = new KulichkiConfig(  );
+        KulichkiConfig result = new KulichkiConfig( null );
 
         result.channels = (TVChannelsSelection)channels.clone(  );
 

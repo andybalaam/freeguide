@@ -24,7 +24,6 @@ import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -50,6 +49,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
     /** Pattern for data files. */
     protected static final Pattern DATA_FILE_RE =
         Pattern.compile( "\\d{4}-\\d{2}-\\d{2}" );
+    protected static final String DATEFORMAT_MASK = "yyyy-MM-dd";
 
     /**
      * Returns export config if need.
@@ -135,12 +135,10 @@ public class ExpMobile extends BaseModule implements IModuleExport
                 System.currentTimeMillis(  ) - ( MSEC_PER_DAY * 3 ) );
         data.iterate( itdivide );
 
-        for( 
-            final Iterator it = itdivide.filesData.entrySet(  ).iterator(  );
-                it.hasNext(  ); )
+        for( final Map.Entry<String, TVData> entry : itdivide.filesData
+            .entrySet(  ) )
         {
-            final Map.Entry entry = (Map.Entry)it.next(  );
-            final String fileName = (String)entry.getKey(  );
+            final String fileName = entry.getKey(  );
             final TVData dayData = (TVData)entry.getValue(  );
             exportOneDay( new File( dir, fileName ), dayData );
         }
@@ -197,7 +195,8 @@ public class ExpMobile extends BaseModule implements IModuleExport
         // pack data
         dayData.iterate( itDay );
 
-        final Map dataOffsets = new TreeMap(  );
+        final Map<String, Integer> dataOffsets =
+            new TreeMap<String, Integer>(  );
         final int headerLength =
             exportHeader( itDay.channelsData, dataOffsets, 0 ).length;
 
@@ -211,13 +210,8 @@ public class ExpMobile extends BaseModule implements IModuleExport
         {
             out.write( header );
 
-            for( 
-                final Iterator itCh =
-                    itDay.channelsData.entrySet(  ).iterator(  );
-                    itCh.hasNext(  ); )
+            for( final byte[] channelData : itDay.channelsData.values(  ) )
             {
-                final Map.Entry entryCh = (Map.Entry)itCh.next(  );
-                final byte[] channelData = (byte[])entryCh.getValue(  );
                 out.write( channelData );
             }
 
@@ -241,7 +235,8 @@ public class ExpMobile extends BaseModule implements IModuleExport
      * @throws IOException
      */
     protected byte[] exportHeader( 
-        final Map channelsData, final Map offsets, final int headerOffset )
+        final Map<String, byte[]> channelsData,
+        final Map<String, Integer> offsets, final int headerOffset )
         throws IOException
     {
         final ByteArrayOutputStream array = new ByteArrayOutputStream(  );
@@ -250,16 +245,13 @@ public class ExpMobile extends BaseModule implements IModuleExport
 
         int currentOffset = 0;
 
-        for( 
-            final Iterator itCh = channelsData.entrySet(  ).iterator(  );
-                itCh.hasNext(  ); )
+        for( final Map.Entry<String, byte[]> entry : channelsData.entrySet(  ) )
         {
-            final Map.Entry entry = (Map.Entry)itCh.next(  );
-            final String channelID = (String)entry.getKey(  );
-            final byte[] channelData = (byte[])entry.getValue(  );
+            final String channelID = entry.getKey(  );
+            final byte[] channelData = entry.getValue(  );
             dout.writeUTF( channelID );
 
-            final Integer offset = (Integer)offsets.get( channelID );
+            final Integer offset = offsets.get( channelID );
 
             if( offset != null )
             {
@@ -294,7 +286,8 @@ public class ExpMobile extends BaseModule implements IModuleExport
          * Map for store TVData by day. Key is day, value is
          * TVData for this day.
          */
-        protected Map filesData = new TreeMap(  );
+        protected Map<String, TVData> filesData =
+            new TreeMap<String, TVData>(  );
 
 /**
          * Creates a new DivideIterator object.
@@ -303,7 +296,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
             final Calendar calendar, final long minimumDate )
         {
             this.calendar = calendar;
-            dateFormat = new SimpleDateFormat( "yyyy-MM-dd" );
+            dateFormat = new SimpleDateFormat( DATEFORMAT_MASK );
             this.minimumDate = minimumDate;
         }
 
@@ -363,15 +356,14 @@ public class ExpMobile extends BaseModule implements IModuleExport
         protected static final int BUFFER_SIZE = 65536;
 
         /** Key is channel ID, value is gzipped data. */
-        final Map channelsData = new TreeMap(  );
+        final Map<String, byte[]> channelsData =
+            new TreeMap<String, byte[]>(  );
 
         protected void onChannel( final TVChannel channel )
         {
-            final Set progs = channel.getProgrammes(  );
+            final Set<TVProgramme> progs = channel.getProgrammes(  );
             final byte[] data =
-                saveChannel( 
-                    (TVProgramme[])progs.toArray( 
-                        new TVProgramme[progs.size(  )] ) );
+                saveChannel( progs.toArray( new TVProgramme[progs.size(  )] ) );
 
             if( data != null )
             {
@@ -386,7 +378,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
                 return null;
             }
 
-            final List strings = new ArrayList(  );
+            final List<String> strings = new ArrayList<String>(  );
             final int[] progNames = new int[programmes.length];
             final int[] progDescs = new int[programmes.length];
 
@@ -420,7 +412,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
 
                 for( int i = 0; i < strings.size(  ); i++ )
                 {
-                    final String str = (String)strings.get( i );
+                    final String str = strings.get( i );
                     dout.writeUTF( str );
                 }
 
@@ -434,7 +426,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
             return gzipArray( array.toByteArray(  ) );
         }
 
-        protected int putToList( final List list, final String str )
+        protected int putToList( final List<String> list, final String str )
         {
             if( ( str == null ) || ( str.length(  ) == 0 ) )
             {

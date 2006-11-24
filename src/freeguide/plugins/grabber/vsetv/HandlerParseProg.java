@@ -16,8 +16,10 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 
+import java.text.MessageFormat;
 import java.text.ParseException;
 
+import java.util.ResourceBundle;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,6 +32,13 @@ import java.util.regex.Pattern;
  */
 public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 {
+    protected static final String TAG_A = "a";
+    protected static final String TAG_BR = "br";
+    protected static final String TAG_TD = "td";
+    protected static final String TAG_SPAN = "span";
+    protected static final String TAG_TABLE = "table";
+    protected static final String ATTR_CLASS = "class";
+    protected static final String LINE_BREAK_IN_STORAGE = "<br>";
     protected static final int MODES_NONE = 0;
     protected static final int MODES_TITLE = 1;
     protected static final int MODES_CHANNEL_NAME = 2;
@@ -37,6 +46,11 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
     protected static final int MODES_PROG_TITLE = 4;
     protected static final int MODES_ANON_TIME = 5;
     protected static final int MODES_ANON_TEXT = 6;
+    protected static final String CLASS_CHANNEL = "channeltitle";
+    protected static final String CLASS_DATE = "pagedate";
+    protected static final String CLASS_TIME = "progtime";
+    protected static final String CLASS_ANTIME = "descr1";
+    protected static final String CLASS_DESCR = "descr1";
     protected static final Pattern DATE_PATTERN =
         Pattern.compile( "(\\S+)\\s*,\\s*(\\d{1,2})\\s+(\\S+)\\s+(\\d{4})" );
     protected static final Pattern FILM_ID_PATTERN =
@@ -48,6 +62,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
     protected TVProgramme currentProg;
     protected final TVData data;
     protected final TimeZone tz;
+    protected final ResourceBundle i18n;
     protected boolean isAnnounces;
     protected ILogger logger;
     protected final StringBuffer currentText = new StringBuffer(  );
@@ -58,13 +73,15 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
      * @param logger DOCUMENT ME!
      * @param tz DOCUMENT ME!
      */
-    public HandlerParseProg( ILogger logger, TimeZone tz )
+    public HandlerParseProg( 
+        ILogger logger, TimeZone tz, final ResourceBundle i18n )
     {
         mode = MODES_NONE;
         isAnnounces = false;
         this.logger = logger;
         this.data = new TVData(  );
         this.tz = tz;
+        this.i18n = i18n;
     }
 
     /**
@@ -102,35 +119,35 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
         case MODES_NONE:
 
             if( 
-                "td".equals( qName )
-                    && "channeltitle".equals( atts.getValue( "class" ) ) )
+                TAG_TD.equals( qName )
+                    && CLASS_CHANNEL.equals( atts.getValue( ATTR_CLASS ) ) )
             {
                 mode = MODES_CHANNEL_NAME;
                 prevTime = 0;
                 currentProg = null;
             }
             else if( 
-                "span".equals( qName )
-                    && "pagedate".equals( atts.getValue( "class" ) ) )
+                TAG_SPAN.equals( qName )
+                    && CLASS_DATE.equals( atts.getValue( ATTR_CLASS ) ) )
             {
                 mode = MODES_TITLE;
                 prevTime = 0;
             }
             else if( 
-                "td".equals( qName )
-                    && "progtime".equals( atts.getValue( "class" ) ) )
+                TAG_TD.equals( qName )
+                    && CLASS_TIME.equals( atts.getValue( ATTR_CLASS ) ) )
             {
                 mode = MODES_PROG_TIME;
             }
             else if( 
-                "td".equals( qName )
-                    && "anonstime".equals( atts.getValue( "class" ) ) )
+                TAG_TD.equals( qName )
+                    && CLASS_ANTIME.equals( atts.getValue( ATTR_CLASS ) ) )
             {
                 mode = MODES_ANON_TIME;
             }
             else if( 
-                "span".equals( qName )
-                    && "descr1".equals( atts.getValue( "class" ) ) )
+                TAG_SPAN.equals( qName )
+                    && CLASS_DESCR.equals( atts.getValue( ATTR_CLASS ) ) )
             {
                 mode = MODES_ANON_TEXT;
             }
@@ -143,9 +160,9 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
             {
                 currentProg.addDesc( text );
 
-                if( "br".equals( qName ) )
+                if( TAG_BR.equals( qName ) )
                 {
-                    currentProg.addDesc( "<br>" );
+                    currentProg.addDesc( LINE_BREAK_IN_STORAGE );
                 }
             }
 
@@ -189,7 +206,9 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
             }
             catch( ParseException ex )
             {
-                logger.warning( "Error parse : " + text );
+                logger.warning( 
+                    MessageFormat.format( 
+                        i18n.getString( "Logging.ErrorParse" ), text ) );
             }
 
             mode = MODES_NONE;
@@ -206,7 +225,8 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 
             String channelName = text;
             currentChannel = data.get( 
-                    "vsetv/" + channelName.replace( '/', '_' ) );
+                    GrabberVsetv.CHANNEL_PREFIX
+                    + channelName.replace( '/', '_' ) );
             currentChannel.setDisplayName( channelName );
 
             mode = MODES_NONE;
@@ -251,7 +271,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 
             if( currentProg != null )
             {
-                if( "td".equals( qName ) || "a".equals( qName ) )
+                if( TAG_TD.equals( qName ) || TAG_A.equals( qName ) )
                 {
                     currentProg.setTitle( text );
                     mode = MODES_NONE;
@@ -320,7 +340,7 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
             break;
         }
 
-        if( "table".equals( qName ) )
+        if( TAG_TABLE.equals( qName ) )
         {
             mode = MODES_NONE;
         }

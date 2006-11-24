@@ -38,6 +38,9 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
 {
     protected static final byte[] SIGNATURE =
         new String( "JTV 3.x TV Program Data\n\n\n" ).getBytes(  );
+    protected static final String SUFFIX_INDEX = ".ndx";
+    protected static final String SUFFIX_DATA = ".pdt";
+    protected static final String CHANNEL_PREFIX = "jtv/";
     protected static final long DATE_DELTA = 134774L * 24L * 60L * 60L * 1000L; // milliseconds from Jan 1 1601 to Jan 1 1970
     protected static final String CHARSET = "Cp1251";
 
@@ -65,14 +68,14 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
             {
                 public String getDescription(  )
                 {
-                    return "JTV files";
+                    return i18n.getString( "SelectFiles.Description" );
                 }
 
                 public boolean accept( File pathname )
                 {
                     return pathname.isDirectory(  )
-                    || pathname.getName(  ).endsWith( ".ndx" )
-                    || pathname.getName(  ).endsWith( ".pdt" );
+                    || pathname.getName(  ).endsWith( SUFFIX_INDEX )
+                    || pathname.getName(  ).endsWith( SUFFIX_DATA );
                 }
             } );
         chooser.setFileSelectionMode( JFileChooser.FILES_ONLY );
@@ -87,7 +90,9 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
             {
                 String path = files[i].getPath(  );
 
-                if( path.endsWith( ".ndx" ) || path.endsWith( ".pdt" ) )
+                if( 
+                    path.endsWith( SUFFIX_INDEX )
+                        || path.endsWith( SUFFIX_DATA ) )
                 {
                     path = path.substring( 0, path.length(  ) - 4 );
                     fUniq.add( path );
@@ -131,9 +136,11 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
         throws IOException
     {
         final EndianInputStream inndx =
-            new EndianInputStream( new File( fileName + ".ndx" ), CHARSET );
+            new EndianInputStream( 
+                new File( fileName + SUFFIX_INDEX ), CHARSET );
         final EndianInputStream inpdt =
-            new EndianInputStream( new File( fileName + ".pdt" ), CHARSET );
+            new EndianInputStream( 
+                new File( fileName + SUFFIX_DATA ), CHARSET );
         final byte[] sig = new byte[SIGNATURE.length];
         inpdt.read( sig );
 
@@ -146,7 +153,7 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
         final int posf = fileName.lastIndexOf( File.separatorChar );
         final String channelName =
             ( ( posf == -1 ) ? fileName : fileName.substring( posf + 1 ) );
-        final String channelID = "jtv/" + channelName;
+        final String channelID = CHANNEL_PREFIX + channelName;
         storage.addChannel( new TVChannel( channelID, channelName ) );
 
         short progCount = inndx.readShort(  );
@@ -250,10 +257,12 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
         {
             save( 
                 wrndx.getBytes(  ),
-                getCurrentChannel(  ).getID(  ).replace( '/', '_' ) + ".ndx" );
+                getCurrentChannel(  ).getID(  ).replace( '/', '_' )
+                + SUFFIX_INDEX );
             save( 
                 wrpdt.getBytes(  ),
-                getCurrentChannel(  ).getID(  ).replace( '/', '_' ) + ".pdt" );
+                getCurrentChannel(  ).getID(  ).replace( '/', '_' )
+                + SUFFIX_DATA );
         }
 
         protected void save( byte[] data, String fileName )

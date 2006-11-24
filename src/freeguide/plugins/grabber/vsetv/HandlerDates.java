@@ -16,8 +16,13 @@ import java.util.TreeSet;
  */
 public class HandlerDates extends HtmlHelper.DefaultContentHandler
 {
+    protected static final String TAG_SELECT = "select";
+    protected static final String TAG_OPTION = "option";
+    protected static final String ATTR_NAME = "name";
+    protected static final String ATTR_VALUE = "value";
+    protected static final String VALUE_SELECT_DATES = "selectdate";
     protected boolean grab;
-    protected Set result = new TreeSet(  );
+    protected Set<String> result = new TreeSet<String>(  );
 
     /**
      * DOCUMENT_ME!
@@ -33,18 +38,20 @@ public class HandlerDates extends HtmlHelper.DefaultContentHandler
         String uri, String localName, String qName, Attributes atts )
         throws SAXException
     {
-        if( "select".equals( qName ) )
+        if( TAG_SELECT.equals( qName ) )
         {
-            if( "selectdate".equalsIgnoreCase( atts.getValue( "name" ) ) )
+            if( 
+                VALUE_SELECT_DATES.equalsIgnoreCase( 
+                        atts.getValue( ATTR_NAME ) ) )
             {
                 grab = true;
 
             }
         }
 
-        else if( grab && "option".equals( qName ) )
+        else if( grab && TAG_OPTION.equals( qName ) )
         {
-            final String value = atts.getValue( "value" );
+            final String value = atts.getValue( ATTR_VALUE );
 
             if( value != null )
             {
@@ -66,7 +73,7 @@ public class HandlerDates extends HtmlHelper.DefaultContentHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-        if( "select".equals( qName ) )
+        if( TAG_SELECT.equals( qName ) )
         {
             grab = false;
 
@@ -80,7 +87,7 @@ public class HandlerDates extends HtmlHelper.DefaultContentHandler
      */
     public String[] getResult(  )
     {
-        return (String[])result.toArray( new String[result.size(  )] );
+        return result.toArray( new String[result.size(  )] );
 
     }
 }

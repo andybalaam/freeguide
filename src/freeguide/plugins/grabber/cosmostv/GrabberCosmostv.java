@@ -74,7 +74,7 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
         progress.setProgressMessage( 
             Application.getInstance(  ).getLocalizedMessage( "downloading" ) );
 
-        logger.info( "Load initial page..." );
+        logger.info( i18n.getString( "Logging.LoadList" ) );
 
         HandlerZips handlerZips = new HandlerZips(  );
 
@@ -84,7 +84,7 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
 
         String[] zips = handlerZips.getZips(  );
 
-        logger.info( "Load data files..." );
+        logger.info( i18n.getString( "Logging.LoadData" ) );
 
         new ListTVParser( CHANNELS_PREFIX, storage ).parseZips( 
             zips, TIMEZONE, progress, logger );

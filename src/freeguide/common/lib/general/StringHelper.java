@@ -11,6 +11,9 @@ import java.io.IOException;
  */
 public class StringHelper
 {
+    /** DOCUMENT ME! */
+    public static final String EMPTY_STRING = "";
+
     /**
      * DOCUMENT_ME!
      *

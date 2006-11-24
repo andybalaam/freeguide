@@ -80,7 +80,7 @@ public class VsetvConfigurationUIController implements IModuleConfigurationUI
 
             if( sel == -1 )
             {
-                sel = chs.indexOf( "base" );
+                sel = chs.indexOf( VsetvConfig.PREDEFINED_CHANNEL_GROUP );
 
             }
 

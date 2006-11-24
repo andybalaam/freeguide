@@ -3,22 +3,27 @@ package freeguide.plugins.grabber.hallmark;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.general.StringHelper;
 import freeguide.common.lib.general.Time;
 import freeguide.common.lib.grabber.HtmlHelper;
 import freeguide.common.lib.grabber.LineProgrammeHelper;
 import freeguide.common.lib.grabber.TimeHelper;
+
+import freeguide.common.plugininterfaces.ILogger;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
 
+import java.text.MessageFormat;
 import java.text.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,7 +44,6 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
     protected static final String LINK_TO_ADOBE_COM = "http://www.adobe.com/";
     protected static final String TIMEZONES_FILE =
         "resources/plugins/grabber/hallmark/timezones.properties";
-    protected static final String EMPTY_STRING = "";
     protected static final Pattern RE_DATE =
         Pattern.compile( "\\s+(\\d{2})/(\\d{2})" );
     protected static final Pattern RE_DESCKEY =
@@ -62,6 +66,8 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
     protected final TVChannel channel;
     protected final Map<String, List<TVProgramme>> descriptionsMap;
     protected final boolean isUS;
+    protected final ResourceBundle i18n;
+    protected final ILogger logger;
 
 /**
      * Creates a new HallmarkScheduleParser object.
@@ -75,9 +81,12 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
     public HallmarkParserSchedule( 
         final TVChannel channel,
         final Map<String, List<TVProgramme>> descriptionsMap,
-        final boolean isUS ) throws SAXException
+        final boolean isUS, final ResourceBundle i18n, final ILogger logger )
+        throws SAXException
     {
         this.channel = channel;
+        this.logger = logger;
+        this.i18n = i18n;
 
         this.descriptionsMap = descriptionsMap;
         this.isUS = isUS;
@@ -232,11 +241,12 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
                 if( col == 0 )
                 { // timezone
                     timeZoneName = text.toString(  ).trim(  );
-                    timeZone = getTimeZone( timeZoneName );
+                    timeZone = getTimeZone( timeZoneName, i18n, logger );
 
                     if( timeZone == null )
                     {
-                        System.out.println( 
+                        Application.getInstance(  ).getLogger(  )
+                                   .warning( 
                             "Invalid timezone: " + text.toString(  ).trim(  ) );
                         timeZone = TimeZone.getDefault(  );
                     }
@@ -298,7 +308,9 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
                 {
                     String title = HtmlHelper.strongTrim( text.toString(  ) );
 
-                    if( !EMPTY_STRING.equals( title ) && ( channel != null ) )
+                    if( 
+                        !StringHelper.EMPTY_STRING.equals( title )
+                            && ( channel != null ) )
                     {
                         TVProgramme prog = new TVProgramme(  );
                         prog.setStart( 
@@ -350,11 +362,14 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
      * DOCUMENT_ME!
      *
      * @param hallmarkTimezone DOCUMENT_ME!
+     * @param i18n DOCUMENT ME!
+     * @param logger DOCUMENT ME!
      *
      * @return DOCUMENT_ME!
      */
     public synchronized static TimeZone getTimeZone( 
-        final String hallmarkTimezone )
+        final String hallmarkTimezone, final ResourceBundle i18n,
+        final ILogger logger )
     {
         if( TIMEZONES.size(  ) == 0 )
         {
@@ -377,8 +392,12 @@ public class HallmarkParserSchedule extends HtmlHelper.DefaultContentHandler
 
         if( tzName == null )
         {
-            Application.getInstance(  ).getLogger(  )
-                       .warning( "Unknown timezone: " + tzName );
+            if( logger != null )
+            {
+                logger.warning( 
+                    MessageFormat.format( 
+                        i18n.getString( "Logging.UnknownTimeZone" ), tzName ) );
+            }
 
             return TimeZone.getDefault(  );
         }

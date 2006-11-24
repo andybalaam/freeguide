@@ -1,6 +1,7 @@
 package freeguide.plugins.grabber.xmltv;
 
 import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.general.StringHelper;
 
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
@@ -70,7 +71,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         this.parent = parent;
 
         modules = GrabberXMLTV.getMods( 
-                "",
+                StringHelper.EMPTY_STRING,
                 ".run."
                 + ( Application.getInstance(  ).isUnix(  ) ? "lin" : "win" ) );
 

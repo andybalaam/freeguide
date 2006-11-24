@@ -51,6 +51,15 @@ import javax.xml.parsers.ParserConfigurationException;
 public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     IModuleConfigureFromWizard
 {
+    protected static final String DIR_CONFIG = "xmltv-configs";
+    protected static final String DIR_INSTALLED = "xmltv";
+    protected static final String REPLACE_CONFIG = "%config_file%";
+    protected static final String REPLACE_XMLTV = "%xmltv_path%";
+    protected static final String SUBST_LIN = "lin";
+    protected static final String SUBST_WIN = "win";
+    protected static final String ENV_PATH = "PATH";
+    protected static final String CHANNEL_PREFIX = "xmltv/";
+
     /** DOCUMENT ME! */
     public final static int REDOWNLOAD_ALWAYS = 0;
 
@@ -63,6 +72,13 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     // execExternal
     // ----------------------------------------------------------------------
     protected static Properties cmds;
+    protected static final String FILE_COMMANDS =
+        "resources/plugins/grabber/xmltv/commands.properties";
+    protected static final String MODULES_PREFIX = "region.";
+    protected static final String MODULES_SUFFIX = ".grabber";
+    protected static final String CHANNEL_SELECT_SUFFIX =
+        ".allowChannelsSelect";
+    protected static final String SUFFIX_FILE_CONFIG = ".conf";
 
     /** DOCUMENT ME! */
     public XMLTVConfig config = new XMLTVConfig(  );
@@ -157,9 +173,10 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
     protected void configureChannels( final XMLTVConfig.ModuleInfo moduleInfo )
     {
-        new File( 
-            Application.getInstance(  ).getWorkingDirectory(  )
-            + "/xmltv-configs/" ).mkdirs(  );
+        final File xmltvConfigDir =
+            new File( 
+                Application.getInstance(  ).getWorkingDirectory(  ), DIR_CONFIG );
+        xmltvConfigDir.mkdirs(  );
 
         String cmd = moduleInfo.configCommandToRun;
 
@@ -179,23 +196,25 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         }
 
         cmd = StringHelper.replaceAll( 
-                cmd, "%config_file%",
-                Application.getInstance(  ).getWorkingDirectory(  )
-                + "/xmltv-configs/" + moduleInfo.configFileName );
+                cmd, REPLACE_CONFIG,
+                new File( xmltvConfigDir, moduleInfo.configFileName )
+                .getAbsolutePath(  ) );
 
         if( Application.getInstance(  ).getInstallDirectory(  ) == null )
         {
             cmd = StringHelper.replaceAll( 
-                    cmd, "%xmltv_path%",
-                    Application.getInstance(  ).getWorkingDirectory(  )
-                    + "/xmltv" );
+                    cmd, REPLACE_XMLTV,
+                    new File( 
+                        Application.getInstance(  ).getWorkingDirectory(  ),
+                        DIR_INSTALLED ).getAbsolutePath(  ) );
         }
         else
         {
             cmd = StringHelper.replaceAll( 
-                    cmd, "%xmltv_path%",
-                    Application.getInstance(  ).getInstallDirectory(  )
-                    + "/xmltv" );
+                    cmd, REPLACE_XMLTV,
+                    new File( 
+                        Application.getInstance(  ).getInstallDirectory(  ),
+                        DIR_INSTALLED ).getAbsolutePath(  ) );
         }
 
         Application.getInstance(  ).getLogger(  ).finest( 
@@ -206,7 +225,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                    .finest( "Result code = " + resultCode );
     }
 
-    protected static synchronized Map getCommands(  )
+    protected static synchronized Map<String, String> getCommands(  )
     {
         if( cmds == null )
         {
@@ -214,9 +233,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
             try
             {
-                cmds.load( 
-                    ResourceHelper.getUncachedStream( 
-                        "resources/plugins/grabber/xmltv/commands.properties" ) );
+                cmds.load( ResourceHelper.getUncachedStream( FILE_COMMANDS ) );
 
             }
             catch( IOException ex )
@@ -228,7 +245,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             }
         }
 
-        return cmds;
+        return (Map)cmds;
 
     }
 
@@ -237,8 +254,8 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     {
         return (String)getCommands(  )
                            .get( 
-            modName + "." + suffix + "."
-            + ( Application.getInstance(  ).isUnix(  ) ? "lin" : "win" ) );
+            modName + '.' + suffix + '.'
+            + ( Application.getInstance(  ).isUnix(  ) ? SUBST_LIN : SUBST_WIN ) );
 
     }
 
@@ -271,6 +288,10 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         final IProgress progress, final ILogger logger )
         throws Exception
     {
+        final File xmltvConfigDir =
+            new File( 
+                Application.getInstance(  ).getWorkingDirectory(  ), DIR_CONFIG );
+
         progress.setProgressMessage( 
             Application.getInstance(  ).getLocalizedMessage( "downloading" ) );
 
@@ -295,23 +316,25 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         }
 
         cmd = StringHelper.replaceAll( 
-                cmd, "%config_file%",
-                Application.getInstance(  ).getWorkingDirectory(  )
-                + "/xmltv-configs/" + moduleInfo.configFileName );
+                cmd, REPLACE_CONFIG,
+                new File( xmltvConfigDir, moduleInfo.configFileName )
+                .getAbsolutePath(  ) );
 
         if( Application.getInstance(  ).getInstallDirectory(  ) == null )
         {
             cmd = StringHelper.replaceAll( 
-                    cmd, "%xmltv_path%",
-                    Application.getInstance(  ).getWorkingDirectory(  )
-                    + "/xmltv" );
+                    cmd, REPLACE_XMLTV,
+                    new File( 
+                        Application.getInstance(  ).getWorkingDirectory(  ),
+                        DIR_INSTALLED ).getAbsolutePath(  ) );
         }
         else
         {
             cmd = StringHelper.replaceAll( 
-                    cmd, "%xmltv_path%",
-                    Application.getInstance(  ).getInstallDirectory(  )
-                    + "/xmltv" );
+                    cmd, REPLACE_XMLTV,
+                    new File( 
+                        Application.getInstance(  ).getInstallDirectory(  ),
+                        DIR_INSTALLED ).getAbsolutePath(  ) );
         }
 
         Application.getInstance(  ).getLogger(  ).finest( 
@@ -439,15 +462,12 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             final File xmltvDir =
                 new File( 
                     Application.getInstance(  ).getWorkingDirectory(  ),
-                    "xmltv" );
+                    DIR_INSTALLED );
 
             if( !xmltvDir.exists(  ) )
             {
                 FileHelper.unpackFiles( 
-                    "other/xmltv-win/ls-xmltv", "other/xmltv-win/",
-                    new File( 
-                        Application.getInstance(  ).getWorkingDirectory(  ),
-                        "xmltv" ) );
+                    "other/xmltv-win/ls-xmltv", "other/xmltv-win/", xmltvDir );
             }
         }
 
@@ -462,7 +482,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         try
         {
-            path = System.getenv( "PATH" );
+            path = System.getenv( ENV_PATH );
 
         }
         catch( Error ex )
@@ -542,10 +562,11 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         XMLTVConfig.ModuleInfo info = new XMLTVConfig.ModuleInfo(  );
         info.moduleName = (String)getCommands(  )
                                       .get( 
-                "region." + regionName + ".grabber" );
+                MODULES_PREFIX + regionName + MODULES_SUFFIX );
         info.configFileName = (String)getCommands(  )
                                           .get( 
-                "region." + regionName + ".grabber" ) + ".conf";
+                MODULES_PREFIX + regionName + MODULES_SUFFIX )
+            + SUFFIX_FILE_CONFIG;
 
         synchronized( config.modules )
         {
@@ -586,17 +607,18 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     {
         if( countryInfos == null )
         {
-            String[] mods = getMods( "region.", ".grabber" );
+            String[] mods = getMods( MODULES_PREFIX, MODULES_SUFFIX );
             countryInfos = new CountryInfo[mods.length];
 
             for( int i = 0; i < mods.length; i++ )
             {
                 countryInfos[i] = new CountryInfo( 
                         mods[i], 0,
-                        "true".equalsIgnoreCase( 
-                            (String)getCommands(  )
-                                        .get( 
-                                "region." + mods[i] + ".allowChannelsSelect" ) ) );
+                        new Boolean( 
+                            getCommands(  )
+                                .get( 
+                                MODULES_PREFIX + mods[i]
+                                + CHANNEL_SELECT_SUFFIX ) ).booleanValue(  ) );
             }
         }
 
@@ -733,8 +755,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                         {
                             progress.setProgressMessage( 
                                 MessageFormat.format( 
-                                    i18n.getString( "Message.Count" ),
-                                    new Object[] { new Integer( count ) } ) );
+                                    i18n.getString( "Message.Count" ), count ) );
                         }
                     }
                 };
@@ -742,7 +763,8 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             try
             {
                 new XMLTVImport(  ).process( 
-                    in, storage, callback, new XMLTVImport.Filter(  ), "xmltv/" );
+                    in, storage, callback, new XMLTVImport.Filter(  ),
+                    CHANNEL_PREFIX );
             }
             catch( SAXException ex )
             {

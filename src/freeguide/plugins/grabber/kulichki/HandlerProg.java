@@ -2,6 +2,7 @@ package freeguide.plugins.grabber.kulichki;
 
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.general.StringHelper;
 import freeguide.common.lib.grabber.HtmlHelper;
 import freeguide.common.lib.grabber.LineProgrammeHelper;
 import freeguide.common.lib.grabber.TimeHelper;
@@ -16,8 +17,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 
+import java.text.MessageFormat;
 import java.text.ParseException;
 
+import java.util.ResourceBundle;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,7 +42,8 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
         Pattern.compile( 
             "\\s*(\\S+)\\s*\\.\\s*(\\d{1,2})\\s+(\\S+)\\s*\\.\\s+(.+)" );
     protected final IStoragePipe storage;
-    protected ILogger logger;
+    protected final ILogger logger;
+    protected final ResourceBundle i18n;
     protected TimeZone tz;
     protected long currentDate;
     protected String currentChannelID;
@@ -53,12 +57,14 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
      * @param storage DOCUMENT ME!
      * @param logger DOCUMENT ME!
      */
-    public HandlerProg( final IStoragePipe storage, ILogger logger )
+    public HandlerProg( 
+        final IStoragePipe storage, final ILogger logger,
+        final ResourceBundle i18n )
     {
         this.storage = storage;
 
         this.logger = logger;
-
+        this.i18n = i18n;
     }
 
     /**
@@ -195,8 +201,9 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
                 {
                     currentChannelID = null;
 
-                    logger.warning( "Error on channel name: " + data );
-
+                    logger.warning( 
+                        MessageFormat.format( 
+                            i18n.getString( "Logging.ErrorChannelName" ), data ) );
                 }
             }
 
@@ -226,7 +233,7 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
                     {
                         line = line.trim(  );
 
-                        if( "".equals( line ) )
+                        if( StringHelper.EMPTY_STRING.equals( line ) )
                         {
                             continue;
 
@@ -255,8 +262,10 @@ public class HandlerProg extends HtmlHelper.DefaultContentHandler
 
                             catch( ParseException ex )
                             {
-                                logger.warning( "Error parse: " + line );
-
+                                logger.warning( 
+                                    MessageFormat.format( 
+                                        i18n.getString( "Logging.ErrorParse" ),
+                                        line ) );
                             }
                         }
 

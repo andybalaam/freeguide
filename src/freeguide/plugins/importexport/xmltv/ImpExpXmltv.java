@@ -3,6 +3,7 @@ package freeguide.plugins.importexport.xmltv;
 import freeguide.common.gui.FileChooserExtension;
 
 import freeguide.common.lib.fgspecific.data.TVData;
+import freeguide.common.lib.general.StringHelper;
 import freeguide.common.lib.importexport.XMLTVExport;
 import freeguide.common.lib.importexport.XMLTVImport;
 
@@ -82,7 +83,8 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
                         {
                             imp.process( 
                                 files[i], storage, null,
-                                new XMLTVImport.Filter(  ), "" );
+                                new XMLTVImport.Filter(  ),
+                                StringHelper.EMPTY_STRING );
                         }
                         catch( IOException e )
                         {
@@ -114,7 +116,8 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
         throws Exception
     {
         new XMLTVImport(  ).process( 
-            file, storage, null, new XMLTVImport.Filter(  ), "" );
+            file, storage, null, new XMLTVImport.Filter(  ),
+            StringHelper.EMPTY_STRING );
     }
 
     /**

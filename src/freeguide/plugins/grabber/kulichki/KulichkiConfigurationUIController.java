@@ -43,7 +43,7 @@ public class KulichkiConfigurationUIController
     {
         if( panel == null )
         {
-            panel = new KulichkiConfigurationUIPanel(  );
+            panel = new KulichkiConfigurationUIPanel( parent.getLocalizer(  ) );
 
             panel.getTreeChannels(  ).setData( config.channels );
 

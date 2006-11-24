@@ -5,6 +5,8 @@ import freeguide.common.lib.fgspecific.TVChannelsTree;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import java.util.ResourceBundle;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,18 +29,19 @@ public class KulichkiConfigurationUIPanel extends JPanel
      *
      * @param localizer DOCUMENT ME!
      */
-    public KulichkiConfigurationUIPanel(  )
+    public KulichkiConfigurationUIPanel( final ResourceBundle i18n )
     {
         super(  );
 
-        initialize(  );
-
+        initialize( i18n );
     }
 
     /**
      * This method initializes this
+     *
+     * @param i18n DOCUMENT ME!
      */
-    private void initialize(  )
+    private void initialize( final ResourceBundle i18n )
     {
         GridBagConstraints gridBagConstraints4 = new GridBagConstraints(  );
 
@@ -76,32 +79,17 @@ public class KulichkiConfigurationUIPanel extends JPanel
 
         gridBagConstraints4.gridwidth = 2;
 
-        this.add( getTextDescription(  ), gridBagConstraints1 );
+        btnRefresh = new JButton( i18n.getString( "UI.RefreshButton" ) );
+
+        textDescription = new JTextPane(  );
+        textDescription.setOpaque( false );
+        textDescription.setText( "UI.Description" );
+
+        this.add( textDescription, gridBagConstraints1 );
 
         this.add( getBtnRefresh(  ), gridBagConstraints2 );
 
         this.add( getJScrollPane(  ), gridBagConstraints4 );
-
-    }
-
-    /**
-     * This method initializes jTextPane
-     *
-     * @return javax.swing.JTextPane
-     */
-    private JTextPane getTextDescription(  )
-    {
-        if( textDescription == null )
-        {
-            textDescription = new JTextPane(  );
-
-            textDescription.setOpaque( false );
-
-            textDescription.setText( "description" );
-
-        }
-
-        return textDescription;
 
     }
 
@@ -112,16 +100,7 @@ public class KulichkiConfigurationUIPanel extends JPanel
      */
     public JButton getBtnRefresh(  )
     {
-        if( btnRefresh == null )
-        {
-            btnRefresh = new JButton(  );
-
-            btnRefresh.setText( "Refresh" );
-
-        }
-
         return btnRefresh;
-
     }
 
     /**

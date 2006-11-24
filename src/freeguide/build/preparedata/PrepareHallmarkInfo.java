@@ -1,5 +1,6 @@
-package freeguide.plugins.grabber.hallmark;
+package freeguide.build.preparedata;
 
+import freeguide.common.lib.general.StringHelper;
 import freeguide.common.lib.grabber.HtmlHelper;
 import freeguide.common.lib.grabber.HttpBrowser;
 
@@ -31,7 +32,7 @@ import javax.xml.transform.stream.StreamResult;
  *
  * @author Alex Buloichik (mailto: alex73 at zaval.org)
  */
-public class PrepareInfo
+public class PrepareHallmarkInfo
 {
     protected static final Pattern RE_CNTRY_URL =
         Pattern.compile( "http://([a-z]{2}).hallmarkchannel.com" );
@@ -85,12 +86,8 @@ public class PrepareInfo
 
             System.out.println( 
                 MessageFormat.format( 
-                    "Country {0} ({1}/{2}) - {3}",
-                    new Object[]
-                    {
-                        country, new Integer( i ),
-                        new Integer( countries.countries.size(  ) ), url
-                    } ) );
+                    "Country {0} ({1}/{2}) - {3}", country, i,
+                    countries.countries.size(  ), url ) );
 
             final String id = getCntry( url );
             System.out.println( "url = " + url + "   cntry = " + id );
@@ -143,7 +140,7 @@ public class PrepareInfo
         {
             if( STR_CNTRY_USA.equals( url ) )
             {
-                return GrabberHallmark.US_COUNTRY_CODE;
+                return "US";
             }
             else
             {
@@ -156,7 +153,8 @@ public class PrepareInfo
         final String url, final String cntry ) throws Exception
     {
         final HttpBrowser browser = new HttpBrowser(  );
-        browser.loadURL( url + GrabberHallmark.URL_COUNTRY_PREFIX + cntry );
+        browser.loadURL( 
+            url + "/framework.jsp?BODY=weekSchedCal.jsp&CNTRY=" + cntry );
 
         HandlerLanguages h = new HandlerLanguages(  );
         browser.parse( h );
@@ -218,7 +216,8 @@ public class PrepareInfo
 
                 if( 
                     ( currentOptionValue == null )
-                        || "".equals( currentOptionValue )
+                        || StringHelper.EMPTY_STRING.equals( 
+                            currentOptionValue )
                         || !currentOptionValue.endsWith( 
                             "hallmarkchannel.com" ) )
                 {
@@ -306,7 +305,8 @@ public class PrepareInfo
 
                 if( 
                     ( currentOptionValue == null )
-                        || "".equals( currentOptionValue ) )
+                        || StringHelper.EMPTY_STRING.equals( 
+                            currentOptionValue ) )
                 {
                     currentOptionValue = null;
                 }

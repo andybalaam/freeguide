@@ -16,9 +16,15 @@ import java.util.List;
  */
 public class HandlerChannelsList extends HtmlHelper.DefaultContentHandler
 {
+    protected static final String TAG_SELECT = "select";
+    protected static final String TAG_OPTION = "option";
+    protected static final String ATTR_NAME = "name";
+    protected static final String ATTR_VALUE = "value";
+    protected static final String PREFIX_CH = "ch";
+    protected static final String VALUE_SELECT_CHANNELS = "selectchannels";
     protected boolean grab;
     protected boolean grabChannelName;
-    protected List result = new ArrayList(  );
+    protected List<String> result = new ArrayList<String>(  );
 
     /**
      * DOCUMENT_ME!
@@ -34,20 +40,24 @@ public class HandlerChannelsList extends HtmlHelper.DefaultContentHandler
         String uri, String localName, String qName, Attributes atts )
         throws SAXException
     {
-        if( "select".equals( qName ) )
+        if( TAG_SELECT.equals( qName ) )
         {
-            if( "selectchannels".equalsIgnoreCase( atts.getValue( "name" ) ) )
+            if( 
+                VALUE_SELECT_CHANNELS.equalsIgnoreCase( 
+                        atts.getValue( ATTR_NAME ) ) )
             {
                 grab = true;
 
             }
         }
 
-        else if( grab && "option".equals( qName ) )
+        else if( grab && TAG_OPTION.equals( qName ) )
         {
-            String value = atts.getValue( "value" );
+            String value = atts.getValue( ATTR_VALUE );
 
-            if( ( value != null ) && value.toLowerCase(  ).startsWith( "ch" ) )
+            if( 
+                ( value != null )
+                    && value.toLowerCase(  ).startsWith( PREFIX_CH ) )
             {
                 grabChannelName = true;
 
@@ -86,7 +96,7 @@ public class HandlerChannelsList extends HtmlHelper.DefaultContentHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-        if( "select".equals( qName ) )
+        if( TAG_SELECT.equals( qName ) )
         {
             grab = false;
 
@@ -100,7 +110,7 @@ public class HandlerChannelsList extends HtmlHelper.DefaultContentHandler
      */
     public String[] getResult(  )
     {
-        return (String[])result.toArray( new String[result.size(  )] );
+        return result.toArray( new String[result.size(  )] );
 
     }
 }

@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class XMLTVConfig
 {
+    protected static final String CONFIG_FILE_SUFFIX = ".conf";
+
     /** Info for loading by Preferences Helper. */
     public static final Class modules_TYPE = ModuleInfo.class;
 
@@ -57,7 +59,7 @@ public class XMLTVConfig
 
         /** DOCUMENT ME! */
         public String configFileName =
-            Long.toString( System.currentTimeMillis(  ) ) + ".conf";
+            Long.toString( System.currentTimeMillis(  ) ) + CONFIG_FILE_SUFFIX;
 
         /**
          * DOCUMENT_ME!

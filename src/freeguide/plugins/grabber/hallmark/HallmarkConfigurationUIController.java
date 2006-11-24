@@ -39,7 +39,7 @@ public class HallmarkConfigurationUIController
     {
         if( panel == null )
         {
-            panel = new HallmarkConfigurationUIPanel(  );
+            panel = new HallmarkConfigurationUIPanel( parent.getLocalizer(  ) );
             panel.getCbCountry(  )
                  .setModel( 
                 new DefaultComboBoxModel( HallmarkInfo.getCountriesList(  ) ) );

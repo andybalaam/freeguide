@@ -3,6 +3,7 @@ package freeguide.plugins.grabber.newsvm;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.general.StringHelper;
 import freeguide.common.lib.grabber.HtmlHelper;
 import freeguide.common.lib.grabber.HttpBrowser;
 import freeguide.common.lib.grabber.LineProgrammeHelper;
@@ -45,6 +46,10 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
     protected static final String TAG_TD = "td";
     protected static final String TAG_BR = "br";
     protected static final String CHANNEL_PREFIX = "newsvm/";
+    protected static final String FILE_NEN =
+        "resources/plugins/grabber/newsvm/nen.properties";
+    protected static final String EOC1 = "перепечатка";
+    protected static final String EOC2 = "профилактика";
     protected static final Pattern reDate =
         Pattern.compile( 
             "(\\p{L}+)\\s*,\\s*(\\d{1,2})\\s+(\\p{L}+)",
@@ -147,8 +152,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
             nen = new Properties(  );
             nen.load( 
                 PageParser.class.getClassLoader(  )
-                                .getResourceAsStream( 
-                    "resources/plugins/grabber/newsvm/nen.properties" ) );
+                                .getResourceAsStream( FILE_NEN ) );
         }
 
         /**
@@ -236,7 +240,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                 {
                     line = line.trim(  );
 
-                    if( "".equals( line ) )
+                    if( StringHelper.EMPTY_STRING.equals( line ) )
                     {
                         continue;
                     }
@@ -292,11 +296,9 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
                             String channelName = line;
 
                             if( 
-                                ( channelName.toLowerCase(  )
-                                                 .indexOf( "перепечатка" ) == -1 )
+                                ( channelName.toLowerCase(  ).indexOf( EOC1 ) == -1 )
                                     && ( channelName.toLowerCase(  )
-                                                        .indexOf( 
-                                        "профилактика" ) == -1 ) )
+                                                        .indexOf( EOC2 ) == -1 ) )
                             {
                                 currentChannelID = CHANNEL_PREFIX
                                     + channelName.replace( '/', '_' );

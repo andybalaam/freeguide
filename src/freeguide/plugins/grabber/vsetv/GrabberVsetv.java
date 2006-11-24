@@ -20,6 +20,8 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 
+import java.text.MessageFormat;
+
 import java.util.Map;
 import java.util.Properties;
 import java.util.TimeZone;
@@ -29,18 +31,45 @@ import java.util.logging.Level;
 import javax.swing.JDialog;
 
 /**
- * DOCUMENT ME!
+ * Grabber for www.vsetv.com.
  *
- * @author $author$
- * @version $Revision$
+ * @author Alex Buloichik
  */
 public class GrabberVsetv extends BaseModule implements IModuleGrabber
 {
+    protected static final String CHANNEL_PREFIX = "vsetv/";
     protected static final String URL = "http://www.vsetv.com";
+    protected static final String URL_LOGIN = URL + "/login.php";
+    protected static final String URL_SETTINGS = URL + "/settings.php";
+    protected static final String URL_SETTINGS_REFERER =
+        URL_SETTINGS + "?fromscript=/";
+    protected static final String URL_DATA = URL + "/vsetv.php";
     protected static final String FILE_TIMEZONES =
         "resources/plugins/grabber/vsetv/timezones.properties";
+    protected static final String FILE_NEN =
+        "resources/plugins/grabber/vsetv/nen.properties";
     protected static final String VALUE_ACCEPT_LANGUAGE = "ru";
     protected static final String VALUE_ACCEPT_CHARSET = "windows-1251";
+    protected static final String PARAM_HOURS_BEG = "hours1";
+    protected static final String PARAM_HOURS_END = "hours2";
+    protected static final String PARAM_HOURS_BEG_VALUE = "5";
+    protected static final String PARAM_HOURS_END_VALUE = "5";
+    protected static final String PARAM_DATE = "selectdate";
+    protected static final String PARAM_CATEGORY = "category";
+    protected static final String VALUE_CATEGORY_PROGRAMMES = "prog";
+    protected static final String VALUE_CATEGORY_ANNOUNCES = "anfi";
+    protected static final String PARAM_CHANNELS = "selectchannels";
+    protected static final String PARAM_CHANNELS_PERSONAL = "personal";
+    protected static final String PARAM_LOGIN_USER = "inlogin";
+    protected static final String PARAM_LOGIN_PASS = "inpassword";
+    protected static final String PARAM_MERIDIAN = "meridian";
+    protected static final String PARAM_NOWPERIOD = "nowperiod";
+    protected static final String PARAM_NOWPERIOD_VALUE = "60";
+    protected static final String PARAM_DOSAVE = "meridian";
+    protected static final String PARAM_DOSAVE_VALUE = "1";
+    protected static final String PARAM_VALUE_ON = "on";
+    protected static final String PARAM_SORT = "selectsort";
+    protected static final String PARAM_SORT_VALUE = "chan";
     protected static final TimeZone DEFAULT_TIMEZONE =
         TimeZone.getTimeZone( "Europe/Kiev" );
     protected VsetvConfig config = new VsetvConfig(  );
@@ -131,7 +160,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
         browser.setHeader( HttpBrowser.HEADER_REFERER, URL );
 
-        logger.info( "Load initial page" );
+        logger.info( i18n.getString( "Logging.LoadInitial" ) );
 
         browser.loadURL( URL );
 
@@ -166,27 +195,27 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
         progress.setStepNumber( 2 );
 
-        HandlerParseProg handler = new HandlerParseProg( logger, tz );
+        HandlerParseProg handler = new HandlerParseProg( logger, tz, i18n );
 
-        Map request = new TreeMap(  );
+        final Map<String, String> request = new TreeMap<String, String>(  );
 
-        request.put( "selectsort", "chan" );
+        request.put( PARAM_SORT, PARAM_SORT_VALUE );
 
         if( config.isAuth )
         {
-            request.put( "selectchannels", "personal" );
+            request.put( PARAM_CHANNELS, PARAM_CHANNELS_PERSONAL );
 
         }
 
         else
         {
-            request.put( "selectchannels", config.channelGroup );
+            request.put( PARAM_CHANNELS, config.channelGroup );
 
         }
 
-        request.put( "hours1", "5" );
+        request.put( PARAM_HOURS_BEG, PARAM_HOURS_BEG_VALUE );
 
-        request.put( "hours2", "5" );
+        request.put( PARAM_HOURS_END, PARAM_HOURS_END_VALUE );
 
         for( int i = 0; i < dates.length; i++ )
         {
@@ -195,14 +224,15 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
                 return;
             }
 
-            request.put( "selectdate", dates[i] );
+            request.put( PARAM_DATE, dates[i] );
 
             logger.info( 
-                "Load list page [" + ( i + 1 ) + "/" + dates.length + "]" );
+                MessageFormat.format( 
+                    i18n.getString( "Logging.LoadProgs" ), i + 1, dates.length ) );
 
-            request.put( "category", "prog" );
+            request.put( PARAM_CATEGORY, VALUE_CATEGORY_PROGRAMMES );
 
-            browser.loadURL( "http://www.vsetv.com/vsetv.php", request, false );
+            browser.loadURL( URL_DATA, request, false );
             progress.setStepNumber( 3 + ( i * 2 ) );
 
             handler.setAnnounces( false );
@@ -215,11 +245,12 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
             }
 
             logger.info( 
-                "Load announce page [" + ( i + 1 ) + "/" + dates.length + "]" );
+                MessageFormat.format( 
+                    i18n.getString( "Logging.LoadAnons" ), i + 1, dates.length ) );
 
-            request.put( "category", "anfi" );
+            request.put( PARAM_CATEGORY, VALUE_CATEGORY_ANNOUNCES );
 
-            browser.loadURL( "http://www.vsetv.com/vsetv.php", request, false );
+            browser.loadURL( URL_DATA, request, false );
             progress.setStepNumber( 4 + ( i * 2 ) );
 
             handler.setAnnounces( true );
@@ -229,7 +260,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
             handler.store( storage );
         }
 
-        logger.info( "Done" );
+        logger.info( i18n.getString( "Logging.Done" ) );
     }
 
     protected void loadTimeZones(  )
@@ -254,9 +285,9 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
     protected TimeZone checkSettings( ILogger logger, HttpBrowser browser )
         throws IOException, SAXException
     {
-        logger.info( "Check settings" );
+        logger.info( i18n.getString( "Logging.CheckSettings" ) );
 
-        browser.loadURL( "http://www.vsetv.com/settings.php" );
+        browser.loadURL( URL_SETTINGS );
 
         HandlerSettings handler = new HandlerSettings(  );
 
@@ -264,29 +295,27 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
         if( config.isGetAll && handler.isNeedUpdate(  ) )
         {
-            logger.info( "Modify settings" );
+            logger.info( i18n.getString( "Logging.ModifySettings" ) );
 
-            Map values = new TreeMap(  );
+            final Map<String, String> values = new TreeMap<String, String>(  );
 
-            values.put( "meridian", Integer.toString( handler.meridianValue ) );
+            values.put( 
+                PARAM_MERIDIAN, Integer.toString( handler.meridianValue ) );
 
-            values.put( "nowperiod", "60" );
+            values.put( PARAM_NOWPERIOD, PARAM_NOWPERIOD_VALUE );
 
-            values.put( "dosave", "1" );
+            values.put( PARAM_DOSAVE, PARAM_DOSAVE_VALUE );
 
             String[] chs = handler.getChannelIDs(  );
 
-            for( int i = 0; i < chs.length; i++ )
+            for( final String ch : chs )
             {
-                values.put( chs[i], "on" );
-
+                values.put( ch, PARAM_VALUE_ON );
             }
 
             browser.setHeader( 
-                HttpBrowser.HEADER_REFERER,
-                "http://www.vsetv.com/settings.php?fromscript=/" );
-            browser.loadURL( 
-                "http://www.vsetv.com/settings.php", values, false );
+                HttpBrowser.HEADER_REFERER, URL_SETTINGS_REFERER );
+            browser.loadURL( URL_SETTINGS, values, false );
 
         }
 
@@ -297,15 +326,15 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
     protected void login( ILogger logger, HttpBrowser browser )
         throws IOException
     {
-        logger.info( "Login" );
+        logger.info( i18n.getString( "Logging.Login" ) );
 
-        Map loginInfo = new TreeMap(  );
+        final Map<String, String> loginInfo = new TreeMap<String, String>(  );
 
-        loginInfo.put( "inlogin", config.user );
+        loginInfo.put( PARAM_LOGIN_USER, config.user );
 
-        loginInfo.put( "inpassword", config.pass );
+        loginInfo.put( PARAM_LOGIN_PASS, config.pass );
 
-        browser.loadURL( "http://www.vsetv.com/login.php", loginInfo, true );
+        browser.loadURL( URL_LOGIN, loginInfo, true );
     }
 
     /**
@@ -325,9 +354,8 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
     {
         final Properties nen = new Properties(  );
         nen.load( 
-            GrabberVsetv.class.getClassLoader(  )
-                              .getResourceAsStream( 
-                "resources/plugins/grabber/vsetv/nen.properties" ) );
+            GrabberVsetv.class.getClassLoader(  ).getResourceAsStream( 
+                FILE_NEN ) );
 
         data.iterateChannels( 
             new TVIteratorChannels(  )

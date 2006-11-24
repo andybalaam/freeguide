@@ -18,11 +18,25 @@ import java.util.TimeZone;
  */
 public class HandlerSettings extends HtmlHelper.DefaultContentHandler
 {
+    protected static final String TIMEZONE_PREFIX = "GMT";
+    protected static final String TAG_SELECT = "select";
+    protected static final String TAG_INPUT = "input";
+    protected static final String TAG_OPTION = "option";
+    protected static final String ATTR_NAME = "name";
+    protected static final String ATTR_VALUE = "value";
+    protected static final String ATTR_TYPE = "type";
+    protected static final String ATTR_SELECTED = "selected";
+    protected static final String ATTR_CHECKED = "checked";
+    protected static final String TYPE_CHECKBOX = "checkbox";
+    protected static final String MERIDIAN = "MERIDIAN";
+    protected static final String NAME_PREFIX_PGCH = "pgch";
+    protected static final String NAME_PREFIX_GCH = "gch";
+    protected static final String NAME_PREFIX_CCH = "cch";
     protected static final int MODES_NONE = 0;
     protected static final int MODES_MERIDIAN = 1;
     int meridianValue;
     boolean needUpdateCheckboxes;
-    List channelIDs;
+    protected final List<String> channelIDs = new ArrayList<String>(  );
     protected int mode;
 
 /**
@@ -33,8 +47,6 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
         meridianValue = -100;
 
         needUpdateCheckboxes = false;
-
-        channelIDs = new ArrayList(  );
 
         mode = MODES_NONE;
 
@@ -54,9 +66,9 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
         String uri, String localName, String qName, Attributes atts )
         throws SAXException
     {
-        if( "select".equals( qName ) )
+        if( TAG_SELECT.equals( qName ) )
         {
-            if( "MERIDIAN".equalsIgnoreCase( atts.getValue( "name" ) ) )
+            if( MERIDIAN.equalsIgnoreCase( atts.getValue( ATTR_NAME ) ) )
             {
                 mode = MODES_MERIDIAN;
 
@@ -65,32 +77,32 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
             }
         }
 
-        else if( ( mode == MODES_MERIDIAN ) && "option".equals( qName ) )
+        else if( ( mode == MODES_MERIDIAN ) && TAG_OPTION.equals( qName ) )
         {
-            if( atts.getValue( "selected" ) != null )
+            if( atts.getValue( ATTR_SELECTED ) != null )
             {
-                meridianValue = Integer.parseInt( atts.getValue( "value" ) );
+                meridianValue = Integer.parseInt( atts.getValue( ATTR_VALUE ) );
 
             }
         }
 
         else if( 
-            "input".equals( qName )
-                && "checkbox".equalsIgnoreCase( atts.getValue( "type" ) ) )
+            TAG_INPUT.equals( qName )
+                && TYPE_CHECKBOX.equalsIgnoreCase( atts.getValue( ATTR_TYPE ) ) )
         {
-            String name = atts.getValue( "name" );
+            String name = atts.getValue( ATTR_NAME );
 
-            boolean checked = atts.getValue( "checked" ) != null;
+            boolean checked = atts.getValue( ATTR_CHECKED ) != null;
 
             if( name != null )
             {
-                if( name.startsWith( "pgch" ) && checked )
+                if( name.startsWith( NAME_PREFIX_PGCH ) && checked )
                 {
                     needUpdateCheckboxes = true;
 
                 }
 
-                else if( name.startsWith( "gch" ) && checked )
+                else if( name.startsWith( NAME_PREFIX_GCH ) && checked )
                 {
                     needUpdateCheckboxes = true;
 
@@ -98,14 +110,14 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
 
                 else
                 {
-                    if( name.startsWith( "cch" ) && !checked )
+                    if( name.startsWith( NAME_PREFIX_CCH ) && !checked )
                     {
                         needUpdateCheckboxes = true;
 
                     }
                 }
 
-                if( name.startsWith( "cch" ) )
+                if( name.startsWith( NAME_PREFIX_CCH ) )
                 {
                     channelIDs.add( name );
 
@@ -126,10 +138,9 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
     public void endElement( String uri, String localName, String qName )
         throws SAXException
     {
-        if( "select".equals( qName ) )
+        if( TAG_SELECT.equals( qName ) )
         {
             mode = MODES_NONE;
-
         }
     }
 
@@ -151,7 +162,7 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
      */
     public String[] getChannelIDs(  )
     {
-        return (String[])channelIDs.toArray( new String[channelIDs.size(  )] );
+        return channelIDs.toArray( new String[channelIDs.size(  )] );
 
     }
 
@@ -171,12 +182,11 @@ public class HandlerSettings extends HtmlHelper.DefaultContentHandler
         {
             StringBuffer tzName = new StringBuffer( 10 );
 
-            tzName.append( "GMT" );
+            tzName.append( TIMEZONE_PREFIX );
 
             if( meridianValue >= 0 )
             {
                 tzName.append( '+' );
-
             }
 
             tzName.append( Integer.toString( meridianValue ) );

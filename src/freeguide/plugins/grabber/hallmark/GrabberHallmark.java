@@ -32,15 +32,20 @@ import javax.swing.JDialog;
  */
 public class GrabberHallmark extends BaseModule implements IModuleGrabber
 {
-    protected static final String URL_COUNTRY_PREFIX =
+    /** DOCUMENT ME! */
+    public static final String URL_COUNTRY_PREFIX =
         "/framework.jsp?BODY=weekSchedCal.jsp&CNTRY=";
     protected static final String URL_PROGRAMME_PREFIX =
         "/program.jsp?CONTENT=";
     protected static final String LANG_PARAM = "LANG";
-    protected static final String CHANNELS_PREFIX = "hallmark/";
+
+    /** DOCUMENT ME! */
+    public static final String CHANNELS_PREFIX = "hallmark/";
     protected static final String DEFAULT_LANGUAGE_NAME = "Default";
     protected static final String CHANNEL_NAME = "Hallmark Channel";
-    protected static final String US_COUNTRY_CODE = "US";
+
+    /** DOCUMENT ME! */
+    public static final String US_COUNTRY_CODE = "US";
     protected final Config config = new Config(  );
 
     /**
@@ -86,7 +91,7 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
         HallmarkInfo.Language lang =
             country.getLanguage( config.languageName );
 
-        logger.info( "Load schedule page" );
+        logger.info( i18n.getString( "Logging.Schedule" ) );
 
         /*browser.loadURL("http://by.hallmarkchannel.com");
         System.out.println("p1");
@@ -116,7 +121,8 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
             new TreeMap<String, List<TVProgramme>>(  );
         HallmarkParserSchedule parser =
             new HallmarkParserSchedule( 
-                channel, descriptions, country.id.equals( US_COUNTRY_CODE ) );
+                channel, descriptions, country.id.equals( US_COUNTRY_CODE ),
+                i18n, logger );
         browser.parse( parser );
 
         int di = 0;
@@ -127,11 +133,8 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
             di++;
             logger.info( 
                 MessageFormat.format( 
-                    "Load description [{0}/{1}]",
-                    new Object[]
-                    {
-                        new Integer( di ), new Integer( descriptions.size(  ) )
-                    } ) );
+                    i18n.getString( "Logging.Description" ), di,
+                    descriptions.size(  ) ) );
 
             String key = (String)entry.getKey(  );
             String description = loadDescription( country.url, lang, key );

@@ -161,9 +161,6 @@ public class VsetvConfigurationUIPanel extends JPanel
 
             message.setOpaque( false );
 
-            message.setText( 
-                "message sdagkn ashdkgjh asdgjhasdklgh laskhg kdfhgklsdfhjlghsdfh" );
-
             message.setText( i18n.getString( "Options.UI.Message" ) );
 
         }
@@ -231,8 +228,6 @@ public class VsetvConfigurationUIPanel extends JPanel
 
             gridBagConstraints6.gridy = 1;
 
-            labelUser.setText( "Username" );
-
             labelUser.setLabelFor( getTextUser(  ) );
             labelUser.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_U );
             labelUser.setText( i18n.getString( "Options.UI.Username" ) );
@@ -240,8 +235,6 @@ public class VsetvConfigurationUIPanel extends JPanel
             gridBagConstraints7.gridx = 0;
 
             gridBagConstraints7.gridy = 2;
-
-            labelPass.setText( "Password" );
 
             labelPass.setLabelFor( getTextPass(  ) );
             labelPass.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_P );
@@ -379,11 +372,8 @@ public class VsetvConfigurationUIPanel extends JPanel
         {
             rbNoAuth = new JRadioButton(  );
 
-            rbNoAuth.setText( "Non-Authorized" );
-
             rbNoAuth.setMnemonic( java.awt.event.KeyEvent.VK_N );
             rbNoAuth.setText( i18n.getString( "Options.UI.CB.NoAuth" ) );
-
         }
 
         return rbNoAuth;
@@ -401,15 +391,11 @@ public class VsetvConfigurationUIPanel extends JPanel
         {
             rbAuth = new JRadioButton(  );
 
-            rbAuth.setText( "Authorized" );
-
             rbAuth.setMnemonic( java.awt.event.KeyEvent.VK_A );
             rbAuth.setText( i18n.getString( "Options.UI.CB.Auth" ) );
-
         }
 
         return rbAuth;
-
     }
 
     /**
@@ -442,14 +428,10 @@ public class VsetvConfigurationUIPanel extends JPanel
         {
             cbGetAll = new JCheckBox(  );
 
-            cbGetAll.setText( "Get all site channels" );
-
             cbGetAll.setMnemonic( java.awt.event.KeyEvent.VK_G );
             cbGetAll.setText( i18n.getString( "Options.UI.Auth.GetAll" ) );
-
         }
 
         return cbGetAll;
-
     }
 }
