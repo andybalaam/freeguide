@@ -1,5 +1,7 @@
 package freeguide.build.i18n;
 
+import freeguide.common.lib.fgspecific.Application;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -36,6 +38,8 @@ public class CheckLocalization
      */
     public static void main( String[] args ) throws Exception
     {
+        final File mainProps =
+            new File( "src/resources/i18n/MessagesBundle.properties" );
         final File[] propFiles =
             new File( "src/resources/i18n/" ).listFiles( 
                 new FileFilter(  )
@@ -47,8 +51,7 @@ public class CheckLocalization
                     }
                 } );
 
-        translatedGlobal = readPropertiesFile( 
-                new File( "src/resources/i18n/MessagesBundle.properties" ) );
+        translatedGlobal = readPropertiesFile( mainProps );
 
         System.out.println( 
             "================= Files with untranslated strings =================" );
@@ -136,22 +139,49 @@ public class CheckLocalization
     protected static File[] getJavaFilesForPropertiesFile( 
         final File propFile )
     {
+        final List<File> allFiles = new ArrayList<File>(  );
+
         String classesDir = propFile.getName(  );
         classesDir = classesDir.substring( 
                 0, classesDir.length(  ) - ".properties".length(  ) );
         classesDir = classesDir.replace( '_', '/' );
-        classesDir = "src/freeguide/plugins/" + classesDir;
 
-        final List<File> allFiles = new ArrayList<File>(  );
-        findFile( 
-            new File( classesDir ), allFiles,
-            new FileFilter(  )
-            {
-                public boolean accept( File pathname )
+        if( classesDir.equals( "MessagesBundle" ) )
+        {
+            classesDir = "src/freeguide/common/";
+            findFile( 
+                new File( classesDir ), allFiles,
+                new FileFilter(  )
                 {
-                    return pathname.getName(  ).endsWith( ".java" );
-                }
-            } );
+                    public boolean accept( File pathname )
+                    {
+                        return pathname.getName(  ).endsWith( ".java" );
+                    }
+                } );
+            classesDir = "src/freeguide/plugins/program/";
+            findFile( 
+                new File( classesDir ), allFiles,
+                new FileFilter(  )
+                {
+                    public boolean accept( File pathname )
+                    {
+                        return pathname.getName(  ).endsWith( ".java" );
+                    }
+                } );
+        }
+        else
+        {
+            classesDir = "src/freeguide/plugins/" + classesDir;
+            findFile( 
+                new File( classesDir ), allFiles,
+                new FileFilter(  )
+                {
+                    public boolean accept( File pathname )
+                    {
+                        return pathname.getName(  ).endsWith( ".java" );
+                    }
+                } );
+        }
 
         return allFiles.toArray( new File[allFiles.size(  )] );
     }
@@ -223,7 +253,7 @@ public class CheckLocalization
                 {
                     mode = MODE.LINE_COMMENT;
                 }
-                else if( c == '"' )
+                else if( ( c == '"' ) && ( prevC != '\'' ) )
                 {
                     mode = MODE.STRING;
                 }
@@ -251,15 +281,11 @@ public class CheckLocalization
 
             case STRING:
 
-                if( c == '"' )
+                if( ( c == '"' ) && ( prevC != '\\' ) )
                 {
                     mode = MODE.DATA;
 
-                    String lines = command.toString(  );
-
-                    if( 
-                        !lines.contains( "static" )
-                            || !lines.contains( "final" ) )
+                    if( isNeedToLocalize( command.toString(  ) ) )
                     {
                         result.add( str.toString(  ) );
                     }
@@ -290,6 +316,26 @@ public class CheckLocalization
         }
 
         return result;
+    }
+
+    protected static boolean isNeedToLocalize( final String command )
+    {
+        if( command.contains( "static" ) && command.contains( "final" ) )
+        {
+            return false;
+        }
+
+        if( command.contains( "Exception(" ) )
+        {
+            return false;
+        }
+
+        if( command.contains( "Application.getInstance(  ).getLogger(  )" ) )
+        {
+            return false;
+        }
+
+        return true;
     }
 
     protected static void findFile( 
