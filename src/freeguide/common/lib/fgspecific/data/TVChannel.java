@@ -5,7 +5,6 @@ import freeguide.common.lib.fgspecific.Application;
 import java.io.File;
 import java.io.Serializable;
 
-import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -36,7 +35,7 @@ public class TVChannel implements Serializable
     protected String iconURL;
 
     /** List of programmes for channel. */
-    protected Set programmes = new TreeSet(  );
+    protected Set<TVProgramme> programmes = new TreeSet<TVProgramme>(  );
 
 /**
      * Create channel with specified ID. It should be locale-insensitive.
@@ -90,11 +89,8 @@ public class TVChannel implements Serializable
     {
         mergeHeaderFrom( channel );
 
-        Iterator it = channel.getProgrammes(  ).iterator(  );
-
-        while( it.hasNext(  ) )
+        for( TVProgramme p : channel.getProgrammes(  ) )
         {
-            TVProgramme p = (TVProgramme)it.next(  );
             put( p );
         }
 
@@ -227,7 +223,7 @@ public class TVChannel implements Serializable
      *
      * @return Iterator
      */
-    public Set getProgrammes(  )
+    public Set<TVProgramme> getProgrammes(  )
     {
         return programmes;
     }
@@ -251,16 +247,11 @@ public class TVChannel implements Serializable
      */
     public TVProgramme getProgrammeByTime( final long startTime )
     {
-        Iterator it = getProgrammes(  ).iterator(  );
-
-        while( it.hasNext(  ) )
+        for( final TVProgramme prog : getProgrammes(  ) )
         {
-            TVProgramme prog = (TVProgramme)it.next(  );
-
             if( prog.getStart(  ) == startTime )
             {
                 return prog;
-
             }
         }
 
@@ -290,31 +281,23 @@ public class TVChannel implements Serializable
     {
         TVProgramme prevProg = null;
 
-        Iterator it = getProgrammes(  ).iterator(  );
-
-        while( it.hasNext(  ) )
+        for( TVProgramme prog : getProgrammes(  ) )
         {
-            TVProgramme prog = (TVProgramme)it.next(  );
-
             if( ( prevProg != null ) && ( prevProg.getEnd(  ) == 0 ) )
             {
                 if( 
                     ( prog.getStart(  ) - prevProg.getStart(  ) ) <= PROG_LENGTH_MAX )
                 {
                     prevProg.setEnd( prog.getStart(  ) );
-
                 }
-
                 else
                 {
                     prevProg.setEnd( 
                         prevProg.getStart(  ) + PROG_LENGTH_DEFAULT );
-
                 }
             }
 
             prevProg = prog;
-
         }
 
         if( ( prevProg != null ) && ( prevProg.getEnd(  ) == 0 ) )
