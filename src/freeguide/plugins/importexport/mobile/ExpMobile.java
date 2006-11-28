@@ -131,8 +131,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
     {
         final DivideIterator itdivide =
             new DivideIterator( 
-                Calendar.getInstance( tz ),
-                System.currentTimeMillis(  ) - ( MSEC_PER_DAY * 3 ) );
+                tz, System.currentTimeMillis(  ) - ( MSEC_PER_DAY * 2 ) );
         data.iterate( itdivide );
 
         for( final Map.Entry<String, TVData> entry : itdivide.filesData
@@ -292,11 +291,11 @@ public class ExpMobile extends BaseModule implements IModuleExport
 /**
          * Creates a new DivideIterator object.
          */
-        public DivideIterator( 
-            final Calendar calendar, final long minimumDate )
+        public DivideIterator( final TimeZone tz, final long minimumDate )
         {
-            this.calendar = calendar;
-            dateFormat = new SimpleDateFormat( DATEFORMAT_MASK );
+            this.calendar = Calendar.getInstance( tz );
+            this.dateFormat = new SimpleDateFormat( DATEFORMAT_MASK );
+            this.dateFormat.setTimeZone( tz );
             this.minimumDate = minimumDate;
         }
 
@@ -331,20 +330,22 @@ public class ExpMobile extends BaseModule implements IModuleExport
         {
             calendar.setTimeInMillis( date );
 
-            Time pTime = new Time( calendar );
+            final Time pTime = new Time( calendar );
 
             if( pTime.compareTo( DAY_BEGIN ) < 0 )
             {
                 calendar.add( Calendar.DAY_OF_YEAR, -1 );
             }
 
+            final String result = dateFormat.format( calendar.getTime(  ) );
+
             calendar.set( Calendar.HOUR_OF_DAY, 0 );
             calendar.set( Calendar.MINUTE, 0 );
             calendar.set( Calendar.SECOND, 0 );
             calendar.set( Calendar.MILLISECOND, 0 );
 
-            return ( calendar.getTimeInMillis(  ) >= minimumDate )
-            ? dateFormat.format( calendar.getTime(  ) ) : null;
+            return ( calendar.getTimeInMillis(  ) >= minimumDate ) ? result
+                                                                   : null;
         }
     }
 
