@@ -7,6 +7,8 @@ doc/man/tv_extractinfo_en.txt
 doc/man/tv_find_grabbers.txt
 doc/man/tv_grab_be.txt
 doc/man/tv_grab_br.txt
+doc/man/tv_grab_br_net.txt
+doc/man/tv_grab_ch_bluewin.txt
 doc/man/tv_grab_de_tvtoday.txt
 doc/man/tv_grab_dk.txt
 doc/man/tv_grab_ee.txt
@@ -14,7 +16,9 @@ doc/man/tv_grab_es.txt
 doc/man/tv_grab_es_laguiatv.txt
 doc/man/tv_grab_fi.txt
 doc/man/tv_grab_fr.txt
+doc/man/tv_grab_hr.txt
 doc/man/tv_grab_huro.txt
+doc/man/tv_grab_il.txt
 doc/man/tv_grab_is.txt
 doc/man/tv_grab_it.txt
 doc/man/tv_grab_na_dd.txt
@@ -45,6 +49,7 @@ README
 README.tv_check
 share/xmltv/tv_grab_be/channel_ids_fr
 share/xmltv/tv_grab_be/channel_ids_nl
+share/xmltv/tv_grab_ch_bluewin/channel_ids
 share/xmltv/tv_grab_de_tvtoday/channel_ids
 share/xmltv/tv_grab_huro/catmap.hu
 share/xmltv/tv_grab_huro/catmap.ro

@@ -1,3 +1,313 @@
+2006-12-01 16:22  mattiasholmlund
+
+	* grab/test_grabbers: Remove debug output.
+
+2006-12-01 15:02  mattiasholmlund
+
+	* lib/ValidateFile.pm: Test for invalid episode-numbers
+
+2006-12-01 14:59  mattiasholmlund
+
+	* grab/test_grabbers: Use several threads to speed up testing
+
+2006-12-01 14:50  mattiasholmlund
+
+	* grab/hr/test.conf: Use a more reliable set of channels
+
+2006-11-30 18:23  betlit
+
+	* grab/ch_bluewin/test.conf: [no log message]
+
+2006-11-30 18:15  christianw
+
+	* grab/no/tv_grab_no: Added new IDs. Should work now.
+
+2006-11-30 15:44  zcougar
+
+	* grab/ee/test.conf: ! config file update. cachedir missing before
+	  and test failed because of this
+
+2006-11-30 15:36  zcougar
+
+	* grab/ee/tv_grab_ee: ! keep tab indent instead of spaces (need to
+	  add some emacs/vim code probably)
+
+2006-11-30 13:36  mattiasholmlund
+
+	* MANIFEST, Makefile.PL, grab/ee/tv_grab_ee,
+	  grab/uk_rt/tv_grab_uk_rt.in, lib/Options.pm,
+	  lib/PreferredMethod.pm: Implement support for the
+	  --preferredmethod capability and add it to ee and uk_rt
+
+2006-11-30 13:13  mattiasholmlund
+
+	* lib/Version.pm: Add documentation.
+
+2006-11-30 03:02  betlit
+
+	* grab/ch_bluewin/tv_grab_ch_bluewin.in: fixed a bug which ignored
+	  some shows.
+
+2006-11-29 11:06  rmeden
+
+	* grab/na_dd/tv_grab_na_dd.in: trim programs that begin before
+	  start_time to avoid splitting issues
+
+2006-11-29 06:55  betlit
+
+	* grab/ch_bluewin/: channel_ids, tv_grab_ch_bluewin.in: new version
+	  of tv_grab_ch_bluewin. adapted to the new design of the
+	  bluewin-page.  thanks to rené bühlmann wo did most of the
+	  adaption for the new design!
+
+2006-11-20 07:38  zcougar
+
+	* grab/ee/: test.conf, tv_grab_ee: + use transparentcache if
+	  available (not required) + XMLTV postprocessing with following
+	  features (needs reconfiguration):   * strips genrenames from
+	  title   * extracts country and year information from movies
+	  titles   * splits titles with series names to title and subtitle
+	  * extracts episode numbers from series titles and subtitles	 *
+	  detects previously shown shows   * extracts stereo, teletext and
+	  aspect ratios from descriptions   * changes category names so
+	  that only first char is uppercase
+
+2006-11-20 00:36  rmeden
+
+	* grab/na_dd/tv_grab_na_dd.in: Hack to shorten SOAP request going
+	  to DD servers by restricting schemas listed in the request.  This
+	  will hopefully get around a DD server bug causing "Invalid Time"
+	  errors when a request spans packets.
+
+2006-11-19 01:53  jveldhuis
+
+	* lib/IMDB.pm: fixed sanity check failure due to imdb refining year
+	  of Army of Darkness, thx Dan Hopper
+
+2006-11-15 08:00  dubman
+
+	* grab/il/tv_grab_il: adopt changes from yes-ru grabber site
+
+2006-11-09 15:04  va1210
+
+	* grab/fi/tv_grab_fi: Increased default --days option from 10 to
+	  14, i.e. all available data.
+
+2006-11-06 11:13  va1210
+
+	* grab/fi/tv_grab_fi: telkku.com changed time delimiter from colon
+	  to period
+
+2006-11-05 03:22  dubman
+
+	* grab/il/tv_grab_il: channelnoprogramme: resolve validate errors
+
+2006-10-27 15:34  reudeudeu
+
+	* grab/fr/tv_grab_fr: Creation	- Add patch for wron showview
+	  fields  - --perdays mode is now default mode
+
+2006-10-13 17:25  knowledgejunkie
+
+	* grab/uk_rt/channel_ids: Channel updates from Nick Morrott
+
+2006-10-11 13:31  rmeden
+
+	* grab/na_dd/tv_grab_na_dd.in: fix DD soap call syntax ( been wrong
+	  all this time! )
+
+2006-10-04 04:04  zcougar
+
+	* grab/ee/tv_grab_ee: Remove default days hack plus some comments
+
+2006-09-30 03:06  mattiasholmlund
+
+	* grab/se_swedb/test.conf: Remove channel that is no longer
+	  available.
+
+2006-09-26 15:24  zcougar
+
+	* grab/ee/test.conf, grab/ee/tv_grab_ee, lib/Configure.pm,
+	  lib/Options.pm: Sourceforge patch #1560348: * Added new grabber
+	  for Estonian tv stations (and other channels visible	 in
+	  Estonia) based on www.kava.ee listings. Old grabber is not
+	  working any	more.  * use UTF-8 for STDERR terminal output if
+	  UTF-8 encoding configured * when writing channel config keep
+	  original encoding * make it possible for external modules to get
+	  output file handle   (XML::Writer uses STDIO instead of default
+	  output if not specified)
+
+2006-09-25 00:12  rmeden
+
+	* choose/tv_check/tv_check: fix feature (it was intentional) that
+	  would prevent a moved MyReplayTV show from showing up.  Don't
+	  remember why this was done, but not a good idea!
+
+	  Add dupe check for same show on multiple MyReplayTV units.
+
+2006-09-24 13:44  reudeudeu
+
+	* grab/fr/tv_grab_fr: Now manage properly --perdays, --offset and
+	  --days options together
+
+2006-09-22 06:49  b4max
+
+	* grab/br_net/tv_grab_br_net: syntax error
+
+2006-09-20 08:29  rmeden
+
+	* grab/uk_rt/channel_ids: submit update from nick
+
+2006-09-19 15:17  reudeudeu
+
+	* grab/fr/tv_grab_fr: Argh
+
+2006-09-19 00:47  reudeudeu
+
+	* grab/fr/tv_grab_fr: ake care of --days and --ofset in --perdays
+	  mode
+
+2006-09-18 12:05  b4max
+
+	* grab/br_net/tv_grab_br_net: fixed crash when there is no data
+	  available
+
+2006-09-17 15:19  reudeudeu
+
+	* grab/fr/tv_grab_fr: Oopps... Thanks to Jhereg, a quick patch that
+	  now grab correctly many days and not only one.
+
+2006-09-15 15:01  reudeudeu
+
+	* grab/fr/tv_grab_fr: Add a mode to grab data on a day by day basis
+	  with the --perdays option. The default mode is still the week
+	  mode.
+
+2006-09-12 07:17  b4max
+
+	* grab/br_net/tv_grab_br_net: added error for empty configfile
+
+2006-09-11 19:16  rmeden
+
+	* grab/na_dd/tv_grab_na_dd.in: add --padd option to deal with bad
+	  startTime warnings from DD
+
+2006-09-03 06:49  b4max
+
+	* grab/br_net/tv_grab_br_net: improved error handling
+
+2006-08-31 16:16  betlit
+
+	* grab/ch_bluewin/channel_ids: argh... the channel is named 3+ not
+	  S3... sorry.
+
+2006-08-31 16:02  betlit
+
+	* grab/ch_bluewin/: channel_ids, tv_grab_ch_bluewin.in: - bluewin
+	  sometimes includes has some strange non standard (control)
+	  characters int he description which xmltv can't handle.  added a
+	  regexp to remove those chars - new channel 'S3' added
+
+2006-08-20 07:27  ecastelnau
+
+	* grab/re/tv_grab_re: Fixe a bug when no data is available for a
+	  particular channel from canalsat-reunion.com
+
+2006-08-17 16:50  axis3x3
+
+	* grab/uk_rt/: channel_ids, tv_grab_uk_rt.in: Added channel icon
+	  URLs to tv_grab_uk_rt.
+
+2006-08-16 15:59  mnbjhguyt
+
+	* grab/it/tv_grab_it.in: fixes to skytv skytv now handles
+	  categories when using --slow
+
+2006-08-15 07:21  ecastelnau
+
+	* grab/re/: test.conf, tv_grab_re: --slow option did not work due
+	  to site changes. Now it's fixed.
+
+2006-07-27 06:32  mattiasholmlund
+
+	* MANIFEST, Makefile.PL, grab/hr/test.conf, grab/hr/tv_grab_hr.PL:
+	  Add new grabber for Croatia.
+
+2006-07-23 14:14  betlit
+
+	* grab/ch_bluewin/tv_grab_ch_bluewin.in: bluewin.ch made some
+	  changes on the details page (javascript script-related) which
+	  caused the grabber to be unable to separate titles and (optional)
+	  subtitle of the show
+
+2006-07-20 15:28  stesie
+
+	* grab/de_tvtoday/tv_grab_de_tvtoday.in: improved category and
+	  sub-title recognition, patch by bhaak
+
+2006-07-20 14:56  stesie
+
+	* lib/exe_wrap.pl: adjusted for new tv_grab_ch_bluewin.
+
+2006-07-20 14:54  stesie
+
+	* doc/QuickStart: updated list of available grabbers.
+
+2006-07-20 14:28  stesie
+
+	* grab/ch_bluewin/test.conf: added test.conf file for automatic
+	  grabber checking
+
+2006-07-20 10:51  stesie
+
+	* grab/ch_bluewin/channel_ids,
+	  grab/ch_bluewin/tv_grab_ch_bluewin.PL,
+	  grab/ch_bluewin/tv_grab_ch_bluewin.in, MANIFEST, Makefile.PL:
+	  adding Daniel Bittel's <daniel.bittel@solnet.ch>
+	  tv_grab_ch_bluewin grabber for Switzerland
+
+2006-07-18 16:50  mbdev
+
+	* grab/huro/tv_grab_huro.in: fix of "Cant use an undefinied value
+	  as a HASH reference at tv_grab_huro line 1522/1525": if the
+	  channel (coming from the config file) does not exists on the
+	  port.hu/ro site, display WARNING message, so do not die so ugly.
+
+2006-07-12 07:58  jtoft
+
+	* grab/dk/tv_grab_dk: Only critical warnings when running with
+	  --quiet.  Patch by Michael Andersen.
+
+	  ----------------------------------------------------------------------
+
+2006-07-09 12:08  rmeden
+
+	* Makefile.PL: require SOAP::Lite version 0.67
+
+2006-07-05 08:20  rmeden
+
+	* grab/na_icons/tv_grab_na_icons.in: zap2it sometimes gives all
+	  channels by default... let's deal with it
+
+2006-07-02 14:36  mattiasholmlund
+
+	* lib/ProgressBar/None.pm: Support old interface in the same way
+	  that the other progressbars do. Patch from Chris Butler.
+
+2006-07-01 21:43  rmeden
+
+	* grab/uk_rt/channel_ids: commit update from
+	  knowledgejunkie@gmail.com
+
+2006-06-20 00:54  rmeden
+
+	* mkdist: set new CVS hostname
+
+2006-06-20 00:31  rmeden
+
+	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in,
+	  lib/exe_wrap.pl: Prepare for 0.5.44 release
+
 2006-06-14 23:34  mattiasholmlund
 
 	* lib/ValidateFile.pm: Make it possible to validate xmltv snippets
@@ -990,9 +1300,9 @@
 
 2006-01-26 13:18  mattiasholmlund
 
-	* Makefile.PL, grab/se/test.conf, grab/se/tv_grab_se: Remove
-	  tv_grab_se. It has been replaced by tv_grab_se_swedb a long time
-	  ago and has suffered from serious bitrot.
+	* Makefile.PL: Remove tv_grab_se. It has been replaced by
+	  tv_grab_se_swedb a long time ago and has suffered from serious
+	  bitrot.
 
 2006-01-26 13:11  mattiasholmlund
 
@@ -1310,14 +1620,6 @@
 
 	* grab/uk_bleb/tv_grab_uk_bleb.in: Quietened a couple of warnings.
 
-2006-01-08 13:39  epaepa
-
-	* grab/se/tv_grab_se: Added --list-channels mode.
-
-2006-01-08 12:40  epaepa
-
-	* grab/se/tv_grab_se: Usage message goes to stderr not stdout.
-
 2006-01-08 12:38  epaepa
 
 	* grab/Grab_XML.pm: Added --list-channels mode.  It just works by
@@ -1507,9 +1809,9 @@
 	  de_tvtoday/test.conf, dk/test.conf, ee/test.conf, es/test.conf,
 	  fi/test.conf, fr/test.conf, huro/test.conf, is/test.conf,
 	  it/test.conf, jp/test.conf, nl/test.conf, nl_wolf/test.conf,
-	  no/test.conf, pt/test.conf, re/test.conf, se/test.conf,
-	  se_swedb/test.conf, uk_bleb/test.conf, uk_rt/test.conf,
-	  za/test.conf: Test configuration files for each grabber.
+	  no/test.conf, pt/test.conf, re/test.conf, se_swedb/test.conf,
+	  uk_bleb/test.conf, uk_rt/test.conf, za/test.conf: Test
+	  configuration files for each grabber.
 
 2005-12-27 05:48  epaepa
 
@@ -1575,11 +1877,6 @@
 
 	* MANIFEST: Removing tv_grab_es_digital.  It had already been
 	  removed in Makefile.PL.
-
-2005-12-26 05:01  epaepa
-
-	* grab/es_digital/tv_grab_es_digital: Removing tv_grab_es_digital.
-	  It had already been removed in Makefile.PL.
 
 2005-12-23 11:07  rmeden
 
@@ -1963,11 +2260,6 @@
 	* MANIFEST, Makefile.PL, grab/is/tv_grab_is: Initial load of
 	  tv_grab_is (Iceland)
 
-2005-06-14 23:10  rmeden
-
-	* grab/es_digital/tv_grab_es_digital: apply correction to date
-	  format.
-
 2005-06-14 02:49  cpicton
 
 	* grab/za/tv_grab_za: Fix tab/space indentation Get shows which run
@@ -2040,11 +2332,6 @@
 2005-05-24 07:32  mnbjhguyt
 
 	* lib/exe_wrap.pl: removed tv_grab_it_lt
-
-2005-05-24 05:18  mnbjhguyt
-
-	* grab/it_lt/: channel_ids, tv_grab_it_lt.PL, tv_grab_it_lt.in: [no
-	  log message]
 
 2005-05-24 05:17  mnbjhguyt
 
@@ -2272,10 +2559,6 @@
 	* grab/huro/tv_grab_huro: Don't try to parse any information before
 	  closing </blockquote>.
 
-2005-02-15 16:01  mnbjhguyt
-
-	* grab/it_lt/tv_grab_it_lt.in: A bit of code cleaning and tweaking.
-
 2005-02-13 16:32  epaepa
 
 	* grab/fr/tv_grab_fr: Patch from Sylvain:
@@ -2287,15 +2570,6 @@
 	  acceleration	 of the whole grabbing process.  - Display the
 	  script duration
 
-2005-02-10 15:46  mnbjhguyt
-
-	* grab/it_lt/tv_grab_it_lt.in: Preliminary working version after
-	  major changes in the scraped site
-
-2005-02-10 15:20  mnbjhguyt
-
-	* grab/it_lt/channel_ids: More channels added.
-
 2005-02-06 14:18  epaepa
 
 	* grab/Memoize.pm: use strict;
@@ -2303,11 +2577,6 @@
 2005-02-06 14:15  epaepa
 
 	* grab/Memoize.pm: Removed support for ancient versions of Memoize.
-
-2005-02-06 11:58  epaepa
-
-	* grab/it_lt/tv_grab_it_lt.in: Check regexp match - don't assume it
-	  succeeded.
 
 2005-01-30 09:36  axis3x3
 
@@ -2636,15 +2905,10 @@
 	* Makefile.PL, MANIFEST: uncommented tv_grab_it_lt and added files
 	  in MANIFEST
 
-2004-11-08 17:36  mnbjhguyt
-
-	* grab/it_lt/tv_grab_it_lt.in: more attributes
-
 2004-11-08 09:48  stesie
 
-	* grab/: es_digital/tv_grab_es_digital, fr/tv_grab_fr,
-	  it_lt/tv_grab_it_lt.in, jp/tv_grab_jp, nl/tv_grab_nl.in: don't
-	  call $bar->finish() in --quiet mode
+	* grab/: fr/tv_grab_fr, jp/tv_grab_jp, nl/tv_grab_nl.in: don't call
+	  $bar->finish() in --quiet mode
 
 2004-11-07 19:29  rmeden
 
@@ -2711,33 +2975,14 @@
 	* README, grab/Get_nice.pm: HTTP::TransparentCache renamed to
 	  HTTP::Cache::Transparent on CPAN.
 
-2004-10-22 15:31  mnbjhguyt
-
-	* grab/it_lt/channel_ids: More channels added.
-
-2004-10-21 17:44  mnbjhguyt
-
-	* grab/it_lt/tv_grab_it_lt.in: Changes to scraped site (has also
-	  changed domain to satellite.it). Looks good so far.
-
 2004-10-21 16:03  mnbjhguyt
 
 	* grab/it/tv_grab_it.in: Updated after changes in the scraped site
-
-2004-10-16 09:27  mattiasholmlund
-
-	* grab/se/tv_grab_se: MTV changed their website. Rewrote the
-	  mtv-grabber to handle the new site.
 
 2004-10-16 05:50  stesie
 
 	* grab/de_tvtoday/tv_grab_de_tvtoday.in: don't call $bar->finish()
 	  in --quiet mode!
-
-2004-10-15 13:39  mattiasholmlund
-
-	* grab/se/tv_grab_se: Remove warning for missing data for
-	  Kunskapskanalen
 
 2004-10-13 22:58  mattiasholmlund
 
@@ -2769,10 +3014,6 @@
 	* lib/Ask/Term.pm: Added a use Term::ReadKey statement as suggested
 	  by Robert.
 
-2004-10-01 07:07  mattiasholmlund
-
-	* grab/se/tv_grab_se: Add Kunskapskanalen
-
 2004-09-28 15:31  epaepa
 
 	* grab/uk_rt/channel_ids: A couple more channels.
@@ -2789,10 +3030,6 @@
 
 	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in,
 	  lib/exe_wrap.pl: Version 0.5.35.
-
-2004-09-27 15:57  epaepa
-
-	* grab/it_lt/tv_grab_it_lt.in: askBooleanQuestion -> ask_boolean
 
 2004-09-27 15:33  epaepa
 
@@ -2881,12 +3118,6 @@
 	  behaviour, but was disrupted in the conversion to gui
 	  configuration.
 
-2004-09-10 14:59  mattiasholmlund
-
-	* grab/se/tv_grab_se: Updated Viasat channels to accomodate for
-	  new/removed channels and changed website. Commented out all
-	  non-Swedish Viasat channels for now. Added --channel parameter.
-
 2004-09-09 03:25  axis3x3
 
 	* grab/na_dd/tv_grab_na_dd.in, lib/Ask/Tk.pm: Attempt to fix a
@@ -2899,46 +3130,26 @@
 	  bug and another bug in na_dd that showed ARRAY instead of the
 	  question when you chose specific channels within a lineup.
 
-2004-09-07 14:43  mattiasholmlund
-
-	* grab/se/tv_grab_se: Print error-message to stderr.
-
 2004-09-07 13:41  axis3x3
 
 	* MANIFEST, Makefile.PL, grab/Grab_XML.pm,
 	  grab/de_tvtoday/tv_grab_de_tvtoday.in, grab/dk/tv_grab_dk,
-	  grab/es/tv_grab_es, grab/es_digital/tv_grab_es_digital,
-	  grab/fi/tv_grab_fi, grab/fr/tv_grab_fr, grab/huro/tv_grab_huro,
-	  grab/it/tv_grab_it.in, grab/it_lt/tv_grab_it_lt.in,
+	  grab/es/tv_grab_es, grab/fi/tv_grab_fi, grab/fr/tv_grab_fr,
+	  grab/huro/tv_grab_huro, grab/it/tv_grab_it.in,
 	  grab/jp/tv_grab_jp, grab/na_dd/tv_grab_na_dd.in,
 	  grab/nl/tv_grab_nl.in, grab/no/tv_grab_no, grab/pt/tv_grab_pt,
-	  grab/se/tv_grab_se, grab/uk_bleb/tv_grab_uk_bleb.in,
-	  grab/uk_rt/tv_grab_uk_rt.in, lib/Ask.pm, lib/GUI.pm,
-	  lib/ProgressBar.pm, lib/exe_opt.pl, lib/Ask/Tk.pm,
-	  lib/ProgressBar/None.pm, lib/ProgressBar/Term.pm,
+	  grab/uk_bleb/tv_grab_uk_bleb.in, grab/uk_rt/tv_grab_uk_rt.in,
+	  lib/Ask.pm, lib/GUI.pm, lib/ProgressBar.pm, lib/exe_opt.pl,
+	  lib/Ask/Tk.pm, lib/ProgressBar/None.pm, lib/ProgressBar/Term.pm,
 	  lib/ProgressBar/Tk.pm: Committed the patch "add GUI progress
 	  bars" which displays a Tk progress bar when the --gui option
 	  specifies a Tk GUI.  It also rationalises the use of progress
 	  bars in XMLTV generally by abstracting the details into a class
 	  XMLTV::ProgressBar.
 
-2004-09-06 11:20  mattiasholmlund
-
-	* grab/se/tv_grab_se: Wrap get_nice in eval to avoid stopping the
-	  grabber when a single site fails.
-
 2004-09-05 16:35  jveldhuis
 
 	* lib/IMDB.pm: updated estimates
-
-2004-09-05 14:56  mattiasholmlund
-
-	* grab/se/tv_grab_se: Revert back to using iso-8859-1 for output
-
-2004-09-05 13:45  mattiasholmlund
-
-	* grab/se/tv_grab_se: New grabber for Eurosport by Alexander
-	  Boström
 
 2004-09-04 07:40  jskov
 
@@ -2950,32 +3161,18 @@
 
 	* Makefile.PL, grab/Config_file.pm, grab/Grab_XML.pm,
 	  grab/de_tvtoday/tv_grab_de_tvtoday.in, grab/dk/tv_grab_dk,
-	  grab/es/tv_grab_es, grab/es_digital/tv_grab_es_digital,
-	  grab/fi/tv_grab_fi, grab/fr/tv_grab_fr, grab/huro/tv_grab_huro,
-	  grab/it/tv_grab_it.in, grab/jp/tv_grab_jp,
-	  grab/na_dd/tv_grab_na_dd.in, grab/na_icons/tv_grab_na_icons.in,
-	  grab/nl/tv_grab_nl.in, grab/no/tv_grab_no, grab/pt/tv_grab_pt,
-	  grab/se/tv_grab_se, grab/uk_bleb/tv_grab_uk_bleb.in,
-	  grab/uk_rt/tv_grab_uk_rt.in, lib/Ask.pm, lib/GUI.pm,
-	  lib/Ask/Term.pm, lib/Ask/Tk.pm: Merged the patch "adding a --gui
-	  option to the grabbers" (Andy Balaam).
-
-2004-08-12 19:16  mnbjhguyt
-
-	* grab/it_lt/channel_ids: updated channels
+	  grab/es/tv_grab_es, grab/fi/tv_grab_fi, grab/fr/tv_grab_fr,
+	  grab/huro/tv_grab_huro, grab/it/tv_grab_it.in,
+	  grab/jp/tv_grab_jp, grab/na_dd/tv_grab_na_dd.in,
+	  grab/na_icons/tv_grab_na_icons.in, grab/nl/tv_grab_nl.in,
+	  grab/no/tv_grab_no, grab/pt/tv_grab_pt,
+	  grab/uk_bleb/tv_grab_uk_bleb.in, grab/uk_rt/tv_grab_uk_rt.in,
+	  lib/Ask.pm, lib/GUI.pm, lib/Ask/Term.pm, lib/Ask/Tk.pm: Merged
+	  the patch "adding a --gui option to the grabbers" (Andy Balaam).
 
 2004-08-12 18:24  mnbjhguyt
 
 	* Makefile.PL: added tv_grab_it_lt
-
-2004-08-12 07:20  mnbjhguyt
-
-	* grab/it_lt/: tv_grab_it_lt.PL, channel_ids, tv_grab_it_lt.in:
-	  Alternative grabber for Italy
-
-2004-08-11 18:21  mattiasholmlund
-
-	* grab/se/tv_grab_se: Fix descriptions for *.svt.se
 
 2004-08-11 07:39  axis3x3
 
@@ -2997,16 +3194,6 @@
 	  grab/uk_bleb/tv_grab_uk_bleb, grab/uk_bleb/tv_grab_uk_bleb.PL,
 	  grab/uk_bleb/tv_grab_uk_bleb.in: Added icons to the uk_bleb
 	  grabber's output.
-
-2004-08-09 15:14  mattiasholmlund
-
-	* grab/se/tv_grab_se: Add support for Kanal5, MTV Nordic, Yle,
-	  Eurosport and switch xml-encoding to UTF-8. Patch from Alexander
-	  Boström. Fix Barnkanalen.
-
-2004-08-09 14:05  mattiasholmlund
-
-	* grab/se/tv_grab_se: Improved whitespace handling
 
 2004-08-01 18:34  rmeden
 
@@ -3132,19 +3319,13 @@
 	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in,
 	  lib/exe_wrap.pl: Version 0.5.34.
 
-2004-05-23 13:19  epaepa
-
-	* grab/se/tv_grab_se: Trim whitespace from descriptions.
-
 2004-05-23 13:15  epaepa
 
 	* MANIFEST: Fixed for earlier changes (tv_grab_it, tv_grab_nz).
 
 2004-05-23 13:01  epaepa
 
-	* MANIFEST, Makefile.PL, grab/nz/episode_names,
-	  grab/nz/tv_grab_nz.PL, grab/nz/tv_grab_nz.in: Removing tv_grab_nz
-	  as threatened.
+	* MANIFEST, Makefile.PL: Removing tv_grab_nz as threatened.
 
 2004-05-23 12:45  epaepa
 
@@ -3262,11 +3443,10 @@
 2004-05-09 12:49  epaepa
 
 	* grab/: de/tv_grab_de, de_tvtoday/tv_grab_de_tvtoday.in,
-	  dk/tv_grab_dk, es/tv_grab_es, es_digital/tv_grab_es_digital,
-	  fi/tv_grab_fi, fr/tv_grab_fr, huro/tv_grab_huro,
-	  it/tv_grab_it.in, jp/tv_grab_jp, na_dd/tv_grab_na_dd.IN,
-	  nl/tv_grab_nl.in, nl_wolf/tv_grab_nl_wolf, no/tv_grab_no,
-	  nz/tv_grab_nz.in, pt/tv_grab_pt, se/tv_grab_se,
+	  dk/tv_grab_dk, es/tv_grab_es, fi/tv_grab_fi, fr/tv_grab_fr,
+	  huro/tv_grab_huro, it/tv_grab_it.in, jp/tv_grab_jp,
+	  na_dd/tv_grab_na_dd.IN, nl/tv_grab_nl.in,
+	  nl_wolf/tv_grab_nl_wolf, no/tv_grab_no, pt/tv_grab_pt,
 	  uk_rt/tv_grab_uk_rt.in: Mention --help in pod documentation.
 
 2004-05-08 21:53  rmeden
@@ -3341,8 +3521,8 @@
 
 2004-05-08 09:34  epaepa
 
-	* MANIFEST, Makefile.PL, doc/QuickStart, grab/hu/tv_grab_hu:
-	  Replaced tv_grab_hu with tv_grab_huro.
+	* MANIFEST, Makefile.PL, doc/QuickStart: Replaced tv_grab_hu with
+	  tv_grab_huro.
 
 2004-05-08 09:30  epaepa
 
@@ -3363,17 +3543,6 @@
 
 	* grab/huro/tv_grab_huro: tv_grab_hu renamed to tv_grab_huro -
 	  committing for the record before I change the name in the code.
-
-2004-05-08 09:08  epaepa
-
-	* grab/hu/tv_grab_hu: MTZ and others pointed out that www.port.ro
-	  uses the same format as www.port.hu, so it is simple to extend
-	  the grabber (using some bits of old _sn code) to do both.  I will
-	  shortly rename it.
-
-2004-05-08 08:22  epaepa
-
-	* grab/hu/tv_grab_hu: Factored out domain name of site.
 
 2004-05-08 05:19  epaepa
 
@@ -3441,11 +3610,6 @@
 	  and that Encode::JP could be loaded - on my box that module seems
 	  to silently fail to load.
 
-2004-05-03 14:32  epaepa
-
-	* grab/hu/tv_grab_hu: Marking myself as maintainer since Attila
-	  Szekeres is no longer contactable.
-
 2004-05-02 13:20  stesie
 
 	* grab/de_tvtoday/tv_grab_de_tvtoday.in: added warning message if
@@ -3463,12 +3627,6 @@
 
 	* grab/na_dd/tv_grab_na_dd.IN: don't use backslash on windows, not
 	  valid XML
-
-2004-05-02 06:19  epaepa
-
-	* grab/na/: ZapListings.pm, tv_grab_na: Fully removing tv_grab_na.
-	  Of course, the full history of the files is still available
-	  through CVS.
 
 2004-05-01 18:07  rmeden
 
@@ -3500,11 +3658,6 @@
 
 	* lib/XMLTV.pm.in: When stripping whitespace from with-lang
 	  strings, print the original string for easier debugging.
-
-2004-04-28 14:45  epaepa
-
-	* grab/hu/tv_grab_hu: Remove 'Kb.' from the front of times, as
-	  pointed out by Gabor Ziegler.
 
 2004-04-28 14:18  epaepa
 
@@ -3638,28 +3791,15 @@
 	* grab/na_dd/tv_grab_na_dd: fix dd_progid to be consistent with
 	  other episide-num formats
 
-2004-04-15 14:06  mattiasholmlund
-
-	* grab/se/tv_grab_se: Adapt to the new XMLTV::DST. Patch by Andrey
-	  Nauman. Fix url-tags when there were several urls for a single
-	  programme.
-
 2004-04-14 17:11  rmeden
 
 	* grab/na_dd/tv_grab_na_dd: use OriginalAirDate to populate <DATE>
 	  unless copyright <YEAR> is specified.
 
-2004-04-14 11:57  mattiasholmlund
-
-	* grab/se/tv_grab_se: Add support for Viasats subscription-based
-	  channels (TV1000, Cinema, Sport, Nature/Action, Explorer). This
-	  includes channels in Norwegian, Finnish and Danish as well as the
-	  Swedish channels. Based on patch from Andrey Nauman.
-
 2004-04-13 17:20  epaepa
 
 	* Makefile.PL, README, doc/README.win32, grab/DST.pm,
-	  grab/se/tv_grab_se, lib/exe_wrap.pl: Version 0.5.32.
+	  lib/exe_wrap.pl: Version 0.5.32.
 
 2004-04-13 17:06  epaepa
 
@@ -3694,13 +3834,11 @@
 
 	* MANIFEST, Makefile.PL, grab/Europe_TZ.pm, grab/de/tv_grab_de,
 	  grab/de_tvtoday/tv_grab_de_tvtoday.in, grab/dk/tv_grab_dk,
-	  grab/es/tv_grab_es, grab/es_digital/tv_grab_es_digital,
-	  grab/fi/tv_grab_fi, grab/fr/tv_grab_fr, grab/hu/tv_grab_hu,
+	  grab/es/tv_grab_es, grab/fi/tv_grab_fi, grab/fr/tv_grab_fr,
 	  grab/it/tv_grab_it.in, grab/nl/tv_grab_nl.in, grab/no/tv_grab_no,
-	  grab/pt/tv_grab_pt, grab/se/tv_grab_se,
-	  grab/uk_rt/tv_grab_uk_rt.in, lib/TZ.pm, t/test_europe_tz.t:
-	  Renamed XMLTV::Europe_TZ to XMLTV::DST and made subroutine names
-	  less Europe-specific.
+	  grab/pt/tv_grab_pt, grab/uk_rt/tv_grab_uk_rt.in, lib/TZ.pm,
+	  t/test_europe_tz.t: Renamed XMLTV::Europe_TZ to XMLTV::DST and
+	  made subroutine names less Europe-specific.
 
 2004-04-09 11:26  rmeden
 
@@ -3933,11 +4071,6 @@
 	* grab/na_dd/tv_grab_na_dd: make channel IDs RFC complient.  Add
 	  separators to --list-lineups to make it easier to parse.
 
-2004-03-25 11:10  epaepa
-
-	* grab/se/tv_grab_se: Refactored language into constant LANG and
-	  corrected it to 'sv' (Sourceforge bug #923061).
-
 2004-03-25 09:55  rmeden
 
 	* grab/na_dd/tv_grab_na_dd: Provide --list-lineups and procedure to
@@ -4131,11 +4264,6 @@
 
 	* MANIFEST: Corrected filename.
 
-2004-03-17 11:43  mattiasholmlund
-
-	* grab/se/tv_grab_se: Detect filler for tv3. Fix urls for shows
-	  from viasat.
-
 2004-03-17 00:00  rmeden
 
 	* choose/tv_check/tv_check: fix problems with the on-exit handler
@@ -4154,20 +4282,10 @@
 	* grab/na_dd/tv_grab_na_dd: add --dd_data, and --reprocess options.
 	  add code to allow debugging of SOAP fetch
 
-2004-03-15 11:48  mattiasholmlund
-
-	* grab/se/tv_grab_se: Rewrite grabber for tv4.se to make it simpler
-	  and remove filler-entries that signify that there is no programme
-
 2004-03-13 12:15  rmeden
 
 	* grab/na_dd/tv_grab_na_dd: replace certificate code tvRating is in
 	  <schedule> not <program>
-
-2004-03-12 14:37  mattiasholmlund
-
-	* grab/se/tv_grab_se: Add urls to program descriptions for SVT and
-	  TV4.	More robust handling of relative links.
 
 2004-03-12 12:08  rmeden
 
@@ -4229,20 +4347,10 @@
 
 	* Makefile.PL, README: XML::Writer 0.4.6 is now required.
 
-2004-03-06 05:35  epaepa
-
-	* grab/es_digital/tv_grab_es_digital: If title not found, try using
-	  description instead.
-
 2004-03-06 05:26  epaepa
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Use get_url() for channels pages
 	  instead of calling get_nice() directly.
-
-2004-03-02 15:00  epaepa
-
-	* grab/na/tv_grab_na: Make sure the current time ($now) is set
-	  before listing channels.  (Sourceforge bug #907289.)
 
 2004-02-29 07:54  epaepa
 
@@ -4254,11 +4362,6 @@
 	* grab/jp/tv_grab_jp: fixed unexpected deletion of figures in wide
 	  charactors.
 
-2004-02-24 05:43  mattiasholmlund
-
-	* grab/se/tv_grab_se: Include information on exit status in
-	  documentation.
-
 2004-02-23 14:55  epaepa
 
 	* MANIFEST, Makefile.PL, doc/QuickStart, grab/fr/tv_grab_fr: Adding
@@ -4266,9 +4369,8 @@
 
 2004-02-23 14:30  epaepa
 
-	* MANIFEST, Makefile.PL, README, doc/QuickStart,
-	  grab/se/tv_grab_se: Adding Mattias Holmlund's tv_grab_se for
-	  Sweden.
+	* MANIFEST, Makefile.PL, README, doc/QuickStart: Adding Mattias
+	  Holmlund's tv_grab_se for Sweden.
 
 2004-02-23 14:13  epaepa
 
@@ -4368,13 +4470,8 @@
 
 2004-02-14 11:53  ramonroca
 
-	* doc/QuickStart, doc/README.win32, grab/es/tv_grab_es: New grabber
-	  for D+ (Spain)
-
-2004-02-14 11:50  ramonroca
-
-	* grab/es_digital/tv_grab_es_digital, Makefile.PL, README: New
-	  grabber for D+ (Spain)
+	* Makefile.PL, README, doc/QuickStart, doc/README.win32,
+	  grab/es/tv_grab_es: New grabber for D+ (Spain)
 
 2004-02-14 05:53  ramonroca
 
@@ -4468,39 +4565,7 @@
 2004-02-01 14:38  epaepa
 
 	* MANIFEST, Makefile.PL, README, doc/QuickStart, doc/README.win32,
-	  grab/fi/tv_grab_fi, grab/hu/tv_grab_hu, grab/it/tv_grab_it.in,
-	  grab/uk/README, grab/uk/channel_ids, grab/uk/tv_grab_uk.PL,
-	  grab/uk/tv_grab_uk.in, grab/uk/xmltv_ananova.dtd,
-	  grab/uk/channel_pkgs/Freeview, grab/uk/channel_pkgs/adult,
-	  grab/uk/channel_pkgs/arts, grab/uk/channel_pkgs/asia,
-	  grab/uk/channel_pkgs/children, grab/uk/channel_pkgs/classics,
-	  grab/uk/channel_pkgs/comedy, grab/uk/channel_pkgs/entertainment,
-	  grab/uk/channel_pkgs/factual, grab/uk/channel_pkgs/film,
-	  grab/uk/channel_pkgs/gratis, grab/uk/channel_pkgs/ireland,
-	  grab/uk/channel_pkgs/lifestyle, grab/uk/channel_pkgs/misc,
-	  grab/uk/channel_pkgs/music, grab/uk/channel_pkgs/musicchoice,
-	  grab/uk/channel_pkgs/national, grab/uk/channel_pkgs/news,
-	  grab/uk/channel_pkgs/not_england, grab/uk/channel_pkgs/regional,
-	  grab/uk/channel_pkgs/religion, grab/uk/channel_pkgs/scifi,
-	  grab/uk/channel_pkgs/shop, grab/uk/channel_pkgs/sport,
-	  grab/uk/channel_pkgs/travel, grab/uk/channel_pkgs/wales,
-	  grab/uk/channel_pkgs/NTL/analogue,
-	  grab/uk/channel_pkgs/NTL/analogue_ie,
-	  grab/uk/channel_pkgs/NTL/digital/Base,
-	  grab/uk/channel_pkgs/NTL/digital/Disney,
-	  grab/uk/channel_pkgs/NTL/digital/Family,
-	  grab/uk/channel_pkgs/NTL/digital/Sports,
-	  grab/uk/channel_pkgs/NTL/digital/movies,
-	  grab/uk/channel_pkgs/Sky/Family,
-	  grab/uk/channel_pkgs/Sky/Movies_World,
-	  grab/uk/channel_pkgs/Sky/Sports, grab/uk/channel_pkgs/Sky/Value,
-	  grab/uk/channel_pkgs/Telewest/Essential,
-	  grab/uk/channel_pkgs/Telewest/Supreme, grab/uk/test_configs/all,
-	  grab/uk/test_configs/bbc1, grab/uk/test_configs/carlton,
-	  grab/uk/test_configs/gratis, grab/uk/test_configs/gratis_radio,
-	  grab/uk/test_configs/music_nickelodeon_e4,
-	  grab/uk/test_configs/radio, grab/uk/test_configs/radio4,
-	  grab/uk/test_configs/satellite, grab/uk/test_configs/tynetees,
+	  grab/fi/tv_grab_fi, grab/it/tv_grab_it.in,
 	  grab/uk_rt/tv_grab_uk_rt.PL, lib/exe_wrap.pl: Removed tv_grab_uk.
 
 2004-02-01 14:23  epaepa
@@ -4691,12 +4756,6 @@
 	* choose/tv_check/tv_check: include year in date checks to avoid
 	  end of year problems
 
-2004-01-06 15:38  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/gratis, channel_pkgs/travel,
-	  channel_pkgs/NTL/digital/Base: Reinstated 2.tvtravelshop.co.uk as
-	  a transient channel.
-
 2004-01-06 14:45  epaepa
 
 	* filter/tv_sort, t/data/tv_sort_overlap_xml.expected_err: Made the
@@ -4771,31 +4830,18 @@
 
 	* grab/dk/tv_grab_dk: --offset was being counted twice.
 
-2004-01-03 14:45  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/Freeview, channel_pkgs/asia,
-	  channel_pkgs/gratis, channel_pkgs/shop, channel_pkgs/travel,
-	  channel_pkgs/NTL/analogue, channel_pkgs/NTL/digital/Base,
-	  channel_pkgs/Telewest/Essential, test_configs/gratis,
-	  test_configs/gratis_radio: Two channels have disappeared from the
-	  site.
-
 2004-01-03 08:52  epaepa
 
 	* Makefile.PL, Uninstall.pm, analyse_tvprefs/analyse_tvprefs,
 	  choose/tv_pick/merge_tvprefs, filter/Grep.pm,
 	  grab/Config_file.pm, grab/Europe_TZ.pm, grab/Get_nice.pm,
 	  grab/Grab_XML.pm, grab/Memoize.pm, grab/Mode.pm,
-	  grab/nz/tv_grab_nz.PL, grab/uk_rt/tv_grab_uk_rt.PL, lib/Ask.pm,
-	  lib/AskTerm.pm, lib/AskTk.pm, lib/Clumps.pm, lib/Date.pm,
-	  lib/Gunzip.pm, lib/Summarize.pm, lib/TZ.pm, lib/Usage.pm,
-	  lib/XMLTV.pm.in, lib/set_share_dir.pl, t/add_time_info,
-	  t/test_filters.t, t/test_library.t, t/test_tv_split.t: Made sure
-	  every Perl source file has a CVS Id: thingy.
-
-2004-01-03 08:37  epaepa
-
-	* grab/uk/tv_grab_uk.in: Comment.
+	  grab/uk_rt/tv_grab_uk_rt.PL, lib/Ask.pm, lib/AskTerm.pm,
+	  lib/AskTk.pm, lib/Clumps.pm, lib/Date.pm, lib/Gunzip.pm,
+	  lib/Summarize.pm, lib/TZ.pm, lib/Usage.pm, lib/XMLTV.pm.in,
+	  lib/set_share_dir.pl, t/add_time_info, t/test_filters.t,
+	  t/test_library.t, t/test_tv_split.t: Made sure every Perl source
+	  file has a CVS Id: thingy.
 
 2004-01-03 08:35  epaepa
 
@@ -4890,8 +4936,7 @@
 	* mkdist, filter/tv_extractinfo_en, filter/tv_grep.in,
 	  filter/tv_remove_some_overlapping, filter/tv_sort,
 	  grab/Europe_TZ.pm, grab/Grab_XML.pm, grab/dk/tv_grab_dk,
-	  grab/es/tv_grab_es, grab/fi/tv_grab_fi, grab/hu/tv_grab_hu,
-	  grab/na/tv_grab_na, grab/nl/tv_grab_nl, grab/uk/tv_grab_uk.in,
+	  grab/es/tv_grab_es, grab/fi/tv_grab_fi, grab/nl/tv_grab_nl,
 	  grab/uk_rt/tv_grab_uk_rt.in, lib/Clumps.pm, lib/Date.pm,
 	  lib/TZ.pm, lib/XMLTV.pm.in: Changed most ParseDate() calls to
 	  parse_date() instead.  Then a manual check of the return value is
@@ -4940,18 +4985,6 @@
 	  case-insensitively; this fixes the bug found by Karen Etheridge
 	  where duplicate (modulo case) titles would be added.
 
-2003-12-31 12:59  epaepa
-
-	* grab/na/: ZapListings.pm, tv_grab_na: Parsing the Sourceforge
-	  project page to get version number had stopped working, so
-	  changed to use the Freshmeat XML project record instead.
-
-2003-12-31 12:45  epaepa
-
-	* grab/na/tv_grab_na: Accept the --cache option in configuration
-	  mode too and pass it as CacheDir to ZapListings.pm.  Now it's
-	  just up to ZapListings to use it...
-
 2003-12-30 15:51  epaepa
 
 	* grab/fi/tv_grab_fi: Recognize class 'kanava-klo-nyt' (used for
@@ -4960,27 +4993,18 @@
 
 2003-12-30 15:15  epaepa
 
-	* MANIFEST, grab/uk/channel_pkgs/NTL/analogue_ie: tv_grab_uk
-	  channel package for NTL analogue cable TV in the Republic of
-	  Ireland.
+	* MANIFEST: tv_grab_uk channel package for NTL analogue cable TV in
+	  the Republic of Ireland.
 
 2003-12-29 15:21  epaepa
 
-	* MANIFEST, grab/uk/channel_ids, grab/uk/channel_pkgs/adult,
-	  grab/uk/channel_pkgs/ireland, grab/uk/channel_pkgs/scotland:
-	  Fixed some errors and warnings in tv_grab_uk's channel ids; the
-	  'scotland' package has disappeared since it contained only one
-	  channel and that is no longer on the site.
+	* MANIFEST: Fixed some errors and warnings in tv_grab_uk's channel
+	  ids; the 'scotland' package has disappeared since it contained
+	  only one channel and that is no longer on the site.
 
 	  Implemented Sourceforge feature request #858792 by adding more
 	  channels to the 'ireland' package.  I've also set xmltv ids for
 	  those Irish channels that lacked them.
-
-2003-12-29 15:14  epaepa
-
-	* grab/uk/tv_grab_uk.in: Earlier and more informative check of the
-	  same Ananova channel mapped to two xmltv ids in the channel_ids
-	  file.
 
 2003-12-19 00:09  rmeden
 
@@ -5124,15 +5148,15 @@
 
 2003-12-10 15:37  epaepa
 
-	* mkdist, grab/Get_nice.pm, grab/na/ZapListings.pm: Set User-Agent
-	  to "xmltv/$XMLTV::VERSION".
+	* mkdist, grab/Get_nice.pm: Set User-Agent to
+	  "xmltv/$XMLTV::VERSION".
 
 2003-12-10 15:30  epaepa
 
 	* grab/: Grab_XML.pm, Memoize.pm, de/tv_grab_de, dk/tv_grab_dk,
-	  nl_wolf/tv_grab_nl_wolf, uk/tv_grab_uk.in,
-	  uk_rt/tv_grab_uk_rt.in: Refactoring: use XMLTV::Get_nice instead
-	  of LWP::Simple, with $Delay = 0 where appropriate.
+	  nl_wolf/tv_grab_nl_wolf, uk_rt/tv_grab_uk_rt.in: Refactoring: use
+	  XMLTV::Get_nice instead of LWP::Simple, with $Delay = 0 where
+	  appropriate.
 
 2003-12-10 14:56  epaepa
 
@@ -5155,30 +5179,18 @@
 
 2003-12-07 16:28  epaepa
 
-	* README, doc/README.win32, grab/na/ZapListings.pm,
-	  lib/XMLTV.pm.in, Makefile.PL: Version 0.5.25.
+	* README, doc/README.win32, lib/XMLTV.pm.in, Makefile.PL: Version
+	  0.5.25.
 
 2003-12-07 16:08  epaepa
 
 	* grab/dk/tv_grab_dk: Don't set sub-title to '1' on seeing (TH) in
 	  listings.  But what does that flag mean?
 
-2003-12-07 15:56  epaepa
-
-	* grab/nz/tv_grab_nz.in: If gen_time fails to parse the start time,
-	  do not write the programme.  (This doesn't seem to be happening
-	  at the moment.)
-
 2003-12-07 11:15  epaepa
 
 	* Makefile.PL: HTML::Parser 3.34 is required for tv_grab_na because
 	  it may fix the segfaults some people have seen.
-
-2003-12-06 14:00  epaepa
-
-	* grab/na/tv_grab_na: Tolerate leading and trailing whitespace in
-	  configuration file lines.  If a bad line is found, include it in
-	  the error message.
 
 2003-12-06 10:29  epaepa
 
@@ -5189,15 +5201,10 @@
 	* MANIFEST, Makefile.PL, README, doc/QuickStart: Removed
 	  tv_grab_sn.
 
-2003-12-06 05:36  epaepa
-
-	* grab/sn/tv_grab_sn: This grabber has been blocked by the upstream
-	  site, so it no longer works.
-
 2003-11-30 12:40  epaepa
 
-	* Makefile.PL, README, doc/README.win32, grab/na/ZapListings.pm,
-	  lib/XMLTV.pm.in: Version 0.5.24.
+	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in: Version
+	  0.5.24.
 
 2003-11-29 17:17  epaepa
 
@@ -5284,11 +5291,6 @@
 	  been okay if the subroutine wasn't being used for both the Movies
 	  list and the Genres list.
 
-2003-11-22 13:42  epaepa
-
-	* grab/sn/tv_grab_sn: Accept new HTML 'class' names from site -
-	  thanks to everyone who pointed out the change.
-
 2003-11-22 07:34  epaepa
 
 	* Makefile.PL: Not all versions of pod2text take an input and
@@ -5305,8 +5307,8 @@
 
 2003-11-19 16:40  epaepa
 
-	* Makefile.PL, README, doc/README.win32, grab/na/ZapListings.pm,
-	  lib/XMLTV.pm.in: Version 0.5.23.
+	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in: Version
+	  0.5.23.
 
 2003-11-19 16:31  epaepa
 
@@ -5331,12 +5333,6 @@
 	* grab/uk_rt/tv_grab_uk_rt.in: Don't output (or warn about)
 	  duplicate <sub-title>s.
 
-2003-11-19 15:52  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/NTL/digital/movies,
-	  channel_pkgs/Sky/Movies_World: The Sky movie channels have
-	  reappeared under different numbers.
-
 2003-11-19 15:47  epaepa
 
 	* Makefile.PL: Fixed to work with older Getopt::Long versions.
@@ -5345,11 +5341,6 @@
 
 	* lib/IMDB.pm: moved come FUTURE/BUG comments local to
 	  alternativeTitles subroutine
-
-2003-11-18 20:34  jveldhuis
-
-	* grab/na/ZapListings.pm: slight change to zap2it site causing
-	  failures
 
 2003-11-18 10:28  jveldhuis
 
@@ -5381,12 +5372,8 @@
 
 2003-11-09 15:10  epaepa
 
-	* Makefile.PL, README, doc/README.win32, grab/na/ZapListings.pm,
-	  lib/XMLTV.pm.in: Version 0.5.22.
-
-2003-11-09 14:49  epaepa
-
-	* grab/nz/tv_grab_nz.in: Remove carriage returns from output.
+	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in: Version
+	  0.5.22.
 
 2003-11-09 14:16  epaepa
 
@@ -5418,42 +5405,24 @@
 
 2003-11-08 07:57  epaepa
 
-	* grab/: es/tv_grab_es, fi/tv_grab_fi, hu/tv_grab_hu,
-	  it/tv_grab_it.in, sn/tv_grab_sn: Give the 'base' timezone for
-	  Europe_TZ as a numeric not named timezone.  This is (hopefully)
-	  the last bit of work for Sourceforge bug/feature #834143.
+	* grab/: es/tv_grab_es, fi/tv_grab_fi, it/tv_grab_it.in: Give the
+	  'base' timezone for Europe_TZ as a numeric not named timezone.
+	  This is (hopefully) the last bit of work for Sourceforge
+	  bug/feature #834143.
 
 2003-11-08 07:55  epaepa
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Use numeric timezones.  Handle a few
 	  more bits of description.
 
-2003-11-08 07:54  epaepa
-
-	* grab/uk/tv_grab_uk.in: Use numeric timezones; change the upstream
-	  data with tz_to_num().
-
-	  Removed ud(), which was never called.
-
 2003-11-08 07:53  epaepa
 
 	* grab/nl_wolf/tv_grab_nl_wolf: Fix timezones from the upstream
 	  data with tz_to_num().
 
-2003-11-08 07:52  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/shop: Two channels that
-	  disappeared have now reappeared: I've marked them as transient to
-	  suppress warnings in future.
-
 2003-11-08 07:51  epaepa
 
 	* grab/Europe_TZ.pm: Comment.
-
-2003-11-08 07:37  epaepa
-
-	* grab/nz/tv_grab_nz.in: It can sometimes be useful to give a
-	  negative offset, and it seems to work.
 
 2003-11-08 07:01  epaepa
 
@@ -5471,8 +5440,8 @@
 
 2003-11-03 14:50  epaepa
 
-	* Makefile.PL, README, doc/README.win32, grab/na/ZapListings.pm,
-	  lib/XMLTV.pm.in: Version 0.5.21.
+	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in: Version
+	  0.5.21.
 
 2003-11-03 14:35  epaepa
 
@@ -5486,45 +5455,18 @@
 
 2003-11-02 16:43  epaepa
 
-	* Makefile.PL, README, doc/README.win32, grab/na/ZapListings.pm,
-	  lib/XMLTV.pm.in: Version 0.5.20.
+	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in: Version
+	  0.5.20.
 
 2003-11-02 16:38  epaepa
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Handle 'Deaf-signed' (well,
 	  actually, discard it with a warning).
 
-2003-11-02 16:37  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/film, channel_pkgs/gratis,
-	  channel_pkgs/shop, channel_pkgs/sport, channel_pkgs/travel,
-	  channel_pkgs/NTL/digital/movies, channel_pkgs/Sky/Movies_World:
-	  Removed some channels which are no longer on the site.
-
-2003-11-02 16:19  epaepa
-
-	* grab/nz/tv_grab_nz.in: Fixed to work (again) with Python 1.5.
-	  Handle series title included as what looks like a 'part'.
-
-2003-11-02 16:18  epaepa
-
-	* grab/hu/tv_grab_hu: Fixed crash when (for some reason I haven't
-	  investigated) the result of $txt->content_list() contains plain
-	  scalars.
-
 2003-11-02 16:17  epaepa
 
 	* MANIFEST: Adding test_remove_some_overlapping test files which I
 	  committed earlier.
-
-2003-11-02 11:35  jveldhuis
-
-	* grab/na/ZapListings.pm: removed what we decided was a typo in the
-	  Gujarati language at zap2it
-
-2003-11-02 11:14  epaepa
-
-	* grab/na/ZapListings.pm: Spelling.
 
 2003-11-01 13:19  epaepa
 
@@ -5667,15 +5609,6 @@
 
 	* Makefile.PL: Indentation.
 
-2003-11-01 09:01  epaepa
-
-	* grab/na/tv_grab_na: Explicitly bracket say($msg) to avoid it
-	  being miscompiled as $msg->say() on some perls.
-
-2003-11-01 08:45  epaepa
-
-	* grab/na/tv_grab_na: Fixed $opt_configure warning.
-
 2003-11-01 08:37  epaepa
 
 	* grab/Europe_TZ.pm: parse_eur_date(): Fixed winter time when base
@@ -5685,42 +5618,10 @@
 
 	* grab/fi/tv_grab_fi: Logging.
 
-2003-11-01 07:37  epaepa
-
-	* grab/na/ZapListings.pm: No 'comments' inside qw() list.
-
-2003-11-01 07:04  epaepa
-
-	* grab/na/tv_grab_na: Make sure an undef value is never passed to
-	  say() (attempt to catch Sourceforge bug \833976).
-
-2003-10-28 18:12  jveldhuis
-
-	* grab/na/ZapListings.pm: added some more languages - thanks
-	  J.Isham
-
-2003-10-26 14:21  jveldhuis
-
-	* grab/na/: ZapListings.pm, tv_grab_na: added/fixed cache option
-
 2003-10-26 14:19  jveldhuis
 
 	* lib/AskTerm.pm: make sure we don't end up with two newlines in
 	  say() calls
-
-2003-10-26 12:47  epaepa
-
-	* grab/sn/tv_grab_sn: Another character mapping.
-
-2003-10-26 11:21  epaepa
-
-	* grab/sn/tv_grab_sn: Entity 8211 surrounded by spaces is used for
-	  dash (spotted by Eirik Meland).
-
-2003-10-25 10:43  epaepa
-
-	* grab/na/tv_grab_na: Accept the --cache option to create a
-	  urldata/ directory.
 
 2003-10-25 09:22  epaepa
 
@@ -5829,16 +5730,6 @@
 	  to include number and call sign, even though those have their own
 	  elements.
 
-2003-10-15 16:23  epaepa
-
-	* grab/uk/channel_pkgs/adult: Split 40-plus-wives.redhottv.co.uk
-	  into two channels for the two numbers it hops between.
-
-2003-10-14 14:09  epaepa
-
-	* grab/uk/channel_ids: Stopped warnings about one channel that
-	  keeps changing between two numbers on the site.
-
 2003-10-14 02:05  jveldhuis
 
 	* lib/IMDB.pm: fixed broken tv series keys.
@@ -5907,13 +5798,6 @@
 
 	* README: updated date line
 
-2003-09-28 14:08  epaepa
-
-	* grab/sn/tv_grab_sn: process_table(): refactoring: first put the
-	  raw programme hashes into a list, then go through and replace
-	  raw_start and raw_stop with real times, then remove zero-length
-	  programmes and write.
-
 2003-09-28 04:32  epaepa
 
 	* README: Corrected description of tv_grab_de.
@@ -5922,48 +5806,14 @@
 
 	* README: updated
 
-2003-09-27 14:05  jveldhuis
-
-	* grab/na/tv_grab_na: errorMessage() method was having @_ converted
-	  to a scalar in the say() call. So error messages were getting
-	  converted to '1'.
-
 2003-09-27 13:21  jveldhuis
 
-	* Makefile.PL, doc/README.win32, grab/na/ZapListings.pm,
-	  lib/XMLTV.pm.in: version number updated to 0.5.19
+	* Makefile.PL, doc/README.win32, lib/XMLTV.pm.in: version number
+	  updated to 0.5.19
 
 2003-09-27 13:20  jveldhuis
 
 	* README: added release notes for 0.5.19 release
-
-2003-09-27 12:54  jveldhuis
-
-	* grab/na/ZapListings.pm: new manditory sleep(5) before retries
-
-2003-09-27 12:53  jveldhuis
-
-	* grab/na/tv_grab_na: new minimum of 2 second retry-delay enforced
-
-2003-09-27 05:29  epaepa
-
-	* grab/sn/tv_grab_sn: Don't write guessed stop times, write only
-	  data that comes from the site.  The detection of midnight
-	  crossing is now a bit more intelligent and fires only for
-	  programmes within 15000 seconds either side of midnight, and in
-	  any case only once per page.
-
-	  This kind of thing really ought to be shared among grabbers.
-
-2003-09-26 14:28  epaepa
-
-	* grab/sn/tv_grab_sn: In any single page of listings, allow only
-	  the first case of stop < start to be a crossing of midnight; in
-	  later cases the dodgy stop time is discarded.
-
-	  This hasn't made any difference to the output with my config, but
-	  Oscar Carlsson found some cases where the grabber did wrongly
-	  split listings over several days.
 
 2003-09-25 17:21  epaepa
 
@@ -5988,18 +5838,6 @@
 	  Always warn if a downloaded page contains no programmes, and
 	  always skip a whole channel if this happens for the first day.
 
-2003-09-25 16:28  epaepa
-
-	* grab/uk/: channel_ids, tv_grab_uk.in: Added a new field
-	  'transient' to the channel_ids file, to suppress warnings for
-	  certain channels which are known to appear and disappear on the
-	  site.
-
-2003-09-25 16:11  epaepa
-
-	* grab/uk/tv_grab_uk.in: Cut down on the number of warnings for
-	  channels in the config files but not on the site.
-
 2003-09-14 12:43  epaepa
 
 	* grab/nl/tv_grab_nl: Spelling.
@@ -6017,29 +5855,13 @@
 
 2003-09-13 14:34  epaepa
 
-	* Makefile.PL, README, doc/README.win32, grab/na/ZapListings.pm,
-	  lib/XMLTV.pm.in: Version 0.5.18.
+	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in: Version
+	  0.5.18.
 
 2003-09-13 05:55  epaepa
 
 	* grab/nl_wolf/tv_grab_nl_wolf: Remove stop times which are before
 	  the start time.
-
-2003-09-13 05:29  epaepa
-
-	* grab/hu/tv_grab_hu: Don't guess stop times based on the 'next'
-	  programme on the site: these are often wrong and lead to nonsense
-	  like programmes that stop before they start or overlap with other
-	  programmes on the same channel.  If the site does not provide
-	  stop times explicitly, it's better to omit them and let the user
-	  add them with a tool like tv_sort if he wants guessed stop times.
-
-2003-09-13 04:36  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/adult,
-	  channel_pkgs/lifestyle, channel_pkgs/music,
-	  channel_pkgs/regional, channel_pkgs/NTL/digital/Family,
-	  channel_pkgs/Sky/Family: Added some new channels.
 
 2003-09-13 04:32  epaepa
 
@@ -6079,10 +5901,6 @@
 	* grab/it/tv_grab_it.in: Reformatted code in preparation for
 	  patching.
 
-2003-09-12 15:46  epaepa
-
-	* grab/na/ZapListings.pm: Removed a line of chatter on stderr.
-
 2003-09-11 00:43  rmeden
 
 	* lib/exe_opt.pl: add some more excludes for bogus missing module
@@ -6092,62 +5910,6 @@
 
 	* lib/Ask.pm: Disable graphical config unless the XMLTV_TK
 	  environment variable is set to a true value.
-
-2003-09-09 14:54  epaepa
-
-	* grab/na/ZapListings.pm: Following speculation on the mailing
-	  list, use index() and substr() for manipulation of the
-	  channel-list page rather than regular expressions in an attempt
-	  to avoid a segfault.
-
-	  index_bothcases(): wrapper for index() that tries the substring
-	  in both lowercase and uppercase (though not all combinations of
-	  the two).
-
-2003-09-09 14:16  epaepa
-
-	* grab/na/ZapListings.pm: Added some warnings in a couple of cases
-	  where functions fail by returning a special value.
-
-	  Check the result of a call to URI->new_abs() and to GET().
-
-2003-09-09 13:33  epaepa
-
-	* grab/na/ZapListings.pm: Form2Request(): reformatted code in
-	  preparation for patching.
-
-2003-09-08 15:22  epaepa
-
-	* grab/na/ZapListings.pm: Fixed some seemingly-buggy code looking
-	  for a case-insensitive substring.
-
-	  More error checking: in particular make sure some
-	  possibly-infinite loops do terminate, and fail earlier if a URL
-	  request object cannot be made.
-
-2003-09-08 15:03  epaepa
-
-	* grab/na/ZapListings.pm: Changed all calls to main::errorMessage()
-	  to use warn() instead.  This is because there's currently a
-	  strange bug where errorMessage() was not printing anything, and
-	  there are other more important bugs to fix first, so the first
-	  priority is to get working error reporting.  Although I think
-	  that in the long run warn() may prove to be more appropriate,
-	  since many of the messages are technical and not something for
-	  the end user.
-
-	  getZipCodeForm(): added 'category' to the form settings, zap2it
-	  seem to have started including it.
-
-2003-09-07 06:58  epaepa
-
-	* grab/na/tv_grab_na: Print a status message if we get the channel
-	  list successfully (which we might not, given the current
-	  segfault).
-
-	  Fail more cleanly if askQuestion() for service provider returns
-	  undef.  But really, it should throw an exception rather than
-	  returning that.
 
 2003-09-06 14:14  epaepa
 
@@ -6280,16 +6042,6 @@
 	  --not option to tv_grep.  It negates the following predicate.
 	  Not yet thoroughly tested.
 
-2003-08-29 14:46  epaepa
-
-	* grab/na/ZapListings.pm: Applying (in two places) Jerry V.'s patch
-	  to print out a row that failed to parse and skip it.	It doesn't
-	  fix the problem but doing this is a lot better than crashing.
-
-2003-08-29 14:35  epaepa
-
-	* grab/uk/tv_grab_uk.in: Removed spurious blank lines.
-
 2003-08-29 14:05  epaepa
 
 	* Makefile.PL: windows_dist no longer uses any Unix commands - only
@@ -6298,12 +6050,11 @@
 2003-08-28 15:56  epaepa
 
 	* MANIFEST, Makefile.PL, grab/Config_file.pm, grab/dk/tv_grab_dk,
-	  grab/es/tv_grab_es, grab/fi/tv_grab_fi, grab/hu/tv_grab_hu,
-	  grab/it/tv_grab_it.in, grab/na/tv_grab_na, grab/nl/tv_grab_nl,
-	  grab/sn/tv_grab_sn, grab/uk/tv_grab_uk.in,
-	  grab/uk_rt/tv_grab_uk_rt.in, lib/Ask.pm, lib/AskTerm.pm,
-	  lib/AskTk.pm: Applying Andy Balaam's patch for Tk configuration
-	  in environments that support it (with a few changes).
+	  grab/es/tv_grab_es, grab/fi/tv_grab_fi, grab/it/tv_grab_it.in,
+	  grab/nl/tv_grab_nl, grab/uk_rt/tv_grab_uk_rt.in, lib/Ask.pm,
+	  lib/AskTerm.pm, lib/AskTk.pm: Applying Andy Balaam's patch for Tk
+	  configuration in environments that support it (with a few
+	  changes).
 
 	  XMLTV::Ask now has two implementations, AskTerm and AskTk, and
 	  chooses one based on whether Tk is usable.  The grabbers need to
@@ -6313,27 +6064,13 @@
 
 	  I haven't tested the Tk configuration half yet.
 
-2003-08-28 14:46  epaepa
-
-	* grab/nz/tv_grab_nz.in: Patch from James Sleeman to extract
-	  episode titles, except for certain titles mentioned in the
-	  episode_names file.
-
-	  Also changed to turn 'Movie: ' into a category.
-
 2003-08-26 16:03  epaepa
 
 	* Makefile.PL: Version 0.5.17.
 
 2003-08-26 16:00  epaepa
 
-	* README, doc/README.win32, grab/na/ZapListings.pm,
-	  lib/XMLTV.pm.in: Version 0.5.17.
-
-2003-08-26 15:40  epaepa
-
-	* grab/nz/tv_grab_nz.in: Re-enabled tv_grab_nz as it seems to be
-	  working again (though not perhaps 100% of the time).
+	* README, doc/README.win32, lib/XMLTV.pm.in: Version 0.5.17.
 
 2003-08-24 22:36  rmeden
 
@@ -6378,16 +6115,6 @@
 	* mkdist: Remove .cvsignore files from the release as well as CVS/
 	  directories.
 
-2003-08-16 05:01  epaepa
-
-	* grab/na/tv_grab_na: Updated documentation now that
-	  --list-providers and --list-channels work standalone.
-
-2003-08-16 04:55  epaepa
-
-	* grab/na/tv_grab_na: --list-provders and --list-channels don't
-	  require --configure to be given separately.
-
 2003-08-16 04:22  epaepa
 
 	* doc/README.win32: Updated for 0.5.16 release.  This file needs to
@@ -6408,51 +6135,21 @@
 
 2003-08-14 16:11  epaepa
 
-	* Makefile.PL, README, doc/README.win32, grab/na/ZapListings.pm,
-	  lib/XMLTV.pm.in: Version 0.5.15.
+	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in: Version
+	  0.5.15.
 
 2003-08-14 16:00  epaepa
 
-	* Makefile.PL, grab/nz/tv_grab_nz.in: Disabling tv_grab_nz since I
-	  don't have time to fix it right now and we need a new release to
-	  fix tv_grab_na.
+	* Makefile.PL: Disabling tv_grab_nz since I don't have time to fix
+	  it right now and we need a new release to fix tv_grab_na.
 
 2003-08-13 08:37  rmeden
 
 	* doc/README.win32: updated README to include current windows tips
 
-2003-08-13 01:17  rmeden
-
-	* grab/na/ZapListings.pm: zap2it is returninga status code of 500
-	  even though the listings are in the response. Dane Kanter has
-	  released a patched ZapListings.PM which I am merging into the
-	  current CVS here.  There is still a problem, only 20 channels are
-	  return, but it's better than nothing.
-
 2003-08-09 17:40  epaepa
 
 	* xmltv.dtd: Corrected UT to UTC.
-
-2003-08-05 10:34  jveldhuis
-
-	* grab/na/: ZapListings.pm, tv_grab_na: --output now redirects
-	  --list-providers and --list-channels output in --configure mode.
-
-	  HDTV occuring in listing now appears at end of description (since
-	  we don't have a proper place for it) and also triggers an aspect
-	  ratio in the video stanza to be 16:9.
-
-2003-08-04 17:17  jveldhuis
-
-	* grab/na/ZapListings.pm: workaround for HDTV qualifiers getting in
-	  the road of star ratings in the description
-
-2003-07-31 15:24  epaepa
-
-	* grab/uk/tv_grab_uk.in: Calculate $now (for the midnight sanity
-	  check) at run time, and after Date_Init() has been called.  This
-	  should fix the bug found by Stephen Foster that the grabber
-	  required TZ to be set.
 
 2003-07-29 15:56  epaepa
 
@@ -6517,8 +6214,7 @@
 2003-07-20 11:22  epaepa
 
 	* grab/: dk/tv_grab_dk, es/tv_grab_es, fi/tv_grab_fi,
-	  hu/tv_grab_hu, it/tv_grab_it.in, na/tv_grab_na, nl/tv_grab_nl,
-	  sn/tv_grab_sn: Changed grabbers to use
+	  it/tv_grab_it.in, nl/tv_grab_nl: Changed grabbers to use
 	  XMLTV::Ask::askManyBooleanQuestions() for handling 'none' and
 	  'all' answers.
 
@@ -6528,25 +6224,10 @@
 	  of passing 'no' as the default instead of 0 (since the string
 	  'no' is false).
 
-2003-07-20 10:13  epaepa
-
-	* grab/na/tv_grab_na: Refactored some duplicate code in
-	  configuration.
-
 2003-07-20 07:49  epaepa
 
 	* lib/Ask.pm: askManyBooleanQuestions(): Offer both 'all' and
 	  'none' options regardless of the default answer.
-
-2003-07-19 11:28  epaepa
-
-	* grab/na/ZapListings.pm: Say 'use base' instead of 'require' plus
-	  '@ISA ='.
-
-2003-07-19 11:28  epaepa
-
-	* grab/uk/tv_grab_uk.in: Now that perl-5.6 is required we no longer
-	  need the Tie::RefHash::Nestable workaround.
 
 2003-07-19 11:15  epaepa
 
@@ -6554,18 +6235,16 @@
 	  choose/tv_pick/tv_pick_cgi, filter/Grep.pm,
 	  filter/tv_extractinfo_en, filter/tv_sort, grab/Europe_TZ.pm,
 	  grab/Get_nice.pm, grab/es/tv_grab_es, grab/fi/tv_grab_fi,
-	  grab/hu/tv_grab_hu, grab/na/ZapListings.pm, grab/na/tv_grab_na,
-	  grab/nl/tv_grab_nl, grab/uk/tv_grab_uk.in,
-	  grab/uk_rt/tv_grab_uk_rt.in, lib/Ask.pm, lib/Clumps.pm,
-	  lib/Gunzip.pm, lib/IMDB.pm, lib/Summarize.pm, lib/TZ.pm,
-	  lib/Usage.pm, lib/XMLTV.pm.in, t/parallel_test, t/test_filters.t:
-	  Say 'our' instead of 'use vars'.  Changes checked by hand but not
-	  every program has been run ('make test' passes).
+	  grab/nl/tv_grab_nl, grab/uk_rt/tv_grab_uk_rt.in, lib/Ask.pm,
+	  lib/Clumps.pm, lib/Gunzip.pm, lib/IMDB.pm, lib/Summarize.pm,
+	  lib/TZ.pm, lib/Usage.pm, lib/XMLTV.pm.in, t/parallel_test,
+	  t/test_filters.t: Say 'our' instead of 'use vars'.  Changes
+	  checked by hand but not every program has been run ('make test'
+	  passes).
 
 2003-07-19 09:51  epaepa
 
-	* grab/it/tv_grab_it.PL, grab/nz/tv_grab_nz.PL,
-	  grab/uk/tv_grab_uk.PL, lib/set_share_dir.pl: set_share_dir.pl now
+	* grab/it/tv_grab_it.PL, lib/set_share_dir.pl: set_share_dir.pl now
 	  provides a set_share_dir() function to call with two arguments,
 	  rather than using a global $in variable and @ARGV.
 
@@ -6596,11 +6275,6 @@
 	* grab/uk_rt/tv_grab_uk_rt.in: When an unknown bit of text is very
 	  long, it's probably an extra description or review.
 
-2003-07-12 11:48  epaepa
-
-	* grab/nz/tv_grab_nz.in: Handle part numbers like 'P2' (I hope this
-	  does express a part number and isn't junk text).
-
 2003-07-11 00:46  rmeden
 
 	* choose/tv_check/tv_check: keep up with tv_grab_na's changes to
@@ -6614,20 +6288,14 @@
 
 2003-07-06 14:13  epaepa
 
-	* Makefile.PL, README, doc/README.win32, grab/na/ZapListings.pm,
-	  lib/XMLTV.pm.in: Version 0.5.15.
+	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in: Version
+	  0.5.15.
 
 2003-07-06 14:12  epaepa
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Handle (or rather explicitly
 	  do-not-handle) another piece of information on the site,
 	  'subsequent programmes may be altered or late'.
-
-2003-07-06 13:39  epaepa
-
-	* grab/nz/tv_grab_nz.in: get_programs(): If there's a failure
-	  downloading the URL, warn about it and return nothing (rather
-	  than aborting).
 
 2003-07-06 12:12  epaepa
 
@@ -6678,14 +6346,6 @@
 2003-07-05 12:51  epaepa
 
 	* todo/xmltv-0.6.dtd: Added a TODO.
-
-2003-07-05 11:35  jveldhuis
-
-	* grab/na/tv_grab_na: display-name changed from:
-	  <diplay-name>Channel 2 CFRN</display-name> to    <display-name>2
-	  CFRN</display-name>	 <display-name>2</display-name> to be more
-	  consistant with other grabbers and give applications the option
-	  of looking for a numeric display-name
 
 2003-07-05 09:57  epaepa
 
@@ -6757,17 +6417,7 @@
 
 2003-07-01 13:50  jveldhuis
 
-	* Makefile.PL, README, doc/README.win32, grab/na/ZapListings.pm:
-	  version 0.5.14 numbers
-
-2003-07-01 13:47  jveldhuis
-
-	* grab/na/ZapListings.pm: arg s//ios doesn't default to global case
-	  insensitive, only the first match
-
-2003-07-01 11:45  jveldhuis
-
-	* grab/na/ZapListings.pm: updated release information in useragent
+	* Makefile.PL, README, doc/README.win32: version 0.5.14 numbers
 
 2003-07-01 11:44  jveldhuis
 
@@ -6778,16 +6428,10 @@
 	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in: updated
 	  version numbers and descriptions for 0.5.13 release
 
-2003-07-01 11:20  jveldhuis
-
-	* grab/na/ZapListings.pm: the fix required to support the new
-	  zap2it web layout.  Big Big thanks to Gregorio Gervasio who
-	  sumitted most of the fixes.
-
 2003-06-29 16:15  epaepa
 
-	* Makefile.PL, README, doc/README.win32, grab/na/ZapListings.pm,
-	  lib/XMLTV.pm.in: Version 0.5.12.
+	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in: Version
+	  0.5.12.
 
 2003-06-29 15:54  epaepa
 
@@ -6804,47 +6448,17 @@
 	  non-Latin-1 characters that creep into the HTML.  A more general
 	  character check is still todo.
 
-2003-06-29 14:03  epaepa
-
-	* grab/hu/tv_grab_hu: Trim leading and trailing whitespace from
-	  programme titles.
-
-2003-06-29 13:49  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/Freeview,
-	  channel_pkgs/classics, channel_pkgs/film, channel_pkgs/wales,
-	  channel_pkgs/Telewest/Supreme: Updated channel packages after
-	  changes on the site.
-
 2003-06-29 10:53  epaepa
 
 	* choose/tv_check/tv_check, filter/tv_cat,
 	  filter/tv_extractinfo_en, filter/tv_grep.in, filter/tv_imdb,
 	  filter/tv_sort, filter/tv_split, filter/tv_to_latex,
 	  filter/tv_to_text, grab/de/tv_grab_de, grab/dk/tv_grab_dk,
-	  grab/es/tv_grab_es, grab/fi/tv_grab_fi, grab/hu/tv_grab_hu,
-	  grab/it/tv_grab_it.in, grab/na/tv_grab_na, grab/nl/tv_grab_nl,
-	  grab/nl_wolf/tv_grab_nl_wolf, grab/nz/tv_grab_nz.in,
-	  grab/sn/tv_grab_sn, grab/uk/tv_grab_uk.in,
+	  grab/es/tv_grab_es, grab/fi/tv_grab_fi, grab/it/tv_grab_it.in,
+	  grab/nl/tv_grab_nl, grab/nl_wolf/tv_grab_nl_wolf,
 	  grab/uk_rt/tv_grab_uk_rt.in: All files with pod documentation now
 	  have '=pod'.	This should let them get noticed by older versions
 	  of MakeMaker.
-
-2003-06-29 10:33  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/film,
-	  channel_pkgs/NTL/digital/movies, channel_pkgs/Sky/Movies_World:
-	  Removed channel widescreen.premier.sky.com, which is no longer on
-	  the site.
-
-2003-06-29 10:32  epaepa
-
-	* grab/uk/tv_grab_uk.in: Prompt for 'five main channels' rather
-	  than 'terrestrial analogue channels', since nowadays you can get
-	  the region'd BBC1 and ITV with digital satellite as well.
-
-	  When warning about unknown channel ids in packages, give the full
-	  package filename relative to channel_pkgs/.
 
 2003-06-29 09:51  epaepa
 
@@ -6881,8 +6495,8 @@
 
 2003-06-22 14:22  epaepa
 
-	* Makefile.PL, README, mkdist, doc/README.win32,
-	  grab/na/ZapListings.pm, lib/XMLTV.pm.in: Version 0.5.11.
+	* Makefile.PL, README, mkdist, doc/README.win32, lib/XMLTV.pm.in:
+	  Version 0.5.11.
 
 	  Added Zaplistings.pm to the version checker in mkdist.
 
@@ -6935,12 +6549,6 @@
 	* Makefile.PL: Made the prompting for optional things a bit more
 	  manageable - you are offered a default configuration to accept.
 
-2003-06-21 15:16  epaepa
-
-	* grab/na/tv_grab_na: Fixed <episode-num> output - the right system
-	  is 'xmltv_ns' not 'xmltv', and formatted the data the same way as
-	  tv_cat.
-
 2003-06-21 15:12  epaepa
 
 	* grab/fi/tv_grab_fi: Updated for new layout of channel list on
@@ -6956,11 +6564,6 @@
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Loosened regexp to match channel
 	  list, so the grabber now works again.
-
-2003-06-21 14:45  epaepa
-
-	* grab/nz/tv_grab_nz.in: Parse 'Part 2' etc. and turn it into
-	  <episode-num>.
 
 2003-06-21 10:37  epaepa
 
@@ -7047,11 +6650,6 @@
 2003-06-02 22:38  rmeden
 
 	* Makefile.PL: blank lines were left in new windows_dist code.
-
-2003-06-02 00:54  jveldhuis
-
-	* grab/na/tv_grab_na: channel ids now follow RFC2838 as per Ed's
-	  request
 
 2003-06-01 16:11  epaepa
 
@@ -7233,17 +6831,6 @@
 	  missing start or stop times.	Added <url> to the output where it
 	  is known.
 
-2003-05-31 13:03  allena28
-
-	* grab/uk/channel_pkgs/Telewest/: Entry, Essential_Plus: Telewest
-	  restructure: only Essential and Supreme packages exist (removed
-	  Essential_Plus and Entry)
-
-2003-05-31 12:55  allena28
-
-	* grab/uk/channel_pkgs/Telewest/: Essential, Supreme: Telewest
-	  Updates
-
 2003-05-31 08:59  epaepa
 
 	* grab/nl/tv_grab_nl: Whoops, the last version didn't compile due
@@ -7363,20 +6950,9 @@
 
 	* Makefile.PL: Fixed 'set LC_ALL to en_US' error message.
 
-2003-05-21 14:50  epaepa
-
-	* grab/nz/episode_names: Adding dummy episode_names file to keep
-	  the Makefile.PL happy.  I hope that soon it will be replaced with
-	  a real list of episode names.
-
 2003-05-20 14:25  epaepa
 
 	* MANIFEST: Renamed test cases.
-
-2003-05-19 16:52  staffanmalmgren
-
-	* grab/sn/tv_grab_sn: Fixed bug that skipped channels without
-	  program descriptions
 
 2003-05-19 15:09  epaepa
 
@@ -7620,18 +7196,11 @@
 	  filter/tv_extractinfo_en, filter/tv_grep.in, filter/tv_imdb,
 	  filter/tv_sort, filter/tv_split, filter/tv_to_latex,
 	  filter/tv_to_text, grab/de/tv_grab_de, grab/dk/tv_grab_dk,
-	  grab/es/tv_grab_es, grab/fi/tv_grab_fi, grab/hu/tv_grab_hu,
-	  grab/it/tv_grab_it.in, grab/na/tv_grab_na, grab/nl/tv_grab_nl,
-	  grab/nl_wolf/tv_grab_nl_wolf, grab/nz/tv_grab_nz.in,
-	  grab/sn/tv_grab_sn, grab/uk/tv_grab_uk.in,
+	  grab/es/tv_grab_es, grab/fi/tv_grab_fi, grab/it/tv_grab_it.in,
+	  grab/nl/tv_grab_nl, grab/nl_wolf/tv_grab_nl_wolf,
 	  grab/uk_rt/tv_grab_uk_rt.in, lib/Version.pm: Every executable now
 	  has a --version argument, provided by the new XMLTV::Version
 	  library which can parse the CVS id you import it with.
-
-2003-05-19 13:18  epaepa
-
-	* grab/uk/tv_grab_uk.in: Trace the process of finding 'share'
-	  files.
 
 2003-05-18 14:11  rmeden
 
@@ -7693,14 +7262,9 @@
 
 	  Added some trace messages.
 
-2003-05-16 13:37  epaepa
-
-	* grab/sn/tv_grab_sn: Whoops, forgot to import XMLTV::TZ module.
-
 2003-05-16 02:16  epaepa
 
-	* MANIFEST, Makefile.PL, grab/nz/tv_grab_nz, grab/nz/tv_grab_nz.PL,
-	  grab/nz/tv_grab_nz.in, lib/set_share_dir.pl: Changed the
+	* MANIFEST, Makefile.PL, lib/set_share_dir.pl: Changed the
 	  installation of tv_grab_nz to use the .in / .PL approach, so it
 	  can have a share directory, like some of the other grabbers.
 
@@ -7717,9 +7281,8 @@
 
 2003-05-15 15:26  epaepa
 
-	* filter/tv_grep.in, grab/Grab_XML.pm, grab/na/tv_grab_na,
-	  grab/sn/tv_grab_sn, lib/TZ.pm: Another attempt at fixing the
-	  tv_grep timezone bug.  A new routine
+	* filter/tv_grep.in, grab/Grab_XML.pm, lib/TZ.pm: Another attempt
+	  at fixing the tv_grep timezone bug.  A new routine
 	  XMLTV::TZ::parse_local_date() parses a date and converts it to
 	  UTC, so that when Date_Init('TZ=UTC') is called the date object
 	  does not get changed.
@@ -7795,8 +7358,7 @@
 
 2003-05-12 16:23  epaepa
 
-	* filter/tv_grep.in, grab/Grab_XML.pm, grab/na/tv_grab_na,
-	  grab/nl/tv_grab_nl, grab/sn/tv_grab_sn, grab/uk/tv_grab_uk.in,
+	* filter/tv_grep.in, grab/Grab_XML.pm, grab/nl/tv_grab_nl,
 	  grab/uk_rt/tv_grab_uk_rt.in: Attempting to fix bug with parsing
 	  'now' or 'today' dates.  This can't be done after calling
 	  Date_Init('TZ=UTC').
@@ -7851,14 +7413,14 @@
 
 2003-05-11 06:25  epaepa
 
-	* MANIFEST, Makefile.PL, grab/hu/tv_grab_hu: New grabber:
-	  tv_grab_hu for Hungary written by Attila Szekeres and Zsolt Varga
-	  (although I have changed bits myself as well).
+	* MANIFEST, Makefile.PL: New grabber: tv_grab_hu for Hungary
+	  written by Attila Szekeres and Zsolt Varga (although I have
+	  changed bits myself as well).
 
 2003-05-11 06:22  epaepa
 
-	* grab/: es/tv_grab_es, sn/tv_grab_sn: Don't read the config file
-	  twice, use @config_lines which was read early on.
+	* grab/es/tv_grab_es: Don't read the config file twice, use
+	  @config_lines which was read early on.
 
 2003-05-11 05:29  epaepa
 
@@ -7903,35 +7465,18 @@
 2003-05-10 10:14  epaepa
 
 	* MANIFEST, Makefile.PL, grab/es/tv_grab_es, grab/fi/tv_grab_fi,
-	  grab/nl/tv_grab_nl, grab/sn/tv_grab_sn, grab/uk/tv_grab_uk.in,
-	  grab/uk_rt/tv_grab_uk_rt.in: A new library XMLTV::Mode factors
-	  out the check 'you cannot configure and list channels at the same
-	  time'.
+	  grab/nl/tv_grab_nl, grab/uk_rt/tv_grab_uk_rt.in: A new library
+	  XMLTV::Mode factors out the check 'you cannot configure and list
+	  channels at the same time'.
 
 	  Made sure all the grabbers fail early if they cannot read the
 	  config file during grabbing, rather than starting to download or
 	  write data before the config file is checked.
 
-2003-05-10 10:11  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/film: Removed a couple of
-	  dead channels.
-
 2003-05-10 10:10  epaepa
 
 	* todo/TASKS.epa: There needs to be a summary 'xmltv' manpage and
 	  an automated test suite for grabbers.
-
-2003-05-10 09:48  epaepa
-
-	* grab/nz/tv_grab_nz: Whoops, botched the last change - there was
-	  already a config file message.  But it wasn't displayed until
-	  later in the process.
-
-2003-05-10 09:44  epaepa
-
-	* grab/nz/tv_grab_nz: Print a message to stderr saying what config
-	  filename has been guessed.
 
 2003-05-10 08:23  epaepa
 
@@ -7950,9 +7495,9 @@
 
 2003-05-09 16:15  epaepa
 
-	* MANIFEST, Makefile.PL, README, doc/QuickStart, doc/README.win32,
-	  grab/us_gist/tv_grab_us_gist: Removed tv_grab_us_gist, the
-	  gist.com site is no longer providing listings.
+	* MANIFEST, Makefile.PL, README, doc/QuickStart, doc/README.win32:
+	  Removed tv_grab_us_gist, the gist.com site is no longer providing
+	  listings.
 
 	  Removed the 'changes in this release' from README and
 	  README.win32.
@@ -8017,12 +7562,6 @@
 
 	* filter/tv_imdb: no longer dependent on look(1)
 
-2003-05-05 11:54  jveldhuis
-
-	* grab/na/ZapListings.pm: added in check of http status code when
-	  first page is retrieved and warns http_proxy env variable may
-	  need setting
-
 2003-05-04 16:05  ramonroca
 
 	* grab/es/tv_grab_es: Fixed a bug when the listing has not
@@ -8049,11 +7588,6 @@
 	  content gives the type of star-rating; and a comment documents
 	  the 'show' and 'season' terminology.
 
-2003-05-04 13:13  epaepa
-
-	* grab/sn/tv_grab_sn: Changed to use XMLTV::Get_nice so there is a
-	  small delay between page fetches.
-
 2003-05-04 13:09  epaepa
 
 	* grab/Get_nice.pm: Whoops, I removed LWP::Simple from grabbers but
@@ -8062,9 +7596,9 @@
 2003-05-04 07:38  epaepa
 
 	* Makefile.PL, grab/Get_nice.pm, grab/es/tv_grab_es,
-	  grab/fi/tv_grab_fi, grab/it/tv_grab_it.in, grab/nl/tv_grab_nl,
-	  grab/sn/tv_grab_sn: Factored out the code to get a page and then
-	  sleep() into a new library XMLTV::Get_nice.
+	  grab/fi/tv_grab_fi, grab/it/tv_grab_it.in, grab/nl/tv_grab_nl:
+	  Factored out the code to get a page and then sleep() into a new
+	  library XMLTV::Get_nice.
 
 2003-05-04 06:32  epaepa
 
@@ -8080,11 +7614,6 @@
 
 	* todo/xmltv-0.6.dtd: Fixed some comments following suggestions by
 	  Ben Bucksch.
-
-2003-05-03 16:14  jveldhuis
-
-	* grab/na/tv_grab_na: fixed problem in configure when picking a
-	  provider description that appears twice - SF Bug #731721
 
 2003-05-03 08:56  epaepa
 
@@ -8125,15 +7654,6 @@
 	* todo/xmltv-0.6.dtd: Fixed some things suggested by Christoph
 	  Paeper in discussion on xmltv-devel.
 
-2003-04-28 10:28  jveldhuis
-
-	* grab/na/tv_grab_na: config file major version 3 implemented  -
-	  '#channel %d' entries are now 'not channel %d'  - 'provider %d #
-	  %s' are now 'provider %d %s'
-
-	  auto upgrading is done on the fly by identifying version 2 style
-	  config files, warning to re-run --configure stage.
-
 2003-04-27 13:19  epaepa
 
 	* todo/: TASKS.epa, xmltv-0.6.dtd: First attempt at the new version
@@ -8163,12 +7683,6 @@
 
 	* grab/it/tv_grab_it.in: The bug 'I haven't even considered what
 	  happens with DST issues' no longer exists!
-
-2003-04-26 14:06  epaepa
-
-	* grab/nz/tv_grab_nz: Removed redundant 'timezone' variable.  But
-	  I'm still not sure what the code is doing with timezones... I
-	  think it just ignores them.
 
 2003-04-26 13:57  epaepa
 
@@ -8206,10 +7720,6 @@
 	  +0200) and hopefully will keep working after the change back to
 	  CET.
 
-2003-04-26 08:24  epaepa
-
-	* grab/us_gist/tv_grab_us_gist: Corrected manual page.
-
 2003-04-26 08:20  epaepa
 
 	* grab/Memoize.pm: Realized that Getopt::Long has a 'passthrough'
@@ -8217,25 +7727,6 @@
 	  just to extract the --cache option.  We use the OO interface to
 	  Getopt::Long to avoid setting global options which would affect
 	  other callers.
-
-2003-04-26 07:59  epaepa
-
-	* grab/us_gist/tv_grab_us_gist: Implemented --configure to set
-	  userid and timezone.	This replaces the environment variables
-	  that were formerly used.
-
-2003-04-26 07:12  epaepa
-
-	* grab/us_gist/tv_grab_us_gist: Moved 'use LWP::UserAgent' to a
-	  more logical place.
-
-2003-04-26 07:01  epaepa
-
-	* grab/us_gist/tv_grab_us_gist: Changed to use new cachables()
-	  method to do memoization.  I still can't seem to memoize a method
-	  rather than a function, so the work of getting pages has moved to
-	  a new get_deflate() routine in the main package, which can then
-	  be memoized.
 
 2003-04-26 06:45  epaepa
 
@@ -8261,8 +7752,7 @@
 2003-04-26 05:18  epaepa
 
 	* grab/: Config_file.pm, es/tv_grab_es, fi/tv_grab_fi,
-	  it/tv_grab_it.in, na/tv_grab_na, nl/tv_grab_nl, sn/tv_grab_sn,
-	  uk/tv_grab_uk.in, uk_rt/tv_grab_uk_rt.in:
+	  it/tv_grab_it.in, nl/tv_grab_nl, uk_rt/tv_grab_uk_rt.in:
 	  XMLTV::Config_file::filename(): print a message to stderr saying
 	  what filename has been picked for the config file.  A new
 	  optional 'quiet' argument turns this off.
@@ -8271,25 +7761,13 @@
 	  removing comments: a new routine
 	  XMLTV::Config_file::read_lines().
 
-2003-04-26 03:48  epaepa
-
-	* grab/na/tv_grab_na: Changed s/\n$// to chomp, which is a Perl
-	  builtin to do the same thing.
-
 2003-04-26 03:08  epaepa
 
 	* grab/: Config_file.pm, es/tv_grab_es, fi/tv_grab_fi,
-	  it/tv_grab_it.in, nl/tv_grab_nl, nz/tv_grab_nz, sn/tv_grab_sn,
-	  uk/tv_grab_uk.in, uk_rt/tv_grab_uk_rt.in: A new routine
-	  XMLTV::Config_file::check_no_overwrite() factors out the
+	  it/tv_grab_it.in, nl/tv_grab_nl, uk_rt/tv_grab_uk_rt.in: A new
+	  routine XMLTV::Config_file::check_no_overwrite() factors out the
 	  duplicated 'are you sure you want to overwrite the config file?'
 	  check in most grabbers.
-
-2003-04-25 16:19  epaepa
-
-	* grab/us_gist/tv_grab_us_gist: Use XMLTV::Memoize to --cache the
-	  get() method, since it is overridden in this class and doesn't
-	  call LWP::Simple::get().
 
 2003-04-25 16:17  epaepa
 
@@ -8303,18 +7781,6 @@
 	  strings before passing them to ParseDate().  This is because the
 	  language is a single global setting and we want to interoperate
 	  with libraries that use English strings.
-
-2003-04-25 14:26  epaepa
-
-	* grab/sn/tv_grab_sn: Added a check that programme title is set
-	  before attempting to call write_programme().	This may put us a
-	  little closer to finding the cause of the problem Tommy Killander
-	  reported on xmltv-users.
-
-2003-04-24 18:01  staffanmalmgren
-
-	* grab/sn/tv_grab_sn: Updated to use utc_offset to add UTC offset
-	  to dates
 
 2003-04-24 18:00  staffanmalmgren
 
@@ -8334,18 +7800,6 @@
 	  things are running slowly.  I could print a warning, but simpler
 	  just to require the modulee, as more and more vendors ship 5.8 or
 	  later.  VS:
-
-2003-04-22 17:22  rmeden
-
-	* grab/us_gist/tv_grab_us_gist: a few simple changes to allow
-	  tv_grab_us_gist to be used with xmltv.exe The userid is no longer
-	  hard coded, but set with an enviornment variable.  A TZ
-	  adjustment is sent to GIST in the URL.
-
-2003-04-22 15:22  staffanmalmgren
-
-	* grab/sn/tv_grab_sn: Fixed bug which made timestamps have the
-	  wrong timezone due to DST changeover, for good (hopefully)
 
 2003-04-22 14:32  epaepa
 
@@ -8369,16 +7823,15 @@
 2003-04-20 15:40  epaepa
 
 	* MANIFEST, Makefile.PL, grab/Config_file.pm, grab/es/tv_grab_es,
-	  grab/fi/tv_grab_fi, grab/it/tv_grab_it.in, grab/na/tv_grab_na,
-	  grab/nl/tv_grab_nl, grab/nz/tv_grab_nz, grab/sn/tv_grab_sn,
-	  grab/uk/tv_grab_uk.in, grab/uk_rt/tv_grab_uk_rt.in: A new library
-	  XMLTV::Config_file encapsulates the job of working out the config
-	  filename and doing weird things like creating directories or
-	  migrating config filenames.
+	  grab/fi/tv_grab_fi, grab/it/tv_grab_it.in, grab/nl/tv_grab_nl,
+	  grab/uk_rt/tv_grab_uk_rt.in: A new library XMLTV::Config_file
+	  encapsulates the job of working out the config filename and doing
+	  weird things like creating directories or migrating config
+	  filenames.
 
 2003-04-20 07:26  epaepa
 
-	* MANIFEST, Makefile.PL, grab/Europe_TZ.pm, grab/uk/tv_grab_uk.in,
+	* MANIFEST, Makefile.PL, grab/Europe_TZ.pm,
 	  grab/uk_rt/tv_grab_uk_rt.in, lib/TZ.pm, lib/UK_TZ.pm: Replaced
 	  the UK_TZ.pm library with Europe_TZ.pm, which should work for
 	  most European countries.  The functions are the same but you must
@@ -8388,10 +7841,6 @@
 	  TZ.pm has a new routine tz_to_num() which converts named
 	  timezones to their numeric equivalent.
 
-2003-04-20 06:57  epaepa
-
-	* grab/sn/tv_grab_sn: Whitespace.
-
 2003-04-20 05:07  ramonroca
 
 	* grab/es/tv_grab_es: Solved a break due to change in elpais.es,
@@ -8400,20 +7849,6 @@
 2003-04-20 03:33  epaepa
 
 	* todo/TASKS.epa: Anotehr todo item.
-
-2003-04-19 10:10  allena28
-
-	* grab/uk/channel_pkgs/NTL/: analogue, digital/Base: Updates to NTL
-	  Packages
-
-2003-04-18 11:12  allena28
-
-	* grab/uk/channel_pkgs/Sky/: Family, Value: updated Sky packages
-
-2003-04-18 09:44  epaepa
-
-	* grab/uk/README: Removed UK_TZ.pm from the file descriptions since
-	  it no longer lives in this directory.
 
 2003-04-18 09:24  epaepa
 
@@ -8465,29 +7900,13 @@
 	  which is passed some arguments for an XMLTV::Writer and some
 	  filenames to read from.  Intending to move into XMLTV.pm soon.
 
-2003-04-14 09:54  jveldhuis
-
-	* grab/na/: ZapListings.pm, tv_grab_na: switched cases were I use
-	  [^\s]+ in regexp with \S+
-
-2003-04-13 03:46  epaepa
-
-	* grab/us_gist/tv_grab_us_gist: Link to Gist's page describing
-	  their XMLTV feed.
-
-2003-04-12 16:04  epaepa
-
-	* grab/us_gist/tv_grab_us_gist: Override XMLTV::Grab_XML::get() to
-	  add 'Accept-encoding: gzip' and then decompress.  The grabber now
-	  works!
-
 2003-04-12 15:40  epaepa
 
-	* grab/: Grab_XML.pm, de/tv_grab_de, nl_wolf/tv_grab_nl_wolf,
-	  us_gist/tv_grab_us_gist: XMLTV::Grab_XML::get(): new package
-	  method to get the contents of a page at a given URL.	This will
-	  let grabbers override the mechanism used to fetch a page (the
-	  default implementation uses LWP::Simple).
+	* grab/: Grab_XML.pm, de/tv_grab_de, nl_wolf/tv_grab_nl_wolf:
+	  XMLTV::Grab_XML::get(): new package method to get the contents of
+	  a page at a given URL.  This will let grabbers override the
+	  mechanism used to fetch a page (the default implementation uses
+	  LWP::Simple).
 
 	  This does mean that packages inheriting from XMLTV::Grab_XML
 	  should not import LWP::Simple's get() function, it will clash
@@ -8495,8 +7914,7 @@
 
 2003-04-12 06:45  epaepa
 
-	* MANIFEST, Makefile.PL, doc/QuickStart,
-	  grab/us_gist/tv_grab_us_gist: Adding a new grabber
+	* MANIFEST, Makefile.PL, doc/QuickStart: Adding a new grabber
 	  tv_grab_us_gist to fetch the XMLTV listings made available by
 	  gist.com.  It's not yet finished and in fact I don't even know if
 	  it works - but it will soon.	(Committing so I can run it from my
@@ -8603,16 +8021,6 @@
 
 	* todo/TASKS.epa: A couple of things to add to the file format.
 
-2003-04-05 15:39  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/classics, channel_pkgs/film,
-	  channel_pkgs/Sky/Family, channel_pkgs/Telewest/Supreme: Removed
-	  some channels which were no longer on the site.
-
-2003-04-05 15:29  epaepa
-
-	* grab/nz/tv_grab_nz: Documented a bug.
-
 2003-04-05 15:05  epaepa
 
 	* grab/nl/tv_grab_nl: Don't output 'debug_more' comments in fast
@@ -8650,20 +8058,6 @@
 	  'official day' which is not necessarily the same as 'actual day',
 	  and is used only to sanity-check the date printed in the page.
 
-2003-04-05 03:08  epaepa
-
-	* grab/nz/tv_grab_nz: Removed debugging message left in the code my
-	  mistake.
-
-2003-04-05 02:38  epaepa
-
-	* grab/sn/tv_grab_sn: Added some missing function prototypes.
-
-2003-04-05 02:32  epaepa
-
-	* grab/sn/tv_grab_sn: Quote an apostrophe in pod documentation to
-	  avoid confusing editors.
-
 2003-04-04 15:57  epaepa
 
 	* grab/nl/tv_grab_nl: Moved the code for downloading and processing
@@ -8674,20 +8068,10 @@
 
 	* grab/nl/tv_grab_nl: Eliminated confusing $date variable.
 
-2003-04-04 15:11  epaepa
-
-	* grab/nz/tv_grab_nz: Fixed bug where a programme crossing midnight
-	  would have a stop time in the wrong day.
-
 2003-04-04 13:36  epaepa
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Handle URLs which appear in without
 	  preceding text like 'Related Websites'.
-
-2003-04-04 11:39  epaepa
-
-	* grab/sn/tv_grab_sn: Patch from Martin Moeller to cope with a
-	  recent site change.
 
 2003-04-03 01:26  epaepa
 
@@ -8723,24 +8107,6 @@
 
 	* doc/QuickStart: Updated for newly added grabbers.
 
-2003-03-30 19:20  jveldhuis
-
-	* grab/na/tv_grab_na: when a command line error occurs or usage
-	  problem, print message about how to get command line help,
-	  instead of providing the help... windows users fail to see actual
-	  error messages since usage is so long
-
-2003-03-30 15:08  staffanmalmgren
-
-	* grab/sn/tv_grab_sn: Changed maintaner information, as per Ed's
-	  suggestion
-
-2003-03-30 07:45  epaepa
-
-	* grab/uk/tv_grab_uk.in: Better error message when --offset is
-	  given and the site doesn't have enough days of listings to
-	  satisfy the request (which is happening increasingly often).
-
 2003-03-30 07:03  epaepa
 
 	* grab/nl/tv_grab_nl: Fixed date calculation bug: the day numbers
@@ -8756,45 +8122,6 @@
 	* grab/de/tv_grab_de: Accept but politely ignore the --config-file
 	  option.
 
-2003-03-30 06:22  epaepa
-
-	* grab/nz/tv_grab_nz: Added support for a --cache option which is
-	  ignored.  This is for consistency with the undocumented --cache
-	  option in other grabbers: the option now means 'cache me if you
-	  can'.
-
-2003-03-30 06:14  epaepa
-
-	* grab/nz/tv_grab_nz: More thorough command-line checking: error if
-	  there are arguments left over after parsing options.
-
-2003-03-30 05:43  epaepa
-
-	* grab/na/tv_grab_na: Added an --cache option which is accepted but
-	  ignored.  This is for consistency with the other grabbers, in
-	  particular, to make it easier to write a grabber test suite.
-	  Some day the --cache option can actually do something.
-
-2003-03-30 05:37  epaepa
-
-	* grab/na/tv_grab_na: Check the command line more throughly: it is
-	  an error if any arguments remain after processing options.
-
-2003-03-30 05:35  epaepa
-
-	* grab/na/tv_grab_na: Improved main usage message.
-
-2003-03-30 05:18  epaepa
-
-	* grab/na/tv_grab_na: Made same tidying elsewhere, I didn't realize
-	  there were two cals to GetOptions().
-
-2003-03-30 03:37  epaepa
-
-	* grab/na/tv_grab_na: Code tidy moving each command-line option
-	  onto its own line.  This should make it easier to add and remove
-	  them and change them in patches (since diff works line-by-line).
-
 2003-03-29 17:14  epaepa
 
 	* grab/nl/tv_grab_nl: Don't warn about 'Volgende' link which has
@@ -8806,12 +8133,6 @@
 	  channel name of a programme details page doesn't match that on
 	  the channels page (this has started firing for a difference
 	  bwtween 'Sky 1' and 'Sky One').
-
-2003-03-29 17:07  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/Freeview, channel_pkgs/wales:
-	  Channel S4C2 seems to have disappeared from the site.  I'm just
-	  commenting it out for now in case it reappears later.
 
 2003-03-29 16:49  epaepa
 
@@ -8840,29 +8161,6 @@
 	  at the moment: I am adding new grabbers (or making new releases
 	  of existing ones) that lack this option.
 
-2003-03-29 11:21  epaepa
-
-	* grab/sn/tv_grab_sn: Patch from Staffen Malmgren.  Here's his
-	  description:
-
-	  The following patch fixes three bugs concerning the --configure
-	  mode of tv_grab_sn.
-
-	  The first one is one i introduced myself in my patch from a
-	  couple of months ago; the 'all' answer to "add channel FOO?"
-	  question would incorrectly NOT add the current channel (but it
-	  would add all following channels)
-
-	  The second two were introduced in revisions 1.19, 1.20 or
-	  thereabouts (and so does not seem to be present in 0.58). The
-	  first error was handling a array reference as though it was
-	  scalar (and thus ending up with a lot of "ARRAY(0xABCD1234)" in
-	  the configuration questions and config file.	The second was a
-	  regression in the HTML scraping of available channels -- along
-	  with the valid channels, a bunch of categories would be returned.
-
-	  The patch is tested with both Swedish and Norwegian channels.
-
 2003-03-28 18:28  rmeden
 
 	* doc/README.win32: add warning about using spaces in xmltv.exe
@@ -8871,8 +8169,7 @@
 2003-03-28 13:49  epaepa
 
 	* filter/tv_extractinfo_en, grab/de/tv_grab_de, grab/es/tv_grab_es,
-	  grab/fi/tv_grab_fi, grab/it/tv_grab_it.in, grab/sn/tv_grab_sn,
-	  grab/uk/tv_grab_uk.in: Benjamin Goldberg on
+	  grab/fi/tv_grab_fi, grab/it/tv_grab_it.in: Benjamin Goldberg on
 	  comp.lang.perl.moderated pointed out a better way to check if a
 	  module is availabl, setting a compile-time constant rather than a
 	  variable.  So the constant Have_bar replaces the variable
@@ -8889,34 +8186,10 @@
 
 	* MANIFEST: Added tv_grab_it to file list.
 
-2003-03-27 15:55  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/Freeview, channel_pkgs/adult,
-	  channel_pkgs/arts, channel_pkgs/children, channel_pkgs/comedy,
-	  channel_pkgs/entertainment, channel_pkgs/factual,
-	  channel_pkgs/gratis, channel_pkgs/lifestyle, channel_pkgs/music,
-	  channel_pkgs/news, channel_pkgs/regional, channel_pkgs/sport,
-	  channel_pkgs/travel, channel_pkgs/NTL/analogue,
-	  channel_pkgs/NTL/digital/Base, channel_pkgs/NTL/digital/Family,
-	  channel_pkgs/Sky/Family, channel_pkgs/Telewest/Entry,
-	  channel_pkgs/Telewest/Essential, channel_pkgs/Telewest/Supreme:
-	  Removed a lot of channels which seem to have disappeared from the
-	  site.  Based on a patch sent in by Paul McDermott.
-
 2003-03-27 04:01  rmeden
 
 	* choose/tv_check/tv_check: added code to skip episodes without a
 	  start time
-
-2003-03-26 16:12  epaepa
-
-	* grab/nz/tv_grab_nz: Added --config-file option.
-
-	  Accept 'yes' answer to y/N question.
-
-	  When reading the config file give an error if the 'channels' line
-	  is not present or appears more than once.  Also don't default the
-	  channels list if an I/O error occurs; just give an error.
 
 2003-03-22 17:34  epaepa
 
@@ -8924,23 +8197,9 @@
 	  scalar context - but using the same cache for both (the MERGE
 	  option).
 
-2003-03-20 07:13  jveldhuis
-
-	* grab/na/tv_grab_na: now unlinks temperary file on write failure
-
 2003-03-18 15:11  epaepa
 
 	* todo/TASKS.epa: Another DTD requirement.
-
-2003-03-17 12:44  allena28
-
-	* grab/uk/channel_pkgs/NTL/digital/: Base, Disney, Family, Sports,
-	  movies: Updates to NTL packages
-
-2003-03-17 07:41  allena28
-
-	* grab/uk/channel_pkgs/Telewest/: Entry, Essential, Essential_Plus,
-	  Supreme: Updated telewest details in channel_pkgs for tv_grab_uk
 
 2003-03-16 18:20  epaepa
 
@@ -9009,24 +8268,11 @@
 	  that could be fixed later.)  Next I have to fix the manual page
 	  generation, which is incorrect.
 
-2003-03-11 11:22  jveldhuis
-
-	* grab/na/tv_grab_na: properly sets new id if description changes,
-	  minor changes to warning messages
-
-2003-03-11 11:20  jveldhuis
-
-	* grab/na/ZapListings.pm: better error message
-
 2003-03-10 16:51  epaepa
 
 	* Makefile.PL, README, doc/QuickStart, grab/it/dud_channels,
 	  grab/it/tv_grab_it.PL, grab/it/tv_grab_it.in: New grabber
 	  tv_grab_it contributed by Davide Chiarini.
-
-2003-03-10 16:51  epaepa
-
-	* grab/uk/tv_grab_uk.PL: Fixed invocation of set_share_dir.pl.
 
 2003-03-10 16:50  epaepa
 
@@ -9039,9 +8285,9 @@
 
 2003-03-10 16:27  epaepa
 
-	* MANIFEST, lib/set_share_dir.pl, grab/uk/tv_grab_uk.PL:
-	  Generalized tv_grab_uk.PL, which sets the $SHARE_DIR constant in
-	  a source file, into the 'library' set_share_dir.pl.
+	* MANIFEST, lib/set_share_dir.pl: Generalized tv_grab_uk.PL, which
+	  sets the $SHARE_DIR constant in a source file, into the 'library'
+	  set_share_dir.pl.
 
 2003-03-10 12:39  epaepa
 
@@ -9102,11 +8348,6 @@
 
 	* xmltv.dtd: Clarified that we use DNS-like names for channels not
 	  whole URIs.
-
-2003-03-07 12:58  allena28
-
-	* grab/uk/channel_pkgs/Freeview: Test updated to check CVS is
-	  working
 
 2003-03-05 17:56  epaepa
 
@@ -9171,25 +8412,6 @@
 	* lib/IMDB.pm: first swing at indexing the imdb.com plain text
 	  files
 
-2003-03-01 07:13  epaepa
-
-	* grab/sn/tv_grab_sn: extract_channel_data(): new routine holding
-	  the HTML-munging code from get_channels().
-
-2003-03-01 06:04  epaepa
-
-	* grab/sn/tv_grab_sn: Added --list-channels option partly based on
-	  a patch by Julian Cable.  It requires an additional option --loc
-	  to choose channels for Sweden or Norway.
-
-	  Currently the output from --list-channels gives different ids to
-	  those in the normal listings, I will fix this soon.
-
-2003-03-01 05:48  epaepa
-
-	* grab/sn/tv_grab_sn: Moved the names of the two countries to
-	  %COUNTRIES at the top of the file.
-
 2003-03-01 05:40  epaepa
 
 	* lib/XMLTV.pm.in: Debugging message.
@@ -9198,77 +8420,15 @@
 
 	* xmltv.dtd: Added a note about ordering of <channel> elements.
 
-2003-03-01 05:27  epaepa
-
-	* grab/uk/tv_grab_uk.in: Write <channel> elements in sorted order.
-	  The file format says that order of channels doesn't matter, but
-	  it makes files easier to diff if you sort them.
-
-2003-02-28 17:05  epaepa
-
-	* grab/uk/tv_grab_uk.in: Corrected message; sadly, grabbing no
-	  longer gets a whole week's listings.
-
-2003-02-26 16:43  epaepa
-
-	* grab/uk/channel_pkgs/NTL/digital/Base: Changed choice.bbc.co.uk
-	  to bbc3.bbc.co.uk, I missed this one earlier.
-
 2003-02-26 15:42  epaepa
 
 	* Makefile.PL: Install tv_grab_uk's channel_pkgs, including those
 	  in subdirectories.
 
-2003-02-26 15:04  epaepa
-
-	* grab/uk/channel_pkgs/NTL/digital/: Base, base: Renamed base to
-	  Base since it is clearly the name of a subscription package (it
-	  contains Sky One and other pay channels).
-
-2003-02-26 15:02  epaepa
-
-	* grab/uk/channel_pkgs/: Freeview, NTL/digital/Family,
-	  NTL/digital/base, Telewest/Entry: Fixed some channel ids in
-	  newly-added subscription packages; removed racingchannel.com;
-	  removed packages from NTL/digital/Family that were already in
-	  NTL/digital/base.
-
-2003-02-26 14:47  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/arts, channel_pkgs/comedy,
-	  channel_pkgs/entertainment, channel_pkgs/factual,
-	  channel_pkgs/film, channel_pkgs/NTL/digital/Family,
-	  channel_pkgs/Sky/Family, channel_pkgs/Telewest/Essential: The
-	  site has removed the special 'telewest' and 'ntl' variants of
-	  channels.
-
-2003-02-26 14:30  epaepa
-
-	* grab/uk/tv_grab_uk.in: Documentation and formatting changes.
-
 2003-02-26 14:24  epaepa
 
 	* MANIFEST: Removed directory from MANIFEST, it should list only
 	  plain files.
-
-2003-02-23 14:48  epaepa
-
-	* grab/uk/: tv_grab_uk.in, channel_pkgs/Freeview,
-	  channel_pkgs/NTL/analogue, channel_pkgs/NTL/digital/Disney,
-	  channel_pkgs/NTL/digital/Family, channel_pkgs/NTL/digital/Sports,
-	  channel_pkgs/NTL/digital/base, channel_pkgs/NTL/digital/movies,
-	  channel_pkgs/Sky/Family, channel_pkgs/Sky/Movies_World,
-	  channel_pkgs/Sky/Sports, channel_pkgs/Sky/Value,
-	  channel_pkgs/Telewest/Entry, channel_pkgs/Telewest/Essential,
-	  channel_pkgs/Telewest/Essential_Plus,
-	  channel_pkgs/Telewest/Supreme: Added a bunch of new channel
-	  packages from Adam Allen.  These correspond to the channel
-	  lineups available from different TV providers.
-
-	  Because the new packages naturally arrange themselves into a
-	  directory structure, tv_grab_uk now uses File::Find to look for
-	  all packages in its directory.  However I haven't yet worked out
-	  how to modify the Makefile.PL to install the packages.
 
 2003-02-23 11:25  epaepa
 
@@ -9288,11 +8448,6 @@
 
 	* todo/TASKS.epa: Maybe we could use the Module::Dist CPAN module
 	  to build packages instead of (part of) the 'mkdist' script.
-
-2003-02-21 17:58  epaepa
-
-	* grab/na/tv_grab_na: Updated comment and usage message to say
-	  --config-file not --config (thanks to rmeden for spotting).
 
 2003-02-20 22:28  rmeden
 
@@ -9426,19 +8581,6 @@
 	  all sorts of intervals to test tv_grep's --on-after and
 	  forthcoming --on-before.
 
-2003-02-19 17:09  epaepa
-
-	* grab/uk/channel_pkgs/gratis: Noted the difference between two
-	  kinds of 'free' channels.
-
-2003-02-19 16:17  epaepa
-
-	* grab/uk/channel_ids: Changed an XMLTV id from
-	  'radio-5-mw.bbc.co.uk' to just 'radio-5.bbc.co.uk' because the
-	  means of transmission shouldn't really be part of the id unless
-	  there are two different stations broadcasting on different media.
-	  Radio 5 broadcasts on medium wave only.
-
 2003-02-19 16:11  epaepa
 
 	* filter/tv_sort,
@@ -9456,11 +8598,6 @@
 	  This should fix the pesky bug where tv_sort --by-channels doesn't
 	  work because add_stop() would break the sortedness of its input
 	  programmes list.
-
-2003-02-19 10:37  jveldhuis
-
-	* grab/na/tv_grab_na: backed out moving to ISO-8860 in xml
-	  declaration/encoding
 
 2003-02-18 17:07  epaepa
 
@@ -9496,16 +8633,6 @@
 	  list of programmes.  This catches the bug in --by-channels, so
 	  that tv_sort now dies rather than produce incorrect output.  This
 	  is a small improvement.  Next task is to fix the bug.
-
-2003-02-16 12:53  jveldhuis
-
-	* grab/na/tv_grab_na: dates in xml output header is now ISO-8861
-	  compliant
-
-2003-02-16 11:51  jveldhuis
-
-	* grab/na/tv_grab_na: fixed pod and now --list-channels produces
-	  xmltv xml
 
 2003-02-16 10:44  epaepa
 
@@ -9576,21 +8703,6 @@
 	  won't implement it until I have a perl5.8-equipped box to test
 	  with.
 
-2003-02-16 07:41  epaepa
-
-	* grab/na/tv_grab_na: migrateConfigFile(): new routine
-	  encapsulating the code that migrates the old config file to the
-	  new location.  Instead of being called at the start of the script
-	  before parsing options (which incorrectly runs it even when
-	  --config-file is given), it now gets called from the configure
-	  stage and from the grab stage, but only if $opt_config_file is
-	  not set.  This should fix the bug reported by Robert Eden.
-
-2003-02-16 07:33  epaepa
-
-	* grab/na/tv_grab_na: Removed deprecated --config option (use
-	  --config-file instead).
-
 2003-02-16 06:58  epaepa
 
 	* xmltv.dtd: Clarified the meaning of start and stop, that they are
@@ -9602,34 +8714,15 @@
 	* filter/tv_grep.in: Whoops, the documentation of --on-after was
 	  completely the opposite of what it does.
 
-2003-02-16 05:25  epaepa
-
-	* grab/nz/tv_grab_nz: Create ~/.xmltv/ if it doesn't already exist.
-
-2003-02-16 05:16  epaepa
-
-	* grab/na/tv_grab_na: Check the return value from close().
-
-2003-02-16 05:03  epaepa
-
-	* grab/na/tv_grab_na: Commented what happens about creating the
-	  ~/.xmltv/ directory.
-
-2003-02-15 19:27  epaepa
-
-	* grab/na/tv_grab_na: Moved 'use strict;' to the top of the code so
-	  it applies to the whole file.
-
 2003-02-15 19:25  epaepa
 
-	* grab/: fi/tv_grab_fi, na/tv_grab_na, nz/tv_grab_nz,
-	  sn/tv_grab_sn, uk/tv_grab_uk.in, uk_rt/tv_grab_uk_rt.in: As
-	  mentioned on xmltv-devel, changing the names of all the grabber
-	  configuration files to end in '.conf'.  This is so that on
-	  Windows, when run from the current directory, they do not try to
-	  overwrite themselves.  Thanks to Davide Chiarini for pointing
-	  this out.  Also it's probably more obvious what the files are for
-	  with '.conf' stuck on the end of the filename.
+	* grab/: fi/tv_grab_fi, uk_rt/tv_grab_uk_rt.in: As mentioned on
+	  xmltv-devel, changing the names of all the grabber configuration
+	  files to end in '.conf'.  This is so that on Windows, when run
+	  from the current directory, they do not try to overwrite
+	  themselves.  Thanks to Davide Chiarini for pointing this out.
+	  Also it's probably more obvious what the files are for with
+	  '.conf' stuck on the end of the filename.
 
 	  The migration should be automatic, you just get a message saying
 	  that the old file is being renamed to end in .conf.  Of course
@@ -9638,28 +8731,6 @@
 
 	  Hmm, perhaps some of this config file reading/writing could be
 	  factored out.  It's a lot of almost identical code.
-
-2003-02-15 19:10  epaepa
-
-	* grab/nz/tv_grab_nz: If HOME is not set in the environment, look
-	  in the current direcetory for the config file.
-
-2003-02-15 18:52  epaepa
-
-	* grab/na/tv_grab_na: Removed another occurrence of ~/.xmltv_na.
-
-2003-02-15 18:48  epaepa
-
-	* grab/nz/tv_grab_nz: Changed strip() method on string object
-	  (which is not supported in Python 1.5.2) to use string.strip()
-	  function instead.
-
-2003-02-15 18:14  epaepa
-
-	* grab/na/tv_grab_na: Don't migrate config file from old location
-	  ~/.xmltv_na, it hasn't been there since 0.4.x.  Besides, I am
-	  about to add a new piece of magic config file movement and to
-	  have two would be excessive.
 
 2003-02-15 16:40  epaepa
 
@@ -9676,22 +8747,6 @@
 
 	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in: Version
 	  0.5.8.
-
-2003-02-15 13:26  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/entertainment,
-	  channel_pkgs/gratis, channel_pkgs/misc, channel_pkgs/sport,
-	  channel_pkgs/travel: Updating for some channel changes: BBC3,
-	  intermittent problems with Sky Premiership Plus and Setanta,
-	  sorting out the mass of travel channels all called 'travel
-	  channel'.
-
-2003-02-15 13:11  epaepa
-
-	* grab/uk/tv_grab_uk.in: Whoops - the last version I checked in was
-	  totally broken, because overriding $SIG{__DIE__} with something
-	  that does an exit(1) will stop eval {} blocks from working.
-	  Sorry.
 
 2003-02-15 04:15  epaepa
 
@@ -9727,16 +8782,6 @@
 	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in: updated
 	  to release 0.5.7 and new release notes
 
-2003-02-09 08:39  jveldhuis
-
-	* grab/na/ZapListings.pm: end times computed by next program start
-	  time
-
-2003-02-09 08:38  jveldhuis
-
-	* grab/na/tv_grab_na: stop times may not appear because of zap2it
-	  bug
-
 2003-02-09 06:23  epaepa
 
 	* lib/XMLTV.pm.in: Don't assume that every program using this
@@ -9746,77 +8791,16 @@
 
 	* todo/TASKS.epa: Added requirement for XMLTV::Ask::Tk.
 
-2003-02-08 15:50  epaepa
-
-	* grab/uk/channel_ids: Dealt with the remaining BBC stations.
-
-2003-02-08 15:49  epaepa
-
-	* grab/uk/tv_grab_uk.in: Tried to give the URL at fault if
-	  XMLTV::parse() fails, but catching the exception doesn't seem to
-	  work properly (with perl 5.005).  Still, it might do better with
-	  a newer version of perl.
-
-2003-02-08 15:23  epaepa
-
-	* grab/uk/channel_ids: Added XMLTV ids for a whole bunch of local
-	  radio stations - but there are many more still to do.
-
-2003-02-08 15:22  epaepa
-
-	* grab/uk/tv_grab_uk.in: init_channels(): tidied up the warn() and
-	  die() error reporting.  Now the channel_ids filename and line
-	  number is automatically prepended to every error message that
-	  happens when reading a line of that file.  Even things that I
-	  originally thought of as 'internal errors' are really caused by
-	  mistakes in that file.
-
 2003-02-07 18:30  epaepa
 
 	* todo/TASKS.epa: Adding Davide Chiarini's requirement that
 	  original language can be present, but unknown.
-
-2003-02-07 18:29  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/sport: Added channel Setanta
-	  Sports.
 
 2003-02-07 18:20  epaepa
 
 	* lib/XMLTV.pm.PL: Don't use IO::File, use the prehistoric typeglob
 	  method for passing filehandles, because I suspect that IO::File
 	  was triggering a segfault with perl-5.6.0 on some systems.
-
-2003-02-07 18:11  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/gratis, channel_pkgs/scifi,
-	  channel_pkgs/sport: Removed a couple of defunct channels: The
-	  Racing Channel went out of business, and there no longer seems to
-	  be a separate NTL version of Sci-Fi.
-
-	  I have left S4C2 because it broadcasts intermittently, for a few
-	  days at a time, and it seems to disppear from the site briefly
-	  when none of its listings are present.  You'll get a warning
-	  about it if you run the grabber during one of these times.
-
-2003-02-06 18:45  jveldhuis
-
-	* grab/na/ZapListings.pm: zap2it changed again :r they removed the
-	  "(ends at HH:MM)" endings on the descriptions in the text
-	  listings.  For now, we calculate end of program by the following
-	  program, and assume the last program of the day ends at midnight.
-	  Otherwise, we need to get the next days listings to figure out
-	  the true value.
-
-2003-02-02 13:02  jveldhuis
-
-	* grab/na/ZapListings.pm: yet again, we switch horses on user agent
-	  name
-
-2003-02-02 13:01  jveldhuis
-
-	* grab/na/tv_grab_na: added bug about zap2it not providing colour
-	  coded program categories in text listings
 
 2003-02-02 12:22  epaepa
 
@@ -9911,33 +8895,6 @@
 	  file on DOSish systems should add the carriage returns anyway, so
 	  there is no need to put them in CVS.
 
-2003-02-01 16:28  jveldhuis
-
-	* grab/na/ZapListings.pm: added error message to check postal/zip
-	  code when provider form didn't appear. Zap2it doesn't give a nice
-	  error message until the second time you type a failed zip code.
-
-2003-02-01 16:26  jveldhuis
-
-	* grab/na/tv_grab_na: fixed usage line length <80
-
-2003-02-01 15:51  jveldhuis
-
-	* grab/na/ZapListings.pm: fixed user-agent to use xmltv/0.5.7a and
-	  minor adjust so we get all channels and not just the first 20 -
-	  thanks darren <at> vexorg.no-ip.com
-
-2003-02-01 15:48  jveldhuis
-
-	* grab/na/tv_grab_na: fixed some usage failures to exit(1) instead
-	  of continuing
-
-2003-02-01 06:37  epaepa
-
-	* grab/sn/tv_grab_sn: The 'just ignore comments' case in
-	  configuration file parsing is not needed because the regexps run
-	  on each line will strip comments anyway.
-
 2003-01-31 18:24  epaepa
 
 	* todo/TASKS.epa: Added the 'two-phase grab' idea from my inbox.
@@ -9953,56 +8910,10 @@
 	* grab/de/tv_grab_de: my_gunzip(): Patch from Debian bug #178692 to
 	  make call to tempfile() actually work.
 
-2003-01-31 11:50  jveldhuis
-
-	* grab/na/tv_grab_na: fixed release-check message at end of grab
-
-2003-01-31 11:49  jveldhuis
-
-	* grab/na/ZapListings.pm: minor comment removal
-
-2003-01-31 11:17  jveldhuis
-
-	* grab/na/tv_grab_na:  - added --release-check true/false to the
-	  command line (default is true)
-	     Specify whether or not we should attempt to check + for new
-	  releases.
-	     tv_grab_na does this by default (scraping the contents of the
-	  xmltv project
-	     page).
-	   - reworked some calls to ZapListings new packaging.
-
-2003-01-31 11:16  jveldhuis
-
-	* grab/na/ZapListings.pm:  - reworked scraping/traversal of all
-	  zap2it web site pages
-	     - removed all hardcoded cookies
-	     - removed all hardcoded zap2it server names
-	     - removed all hardcoded url with the exception of
-	  www.zapit.com/index
-	     - now works by scraping www pages for "defined" forms and
-	       then uses them, reusing the same UserAgent so cookie
-	  management
-	       is completely automatic.
-	   - userAgent description is 'Mozilla/5.0' for kicks.
-	   - added getCurrentReleaseInfo() that may belong in the XMLTV
-	  package
-	     instead, but its here for now.
-	   - identifies and inserts programmes with title=unknown when
-	  program
-	     holes appear (including holes that span across day boundaries)
-	     (emits warning when hole is filled, if --quiet is not used)
-	   - reworked packaging a bit because of new form/traversal
-	  mechanisms
-
 2003-01-31 10:45  rmeden
 
 	* choose/tv_check/tv_check: don't crash on no episode match for
 	  replay scan
-
-2003-01-28 10:53  jveldhuis
-
-	* grab/na/ZapListings.pm: fixed calls to statusMessage
 
 2003-01-26 15:43  epaepa
 
@@ -10053,15 +8964,6 @@
 	  Factored out most of tv_to_latex's code into a new library
 	  XMLTV::Summarize.
 
-2003-01-19 11:36  jveldhuis
-
-	* grab/na/tv_grab_na: provider description or provider id changes
-	  are recoverable during a grab so long at least one matches for
-	  the given list of providers for the postal/zip code.
-
-	  during configure stage if the id changes (but the description
-	  matches exactly) it gets auto-updated.
-
 2003-01-19 06:37  epaepa
 
 	* todo/TASKS.epa: A couple more todo items.
@@ -10071,109 +8973,16 @@
 	* Makefile.PL: when making windows_dist, don't run UNIX2DOS against
 	  a JPG file!
 
-2003-01-18 17:43  jveldhuis
-
-	* grab/na/tv_grab_na: added bug about provider_id matches and
-	  provider descriptions
-
-2003-01-18 17:02  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/entertainment,
-	  channel_pkgs/factual, channel_pkgs/gratis,
-	  channel_pkgs/lifestyle, channel_pkgs/music,
-	  channel_pkgs/regional: Added some new channels which appeared on
-	  the site, both to channel_ids and to an appropriate package or
-	  two.	This includes reinstating einstein.tv.
-
-2003-01-18 16:57  epaepa
-
-	* grab/uk/channel_pkgs/not_england: Trying to be slightly less
-	  opinionated in my comments.
-
-2003-01-18 16:31  epaepa
-
-	* grab/uk/tv_grab_uk.in: Changes to cope with the site's listings
-	  going from 7 days to 4.  First, cope more gracefully when the
-	  expected number of days is not present: if every page for a given
-	  day is empty, assume that this day and subsequent ones are
-	  missing from the site.  This saves a few hits and some verbosity
-	  in warning messages.
-
-	  Second, I have reduced the number of days fetched by default to 4
-	  (the new maximum).
-
-2003-01-18 12:58  epaepa
-
-	* grab/uk/tv_grab_uk.in: Fixed the warning about 'no channel
-	  package or region includes X' - I had forgotten that
-	  %channel_pkgs now stores channel objects rather than XMLTV ids.
-
-2003-01-18 12:52  epaepa
-
-	* grab/uk/channel_pkgs/children: Removed two channels from this
-	  package after they disappeared from the site and from
-	  channel_ids.
-
-2003-01-18 12:51  epaepa
-
-	* grab/uk/channel_ids: Removed a couple of channels which have
-	  disappeared from the site.
-
 2003-01-18 10:39  rmeden
 
 	* lib/exe_wrap.pl: fix --share directory processing for those apps
 	  that need it.
-
-2003-01-15 20:39  chunkygoodness
-
-	* grab/nz/tv_grab_nz: Removed BUG entry from manpage relating to
-	  primetv - no longer relevant now that we are using the ontv url
-
-2003-01-15 14:51  jveldhuis
-
-	* grab/na/tv_grab_na: now sets default system=onscreen for
-	  episode-num nodes
 
 2003-01-12 05:13  epaepa
 
 	* mkdist: Rewrote the instructions for uploading a new release to
 	  Sourceforge, adding an explanation of what the release notes and
 	  changelog should be.
-
-2003-01-11 12:39  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/adult, channel_pkgs/children,
-	  channel_pkgs/classics, channel_pkgs/comedy,
-	  channel_pkgs/entertainment, channel_pkgs/factual,
-	  channel_pkgs/film, channel_pkgs/gratis, channel_pkgs/misc,
-	  channel_pkgs/sport: Guided by the new warnings in tv_grab_uk, I
-	  have removed a lot of defunct channels or defunct duplicates from
-	  the channel_ids and packages.
-
-2003-01-11 11:14  epaepa
-
-	* grab/uk/tv_grab_uk.in: When prompting for channels to install,
-	  show the user the display name not the XMLTV id.  Better warning
-	  if a channel object doesn't have a main display name (shouldn't
-	  happen, but it might).
-
-	  init_channels(): set the type of the newly-created channel to
-	  'tentative'.	Then if the type is not updated later, we know that
-	  this channel appears only in the config file and warn about its
-	  removal.
-
-	  get_channel_pkgs(): the hash mapping package name to channels now
-	  gives a list of channel objects rather than just the XMLTV ids.
-	  We also take the opportunity to check that the XMLTV id in the
-	  package file is known (this means that any channel mentioned in a
-	  package must also be listed in the channel_ids file so it is
-	  known about this early, but that shouldn't be a problem).
-
-	  read_channels_page(): once we've read the channesl from the site
-	  we know that any channel objects we haven't updated are 'phantom'
-	  channels mentioned in the config file but not found on the site.
-	  This function now removes them from the global @ch_all list and
-	  from the channel packages set earlier (and complains about it).
 
 2003-01-10 19:17  epaepa
 
@@ -10194,22 +9003,6 @@
 	* README, doc/README.win32: added blub about some recent changes to
 	  the _na grabber
 
-2003-01-07 10:42  jveldhuis
-
-	* grab/na/ZapListings.pm: update form variables required by zap2it
-
-2003-01-06 16:17  chunkygoodness
-
-	* grab/nz/tv_grab_nz: Fixed bug in regular expression that wouldn't
-	  match programs with hyper links in their names
-
-2003-01-06 01:32  chunkygoodness
-
-	* grab/nz/tv_grab_nz: Changed parser to use ontv.nzoom.com for all
-	  channels - this means that there are descriptions for all
-	  channels now, and makes maintenance easier (only one website to
-	  track for changes)
-
 2003-01-03 01:30  rmeden
 
 	* choose/tv_check/tv_check: Minor tweak to code that reuses
@@ -10227,13 +9020,6 @@
 2003-01-01 16:03  epaepa
 
 	* README: Updated for 0.5.6.
-
-2003-01-01 15:15  epaepa
-
-	* grab/na/tv_grab_na: Made the configuration file parsing work if
-	  there is no version line.  This is partly to make it work with a
-	  conf file the user sent me, and partly because the version line
-	  does look like a comment.
 
 2003-01-01 13:27  epaepa
 
@@ -10259,10 +9045,6 @@
 	* README.tv_check: Removing this copy of README.tv_check because it
 	  is an exact duplicate (or was until recent changes) of the copy
 	  in choose/tv_check/.
-
-2003-01-01 12:49  epaepa
-
-	* grab/uk/channel_pkgs/gratis: Bloomberg TV is no longer gratis.
 
 2003-01-01 12:46  epaepa
 
@@ -10308,12 +9090,11 @@
 2002-12-25 15:51  epaepa
 
 	* choose/tv_check/tv_check, choose/tv_check/tv_check_doc.html,
-	  doc/README.win32, grab/na/ZapListings.pm, grab/sn/tv_grab_sn,
-	  grab/uk/tv_grab_uk.in, lib/XMLTV.pm.in: After I found that perl
-	  was complaining when run in a UTF-8 locale, I decided to purge
-	  all non-ASCII characters from the source code.  The characters
-	  were mostly in the code in order to purge bad characters from the
-	  web pages fetched :-P.  Now we just use \xAB style hex escapes.
+	  doc/README.win32, lib/XMLTV.pm.in: After I found that perl was
+	  complaining when run in a UTF-8 locale, I decided to purge all
+	  non-ASCII characters from the source code.  The characters were
+	  mostly in the code in order to purge bad characters from the web
+	  pages fetched :-P.  Now we just use \xAB style hex escapes.
 
 	  Also tidied up the tv_check documentation, it previously had some
 	  Microsoftisms including the notorious 'smart quotes' and lumps of
@@ -10325,59 +9106,21 @@
 	  logos for many channels.  Some of the grabbers might use this
 	  data to add <icon> elements.
 
-2002-12-25 11:39  epaepa
-
-	* grab/na/ZapListings.pm: Use URI::new_abs() to make icon URLs
-	  absolute, even if the site decides to serve relative URLs in the
-	  HTML.
-
 2002-12-23 14:23  epaepa
 
 	* analyse_tvprefs/analyse_tvprefs, choose/tv_pick/tv_pick_cgi,
-	  grab/uk/tv_grab_uk.in, grab/uk_rt/tv_grab_uk_rt.in: Fixed several
-	  places with configuration-file-parsing code.	You need to strip
-	  comments _before_ stripping trailing spaces, otherwise a space
-	  before a comment is left.  Hmm, perhaps this should be factored
-	  out.
-
-2002-12-23 14:18  epaepa
-
-	* grab/uk/channel_pkgs/gratis: Updated the 'gratis' channel package
-	  with those which are currently available on Sky Digital.
-
-2002-12-23 13:57  epaepa
-
-	* grab/uk/channel_ids: Added some comments.
-
-2002-12-23 13:14  epaepa
-
-	* grab/uk/tv_grab_uk.in: Small code simplification.
-
-2002-12-20 20:47  chunkygoodness
-
-	* grab/nz/tv_grab_nz: Fixed tv1 regular expression - the source had
-	  changed
-
-2002-12-18 12:05  epaepa
-
-	* grab/uk/tv_grab_uk.in: Small code tidy to remove redundant
-	  @all_chs variable.
-
-2002-12-18 11:50  epaepa
-
-	* grab/uk/tv_grab_uk.in: Reintroduced the distinction between
-	  national and local radio.  Now you can choose at configuration to
-	  download all 25 (currently) national radio stations.
+	  grab/uk_rt/tv_grab_uk_rt.in: Fixed several places with
+	  configuration-file-parsing code.  You need to strip comments
+	  _before_ stripping trailing spaces, otherwise a space before a
+	  comment is left.  Hmm, perhaps this should be factored out.
 
 2002-12-18 10:47  epaepa
 
-	* MANIFEST, Makefile.PL, grab/uk/Ananova_Channel.pm,
-	  grab/uk/README, grab/uk/channel_ids, grab/uk/tv_grab_uk.in,
-	  grab/uk_rt/tv_grab_uk_rt.in: Finally got rid of the
-	  Ananova_Channel library for tv_grab_uk.  It seemed like a good
-	  idea at the time, providing an OO abstraction around the list of
-	  channels and enforcing various properties, but it just became too
-	  complex and unwieldy.
+	* MANIFEST, Makefile.PL, grab/uk_rt/tv_grab_uk_rt.in: Finally got
+	  rid of the Ananova_Channel library for tv_grab_uk.  It seemed
+	  like a good idea at the time, providing an OO abstraction around
+	  the list of channels and enforcing various properties, but it
+	  just became too complex and unwieldy.
 
 	  Actually, so far all I've done is move code out of
 	  Ananova_Channel.pm and put it directly into tv_grab_uk.in.  But
@@ -10425,23 +9168,12 @@
 	  features in tv_grep.	I thought these changes were committed
 	  earlier.  Oh well.
 
-2002-12-17 15:15  epaepa
-
-	* grab/uk/: Ananova_Channel.pm, tv_grab_uk.in: Code reorganization;
-	  gradually removing calls to the Ananova_Channel methods.
-
-2002-12-17 10:41  epaepa
-
-	* grab/uk/tv_grab_uk.in: Whoops - committed broken development code
-	  by mistake, undoing.
-
 2002-12-17 09:32  epaepa
 
-	* MANIFEST, filter/tv_grep.PL, filter/tv_grep.in,
-	  grab/uk/tv_grab_uk.in, t/test_filters.t: New feature for tv_grep:
-	  there are some elements which cannot be fully queried, but now at
-	  least you can query whether they are present or not.	For
-	  example,
+	* MANIFEST, filter/tv_grep.PL, filter/tv_grep.in, t/test_filters.t:
+	  New feature for tv_grep: there are some elements which cannot be
+	  fully queried, but now at least you can query whether they are
+	  present or not.  For example,
 
 	  % tv_grep --previously-shown ''
 
@@ -10486,37 +9218,10 @@
 	  <previously-shown /> to some of the sample data so I can later
 	  test grepping it.
 
-2002-12-17 07:01  epaepa
-
-	* grab/uk/: channel_ids, tv_grab_uk.in: Added a couple of short
-	  channel names, Removed a lone $Log::TraceMessages::On which was
-	  causing a warning.  Changed a progress bar message to the more
-	  accurate 'writing'.
-
 2002-12-17 06:41  epaepa
 
 	* lib/exe_wrap.pl: Untested change to pass a --share argument to
 	  the grabbers which need it.
-
-2002-12-16 18:04  epaepa
-
-	* grab/uk/tv_grab_uk.in: The old way of doing 'miscellaneous fixes'
-	  was horribly unscalable.  I'm committing a change which fiddles
-	  with and writes programmes more linearly; I hope it works since
-	  it's not yet tested.
-
-2002-12-16 16:50  epaepa
-
-	* grab/uk/tv_grab_uk.in: Handle EOF at 'enter a channel name' more
-	  cleanly (I have yet to add code to handle undef returned from
-	  XMLTV::Ask routines).  Fixed channel name comparison - now it
-	  should be a substring rather than regexp match, which means the
-	  user can't crash the program by typing in a bad regexp.
-
-2002-12-16 16:47  epaepa
-
-	* grab/uk/channel_ids: Added a couple of extra display names
-	  corresponding to what the Sky programme guide shows.
 
 2002-12-16 16:46  epaepa
 
@@ -10524,23 +9229,9 @@
 	  as EOF).  Now it is documented that if the input could not be
 	  read, undef is returned.
 
-2002-12-14 09:42  epaepa
-
-	* grab/uk/tv_grab_uk.in: Change @XMLTV::Channel_Handlers when
-	  parsing the regions page as well as when parsing the channels
-	  page.  This is because each <region> contains <channel> elements
-	  and they have Ananova's special <distribution> element.  I had
-	  forgotten to do this before but didn't notice because there was
-	  no warning.
-
 2002-12-14 09:39  epaepa
 
 	* lib/XMLTV.pm.in: Added some more trace statements.
-
-2002-12-14 05:13  epaepa
-
-	* grab/nz/tv_grab_nz: Changed some string functions to make them
-	  work with Python 1.5.2.
 
 2002-12-13 17:11  epaepa
 
@@ -10557,34 +9248,11 @@
 	* README, doc/README.win32: Staffan Malmgren's channel-selection
 	  patch to tv_grab_sn has made it into the 0.5.5 release.
 
-2002-12-13 08:26  epaepa
-
-	* grab/nz/tv_grab_nz: Changed configuration behaviour to be more
-	  like the other grabbers (just more chatter, really).
-
-2002-12-12 19:52  chunkygoodness
-
-	* grab/nz/tv_grab_nz: Modifed the manpage slightly, as well as
-	  added the initial support for the --configure option to select
-	  which channels are to be downloaded.
-
-2002-12-12 19:05  epaepa
-
-	* grab/sn/tv_grab_sn: Staffan Malmgren's patch (with a few changes)
-	  to add channel selection to --configure (and fix grabbing the
-	  list of channels in the first place).
-
 2002-12-12 18:56  epaepa
 
-	* attic/tv_grab_nl, filter/tv_extractinfo_en,
-	  grab/uk/tv_grab_uk.in, lib/Ask.pm, lib/XMLTV.pm.in: Global style
-	  fix for uncuddled elses as mandated by 'perlstyle'.  A pity that
-	  Emacs keeps putting them back again.
-
-2002-12-12 18:10  epaepa
-
-	* grab/uk/tv_grab_uk.in: Fixed splicing bug noticed by Neil
-	  Trodden.
+	* attic/tv_grab_nl, filter/tv_extractinfo_en, lib/Ask.pm,
+	  lib/XMLTV.pm.in: Global style fix for uncuddled elses as mandated
+	  by 'perlstyle'.  A pity that Emacs keeps putting them back again.
 
 2002-12-12 10:49  epaepa
 
@@ -10601,12 +9269,6 @@
 	* Makefile.PL, README, doc/QuickStart, doc/README.win32,
 	  lib/XMLTV.pm.in: Updated for the forthcoming 0.5.5 release.  But
 	  I don't know what to do about tv_grab_nz on Windows.
-
-2002-12-12 05:40  epaepa
-
-	* grab/nz/tv_grab_nz: Tidied the usage message.  Added pod
-	  documentation (perhaps a bit odd in a Python program, but it's
-	  the easiest way to get a manual page).
 
 2002-12-11 16:56  epaepa
 
@@ -10626,32 +9288,6 @@
 
 	  I've used this to add tv_grab_nz with a dependency on Python
 	  1.5.2 or later.
-
-2002-12-11 11:27  epaepa
-
-	* grab/nz/tv_grab_nz: Adding Andre Renaud's New Zealand grabber.
-	  Now to arrange the necessary installation gubbins.
-
-2002-12-10 23:26  jveldhuis
-
-	* grab/na/ZapListings.pm: escape @ in messages - thanks Walter D.
-
-2002-12-10 18:04  epaepa
-
-	* grab/uk/tv_grab_uk.in: I had code to add a handler 'distribution'
-	  to channel elements, but forgot that this would apply on output
-	  as well as input.  After XMLTV.pm.in got fixed I started getting
-	  missing key warnings.  So now this extra handler is added only
-	  while parsing.
-
-	  Some mysterious undefined values that seem to come out of nowhere
-	  have been worked around.  Hopefully they will not occur unless
-	  the data from the site is faulty.
-
-2002-12-10 17:58  epaepa
-
-	* grab/uk/Ananova_Channel.pm: Slightly cleaner undefined value
-	  warning.
 
 2002-12-10 17:55  epaepa
 
@@ -10679,16 +9315,6 @@
 	  locale will.	Thanks to Derek J. Kalweit for bringing this to my
 	  attention.
 
-2002-12-05 15:50  jveldhuis
-
-	* grab/na/ZapListings.pm: spill out status message when we find
-	  star ratings > 4 star - did zap2it change things ?
-
-2002-12-05 15:42  jveldhuis
-
-	* grab/na/ZapListings.pm: properly identify star-ratings given by
-	  ***+ instead of ***1/2 for 3.5 star ratings
-
 2002-12-01 11:14  epaepa
 
 	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in: Version
@@ -10699,43 +9325,10 @@
 	* analyse_tvprefs/analyse_tvprefs: Updated link to top 3000 words
 	  in the BNC; now it points to my mirror of that page.
 
-2002-12-01 10:22  epaepa
-
-	* grab/uk/: channel_ids, channel_pkgs/adult, channel_pkgs/arts,
-	  channel_pkgs/children, channel_pkgs/classics,
-	  channel_pkgs/comedy, channel_pkgs/entertainment,
-	  channel_pkgs/factual, channel_pkgs/film, channel_pkgs/lifestyle,
-	  channel_pkgs/music, channel_pkgs/news, channel_pkgs/scifi,
-	  channel_pkgs/sport, channel_pkgs/travel: Added channel ids for
-	  some new channels and added them to the appropriate packages.
-
-2002-12-01 10:21  epaepa
-
-	* grab/uk/Ananova_Channel.pm: Fixing an undefined value warning.
-
 2002-12-01 04:12  epaepa
 
 	* mkdist: Now there are two readme files the mkdist reminder needs
 	  to mention them both.
-
-2002-12-01 04:04  epaepa
-
-	* grab/sn/tv_grab_sn: Instead of looking for a table in a
-	  particular position, we examine all tables on the page and find
-	  the one that looks most like it contains listings.  This has
-	  fixed the failure with Norwegian listings.
-
-2002-11-30 16:33  epaepa
-
-	* grab/sn/tv_grab_sn: Working out how to fix the grabber for a new
-	  site layout.	Added some trace code with Log::TraceMessages and
-	  one more error check.
-
-2002-11-28 12:37  jveldhuis
-
-	* grab/na/: ZapListings.pm, tv_grab_na: new rework to support new
-	  zap2it cookies etc Special thanks to Stephen Bain for helping me
-	  play catch-up with zap2it site changes.
 
 2002-11-23 23:10  rmeden
 
@@ -10778,20 +9371,6 @@
 	* grab/de/tv_grab_de: Added a warning message if --configure is
 	  given (this grabber needs and supports no configuration stage).
 
-2002-11-22 10:09  jveldhuis
-
-	* grab/na/ZapListings.pm: now uses tvlistings.zap2it.com as its
-	  base instead of tvlistings2 ??
-
-2002-11-19 13:45  epaepa
-
-	* grab/sn/tv_grab_sn: Changed brief description of tv_grab_sn to
-	  mention both Sweden _and_ Norway :-).
-
-2002-11-19 10:13  jveldhuis
-
-	* grab/na/tv_grab_na: fixed errrorMessage to be errorMessage
-
 2002-11-19 02:07  epaepa
 
 	* Makefile.PL: HTML::TableExtract 1.08 or later required (found by
@@ -10805,37 +9384,14 @@
 
 2002-11-18 13:52  epaepa
 
-	* grab/: de/tv_grab_de, sn/tv_grab_sn, uk/tv_grab_uk.in,
-	  uk_rt/tv_grab_uk_rt.in: Adding a --quiet flag to four grabbers;
-	  this is in response to Debian bug 169157 and discussions with
-	  Kenneth Pronovici.
+	* grab/: de/tv_grab_de, uk_rt/tv_grab_uk_rt.in: Adding a --quiet
+	  flag to four grabbers; this is in response to Debian bug 169157
+	  and discussions with Kenneth Pronovici.
 
-2002-11-17 19:41  jveldhuis
+2002-11-16 16:41  epaepa
 
-	* grab/na/tv_grab_na: added option for splitting --listings output
-	  by channel number and channel callletters. See pod or --help for
-	  details.
-
-2002-11-17 19:40  jveldhuis
-
-	* grab/na/: ZapListings.pm, tv_grab_na: added new --quiet and
-	  --stats command line options as per requests to control amount of
-	  stderr output.
-
-2002-11-17 11:52  jveldhuis
-
-	* grab/na/tv_grab_na: fixed mkpathtofile so it creates all missing
-	  directories
-
-2002-11-16 16:39  epaepa
-
-	* grab/: uk/tv_grab_uk.in, uk_rt/tv_grab_uk_rt.in: Patch from
-	  Walter Duncan to add --offset.
-
-2002-11-16 16:33  epaepa
-
-	* grab/sn/tv_grab_sn: Patch from Walter Duncan to improve
-	  documentation of --offset.
+	* grab/uk_rt/tv_grab_uk_rt.in: Patch from Walter Duncan to add
+	  --offset.
 
 2002-11-16 05:11  epaepa
 
@@ -10856,20 +9412,6 @@
 
 	* Makefile.PL: Jerry V. pointed out that string comparison might
 	  work better than numeric comparison for version numbers.
-
-2002-11-11 11:27  jveldhuis
-
-	* grab/na/tv_grab_na: fixed documentation w.r.t --output and added
-	  some warnings about failing to unlink temperary files
-
-2002-11-11 11:26  jveldhuis
-
-	* grab/na/ZapListings.pm: warn if we can't write to cache
-
-2002-11-09 15:34  epaepa
-
-	* grab/sn/tv_grab_sn: One more illegal character entity to deal
-	  with.
 
 2002-11-07 07:20  epaepa
 
@@ -10924,23 +9466,11 @@
 	  catch a bug in tv_cat where <channel> elements are duplicated.
 	  The expected outputs being committed show the correct behaviour.
 
-2002-11-07 04:09  epaepa
-
-	* grab/uk/tv_grab_uk.in: More informative (if more frightening)
-	  error message when the site's pages don't look like XMLTV files.
-
 2002-11-06 13:18  epaepa
 
-	* MANIFEST, grab/uk/channel_ids, grab/uk/channel_pkgs/arts,
-	  grab/uk/channel_pkgs/classics, grab/uk/channel_pkgs/comedy,
-	  grab/uk/channel_pkgs/entertainment, grab/uk/channel_pkgs/factual,
-	  grab/uk/channel_pkgs/ireland, grab/uk/channel_pkgs/misc,
-	  grab/uk/channel_pkgs/music, grab/uk/channel_pkgs/national,
-	  grab/uk/channel_pkgs/not_england, grab/uk/channel_pkgs/regional,
-	  grab/uk/channel_pkgs/scotland, grab/uk/channel_pkgs/shop,
-	  grab/uk/channel_pkgs/wales, todo/TASKS.epa: Dealt with the new
-	  Ananova television channels, assigned them XMLTV ids and put each
-	  in one or more packages.
+	* MANIFEST, todo/TASKS.epa: Dealt with the new Ananova television
+	  channels, assigned them XMLTV ids and put each in one or more
+	  packages.
 
 2002-11-06 13:16  epaepa
 
@@ -10951,98 +9481,6 @@
 2002-11-04 23:41  rmeden
 
 	* lib/exe_wrap.pl: Set the TZ variable if it is not already set.
-
-2002-11-03 11:58  jveldhuis
-
-	* grab/na/tv_grab_na: The following changes have been made to the
-	  cvs head revision of tv_grab_na and ZapListings.pm.
-
-	   1. when --output is used, the file is always overwritten
-	   2. renamed the newly added --overwrite to --listings-overwrite
-	  because it
-	      only effects the symanitics of --listings use.
-	   3. when no programs are found after getting a page of listings
-	  from zap2it,
-	      the readSchedule() method returns -2 instead of -1 and so
-	  tv_grab_na
-	      won't retry these pages. Instead tv_grab_na prints a message
-	  similar to:
-		 unretry-able error reading schedule for 2002-11-05 for
-	  station 2 CFRN
-	      and doesn't retry. (thanks Brian for the insight).
-
-2002-11-03 11:52  jveldhuis
-
-	* grab/na/ZapListings.pm: delayed messages about writting files to
-	  cache until after scraping the data so we don't report we're
-	  writting data to cache we actually unlink afterward because no
-	  programs were found.
-
-	  implemented -2 unretry-able errors so no programs aren't retried
-	  by tv_grab_na.
-
-2002-11-02 10:43  jveldhuis
-
-	* grab/na/tv_grab_na: In order to make tv_grab_na a bit more
-	  resistant to longer server failures at zap2it, it now:
-
-	    - if used with --listings or --output won't re-grab already
-	  grabbed listings
-	      (this only works if you use at least a day resolution on your
-	  filenames)
-
-	    - this behaviour can be over-ridden by using the
-	  --overwrite=true on the command line.
-
-	    - format of ending stats has changed a bit. They now include
-	  the number of channel
-	      listings that failed and the number of listings files that
-	  weren't re-grabbed.
-	      ie:
-
-	       > checking provider information for postal/zip code 90210,
-	  be patient..
-	       > double checking channel information, be patient..
-	       > listings in tmp-grab/90210/2002-10-29-listings-02 exist,
-	  skipping
-	       ...
-	       > Grabbed 0 programs on 0 channels over 2 day(s) in 0
-	  seconds
-	       >   not too bad, that's 0.00 programs/sec and 0.00
-	  seconds/www page
-	       >   does not include 1 failed channel schedule
-	       >   does not include 2 output file(s) that already existed
-
-	  WARNING: the default behavour changes the symantics of using
-	  --listings or --output      with a filename that doesn't change
-	  on a daily basis (ie include %d or equiv).	   So if you use
-	  'tv_grab_na --listings out.xml' it will only retrieve fresh
-	  listings	 if the out.xml file doesn't exist.
-
-	  Change does not effect writting listings to stdout.
-
-2002-11-02 10:18  jveldhuis
-
-	* grab/na/ZapListings.pm: added a newly used lanugage
-
-2002-10-30 18:04  epaepa
-
-	* grab/uk/: channel_ids, tv_grab_uk.in, channel_pkgs/adult,
-	  channel_pkgs/children, channel_pkgs/entertainment,
-	  channel_pkgs/film, channel_pkgs/gratis, channel_pkgs/lifestyle,
-	  channel_pkgs/not_england, channel_pkgs/shop, channel_pkgs/sport:
-	  When I originally wrote this version of the grabber I went
-	  through every TV channel listed on the site's 'show=channels'
-	  page and added an RFC2838 id for it and assigned it to one or
-	  more 'channel packages' if not a terrestrial channel.  But as the
-	  site changes new channels appear which are not in any channel
-	  package.  They're thus unable to be selected for grabbing.
-
-	  Now the code warns if any channels have appeared which belong to
-	  no region and aren't mentioned in any channel package.  It would
-	  be better if it could offer to modify your configuration with
-	  them (maybe have a special package 'UNKNOWN'), but this is a
-	  start.
 
 2002-10-29 11:32  epaepa
 
@@ -11081,12 +9519,11 @@
 
 2002-10-27 03:28  epaepa
 
-	* MANIFEST, Makefile.PL, grab/uk/UK_TZ.pm, lib/UK_TZ.pm: Moved the
-	  library UK_TZ.pm out of the grab/uk/ directory and into lib/,
-	  since it will now be used by two grabbers.  (Still haven't
-	  decided the best way to organize the directory structure with
-	  libraries that are used by only one or two programs, but it's a
-	  small issue.)
+	* MANIFEST, Makefile.PL, lib/UK_TZ.pm: Moved the library UK_TZ.pm
+	  out of the grab/uk/ directory and into lib/, since it will now be
+	  used by two grabbers.  (Still haven't decided the best way to
+	  organize the directory structure with libraries that are used by
+	  only one or two programs, but it's a small issue.)
 
 2002-10-27 03:25  epaepa
 
@@ -11112,25 +9549,6 @@
 	  list (there's no harm in distributing it as part of the source
 	  tarballs and if it's not in MANIFEST you get a warning).
 
-2002-10-24 11:14  jveldhuis
-
-	* grab/na/tv_grab_na: Now supports compressors based on listings
-	  file suffix.	added command line options to override gzip/zip and
-	  bzip2 compressor command lines.
-
-	  Ya I know I could have used perl packages out there someplace for
-	  doing the compression, but I wanted something quick.	The command
-	  line options support windoz platforms. And its not like
-	  compression of output listings files is required, so if it
-	  doesn't work, don't use it.
-
-	  now closes xml output upon failure, so you get valid output to
-	  stdout.
-
-2002-10-24 10:51  jveldhuis
-
-	* grab/na/ZapListings.pm: remove pages with no programs from cache
-
 2002-10-23 13:02  rmeden
 
 	* Makefile.PL: Replace leading spaces with tabs in generated
@@ -11153,20 +9571,6 @@
 
 	* Makefile.PL: Added code to build windows executable
 
-2002-10-20 16:06  epaepa
-
-	* grab/uk/Ananova_Channel.pm: The code I wrote to assign the
-	  Tie::RefHash::Nestable namespace never worked, but I didn't
-	  realize because I had a newer version of Tie::RefHash in my
-	  PERL5LIB.  Thanks to Olaf Klischat for finding the bug and asking
-	  on clp.moderated, and to Benjamin Goldberg for posting the right
-	  answer.
-
-2002-10-20 12:02  jveldhuis
-
-	* grab/na/ZapListings.pm: will now retry pages returned with no
-	  programs
-
 2002-10-20 05:21  epaepa
 
 	* Makefile.PL: Require XML::Twig version 3.09.	This should finally
@@ -11175,15 +9579,6 @@
 	  officially released to CPAN, you have to get it as a development
 	  version from the author's website.  But I'm told it will be
 	  released soon.
-
-2002-10-18 16:49  epaepa
-
-	* grab/sn/tv_grab_sn: Improved <span class="..."> HTML matching.
-
-2002-10-18 15:49  epaepa
-
-	* grab/sn/tv_grab_sn: Fixed brown-paper-bag bug with passing a
-	  filename where a filehandle was expected.
 
 2002-10-16 12:51  epaepa
 
@@ -11294,12 +9689,6 @@
 	* t/data/tv_extractinfo_en_clump_extract_1_xml.expected: I think
 	  this test file didn't get committed earlier for some reason.
 
-2002-10-10 14:45  epaepa
-
-	* grab/sn/tv_grab_sn: Oops, a really stupid bug that got into
-	  0.5.2: forgot to check the $have_bar variable before calling
-	  Term::ProgressBar methods.
-
 2002-10-10 14:05  epaepa
 
 	* filter/tv_extractinfo_en: The assignmnent of new categories is a
@@ -11322,14 +9711,6 @@
 
 	* filter/tv_extractinfo_en: Parse a sentence like 'Roy Hattersley
 	  guests'.
-
-2002-10-10 11:38  epaepa
-
-	* grab/sn/tv_grab_sn: Added a couple of features which the other
-	  dagenstv grabber had: real <channel> elements and fixing a few
-	  more HTML entities.
-
-	  Added a progress bar, where available.
 
 2002-10-10 11:33  epaepa
 
@@ -11428,18 +9809,10 @@
 	  Made sure that in the callback interface, if a callback is
 	  undefined it won't be called (as the docs say).
 
-2002-10-10 06:20  epaepa
-
-	* grab/na/tv_grab_na: Cahnged the xmlDecl() call so that it doesn't
-	  output standalone="yes".  I don't know what that does, but the
-	  other grabbers don't produce it so we might as well be
-	  consistent.
-
 2002-10-10 06:07  epaepa
 
-	* grab/: uk/channel_ids, uk_rt/channel_ids: BBC Knowledge is now
-	  called BBC4, although the XMLTV id is still knowledge.bbc.co.uk
-	  for now.
+	* grab/uk_rt/channel_ids: BBC Knowledge is now called BBC4,
+	  although the XMLTV id is still knowledge.bbc.co.uk for now.
 
 2002-10-10 06:05  epaepa
 
@@ -11716,14 +10089,6 @@
 	  When a page fails to parse, just print the URL and not the whole
 	  content, because that gets excessive.
 
-2002-10-03 15:40  epaepa
-
-	* grab/uk/tv_grab_uk.in: grab(): the earlier change to use the
-	  arguments passed in for creating an XMLTV::Writer neglected the
-	  need to set the encoding based on the data we parsed from the
-	  site.  So it is not possible to begin writing any XML until we
-	  know the encoding to use.
-
 2002-10-03 15:13  epaepa
 
 	* grab/uk_rt/tv_grab_uk_rt: Attempt to keep going when the basic
@@ -11824,18 +10189,6 @@
 2002-10-01 09:43  epaepa
 
 	* lib/Clumps.pm: More informative warning message.
-
-2002-10-01 09:42  epaepa
-
-	* grab/uk/tv_grab_uk.in: grab(): it claimed that the arguments
-	  passed in were given to XMLTV::Writer, but in fact it ignored
-	  them.  Now the code does what the comment says.
-
-	  Improved laziness (a little) by writing channels, etc. as soon as
-	  we get the data.  Programmes are still in a lump however.
-
-	  This change hasn't been tested, I'll do that when I get access to
-	  a (fast, etc) network connection.
 
 2002-10-01 09:40  epaepa
 
@@ -11966,11 +10319,6 @@
 	  Ananova uses, but I'll investigate later whether there are
 	  similarities.
 
-2002-09-29 06:46  epaepa
-
-	* grab/sn/tv_grab_sn: Added --offset option needed by mythtv.  This
-	  will eventually be replaced by standard grabber options.
-
 2002-09-28 23:23  rmeden
 
 	* choose/tv_check/tv_check: MyReplayTV fetches now retains options
@@ -11990,20 +10338,9 @@
 
 	* filter/tv_extractinfo_en: Adding some more function prototypes.
 
-2002-09-28 12:31  epaepa
-
-	* grab/uk/Ananova_Channel.pm: Fix lone 'our' that crept in - I want
-	  to keep 5.005 compatibility.
-
 2002-09-28 09:20  epaepa
 
 	* Uninstall.pm: Clearer error message.
-
-2002-09-28 07:39  epaepa
-
-	* grab/sn/tv_grab_sn: Rewritten the output routines to use
-	  XMLTV::Writer.  Now this grabber should generate valid XML every
-	  time.
 
 2002-09-28 07:38  epaepa
 
@@ -12069,14 +10406,6 @@
 	  Should fix properly some time.  Maybe a separate configuration
 	  file should list the tests to run.
 
-2002-09-28 06:47  epaepa
-
-	* grab/uk/xmltv_ananova.dtd: Spelling change.
-
-2002-09-28 06:45  epaepa
-
-	* grab/uk/tv_grab_uk.in: Added FIXME about a bug I just noticed.
-
 2002-09-28 06:44  epaepa
 
 	* filter/tv_to_latex, t/data/tv_to_latex_dups_xml.expected,
@@ -12091,15 +10420,6 @@
 
 	* xmltv.dtd: Spelling change.
 
-2002-09-24 20:46  jveldhuis
-
-	* grab/na/: ZapListings.pm, tv_grab_na: Animated became a category.
-	   'Live', 'Call-in', 'If Necessary' and 'Subject to Blackout' are
-	  appended in () to the end of the program description if one
-	  exists, otherwise they're lost.
-
-	  HDTV still needs ironing out.
-
 2002-09-24 15:24  rmeden
 
 	* choose/tv_check/tv_check: Fix serious bug where title-scan never
@@ -12112,10 +10432,9 @@
 
 2002-09-23 10:17  epaepa
 
-	* MANIFEST, Makefile.PL, grab/sn/tv_grab_sn: Adding Stefan
-	  Görling's grabber for Sweden and Norway (with a few fixes).  I
-	  will probably give him CVS access to upload new versions, if
-	  necessary.
+	* MANIFEST, Makefile.PL: Adding Stefan Görling's grabber for Sweden
+	  and Norway (with a few fixes).  I will probably give him CVS
+	  access to upload new versions, if necessary.
 
 2002-09-23 10:14  epaepa
 
@@ -12713,13 +11032,6 @@
 
 	* README: Oops, got today's date wrong :-P.
 
-2002-09-19 17:13  epaepa
-
-	* grab/na/tv_grab_na: Cosmetic change to the output to make it
-	  consistent with what XMLTV::Writer produces.	I think it might
-	  have been me who changed it to be inconsistent some time earlier.
-	  Oh well.
-
 2002-09-19 17:12  epaepa
 
 	* grab/de/tv_grab_de: Updated URLs in documentation.
@@ -12764,21 +11076,10 @@
 	* choose/tv_check/: README.tv_check, tv_check.bat,
 	  tv_check_doc.html: Spelling fixes.
 
-2002-09-16 18:11  epaepa
-
-	* grab/uk/tv_grab_uk.in: Removed duplicate 'use Tie::RefHash' line
-	  :-P.
-
 2002-09-16 18:10  epaepa
 
 	* filter/tv_extractinfo_en: Removed 'use Tie::RefHash' since that
 	  module is no longer used in this script.
-
-2002-09-16 18:04  epaepa
-
-	* grab/uk/Ananova_Channel.pm: Attempt to work around lack of
-	  Tie::RefHash::Nestable (which is new in perl 5.6.1).	I *think*
-	  this works but it's not very tested.
 
 2002-09-16 15:56  epaepa
 
@@ -12808,11 +11109,6 @@
 	  not change it to UTF-8.  Not ideal but at least it should work
 	  the same on all systems.
 
-2002-09-16 15:53  epaepa
-
-	* grab/uk/tv_grab_uk.in: Griping about another thing to add to the
-	  XMLTV::Ask library.
-
 2002-09-15 13:18  rmeden
 
 	* choose/tv_check/tv_check.bat: added line to set TZ
@@ -12825,11 +11121,11 @@
 
 2002-09-15 12:11  epaepa
 
-	* grab/uk/tv_grab_uk.in, lib/XMLTV.pm.in: XMLTV.pm.in: added new
-	  cat_noprogrammes() function which combines data for encoding,
-	  credits, and channels - but not programmes.  This is in line with
-	  the general policy of allowing programmes to be processed
-	  individually rather than in one big lump.
+	* lib/XMLTV.pm.in: XMLTV.pm.in: added new cat_noprogrammes()
+	  function which combines data for encoding, credits, and channels
+	  - but not programmes.  This is in line with the general policy of
+	  allowing programmes to be processed individually rather than in
+	  one big lump.
 
 	  tv_grab_uk.in: changed to use cat_noprogrammes() instead of just
 	  cat() in an effort to reduce the working set size, or at least to
@@ -12838,22 +11134,6 @@
 	  thrashed the disk a lot.  This is not the last change to
 	  tv_grab_uk to improve scalability, just an intermediate point to
 	  commit a working version.
-
-2002-09-15 08:06  epaepa
-
-	* grab/uk/tv_grab_uk.in: Fixed a warning message to be more
-	  informative.
-
-2002-09-14 16:55  epaepa
-
-	* grab/uk/tv_grab_uk.in: The warn() handler around XMLTV::parse()
-	  now deals correctly with undefined warning messages.	I didn't
-	  think there were any, but there you go.
-
-2002-09-14 14:02  epaepa
-
-	* grab/uk/tv_grab_uk.in: Give better warning / fatal messages if
-	  parsing the contents of a URL fails.
 
 2002-09-13 18:22  epaepa
 
@@ -12881,11 +11161,6 @@
 	  the XMLTV.pm documentation that the returned character encoding
 	  may vary (this prepares for a possible change making
 	  $KEEP_ENCODING documented).
-
-2002-09-13 09:32  epaepa
-
-	* grab/uk/: UK_TZ.pm, tv_grab_uk.in: Changed 'UT' mistake to UTC;
-	  don't assume that XMLTV data is always UTF-8.
 
 2002-09-13 09:29  epaepa
 
@@ -12950,25 +11225,6 @@
 
 	  It looks like I'll have to remove the UTF-8 assumptions
 	  altogether, this is at least a first step.
-
-2002-09-10 06:22  epaepa
-
-	* grab/uk/tv_grab_uk.in: After spending several hours last night
-	  looking worriedly at the modem lights and thinking 'hmm, I didn't
-	  know tv_grab_uk was this slow, even on a 28.8 connection and
-	  P200', I have improved the status messages so there's more
-	  description of what is happening.  Most important among these
-	  improvements is making the progress bar detection actually work -
-	  previously it wouldn't detect that Term::ProgressBar was
-	  installed and would remain silent.  Also, downloading now happens
-	  first of all with parsing later, so you can go offline a bit
-	  sooner.
-
-	  The real reason it took so long is that I had pressed Return to
-	  get the default 'yes' answer to 'download radio listings'.  As I
-	  announced on xmltv-users soon after 0.5 was released, this option
-	  is stupid because the new Ananova site has hundreds of radio
-	  channels.  Now you must download them individually.
 
 2002-09-10 06:18  epaepa
 
@@ -13072,9 +11328,9 @@
 
 2002-09-04 17:00  epaepa
 
-	* Makefile.PL, README, grab/uk/tv_grab_uk.in: tv_grab_uk.in: use
-	  XML::Twig instead of XML::DOM for parsing Ananova's weird
-	  'regions' XML.  This removes the last dependency on XML::DOM.
+	* Makefile.PL, README: tv_grab_uk.in: use XML::Twig instead of
+	  XML::DOM for parsing Ananova's weird 'regions' XML.  This removes
+	  the last dependency on XML::DOM.
 
 2002-09-04 15:43  epaepa
 
@@ -13161,10 +11417,9 @@
 	  choose/tv_check/tv_check_doc.html, choose/tv_pick/tv_pick_cgi,
 	  filter/tv_cat, filter/tv_extractinfo_en, filter/tv_grep.in,
 	  filter/tv_sort, filter/tv_to_latex, grab/de/tv_grab_de,
-	  grab/na/tv_grab_na, grab/uk/tv_grab_uk.in,
-	  grab/uk/xmltv_ananova.dtd, lib/XMLTV.pm.in, t/parallel_test,
-	  t/test_filters.t: Updated references to the XMLTV website, and to
-	  my email address.  Purged all traces of my old userid.
+	  lib/XMLTV.pm.in, t/parallel_test, t/test_filters.t: Updated
+	  references to the XMLTV website, and to my email address.  Purged
+	  all traces of my old userid.
 
 2002-08-30 17:35  epaepa
 
@@ -13185,8 +11440,7 @@
 	  choose/tv_pick/tv_pick_cgi, filter/tv_cat,
 	  filter/tv_extractinfo_en, filter/tv_grep.in, filter/tv_sort,
 	  filter/tv_to_latex, grab/Ask.pm, grab/Memoize.pm,
-	  grab/de/tv_grab_de, grab/uk/Ananova_Channel.pm, grab/uk/UK_TZ.pm,
-	  grab/uk/tv_grab_uk.in, lib/Clumps.pm, lib/XMLTV.pm.in,
+	  grab/de/tv_grab_de, lib/Clumps.pm, lib/XMLTV.pm.in,
 	  t/add_time_info, t/parallel_test: Well, up till now I've resisted
 	  calls to trim the number of modules required by xmltv.  I said
 	  the answer was not to reduce library use but rather to make it
@@ -13220,61 +11474,11 @@
 
 	  Also improved the 'please run --configure' message in tv_grab_uk.
 
-2002-08-08 08:50  jveldhuis
-
-	* grab/na/ZapListings.pm: added languages Khmer and Ojibwa
-
 2002-06-24 18:08  rmeden
 
 	* choose/tv_check/tv_check: Fix bug with ReplayTV conflict checker.
 	  Extra episodes were not correctly being added to the conflict
 	  search.
-
-2002-06-14 11:54  jveldhuis
-
-	* grab/na/tv_grab_na: added --list-channels to --configure command
-	  line options, works similar to --list-providers.
-
-2002-06-14 11:20  jveldhuis
-
-	* grab/na/tv_grab_na: fixed perldoc and usage a bit
-
-2002-06-14 11:16  jveldhuis
-
-	* grab/na/tv_grab_na: fixed help messages that said config file
-	  lands in $HOME/.tv_grab_na
-
-2002-06-14 11:16  jveldhuis
-
-	* grab/na/tv_grab_na: fixed help message that was a bit too long
-
-2002-06-14 11:08  jveldhuis
-
-	* grab/na/tv_grab_na: 1. undid Ed's Date_Init() call to explictly
-	  set TZ for windows exectuables,    didn't work the way we wanted.
-
-	  2. reordered some of the --configure help messages (more logical)
-
-	  3. added support for using tv_grab_na to dump list of providers
-	  for	 guis (such as Andy's FreeGuide) that want to reproduce the
-	     configure process in a gui. Usage is:	 --configure
-	  --list-providers --postalcode <code>	  or	   --configure
-	  --list-providers --zipcode <code>    Output newline separated
-	  list of providers ids and their descriptions..     Note: --retry
-	  settings don't have any effect using --list-providers.
-
-2002-05-29 12:29  epaepa
-
-	* grab/na/tv_grab_na: Call Date_Init() at the start of the script,
-	  to avoid timezone problems on Windows.
-
-2002-05-29 12:25  epaepa
-
-	* grab/uk/tv_grab_uk.in: fix_ananova_xml(): common checks for
-	  broken Ananova XML output.
-
-	  Removed dependency on Sort::Versions, it is no longer needed now
-	  that the Ananova ids are purely numeric.
 
 2002-05-29 08:21  epaepa
 
@@ -13378,43 +11582,10 @@
 
 	* README: Updated README for the real 0.5 release.
 
-2002-05-23 04:28  epaepa
-
-	* grab/uk/README: Wrote a quick guide to the tv_grab_uk source
-	  code.
-
-2002-05-23 04:15  epaepa
-
-	* grab/uk/xmltv_ananova.dtd: This is the DTD used by Ananova for
-	  their XMLTVish listings, included as documentation.
-
 2002-05-23 04:13  epaepa
 
 	* grab/de/tv_grab_de: Fix an error in the served XML pages (empty
 	  <length> element).
-
-2002-05-22 12:09  epaepa
-
-	* grab/uk/: Ananova_Channel.pm, channel_ids, tv_grab_uk.in: This is
-	  it, the new version of the UK grabber.  This fetches XML
-	  documents from Ananova's server, munges them a bit and outputs
-	  them.  It hasn't had quite as much testing as I would have liked,
-	  but because the old listings feed stopped I have to commit this
-	  now.	Also the code is not as clean as it could be, but ditto.
-
-	  Another problem is slowness and bloatedness; it parses the XML
-	  received and this means a lot of memory usage with the current
-	  XMLTV.pm.  Still, on a fast machine the main bottleneck will be
-	  speed of download from the server (which is very slow), so I
-	  don't feel too guilty.
-
-2002-05-22 09:29  epaepa
-
-	* grab/uk/channel_pkgs/: arts, entertainment, film, gratis,
-	  lifestyle, misc, scifi, shop, sport: Removed some dud channels
-	  from the predefined packages, and updated a few more to use newer
-	  ids.	(In principle the XMLTV ids are supposed never to change,
-	  but...)
 
 2002-05-21 09:32  epaepa
 
@@ -13427,39 +11598,19 @@
 	  last-minute schedule alterations will be less current than in the
 	  old feed.
 
-2002-05-21 09:23  epaepa
-
-	* grab/uk/cvt: Removed 'cvt' program to convert channel listings -
-	  the job has been done.
-
-2002-05-21 09:22  epaepa
-
-	* grab/uk/cvt: This is the program I used to match the old listings
-	  source's channel names to those used by the new listings (and so
-	  generate a new file mapping XMLTV ids to Ananova ids).  It's not
-	  likely to be used again, but I'm committing it for the record.
-
 2002-05-21 09:13  epaepa
 
 	* t/parallel_test: Adding the new 'radio4' test case.  Not that it
 	  will be used for a while, because with the old feed gone it's not
 	  possible to run parallel tests comparing new and old output.
 
-2002-05-21 09:13  epaepa
-
-	* grab/uk/: tv_grab_uk.in, test_configs/radio4: Miscellaneous
-	  fixes.  These are obsolete now that the old feed has stopped (see
-	  forthcoming announcement) but I'm committing them in order to not
-	  lose anything.
-
 2002-05-19 12:29  epaepa
 
-	* grab/uk/tv_grab_uk.in, t/parallel_test: When Ananova serves a
-	  freak page which doesn't have the multiple sets of listings
-	  expected, retry up to 3 times.  I haven't been able to test this
-	  because (typically!) as soon as I put the check in, Ananova
-	  started to behave.  But at least I know it doesn't make things
-	  any worse.
+	* t/parallel_test: When Ananova serves a freak page which doesn't
+	  have the multiple sets of listings expected, retry up to 3 times.
+	  I haven't been able to test this because (typically!) as soon as
+	  I put the check in, Ananova started to behave.  But at least I
+	  know it doesn't make things any worse.
 
 2002-05-18 15:17  epaepa
 
@@ -13478,12 +11629,6 @@
 
 	* MANIFEST: Added grab/uk/test_configs/radio4 to MANIFEST.
 
-2002-05-15 10:20  epaepa
-
-	* grab/uk/test_configs/radio4: A new test configuration for
-	  tv_grab_uk - just Radio 4.  This channel is interesting because
-	  it has 'LW' and 'FM' variants.
-
 2002-05-15 06:09  epaepa
 
 	* t/add_time_info: Fixed an off-by-one bug - I don't know how it
@@ -13491,13 +11636,12 @@
 
 2002-05-13 12:29  epaepa
 
-	* grab/uk/Ananova_Channel.pm, grab/uk/channel_ids,
-	  grab/uk/tv_grab_uk.in, t/parallel_test: tv_grab_uk: added code to
-	  split Radio 4 into LW and FM variants, and a few other stations
-	  into MW and FM variants.  After some experiments, it turns out
-	  the only sensible way to do this is to specify it in the
-	  channel_ids file, since it cannot be detected automatically
-	  without grabbing a whole week's listings in advance.
+	* t/parallel_test: tv_grab_uk: added code to split Radio 4 into LW
+	  and FM variants, and a few other stations into MW and FM
+	  variants.  After some experiments, it turns out the only sensible
+	  way to do this is to specify it in the channel_ids file, since it
+	  cannot be detected automatically without grabbing a whole week's
+	  listings in advance.
 
 	  So now we have fm.radio-4.bbc.co.uk and lw.radio-4.bbc.co.uk.
 	  Unfortunately, individual channel selection still works on
@@ -13547,36 +11691,6 @@
 	  all duplicate programmes are weeded out.  These updated test
 	  cases give the expected behaviour.
 
-2002-05-08 08:55  epaepa
-
-	* grab/uk/Ananova_Channel.pm: clone(): whoops, forgot to bless the
-	  new object into a class.  That'll teach me for committing
-	  untested code.
-
-2002-05-06 12:37  epaepa
-
-	* grab/uk/Ananova_Channel.pm: del(): new method to 'delete' a
-	  channel object.
-
-2002-05-06 12:22  epaepa
-
-	* grab/uk/Ananova_Channel.pm: Added an accesor to remove (unset)
-	  the additional display names for a channel object.  This is all
-	  getting really baroque, I would like to eliminate all this
-	  pointless OO stuff soon.
-
-2002-05-06 12:19  epaepa
-
-	* grab/uk/Ananova_Channel.pm: Removed requirement that the main
-	  display name is immutable once set.  It all made sense at one
-	  point but the original, very strict design isn't really being
-	  followed any more.
-
-2002-05-06 12:14  epaepa
-
-	* grab/uk/Ananova_Channel.pm: Added a clone() method which copies
-	  all information except the unique ids.
-
 2002-05-06 11:53  epaepa
 
 	* t/add_time_info: Don't collapse and die when a channel which
@@ -13609,18 +11723,6 @@
 	  gzipped then things are as before.  The test files in CVS will
 	  remain uncompressed.	So you can just ignore this change :-).
 
-2002-05-02 07:16  epaepa
-
-	* grab/uk/tv_grab_uk.in: More elaborate workarounds for when
-	  Ananova's dates are wrong.  If we fetch a file from the server
-	  and its date is wrong, attempt to compensate by fetching a
-	  different file which is expected to have the right date.  Unless
-	  that is also bad, in which case pick another...
-
-	  Whether all this is needed depends on the state of Ananova's
-	  data.  Yesterday it was pretty much essential but today only one
-	  channel is affected.
-
 2002-05-02 07:12  epaepa
 
 	* t/add_time_info: add_time_info is a small filter to help with
@@ -13637,43 +11739,21 @@
 	  Not currently used for anything, but will be used for testing the
 	  rewritten Ananova grabber against the old one.
 
-2002-05-01 17:27  jveldhuis
-
-	* grab/na/ZapListings.pm: crap, missed a ) :)
-
-2002-05-01 17:25  jveldhuis
-
-	* grab/na/ZapListings.pm: more fixes
-
-2002-05-01 17:12  jveldhuis
-
-	* grab/na/ZapListings.pm: zap2it decided to drop some of the
-	  spacing around () details.
-
 2002-05-01 12:47  epaepa
 
-	* grab/uk/tv_grab_uk.in, t/parallel_test: page_date_diff(): the new
-	  name for check_page_date().  It now returns an integer, the
-	  number of days by which the found date differs from the expected
-	  date - or undef if something is very wrong.  The kludgy
-	  manipulation of the expected date is as before.  This new version
-	  doesn't behave any differently; next I will add some code to cope
-	  with the latest Ananova weirdness.
+	* t/parallel_test: page_date_diff(): the new name for
+	  check_page_date().  It now returns an integer, the number of days
+	  by which the found date differs from the expected date - or undef
+	  if something is very wrong.  The kludgy manipulation of the
+	  expected date is as before.  This new version doesn't behave any
+	  differently; next I will add some code to cope with the latest
+	  Ananova weirdness.
 
 2002-04-28 23:37  rmeden
 
 	* choose/tv_check/tv_check: Changed "neartime" threshnold to from 3
 	  hours to 2.  This prevents a 2300 show syndicated show from
 	  matching a 2100.  I doubt anyone uses neartime anyway. :)
-
-2002-04-26 15:31  jveldhuis
-
-	* grab/na/ZapListings.pm: page failures now include http failure
-	  messages, fixed so program descriptions work again
-
-2002-04-26 15:30  jveldhuis
-
-	* grab/na/tv_grab_na: fixed subtitles to be simpler
 
 2002-04-26 11:02  epaepa
 
@@ -13684,11 +11764,6 @@
 
 	* filter/tv_grep.PL: Documentation fix for tv_grep and new
 	  'with-lang-or-empty' handler type.  Forgot to commit it earlier.
-
-2002-04-23 10:36  epaepa
-
-	* grab/uk/tv_grab_uk.in: Relaxed sanity check on Ananova's
-	  pointless DAYTIME, EVENING, LATENIGHT classification.
 
 2002-04-23 10:05  epaepa
 
@@ -13742,27 +11817,11 @@
 	  Added some new test cases for this (not complete coverage though)
 	  and an example of <last-chance> to test.xml.
 
-2002-04-22 16:02  jveldhuis
-
-	* grab/na/tv_grab_na: now verifies that all things in resulting
-	  prog details gets explicitly ignored or outputed - use
-	  --debuglistings to enable
-
-2002-04-22 16:01  jveldhuis
-
-	* grab/na/ZapListings.pm: multiple details appearing in () may not
-	  get to output xml
-
 2002-04-20 13:22  epaepa
 
 	* filter/tv_extractinfo_en: multipart_split_desc(): an exclamation
 	  mark _always_ indicates the end of the title and start of the
 	  description.	Titles ending in ! are not followed by a colon.
-
-2002-04-20 12:28  epaepa
-
-	* grab/uk/tv_grab_uk.in: Code tidy to comply with perlstyle(1)'s
-	  suggestion: 'uncuddled elses'.
 
 2002-04-20 12:27  epaepa
 
@@ -13924,25 +11983,10 @@
 	  appears at the front of descriptions in old-style Ananova
 	  listings, I think it stands for 'TV movie'.
 
-2002-04-19 11:07  epaepa
-
-	* grab/uk/tv_grab_uk.in: Stopped translating the 'new' flag to <new
-	  /> in XML, that's not what it means.
-
 2002-04-19 10:25  epaepa
 
 	* filter/tv_extractinfo_en: Added a handler to parse out a year at
 	  the start of the description and put it in <date>.
-
-2002-04-19 09:07  jveldhuis
-
-	* grab/na/ZapListings.pm: cleaner identification of french part x
-	  of y details
-
-2002-04-19 08:33  jveldhuis
-
-	* grab/na/ZapListings.pm: identifies french part x of y details, or
-	  at least some
 
 2002-04-18 13:37  epaepa
 
@@ -13959,13 +12003,6 @@
 	* xmltv.dtd: Clarified the meaning of the 'new' element.  The old
 	  UK grabber was getting it wrong.
 
-2002-04-18 05:48  epaepa
-
-	* grab/uk/tv_grab_uk.in: Fixed incorrect episode-num content.  The
-	  episode number is the middle item - the last item is for 'part 3
-	  of 4' stuff.	I really ought to change this episode-num stuff in
-	  the DTD to something less confusing.
-
 2002-04-18 05:31  epaepa
 
 	* lib/XMLTV.pm.in: Fix for aspect-ratio writing bug.
@@ -13979,17 +12016,6 @@
 	  tv_sort_by_channel_test_xml.expected, tv_sort_test_xml.expected:
 	  Noticed a longstanding bug in file writing.  Aspect ratio is not
 	  a Boolean!
-
-2002-04-15 07:56  jveldhuis
-
-	* grab/na/ZapListings.pm: added language Dene
-
-2002-04-07 19:30  epaepa
-
-	* grab/uk/tv_grab_uk.in: Added code to notice when Ananova is
-	  running one day behind (which happens for example for a short
-	  time after midnight) and cope without too much complaining.
-	  Fixed warnings when using newer XMLTV.pm versions.
 
 2002-03-31 17:42  epaepa
 
@@ -14079,10 +12105,6 @@
 
 	  close OUT and EXPECTED ( windows can't delete an open file )
 
-2002-03-18 00:54  jveldhuis
-
-	* grab/na/tv_grab_na: minor debugging code removed :)
-
 2002-03-16 13:41  epaepa
 
 	* MANIFEST, Makefile.PL, filter/tv_grep.PL, filter/tv_grep.in,
@@ -14137,27 +12159,6 @@
 	* t/test_filters.t: When a test fails to create its output file, it
 	  'fails' but the test suite continues.
 
-2002-03-16 10:02  jveldhuis
-
-	* grab/na/tv_grab_na: improved retry message - I have no idea what
-	  I was thinking :)
-
-2002-03-15 13:08  epaepa
-
-	* grab/uk/tv_grab_uk.in: Print copyright message to stderr on
-	  download, as requested by Ananova.
-
-2002-03-15 12:54  epaepa
-
-	* grab/uk/: Ananova_Channel.pm, channel_ids, tv_grab_uk.in: New
-	  version (though not a full rewrite) of the UK grabber.  This uses
-	  the new show=allchannels channel listing on the website, which
-	  eliminates a lot of the hassle with 'definitive' versus
-	  'tentative' channel names, terrestrial channels not listed, and
-	  so on.  On the downside there is no longer any way to distinguish
-	  radio and satellite channels, the grabber guesses that based on
-	  the name.
-
 2002-03-15 12:51  epaepa
 
 	* MANIFEST: Forgot to add the new test files for tv_sort
@@ -14202,33 +12203,6 @@
 	* todo/TASKS.epa: Another DTD feature request.	Ouch, there will be
 	  a lot to do once 0.5 is out.
 
-2002-03-12 11:14  jveldhuis
-
-	* grab/na/ZapListings.pm: cleaned up program details only to scrape
-	  the ones in parenthesis
-
-2002-03-11 17:48  jveldhuis
-
-	* grab/na/ZapListings.pm: now identified languages with / and -
-	  separators
-
-2002-03-11 17:46  jveldhuis
-
-	* grab/na/tv_grab_na: fixed minor bugs - thanks Brian
-
-2002-03-11 15:47  jveldhuis
-
-	* grab/na/tv_grab_na: fixed --retry-limit rename problem :)
-
-2002-03-11 14:00  jveldhuis
-
-	* grab/na/tv_grab_na: slight warning message change
-
-2002-03-11 13:58  jveldhuis
-
-	* grab/na/tv_grab_na: added retry limits and retry delays in
-	  configure and command line options
-
 2002-03-10 05:28  epaepa
 
 	* t/test_filters.t: The 'make test' code no longer uses diff(1), it
@@ -14250,11 +12224,10 @@
 
 	* Makefile.PL, choose/tv_check/tv_check, filter/tv_cat,
 	  filter/tv_extractinfo_en, filter/tv_grep.in, filter/tv_sort,
-	  filter/tv_to_latex, grab/de/tv_grab_de, grab/uk/tv_grab_uk.in,
-	  t/test_filters.t: Got rid of most of the usage() subroutines in
-	  favour of XMLTV::Usage.  It seems to work okay, unless I made a
-	  typing error.  Also realized I had forgotten to include tv_check
-	  in the list of binaries.
+	  filter/tv_to_latex, grab/de/tv_grab_de, t/test_filters.t: Got rid
+	  of most of the usage() subroutines in favour of XMLTV::Usage.  It
+	  seems to work okay, unless I made a typing error.  Also realized
+	  I had forgotten to include tv_check in the list of binaries.
 
 2002-03-07 07:38  epaepa
 
@@ -14265,18 +12238,10 @@
 2002-03-07 07:17  epaepa
 
 	* filter/tv_cat, filter/tv_extractinfo_en, filter/tv_sort,
-	  filter/tv_to_latex, grab/de/tv_grab_de, grab/uk/tv_grab_uk.in,
-	  t/test_filters.t: Made sure that failure of GetOptions() is
-	  caught and triggers a usage message (and unsuccessful exit).	I
-	  had omitted to do this before now.
-
-2002-03-07 07:09  epaepa
-
-	* grab/uk/tv_grab_uk.in: Fixed usage message properly (I hope).
-
-2002-03-07 07:01  epaepa
-
-	* grab/uk/tv_grab_uk.in: Added a usage message (dealt with FIXME).
+	  filter/tv_to_latex, grab/de/tv_grab_de, t/test_filters.t: Made
+	  sure that failure of GetOptions() is caught and triggers a usage
+	  message (and unsuccessful exit).  I had omitted to do this before
+	  now.
 
 2002-03-07 06:57  epaepa
 
@@ -14288,9 +12253,8 @@
 
 2002-03-07 06:48  epaepa
 
-	* filter/tv_extractinfo_en, grab/uk/tv_grab_uk.in, t/parallel_test,
-	  t/data/simple.xml, t/data/sort.xml,
-	  t/data/tv_cat_simple_xml.expected,
+	* filter/tv_extractinfo_en, t/parallel_test, t/data/simple.xml,
+	  t/data/sort.xml, t/data/tv_cat_simple_xml.expected,
 	  t/data/tv_cat_sort_xml.expected,
 	  t/data/tv_extractinfo_en_simple_xml.expected,
 	  t/data/tv_extractinfo_en_sort_xml.expected,
@@ -14309,9 +12273,9 @@
 
 2002-03-07 06:20  epaepa
 
-	* grab/uk/tv_grab_uk.in, todo/TASKS.epa: Whoops, messed up the
-	  module inclusion for tv_grab_uk.  I fixed this once but edited
-	  the generated file rather than the source tv_grab_uk.in (d'oh!).
+	* todo/TASKS.epa: Whoops, messed up the module inclusion for
+	  tv_grab_uk.  I fixed this once but edited the generated file
+	  rather than the source tv_grab_uk.in (d'oh!).
 
 	  Marked a few more tasks as 'done'.
 
@@ -14329,12 +12293,6 @@
 	  _modified_ in strange ways on installation, it's hard to unmodify
 	  them.)
 
-2002-03-07 05:42  epaepa
-
-	* grab/uk/tv_grab_uk.in: Whoops, forgot to import the gettz()
-	  function.  I'm trying to move away from export-by-default
-	  (@EXPORT) towards export-if-asked (@EXPORT_OK).
-
 2002-03-07 05:40  epaepa
 
 	* todo/TASKS.epa: Added a few more todo items, almost all for
@@ -14351,12 +12309,11 @@
 2002-03-06 11:20  epaepa
 
 	* filter/tv_extractinfo_en, filter/tv_grep.in, filter/tv_sort,
-	  filter/tv_to_latex, grab/uk/UK_TZ.pm, lib/TZ.pm: The DTD says
-	  quite clearly 'if no explicit timezone is given, UT is assumed'.
-	  But until now that's not what the various tools were doing: they
-	  were interpreting plain dates according to the local timezone.
-	  Jerry spotted this by running 'make test'; the tv_to_latex output
-	  was wrong.
+	  filter/tv_to_latex, lib/TZ.pm: The DTD says quite clearly 'if no
+	  explicit timezone is given, UT is assumed'.  But until now that's
+	  not what the various tools were doing: they were interpreting
+	  plain dates according to the local timezone.	Jerry spotted this
+	  by running 'make test'; the tv_to_latex output was wrong.
 
 	  I've fixed most of the programs to have Date_Init('TZ=UT').  The
 	  external timezone should not affect the output of filter programs
@@ -14388,12 +12345,11 @@
 
 2002-03-06 10:01  epaepa
 
-	* MANIFEST, Makefile.PL, XMLTV.pm, filter/tv_to_latex,
-	  grab/uk/UK_TZ.pm, lib/TZ.pm: Created a new XMLTV::TZ module for
-	  the two timezone-handling routines gettz() and
-	  ParseDate_PreservingTZ().  So now the general timezone stuff is
-	  in XMLTV::TZ and the UK-specific summer time stuff is in
-	  XMLTV::UK_TZ.
+	* MANIFEST, Makefile.PL, XMLTV.pm, filter/tv_to_latex, lib/TZ.pm:
+	  Created a new XMLTV::TZ module for the two timezone-handling
+	  routines gettz() and ParseDate_PreservingTZ().  So now the
+	  general timezone stuff is in XMLTV::TZ and the UK-specific summer
+	  time stuff is in XMLTV::UK_TZ.
 
 2002-03-06 09:36  epaepa
 
@@ -14404,54 +12360,30 @@
 	* t/test_filters.t: Redirect stderr to a file which is removed if
 	  the test passes.
 
-2002-03-06 07:06  epaepa
-
-	* grab/na/tv_grab_na: Created manual page, and changed --config
-	  option to --config-file.
-
 2002-03-06 07:03  epaepa
 
 	* grab/Ask.pm: Fixed the regexp match of $res by quoting with
 	  \Q...\E.  Otherwise strange characters in the user response cause
 	  the regexp to do strange things.
 
-2002-03-06 06:03  epaepa
-
-	* grab/uk/tv_grab_uk.in: Manual page for tv_grab_uk.
-
-2002-03-05 17:07  jveldhuis
-
-	* grab/na/ZapListings.pm: added a couple languages and relaxed the
-	  requirements on there names
-
 2002-03-04 12:35  epaepa
 
-	* MANIFEST, grab/uk/tv_grab_uk.in, grab/uk/test_configs/all,
-	  grab/uk/test_configs/bbc1, grab/uk/test_configs/carlton,
-	  grab/uk/test_configs/gratis, grab/uk/test_configs/gratis_radio,
-	  grab/uk/test_configs/music_nickelodeon_e4,
-	  grab/uk/test_configs/radio, grab/uk/test_configs/satellite,
-	  grab/uk/test_configs/tynetees, t/parallel_test: Using tv_grab_uk
-	  is now more like tv_grab_na: there's a separate --configure stage
-	  where you choose what channels to download.  This is slightly
-	  less flexible than the old command line arguments, and I still
-	  have to work out a decent system for prompting the user about new
-	  channels that have appeared on the site.  But it should make
-	  things more user-friendly and consistent.
+	* MANIFEST, t/parallel_test: Using tv_grab_uk is now more like
+	  tv_grab_na: there's a separate --configure stage where you choose
+	  what channels to download.  This is slightly less flexible than
+	  the old command line arguments, and I still have to work out a
+	  decent system for prompting the user about new channels that have
+	  appeared on the site.  But it should make things more
+	  user-friendly and consistent.
 
 	  For the benefit of testing (parallel_test) there's a
 	  --config-file argument and a set of sample configs.
 
-2002-03-04 11:02  epaepa
-
-	* grab/na/tv_grab_na: Display the providers to the user in the same
-	  order as the website (as it was before).
-
 2002-03-04 10:28  epaepa
 
-	* grab/: Ask.pm, uk/tv_grab_uk.in: Finished writing the --configure
-	  routine for tv_grab_uk.  All I have to do now is actually read
-	  the configuration file when it runs :-).  To handle long runs of
+	* grab/Ask.pm: Finished writing the --configure routine for
+	  tv_grab_uk.  All I have to do now is actually read the
+	  configuration file when it runs :-).	To handle long runs of
 	  yes/no with optional 'yes to all' I added
 	  XMLTV::Ask::askManyBooleanQuestions().  I have not yet modified
 	  tv_grab_na to use this routine although it would probably be a
@@ -14469,47 +12401,29 @@
 
 2002-03-04 08:54  epaepa
 
-	* grab/: Ask.pm, na/tv_grab_na: Removed the unvalidated questions
-	  from XMLTV::Ask, now the response must always be in the list of
-	  options (as must the default).  The provider selection in
-	  tv_grab_na now uses askQuestion() rather than printing out
-	  options by itself.
+	* grab/Ask.pm: Removed the unvalidated questions from XMLTV::Ask,
+	  now the response must always be in the list of options (as must
+	  the default).  The provider selection in tv_grab_na now uses
+	  askQuestion() rather than printing out options by itself.
 
 2002-03-04 04:15  epaepa
 
 	* grab/Memoize.pm: Fixed argument parsing so eg --cache --configure
 	  is treated as two separate options.
 
-2002-03-01 15:14  jveldhuis
-
-	* grab/na/tv_grab_na: added warning on grab that config file
-	  location needs upgrading
-
-2002-03-01 15:09  jveldhuis
-
-	* grab/na/tv_grab_na: now on --configure, configuration file moved
-	  to new location ie from ~/.xmltv_na to ~/xmltv/tv_grab_na
-
-	  fixed all calls to Ask.pm subroutines, poorly separated :<
-
 2002-03-01 15:07  jveldhuis
 
 	* grab/Ask.pm: fixed it because it was obviously not tested
 
-2002-02-28 12:51  jveldhuis
-
-	* grab/na/ZapListings.pm: added a couple of new languages I have
-	  come across
-
 2002-02-28 12:03  epaepa
 
-	* grab/Ask.pm, grab/uk/tv_grab_uk.in, t/parallel_test: *Started* to
-	  implement --configure for tv_grab_uk.  This means moving the
-	  existing 'main program' into a grab() subroutine and then calling
-	  either grab() or configure() depending on the command line.  The
-	  --configure option doesn't work yet, but tv_grab_uk is no worse
-	  than it was before and passes the test suite (parallel_test), so
-	  now is a good interim time to commit before I mess it up further.
+	* grab/Ask.pm, t/parallel_test: *Started* to implement --configure
+	  for tv_grab_uk.  This means moving the existing 'main program'
+	  into a grab() subroutine and then calling either grab() or
+	  configure() depending on the command line.  The --configure
+	  option doesn't work yet, but tv_grab_uk is no worse than it was
+	  before and passes the test suite (parallel_test), so now is a
+	  good interim time to commit before I mess it up further.
 
 	  Made the askMyQuestion() routine in XMLTV::Ask notice when there
 	  are a long-winded set of options and present them as multiple
@@ -14523,9 +12437,9 @@
 
 2002-02-28 07:48  epaepa
 
-	* MANIFEST, Makefile.PL, grab/Ask.pm, grab/na/tv_grab_na: Moved the
-	  question-asking routines from the --configure stage of tv_grab_na
-	  to a new support module XMLTV::Ask.
+	* MANIFEST, Makefile.PL, grab/Ask.pm: Moved the question-asking
+	  routines from the --configure stage of tv_grab_na to a new
+	  support module XMLTV::Ask.
 
 2002-02-28 06:19  epaepa
 
@@ -14536,22 +12450,11 @@
 
 2002-02-28 06:15  epaepa
 
-	* MANIFEST, MANIFEST.SKIP, Makefile.PL, mkdist,
-	  grab/uk/tv_grab_uk.in, grab/uk/channel_pkgs/adult,
-	  grab/uk/channel_pkgs/arts, grab/uk/channel_pkgs/asia,
-	  grab/uk/channel_pkgs/children, grab/uk/channel_pkgs/classics,
-	  grab/uk/channel_pkgs/comedy, grab/uk/channel_pkgs/entertainment,
-	  grab/uk/channel_pkgs/factual, grab/uk/channel_pkgs/film,
-	  grab/uk/channel_pkgs/gratis, grab/uk/channel_pkgs/lifestyle,
-	  grab/uk/channel_pkgs/misc, grab/uk/channel_pkgs/music,
-	  grab/uk/channel_pkgs/musicchoice, grab/uk/channel_pkgs/news,
-	  grab/uk/channel_pkgs/religion, grab/uk/channel_pkgs/scifi,
-	  grab/uk/channel_pkgs/shop, grab/uk/channel_pkgs/sport,
-	  grab/uk/channel_pkgs/travel: Moved out the rest of tv_grab_uk's
-	  channel data into files installed in share/.	This isn't ideal,
-	  there should be a way for users to override them or create new
-	  channel packages with files in their home directory, but that
-	  will come later.
+	* MANIFEST, MANIFEST.SKIP, Makefile.PL, mkdist: Moved out the rest
+	  of tv_grab_uk's channel data into files installed in share/.
+	  This isn't ideal, there should be a way for users to override
+	  them or create new channel packages with files in their home
+	  directory, but that will come later.
 
 	  Made sure that 'make distclean' works properly.  It doesn't
 	  remove the files removed by mkdist, but apart from that should
@@ -14572,15 +12475,14 @@
 
 2002-02-27 12:10  epaepa
 
-	* Makefile.PL, grab/uk/channel_ids, grab/uk/tv_grab_uk,
-	  grab/uk/tv_grab_uk.PL, grab/uk/tv_grab_uk.in, t/parallel_test:
-	  Begun the process of moving the hardcoded channel data out of
-	  tv_grab_uk and into text files.  To start with I have put the big
-	  list mapping Ananova ids to XMLTV ids into its own file, which
-	  lives in the share/ directory (eg /usr/local/share/).  This meant
-	  altering Makefile.PL to support 'share' files in the same way it
-	  was already altered for 'docs', and processing tv_grab_uk on
-	  installation to set the path to the data file.
+	* Makefile.PL, t/parallel_test: Begun the process of moving the
+	  hardcoded channel data out of tv_grab_uk and into text files.  To
+	  start with I have put the big list mapping Ananova ids to XMLTV
+	  ids into its own file, which lives in the share/ directory (eg
+	  /usr/local/share/).  This meant altering Makefile.PL to support
+	  'share' files in the same way it was already altered for 'docs',
+	  and processing tv_grab_uk on installation to set the path to the
+	  data file.
 
 	  One side effect of the new way of loading the data is that the
 	  channel 'BBC1' now maps to generic BBC1 rather than the BBC1 West
@@ -14652,34 +12554,18 @@
 	  the same interface as XML::DOM.  write_data() has not changed
 	  because I couldn't think of a better name.
 
-2002-02-24 12:59  epaepa
-
-	* grab/: na/tv_grab_na, uk/tv_grab_uk: Changed tv_grab_na's version
-	  number checking to use the date rather than the CVS id.  The date
-	  is guaranteed to increase monotonically for any given development
-	  branch, so this should mean we don't have to mess with CVS in
-	  future.
-
-	  Added a check that --days isn't negative to both grabbers - it
-	  can't hurt :-).
-
 2002-02-24 12:34  epaepa
 
-	* MANIFEST, Makefile.PL, grab/Memoize.pm, grab/uk/tv_grab_uk: Moved
-	  the code for the undocumented --cache option from tv_grab_uk into
-	  a new module XMLTV::Memoize.	Then caching should be fairly easy
-	  to add to new grabbers.
+	* MANIFEST, Makefile.PL, grab/Memoize.pm: Moved the code for the
+	  undocumented --cache option from tv_grab_uk into a new module
+	  XMLTV::Memoize.  Then caching should be fairly easy to add to new
+	  grabbers.
 
 2002-02-24 12:33  epaepa
 
 	* t/parallel_test: Modified to work with the blib/ setup.  It is
 	  still specific to my directory structure but should be easy to
 	  change for yours.
-
-2002-02-24 11:51  epaepa
-
-	* XMLTV/: Ananova_Channel.pm, UK_TZ.pm, ZapListings.pm: Removing
-	  old copies of Perl modules, they have moved to new homes.
 
 2002-02-24 11:22  epaepa
 
@@ -14765,11 +12651,10 @@
 	  doc/tv_check_doc.jpg, doc/code/coding_standards,
 	  doc/code/grabber_interface, filter/tv_cat,
 	  filter/tv_extractinfo_en, filter/tv_grep, filter/tv_sort,
-	  filter/tv_to_latex, grab/na/ZapListings.pm, grab/na/tv_grab_na,
-	  grab/uk/Ananova_Channel.pm, grab/uk/UK_TZ.pm, grab/uk/tv_grab_uk,
-	  t/README, t/parallel_test, t/test_filters.t, t/data/dups.xml,
-	  t/data/overlap.xml, t/data/sort.xml, t/data/test.xml,
-	  t/data/test_livre.xml, t/data/tv_cat_dups_xml.expected,
+	  filter/tv_to_latex, t/README, t/parallel_test, t/test_filters.t,
+	  t/data/dups.xml, t/data/overlap.xml, t/data/sort.xml,
+	  t/data/test.xml, t/data/test_livre.xml,
+	  t/data/tv_cat_dups_xml.expected,
 	  t/data/tv_cat_overlap_xml.expected,
 	  t/data/tv_cat_sort_xml.expected,
 	  t/data/tv_cat_test_livre_xml.expected,
@@ -14843,88 +12728,8 @@
 	  t/data/tv_to_latex_overlap_xml.expected,
 	  t/data/tv_to_latex_sort_xml.expected,
 	  t/data/tv_to_latex_test_livre_xml.expected,
-	  t/data/tv_to_latex_test_xml.expected, test_data/README,
-	  test_data/dups.xml, test_data/dups.xml._tv_cat.diff,
-	  test_data/fff, test_data/overlap.xml, test_data/sort.xml,
-	  test_data/test.xml, test_data/test_livre.xml,
-	  test_data/tv_cat_dups_xml.expected,
-	  test_data/tv_cat_overlap_xml.expected,
-	  test_data/tv_cat_sort_xml.expected,
-	  test_data/tv_cat_test_livre_xml.expected,
-	  test_data/tv_cat_test_xml.expected,
-	  test_data/tv_extractinfo_en_dups_xml.expected,
-	  test_data/tv_extractinfo_en_overlap_xml.expected,
-	  test_data/tv_extractinfo_en_sort_xml.expected,
-	  test_data/tv_extractinfo_en_test_livre_xml.expected,
-	  test_data/tv_extractinfo_en_test_xml.expected,
-	  test_data/tv_grep_a_dups_xml.expected,
-	  test_data/tv_grep_a_overlap_xml.expected,
-	  test_data/tv_grep_a_sort_xml.expected,
-	  test_data/tv_grep_a_test_livre_xml.expected,
-	  test_data/tv_grep_a_test_xml.expected,
-	  test_data/tv_grep_category_b_dups_xml.expected,
-	  test_data/tv_grep_category_b_overlap_xml.expected,
-	  test_data/tv_grep_category_b_sort_xml.expected,
-	  test_data/tv_grep_category_b_test_livre_xml.expected,
-	  test_data/tv_grep_category_b_test_xml.expected,
-	  test_data/tv_grep_category_e_and_title_f_dups_xml.expected,
-	  test_data/tv_grep_category_e_and_title_f_overlap_xml.expected,
-	  test_data/tv_grep_category_e_and_title_f_sort_xml.expected,
-	  test_data/tv_grep_category_e_and_title_f_test_livre_xml.expected,
-	  test_data/tv_grep_category_e_and_title_f_test_xml.expected,
-	  test_data/tv_grep_category_g_or_title_h_dups_xml.expected,
-	  test_data/tv_grep_category_g_or_title_h_overlap_xml.expected,
-	  test_data/tv_grep_category_g_or_title_h_sort_xml.expected,
-	  test_data/tv_grep_category_g_or_title_h_test_livre_xml.expected,
-	  test_data/tv_grep_category_g_or_title_h_test_xml.expected,
-	  test_data/tv_grep_channel_id_channel4_com_dups_xml.expected,
-	  test_data/tv_grep_channel_id_channel4_com_overlap_xml.expected,
-	  test_data/tv_grep_channel_id_channel4_com_sort_xml.expected,
-	  test_data/tv_grep_channel_id_channel4_com_test_livre_xml.expected,
-	  test_data/tv_grep_channel_id_channel4_com_test_xml.expected,
-	  test_data/tv_grep_channel_name_d_dups_xml.expected,
-	  test_data/tv_grep_channel_name_d_overlap_xml.expected,
-	  test_data/tv_grep_channel_name_d_sort_xml.expected,
-	  test_data/tv_grep_channel_name_d_test_livre_xml.expected,
-	  test_data/tv_grep_channel_name_d_test_xml.expected,
-	  test_data/tv_grep_eval_scalar_keys_5_dups_xml.expected,
-	  test_data/tv_grep_eval_scalar_keys_5_overlap_xml.expected,
-	  test_data/tv_grep_eval_scalar_keys_5_sort_xml.expected,
-	  test_data/tv_grep_eval_scalar_keys_5_test_livre_xml.expected,
-	  test_data/tv_grep_eval_scalar_keys_5_test_xml.expected,
-	  test_data/tv_grep_i_category_i_title_j_dups_xml.expected,
-	  test_data/tv_grep_i_category_i_title_j_overlap_xml.expected,
-	  test_data/tv_grep_i_category_i_title_j_sort_xml.expected,
-	  test_data/tv_grep_i_category_i_title_j_test_livre_xml.expected,
-	  test_data/tv_grep_i_category_i_title_j_test_xml.expected,
-	  test_data/tv_grep_i_last_chance_c_dups_xml.expected,
-	  test_data/tv_grep_i_last_chance_c_overlap_xml.expected,
-	  test_data/tv_grep_i_last_chance_c_sort_xml.expected,
-	  test_data/tv_grep_i_last_chance_c_test_livre_xml.expected,
-	  test_data/tv_grep_i_last_chance_c_test_xml.expected,
-	  test_data/tv_grep_new_dups_xml.expected,
-	  test_data/tv_grep_new_overlap_xml.expected,
-	  test_data/tv_grep_new_sort_xml.expected,
-	  test_data/tv_grep_new_test_livre_xml.expected,
-	  test_data/tv_grep_new_test_xml.expected,
-	  test_data/tv_grep_on_after_2002_02_05_dups_xml.expected,
-	  test_data/tv_grep_on_after_2002_02_05_overlap_xml.expected,
-	  test_data/tv_grep_on_after_2002_02_05_sort_xml.expected,
-	  test_data/tv_grep_on_after_2002_02_05_test_livre_xml.expected,
-	  test_data/tv_grep_on_after_2002_02_05_test_xml.expected,
-	  test_data/tv_sort_dups_xml.expected,
-	  test_data/tv_sort_overlap_xml.expected,
-	  test_data/tv_sort_sort_xml.expected,
-	  test_data/tv_sort_test_livre_xml.expected,
-	  test_data/tv_sort_test_xml.expected,
-	  test_data/tv_to_latex_dups_xml.expected,
-	  test_data/tv_to_latex_overlap_xml.expected,
-	  test_data/tv_to_latex_sort_xml.expected,
-	  test_data/tv_to_latex_test_livre_xml.expected,
-	  test_data/tv_to_latex_test_xml.expected, test_scripts/README,
-	  test_scripts/parallel_test, test_scripts/test_filters: Packaged
-	  using a Makefile.PL, loosely based on Justin H.'s work.  To
-	  install:
+	  t/data/tv_to_latex_test_xml.expected: Packaged using a
+	  Makefile.PL, loosely based on Justin H.'s work.  To install:
 
 	  % perl Makefile.PL % make % make test % make install
 
@@ -14956,13 +12761,6 @@
 	* tv_check: add device name to episode output.	change scan order
 	  for conflict resolution
 
-2002-02-14 10:42  epaepa
-
-	* test_scripts/test_filters: Allow the directory containing filter
-	  programs and the directory containing test input / output to be
-	  overridden on the command line.  Remove the generated output
-	  after a successful test.
-
 2002-02-14 10:41  epaepa
 
 	* XMLTV.pm: Better warning message when you pass in a hash with
@@ -14984,119 +12782,6 @@
 	  work around that one missing module when the XMLTV package
 	  depends on a dozen others.  Motivated by wanting the same output
 	  from tv_to_latex on every system, to pass test suite.
-
-2002-02-14 07:56  epaepa
-
-	* test_scripts/test_filters: More conventional Perlish interface
-	  for test suite, prints 'ok X' or 'not ok X' for each test.
-
-2002-02-14 07:39  epaepa
-
-	* test_scripts/test_xmltv_module: Removing test_xmltv_module, it
-	  has been subsumed by tv_cat.
-
-2002-02-14 06:23  epaepa
-
-	* test_data/dups.xml._tv_cat.diff, test_data/fff,
-	  test_data/tv_cat_dups_xml.expected,
-	  test_data/tv_cat_overlap_xml.expected,
-	  test_data/tv_cat_sort_xml.expected,
-	  test_data/tv_cat_test_livre_xml.expected,
-	  test_data/tv_cat_test_xml.expected,
-	  test_data/tv_extractinfo_en_dups_xml.expected,
-	  test_data/tv_extractinfo_en_overlap_xml.expected,
-	  test_data/tv_extractinfo_en_sort_xml.expected,
-	  test_data/tv_extractinfo_en_test_livre_xml.expected,
-	  test_data/tv_extractinfo_en_test_xml.expected,
-	  test_data/tv_grep_a_dups_xml.expected,
-	  test_data/tv_grep_a_overlap_xml.expected,
-	  test_data/tv_grep_a_sort_xml.expected,
-	  test_data/tv_grep_a_test_livre_xml.expected,
-	  test_data/tv_grep_a_test_xml.expected,
-	  test_data/tv_grep_category_b_dups_xml.expected,
-	  test_data/tv_grep_category_b_overlap_xml.expected,
-	  test_data/tv_grep_category_b_sort_xml.expected,
-	  test_data/tv_grep_category_b_test_livre_xml.expected,
-	  test_data/tv_grep_category_b_test_xml.expected,
-	  test_data/tv_grep_category_e_and_title_f_dups_xml.expected,
-	  test_data/tv_grep_category_e_and_title_f_overlap_xml.expected,
-	  test_data/tv_grep_category_e_and_title_f_sort_xml.expected,
-	  test_data/tv_grep_category_e_and_title_f_test_livre_xml.expected,
-	  test_data/tv_grep_category_e_and_title_f_test_xml.expected,
-	  test_data/tv_grep_category_g_or_title_h_dups_xml.expected,
-	  test_data/tv_grep_category_g_or_title_h_overlap_xml.expected,
-	  test_data/tv_grep_category_g_or_title_h_sort_xml.expected,
-	  test_data/tv_grep_category_g_or_title_h_test_livre_xml.expected,
-	  test_data/tv_grep_category_g_or_title_h_test_xml.expected,
-	  test_data/tv_grep_channel_id_channel4_com_dups_xml.expected,
-	  test_data/tv_grep_channel_id_channel4_com_overlap_xml.expected,
-	  test_data/tv_grep_channel_id_channel4_com_sort_xml.expected,
-	  test_data/tv_grep_channel_id_channel4_com_test_livre_xml.expected,
-	  test_data/tv_grep_channel_id_channel4_com_test_xml.expected,
-	  test_data/tv_grep_channel_name_d_dups_xml.expected,
-	  test_data/tv_grep_channel_name_d_overlap_xml.expected,
-	  test_data/tv_grep_channel_name_d_sort_xml.expected,
-	  test_data/tv_grep_channel_name_d_test_livre_xml.expected,
-	  test_data/tv_grep_channel_name_d_test_xml.expected,
-	  test_data/tv_grep_eval_scalar_keys_5_dups_xml.expected,
-	  test_data/tv_grep_eval_scalar_keys_5_overlap_xml.expected,
-	  test_data/tv_grep_eval_scalar_keys_5_sort_xml.expected,
-	  test_data/tv_grep_eval_scalar_keys_5_test_livre_xml.expected,
-	  test_data/tv_grep_eval_scalar_keys_5_test_xml.expected,
-	  test_data/tv_grep_i_category_i_title_j_dups_xml.expected,
-	  test_data/tv_grep_i_category_i_title_j_overlap_xml.expected,
-	  test_data/tv_grep_i_category_i_title_j_sort_xml.expected,
-	  test_data/tv_grep_i_category_i_title_j_test_livre_xml.expected,
-	  test_data/tv_grep_i_category_i_title_j_test_xml.expected,
-	  test_data/tv_grep_i_last_chance_c_dups_xml.expected,
-	  test_data/tv_grep_i_last_chance_c_overlap_xml.expected,
-	  test_data/tv_grep_i_last_chance_c_sort_xml.expected,
-	  test_data/tv_grep_i_last_chance_c_test_livre_xml.expected,
-	  test_data/tv_grep_i_last_chance_c_test_xml.expected,
-	  test_data/tv_grep_new_dups_xml.expected,
-	  test_data/tv_grep_new_overlap_xml.expected,
-	  test_data/tv_grep_new_sort_xml.expected,
-	  test_data/tv_grep_new_test_livre_xml.expected,
-	  test_data/tv_grep_new_test_xml.expected,
-	  test_data/tv_grep_on_after_2002_02_05_dups_xml.expected,
-	  test_data/tv_grep_on_after_2002_02_05_overlap_xml.expected,
-	  test_data/tv_grep_on_after_2002_02_05_sort_xml.expected,
-	  test_data/tv_grep_on_after_2002_02_05_test_livre_xml.expected,
-	  test_data/tv_grep_on_after_2002_02_05_test_xml.expected,
-	  test_data/tv_sort_dups_xml.expected,
-	  test_data/tv_sort_overlap_xml.expected,
-	  test_data/tv_sort_sort_xml.expected,
-	  test_data/tv_sort_test_livre_xml.expected,
-	  test_data/tv_sort_test_xml.expected,
-	  test_data/tv_to_latex_dups_xml.expected,
-	  test_data/tv_to_latex_overlap_xml.expected,
-	  test_data/tv_to_latex_sort_xml.expected,
-	  test_data/tv_to_latex_test_livre_xml.expected,
-	  test_data/tv_to_latex_test_xml.expected,
-	  test_scripts/test_filters: Finally start using all those test
-	  cases I've been accumulating.  The new script test_filters runs
-	  each filter program on each file in turn, and compares against
-	  the expected result.
-
-	  Now these expected results have not actually been checked by hand
-	  - so at present all you're testing is that the behaviour hasn't
-	  been changed since last time.  However I'm reasonably confident
-	  that the current lot of filters work properly, so this will act
-	  as a useful regression test.
-
-	  Grabbers are harder to test, but we do have parallel_test for
-	  that, it could be adapted to deal with tv_grab_na as well.  An
-	  automated test for tv_check or tv_pick_cgi seems pretty difficult
-	  though.
-
-2002-02-14 06:16  epaepa
-
-	* test_scripts/parallel_test: Added another test (channel name
-	  matching), and timing both old and new versions.
-
-2002-02-14 06:14  epaepa
-
-	* test_data/test.xml: Fixed to conform to DTD.
 
 2002-02-14 06:13  epaepa
 
@@ -15139,10 +12824,8 @@
 
 2002-02-11 10:57  epaepa
 
-	* parallel_test, test_xmltv_module, test_scripts/README,
-	  test_scripts/parallel_test, test_scripts/test_xmltv_module:
-	  Tidied up the package root directory a little by moving a couple
-	  of files to test_scripts/.
+	* parallel_test, test_xmltv_module: Tidied up the package root
+	  directory a little by moving a couple of files to test_scripts/.
 
 2002-02-11 10:53  epaepa
 
@@ -15180,12 +12863,11 @@
 2002-02-07 11:31  epaepa
 
 	* XMLTV.pm, parallel_test, test_xmltv_module, tv_grab_na,
-	  tv_grab_uk, tv_sort, tv_to_latex, XMLTV/Ananova_Channel.pm,
-	  XMLTV/UK_TZ.pm, XMLTV/ZapListings.pm, todo/TASKS.epa: Moved the
-	  three miscellaneous Perl modules (ie, anything except XMLTV.pm)
-	  into the XMLTV:: namespace and their own directory.  This is not
-	  the final file reorganization, I'm just changing the code to make
-	  it easier to package.
+	  tv_grab_uk, tv_sort, tv_to_latex, todo/TASKS.epa: Moved the three
+	  miscellaneous Perl modules (ie, anything except XMLTV.pm) into
+	  the XMLTV:: namespace and their own directory.  This is not the
+	  final file reorganization, I'm just changing the code to make it
+	  easier to package.
 
 2002-02-07 05:44  epaepa
 
@@ -15229,7 +12911,7 @@
 	  tv_sort, tv_to_latex, tvcheck, attic/getlistings_nl,
 	  attic/tv_grab_nl, doc/QuickStart, doc/tv_check_doc.html,
 	  doc/tv_check_doc.jpg, doc/tvcheck_doc.html, doc/tvcheck_doc.jpg,
-	  test_data/README, todo/TASKS.epa: *** Great Renaming ***
+	  todo/TASKS.epa: *** Great Renaming ***
 
 	  This is it.  All the executables should now have reasonably
 	  sensible names beginning with tv_.  Grabbers begin tv_grab, tools
@@ -15425,11 +13107,6 @@
 2002-01-31 10:56  epaepa
 
 	* XMLTV.pm: Bugfix for writing icons.
-
-2002-01-31 10:49  epaepa
-
-	* test_data/README: Added comment about test data for
-	  tv_extractinfo_en, which I have but cannot commit to CVS.
 
 2002-01-31 10:46  epaepa
 
@@ -15993,13 +13670,6 @@
 	  element; added after I found I was writing 'end' instead of
 	  'stop' in test cases!
 
-2001-12-28 08:31  epaepa
-
-	* test_data/: dups.xml, overlap.xml: A couple of test cases for the
-	  new version of sort_listings.  It should correctly remove the
-	  duplicates from dups.xml, and identify overlapping programmes in
-	  overlap.xml.	Making these into automated tests is still todo.
-
 2001-12-28 08:30  epaepa
 
 	* sort_listings: Added code to remove duplicates.  This is useful
@@ -16219,16 +13889,14 @@
 	* XMLTV.pm, ZapListings.pm, filter_shown, getlistings_na,
 	  getlistings_uk_ananova, listings_to_latex, pick_cgi,
 	  sort_listings, test_xmltv_module, xmltv.dtd,
-	  attic/test_xmltv_module, doc/grabber_interface, test_data/README,
-	  test_data/sort.xml, test_data/test.xml, test_data/test_livre.xml,
-	  todo/TASKS.epa: Merged together the channels.dtd and xmltv.dtd
-	  file formats, so a single XML file gives both programmes and
-	  channels (with channels listed first).  This has meant changing
-	  most programs which read or write these formats (although the old
-	  tv.xml files will continue to work).	I took the opportunity to
-	  rewrite XMLTV.pm so it inputs and outputs all the different parts
-	  of the file format, although I'll probably need to rewrite it
-	  again for speed.
+	  attic/test_xmltv_module, doc/grabber_interface, todo/TASKS.epa:
+	  Merged together the channels.dtd and xmltv.dtd file formats, so a
+	  single XML file gives both programmes and channels (with channels
+	  listed first).  This has meant changing most programs which read
+	  or write these formats (although the old tv.xml files will
+	  continue to work).  I took the opportunity to rewrite XMLTV.pm so
+	  it inputs and outputs all the different parts of the file format,
+	  although I'll probably need to rewrite it again for speed.
 
 	  XMLTV.pm now provides read_data() and write_data() routines which
 	  deal with credits, channels and programmes in one go.  For lazy
@@ -16597,12 +14265,6 @@
 	* towatch.dvi: Removing towatch.dvi, another old personal file from
 	  working/.
 
-2001-11-11 09:17  epaepa
-
-	* cgi/: .htaccess, pick.cgi, towatch, tvprefs, tvprefs.old:
-	  Removing cgi/ directory: this was just for my personal use and
-	  doesn't belong in CVS.
-
 2001-11-09 00:48  jveldhuis
 
 	* ZapListings.pm, getlistings_na: minor adjustments
@@ -16643,18 +14305,11 @@
 
 2001-11-02 12:35  jveldhuis
 
-	* todo/sat1.tar.bz2, todo/TVChannels_module/README,
-	  todo/TVChannels_module/channels.dtd,
-	  todo/TVChannels_module/channels.xml,
-	  todo/TVChannels_module/channeltest.pl,
-	  todo/TVChannels_module/uk_channels.xml,
-	  todo/TVChannels_module/xmltv/TVChannels.pm, TVChannels.pm,
-	  channels_nl.xml, channels_uk.xml, channeltest.pl, doc.html,
-	  getlistings_nl, getlistings_pa, pick_process,
-	  scrapped_getlistings_uk_ananova, test_memoize, test_xmltv_module,
-	  tvprefs, tz.pl, uk_tz.pl, leon/GuideParser-0.11.tar.bz2,
-	  leon/GuideParser-0.11.tar.gz: no longer included sometime
-	  previous to 0.2.10
+	* todo/sat1.tar.bz2, TVChannels.pm, channels_nl.xml,
+	  channels_uk.xml, channeltest.pl, doc.html, getlistings_nl,
+	  getlistings_pa, pick_process, scrapped_getlistings_uk_ananova,
+	  test_memoize, test_xmltv_module, tvprefs, tz.pl, uk_tz.pl: no
+	  longer included sometime previous to 0.2.10
 
 2001-11-02 12:28  jveldhuis
 
@@ -16675,8 +14330,7 @@
 	* ChangeLog, ClickListings.pm, README, UK_TZ.pm, XMLTV.pm,
 	  getlistings_na, getlistings_uk_ananova, listings_to_latex,
 	  pick_cgi, scrapped_getlistings_uk_ananova, test_memoize,
-	  test_xmltv_module, xmltv.dtd, leon/GuideParser-0.11.tar.bz2,
-	  todo/TASKS.epa: xmltv-0.2.8
+	  test_xmltv_module, xmltv.dtd, todo/TASKS.epa: xmltv-0.2.8
 
 2001-11-02 12:22  jveldhuis
 
@@ -16684,17 +14338,14 @@
 
 2001-11-02 12:21  jveldhuis
 
-	* ChangeLog, README, listings_to_latex, uk_tz.pl, cgi/towatch,
-	  cgi/tvprefs.old: xmltv-0.2.6
+	* ChangeLog, README, listings_to_latex, uk_tz.pl: xmltv-0.2.6
 
 2001-11-02 12:20  jveldhuis
 
 	* ChangeLog, README, README.channels, TVChannels.pm, channels.dtd,
 	  channels_nl.xml, channels_uk.xml, channeltest.pl, getlistings_nl,
 	  getlistings_uk_ananova, listings_to_latex, pick_cgi, tvprefs,
-	  uk_tz.pl, cgi/pick.cgi, cgi/towatch, cgi/tvprefs,
-	  cgi/tvprefs.old, leon/GuideParser-0.11.tar.gz, todo/TASKS.epa,
-	  todo/sat1.tar.bz2, cgi/.htaccess: xmltv-0.2.5
+	  uk_tz.pl, todo/TASKS.epa, todo/sat1.tar.bz2: xmltv-0.2.5
 
 2001-11-02 12:15  jveldhuis
 
@@ -16715,13 +14366,8 @@
 
 	* ChangeLog, ChangeLog.old, README, doc.html, filter_shown,
 	  getlistings_ca, getlistings_nl, getlistings_uk_ananova,
-	  listings_to_latex, pick_cgi, sort_listings, xmltv.dtd,
-	  todo/TVChannels_module/README,
-	  todo/TVChannels_module/channels.dtd,
-	  todo/TVChannels_module/channels.xml,
-	  todo/TVChannels_module/channeltest.pl,
-	  todo/TVChannels_module/uk_channels.xml,
-	  todo/TVChannels_module/xmltv/TVChannels.pm: xmltv-0.2.1
+	  listings_to_latex, pick_cgi, sort_listings, xmltv.dtd:
+	  xmltv-0.2.1
 
 2001-11-02 12:09  jveldhuis
 

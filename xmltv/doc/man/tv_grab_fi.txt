@@ -38,7 +38,7 @@ DESCRIPTION
 
     --output FILE Write to FILE rather than standard output.
 
-    --days N Grab N days. The default is ten.
+    --days N Grab N days. The default is fourteen.
 
     --offset N Start N days in the future. The default is to start from
     today.

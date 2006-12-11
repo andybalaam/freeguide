@@ -4,26 +4,31 @@ NAME
 SYNOPSIS
     tv_grab_ee --help
 
-    tv_grab_ee [--config-file FILE] --configure [--gui OPTION]
+    tv_grab_ee --configure [--config-file FILE] [--gui OPTION]
 
-    tv_grab_ee [--config-file FILE] [--output FILE] [--days N] [--offset N]
-    [--quiet]
+    tv_grab_ee [--config-file FILE] [--days N] [--offset N] [--output FILE]
+    [--quiet] [--debug]
 
-    tv_grab_ee --list-channels
+    tv_grab_ee --list-channels [--config-file FILE] [--output FILE]
+    [--quiet] [--debug]
 
     tv_grab_ee --capabilities
 
     tv_grab_ee --version
 
 DESCRIPTION
-    Output TV listings for several channels available in Estonia. The data
-    comes from http://ajaviide.delfi.ee/events/tv/.
+    Output TV listings in XMLTV format for many stations available in
+    Estonia. The data comes from www.kava.ee.
 
-    First run tv_grab_ee --configure to choose, which channels you want to
-    download. Then running tv_grab_ee with no arguments will output listings
-    in XML format to standard output.
+    First you must run tv_grab_ee --configure to choose which stations you
+    want to receive.
 
-    --configure Prompt for which channels, and write the configuration file.
+    Then running tv_grab_ee with no arguments will get a listings in XML
+    format for the stations you chose for available days including today.
+
+OPTIONS
+    --configure Prompt for which stations to download and write the
+    configuration file.
 
     --config-file FILE Set the name of the configuration file, the default
     is ~/.xmltv/tv_grab_ee.conf. This is the file written by --configure and
@@ -35,15 +40,17 @@ DESCRIPTION
     output (default) and 'TermNoProgressBar' to disable the use of
     XMLTV::ProgressBar.
 
-    --output FILE Write to FILE rather than standard output.
+    --output FILE When grabbing, write output to FILE rather than standard
+    output.
 
-    --days N Grab N days. The default is -1 which means everything
+    --days N When grabbing, grab N days rather than all available days.
 
-    --offset N Start N days in the future. The default is to start from
-    today.
+    --offset N Start grabbing at today + N days. N may be negative.
 
-    --quiet Suppress the progress messages normally written to standard
-    error.
+    --quiet Suppress the progress-bar normally shown on standard error.
+
+    --debug Provide more information on progress to stderr to help in
+    debugging.
 
     --list-channels Write output giving <channel> elements for every channel
     available (ignoring the config file), but no programmes.
@@ -56,14 +63,25 @@ DESCRIPTION
 
     --help Print a help message and exit.
 
-SEE ALSO
-    xmltv(5).
+ERROR HANDLING
+    If the grabber fails to download data for some channel on a specific
+    day, it will print an errormessage to STDERR and then continue with the
+    other channels and days. The grabber will exit with a status code of 1
+    to indicate that the data is incomplete.
+
+ENVIRONMENT VARIABLES
+    The environment variable HOME can be set to change where configuration
+    files are stored. All configuration is stored in $HOME/.xmltv/. On
+    Windows, it might be necessary to set HOME to a path without spaces in
+    it.
+
+SUPPORTED CHANNELS
+    For information on supported channels, see http://www.kava.ee/
 
 AUTHOR
-    Cougar < cougar at random.ee >
+    Cougar < cougar at random.ee >. This documentation and parts of the code
+    based on various other tv_grabbers from the XMLTV-project.
 
-BUGS
-    The data source does not include full channels information and the
-    channels are identified by short names rather than the RFC2838 form
-    recommended by the XMLTV DTD.
+SEE ALSO
+    xmltv(5).
 

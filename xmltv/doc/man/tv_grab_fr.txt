@@ -3,10 +3,10 @@ NAME
 
 SYNOPSIS
     To configure: tv_grab_fr --configure [--config-file FILE] [--gui OPTION]
-    To grab listings: tv_grab_fr [--output FILE] [--quiet] Slower, detailed
-    grab: tv_grab_fr --slow [--output FILE] [--days N] [--offset N]
-    [--quiet] To show capabilities: $0 --capabilities To show version: $0
-    --version Help: tv_grab_fr --help
+    To grab listings: tv_grab_fr [--output FILE] [--quiet] [--perdays]
+    Slower, detailed grab: tv_grab_fr --slow [--output FILE] [--days N]
+    [--offset N] [--quiet] [--perdays] To show capabilities: $0
+    --capabilities To show version: $0 --version Help: tv_grab_fr --help
 
 DESCRIPTION
     Output TV listings for several channels available in France (Hertzian,
@@ -43,6 +43,9 @@ DESCRIPTION
 
     --quiet Suppress the progress messages normally written to standard
     error.
+
+    --perdays Activate the "per days" grabbing mode. It is a fallback to use
+    if the grabber does not return any data in the XML file
 
     --capabilities Show which capabilities the grabber supports. For more
     information, see

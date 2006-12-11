@@ -19,7 +19,7 @@ SYNOPSIS
                       [--days N]  [--offset N] [--quiet]
                       [--old-chan-id] [--low-mem] [--output FILE]
                       [--list-channel] [--share SHAREDIR] [--list-times]
-                      [--download-only] [--list-times]
+                      [--download-only] [--list-times] [--padd]
 
 DESCRIPTION
     This scripts downloads listings from Zap2IT's DataDirect service,
@@ -81,6 +81,13 @@ Grabber Mode options
 
     --offset *n*
         Start N days after the default.
+
+    --padd *n*
+        Add <n> spaces to the front of the start date. This is normally not
+        needed, but can be helpful in working around a Zap2IT problem when
+        the request packet spans TCP packets. Recommended initial value is
+        "20". This is only needed if you get "invalid start time" messages.
+        If this helps, please post results to the list.
 
     --quiet
         Suppress some messages normally written to standard error.
