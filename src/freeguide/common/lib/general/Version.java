@@ -12,15 +12,6 @@
  */
 package freeguide.common.lib.general;
 
-import freeguide.common.lib.fgspecific.Application;
-
-import freeguide.plugins.program.freeguide.FreeGuide;
-
-import java.io.IOException;
-import java.io.InputStream;
-
-import java.util.Properties;
-import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,6 +26,8 @@ import java.util.regex.Pattern;
  */
 public class Version
 {
+    protected static final String NUMBER_SEPARATOR = ".";
+    protected static final String VERSION_PROPERTY = "java.version";
     protected static final Pattern VERSION_PATTERN =
         Pattern.compile( "(\\d+)(?:\\.(\\d+)(?:\\.(\\d+)(?:[_-](\\d+))?)?)?" );
     protected static final Pattern VERSION_PATTERN_LITE =
@@ -169,15 +162,17 @@ public class Version
 
         if( ( revision == 0 ) && ( build == 0 ) )
         {
-            return major + "." + minor;
+            return major + NUMBER_SEPARATOR + minor;
         }
         else if( build == 0 )
         {
-            return major + "." + minor + "." + revision;
+            return major + NUMBER_SEPARATOR + minor + NUMBER_SEPARATOR
+            + revision;
         }
         else
         {
-            return major + "." + minor + "." + revision + "." + build;
+            return major + NUMBER_SEPARATOR + minor + NUMBER_SEPARATOR
+            + revision + NUMBER_SEPARATOR + build;
         }
     }
 
@@ -291,6 +286,6 @@ public class Version
      */
     public static Version getJavaVersion(  )
     {
-        return new Version( System.getProperty( "java.version" ) );
+        return new Version( System.getProperty( VERSION_PROPERTY ) );
     }
 }

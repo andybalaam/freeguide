@@ -246,7 +246,7 @@ public class ChannelSetListDialog extends FGDialog
         getContentPane(  ).add( jScrollPane1, gridBagConstraints );
         jLabel1 = new javax.swing.JLabel( 
                 Application.getInstance(  ).getLocalizedMessage( 
-                    "channel_sets" ) + ":", javax.swing.SwingConstants.CENTER );
+                    "channel_sets" ) + ':', javax.swing.SwingConstants.CENTER );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );

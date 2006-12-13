@@ -122,7 +122,6 @@ public class FavouritesListDialog extends JDialog
         if( btnOK == null )
         {
             btnOK = new JButton(  );
-            btnOK.setText( "OK" );
             btnOK.setText( 
                 Application.getInstance(  ).getLocalizedMessage( "ok" ) );
         }
@@ -140,7 +139,6 @@ public class FavouritesListDialog extends JDialog
         if( btnCancel == null )
         {
             btnCancel = new JButton(  );
-            btnCancel.setText( "Cancel" );
             btnCancel.setText( 
                 Application.getInstance(  ).getLocalizedMessage( "cancel" ) );
         }
@@ -219,7 +217,6 @@ public class FavouritesListDialog extends JDialog
         if( btnRemove == null )
         {
             btnRemove = new JButton(  );
-            btnRemove.setText( "Remove" );
             btnRemove.setText( 
                 Application.getInstance(  ).getLocalizedMessage( "remove" ) );
         }
@@ -237,7 +234,6 @@ public class FavouritesListDialog extends JDialog
         if( btnAdd == null )
         {
             btnAdd = new JButton(  );
-            btnAdd.setText( "Add" );
             btnAdd.setText( 
                 Application.getInstance(  ).getLocalizedMessage( "add" ) );
         }
@@ -255,7 +251,6 @@ public class FavouritesListDialog extends JDialog
         if( btnEdit == null )
         {
             btnEdit = new JButton(  );
-            btnEdit.setText( "Edit" );
             btnEdit.setText( 
                 Application.getInstance(  ).getLocalizedMessage( "edit" ) );
         }

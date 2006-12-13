@@ -92,9 +92,9 @@ public class XMLTVConfigureUIPanel extends JScrollPane
         if( btnAdd == null )
         {
             btnAdd = new JButton(  );
-            btnAdd.setText( "Add" );
+            btnAdd.setText( i18n.getString( "UI.Add" ) );
             btnAdd.setMnemonic( java.awt.event.KeyEvent.VK_A );
-            btnAdd.setText( i18n.getString( "Options.Add" ) );
+            btnAdd.setText( i18n.getString( "UI.Add" ) );
         }
 
         return btnAdd;

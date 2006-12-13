@@ -32,6 +32,10 @@ public class TemplateParser
     protected static final String PREFIX_ITERATOR_END = "</ITERATOR";
     protected static final String PREFIX_IF_START = "<IF";
     protected static final String PREFIX_IF_END = "</IF";
+    protected static final String SLASH = "/";
+    protected static final String DEF_THIS = "this";
+    protected static final String DEF_KEY = "getKey";
+    protected static final String DEF_VALUE = "getValue";
 
     /** Template to parse. */
     protected final String template;
@@ -113,7 +117,7 @@ public class TemplateParser
                 }
 
                 currentPos = posIteratorStart;
-                currentPos = getNextPos( ">" ) + 1;
+                currentPos = getNextPos( '>' ) + 1;
                 iterate( 
                     template.substring( posIteratorStart, currentPos - 1 ),
                     currentObject );
@@ -129,7 +133,7 @@ public class TemplateParser
                 }
 
                 currentPos = posIteratorEnd;
-                currentPos = getNextPos( ">" ) + 1;
+                currentPos = getNextPos( '>' ) + 1;
 
                 return;
 
@@ -141,7 +145,7 @@ public class TemplateParser
                 }
 
                 currentPos = posValue;
-                currentPos = getNextPos( ">" ) + 1;
+                currentPos = getNextPos( '>' ) + 1;
 
                 if( currentObject != null )
                 {
@@ -173,7 +177,7 @@ public class TemplateParser
                 }
 
                 currentPos = posIfStart;
-                currentPos = getNextPos( ">" ) + 1;
+                currentPos = getNextPos( '>' ) + 1;
 
                 if( currentObject != null )
                 {
@@ -214,7 +218,7 @@ public class TemplateParser
                 }
 
                 currentPos = posIfEnd;
-                currentPos = getNextPos( ">" ) + 1;
+                currentPos = getNextPos( '>' ) + 1;
 
                 return;
             }
@@ -229,6 +233,20 @@ public class TemplateParser
      * @return The next substring position
      */
     protected int getNextPos( final String subString )
+    {
+        final int pos = template.indexOf( subString, currentPos );
+
+        return ( pos < 0 ) ? template.length(  ) : pos;
+    }
+
+    /**
+     * Find next substring in template from current position.
+     *
+     * @param subString substring to find
+     *
+     * @return The next substring position
+     */
+    protected int getNextPos( final char subString )
     {
         final int pos = template.indexOf( subString, currentPos );
 
@@ -275,7 +293,7 @@ public class TemplateParser
     {
         Object value = calculate( str, currentObject );
 
-        return ( value != null ) ? value.toString(  ) : "";
+        return ( value != null ) ? value.toString(  ) : StringHelper.EMPTY_STRING;
     }
 
     /**
@@ -335,7 +353,7 @@ public class TemplateParser
             expr = expr.substring( pos + 1 );
         }
 
-        if( expr.endsWith( "/" ) )
+        if( expr.endsWith( SLASH ) )
         {
             expr = expr.substring( 0, expr.length(  ) - 1 );
         }
@@ -445,7 +463,7 @@ public class TemplateParser
 
                         // invoke methods for Map.Entry by hand, because it can't be invoked through reflection - cannot access to protected class HashMap$Entry
                         if( 
-                            method.getName(  ).equals( "getKey" )
+                            method.getName(  ).equals( DEF_KEY )
                                 && ( method.getParameterTypes(  ).length == 0 )
                                 && calledObject instanceof Map.Entry )
                         {
@@ -453,7 +471,7 @@ public class TemplateParser
                             value = entry.getKey(  );
                         }
                         else if( 
-                            method.getName(  ).equals( "getValue" )
+                            method.getName(  ).equals( DEF_VALUE )
                                 && ( method.getParameterTypes(  ).length == 0 )
                                 && calledObject instanceof Map.Entry )
                         {
@@ -523,7 +541,7 @@ public class TemplateParser
             final String name, final Object rootObject,
             final Object currentObject )
         {
-            if( "this".equals( name ) )
+            if( DEF_THIS.equals( name ) )
             {
                 return currentObject;
             }

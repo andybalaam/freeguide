@@ -31,6 +31,14 @@ import javax.swing.filechooser.FileFilter;
  */
 public class ExportHTML extends BaseModule implements IModuleExport
 {
+    protected static final String EXT_GZ = ".gz";
+    protected static final String EXT_ZIP = ".zip";
+    protected static final String EXT_HTML = ".html";
+    protected static final String EXT_HTM = ".htm";
+    protected static final String TEMPLATE =
+        "resources/plugins/importexport/html/template.html";
+    protected static final String CHARSET = "UTF-8";
+    protected static final String ZIP_ENTRY = "tv.html";
     protected final Config config = new Config(  );
 
     /**
@@ -56,13 +64,13 @@ public class ExportHTML extends BaseModule implements IModuleExport
             {
                 public String getDescription(  )
                 {
-                    return "Zipped HTML file (*.zip)";
+                    return i18n.getString( "Format.zip" );
                 }
 
                 public boolean accept( File f )
                 {
                     return !f.isDirectory(  )
-                    && f.getName(  ).endsWith( ".zip" );
+                    && f.getName(  ).endsWith( EXT_ZIP );
                 }
             };
 
@@ -71,13 +79,13 @@ public class ExportHTML extends BaseModule implements IModuleExport
             {
                 public String getDescription(  )
                 {
-                    return "Gzipped HTML file (*.gz)";
+                    return i18n.getString( "Format.gz" );
                 }
 
                 public boolean accept( File f )
                 {
                     return !f.isDirectory(  )
-                    && f.getName(  ).endsWith( ".gz" );
+                    && f.getName(  ).endsWith( EXT_GZ );
                 }
             };
 
@@ -86,14 +94,14 @@ public class ExportHTML extends BaseModule implements IModuleExport
             {
                 public String getDescription(  )
                 {
-                    return "HTML file (*.html, *.htm)";
+                    return i18n.getString( "Format.html" );
                 }
 
                 public boolean accept( File f )
                 {
                     return !f.isDirectory(  )
-                    && ( f.getName(  ).endsWith( ".htm" )
-                    || f.getName(  ).endsWith( ".html" ) );
+                    && ( f.getName(  ).endsWith( EXT_HTML )
+                    || f.getName(  ).endsWith( EXT_HTM ) );
                 }
             };
 
@@ -114,43 +122,41 @@ public class ExportHTML extends BaseModule implements IModuleExport
 
             if( 
                 ( chooser.getFileFilter(  ) == zipFilter )
-                    && !lowerPath.endsWith( ".zip" ) )
+                    && !lowerPath.endsWith( EXT_ZIP ) )
             {
-                path += ".zip";
+                path += EXT_ZIP;
             }
 
             if( 
                 ( chooser.getFileFilter(  ) == gzipFilter )
-                    && !lowerPath.endsWith( ".gz" ) )
+                    && !lowerPath.endsWith( EXT_GZ ) )
             {
-                path += ".gz";
+                path += EXT_GZ;
             }
 
             if( 
                 ( chooser.getFileFilter(  ) == htmlFilter )
-                    && !( lowerPath.endsWith( ".html" )
-                    || ( lowerPath.endsWith( ".htm" ) ) ) )
+                    && !( lowerPath.endsWith( EXT_HTML )
+                    || ( lowerPath.endsWith( EXT_HTM ) ) ) )
             {
-                path += ".html";
+                path += EXT_HTML;
             }
 
             config.path = path;
             lowerPath = path.toLowerCase(  );
 
-            TemplateParser parser =
-                new TemplateParser( 
-                    "resources/plugins/importexport/html/template.html" );
+            TemplateParser parser = new TemplateParser( TEMPLATE );
             final OutputStream outStream;
 
-            if( lowerPath.endsWith( ".zip" ) )
+            if( lowerPath.endsWith( EXT_ZIP ) )
             {
                 ZipOutputStream zipOut =
                     new ZipOutputStream( new FileOutputStream( path ) );
-                ZipEntry zipEntry = new ZipEntry( "tv.html" );
+                ZipEntry zipEntry = new ZipEntry( ZIP_ENTRY );
                 zipOut.putNextEntry( zipEntry );
                 outStream = zipOut;
             }
-            else if( lowerPath.endsWith( ".gz" ) )
+            else if( lowerPath.endsWith( EXT_GZ ) )
             {
                 outStream = new GZIPOutputStream( 
                         new FileOutputStream( path ) );
@@ -162,11 +168,11 @@ public class ExportHTML extends BaseModule implements IModuleExport
 
             final Writer out =
                 new BufferedWriter( 
-                    new OutputStreamWriter( outStream, "UTF-8" ) );
+                    new OutputStreamWriter( outStream, CHARSET ) );
 
             try
             {
-                parser.process( new TemplateHandler( ext ), out );
+                parser.process( new TemplateHandler( ext, i18n ), out );
             }
             finally
             {

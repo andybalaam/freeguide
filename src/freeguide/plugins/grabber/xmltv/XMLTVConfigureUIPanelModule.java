@@ -93,9 +93,8 @@ public class XMLTVConfigureUIPanelModule extends JPanel
         {
             btnChannels = new JButton(  );
 
-            btnChannels.setText( "Configure" );
+            btnChannels.setText( i18n.getString( "UI.Configure" ) );
             btnChannels.setMnemonic( java.awt.event.KeyEvent.VK_C );
-            btnChannels.setText( i18n.getString( "Options.ChooseChannels" ) );
         }
 
         return btnChannels;
@@ -151,9 +150,8 @@ public class XMLTVConfigureUIPanelModule extends JPanel
         {
             btnCommandReset = new JButton(  );
 
-            btnCommandReset.setText( "Default" );
+            btnCommandReset.setText( i18n.getString( "UI.Default" ) );
             btnCommandReset.setMnemonic( java.awt.event.KeyEvent.VK_D );
-            btnCommandReset.setText( i18n.getString( "Options.Reset" ) );
 
         }
 
@@ -171,9 +169,8 @@ public class XMLTVConfigureUIPanelModule extends JPanel
         if( btnDelete == null )
         {
             btnDelete = new JButton(  );
-            btnDelete.setText( "Delete" );
+            btnDelete.setText( i18n.getString( "UI.Remove" ) );
             btnDelete.setMnemonic( java.awt.event.KeyEvent.VK_E );
-            btnDelete.setText( i18n.getString( "Options.Remove" ) );
         }
 
         return btnDelete;

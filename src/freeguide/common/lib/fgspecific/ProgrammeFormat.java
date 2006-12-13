@@ -36,6 +36,7 @@ public class ProgrammeFormat
      * &lt;/body&gt;&lt;/html&gt;</code>" tags
      */
     public final static int HTML_FORMAT = 1;
+    protected static final String CHARSET = "UTF-8";
 
     /**
      * HTML format without the <code>&lt;html&gt;&lt;body&gt; ...
@@ -49,7 +50,7 @@ public class ProgrammeFormat
         System.getProperty( "line.separator", "\r\n" );
 
     /** Format used for dates in the HTML links. */
-    public static SimpleDateFormat LINK_DATE_FORMAT =
+    public static final SimpleDateFormat LINK_DATE_FORMAT =
         new SimpleDateFormat( "yyyyMMddHHmmss" );
 
     /*private static StringBuffer wrap( CharSequence input, int preferredMargin )
@@ -219,7 +220,7 @@ public class ProgrammeFormat
 
         try
         {
-            reference = URLEncoder.encode( ref.toString(  ), "UTF-8" );
+            reference = URLEncoder.encode( ref.toString(  ), CHARSET );
         }
         catch( UnsupportedEncodingException e )
         {

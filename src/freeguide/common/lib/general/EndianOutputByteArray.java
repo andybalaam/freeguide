@@ -14,6 +14,7 @@ import java.lang.reflect.Modifier;
  */
 public class EndianOutputByteArray
 {
+    protected static final String LENGTH_SUFFIX = "_LENGTH";
     String charsetName;
     boolean littleEndian = true;
     byte[] data = new byte[256];
@@ -738,7 +739,7 @@ public class EndianOutputByteArray
                 {
                     int len =
                         obj.getClass(  )
-                           .getField( fields[i].getName(  ) + "_LENGTH" )
+                           .getField( fields[i].getName(  ) + LENGTH_SUFFIX )
                            .getInt( obj.getClass(  ) );
 
                     if( len > 0 )

@@ -81,6 +81,10 @@ import javax.swing.JDialog;
  */
 public class StandardDialog extends JDialog implements ActionListener
 {
+    protected static final String ACTION_OK = "okButton";
+    protected static final String ACTION_HELP = "helpButton";
+    protected static final String ACTION_CANCEL = "cancelButton";
+
     /** Flag that indicates whether or not the dialog was cancelled. */
     private boolean cancelled;
 
@@ -135,12 +139,12 @@ public class StandardDialog extends JDialog implements ActionListener
     {
         String command = event.getActionCommand(  );
 
-        if( command.equals( "helpButton" ) )
+        if( command.equals( ACTION_HELP ) )
         {
             // display help information
         }
 
-        else if( command.equals( "okButton" ) )
+        else if( command.equals( ACTION_OK ) )
         {
             this.cancelled = false;
 
@@ -148,7 +152,7 @@ public class StandardDialog extends JDialog implements ActionListener
 
         }
 
-        else if( command.equals( "cancelButton" ) )
+        else if( command.equals( ACTION_CANCEL ) )
         {
             this.cancelled = true;
 
@@ -173,19 +177,19 @@ public class StandardDialog extends JDialog implements ActionListener
 
         JButton helpButton = buttons.getLeftButton(  );
 
-        helpButton.setActionCommand( "helpButton" );
+        helpButton.setActionCommand( ACTION_HELP );
 
         helpButton.addActionListener( this );
 
         JButton cancelButton = buttons.getRightButton1(  );
 
-        cancelButton.setActionCommand( "cancelButton" );
+        cancelButton.setActionCommand( ACTION_CANCEL );
 
         cancelButton.addActionListener( this );
 
         JButton okButton = buttons.getRightButton2(  );
 
-        okButton.setActionCommand( "okButton" );
+        okButton.setActionCommand( ACTION_OK );
 
         okButton.addActionListener( this );
 

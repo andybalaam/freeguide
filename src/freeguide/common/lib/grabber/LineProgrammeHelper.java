@@ -1,10 +1,12 @@
 package freeguide.common.lib.grabber;
 
+import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.Time;
 
 import freeguide.common.plugininterfaces.ILogger;
 
+import java.text.MessageFormat;
 import java.text.ParseException;
 
 import java.util.ArrayList;
@@ -19,13 +21,14 @@ import java.util.regex.Pattern;
  */
 public class LineProgrammeHelper
 {
-    protected static Pattern reProgram =
+    protected static final Pattern reProgram =
         Pattern.compile( 
             "^(\\d{1,2}[\\.|:]\\d{2})([ |,]*)(.+)$", Pattern.CASE_INSENSITIVE );
-    protected static Pattern reTime =
+    protected static final Pattern reTime =
         Pattern.compile( "(\\d{1,2})[\\.|:|\\s](\\d{2})" );
-    protected static Pattern reTimeUS =
+    protected static final Pattern reTimeUS =
         Pattern.compile( "(\\d{1,2}):(\\d{2})\\s+([A|P]M)" );
+    protected static final String TIME_PM_MARK = "PM";
 
     /**
      * DOCUMENT_ME!
@@ -58,7 +61,7 @@ public class LineProgrammeHelper
         ILogger logger, String str, long baseDate, long prevTime )
         throws ParseException
     {
-        List timelist = new ArrayList(  );
+        List<Time> timelist = new ArrayList<Time>(  );
 
         String p = str;
 
@@ -80,7 +83,11 @@ public class LineProgrammeHelper
             catch( ParseException ex )
             {
                 logger.warning( 
-                    "Error parse time '" + m.group( 1 ) + "' on line: " + str );
+                    MessageFormat.format( 
+                        Application.getInstance(  )
+                                   .getLocalizedMessage( 
+                            "LineProgrammeHelper.Message.InvalidTime" ),
+                        m.group( 1 ), str ) );
 
             }
 
@@ -98,7 +105,7 @@ public class LineProgrammeHelper
 
         for( int i = 0; i < timelist.size(  ); i++ )
         {
-            Time tm = ( (Time)timelist.get( i ) );
+            Time tm = timelist.get( i );
 
             TVProgramme prog = new TVProgramme(  );
 
@@ -162,7 +169,7 @@ public class LineProgrammeHelper
                 {
                     int h = Integer.parseInt( maUS.group( 1 ) );
                     int m = Integer.parseInt( maUS.group( 2 ) );
-                    boolean isPM = "PM".equals( maUS.group( 3 ) );
+                    boolean isPM = TIME_PM_MARK.equals( maUS.group( 3 ) );
 
                     if( ( h < 1 ) || ( h > 12 ) || ( m < 0 ) || ( m > 59 ) )
                     {

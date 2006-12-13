@@ -43,7 +43,7 @@ public class PalmUIPanel extends JPanel
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 0 );
         gridBagConstraints.gridy = 0;
         jLabel = new JLabel(  );
-        jLabel.setText( i18n.getString( "label.Text" ) + ":" );
+        jLabel.setText( i18n.getString( "label.Text" ) + ':' );
         jLabel.setLabelFor( getCbCharset(  ) );
 
         GridBagConstraints gridBagConstraints1 = new GridBagConstraints(  );

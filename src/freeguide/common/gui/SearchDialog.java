@@ -17,6 +17,7 @@ import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.general.StringHelper;
 import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.IModuleStorage;
@@ -242,7 +243,9 @@ public class SearchDialog extends JDialog
         {
             //             FreeGuide.log.log( Level.WARNING, "Error Searching data", ex );
             JOptionPane.showMessageDialog( 
-                this, ex.toString(  ), "Exception while loading Channel data",
+                this, ex.toString(  ),
+                Application.getInstance(  )
+                           .getLocalizedMessage( "Error.Load.Title" ),
                 JOptionPane.ERROR_MESSAGE );
 
             return;
@@ -272,7 +275,9 @@ public class SearchDialog extends JDialog
                  */
                 protected boolean matchText( String toMatch )
                 {
-                    if( ( toMatch == null ) || ( toMatch == "" ) )
+                    if( 
+                        ( toMatch == null )
+                            || ( toMatch == StringHelper.EMPTY_STRING ) )
                     {
                         return false;
                     }
@@ -352,10 +357,10 @@ public class SearchDialog extends JDialog
             TVProgramme programme = (TVProgramme)value;
 
             String progInfo =
-                programme.getChannel(  ).getDisplayName(  ) + " "
+                programme.getChannel(  ).getDisplayName(  ) + ' '
                 + DateFormat.getInstance(  )
                             .format( new Date( programme.getStart(  ) ) )
-                + " " + programme.getTitle(  );
+                + ' ' + programme.getTitle(  );
             setText( progInfo );
 
             if( isSelected )

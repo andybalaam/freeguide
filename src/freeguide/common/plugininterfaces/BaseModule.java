@@ -17,7 +17,9 @@ import javax.swing.JDialog;
  */
 public abstract class BaseModule implements IModule
 {
-    static final String plugin_package_name_prefix = "freeguide.plugins.";
+    protected static final String plugin_package_name_prefix =
+        "freeguide.plugins.";
+    protected static final String RESOURCES_PREFIX = "resources/i18n/";
     protected ResourceBundle i18n;
 
     /**
@@ -56,7 +58,7 @@ public abstract class BaseModule implements IModule
         if( package_name.startsWith( plugin_package_name_prefix ) )
         {
             final String bundleName =
-                "resources/i18n/"
+                RESOURCES_PREFIX
                 + package_name.substring( 
                     plugin_package_name_prefix.length(  ) ).replace( '.', '_' );
 

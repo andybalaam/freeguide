@@ -16,7 +16,6 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -28,6 +27,9 @@ import javax.swing.filechooser.FileFilter;
  */
 public class ExportPalmAtv extends BaseModule implements IModuleExport
 {
+    protected static final String EXT_PDB = ".pdb";
+    protected static final String DEFAULT_CHARSET = "Cp1251";
+
     /** Offset to Palm's time. */
     public static final long PALM_TIME_DELTA = 24107L * 24 * 60 * 60;
     protected static final String hPDBName = "all";
@@ -73,13 +75,13 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
             {
                 public String getDescription(  )
                 {
-                    return "Palm .pdb databases";
+                    return i18n.getString( "Format.pdb" );
                 }
 
                 public boolean accept( File pathname )
                 {
                     return pathname.isDirectory(  )
-                    || pathname.getName(  ).endsWith( ".pdb" );
+                    || pathname.getName(  ).endsWith( EXT_PDB );
                 }
             } );
         chooser.setFileSelectionMode( JFileChooser.FILES_ONLY );
@@ -89,9 +91,9 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
         {
             File destination = chooser.getSelectedFile(  );
 
-            if( !destination.getPath(  ).endsWith( ".pdb" ) )
+            if( !destination.getPath(  ).endsWith( EXT_PDB ) )
             {
-                destination = new File( destination.getPath(  ) + ".pdb" );
+                destination = new File( destination.getPath(  ) + EXT_PDB );
             }
 
             config.path = destination.getPath(  );
@@ -244,7 +246,7 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
             int sz = 0;
 
             sz += ( wr.calcSPasString0( 
-                channelName + "(" + sitename + ")", config.charset ) + 1 );
+                channelName + '(' + sitename + ')', config.charset ) + 1 );
 
             sz += 4;
 
@@ -279,7 +281,7 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
             int to ) throws IOException
         {
             wr.writeSPasString0( 
-                channelName + "(" + sitename + ")", config.charset );
+                channelName + '(' + sitename + ')', config.charset );
             wr.alignToShort(  );
 
             wr.writeInt( to - from );
@@ -320,6 +322,6 @@ public class ExportPalmAtv extends BaseModule implements IModuleExport
         public String path;
 
         /** Charset for output. */
-        public String charset = "cp1251";
+        public String charset = DEFAULT_CHARSET;
     }
 }

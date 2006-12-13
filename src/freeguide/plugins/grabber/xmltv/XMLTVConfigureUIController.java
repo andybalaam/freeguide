@@ -5,6 +5,8 @@ import freeguide.common.lib.general.StringHelper;
 
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
+import sun.security.action.GetLongAction;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -72,8 +74,9 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
         modules = GrabberXMLTV.getMods( 
                 StringHelper.EMPTY_STRING,
-                ".run."
-                + ( Application.getInstance(  ).isUnix(  ) ? "lin" : "win" ) );
+                '.' + GrabberXMLTV.RUN_KEY_SUFFIX + '.'
+                + ( Application.getInstance(  ).isUnix(  )
+                ? GrabberXMLTV.LIN_KEY_SUFFIX : GrabberXMLTV.WIN_KEY_SUFFIX ) );
 
         config = (XMLTVConfig)parent.config.clone(  );
     }
@@ -184,8 +187,11 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
                 {
                     if( 
                         JOptionPane.showConfirmDialog( 
-                                panel, "Are you sure ?", "Delete",
-                                JOptionPane.OK_CANCEL_OPTION ) == JOptionPane.OK_OPTION )
+                                panel,
+                                parent.getLocalizer(  ).getString( 
+                                    "UI.Confirm" ),
+                                parent.getLocalizer(  ).getString( 
+                                    "UI.Remove" ), JOptionPane.OK_CANCEL_OPTION ) == JOptionPane.OK_OPTION )
                     {
                         synchronized( config.modules )
                         {
@@ -238,7 +244,8 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
             panel.getTextCommand(  ).setForeground( textNoEdited );
             panel.getTextCommand(  )
                  .setText( 
-                GrabberXMLTV.getCommand( panel.moduleInfo.moduleName, "run" ) );
+                GrabberXMLTV.getCommand( 
+                    panel.moduleInfo.moduleName, GrabberXMLTV.RUN_KEY_SUFFIX ) );
         }
         else
         {
@@ -255,7 +262,8 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
             panel.getTextConfigCommand(  ).setForeground( textNoEdited );
             panel.getTextConfigCommand(  )
                  .setText( 
-                GrabberXMLTV.getCommand( panel.moduleInfo.moduleName, "cfg" ) );
+                GrabberXMLTV.getCommand( 
+                    panel.moduleInfo.moduleName, GrabberXMLTV.CONFIG_KEY_SUFFIX ) );
         }
         else
         {

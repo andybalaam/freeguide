@@ -78,6 +78,9 @@ import javax.swing.JPanel;
  */
 public class FontChooserDialog extends StandardDialog
 {
+    protected static final Font DEFAULT_FONT =
+        new Font( "Dialog", 10, Font.PLAIN );
+
     /**
      * The panel within the dialog that contains the font selection
      * controls.
@@ -147,7 +150,7 @@ public class FontChooserDialog extends StandardDialog
 
         if( font == null )
         {
-            font = new Font( "Dialog", 10, Font.PLAIN );
+            font = DEFAULT_FONT;
 
         }
 

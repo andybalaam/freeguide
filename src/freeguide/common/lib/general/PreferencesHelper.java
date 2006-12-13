@@ -27,6 +27,17 @@ import java.util.prefs.Preferences;
  */
 public class PreferencesHelper
 {
+    protected static final String LOCALE_SUFFIX_LANGUAGE = ".language";
+    protected static final String LOCALE_SUFFIX_COUNTRY = ".country";
+    protected static final String LOCALE_SUFFIX_VARIANT = ".variant";
+    protected static final String MAP_SUFFIX_KEY_TYPE = "_KEY_TYPE";
+    protected static final String MAP_SUFFIX_VALUE_TYPE = "_VALUE_TYPE";
+    protected static final String COLLECTION_SUFFIX_TYPE = "_TYPE";
+    protected static final String SUFFIX_SIZE = "size";
+    protected static final String MAP_SUFFIX_KEY = ".key";
+    protected static final String MAP_SUFFIX_VALUE = ".value";
+    protected static final String DOT = ".";
+
     /**
      * DOCUMENT_ME!
      *
@@ -38,7 +49,7 @@ public class PreferencesHelper
     public static void load( final Preferences prefNode, final Object obj )
         throws Exception
     {
-        loadObject( prefNode, "", obj );
+        loadObject( prefNode, StringHelper.EMPTY_STRING, obj );
     }
 
     /**
@@ -116,14 +127,20 @@ public class PreferencesHelper
                 }
                 else if( Locale.class.isAssignableFrom( field.getType(  ) ) )
                 {
-                    if( existKeys.contains( keyName + ".language" ) )
+                    if( existKeys.contains( keyName + LOCALE_SUFFIX_LANGUAGE ) )
                     {
                         String language =
-                            prefNode.get( keyName + ".language", "" );
+                            prefNode.get( 
+                                keyName + LOCALE_SUFFIX_LANGUAGE,
+                                StringHelper.EMPTY_STRING );
                         String country =
-                            prefNode.get( keyName + ".country", "" );
+                            prefNode.get( 
+                                keyName + LOCALE_SUFFIX_COUNTRY,
+                                StringHelper.EMPTY_STRING );
                         String variant =
-                            prefNode.get( keyName + ".variant", "" );
+                            prefNode.get( 
+                                keyName + LOCALE_SUFFIX_VARIANT,
+                                StringHelper.EMPTY_STRING );
 
                         field.set( 
                             obj, new Locale( language, country, variant ) );
@@ -133,15 +150,15 @@ public class PreferencesHelper
                 {
                     Class keyType =
                         checkTypeDefined( 
-                            obj, field.getName(  ) + "_KEY_TYPE" );
+                            obj, field.getName(  ) + MAP_SUFFIX_KEY_TYPE );
 
                     Class valueType =
                         checkTypeDefined( 
-                            obj, field.getName(  ) + "_VALUE_TYPE" );
+                            obj, field.getName(  ) + MAP_SUFFIX_VALUE_TYPE );
 
                     Map map = (Map)field.get( obj );
 
-                    loadMap( prefNode, keyName + ".", map, keyType, valueType );
+                    loadMap( prefNode, keyName + '.', map, keyType, valueType );
 
                     //field.set( obj, list );
                 }
@@ -150,8 +167,9 @@ public class PreferencesHelper
                     Collection.class.isAssignableFrom( field.getType(  ) ) )
                 {
                     Field typeField =
-                        obj.getClass(  ).getField( 
-                            field.getName(  ) + "_TYPE" );
+                        obj.getClass(  )
+                           .getField( 
+                            field.getName(  ) + COLLECTION_SUFFIX_TYPE );
 
                     int modsT = typeField.getModifiers(  );
 
@@ -171,12 +189,12 @@ public class PreferencesHelper
 
                     Class typeClass = (Class)typeField.get( obj.getClass(  ) );
 
-                    loadList( prefNode, keyName + ".", list, typeClass );
+                    loadList( prefNode, keyName + '.', list, typeClass );
                 }
                 else
                 {
                     // Object fieldObj = field.getType().newInstance();
-                    loadObject( prefNode, keyName + ".", field.get( obj ) );
+                    loadObject( prefNode, keyName + '.', field.get( obj ) );
 
                     // field.set(obj, fieldObj);
                 }
@@ -220,13 +238,13 @@ public class PreferencesHelper
         final Collection list, final Class elementClass )
         throws Exception
     {
-        if( prefNode.get( namePrefix + "size", null ) == null )
+        if( prefNode.get( namePrefix + SUFFIX_SIZE, null ) == null )
         {
             return;
 
         }
 
-        int size = prefNode.getInt( namePrefix + "size", 0 );
+        int size = prefNode.getInt( namePrefix + SUFFIX_SIZE, 0 );
 
         list.clear(  );
 
@@ -234,7 +252,7 @@ public class PreferencesHelper
         {
             list.add( 
                 loadAndCreateObject( 
-                    prefNode, elementClass, namePrefix + i + "." ) );
+                    prefNode, elementClass, namePrefix + i + '.' ) );
 
         }
     }
@@ -255,13 +273,13 @@ public class PreferencesHelper
         final Class keyClass, final Class valueClass )
         throws Exception
     {
-        if( prefNode.get( namePrefix + "size", null ) == null )
+        if( prefNode.get( namePrefix + SUFFIX_SIZE, null ) == null )
         {
             return;
 
         }
 
-        int size = prefNode.getInt( namePrefix + "size", 0 );
+        int size = prefNode.getInt( namePrefix + SUFFIX_SIZE, 0 );
 
         map.clear(  );
 
@@ -269,11 +287,11 @@ public class PreferencesHelper
         {
             Object key =
                 loadAndCreateObject( 
-                    prefNode, keyClass, namePrefix + i + ".key." );
+                    prefNode, keyClass, namePrefix + i + MAP_SUFFIX_KEY + '.' );
 
             Object value =
                 loadAndCreateObject( 
-                    prefNode, keyClass, namePrefix + i + ".value." );
+                    prefNode, keyClass, namePrefix + i + MAP_SUFFIX_KEY + '.' );
 
             map.put( key, value );
 
@@ -288,7 +306,7 @@ public class PreferencesHelper
 
         if( objClass == String.class )
         {
-            if( namePrefix.endsWith( "." ) )
+            if( namePrefix.endsWith( DOT ) )
             {
                 namePrefix = namePrefix.substring( 
                         0, namePrefix.length(  ) - 1 );
@@ -329,7 +347,7 @@ public class PreferencesHelper
             prefNode.remove( keys[i] );
         }
 
-        saveObject( prefNode, obj, "" );
+        saveObject( prefNode, obj, StringHelper.EMPTY_STRING );
     }
 
     protected static void saveObject( 
@@ -364,9 +382,12 @@ public class PreferencesHelper
         {
             final Locale value = (Locale)obj;
 
-            prefNode.put( namePrefix + ".language", value.getLanguage(  ) );
-            prefNode.put( namePrefix + ".country", value.getCountry(  ) );
-            prefNode.put( namePrefix + ".variant", value.getVariant(  ) );
+            prefNode.put( 
+                namePrefix + LOCALE_SUFFIX_LANGUAGE, value.getLanguage(  ) );
+            prefNode.put( 
+                namePrefix + LOCALE_SUFFIX_COUNTRY, value.getCountry(  ) );
+            prefNode.put( 
+                namePrefix + LOCALE_SUFFIX_VARIANT, value.getVariant(  ) );
         }
         else if( Map.class.isAssignableFrom( obj.getClass(  ) ) )
         {
@@ -390,8 +411,8 @@ public class PreferencesHelper
                 }
 
                 final String newPrefix =
-                    "".equals( namePrefix ) ? field.getName(  )
-                                            : ( namePrefix + "."
+                    StringHelper.EMPTY_STRING.equals( namePrefix )
+                    ? field.getName(  ) : ( namePrefix + '.'
                     + field.getName(  ) );
 
                 if( field.getType(  ).isPrimitive(  ) )
@@ -437,10 +458,10 @@ public class PreferencesHelper
 
         for( i = 0; it.hasNext(  ); i++ )
         {
-            saveObject( prefNode, it.next(  ), namePrefix + "." + i );
+            saveObject( prefNode, it.next(  ), namePrefix + '.' + i );
         }
 
-        prefNode.putInt( namePrefix + ".size", i );
+        prefNode.putInt( namePrefix + '.' + SUFFIX_SIZE, i );
 
     }
 
@@ -458,12 +479,13 @@ public class PreferencesHelper
 
             Object value = map.get( key );
 
-            saveObject( prefNode, key, namePrefix + "." + i + ".key" );
+            saveObject( prefNode, key, namePrefix + '.' + i + MAP_SUFFIX_KEY );
 
-            saveObject( prefNode, value, namePrefix + "." + i + ".value" );
+            saveObject( 
+                prefNode, value, namePrefix + '.' + i + MAP_SUFFIX_VALUE );
         }
 
-        prefNode.putInt( namePrefix + "size", i );
+        prefNode.putInt( namePrefix + SUFFIX_SIZE, i );
 
     }
 

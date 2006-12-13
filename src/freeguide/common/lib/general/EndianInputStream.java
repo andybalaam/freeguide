@@ -89,7 +89,7 @@ public class EndianInputStream
 
         if( len == 0 )
         {
-            return new String( "" );
+            return new String(  );
         }
 
         byte[] buf = new byte[len];

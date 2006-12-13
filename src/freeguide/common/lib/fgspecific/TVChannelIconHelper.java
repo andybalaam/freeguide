@@ -24,6 +24,9 @@ import javax.swing.ImageIcon;
  */
 public class TVChannelIconHelper
 {
+    protected static final String INVALID_CHARS_RE_FROM = "[^a-zA-Z0-9_]";
+    protected static final String INVALID_CHARS_RE_TO = "-";
+
     /**
      * Get channel's icon. Get icon from web if required.
      *
@@ -93,7 +96,7 @@ public class TVChannelIconHelper
 
         sb.append( 
             channel.getID(  ).replace( '.', '_' )
-                   .replaceAll( "[^a-zA-Z0-9_]", "-" ) );
+                   .replaceAll( INVALID_CHARS_RE_FROM, INVALID_CHARS_RE_TO ) );
 
         return sb.toString(  );
     }

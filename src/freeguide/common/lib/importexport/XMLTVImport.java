@@ -25,6 +25,7 @@ import javax.xml.parsers.SAXParserFactory;
  */
 public class XMLTVImport
 {
+    protected static final String SYSTEM_ID = "memory://data";
     protected SAXParserFactory factory;
     protected SAXParser saxParser;
 
@@ -65,7 +66,7 @@ public class XMLTVImport
         InputSource ins =
             new InputSource( 
                 new BufferedInputStream( new FileInputStream( file ) ) );
-        ins.setSystemId( file.toURL(  ).toString(  ) );
+        ins.setSystemId( file.toURI(  ).toURL(  ).toString(  ) );
         saxParser.parse( ins, handler );
     }
 
@@ -92,7 +93,7 @@ public class XMLTVImport
             new XMLTVImportHandler( 
                 storage, countCallback, filter, channelPrefix );
         InputSource ins = new InputSource( in );
-        ins.setSystemId( "memory://data" );
+        ins.setSystemId( SYSTEM_ID );
         saxParser.parse( ins, handler );
         storage.finishBlock(  );
     }

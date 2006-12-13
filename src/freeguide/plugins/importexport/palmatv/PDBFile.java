@@ -41,6 +41,8 @@ import java.util.List;
  */
 public class PDBFile
 {
+    protected static final String SPACE_FILLER =
+        "                                     ";
     protected static final int HEADER_SIZE = 78;
     protected static final int MAX_RECORD_SIZE = 65000;
     protected static short dmHdrAttrStream = 0x0080;
@@ -104,8 +106,9 @@ public class PDBFile
         records = new ArrayList(  );
 
         this.PDBName = pdbName;
-        this.creatorID = ( creatorId + "    " ).substring( 0, 4 ).getBytes(  );
-        this.databaseType = ( databaseType + "    " ).substring( 0, 4 )
+        this.creatorID = ( creatorId + SPACE_FILLER ).substring( 0, 4 )
+                           .getBytes(  );
+        this.databaseType = ( databaseType + SPACE_FILLER ).substring( 0, 4 )
                               .getBytes(  );
     }
 
@@ -399,58 +402,6 @@ public class PDBFile
               rec.setBytes(buffer);
               rec.setAttributes((byte) recordList[i][1]);
               records.addElement(rec);*/
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @param fileName DOCUMENT_ME!
-     *
-     * @throws IOException DOCUMENT_ME!
-     */
-    public void dumpToH( String fileName ) throws IOException
-    {
-        PrintStream out =
-            new PrintStream( 
-                new BufferedOutputStream( new FileOutputStream( fileName ) ) );
-
-        for( int i = 0; i < records.size(  ); i++ )
-        {
-            out.println( 
-                "static signed char record" + i
-                + "[] __attribute__((aligned(2))) = {" );
-
-            byte[] rec = (byte[])records.get( i );
-
-            for( int j = 0; j < rec.length; j++ )
-            {
-                if( j > 0 )
-                {
-                    out.print( ", " );
-                }
-
-                out.print( rec[j] );
-            }
-
-            out.println( "};" );
-        }
-
-        out.println( "unsigned char * DBRECORDS[]={" );
-
-        for( int i = 0; i < records.size(  ); i++ )
-        {
-            if( i > 0 )
-            {
-                out.print( ", " );
-            }
-
-            out.print( "(unsigned char *)record" + i );
-        }
-
-        out.println( "};" );
-        out.println( "#define DBRECORDCOUNT " + records.size(  ) );
-        out.flush(  );
-        out.close(  );
     }
 
     /**

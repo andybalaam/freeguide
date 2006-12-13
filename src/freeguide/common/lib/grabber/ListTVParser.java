@@ -3,6 +3,7 @@ package freeguide.common.lib.grabber;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.general.StringHelper;
 
 import freeguide.common.plugininterfaces.ILogger;
 import freeguide.common.plugininterfaces.IProgress;
@@ -13,6 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
 
+import java.text.MessageFormat;
 import java.text.ParseException;
 
 import java.util.Iterator;
@@ -36,6 +38,8 @@ public class ListTVParser
         Pattern.compile( "(\\d{1,2})\\s+(\\S+)\\s+(\\d{4})\\s*\\.(.+)" );
     protected static final Pattern DATE_PATTERN2 =
         Pattern.compile( "(\\d{1,2})\\.(\\d{1,2})\\.(\\d{4})\\s*(.+)" );
+    protected static final String PREFIX_CHANNEL = "channel.";
+    protected static final String PREFIX_PROG = "prog.";
     protected long currentDate = 0;
     protected String currentChannelID;
     protected TVProgramme[] currentProgs = null;
@@ -82,13 +86,20 @@ public class ListTVParser
             if( urls.length > 1 )
             {
                 progress.setProgressMessage( 
-                    "Load data page [" + ( i + 1 ) + "/" + urls.length + "]" );
+                    MessageFormat.format( 
+                        Application.getInstance(  )
+                                   .getLocalizedMessage( 
+                            "ListTVParser.MessageZips.LoadManyPages" ), i + 1,
+                        urls.length ) );
 
             }
 
             else
             {
-                progress.setProgressMessage( "Load data page" );
+                progress.setProgressMessage( 
+                    Application.getInstance(  )
+                               .getLocalizedMessage( 
+                        "ListTVParser.MessageZips.LoadOnePage" ) );
 
             }
 
@@ -152,7 +163,7 @@ public class ListTVParser
         {
             line = line.trim(  );
 
-            if( "".equals( line ) )
+            if( StringHelper.EMPTY_STRING.equals( line ) )
             {
                 finishProgrammes(  );
 
@@ -229,7 +240,11 @@ public class ListTVParser
             }
             catch( ParseException ex )
             {
-                logger.warning( "Error parse date string: " + line );
+                logger.warning( 
+                    MessageFormat.format( 
+                        Application.getInstance(  )
+                                   .getLocalizedMessage( 
+                            "ListTVParser.Message.ParseDateError" ), line ) );
                 finishProgrammes(  );
                 currentChannelID = null;
             }
@@ -251,7 +266,11 @@ public class ListTVParser
                 }
                 catch( ParseException ex )
                 {
-                    logger.warning( "Error parse date string: " + line );
+                    logger.warning( 
+                        MessageFormat.format( 
+                            Application.getInstance(  )
+                                       .getLocalizedMessage( 
+                                "ListTVParser.Message.ParseDateError" ), line ) );
                     finishProgrammes(  );
                     currentChannelID = null;
                 }
@@ -287,7 +306,7 @@ public class ListTVParser
         final String channelID, final TVProgramme[] programmes,
         final Properties props )
     {
-        if( !props.containsKey( "channel." + channelID ) )
+        if( !props.containsKey( PREFIX_CHANNEL + channelID ) )
         {
             return;
         }
@@ -301,7 +320,7 @@ public class ListTVParser
                 {
                     final String key = (String)it.next(  );
 
-                    if( !key.startsWith( "prog." ) )
+                    if( !key.startsWith( PREFIX_PROG ) )
                     {
                         continue;
                     }
@@ -329,7 +348,7 @@ public class ListTVParser
     public static void patch( 
         final String channelID, final Set programmes, final Properties props )
     {
-        if( !props.containsKey( "channel." + channelID ) )
+        if( !props.containsKey( PREFIX_CHANNEL + channelID ) )
         {
             return;
         }
@@ -345,7 +364,7 @@ public class ListTVParser
                 {
                     final String key = (String)it.next(  );
 
-                    if( !key.startsWith( "prog." ) )
+                    if( !key.startsWith( PREFIX_PROG ) )
                     {
                         continue;
                     }

@@ -10,6 +10,10 @@ import java.net.URLConnection;
  */
 public class ResourceHelper
 {
+    protected static final String LINE_SEPARATOR =
+        System.getProperty( "line.separator" );
+    protected static final String CHARSET = "UTF-8";
+
     /**
      * DOCUMENT_ME!
      *
@@ -22,8 +26,6 @@ public class ResourceHelper
     public static String loadResourceAsString( final String resourceName )
         throws IOException
     {
-        final String lineSeparator = System.getProperty( "line.separator" );
-
         final InputStream in = getUncachedStream( resourceName );
 
         if( in == null )
@@ -34,7 +36,7 @@ public class ResourceHelper
         try
         {
             final BufferedReader rd =
-                new BufferedReader( new InputStreamReader( in, "UTF-8" ) );
+                new BufferedReader( new InputStreamReader( in, CHARSET ) );
 
             final StringBuffer result = new StringBuffer(  );
 
@@ -43,7 +45,7 @@ public class ResourceHelper
             while( ( line = rd.readLine(  ) ) != null )
             {
                 result.append( line );
-                result.append( lineSeparator );
+                result.append( LINE_SEPARATOR );
             }
 
             return result.toString(  );

@@ -23,6 +23,8 @@ import java.util.regex.Pattern;
  */
 public class TimeHelper
 {
+    protected static final String MOTHSES_PATH =
+        "resources/main/months.properties";
     protected static Properties months;
 
     /** Milliseconds per day. */
@@ -34,8 +36,7 @@ public class TimeHelper
 
         final InputStream in =
             TimeHelper.class.getClassLoader(  )
-                            .getResourceAsStream( 
-                "resources/main/months.properties" );
+                            .getResourceAsStream( MOTHSES_PATH );
 
         try
         {

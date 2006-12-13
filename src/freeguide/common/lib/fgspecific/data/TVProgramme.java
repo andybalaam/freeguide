@@ -1,6 +1,7 @@
 package freeguide.common.lib.fgspecific.data;
 
 import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.general.StringHelper;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,6 +29,10 @@ public class TVProgramme implements Comparable, Serializable
 
     /** Description of the Field */
     protected static final String STARS = "***********";
+    protected static final String STAR_HALP_SUFFIX = " 1/2";
+    protected static final String ICONPATH_RE_FROM =
+        "[^0-9A-Za-z_-]|^http://|^ftp://";
+    protected static final String ICONPATH_RE_TO = "";
 
     /** The start time in millis. */
     private long start;
@@ -228,7 +233,7 @@ public class TVProgramme implements Comparable, Serializable
 
         if( rating == null )
         {
-            return "";
+            return StringHelper.EMPTY_STRING;
 
         }
 
@@ -249,29 +254,30 @@ public class TVProgramme implements Comparable, Serializable
 
                 if( Math.floor( num ) == num )
                 {
-                    return "("
+                    return '('
                     + STARS.substring( 
-                        0, (int)Math.round( Math.floor( num ) ) ) + ")";
+                        0, (int)Math.round( Math.floor( num ) ) ) + ')';
 
                 }
 
                 else
                 {
-                    return "("
+                    return '('
                     + STARS.substring( 
-                        0, (int)Math.round( Math.floor( num ) ) ) + " 1/2)";
+                        0, (int)Math.round( Math.floor( num ) ) )
+                    + STAR_HALP_SUFFIX + ')';
 
                 }
             }
 
             catch( Exception ex )
             {
-                return "";
+                return StringHelper.EMPTY_STRING;
 
             }
         }
 
-        return "";
+        return StringHelper.EMPTY_STRING;
 
     }
 
@@ -332,7 +338,7 @@ public class TVProgramme implements Comparable, Serializable
 
         else
         {
-            description += ( "\n" + desc );
+            description += ( '\n' + desc );
 
         }
     }
@@ -565,7 +571,7 @@ public class TVProgramme implements Comparable, Serializable
         }
         else
         {
-            text = text + "; " + value;
+            text = text + ';' + ' ' + value;
         }
 
         hashOfAttrs.put( attrName, text );
@@ -601,8 +607,7 @@ public class TVProgramme implements Comparable, Serializable
             dir.mkdirs(  );
         }
 
-        path.append( 
-            iconURL.replaceAll( "[^0-9A-Za-z_-]|^http://|^ftp://", "" ) );
+        path.append( iconURL.replaceAll( ICONPATH_RE_FROM, ICONPATH_RE_TO ) );
 
         // First convert the id to a suitable (and safe!!) filename
         File cache = new File( path.toString(  ) );
@@ -721,7 +726,7 @@ public class TVProgramme implements Comparable, Serializable
      */
     public String toString(  )
     {
-        return new Date( start ) + " " + title;
+        return new Date( start ).toString(  ) + ' ' + title;
 
     }
 }

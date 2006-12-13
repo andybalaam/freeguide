@@ -330,7 +330,9 @@ public class CheckLocalization
             return false;
         }
 
-        if( command.contains( "Application.getInstance(  ).getLogger(  )" ) )
+        if( 
+            command.replaceAll( "\\s+", "" )
+                       .contains( "Application.getInstance().getLogger()." ) )
         {
             return false;
         }

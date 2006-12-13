@@ -31,6 +31,8 @@ import javax.xml.parsers.ParserConfigurationException;
 public class ImpExpXmltv extends BaseModule implements IModuleImport,
     IModuleExport
 {
+    protected static final String EXT_XMLTV = ".xmltv";
+
     /**
      * DOCUMENT_ME!
      *
@@ -55,13 +57,13 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
             {
                 public String getDescription(  )
                 {
-                    return "XMLTV .xmltv file";
+                    return i18n.getString( "Format.xmltv" );
                 }
 
                 public boolean accept( File pathname )
                 {
                     return pathname.isDirectory(  )
-                    || pathname.getName(  ).endsWith( ".xmltv" );
+                    || pathname.getName(  ).endsWith( EXT_XMLTV );
                 }
             } );
         chooser.setFileSelectionMode( JFileChooser.FILES_ONLY );
@@ -137,13 +139,13 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
             {
                 public String getDescription(  )
                 {
-                    return "XMLTV .xmltv file";
+                    return i18n.getString( "Format.xmltv" );
                 }
 
                 public boolean accept( File pathname )
                 {
                     return pathname.isDirectory(  )
-                    || pathname.getName(  ).endsWith( ".xmltv" );
+                    || pathname.getName(  ).endsWith( EXT_XMLTV );
                 }
             } );
         chooser.setFileSelectionMode( JFileChooser.FILES_ONLY );
@@ -155,9 +157,9 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
         {
             File destination = chooser.getSelectedFile(  );
 
-            if( !destination.getPath(  ).endsWith( ".xmltv" ) )
+            if( !destination.getPath(  ).endsWith( EXT_XMLTV ) )
             {
-                destination = new File( destination.getPath(  ) + ".xmltv" );
+                destination = new File( destination.getPath(  ) + EXT_XMLTV );
             }
 
             destination.delete(  );

@@ -87,11 +87,7 @@ public class FontChooserPanel extends JPanel
 {
     /** The font sizes that can be selected. */
     public static final String[] SIZES =
-        {
-            "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "28",
-            
-            "36", "48", "72"
-        };
+        "9,10,11,12,14,16,18,20,22,24,28,36,48,72".split( "," );
 
     /** The list of fonts. */
     private JList fontlist;
@@ -108,8 +104,9 @@ public class FontChooserPanel extends JPanel
 /**
      * Standard constructor - builds a FontChooserPanel initialised with the
      * specified font.
-     *
-     * @param font the initial font to display.
+     * 
+     * @param font
+     *            the initial font to display.
      */
     public FontChooserPanel( Font font )
     {
@@ -128,7 +125,7 @@ public class FontChooserPanel extends JPanel
             BorderFactory.createTitledBorder( 
                 BorderFactory.createEtchedBorder(  ),
                 Application.getInstance(  ).getLocalizedMessage( "font" )
-                + ":" ) );
+                + ':' ) );
 
         fontlist = new JList( fonts );
 
@@ -146,7 +143,7 @@ public class FontChooserPanel extends JPanel
             BorderFactory.createTitledBorder( 
                 BorderFactory.createEtchedBorder(  ),
                 Application.getInstance(  ).getLocalizedMessage( "size" )
-                + ":" ) );
+                + ':' ) );
 
         sizelist = new JList( SIZES );
 
@@ -172,7 +169,7 @@ public class FontChooserPanel extends JPanel
             BorderFactory.createTitledBorder( 
                 BorderFactory.createEtchedBorder(  ),
                 Application.getInstance(  ).getLocalizedMessage( "attributes" )
-                + ":" ) );
+                + ':' ) );
 
         right.add( sizePanel, BorderLayout.CENTER );
 

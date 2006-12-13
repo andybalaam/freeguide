@@ -31,6 +31,9 @@ import javax.swing.*;
  */
 public class NewVersionDialog extends JDialog
 {
+    protected static final String HOME_URL =
+        "http://freeguide-tv.sourceforge.net";
+    protected static final String URL_PATTERN = "%url%";
     private JButton butOK;
     private JButton butURL;
     private JCheckBox chkTellMeAgain;
@@ -52,7 +55,7 @@ public class NewVersionDialog extends JDialog
     private void initComponents(  )
     {
         java.awt.GridBagConstraints gridBagConstraints;
-        Object[] messageArguments = { "http://freeguide-tv.sourceforge.net" };
+        Object[] messageArguments = { HOME_URL };
         Container pane = getContentPane(  );
         pane.setLayout( new java.awt.GridBagLayout(  ) );
 
@@ -141,8 +144,8 @@ public class NewVersionDialog extends JDialog
         {
             String cmd =
                 StringHelper.replaceAll( 
-                    Application.getInstance(  ).getBrowserCommand(  ), "%url%",
-                    "http://freeguide-tv.sourceforge.net" );
+                    Application.getInstance(  ).getBrowserCommand(  ),
+                    URL_PATTERN, HOME_URL );
             Utils.execNoWait( cmd );
         }
         catch( Exception ex )
@@ -150,16 +153,6 @@ public class NewVersionDialog extends JDialog
             Application.getInstance(  ).getLogger(  )
                        .log( Level.WARNING, "Error open home url", ex );
         }
-    }
-
-    /**
-     * Description of the Method
-     *
-     * @param evt Description of the Parameter
-     */
-    private void exitForm( java.awt.event.WindowEvent evt )
-    {
-        quit(  );
     }
 
     /**

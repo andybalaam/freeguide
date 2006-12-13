@@ -11,6 +11,7 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 import javax.swing.JCheckBox;
 import javax.swing.JTree;
@@ -26,6 +27,7 @@ import javax.swing.tree.TreePath;
  */
 public class TVChannelsTree extends JTree
 {
+    protected static final Pattern RE_SPLIT_PATH = Pattern.compile( "\\/" );
     protected TVChannelsSelection channels;
     protected final Map nodesByChannelID = new TreeMap(  );
 
@@ -161,7 +163,8 @@ public class TVChannelsTree extends JTree
     public DefaultMutableTreeNode getNodeByPathOld( 
         DefaultMutableTreeNode root, TVChannelsSet.Channel channel )
     {
-        String[] pathElements = channel.getChannelID(  ).split( "\\/" );
+        String[] pathElements =
+            RE_SPLIT_PATH.split( channel.getChannelID(  ) );
 
         DefaultMutableTreeNode currentNode = root;
 
@@ -237,8 +240,6 @@ public class TVChannelsTree extends JTree
 
             if( !( node.getUserObject(  ) instanceof TVChannelsSet.Channel ) )
             {
-                setText( "not initialized" );
-
                 return this;
 
             }
@@ -259,8 +260,6 @@ public class TVChannelsTree extends JTree
 
             else
             {
-                setText( "empty node" );
-
                 setSelected( false );
 
                 setEnabled( false );

@@ -25,6 +25,14 @@ import java.util.logging.Level;
  */
 public class FileHelper
 {
+    protected static final String URL_PATTERN = "%url%";
+    protected static final String DEFAULT_CHARSET = "UTF-8";
+    protected static final String TEMP_PROPERTY = "java.io.tmpdir";
+    protected static final String DOCS_SUBDIR = "freeguide-docs";
+    protected static final String PACKAGE_DOCS = "other/docs/";
+    protected static final String PACKAGE_DOCS_LIST = PACKAGE_DOCS + "ls-docs";
+    protected static final String START_FILE = "userguide.html";
+
     /**
      * ToDo: DOCUMENT ME!
      *
@@ -44,21 +52,7 @@ public class FileHelper
 
             try
             {
-                byte[] buffer = new byte[65536];
-                int len;
-
-                while( true )
-                {
-                    len = rd.read( buffer );
-
-                    if( len < 0 )
-                    {
-                        break;
-                    }
-
-                    wr.write( buffer, 0, len );
-                }
-
+                copy( rd, wr );
                 wr.flush(  );
             }
             finally
@@ -73,6 +67,33 @@ public class FileHelper
     }
 
     /**
+     * DOCUMENT_ME!
+     *
+     * @param in DOCUMENT_ME!
+     * @param out DOCUMENT_ME!
+     *
+     * @throws IOException DOCUMENT_ME!
+     */
+    public static void copy( final InputStream in, final OutputStream out )
+        throws IOException
+    {
+        byte[] buffer = new byte[65536];
+        int len;
+
+        while( true )
+        {
+            len = in.read( buffer );
+
+            if( len < 0 )
+            {
+                break;
+            }
+
+            out.write( buffer, 0, len );
+        }
+    }
+
+    /**
      * Open file in the current browser.
      *
      * @param filename file name
@@ -83,8 +104,9 @@ public class FileHelper
         {
             String cmd =
                 StringHelper.replaceAll( 
-                    Application.getInstance(  ).getBrowserCommand(  ), "%url%",
-                    new File( filename ).toURL(  ).toExternalForm(  ) );
+                    Application.getInstance(  ).getBrowserCommand(  ),
+                    URL_PATTERN,
+                    new File( filename ).toURI(  ).toURL(  ).toExternalForm(  ) );
             Utils.execNoWait( cmd );
         }
         catch( Exception ex )
@@ -105,8 +127,8 @@ public class FileHelper
         {
             String cmd =
                 StringHelper.replaceAll( 
-                    Application.getInstance(  ).getBrowserCommand(  ), "%url%",
-                    url.toExternalForm(  ) );
+                    Application.getInstance(  ).getBrowserCommand(  ),
+                    URL_PATTERN, url.toExternalForm(  ) );
             Utils.execNoWait( cmd );
         }
         catch( Exception ex )
@@ -156,7 +178,8 @@ public class FileHelper
         throws IOException
     {
         OutputStreamWriter out =
-            new OutputStreamWriter( new FileOutputStream( fileName ), "UTF-8" );
+            new OutputStreamWriter( 
+                new FileOutputStream( fileName ), DEFAULT_CHARSET );
 
         try
         {
@@ -279,16 +302,16 @@ public class FileHelper
      */
     public static void showDocs(  ) throws IOException
     {
-        final String tempDir = System.getProperty( "java.io.tmpdir" );
+        final String tempDir = System.getProperty( TEMP_PROPERTY );
 
         if( tempDir == null )
         {
             throw new FileNotFoundException( "Temp directory doesn't defined" );
         }
 
-        final File outDir = new File( tempDir, "freeguide-docs" );
-        FileHelper.unpackFiles( "other/docs/ls-docs", "other/docs/", outDir );
+        final File outDir = new File( tempDir, DOCS_SUBDIR );
+        FileHelper.unpackFiles( PACKAGE_DOCS_LIST, PACKAGE_DOCS, outDir );
         FileHelper.openFile( 
-            new File( outDir, "userguide.html" ).getAbsolutePath(  ) );
+            new File( outDir, START_FILE ).getAbsolutePath(  ) );
     }
 }

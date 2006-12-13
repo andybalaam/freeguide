@@ -87,7 +87,6 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         butDetails = new javax.swing.JButton( 
                 Application.getInstance(  ).getLocalizedMessage( 
                     "show_output" ) );
-        butDetails.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
         butDetails.setMaximumSize( new java.awt.Dimension( 115, 23 ) );
         butDetails.setMinimumSize( new java.awt.Dimension( 115, 23 ) );
         butDetails.setPreferredSize( new java.awt.Dimension( 115, 23 ) );
@@ -383,7 +382,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      */
     public void error( String message, Exception ex )
     {
-        addToLog( message + " : " + ex.getMessage(  ) );
+        addToLog( message + ':' + ex.getMessage(  ) );
     }
 
     /**

@@ -505,7 +505,7 @@ public class Time
      */
     public String getHHMMString(  )
     {
-        return getHoursString(  ) + ":" + getMinutesString(  );
+        return getHoursString(  ) + ':' + getMinutesString(  );
     }
 
     /**
@@ -517,8 +517,8 @@ public class Time
      */
     public String toString(  )
     {
-        return getHoursString(  ) + ":" + getMinutesString(  ) + ":"
-        + getSecondsString(  ) + ":" + getMillisecondsString(  );
+        return getHoursString(  ) + ':' + getMinutesString(  ) + ':'
+        + getSecondsString(  ) + ':' + getMillisecondsString(  );
     }
 
     /**

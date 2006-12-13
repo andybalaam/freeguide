@@ -105,7 +105,7 @@ public class TimeEditor extends JFormattedTextField
                                     break;
                                 }
 
-                                return formatTo2Digit( v1 ) + ":"
+                                return formatTo2Digit( v1 ) + ':'
                                 + formatTo2Digit( v2 );
                             }
                         };
@@ -141,7 +141,14 @@ public class TimeEditor extends JFormattedTextField
 
     protected static String formatTo2Digit( int value )
     {
-        return ( ( value >= 10 ) ? "" : "0" ) + value;
+        if( value >= 10 )
+        {
+            return Integer.toString( value );
+        }
+        else
+        {
+            return '0' + Integer.toString( value );
+        }
     }
 
     /**

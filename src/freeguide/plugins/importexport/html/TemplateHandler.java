@@ -17,32 +17,39 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 /**
- * DOCUMENT ME!
+ * Template handler for fill template.
  *
- * @author $author$
- * @version $Revision$
+ * @author Alex Buloichik
  */
 public class TemplateHandler
 {
+    protected static final String DATE_FORMAT = "dd MMMM yyyy, HH:mm";
+    protected static final String SUBTITLE_PREFIX = ": ";
+    protected static final String HEADER = "listing";
     protected final boolean selectedOnly;
     protected final IModuleStorage.Info info;
     protected final DateFormat timeFormat;
+    protected final String title;
 
 /**
      * Creates a new TemplateHandler object.
      *
      * @param ext DOCUMENT ME!
      */
-    public TemplateHandler( final FileChooserExtension ext )
+    public TemplateHandler( 
+        final FileChooserExtension ext, final ResourceBundle i18n )
     {
         selectedOnly = ext.isSelectedOnly(  );
         info = ext.getSaveInfo(  );
 
-        timeFormat = new SimpleDateFormat( "dd MMMM yyyy, HH:mm" );
+        timeFormat = new SimpleDateFormat( DATE_FORMAT );
         timeFormat.setTimeZone( Application.getInstance(  ).getTimeZone(  ) );
+
+        title = i18n.getString( "Template.Title" );
     }
 
     /**
@@ -52,7 +59,7 @@ public class TemplateHandler
      */
     public String getTitle(  )
     {
-        return "listing";
+        return title;
     }
 
     /**
@@ -68,7 +75,7 @@ public class TemplateHandler
 
         if( subTitle != null )
         {
-            return ": " + subTitle;
+            return SUBTITLE_PREFIX + subTitle;
         }
         else
         {
@@ -83,7 +90,7 @@ public class TemplateHandler
      */
     public String getHeader(  )
     {
-        return "listing";
+        return title;
     }
 
     /**

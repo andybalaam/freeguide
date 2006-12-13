@@ -1,8 +1,7 @@
 package freeguide.common.lib.fgspecific.data;
 
-import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.general.StringHelper;
 
-import java.io.File;
 import java.io.Serializable;
 
 import java.util.Set;
@@ -31,7 +30,7 @@ public class TVChannel implements Serializable
     protected String id;
 
     /** Display name for channel. */
-    protected String displayName = "";
+    protected String displayName = StringHelper.EMPTY_STRING;
     protected String iconURL;
 
     /** List of programmes for channel. */
@@ -161,35 +160,6 @@ public class TVChannel implements Serializable
     {
         this.iconURL = iconURL;
 
-    }
-
-    /**
-     * Get cached icon's filename.
-     *
-     * @return cached icon's filename
-     */
-    public String getIconFileName(  )
-    {
-        StringBuffer sb = new StringBuffer(  );
-
-        sb.append( Application.getInstance(  ).getWorkingDirectory(  ) );
-
-        sb.append( '/' );
-
-        sb.append( TVChannel.ICONCACHE_SUBDIR );
-
-        sb.append( '/' );
-
-        File dir = new File( sb.toString(  ) );
-
-        if( !dir.exists(  ) )
-        {
-            dir.mkdirs(  );
-        }
-
-        sb.append( id.replace( '.', '_' ).replaceAll( "[^a-zA-Z0-9_]", "-" ) );
-
-        return sb.toString(  );
     }
 
     /**
