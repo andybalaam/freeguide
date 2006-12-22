@@ -1,0 +1,83 @@
+   Description of files format for Mobile Export Plugin.
+
+  Mobile File Format was designed for export TV schedule data into mobile devices and for support 
+http://tv.zaval.org site. Main features are :
+  - binary format instead XML format. It makes performance better, because XML parsing is not 
+    so fast on mobile devices
+  - compressed format, which allow uncompression-on-fly. It makes files much smaller.
+
+  Data package includes several files for one TV schedule. There are one "list" file and many "date"
+files for each schedule.
+
+
+    Some notes about store predefined types.
+  Binary number types stored in "big-endian"(or "network") format like DataOutputStream in Java.
+  
+  Strings stored like DataOutputStream.writeUTF: First, two bytes are written to out. This value is the number
+of bytes actually written out, not the length of the string. Following the length, each character
+of the string is output, in sequence, using the modified UTF-8 encoding for the character.
+
+
+    Format of "list" file.
+  "list" file should be named as "list" and includes info about all channels in the TV schedule.
+
+bytes   type    description
+0-1     short   Format version. Should be 1 for current version.
+2-3     short   Channels number(N)
+...     string  channel ID of channel 0
+...     string  channel Title of channel 0
+...     string  channel ID of channel 1
+...     string  channel Title of channel 1
+.....................................................
+...     string  channel ID of channel N-1
+...     string  channel Title of channel N-1
+
+
+    Format of "date" file.
+  "date" file should be named as SimpleDateFormat("yyyy-MM-dd") mask. For example, 2006-12-25.
+One file contains information about one day for all channels. It's very useful for remove old data - we can
+just remove old files.
+
+bytes   type    description
+0-...   block   Header of day
+...     block   First channel data packed by gzip
+...     block   Second channel data packed by gzip
+.....................................................
+...     block   Last channel data packed by gzip
+
+
+  Header of day format:
+bytes   type    description
+0-1     short   Channels number(N). It represents only number of channels stored in this day file.
+...     string  channel 0: channel ID
+...     int     channel 0: offset of packed channel block from beginning of file(not from end of of header !)
+...     int     channel 0: packed channel block length
+...     string  channel 1: channel ID
+...     int     channel 1: offset of packed channel block from beginning of file(not from end of of header !)
+...     int     channel 1: packed channel block length
+.....................................................
+...     string  channel N-1: channel ID
+...     int     channel N-1: offset of packed channel block from beginning of file(not from end of of header !)
+...     int     channel N-1: packed channel block length
+
+
+  Channel data unpacked format :
+bytes   type    description
+0-1     short   Count of programmes(N)
+2-3     short   Count of unique strings(NS)
+...     block   Info about programme 0
+...     block   Info about programme 1
+.....................................................
+...     block   Info about programme N-1
+...     string  Unique string 0
+...     string  Unique string 1
+.....................................................
+...     string  Unique string NS-1
+
+
+  Info about programme format:
+bytes   type    description
+0-3     int     Start programme time in minutes from January 1, 1970 in UTC, like "java.util.Date/1000/60"
+4-5     short   Programme length in minutes
+6-7     short   Index of unique string which represent programme title
+8-9     short   Index of unique string which represent programme description
