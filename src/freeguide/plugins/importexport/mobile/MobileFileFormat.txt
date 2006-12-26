@@ -50,14 +50,14 @@ bytes   type    description
 bytes   type    description
 0-1     short   Channels number(N). It represents only number of channels stored in this day file.
 ...     string  channel 0: channel ID
-...     int     channel 0: offset of packed channel block from beginning of file(not from end of of header !)
+...     int     channel 0: offset of packed channel block from beginning of file(not from end of header !)
 ...     int     channel 0: packed channel block length
 ...     string  channel 1: channel ID
-...     int     channel 1: offset of packed channel block from beginning of file(not from end of of header !)
+...     int     channel 1: offset of packed channel block from beginning of file(not from end of header !)
 ...     int     channel 1: packed channel block length
 .....................................................
 ...     string  channel N-1: channel ID
-...     int     channel N-1: offset of packed channel block from beginning of file(not from end of of header !)
+...     int     channel N-1: offset of packed channel block from beginning of file(not from end of header !)
 ...     int     channel N-1: packed channel block length
 
 
