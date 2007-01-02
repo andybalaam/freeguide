@@ -113,8 +113,18 @@ public class TimeHelper
     {
         Calendar cal = Calendar.getInstance( tz );
 
+        final int currentYear = cal.get( Calendar.YEAR );
+
+        final int cm = getMonth( month );
+
+        cal.set( Calendar.MILLISECOND, 0 );
+        cal.set( Calendar.SECOND, 0 );
+        cal.set( Calendar.MINUTE, 0 );
+        cal.set( Calendar.HOUR_OF_DAY, 0 );
+        cal.set( Calendar.DAY_OF_MONTH, Integer.parseInt( day ) );
+        cal.set( Calendar.MONTH, cm );
+
         int iyear = 0;
-        int cm = getMonth( month );
 
         if( year != null )
         {
@@ -130,24 +140,26 @@ public class TimeHelper
 
         if( year == null )
         {
-            iyear = cal.get( Calendar.YEAR );
+            long daysdelta =
+                ( cal.getTimeInMillis(  ) - System.currentTimeMillis(  ) ) / MILLISECONDS_IN_DAY;
 
-            if( ( cal.get( Calendar.MONTH ) == 11 ) && ( cm == 0 ) )
+            if( Math.abs( daysdelta ) > 60 )
             {
-                iyear++;
+                // need to try other year
+                if( cal.get( Calendar.MONTH ) == 0 )
+                {
+                    cal.set( Calendar.YEAR, currentYear + 1 );
+                }
+                else if( cal.get( Calendar.MONTH ) == 11 )
+                {
+                    cal.set( Calendar.YEAR, currentYear - 1 );
+                }
             }
         }
-
-        try
+        else
         {
-            cal.set( iyear, cm, Integer.parseInt( day ), 0, 0, 0 );
+            cal.set( Calendar.YEAR, iyear );
         }
-        catch( Exception e )
-        {
-            return -1;
-        }
-
-        cal.set( Calendar.MILLISECOND, 0 );
 
         return cal.getTime(  ).getTime(  );
     }
