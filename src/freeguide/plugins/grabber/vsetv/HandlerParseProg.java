@@ -47,9 +47,9 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
     protected static final int MODES_ANON_TIME = 5;
     protected static final int MODES_ANON_TEXT = 6;
     protected static final String CLASS_CHANNEL = "channeltitle";
-    protected static final String CLASS_DATE = "pagedate";
+    protected static final String CLASS_DATE = "pagedate2";
     protected static final String CLASS_TIME = "progtime";
-    protected static final String CLASS_ANTIME = "descr1";
+    protected static final String CLASS_ANTIME = "anonstime";
     protected static final String CLASS_DESCR = "descr1";
     protected static final Pattern DATE_PATTERN =
         Pattern.compile( "(\\S+)\\s*,\\s*(\\d{1,2})\\s+(\\S+)\\s+(\\d{4})" );
@@ -191,24 +191,22 @@ public class HandlerParseProg extends HtmlHelper.DefaultContentHandler
 
             Matcher titleMatcher = DATE_PATTERN.matcher( text );
 
-            if( !titleMatcher.matches(  ) )
+            if( titleMatcher.matches(  ) )
             {
-                throw new SAXException( 
-                    "Error in page format: invalid title format" );
-            }
-
-            try
-            {
-                currentDate = TimeHelper.getBaseDate( 
-                        tz, titleMatcher.group( 2 ), titleMatcher.group( 3 ),
-                        titleMatcher.group( 4 ), titleMatcher.group( 1 ) );
-                prevTime = 0;
-            }
-            catch( ParseException ex )
-            {
-                logger.warning( 
-                    MessageFormat.format( 
-                        i18n.getString( "Logging.ErrorParse" ), text ) );
+                try
+                {
+                    currentDate = TimeHelper.getBaseDate( 
+                            tz, titleMatcher.group( 2 ),
+                            titleMatcher.group( 3 ), titleMatcher.group( 4 ),
+                            titleMatcher.group( 1 ) );
+                    prevTime = 0;
+                }
+                catch( ParseException ex )
+                {
+                    logger.warning( 
+                        MessageFormat.format( 
+                            i18n.getString( "Logging.ErrorParse" ), text ) );
+                }
             }
 
             mode = MODES_NONE;
