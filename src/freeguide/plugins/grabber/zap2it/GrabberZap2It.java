@@ -137,7 +137,7 @@ public class GrabberZap2It extends BaseModule implements IModuleGrabber
             }
 
             final long startTime =
-                schedule.getTime(  ).getDate(  ).getTime(  );
+                schedule.getTime(  ).getLocalDate(  ).getTime(  );
             final long length =
                 ( Integer.parseInt( schedule.getDuration(  ).getHours(  ) ) * 60L * 60L * 1000L )
                 + ( Integer.parseInt( schedule.getDuration(  ).getMinutes(  ) ) * 60L * 1000L );
