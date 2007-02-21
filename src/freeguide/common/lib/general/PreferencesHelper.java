@@ -291,7 +291,8 @@ public class PreferencesHelper
 
             Object value =
                 loadAndCreateObject( 
-                    prefNode, keyClass, namePrefix + i + MAP_SUFFIX_KEY + '.' );
+                    prefNode, valueClass,
+                    namePrefix + i + MAP_SUFFIX_VALUE + '.' );
 
             map.put( key, value );
 
@@ -316,7 +317,17 @@ public class PreferencesHelper
             obj = prefNode.get( namePrefix, null );
 
         }
+        else if( objClass == Boolean.class )
+        {
+            if( namePrefix.endsWith( DOT ) )
+            {
+                namePrefix = namePrefix.substring( 
+                        0, namePrefix.length(  ) - 1 );
 
+            }
+
+            obj = new Boolean( prefNode.get( namePrefix, null ) );
+        }
         else
         {
             obj = objClass.newInstance(  );
