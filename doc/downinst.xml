@@ -163,13 +163,13 @@
         <para>For other RPM-based distros, you should find XMLTV in your
         favourite package repository (let us know so we can add it here).</para>
         
-        <para>Now, to download FreeGuide, go to the <ulink
+        <para>Alternatively, to download FreeGuide here, go to the <ulink
         url="http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789">sourceforge
         download page</ulink>, download the
-        <filename>FreeGuide-xx-noarch.rpm</filename> RPM file and install it
+        <filename>freeguide-xx-noarch.rpm</filename> RPM file and install it
         like so:</para>
 
-        <programlisting>su -c "rpm -i FreeGuide-xx-noarch.rpm"</programlisting>
+        <programlisting>su -c "rpm -i freeGuide-xx-noarch.rpm"</programlisting>
 
         <para>This will install FreeGuide and put a shortcut to it in the
         menu.</para>
@@ -273,8 +273,7 @@
         
         <para>Go to the <ulink
         url="http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789">sourceforge
-        download page</ulink> and download 
-        .</para>
+        download page</ulink>.</para>
         
         <para>To install FreeGuide in its normal place, download
         <filename>freeguide-x.y.z-install-bin.tar.gz</filename>, and unzip
@@ -286,7 +285,7 @@
         <programlisting>freeguide</programlisting>
         
         <para>To install FreeGuide in a local directory, download
-        and unzip <filename>freeguide-x.y.z-install-bin.tar.gz</filename>.</para>
+        and unzip <filename>freeguide-x.y.z-bin.tar.gz</filename>.</para>
         
         <para>You can now run FreeGuide by typing:</para>
 
@@ -353,13 +352,62 @@ export FREEGUIDE_OPTS=-DproxySet=true -DproxyHost=http://proxy.uni.ac.uk -Dproxy
         </section>
       </section>
     </section>
-<!--
+
     <section id="downinst.macos">
-      <title>Mac OS</title>
+      <title>Mac OS X</title>
 
-      <para>FIXME</para>
+      <para>[NOTE: these instructions may be somewhat incomplete.  If you can
+      improve them, please <link linkend="contact">contact us</link> - we
+      will be really grateful.]</para>
+      
+      <para>To use FreeGuide on Mac OS X you need Java and XMLTV.</para>
+
+      <para>You will need the Java 2
+      Runtime Environment version 1.4 or above: You can check this by
+      typing <command>java -version</command> in a terminal.  Ask on the
+      FreeGuide Users' mailing list (see the
+      <link linkend="contact">Contact</link> page) if you have trouble
+      installing Java.</para>
+      
+      <para>First, you will need to install XMLTV.  We don't have specific
+      instructions available for Mac OS X, but the 
+      <link linkend="downinst.linux.xmltv">Linux XMLTV</link> instructions
+      may help.  Please <link linkend="contact">contact us</link> if you
+      get this working, so we can improve these instructions.</para>
+      
+      <para>Now, download the file <filename>freeguide-x.y.z.dmg</filename>
+      from the <ulink
+  url="http://sourceforge.net/project/showfiles.php?group_id=35309&amp;package_id=27789">sourceforge
+      download page</ulink>.</para>
+      
+      <para>Mount the downloaded .dmg file so you can see what's inside.</para>
+      
+      <para>Drag Freeguide.app from the mounted disk image to the Applications
+      Folder.</para>
+ 
+      <para>Double click on Freeguide.app to start the program.  Answer the
+      initial questions you are asked.  Uncheck the "Choose channels" checkbox
+      when you see it.  Click "No" when asked whether you want to download
+      listings.</para>
+ 
+      <para>In the menu go to Tools and Options.  Expand the Advanced node,
+      and expand Grabbers.  Click XMLTV.</para>
+ 
+      <para>Change the paths to the appropriate tv_grab_* perl scripts  
+      executable in the two text entries, so that they are the full
+      absolute paths.</para>
+      
+      <para>Click Configure to choose your channels, and answer the
+      questions.</para>
+      
+      <para>Click OK, and you should be able to click "Download listings" to
+      download.</para>
+      
+      <para><link linkend="contact">Contact us</link> if you have any problems
+      and we'll try to help you get it working.</para>
+      
     </section>
-
+<!--
     <section id="downinst.freebsd">
       <title>FreeBSD</title>
 
