@@ -48,8 +48,12 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         "resources/plugins/grabber/vsetv/timezones.properties";
     protected static final String FILE_NEN =
         "resources/plugins/grabber/vsetv/nen.properties";
-    protected static final String VALUE_ACCEPT_LANGUAGE = "ru";
-    protected static final String VALUE_ACCEPT_CHARSET = "windows-1251";
+    protected static final String VALUE_ACCEPT =
+        "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, application/xaml+xml, application/vnd.ms-xpsdocument, application/x-ms";
+    protected static final String VALUE_ACCEPT_LANGUAGE = "ru,en-us;q=0.5";
+    protected static final String VALUE_ACCEPT_ENCODING = "gzip, deflate";
+    protected static final String VALUE_USER_AGENT =
+        "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727; .NET CLR 1.1.4322; .NET CLR 3.0.04506.30)";
     protected static final String PARAM_HOURS_BEG = "hours1";
     protected static final String PARAM_HOURS_END = "hours2";
     protected static final String PARAM_HOURS_BEG_VALUE = "5";
@@ -115,8 +119,10 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         browser.setHeader( 
             HttpBrowser.HEADER_ACCEPT_LANGUAGE, VALUE_ACCEPT_LANGUAGE );
 
+        browser.setHeader( HttpBrowser.HEADER_ACCEPT, VALUE_ACCEPT );
         browser.setHeader( 
-            HttpBrowser.HEADER_ACCEPT_CHARSET, VALUE_ACCEPT_CHARSET );
+            HttpBrowser.HEADER_ACCEPT_ENCODING, VALUE_ACCEPT_ENCODING );
+        browser.setHeader( HttpBrowser.HEADER_USER_AGENT, VALUE_USER_AGENT );
 
         browser.setHeader( HttpBrowser.HEADER_REFERER, URL );
 
@@ -153,10 +159,18 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         HttpBrowser browser = new HttpBrowser(  );
 
         browser.setHeader( 
-            HttpBrowser.HEADER_ACCEPT_LANGUAGE, VALUE_ACCEPT_LANGUAGE );
+            HttpBrowser.HEADER_USER_AGENT,
+            "Mozilla/5.0 (Windows; U; Windows NT 5.1; ru-RU; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1" );
+        browser.setHeader( 
+            HttpBrowser.HEADER_ACCEPT,
+            "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5" );
 
         browser.setHeader( 
-            HttpBrowser.HEADER_ACCEPT_CHARSET, VALUE_ACCEPT_CHARSET );
+            HttpBrowser.HEADER_ACCEPT_LANGUAGE, "ru;q=0.8,en-us;q=0.5,en;q=0.3" );
+        browser.setHeader( HttpBrowser.HEADER_ACCEPT_ENCODING, "gzip,deflate" );
+
+        browser.setHeader( 
+            HttpBrowser.HEADER_ACCEPT_CHARSET, "ISO-8859-5,utf-8;q=0.7,*;q=0.7" );
 
         browser.setHeader( HttpBrowser.HEADER_REFERER, URL );
 
