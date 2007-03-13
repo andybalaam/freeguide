@@ -33,10 +33,9 @@ public class PreferencesHelper
     protected static final String MAP_SUFFIX_KEY_TYPE = "_KEY_TYPE";
     protected static final String MAP_SUFFIX_VALUE_TYPE = "_VALUE_TYPE";
     protected static final String COLLECTION_SUFFIX_TYPE = "_TYPE";
-    protected static final String SUFFIX_SIZE = "size";
+    protected static final String SUFFIX_SIZE = ".size";
     protected static final String MAP_SUFFIX_KEY = ".key";
     protected static final String MAP_SUFFIX_VALUE = ".value";
-    protected static final String DOT = ".";
 
     /**
      * DOCUMENT_ME!
@@ -158,7 +157,7 @@ public class PreferencesHelper
 
                     Map map = (Map)field.get( obj );
 
-                    loadMap( prefNode, keyName + '.', map, keyType, valueType );
+                    loadMap( prefNode, keyName, map, keyType, valueType );
 
                     //field.set( obj, list );
                 }
@@ -189,7 +188,7 @@ public class PreferencesHelper
 
                     Class typeClass = (Class)typeField.get( obj.getClass(  ) );
 
-                    loadList( prefNode, keyName + '.', list, typeClass );
+                    loadList( prefNode, keyName, list, typeClass );
                 }
                 else
                 {
@@ -252,7 +251,7 @@ public class PreferencesHelper
         {
             list.add( 
                 loadAndCreateObject( 
-                    prefNode, elementClass, namePrefix + i + '.' ) );
+                    prefNode, elementClass, namePrefix + '.' + i + '.' ) );
 
         }
     }
@@ -287,12 +286,13 @@ public class PreferencesHelper
         {
             Object key =
                 loadAndCreateObject( 
-                    prefNode, keyClass, namePrefix + i + MAP_SUFFIX_KEY + '.' );
+                    prefNode, keyClass,
+                    namePrefix + '.' + i + MAP_SUFFIX_KEY + '.' );
 
             Object value =
                 loadAndCreateObject( 
                     prefNode, valueClass,
-                    namePrefix + i + MAP_SUFFIX_VALUE + '.' );
+                    namePrefix + '.' + i + MAP_SUFFIX_VALUE + '.' );
 
             map.put( key, value );
 
@@ -307,33 +307,17 @@ public class PreferencesHelper
 
         if( objClass == String.class )
         {
-            if( namePrefix.endsWith( DOT ) )
-            {
-                namePrefix = namePrefix.substring( 
-                        0, namePrefix.length(  ) - 1 );
-
-            }
-
-            obj = prefNode.get( namePrefix, null );
-
+            obj = prefNode.get( trimDots( namePrefix ), null );
         }
         else if( objClass == Boolean.class )
         {
-            if( namePrefix.endsWith( DOT ) )
-            {
-                namePrefix = namePrefix.substring( 
-                        0, namePrefix.length(  ) - 1 );
-
-            }
-
-            obj = new Boolean( prefNode.get( namePrefix, null ) );
+            obj = new Boolean( prefNode.get( trimDots( namePrefix ), null ) );
         }
         else
         {
             obj = objClass.newInstance(  );
 
             loadObject( prefNode, namePrefix, obj );
-
         }
 
         return obj;
@@ -472,7 +456,7 @@ public class PreferencesHelper
             saveObject( prefNode, it.next(  ), namePrefix + '.' + i );
         }
 
-        prefNode.putInt( namePrefix + '.' + SUFFIX_SIZE, i );
+        prefNode.putInt( namePrefix + SUFFIX_SIZE, i );
 
     }
 
@@ -571,6 +555,26 @@ public class PreferencesHelper
         {
             Application.getInstance(  ).getLogger(  )
                        .log( Level.WARNING, "Error clone simple object", ex );
+        }
+    }
+
+    /**
+     * Remove dot if it exists at the end of name.
+     *
+     * @param str name
+     *
+     * @return result
+     */
+    protected static String trimDots( final String str )
+    {
+        if( ( str.length(  ) > 0 )
+                && ( str.charAt( str.length(  ) - 1 ) == '.' ) )
+        {
+            return str.substring( 0, str.length(  ) - 1 );
+        }
+        else
+        {
+            return str;
         }
     }
 }
