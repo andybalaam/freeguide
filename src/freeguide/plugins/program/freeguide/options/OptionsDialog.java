@@ -393,8 +393,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
             }
         }
 
-        PluginsManager.saveAllConfigs(  );
-
+        //PluginsManager.saveAllConfigs(  );
         setChanged(  );
         setSave(  );
     }
