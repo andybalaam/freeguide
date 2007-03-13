@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -661,6 +662,9 @@ public class ScheduleProcessor
         protected final String title;
         protected final String ch;
 
+        /** Length of programme in format HH:mm:ss. */
+        protected final String length;
+
 /**
          * Creates a new TaskExecute object.
          * 
@@ -685,6 +689,8 @@ public class ScheduleProcessor
             this.stopCommand = stopCommand;
             title = prog.getTitle(  );
             ch = prog.getChannel(  ).getID(  );
+            length = new SimpleDateFormat( "HH:mm:ss" ).format( 
+                    new Date( stopTime - execTime ) );
         }
 
         /**
@@ -728,6 +734,7 @@ public class ScheduleProcessor
 
             String result = StringHelper.replaceAll( cmd, "%title", title );
             result = StringHelper.replaceAll( result, "%ch", hardwareId );
+            result = StringHelper.replaceAll( result, "%length", length );
 
             return result;
         }
