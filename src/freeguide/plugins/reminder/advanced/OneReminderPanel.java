@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -25,7 +24,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
-import javax.swing.border.EtchedBorder;
 
 /**
  * Panel for edit one reminder.
@@ -34,7 +32,7 @@ import javax.swing.border.EtchedBorder;
  */
 public class OneReminderPanel extends JPanel
 {
-    protected JButton btnDelete;
+    protected JButton btnAction;
     protected JTextField txtName;
     protected JComboBox cbIcons;
     protected TimeEditor tmPopupShow;
@@ -77,7 +75,7 @@ public class OneReminderPanel extends JPanel
 
         cbIcons = new JComboBox( items.toArray( new CBItem[items.size(  )] ) );
 
-        btnDelete = new JButton( "Delete" );
+        btnAction = new JButton( "Delete" );
         txtName = new JTextField(  );
         tmPopupShow = new TimeEditor( TimeEditor.MODE.SECONDS );
         tmPopupHide = new TimeEditor( TimeEditor.MODE.SECONDS );
@@ -126,7 +124,7 @@ public class OneReminderPanel extends JPanel
         int line = 0;
 
         gbcBtnDelete.gridy = line;
-        add( btnDelete, gbcBtnDelete );
+        add( btnAction, gbcBtnDelete );
 
         line++;
 
@@ -290,8 +288,6 @@ public class OneReminderPanel extends JPanel
         gbcLabel.gridwidth = 4;
         gbcLabel.fill = GridBagConstraints.BOTH;
         add( getHelpLabel(  ), gbcLabel );
-
-        setBorder( BorderFactory.createEtchedBorder( EtchedBorder.RAISED ) );
     }
 
     protected JLabel getHelpLabel(  )

@@ -567,7 +567,8 @@ public class PreferencesHelper
      */
     protected static String trimDots( final String str )
     {
-        if( ( str.length(  ) > 0 )
+        if( 
+            ( str.length(  ) > 0 )
                 && ( str.charAt( str.length(  ) - 1 ) == '.' ) )
         {
             return str.substring( 0, str.length(  ) - 1 );

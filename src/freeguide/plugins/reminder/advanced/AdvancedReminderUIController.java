@@ -8,10 +8,11 @@ import freeguide.common.lib.fgspecific.selection.ManualSelection;
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import freeguide.common.plugininterfaces.IModuleStorage;
 
+import freeguide.plugins.program.freeguide.options.OptionsDialog;
+
 import freeguide.plugins.reminder.advanced.AdvancedReminder.OneReminderConfig;
 
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,7 +25,15 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTree;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 /**
  * Controller for edit configuration.
@@ -33,22 +42,13 @@ import javax.swing.table.AbstractTableModel;
  */
 public class AdvancedReminderUIController implements IModuleConfigurationUI
 {
-    protected AdvancedReminderUIPanel panel;
     protected final AdvancedReminder.Config config;
+    protected Map<String, Component> panels;
+    protected JTree tree;
+    protected final Map<String, DefaultMutableTreeNode> treeNodes =
+        new TreeMap<String, DefaultMutableTreeNode>(  );
     protected List<ChannelInfo> channelsHardwareData;
-    protected ActionListener actionAddReminder =
-        new ActionListener(  )
-        {
-            public void actionPerformed( ActionEvent e )
-            {
-                final OneReminderConfig config = new OneReminderConfig(  );
-                final OneReminderPanel remPanel =
-                    new OneReminderPanel( config );
-                panel.addReminderPanel( remPanel );
-                setupReminderPanel( remPanel, config );
-                panel.revalidate(  );
-            }
-        };
+    protected OneReminderPanel currentAddNewPanel;
 
 /**
      * Creates a new AdvancedReminderUIController object.
@@ -66,22 +66,98 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
      *
      * @param remPanel panel
      * @param config reminder config
+     * @param isNew DOCUMENT ME!
      */
     protected void setupReminderPanel( 
-        final OneReminderPanel remPanel, final OneReminderConfig config )
+        final OneReminderPanel remPanel, final OneReminderConfig config,
+        final boolean isNew )
     {
-        remPanel.btnDelete.addActionListener( 
+        remPanel.btnAction.addActionListener( 
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
                 {
-                    panel.removeReminderPanel( remPanel );
-                    panel.revalidate(  );
+                    String name = remPanel.config.name;
 
-                    final Container c = panel.getParent(  );
-                    c.repaint(  );
+                    if( name == null )
+                    {
+                        name = remPanel.txtName.getText(  );
+                    }
+
+                    if( "".equals( name ) )
+                    {
+                        name = "Add new...";
+                    }
+
+                    if( 
+                        !( (JButton)e.getSource(  ) ).getText(  )
+                               .equals( "Delete" ) )
+                    {
+                        // new reminder panel
+                        name = "Add new...";
+
+                        if( panels.containsKey( remPanel.txtName.getText(  ) ) )
+                        {
+                            JOptionPane.showMessageDialog( 
+                                remPanel,
+                                "Reminder with the same name already exists",
+                                "Add new reminder error",
+                                JOptionPane.ERROR_MESSAGE );
+                        }
+                        else
+                        {
+                            DefaultMutableTreeNode treeNode =
+                                treeNodes.get( name );
+                            treeNode.setUserObject( 
+                                new OptionsDialog.ModuleNode( 
+                                    AdvancedReminderUIController.this,
+                                    remPanel.txtName.getText(  ) ) );
+
+                            panels.put( 
+                                remPanel.txtName.getText(  ), remPanel );
+                            remPanel.btnAction.setText( "Delete" );
+                            treeNodes.put( 
+                                remPanel.txtName.getText(  ), treeNode );
+
+                            final DefaultMutableTreeNode modBranch =
+                                new DefaultMutableTreeNode( 
+                                    new OptionsDialog.ModuleNode( 
+                                        AdvancedReminderUIController.this,
+                                        "Add new..." ) );
+                            ( (DefaultTreeModel)tree.getModel(  ) )
+                            .insertNodeInto( 
+                                modBranch,
+                                (MutableTreeNode)treeNode.getParent(  ),
+                                treeNode.getParent(  ).getChildCount(  ) );
+                            ( (DefaultMutableTreeNode)treeNode.getParent(  ) )
+                            .add( modBranch );
+                            treeNodes.put( "Add new...", modBranch );
+
+                            AdvancedReminder.OneReminderConfig c =
+                                new AdvancedReminder.OneReminderConfig(  );
+                            currentAddNewPanel = new OneReminderPanel( c );
+                            setupReminderPanel( currentAddNewPanel, c, true );
+                            panels.put( "Add new...", currentAddNewPanel );
+                        }
+                    }
+                    else
+                    {
+                        // exists reminder panel                               
+                        panels.remove( name );
+
+                        MutableTreeNode treeNode = treeNodes.remove( name );
+
+                        // remove node from tree and set default node to 'reminders'
+                        TreeNode[] parentPath =
+                            ( (DefaultMutableTreeNode)treeNode.getParent(  ) )
+                            .getPath(  );
+                        ( (DefaultTreeModel)tree.getModel(  ) )
+                        .removeNodeFromParent( treeNode );
+                        tree.setSelectionPath( new TreePath( parentPath ) );
+                    }
                 }
             } );
+
         remPanel.txtName.setText( config.name );
         remPanel.cbPopup.setSelected( config.isPopup );
         remPanel.tmPopupShow.setTimeValue( -config.popupOpenTime );
@@ -97,36 +173,57 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
         remPanel.txtExecuteStop.setText( config.executeStopCommand );
         remPanel.config = config;
         remPanel.setIcon( config.iconName );
+
+        if( config.name == null )
+        {
+            remPanel.btnAction.setText( "Create new" );
+        }
     }
 
     /**
      * Return UI.
      *
+     * @param leafName DOCUMENT ME!
+     * @param node DOCUMENT ME!
+     * @param tree DOCUMENT ME!
+     *
      * @return UI panel
      */
-    public Component getPanel(  )
+    public Component getPanel( 
+        String leafName, MutableTreeNode node, JTree tree )
     {
-        if( panel == null )
+        if( panels == null )
         {
-            panel = new AdvancedReminderUIPanel(  );
+            treeNodes.clear(  );
+
+            panels = new TreeMap<String, Component>(  );
+
+            AdvancedReminderUIPanel chPanel = new AdvancedReminderUIPanel(  );
+            chPanel.tblChannels.setModel( new ChannelsTableModel( config ) );
+            panels.put( "Channel names", chPanel );
 
             synchronized( config )
             {
-                for( final OneReminderConfig rem : config.reminders )
+                for( AdvancedReminder.OneReminderConfig c : config.reminders )
                 {
-                    final OneReminderPanel remPanel =
-                        new OneReminderPanel( rem );
-                    panel.addReminderPanel( remPanel );
-                    setupReminderPanel( remPanel, rem );
+                    OneReminderPanel remPanel = new OneReminderPanel( c );
+                    setupReminderPanel( remPanel, c, false );
+                    panels.put( c.name, remPanel );
                 }
-
-                panel.tblChannels.setModel( new ChannelsTableModel( config ) );
             }
 
-            panel.btnAddReminder.addActionListener( actionAddReminder );
+            AdvancedReminder.OneReminderConfig c =
+                new AdvancedReminder.OneReminderConfig(  );
+            currentAddNewPanel = new OneReminderPanel( c );
+            setupReminderPanel( currentAddNewPanel, c, true );
+            panels.put( "Add new...", currentAddNewPanel );
         }
 
-        return panel;
+        Component result = panels.get( leafName );
+        treeNodes.put( leafName, (DefaultMutableTreeNode)node );
+        this.tree = tree;
+
+        return result;
     }
 
     /**
@@ -134,7 +231,7 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
      */
     public void save(  )
     {
-        if( panel == null )
+        if( panels == null )
         {
             return;
         }
@@ -146,34 +243,44 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
         final Map<String, String> oldToNewNames =
             new TreeMap<String, String>(  );
 
-        for( final OneReminderPanel remPanel : panel.reminderPanels )
+        for( final Component panel : panels.values(  ) )
         {
-            final OneReminderConfig pc = remPanel.config;
-
-            if( pc.name != null )
+            if( panel instanceof OneReminderPanel )
             {
-                oldToNewNames.put( pc.name, remPanel.txtName.getText(  ) );
+                OneReminderPanel remPanel = (OneReminderPanel)panel;
+
+                if( remPanel == currentAddNewPanel )
+                {
+                    continue;
+                }
+
+                final OneReminderConfig pc = remPanel.config;
+
+                if( pc.name != null )
+                {
+                    oldToNewNames.put( pc.name, remPanel.txtName.getText(  ) );
+                }
+
+                pc.name = remPanel.txtName.getText(  );
+                pc.isPopup = remPanel.cbPopup.isSelected(  );
+                pc.popupOpenTime = -remPanel.tmPopupShow.getTimeValue(  );
+                pc.popupCloseTime = remPanel.tmPopupHide.getTimeValue(  );
+                pc.isSound = remPanel.cbSound.isSelected(  );
+                pc.soundPlayTime = -remPanel.tmSound.getTimeValue(  );
+                pc.soundFile = remPanel.txtSoundFile.getText(  );
+                pc.isExecute = remPanel.cbExecute.isSelected(  );
+                pc.executeStartTime = -remPanel.tmExecuteStart.getTimeValue(  );
+                pc.executeStartCommand = remPanel.txtExecuteStart.getText(  );
+                pc.executeStopTimeOnFinishProgramme = remPanel.tmExecuteStop
+                    .getTimeValue(  );
+                pc.executeStopCommand = remPanel.txtExecuteStop.getText(  );
+
+                final OneReminderPanel.CBItem item =
+                    (OneReminderPanel.CBItem)remPanel.cbIcons.getSelectedItem(  );
+                pc.iconName = ( item != null ) ? item.key : null;
+
+                reminders.add( remPanel.config );
             }
-
-            pc.name = remPanel.txtName.getText(  );
-            pc.isPopup = remPanel.cbPopup.isSelected(  );
-            pc.popupOpenTime = -remPanel.tmPopupShow.getTimeValue(  );
-            pc.popupCloseTime = remPanel.tmPopupHide.getTimeValue(  );
-            pc.isSound = remPanel.cbSound.isSelected(  );
-            pc.soundPlayTime = -remPanel.tmSound.getTimeValue(  );
-            pc.soundFile = remPanel.txtSoundFile.getText(  );
-            pc.isExecute = remPanel.cbExecute.isSelected(  );
-            pc.executeStartTime = -remPanel.tmExecuteStart.getTimeValue(  );
-            pc.executeStartCommand = remPanel.txtExecuteStart.getText(  );
-            pc.executeStopTimeOnFinishProgramme = remPanel.tmExecuteStop
-                .getTimeValue(  );
-            pc.executeStopCommand = remPanel.txtExecuteStop.getText(  );
-
-            final OneReminderPanel.CBItem item =
-                (OneReminderPanel.CBItem)remPanel.cbIcons.getSelectedItem(  );
-            pc.iconName = ( item != null ) ? item.key : null;
-
-            reminders.add( remPanel.config );
         }
 
         synchronized( config )
@@ -251,6 +358,29 @@ public class AdvancedReminderUIController implements IModuleConfigurationUI
      */
     public void cancel(  )
     {
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String[] getTreeNodes(  )
+    {
+        synchronized( config )
+        {
+            List<String> result = new ArrayList<String>(  );
+            result.add( "Channel names" );
+
+            for( AdvancedReminder.OneReminderConfig c : config.reminders )
+            {
+                result.add( c.name );
+            }
+
+            result.add( "Add new..." );
+
+            return result.toArray( new String[result.size(  )] );
+        }
     }
 
     protected static class ChannelInfo

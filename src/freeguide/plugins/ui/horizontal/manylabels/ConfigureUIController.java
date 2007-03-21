@@ -19,8 +19,11 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.JTree;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
 
 /**
  * DOCUMENT ME!
@@ -116,6 +119,16 @@ public class ConfigureUIController implements IModuleConfigurationUI
 
     /**
      * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String[] getTreeNodes(  )
+    {
+        return null;
+    }
+
+    /**
+     * DOCUMENT_ME!
      */
     public void save(  )
     {
@@ -149,9 +162,14 @@ public class ConfigureUIController implements IModuleConfigurationUI
     /**
      * DOCUMENT_ME!
      *
+     * @param leafName DOCUMENT ME!
+     * @param node DOCUMENT ME!
+     * @param tree DOCUMENT ME!
+     *
      * @return DOCUMENT_ME!
      */
-    public Component getPanel(  )
+    public Component getPanel( 
+        String leafName, MutableTreeNode node, JTree tree )
     {
         if( panel == null )
         {

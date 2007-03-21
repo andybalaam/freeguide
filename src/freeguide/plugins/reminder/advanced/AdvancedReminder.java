@@ -62,6 +62,26 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
      */
     public void start(  )
     {
+        if( config.reminders.size(  ) == 0 )
+        {
+            // create predefined reminders
+            final AdvancedReminder.OneReminderConfig reminderPopup =
+                new AdvancedReminder.OneReminderConfig(  );
+            reminderPopup.isPopup = true;
+            reminderPopup.name = "Remind me";
+            reminderPopup.labelAddProgramme = "Remind me";
+            reminderPopup.labelAddFavourite = "Remind me of every episode";
+            config.reminders.add( reminderPopup );
+
+            final AdvancedReminder.OneReminderConfig reminderRecording =
+                new AdvancedReminder.OneReminderConfig(  );
+            reminderRecording.isExecute = true;
+            reminderRecording.name = "Record";
+            reminderRecording.labelAddProgramme = "Record";
+            reminderRecording.labelAddFavourite = "Record every episode";
+            config.reminders.add( reminderRecording );
+        }
+
         removeOldSelections(  );
         thread = new SchedulerThread( this );
         thread.start(  );
@@ -543,6 +563,18 @@ public class AdvancedReminder extends BaseModule implements IModuleReminder
     {
         /** Reminder name. */
         public String name;
+
+        /** Labels for popup menu. */
+        public String labelAddProgramme;
+
+        /** Labels for popup menu. */
+        public String labelRemoveProgramme;
+
+        /** Labels for popup menu. */
+        public String labelAddFavourite;
+
+        /** Labels for popup menu. */
+        public String labelRemoveFavourite;
 
         /** Show popup. */
         public boolean isPopup;

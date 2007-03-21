@@ -22,10 +22,13 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTree;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
 
 /**
  * Edit options controller.
@@ -100,9 +103,14 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
     /**
      * DOCUMENT_ME!
      *
+     * @param leafName DOCUMENT ME!
+     * @param node DOCUMENT ME!
+     * @param tree DOCUMENT ME!
+     *
      * @return DOCUMENT_ME!
      */
-    public Component getPanel(  )
+    public Component getPanel( 
+        String leafName, MutableTreeNode node, JTree tree )
     {
         if( panel == null )
         {
@@ -141,6 +149,16 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
      */
     public void resetToDefaults(  )
     {
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String[] getTreeNodes(  )
+    {
+        return null;
     }
 
     private void addModule( final XMLTVConfig.ModuleInfo moduleInfo )

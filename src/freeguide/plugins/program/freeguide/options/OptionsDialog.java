@@ -42,6 +42,7 @@ import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
@@ -263,10 +264,25 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
             if( confUI != null )
             {
-                final DefaultMutableTreeNode modBranch =
-                    new DefaultMutableTreeNode( 
-                        new ModuleNode( confUI, plugins[i].getName(  ) ) );
-                branch.add( modBranch );
+                final String[] nodes = confUI.getTreeNodes(  );
+
+                if( nodes != null )
+                {
+                    for( String node : nodes )
+                    {
+                        final DefaultMutableTreeNode modBranch =
+                            new DefaultMutableTreeNode( 
+                                new ModuleNode( confUI, node ) );
+                        branch.add( modBranch );
+                    }
+                }
+                else
+                {
+                    final DefaultMutableTreeNode modBranch =
+                        new DefaultMutableTreeNode( 
+                            new ModuleNode( confUI, plugins[i].getName(  ) ) );
+                    branch.add( modBranch );
+                }
             }
         }
 
@@ -311,7 +327,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         }
         else if( userObject instanceof ModuleNode )
         {
-            replaceOptionPanel( (ModuleNode)userObject );
+            replaceOptionPanel( (ModuleNode)userObject, node );
         }
         else
         {
@@ -324,9 +340,11 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         showPanel( newOptionPanel );
     }
 
-    private void replaceOptionPanel( ModuleNode moduleNode )
+    private void replaceOptionPanel( 
+        ModuleNode moduleNode, DefaultMutableTreeNode node )
     {
-        showPanel( moduleNode.confUI.getPanel(  ) );
+        showPanel( 
+            moduleNode.confUI.getPanel( moduleNode.title, node, menuTree ) );
     }
 
     private void clearOptionPanel(  )

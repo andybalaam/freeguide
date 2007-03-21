@@ -9,6 +9,8 @@ import java.util.Enumeration;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
 
 /**
  * DOCUMENT ME!
@@ -35,9 +37,14 @@ public class VsetvConfigurationUIController implements IModuleConfigurationUI
     /**
      * DOCUMENT_ME!
      *
+     * @param leafName DOCUMENT ME!
+     * @param node DOCUMENT ME!
+     * @param tree DOCUMENT ME!
+     *
      * @return DOCUMENT_ME!
      */
-    public Component getPanel(  )
+    public Component getPanel( 
+        String leafName, MutableTreeNode node, JTree tree )
     {
         if( panel == null )
         {
@@ -143,5 +150,15 @@ public class VsetvConfigurationUIController implements IModuleConfigurationUI
      */
     public void cancel(  )
     {
+    }
+
+    /**
+     * DOCUMENT_ME!
+     *
+     * @return DOCUMENT_ME!
+     */
+    public String[] getTreeNodes(  )
+    {
+        return null;
     }
 }

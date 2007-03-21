@@ -109,8 +109,10 @@ public class Migrate0_10_4To0_10_5 extends MigrationProcessBase
             "modules/reminder-advanced/reminders.0.popupCloseTime",
             Long.toString( -warn + giveUp ) );
 
-        putKey( "modules/reminder-advanced/reminders.size", "1" );
-        putKey( "modules/reminder-advanced/reminders.0.name", "favourites" );
+        putKey( "modules/reminder-advanced/reminders.size", "2" );
+        putKey( "modules/reminder-advanced/reminders.0.name", "Remind me" );
+        putKey( "modules/reminder-advanced/reminders.1.name", "Record" );
+
         getAndRemoveKey( "version" );
         putKey( "version", "0.10.5" );
     }

@@ -2,6 +2,9 @@ package freeguide.common.plugininterfaces;
 
 import java.awt.Component;
 
+import javax.swing.JTree;
+import javax.swing.tree.MutableTreeNode;
+
 /**
  * Interface for setup module. Each module CAN return this interface for
  * configure through UI.
@@ -13,9 +16,13 @@ public interface IModuleConfigurationUI
     /**
      * Get component with configuration UI.
      *
+     * @param leafName name of leaf in the optiona dialog
+     * @param node DOCUMENT ME!
+     * @param tree DOCUMENT ME!
+     *
      * @return UI component. Usually - JPanel.
      */
-    Component getPanel(  );
+    Component getPanel( String leafName, MutableTreeNode node, JTree tree );
 
     /**
      * Save selected settings.
@@ -31,4 +38,11 @@ public interface IModuleConfigurationUI
      * Cancel settings without save.
      */
     void cancel(  );
+
+    /**
+     * Get nodes for options dialog tree.
+     *
+     * @return nodes or null if need to add module name
+     */
+    String[] getTreeNodes(  );
 }
