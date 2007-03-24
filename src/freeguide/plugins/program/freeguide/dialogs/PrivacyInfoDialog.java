@@ -114,16 +114,6 @@ public class PrivacyInfoDialog extends JDialog
     }
 
     /**
-     * Description of the Method
-     *
-     * @param evt Description of the Parameter
-     */
-    private void exitForm( java.awt.event.WindowEvent evt )
-    {
-        quit(  );
-    }
-
-    /**
      * Closes the form and goes back to the viewer.
      */
     private void quit(  )

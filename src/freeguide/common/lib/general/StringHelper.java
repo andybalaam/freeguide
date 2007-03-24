@@ -1,8 +1,5 @@
 package freeguide.common.lib.general;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * Helper for some string operations.

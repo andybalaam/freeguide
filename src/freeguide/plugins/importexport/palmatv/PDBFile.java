@@ -22,11 +22,9 @@ package freeguide.plugins.importexport.palmatv;
 import freeguide.common.lib.general.EndianInputStream;
 import freeguide.common.lib.general.EndianOutputByteArray;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 
 import java.util.ArrayList;
 import java.util.Calendar;

@@ -12,7 +12,22 @@
  */
 package freeguide.common.gui;
 
-import freeguide.common.gui.FGDialog;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.logging.Level;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
@@ -20,34 +35,7 @@ import freeguide.common.lib.fgspecific.selection.Favourite;
 import freeguide.common.lib.general.StringHelper;
 import freeguide.common.lib.general.Time;
 import freeguide.common.lib.general.Utils;
-
 import freeguide.common.plugininterfaces.IModuleReminder;
-
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import java.text.SimpleDateFormat;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.logging.Level;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /*
  * FreeGuideFavouriteEditor
@@ -797,7 +785,7 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.gridy = line;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
-        getContentPane(  ).add( labName, gridBagConstraints );
+        getContentPane(  ).add( labColor, gridBagConstraints );
         pnlColor = new JButton(  );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 1;

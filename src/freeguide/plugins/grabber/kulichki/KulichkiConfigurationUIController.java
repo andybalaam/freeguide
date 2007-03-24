@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.util.logging.Level;
 
 import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 
 /**

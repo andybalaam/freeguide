@@ -5,8 +5,6 @@ import freeguide.common.lib.general.StringHelper;
 
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
-import sun.security.action.GetLongAction;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -27,7 +25,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 
 /**
@@ -50,7 +47,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         {
             public void actionPerformed( final ActionEvent e )
             {
-                JButton btn = (JButton)e.getSource(  );
+                //JButton btn = (JButton)e.getSource(  );
 
                 //                config.commandsRun.remove( btn.getName(  ) );
 

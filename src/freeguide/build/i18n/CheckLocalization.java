@@ -1,7 +1,5 @@
 package freeguide.build.i18n;
 
-import freeguide.common.lib.fgspecific.Application;
-
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
