@@ -35,7 +35,7 @@
         <retroweaver srcdir="${build}/classes" target="1.4"/>
     </target>
     
-    <target name="compile-in-place"
+    <target name="compile-in-place" depends="prepare"
     	description="Compile all the .java files inside the src dir.">
 
         <javac srcdir="${src}"
