@@ -53,20 +53,20 @@ public class PanelGeneralController implements IModuleConfigurationUI
             panel.getCbLF(  )
                  .setModel( new DefaultComboBoxModel( lfs.toArray(  ) ) );
 
-            locales = Application.getInstance(  ).getSupportedLocales(  );
+            //locales = Application.getInstance(  ).getSupportedLocales(  );
 
-            String[] langNames = new String[locales.length + 1];
-            langNames[0] = Application.getInstance(  )
-                                      .getLocalizedMessage( 
-                    "Options.General.Language.default" );
+            //String[] langNames = new String[locales.length + 1];
+            //langNames[0] = Application.getInstance(  )
+            //                          .getLocalizedMessage( 
+            //        "Options.General.Language.default" );
 
-            for( int i = 0; i < locales.length; i++ )
-            {
-                langNames[i + 1] = locales[i].getDisplayName(  );
-            }
+            //for( int i = 0; i < locales.length; i++ )
+            //{
+            //    langNames[i + 1] = locales[i].getDisplayName(  );
+            //}
 
-            panel.getCbLang(  ).setModel( 
-                new DefaultComboBoxModel( langNames ) );
+            //panel.getCbLang(  ).setModel( 
+            //    new DefaultComboBoxModel( langNames ) );
 
             resetToDefaults(  );
 
@@ -76,12 +76,12 @@ public class PanelGeneralController implements IModuleConfigurationUI
                      .setSelectedItem( MainController.config.ui.LFname );
             }
 
-            if( FreeGuide.config.lang != null )
-            {
-                panel.getCbLang(  )
-                     .setSelectedItem( 
-                    FreeGuide.config.lang.getDisplayName(  ) );
-            }
+            //if( FreeGuide.config.lang != null )
+            //{
+            //    panel.getCbLang(  )
+            //         .setSelectedItem( 
+            //        FreeGuide.config.lang.getDisplayName(  ) );
+            //}
         }
 
         return panel;
@@ -98,7 +98,7 @@ public class PanelGeneralController implements IModuleConfigurationUI
                  .setText( FreeGuide.config.workingDirectory );
 
             panel.getCbLF(  ).setSelectedIndex( 0 );
-            panel.getCbLang(  ).setSelectedIndex( 0 );
+            //panel.getCbLang(  ).setSelectedIndex( 0 );
         }
     }
 
@@ -129,18 +129,18 @@ public class PanelGeneralController implements IModuleConfigurationUI
             }
         }
 
-        if( panel.getCbLang(  ).getSelectedIndex(  ) != -1 )
-        {
-            if( panel.getCbLang(  ).getSelectedIndex(  ) == 0 )
-            {
-                FreeGuide.config.lang = null;
-            }
-            else
-            {
-                FreeGuide.config.lang = locales[panel.getCbLang(  )
-                                                     .getSelectedIndex(  ) - 1];
-            }
-        }
+        //if( panel.getCbLang(  ).getSelectedIndex(  ) != -1 )
+        //{
+        //    if( panel.getCbLang(  ).getSelectedIndex(  ) == 0 )
+        //    {
+        //        FreeGuide.config.lang = null;
+        //    }
+        //    else
+        //    {
+        //        FreeGuide.config.lang = locales[panel.getCbLang(  )
+        //                                             .getSelectedIndex(  ) - 1];
+        //    }
+        //}
     }
 
     /**

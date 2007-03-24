@@ -21,8 +21,8 @@ public class PanelGeneralUI extends JPanel
     private JLabel labelLF = null;
     private JTextField textWorkingDir = null;
     private JComboBox cbLF = null;
-    private JLabel labelLang = null;
-    private JComboBox cbLang = null;
+    //private JLabel labelLang = null;
+    //private JComboBox cbLang = null;
 
 /**
      * This is the default constructor
@@ -38,7 +38,7 @@ public class PanelGeneralUI extends JPanel
      */
     private void initialize(  )
     {
-        labelLang = new JLabel(  );
+        //labelLang = new JLabel(  );
 
         GridBagConstraints gridBagConstraints6 = new GridBagConstraints(  );
         GridBagConstraints gridBagConstraints5 = new GridBagConstraints(  );
@@ -84,13 +84,13 @@ public class PanelGeneralUI extends JPanel
         gridBagConstraints4.insets = new java.awt.Insets( 3, 3, 3, 3 );
         gridBagConstraints5.gridx = 0;
         gridBagConstraints5.gridy = 2;
-        labelLang.setText( "Language:" );
+        /*labelLang.setText( "Language:" );
         labelLang.setText( 
             Application.getInstance(  )
                        .getLocalizedMessage( "Options.General.Language" )
             + ":" );
         labelLang.setLabelFor( getCbLang(  ) );
-        labelLang.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_L );
+        labelLang.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_L );*/
         gridBagConstraints6.gridx = 1;
         gridBagConstraints6.gridy = 2;
         gridBagConstraints6.weightx = 1.0;
@@ -99,11 +99,11 @@ public class PanelGeneralUI extends JPanel
         gridBagConstraints5.insets = new java.awt.Insets( 3, 3, 3, 3 );
         gridBagConstraints5.anchor = java.awt.GridBagConstraints.WEST;
         this.add( labelLF, gridBagConstraints2 );
-        this.add( labelLang, gridBagConstraints5 );
+        //this.add( labelLang, gridBagConstraints5 );
         this.add( labelWorkDir, gridBagConstraints1 );
         this.add( getTextWorkingDir(  ), gridBagConstraints3 );
         this.add( getCbLF(  ), gridBagConstraints4 );
-        this.add( getCbLang(  ), gridBagConstraints6 );
+        //this.add( getCbLang(  ), gridBagConstraints6 );
     }
 
     /**
@@ -141,13 +141,13 @@ public class PanelGeneralUI extends JPanel
      *
      * @return javax.swing.JComboBox
      */
-    public JComboBox getCbLang(  )
-    {
-        if( cbLang == null )
-        {
-            cbLang = new JComboBox(  );
-        }
+    //public JComboBox getCbLang(  )
+    //{
+    //    if( cbLang == null )
+    //    {
+    //        cbLang = new JComboBox(  );
+    //    }
 
-        return cbLang;
-    }
+    //    return cbLang;
+    //}
 }

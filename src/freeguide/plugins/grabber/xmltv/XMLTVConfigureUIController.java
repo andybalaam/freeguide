@@ -317,7 +317,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
                 {
                     public void run(  )
                     {
-                        JButton btn = (JButton)e.getSource(  );
+                        //JButton btn = (JButton)e.getSource(  );
 
                         parent.configureChannels( moduleInfo );
 
