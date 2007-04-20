@@ -1,12 +1,11 @@
 #!/bin/sh
 #compile the manual from the docbook sources to html
 
-#   Note: you need to modify doc/docbook-xsl-1.69.1/xhtml/freeguide-things.xsl
-#   if you are going to change this, so that the image is loaded from a remote
-#   server instead of locally.
-#   You also need to change freeguide-param.xsl (same dir) to build into the
-#   correct directory.   Would be good to make this easier.
-#BUILDDIR="html-web"
+if [[ "$1" == "web" ]]; then {
+	mv html-local html-local-real
+	mv html-web html-local
+}; fi
+
 BUILDDIR="html-local"
 
 # Might be needed when we are really building into the build dir
@@ -27,8 +26,11 @@ cp *.css $BUILDDIR/
 # Copy the backward-compatibility html files into the build dir
 cp COPYING TODO *.html $BUILDDIR/
 
-# Comment out for local
-#cp VERSION.php $BUILDDIR/
-#cp upload-web.nosh $BUILDDIR/upload-web.sh
-#chmod u+x $BUILDDIR/upload-web.sh
+if [[ "$1" == "web" ]]; then {
+	cp VERSION.php $BUILDDIR/
+	cp upload-web.nosh $BUILDDIR/upload-web.sh
+	chmod u+x $BUILDDIR/upload-web.sh
+	mv html-local html-web
+	mv html-local-real html-local
+}; fi
 
