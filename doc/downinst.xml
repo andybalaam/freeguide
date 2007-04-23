@@ -130,8 +130,11 @@
           </listitem>
 
           <listitem>
-            <para><link linkend="downinst.linux.debian">Debian and
-            Ubuntu</link></para>
+            <para><link linkend="downinst.linux.ubuntu">Ubuntu</link></para>
+          </listitem>
+          
+          <listitem>
+            <para><link linkend="downinst.linux.debian">Debian</link></para>
           </listitem>
 
           <listitem>
@@ -187,25 +190,59 @@
         <para>Now <link linkend="downinst.linux.config">configure your
         system</link>.</para>
       </section>
-
-      <section id="downinst.linux.debian">
-        <title>FreeGuide on Debian and Ubuntu</title>
+      
+      <section id="downinst.linux.ubuntu">
+        <title>FreeGuide on Ubuntu</title>
         
         <para>First, you will need the latest version of XMLTV which you can
         get by typing:</para>
         
         <programlisting>sudo apt-get install xmltv</programlisting>
         
-        <para>or just:</para>
+        <para>The xmltv package is in the
+        "universe" repository, so ensure that is enabled.</para>
+        
+        <para>If you are using Ubuntu Feisty, freeguide is in the "multiverse"
+        repository, so enable that and type:</para>
+        
+        <programlisting>sudo apt-get install freeguide</programlisting>
+        
+        <para>[If you are using an earlier Ubuntu version, you can download and
+        install the FreeGuide package from <ulink
+        url="http://packages.ubuntu.com/feisty/misc/freeguide">http://packages.ubuntu.com/feisty/misc/freeguide</ulink>.
+        This is a Feisty package, but it should work on any version
+        of Ubuntu (it certainly works on Dapper and Edgy).]</para>
+        
+        <para>You can now run FreeGuide by choosing it from the menu (under
+        "Sound and Video") or alternatively by typing into a terminal:</para>
+
+        <programlisting>freeguide</programlisting>
+
+        <para>You'll now need to answer a few questions, and then you're ready
+        to go.</para>
+        
+        <para>Now <link linkend="downinst.linux.config">configure your
+        system</link>.</para>
+        
+      </section>
+      
+      <section id="downinst.linux.debian">
+        <title>FreeGuide on Debian</title>
+        
+        <para>First, you will need the latest version of XMLTV which you can
+        get by typing:</para>
         
         <programlisting>apt-get install xmltv</programlisting>
         
-        <para>logged in as root.  On Ubuntu, the xmltv package is in the
-        "universe" repository, so ensure that is enabled.  On Debian,
-        the best version is usually in "unstable".</para>
+        <para>logged in as root.  The latest version of FreeGuide is usually
+        in "unstable", but there are decent versions in "testing" and
+        "stable" too.  Unstall it like so:</para>
+        
+        <programlisting>apt-get install freeguide</programlisting>
 		
-        <para>Now download and install the FreeGuide Debian packages from <ulink
-        url="http://packages.debian.org/freeguide">http://packages.debian.org/freeguide</ulink>.</para>
+        <para>[If you need to get the package manually, download and install
+        it from from <ulink
+        url="http://packages.debian.org/freeguide">http://packages.debian.org/freeguide</ulink>.]</para>
         
         <para>You can now run FreeGuide by choosing it from the menu or
         alternatively by typing into a terminal:</para>
