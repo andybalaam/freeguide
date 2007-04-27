@@ -50,6 +50,25 @@ public class ExpMobile extends BaseModule implements IModuleExport
     protected static final Pattern DATA_FILE_RE =
         Pattern.compile( "\\d{4}-\\d{2}-\\d{2}" );
     protected static final String DATEFORMAT_MASK = "yyyy-MM-dd";
+    protected final int version;
+
+    /**
+     * Creates a new ExpMobile object.
+     */
+    public ExpMobile(  )
+    {
+        version = 2;
+    }
+
+    /**
+     * Creates a new ExpMobile object.
+     *
+     * @param version DOCUMENT ME!
+     */
+    public ExpMobile( final int version )
+    {
+        this.version = version;
+    }
 
     /**
      * Returns export config if need.
@@ -139,7 +158,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
         {
             final String fileName = entry.getKey(  );
             final TVData dayData = (TVData)entry.getValue(  );
-            exportOneDay( new File( dir, fileName ), dayData );
+            exportOneDay( new File( dir, fileName ), dayData, tz );
         }
 
         final DataOutputStream dout =
@@ -149,7 +168,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
 
         try
         {
-            dout.writeShort( 1 ); // version
+            dout.writeShort( version );
 
             final String[] channelIDs = data.getChannelIDs(  );
             dout.writeShort( channelIDs.length );
@@ -184,13 +203,15 @@ public class ExpMobile extends BaseModule implements IModuleExport
      *
      * @param file output file
      * @param dayData day data
+     * @param tz DOCUMENT ME!
      *
      * @throws IOException
      */
-    protected void exportOneDay( final File file, final TVData dayData )
+    protected void exportOneDay( 
+        final File file, final TVData dayData, final TimeZone tz )
         throws IOException
     {
-        final OutIterator itDay = new OutIterator(  );
+        final OutIterator itDay = new OutIterator( tz, version );
         // pack data
         dayData.iterate( itDay );
 
@@ -359,6 +380,21 @@ public class ExpMobile extends BaseModule implements IModuleExport
         /** Key is channel ID, value is gzipped data. */
         final Map<String, byte[]> channelsData =
             new TreeMap<String, byte[]>(  );
+        protected final TimeZone tz;
+        protected final int version;
+        protected IOException ex;
+
+        /**
+         * Creates a new OutIterator object.
+         *
+         * @param tz DOCUMENT ME!
+         * @param version DOCUMENT ME!
+         */
+        public OutIterator( final TimeZone tz, final int version )
+        {
+            this.tz = tz;
+            this.version = version;
+        }
 
         protected void onChannel( final TVChannel channel )
         {
@@ -404,6 +440,22 @@ public class ExpMobile extends BaseModule implements IModuleExport
                 {
                     dout.writeInt( 
                         (int)( programmes[i].getStart(  ) / 1000 / 60 ) );
+
+                    switch( version )
+                    {
+                    case 1:
+                        break;
+
+                    case 2:
+                        dout.writeShort( 
+                            tz.getOffset( programmes[i].getStart(  ) ) / 1000 / 60 );
+
+                        break;
+
+                    default:
+                        throw new IOException( "Unknown version" );
+                    }
+
                     dout.writeShort( 
                         (int)( ( programmes[i].getEnd(  )
                         - programmes[i].getStart(  ) ) / 1000 / 60 ) );
@@ -422,9 +474,10 @@ public class ExpMobile extends BaseModule implements IModuleExport
             }
             catch( IOException ex )
             {
+                this.ex = ex;
             }
 
-            return gzipArray( array.toByteArray(  ) );
+            return ( ex == null ) ? gzipArray( array.toByteArray(  ) ) : null;
         }
 
         protected int putToList( final List<String> list, final String str )

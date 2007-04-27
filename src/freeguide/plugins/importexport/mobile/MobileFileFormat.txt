@@ -22,7 +22,7 @@ of the string is output, in sequence, using the modified UTF-8 encoding for the 
   "list" file should be named as "list" and includes info about all channels in the TV schedule.
 
 bytes   type    description
-0-1     short   Format version. Should be 1 for current version.
+0-1     short   Format version. Should be 2 for current version.
 2-3     short   Channels number(N)
 ...     string  channel ID of channel 0
 ...     string  channel Title of channel 0
@@ -78,6 +78,7 @@ bytes   type    description
   Info about programme format:
 bytes   type    description
 0-3     int     Start programme time in minutes from January 1, 1970 in UTC, like "java.util.Date/1000/60"
-4-5     short   Programme length in minutes
-6-7     short   Index of unique string which represent programme title
-8-9     short   Index of unique string which represent programme description
+4-5     short   Local time offset from UTC in minutes
+6-7     short   Programme length in minutes
+8-9     short   Index of unique string which represent programme title
+10-11   short   Index of unique string which represent programme description
