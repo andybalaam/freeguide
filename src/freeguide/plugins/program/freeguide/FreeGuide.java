@@ -61,7 +61,12 @@ public class FreeGuide
     public static final String STORAGE_ID = "storage-serfiles";
 
     /** DOCUMENT ME! */
-    public final static String PREF_ROOT_NAME = "/org/freeguide-tv";
+    public final static String DEFAULT_pref_root_name = "/org/freeguide-tv";
+
+    /**
+     * DOCUMENT ME!
+     */
+    public static String pref_root_name;
 
     /** Storage of TV data. */
     public static IModuleStorage storage;
@@ -153,6 +158,15 @@ public class FreeGuide
             log.getParent(  ).getHandlers(  )[0].setLevel( lev );
         }
 
+        if( arguments.containsKey( "pref_root" ) )
+        {
+            pref_root_name = arguments.getProperty( "pref_root" );
+        }
+        else
+        {
+            pref_root_name = DEFAULT_pref_root_name;
+        }
+
         // Find out what the documents directory is from the command line
         if( arguments.containsKey( "doc_directory" ) )
         {
@@ -193,7 +207,7 @@ public class FreeGuide
 
         if( Migrate.isDumpPrefs(  ) )
         {
-            Migrate.dumpPrefs( PREF_ROOT_NAME );
+            Migrate.dumpPrefs( pref_root_name );
             log.info( 
                 "The preferences were written to files in the current"
                 + " directory." );
@@ -205,7 +219,7 @@ public class FreeGuide
             try
             {
                 PreferencesHelper.load( 
-                    Preferences.userRoot(  ).node( PREF_ROOT_NAME ), config );
+                    Preferences.userRoot(  ).node( pref_root_name ), config );
                 config.version = Application.VERSION.getDotFormat(  );
             }
             catch( Exception ex )
@@ -251,7 +265,7 @@ public class FreeGuide
         try
         {
             PreferencesHelper.save( 
-                Preferences.userRoot(  ).node( PREF_ROOT_NAME ), config );
+                Preferences.userRoot(  ).node( pref_root_name ), config );
 
         }
 

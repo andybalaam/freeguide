@@ -166,15 +166,15 @@ public class PluginsManager
                                 PreferencesHelper.load( 
                                     Preferences.userRoot(  )
                                                .node( 
-                                        "/org/freeguide-tv/mainController" ),
-                                    config );
+                                        FreeGuide.pref_root_name
+                                        + "/mainController" ), config );
                             }
                             else
                             {
                                 PreferencesHelper.load( 
                                     Preferences.userRoot(  )
                                                .node( 
-                                        "/org/freeguide-tv/modules/"
+                                        FreeGuide.pref_root_name + "/modules/"
                                         + handler.getID(  ) ), config );
                             }
                         }
@@ -223,15 +223,15 @@ public class PluginsManager
                             PreferencesHelper.save( 
                                 Preferences.userRoot(  )
                                            .node( 
-                                    "/org/freeguide-tv/mainController" ),
-                                config );
+                                    FreeGuide.pref_root_name
+                                    + "/mainController" ), config );
                         }
                         else
                         {
                             PreferencesHelper.save( 
                                 Preferences.userRoot(  )
                                            .node( 
-                                    "/org/freeguide-tv/modules/"
+                                    FreeGuide.pref_root_name + "/modules/"
                                     + handler.getID(  ) ), config );
                         }
                     }
