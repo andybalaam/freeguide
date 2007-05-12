@@ -1,6 +1,5 @@
 package freeguide.common.lib.general;
 
-
 /**
  * Helper for some string operations.
  *

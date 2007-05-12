@@ -63,7 +63,7 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
         {
         public void onProgramme( TVProgramme programme )
         {
-        
+
         if(
         ( programme.getStart(  ) >= programme.getEnd(  ) )
         || ( programme.getEnd(  ) == 0 )
@@ -72,7 +72,7 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
         {
         programme.setEnd(
         programme.getStart(  ) + ( 30L * 60 * 1000 ) );
-        
+
         }
         }
         }.iterate( result );   */
@@ -90,14 +90,14 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
         cachedInfo = null;
 
         /*                    new XMLTVExport(  ).export(
-        
-        
+
+
         new File(
-        
-        
+
+
         FreeGuide.config.workingDirectory + "/grab-"
-        
-        
+
+
         + grabber.getID(  ) + ".xmltv" ), result );*/
     }
 
@@ -106,39 +106,39 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
     {
         /*
                 String working_directory = FreeGuide.config.workingDirectory;
-        
+
                 if( working_directory == null )
                 {
                     throw new IOException( "Working directory not defined" );
-        
+
                 }
-        
+
                 File[] dataFiles =
                     new File( working_directory ).listFiles(
                         new FilenameFilter(  )
                         {
                             public boolean accept( File dir, String name )
                             {
-        
+
                                 return name.endsWith( ".xmltv" );
-        
+
                             }
                         } );
-        
+
                 if( dataFiles != null )
                 {
-        
+
                     XMLTVImport importer = new XMLTVImport(  );
-        
+
                     for( int i = 0; i < dataFiles.length; i++ )
                     {
-        
+
                         try
                         {
                             importer.process( dataFiles[i], data, filter );
-        
+
                         }
-        
+
                         catch( Exception ex )
                         {
                             FreeGuide.log.log(

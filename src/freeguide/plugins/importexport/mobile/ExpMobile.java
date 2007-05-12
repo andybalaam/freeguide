@@ -52,7 +52,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
     protected static final String DATEFORMAT_MASK = "yyyy-MM-dd";
     protected final int version;
 
-    /**
+/**
      * Creates a new ExpMobile object.
      */
     public ExpMobile(  )
@@ -60,7 +60,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
         version = 2;
     }
 
-    /**
+/**
      * Creates a new ExpMobile object.
      *
      * @param version DOCUMENT ME!
@@ -384,7 +384,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
         protected final int version;
         protected IOException ex;
 
-        /**
+/**
          * Creates a new OutIterator object.
          *
          * @param tz DOCUMENT ME!

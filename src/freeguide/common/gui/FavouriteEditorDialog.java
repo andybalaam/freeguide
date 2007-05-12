@@ -12,10 +12,21 @@
  */
 package freeguide.common.gui;
 
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
+import freeguide.common.lib.fgspecific.selection.Favourite;
+import freeguide.common.lib.general.StringHelper;
+import freeguide.common.lib.general.Time;
+import freeguide.common.lib.general.Utils;
+
+import freeguide.common.plugininterfaces.IModuleReminder;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.text.SimpleDateFormat;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -28,14 +39,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-
-import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.fgspecific.data.TVChannelsSet;
-import freeguide.common.lib.fgspecific.selection.Favourite;
-import freeguide.common.lib.general.StringHelper;
-import freeguide.common.lib.general.Time;
-import freeguide.common.lib.general.Utils;
-import freeguide.common.plugininterfaces.IModuleReminder;
 
 /*
  * FreeGuideFavouriteEditor

@@ -164,7 +164,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
 
     /*protected void askForLoadData(  )
     {
-    
+
         int r =
             JOptionPane.showConfirmDialog(
                 Application.getInstance(  ).getCurrentFrame(  ),
@@ -172,7 +172,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
                     "there_are_missing_listings_for_today" ),
                 Application.getInstance(  ).getLocalizedMessage(
                     "download_listings_q" ), JOptionPane.YES_NO_OPTION );
-    
+
         if( r == 0 )
         {
             Application.getInstance(  ).doStartGrabbers(  );

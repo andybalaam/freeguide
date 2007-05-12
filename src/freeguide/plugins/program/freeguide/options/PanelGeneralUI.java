@@ -21,9 +21,9 @@ public class PanelGeneralUI extends JPanel
     private JLabel labelLF = null;
     private JTextField textWorkingDir = null;
     private JComboBox cbLF = null;
+
     //private JLabel labelLang = null;
     //private JComboBox cbLang = null;
-
 /**
      * This is the default constructor
      */
@@ -39,7 +39,6 @@ public class PanelGeneralUI extends JPanel
     private void initialize(  )
     {
         //labelLang = new JLabel(  );
-
         GridBagConstraints gridBagConstraints6 = new GridBagConstraints(  );
         GridBagConstraints gridBagConstraints5 = new GridBagConstraints(  );
         labelLF = new JLabel(  );
@@ -85,7 +84,7 @@ public class PanelGeneralUI extends JPanel
         gridBagConstraints5.gridx = 0;
         gridBagConstraints5.gridy = 2;
         /*labelLang.setText( "Language:" );
-        labelLang.setText( 
+        labelLang.setText(
             Application.getInstance(  )
                        .getLocalizedMessage( "Options.General.Language" )
             + ":" );
@@ -103,6 +102,7 @@ public class PanelGeneralUI extends JPanel
         this.add( labelWorkDir, gridBagConstraints1 );
         this.add( getTextWorkingDir(  ), gridBagConstraints3 );
         this.add( getCbLF(  ), gridBagConstraints4 );
+
         //this.add( getCbLang(  ), gridBagConstraints6 );
     }
 
@@ -136,11 +136,12 @@ public class PanelGeneralUI extends JPanel
         return cbLF;
     }
 
-    /**
+/**
      * This method initializes jComboBox
      *
      * @return javax.swing.JComboBox
      */
+
     //public JComboBox getCbLang(  )
     //{
     //    if( cbLang == null )

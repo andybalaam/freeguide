@@ -67,7 +67,6 @@ public class PanelGeneralController implements IModuleConfigurationUI
 
             //panel.getCbLang(  ).setModel( 
             //    new DefaultComboBoxModel( langNames ) );
-
             resetToDefaults(  );
 
             if( MainController.config.ui.LFname != null )
@@ -98,6 +97,7 @@ public class PanelGeneralController implements IModuleConfigurationUI
                  .setText( FreeGuide.config.workingDirectory );
 
             panel.getCbLF(  ).setSelectedIndex( 0 );
+
             //panel.getCbLang(  ).setSelectedIndex( 0 );
         }
     }

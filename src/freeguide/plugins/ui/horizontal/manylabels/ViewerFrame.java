@@ -368,43 +368,43 @@ public class ViewerFrame extends JPanel
         programmesPanel.setBackground( bg );
 
         /*
-        
-        
+
+
         * TODO FreeGuide.prefs.favourites.addFGPreferenceChangeListener( new
-        
-        
+
+
         * FGPreferenceChangeListener( ) { public void preferenceChange(
-        
-        
+
+
         * FGPreferenceChangeEvent evt ) {
-        
-        
+
+
         *
-        
-        
+
+
         * //TODO: maybe repaint() programmesPanel.invalidate( ); } } );
-        
-        
+
+
         */
 
         /*
-        
-        
+
+
         * FreeGuide.prefs.chosen_progs.addFGPreferenceChangeListener( new
-        
-        
+
+
         * FGPreferenceChangeListener( ) { public void preferenceChange(
-        
-        
+
+
         * FGPreferenceChangeEvent evt ) {
-        
-        
+
+
         *
-        
-        
+
+
         * //TODO: maybe repaint() programmesPanel.invalidate( ); } } );
-        
-        
+
+
         */
         programmesScrollPane.setViewportView( programmesPanel );
 
@@ -445,23 +445,23 @@ public class ViewerFrame extends JPanel
         add( splitPaneMainDet, gridBagConstraints );
 
         /*
-        
-        
+
+
         * gridBagConstraints = new java.awt.GridBagConstraints();
-        
-        
+
+
         * gridBagConstraints.gridx = 2; gridBagConstraints.gridy = 4;
-        
-        
+
+
         * gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        
-        
+
+
         * gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        
-        
+
+
         * getContentPane().add(progressBar, gridBagConstraints);
-        
-        
+
+
         */
         gridBagConstraints = new java.awt.GridBagConstraints(  );
 
@@ -505,23 +505,23 @@ public class ViewerFrame extends JPanel
         // If we have a grabber command, add a listener, otherwise dull the
         // button.
         /*
-        
-        
+
+
         * if( FreeGuide.prefs.commandline.get( "tv_config.1", null ) != null ) {
-        
-        
+
+
         * mbtConfigure.addActionListener( new java.awt.event.ActionListener( ) {
-        
-        
+
+
         * public void actionPerformed( ActionEvent evt ) {
-        
-        
+
+
         * mbtConfigureActionPerformed( evt ); } } ); } else {
-        
-        
+
+
         * mbtConfigure.setEnabled( false ); }
-        
-        
+
+
         */
 
         // getRootPane( ).setDefaultButton( butGoToNow );

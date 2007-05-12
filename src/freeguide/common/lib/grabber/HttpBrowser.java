@@ -98,52 +98,52 @@ public class HttpBrowser
     protected static final String DEBUG_OUT_PATH = "/tmp/HttpBrowser.error";
 
     /*static
-    
+
     {
-    
-    
+
+
     ProxySelector ps =
-    
+
     new ProxySelector(  )
-    
+
     {
-    
+
     public List select( URI uri )
-    
+
     {
-    
-    
+
+
     List result = new ArrayList(  );
-    
+
     result.add(
-    
+
         new Proxy(
-    
+
             Proxy.Type.HTTP,
-    
+
             new InetSocketAddress( "localhost", 3128 ) ) );
-    
-    
+
+
     return result;
-    
+
     }
-    
-    
+
+
     public void connectFailed(
-    
+
     URI uri, SocketAddress sa, IOException ioe )
-    
+
     {
-    
+
     ioe.printStackTrace(  );
-    
+
     }
-    
+
     };
-    
-    
+
+
     ProxySelector.setDefault( ps );
-    
+
     }   */
     protected Map<String, String> cookies = new TreeMap<String, String>(  );
     protected Map<String, String> headers = new TreeMap<String, String>(  );

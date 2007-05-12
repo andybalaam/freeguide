@@ -277,7 +277,7 @@ public class MainController extends BaseModule implements IApplication
         {
             return;
         }
-    
+
         int r =
             JOptionPane.showConfirmDialog(
                 Application.getInstance(  ).getApplicationFrame(  ),
@@ -287,7 +287,7 @@ public class MainController extends BaseModule implements IApplication
                 Application.getInstance(  )
                            .getLocalizedMessage( "download_listings_q" ),
                 JOptionPane.YES_NO_OPTION );
-    
+
         if( r == 0 )
         {
             Application.getInstance(  ).doStartGrabbers(  );

@@ -63,9 +63,7 @@ public class FreeGuide
     /** DOCUMENT ME! */
     public final static String DEFAULT_pref_root_name = "/org/freeguide-tv";
 
-    /**
-     * DOCUMENT ME!
-     */
+    /** DOCUMENT ME! */
     public static String pref_root_name;
 
     /** Storage of TV data. */

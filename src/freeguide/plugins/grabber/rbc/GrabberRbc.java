@@ -82,16 +82,16 @@ public class GrabberRbc extends BaseModule implements IModuleGrabber
     {
         /*        NumberFormat nf = NumberFormat.getInstance();
                 nf.setMinimumIntegerDigits(2);
-        
+
                 Calendar cal;
                 boolean res;
-        
+
                 HttpBrowser browser = new HttpBrowser();
-        
+
                     anns = new HashMap();
-        
+
                     DataParser parser = new DataParser();
-        
+
                 for (int i = 1; i <= 3; i++) {
                     cal = Calendar.getInstance();
                     while (true) {
@@ -136,7 +136,7 @@ public class GrabberRbc extends BaseModule implements IModuleGrabber
     Matcher m;
     long basedate = 0,curtime;
     int b;
-    
+
     while ((str = tr.readLine()) != null) {
         if ((m = reAnn.matcher(str)).find() && anns != null && p != null) {
             anns.put(m.group(1), p);
@@ -159,7 +159,7 @@ public class GrabberRbc extends BaseModule implements IModuleGrabber
             }
         }
     }
-    
+
     return result;
     }*/
     /**
