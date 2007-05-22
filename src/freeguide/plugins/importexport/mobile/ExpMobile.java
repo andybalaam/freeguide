@@ -423,7 +423,8 @@ public class ExpMobile extends BaseModule implements IModuleExport
             {
                 progNames[i] = putToList( strings, programmes[i].getTitle(  ) );
                 progDescs[i] = putToList( 
-                        strings, programmes[i].getDescription(  ) );
+                        strings,
+                        fixDescription( programmes[i].getDescription(  ) ) );
             }
 
             final ByteArrayOutputStream array = new ByteArrayOutputStream(  );
@@ -478,6 +479,17 @@ public class ExpMobile extends BaseModule implements IModuleExport
             }
 
             return ( ex == null ) ? gzipArray( array.toByteArray(  ) ) : null;
+        }
+
+        protected String fixDescription( String desc )
+        {
+            if( desc == null )
+            {
+                return null;
+            }
+
+            return desc.replaceAll( "<br>", "\n" ).replaceAll( "<br/>", "\n" )
+                       .replaceAll( "\\n+", "\n" );
         }
 
         protected int putToList( final List<String> list, final String str )
