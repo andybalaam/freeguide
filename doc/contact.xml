@@ -5,7 +5,7 @@
     <para>If you have problems running FreeGuide, you should have a look at
     the <link linkend="help.faq">FAQ</link> at first. If that doesn't help, have a
     look at the already-asked questions on the <ulink
-    url="http://sourceforge.net/mailarchive/forum.php?forum_id=7401">FreeGuide
+    url="http://sourceforge.net/mailarchive/forum.php?forum_name=freeguide-tv-users">FreeGuide
     Users mailing list</ulink>. If you want contribute actively to the list,
     subscribe to the list and send a mail to <ulink
     url="mailto:freeguide-tv-users@lists.sourceforge.net">freeguide-tv-users@lists.sourceforge.net</ulink>.</para>
@@ -13,7 +13,7 @@
     <para>The developers can be found at <ulink
     url="mailto:freeguide-tv-devel@lists.sourceforge.net">freeguide-tv-devel@lists.sourceforge.net</ulink>
     and the <ulink
-    url="http://sourceforge.net/mailarchive/forum.php?forum_id=7396">devel
+    url="http://sourceforge.net/mailarchive/forum.php?forum_name=freeguide-tv-devel">devel
     list archives</ulink>.</para>
 
   </chapter>
