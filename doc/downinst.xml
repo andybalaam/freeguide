@@ -52,7 +52,7 @@
           ready to start FreeGuide!  Go straight to the
           <link linkend="userguide">User Guide</link>.</para>
           
-          <para>In the following replace "<uri>proxy.uni.ac.uk</uri>" with
+          <para>In the following replace "<uri>example.com</uri>" with
           your proxy server address, and "<parameter>8080</parameter>" with
           the port it uses. On Windows you can find these out from the
           "<guimenu>Tools</guimenu>" menu on Internet Explorer by choosing
@@ -70,7 +70,7 @@
             middle of the window. Click the "<guibutton>New</guibutton>"
             button in the <guilabel>Global Variables</guilabel> section.
             Variable Name: <varname>http_proxy</varname> Variable Value:
-            <returnvalue>http://proxy.uni.ac.uk:8080</returnvalue> Click
+            <returnvalue>http://example.com:8080</returnvalue> Click
             <guibutton>OK</guibutton> Click <guibutton>OK</guibutton></para>
           </section>
 
@@ -78,7 +78,7 @@
             <title>With Windows 95/98/ME</title>
 
             <para>Add a line "<code>set
-            http_proxy=http://proxy.uni.ac.uk:8080</code>" to the file
+            http_proxy=http://example.com:8080</code>" to the file
             <filename>C:\Autoexec.bat</filename></para>
 
             <para><guibutton>Restart</guibutton> your computer.</para>
@@ -94,7 +94,7 @@
 
           <para>Now change the command to read like this:</para>
 
-          <para><command>javaw.exe -DproxySet=true -DproxyHost=proxy.uni.ac.uk
+          <para><command>javaw.exe -DproxySet=true -DproxyHost=example.com
           -DproxyPort=8080 -jar "C:\Program Files\FreeGuide\startup.jar"
           --doc_directory "C:\Program Files\FreeGuide\doc" --install_directory
           "C:\Program Files\FreeGuide\"</command></para>
@@ -380,10 +380,10 @@
           <para>Add 2 lines to the file
           <filename>~/.bash_profile</filename>:</para>
 
-          <programlisting><code>export http_proxy=http://proxy.uni.ac.uk:8080
-export FREEGUIDE_OPTS=-DproxySet=true -DproxyHost=http://proxy.uni.ac.uk -DproxyPort=8080</code></programlisting>
+          <programlisting><code>export http_proxy=http://example.com:8080
+export FREEGUIDE_OPTS=-DproxySet=true -DproxyHost=http://example.com -DproxyPort=8080</code></programlisting>
 
-          <para>Replace "<uri>proxy.uni.ac.uk</uri>" with your proxy server
+          <para>Replace "<uri>example.com</uri>" with your proxy server
           address, and "<parameter>8080</parameter>" with the port it
           uses.</para>
         </section>
