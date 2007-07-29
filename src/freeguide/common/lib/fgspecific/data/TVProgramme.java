@@ -695,28 +695,29 @@ public class TVProgramme implements Comparable, Serializable
      * @param arg0 DOCUMENT_ME!
      *
      * @return DOCUMENT_ME!
+     *
+     * A channel can't air two programs simultaneously, therefore the
+     * set of programs should naturally consider any program which is
+     * showing at, during or surrounding the given program as equal,
+     * hopefully dropping the overlapped program bug.
+     * Michael McLagan <mmclagan@invlogic.com>
      */
     public int compareTo( Object arg0 )
     {
-        long result = start - ( (TVProgramme)arg0 ).start;
+        TVProgramme p;
 
-        if( result < 0 )
+        p = (TVProgramme) arg0;
+
+        if (end <= p.start)
         {
             return -1;
-
         }
-
-        else if( result > 0 )
+        else if (p.end <= start)
         {
             return 1;
-
         }
 
-        else
-        {
-            return 0;
-
-        }
+        return 0;
     }
 
     /**
