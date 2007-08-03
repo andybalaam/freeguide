@@ -6,7 +6,6 @@ import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.IModuleExport;
 import freeguide.common.plugininterfaces.IModuleImport;
-import freeguide.common.plugininterfaces.IModuleReminder;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.dialogs.AboutFrame;
@@ -80,13 +79,7 @@ public class MenuHandler
 
                         FreeGuide.setLocale( FreeGuide.config.lang );
 
-                        final IModuleReminder reminder =
-                            Application.getInstance(  ).getReminder(  );
-
-                        if( reminder != null )
-                        {
-                            reminder.reschedule(  );
-                        }
+                        MainController.remindersReschedule(  );
 
                         controller.viewer.onDataChanged(  );
                     }

@@ -36,9 +36,27 @@ public class ConfigureUIPanel extends JPanel
     private JLabel labelColorNormal;
     private JPanel panelColorNormal;
     private JButton btnColorNormal;
+    private JLabel labelColorMovie;
     private JLabel labelColorChannel;
+    private JLabel labelColorSelected;
+
+    /** new entries for favourite colour and guide colour */
+    private JLabel labelColorFavourite;
+    private JLabel labelColorGuide;
+    private JPanel panelColorMovie;
+    private JPanel panelColorSelected;
     private JPanel panelColorChannel;
+
+    /** new entries for favourite colour and guide colour */
+    private JPanel panelColorFavourite;
+    private JPanel panelColorGuide;
+    private JButton btnColorMovie;
     private JButton btnColorChannel;
+    private JButton btnColorSelected;
+
+    /** new entries for favourite colour and guide colour */
+    private JButton btnColorFavourite;
+    private JButton btnColorGuide;
     protected ResourceBundle localizer;
     private JTextField dayStart;
     private JLabel jLabel;
@@ -92,10 +110,32 @@ public class ConfigureUIPanel extends JPanel
 
         labelColorNormal = new JLabel(  );
         labelColorChannel = new JLabel(  );
+        labelColorSelected = new JLabel(  );
+/**
+         * new entries for favourite colour and guide colour
+         *
+         * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+         */
+        labelColorFavourite = new JLabel(  );
+        labelColorGuide = new JLabel(  );
+
+        labelColorMovie = new JLabel(  );
 
         GridBagConstraints gridBagConstraints19 = new GridBagConstraints(  );
         GridBagConstraints gridBagConstraints20 = new GridBagConstraints(  );
+
+        /** new entries for favourite colour and guide colour */
+        GridBagConstraints gridBagConstraints22 = new GridBagConstraints(  );
+        GridBagConstraints gridBagConstraints23 = new GridBagConstraints(  );
+
+        GridBagConstraints gridBagConstraints18 = new GridBagConstraints(  );
         GridBagConstraints gridBagConstraints15 = new GridBagConstraints(  );
+        GridBagConstraints gridBagConstraints14 = new GridBagConstraints(  );
+        GridBagConstraints gridBagConstraints16 = new GridBagConstraints(  );
+
+        /** new entries for favourite colour and guide colour */
+        GridBagConstraints gridBagConstraints17 = new GridBagConstraints(  );
+        GridBagConstraints gridBagConstraints118 = new GridBagConstraints(  );
 
         GridBagConstraints gridBagConstraints81 = new GridBagConstraints(  );
         GridBagConstraints gridBagConstraints71 = new GridBagConstraints(  );
@@ -167,6 +207,9 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints101.gridx = 0;
         gridBagConstraints101.gridy = 6;
+        labelColorMovie.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_M );
+        labelColorMovie.setLabelFor( getBtnColorMovie(  ) );
+        labelColorMovie.setText( localizer.getString( "movie_colour" ) );
 
         gridBagConstraints111.gridx = 0;
         gridBagConstraints111.gridy = 7;
@@ -176,6 +219,9 @@ public class ConfigureUIPanel extends JPanel
 
         gridBagConstraints50.gridx = 0;
         gridBagConstraints50.gridy = 5;
+        labelColorSelected.setLabelFor( getBtnColorSelected(  ) );
+        labelColorSelected.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_A );
+        labelColorSelected.setText( localizer.getString( "selected_colour" ) );
 /**
          * new entries for favourite colour and guide colour
          *
@@ -183,9 +229,17 @@ public class ConfigureUIPanel extends JPanel
          */
         gridBagConstraints112.gridx = 0;
         gridBagConstraints112.gridy = 8;
+        labelColorFavourite.setLabelFor( getBtnColorFavourite(  ) );
+        labelColorFavourite.setDisplayedMnemonic( 
+            java.awt.event.KeyEvent.VK_F );
+        labelColorFavourite.setText( 
+            localizer.getString( "favourite_colour" ) );
 
         gridBagConstraints113.gridx = 0;
         gridBagConstraints113.gridy = 9;
+        labelColorGuide.setLabelFor( getBtnColorGuide(  ) );
+        labelColorGuide.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_G );
+        labelColorGuide.setText( localizer.getString( "guide_colour" ) );
 
         gridBagConstraints101.anchor = java.awt.GridBagConstraints.WEST;
 
@@ -210,11 +264,43 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints112.insets = new java.awt.Insets( 5, 5, 0, 0 );
         gridBagConstraints113.insets = new java.awt.Insets( 5, 5, 0, 0 );
 
+        gridBagConstraints14.gridx = 1;
+        gridBagConstraints14.gridy = 6;
+        gridBagConstraints14.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints14.gridwidth = 2;
+        gridBagConstraints14.insets = new java.awt.Insets( 5, 5, 0, 0 );
+
+        gridBagConstraints16.gridx = 1;
+        gridBagConstraints16.gridy = 5;
+        gridBagConstraints16.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints16.gridwidth = 2;
+        gridBagConstraints16.insets = new java.awt.Insets( 5, 5, 0, 0 );
+/**
+         * new entries for favourite colour and guide colour
+         *
+         * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+         */
+        gridBagConstraints17.gridx = 1;
+        gridBagConstraints17.gridy = 8;
+        gridBagConstraints17.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints17.gridwidth = 2;
+        gridBagConstraints17.insets = new java.awt.Insets( 5, 5, 0, 0 );
+
+        gridBagConstraints118.gridx = 1;
+        gridBagConstraints118.gridy = 9;
+        gridBagConstraints118.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints118.gridwidth = 2;
+        gridBagConstraints118.insets = new java.awt.Insets( 5, 5, 0, 0 );
+
         gridBagConstraints15.gridx = 1;
         gridBagConstraints15.gridy = 7;
         gridBagConstraints15.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints15.gridwidth = 2;
         gridBagConstraints15.insets = new java.awt.Insets( 5, 5, 0, 0 );
+
+        gridBagConstraints18.gridx = 3;
+        gridBagConstraints18.gridy = 6;
+        gridBagConstraints18.insets = new java.awt.Insets( 5, 5, 0, 5 );
 
         gridBagConstraints19.gridx = 3;
         gridBagConstraints19.gridy = 7;
@@ -223,6 +309,18 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints20.gridx = 3;
         gridBagConstraints20.gridy = 5;
         gridBagConstraints20.insets = new java.awt.Insets( 5, 5, 0, 5 );
+/**
+         * new entries for favourite colour and guide colour
+         *
+         * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+         */
+        gridBagConstraints22.gridx = 3;
+        gridBagConstraints22.gridy = 8;
+        gridBagConstraints22.insets = new java.awt.Insets( 5, 5, 0, 5 );
+
+        gridBagConstraints23.gridx = 3;
+        gridBagConstraints23.gridy = 9;
+        gridBagConstraints23.insets = new java.awt.Insets( 5, 5, 0, 5 );
 
         gridBagConstraints4.gridx = 0;
         gridBagConstraints4.gridy = 1;
@@ -388,12 +486,37 @@ public class ConfigureUIPanel extends JPanel
         this.add( labelWidth, gridBagConstraints4 );
         this.add( labelHeight, gridBagConstraints1 );
         this.add( getPanelColorChannel(  ), gridBagConstraints15 );
+        this.add( getBtnColorMovie(  ), gridBagConstraints18 );
+        this.add( getPanelColorMovie(  ), gridBagConstraints14 );
+        this.add( getPanelColorSelected(  ), gridBagConstraints16 );
+/**
+         * new entries for favourite colour and guide colour
+         *
+         * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+         */
+        this.add( getPanelColorFavourite(  ), gridBagConstraints17 );
+        this.add( getBtnColorFavourite(  ), gridBagConstraints22 );
+        this.add( getPanelColorGuide(  ), gridBagConstraints118 );
+        this.add( getBtnColorGuide(  ), gridBagConstraints23 );
 
         this.add( getBtnColorNormal(  ), gridBagConstraints81 );
         this.add( getPanelColorNormal(  ), gridBagConstraints71 );
         this.add( labelColorNormal, gridBagConstraints6 );
         this.add( getBtnColorChannel(  ), gridBagConstraints19 );
+        this.add( getBtnColorSelected(  ), gridBagConstraints20 );
         this.add( labelColorChannel, gridBagConstraints111 );
+        this.add( labelColorSelected, gridBagConstraints50 );
+/**
+         * new entries for favourite colour and guide colour
+         *
+         * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+         */
+        this.add( labelColorFavourite, gridBagConstraints112 );
+        this.add( getBtnColorFavourite(  ), gridBagConstraints22 );
+        this.add( labelColorGuide, gridBagConstraints113 );
+        this.add( getBtnColorGuide(  ), gridBagConstraints23 );
+
+        this.add( labelColorMovie, gridBagConstraints101 );
         this.add( getPanelSpacer(  ), gridBagConstraints13 );
         this.add( getJPanel(  ), gridBagConstraints110 );
     }
@@ -586,6 +709,66 @@ public class ConfigureUIPanel extends JPanel
     }
 
     /**
+     * Return the movie colour box.
+     *
+     * @return javax.swing.JPanel
+     */
+    protected JPanel getPanelColorMovie(  )
+    {
+        if( panelColorMovie == null )
+        {
+            panelColorMovie = new JPanel(  );
+        }
+
+        return panelColorMovie;
+    }
+
+    /**
+     * Return the favourite colout box
+     *
+     * @return javax.swing.JPanel
+     */
+    protected JPanel getPanelColorSelected(  )
+    {
+        if( panelColorSelected == null )
+        {
+            panelColorSelected = new JPanel(  );
+        }
+
+        return panelColorSelected;
+    }
+
+    /**
+     * Return the favourite colout box
+     *
+     * @return javax.swing.JPanel
+     */
+    protected JPanel getPanelColorFavourite(  )
+    {
+        if( panelColorFavourite == null )
+        {
+            panelColorFavourite = new JPanel(  );
+        }
+
+        return panelColorFavourite;
+    }
+
+    /**
+     * Return the guide colout box
+     *
+     * @return javax.swing.JPanel
+     */
+    protected JPanel getPanelColorGuide(  )
+    {
+        if( panelColorGuide == null )
+        {
+            panelColorGuide = new JPanel(  );
+        }
+
+        return panelColorGuide;
+    }
+
+    /**
      * This method initializes jPanel5
      *
      * @return javax.swing.JPanel
@@ -603,6 +786,25 @@ public class ConfigureUIPanel extends JPanel
     }
 
     /**
+     * This method initializes jButton2
+     *
+     * @return javax.swing.JButton
+     */
+    protected JButton getBtnColorMovie(  )
+    {
+        if( btnColorMovie == null )
+        {
+            btnColorMovie = new JButton(  );
+
+            btnColorMovie.setText( "..." );
+
+        }
+
+        return btnColorMovie;
+
+    }
+
+    /**
      * Returns the "..." button to change channel colour
      *
      * @return javax.swing.JButton
@@ -616,6 +818,54 @@ public class ConfigureUIPanel extends JPanel
         }
 
         return btnColorChannel;
+    }
+
+    /**
+     * Returns the "..." button to change favourite colour
+     *
+     * @return javax.swing.JButton
+     */
+    protected JButton getBtnColorSelected(  )
+    {
+        if( btnColorSelected == null )
+        {
+            btnColorSelected = new JButton(  );
+            btnColorSelected.setText( "..." );
+        }
+
+        return btnColorSelected;
+    }
+
+    /**
+     * Returns the "..." button to change favourite colour
+     *
+     * @return javax.swing.JButton
+     */
+    protected JButton getBtnColorFavourite(  )
+    {
+        if( btnColorFavourite == null )
+        {
+            btnColorFavourite = new JButton(  );
+            btnColorFavourite.setText( "..." );
+        }
+
+        return btnColorFavourite;
+    }
+
+    /**
+     * Returns the "..." button to change favourite colour
+     *
+     * @return javax.swing.JButton
+     */
+    protected JButton getBtnColorGuide(  )
+    {
+        if( btnColorGuide == null )
+        {
+            btnColorGuide = new JButton(  );
+            btnColorGuide.setText( "..." );
+        }
+
+        return btnColorGuide;
     }
 
     /**

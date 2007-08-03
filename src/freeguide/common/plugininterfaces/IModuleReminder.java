@@ -2,14 +2,7 @@ package freeguide.common.plugininterfaces;
 
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.fgspecific.selection.Favourite;
-import freeguide.common.lib.fgspecific.selection.ManualSelection;
 
-import java.awt.Color;
-
-import java.util.List;
-import java.util.Set;
-
-import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
@@ -43,23 +36,33 @@ public interface IModuleReminder extends IModule
     public void stop(  );
 
     /**
-     * Check if programme is in the even one white list or in
-     * favourites.
+     * Check if programme is highlighted.
      *
      * @param programme programme
      *
-     * @return true if in guide
+     * @return true if highlighted
      */
-    public boolean isInGuide( TVProgramme programme );
+    public boolean isHighlighted( TVProgramme programme );
 
     /**
-     * Switch programme selection for all reminders.
+     * Check if programme is selected.
      *
-     * @param programme DOCUMENT ME!
+     * @param programme programme
+     *
+     * @return true if selected
      */
-    void switchProgrammeSelection( TVProgramme programme );
+    public boolean isSelected( TVProgramme programme );
 
-    Color getProgrammeSettings( TVProgramme programme, List<ImageIcon> icons );
+    /**
+     * Select/deselect programme.
+     *
+     * @param programme programme
+     * @param newSelection DOCUMENT ME!
+     * @param newHighlight DOCUMENT ME!
+     */
+    public void setProgrammeSelection( 
+        final TVProgramme programme, final boolean newSelection,
+        final boolean newHighlight );
 
     /**
      * Add items to main frame menu.
@@ -82,8 +85,4 @@ public interface IModuleReminder extends IModule
     void addFavourite( final Favourite favourite );
 
     void removeFavourite( final Favourite favourite );
-
-    ManualSelection getManualSelection( TVProgramme programme );
-
-    Set<String> getReminderNames(  );
 }

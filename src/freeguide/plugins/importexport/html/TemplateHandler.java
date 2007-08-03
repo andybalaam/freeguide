@@ -8,7 +8,6 @@ import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.StringHelper;
 
-import freeguide.common.plugininterfaces.IModuleReminder;
 import freeguide.common.plugininterfaces.IModuleStorage;
 
 import java.text.DateFormat;
@@ -124,17 +123,16 @@ public class TemplateHandler
         final Set programmes =
             data.get( channel.getChannelID(  ) ).getProgrammes(  );
 
-        final IModuleReminder reminder =
-            Application.getInstance(  ).getReminder(  );
-
-        if( ( reminder != null ) && selectedOnly )
+        if( selectedOnly )
         {
             // remove non selected programmes from list
             for( Iterator it = programmes.iterator(  ); it.hasNext(  ); )
             {
                 final TVProgramme programme = (TVProgramme)it.next(  );
 
-                if( !reminder.isInGuide( programme ) )
+                if( 
+                    !Application.getInstance(  ).getReminders(  )[0].isSelected( 
+                            programme ) )
                 {
                     it.remove(  );
                 }

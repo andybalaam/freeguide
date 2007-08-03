@@ -10,9 +10,6 @@ import java.awt.event.ActionListener;
 
 import java.util.logging.Level;
 
-import javax.swing.JTree;
-import javax.swing.tree.MutableTreeNode;
-
 /**
  * DOCUMENT ME!
  *
@@ -40,14 +37,9 @@ public class KulichkiConfigurationUIController
     /**
      * DOCUMENT_ME!
      *
-     * @param leafName DOCUMENT ME!
-     * @param node DOCUMENT ME!
-     * @param tree DOCUMENT ME!
-     *
      * @return DOCUMENT_ME!
      */
-    public Component getPanel( 
-        String leafName, MutableTreeNode node, JTree tree )
+    public Component getPanel(  )
     {
         if( panel == null )
         {
@@ -108,15 +100,5 @@ public class KulichkiConfigurationUIController
      */
     public void cancel(  )
     {
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String[] getTreeNodes(  )
-    {
-        return null;
     }
 }

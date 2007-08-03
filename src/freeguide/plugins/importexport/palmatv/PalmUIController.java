@@ -14,8 +14,6 @@ import java.util.Map;
 import java.util.SortedMap;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTree;
-import javax.swing.tree.MutableTreeNode;
 
 /**
  * DOCUMENT ME!
@@ -40,14 +38,9 @@ public class PalmUIController implements IModuleConfigurationUI
     /**
      * DOCUMENT_ME!
      *
-     * @param leafName DOCUMENT ME!
-     * @param node DOCUMENT ME!
-     * @param tree DOCUMENT ME!
-     *
      * @return DOCUMENT_ME!
      */
-    public Component getPanel( 
-        String leafName, MutableTreeNode node, JTree tree )
+    public Component getPanel(  )
     {
         if( panel == null )
         {
@@ -84,16 +77,6 @@ public class PalmUIController implements IModuleConfigurationUI
      */
     public void cancel(  )
     {
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String[] getTreeNodes(  )
-    {
-        return null;
     }
 
     /**

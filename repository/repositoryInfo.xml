@@ -3,7 +3,7 @@
 <packages>
   <mirror location="Europe - Dublin, Ireland" path="http://heanet.dl.sourceforge.net/sourceforge/freeguide-tv/"/>
   <mirror location="North America - Minneapolis, MN" path="http://umn.dl.sourceforge.net/sourceforge/freeguide-tv/"/>
-  <package id="program-freeguide" version="0.10.5" type="application" repositoryPath="package-program-freeguide-0.10.5.zip">
+  <package id="program-freeguide" version="0.10.4" type="application" repositoryPath="package-program-freeguide-0.10.4.zip">
   </package>
   <package id="grabber-cosmostv" version="2" type="plugin-grabber" repositoryPath="package-grabber-cosmostv-2.zip">
   </package>
@@ -21,8 +21,6 @@
   </package>
   <package id="grabber-xmltv" version="2" type="plugin-grabber" repositoryPath="package-grabber-xmltv-2.zip">
   </package>
-  <package id="grabber-zap2it" version="1" type="plugin-grabber" repositoryPath="package-grabber-zap2it-1.zip">
-  </package>
   <package id="importexport-html" version="1" type="plugin-importexport" repositoryPath="package-importexport-html-1.zip">
   </package>
   <package id="importexport-jtv" version="2" type="plugin-importexport" repositoryPath="package-importexport-jtv-2.zip">
@@ -33,7 +31,7 @@
   </package>
   <package id="importexport-xmltv" version="2" type="plugin-importexport" repositoryPath="package-importexport-xmltv-2.zip">
   </package>
-  <package id="reminder-advanced" version="1" type="plugin-reminder" repositoryPath="package-reminder-advanced-1.zip">
+  <package id="reminder-alarm" version="2" type="plugin-reminder" repositoryPath="package-reminder-alarm-2.zip">
   </package>
   <package id="storage-serfiles" version="2" type="plugin-storage" repositoryPath="package-storage-serfiles-2.zip">
   </package>

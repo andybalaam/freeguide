@@ -14,9 +14,6 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
 
 /**
  * DOCUMENT ME!
@@ -31,14 +28,9 @@ public class PanelGeneralController implements IModuleConfigurationUI
     /**
      * DOCUMENT_ME!
      *
-     * @param leafName DOCUMENT ME!
-     * @param node DOCUMENT ME!
-     * @param tree DOCUMENT ME!
-     *
      * @return DOCUMENT_ME!
      */
-    public Component getPanel( 
-        String leafName, MutableTreeNode node, JTree tree )
+    public Component getPanel(  )
     {
         if( panel == null )
         {
@@ -148,15 +140,5 @@ public class PanelGeneralController implements IModuleConfigurationUI
      */
     public void cancel(  )
     {
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String[] getTreeNodes(  )
-    {
-        return null;
     }
 }

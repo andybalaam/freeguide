@@ -7,8 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTree;
-import javax.swing.tree.MutableTreeNode;
 
 /**
  * DOCUMENT ME!
@@ -35,14 +33,9 @@ public class HallmarkConfigurationUIController
     /**
      * DOCUMENT_ME!
      *
-     * @param leafName DOCUMENT ME!
-     * @param node DOCUMENT ME!
-     * @param tree DOCUMENT ME!
-     *
      * @return DOCUMENT_ME!
      */
-    public Component getPanel( 
-        String leafName, MutableTreeNode node, JTree tree )
+    public Component getPanel(  )
     {
         if( panel == null )
         {
@@ -147,15 +140,5 @@ public class HallmarkConfigurationUIController
      */
     public void cancel(  )
     {
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String[] getTreeNodes(  )
-    {
-        return null;
     }
 }

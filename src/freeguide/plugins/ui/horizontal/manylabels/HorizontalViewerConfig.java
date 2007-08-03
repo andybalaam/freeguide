@@ -37,11 +37,22 @@ public class HorizontalViewerConfig
     /** DOCUMENT ME! */
     public int sizeProgrammePanelWidth = 8000;
 
+    /** Default width of the channels scrolling panel */
+    /** Default colour of a movie */
+    public Color colorMovie = new Color( 255, 230, 230 );
+
     /** Default colour of a normal programme */
     public Color colorNonTicked = Color.WHITE;
 
     /** Default colour of the channel labels */
     public Color colorChannel = new Color( 245, 245, 255 );
+
+    /** Default colour of a ticked programme */
+    public Color colorTicked = new Color( 204, 255, 204 );
+
+    /** new entries for favourite colour and guide colour */
+    /** Default colour of a favourite and guide programme */
+    public Color colorFavourite = new Color( 204, 204, 255 );
 
     /** DOCUMENT ME! */
     public Color colorGuide = new Color( 255, 223, 181 );

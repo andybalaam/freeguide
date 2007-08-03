@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="reminder-alarm"
+        version="2"
+        class="freeguide.plugins.reminder.alarm.AlarmReminder">
+
+  <files>
+    <file path="lib/reminder-alarm.jar"/>
+    <file path="lib/"/>
+  </files>
+</plugin>

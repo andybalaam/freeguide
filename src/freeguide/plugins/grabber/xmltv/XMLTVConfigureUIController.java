@@ -5,6 +5,8 @@ import freeguide.common.lib.general.StringHelper;
 
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
+import sun.security.action.GetLongAction;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -20,12 +22,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTree;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
-import javax.swing.tree.MutableTreeNode;
 
 /**
  * Edit options controller.
@@ -47,17 +47,17 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         {
             public void actionPerformed( final ActionEvent e )
             {
-                //JButton btn = (JButton)e.getSource(  );
+                JButton btn = (JButton)e.getSource(  );
 
                 //                config.commandsRun.remove( btn.getName(  ) );
 
                 /*         JTextField tf = (JTextField)textFields.get( btn.getName(  ) );
-
+                
                 tf.getDocument(  ).removeDocumentListener(
                 (TextChanged)textListeners.get( btn.getName(  ) ) );
-
+                
                 setTextField( btn.getName(  ), true );
-
+                
                 tf.getDocument(  ).addDocumentListener(
                 (TextChanged)textListeners.get( btn.getName(  ) ) );*/
             }
@@ -100,14 +100,9 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
     /**
      * DOCUMENT_ME!
      *
-     * @param leafName DOCUMENT ME!
-     * @param node DOCUMENT ME!
-     * @param tree DOCUMENT ME!
-     *
      * @return DOCUMENT_ME!
      */
-    public Component getPanel( 
-        String leafName, MutableTreeNode node, JTree tree )
+    public Component getPanel(  )
     {
         if( panel == null )
         {
@@ -146,16 +141,6 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
      */
     public void resetToDefaults(  )
     {
-    }
-
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String[] getTreeNodes(  )
-    {
-        return null;
     }
 
     private void addModule( final XMLTVConfig.ModuleInfo moduleInfo )
@@ -317,7 +302,8 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
                 {
                     public void run(  )
                     {
-                        //JButton btn = (JButton)e.getSource(  );
+                        JButton btn = (JButton)e.getSource(  );
+
                         parent.configureChannels( moduleInfo );
 
                     }

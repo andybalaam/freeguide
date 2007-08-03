@@ -91,27 +91,28 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
         // programme references somewhere - why not in programmes themselves?
         // FIXME: this is copied and pasted from ViewerFrameHTMLGuide
         final List tickedProgrammes = new ArrayList(  );
-        final IModuleReminder reminder =
-            Application.getInstance(  ).getReminder(  );
+        final IModuleReminder[] reminders =
+            Application.getInstance(  ).getReminders(  );
 
-        if( reminder != null )
-        {
-            controller.currentData.iterate( 
-                new TVIteratorProgrammes(  )
+        controller.currentData.iterate( 
+            new TVIteratorProgrammes(  )
+            {
+                protected void onChannel( TVChannel channel )
                 {
-                    protected void onChannel( TVChannel channel )
-                    {
-                    }
+                }
 
-                    protected void onProgramme( TVProgramme programme )
+                protected void onProgramme( TVProgramme programme )
+                {
+                    for( int i = 0; i < reminders.length; i++ )
                     {
-                        if( reminder.isInGuide( programme ) )
+                        if( reminders[i].isSelected( programme ) )
                         {
                             tickedProgrammes.add( programme );
+
                         }
                     }
-                } );
-        }
+                }
+            } );
 
         // End of copy and paste from ViewerFrameHTMLGuide
         Iterator it = tickedProgrammes.iterator(  );

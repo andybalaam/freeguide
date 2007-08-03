@@ -42,7 +42,6 @@ import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
@@ -138,7 +137,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
         pack(  );
 
-        setSize( new Dimension( 600, 440 ) );
+        //        setSize( new Dimension( 500, 350 ) );
     }
 
     /**
@@ -218,17 +217,11 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
                        .getLocalizedMessage( "OptionsDialog.Tree.Exporters" ),
             PluginsManager.getExporters(  ) );
 
-        final PluginInfo reminderPluginInfo = PluginsManager.getReminder(  );
-
-        if( reminderPluginInfo != null )
-        {
-            addBranchWithModules( 
-                advancedBranch,
-                Application.getInstance(  )
-                           .getLocalizedMessage( 
-                    "OptionsDialog.Tree.Reminders" ),
-                new PluginInfo[] { reminderPluginInfo } );
-        }
+        addBranchWithModules( 
+            advancedBranch,
+            Application.getInstance(  )
+                       .getLocalizedMessage( "OptionsDialog.Tree.Reminders" ),
+            PluginsManager.getReminders(  ) );
 
         menuTree = new JTree( trunk );
 
@@ -264,25 +257,10 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
             if( confUI != null )
             {
-                final String[] nodes = confUI.getTreeNodes(  );
-
-                if( nodes != null )
-                {
-                    for( String node : nodes )
-                    {
-                        final DefaultMutableTreeNode modBranch =
-                            new DefaultMutableTreeNode( 
-                                new ModuleNode( confUI, node ) );
-                        branch.add( modBranch );
-                    }
-                }
-                else
-                {
-                    final DefaultMutableTreeNode modBranch =
-                        new DefaultMutableTreeNode( 
-                            new ModuleNode( confUI, plugins[i].getName(  ) ) );
-                    branch.add( modBranch );
-                }
+                final DefaultMutableTreeNode modBranch =
+                    new DefaultMutableTreeNode( 
+                        new ModuleNode( confUI, plugins[i].getName(  ) ) );
+                branch.add( modBranch );
             }
         }
 
@@ -327,7 +305,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         }
         else if( userObject instanceof ModuleNode )
         {
-            replaceOptionPanel( (ModuleNode)userObject, node );
+            replaceOptionPanel( (ModuleNode)userObject );
         }
         else
         {
@@ -340,11 +318,9 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         showPanel( newOptionPanel );
     }
 
-    private void replaceOptionPanel( 
-        ModuleNode moduleNode, DefaultMutableTreeNode node )
+    private void replaceOptionPanel( ModuleNode moduleNode )
     {
-        showPanel( 
-            moduleNode.confUI.getPanel( moduleNode.title, node, menuTree ) );
+        showPanel( moduleNode.confUI.getPanel(  ) );
     }
 
     private void clearOptionPanel(  )
@@ -411,7 +387,8 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
             }
         }
 
-        //PluginsManager.saveAllConfigs(  );
+        PluginsManager.saveAllConfigs(  );
+
         setChanged(  );
         setSave(  );
     }

@@ -205,14 +205,14 @@ public class HorizontalViewerHandlers
                 controller.currentProgrammeLabel = labelProgramme;
                 controller.updateProgrammeInfo( 
                     labelProgramme.getProgramme(  ) );
-                labelProgramme.refresh(  );
+                labelProgramme.setupColors(  );
             }
 
             public void focusLost( FocusEvent e )
             {
                 final JLabelProgramme labelProgramme =
                     (JLabelProgramme)e.getComponent(  );
-                labelProgramme.refresh(  );
+                labelProgramme.setupColors(  );
             }
         };
 
@@ -307,16 +307,37 @@ public class HorizontalViewerHandlers
                         JLabelProgramme label =
                             (JLabelProgramme)e.getSource(  );
 
-                        final IModuleReminder reminder =
-                            Application.getInstance(  ).getReminder(  );
+                        IModuleReminder[] reminders =
+                            Application.getInstance(  ).getReminders(  );
 
-                        if( reminder == null )
+                        if( reminders.length < 1 )
                         {
                             return;
                         }
 
-                        reminder.switchProgrammeSelection( 
-                            label.getProgramme(  ) );
+                        final IModuleReminder reminder = reminders[0];
+
+                        final boolean isSelected =
+                            reminder.isSelected( label.getProgramme(  ) );
+                        final boolean isHighlighted =
+                            reminder.isHighlighted( label.getProgramme(  ) );
+
+                        if( isSelected && !isHighlighted )
+                        {
+                            reminder.setProgrammeSelection( 
+                                label.getProgramme(  ), !isSelected, false );
+                        }
+                        else if( !isSelected && isHighlighted )
+                        {
+                            reminder.setProgrammeSelection( 
+                                label.getProgramme(  ), !isSelected, true );
+                        }
+                        else
+                        {
+                            reminder.setProgrammeSelection( 
+                                label.getProgramme(  ), !isSelected,
+                                !isHighlighted );
+                        }
 
                         label.controller.redrawCurrentProgramme(  );
                     }
@@ -331,14 +352,15 @@ public class HorizontalViewerHandlers
                         JLabelProgramme label =
                             (JLabelProgramme)e.getSource(  );
                         final TVProgramme programme = label.getProgramme(  );
-                        final IModuleReminder reminder =
-                            Application.getInstance(  ).getReminder(  );
+                        IModuleReminder[] reminders =
+                            Application.getInstance(  ).getReminders(  );
 
-                        if( reminder == null )
+                        if( reminders.length < 1 )
                         {
                             return;
                         }
 
+                        final IModuleReminder reminder = reminders[0];
                         Favourite fav = reminder.getFavourite( programme );
 
                         if( fav != null )

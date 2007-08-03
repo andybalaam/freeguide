@@ -24,7 +24,12 @@ public class ProgrammeCellRenderer extends DefaultTableCellRenderer
      */
     public void init(  )
     {
-        reminder = Application.getInstance(  ).getReminder(  );
+        IModuleReminder[] rems = Application.getInstance(  ).getReminders(  );
+
+        if( rems.length > 0 )
+        {
+            this.reminder = rems[0];
+        }
     }
 
     //public void init()
@@ -54,6 +59,21 @@ public class ProgrammeCellRenderer extends DefaultTableCellRenderer
         if( isSelected || hasFocus )
         {
             //c.setBackground(VerticalViewerConfig.colorSelected);
+        }
+        else if( this.reminder != null )
+        {
+            if( this.reminder.isSelected( programme ) )
+            {
+                c.setBackground( VerticalViewerConfig.colorTicked );
+            }
+            else if( programme.getIsMovie(  ) )
+            {
+                c.setBackground( VerticalViewerConfig.colorMovie );
+            }
+            else
+            {
+                c.setBackground( VerticalViewerConfig.colorNonTicked );
+            }
         }
 
         //TODO: Nifty percentage as maxemum tv guide does it

@@ -4,12 +4,12 @@
 
 <project name="freeguide-tv-plugins-info" basedir=".">
   <property name="application-id" value="freeguide"/>
-  <property name="application-version" value="0.10.5"/>
+  <property name="application-version" value="0.10.4"/>
   <target name="all-plugins" description="Do something for each plugin">
     <antcall target="${actual-target}">
       <param name="plugin-id" value="program-freeguide"/>
       <param name="plugin-dir" value="program/freeguide"/>
-      <param name="plugin-version" value="0.10.5"/>
+      <param name="plugin-version" value="0.10.4"/>
     </antcall>
     <antcall target="${actual-target}">
       <param name="plugin-id" value="grabber-cosmostv"/>
@@ -52,11 +52,6 @@
       <param name="plugin-version" value="2"/>
     </antcall>
     <antcall target="${actual-target}">
-      <param name="plugin-id" value="grabber-zap2it"/>
-      <param name="plugin-dir" value="grabber/zap2it"/>
-      <param name="plugin-version" value="1"/>
-    </antcall>
-    <antcall target="${actual-target}">
       <param name="plugin-id" value="importexport-html"/>
       <param name="plugin-dir" value="importexport/html"/>
       <param name="plugin-version" value="1"/>
@@ -82,9 +77,9 @@
       <param name="plugin-version" value="2"/>
     </antcall>
     <antcall target="${actual-target}">
-      <param name="plugin-id" value="reminder-advanced"/>
-      <param name="plugin-dir" value="reminder/advanced"/>
-      <param name="plugin-version" value="1"/>
+      <param name="plugin-id" value="reminder-alarm"/>
+      <param name="plugin-dir" value="reminder/alarm"/>
+      <param name="plugin-version" value="2"/>
     </antcall>
     <antcall target="${actual-target}">
       <param name="plugin-id" value="storage-serfiles"/>

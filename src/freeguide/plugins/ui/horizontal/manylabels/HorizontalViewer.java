@@ -70,6 +70,8 @@ import javax.swing.filechooser.FileFilter;
  */
 public class HorizontalViewer extends BaseModule implements IModuleViewer
 {
+    protected static final String REMINDER_MAIN = "reminder-alarm";
+
     /** DOCUMENT ME! */
     public static final int PIXELS_PADDING_FROM_LEFT = 100;
 
@@ -375,7 +377,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     {
         if( currentProgrammeLabel != null )
         {
-            currentProgrammeLabel.refresh(  );
+            currentProgrammeLabel.setupColors(  );
             currentProgrammeLabel.repaint(  );
         }
 
@@ -473,6 +475,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     protected synchronized void drawProgrammes(  )
     {
         currentProgrammeLabel = null;
+
+        JLabelProgramme.setupLabel( this );
 
         /** The chosen time formatter */
         DateFormat timeFormat = getCurrentDateFormat(  );

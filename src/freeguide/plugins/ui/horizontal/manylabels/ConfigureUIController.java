@@ -19,11 +19,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
-import javax.swing.JTree;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
 
 /**
  * DOCUMENT ME!
@@ -74,6 +71,28 @@ public class ConfigureUIController implements IModuleConfigurationUI
                 {
                     panelColor = panel.getPanelColorChannel(  );
                 }
+                else if( e.getSource(  ) == panel.getBtnColorMovie(  ) )
+                {
+                    panelColor = panel.getPanelColorMovie(  );
+                }
+                else if( e.getSource(  ) == panel.getBtnColorSelected(  ) )
+                {
+                    panelColor = panel.getPanelColorSelected(  );
+                }
+
+/**
+                 * new entries for favourite colour and guide colour
+                 *
+                 * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+                 */
+                else if( e.getSource(  ) == panel.getBtnColorFavourite(  ) )
+                {
+                    panelColor = panel.getPanelColorFavourite(  );
+                }
+                else if( e.getSource(  ) == panel.getBtnColorGuide(  ) )
+                {
+                    panelColor = panel.getPanelColorGuide(  );
+                }
                 else if( e.getSource(  ) == panel.getBtnColorNormal(  ) )
                 {
                     panelColor = panel.getPanelColorNormal(  );
@@ -119,37 +138,36 @@ public class ConfigureUIController implements IModuleConfigurationUI
 
     /**
      * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public String[] getTreeNodes(  )
-    {
-        return null;
-    }
-
-    /**
-     * DOCUMENT_ME!
      */
     public void save(  )
     {
         if( panel != null )
         {
-            config.fontName = currentFont.getName(  );
-            config.fontSize = currentFont.getSize(  );
-            config.fontStyle = currentFont.getStyle(  );
-            config.sizeChannelHeight = panel.getSliderHeight(  ).getValue(  );
-            config.sizeProgrammePanelWidth = panel.getSliderWidth(  ).getValue(  ) * 24;
-            config.colorChannel = panel.getPanelColorChannel(  ).getBackground(  );
-            config.colorNonTicked = panel.getPanelColorNormal(  )
-                                         .getBackground(  );
-            config.displayTooltips = panel.getCbDisplayTooltips(  ).isSelected(  );
-            config.displayTime = panel.getCbDrawTime(  ).isSelected(  );
-            config.displayAlignToLeft = panel.getCbAlignLeft(  ).isSelected(  );
-            config.display24time = panel.getRbTime24(  ).isSelected(  );
-            config.dayStartTime = new Time( panel.getDayStart(  ).getText(  ) );
-            parent.config = config;
-            parent.redraw(  );
-        }
+			config.fontName = currentFont.getName(  );
+			config.fontSize = currentFont.getSize(  );
+			config.fontStyle = currentFont.getStyle(  );
+			config.sizeChannelHeight = panel.getSliderHeight(  ).getValue(  );
+			config.sizeProgrammePanelWidth = panel.getSliderWidth(  ).getValue(  ) * 24;
+			config.colorChannel = panel.getPanelColorChannel(  ).getBackground(  );
+			config.colorMovie = panel.getPanelColorMovie(  ).getBackground(  );
+			config.colorTicked = panel.getPanelColorSelected(  ).getBackground(  );
+	/**
+			 * new entries for favourite colour and guide colour
+			 *
+			 * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+			 */
+			config.colorFavourite = panel.getPanelColorFavourite(  ).getBackground(  );
+			config.colorGuide = panel.getPanelColorGuide(  ).getBackground(  );
+	
+			config.colorNonTicked = panel.getPanelColorNormal(  ).getBackground(  );
+			config.displayTooltips = panel.getCbDisplayTooltips(  ).isSelected(  );
+			config.displayTime = panel.getCbDrawTime(  ).isSelected(  );
+			config.displayAlignToLeft = panel.getCbAlignLeft(  ).isSelected(  );
+			config.display24time = panel.getRbTime24(  ).isSelected(  );
+			config.dayStartTime = new Time( panel.getDayStart(  ).getText(  ) );
+			parent.config = config;
+			parent.redraw(  );
+		}
     }
 
     /**
@@ -162,14 +180,9 @@ public class ConfigureUIController implements IModuleConfigurationUI
     /**
      * DOCUMENT_ME!
      *
-     * @param leafName DOCUMENT ME!
-     * @param node DOCUMENT ME!
-     * @param tree DOCUMENT ME!
-     *
      * @return DOCUMENT_ME!
      */
-    public Component getPanel( 
-        String leafName, MutableTreeNode node, JTree tree )
+    public Component getPanel(  )
     {
         if( panel == null )
         {
@@ -194,6 +207,16 @@ public class ConfigureUIController implements IModuleConfigurationUI
         panel.getSliderWidth(  ).setValue( 
             config.sizeProgrammePanelWidth / 24 );
         panel.getPanelColorChannel(  ).setBackground( config.colorChannel );
+        panel.getPanelColorMovie(  ).setBackground( config.colorMovie );
+        panel.getPanelColorSelected(  ).setBackground( config.colorTicked );
+/**
+         * new entries for favourite colour and guide colour
+         *
+         * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+         */
+        panel.getPanelColorFavourite(  ).setBackground( config.colorFavourite );
+        panel.getPanelColorGuide(  ).setBackground( config.colorGuide );
+
         panel.getPanelColorNormal(  ).setBackground( config.colorNonTicked );
 
         panel.getBtnFont(  ).addActionListener( 
@@ -225,6 +248,16 @@ public class ConfigureUIController implements IModuleConfigurationUI
                 }
             } );
         panel.getBtnColorChannel(  ).addActionListener( colorBtnAction );
+        panel.getBtnColorSelected(  ).addActionListener( colorBtnAction );
+/**
+         * new entries for favourite colour and guide colour
+         *
+         * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
+         */
+        panel.getBtnColorFavourite(  ).addActionListener( colorBtnAction );
+        panel.getBtnColorGuide(  ).addActionListener( colorBtnAction );
+
+        panel.getBtnColorMovie(  ).addActionListener( colorBtnAction );
         panel.getBtnColorNormal(  ).addActionListener( colorBtnAction );
         panel.getSliderHeight(  ).addChangeListener( sliderChange );
         panel.getSliderWidth(  ).addChangeListener( sliderChange );

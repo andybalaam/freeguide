@@ -45,7 +45,7 @@ public interface IApplication
 
     boolean isUnix(  );
 
-    IModuleReminder getReminder(  );
+    IModuleReminder[] getReminders(  );
 
     void saveAllConfigs(  );
 

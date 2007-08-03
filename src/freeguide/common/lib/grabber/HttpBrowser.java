@@ -41,13 +41,17 @@ public class HttpBrowser
     /** DOCUMENT ME! */
     public static final String HEADER_PROXY_AUTH = "Proxy-Authorization";
 
-    /** DOCUMENT ME! */
+    /**
+     * DOCUMENT ME!
+     */
     public static final String HEADER_ACCEPT = "Accept";
 
     /** DOCUMENT ME! */
     public static final String HEADER_ACCEPT_LANGUAGE = "Accept-Language";
 
-    /** DOCUMENT ME! */
+    /**
+     * DOCUMENT ME!
+     */
     public static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
 
     /** DOCUMENT ME! */

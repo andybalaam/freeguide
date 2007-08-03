@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
-import java.util.regex.Pattern;
 
 /**
  * Base class for migration processes.
@@ -16,8 +15,8 @@ import java.util.regex.Pattern;
  */
 abstract public class MigrationProcessBase
 {
-    protected final Map<String, String> prefFrom;
-    protected final Map<String, String> prefTo;
+    protected final Map prefFrom;
+    protected final Map prefTo;
 
 /**
      * Creates a new MigrationProcessBase object.
@@ -107,11 +106,6 @@ abstract public class MigrationProcessBase
         return (String)prefFrom.remove( keyFrom );
     }
 
-    protected String getKey( final String keyFrom )
-    {
-        return (String)prefFrom.get( keyFrom );
-    }
-
     /**
      * Get list of keys which stars from prefix.
      *
@@ -128,23 +122,6 @@ abstract public class MigrationProcessBase
             final String key = (String)it.next(  );
 
             if( key.startsWith( prefix ) )
-            {
-                result.add( key );
-            }
-        }
-
-        return (String[])result.toArray( new String[result.size(  )] );
-    }
-
-    protected String[] listKeysTo( final Pattern regexp )
-    {
-        final List<String> result = new ArrayList<String>(  );
-
-        for( Iterator it = prefTo.keySet(  ).iterator(  ); it.hasNext(  ); )
-        {
-            final String key = (String)it.next(  );
-
-            if( regexp.matcher( key ).matches(  ) )
             {
                 result.add( key );
             }

@@ -16,13 +16,9 @@ import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.Time;
 
-import java.awt.Color;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 /**
@@ -34,9 +30,6 @@ import java.util.regex.Pattern;
  */
 public class Favourite
 {
-    /** Reminders collection type. */
-    public static final Class reminders_TYPE = String.class;
-
     // ------------------------------------------------------------------------
     /** The user-specified name of this favourite */
     public String name;
@@ -63,11 +56,8 @@ public class Favourite
     /** Day of week, or -1 if any. */
     public int dayOfWeek = -1;
 
-    /** Reminders which remind this favourite. */
-    public Set<String> reminders = new TreeSet<String>(  );
-
-    /** DOCUMENT ME! */
-    public Color selectedColor;
+    /** Do we want to record it or not. */
+    public boolean doRecord = false;
 
 /**
      * Constructor for the Favourite object
@@ -77,9 +67,9 @@ public class Favourite
     }
 
     /**
-     * Clone implementation for favourite.
+     * DOCUMENT_ME!
      *
-     * @return new object
+     * @return DOCUMENT_ME!
      */
     public Object clone(  )
     {
@@ -92,8 +82,7 @@ public class Favourite
         result.afterTime = afterTime;
         result.beforeTime = beforeTime;
         result.dayOfWeek = dayOfWeek;
-        result.reminders = new TreeSet<String>( reminders );
-        result.selectedColor = selectedColor;
+        result.doRecord = doRecord;
 
         return result;
     }
@@ -108,26 +97,6 @@ public class Favourite
         return titleRegexPattern;
     }
 
-    /**
-     * Get color for favourite.
-     *
-     * @return color
-     */
-    public Color getSelectedColor(  )
-    {
-        return selectedColor;
-    }
-
-    /**
-     * Set color for favourite.
-     *
-     * @param backgroundColor color
-     */
-    public void setSelectedColor( Color backgroundColor )
-    {
-        this.selectedColor = backgroundColor;
-    }
-
     // ------------------------------------------------------------------------
     /**
      * matches Decides whether or not a programme matches this
@@ -139,32 +108,10 @@ public class Favourite
      */
     public boolean matches( TVProgramme prog )
     {
-        //      Match the channel ID
-        if( 
-            ( channelID != null )
-                && !channelID.equals( prog.getChannel(  ).getID(  ) ) )
-        {
-            return false;
-        }
-
-        final String progTitle = prog.getTitle(  );
+        String progTitle = prog.getTitle(  );
 
         // Match the title exactly
         if( ( titleString != null ) && !titleString.equals( progTitle ) )
-        {
-            return false;
-        }
-
-        Time progStartTime = new Time( new Date( prog.getStart(  ) ) );
-
-        // Match the time it must be after
-        if( !afterTime.isEmpty(  ) && afterTime.after( progStartTime ) )
-        {
-            return false;
-        }
-
-        // Match the time it must be before
-        if( !beforeTime.isEmpty(  ) && beforeTime.before( progStartTime ) )
         {
             return false;
         }
@@ -181,6 +128,28 @@ public class Favourite
         if( 
             ( titleRegex != null )
                 && !getTitleRegexPattern(  ).matcher( progTitle ).matches(  ) )
+        {
+            return false;
+        }
+
+        // Match the channel ID
+        if( 
+            ( channelID != null )
+                && !channelID.equals( prog.getChannel(  ).getID(  ) ) )
+        {
+            return false;
+        }
+
+        Time progStartTime = new Time( new Date( prog.getStart(  ) ) );
+
+        // Match the time it must be after
+        if( !afterTime.isEmpty(  ) && afterTime.after( progStartTime ) )
+        {
+            return false;
+        }
+
+        // Match the time it must be before
+        if( !beforeTime.isEmpty(  ) && beforeTime.before( progStartTime ) )
         {
             return false;
         }
@@ -283,6 +252,16 @@ public class Favourite
     }
 
     /**
+     * Getst he doRecord attribute of the Favourite object
+     *
+     * @return The doRecord value
+     */
+    public boolean getRecord(  )
+    {
+        return doRecord;
+    }
+
+    /**
      * Sets the name attribute of the Favourite object
      *
      * @param name The new name value
@@ -362,4 +341,16 @@ public class Favourite
     {
         this.dayOfWeek = dayOfWeek;
     }
+
+    /**
+     * Sets the record flag.
+     *
+     * @param doRecord If we want it to have the record flag or not.
+     */
+    public void setRecord( boolean doRecord )
+    {
+        this.doRecord = doRecord;
+    }
+
+    // The day of the week it's on
 }

@@ -492,7 +492,7 @@ public class FreeGuide
             die( 
                 MessageFormat.format( 
                     startupMessages.getString( "startup.WrongJavaVersion" ),
-                    System.getProperty( "java.version" ) ) );
+                    new String[] { System.getProperty( "java.version" ) } ) );
         }
     }
 
