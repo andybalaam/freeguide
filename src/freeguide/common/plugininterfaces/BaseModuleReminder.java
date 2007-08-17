@@ -62,7 +62,7 @@ abstract public class BaseModuleReminder extends BaseModule
         JMenuItem item = new JMenuItem(  );
         item.setText( i18n.getString( "menu.label" ) );
         menu.insert( item, 0 );
-        item.addActionListener( 
+        item.addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
@@ -125,7 +125,7 @@ abstract public class BaseModuleReminder extends BaseModule
     {
         synchronized( getReminderConfig(  ) )
         {
-            for( 
+            for(
                 int i = 0;
                     i < getReminderConfig(  ).manualSelectionList.size(  );
                     i++ )
@@ -143,35 +143,6 @@ abstract public class BaseModuleReminder extends BaseModule
         }
 
         return null;
-    }
-
-    /**
-     * Check if programme is highlighted.
-     *
-     * @param programme programme
-     *
-     * @return true if programme highlighted
-     */
-    public boolean isHighlighted( TVProgramme programme )
-    {
-        synchronized( getReminderConfig(  ) )
-        {
-            ManualSelection sel = getManualSelection( programme );
-
-            if( sel != null )
-            {
-                return sel.isHighlighted(  );
-
-            }
-
-            else
-            {
-                Favourite fav = getFavourite( programme );
-
-                return fav != null;
-
-            }
-        }
     }
 
     /**
@@ -204,33 +175,13 @@ abstract public class BaseModuleReminder extends BaseModule
     }
 
     /**
-     * Check if programme wants to be recorded.
-     *
-     * @param programme programme
-     *
-     * @return true if programme selected
-     */
-    public boolean isRecord( TVProgramme programme )
-    {
-        synchronized( getReminderConfig(  ) )
-        {
-            Favourite fav = getFavourite( programme );
-
-            return ( ( fav != null ) && fav.getRecord(  ) );
-        }
-    }
-
-    /**
      * Add/remove programme to selection list.
      *
      * @param programme programme
-     * @param newSelection DOCUMENT ME!  new entries for favourite colour and
-     *        guide colour
-     * @param newHighlight DOCUMENT ME!
+     * @param newSelection DOCUMENT ME!
      */
-    public void setProgrammeSelection( 
-        final TVProgramme programme, final boolean newSelection,
-        final boolean newHighlight )
+    public void setProgrammeSelection(
+        final TVProgramme programme, final boolean newSelection )
     {
         synchronized( getReminderConfig(  ) )
         {
@@ -239,15 +190,14 @@ abstract public class BaseModuleReminder extends BaseModule
             if( sel != null )
             {
                 sel.setSelected( newSelection );
-                sel.setHighlighted( newHighlight );
 
             }
 
             else
             {
-                getReminderConfig(  ).manualSelectionList.add( 
-                    new ManualSelection( 
-                        programme, newSelection, newHighlight ) );
+                getReminderConfig(  ).manualSelectionList.add(
+                    new ManualSelection( programme, newSelection ) );
+
             }
         }
     }
@@ -341,7 +291,7 @@ abstract public class BaseModuleReminder extends BaseModule
                         }
 
                         long waitTime =
-                            Math.max( 
+                            Math.max(
                                 scheduledTime - System.currentTimeMillis(  ),
                                 10 );
 
@@ -351,7 +301,7 @@ abstract public class BaseModuleReminder extends BaseModule
                 catch( InterruptedException ex )
                 {
                     Application.getInstance(  ).getLogger(  )
-                               .log( 
+                               .log(
                         Level.WARNING, "Reminder thread interrupted ", ex );
                 }
             }

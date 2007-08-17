@@ -23,11 +23,6 @@ public class AlarmUIPanel extends JPanel
     private JTextField textWarning = null;
     private JLabel jLabel1 = null;
     private JTextField textGiveup = null;
-    private JCheckBox cbRecord = null;
-    private JLabel labelStart = null;
-    private JTextField textStart = null;
-    private JLabel labelStop = null;
-    private JTextField textStop = null;
     private final ResourceBundle i18n;
 
 /**
@@ -100,55 +95,6 @@ public class AlarmUIPanel extends JPanel
         gridBagConstraints1.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints1.gridwidth = 2;
         gridBagConstraints1.insets = new java.awt.Insets( 5, 5, 0, 5 );
-
-        // record
-        GridBagConstraints gridBagConstraintsRecord =
-            new GridBagConstraints(  );
-        gridBagConstraintsRecord.gridx = 0;
-        gridBagConstraintsRecord.gridy = 6;
-        gridBagConstraintsRecord.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraintsRecord.gridwidth = 2;
-        gridBagConstraintsRecord.insets = new java.awt.Insets( 5, 5, 0, 5 );
-
-        // startcommand
-        GridBagConstraints gridBagConstraintsStart =
-            new GridBagConstraints(  );
-        gridBagConstraintsStart.gridx = 0;
-        gridBagConstraintsStart.gridy = 7;
-        gridBagConstraintsStart.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        gridBagConstraintsStart.anchor = java.awt.GridBagConstraints.WEST;
-        labelStart = new JLabel(  );
-        labelStart.setText( i18n.getString( "options.execute_on_start" ) );
-        labelStart.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_S );
-        labelStart.setLabelFor( getTextStart(  ) );
-
-        GridBagConstraints gridBagConstraintsTextStart =
-            new GridBagConstraints(  );
-        gridBagConstraintsTextStart.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraintsTextStart.gridx = 1;
-        gridBagConstraintsTextStart.gridy = 7;
-        gridBagConstraintsTextStart.weightx = 1.0;
-        gridBagConstraintsTextStart.insets = new java.awt.Insets( 5, 5, 0, 5 );
-
-        // stopcommand
-        GridBagConstraints gridBagConstraintsStop = new GridBagConstraints(  );
-        gridBagConstraintsStop.gridx = 0;
-        gridBagConstraintsStop.gridy = 8;
-        gridBagConstraintsStop.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        gridBagConstraintsStop.anchor = java.awt.GridBagConstraints.WEST;
-        labelStop = new JLabel(  );
-        labelStop.setText( i18n.getString( "options.execute_on_stop" ) );
-        labelStop.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_T );
-        labelStop.setLabelFor( getTextStop(  ) );
-
-        GridBagConstraints gridBagConstraintsTextStop =
-            new GridBagConstraints(  );
-        gridBagConstraintsTextStop.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraintsTextStop.gridx = 1;
-        gridBagConstraintsTextStop.gridy = 8;
-        gridBagConstraintsTextStop.weightx = 1.0;
-        gridBagConstraintsTextStop.insets = new java.awt.Insets( 5, 5, 0, 5 );
-
         this.setLayout( new GridBagLayout(  ) );
         this.setSize( 300, 200 );
         this.add( getCbRemind(  ), gridBagConstraints1 );
@@ -156,12 +102,6 @@ public class AlarmUIPanel extends JPanel
         this.add( getTextWarning(  ), gridBagConstraints3 );
         this.add( jLabel1, gridBagConstraints4 );
         this.add( getTextGiveup(  ), gridBagConstraints5 );
-
-        this.add( getCbRecord(  ), gridBagConstraintsRecord );
-        this.add( labelStart, gridBagConstraintsStart );
-        this.add( getTextStart(  ), gridBagConstraintsTextStart );
-        this.add( labelStop, gridBagConstraintsStop );
-        this.add( getTextStop(  ), gridBagConstraintsTextStop );
     }
 
     /**
@@ -210,52 +150,5 @@ public class AlarmUIPanel extends JPanel
         }
 
         return textGiveup;
-    }
-
-    /**
-     * This method initializes cbRecord
-     *
-     * @return javax.swing.JCheckBox
-     */
-    public JCheckBox getCbRecord(  )
-    {
-        if( cbRecord == null )
-        {
-            cbRecord = new JCheckBox(  );
-            cbRecord.setText( i18n.getString( "options.record_progs" ) );
-            cbRecord.setMnemonic( java.awt.event.KeyEvent.VK_E );
-        }
-
-        return cbRecord;
-    }
-
-    /**
-     * This method initializes textStart
-     *
-     * @return javax.swing.JTextField
-     */
-    public JTextField getTextStart(  )
-    {
-        if( textStart == null )
-        {
-            textStart = new JTextField(  );
-        }
-
-        return textStart;
-    }
-
-    /**
-     * This method initializes textStop
-     *
-     * @return javax.swing.JTextField
-     */
-    public JTextField getTextStop(  )
-    {
-        if( textStop == null )
-        {
-            textStop = new JTextField(  );
-        }
-
-        return textStop;
     }
 }

@@ -41,14 +41,10 @@ public class AlarmReminder extends BaseModuleReminder
     /** Config object. */
     protected final ConfigAlarm config = new ConfigAlarm(  );
     protected TVProgramme scheduledProgramme;
-    protected TVProgramme recordingProgramme;
     protected JDialog scheduledDialog;
     protected long timeForClose;
     protected long timeForDisplay;
     protected long scheduledDialogDisplayTime;
-    protected long timeForRecordStart;
-    protected long timeForRecordStop;
-    protected boolean recording = false;
     protected MListsner mouseListener = new MListsner(  );
 
     /**
@@ -79,55 +75,20 @@ public class AlarmReminder extends BaseModuleReminder
      * @param programme DOCUMENT_ME!
      * @param menu DOCUMENT_ME!
      */
-    public void addItemsToPopupMenu( 
+    public void addItemsToPopupMenu(
         final TVProgramme programme, final JPopupMenu menu )
     {
-        /** menu item for highlighting */
-        final JMenuItem hil = new JMenuItem(  );
-
-        // is highlighted?
-        if( !isHighlighted( programme ) )
-        {
-            hil.setText( i18n.getString( "popup.highlight.add" ) );
-            hil.addActionListener( 
-                new ActionListener(  )
-                {
-                    public void actionPerformed( ActionEvent e )
-                    {
-                        setProgrammeSelection( 
-                            programme, isSelected( programme ), true );
-                        favSelectionChanged( true );
-                    }
-                } );
-        }
-        else
-        {
-            hil.setText( i18n.getString( "popup.highlight.del" ) );
-            hil.addActionListener( 
-                new ActionListener(  )
-                {
-                    public void actionPerformed( ActionEvent e )
-                    {
-                        setProgrammeSelection( 
-                            programme, isSelected( programme ), false );
-                        favSelectionChanged( true );
-                    }
-                } );
-        }
-
-        menu.add( hil );
-
         final JMenuItem sel = new JMenuItem(  );
 
         if( !isSelected( programme ) )
         {
             sel.setText( i18n.getString( "popup.selection.add" ) );
-            sel.addActionListener( 
+            sel.addActionListener(
                 new ActionListener(  )
                 {
                     public void actionPerformed( ActionEvent e )
                     {
-                        setProgrammeSelection( programme, true, true );
+                        setProgrammeSelection( programme, true );
                         favSelectionChanged( true );
                     }
                 } );
@@ -135,12 +96,12 @@ public class AlarmReminder extends BaseModuleReminder
         else
         {
             sel.setText( i18n.getString( "popup.selection.del" ) );
-            sel.addActionListener( 
+            sel.addActionListener(
                 new ActionListener(  )
                 {
                     public void actionPerformed( ActionEvent e )
                     {
-                        setProgrammeSelection( programme, false, false );
+                        setProgrammeSelection( programme, false );
                         favSelectionChanged( true );
                     }
                 } );
@@ -148,77 +109,12 @@ public class AlarmReminder extends BaseModuleReminder
 
         menu.add( sel );
 
-        final JMenuItem rec = new JMenuItem(  );
-
-        Favourite favourite = getFavourite( programme );
-
-        if( ( favourite == null ) || !favourite.getRecord(  ) )
-        {
-            rec.setText( i18n.getString( "popup.record.add" ) );
-
-            if( favourite == null )
-            { // not yet in favourites, hence add.
-                rec.addActionListener( 
-                    new ActionListener(  )
-                    {
-                        public void actionPerformed( ActionEvent e )
-                        {
-                            Favourite fav = new Favourite(  );
-
-                            fav.setTitleString( programme.getTitle(  ) );
-                            fav.setName( programme.getTitle(  ) );
-                            fav.setRecord( true );
-
-                            addFavourite( fav );
-                            favSelectionChanged( false );
-                        }
-                    } );
-            }
-            else // if( !f.getRecord() )
-            { // is in favourites but not yet as recorded.
-                rec.addActionListener( 
-                    new ActionListener(  )
-                    {
-                        public void actionPerformed( ActionEvent e )
-                        {
-                            Favourite fav = getFavourite( programme );
-
-                            if( fav != null )
-                            {
-                                fav.setRecord( true );
-                                favSelectionChanged( false );
-                            }
-                        }
-                    } );
-            }
-        }
-        else
-        {
-            rec.setText( i18n.getString( "popup.record.del" ) );
-            rec.addActionListener( 
-                new ActionListener(  )
-                {
-                    public void actionPerformed( ActionEvent e )
-                    {
-                        Favourite fav = getFavourite( programme );
-
-                        if( fav != null )
-                        {
-                            fav.setRecord( false );
-                            favSelectionChanged( false );
-                        }
-                    }
-                } );
-        }
-
-        menu.add( rec );
-
         final JMenuItem fav = new JMenuItem(  );
 
-        if( favourite == null )
+        if( getFavourite( programme ) == null )
         {
             fav.setText( i18n.getString( "popup.favourite.add" ) );
-            fav.addActionListener( 
+            fav.addActionListener(
                 new ActionListener(  )
                 {
                     public void actionPerformed( ActionEvent e )
@@ -236,7 +132,7 @@ public class AlarmReminder extends BaseModuleReminder
         else
         {
             fav.setText( i18n.getString( "popup.favourite.del" ) );
-            fav.addActionListener( 
+            fav.addActionListener(
                 new ActionListener(  )
                 {
                     public void actionPerformed( ActionEvent e )
@@ -264,9 +160,9 @@ public class AlarmReminder extends BaseModuleReminder
         Object[] messageArguments = { favourite.getName(  ) };
 
         int r =
-            JOptionPane.showConfirmDialog( 
+            JOptionPane.showConfirmDialog(
                 null, //controller.getPanel(  ),
-                MessageFormat.format( 
+                MessageFormat.format(
                     i18n.getString( "popup.favourite.del.prompt" ),
                     messageArguments ),
                 i18n.getString( "popup.favourite.del.title" ),
@@ -282,12 +178,12 @@ public class AlarmReminder extends BaseModuleReminder
     protected void onMenuItem(  )
     {
         FavouritesController favController =
-            new FavouritesController( 
+            new FavouritesController(
                 Application.getInstance(  ).getApplicationFrame(  ),
                 config.favouritesList,
                 Application.getInstance(  ).getDataStorage(  ).getInfo(  ).channelsList );
 
-        Utils.centreDialog( 
+        Utils.centreDialog(
             Application.getInstance(  ).getApplicationFrame(  ),
             favController.getListDialog(  ) );
         favController.getListDialog(  ).setVisible( true );
@@ -327,8 +223,6 @@ public class AlarmReminder extends BaseModuleReminder
     {
         timeForClose = Long.MAX_VALUE;
         timeForDisplay = Long.MAX_VALUE;
-        timeForRecordStart = Long.MAX_VALUE;
-        timeForRecordStop = Long.MAX_VALUE;
 
         synchronized( this )
         {
@@ -345,7 +239,7 @@ public class AlarmReminder extends BaseModuleReminder
                 try
                 {
                     scheduledProgramme =
-                        Application.getInstance(  ).getDataStorage(  ).findEarliest( 
+                        Application.getInstance(  ).getDataStorage(  ).findEarliest(
                             System.currentTimeMillis(  )
                             + config.reminderWarning,
                             new IModuleStorage.EarliestCheckAllow(  )
@@ -367,55 +261,13 @@ public class AlarmReminder extends BaseModuleReminder
                 catch( Exception ex )
                 {
                     Application.getInstance(  ).getLogger(  )
-                               .log( 
+                               .log(
                         Level.WARNING, "Error find next programme", ex );
                 }
             }
 
-            if( config.recordOn )
-            {
-                try
-                {
-                    if( !recording )
-                    {
-                        recordingProgramme =
-                            Application.getInstance(  ).getDataStorage(  ).findEarliest( 
-                                System.currentTimeMillis(  ) + 0, // 1min before actual start.
-                                new IModuleStorage.EarliestCheckAllow(  )
-                                {
-                                    public boolean isAllow( 
-                                        TVProgramme programme )
-                                    {
-                                        return isRecord( programme );
-                                    }
-                                } );
-                    }
-
-                    if( recordingProgramme != null )
-                    {
-                        if( !recording )
-                        {
-                            timeForRecordStart = recordingProgramme.getStart(  )
-                                - 0;
-                        }
-
-                        timeForRecordStop = recordingProgramme.getEnd(  ) + 0;
-                    }
-                }
-
-                catch( Exception ex )
-                {
-                    Application.getInstance(  ).getLogger(  )
-                               .log( 
-                        Level.WARNING, "Error find next programme", ex );
-                }
-            }
-
-            return Math.min( 
-                Math.min( 
-                    Math.min( 
-                        Math.min( timeForClose, timeForDisplay ),
-                        timeForRecordStart ), timeForRecordStop ),
+            return Math.min(
+                Math.min( timeForClose, timeForDisplay ),
                 System.currentTimeMillis(  ) + 300000 );
         }
     }
@@ -426,7 +278,7 @@ public class AlarmReminder extends BaseModuleReminder
         {
             if( scheduledDialog != null )
             {
-                if( 
+                if(
                     ( timeForClose <= System.currentTimeMillis(  ) )
                         || ( timeForDisplay <= System.currentTimeMillis(  ) ) )
                 {
@@ -435,19 +287,19 @@ public class AlarmReminder extends BaseModuleReminder
                 }
             }
 
-            if( 
+            if(
                 ( scheduledProgramme != null )
                     && ( timeForDisplay <= System.currentTimeMillis(  ) ) )
             {
                 String message =
-                    MessageFormat.format( 
+                    MessageFormat.format(
                         i18n.getString( "alarm.text" ),
                         new Object[] { scheduledProgramme.getTitle(  ) } );
 
                 JOptionPane optionPane =
                     new JOptionPane( message, JOptionPane.INFORMATION_MESSAGE );
 
-                scheduledDialog = optionPane.createDialog( 
+                scheduledDialog = optionPane.createDialog(
                         Application.getInstance(  ).getApplicationFrame(  ),
                         i18n.getString( "alarm.title" ) );
 
@@ -456,87 +308,9 @@ public class AlarmReminder extends BaseModuleReminder
                 scheduledDialog.setVisible( true );
                 scheduledDialogDisplayTime = System.currentTimeMillis(  );
             }
-
-            // check for recording start
-            if( recordingProgramme != null )
-            {
-                if( 
-                    !recording
-                        && ( timeForRecordStart <= System.currentTimeMillis(  ) ) )
-                {
-                    startRecording(  );
-                    recording = true;
-                }
-
-                if( 
-                    recording
-                        && ( timeForRecordStop <= System.currentTimeMillis(  ) ) )
-                {
-                    stopRecording(  );
-                    recordingProgramme = null;
-                    recording = false;
-                }
-            }
         }
     }
 
-    /**
-     * Is called when a recording should be started.  The programme to
-     * record is stored in recrdingProgramme.
-     *
-     * @return true if command execution was successfull
-     *
-     * @see onTime()
-     */
-    protected boolean startRecording(  )
-    {
-        JOptionPane optionPane =
-            new JOptionPane( 
-                recordingProgramme.getTitle(  ),
-                JOptionPane.INFORMATION_MESSAGE );
-        JDialog dlg =
-            optionPane.createDialog( 
-                Application.getInstance(  ).getApplicationFrame(  ),
-                "Start Recording..." );
-        dlg.setModal( false );
-
-        dlg.setVisible( true );
-
-        return true;
-
-    }
-
-    /**
-     * Is called when a recording should be sopped.  The programme we
-     * are currently recording is stored in recrdingProgramme.
-     *
-     * @return true if command execution was successfull
-     *
-     * @see onTime()
-     */
-    protected boolean stopRecording(  )
-    {
-        JOptionPane optionPane =
-            new JOptionPane( 
-                recordingProgramme.getTitle(  ),
-                JOptionPane.INFORMATION_MESSAGE );
-        JDialog dlg =
-            optionPane.createDialog( 
-                Application.getInstance(  ).getApplicationFrame(  ),
-                "Stop Recording..." );
-        dlg.setModal( false );
-
-        dlg.setVisible( true );
-
-        return true;
-    }
-
-    /**
-     * setProgrammSelection: set highlighting according to the
-     * selection
-     *
-     * @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
-     */
     protected class MListsner implements MouseListener
     {
         TVProgramme programme;
@@ -555,11 +329,11 @@ public class AlarmReminder extends BaseModuleReminder
 
             if( !isSelected( programme ) )
             {
-                setProgrammeSelection( programme, true, true );
+                setProgrammeSelection( programme, true );
             }
             else
             {
-                setProgrammeSelection( programme, false, false );
+                setProgrammeSelection( programme, false );
             }
 
             favSelectionChanged( true );
@@ -622,14 +396,5 @@ public class AlarmReminder extends BaseModuleReminder
 
         /** Time in milliseconds. */
         public long reminderWarning = 300000L;
-
-        /** Do we record. */
-        public boolean recordOn = false;
-
-        /** Command to issue when a programme starts. */
-        public String recordStartCommand = "";
-
-        /** Command to issue when a programme stops. */
-        public String recordStopCommand = "";
     }
 }

@@ -43,10 +43,6 @@ public class JLabelProgramme extends JLabel
     protected static Border INGUIDE_BORDER;
     protected static Border FOCUSED_BORDER;
 
-    /** Setup border colors */
-    protected static Border FAVOURITE_BORDER;
-    protected static Border GUIDE_BORDER;
-
     /** Standard reminder. */
     protected static IModuleReminder REMINDER;
 
@@ -69,21 +65,14 @@ public class JLabelProgramme extends JLabel
 
     }
 
-    /** Square shape. */
-    protected final static Rectangle SQUARE_SHAPE =
-        new Rectangle( 125, 650, 350, 350 );
-
     /** Programme for current label. */
     final protected TVProgramme programme;
 
     /** Parent controller. */
     final protected HorizontalViewer controller;
 
-    /** Need to draw heart symbol. */
+    /** Need to draw heart. */
     protected boolean isDrawHeart;
-
-    /** Need to draw square symbol (=record). */
-    protected boolean isDrawSquare;
 
     /** Cached tooltip text. */
     private String tooltip;
@@ -98,7 +87,7 @@ public class JLabelProgramme extends JLabel
      * @param moveNames DOCUMENT ME!
      * @param timeFormat DOCUMENT ME!
      */
-    public JLabelProgramme( 
+    public JLabelProgramme(
         final TVProgramme programme, final HorizontalViewer main,
         final boolean moveNames, final DateFormat timeFormat )
     {
@@ -108,14 +97,14 @@ public class JLabelProgramme extends JLabel
         this.moveNames = moveNames;
         setText( getTitle( programme ) );
         setupColors(  );
-        setupSymbols(  );
+        setupHeart(  );
         setOpaque( true );
         setFocusable( true );
         addMouseListener( main.handlers.labelProgrammeMouseListener );
         addFocusListener( main.handlers.labelProgrammeFocusListener );
 
         setActionMap( main.handlers.labelProgrammeActionMap );
-        setInputMap( 
+        setInputMap(
             JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT,
             main.handlers.labelProgrammeInputMap );
 
@@ -148,11 +137,11 @@ public class JLabelProgramme extends JLabel
 
         String programmeStarString = programme.getStarString(  );
 
-        if( 
+        if(
             ( (HorizontalViewerConfig)controller.getConfig(  ) ).displayTime
                 && ( timeFormat != null ) )
         {
-            toAppendTo.append( 
+            toAppendTo.append(
                 timeFormat.format( new Date( programmeStart ) ) ).append( " " );
         }
 
@@ -174,7 +163,7 @@ public class JLabelProgramme extends JLabel
         {
             toAppendTo.append( " " );
 
-            toAppendTo.append( 
+            toAppendTo.append(
                 Application.getInstance(  ).getLocalizedMessage( "r" ) );
 
         }
@@ -196,25 +185,8 @@ public class JLabelProgramme extends JLabel
      * Setup colors for current label.
      */
     public void setupColors(  )
-    { // is favourite?
-
-        if( 
-            ( REMINDER != null )
-                && ( REMINDER.getFavourite( programme ) != null )
-                && REMINDER.isHighlighted( programme ) )
-        {
-            setBackground( controller.config.colorFavourite );
-            setBorder( FAVOURITE_BORDER );
-
-        }
-        else if( 
-            ( REMINDER != null ) && REMINDER.isSelected( programme )
-                && REMINDER.isHighlighted( programme ) ) // is selected??
-        {
-            setBackground( controller.config.colorGuide );
-            setBorder( GUIDE_BORDER );
-        }
-        else if( ( REMINDER != null ) && REMINDER.isHighlighted( programme ) ) // is highlighted?
+    {
+        if( ( REMINDER != null ) && REMINDER.isSelected( programme ) )
         {
             setBackground( controller.config.colorTicked );
             setBorder( INGUIDE_BORDER );
@@ -256,49 +228,34 @@ public class JLabelProgramme extends JLabel
             REMINDER = null;
         }
 
-        DEFAULT_BORDER = BorderFactory.createCompoundBorder( 
+        DEFAULT_BORDER = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
                 BorderFactory.createLineBorder( main.config.colorNonTicked, 2 ) );
-        MOVIE_BORDER = BorderFactory.createCompoundBorder( 
+        MOVIE_BORDER = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
                 BorderFactory.createLineBorder( main.config.colorMovie, 2 ) );
-        INGUIDE_BORDER = BorderFactory.createCompoundBorder( 
+        INGUIDE_BORDER = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
                 BorderFactory.createLineBorder( main.config.colorTicked, 2 ) );
-        FOCUSED_BORDER = BorderFactory.createCompoundBorder( 
+        FOCUSED_BORDER = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
                 BorderFactory.createLineBorder( main.config.colorNonTicked, 1 ) );
-/**
-         * Setup border colors
-         * 
-         *  @author Patrick Huber, Annetta Schaad (aschaad at hotmail.com)
-         *  
-         *  inserted: borders for favourite and selected 
-         */
-        GUIDE_BORDER = BorderFactory.createCompoundBorder( 
-                BorderFactory.createLineBorder( Color.BLACK, 1 ),
-                BorderFactory.createLineBorder( main.config.colorGuide, 2 ) );
-        FAVOURITE_BORDER = BorderFactory.createCompoundBorder( 
-                BorderFactory.createLineBorder( Color.BLACK, 1 ),
-                BorderFactory.createLineBorder( main.config.colorFavourite, 2 ) );
     }
 
     /**
      * Setup need to draw heart for current label.
      */
-    protected void setupSymbols(  )
+    protected void setupHeart(  )
     {
         if( REMINDER == null )
         {
             isDrawHeart = false;
-            isDrawSquare = false; // for recording.
         }
         else
         {
             freeguide.common.lib.fgspecific.selection.Favourite f =
                 REMINDER.getFavourite( programme );
             isDrawHeart = ( f != null );
-            isDrawSquare = ( ( f != null ) && f.getRecord(  ) );
         }
     }
 
@@ -335,7 +292,7 @@ public class JLabelProgramme extends JLabel
 
             }
 
-            if( 
+            if(
                 ( g.getClipBounds(  ) != null )
                     && ( fontX < g.getClipBounds(  ).x ) )
             {
@@ -344,7 +301,7 @@ public class JLabelProgramme extends JLabel
             }
 
             // now we now where, draw the text
-            g.drawString( 
+            g.drawString(
                 getText(  ), fontX,
                 ( ins.top
                 + ( getHeight(  ) - ins.top - ins.bottom
@@ -364,7 +321,7 @@ public class JLabelProgramme extends JLabel
             graphics.setColor( Color.RED );
 
             // switch on anti-aliasing
-            graphics.setRenderingHint( 
+            graphics.setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON );
 
@@ -380,12 +337,6 @@ public class JLabelProgramme extends JLabel
             graphics.scale( scale, scale );
 
             graphics.fill( HEART_SHAPE );
-
-            if( isDrawSquare )
-            {
-                graphics.setColor( new Color( 175, 0, 0 ) );
-                graphics.fill( SQUARE_SHAPE );
-            }
 
             graphics.setTransform( originalTransform );
         }
@@ -419,10 +370,10 @@ public class JLabelProgramme extends JLabel
         {
             final StringWriter out = new StringWriter(  );
             TemplateParser parser =
-                new TemplateParser( 
+                new TemplateParser(
                     "resources/plugins/ui/horizontal/manylabels/templates/TemplateProgrammeTooltip.html" );
-            parser.process( 
-                new HandlerProgrammeInfo( 
+            parser.process(
+                new HandlerProgrammeInfo(
                     controller.getLocalizer(  ), programme, timeFormat ), out );
             this.tooltip = out.toString(  );
         }
@@ -460,7 +411,7 @@ public class JLabelProgramme extends JLabel
      *
      * @return DOCUMENT_ME!
      */
-    public boolean isOverlap( 
+    public boolean isOverlap(
         final long middleTime, final long startMin, final long endMax )
     {
         long start = Math.max( getProgramme(  ).getStart(  ), startMin );

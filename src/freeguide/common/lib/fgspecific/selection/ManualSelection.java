@@ -18,9 +18,6 @@ public class ManualSelection
     /** DOCUMENT ME! */
     public boolean selected;
 
-    /** PROGRAMM IS HIGHLIGHTED */
-    public boolean highlighted;
-
 /**
      * Creates a new ManualSelection object.
      */
@@ -34,9 +31,8 @@ public class ManualSelection
      * @param programme DOCUMENT ME!
      * @param selected DOCUMENT ME!
      */
-    public ManualSelection( 
-        final TVProgramme programme, final boolean selected,
-        final boolean highlighted )
+    public ManualSelection(
+        final TVProgramme programme, final boolean selected )
     {
         this.channelID = programme.getChannel(  ).getID(  );
 
@@ -44,7 +40,6 @@ public class ManualSelection
 
         this.selected = selected;
 
-        this.highlighted = highlighted || selected;
     }
 
     /**
@@ -56,7 +51,7 @@ public class ManualSelection
      */
     public boolean matches( final TVProgramme programme )
     {
-        if( 
+        if(
             channelID.equals( programme.getChannel(  ).getID(  ) )
                 && ( programmeTime == programme.getStart(  ) ) )
         {
@@ -64,28 +59,6 @@ public class ManualSelection
         }
 
         return false;
-
-    }
-
-    /**
-     * Get Highlight
-     *
-     * @return Returns the highlighted status.
-     */
-    public boolean isHighlighted(  )
-    {
-        return highlighted;
-
-    }
-
-    /**
-     * Set Highlight
-     *
-     * @param highlighted the highlighted to set.
-     */
-    public void setHighlighted( final boolean highlighted )
-    {
-        this.highlighted = highlighted;
 
     }
 

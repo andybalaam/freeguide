@@ -96,8 +96,8 @@ public class SelectionManager
 
             else
             {
-                storage.manualSelectionList.add( 
-                    new ManualSelection( programme, true, true ) );
+                storage.manualSelectionList.add(
+                    new ManualSelection( programme, true ) );
 
             }
         }
@@ -122,14 +122,14 @@ public class SelectionManager
 
             else
             {
-                storage.manualSelectionList.add( 
-                    new ManualSelection( programme, false, false ) );
+                storage.manualSelectionList.add(
+                    new ManualSelection( programme, false ) );
 
             }
         }
     }
 
-    protected static ManualSelection getManualSelection( 
+    protected static ManualSelection getManualSelection(
         final TVProgramme programme )
     {
         synchronized( storage )
@@ -190,7 +190,7 @@ public class SelectionManager
      *
      * @param programme DOCUMENT_ME!
      */
-    public static void removeFavouriteByProgramme( 
+    public static void removeFavouriteByProgramme(
         final TVProgramme programme )
     {
         synchronized( storage )

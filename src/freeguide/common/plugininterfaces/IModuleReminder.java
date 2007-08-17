@@ -36,15 +36,6 @@ public interface IModuleReminder extends IModule
     public void stop(  );
 
     /**
-     * Check if programme is highlighted.
-     *
-     * @param programme programme
-     *
-     * @return true if highlighted
-     */
-    public boolean isHighlighted( TVProgramme programme );
-
-    /**
      * Check if programme is selected.
      *
      * @param programme programme
@@ -58,11 +49,9 @@ public interface IModuleReminder extends IModule
      *
      * @param programme programme
      * @param newSelection DOCUMENT ME!
-     * @param newHighlight DOCUMENT ME!
      */
-    public void setProgrammeSelection( 
-        final TVProgramme programme, final boolean newSelection,
-        final boolean newHighlight );
+    public void setProgrammeSelection(
+        final TVProgramme programme, final boolean newSelection );
 
     /**
      * Add items to main frame menu.
@@ -77,7 +66,7 @@ public interface IModuleReminder extends IModule
      * @param programme programme
      * @param menu popup menu
      */
-    public void addItemsToPopupMenu( 
+    public void addItemsToPopupMenu(
         final TVProgramme programme, final JPopupMenu menu );
 
     Favourite getFavourite( TVProgramme programme );

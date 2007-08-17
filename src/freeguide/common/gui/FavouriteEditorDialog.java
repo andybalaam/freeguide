@@ -65,7 +65,6 @@ public class FavouriteEditorDialog extends FGDialog
     private javax.swing.JLabel labDayOfWeek;
     private javax.swing.JLabel labName;
     private javax.swing.JLabel labTimeFormat;
-    private javax.swing.JCheckBox chkRecord;
 
     //    private javax.swing.JLabel labTimeFormat1;
     private javax.swing.JLabel labTitle;
@@ -86,7 +85,7 @@ public class FavouriteEditorDialog extends FGDialog
      * @param favourite - the <code>Favourite</code> to modify
      * @param allChannelsSet DOCUMENT ME!
      */
-    public FavouriteEditorDialog( 
+    public FavouriteEditorDialog(
         JDialog owner, String title, Favourite favourite,
         TVChannelsSet allChannelsSet )
     {
@@ -108,19 +107,19 @@ public class FavouriteEditorDialog extends FGDialog
         if( favourite.getTitleString(  ) != null )
         {
             txtTitle.setText( favourite.getTitleString(  ) );
-            cmbTitle.setSelectedItem( 
+            cmbTitle.setSelectedItem(
                 Application.getInstance(  ).getLocalizedMessage( "exactly" ) );
         }
         else if( favourite.getTitleContains(  ) != null )
         {
             txtTitle.setText( favourite.getTitleContains(  ) );
-            cmbTitle.setSelectedItem( 
+            cmbTitle.setSelectedItem(
                 Application.getInstance(  ).getLocalizedMessage( "contains" ) );
         }
         else if( favourite.getTitleRegex(  ) != null )
         {
             txtTitle.setText( favourite.getTitleRegex(  ) );
-            cmbTitle.setSelectedItem( 
+            cmbTitle.setSelectedItem(
                 Application.getInstance(  )
                            .getLocalizedMessage( "regular_expression" ) );
         }
@@ -128,7 +127,7 @@ public class FavouriteEditorDialog extends FGDialog
         if( favourite.getChannelID(  ) != null )
         {
             TVChannelsSet.Channel ch =
-                (TVChannelsSet.Channel)channels.get( 
+                (TVChannelsSet.Channel)channels.get(
                     favourite.getChannelID(  ) );
 
             if( ch != null )
@@ -151,9 +150,6 @@ public class FavouriteEditorDialog extends FGDialog
         {
             cmbDayOfWeek.setSelectedIndex( favourite.getDayOfWeek(  ) );
         }
-
-        chkRecord.setSelected( favourite.getRecord(  ) );
-
         calcTxtName(  );
     }
 
@@ -165,11 +161,11 @@ public class FavouriteEditorDialog extends FGDialog
     private void fillLists( TVChannelsSet allChannelsSet )
     {
         // The combobox for the title match type
-        cmbTitle.addItem( 
+        cmbTitle.addItem(
             Application.getInstance(  ).getLocalizedMessage( "exactly" ) );
-        cmbTitle.addItem( 
+        cmbTitle.addItem(
             Application.getInstance(  ).getLocalizedMessage( "contains" ) );
-        cmbTitle.addItem( 
+        cmbTitle.addItem(
             Application.getInstance(  )
                        .getLocalizedMessage( "regular_expression" ) );
         cmbChannel.addItem( StringHelper.EMPTY_STRING );
@@ -213,10 +209,10 @@ public class FavouriteEditorDialog extends FGDialog
         favourite.setName( txtName.getText(  ) );
 
         // Set the title
-        if( 
+        if(
             cmbTitle.getSelectedItem(  )
-                        .equals( 
-                    Application.getInstance(  ).getLocalizedMessage( 
+                        .equals(
+                    Application.getInstance(  ).getLocalizedMessage(
                         "exactly" ) ) )
         {
             favourite.setTitleRegex( null );
@@ -233,10 +229,10 @@ public class FavouriteEditorDialog extends FGDialog
                 favourite.setTitleString( tmp );
             }
         }
-        else if( 
+        else if(
             cmbTitle.getSelectedItem(  )
-                        .equals( 
-                    Application.getInstance(  ).getLocalizedMessage( 
+                        .equals(
+                    Application.getInstance(  ).getLocalizedMessage(
                         "contains" ) ) )
         {
             favourite.setTitleString( null );
@@ -275,7 +271,7 @@ public class FavouriteEditorDialog extends FGDialog
 
         if( sel instanceof TVChannelsSet.Channel )
         {
-            favourite.setChannelID( 
+            favourite.setChannelID(
                 ( (TVChannelsSet.Channel)sel ).getChannelID(  ) );
         }
         else
@@ -286,7 +282,7 @@ public class FavouriteEditorDialog extends FGDialog
         // Set the after time
         String tmp = txtAfter.getText(  );
 
-        if( 
+        if(
             !tmp.equals( StringHelper.EMPTY_STRING ) && ( tmp.length(  ) == 5 )
                 && ( tmp.charAt( 2 ) == ':' ) )
         {
@@ -301,7 +297,7 @@ public class FavouriteEditorDialog extends FGDialog
         // Set the before time
         tmp = txtBefore.getText(  );
 
-        if( 
+        if(
             !tmp.equals( StringHelper.EMPTY_STRING ) && ( tmp.length(  ) == 5 )
                 && ( tmp.charAt( 2 ) == ':' ) )
         {
@@ -328,7 +324,7 @@ public class FavouriteEditorDialog extends FGDialog
             catch( java.text.ParseException ex )
             {
                 Application.getInstance(  ).getLogger(  )
-                           .log( 
+                           .log(
                     Level.WARNING, "Error on parse day of week", ex );
                 favourite.setDayOfWeek( -1 );
             }
@@ -337,9 +333,6 @@ public class FavouriteEditorDialog extends FGDialog
         {
             favourite.setDayOfWeek( -1 );
         }
-
-        // set the record flag
-        favourite.setRecord( chkRecord.isSelected(  ) );
 
         setSave(  );
     }
@@ -374,30 +367,30 @@ public class FavouriteEditorDialog extends FGDialog
 
         if( !title.equals( StringHelper.EMPTY_STRING ) )
         {
-            if( 
+            if(
                 cmbTitle.getSelectedItem(  )
-                            .equals( 
+                            .equals(
                         Application.getInstance(  )
                                        .getLocalizedMessage( "exactly" ) ) )
             {
                 equalsString = Application.getInstance(  )
-                                          .getLocalizedMessage( 
+                                          .getLocalizedMessage(
                         "favourite_name_equals_template", equalsArray );
             }
-            else if( 
+            else if(
                 cmbTitle.getSelectedItem(  )
-                            .equals( 
+                            .equals(
                         Application.getInstance(  )
                                        .getLocalizedMessage( "contains" ) ) )
             {
                 containsString = Application.getInstance(  )
-                                            .getLocalizedMessage( 
+                                            .getLocalizedMessage(
                         "favourite_name_contains_template", containsArray );
             }
             else
             {
                 regexpString = Application.getInstance(  )
-                                          .getLocalizedMessage( 
+                                          .getLocalizedMessage(
                         "favourite_name_regexp_template", regexpArray );
             }
         }
@@ -405,40 +398,40 @@ public class FavouriteEditorDialog extends FGDialog
         if( !channel.equals( StringHelper.EMPTY_STRING ) )
         {
             channelString = Application.getInstance(  )
-                                       .getLocalizedMessage( 
+                                       .getLocalizedMessage(
                     "favourite_name_channel_template", channelArray );
         }
 
         if( !after.equals( StringHelper.EMPTY_STRING ) )
         {
             afterString = Application.getInstance(  )
-                                     .getLocalizedMessage( 
+                                     .getLocalizedMessage(
                     "favourite_name_after_template", afterArray );
         }
 
         if( !before.equals( StringHelper.EMPTY_STRING ) )
         {
             beforeString = Application.getInstance(  )
-                                      .getLocalizedMessage( 
+                                      .getLocalizedMessage(
                     "favourite_name_before_template", beforeArray );
         }
 
         if( !dayOfWeek.equals( StringHelper.EMPTY_STRING ) )
         {
             dayOfWeekString = Application.getInstance(  )
-                                         .getLocalizedMessage( 
+                                         .getLocalizedMessage(
                     "favourite_name_day_of_week_template", dayOfWeekArray );
         }
 
         Object[] nameArgs =
             {
                 equalsString, containsString, regexpString, channelString,
-                
+
                 beforeString, afterString, dayOfWeekString
             };
         String name =
             Application.getInstance(  )
-                       .getLocalizedMessage( 
+                       .getLocalizedMessage(
                 "favourite_name_template", nameArgs );
         name = name.replaceAll( SPACE_RE_FROM, SPACE_RE_TO ).trim(  );
 
@@ -456,7 +449,7 @@ public class FavouriteEditorDialog extends FGDialog
      */
     private void addActionListeners(  )
     {
-        txtTitle.addActionListener( 
+        txtTitle.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -464,7 +457,7 @@ public class FavouriteEditorDialog extends FGDialog
                     txtTitleActionPerformed( evt );
                 }
             } );
-        cmbTitle.addActionListener( 
+        cmbTitle.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -472,7 +465,7 @@ public class FavouriteEditorDialog extends FGDialog
                     cmbTitleActionPerformed( evt );
                 }
             } );
-        cmbChannel.addActionListener( 
+        cmbChannel.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -480,7 +473,7 @@ public class FavouriteEditorDialog extends FGDialog
                     cmbChannelActionPerformed( evt );
                 }
             } );
-        txtAfter.addActionListener( 
+        txtAfter.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -488,7 +481,7 @@ public class FavouriteEditorDialog extends FGDialog
                     txtAfterActionPerformed( evt );
                 }
             } );
-        txtBefore.addActionListener( 
+        txtBefore.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -496,7 +489,7 @@ public class FavouriteEditorDialog extends FGDialog
                     txtBeforeActionPerformed( evt );
                 }
             } );
-        cmbDayOfWeek.addActionListener( 
+        cmbDayOfWeek.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -504,15 +497,7 @@ public class FavouriteEditorDialog extends FGDialog
                     cmbDayOfWeekActionPerformed( evt );
                 }
             } );
-        chkRecord.addActionListener( 
-            new java.awt.event.ActionListener(  )
-            {
-                public void actionPerformed( java.awt.event.ActionEvent evt )
-                {
-                    chkRecordActionPerformed( evt );
-                }
-            } );
-        butOK.addActionListener( 
+        butOK.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -520,7 +505,7 @@ public class FavouriteEditorDialog extends FGDialog
                     butOKActionPerformed( evt );
                 }
             } );
-        butCancel.addActionListener( 
+        butCancel.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -537,8 +522,8 @@ public class FavouriteEditorDialog extends FGDialog
     {
         java.awt.GridBagConstraints gridBagConstraints;
         getContentPane(  ).setLayout( new java.awt.GridBagLayout(  ) );
-        labTitle = new javax.swing.JLabel( 
-                Application.getInstance(  ).getLocalizedMessage( 
+        labTitle = new javax.swing.JLabel(
+                Application.getInstance(  ).getLocalizedMessage(
                     "title_matches" ) + ':', javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
@@ -565,7 +550,7 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( cmbTitle, gridBagConstraints );
-        labChannel = new javax.swing.JLabel( 
+        labChannel = new javax.swing.JLabel(
                 Application.getInstance(  ).getLocalizedMessage( "channel_is" )
                 + ':', javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -584,7 +569,7 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         gridBagConstraints.weightx = 0.9;
         getContentPane(  ).add( cmbChannel, gridBagConstraints );
-        labAfter = new javax.swing.JLabel( 
+        labAfter = new javax.swing.JLabel(
                 Application.getInstance(  ).getLocalizedMessage( "on_after" )
                 + ':', javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -613,7 +598,7 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
         getContentPane(  ).add( txtBefore, gridBagConstraints );
-        labBefore = new javax.swing.JLabel( 
+        labBefore = new javax.swing.JLabel(
                 Application.getInstance(  ).getLocalizedMessage( "on_before" )
                 + ':', javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -622,9 +607,9 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( labBefore, gridBagConstraints );
-        labBlankFields = new javax.swing.JLabel( 
+        labBlankFields = new javax.swing.JLabel(
                 Application.getInstance(  )
-                           .getLocalizedMessage( 
+                           .getLocalizedMessage(
                     "you_may_leave_any_fields_blank" ),
                 javax.swing.SwingConstants.CENTER );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -633,9 +618,9 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         getContentPane(  ).add( labBlankFields, gridBagConstraints );
-        labTimeFormat = new javax.swing.JLabel( 
+        labTimeFormat = new javax.swing.JLabel(
                 Application.getInstance(  )
-                           .getLocalizedMessage( 
+                           .getLocalizedMessage(
                     "times_should_be_entered_as_hhmm" ),
                 javax.swing.SwingConstants.LEFT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -648,8 +633,8 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.4;
         getContentPane(  ).add( labTimeFormat, gridBagConstraints );
-        labDayOfWeek = new javax.swing.JLabel( 
-                Application.getInstance(  ).getLocalizedMessage( 
+        labDayOfWeek = new javax.swing.JLabel(
+                Application.getInstance(  ).getLocalizedMessage(
                     "on_day_label" ) + ':', javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
@@ -657,7 +642,7 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( labDayOfWeek, gridBagConstraints );
-        labName = new javax.swing.JLabel( 
+        labName = new javax.swing.JLabel(
                 Application.getInstance(  ).getLocalizedMessage( "name" )
                 + ':', javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -676,7 +661,7 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         gridBagConstraints.weightx = 0.9;
         getContentPane(  ).add( cmbDayOfWeek, gridBagConstraints );
-        txtName = new javax.swing.JTextField( 
+        txtName = new javax.swing.JTextField(
                 Application.getInstance(  )
                            .getLocalizedMessage( "all_programmes" ) );
         txtName.setEditable( false );
@@ -690,27 +675,15 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         gridBagConstraints.weightx = 0.9;
         getContentPane(  ).add( txtName, gridBagConstraints );
-
-        chkRecord = new javax.swing.JCheckBox( 
-                Application.getInstance(  ).getLocalizedMessage( "record" ) );
-        gridBagConstraints = new java.awt.GridBagConstraints(  );
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 ); // TODO what's this, correct?
-        gridBagConstraints.weightx = 0.9;
-        getContentPane(  ).add( chkRecord, gridBagConstraints );
-
         jPanel1 = new javax.swing.JPanel( new java.awt.GridBagLayout(  ) );
-        butOK = new javax.swing.JButton( 
+        butOK = new javax.swing.JButton(
                 Application.getInstance(  ).getLocalizedMessage( "ok" ) );
         butOK.setMinimumSize( new java.awt.Dimension( 87, 26 ) );
         butOK.setPreferredSize( new java.awt.Dimension( 87, 26 ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         jPanel1.add( butOK, gridBagConstraints );
-        butCancel = new javax.swing.JButton( 
+        butCancel = new javax.swing.JButton(
                 Application.getInstance(  ).getLocalizedMessage( "cancel" ) );
         butCancel.setMinimumSize( new java.awt.Dimension( 87, 26 ) );
         butCancel.setPreferredSize( new java.awt.Dimension( 87, 26 ) );
@@ -719,7 +692,7 @@ public class FavouriteEditorDialog extends FGDialog
         jPanel1.add( butCancel, gridBagConstraints );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         getContentPane(  ).add( jPanel1, gridBagConstraints );
@@ -802,10 +775,6 @@ public class FavouriteEditorDialog extends FGDialog
     private void cmbTitleActionPerformed( java.awt.event.ActionEvent evt )
     {
         calcTxtName(  );
-    }
-
-    private void chkRecordActionPerformed( java.awt.event.ActionEvent evt )
-    {
     }
 
     /**
