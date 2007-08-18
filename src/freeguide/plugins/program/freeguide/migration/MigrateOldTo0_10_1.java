@@ -64,6 +64,8 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
      */
     public void migrate(  ) throws IOException
     {
+        FreeGuide.log.info( "Upgrading preferences old version -> 0.10.1" );
+
         String workDir = getAndRemoveKey( "misc/working_directory" );
 
         if( workDir != null )

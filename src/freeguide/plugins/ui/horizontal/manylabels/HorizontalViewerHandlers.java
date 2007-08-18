@@ -45,7 +45,7 @@ public class HorizontalViewerHandlers
                     int dateIndex =
                         controller.panel.getComboDate(  ).getSelectedIndex(  );
 
-                    controller.theDate = ( (Long)( controller.dateExistList.get(
+                    controller.theDate = ( (Long)( controller.dateExistList.get( 
                             dateIndex ) ) ).longValue(  );
 
                     if( oldDate != controller.theDate )
@@ -81,7 +81,7 @@ public class HorizontalViewerHandlers
 
                     }
 
-                    else if(
+                    else if( 
                         selectedInd == ( controller.panel.getComboChannelsSet(  )
                                                              .getItemCount(  )
                             - 1 ) )
@@ -136,7 +136,7 @@ public class HorizontalViewerHandlers
                 {
                     JLabelChannel labelChannel =
                         (JLabelChannel)evt.getComponent(  );
-                    new MenuChannel( labelChannel, controller ).show(
+                    new MenuChannel( labelChannel, controller ).show( 
                         evt.getComponent(  ), evt.getX(  ), evt.getY(  ) );
                 }
             }
@@ -153,7 +153,7 @@ public class HorizontalViewerHandlers
                     JLabelProgramme label =
                         (JLabelProgramme)evt.getComponent(  );
                     label.getActionMap(  ).get( "select" )
-                         .actionPerformed(
+                         .actionPerformed( 
                         new ActionEvent( label, 0, "select" ) );
                 }
             }
@@ -187,8 +187,8 @@ public class HorizontalViewerHandlers
                 {
                     JLabelProgramme labelProgramme =
                         (JLabelProgramme)evt.getComponent(  );
-                    new MenuProgramme(
-                        controller, labelProgramme.getProgramme(  ) ).show(
+                    new MenuProgramme( 
+                        controller, labelProgramme.getProgramme(  ) ).show( 
                         evt.getComponent(  ), evt.getX(  ), evt.getY(  ) );
                 }
             }
@@ -203,7 +203,7 @@ public class HorizontalViewerHandlers
                 final JLabelProgramme labelProgramme =
                     (JLabelProgramme)e.getComponent(  );
                 controller.currentProgrammeLabel = labelProgramme;
-                controller.updateProgrammeInfo(
+                controller.updateProgrammeInfo( 
                     labelProgramme.getProgramme(  ) );
                 labelProgramme.setupColors(  );
             }
@@ -245,7 +245,7 @@ public class HorizontalViewerHandlers
          */
         public LabelProgrammeActionMap(  )
         {
-            put(
+            put( 
                 "up",
                 new AbstractAction(  )
                 {
@@ -255,7 +255,7 @@ public class HorizontalViewerHandlers
                     }
                     ;
                 } );
-            put(
+            put( 
                 "down",
                 new AbstractAction(  )
                 {
@@ -265,7 +265,7 @@ public class HorizontalViewerHandlers
                     }
                     ;
                 } );
-            put(
+            put( 
                 "left",
                 new AbstractAction(  )
                 {
@@ -275,7 +275,7 @@ public class HorizontalViewerHandlers
                     }
                     ;
                 } );
-            put(
+            put( 
                 "right",
                 new AbstractAction(  )
                 {
@@ -285,7 +285,7 @@ public class HorizontalViewerHandlers
                     }
                     ;
                 } );
-            put(
+            put( 
                 "click",
                 new AbstractAction(  )
                 {
@@ -294,7 +294,7 @@ public class HorizontalViewerHandlers
                         getLabel( e ).requestFocusInWindow(  );
                     }
                 } );
-            put(
+            put( 
                 "select",
                 new AbstractAction(  )
                 {
@@ -315,13 +315,13 @@ public class HorizontalViewerHandlers
 
                         final boolean isSelected =
                             reminder.isSelected( label.getProgramme(  ) );
-                        reminder.setProgrammeSelection(
+                        reminder.setProgrammeSelection( 
                             label.getProgramme(  ), !isSelected );
                         label.controller.redrawCurrentProgramme(  );
                     }
                     ;
                 } );
-            put(
+            put( 
                 "favourite",
                 new AbstractAction(  )
                 {
@@ -358,7 +358,7 @@ public class HorizontalViewerHandlers
                         else
                         {
                             fav = new Favourite(  );
-                            fav.setTitleString(
+                            fav.setTitleString( 
                                 label.getProgramme(  ).getTitle(  ) );
                             fav.setName( label.getProgramme(  ).getTitle(  ) );
                             reminder.addFavourite( fav );

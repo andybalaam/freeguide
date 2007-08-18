@@ -2,8 +2,8 @@ package freeguide.common.lib.fgspecific.data;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Class for storage channels list.

@@ -62,7 +62,7 @@ abstract public class BaseModuleReminder extends BaseModule
         JMenuItem item = new JMenuItem(  );
         item.setText( i18n.getString( "menu.label" ) );
         menu.insert( item, 0 );
-        item.addActionListener(
+        item.addActionListener( 
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
@@ -125,7 +125,7 @@ abstract public class BaseModuleReminder extends BaseModule
     {
         synchronized( getReminderConfig(  ) )
         {
-            for(
+            for( 
                 int i = 0;
                     i < getReminderConfig(  ).manualSelectionList.size(  );
                     i++ )
@@ -180,7 +180,7 @@ abstract public class BaseModuleReminder extends BaseModule
      * @param programme programme
      * @param newSelection DOCUMENT ME!
      */
-    public void setProgrammeSelection(
+    public void setProgrammeSelection( 
         final TVProgramme programme, final boolean newSelection )
     {
         synchronized( getReminderConfig(  ) )
@@ -195,7 +195,7 @@ abstract public class BaseModuleReminder extends BaseModule
 
             else
             {
-                getReminderConfig(  ).manualSelectionList.add(
+                getReminderConfig(  ).manualSelectionList.add( 
                     new ManualSelection( programme, newSelection ) );
 
             }
@@ -291,7 +291,7 @@ abstract public class BaseModuleReminder extends BaseModule
                         }
 
                         long waitTime =
-                            Math.max(
+                            Math.max( 
                                 scheduledTime - System.currentTimeMillis(  ),
                                 10 );
 
@@ -301,7 +301,7 @@ abstract public class BaseModuleReminder extends BaseModule
                 catch( InterruptedException ex )
                 {
                     Application.getInstance(  ).getLogger(  )
-                               .log(
+                               .log( 
                         Level.WARNING, "Reminder thread interrupted ", ex );
                 }
             }

@@ -43,6 +43,8 @@ public class Migrate0_10_2To0_10_3 extends MigrationProcessBase
      */
     public void migrate(  ) throws Exception
     {
+        FreeGuide.log.info( "Upgrading preferences 0.10.2 -> 0.10.3" );
+
         String browserCommand = getAndRemoveKey( "browserCommand" );
         browserCommand = StringHelper.replaceAll( 
                 browserCommand, "file://%filename%", "%url%" );

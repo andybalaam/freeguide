@@ -185,8 +185,7 @@ public class ConfigureUIPanel extends JPanel
         gridBagConstraints50.gridy = 5;
         labelColorSelected.setLabelFor( getBtnColorSelected(  ) );
         labelColorSelected.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_A );
-        labelColorSelected.setText(
-            localizer.getString( "selected_colour" ) );
+        labelColorSelected.setText( localizer.getString( "selected_colour" ) );
 
         gridBagConstraints101.anchor = java.awt.GridBagConstraints.WEST;
 
@@ -512,7 +511,7 @@ public class ConfigureUIPanel extends JPanel
             sliderWidth.setPreferredSize( new java.awt.Dimension( 40, 16 ) );
 
             sliderWidth.getAccessibleContext(  )
-                       .setAccessibleName(
+                       .setAccessibleName( 
                 localizer.getString( "width_of_1hr" ) );
 
             sliderWidth.setMinimum( 100 );
@@ -539,7 +538,7 @@ public class ConfigureUIPanel extends JPanel
             sliderHeight.setPreferredSize( new java.awt.Dimension( 40, 16 ) );
 
             sliderHeight.getAccessibleContext(  )
-                        .setAccessibleName(
+                        .setAccessibleName( 
                 localizer.getString( "channel_height" ) );
 
             sliderHeight.setMinimum( 10 );

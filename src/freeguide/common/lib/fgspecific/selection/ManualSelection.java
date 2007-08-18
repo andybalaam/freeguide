@@ -31,7 +31,7 @@ public class ManualSelection
      * @param programme DOCUMENT ME!
      * @param selected DOCUMENT ME!
      */
-    public ManualSelection(
+    public ManualSelection( 
         final TVProgramme programme, final boolean selected )
     {
         this.channelID = programme.getChannel(  ).getID(  );
@@ -51,7 +51,7 @@ public class ManualSelection
      */
     public boolean matches( final TVProgramme programme )
     {
-        if(
+        if( 
             channelID.equals( programme.getChannel(  ).getID(  ) )
                 && ( programmeTime == programme.getStart(  ) ) )
         {

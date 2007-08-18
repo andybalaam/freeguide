@@ -42,7 +42,7 @@ public class AlarmUIController implements IModuleConfigurationUI
      * @param parent DOCUMENT ME!
      * @param parentDialog DOCUMENT ME!
      */
-    public AlarmUIController(
+    public AlarmUIController( 
         final AlarmReminder parent, final JDialog parentDialog )
     {
         this.parent = parent;
@@ -87,9 +87,9 @@ public class AlarmUIController implements IModuleConfigurationUI
     public void save(  )
     {
         parent.config.reminderOn = panel.getCbRemind(  ).isSelected(  );
-        parent.config.reminderWarning = Long.parseLong(
+        parent.config.reminderWarning = Long.parseLong( 
                 panel.getTextWarning(  ).getText(  ) ) * 1000L;
-        parent.config.reminderGiveUp = Long.parseLong(
+        parent.config.reminderGiveUp = Long.parseLong( 
                 panel.getTextGiveup(  ).getText(  ) ) * 1000L;
     }
 }
