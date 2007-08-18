@@ -42,8 +42,6 @@ public class Migrate0_10_4To0_10_5 extends MigrationProcessBase
      */
     public void migrate(  ) throws Exception
     {
-        FreeGuide.log.info( "Upgrading preferences 0.10.4 -> 0.10.5" );
-
         moveNode( "" );
 
         getAndRemoveKey( "version" );
