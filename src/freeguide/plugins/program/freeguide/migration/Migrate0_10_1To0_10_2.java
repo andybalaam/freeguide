@@ -1,5 +1,7 @@
 package freeguide.plugins.program.freeguide.migration;
 
+import freeguide.plugins.program.freeguide.FreeGuide;
+
 import java.util.Map;
 import java.util.prefs.BackingStoreException;
 
@@ -38,6 +40,8 @@ public class Migrate0_10_1To0_10_2 extends MigrationProcessBase
      */
     public void migrate(  )
     {
+        FreeGuide.log.info( "Upgrading preferences 0.10.1 -> 0.10.2" );
+
         moveKey( "workingDirectory" );
         moveKey( "browserCommand" );
         moveKey( "browserName" );

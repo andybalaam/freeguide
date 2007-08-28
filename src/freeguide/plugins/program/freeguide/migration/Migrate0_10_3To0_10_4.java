@@ -1,5 +1,7 @@
 package freeguide.plugins.program.freeguide.migration;
 
+import freeguide.plugins.program.freeguide.FreeGuide;
+
 import java.util.Map;
 import java.util.prefs.BackingStoreException;
 
@@ -41,6 +43,8 @@ public class Migrate0_10_3To0_10_4 extends MigrationProcessBase
      */
     public void migrate(  ) throws Exception
     {
+        FreeGuide.log.info( "Upgrading preferences 0.10.3 -> 0.10.4" );
+
         // TODO: delete .ser files from working dir
         moveNode( "modules/impexp-html/", "modules/importexport-html/" );
         moveNode( "modules/impexp-jtv/", "modules/importexport-jtv/" );
