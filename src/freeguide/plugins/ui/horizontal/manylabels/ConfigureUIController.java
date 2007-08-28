@@ -127,22 +127,26 @@ public class ConfigureUIController implements IModuleConfigurationUI
      */
     public void save(  )
     {
-        config.fontName = currentFont.getName(  );
-        config.fontSize = currentFont.getSize(  );
-        config.fontStyle = currentFont.getStyle(  );
-        config.sizeChannelHeight = panel.getSliderHeight(  ).getValue(  );
-        config.sizeProgrammePanelWidth = panel.getSliderWidth(  ).getValue(  ) * 24;
-        config.colorChannel = panel.getPanelColorChannel(  ).getBackground(  );
-        config.colorMovie = panel.getPanelColorMovie(  ).getBackground(  );
-        config.colorTicked = panel.getPanelColorSelected(  ).getBackground(  );
-        config.colorNonTicked = panel.getPanelColorNormal(  ).getBackground(  );
-        config.displayTooltips = panel.getCbDisplayTooltips(  ).isSelected(  );
-        config.displayTime = panel.getCbDrawTime(  ).isSelected(  );
-        config.displayAlignToLeft = panel.getCbAlignLeft(  ).isSelected(  );
-        config.display24time = panel.getRbTime24(  ).isSelected(  );
-        config.dayStartTime = new Time( panel.getDayStart(  ).getText(  ) );
-        parent.config = config;
-        parent.redraw(  );
+        if( null != panel )
+        {
+            config.fontName = currentFont.getName(  );
+            config.fontSize = currentFont.getSize(  );
+            config.fontStyle = currentFont.getStyle(  );
+            config.sizeChannelHeight = panel.getSliderHeight(  ).getValue(  );
+            config.sizeProgrammePanelWidth = panel.getSliderWidth(  ).getValue(  ) * 24;
+            config.colorChannel = panel.getPanelColorChannel(  ).getBackground(  );
+            config.colorMovie = panel.getPanelColorMovie(  ).getBackground(  );
+            config.colorTicked = panel.getPanelColorSelected(  ).getBackground(  );
+            config.colorNonTicked = panel.getPanelColorNormal(  )
+                                         .getBackground(  );
+            config.displayTooltips = panel.getCbDisplayTooltips(  ).isSelected(  );
+            config.displayTime = panel.getCbDrawTime(  ).isSelected(  );
+            config.displayAlignToLeft = panel.getCbAlignLeft(  ).isSelected(  );
+            config.display24time = panel.getRbTime24(  ).isSelected(  );
+            config.dayStartTime = new Time( panel.getDayStart(  ).getText(  ) );
+            parent.config = config;
+            parent.redraw(  );
+        }
     }
 
     /**
