@@ -1,0 +1,56 @@
+NAME
+    tv_grab_nl - Grab TV listings for Holland.
+
+SYNOPSIS
+    tv_grab_nl --help
+
+    tv_grab_nl [--config-file FILE] --configure
+
+    tv_grab_nl [--config-file FILE] [--output FILE] [--days N] [--offset N]
+    [--quiet] [--slow]
+
+DESCRIPTION
+    Output TV listings for several channels available in Holland. The data
+    comes from www.tvgids.nl. The grabber relies on parsing HTML so it might
+    stop working at any time.
+
+    First run tv_grab_nl --configure to choose, which channels you want to
+    download. Then running tv_grab_nl with no arguments will output listings
+    in XML format to standard output.
+
+    --configure Prompt for which channels, and write the configuration file.
+
+    --config-file FILE Set the name of the configuration file, the default
+    is ~/.xmltv/tv_grab_nl.conf. This is the file written by --configure and
+    read when grabbing.
+
+    --output FILE Write to FILE rather than standard output.
+
+    --days N Grab N days. The default is one week.
+
+    --offset N Start N days in the future. The default is to start from
+    today.
+
+    --slow Fetch full programme details from the site. This gives richer
+    output but involves many more page fetches.
+
+    --quiet Suppress the progress messages normally written to standard
+    error.
+
+    --capabilities Show which capabilities the grabber supports. For more
+    information, see
+    <http://membled.com/twiki/bin/view/Main/XmltvCapabilities>
+
+    --version Show the version of the grabber.
+
+    --help Print a help message and exit.
+
+SEE ALSO
+    xmltv(5).
+
+AUTHOR
+    Current maintainer is Eric Bus (xmltv@fambus.nl).
+
+    First version by Guido Diepen and Ed Avis (ed@membled.com). Originally
+    based on tv_grab_fi by Matti Airas.
+

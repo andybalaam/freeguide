@@ -1,0 +1,64 @@
+NAME
+    tv_grab_fr - Grab TV listings for France.
+
+SYNOPSIS
+    To configure: tv_grab_fr --configure [--config-file FILE] [--gui OPTION]
+    To grab listings: tv_grab_fr [--output FILE] [--quiet] [--perdays]
+    Slower, detailed grab: tv_grab_fr --slow [--output FILE] [--days N]
+    [--offset N] [--quiet] [--perdays] To show capabilities: $0
+    --capabilities To show version: $0 --version Help: tv_grab_fr --help
+
+DESCRIPTION
+    Output TV listings for several channels available in France (Hertzian,
+    Cable/satellite, Canal+ Sat, TPS). The data comes from
+    telepoche.guidetele.com. The default is to grab as many days as possible
+    from the current day onwards. By default the program description are not
+    downloaded, so if you want description and ratings, you should active
+    the --slow option.
+
+    --configure Grab channels informations from the website and ask for
+    channel type and names.
+
+    --gui OPTION Use this option to enable a graphical interface to be used.
+    OPTION may be 'Tk', or left blank for the best available choice.
+    Additional allowed values of OPTION are 'Term' for normal terminal
+    output (default) and 'TermNoProgressBar' to disable the use of
+    Term::ProgressBar.
+
+    --output FILE Write to FILE rather than standard output.
+
+    --days N Grab N days starting from today, rather than as many as
+    possible. Due to the website organization, the speed is exactly the
+    same, whatever the number of days is until you activate the --slow
+    option. If --slow is not specified, --days will thus only filter the
+    data without speeding up the grabber.
+
+    --offset N Start grabbing N days from today, rather than starting today.
+    N may be negative. Due to the website organization, N cannot be inferior
+    to -1. As with --days, this is only useful for limiting downloads in
+    --slow mode.
+
+    --slow Get additional information from the website, like program
+    description, reviews and credits.
+
+    --quiet Suppress the progress messages normally written to standard
+    error.
+
+    --perdays Activate the "per days" grabbing mode. It is a fallback to use
+    if the grabber does not return any data in the XML file
+
+    --capabilities Show which capabilities the grabber supports. For more
+    information, see
+    <http://membled.com/twiki/bin/view/Main/XmltvCapabilities>
+
+    --version Show the version of the grabber.
+
+    --help Print a help message and exit.
+
+SEE ALSO
+    xmltv(5)
+
+AUTHOR
+    Sylvain Fabre, centraladmin@lahiette.com with some patches from : -
+    Francois Gouget, fgouget@free.fr - Niel Markwick, nielm@bigfoot.com
+
