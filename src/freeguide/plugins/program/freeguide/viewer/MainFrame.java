@@ -11,6 +11,7 @@ import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,6 +46,7 @@ public class MainFrame extends JWaitFrame
     private JMenuItem menuItemChannelsSets;
     private JPanel jPanel;
     private JProgressBar progressBar;
+    private JButton foregroundButton;
     private JMenuItem menuItemUpdater;
     private JMenuItem menuItemImport = null;
     private final IApplication.IMainMenu menuForExport =
@@ -544,8 +546,9 @@ public class MainFrame extends JWaitFrame
         if( jPanel == null )
         {
             jPanel = new JPanel(  );
-            jPanel.setLayout( new BorderLayout(  ) );
-            jPanel.add( getProgressBar(  ), java.awt.BorderLayout.EAST );
+            jPanel.setLayout( new FlowLayout( FlowLayout.RIGHT ) );
+            jPanel.add( getForegroundButton(  ) );
+            jPanel.add( getProgressBar(  ) );
         }
 
         return jPanel;
@@ -561,10 +564,31 @@ public class MainFrame extends JWaitFrame
         if( progressBar == null )
         {
             progressBar = new JProgressBar(  );
+            progressBar.setStringPainted( true );
+            progressBar.setFont( new java.awt.Font( "Dialog", 0, 10 ) );
             progressBar.setVisible( false );
         }
 
         return progressBar;
+    }
+
+    /**
+     * This method initializes JButton foregroundButton
+     *
+     * @return javax.swing.JButton
+     */
+    public JButton getForegroundButton(  )
+    {
+        if( foregroundButton == null )
+        {
+            foregroundButton = new JButton( 
+                    Application.getInstance(  )
+                               .getLocalizedMessage( "foreground" ) );
+            foregroundButton.setFont( new java.awt.Font( "Dialog", 0, 10 ) );
+            foregroundButton.setVisible( false );
+        }
+
+        return foregroundButton;
     }
 
     /**

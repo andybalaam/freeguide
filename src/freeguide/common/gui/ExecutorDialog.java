@@ -17,6 +17,8 @@ import freeguide.common.plugininterfaces.ILogger;
 import freeguide.common.plugininterfaces.IProgress;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
@@ -38,8 +40,10 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
 {
     // ------------------------------------------------------------------------
     final private JProgressBar secondProgressBar;
+    private javax.swing.JButton foregroundButton;
     private javax.swing.JButton butCancel;
     private javax.swing.JButton butDetails;
+    private javax.swing.JButton butBackground;
     private javax.swing.JLabel labPleaseWait;
     private javax.swing.JProgressBar progressBar;
     private JTextArea log;
@@ -56,10 +60,13 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      * @param owner DOCUMENT ME!
      * @param secondProgressBar DOCUMENT ME!
      */
-    public ExecutorDialog( JFrame owner, final JProgressBar secondProgressBar )
+    public ExecutorDialog( 
+        JFrame owner, final JProgressBar secondProgressBar,
+        final JButton foregroundButton )
     {
         super( owner, true ); //TODO FreeGuide.prefs.screen.getBoolean( "executor_modal", true ) );
         this.secondProgressBar = secondProgressBar;
+        this.foregroundButton = foregroundButton;
         initComponents(  );
 
         Utils.centreDialog( owner, this );
@@ -79,11 +86,42 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         butCancel.setPreferredSize( new java.awt.Dimension( 115, 23 ) );
         butCancel.setMnemonic( KeyEvent.VK_C );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( butCancel, gridBagConstraints );
+        butBackground = new javax.swing.JButton( 
+                Application.getInstance(  ).getLocalizedMessage( "background" ) );
+        butBackground.setMaximumSize( new java.awt.Dimension( 115, 23 ) );
+        butBackground.setMinimumSize( new java.awt.Dimension( 115, 23 ) );
+        butBackground.setPreferredSize( new java.awt.Dimension( 115, 23 ) );
+        butBackground.setMnemonic( KeyEvent.VK_B );
+        butBackground.addActionListener( 
+            new java.awt.event.ActionListener(  )
+            {
+                public void actionPerformed( java.awt.event.ActionEvent evt )
+                {
+                    butBackgroundActionPerformed( evt );
+                }
+            } );
+        gridBagConstraints = new java.awt.GridBagConstraints(  );
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.weightx = 100;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
+        gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
+        getContentPane(  ).add( butBackground, gridBagConstraints );
+
+        foregroundButton.addActionListener( 
+            new ActionListener(  )
+            {
+                public void actionPerformed( ActionEvent evt )
+                {
+                    butForegroundActionPerformed( evt );
+                }
+            } );
+
         butDetails = new javax.swing.JButton( 
                 Application.getInstance(  ).getLocalizedMessage( 
                     "show_output" ) );
@@ -105,6 +143,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( butDetails, gridBagConstraints );
+
         labPleaseWait = new javax.swing.JLabel( 
                 Application.getInstance(  ).getLocalizedMessage( 
                     "please_wait" ), javax.swing.SwingConstants.CENTER );
@@ -119,7 +158,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.weightx = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
@@ -128,7 +167,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.weightx = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 2, 2, 2, 2 );
@@ -140,7 +179,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.weightx = 1;
         gridBagConstraints.weighty = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -181,6 +220,31 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         {
             hideDetails(  );
         }
+    }
+
+    /**
+     * Description of the Method
+     *
+     * @param evt Description of the Parameter
+     */
+    private void butBackgroundActionPerformed( java.awt.event.ActionEvent evt )
+    {
+        butBackground.setEnabled( false );
+        foregroundButton.setVisible( true );
+        secondProgressBar.setVisible( true );
+        setVisible( false );
+    }
+
+    /**
+     * Description of the Method
+     *
+     * @param evt Description of the Parameter
+     */
+    private void butForegroundActionPerformed( java.awt.event.ActionEvent evt )
+    {
+        butBackground.setEnabled( true );
+        foregroundButton.setVisible( false );
+        secondProgressBar.setVisible( false );
     }
 
     // -----------------------------------------------------------------------
@@ -299,14 +363,19 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
 
                     if( label == null )
                     {
-                        labPleaseWait.setText( 
+                        String localizedMessage =
                             Application.getInstance(  )
                                        .getLocalizedMessage( 
-                                "comma_please_wait_template", messageArguments ) );
+                                "comma_please_wait_template", messageArguments );
+
+                        labPleaseWait.setText( localizedMessage );
+                        secondProgressBar.setString( localizedMessage );
+                        secondProgressBar.revalidate(  );
                     }
                     else
                     {
                         labPleaseWait.setText( label );
+                        secondProgressBar.setString( message );
                     }
 
                     setTitle( message );
@@ -411,6 +480,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      */
     public void showNoGrabberMessage(  )
     {
+        butBackground.setEnabled( false );
         error( Application.getInstance(  ).getLocalizedMessage( "nograbber" ) );
         setProgressMessage( 
             Application.getInstance(  ).getLocalizedMessage( 

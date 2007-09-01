@@ -17,6 +17,7 @@ import java.nio.channels.ClosedByInterruptException;
 import java.util.Iterator;
 import java.util.logging.Level;
 
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
@@ -46,7 +47,13 @@ public class GrabberController
             if( progressDialog != null )
             {
                 // Show dialog
-                progressDialog.setVisible( true );
+                new Thread(  )
+                    {
+                        public void run(  )
+                        {
+                            progressDialog.setVisible( true );
+                        }
+                    }.start(  );
             }
             else
             {
@@ -63,7 +70,9 @@ public class GrabberController
                                 {
                                     grab( 
                                         controller.getApplicationFrame(  ),
-                                        controller.mainFrame.getProgressBar(  ) );
+                                        controller.mainFrame.getProgressBar(  ),
+                                        controller.mainFrame
+                                        .getForegroundButton(  ) );
                                     controller.viewer.onDataChanged(  );
                                     MainController.remindersReschedule(  );
                                 }
@@ -85,16 +94,19 @@ public class GrabberController
      *
      * @param owner DOCUMENT_ME!
      * @param secondProgressBar DOCUMENT ME!
+     * @param foregroundButton DOCUMENT ME!
      */
     public void grab( 
-        final JFrame owner, final JProgressBar secondProgressBar )
+        final JFrame owner, final JProgressBar secondProgressBar,
+        final JButton foregroundButton )
     {
         this.secondProgressBar = secondProgressBar;
 
         synchronized( this )
         {
             wasError = false;
-            progressDialog = new ExecutorDialog( owner, secondProgressBar );
+            progressDialog = new ExecutorDialog( 
+                    owner, secondProgressBar, foregroundButton );
             progressDialog.setStepCount( 1 );
             progressDialog.setStepNumber( 0 );
 
@@ -118,7 +130,6 @@ public class GrabberController
                 } );
         }
 
-        secondProgressBar.setVisible( true );
         new Thread(  )
             {
                 public void run(  )
@@ -245,5 +256,6 @@ public class GrabberController
         }
 
         secondProgressBar.setVisible( false );
+        foregroundButton.setVisible( false );
     }
 }
