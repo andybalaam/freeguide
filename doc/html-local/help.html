@@ -8,10 +8,11 @@
               listed?</a></dt><dt>1.12. <a href="help.html#help.faq.stillmissing">I've downloaded the listings but FreeGuide says some are
               still missing! What's happening?</a></dt><dt>1.13. <a href="help.html#help.faq.somethingwrong">Something is going wrong - how can I help to diagnose the
               problem?</a></dt><dt>1.14. <a href="help.html#help.faq.downloadmore">How can I make FreeGuide download more than 1 weeks' XMLTV
-              listings at a time?</a></dt><dt>1.15. <a href="help.html#help.faq.othergrabbers">How do I use a listings grabber that is not part of the XMLTV
-              project?  (E.g. for using FreeGuide in Australia.)</a></dt><dt>1.16. <a href="help.html#help.faq.skins_not_recognised">FreeGuide doesn't list the look-and-feel I installed - how
-              do I use it?</a></dt><dt>1.17. <a href="help.html#help.faq.skins_gtk_change">How do I change my GTK theme?</a></dt><dt>1.18. <a href="help.html#help.faq.othersites">Are there any other web sites about FreeGuide?</a></dt><dt>1.19. <a href="help.html#help.faq.plannedfeatures">How do I find out what's being planned for future
-              versions?</a></dt><dt>1.20. <a href="help.html#help.faq.morequestions">How do I ask more questions?</a></dt></dl></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.whatis"></a><a id="id2532067"></a><b>1.1.</b></td><td align="left" valign="top"><b>What is FreeGuide?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p><span class="productname">FreeGuide</span>™ is a TV listings
+              listings at a time?</a></dt><dt>1.15. <a href="help.html#help.faq.cronjob">I run linux, how can I setup a cronjob to have freeguide
+              retrieve listings?</a></dt><dt>1.16. <a href="help.html#help.faq.othergrabbers">How do I use a listings grabber that is not part of the XMLTV
+              project?  (E.g. for using FreeGuide in Australia.)</a></dt><dt>1.17. <a href="help.html#help.faq.skins_not_recognised">FreeGuide doesn't list the look-and-feel I installed - how
+              do I use it?</a></dt><dt>1.18. <a href="help.html#help.faq.skins_gtk_change">How do I change my GTK theme?</a></dt><dt>1.19. <a href="help.html#help.faq.othersites">Are there any other web sites about FreeGuide?</a></dt><dt>1.20. <a href="help.html#help.faq.plannedfeatures">How do I find out what's being planned for future
+              versions?</a></dt><dt>1.21. <a href="help.html#help.faq.morequestions">How do I ask more questions?</a></dt></dl></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.whatis"></a><a id="id2532067"></a><b>1.1.</b></td><td align="left" valign="top"><b>What is FreeGuide?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p><span class="productname">FreeGuide</span>™ is a TV listings
               viewer that works offline.</p><p>See "<a href="index.html" title="FreeGuide - your TV Guide">What is
               FreeGuide</a>".</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.howinstall"></a><a id="id2533353"></a><b>1.2.</b></td><td align="left" valign="top"><b>How do I install FreeGuide?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>See the <a href="downinst.html" title="Chapter 1. Download and Install">installation
               instructions</a>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.howuse"></a><a id="id2533381"></a><b>1.3.</b></td><td align="left" valign="top"><b>How do I use FreeGuide?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>Look at "<a href="userguide.html" title="Chapter 2. User Guide">Using
@@ -62,22 +63,22 @@
                   Programs screen.  (Under Control Panel).</p></li><li><p>Click the Start button then "Run".</p></li><li><p>Type "regedit" and press Return.</p></li><li><p>In the menu at the top chose "Edit" and click "Find"</p></li><li><p>Make sure all three "look at" boxes are checked.</p></li><li><p>Type "freeguide-tv" in the search box.</p></li><li><p>Click "Find Next".</p></li><li><p>Regedit should find a node called freeguide-tv.
                   Right-click the node and choose "Delete".</p></li><li><p>Now press F3 on the keyboard to find any other
                   nodes also called freeguide-tv, and delete all of them
-                  in the same way.</p></li></ul></div><p>This should remove all trace of FreeGuide from your computer.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.uninstall-linux"></a><a id="id2533743"></a><b>1.7.</b></td><td align="left" valign="top"><b>How do I completely uninstall FreeGuide on Linux?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>First, uninstall FreeGuide using your normal package management tool.</p><p>Now, for each user that used FreeGuide, delete the ~/.freeguide and ~/.java/.userPrefs/org/freeguide-tv directories.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.choosechannelerror"></a><a id="id2533770"></a><b>1.8.</b></td><td align="left" valign="top"><b>The "Choose Channels" grabber
+                  in the same way.</p></li></ul></div><p>This should remove all trace of FreeGuide from your computer.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.uninstall-linux"></a><a id="id2533741"></a><b>1.7.</b></td><td align="left" valign="top"><b>How do I completely uninstall FreeGuide on Linux?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>First, uninstall FreeGuide using your normal package management tool.</p><p>Now, for each user that used FreeGuide, delete the ~/.freeguide and ~/.java/.userPrefs/org/freeguide-tv directories.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.choosechannelerror"></a><a id="id2533769"></a><b>1.8.</b></td><td align="left" valign="top"><b>The "Choose Channels" grabber
               configuration step gives me an error. What is wrong?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>If your grabber fails to configure or run because it can't
               seem to get any data from the Internet, it may be because you
               need to use a proxy server. Read the <a href="downinst.html#downinst.windows.proxy" title="Proxy">proxy section</a> for
-              information on how to set one up.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.javaversion"></a><a id="id2533810"></a><b>1.9.</b></td><td align="left" valign="top"><b>What version of Java does FreeGuide need?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>FreeGuide needs Java version
+              information on how to set one up.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.javaversion"></a><a id="id2533808"></a><b>1.9.</b></td><td align="left" valign="top"><b>What version of Java does FreeGuide need?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>FreeGuide needs Java version
               <span class="productnumber">1.4.0</span> or above. You can find out
               what version you are using by opening a DOS window or Cmd prompt
               and typing "<span><strong class="command">java -version</strong></span>". If it says you've
               got an earlier version, or if you get an error, you need to get
-              an upgrade from <a href="http://java.sun.com/getjava/" target="_top">http://java.sun.com/getjava/</a>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.proxy"></a><a id="id2533852"></a><b>1.10.</b></td><td align="left" valign="top"><b>Can I use FreeGuide from behind a proxy server?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>Yes. Have a look at "<a href="downinst.html#downinst.windows.proxy" title="Proxy">Configure proxy
-              server</a>"</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.channelorder"></a><a id="id2533882"></a><b>1.11.</b></td><td align="left" valign="top"><b>How do I change the order in which channels are
+              an upgrade from <a href="http://java.sun.com/getjava/" target="_top">http://java.sun.com/getjava/</a>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.proxy"></a><a id="id2533850"></a><b>1.10.</b></td><td align="left" valign="top"><b>Can I use FreeGuide from behind a proxy server?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>Yes. Have a look at "<a href="downinst.html#downinst.windows.proxy" title="Proxy">Configure proxy
+              server</a>"</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.channelorder"></a><a id="id2533881"></a><b>1.11.</b></td><td align="left" valign="top"><b>How do I change the order in which channels are
               listed?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>To change the order of channels, you need to make a
               channel set. Choose "<span class="guimenuitem">Channel Sets</span>"
               from the "<span class="guimenu">Tools</span>" menu and create one there,
               than choose it from the drop-down in the top right hand corner
-              of the screen.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.stillmissing"></a><a id="id2533928"></a><b>1.12.</b></td><td align="left" valign="top"><b>I've downloaded the listings but FreeGuide says some are
+              of the screen.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.stillmissing"></a><a id="id2533926"></a><b>1.12.</b></td><td align="left" valign="top"><b>I've downloaded the listings but FreeGuide says some are
               still missing! What's happening?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>If you grab some listings late in a day, nearing the
               grabber's idea of the end of a day (e.g. close to 6am for the UK
               grabber) then you may be told that there are missing listings
@@ -85,7 +86,7 @@
               is because the grabbing has started from tomorrow, so what's
               left of today doesn't have a full set of listings. Don't worry
               about this - just say "<span class="guibutton">No</span>" and you should
-              be able to see what you need.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.somethingwrong"></a><a id="id2533965"></a><b>1.13.</b></td><td align="left" valign="top"><b>Something is going wrong - how can I help to diagnose the
+              be able to see what you need.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.somethingwrong"></a><a id="id2533963"></a><b>1.13.</b></td><td align="left" valign="top"><b>Something is going wrong - how can I help to diagnose the
               problem?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>If FreeGuide is not working or acting strangely, you
               should contact the developers - see How do I ask more
               questions?. When you do contact the mailing lists, it would be
@@ -104,11 +105,11 @@
               "<span class="guimenuitem">DOS Window</span>".</p><p>Now type the following 2 lines:</p><pre class="programlisting">cd "C:\Program Files\FreeGuide" &lt;PRESS RETURN&gt;
 java -jar startup.jar &gt; log.txt &lt;PRESS RETURN&gt;</pre><p>Now copy and paste the contents of <code class="filename">C:\Program
               Files\FreeGuide\log.txt</code> into an email, remembering to
-              CC the mailing list you first sent your message to.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.downloadmore"></a><a id="id2534083"></a><b>1.14.</b></td><td align="left" valign="top"><b>How can I make FreeGuide download more than 1 weeks' XMLTV
+              CC the mailing list you first sent your message to.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.downloadmore"></a><a id="id2534081"></a><b>1.14.</b></td><td align="left" valign="top"><b>How can I make FreeGuide download more than 1 weeks' XMLTV
               listings at a time?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>Go to the "Tools" menu and choose "Options".  Open the "Advanced"
               node and open the "Grabbers" node, and choose "XMLTV".  In the lower
               text box is the command used to run the XMLTV grabber.  It starts
-              something like this:</p><pre class="programlisting">"%xmltv_path%/xmltv.exe" tv_grab_uk_rt</pre><p>(The uk_rt bit will be different if you are not in the UK.) 
+              something like this:</p><pre class="programlisting">"%xmltv_path%/xmltv.exe" tv_grab_uk_rt</pre><p>(The uk_rt bit will be different if you are not in the UK.)
               After this bit are the other bits of the command, e.g. "--quiet",
               "--config-file" etc.  If you add the string " --days 14 " after
               the main command (shown above) and before the other options (e.g.
@@ -117,7 +118,34 @@ java -jar startup.jar &gt; log.txt &lt;PRESS RETURN&gt;</pre><p>Now copy and pas
               button labelled "Default" to get the old command back.</p><p>Note that some of the listings sources do not provide listings for
               such a long time into the future, and some of the XMLTV grabbers for
               some countries do not listen to the --days option, so this change may
-              not make any difference for some people.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.othergrabbers"></a><a id="id2534146"></a><b>1.15.</b></td><td align="left" valign="top"><b>How do I use a listings grabber that is not part of the XMLTV
+              not make any difference for some people.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.cronjob"></a><a id="id2533200"></a><b>1.15.</b></td><td align="left" valign="top"><b>I run linux, how can I setup a cronjob to have freeguide
+              retrieve listings?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>You can't, at least not with freeguide.  You can use
+              XMLTV to download the listings for freeguide to use.</p><p>Essentially, you'll use the XMLTV grabber to retrieve
+              the listings and redirect to an .xmltv file in the freeguide
+              directory.  The next time you start freeguide, the new
+              listings will be read in.</p><div class="itemizedlist"><ul type="disc"><li><p>First, figure out exactly what the xmltv grabber
+                  command is.  Under 'options', 'advanced', you can
+                  highlight the 'xmltv' grabber and see the command that's
+                  used.  For me, the command is:</p><pre class="programlisting">tv_grab_na_dd  --quiet --config-file "%config_file%"</pre><p>The config file is stored in the freeguide working
+                  directory under a sub-directory called xmltv-configs.
+                  You will need to specify the exact path, the variable in
+                  the command above won't work right.</p></li><li><p>Just to keep the crontab cleaner looking, create a
+                  shell script with the command in it:</p><pre class="programlisting">#!/bin/bash
+tv_grab_na_dd --quiet --config-file ~/.freeguide/xmltv-configs/na_dd.conf  &gt; ~/.freeguide/list.xmltv
+                  </pre><p>If your freeguide directory is *not* in your home
+                  directory, then you'll need to replace the ~/ part with
+                  the path to the freeguide directory.</p><p>chmod the file 700 and try running it. The script
+                  should download the latest listings and dump them out
+                  to an .xmltv file in your freeguide directory.</p><p>Go ahead and start freeguide.  There should be a
+                  short delay as it reads in the downloaded listings.</p></li><li><p>Assuming the command worked right, then you can
+                  create a cron entry for calling the script.</p><p>If you're unfamiliar with cron, I suggest reviewing
+                  the crontab man page via "man 5 crontab".</p><p>There are 5 fields that define *when* a cronjob is
+                  run.  To do a cronjob that runs at 5:30 on Sunday, then
+                  run 'crontab -e' and put on a single line:</p><pre class="programlisting">30 5 * * 0   ~/bin/SHELLSCRIPT</pre><p>Use whatever you called your shell script instead
+                  of SHELLSCRIPT.</p><p>If your cronjob is run as the user, it should work
+                  at the correct time.  If you end up with an error about
+                  command not found or something, you will probably need to
+                  specify the exact path to the shell script like this:</p><pre class="programlisting">30 5 * * 0 /home/YOUR_USERNAME/bin/SHELLSCRIPT</pre></li></ul></div></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.othergrabbers"></a><a id="id2534412"></a><b>1.16.</b></td><td align="left" valign="top"><b>How do I use a listings grabber that is not part of the XMLTV
               project?  (E.g. for using FreeGuide in Australia.)</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>Here is some advice from one of our users on how he got Australian
               listings working:</p><p>I went to http://minnie.tuhs.org/twiki/bin/view/TVGuide/
               and signed up for an account, then i downloaded
@@ -130,7 +158,7 @@ java -jar startup.jar &gt; log.txt &lt;PRESS RETURN&gt;</pre><p>Now copy and pas
               If any third-party grabber works well, and is not going to go into
               XMLTV for some reason (e.g. it's not written in Perl),and it's GPL
               licenced, we will consider distributing it as a part of FreeGuide
-              to make it easier for others to use.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.skins_not_recognised"></a><a id="id2534193"></a><b>1.16.</b></td><td align="left" valign="top"><b>FreeGuide doesn't list the look-and-feel I installed - how
+              to make it easier for others to use.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.skins_not_recognised"></a><a id="id2534459"></a><b>1.17.</b></td><td align="left" valign="top"><b>FreeGuide doesn't list the look-and-feel I installed - how
               do I use it?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>If you have installed a look-and-feel that FreeGuide was
               unable to identify, you may type its class name into the combo
               box in the General section of the Options screen.
@@ -142,7 +170,7 @@ java -jar startup.jar &gt; log.txt &lt;PRESS RETURN&gt;</pre><p>Now copy and pas
               FreeGuide is unable to find the specified class. Make sure you
               spelled the class name correctly. If everything is spelled
               correctly, make sure you installed the look-and-feel
-              correctly.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.skins_gtk_change"></a><a id="id2534238"></a><b>1.17.</b></td><td align="left" valign="top"><b>How do I change my GTK theme?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>If you're using a Unix-like operating system, use the tool
+              correctly.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.skins_gtk_change"></a><a id="id2534504"></a><b>1.18.</b></td><td align="left" valign="top"><b>How do I change my GTK theme?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>If you're using a Unix-like operating system, use the tool
               provided by your distribution vendor to install and select the
               theme. Now, simply start FreeGuide and, if you haven't already
               done so, select the GTK+ look-and-feel and enjoy the new look. In
@@ -167,10 +195,10 @@ java -jar startup.jar &gt; log.txt &lt;PRESS RETURN&gt;</pre><p>Now copy and pas
               <code class="filename">gtkrc</code> file in the
               <code class="filename">swing.gtkthemefile</code> system property on the
               command line, as shown below:</p><pre class="programlisting">java -Dswing.gtkthemefile="C:\gtk\Theme Name\gtk-2.0\gtkrc" ...</pre><p>Where "..." means fill in the rest of the shortcut command
-              that was already present.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.othersites"></a><a id="id2533266"></a><b>1.18.</b></td><td align="left" valign="top"><b>Are there any other web sites about FreeGuide?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>Richard Turnbull has assembled lots of useful information
+              that was already present.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.othersites"></a><a id="id2534610"></a><b>1.19.</b></td><td align="left" valign="top"><b>Are there any other web sites about FreeGuide?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>Richard Turnbull has assembled lots of useful information
               about FreeGuide on his site, along with a clever script to keep
               you up-to-date with the very latest versions of XMLTV and
               FreeGuide.  You can find all this at
-              <a href="http://www.kudos.byethost15.com/freeguide/" target="_top">www.kudos.byethost15.com/freeguide/</a>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.plannedfeatures"></a><a id="id2533298"></a><b>1.19.</b></td><td align="left" valign="top"><b>How do I find out what's being planned for future
-              versions?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>Check out the <a href="dev/index.php/TODO_list" target="_top">TODO</a> list on the developers' wiki.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.morequestions"></a><a id="id2534541"></a><b>1.20.</b></td><td align="left" valign="top"><b>How do I ask more questions?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>See "<a href="contact.html" title="Chapter 4. Contact Us">Getting in
+              <a href="http://www.kudos.byethost15.com/freeguide/" target="_top">www.kudos.byethost15.com/freeguide/</a>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.plannedfeatures"></a><a id="id2534643"></a><b>1.20.</b></td><td align="left" valign="top"><b>How do I find out what's being planned for future
+              versions?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>Check out the <a href="dev/index.php/TODO_list" target="_top">TODO</a> list on the developers' wiki.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="help.faq.morequestions"></a><a id="id2534671"></a><b>1.21.</b></td><td align="left" valign="top"><b>How do I ask more questions?</b></td></tr><tr class="answer"><td align="left" valign="top"><b></b></td><td align="left" valign="top"><p>See "<a href="contact.html" title="Chapter 4. Contact Us">Getting in
               contact</a>".</p></td></tr></tbody></table></div></div></div><div class="navfooter"><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="userguide.look_and_feel.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="contact.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Styling FreeGuide: Look-and-Feel </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 4. Contact Us</td></tr></table></div></body></html>

@@ -14,7 +14,7 @@
 	  <!--The radio stations have disappeared since we changed the default listings provider over to the Radio Times instead of bleb.org.  We did this because bleb started limiting all downloads to 10 channels or less.
 
 If you'd like to go back to add bleb as well as Radio Times, go to the Tools menu, choose Options, open the Advanced node, then Grabbers, and click XMLTV.  Now click "Add a new XMLTV grabber" in the top right, and from the blank drop-down choose "uk_bleb".  Now click "Configure" above and choose your radio stations (the TV stations will still be downloaded via Radio Times, so you don't need to choose them).  Click OK to save your changes.-->
-	  
+
       <qandaset>
         <qandadiv>
           <qandaentry id="help.faq.whatis">
@@ -126,7 +126,7 @@ If you'd like to go back to add bleb as well as Radio Times, go to the Tools men
               <para>Now try downloading and see whether it works.</para>
             </answer>
           </qandaentry>
-          
+
           <qandaentry id="help.faq.uninstall-windows">
             <question>
               <para>How do I completely uninstall FreeGuide on Windows?</para>
@@ -136,7 +136,7 @@ If you'd like to go back to add bleb as well as Radio Times, go to the Tools men
               <para>You can uninstall FreeGuide on Windows by going to the
               "Add/Remove Programs" screen in the Control Panel.  That should
               be all you need to do.</para>
-              
+
               <para>However, uninstalling FreeGuide leaves your settings
               (such as favourites, colours etc.) on your computer.  Often,
               this is useful, since if you ever re-install FreeGuide it will
@@ -145,28 +145,28 @@ If you'd like to go back to add bleb as well as Radio Times, go to the Tools men
               wrong and you want to start again from scratch, or if you
               just don't like programs leaving stuff all over your
               computer.</para>
-              
+
               <para>To remove the FreeGuide settings from the Windows registry,
               follow these instructions:</para>
-              
+
               <para>WARNING: messing with the registry can break your computer!
               Don't do it if you're not confident.</para>
-              
+
               <itemizedlist>
-                
+
                 <listitem>
                   <para>First, uninstall FreeGuide from the Add/Remove
                   Programs screen.  (Under Control Panel).</para>
                 </listitem>
-                
+
                 <listitem>
                   <para>Click the Start button then "Run".</para>
                 </listitem>
-                
+
                 <listitem>
                   <para>Type "regedit" and press Return.</para>
                 </listitem>
-                
+
                 <listitem>
                   <para>In the menu at the top chose "Edit" and click "Find"</para>
                 </listitem>
@@ -174,47 +174,47 @@ If you'd like to go back to add bleb as well as Radio Times, go to the Tools men
                 <listitem>
                   <para>Make sure all three "look at" boxes are checked.</para>
                 </listitem>
-                
+
                 <listitem>
                   <para>Type "freeguide-tv" in the search box.</para>
                 </listitem>
-                
+
                 <listitem>
                   <para>Click "Find Next".</para>
                 </listitem>
-                
+
                 <listitem>
                   <para>Regedit should find a node called freeguide-tv.
                   Right-click the node and choose "Delete".</para>
                 </listitem>
-                
+
                 <listitem>
                   <para>Now press F3 on the keyboard to find any other
                   nodes also called freeguide-tv, and delete all of them
                   in the same way.</para>
                 </listitem>
-                
+
               </itemizedlist>
-              
+
               <para>This should remove all trace of FreeGuide from your computer.</para>
-              
+
             </answer>
           </qandaentry>
-          
+
           <qandaentry id="help.faq.uninstall-linux">
             <question>
               <para>How do I completely uninstall FreeGuide on Linux?</para>
             </question>
 
             <answer>
-              
+
               <para>First, uninstall FreeGuide using your normal package management tool.</para>
-              
+
               <para>Now, for each user that used FreeGuide, delete the ~/.freeguide and ~/.java/.userPrefs/org/freeguide-tv directories.</para>
-              
+
             </answer>
           </qandaentry>
-          
+
           <qandaentry id="help.faq.choosechannelerror">
             <question>
               <para>The "<guilabel>Choose Channels</guilabel>" grabber
@@ -357,7 +357,7 @@ java -jar startup.jar &gt; log.txt &lt;PRESS RETURN&gt;</programlisting>
               text box is the command used to run the XMLTV grabber.  It starts
               something like this:</para>
               <programlisting>"%xmltv_path%/xmltv.exe" tv_grab_uk_rt</programlisting>
-              <para>(The uk_rt bit will be different if you are not in the UK.) 
+              <para>(The uk_rt bit will be different if you are not in the UK.)
               After this bit are the other bits of the command, e.g. "--quiet",
               "--config-file" etc.  If you add the string " --days 14 " after
               the main command (shown above) and before the other options (e.g.
@@ -371,6 +371,69 @@ java -jar startup.jar &gt; log.txt &lt;PRESS RETURN&gt;</programlisting>
               not make any difference for some people.</para>
             </answer>
           </qandaentry>
+
+          <qandaentry id="help.faq.cronjob">
+            <question>
+              <para>I run linux, how can I setup a cronjob to have freeguide
+              retrieve listings?</para>
+            </question>
+
+            <answer>
+              <para>You can't, at least not with freeguide.  You can use
+              XMLTV to download the listings for freeguide to use.</para>
+              <para>Essentially, you'll use the XMLTV grabber to retrieve
+              the listings and redirect to an .xmltv file in the freeguide
+              directory.  The next time you start freeguide, the new
+              listings will be read in.</para>
+              <itemizedlist>
+                <listitem>
+                  <para>First, figure out exactly what the xmltv grabber
+                  command is.  Under 'options', 'advanced', you can
+                  highlight the 'xmltv' grabber and see the command that's
+                  used.  For me, the command is:</para>
+                  <programlisting>tv_grab_na_dd  --quiet --config-file "%config_file%"</programlisting>
+                  <para>The config file is stored in the freeguide working
+                  directory under a sub-directory called xmltv-configs.
+                  You will need to specify the exact path, the variable in
+                  the command above won't work right.</para>
+                </listitem>
+                <listitem>
+                  <para>Just to keep the crontab cleaner looking, create a
+                  shell script with the command in it:</para>
+                  <programlisting>#!/bin/bash
+tv_grab_na_dd --quiet --config-file ~/.freeguide/xmltv-configs/na_dd.conf  > ~/.freeguide/list.xmltv
+                  </programlisting>
+                  <para>If your freeguide directory is *not* in your home
+                  directory, then you'll need to replace the ~/ part with
+                  the path to the freeguide directory.</para>
+                  <para>chmod the file 700 and try running it. The script
+                  should download the latest listings and dump them out
+                  to an .xmltv file in your freeguide directory.</para>
+                  <para>Go ahead and start freeguide.  There should be a
+                  short delay as it reads in the downloaded listings.</para>
+                </listitem>
+                <listitem>
+                  <para>Assuming the command worked right, then you can
+                  create a cron entry for calling the script.</para>
+                  <para>If you're unfamiliar with cron, I suggest reviewing
+                  the crontab man page via "man 5 crontab".</para>
+                  <para>There are 5 fields that define *when* a cronjob is
+                  run.  To do a cronjob that runs at 5:30 on Sunday, then
+                  run 'crontab -e' and put on a single line:</para>
+                  <programlisting>30 5 * * 0   ~/bin/SHELLSCRIPT</programlisting>
+                  <para>Use whatever you called your shell script instead
+                  of SHELLSCRIPT.</para>
+                  <para>If your cronjob is run as the user, it should work
+                  at the correct time.  If you end up with an error about
+                  command not found or something, you will probably need to
+                  specify the exact path to the shell script like this:</para>
+                  <programlisting>30 5 * * 0 /home/YOUR_USERNAME/bin/SHELLSCRIPT</programlisting>
+                </listitem>
+              </itemizedlist>
+            </answer>
+
+          </qandaentry>
+
 
           <qandaentry id="help.faq.othergrabbers">
             <question>
@@ -462,13 +525,13 @@ java -jar startup.jar &gt; log.txt &lt;PRESS RETURN&gt;</programlisting>
               command line, as shown below:</para>
 
               <programlisting>java -Dswing.gtkthemefile="C:\gtk\Theme Name\gtk-2.0\gtkrc" ...</programlisting>
-              
+
               <para>Where "..." means fill in the rest of the shortcut command
               that was already present.</para>
 
             </answer>
           </qandaentry>
-          
+
           <qandaentry id="help.faq.othersites">
             <question>
               <para>Are there any other web sites about FreeGuide?</para>
