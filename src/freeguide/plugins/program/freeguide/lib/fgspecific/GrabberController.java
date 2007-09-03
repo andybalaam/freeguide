@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.logging.Level;
 
 import javax.swing.JButton;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
