@@ -5,10 +5,11 @@
   Main build file with meta tasks.
   Used tasks:
 
-    all: prepare, dist-src, jars, dist-tgz
+    all: prepare, dist-src, jars-win, dist-tgz
       prepare           - compile helper classes and apply versions and names from plugin.xml's to all files.
       dist-src        - pack all sources to .zip and .tar.gz formats.
-      jars         - compile application and all plugins to jars.
+      jars-lin        - compile application and all plugins to jars.
+      jars-win        - compile application and all plugins to jars, and the xmltv-win jar.
       dist-tgz          - make .tar.gz files for slackware and other unpackaged linuxes
 
       (currently unused)
@@ -22,11 +23,11 @@
     dist/tgz        - tar.gz binary file
     dist/exe        - Windows installers (must be built with NSIS from script
                       in build/install/windows)
-    
+
     To build the project you just need to run "ant clean", then "ant".
       After that you can run :
         dist-rpm  - package to .rpm
-        
+
     To package the XMLTV exe, you need to unzip the xmltv-win32
     zip into the xmltv directory.
 -->
@@ -49,14 +50,14 @@
     <property name="dist-src"           location="${dist}/src"        />
     <property name="dist-rpm"           location="${dist}/rpm"        />
     <property name="dist-webstart"      location="${dist}/webstart"   />
-    
+
     <description>
         Ant build file for FreeGuide.
     </description>
-    
-    <target name="all" depends="prepare, jars, compile-doc" />
+
+    <target name="all" depends="prepare, jars-win, compile-doc" />
     <target name="dist-all" depends="dist-src,dist-rpm,dist-tgz,dist-webstart" />
-    
+
     <target name="prepare">
         <ant antfile="ant/prepare.xml" />
     </target>
@@ -68,19 +69,23 @@
     <target name="compile">
         <ant antfile="ant/compile.xml" target="compile" />
     </target>
-    
+
     <target name="compile-in-place">
         <ant antfile="ant/compile.xml" target="compile-in-place" />
     </target>
-    
+
     <target name="compile-doc">
         <ant antfile="ant/compile.xml" target="compile-doc" />
     </target>
 
-    <target name="jars">
+    <target name="jars-lin">
         <ant antfile="ant/compile.xml" />
     </target>
-    
+
+    <target name="jars-win">
+        <ant antfile="ant/compile.xml" target="jars-win" />
+    </target>
+
     <target name="clean">
         <ant antfile="ant/clean.xml" />
     </target>
@@ -94,7 +99,7 @@
     <target name="install-linux-run">
         <ant antfile="ant/install-linux.xml" target="install-linux-run" />
     </target>
-    
+
     <target name="dist-src">
         <ant antfile="ant/dist-src.xml" />
     </target>

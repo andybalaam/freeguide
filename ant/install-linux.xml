@@ -3,9 +3,9 @@
 <project name="freeguide-tv-install-linux" default="install-linux">
 
     <import file="compile.xml"/>
-    
-    <target name="install-linux" depends="jars,compile-doc">
-        
+
+    <target name="install-linux" depends="jars-lin, compile-doc">
+
         <!-- These properties are passed in (example values shown):
             install_share_dir = ~/.rpm/tmp/freeguide-0.8.2-root/usr/share
             install_bin_dir   = ~/.rpm/tmp/freeguide-0.8.2-root/usr/bin
@@ -13,18 +13,18 @@
             install_real_dir = /usr/share/freeguide
             install_real_doc_dir = /usr/doc/freeguide
         -->
-        
+
         <property name="install_jar_dir" location="${install_share_dir}/freeguide" />
 
         <property name="install_pixmap_dir" location="${install_share_dir}/pixmaps/freeguide" />
-        
+
         <mkdir dir="${install_jar_dir}" />
         <copy todir="${install_jar_dir}/">
             <fileset dir="${build}/package">
                 <exclude name="doc/**" />
             </fileset>
         </copy>
-        
+
         <mkdir dir="${install_doc_dir}" />
         <copy todir="${install_doc_dir}/">
             <fileset dir="${build}/package/doc" />
@@ -35,29 +35,29 @@
         <copy todir="${install_pixmap_dir}/" >
             <fileset dir="install/linux/icons" />
         </copy>
-        
-        <copy tofile="${install_share_dir}/pixmaps/freeguide.png" 
+
+        <copy tofile="${install_share_dir}/pixmaps/freeguide.png"
             file="install/linux/icons/logo-32x32.png" />
-            
+
         <!-- Creating the launch script: first we need to copy the source launch script, then we replace the string "__ANT_DOC_DIRECTORY__" with the docs directory, and then we move it into place and make it executable. -->
         <copy file="install/linux/freeguide" tofile="install/linux/freeguide.tmp" />
         <replace file="install/linux/freeguide.tmp">
                 <replacefilter token="__ANT_DOC_DIRECTORY__" value="${install_real_doc_dir}" />
                 <replacefilter token="__ANT_INSTALL_DIRECTORY__" value="${install_real_dir}" />
         </replace>
-        
+
         <mkdir dir="${install_bin_dir}" />
         <move file="install/linux/freeguide.tmp" tofile="${install_bin_dir}/freeguide" />
         <chmod file="${install_bin_dir}/freeguide" perm="a+x" />
-        
+
         <mkdir dir="${install_share_dir}/applications" />
         <copy file="install/linux/freeguide.desktop" todir="${install_share_dir}/applications/" />
 
         <mkdir dir="${install_share_dir}/man/man1" />
         <gzip src="${build}/install/linux/freeguide.1" destfile="${install_share_dir}/man/man1/freeguide.1.gz"/>
-        
+
     </target>
-    
+
     <target name="install-linux-destdir">
         <antcall target="install-linux">
             <param name="install_share_dir" value="${DESTDIR}/usr/share"/>
@@ -67,7 +67,7 @@
             <param name="install_real_doc_dir" value="/usr/share/doc/freeguide"/>
         </antcall>
     </target>
-    
+
     <target name="install-linux-run"
         description="Create a local install inside the 'run' directory.">
         <delete dir="${run}"/>
@@ -79,6 +79,6 @@
             <param name="install_real_doc_dir" value="usr/share/doc/freeguide"/>
         </antcall>
     </target>
-    
+
 </project>
 

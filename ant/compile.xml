@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
 
-<project name="freeguide-tv-build" default="jars">
+<project name="freeguide-tv-build" default="jars-lin">
 
     <import file="plugins-info.xml"/>
     <import file="prepare.xml"/>
     <import file="../build.xml"/>
 
-    <target name="jars" depends="prepare, compile, jar-common, jar-plugins, jar-startup, jar-docs, jar-xmltv-win"/>
+    <target name="jars-lin" depends="prepare, compile, jar-common, jar-plugins,
+        jar-startup, jar-docs"/>
 
+    <target name="jars-win" depends="jars-lin, jar-xmltv-win"/>
 
     <taskdef name="retroweaver" classname="com.rc.retroweaver.ant.RetroWeaverTask">
         <classpath>
@@ -22,8 +24,8 @@
         <mkdir dir="${build}/classes"/>
         <javac srcdir="${src}"
             destdir="${build}/classes"
-            deprecation="on" 
-            source="1.5" 
+            deprecation="on"
+            source="1.5"
             target="1.5"
             debug="yes"
             encoding="UTF-8">
@@ -34,13 +36,13 @@
           </javac>
         <retroweaver srcdir="${build}/classes" target="1.4"/>
     </target>
-    
+
     <target name="compile-in-place" depends="prepare"
     	description="Compile all the .java files inside the src dir.">
 
         <javac srcdir="${src}"
-            deprecation="on" 
-            source="1.5" 
+            deprecation="on"
+            source="1.5"
             target="1.5"
             debug="yes"
             encoding="UTF-8">
@@ -51,24 +53,24 @@
           </javac>
 
     </target>
-    
+
     <target name="jar-common">
         <!-- Create the common.jar file -->
         <mkdir dir="${build}/package/lib"/>
-        
+
         <jar jarfile="${build}/package/lib/common.jar"
              basedir="${build}/classes"
              includes="freeguide/common/**">
          <fileset dir="${src}" includes="resources/main/*"/>
              <fileset dir="${src}" includes="resources/i18n/*"/>
         </jar>
-        
+
         <!-- Copy everything from within lib to the lib dir inside build/package -->
         <copy todir="${build}/package/lib">
             <fileset dir="${lib}" includes="**/*.jar"/>
         </copy>
     </target>
-    
+
 	<target name="jar-docs">
 		<mkdir dir="${build}/other-docs/other/docs/"/>
 		<copy todir="${build}/other-docs/other/docs/">
@@ -83,20 +85,20 @@
 		</copy>
     	<jar jarfile="${build}/package/lib/xmltv-win.jar" basedir="${build}/other-xmltv-win"/>
     </target>
-    
+
     <target name="jar-plugins">
         <antcall target="all-plugins">
             <param name="actual-target" value="subtask-jar-one-plugin"/>
         </antcall>
-    </target>    
-    
+    </target>
+
     <target name="subtask-jar-one-plugin">
-        
+
         <mkdir dir="${build}/package/lib"/>
-        
+
         <!-- TODO: remove the following line and make it still work! -->
         <mkdir dir="${src}/freeguide/plugins/${plugin-dir}"/>
-        
+
         <!-- Build the JAR file for this plugin -->
         <zip zipfile="${build}/package/lib/${plugin-id}.jar" whenempty="skip">
             <fileset dir="${build}/classes" includes="freeguide/plugins/${plugin-dir}/**"/>
@@ -104,9 +106,9 @@
             <fileset dir="${src}/freeguide/plugins/${plugin-dir}"
                 includes="plugin.xml"/>
         </zip>
-         
+
     </target>
-    
+
     <target name="jar-startup">
         <mkdir dir="${build}/package/lib"/>
         <jar jarfile="${build}/package/startup.jar"
@@ -114,19 +116,19 @@
              includes="freeguide/startup/**"
              manifest="${src}/resources/manifests/startup.mf" />
     </target>
-    
+
     <target name="compile-doc">
 
         <!-- "really-compile-doc-java" does not work with our docs for some reason.
              For now, we compile the docs on Linux and commit them to SVN.
              So all we have to do here is copy them in to the build dir. -->
-        
+
         <copy todir="${build}/package/doc">
             <fileset dir="${doc}/html-local"/>
         </copy>
-        
+
     </target>
-     
+
      <target name="really-compile-doc-java" depends="prebuild-buildclasses"
             description="DOES NOT WORK: use our own custom Java code to build the docs" >
         <java classpath="${build}/buildclasses"
@@ -134,7 +136,7 @@
                 fork="true"/>
         <!-- TODO: copy the .html files etc. from doc/* -->
      </target>
-     
+
      <target name="really-compile-doc-sh"
             description="If we're on Linux, make the docs using a shell script.">
         <chmod file="${doc}/compile_manual.sh" perm="ugo+rx"/>
@@ -143,6 +145,6 @@
              but for this to work smoothly, it would need to compile to
              build/package/doc. -->
     </target>
-    
+
 </project>
 

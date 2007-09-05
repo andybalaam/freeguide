@@ -1,6 +1,6 @@
 ###
 ### RPM spec file for FreeGuide
-### 
+###
 ### Adapted from jEdit's spec file http://www.jedit.org
 ###
 
@@ -39,13 +39,11 @@ It works with listings for many countries.  Check the web site freeguide-tv.sf.n
 
 FreeGuide requires Java 2 version 1.4.
 
-The freeguide package depends on all the plugins available for freeguide, so if you install it with a package manager such as Synaptic, yum, or apt-get, you will automatically get a full install of everything you need to use freeguide. 
-
 %prep
 %setup -n __ANT_NAME_VERSION__
 
 %build
-ant jars
+ant jars-lin
 
 %install
 ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dinstall_doc_dir=$RPM_BUILD_ROOT/%{_datadir}/doc/freeguide install-linux -Dinstall_real_dir=%{_datadir}/freeguide -Dinstall_real_doc_dir=%{_datadir}/doc/freeguide
@@ -62,4 +60,6 @@ ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD
 %{_datadir}/pixmaps/freeguide/logo-96x96.png
 %{_datadir}/applications/freeguide.desktop
 %{_datadir}/man/man1/freeguide.1.gz
-%{_datadir}/freeguide/lib/tagsoup-1.0rc3.jar
+%{_datadir}/freeguide/lib/tagsoup-1.0.1.jar
+%{_datadir}/freeguide/lib/docs.jar
+%{_datadir}/freeguide/lib/retroweaver-rt-1.2.5.jar

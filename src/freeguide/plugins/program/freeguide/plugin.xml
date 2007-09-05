@@ -5,9 +5,11 @@
         class="freeguide.plugins.program.freeguide.viewer.MainController">
 
   <files>
+    <file path="doc/ls-docs"/>
     <file path="doc/contact.html"/>
     <file path="doc/downinst.html"/>
     <file path="doc/downinst.linux.html"/>
+    <file path="doc/downinst.macos.html"/>
     <file path="doc/help.html"/>
     <file path="doc/license.html"/>
     <file path="doc/sflogo.png"/>
