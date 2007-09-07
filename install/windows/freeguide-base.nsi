@@ -193,7 +193,7 @@ Section "!FreeGuide program"
 
   SetOutPath $INSTDIR\xmltv\
 
-  File /r xmltv\*.*
+  File /r build\other-xmltv-win\other\xmltv-win\*.*
 
 !endif
 
