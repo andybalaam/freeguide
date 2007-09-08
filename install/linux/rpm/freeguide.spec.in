@@ -24,7 +24,6 @@ Group: Accessories/
 Source0: __ANT_NAME_VERSION__.tar.gz
 URL: http://freeguide-tv.sourceforge.net/
 Vendor: Andy Balaam <axis3x3@users.sourceforge.net>
-Packager: Andy Balaam <axis3x3@users.sourceforge.net>
 BuildArch: noarch
 BuildRoot: %{_tmppath}/__ANT_NAME_VERSION__-all-root
 
