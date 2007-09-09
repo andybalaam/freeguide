@@ -163,15 +163,17 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
      * @param logger DOCUMENT_ME!
      * @param storage DOCUMENT ME!
      *
+     * @return DOCUMENT_ME!
+     *
      * @throws Exception DOCUMENT_ME!
      */
-    public void grabData( 
+    public boolean grabData( 
         IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
         if( config.channels.selectedChannelIDs.size(  ) == 0 )
         {
-            return;
+            return false;
         }
 
         if( TIME_ZONES == null )
@@ -317,6 +319,8 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
                 progress.setStepNumber( ( i * packets.length ) + j + 1 );
             }
         }
+
+        return true;
     }
 
     protected String getChannelIdByTag( final String tag )

@@ -57,9 +57,11 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
      * @param logger DOCUMENT_ME!
      * @param storage DOCUMENT ME!
      *
+     * @return DOCUMENT_ME!
+     *
      * @throws Exception DOCUMENT_ME!
      */
-    public void grabData( 
+    public boolean grabData( 
         IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
@@ -88,5 +90,7 @@ public class GrabberCosmostv extends BaseModule implements IModuleGrabber
 
         new ListTVParser( CHANNELS_PREFIX, storage ).parseZips( 
             zips, TIMEZONE, progress, logger );
+
+        return true;
     }
 }

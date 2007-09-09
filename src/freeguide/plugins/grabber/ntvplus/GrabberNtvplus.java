@@ -55,9 +55,11 @@ public class GrabberNtvplus extends BaseModule implements IModuleGrabber
      * @param logger DOCUMENT_ME!
      * @param storage DOCUMENT ME!
      *
+     * @return DOCUMENT_ME!
+     *
      * @throws Exception DOCUMENT_ME!
      */
-    public void grabData( 
+    public boolean grabData( 
         IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
@@ -66,5 +68,7 @@ public class GrabberNtvplus extends BaseModule implements IModuleGrabber
 
         new ListTVParser( CHANNEL_PREFIX, storage ).parseZips( 
             new String[] { URL }, TIMEZONE, progress, logger );
+
+        return true;
     }
 }

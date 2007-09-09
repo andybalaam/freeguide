@@ -143,9 +143,11 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
      * @param logger DOCUMENT_ME!
      * @param storage DOCUMENT ME!
      *
+     * @return DOCUMENT_ME!
+     *
      * @throws Exception DOCUMENT_ME!
      */
-    public void grabData( 
+    public boolean grabData( 
         IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
@@ -180,7 +182,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
         if( Thread.interrupted(  ) )
         {
-            return;
+            return true;
         }
 
         HandlerDates handlerDates = new HandlerDates(  );
@@ -204,7 +206,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
         if( Thread.interrupted(  ) )
         {
-            return;
+            return true;
         }
 
         progress.setStepNumber( 2 );
@@ -235,7 +237,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         {
             if( Thread.interrupted(  ) )
             {
-                return;
+                return true;
             }
 
             request.put( PARAM_DATE, dates[i] );
@@ -255,7 +257,7 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
 
             if( Thread.interrupted(  ) )
             {
-                return;
+                return true;
             }
 
             logger.info( 
@@ -275,6 +277,8 @@ public class GrabberVsetv extends BaseModule implements IModuleGrabber
         }
 
         logger.info( i18n.getString( "Logging.Done" ) );
+
+        return true;
     }
 
     protected void loadTimeZones(  )

@@ -16,9 +16,12 @@ public interface IModuleGrabber extends IModule
      * @param logger ILogger
      * @param storage DOCUMENT ME!
      *
+     * @return DOCUMENT_ME!
+     *
      * @throws Exception
      */
-    void grabData( IProgress progress, ILogger logger, IStoragePipe storage )
+    boolean grabData( 
+        IProgress progress, ILogger logger, IStoragePipe storage )
         throws Exception;
 
     /**

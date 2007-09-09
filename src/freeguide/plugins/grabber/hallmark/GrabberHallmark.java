@@ -79,9 +79,11 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
      * @param logger DOCUMENT_ME!
      * @param storage DOCUMENT ME!
      *
+     * @return DOCUMENT_ME!
+     *
      * @throws Exception DOCUMENT_ME!
      */
-    public void grabData( 
+    public boolean grabData( 
         IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
@@ -158,6 +160,8 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
 
         storage.addChannel( channel );
         storage.finishBlock(  );
+
+        return true;
     }
 
     protected String loadDescription( 

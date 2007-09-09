@@ -11,13 +11,14 @@ import freeguide.plugins.program.freeguide.viewer.MainController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import java.nio.channels.ClosedByInterruptException;
 
 import java.util.Iterator;
 import java.util.logging.Level;
 
-import javax.swing.JButton;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -129,6 +130,22 @@ public class GrabberController
                         }
                     }
                 } );
+
+            progressDialog.addWindowListener( 
+                new WindowAdapter(  )
+                {
+                    public void windowClosing( WindowEvent e )
+                    {
+                        if( !grabberThread.isAlive(  ) )
+                        {
+                            if( progressDialog != null )
+                            {
+                                progressDialog.dispose(  );
+                                progressDialog = null;
+                            }
+                        }
+                    }
+                } );
         }
 
         new Thread(  )
@@ -175,7 +192,10 @@ public class GrabberController
                     }
 
                     final StoragePipe pipe = new StoragePipe(  );
-                    grabber.grabData( progressDialog, progressDialog, pipe );
+
+                    wasError = !grabber.grabData( 
+                            progressDialog, progressDialog, pipe );
+
                     pipe.finish(  );
 
                     if( Thread.interrupted(  ) )
@@ -239,6 +259,7 @@ public class GrabberController
                             Application.getInstance(  )
                                        .getLocalizedMessage( 
                                 "ExecutionDialog.Finish.OK" ) );
+                        progressDialog.bringToForeground(  );
                     }
                 }
                 else
@@ -251,12 +272,18 @@ public class GrabberController
                         Application.getInstance(  )
                                    .getLocalizedMessage( 
                             "ExecutionDialog.Finish.Error" ) );
+                    progressDialog.bringToForeground(  );
                     progressDialog.showDetails(  );
                 }
             }
         }
 
-        secondProgressBar.setVisible( false );
         foregroundButton.setVisible( false );
+        secondProgressBar.setVisible( false );
+
+        if( progressDialog != null )
+        {
+            progressDialog.disableBackgroundButton(  );
+        }
     }
 }

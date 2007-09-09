@@ -41,6 +41,7 @@ import javax.swing.SwingUtilities;
 public class ExecutorDialog extends JDialog implements IProgress, ILogger
 {
     // ------------------------------------------------------------------------
+    final private JFrame owner;
     final private JProgressBar secondProgressBar;
     private javax.swing.JButton foregroundButton;
     private javax.swing.JButton butCancel;
@@ -55,6 +56,8 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
     protected Dimension maxPreferredSize;
     protected int minHeight;
     protected int maxHeight;
+    protected ActionListener foregroundActionListener;
+    protected ActionListener backgroundActionListener;
 
 /**
      * Creates a new ExecutorDialog object.
@@ -67,6 +70,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         final JButton foregroundButton )
     {
         super( owner, true ); //TODO FreeGuide.prefs.screen.getBoolean( "executor_modal", true ) );
+        this.owner = owner;
         this.secondProgressBar = secondProgressBar;
         this.foregroundButton = foregroundButton;
 
@@ -75,7 +79,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
             {
                 public void windowClosing( WindowEvent e )
                 {
-                    backgroundDialog(  );
+                    sendToBackground(  );
                 }
             } );
 
@@ -109,14 +113,18 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         butBackground.setMinimumSize( new java.awt.Dimension( 115, 23 ) );
         butBackground.setPreferredSize( new java.awt.Dimension( 115, 23 ) );
         butBackground.setMnemonic( KeyEvent.VK_B );
-        butBackground.addActionListener( 
-            new java.awt.event.ActionListener(  )
-            {
-                public void actionPerformed( java.awt.event.ActionEvent evt )
+
+        backgroundActionListener =
+            new ActionListener(  )
                 {
-                    backgroundDialog(  );
-                }
-            } );
+                    public void actionPerformed( ActionEvent e )
+                    {
+                        sendToBackground(  );
+                    }
+                };
+
+        butBackground.addActionListener( backgroundActionListener );
+
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
@@ -125,14 +133,16 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( butBackground, gridBagConstraints );
 
-        foregroundButton.addActionListener( 
+        foregroundActionListener =
             new ActionListener(  )
-            {
-                public void actionPerformed( ActionEvent evt )
                 {
-                    butForegroundActionPerformed( evt );
-                }
-            } );
+                    public void actionPerformed( ActionEvent e )
+                    {
+                        bringToForeground(  );
+                    }
+                };
+
+        foregroundButton.addActionListener( foregroundActionListener );
 
         butDetails = new javax.swing.JButton( 
                 Application.getInstance(  ).getLocalizedMessage( 
@@ -235,31 +245,54 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
     }
 
     /**
-     * Description of the Method
+     * DOCUMENT_ME!
      */
-    private void backgroundDialog(  )
+    public void sendToBackground(  )
     {
         butBackground.setEnabled( false );
         foregroundButton.setVisible( true );
         secondProgressBar.setVisible( true );
-        setVisible( false );
 
-        if( logScroll.isVisible(  ) )
-        {
-            hideDetails(  );
-        }
+        SwingUtilities.invokeLater( 
+            new Runnable(  )
+            {
+                public void run(  )
+                {
+                    setVisible( false );
+                }
+            } );
     }
 
     /**
-     * Description of the Method
-     *
-     * @param evt Description of the Parameter
+     * DOCUMENT_ME!
      */
-    private void butForegroundActionPerformed( java.awt.event.ActionEvent evt )
+    public void bringToForeground(  )
     {
         butBackground.setEnabled( true );
         foregroundButton.setVisible( false );
         secondProgressBar.setVisible( false );
+
+        if( !isVisible(  ) )
+        {
+            Utils.centreDialog( owner, this );
+        }
+
+        SwingUtilities.invokeLater( 
+            new Runnable(  )
+            {
+                public void run(  )
+                {
+                    setVisible( true );
+                }
+            } );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     */
+    public void disableBackgroundButton(  )
+    {
+        butBackground.setEnabled( false );
     }
 
     // -----------------------------------------------------------------------
@@ -502,5 +535,17 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
                 "nograbber_title" ),
             Application.getInstance(  ).getLocalizedMessage( 
                 "nograbber_title" ) );
+    }
+
+    /**
+     * DOCUMENT_ME!
+     */
+    public void dispose(  )
+    {
+        butBackground.removeActionListener( backgroundActionListener );
+        foregroundButton.removeActionListener( foregroundActionListener );
+        foregroundButton.setVisible( false );
+        secondProgressBar.setVisible( false );
+        super.dispose(  );
     }
 }

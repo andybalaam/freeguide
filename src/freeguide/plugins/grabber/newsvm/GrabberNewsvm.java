@@ -89,9 +89,11 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
      * @param logger DOCUMENT_ME!
      * @param storage DOCUMENT ME!
      *
+     * @return DOCUMENT_ME!
+     *
      * @throws Exception DOCUMENT_ME!
      */
-    public void grabData( 
+    public boolean grabData( 
         IProgress progress, ILogger logger, final IStoragePipe storage )
         throws Exception
     {
@@ -116,7 +118,7 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
 
             if( Thread.interrupted(  ) )
             {
-                return;
+                return true;
             }
 
             //            progress.setProgressMessage(  "Load page [" + ( i + 1 ) + "/" + DAYS.length + "]" );
@@ -127,6 +129,8 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
         }
 
         progress.setProgressValue( 100 );
+
+        return true;
     }
 
     protected static class PageParser extends HtmlHelper.DefaultContentHandler

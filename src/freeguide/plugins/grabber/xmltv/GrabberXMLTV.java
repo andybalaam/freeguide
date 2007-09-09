@@ -156,26 +156,37 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
      * @param logger DOCUMENT ME!
      * @param storage DOCUMENT ME!
      *
+     * @return DOCUMENT_ME!
+     *
      * @throws Exception DOCUMENT_ME!
      */
-    public void grabData( 
+    public boolean grabData( 
         final IProgress progress, final ILogger logger,
         final IStoragePipe storage ) throws Exception
     {
+        int code = 0;
+
         synchronized( config.modules )
         {
             for( int i = 0; i < config.modules.size(  ); i++ )
             {
                 if( Thread.interrupted(  ) )
                 {
-                    return;
+                    return true;
                 }
 
                 XMLTVConfig.ModuleInfo moduleInfo =
                     (XMLTVConfig.ModuleInfo)config.modules.get( i );
-                grabOne( storage, moduleInfo, progress, logger );
+                code = grabOne( storage, moduleInfo, progress, logger );
+
+                if( code != 0 )
+                {
+                    break;
+                }
             }
         }
+
+        return ( code == 0 ) ? true : false;
     }
 
     protected void configureChannels( final XMLTVConfig.ModuleInfo moduleInfo )
@@ -292,7 +303,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         return (String[])result.toArray( new String[result.size(  )] );
     }
 
-    protected void grabOne( 
+    protected int grabOne( 
         final IStoragePipe storage, final XMLTVConfig.ModuleInfo moduleInfo,
         final IProgress progress, final ILogger logger )
         throws Exception
@@ -323,7 +334,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                     i18n.getString( "Message.CommandNotDefined" ),
                     moduleInfo.moduleName ) );
 
-            return;
+            return -1;
 
         }
 
@@ -352,7 +363,8 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         Application.getInstance(  ).getLogger(  ).finest( 
             "Run command: " + cmd );
 
-        logger.info( MessageFormat.format( "Message.Command", cmd ) );
+        logger.info( 
+            MessageFormat.format( i18n.getString( "Message.Command" ), cmd ) );
 
         int resultCode =
             execGrabCmd( storage, Utils.parseCommand( cmd ), progress, logger );
@@ -360,7 +372,11 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         Application.getInstance(  ).getLogger(  )
                    .finest( "Result code = " + resultCode );
 
-        logger.info( MessageFormat.format( "Message.ResultCode", resultCode ) );
+        logger.info( 
+            MessageFormat.format( 
+                i18n.getString( "Message.ResultCode" ), resultCode ) );
+
+        return resultCode;
     }
 
     protected int execGrabCmd( 
