@@ -97,9 +97,6 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
                 "executing_command" ) );
         butCancel = new javax.swing.JButton( 
                 Application.getInstance(  ).getLocalizedMessage( "cancel" ) );
-        butCancel.setMaximumSize( new java.awt.Dimension( 115, 23 ) );
-        butCancel.setMinimumSize( new java.awt.Dimension( 115, 23 ) );
-        butCancel.setPreferredSize( new java.awt.Dimension( 115, 23 ) );
         butCancel.setMnemonic( KeyEvent.VK_C );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 2;
@@ -109,9 +106,6 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         getContentPane(  ).add( butCancel, gridBagConstraints );
         butBackground = new javax.swing.JButton( 
                 Application.getInstance(  ).getLocalizedMessage( "background" ) );
-        butBackground.setMaximumSize( new java.awt.Dimension( 115, 23 ) );
-        butBackground.setMinimumSize( new java.awt.Dimension( 115, 23 ) );
-        butBackground.setPreferredSize( new java.awt.Dimension( 115, 23 ) );
         butBackground.setMnemonic( KeyEvent.VK_B );
 
         backgroundActionListener =
@@ -147,9 +141,6 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         butDetails = new javax.swing.JButton( 
                 Application.getInstance(  ).getLocalizedMessage( 
                     "show_output" ) );
-        butDetails.setMaximumSize( new java.awt.Dimension( 115, 23 ) );
-        butDetails.setMinimumSize( new java.awt.Dimension( 115, 23 ) );
-        butDetails.setPreferredSize( new java.awt.Dimension( 115, 23 ) );
         butDetails.setMnemonic( KeyEvent.VK_S );
         butDetails.addActionListener( 
             new java.awt.event.ActionListener(  )
@@ -172,9 +163,6 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         labPleaseWait.setBorder( 
             javax.swing.BorderFactory.createBevelBorder( 
                 javax.swing.border.BevelBorder.LOWERED ) );
-        labPleaseWait.setMaximumSize( new java.awt.Dimension( 400, 22 ) );
-        labPleaseWait.setMinimumSize( new java.awt.Dimension( 400, 22 ) );
-        labPleaseWait.setPreferredSize( new java.awt.Dimension( 400, 22 ) );
         labPleaseWait.setHorizontalTextPosition( 
             javax.swing.SwingConstants.CENTER );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -211,8 +199,11 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         getContentPane(  ).add( logScroll, gridBagConstraints );
 
         pack(  );
+
         minHeight = getHeight(  );
         maxHeight = minHeight + 150;
+
+        setSize( ( owner.getWidth(  ) * 3 ) / 5, minHeight );
 
         setDefaultCloseOperation( JDialog.HIDE_ON_CLOSE );
     }
@@ -337,7 +328,17 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         int height = minHeight;
 
         setSize( width, height );
-        validate(  );
+
+        SwingUtilities.invokeLater( 
+            new Runnable(  )
+            {
+                public void run(  )
+                {
+                    logScroll.setVisible( true );
+                    log.setVisible( true );
+                    validate(  );
+                }
+            } );
     }
 
     /**

@@ -132,12 +132,6 @@ public class WizardFrame extends JWaitFrame
 
         butCancel.setMnemonic( KeyEvent.VK_X );
 
-        butCancel.setMaximumSize( new java.awt.Dimension( 85, 26 ) );
-
-        butCancel.setMinimumSize( new java.awt.Dimension( 85, 26 ) );
-
-        butCancel.setPreferredSize( new java.awt.Dimension( 85, 26 ) );
-
         butCancel.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
@@ -191,12 +185,6 @@ public class WizardFrame extends JWaitFrame
 
         butFinish.setMnemonic( KeyEvent.VK_F );
 
-        butFinish.setMaximumSize( new java.awt.Dimension( 85, 26 ) );
-
-        butFinish.setMinimumSize( new java.awt.Dimension( 85, 26 ) );
-
-        butFinish.setPreferredSize( new java.awt.Dimension( 85, 26 ) );
-
         butFinish.setEnabled( false );
 
         butFinish.addActionListener( 
@@ -217,7 +205,7 @@ public class WizardFrame extends JWaitFrame
 
         gridBagConstraints.gridy = 1;
 
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
 
         getContentPane(  ).add( panButtons, gridBagConstraints );
 

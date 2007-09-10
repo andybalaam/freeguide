@@ -254,7 +254,6 @@ public class ChannelSetListDialog extends FGDialog
         jPanel2 = new javax.swing.JPanel( new java.awt.GridBagLayout(  ) );
         butOK = new javax.swing.JButton( 
                 Application.getInstance(  ).getLocalizedMessage( "ok" ) );
-        butOK.setPreferredSize( new java.awt.Dimension( 83, 26 ) );
         butOK.addActionListener( 
             new java.awt.event.ActionListener(  )
             {
