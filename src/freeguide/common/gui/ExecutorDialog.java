@@ -301,8 +301,6 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      */
     public void showDetails(  )
     {
-        logScroll.setVisible( true );
-        log.setVisible( true );
         butDetails.setText( 
             Application.getInstance(  ).getLocalizedMessage( "hide_output" ) );
 
@@ -310,7 +308,17 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         int height = maxHeight;
 
         setSize( width, height );
-        validate(  );
+
+        SwingUtilities.invokeLater( 
+            new Runnable(  )
+            {
+                public void run(  )
+                {
+                    logScroll.setVisible( true );
+                    log.setVisible( true );
+                    validate(  );
+                }
+            } );
     }
 
     /**
