@@ -2,13 +2,14 @@
 
 <jnlp
   spec="1.0+"
-  codebase="http://alex73.zaval.org/snapshots/freeguide-ws/"
+  codebase="http://www.artificialworlds.net/freeguide/webstart"
   href="control.jnlp">
   <application-desc main-class="freeguide.plugins.program.freeguide.FreeGuide"/>
   <resources>
     <j2se version="1.4.2+"/>
     <jar href="lib/program-freeguide.jar"/>
     <jar href="lib/common.jar"/>
+    <jar href="lib/docs.jar"/>
     <jar href="lib/grabber-cosmostv.jar"/>
     <jar href="lib/grabber-hallmark.jar"/>
     <jar href="lib/grabber-kulichki.jar"/>
@@ -18,15 +19,16 @@
     <jar href="lib/grabber-vsetv.jar"/>
     <jar href="lib/grabber-xmltv.jar"/>
     <jar href="lib/importexport-html.jar"/>
-    <jar href="lib/importexport-xmltv.jar"/>
     <jar href="lib/importexport-jtv.jar"/>
     <jar href="lib/importexport-mobile.jar"/>
     <jar href="lib/importexport-palmatv.jar"/>
+    <jar href="lib/importexport-xmltv.jar"/>
     <jar href="lib/reminder-alarm.jar"/>
+    <jar href="lib/retroweaver-rt-1.2.5.jar"/>
     <jar href="lib/storage-serfiles.jar"/>
+    <jar href="lib/tagsoup-1.0.1.jar"/>
     <jar href="lib/ui-horizontal.jar"/>
     <jar href="lib/ui-vertical.jar"/>
-    <jar href="lib/docs.jar"/>
   </resources>
   <security>
       <all-permissions/>
