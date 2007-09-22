@@ -5,8 +5,6 @@ import freeguide.common.lib.general.StringHelper;
 
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
-import sun.security.action.GetLongAction;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
