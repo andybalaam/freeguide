@@ -12,14 +12,14 @@
 
         <mkdir dir="${dist-webstart}/images"/>
         <copy todir="${dist-webstart}/images">
-			<fileset dir="install/webStart/images"/>
+			<fileset dir="install/webstart/images"/>
 		</copy>
         <mkdir dir="${dist-webstart}/lib"/>
         <copy todir="${dist-webstart}/lib">
 			<fileset dir="${build}/package/lib"/>
 		</copy>
         <copy todir="${dist-webstart}">
-		<fileset dir="install/webStart/" includes="*.jnlp"/>
+		<fileset dir="install/webstart/" includes="*.jnlp"/>
         </copy>
     </target>
     
