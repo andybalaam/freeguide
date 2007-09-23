@@ -44,6 +44,7 @@ public class MainFrame extends JWaitFrame
     private JMenu menuItemExport;
     private JMenuItem menuItemWizard;
     private JMenuItem menuItemChannelsSets;
+    private JMenuItem menuItemChooseXMLTVChannels;
     private JPanel jPanel;
     private JProgressBar progressBar;
     private JButton foregroundButton;
@@ -533,6 +534,22 @@ public class MainFrame extends JWaitFrame
         }
 
         return menuItemChannelsSets;
+
+    }
+
+    /**
+     * This method initializes Choose XMLTV Channels jMenuItem2
+     *
+     * @return javax.swing.JMenuItem
+     */
+    public JMenuItem getMenuItemChooseXMLTVChannels(  )
+    {
+        if( menuItemChooseXMLTVChannels == null )
+        {
+            menuItemChooseXMLTVChannels = new JMenuItem(  );
+        }
+
+        return menuItemChooseXMLTVChannels;
 
     }
 

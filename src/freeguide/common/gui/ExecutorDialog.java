@@ -16,6 +16,8 @@ import freeguide.common.lib.general.Utils;
 import freeguide.common.plugininterfaces.ILogger;
 import freeguide.common.plugininterfaces.IProgress;
 
+import freeguide.plugins.program.freeguide.viewer.MainFrame;
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -240,6 +242,11 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      */
     public void sendToBackground(  )
     {
+        MainFrame appFrame = (MainFrame)owner;
+        appFrame.getMenuItemWizard(  ).setEnabled( false );
+        appFrame.getMenuItemChooseXMLTVChannels(  ).setEnabled( false );
+        appFrame.getMenuItemOptions(  ).setEnabled( false );
+
         butBackground.setEnabled( false );
         foregroundButton.setVisible( true );
         secondProgressBar.setVisible( true );
@@ -259,6 +266,11 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      */
     public void bringToForeground(  )
     {
+        MainFrame appFrame = (MainFrame)owner;
+        appFrame.getMenuItemWizard(  ).setEnabled( true );
+        appFrame.getMenuItemChooseXMLTVChannels(  ).setEnabled( true );
+        appFrame.getMenuItemOptions(  ).setEnabled( true );
+
         butBackground.setEnabled( true );
         foregroundButton.setVisible( false );
         secondProgressBar.setVisible( false );
@@ -553,8 +565,15 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
     {
         butBackground.removeActionListener( backgroundActionListener );
         foregroundButton.removeActionListener( foregroundActionListener );
+
+        MainFrame appFrame = (MainFrame)owner;
+        appFrame.getMenuItemWizard(  ).setEnabled( true );
+        appFrame.getMenuItemChooseXMLTVChannels(  ).setEnabled( true );
+        appFrame.getMenuItemOptions(  ).setEnabled( true );
+
         foregroundButton.setVisible( false );
         secondProgressBar.setVisible( false );
+
         super.dispose(  );
     }
 }

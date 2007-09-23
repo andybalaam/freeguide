@@ -16,6 +16,7 @@ import freeguide.common.plugininterfaces.IProgress;
 import freeguide.common.plugininterfaces.IStoragePipe;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.viewer.MainFrame;
 
 import org.xml.sax.SAXException;
 
@@ -92,31 +93,35 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     private Process pr;
     protected XMLTVConfigureUIPanelModule confUI;
     protected CountryInfo[] countryInfos;
-    
-	/**
+
+    /**
      * DOCUMENT_ME!
      */
     public void start(  )
-    {    	
+    {
         final File xmltvConfigDir =
             new File( 
                 Application.getInstance(  ).getWorkingDirectory(  ), DIR_CONFIG );
-                
+
         //na_dd is the only module currently
         XMLTVConfig.ModuleInfo moduleInfo =
             (XMLTVConfig.ModuleInfo)config.modules.get( 0 );
-        
+
         String cmd = moduleInfo.commandToRun;
 
-		if (null == cmd) {
-			cmd = getCommand(moduleInfo.moduleName, RUN_KEY_SUFFIX);
-	        if( null == cmd )
-	        {
-	            Application.getInstance().getLogger().severe(
-						"Command not defined for " + moduleInfo.moduleName);
-	            return;
-	        }
-		}
+        if( null == cmd )
+        {
+            cmd = getCommand( moduleInfo.moduleName, RUN_KEY_SUFFIX );
+
+            if( null == cmd )
+            {
+                Application.getInstance(  ).getLogger(  )
+                           .severe( 
+                    "Command not defined for " + moduleInfo.moduleName );
+
+                return;
+            }
+        }
 
         cmd = StringHelper.replaceAll( 
                 cmd, REPLACE_CONFIG,
@@ -140,42 +145,44 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                         DIR_INSTALLED ).getAbsolutePath(  ) );
         }
 
-		if(checkXmltvExists( Utils.parseCommand( cmd ) )) //extracts xmltv from jar on Windows if needed
-		{
-	        final JMenuItem menuLine = new JMenuItem(  );
-	        menuLine.setText( i18n.getString( "Menu.Tools.ChooseChannels" ) );
-	        Application.getInstance(  ).getMainMenu(  ).getTools(  )
-	                   .insert( menuLine, 0 );
+        if( checkXmltvExists( Utils.parseCommand( cmd ) ) ) //extracts xmltv from jar on Windows if needed
+        {
+            final JMenuItem menuLine =
+                ( (MainFrame)Application.getInstance(  ).getApplicationFrame(  ) )
+                .getMenuItemChooseXMLTVChannels(  );
+            menuLine.setText( i18n.getString( "Menu.Tools.ChooseChannels" ) );
+            Application.getInstance(  ).getMainMenu(  ).getTools(  )
+                       .insert( menuLine, 0 );
 
-	        menuLine.addActionListener( 
-	            new ActionListener(  )
-	            {
-	                public void actionPerformed( ActionEvent e )
-	                {
-	                    new Thread(  )
-	                        {
-	                            public void run(  )
-	                            {
-	                                final List modules = new ArrayList(  );
-	
-	                                synchronized( config.modules )
-	                                {
-	                                    modules.addAll( config.modules );
-	                                }
-	
-	                                for( int i = 0; i < modules.size(  ); i++ )
-	                                {
-	                                    final XMLTVConfig.ModuleInfo moduleInfo =
-	                                        (XMLTVConfig.ModuleInfo)modules.get( 
-	                                            i );
-	                                    configureChannels( moduleInfo );
-	                                }
-	                            }
-	                        }.start(  );
-	                }
-	            } 
-	        );
-		}
+            menuLine.addActionListener( 
+                new ActionListener(  )
+                {
+                    public void actionPerformed( ActionEvent e )
+                    {
+                        new Thread(  )
+                            {
+                                public void run(  )
+                                {
+                                    final List modules = new ArrayList(  );
+
+                                    synchronized( config.modules )
+                                    {
+                                        modules.addAll( config.modules );
+                                    }
+
+                                    for( int i = 0; i < modules.size(  );
+                                            i++ )
+                                    {
+                                        final XMLTVConfig.ModuleInfo moduleInfo =
+                                            (XMLTVConfig.ModuleInfo)modules.get( 
+                                                i );
+                                        configureChannels( moduleInfo );
+                                    }
+                                }
+                            }.start(  );
+                    }
+                } );
+        }
     }
 
     /**
@@ -183,7 +190,8 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
      */
     public void stop(  )
     {
-    	 Application.getInstance().getLogger().exiting(this.getClass().getName(), "stop");
+        Application.getInstance(  ).getLogger(  )
+                   .exiting( this.getClass(  ).getName(  ), "stop" );
     }
 
     /**
@@ -521,16 +529,13 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
      * @param args command line for run
      *
      * @return true if exists
-     *
-     * @throws IOException
      */
-    protected boolean checkXmltvExists( final String[] args )
-        //throws IOException
+    protected boolean checkXmltvExists( final String[] args ) //throws IOException
     {
         if( ( args == null ) || ( args.length == 0 ) )
         {
             //throw new IOException( "Invalid command line" );
-        	return false;
+            return false;
         }
 
         if( !Application.getInstance(  ).isUnix(  ) )
@@ -542,9 +547,12 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
             if( !xmltvDir.exists(  ) )
             {
-                if(!FileHelper.unpackFiles( 
-                    PACKAGE_XMLTVWIN_LIST, PACKAGE_XMLTVWIN, xmltvDir ))
-                	return false;
+                if( 
+                    !FileHelper.unpackFiles( 
+                            PACKAGE_XMLTVWIN_LIST, PACKAGE_XMLTVWIN, xmltvDir ) )
+                {
+                    return false;
+                }
             }
         }
 

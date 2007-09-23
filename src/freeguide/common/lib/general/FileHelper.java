@@ -193,18 +193,17 @@ public class FileHelper
     }
 
     /**
-     * Method unpacks files from classpath. Used to unpack docs
-     * into temp directory and xmltv from its jar.
+     * Method unpacks files from classpath. Used to unpack docs into
+     * temp directory and xmltv from its jar.
      *
      * @param lsPath resource path with file with list of files
      * @param packagePrefix DOCUMENT ME!
      * @param outDir DOCUMENT ME!
-     * 
+     *
      * @return boolean indicates success
      */
     public static boolean unpackFiles( 
-        final String lsPath, final String packagePrefix, final File outDir )
-        //throws FileNotFoundException
+        final String lsPath, final String packagePrefix, final File outDir ) //throws FileNotFoundException
     {
         final InputStream inLs =
             FileHelper.class.getClassLoader(  ).getResourceAsStream( lsPath );
@@ -212,41 +211,46 @@ public class FileHelper
         if( inLs == null )
         {
             //throw new FileNotFoundException( "There is no " + lsPath );
-            Application.getInstance().getLogger().severe("There is no " + lsPath);
-            
-        	return false;
+            Application.getInstance(  ).getLogger(  )
+                       .severe( "There is no " + lsPath );
+
+            return false;
         }
 
         final BufferedReader rd =
             new BufferedReader( new InputStreamReader( inLs ) );
 
-        try{
-	        while( true )
-	        {
-	            final String line = rd.readLine(  );
-	
-	            if( line == null )
-	            {
-	                break;
-	            }
-	
-	            new File( outDir, line ).getParentFile(  ).mkdirs(  );
-	            writeFile( packagePrefix + line, new File( outDir, line ) );
-	        }
-        }
-        catch(IOException ioe)
+        try
         {
-        	return false;
+            while( true )
+            {
+                final String line = rd.readLine(  );
+
+                if( line == null )
+                {
+                    break;
+                }
+
+                new File( outDir, line ).getParentFile(  ).mkdirs(  );
+                writeFile( packagePrefix + line, new File( outDir, line ) );
+            }
+        }
+        catch( IOException ioe )
+        {
+            return false;
         }
         finally
         {
-            try {
-				rd.close(  );
-			} catch (IOException e) {
-				//nothing the consumer can do about this, so ignore -RSH
-			}
+            try
+            {
+                rd.close(  );
+            }
+            catch( IOException e )
+            {
+                //nothing the consumer can do about this, so ignore -RSH
+            }
         }
-        
+
         return true;
     }
 

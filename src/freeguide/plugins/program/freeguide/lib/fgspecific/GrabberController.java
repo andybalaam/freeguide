@@ -49,13 +49,7 @@ public class GrabberController
             if( progressDialog != null )
             {
                 // Show dialog
-                new Thread(  )
-                    {
-                        public void run(  )
-                        {
-                            progressDialog.setVisible( true );
-                        }
-                    }.start(  );
+                progressDialog.bringToForeground(  );
             }
             else
             {
@@ -277,9 +271,6 @@ public class GrabberController
                 }
             }
         }
-
-        foregroundButton.setVisible( false );
-        secondProgressBar.setVisible( false );
 
         if( progressDialog != null )
         {
