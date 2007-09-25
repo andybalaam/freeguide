@@ -19,6 +19,7 @@ import freeguide.common.plugininterfaces.IProgress;
 import freeguide.plugins.program.freeguide.viewer.MainFrame;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -167,6 +168,10 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
                 javax.swing.border.BevelBorder.LOWERED ) );
         labPleaseWait.setHorizontalTextPosition( 
             javax.swing.SwingConstants.CENTER );
+
+        Font labFont = labPleaseWait.getFont(  );
+        labPleaseWait.setFont( 
+            labFont.deriveFont( Font.BOLD ).deriveFont( 14f ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -447,7 +452,14 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
                         secondProgressBar.setString( message );
                     }
 
-                    setTitle( message );
+                    if( message != null )
+                    {
+                        setTitle( message );
+                    }
+                    else if( label != null )
+                    {
+                        setTitle( label );
+                    }
 
                     //labPleaseWait.setText(message);
                 }
