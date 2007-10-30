@@ -2,14 +2,18 @@
   <chapter id="downinst">
     <title>Download and Install</title>
     
-    <para>If you are in North America, you need to get a Data Direct account
-    from Zap2it before you install FreeGuide.  To do this, go to
-    <ulink url="http://labs.zap2it.com">http://labs.zap2it.com</ulink>
-    and click the "New User? Sign-Up" link.  Use the certificate code
-    <varname>TUYO-DCXM-CBUT</varname>.
+    <para>If you are in North America, you need to pay for an
+    account with
+    <ulink url="http://www.schedulesdirect.org/">Schedules Direct</ulink>
+    before you install FreeGuide.  Click the "Sign-Up" link on their
+    web site to get started.
     Make a note of the username and password you choose as you will need to
-    enter them during FreeGuide's first-time wizard.  NOTE: You should enter
+    enter them during FreeGuide's first-time wizard.  NOTE: When you
+    start FreeGuide you should enter
     your password despite the warning.</para>
+
+    <para>If anyone knows about a free North American listings
+    provider, please let us know.</para>
     
     <section id="downinst.windows">
       <title>Windows</title>
