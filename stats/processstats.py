@@ -31,7 +31,7 @@ for line in statsfile.readlines():
     
     split_line = line.split( " - " ) 
     if len( split_line ) != 3:
-        print "Ignoring line '%s'." % line
+        sys.stderr.write( "Ignoring line %s" % line )
         continue
         
     (datetime, ip, version) = split_line
@@ -39,21 +39,25 @@ for line in statsfile.readlines():
     tmp = re.search( "(.*)\n", version );
     version = tmp.group(1)
     
-    (date, time) = datetime.split( " " )
+    dtsplit = datetime.split( " " )
+    if len( dtsplit ) == 2:
+        (date, time) = dtsplit
+
+        (year, month, day) = date.split( "-" )
     
-    (year, month, day) = date.split( "-" )
+        yearmonth = year + "-" + month
     
-    yearmonth = year + "-" + month
+        if not data_split_monthly.has_key(yearmonth):
+            data_split_monthly[yearmonth] = {}
     
-    if not data_split_monthly.has_key(yearmonth):
-        data_split_monthly[yearmonth] = {}
+        this_month = data_split_monthly[yearmonth]
     
-    this_month = data_split_monthly[yearmonth]
+        if not this_month.has_key(day):
+            this_month[day] = []
     
-    if not this_month.has_key(day):
-        this_month[day] = []
-    
-    this_month[day].append( ( ip, version ) )
+        this_month[day].append( ( ip, version ) )
+    else:
+        sys.stderr.write( "Ignoring line: %s" % line )
 
 statsfile.close()
 
