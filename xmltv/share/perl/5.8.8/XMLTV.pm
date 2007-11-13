@@ -1,5 +1,5 @@
 # -*- perl -*-
-# $Id: XMLTV.pm.in,v 1.129 2007/08/20 22:51:37 rmeden Exp $
+# $Id: XMLTV.pm.in,v 1.132 2007/11/05 08:14:27 rmeden Exp $
 package XMLTV;
 
 use strict;
@@ -12,7 +12,7 @@ our @EXPORT_OK = qw(read_data parse parsefile write_data
 # the xmltv package as a whole.  This number should be checked by the
 # mkdist tool.
 #
-our $VERSION = '0.5.48';
+our $VERSION = '0.5.50';
 
 # Work around changing behaviour of XML::Twig.  On some systems (like
 # mine) it always returns UTF-8 data unless KeepEncoding is specified.
@@ -186,7 +186,7 @@ our @Programme_Handlers =
    [ 'new',              'presence',           '?' ],
    [ 'subtitles',        'subtitles',          '*' ],
    [ 'rating',           'rating',             '*' ],
-   [ 'star-rating',      'star-rating',        '?' ],
+   [ 'star-rating',      'star-rating',        '*' ],
   );
 
 # And a hash mapping names like 'with-lang' to pairs of subs.  The
@@ -1541,9 +1541,16 @@ $Handlers{rating}->[1] = sub( $$$ ) {
 In XML this is a string 'X/Y' plus a list of icons.  In Perl represented
 as a pair [ rating, icons ] similar to I<rating>.
 
+Multiple star ratings are now supported. For backward compatability,
+you may specify a single [rating,icon] or the preferred double array
+[[rating,system,icon],[rating2,system2,icon2]] (like 'ratings')
+
+
 =cut
 $Handlers{'star-rating'}->[0] = sub( $ ) {
     my $node = shift;
+    my %attrs = %{get_attrs($node)};
+    my $system = delete $attrs{system} if exists $attrs{system};
     my @children = get_subelements($node);
 
     # First child node is value.
@@ -1561,16 +1568,26 @@ $Handlers{'star-rating'}->[0] = sub( $ ) {
     # Remaining children are icons.
     my @icons = map { read_icon($_) } @children;
 	
-    return [ $rating, \@icons ];
+    return [ $rating, $system, \@icons ];
 };
 $Handlers{'star-rating'}->[1] = sub ( $$$ ) {
     my ($w, $e, $v) = @_;
+#
+# 10/31/2007 star-rating can now have multiple values (and system=)
+# let's make it so old code still works!
+#
     if (not ref $v or ref $v ne 'ARRAY') {
-	warn "not writing star-rating whose content is not an array";
-	return;
+	   $v=[$v];
+#	   warn "not writing star-rating whose content is not an array";
+#	return;
     }
-    my ($rating, $icons) = @$v;
-    $w->startTag($e) if $w;
+    my ($rating, $system, $icons) = @$v;
+    if (defined $system) {
+	$w->startTag($e, system => $system) if $w;
+    }
+    else {
+	$w->startTag($e) if $w;
+    }
     write_value($w, 'value', $rating) if $w;
     if ($w) { write_icon($w, 'icon', $_) foreach @$icons };
     $w->endTag($e) if $w;
@@ -1855,7 +1872,7 @@ scalar, and B<1> (exactly one) will give a scalar which is not undef.
 
 =item rating, I<rating>, B<*>
 
-=item star-rating, I<star-rating>, B<?>
+=item star-rating, I<star-rating>, B<*>
 
 
 =back

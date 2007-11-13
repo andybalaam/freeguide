@@ -1,97 +1,107 @@
-XMLTV 0.5.48, Windows binary release
+XMLTV 0.5.50
 
 Gather television listings, process them and organize your viewing.
 XMLTV is a file format for storing TV listings, defined in xmltv.dtd.
 Then there are several tools to produce and process these listings.
 
-Please see doc\QuickStart for documentation on what each program does,
+Please see doc/QuickStart for documentation on what each program does,
 and xmltv.dtd for documentation on the file format.
 
-This is a release of the software as a single Windows binary
-xmltv.exe, generated from the Perl source code linked from
-<http://sourceforge.net/project/showfiles.php?group_id=39046>.
+Progress is being made for a 1.0 release.  We've really been stable for
+a while I and consider it well overdue. 
 
-* Known problems
+* Changes in this release (0.5.50)
 
-Due to prerequisite problems, EXE support is not currently available
-for tv_grab_jp. If you need that, you'll need to install
-Perl and the necessary modules and use the full distribution.
+Add new XMLTV::Supplement capability to many grabbers. Those grabbers
+will now check a XMLTV.ORG web server for channel-id and other
+supplemental information.  This ensures more current versions and should
+make new channels available sooner for effected grabbers.
 
-Some Win98 users get errors in Perl58.dll when running tv_grab_na_dd. See
-below for more info.
+DTD has been changed. A "system" attribute has been added to <star-ratings>
+and <star-ratings> now allows multiple instances. 
 
-tv_grab_se_swedb sometimes fails to work on Windows if there are spaces
-in the path to your home-directory. This can be avoided by setting
-the environment variable HOME to a path without spaces (e.g. c:\home).
+tv_grab_na_dtv   : New grabber for North America Direct TV users.
+tv_grab_eu_epgdata New grabber for the commercial epgdata.com service
 
-* Changes in this release (0.5.48)
+tv_grab_fr   : Improves Color/B&W detection, autocorrect, actors, director field parsing
+tv_grab_uk_rt: improved bad character handling. Added "recommended" and "deaf-signed" notations.
+tv_grab_il   : replace Locale::Hebrew module to Text::Bidi due licensing problems
+tv_check     : Skip --myreplaytv as MyReplayTV.com has been discontinued.
 
-tv_grab_na_dd     : now uses Schedules Direct.  New accounts ($) will be needed.
-                  : See http://schedulesdirect.org or the man page for more info
-tv_grab_uk_rt     : add copyright information to XML output
-
-And lots of bugfixes and polish.
+And of course bugfixes and polish.
 
 * Installation
 
-There is no installer, just unpack the zipfile into a
-directory such as C:\xmltv.  If you are reading this you've probably
-already done that.
+Note: Windows users are strongly advised to use the pre-build EXE as installing
+all the prerequisites is non-trivial. For those want to give it a go,
+instructions are in doc/exe_build.html. Those instructions can be used for both
+building xmltv.exe as well as a local install.
 
-All the different programs are combined into a single executable.  For
-example, instead of running 'tv_grab_na --days 2 >na.xml' you would run
+Basically installation instructions (unix):
 
-c:\xmltv\xmltv.exe tv_grab_na_dd --days 2 --output a.xml
+% perl Makefile.PL
+% make
+% make test
+% make install
 
-Apart from the extra 'xmltv.exe' at the front of each command line,
-the usage should be the same as the Unix version.  Some programs make
-use of a "share" directory.  That directory is assumed be named
-"share" at the same location as the exe.  If you just keep everything
-where you unzipped it, everything should be fine.  If you must move
-xmltv.exe, you may need to specify a --share option with some
-programs.
+To install in a custom directory, replace the first line with
+something like
 
-xmltv.exe will try and guess a timezone.  This usually works fine. If
-it doesn't, you can set a TZ variable just like on unix.
+% perl Makefile.PL PREFIX=/wherever/
 
-* General Windows Notes
+The system requirements are perl 5.6 or later, and a few Perl modules.
+You will be asked about some optional components; if you choose not to
+install them then there are fewer dependencies.  The full list of
+needed modules is:
 
-Spaces in filenames may cause problems with some programs.  Directories
-with spaces (i.e. C:\program files\xmltv) are not recommended.
-C:\xmltv is better.
+LWP 5.65
+XML::Parser 2.34
+XML::Twig 3.10
+XML::Writer 0.4.6
+Date::Manip 5.42a 
+Memoize (included with perl 5.8 and later)
+Storable (included with perl 5.8 and later)
 
-Some of the programs allow you pass a date format on the command line.
-This uses % followed by a letter to specify a component of a date, for
-example %Y gives a four digit year.  This can cause problems on windows
-since % is used as a shell escape character.
+Archive::Zip             (if you want to run tv_grab_uk_bleb)
+CGI                      (if you want to run tv_pick_cgi)
+Compress::Zlib           (if you want to run tv_grab_se_swedb)
+HTML::Parser 3.34        (for some of the grabbers which use HTML::Entities)
+HTML::TableExtract       (if you want to run tv_grab_na_icons)
+HTML::TreeBuilder        (for many of the grabbers)
+HTTP::Cache::Transparent (if you want to run tv_grab_se_swedb)
+HTTP::Cookies            (if you want to run tv_grab_br_net)
+IO::Scalar               (if you want to run tv_grab_uk_bleb)
+IO::Stringy              (if you want to run tv_grab_se_swedb)
+SOAP::Lite               (if you want to run tv_grab_na_dd)
+Term::ReadKey            (if you want to run tv_grab_na_dd)
+Text::Kakasi             (if you want to run tv_grab_jp)
+Tk                       (if you want to run tv_check)
+Tk::TableMatrix          (if you want to run tv_check)
+WWW::Mechanize           (if you want to run tv_grab_na_icons or tv_grab_br_net)
+XML::LibXML              (if you want to run tv_grab_se, tv_grab_se_swedb)
+Unicode::UTF8simple      (if you want to run tv_grab_pt)
 
-To get around this, use %% to pass a % to the application. (ex. %%Y%%M )
+You may have difficulty with the XML modules on perl 5.8.0 - if so
+send mail to the xmltv-users list.  Other perl versions should be OK.
 
-If you *DO* want to insert a shell variable, you can do so by surrounding
-it with percents. (ex %HOME% )
+The following modules are recommended, but the software still works
+without them:
 
-* crash in with PERL58.DLL
+Term::ProgressBar                (displays pretty progress meters)
+PerlIO::gzip (for perl 5.8+)     (makes tv_imdb a bit faster)
+Lingua::Preferred 0.2.4          (helps with multilingual listings)
+Unicode::String                  (non-ASCII chars in LaTeX output)
+Lingua::EN::Numbers::Ordinate    (not really needed, to be honest)
 
-When using tv_grab_na_dd, some users are experiencing a crash in the
-Perl58.DLL.
+And the Log::TraceMessages module is useful for debugging, but not
+needed for normal use.
 
-I had a similar problem when I had an older version of Perl installed
-as well as XMLTV. It seems to cause DLL confusion and eventually a program
-crash.
-
-I fixed my system when I removed the old Perl.  Re-installing Perl
-didn't cause the problem to return.
-
-Before that, I used the work-around below (I could fetch 3 days)
-
-tv_grab_na_dd --output=a.xml --days 3
-tv_grab_na_dd --output=b.xml --days 3 --offset 3
-tv_grab_na_dd --output=c.xml --days 1 --offset 6
-tv_cat a.xml b.xml c.xml >guide.xml
-
-I really thought this problem would be a fluke and/or easily solved
-when I solved it for myself.  That doesn't look to be the case.  I'm
-looking for a solution.
+All of these can be installed with tarballs downloaded from CPAN or
+(hopefully) using the CPAN shell program: 'perl -MCPAN -e shell', then
+'install XML::Twig' and so on.  But you may find it easier to search
+for packaged versions from your OS vendor or others - places which
+distribute a packaged version of xmltv will often provide the modules
+it needs too.
 
 * Proxy servers
 
@@ -102,20 +112,28 @@ You can define a proxy server via the HTTP_PROXY enviornment variable.
 For more information, see the the following:
 http://search.cpan.org/~gaas/libwww-perl-5.803/lib/LWP/UserAgent.pm#$ua->env_proxy
 
+* Known issues
+
+tv_grab_se_swedb sometimes fails to work on Windows if there are spaces
+in the path to your home-directory. This can be avoided by setting
+the environment variable HOME to a path without spaces (e.g. c:\home).
+
 * Author and copying
 
 This is free software distributed under the GPL, see COPYING.  But if
 you would like to use the code under some other conditions, please do
-ask.  The Windows executable distribution was created by Robert Eden;
-for details of the many contributors to the project please download
-the source code.
+ask.  There are many who have contributed code, they are credited in
+individual source files.
 
-There is a web page at <http://membled.com/work/apps/xmltv/> and a
-Sourceforge project 'XMLTV', where you can download the source code.
-Sourceforge also hosts the following mailing lists
-    xmltv-announce - low volume announcements. Please join this at least.
-    xmltv-users    - how to use XMLTV
-    xmltv-devel    - detailed discussions among developers
+There is a web page at http://www.xmltv.org  and a Sourceforge
+project 'XMLTV'.  There are some mailing lists:
 
-(Add signature when release made)
-$Id: README.win32,v 1.76 2007/08/20 22:51:37 rmeden Exp $
+    xmltv-announce@lists.sourceforge.net
+    xmltv-users@lists.sourceforge.net
+    xmltv-devel@lists.sourceforge.net
+
+You ought to subscribe to the announce list at least.  Contact the
+users list with most problems.
+
+-- Robert Eden, rmeden@yahoo.com, 2007-11-05
+$Id: README,v 1.150 2007/11/05 08:14:20 rmeden Exp $

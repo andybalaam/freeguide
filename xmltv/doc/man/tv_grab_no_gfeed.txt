@@ -68,7 +68,7 @@ ENVIRONMENT VARIABLES
     it.
 
 SUPPORTED CHANNELS
-    For information on supported channels, see http://www.gfeed.info/
+    For information on supported channels, see http://epg.mspc.no/
 
 AUTHOR
     Mattias Holmlund, mattias -at- holmlund -dot- se. This documentation and

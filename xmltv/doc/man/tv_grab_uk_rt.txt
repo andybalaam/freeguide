@@ -18,8 +18,8 @@ SYNOPSIS
 
 DESCRIPTION
     Output TV listings in XMLTV format for many stations available in the
-    United Kingdom and Republic of Ireland. The data comes from a
-    machine-readable file produced by the Radio Times website.
+    United Kingdom and Republic of Ireland. The data comes from
+    machine-readable files produced by the Radio Times website.
 
 USAGE
     First you must run tv_grab_uk_rt --configure to choose which stations
@@ -53,8 +53,7 @@ USAGE
     available, but no programmes.
 
     --capabilities Show which capabilities the grabber supports. For more
-    information, see
-    <http://membled.com/twiki/bin/view/Main/XmltvCapabilities>
+    information, see <http://xmltv.org/wiki/xmltvcapabilities.html>
 
     --version Show the version of the grabber.
 
@@ -66,8 +65,10 @@ USAGE
     data.
 
 SEE ALSO
-    xmltv(5), <http://www.radiotimes.beeb.com/>
+    xmltv(5), <http://www.radiotimes.com/>
 
 AUTHOR
     Ed Avis, ed@membled.com
+
+    Nick Morrott, knowledgejunkie@gmail.com (maintainer)
 

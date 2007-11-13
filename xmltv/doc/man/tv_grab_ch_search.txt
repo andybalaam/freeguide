@@ -8,7 +8,7 @@ SYNOPSIS
     tv_grab_ch_search [--config-file FILE] --configure [--gui OPTION]
 
     tv_grab_ch_search [--config-file FILE] [--output FILE] [--quiet] [--days
-    N] [--offset N]
+    N] [--offset N] [--slow]
 
     tv_grab_ch_search --list-channels
 
@@ -47,6 +47,12 @@ DESCRIPTION
 
     --quiet Suppress the progress messages normally written to standard
     error.
+
+    --slow enables long strategy run: tv.search.ch publishes only some
+    (vital) information on the actual listing pages, the rest is shown in a
+    separate popup window. If you'd like to parse the data from these popups
+    as well, supply this flag. But consider that the grab process takes much
+    longer when doing so, since many more web pages have to be retrieved.
 
     --list-channels Write output giving <channel> elements for every channel
     available (ignoring the config file), but no programmes.

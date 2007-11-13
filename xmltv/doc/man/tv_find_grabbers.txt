@@ -21,6 +21,8 @@ OPTIONS
     -I <dir> Include a directory in the search for grabbers. May be used
     multiple times. The default is to search the PATH.
 
+    --verbose Print progress information.
+
 AUTHOR
     Mattias Holmlund, mattias -at- holmlund -dot- se.
 
