@@ -2,7 +2,7 @@
 
 	print "0\n";
 	print "10\n";
-	print "5\n";
+	print "6\n";
 
 	$userlog = fopen( "/tmp/persistent/freeguide-tv/userlog.txt", "a" );
 	

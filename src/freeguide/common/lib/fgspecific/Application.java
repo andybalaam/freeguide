@@ -17,7 +17,7 @@ public class Application
     /** Application version. */
     public static final Version VERSION =
         new Version(  /*VER_BEG*/
-            0, 10, 5 /*VER_END*/ );
+            0, 10, 6 /*VER_END*/ );
     protected static IApplication instance;
 
     /**
