@@ -15,11 +15,11 @@ os.system( "echo Month Hits >> unique_hits.csv" )
 os.system( "./processstats.py --unique_hits unified_userlog.txt >> unique_hits.csv" )
 
 os.system( "./barchart hits.csv > plot_hits.pdf" )
-os.system( "gv plot_hits.pdf &" )
+os.system( "evince plot_hits.pdf &" )
 
 os.system( "./barchart anon_hits.csv > plot_anon_hits.pdf" )
-os.system( "gv plot_anon_hits.pdf &" )
+os.system( "evince plot_anon_hits.pdf &" )
 
 os.system( "./barchart unique_hits.csv > plot_unique_hits.pdf" )
-os.system( "gv plot_unique_hits.pdf &" )
+os.system( "evince plot_unique_hits.pdf &" )
 
