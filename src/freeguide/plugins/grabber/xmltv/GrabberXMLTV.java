@@ -82,8 +82,9 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     protected static Properties cmds;
     protected static final String FILE_COMMANDS =
         "resources/plugins/grabber/xmltv/commands.properties";
-    protected static final String MODULES_PREFIX = "region.";
-    protected static final String MODULES_SUFFIX = ".grabber";
+    protected static final String REGION_PREFIX = "region.";
+    protected static final String GRABBER_SUFFIX = ".grabber";
+    protected static final String DISPLAY_NAME_SUFFIX = ".displayName";
     protected static final String CHANNEL_SELECT_SUFFIX =
         ".allowChannelsSelect";
     protected static final String SUFFIX_FILE_CONFIG = ".conf";
@@ -327,19 +328,43 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     protected static String getCommand( 
         final String modName, final String suffix )
     {
-        return (String)getCommands(  )
-                           .get( 
-            modName + '.' + suffix + '.'
-            + ( Application.getInstance(  ).isUnix(  ) ? SUBST_LIN : SUBST_WIN ) );
+        Map<String, String> cmds = getCommands(  );
+        String platformSuffix;
 
+        if( Application.getInstance(  ).isUnix(  ) )
+        {
+            platformSuffix = SUBST_LIN;
+        }
+        else
+        {
+            platformSuffix = SUBST_WIN;
+        }
+
+        String ans;
+        String specificKey = modName + '.' + suffix + '.' + platformSuffix;
+
+        if( cmds.containsKey( specificKey ) )
+        {
+            ans = cmds.get( specificKey );
+        }
+        else
+        {
+            String defaultKey = "default." + suffix + '.' + platformSuffix;
+            ans = cmds.get( defaultKey );
+
+            if( modName != null )
+            {
+                ans = ans.replaceAll( "%cmdname%", modName );
+            }
+        }
+
+        return ans;
     }
 
-    protected static String[] getMods( 
-        final String prefix, final String suffix )
+    protected static String[] getGrabbers(  )
     {
-        List result = new ArrayList(  );
-
-        Map cs = getCommands(  );
+        List<String> result = new ArrayList<String>(  );
+        Map<String, String> cs = getCommands(  );
 
         Iterator it = cs.keySet(  ).iterator(  );
 
@@ -347,11 +372,37 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         {
             String key = (String)it.next(  );
 
-            if( key.startsWith( prefix ) && key.endsWith( suffix ) )
+            if( 
+                key.startsWith( REGION_PREFIX )
+                    && key.endsWith( GRABBER_SUFFIX ) )
+            {
+                result.add( cs.get( key ) );
+            }
+        }
+
+        return (String[])result.toArray( new String[result.size(  )] );
+    }
+
+    protected static String[] getCountryCodes(  )
+    {
+        List result = new ArrayList(  );
+
+        Map<String, String> cs = getCommands(  );
+
+        Iterator it = cs.keySet(  ).iterator(  );
+
+        while( it.hasNext(  ) )
+        {
+            String key = (String)it.next(  );
+
+            if( 
+                key.startsWith( REGION_PREFIX )
+                    && key.endsWith( GRABBER_SUFFIX ) )
             {
                 result.add( 
                     key.substring( 
-                        prefix.length(  ), key.length(  ) - suffix.length(  ) ) );
+                        REGION_PREFIX.length(  ),
+                        key.length(  ) - GRABBER_SUFFIX.length(  ) ) );
             }
         }
 
@@ -647,10 +698,10 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         XMLTVConfig.ModuleInfo info = new XMLTVConfig.ModuleInfo(  );
         info.moduleName = (String)getCommands(  )
                                       .get( 
-                MODULES_PREFIX + regionName + MODULES_SUFFIX );
+                REGION_PREFIX + regionName + GRABBER_SUFFIX );
         info.configFileName = (String)getCommands(  )
                                           .get( 
-                MODULES_PREFIX + regionName + MODULES_SUFFIX )
+                REGION_PREFIX + regionName + GRABBER_SUFFIX )
             + SUFFIX_FILE_CONFIG;
 
         synchronized( config.modules )
@@ -692,18 +743,32 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     {
         if( countryInfos == null )
         {
-            String[] mods = getMods( MODULES_PREFIX, MODULES_SUFFIX );
-            countryInfos = new CountryInfo[mods.length];
+            String[] countryCodes = getCountryCodes(  );
+            countryInfos = new CountryInfo[countryCodes.length];
 
-            for( int i = 0; i < mods.length; i++ )
+            for( int i = 0; i < countryCodes.length; i++ )
             {
+                Map<String, String> cmds = getCommands(  );
+                String regionPlusCode = REGION_PREFIX + countryCodes[i];
+
+                String displayName = null;
+
+                if( cmds.containsKey( regionPlusCode + DISPLAY_NAME_SUFFIX ) )
+                {
+                    displayName = cmds.get( 
+                            regionPlusCode + DISPLAY_NAME_SUFFIX );
+                }
+
+                boolean allowChannelsSelect = true;
+
+                if( cmds.containsKey( regionPlusCode + CHANNEL_SELECT_SUFFIX ) )
+                {
+                    allowChannelsSelect = Boolean.parseBoolean( 
+                            cmds.get( regionPlusCode + CHANNEL_SELECT_SUFFIX ) );
+                }
+
                 countryInfos[i] = new CountryInfo( 
-                        mods[i], 0,
-                        new Boolean( 
-                            getCommands(  )
-                                .get( 
-                                MODULES_PREFIX + mods[i]
-                                + CHANNEL_SELECT_SUFFIX ) ).booleanValue(  ) );
+                        countryCodes[i], displayName, 0, allowChannelsSelect );
             }
         }
 
@@ -717,7 +782,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
 /**
          * Creates a new ReadProcess object.
-         * 
+         *
          * @param stream
          *            DOCUMENT ME!
          * @param level
@@ -760,7 +825,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
 /**
          * Creates a new Read object.
-         * 
+         *
          * @param rd
          *            DOCUMENT ME!
          * @param logger
@@ -808,7 +873,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
 /**
          * Creates a new ReadOutputData object.
-         * 
+         *
          * @param storage
          *            DOCUMENT ME!
          * @param in

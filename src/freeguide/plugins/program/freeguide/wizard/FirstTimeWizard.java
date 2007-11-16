@@ -29,7 +29,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -62,7 +61,7 @@ public class FirstTimeWizard
 
 /**
      * Constructor for the FirstTimeWizard object
-     * 
+     *
      * @param upgrade
      *            DOCUMENT ME!
      */
@@ -405,9 +404,8 @@ public class FirstTimeWizard
 
                     if( needToSet )
                     {
-                        Locale country =
-                            new Locale( "", grabberInfo[j].getCountry(  ) );
-                        String countryName = country.getDisplayCountry(  );
+                        String countryName =
+                            grabberInfo[j].getDisplayCountry(  );
                         isoByRegion.put( 
                             countryName, grabberInfo[j].getCountry(  ) );
                         regionByISO.put( 

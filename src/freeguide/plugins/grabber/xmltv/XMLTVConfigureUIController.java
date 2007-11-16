@@ -70,11 +70,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
     {
         this.parent = parent;
 
-        modules = GrabberXMLTV.getMods( 
-                StringHelper.EMPTY_STRING,
-                '.' + GrabberXMLTV.RUN_KEY_SUFFIX + '.'
-                + ( Application.getInstance(  ).isUnix(  )
-                ? GrabberXMLTV.LIN_KEY_SUFFIX : GrabberXMLTV.WIN_KEY_SUFFIX ) );
+        modules = GrabberXMLTV.getGrabbers(  );
 
         config = (XMLTVConfig)parent.config.clone(  );
     }
