@@ -237,6 +237,9 @@ public class FileHelper
         }
         catch( IOException ioe )
         {
+			Application.getInstance(  ).getLogger(  )
+                       .severe( "Error unpacking files '" + ioe.getMessage() + "'." );
+			
             return false;
         }
         finally

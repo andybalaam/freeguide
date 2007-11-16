@@ -7,13 +7,13 @@
 
 !cd ..\..\..
 !system "mkdir dist"
-!system "mkdir dist\windows"
+!system "mkdir dist\exe"
 
 ; The name of the installer
 Name "FreeGuide"
 
 ; The file to write
-OutFile dist\windows\${NAME_VERSION}-win32.exe
+OutFile dist\exe\${NAME_VERSION}-win32.exe
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\FreeGuide 
@@ -185,18 +185,6 @@ Section "!FreeGuide program"
 
   File doc\html-local\*.*
   
-  ; -------------------------- xmltv -------------------------
-
-!ifdef XMLTV  
-
-  CreateDirectory $INSTDIR\xmltv\
-
-  SetOutPath $INSTDIR\xmltv\
-
-  File /r build\other-xmltv-win\other\xmltv-win\*.*
-
-!endif
-
   ; --------------------------- icons --------------------------
   
   CreateDirectory $INSTDIR\icons\

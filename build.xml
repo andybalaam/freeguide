@@ -50,6 +50,7 @@
     <property name="dist-src"           location="${dist}/src"        />
     <property name="dist-rpm"           location="${dist}/rpm"        />
     <property name="dist-webstart"      location="${dist}/webstart"   />
+    <property name="dist-exe"           location="${dist}/exe"        />
 
     <description>
         Ant build file for FreeGuide.
@@ -114,6 +115,9 @@
     </target>
     <target name="dist-webstart">
         <ant antfile="ant/dist-webstart.xml" />
+    </target>
+    <target name="dist-exe">
+        <ant antfile="ant/dist-exe.xml" />
     </target>
 
     <target name="run">
