@@ -547,7 +547,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
      *
      * @return true if exists
      */
-    protected boolean checkXmltvExists( final String[] args ) //throws IOException
+    protected synchronized boolean checkXmltvExists( final String[] args )
     {
         if( ( args == null ) || ( args.length == 0 ) )
         {
@@ -565,7 +565,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             {
                 if( 
                     !FileHelper.unpackFiles( 
-                            PACKAGE_XMLTVWIN_LIST, PACKAGE_XMLTVWIN, xmltvDir ) )
+                        PACKAGE_XMLTVWIN_LIST, PACKAGE_XMLTVWIN, xmltvDir ) )
                 {
                     return false;
                 }
@@ -573,7 +573,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         }
 
         final String xmltvName = args[0];
-
+        
         if( new File( xmltvName ).exists(  ) )
         {
             return true;

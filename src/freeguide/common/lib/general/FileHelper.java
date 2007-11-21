@@ -203,16 +203,17 @@ public class FileHelper
      * @return boolean indicates success
      */
     public static boolean unpackFiles( 
-        final String lsPath, final String packagePrefix, final File outDir ) //throws FileNotFoundException
+        final String lsPath, final String packagePrefix, final File outDir )
     {
         final InputStream inLs =
             FileHelper.class.getClassLoader(  ).getResourceAsStream( lsPath );
 
         if( inLs == null )
         {
-            //throw new FileNotFoundException( "There is no " + lsPath );
-            Application.getInstance(  ).getLogger(  )
-                       .severe( "There is no " + lsPath );
+            String msg = "Unable to unpack file '" + lsPath
+                + "'.  It does not exist in the resource.";
+            System.err.println( msg );
+            Application.getInstance(  ).getLogger(  ).severe( msg );
 
             return false;
         }
@@ -237,9 +238,10 @@ public class FileHelper
         }
         catch( IOException ioe )
         {
-			Application.getInstance(  ).getLogger(  )
-                       .severe( "Error unpacking files '" + ioe.getMessage() + "'." );
-			
+            String msg = "Error unpacking files: '" + ioe.getMessage() + "'.";
+            System.err.println( msg );
+            Application.getInstance(  ).getLogger(  ).severe( msg );
+
             return false;
         }
         finally
