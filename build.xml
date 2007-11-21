@@ -119,6 +119,9 @@
     <target name="dist-exe">
         <ant antfile="ant/dist-exe.xml" />
     </target>
+    <target name="dist-exe-lin">
+        <ant antfile="ant/dist-exe-lin.xml" />
+    </target>
 
     <target name="run">
         <ant antfile="ant/run.xml" />

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<project name="freeguide-tv-dist-exe-lin" default="dist-exe-lin">
+    
+    <import file="prepare.xml"/>
+    <import file="compile.xml"/>
+    
+    <target name="dist-exe-lin" depends="prepare,jars-win">
+        <mkdir dir="${dist-exe}"/>
+        <exec dir="build/install/windows/" executable="wine" resolveexecutable="true" failonerror="true">
+            <arg value="C:/Program Files/NSIS/makensis.exe"/>
+            <arg value="freeguide-with-xmltv.nsi"/>
+        </exec>
+    </target>
+
+</project>
+
