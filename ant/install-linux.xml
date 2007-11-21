@@ -22,6 +22,7 @@
         <copy todir="${install_jar_dir}/">
             <fileset dir="${build}/package">
                 <exclude name="doc/**" />
+                <exclude name="lib/xmltv-win.jar" />
             </fileset>
         </copy>
 
