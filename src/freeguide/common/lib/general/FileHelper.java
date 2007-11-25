@@ -210,7 +210,8 @@ public class FileHelper
 
         if( inLs == null )
         {
-            String msg = "Unable to unpack file '" + lsPath
+            String msg =
+                "Unable to unpack file '" + lsPath
                 + "'.  It does not exist in the resource.";
             System.err.println( msg );
             Application.getInstance(  ).getLogger(  ).severe( msg );
@@ -238,7 +239,8 @@ public class FileHelper
         }
         catch( IOException ioe )
         {
-            String msg = "Error unpacking files: '" + ioe.getMessage() + "'.";
+            String msg =
+                "Error unpacking files: '" + ioe.getMessage(  ) + "'.";
             System.err.println( msg );
             Application.getInstance(  ).getLogger(  ).severe( msg );
 

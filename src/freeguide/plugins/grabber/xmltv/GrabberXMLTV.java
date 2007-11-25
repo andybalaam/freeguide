@@ -123,16 +123,17 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                 return;
             }
         }
+
         cmd = StringHelper.replaceAll( 
                 cmd, REPLACE_CONFIG,
                 new File( xmltvConfigDir, moduleInfo.configFileName )
                 .getAbsolutePath(  ) );
 
-		cmd = StringHelper.replaceAll( 
-				cmd, REPLACE_XMLTV,
-				new File( 
-					Application.getInstance(  ).getWorkingDirectory(  ),
-					DIR_INSTALLED ).getAbsolutePath(  ) );
+        cmd = StringHelper.replaceAll( 
+                cmd, REPLACE_XMLTV,
+                new File( 
+                    Application.getInstance(  ).getWorkingDirectory(  ),
+                    DIR_INSTALLED ).getAbsolutePath(  ) );
 
         if( checkXmltvExists( Utils.parseCommand( cmd ) ) ) //extracts xmltv from jar on Windows if needed
         {
@@ -264,11 +265,11 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                 new File( xmltvConfigDir, moduleInfo.configFileName )
                 .getAbsolutePath(  ) );
 
-		cmd = StringHelper.replaceAll( 
-				cmd, REPLACE_XMLTV,
-				new File( 
-					Application.getInstance(  ).getWorkingDirectory(  ),
-					DIR_INSTALLED ).getAbsolutePath(  ) );
+        cmd = StringHelper.replaceAll( 
+                cmd, REPLACE_XMLTV,
+                new File( 
+                    Application.getInstance(  ).getWorkingDirectory(  ),
+                    DIR_INSTALLED ).getAbsolutePath(  ) );
 
         Application.getInstance(  ).getLogger(  ).finest( 
             "Run command: " + cmd );
@@ -426,11 +427,11 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                 new File( xmltvConfigDir, moduleInfo.configFileName )
                 .getAbsolutePath(  ) );
 
-		cmd = StringHelper.replaceAll( 
-				cmd, REPLACE_XMLTV,
-				new File( 
-					Application.getInstance(  ).getWorkingDirectory(  ),
-					DIR_INSTALLED ).getAbsolutePath(  ) );
+        cmd = StringHelper.replaceAll( 
+                cmd, REPLACE_XMLTV,
+                new File( 
+                    Application.getInstance(  ).getWorkingDirectory(  ),
+                    DIR_INSTALLED ).getAbsolutePath(  ) );
 
         Application.getInstance(  ).getLogger(  ).finest( 
             "Run command: " + cmd );
@@ -565,7 +566,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             {
                 if( 
                     !FileHelper.unpackFiles( 
-                        PACKAGE_XMLTVWIN_LIST, PACKAGE_XMLTVWIN, xmltvDir ) )
+                            PACKAGE_XMLTVWIN_LIST, PACKAGE_XMLTVWIN, xmltvDir ) )
                 {
                     return false;
                 }
@@ -573,7 +574,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         }
 
         final String xmltvName = args[0];
-        
+
         if( new File( xmltvName ).exists(  ) )
         {
             return true;

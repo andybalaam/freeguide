@@ -116,17 +116,20 @@ public class MainController extends BaseModule implements IApplication
     public String getLocalizedMessage( String key )
     {
         String ans;
+
         try
         {
             ans = i18n.getString( key );
         }
         catch( java.util.MissingResourceException e )
         {
-            FreeGuide.log.log( Level.WARNING,
+            FreeGuide.log.log( 
+                Level.WARNING,
                 "Unable to find translatable string for key '" + key + "'." );
 
             ans = key;
         }
+
         return ans;
     }
 
@@ -170,7 +173,7 @@ public class MainController extends BaseModule implements IApplication
      * @param viewer DOCUMENT_ME!
      * @param grabberFromWizard DOCUMENT ME!
      */
-    public void start(
+    public void start( 
         final IModuleViewer viewer, final String grabberFromWizard )
     {
         applicationFrame = FreeGuide.getPleaseWaitFrame(  );
@@ -179,7 +182,7 @@ public class MainController extends BaseModule implements IApplication
 
         mainFrame = new MainFrame(  );
 
-        mainFrame.setTitle(
+        mainFrame.setTitle( 
             "FreeGuide " + Application.VERSION.getDotFormat(  ) );
 
         setLookAndFeel(  );
@@ -189,7 +192,7 @@ public class MainController extends BaseModule implements IApplication
         mainFrame.getContentPane(  )
                  .add( viewer.getPanel(  ), BorderLayout.CENTER );
 
-        mainFrame.addWindowListener(
+        mainFrame.addWindowListener( 
             new java.awt.event.WindowAdapter(  )
             {
                 public void windowClosing( java.awt.event.WindowEvent evt )
@@ -201,7 +204,7 @@ public class MainController extends BaseModule implements IApplication
                     System.exit( 0 );
                 }
             } );
-        mainFrame.getForegroundButton(  ).addActionListener(
+        mainFrame.getForegroundButton(  ).addActionListener( 
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
@@ -221,7 +224,7 @@ public class MainController extends BaseModule implements IApplication
 
         startModules(  );
 
-        mainFrame.getRootPane(  ).setDefaultButton(
+        mainFrame.getRootPane(  ).setDefaultButton( 
             viewer.getDefaultButton(  ) );
         mainFrame.setVisible( true );
 
@@ -248,8 +251,8 @@ public class MainController extends BaseModule implements IApplication
      */
     public void setViewer( String viewerId )
     {
-        if(
-            ( (MainController.Config)this.getConfig(  ) ).viewerId.equals(
+        if( 
+            ( (MainController.Config)this.getConfig(  ) ).viewerId.equals( 
                     viewerId ) )
         {
             //Viewer is already active
@@ -402,7 +405,7 @@ public class MainController extends BaseModule implements IApplication
         }
         else
         {
-            inspectedLFClassName = LookAndFeelManager.getLookAndFeelClassName(
+            inspectedLFClassName = LookAndFeelManager.getLookAndFeelClassName( 
                     config.ui.LFname );
         }
 
@@ -417,7 +420,7 @@ public class MainController extends BaseModule implements IApplication
             currentLAFClassName = null;
         }
 
-        if(
+        if( 
             ( inspectedLFClassName != null )
                 && !inspectedLFClassName.equals( currentLAFClassName ) )
         {
@@ -432,7 +435,7 @@ public class MainController extends BaseModule implements IApplication
             }
             catch( Exception ex )
             {
-                FreeGuide.log.log(
+                FreeGuide.log.log( 
                     Level.WARNING, "Error setup L&F to "
                     + inspectedLFClassName, ex );
             }
@@ -445,7 +448,7 @@ public class MainController extends BaseModule implements IApplication
     public void doEditChannelsSets(  )
     {
         ChannelSetListDialog dialog =
-            new ChannelSetListDialog(
+            new ChannelSetListDialog( 
                 mainFrame, getDataStorage(  ).getInfo(  ).channelsList,
                 config.channelsSetsList );
 
@@ -502,7 +505,7 @@ public class MainController extends BaseModule implements IApplication
                     }
                     catch( Exception ex )
                     {
-                        FreeGuide.log.log(
+                        FreeGuide.log.log( 
                             Level.WARNING, "Error export data", ex );
                     }
                 }
@@ -674,8 +677,8 @@ public class MainController extends BaseModule implements IApplication
 
         for( int i = 0; i < all.length; i++ )
         {
-            if(
-                ResourceBundle.getBundle(
+            if( 
+                ResourceBundle.getBundle( 
                         "resources/i18n/MessagesBundle", all[i] ).getLocale(  )
                                   .equals( all[i] ) )
             {
@@ -736,7 +739,7 @@ public class MainController extends BaseModule implements IApplication
 
                 mainWindowPosition = new Rectangle( 640, 400 );
 
-                mainWindowPosition.setLocation(
+                mainWindowPosition.setLocation( 
                     ( screenSize.width - mainWindowPosition.width ) / 2,
                     ( screenSize.height - mainWindowPosition.height ) / 2 );
             }
