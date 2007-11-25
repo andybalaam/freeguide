@@ -2,6 +2,7 @@ package freeguide.plugins.ui.horizontal.manylabels;
 
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.general.*;
 
 import freeguide.common.plugininterfaces.IModuleReminder;
 
@@ -37,24 +38,25 @@ public class MenuProgramme extends JPopupMenu
         if( programme.getLink(  ) != null )
         {
             JMenuItem item = new JMenuItem(  );
-            item.setText( 
-                Application.getInstance(  )
-                           .getLocalizedMessage( "go_to_web_site" ) );
+            item.setText( main.getLocalizer(  ).getString( "go_to_web_site" ) );
 
-            // Event handler for when the Go to web site popup menu item is clicked 
+            // Event handler for when the Go to web site popup menu item is clicked
             item.addActionListener( 
                 new java.awt.event.ActionListener(  )
                 {
                     public void actionPerformed( ActionEvent evt )
                     {
-                        //        String[] cmds =
-                        //          Utils.substitute( 
-                        //            FreeGuide.prefs.commandline.getStrings( "browser_command" ),
-                        //          "%filename%",
-                        //        programme.getLink(  ).toString(  ).replaceAll( "%", "%%" ) );
-                        //Utils.execNoWait( cmds );
+                        String cmd =
+                            StringHelper.replaceAll( 
+                                Application.getInstance(  ).getBrowserCommand(  ),
+                                "%url%",
+                                programme.getLink(  ).toString(  )
+                                         .replaceAll( "%", "%%" ) );
+                        Utils.execNoWait( cmd );
                     }
                 } );
+
+            add( item );
         }
     }
 }
