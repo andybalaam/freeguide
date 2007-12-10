@@ -255,7 +255,7 @@ public class TVProgramme implements Comparable, Serializable
                 if( Math.floor( num ) == num )
                 {
                     return '('
-                    + STARS.substring(
+                    + STARS.substring( 
                         0, (int)Math.round( Math.floor( num ) ) ) + ')';
 
                 }
@@ -263,7 +263,7 @@ public class TVProgramme implements Comparable, Serializable
                 else
                 {
                     return '('
-                    + STARS.substring(
+                    + STARS.substring( 
                         0, (int)Math.round( Math.floor( num ) ) )
                     + STAR_HALP_SUFFIX + ')';
 
@@ -493,7 +493,7 @@ public class TVProgramme implements Comparable, Serializable
 
         TVProgramme other = (TVProgramme)obj;
 
-        if(
+        if( 
             title.equals( other.getTitle(  ) )
                 && ( start == other.getStart(  ) )
                 && channel.equals( other.getChannel(  ) ) )
@@ -546,7 +546,7 @@ public class TVProgramme implements Comparable, Serializable
      * @param attrName DOCUMENT_ME!
      * @param value DOCUMENT_ME!
      */
-    public void setExtraTag(
+    public void setExtraTag( 
         final String tagName, final String attrName, final String value )
     {
         if( extraTags == null )

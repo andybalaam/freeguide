@@ -20,8 +20,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,13 +42,24 @@ class XMLTVImportHandler extends DefaultHandler
     protected String currentChannelID;
     protected boolean isStarRating;
     protected StringBuffer charData = new StringBuffer(  );
-    private Calendar ans = GregorianCalendar.getInstance(  );
-    private Pattern p1 = Pattern.compile( "\\A\\d{12}\\z" );
-    private Pattern p2 = Pattern.compile( "\\A\\d{14}\\z" );
-    private SimpleDateFormat f1 = new SimpleDateFormat( "yyyyMMddHHmm" );
-    private SimpleDateFormat f2 = new SimpleDateFormat( "yyyyMMddHHmmss" );
-    private SimpleDateFormat f3 = new SimpleDateFormat( "yyyyMMddHHmmss z" );
-    private SimpleDateFormat f4 = new SimpleDateFormat( "yyyyMMddHHmmss Z" );
+    private Pattern[] dateFormatPatterns =
+        {
+            Pattern.compile( "^\\d{12}$" ),
+            Pattern.compile( "^\\d{12} [-+]\\d{4}$" ),
+            Pattern.compile( "^\\d{14}$" ),
+            Pattern.compile( "^\\d{14} [-+]\\d{4}$" ),
+            Pattern.compile( "^\\d{14} .*$" ),
+            Pattern.compile( "^\\d{12} .*$" )
+        };
+    private SimpleDateFormat[] dateFormats =
+        {
+            new SimpleDateFormat( "yyyyMMddHHmm" ),
+            new SimpleDateFormat( "yyyyMMddHHmm z" ),
+            new SimpleDateFormat( "yyyyMMddHHmmss z" ),
+            new SimpleDateFormat( "yyyyMMddHHmmss" ),
+            new SimpleDateFormat( "yyyyMMddHHmmss Z" ),
+            new SimpleDateFormat( "yyyyMMddHHmm Z" )
+        };
     protected int programmesCount;
 
 /**
@@ -144,41 +154,45 @@ class XMLTVImportHandler extends DefaultHandler
                 countCallback.onProgramme( programmesCount );
             }
 
-            try
+            String start = attributes.getValue( "start" );
+            String stop = attributes.getValue( "stop" );
+
+            if( start == null )
             {
-                String start = attributes.getValue( "start" );
-                String stop = attributes.getValue( "stop" );
-
-                if( start == null )
-                {
-                    throw new SAXException( 
-                        "Time of program start not defined !" );
-                }
-
-                currentProgramme.setStart( 
-                    parseDate( start ).getTimeInMillis(  ) );
-
-                if( stop != null )
-                {
-                    currentProgramme.setEnd( 
-                        parseDate( stop ).getTimeInMillis(  ) );
-                }
-
-                if( !filter.checkProgrammeStart( currentProgramme ) )
-                {
-                    currentProgramme = null;
-                }
-                else
-                {
-                    currentChannelID = channelPrefix
-                        + attributes.getValue( "channel" );
-                }
+                throw new SAXException( "Time of program start not defined !" );
             }
-            catch( ParseException ex )
+
+            long startTime = parseDate( start );
+
+            if( startTime != 0 )
+            {
+                currentProgramme.setStart( startTime );
+            }
+            else
             {
                 currentProgramme = null;
-                Application.getInstance(  ).getLogger(  )
-                           .log( Level.FINE, "Error parse XMLTV data", ex );
+
+                return;
+            }
+
+            if( stop != null )
+            {
+                long stopTime = parseDate( stop );
+
+                if( stopTime != 0 )
+                {
+                    currentProgramme.setEnd( stopTime );
+                }
+            }
+
+            if( !filter.checkProgrammeStart( currentProgramme ) )
+            {
+                currentProgramme = null;
+            }
+            else
+            {
+                currentChannelID = channelPrefix
+                    + attributes.getValue( "channel" );
             }
         }
     }
@@ -404,41 +418,46 @@ class XMLTVImportHandler extends DefaultHandler
     /**
      * Parse data string.
      *
-     * @param strDate
+     * @param strDate a time represented in string form.
      *
-     * @return
-     *
-     * @throws ParseException
+     * @return the time in milliseconds since 1970 represented by the supplied
+     *         string.
      */
-    private Calendar parseDate( String strDate ) throws ParseException
+    private long parseDate( String strDate )
     {
-        Matcher m;
+        Date dtAns = null;
 
-        m = p1.matcher( strDate );
-
-        if( m.matches(  ) )
+        for( int i = 0; i < dateFormatPatterns.length; ++i )
         {
-            ans.setTime( f1.parse( strDate ) );
+            Matcher m = dateFormatPatterns[i].matcher( strDate );
 
-            return ans;
+            if( m.matches(  ) )
+            {
+                try
+                {
+                    dtAns = dateFormats[i].parse( strDate );
+                }
+                catch( ParseException ex )
+                {
+                    ex.printStackTrace(  );
+                    dtAns = null;
+                }
+            }
         }
 
-        m = p2.matcher( strDate );
+        long ans = 0;
 
-        if( m.matches(  ) )
+        if( dtAns == null )
         {
-            ans.setTime( f2.parse( strDate ) );
-
-            return ans;
+            Application.getInstance(  ).getLogger(  )
+                       .log( 
+                Level.WARNING,
+                "Unable to parse date '" + strDate
+                + "' when parsing XMLTV data." );
         }
-
-        try
+        else
         {
-            ans.setTime( f3.parse( strDate ) );
-        }
-        catch( ParseException ex )
-        {
-            ans.setTime( f4.parse( strDate ) );
+            ans = dtAns.getTime(  );
         }
 
         return ans;
