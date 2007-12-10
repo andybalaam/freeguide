@@ -25,6 +25,7 @@ import java.util.Vector;
  */
 public class TVProgramme implements Comparable, Serializable
 {
+    private final static long five_mins = 1000 * 60 * 5;
     private final static long serialVersionUID = 10;
 
     /** Description of the Field */
@@ -38,7 +39,7 @@ public class TVProgramme implements Comparable, Serializable
     private long start;
 
     /** The end time in millis. */
-    private long end;
+    private long end = 0;
 
     /** The programme title */
     private String title;
@@ -141,6 +142,11 @@ public class TVProgramme implements Comparable, Serializable
      */
     public long getEnd(  )
     {
+        if( end == 0 )
+        {
+            end = start + five_mins;
+        }
+
         return end;
 
     }
