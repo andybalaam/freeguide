@@ -104,74 +104,77 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             new File( 
                 Application.getInstance(  ).getWorkingDirectory(  ), DIR_CONFIG );
 
-        //na_dd is the only module currently
-        XMLTVConfig.ModuleInfo moduleInfo =
-            (XMLTVConfig.ModuleInfo)config.modules.get( 0 );
-
-        String cmd = moduleInfo.commandToRun;
-
-        if( null == cmd )
+        if( config.modules.size(  ) > 0 )
         {
-            cmd = getCommand( moduleInfo.moduleName, RUN_KEY_SUFFIX );
-
+            //na_dd is the only module currently
+            XMLTVConfig.ModuleInfo moduleInfo =
+                (XMLTVConfig.ModuleInfo)config.modules.get( 0 );
+    
+            String cmd = moduleInfo.commandToRun;
+    
             if( null == cmd )
             {
-                Application.getInstance(  ).getLogger(  )
-                           .severe( 
-                    "Command not defined for " + moduleInfo.moduleName );
-
-                return;
-            }
-        }
-
-        cmd = StringHelper.replaceAll( 
-                cmd, REPLACE_CONFIG,
-                new File( xmltvConfigDir, moduleInfo.configFileName )
-                .getAbsolutePath(  ) );
-
-        cmd = StringHelper.replaceAll( 
-                cmd, REPLACE_XMLTV,
-                new File( 
-                    Application.getInstance(  ).getWorkingDirectory(  ),
-                    DIR_INSTALLED ).getAbsolutePath(  ) );
-
-        if( checkXmltvExists( Utils.parseCommand( cmd ) ) ) //extracts xmltv from jar on Windows if needed
-        {
-            final JMenuItem menuLine =
-                ( (MainFrame)Application.getInstance(  ).getApplicationFrame(  ) )
-                .getMenuItemChooseXMLTVChannels(  );
-            menuLine.setText( i18n.getString( "Menu.Tools.ChooseChannels" ) );
-            Application.getInstance(  ).getMainMenu(  ).getTools(  )
-                       .insert( menuLine, 0 );
-
-            menuLine.addActionListener( 
-                new ActionListener(  )
+                cmd = getCommand( moduleInfo.moduleName, RUN_KEY_SUFFIX );
+    
+                if( null == cmd )
                 {
-                    public void actionPerformed( ActionEvent e )
+                    Application.getInstance(  ).getLogger(  )
+                               .severe( 
+                        "Command not defined for " + moduleInfo.moduleName );
+    
+                    return;
+                }
+            }
+    
+            cmd = StringHelper.replaceAll( 
+                    cmd, REPLACE_CONFIG,
+                    new File( xmltvConfigDir, moduleInfo.configFileName )
+                    .getAbsolutePath(  ) );
+    
+            cmd = StringHelper.replaceAll( 
+                    cmd, REPLACE_XMLTV,
+                    new File( 
+                        Application.getInstance(  ).getWorkingDirectory(  ),
+                        DIR_INSTALLED ).getAbsolutePath(  ) );
+    
+            if( checkXmltvExists( Utils.parseCommand( cmd ) ) ) //extracts xmltv from jar on Windows if needed
+            {
+                final JMenuItem menuLine =
+                    ( (MainFrame)Application.getInstance(  ).getApplicationFrame(  ) )
+                    .getMenuItemChooseXMLTVChannels(  );
+                menuLine.setText( i18n.getString( "Menu.Tools.ChooseChannels" ) );
+                Application.getInstance(  ).getMainMenu(  ).getTools(  )
+                           .insert( menuLine, 0 );
+    
+                menuLine.addActionListener( 
+                    new ActionListener(  )
                     {
-                        new Thread(  )
-                            {
-                                public void run(  )
+                        public void actionPerformed( ActionEvent e )
+                        {
+                            new Thread(  )
                                 {
-                                    final List modules = new ArrayList(  );
-
-                                    synchronized( config.modules )
+                                    public void run(  )
                                     {
-                                        modules.addAll( config.modules );
+                                        final List modules = new ArrayList(  );
+    
+                                        synchronized( config.modules )
+                                        {
+                                            modules.addAll( config.modules );
+                                        }
+    
+                                        for( int i = 0; i < modules.size(  );
+                                                i++ )
+                                        {
+                                            final XMLTVConfig.ModuleInfo moduleInfo =
+                                                (XMLTVConfig.ModuleInfo)modules.get( 
+                                                    i );
+                                            configureChannels( moduleInfo );
+                                        }
                                     }
-
-                                    for( int i = 0; i < modules.size(  );
-                                            i++ )
-                                    {
-                                        final XMLTVConfig.ModuleInfo moduleInfo =
-                                            (XMLTVConfig.ModuleInfo)modules.get( 
-                                                i );
-                                        configureChannels( moduleInfo );
-                                    }
-                                }
-                            }.start(  );
-                    }
-                } );
+                                }.start(  );
+                        }
+                    } );
+            }
         }
     }
 
