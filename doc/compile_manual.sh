@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 #compile the manual from the docbook sources to html
 
-if [[ "$1" == "web" ]]; then {
+if [ "$1" == "web" ] ; then {
 	mv html-local html-local-real
 	mv html-web html-local
 }; fi
