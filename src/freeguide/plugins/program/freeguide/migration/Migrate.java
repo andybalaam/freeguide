@@ -66,31 +66,31 @@ public class Migrate
                 migr.migrate(  );
             }
 
-            if( ver.compareTo( new Version( 0, 10, 1 ) ) == 0 )
+            if( ver.compareTo( new Version( 0, 10, 1 ) ) <= 0 )
             {
                 migr = new Migrate0_10_1To0_10_2( FreeGuide.pref_root_name );
                 migr.migrate(  );
             }
 
-            if( ver.compareTo( new Version( 0, 10, 2 ) ) == 0 )
+            if( ver.compareTo( new Version( 0, 10, 2 ) ) <= 0 )
             {
                 migr = new Migrate0_10_2To0_10_3( FreeGuide.pref_root_name );
                 migr.migrate(  );
             }
 
-            if( ver.compareTo( new Version( 0, 10, 3 ) ) == 0 )
+            if( ver.compareTo( new Version( 0, 10, 3 ) ) <= 0 )
             {
                 migr = new Migrate0_10_3To0_10_4( FreeGuide.pref_root_name );
                 migr.migrate(  );
             }
 
-            if( ver.compareTo( new Version( 0, 10, 4 ) ) == 0 )
+            if( ver.compareTo( new Version( 0, 10, 4 ) ) <= 0 )
             {
                 migr = new Migrate0_10_4To0_10_5( FreeGuide.pref_root_name );
                 migr.migrate(  );
             }
 
-            if( ver.compareTo( new Version( 0, 10, 5 ) ) == 0 )
+            if( ver.compareTo( new Version( 0, 10, 5 ) ) <= 0 )
             {
                 migr = new Migrate0_10_5To0_10_6( FreeGuide.pref_root_name );
                 migr.migrate(  );
