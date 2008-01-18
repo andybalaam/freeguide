@@ -3,7 +3,7 @@
 <packages>
   <mirror location="Europe - Dublin, Ireland" path="http://heanet.dl.sourceforge.net/sourceforge/freeguide-tv/"/>
   <mirror location="North America - Minneapolis, MN" path="http://umn.dl.sourceforge.net/sourceforge/freeguide-tv/"/>
-  <package id="program-freeguide" version="0.10.6" type="application" repositoryPath="package-program-freeguide-0.10.6.zip">
+  <package id="program-freeguide" version="0.10.7" type="application" repositoryPath="package-program-freeguide-0.10.7.zip">
   </package>
   <package id="grabber-cosmostv" version="2" type="plugin-grabber" repositoryPath="package-grabber-cosmostv-2.zip">
   </package>
