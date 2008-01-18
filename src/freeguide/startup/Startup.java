@@ -83,7 +83,7 @@ public class Startup
 
                 try
                 {
-                    jarUrls.add( libs[i].toURL(  ) );
+                    jarUrls.add( libs[i].toURI(  ).toURL(  ) );
                 }
                 catch( MalformedURLException e )
                 {

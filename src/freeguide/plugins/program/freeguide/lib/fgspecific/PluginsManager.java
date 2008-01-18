@@ -300,7 +300,7 @@ public class PluginsManager
             {
                 try
                 {
-                    files.add( plugin_files[i].toURL(  ) );
+                    files.add( plugin_files[i].toURI(  ).toURL(  ) );
                 }
                 catch( java.net.MalformedURLException e )
                 {

@@ -31,7 +31,7 @@ public class DocXSLT
         final InputStream xslt =
             new FileInputStream( "doc/docbook-xsl-1.69.1/xhtml/chunk.xsl" );
         final String systemId =
-            new File( "doc/docbook-xsl-1.69.1/xhtml/" ).toURL(  )
+            new File( "doc/docbook-xsl-1.69.1/xhtml/" ).toURI(  ).toURL(  )
                                                        .toExternalForm(  );
         final Transformer trans =
             factory.newTransformer( new StreamSource( xslt, systemId ) );

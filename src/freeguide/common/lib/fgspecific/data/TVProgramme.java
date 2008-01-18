@@ -662,7 +662,7 @@ public class TVProgramme implements Comparable, Serializable
 
         try
         {
-            return cache.toURL(  ).toString(  );
+            return cache.toURI(  ).toURL(  ).toString(  );
 
         }
 

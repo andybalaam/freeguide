@@ -302,7 +302,7 @@ public class HandlerProgrammeInfo
         final File file =
             TVChannelIconHelper.getIconFile( programme.getChannel(  ) );
 
-        return ( file != null ) ? file.toURL(  ).toString(  ) : null;
+        return ( file != null ) ? file.toURI(  ).toURL(  ).toString(  ) : null;
     }
 
     /**
