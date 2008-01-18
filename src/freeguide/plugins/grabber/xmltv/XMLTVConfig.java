@@ -17,6 +17,7 @@ public class XMLTVConfig
 
     /** DOCUMENT ME! */
     public List modules = new ArrayList(  );
+    public int totalProgrammesGuess = 5000;
 
     /**
      * Clone config.

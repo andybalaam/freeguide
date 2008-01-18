@@ -60,7 +60,7 @@ class XMLTVImportHandler extends DefaultHandler
             new SimpleDateFormat( "yyyyMMddHHmmss Z" ),
             new SimpleDateFormat( "yyyyMMddHHmm Z" )
         };
-    protected int programmesCount;
+    public int programmesCount;
 
 /**
      * Creates a new Handler object.

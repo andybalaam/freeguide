@@ -875,15 +875,45 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                             progress.setProgressMessage( 
                                 MessageFormat.format( 
                                     i18n.getString( "Message.Count" ), count ) );
+                            
+                            int percent;
+                            
+                            if( config.totalProgrammesGuess == 0 )
+                            {
+                                percent = 50;
+                            }
+                            else
+                            {
+                                percent = (int)(
+                                    ( (float)count / 
+                                        (float)config.totalProgrammesGuess )
+                                    * 95.0 );
+                                
+                                if( percent > 95 )
+                                {
+                                    percent = 95;
+                                }
+                                else if( percent < 5 )
+                                {
+                                    percent = 5;
+                                }
+                            }
+
+                            progress.setProgressValue( percent );
                         }
                     }
                 };
 
             try
             {
-                new XMLTVImport(  ).process( 
+                int totalCount = new XMLTVImport(  ).process( 
                     in, storage, callback, new XMLTVImport.Filter(  ),
                     CHANNEL_PREFIX );
+
+                if( totalCount > 50 )
+                {
+                    config.totalProgrammesGuess = totalCount;
+                }
             }
             catch( SAXException ex )
             {

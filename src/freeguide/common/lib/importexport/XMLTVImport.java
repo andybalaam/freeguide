@@ -52,10 +52,12 @@ public class XMLTVImport
      * @param filter DOCUMENT_ME!
      * @param channelPrefix DOCUMENT ME!
      *
+     * @return the number of programmes processed
+     *
      * @throws SAXException DOCUMENT_ME!
      * @throws IOException DOCUMENT_ME!
      */
-    public void process( 
+    public int process( 
         File file, final IStoragePipe storage,
         final ProgrammesCountCallback countCallback, Filter filter,
         final String channelPrefix ) throws SAXException, IOException
@@ -68,6 +70,8 @@ public class XMLTVImport
                 new BufferedInputStream( new FileInputStream( file ) ) );
         ins.setSystemId( file.toURI(  ).toURL(  ).toString(  ) );
         saxParser.parse( ins, handler );
+        
+        return handler.programmesCount;
     }
 
     /**
@@ -83,7 +87,7 @@ public class XMLTVImport
      * @throws IOException DOCUMENT_ME!
      * @throws ParserConfigurationException DOCUMENT_ME!
      */
-    public void process( 
+    public int process( 
         InputStream in, final IStoragePipe storage,
         final ProgrammesCountCallback countCallback, Filter filter,
         final String channelPrefix )
@@ -96,6 +100,8 @@ public class XMLTVImport
         ins.setSystemId( SYSTEM_ID );
         saxParser.parse( ins, handler );
         storage.finishBlock(  );
+        
+        return handler.programmesCount;
     }
 
     /**
