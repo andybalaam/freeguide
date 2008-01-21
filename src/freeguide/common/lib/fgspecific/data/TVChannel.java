@@ -6,6 +6,8 @@ import java.io.Serializable;
 
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Class for storage channel data.
@@ -251,7 +253,11 @@ public class TVChannel implements Serializable
     {
         TVProgramme prevProg = null;
 
-        for( TVProgramme prog : getProgrammes(  ) )
+        Set<TVProgramme> programmes = getProgrammes(  );
+        ArrayList<TVProgramme> sortedProgs = Collections.list( Collections.enumeration( programmes ) );
+        Collections.sort( sortedProgs );
+
+        for( TVProgramme prog : sortedProgs )
         {
             if( ( prevProg != null ) && ( prevProg.getEnd(  ) == 0 ) )
             {

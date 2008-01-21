@@ -142,11 +142,6 @@ public class TVProgramme implements Comparable, Serializable
      */
     public long getEnd(  )
     {
-        if( end == 0 )
-        {
-            end = start + five_mins;
-        }
-
         return end;
 
     }
@@ -695,23 +690,37 @@ public class TVProgramme implements Comparable, Serializable
     }
 
     /**
-     * DOCUMENT_ME!
+     * Compare two programmes by their datetimes.
      *
-     * @param arg0 DOCUMENT_ME!
+     * @param other The programme to compare with this one.
      *
-     * @return DOCUMENT_ME! A channel can't air two programs simultaneously,
-     *         therefore the set of programs should naturally consider any
-     *         program which is showing at, during or surrounding the given
-     *         program as equal, hopefully dropping the overlapped program
-     *         bug. Michael McLagan mmclagan@invlogic.com>
+     * @return -1 if this programme comes first,
+     *          1 if the other comes first, and
+     *          0 if they overlap.
      */
-    public int compareTo( Object arg0 )
+    public int compareTo( Object other )
     {
         TVProgramme p;
 
-        p = (TVProgramme)arg0;
+        p = (TVProgramme)other;
 
-        if( end <= p.start )
+        // If the end times have not been downloaded, we
+        // must compare purely by start time.
+        // If both end times are valid, we delare them equal if
+        // They overlap at all, so we don't get overlapping
+        // programmes showing.
+        if( end == 0 || p.end == 0 )
+        {
+	        if( start <= p.start )
+	        {
+	            return -1;
+	        }
+	        else if( p.start <= start )
+	        {
+	            return 1;
+	        }
+        }
+        else if( end <= p.start )
         {
             return -1;
         }
