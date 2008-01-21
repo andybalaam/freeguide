@@ -4,10 +4,7 @@ import freeguide.common.lib.general.StringHelper;
 
 import java.io.Serializable;
 
-import java.util.Set;
 import java.util.TreeSet;
-import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Class for storage channel data.

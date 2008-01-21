@@ -309,10 +309,9 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                 {
                     public void actionPerformed( ActionEvent e )
                     {
-                        SearchDialog sd =
-                            new SearchDialog( 
-                                Application.getInstance(  ).getCurrentFrame(  ),
-                                searchMouseAdapter, searchKeyAdapter );
+                        new SearchDialog(
+                            Application.getInstance(  ).getCurrentFrame(  ),
+                            searchMouseAdapter, searchKeyAdapter );
                     }
                 } );
 

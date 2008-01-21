@@ -8,7 +8,6 @@ import java.io.File;
 
 import java.util.Map;
 import java.util.prefs.BackingStoreException;
-import java.util.prefs.Preferences;
 
 /**
  * DOCUMENT ME!

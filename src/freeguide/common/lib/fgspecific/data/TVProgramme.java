@@ -25,7 +25,6 @@ import java.util.Vector;
  */
 public class TVProgramme implements Comparable, Serializable
 {
-    private final static long five_mins = 1000 * 60 * 5;
     private final static long serialVersionUID = 10;
 
     /** Description of the Field */

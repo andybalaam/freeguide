@@ -10,7 +10,6 @@ import freeguide.common.plugininterfaces.IApplication;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;

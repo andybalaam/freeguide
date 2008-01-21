@@ -1,7 +1,5 @@
 package freeguide.plugins.grabber.xmltv;
 
-import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.general.StringHelper;
 
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
@@ -296,10 +294,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
                 {
                     public void run(  )
                     {
-                        JButton btn = (JButton)e.getSource(  );
-
                         parent.configureChannels( moduleInfo );
-
                     }
                 }.start(  );
 
