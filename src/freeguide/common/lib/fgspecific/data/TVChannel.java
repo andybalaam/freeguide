@@ -36,7 +36,7 @@ public class TVChannel implements Serializable
     protected String iconURL;
 
     /** List of programmes for channel. */
-    protected Set<TVProgramme> programmes = new TreeSet<TVProgramme>(  );
+    protected TreeSet<TVProgramme> programmes = new TreeSet<TVProgramme>(  );
 
 /**
      * Create channel with specified ID. It should be locale-insensitive.
@@ -195,7 +195,7 @@ public class TVChannel implements Serializable
      *
      * @return Iterator
      */
-    public Set<TVProgramme> getProgrammes(  )
+    public TreeSet<TVProgramme> getProgrammes(  )
     {
         return programmes;
     }
@@ -253,11 +253,7 @@ public class TVChannel implements Serializable
     {
         TVProgramme prevProg = null;
 
-        Set<TVProgramme> programmes = getProgrammes(  );
-        ArrayList<TVProgramme> sortedProgs = Collections.list( Collections.enumeration( programmes ) );
-        Collections.sort( sortedProgs );
-
-        for( TVProgramme prog : sortedProgs )
+        for( TVProgramme prog : getProgrammes(  ) )
         {
             if( ( prevProg != null ) && ( prevProg.getEnd(  ) == 0 ) )
             {
