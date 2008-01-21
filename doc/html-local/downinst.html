@@ -34,7 +34,7 @@
           "<span class="guimenu">Tools</span>" menu on Internet Explorer by choosing
           "<span class="guimenuitem">Options</span>", going to the
           "<span class="guibutton">Connections</span>" tab and clicking
-          "<span class="guibutton">LAN Settings</span>":</p><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h5 class="title"><a id="id2534720"></a>With Windows 2000/XP</h5></div></div></div><p>Right Click "<span class="guilabel">My Computer</span>" -&gt;
+          "<span class="guibutton">LAN Settings</span>":</p><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h5 class="title"><a id="id2534728"></a>With Windows 2000/XP</h5></div></div></div><p>Right Click "<span class="guilabel">My Computer</span>" -&gt;
             <span class="guimenuitem">Properties</span> Choose the
             <span class="guibutton">Advanced</span> Tab and click the
             <span class="guibutton">Environment Variables</span> button at the bottom
@@ -42,9 +42,9 @@
             button in the <span class="guilabel">Global Variables</span> section.
             Variable Name: <code class="varname">http_proxy</code> Variable Value:
             <span class="returnvalue">http://example.com:8080</span> Click
-            <span class="guibutton">OK</span> Click <span class="guibutton">OK</span></p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h5 class="title"><a id="id2534789"></a>With Windows 95/98/ME</h5></div></div></div><p>Add a line "<code class="code">set
+            <span class="guibutton">OK</span> Click <span class="guibutton">OK</span></p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h5 class="title"><a id="id2534798"></a>With Windows 95/98/ME</h5></div></div></div><p>Add a line "<code class="code">set
             http_proxy=http://example.com:8080</code>" to the file
-            <code class="filename">C:\Autoexec.bat</code></p><p><span class="guibutton">Restart</span> your computer.</p></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="id2534818"></a>Channel icons</h4></div></div></div><p>In order to make channel icons download ok, you will need to
+            <code class="filename">C:\Autoexec.bat</code></p><p><span class="guibutton">Restart</span> your computer.</p></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="id2534827"></a>Channel icons</h4></div></div></div><p>In order to make channel icons download ok, you will need to
           add some stuff to the shortcut you use to launch FreeGuide.
           Right-click on the shortcut and choose Properties.</p><p>Now change the command to read like this:</p><p><span><strong class="command">javaw.exe -DproxySet=true -DproxyHost=example.com
           -DproxyPort=8080 -jar "C:\Program Files\FreeGuide\startup.jar"
