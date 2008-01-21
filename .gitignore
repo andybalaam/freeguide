@@ -1,0 +1,5 @@
+*.class
+src/resources
+build
+.classpath
+.project
