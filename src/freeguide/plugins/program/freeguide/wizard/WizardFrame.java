@@ -27,6 +27,8 @@ import java.awt.event.WindowEvent;
 
 import java.io.IOException;
 
+import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -39,7 +41,7 @@ import javax.swing.JPanel;
  */
 public class WizardFrame extends JWaitFrame
 {
-    private WizardPanel[] panels;
+    private List<WizardPanel> panels;
     private javax.swing.JPanel panButtons;
     private javax.swing.JButton butCancel;
     private javax.swing.JButton butNext;
@@ -59,7 +61,7 @@ public class WizardFrame extends JWaitFrame
      * @param exitMethod a method to call when the user prematurely exited
      */
     public WizardFrame( 
-        String title, WizardPanel[] panels, Runnable finishMethod,
+        String title, List<WizardPanel> panels, Runnable finishMethod,
         Runnable exitMethod )
     {
         try
@@ -97,10 +99,9 @@ public class WizardFrame extends JWaitFrame
         GridBagConstraints gridBagConstraints;
 
         // Set up the panels ready to be used
-        for( int i = 0; i < panels.length; i++ )
+        for( WizardPanel p : panels )
         {
-            panels[i].construct(  );
-
+            p.construct(  );
         }
 
         panButtons = new JPanel(  );
@@ -209,7 +210,7 @@ public class WizardFrame extends JWaitFrame
 
         getContentPane(  ).add( panButtons, gridBagConstraints );
 
-        displayPanel( panels[panelCounter] );
+        displayPanel( panels.get( panelCounter ) );
 
     }
 
@@ -233,7 +234,7 @@ public class WizardFrame extends JWaitFrame
     {
         butFinish.setEnabled( false );
 
-        panels[panelCounter].onExit(  );
+        panels.get( panelCounter ).onExit(  );
 
         if( finishMethod != null )
         {
@@ -266,12 +267,12 @@ public class WizardFrame extends JWaitFrame
     private void butBackActionPerformed( java.awt.event.ActionEvent evt )
     {
         // Save the info on this panel and check we're allowed to leave it
-        if( ( panelCounter > 0 ) && panels[panelCounter].onExit(  ) )
+        if( ( panelCounter > 0 ) && panels.get( panelCounter ).onExit(  ) )
         {
             // Go to the previous panel
             panelCounter--;
 
-            displayPanel( panels[panelCounter] );
+            displayPanel( panels.get( panelCounter ) );
 
         }
     }
@@ -285,13 +286,13 @@ public class WizardFrame extends JWaitFrame
     {
         // Save the info on this panel and check we're allowed to leave it
         if( 
-            ( panelCounter < panels.length )
-                && panels[panelCounter].onExit(  ) )
+            ( panelCounter < panels.size(  ) )
+                && panels.get( panelCounter ).onExit(  ) )
         {
             // Go to the next panel
             panelCounter++;
 
-            displayPanel( panels[panelCounter] );
+            displayPanel( panels.get( panelCounter ) );
 
         }
     }
@@ -365,7 +366,7 @@ public class WizardFrame extends JWaitFrame
 
         }
 
-        else if( panelCounter == ( panels.length - 1 ) )
+        else if( panelCounter == ( panels.size(  ) - 1 ) )
         { // End
             butBack.setEnabled( true );
 

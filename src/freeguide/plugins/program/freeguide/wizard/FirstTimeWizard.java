@@ -29,6 +29,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -85,173 +87,58 @@ public class FirstTimeWizard
 
         allBrowsers = getAllBrowsers(  );
 
-        WizardPanel[] panels = new WizardPanel[6];
+        List<WizardPanel> panels = new ArrayList<WizardPanel>(  );
 
-        if( upgrade )
-        {
-            panels[0] = new LabelWizardPanel( 
-                    "<html>"
-                    + Application.getInstance(  )
-                                 .getLocalizedMessage( 
-                        "advanced_settings_will_be_overwritten" ) + "<html>" );
+        panels.add( createFirstPanel( upgrade ) );
+        panels.add( createRegionPanel(  ) );
+        panels.add( createWorkingDirectoryPanel(  ) );
+        panels.add( createBrowserPanel(  ) );
+        panels.add( createPrivacyPanel(  ) );
+        panels.add( createInstallPanel(  ) );
 
-            panels[0].setMessages( 
+        wizardFrame =
+            new WizardFrame(
                 Application.getInstance(  )
-                           .getLocalizedMessage( "about_to_upgrade.1" ),
-                Application.getInstance(  )
-                           .getLocalizedMessage( "about_to_upgrade.2" ) );
-
-        }
-
-        else
-        {
-            panels[0] = new LabelWizardPanel( 
-                    Application.getInstance(  )
-                               .getLocalizedMessage( "need_to_ask_questions" ) );
-
-            panels[0].setMessages( 
-                Application.getInstance(  )
-                           .getLocalizedMessage( "welcome_to_freeguide.1" ),
-                Application.getInstance(  )
-                           .getLocalizedMessage( "welcome_to_freeguide.2" ) );
-
-        }
-
-        panels[1] = new ChoiceWizardPanel( isoByRegion.keySet(  ) );
-
-        panels[1].setOnExit( 
-            new WizardPanel.OnExit(  )
-            {
-                public void onExit( WizardPanel panel )
+                           .getLocalizedMessage(
+                    "freeguide_first_time_wizard" ), panels,
+                new Runnable(  )
                 {
-                }
-            } );
+                    public void run(  )
+                    {
+                        onFinish(  );
 
-        panels[1].setMessages( 
-            Application.getInstance(  )
-                       .getLocalizedMessage( "choose_your_region.1" ),
-            Application.getInstance(  )
-                       .getLocalizedMessage( "choose_your_region.2" ),
-            KeyEvent.VK_C );
-
-        panels[1].setOnEnter( 
-            new WizardPanel.OnEnter(  )
-            {
-                public void onEnter( WizardPanel panel )
+                    }
+                },
+                new Runnable(  )
                 {
-                    ( (ChoiceWizardPanel)panel ).setBoxValue( 
-                        regionByISO.get( config.countryID ) );
+                    public void run(  )
+                    {
+                        onExit(  );
 
-                }
-            } );
+                    }
+                } );
 
-        panels[1].setOnExit( 
-            new WizardPanel.OnExit(  )
-            {
-                public void onExit( WizardPanel panel )
-                {
-                    config.countryID = (String)isoByRegion.get( 
-                            panel.getBoxValue(  ) );
-                }
-            } );
+        wizardFrame.setVisible( true );
 
-        panels[2] = new DirectoryWizardPanel(  );
+    }
 
-        panels[2].setMessages( 
-            Application.getInstance(  )
-                       .getLocalizedMessage( 
-                "choose_your_working_directory.1" ),
-            Application.getInstance(  )
-                       .getLocalizedMessage( 
-                "choose_your_working_directory.2" ), KeyEvent.VK_C );
+    /**
+     *
+    DOCUMENT ME!
+     *
+     * @return
+     */
+    private InstallWizardPanel createInstallPanel(  )
+    {
+        InstallWizardPanel installPanel = new InstallWizardPanel(  );
 
-        panels[2].setOnEnter( 
-            new WizardPanel.OnEnter(  )
-            {
-                public void onEnter( WizardPanel panel )
-                {
-                    panel.setBoxValue( config.workingDirectory );
-
-                }
-            } );
-
-        panels[2].setOnExit( 
-            new WizardPanel.OnExit(  )
-            {
-                public void onExit( WizardPanel panel )
-                {
-                    config.workingDirectory = ( (File)panel.getBoxValue(  ) )
-                        .getPath(  );
-
-                }
-            } );
-
-        panels[3] = new ChoiceWizardPanel( allBrowsers.keySet(  ) );
-
-        panels[3].setMessages( 
-            Application.getInstance(  )
-                       .getLocalizedMessage( 
-                "what_is_the_name_of_your_web_browser.1" ),
-            Application.getInstance(  )
-                       .getLocalizedMessage( 
-                "what_is_the_name_of_your_web_browser.2" ), KeyEvent.VK_W );
-
-        if( config.browserName == null )
-        {
-            config.browserName = defaultBrowser;
-        }
-
-        panels[3].setOnEnter( 
-            new WizardPanel.OnEnter(  )
-            {
-                public void onEnter( WizardPanel panel )
-                {
-                    panel.setBoxValue( config.browserName );
-
-                }
-            } );
-
-        panels[3].setOnExit( 
-            new WizardPanel.OnExit(  )
-            {
-                public void onExit( WizardPanel panel )
-                {
-                    config.browserName = (String)panel.getBoxValue(  );
-
-                }
-            } );
-
-        panels[4] = new PrivacyWizardPanel(  );
-
-        panels[4].setOnEnter( 
-            new WizardPanel.OnEnter(  )
-            {
-                public void onEnter( WizardPanel panel )
-                {
-                    panel.setBoxValue( config.privacyInfo );
-
-                }
-            } );
-
-        panels[4].setOnExit( 
-            new WizardPanel.OnExit(  )
-            {
-                public void onExit( WizardPanel panel )
-                {
-                    config.privacyInfo = (String)panel.getBoxValue(  );
-
-                }
-            } );
-
-        panels[5] = new InstallWizardPanel(  );
-
-        panels[5].setMessages( 
-            Application.getInstance(  ).getLocalizedMessage( 
+        installPanel.setMessages(
+            Application.getInstance(  ).getLocalizedMessage(
                 "about_to_start.1" ),
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  ).getLocalizedMessage(
                 "about_to_start.2" ) );
 
-        panels[5].setOnExit( 
+        installPanel.setOnExit(
             new WizardPanel.OnExit(  )
             {
                 public void onExit( WizardPanel panel )
@@ -273,30 +160,224 @@ public class FirstTimeWizard
                 }
             } );
 
-        wizardFrame =
-            new WizardFrame( 
+        return installPanel;
+    }
+
+    /**
+     *
+    DOCUMENT ME!
+     *
+     * @return
+     */
+    private PrivacyWizardPanel createPrivacyPanel(  )
+    {
+        PrivacyWizardPanel privacyPanel = new PrivacyWizardPanel(  );
+
+        privacyPanel.setOnEnter(
+            new WizardPanel.OnEnter(  )
+            {
+                public void onEnter( WizardPanel panel )
+                {
+                    panel.setBoxValue( config.privacyInfo );
+
+                }
+            } );
+
+        privacyPanel.setOnExit(
+            new WizardPanel.OnExit(  )
+            {
+                public void onExit( WizardPanel panel )
+                {
+                    config.privacyInfo = (String)panel.getBoxValue(  );
+
+                }
+            } );
+
+        return privacyPanel;
+    }
+
+    /**
+     *
+    DOCUMENT ME!
+     *
+     * @return
+     */
+    private ChoiceWizardPanel createBrowserPanel(  )
+    {
+        ChoiceWizardPanel browserPanel =
+            new ChoiceWizardPanel( allBrowsers.keySet(  ) );
+
+        browserPanel.setMessages(
+            Application.getInstance(  )
+                       .getLocalizedMessage(
+                "what_is_the_name_of_your_web_browser.1" ),
+            Application.getInstance(  )
+                       .getLocalizedMessage(
+                "what_is_the_name_of_your_web_browser.2" ), KeyEvent.VK_W );
+
+        if( config.browserName == null )
+        {
+            config.browserName = defaultBrowser;
+        }
+
+        browserPanel.setOnEnter(
+            new WizardPanel.OnEnter(  )
+            {
+                public void onEnter( WizardPanel panel )
+                {
+                    panel.setBoxValue( config.browserName );
+
+                }
+            } );
+
+        browserPanel.setOnExit(
+            new WizardPanel.OnExit(  )
+            {
+                public void onExit( WizardPanel panel )
+                {
+                    config.browserName = (String)panel.getBoxValue(  );
+
+                }
+            } );
+
+        return browserPanel;
+    }
+
+    /**
+     *
+    DOCUMENT ME!
+     *
+     * @return
+     */
+    private DirectoryWizardPanel createWorkingDirectoryPanel(  )
+    {
+        DirectoryWizardPanel thirdPanel = new DirectoryWizardPanel(  );
+
+        thirdPanel.setMessages(
+            Application.getInstance(  )
+                       .getLocalizedMessage(
+                "choose_your_working_directory.1" ),
+            Application.getInstance(  )
+                       .getLocalizedMessage(
+                "choose_your_working_directory.2" ), KeyEvent.VK_C );
+
+        thirdPanel.setOnEnter(
+            new WizardPanel.OnEnter(  )
+            {
+                public void onEnter( WizardPanel panel )
+                {
+                    panel.setBoxValue( config.workingDirectory );
+
+                }
+            } );
+
+        thirdPanel.setOnExit(
+            new WizardPanel.OnExit(  )
+            {
+                public void onExit( WizardPanel panel )
+                {
+                    config.workingDirectory = ( (File)panel.getBoxValue(  ) )
+                        .getPath(  );
+
+                }
+            } );
+
+        return thirdPanel;
+    }
+
+    /**
+     *
+    DOCUMENT ME!
+     *
+     * @param upgrade
+     *
+     * @return
+     */
+    private LabelWizardPanel createFirstPanel( boolean upgrade )
+    {
+        LabelWizardPanel firstPanel;
+
+        if( upgrade )
+        {
+            firstPanel = new LabelWizardPanel(
+                    "<html>"
+                    + Application.getInstance(  )
+                                 .getLocalizedMessage(
+                        "advanced_settings_will_be_overwritten" ) + "<html>" );
+
+            firstPanel.setMessages(
                 Application.getInstance(  )
-                           .getLocalizedMessage( 
-                    "freeguide_first_time_wizard" ), panels,
-                new Runnable(  )
+                           .getLocalizedMessage( "about_to_upgrade.1" ),
+                Application.getInstance(  )
+                           .getLocalizedMessage( "about_to_upgrade.2" ) );
+
+        }
+
+        else
+        {
+            firstPanel = new LabelWizardPanel(
+                    Application.getInstance(  )
+                               .getLocalizedMessage( "need_to_ask_questions" ) );
+
+            firstPanel.setMessages(
+                Application.getInstance(  )
+                           .getLocalizedMessage( "welcome_to_freeguide.1" ),
+                Application.getInstance(  )
+                           .getLocalizedMessage( "welcome_to_freeguide.2" ) );
+
+        }
+
+        return firstPanel;
+    }
+
+    /**
+     *
+    DOCUMENT ME!
+     *
+     * @return
+     */
+    private ChoiceWizardPanel createRegionPanel(  )
+    {
+        ChoiceWizardPanel secondPanel =
+            new ChoiceWizardPanel( isoByRegion.keySet(  ) );
+
+        secondPanel.setOnExit(
+            new WizardPanel.OnExit(  )
+            {
+                public void onExit( WizardPanel panel )
                 {
-                    public void run(  )
-                    {
-                        onFinish(  );
+                }
+            } );
 
-                    }
-                },
-                new Runnable(  )
+        secondPanel.setMessages(
+            Application.getInstance(  )
+                       .getLocalizedMessage( "choose_your_region.1" ),
+            Application.getInstance(  )
+                       .getLocalizedMessage( "choose_your_region.2" ),
+            KeyEvent.VK_C );
+
+        secondPanel.setOnEnter(
+            new WizardPanel.OnEnter(  )
+            {
+                public void onEnter( WizardPanel panel )
                 {
-                    public void run(  )
-                    {
-                        onExit(  );
+                    ( (ChoiceWizardPanel)panel ).setBoxValue(
+                        regionByISO.get( config.countryID ) );
 
-                    }
-                } );
+                }
+            } );
 
-        wizardFrame.setVisible( true );
+        secondPanel.setOnExit(
+            new WizardPanel.OnExit(  )
+            {
+                public void onExit( WizardPanel panel )
+                {
+                    config.countryID = (String)isoByRegion.get(
+                            panel.getBoxValue(  ) );
+                }
+            } );
 
+        return secondPanel;
     }
 
     /**
@@ -344,7 +425,7 @@ public class FirstTimeWizard
         try
         {
             Map result =
-                readMap( 
+                readMap(
                     "resources/main/browsers-"
                     + ( FreeGuide.runtimeInfo.isUnix ? "lin" : "win" )
                     + ".properties" );
@@ -377,7 +458,7 @@ public class FirstTimeWizard
 
         for( int i = 0; i < grabbers.length; i++ )
         {
-            if( 
+            if(
                 grabbers[i].getInstance(  ) instanceof IModuleConfigureFromWizard )
             {
                 IModuleConfigureFromWizard configurator =
@@ -388,7 +469,7 @@ public class FirstTimeWizard
                 for( int j = 0; j < grabberInfo.length; j++ )
                 {
                     IModuleConfigureFromWizard.CountryInfo prevValue =
-                        (IModuleConfigureFromWizard.CountryInfo)allRegions.get( 
+                        (IModuleConfigureFromWizard.CountryInfo)allRegions.get(
                             grabberInfo[j].getCountry(  ) );
                     final boolean needToSet;
 
@@ -406,13 +487,13 @@ public class FirstTimeWizard
                     {
                         String countryName =
                             grabberInfo[j].getDisplayCountry(  );
-                        isoByRegion.put( 
+                        isoByRegion.put(
                             countryName, grabberInfo[j].getCountry(  ) );
-                        regionByISO.put( 
+                        regionByISO.put(
                             grabberInfo[j].getCountry(  ), countryName );
-                        allRegions.put( 
+                        allRegions.put(
                             grabberInfo[j].getCountry(  ), grabberInfo[j] );
-                        allRegionsGrabbers.put( 
+                        allRegionsGrabbers.put(
                             grabberInfo[j].getCountry(  ), grabbers[i] );
                     }
                 }
@@ -425,9 +506,9 @@ public class FirstTimeWizard
      */
     public void onExit(  )
     {
-        FreeGuide.log.info( 
+        FreeGuide.log.info(
             Application.getInstance(  )
-                       .getLocalizedMessage( 
+                       .getLocalizedMessage(
                 "the_user_quit_the_install_before_it_completed" ) );
         onFinish(  );
     }
@@ -472,7 +553,7 @@ public class FirstTimeWizard
             }
             catch( IOException ex )
             {
-                JOptionPane.showMessageDialog( 
+                JOptionPane.showMessageDialog(
                     wizardFrame, ex.getMessage(  ), "Error display help",
                     JOptionPane.ERROR_MESSAGE );
             }
