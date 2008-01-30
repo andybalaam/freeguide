@@ -96,6 +96,12 @@ public class Migrate
                 migr.migrate(  );
             }
 
+            if( ver.compareTo( new Version( 0, 10, 6 ) ) <= 0 )
+            {
+                migr = new Migrate0_10_6To0_10_7( FreeGuide.pref_root_name );
+                migr.migrate(  );
+            }
+
             if( migr != null )
             {
                 migr.saveTo( FreeGuide.pref_root_name );
