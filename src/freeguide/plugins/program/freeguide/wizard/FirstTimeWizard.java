@@ -123,10 +123,9 @@ public class FirstTimeWizard
     }
 
     /**
+     * Creates the final page for the first-time wizard.
      *
-    DOCUMENT ME!
-     *
-     * @return
+     * @return The final {@link InstallWizardPanel}.
      */
     private InstallWizardPanel createInstallPanel(  )
     {
@@ -164,10 +163,9 @@ public class FirstTimeWizard
     }
 
     /**
+     * Creates the privacy panel for the first-time wizard.
      *
-    DOCUMENT ME!
-     *
-     * @return
+     * @return The {@link PrivacyWizardPanel}
      */
     private PrivacyWizardPanel createPrivacyPanel(  )
     {
@@ -197,10 +195,9 @@ public class FirstTimeWizard
     }
 
     /**
+     * Returns the browser choice panel for the first-time wizard.
      *
-    DOCUMENT ME!
-     *
-     * @return
+     * @return The browser {@link ChoiceWizardPanel}
      */
     private ChoiceWizardPanel createBrowserPanel(  )
     {
@@ -244,10 +241,10 @@ public class FirstTimeWizard
     }
 
     /**
+     * Creates the working directory choice panel for the first-time
+     * wizard.
      *
-    DOCUMENT ME!
-     *
-     * @return
+     * @return The {@link DirectoryWizardPanel}
      */
     private DirectoryWizardPanel createWorkingDirectoryPanel(  )
     {
@@ -286,12 +283,12 @@ public class FirstTimeWizard
     }
 
     /**
+     * Creates the introductory panel for the first-time wizard.
      *
-    DOCUMENT ME!
+     * @param upgrade A {@link Boolean} indicating whether or not this is an
+     *        upgrade or fresh install.
      *
-     * @param upgrade
-     *
-     * @return
+     * @return The introductory {@link LabelWizardPanel}.
      */
     private LabelWizardPanel createFirstPanel( boolean upgrade )
     {
@@ -331,10 +328,9 @@ public class FirstTimeWizard
     }
 
     /**
+     * Creates the region choice panel for the first-time wizard.
      *
-    DOCUMENT ME!
-     *
-     * @return
+     * @return The region {@link ChoiceWizardPanel}
      */
     private ChoiceWizardPanel createRegionPanel(  )
     {
