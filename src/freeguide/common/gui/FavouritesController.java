@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -47,6 +48,8 @@ public class FavouritesController
             Favourite fave = (Favourite)fav.get( i );
             this.favourites.add( fave.clone(  ) );
         }
+
+        Collections.sort( this.favourites, Favourite.GetNameComparator() );
 
         favouritesModel = new DefaultListModel(  );
         listDialog.getList(  ).setModel( favouritesModel );

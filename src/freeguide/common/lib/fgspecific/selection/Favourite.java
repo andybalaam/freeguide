@@ -16,9 +16,12 @@ import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.Time;
 
+import java.text.Collator;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
@@ -328,5 +331,21 @@ public class Favourite
         this.dayOfWeek = dayOfWeek;
     }
 
+    public static class FavouriteComparator implements Comparator
+    {
+        public int compare( Object o1, Object o2 )
+        {
+           Favourite f1 = (Favourite)o1;
+           Favourite f2 = (Favourite)o2;
+
+           return Collator.getInstance( Locale.getDefault() ).compare(
+               f1.getName(), f2.getName() );
+        }
+    }
+
+    public static Comparator GetNameComparator()
+    {
+        return new FavouriteComparator();
+    }
     // The day of the week it's on
 }

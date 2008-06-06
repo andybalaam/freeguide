@@ -100,7 +100,7 @@ public class ChannelSetEditorDialog extends FGDialog
             csetModel.addElement( it.next(  ) );
         }
 
-        it = allChannels.getChannels(  ).iterator(  );
+        it = allChannels.getSortedChannels(  ).iterator(  );
 
         while( it.hasNext(  ) )
         {

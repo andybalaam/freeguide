@@ -1,9 +1,13 @@
 package freeguide.common.lib.fgspecific.data;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Class for storage channels list.
@@ -86,6 +90,19 @@ public class TVChannelsSet
     {
         return channels;
 
+    }
+
+    /**
+     * Get channels list.
+     *
+     * @return channels list
+     */
+    public Collection getSortedChannels(  )
+    {
+        ArrayList ch2 = new ArrayList( channels );
+
+        Collections.sort( ch2, Channel.GetNameComparator() );
+        return ch2;
     }
 
     /**
@@ -330,6 +347,23 @@ public class TVChannelsSet
         {
             return new Channel( channelID, displayName );
 
+        }
+
+        public static class ChannelComparator implements Comparator
+        {
+            public int compare( Object o1, Object o2 )
+            {
+               Channel ch1 = (Channel)o1;
+               Channel ch2 = (Channel)o2;
+
+               return Collator.getInstance( Locale.getDefault()
+                   ).compare( ch1.getDisplayName(), ch2.getDisplayName() );
+            }
+        }
+
+        public static Comparator GetNameComparator()
+        {
+            return new ChannelComparator();
         }
     }
 }

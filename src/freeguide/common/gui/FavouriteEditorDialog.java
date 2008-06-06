@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -171,7 +172,7 @@ public class FavouriteEditorDialog extends FGDialog
                        .getLocalizedMessage( "regular_expression" ) );
         cmbChannel.addItem( StringHelper.EMPTY_STRING );
 
-        Iterator it = allChannelsSet.getChannels(  ).iterator(  );
+        Iterator it = allChannelsSet.getSortedChannels(  ).iterator(  );
 
         while( it.hasNext(  ) )
         {
