@@ -23,7 +23,7 @@ import java.util.Vector;
  * @author Andy Balaam
  * @author Alex Buloichik (mailto: alex73 at zaval.org)
  */
-public class TVProgramme implements Serializable
+public class TVProgramme implements Comparable, Serializable
 {
     private final static long serialVersionUID = 10;
 
@@ -57,6 +57,9 @@ public class TVProgramme implements Serializable
 
     /** The categories it fits into */
     private Vector category;
+
+    private final static TVProgrammeOverlapIsEqualComparator comparator =
+        new TVProgrammeOverlapIsEqualComparator();
 
     /** Is it a movie? */
     private boolean isMovie;
@@ -698,4 +701,12 @@ public class TVProgramme implements Serializable
         return new Date( start ).toString(  ) + ' ' + title;
 
     }
+
+    /**
+     *  Delegates to a TVProgrammeOverlapIsEqualComparator
+     */
+	public int compareTo( Object other )
+	{
+		return comparator.compare( this, other );
+	}
 }

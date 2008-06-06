@@ -33,8 +33,7 @@ public class TVChannel implements Serializable
     protected String iconURL;
 
     /** List of programmes for channel. */
-    protected TreeSet<TVProgramme> programmes = new TreeSet<TVProgramme>(
-        new TVProgrammeOverlapIsEqualComparator() );
+    protected TreeSet<TVProgramme> programmes = new TreeSet<TVProgramme>();
 
 /**
      * Create channel with specified ID. It should be locale-insensitive.
