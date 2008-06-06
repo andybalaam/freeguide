@@ -33,7 +33,8 @@ public class TVChannel implements Serializable
     protected String iconURL;
 
     /** List of programmes for channel. */
-    protected TreeSet<TVProgramme> programmes = new TreeSet<TVProgramme>(  );
+    protected TreeSet<TVProgramme> programmes = new TreeSet<TVProgramme>(
+        new TVProgrammeOverlapIsEqualComparator() );
 
 /**
      * Create channel with specified ID. It should be locale-insensitive.
@@ -170,7 +171,12 @@ public class TVChannel implements Serializable
     {
         programme.setChannel( this );
 
-        programmes.remove( programme );
+        // Keep on removing programmes that overlap this one until there
+        // aren't any more (note this TreeSet uses a
+        // TVProgrammeOverlapIsEqualComparator
+        while( programmes.remove( programme ) ) {}
+
+        // Now add this one
         programmes.add( programme );
     }
 

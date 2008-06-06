@@ -6,6 +6,7 @@ import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVProgrammeStartTimeComparator;
 
 import freeguide.common.plugininterfaces.IModuleReminder;
 
@@ -314,7 +315,7 @@ public class HandlerPersonalGuide
                 }
             } );
 
-        Collections.sort( result );
+        Collections.sort( result, new TVProgrammeStartTimeComparator() );
 
         return result;
     }

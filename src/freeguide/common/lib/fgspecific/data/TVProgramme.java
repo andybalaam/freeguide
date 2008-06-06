@@ -23,7 +23,7 @@ import java.util.Vector;
  * @author Andy Balaam
  * @author Alex Buloichik (mailto: alex73 at zaval.org)
  */
-public class TVProgramme implements Comparable, Serializable
+public class TVProgramme implements Serializable
 {
     private final static long serialVersionUID = 10;
 
@@ -686,49 +686,6 @@ public class TVProgramme implements Comparable, Serializable
     public Map getExtraTags(  )
     {
         return extraTags;
-    }
-
-    /**
-     * Compare two programmes by their datetimes.
-     *
-     * @param other The programme to compare with this one.
-     *
-     * @return -1 if this programme comes first,
-     *          1 if the other comes first, and
-     *          0 if they overlap.
-     */
-    public int compareTo( Object other )
-    {
-        TVProgramme p;
-
-        p = (TVProgramme)other;
-
-        // If the end times have not been downloaded, we
-        // must compare purely by start time.
-        // If both end times are valid, we delare them equal if
-        // They overlap at all, so we don't get overlapping
-        // programmes showing.
-        if( end == 0 || p.end == 0 )
-        {
-	        if( start <= p.start )
-	        {
-	            return -1;
-	        }
-	        else if( p.start <= start )
-	        {
-	            return 1;
-	        }
-        }
-        else if( end <= p.start )
-        {
-            return -1;
-        }
-        else if( p.end <= start )
-        {
-            return 1;
-        }
-
-        return 0;
     }
 
     /**
