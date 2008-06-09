@@ -1,7 +1,7 @@
 *.class
-src/resources
 build
 .classpath
 .project
 doc/html-web
+dist
 *~
