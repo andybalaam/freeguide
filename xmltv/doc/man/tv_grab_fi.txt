@@ -38,7 +38,7 @@ DESCRIPTION
 
     --output FILE Write to FILE rather than standard output.
 
-    --days N Grab N days. The default is fourteen.
+    --days N Grab N days. The default is 14 (22 days should be available).
 
     --offset N Start N days in the future. The default is to start from
     today.
@@ -61,8 +61,8 @@ SEE ALSO
     xmltv(5).
 
 AUTHOR
-    Ville Ahonen, ville-xmltv@thesubmachine.com. Based on previous version
-    of tv_grab_fi by Matti Airas.
+    Ville Ahonen, (ville dot ahonen at iki dot fi). Based on previous
+    version of tv_grab_fi by Matti Airas.
 
 BUGS
     The data source does not include full channels information and the

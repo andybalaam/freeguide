@@ -58,6 +58,6 @@ SEE ALSO
     xmltv(5).
 
 AUTHOR
-    CandU, candu_xmltv@hotmail.com, based on tv_grab_es, from Ramon Roca.
+    CandU, candu_sf@sourceforge.net, based on tv_grab_es, from Ramon Roca.
 
 BUGS

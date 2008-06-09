@@ -22,8 +22,8 @@ DESCRIPTION
     Currently configured backends are (in default order):
 
     skylife - grabs data from www.skylife.it
+    mtvit - grabs data from www.mtv.it
     wfactory - grabs data from www.wfactory.net
-    skytv - grabs data from www.skytv.it
     boingtv - grabs data from www.boingtv.it
     sitcom1 - grabs data from www.sitcom1.it
 
@@ -80,9 +80,6 @@ CAVEATS
     this grabber doesn't die if it cannot find any data, but returns an
     empty (or optionally containing just warnings) xml file instead.
 
-    The mytv backend is currently disabled (site does not provide data
-    anymore).
-
     The backends' data quality differs a lot. For example, mytv was very
     basic, yet complete and uses the least amount of bandwith. Skytv has a
     lot of channels, but unless you use it with the --slow option the data
@@ -90,12 +87,12 @@ CAVEATS
     good overall site if you don't need the whole sky package.
 
 EXAMPLES
-    tv_grab_it --backend mytv --configure
-        configures tv_grab_it using only the backend mytv
+    tv_grab_it --backend mtvit --configure
+        configures tv_grab_it using only the backend mtvit
 
-    tv_grab_it --backend skytv,wfactory --days 1
+    tv_grab_it --backend skylife,wfactory --days 1
         grabs one day of data overiding the default order (could also be
-        --backend skytv --backend wfactory)
+        --backend skylife --backend wfactory)
 
     tv_grab_it --cache --slow --days 3
         grabs the full data for the next three days using the default
@@ -109,4 +106,6 @@ SEE ALSO
 
 AUTHOR
         Davide Chiarini, davide.chiarini@gmail.com
+
+        you can find some more help at http://lnx.htpcpoint.it/forum/
 

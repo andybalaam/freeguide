@@ -44,7 +44,7 @@ All these functions are exported on demand.
 =cut
 
 sub d {
-#  print STDERR "$_[0]\n";
+  print STDERR "XMLTV::Supplement: $_[0]\n" if $ENV{XMLTV_SUPPLEMENT_VERBOSE};
 }
 
 my $cachedir;
@@ -68,7 +68,7 @@ sub create_cachedir {
     $cachedir = File::Spec->catfile( $ENV{HOME}, ".xmltv", "supplement" );
   }
 
-  d( "XMLTV::Supplement: Using cachedir '$cachedir'" );
+  d( "Using cachedir '$cachedir'" );
   create_dir( $cachedir );
 }
 
@@ -139,6 +139,7 @@ sub GetSupplementFile {
 
   my $result;
 
+  d( "Reading $filename" );
   eval { $result = read_file( $filename ) };
 
   if( not defined( $result ) ) {
@@ -175,56 +176,72 @@ sub GetSupplementUrl {
     $url = "$supplement_root/$name";
   }
 
+  d( "Going to fetch $url" );
+
   my $meta = read_meta( $directory, $name );
   my $cached = read_cache( $directory, $name );
 
-  if( defined( $cached ) and defined( $meta->{'LastUpdated'} ) and
-      23*60*60 > (time - $meta->{'LastUpdated'} ) ) {
-    d("LastUpdated ok. Using cache.");
-    return $cached;
-  }
-
   my %p;
-  if( defined( $cached ) ) {
-    $p{'If-Modified-Since'} = $meta->{LastModified} 
-      if defined $meta->{LastModified};
-    $p{'If-None-Match'} = $meta->{ETag}
+
+  if( defined( $meta->{Url} ) and ($meta->{Url} eq $url ) ) {
+    # The right url is stored in the cache.
+
+    if( defined( $cached ) and defined( $meta->{'LastUpdated'} ) 
+	and 1*60*60 > (time - $meta->{'LastUpdated'} ) ) {
+      d("LastUpdated ok. Using cache.");
+      return $cached;
+    }
+
+    if( defined( $cached ) ) {
+      $p{'If-Modified-Since'} = $meta->{'Last-Modified'} 
+      if defined $meta->{'Last-Modified'};
+      $p{'If-None-Match'} = $meta->{ETag}
       if defined $meta->{ETag};
+    }
   }
 
   my $resp = $ua->get( $url, %p );
 
   if( $resp->code == RC_NOT_MODIFIED ) {
-    write_meta( $directory, $name, $resp );
+    write_meta( $directory, $url, $name, $resp, $meta );
     d("Not Modified. Using cache.");
     return $cached;
   }
   elsif( $resp->is_success ) {
-    write_meta( $directory, $name, $resp );
+    write_meta( $directory, $url, $name, $resp, $meta );
     write_cache( $directory, $name, $resp );
     d("Cache miss.");
     return $resp->content;
   }
   elsif( defined( $cached ) ) {
-    print STDERR "XMLTV::Supplement: Failed to fetch $url. " . 
-	"Using cached info.\n";
+    print STDERR "XMLTV::Supplement: Failed to fetch $url: " .
+	$resp->status_line . ". Using cached info.\n";
     return $cached;
   }
   else {
-    print STDERR "XMLTV::Supplement: Failed to fetch $url. ";
+    print STDERR "XMLTV::Supplement: Failed to fetch $url: " . 
+	$resp->status_line . ".\n";
     exit 1;
   }
 }
 
 sub write_meta {
-  my( $directory, $file, $resp ) = @_;
+  my( $directory, $url, $file, $resp, $meta ) = @_;
 
   my $metafile = cache_filename( $directory, "$file.meta" );
 
   open OUT, "> $metafile" or die "Failed to write to $metafile";
   print OUT "LastUpdated " . time() . "\n";
-  print OUT "Last-Modified " . $resp->header( 'Last-Modified' ) . "\n" 
-      if defined $resp->header( 'Last-Modified' );
+
+  print OUT "Url $url\n";
+
+  if( defined $resp->header( 'Last-Modified' ) ) { 
+    print OUT "Last-Modified " . $resp->header( 'Last-Modified' ) . "\n";
+  }
+  elsif( defined $meta->{'Last-Modified'} ) {
+    print OUT "Last-Modified " . $meta->{ 'Last-Modified' } . "\n";
+  }
+
   print OUT "ETag " . $resp->header( 'ETag' )  . "\n"
       if defined $resp->header( 'ETag' );
   close( OUT );
@@ -304,9 +321,9 @@ The module stores all downloaded files in a cache. The cache is stored
 on disk in ~/.xmltv/supplement on Unix and in
 CSIDL_LOCAL_APPDATA//xmltv/supplement on Windows.
 
-If a file has been downloaded less than 23 hours ago, the file from
+If a file has been downloaded less than 1 hour ago, the file from
 the cache is used without contacting the server. Otherwise, if the
-file has been downloaded more than 23 hours ago, then the module
+file has been downloaded more than 1 hour ago, then the module
 checks with the server to see if an updated file is available and
 downloads it if necessary.
 
@@ -320,6 +337,11 @@ module where the supplementary files are found.
 
   XMLTV_SUPPLEMENT=/usr/share/xmltv
   XMLTV_SUPPLEMENT=http://supplementary.xmltv.se
+
+The XMLTV_SUPPLEMENT_VERBOSE environment variable can be used to get
+more debug output from XMLTV::Supplement.
+
+  XMLTV_SUPPLEMENT_VERBOSE=1
 
 =head1 COPYRIGHT
 

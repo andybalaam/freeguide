@@ -1,5 +1,5 @@
 # -*- perl -*-
-# $Id: XMLTV.pm.in,v 1.132 2007/11/05 08:14:27 rmeden Exp $
+# $Id: XMLTV.pm.in,v 1.134 2008/02/17 07:08:59 rmeden Exp $
 package XMLTV;
 
 use strict;
@@ -12,7 +12,7 @@ our @EXPORT_OK = qw(read_data parse parsefile write_data
 # the xmltv package as a whole.  This number should be checked by the
 # mkdist tool.
 #
-our $VERSION = '0.5.50';
+our $VERSION = '0.5.51';
 
 # Work around changing behaviour of XML::Twig.  On some systems (like
 # mine) it always returns UTF-8 data unless KeepEncoding is specified.
@@ -1310,6 +1310,10 @@ $Handlers{video}->[0] = sub ( $ ) {
 	    warn "'aspect' seen twice" if defined $r{aspect};
 	    $value =~ /^\d+:\d+$/ or warn "bad aspect ratio: $value";
 	    $r{aspect} = $value;
+	}
+	elsif ($name eq 'quality') {
+	    warn "'quality' seen twice" if defined $r{quality};
+	    $r{quality} = $value;
 	}
     }
     return \%r;

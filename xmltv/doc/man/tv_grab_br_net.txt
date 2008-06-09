@@ -103,20 +103,11 @@ KNOWN PROBLEMS
     offer for the particular cities. It looks like for some cities the site
     works completely different :-(
 
-    Here a way to determine if your city is one of those that are different
-    and not supported:
-
-    1) Direct your browser to *http://nettv.globo.com/NETServ/br/home/*
-    2) Select São Paulo or Rio de Janeiro (they're known to be working)
-    3) After accepting the cookie enter this URL:
-        *http://nettv.globo.com/NETServ/br/home/indexnet.jsp?id=35*
-
-    4) Check if your city is still in the select-list on top of the page. If
-    not - sorry, you're not lucky today :-(
-
-    As of now there is no solution or workaround for this problem. Let me
-    know if you find a workaround or want to implement a different grabber
-    for the so far unsupported cities.
+    NET currently seems to have a problem with the encoding of their data.
+    While their site is coded in ISO-8859-1 their data looks like it has
+    been corrupted by a conversion from UTF-8 (characters replaced with
+    questionmarks). Since this happens at their site there is no way we can
+    work around that, sorry :-(
 
 SEE ALSO
     xmltv(5).

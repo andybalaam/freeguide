@@ -8,7 +8,7 @@ SYNOPSIS
     tv_grab_uk_rt --configure [--config-file FILE]
 
     tv_grab_uk_rt [--config-file FILE] [--output FILE] [--days N] [--offset
-    N] [--gui OPTION] [--quiet]
+    N] [--gui OPTION] [--quiet] [--debug] [--no-title-updates]
 
     tv_grab_uk_rt --list-channels
 
@@ -42,12 +42,17 @@ USAGE
     --output FILE When grabbing, write output to FILE rather than standard
     output.
 
-    --quiet Suppress the progress messages normally written to standard
-    error.
-
     --days N When grabbing, grab N days of data instead of all available.
 
     --offset N Start grabbing at today + N days.
+
+    --quiet Suppress all progress messages normally written to standard
+    error.
+
+    --debug Provide detailed debugging messages to standard error.
+
+    --no-title-updates Disables processing of programme titles to remove
+    non-title information and split titles into title/subtitle.
 
     --list-channels Write output giving <channel> elements for every channel
     available, but no programmes.
@@ -70,5 +75,5 @@ SEE ALSO
 AUTHOR
     Ed Avis, ed@membled.com
 
-    Nick Morrott, knowledgejunkie@gmail.com (maintainer)
+    Nick Morrott, knowledgejunkie@gmail.com
 

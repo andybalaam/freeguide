@@ -158,8 +158,8 @@ BUGS
     my( $opt, $conf ) = ParseOptions( { grabber_name =>
     "tv_grab_eu_epgdata", capabilities => [qw/baseline manualconfig tkconfig
     apiconfig cache/], stage_sub => \&config_stage, listchannels_sub =>
-    \&list_channels, version => '$Id: tv_grab_eu_epgdata.in,v 1.3 2007/11/04
-    17:35:41 mihaas Exp $', description => "Parts of Europe (commercial)
+    \&list_channels, version => '$Id: tv_grab_eu_epgdata.in,v 1.8 2008/02/02
+    20:15:20 mihaas Exp $', description => "Parts of Europe (commercial)
     (www.epgdata.com)", } );
 
     our $pin = $conf->{pin}->[0]; die 'Sorry, your PIN is not defined. Run
@@ -169,7 +169,7 @@ BUGS
     tv_grab_eu_epgdata --configure to fix this.' unless defined($tz); #
     Oops. Looks like the line below will result in a warning # telling us
     that we're declaring $tz twice. However, this does not seem to # be an
-    issue. our $tz = '+0100' unless defined($tz);
+    issue. $tz = '+0100' unless defined($tz);
 
     sub config_stage { # shamelessly stolen from
     http://xmltv.org/wiki/howtowriteagrabber.html
@@ -277,13 +277,24 @@ BUGS
     $sendung->first_child('d4')->text; my $internalgenreid =
     $sendung->first_child('d25')->text; my $rating =
     $sendung->first_child('d30')->text; my $wide_aspect =
-    $sendung->first_child('d29')->text; # black and white? my $bw_colour =
-    $sendung->first_child('d11')->text; my $stereo_audio =
-    $sendung->first_child('d27')->text; my $dolby_audio =
-    $sendung->first_child('d28')->text; # I was told that technics_hd is
-    supposed to exist # However, it's not listed in qy.dtd # my $hd_video =
-    $sendung->first_child('XXX')->text;
+    $sendung->first_child('d29')->text;
 
+                my $series_id = $sendung->first_child('d1')->text;
+
+                # people
+                my $presenter = decode_entities($sendung->first_child('d34')->text);
+                my $studio_guest = decode_entities($sendung->first_child('d35')->text);
+                my $director = decode_entities($sendung->first_child('d36')->text);
+                my $actor = decode_entities($sendung->first_child('d37')->text);
+
+                # black and white?
+                my $bw_colour = $sendung->first_child('d11')->text;
+                my $stereo_audio = $sendung->first_child('d27')->text;
+                my $dolby_audio = $sendung->first_child('d28')->text;
+                # I was told that technics_hd is supposed to exist
+                # However, it's not listed in qy.dtd
+                # my $hd_video = $sendung->first_child('XXX')->text;
+            
                 $start =~ s/-//g;
                 $start =~ s/://g;
                 $start =~ s/ //g;
@@ -300,6 +311,23 @@ BUGS
             
                 if (length($desc) > 0 ) {
                     push @{$prog{'desc'}}, [$desc];
+                }
+
+                # people
+                if ( length($actor)>0 ) {
+                    push @{$prog{'credits'}{'actor'}}, $actor;
+                }
+
+                if ( length($director)>0 ) {
+                    push @{$prog{'credits'}{'director'}}, $director;
+                }
+
+                if ( length($studio_guest)>0) {
+                    push @{$prog{'credits'}{'guest'}}, $studio_guest;
+                }
+
+                if ( length($presenter)>0) {
+                    push @{$prog{'credits'}{'presenter'}}, $presenter;
                 }
 
                 # star-rating: the data source seems to say <d30>0</d30> 
@@ -320,6 +348,8 @@ BUGS
                     $prog{'video'}->{'colour'} = '0';
 
                 }
+
+                $prog{'episode-num'} = [ [$series_id, 'http://fix.me/' ] ];
 
                 # check for dolby first
                 # not sure if dolby_audio and stereo_audio can be true 
@@ -362,7 +392,7 @@ BUGS
     $chanid, 'display-name' => [ [ $name ] ]); $writer->write_channel(\%ch);
     } } }
 
-    # this list all _available_ channels # used for --configure #
+    # this lists all _available_ channels # used for --configure #
     independent from printchannels which will print list of configured
     channels sub list_channels { my ( $conf, $opt ) = @_;
     prepareinclude($conf, $opt); # borrowed from
@@ -380,17 +410,19 @@ BUGS
             }
             else {
                 $chanid = $internalchanid;
-                warn "New channel with ID $internalchanid found. Please update channel_ids file!"
+                warn "New channel with ID $internalchanid found. Please update chann
+    el_ids file!"
             }
- 
+
             my $name = $channel->first_child('ch0')->text;
         $xmltv_channel_list = <<END;
         $xmltv_channel_list
         <channel id="$chanid">
-        <display-name>$name</display-name> 
+        <display-name>$name</display-name>
         </channel>
     END
          }
          $xmltv_channel_list = $xmltv_channel_list . "</tv>";
          return $xmltv_channel_list
     }
+
