@@ -57,7 +57,8 @@
     </description>
 
     <target name="all" depends="prepare, jars-win, compile-doc" />
-    <target name="dist-all" depends="dist-src,dist-rpm,dist-tgz,dist-webstart" />
+    <target name="dist-all" depends="dist-src,dist-rpm,dist-tgz,dist-exe-lin" />
+    <target name="dist-all-win" depends="dist-src,dist-rpm,dist-tgz,dist-exe" />
 
     <target name="prepare">
         <ant antfile="ant/prepare.xml" />
