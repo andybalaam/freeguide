@@ -44,10 +44,17 @@ for line in statsfile.readlines():
         (date, time) = dtsplit
 
         (year, month, day) = date.split( "-" )
+	# Handle corrupted data
+        try:
+            year = str( int( year ) )
+            month = str( int( month ) )
+        except ValueError:
+            sys.stderr.write( "Ignoring line with non-numeric year or month\n" )
+            continue
     
         yearmonth = year + "-" + month
     
-        if not data_split_monthly.has_key(yearmonth):
+        if yearmonth not in data_split_monthly:
             data_split_monthly[yearmonth] = {}
     
         this_month = data_split_monthly[yearmonth]
