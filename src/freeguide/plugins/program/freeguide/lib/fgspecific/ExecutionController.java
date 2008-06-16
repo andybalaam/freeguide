@@ -29,7 +29,7 @@ import javax.swing.JProgressBar;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class GrabberController
+public class ExecutionController
 {
     protected ExecutorDialog progressDialog;
     protected JProgressBar secondProgressBar;
@@ -42,7 +42,7 @@ public class GrabberController
      *
      * @param controller DOCUMENT ME!
      */
-    public void activate( final MainController controller )
+    public void activate( final MainController controller, final CommandRunner runner )
     {
         synchronized( this )
         {
@@ -64,11 +64,11 @@ public class GrabberController
 
                                 try
                                 {
-                                    grab( 
+                                    grab(
                                         controller.getApplicationFrame(  ),
                                         controller.mainFrame.getProgressBar(  ),
                                         controller.mainFrame
-                                        .getForegroundButton(  ) );
+                                        .getForegroundButton(  ), runner );
                                     controller.viewer.onDataChanged(  );
                                     MainController.remindersReschedule(  );
                                 }
@@ -92,26 +92,26 @@ public class GrabberController
      * @param secondProgressBar DOCUMENT ME!
      * @param foregroundButton DOCUMENT ME!
      */
-    public void grab( 
+    public void grab(
         final JFrame owner, final JProgressBar secondProgressBar,
-        final JButton foregroundButton )
+        final JButton foregroundButton, CommandRunner runner )
     {
         this.secondProgressBar = secondProgressBar;
 
         synchronized( this )
         {
             wasError = false;
-            progressDialog = new ExecutorDialog( 
+            progressDialog = new ExecutorDialog(
                     owner, secondProgressBar, foregroundButton );
             progressDialog.setStepCount( 1 );
             progressDialog.setStepNumber( 0 );
 
-            progressDialog.getCancelButton(  ).addActionListener( 
+            progressDialog.getCancelButton(  ).addActionListener(
                 new ActionListener(  )
                 {
                     public void actionPerformed( ActionEvent evt )
                     {
-                        synchronized( GrabberController.this )
+                        synchronized( ExecutionController.this )
                         {
                             grabberThread.interrupt(  );
 
@@ -125,7 +125,7 @@ public class GrabberController
                     }
                 } );
 
-            progressDialog.addWindowListener( 
+            progressDialog.addWindowListener(
                 new WindowAdapter(  )
                 {
                     public void windowClosing( WindowEvent e )
@@ -158,78 +158,7 @@ public class GrabberController
         }
         else
         {
-            Iterator it = MainController.config.activeGrabberIDs
-                .iterator(  );
-
-            while( it.hasNext(  ) )
-            {
-                String grabberID = (String)it.next(  );
-
-                try
-                {
-                    IModuleGrabber grabber =
-                        (IModuleGrabber)PluginsManager.getModuleByID( 
-                            grabberID );
-
-                    if( grabber == null )
-                    {
-                        FreeGuide.log.warning( 
-                            "There is no grabber " + grabberID );
-
-                        continue;
-
-                    }
-
-                    if( Thread.interrupted(  ) )
-                    {
-                        break;
-                    }
-
-                    final StoragePipe pipe = new StoragePipe(  );
-
-                    wasError = !grabber.grabData( 
-                            progressDialog, progressDialog, pipe );
-
-                    pipe.finish(  );
-
-                    if( Thread.interrupted(  ) )
-                    {
-                        break;
-                    }
-                }
-                catch( ClosedByInterruptException ex )
-                {
-                    break;
-                }
-                catch( InterruptedException ex )
-                {
-                    break;
-                }
-                catch( Throwable ex )
-                {
-                    wasError = true;
-
-                    if( progressDialog != null )
-                    {
-                        if( ex instanceof Exception )
-                        {
-                            progressDialog.error( 
-                                "Error grab data by grabber '" + grabberID
-                                + "'", (Exception)ex );
-                        }
-                        else
-                        {
-                            progressDialog.error( 
-                                "Error grab data by grabber '" + grabberID
-                                + "': " + ex.getClass(  ).getName(  ) );
-                        }
-                    }
-
-                    FreeGuide.log.log( 
-                        Level.WARNING,
-                        "Error grab data by grabber '" + grabberID, ex );
-                }
-            }
+            wasError = !runner.run( progressDialog, progressDialog );
         }
 
         synchronized( this )
@@ -245,26 +174,26 @@ public class GrabberController
                     }
                     else
                     {
-                        progressDialog.setDefaultCloseOperation( 
+                        progressDialog.setDefaultCloseOperation(
                             JDialog.DISPOSE_ON_CLOSE );
                         progressDialog.setCloseLabel(  );
-                        progressDialog.setProgressMessage( 
+                        progressDialog.setProgressMessage(
                             null,
                             Application.getInstance(  )
-                                       .getLocalizedMessage( 
+                                       .getLocalizedMessage(
                                 "ExecutionDialog.Finish.OK" ) );
                         progressDialog.bringToForeground(  );
                     }
                 }
                 else
                 {
-                    progressDialog.setDefaultCloseOperation( 
+                    progressDialog.setDefaultCloseOperation(
                         JDialog.DISPOSE_ON_CLOSE );
                     progressDialog.setCloseLabel(  );
-                    progressDialog.setProgressMessage( 
+                    progressDialog.setProgressMessage(
                         null,
                         Application.getInstance(  )
-                                   .getLocalizedMessage( 
+                                   .getLocalizedMessage(
                             "ExecutionDialog.Finish.Error" ) );
                     progressDialog.bringToForeground(  );
                     progressDialog.showDetails(  );

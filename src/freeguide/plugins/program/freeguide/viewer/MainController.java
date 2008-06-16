@@ -16,7 +16,8 @@ import freeguide.common.plugininterfaces.IModuleViewer;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.dialogs.ChannelSetListDialog;
-import freeguide.plugins.program.freeguide.lib.fgspecific.GrabberController;
+import freeguide.plugins.program.freeguide.lib.fgspecific.ExecutionController;
+import freeguide.plugins.program.freeguide.lib.fgspecific.GrabberCommandRunner;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 import freeguide.plugins.program.freeguide.lib.fgspecific.StoragePipe;
@@ -62,7 +63,7 @@ public class MainController extends BaseModule implements IApplication
 
     /** DOCUMENT ME! */
     public IModuleViewer viewer;
-    protected GrabberController grab = new GrabberController(  );
+    protected ExecutionController grab = new ExecutionController(  );
     protected IModuleReminder[] reminders;
     protected JFrame applicationFrame;
 
@@ -467,7 +468,7 @@ public class MainController extends BaseModule implements IApplication
      */
     public void doStartGrabbers(  )
     {
-        grab.activate( this );
+        grab.activate( this, new GrabberCommandRunner() );
     }
 
     /**
@@ -477,7 +478,7 @@ public class MainController extends BaseModule implements IApplication
      */
     public void doShowGrabbers(  )
     {
-        grab.activate( this );
+        grab.activate( this, new GrabberCommandRunner() );
     }
 
     /**
