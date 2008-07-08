@@ -4,20 +4,17 @@ import freeguide.common.gui.ExecutorDialog;
 
 import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.common.plugininterfaces.IModuleGrabber;
+import freeguide.common.plugininterfaces.IApplication;
+import freeguide.common.plugininterfaces.IExecutionController;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.lib.general.ICommandRunner;
 import freeguide.plugins.program.freeguide.viewer.MainController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-import java.nio.channels.ClosedByInterruptException;
-
-import java.util.Iterator;
-import java.util.logging.Level;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -29,12 +26,12 @@ import javax.swing.JProgressBar;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class ExecutionController
+public class ExecutionController implements IExecutionController
 {
     protected ExecutorDialog progressDialog;
     protected JProgressBar secondProgressBar;
     protected boolean wasError;
-    protected Thread grabberThread;
+    protected Thread runnerThread;
 
     /**
      * Show grabber dialog when grabbing running, or start grabbing in
@@ -42,7 +39,8 @@ public class ExecutionController
      *
      * @param controller DOCUMENT ME!
      */
-    public void activate( final MainController controller, final CommandRunner runner )
+    public void activate( final IApplication controller, final ICommandRunner runner,
+        final boolean dialogVisible )
     {
         synchronized( this )
         {
@@ -54,22 +52,22 @@ public class ExecutionController
             else
             {
                 // Start new grabbing
-                grabberThread =
+                runnerThread =
                     new Thread(  )
                         {
                             public void run(  )
                             {
                                 FreeGuide.log
-                                .finest( "start grabbing" );
+                                .finest( "start running" );
 
                                 try
                                 {
-                                    grab(
+                                    doRunCommand(
                                         controller.getApplicationFrame(  ),
-                                        controller.mainFrame.getProgressBar(  ),
-                                        controller.mainFrame
-                                        .getForegroundButton(  ), runner );
-                                    controller.viewer.onDataChanged(  );
+                                        controller.getApplicationProgressBar(  ),
+                                        controller.getApplicationForegroundButton(  ), runner,
+                                        dialogVisible );
+                                    controller.getViewer().onDataChanged(  );
                                     MainController.remindersReschedule(  );
                                 }
                                 catch( Exception ex )
@@ -77,10 +75,10 @@ public class ExecutionController
                                     ex.printStackTrace(  );
                                 }
 
-                                FreeGuide.log.finest( "stop grabbing" );
+                                FreeGuide.log.finest( "stop running" );
                             }
                         };
-                grabberThread.start(  );
+                runnerThread.start(  );
             }
         }
     }
@@ -92,9 +90,10 @@ public class ExecutionController
      * @param secondProgressBar DOCUMENT ME!
      * @param foregroundButton DOCUMENT ME!
      */
-    public void grab(
+    public void doRunCommand(
         final JFrame owner, final JProgressBar secondProgressBar,
-        final JButton foregroundButton, CommandRunner runner )
+        final JButton foregroundButton, ICommandRunner runner,
+        boolean dialogVisible )
     {
         this.secondProgressBar = secondProgressBar;
 
@@ -113,7 +112,7 @@ public class ExecutionController
                     {
                         synchronized( ExecutionController.this )
                         {
-                            grabberThread.interrupt(  );
+                            runnerThread.interrupt(  );
 
                             // leave dialog when details open or was error
                             if( progressDialog != null )
@@ -130,7 +129,7 @@ public class ExecutionController
                 {
                     public void windowClosing( WindowEvent e )
                     {
-                        if( !grabberThread.isAlive(  ) )
+                        if( !runnerThread.isAlive(  ) )
                         {
                             if( progressDialog != null )
                             {
@@ -140,15 +139,23 @@ public class ExecutionController
                         }
                     }
                 } );
+            
+            if( !dialogVisible )
+            {
+                progressDialog.sendToBackground();
+            }
         }
 
-        new Thread(  )
-            {
-                public void run(  )
+        if( dialogVisible )
+        {
+            new Thread(  )
                 {
-                    progressDialog.setVisible( true );
-                }
-            }.start(  );
+                    public void run(  )
+                    {
+                        progressDialog.setVisible( true );
+                    }
+                }.start(  );
+        }
 
         if( MainController.config.activeGrabberIDs.size(  ) == 0 )
         {

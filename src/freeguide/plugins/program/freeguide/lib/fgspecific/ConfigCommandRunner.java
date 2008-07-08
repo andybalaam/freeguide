@@ -12,7 +12,7 @@ import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.lib.general.ICommandRunner;
 import freeguide.plugins.program.freeguide.viewer.MainController;
 
-public class GrabberCommandRunner implements ICommandRunner
+public class ConfigCommandRunner implements ICommandRunner
 {
 
 	public boolean run( IProgress progress, ILogger logger )
@@ -44,50 +44,45 @@ public class GrabberCommandRunner implements ICommandRunner
 				{
 					break;
 				}
-
-				final StoragePipe pipe = new StoragePipe(  );
-
-				cmdSucceeded = grabber.grabData(
-				        progress, logger, pipe );
-
-				pipe.finish(  );
+				cmdSucceeded = grabber.chooseChannels(
+				        progress, logger );
 
 				if( Thread.interrupted(  ) )
 				{
 					break;
 				}
 			}
-			catch( ClosedByInterruptException ex )
+			/*catch( ClosedByInterruptException ex )
 			{
 				break;
 			}
 			catch( InterruptedException ex )
 			{
 				break;
-			}
+			}*/
 			catch( Throwable ex )
 			{
-				cmdSucceeded = true;
+				cmdSucceeded = false;
 
 				if( logger != null )
 				{
 					if( ex instanceof Exception )
 					{
 						logger.error(
-							"Error grab data by grabber '" + grabberID
+							"Error configuring grabber '" + grabberID
 							+ "'", (Exception)ex );
 					}
 					else
 					{
 						logger.error(
-							"Error grab data by grabber '" + grabberID
+							"Error configuring grabber '" + grabberID
 							+ "': " + ex.getClass(  ).getName(  ) );
 					}
 				}
 
 				FreeGuide.log.log(
 					Level.WARNING,
-					"Error grab data by grabber '" + grabberID, ex );
+					"Error configuring grabber '" + grabberID, ex );
 			}
 
 		}

@@ -217,4 +217,16 @@ public class GrabberHallmark extends BaseModule implements IModuleGrabber
         /** Number of weeks for download. */
         public int weeksNumber = 2;
     }
+
+    public boolean chooseChannels( IProgress progress, ILogger logger )
+    {
+        // No need to choose channels for this grabber
+        return false;
+    }
+    
+    public int chooseChannelsOne( String moduleName, IProgress progress, ILogger logger )
+    {
+        // No need to choose channels for this grabber
+        return -1;
+    }
 }

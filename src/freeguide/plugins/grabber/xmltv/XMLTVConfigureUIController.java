@@ -1,7 +1,10 @@
 package freeguide.plugins.grabber.xmltv;
 
 
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.plugininterfaces.IApplication;
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
+import freeguide.plugins.program.freeguide.lib.fgspecific.ConfigCommandRunner;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -290,14 +293,10 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
          */
         public void actionPerformed( final ActionEvent e )
         {
-            new Thread(  )
-                {
-                    public void run(  )
-                    {
-                        parent.configureChannelsOne( moduleInfo );
-                    }
-                }.start(  );
-
+            IApplication app = Application.getInstance();
+            app.getExecutionController().activate( app,
+                new SingleConfigCommandRunner( parent, moduleInfo.moduleName ),
+                true );
         }
     }
 

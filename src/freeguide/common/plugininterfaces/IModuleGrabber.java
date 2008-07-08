@@ -25,7 +25,21 @@ public interface IModuleGrabber extends IModule
         throws Exception;
 
     /**
+     * Choose which channels to download
+     *
+     * @param progress IProgress
+     * @param logger ILogger
+     * @param storage DOCUMENT ME!
+     *
+     * @return DOCUMENT_ME!
+     *
+     * @throws Exception
+     */
+    boolean chooseChannels( IProgress progress, ILogger logger );
+
+    /**
      * Start module. Called when application starts.
+     * @param controller  
      */
     void start(  );
 
@@ -33,4 +47,6 @@ public interface IModuleGrabber extends IModule
      * Stop module. Called when application stops.
      */
     void stop(  );
+
+    int chooseChannelsOne( String moduleName, IProgress progress, ILogger logger );
 }

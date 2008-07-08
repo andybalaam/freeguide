@@ -403,4 +403,16 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
                 "Error loading groupnames settings for tv.kulichki.net", ex );
         }
     }
+
+    public boolean chooseChannels( IProgress progress, ILogger logger )
+    {
+        // No need to choose channels for this grabber
+        return false;
+    }
+
+    public int chooseChannelsOne( String moduleName, IProgress progress, ILogger logger )
+    {
+        // No need to choose channels for this grabber
+        return -1;
+    }
 }

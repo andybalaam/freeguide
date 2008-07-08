@@ -7,6 +7,7 @@ import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.BaseModule;
 import freeguide.common.plugininterfaces.IApplication;
+import freeguide.common.plugininterfaces.IExecutionController;
 import freeguide.common.plugininterfaces.IModuleExport;
 import freeguide.common.plugininterfaces.IModuleGrabber;
 import freeguide.common.plugininterfaces.IModuleImport;
@@ -43,7 +44,9 @@ import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JProgressBar;
 import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -63,7 +66,7 @@ public class MainController extends BaseModule implements IApplication
 
     /** DOCUMENT ME! */
     public IModuleViewer viewer;
-    protected ExecutionController grab = new ExecutionController(  );
+    protected ExecutionController executionController = new ExecutionController(  );
     protected IModuleReminder[] reminders;
     protected JFrame applicationFrame;
 
@@ -468,7 +471,8 @@ public class MainController extends BaseModule implements IApplication
      */
     public void doStartGrabbers(  )
     {
-        grab.activate( this, new GrabberCommandRunner() );
+        executionController.activate( this, new GrabberCommandRunner(),
+            true );
     }
 
     /**
@@ -478,7 +482,8 @@ public class MainController extends BaseModule implements IApplication
      */
     public void doShowGrabbers(  )
     {
-        grab.activate( this, new GrabberCommandRunner() );
+        executionController.activate( this, new GrabberCommandRunner(),
+            true );
     }
 
     /**
@@ -743,5 +748,20 @@ public class MainController extends BaseModule implements IApplication
                     ( screenSize.height - mainWindowPosition.height ) / 2 );
             }
         }
+    }
+
+    public IExecutionController getExecutionController()
+    {
+        return executionController;
+    }
+
+    public JButton getApplicationForegroundButton()
+    {
+        return mainFrame.getForegroundButton();
+    }
+
+    public JProgressBar getApplicationProgressBar()
+    {
+        return mainFrame.getProgressBar();
     }
 }

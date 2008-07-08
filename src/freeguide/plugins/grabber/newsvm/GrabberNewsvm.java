@@ -331,4 +331,16 @@ public class GrabberNewsvm extends BaseModule implements IModuleGrabber
             }
         }
     }
+
+    public boolean chooseChannels( IProgress progress, ILogger logger )
+    {
+        // No need to choose channels for this grabber
+        return false;
+    }
+
+    public int chooseChannelsOne( String moduleName, IProgress progress, ILogger logger )
+    {
+        // No need to choose channels for this grabber
+        return -1;
+    }
 }

@@ -5,8 +5,10 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.logging.Logger;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
+import javax.swing.JProgressBar;
 
 /**
  * Interface for retrieve information about main application.
@@ -65,4 +67,10 @@ public interface IApplication
     {
         JMenu getTools(  );
     }
+    
+    IExecutionController getExecutionController();
+
+    JProgressBar getApplicationProgressBar();
+
+    JButton getApplicationForegroundButton();
 }
