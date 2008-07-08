@@ -168,7 +168,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                                             final XMLTVConfig.ModuleInfo moduleInfo =
                                                 (XMLTVConfig.ModuleInfo)modules.get( 
                                                     i );
-                                            configureChannels( moduleInfo );
+                                            configureChannelsOne( moduleInfo );
                                         }
                                     }
                                 }.start(  );
@@ -237,7 +237,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         return ( code == 0 ) ? true : false;
     }
 
-    protected void configureChannels( final XMLTVConfig.ModuleInfo moduleInfo )
+    protected void configureChannelsOne( final XMLTVConfig.ModuleInfo moduleInfo )
     {
         final File xmltvConfigDir =
             new File( 
@@ -681,7 +681,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         if( runSelectChannels )
         {
-            configureChannels( info );
+            configureChannelsOne( info );
         }
     }
 

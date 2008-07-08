@@ -294,7 +294,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
                 {
                     public void run(  )
                     {
-                        parent.configureChannels( moduleInfo );
+                        parent.configureChannelsOne( moduleInfo );
                     }
                 }.start(  );
 
