@@ -14,10 +14,10 @@
         <delete dir="${build}/install-tgz"/>
         <antcall target="install-linux">
             <param name="install_share_dir" value="${build}/install-tgz/usr/share"/>
-            <param name="install_bin_dir" value="${build}/install-tgz/bin"/>
+            <param name="install_bin_dir" value="${build}/install-tgz/usr/bin"/>
             <param name="install_doc_dir" value="${build}/install-tgz/usr/share/freeguide/doc"/>
-            <param name="install_real_dir" value="usr/share/freeguide"/>
-            <param name="install_real_doc_dir" value="usr/share/freeguide/doc"/>
+            <param name="install_real_dir" value="/usr/share/freeguide"/>
+            <param name="install_real_doc_dir" value="/usr/share/freeguide/doc"/>
         </antcall>
 
         <mkdir dir="${dist-install-tgz}"/>
@@ -26,6 +26,6 @@
             <tarfileset dir="${build}/install-tgz" />
         </tar>
     </target>
-    
+
 </project>
 
