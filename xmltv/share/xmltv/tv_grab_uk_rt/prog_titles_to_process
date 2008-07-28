@@ -1,6 +1,6 @@
 # prog_titles_to_process
 #
-# $Id: prog_titles_to_process,v 1.6 2008/02/17 19:25:31 knowledgejunkie Exp $
+# $Id: prog_titles_to_process,v 1.21 2008/07/13 09:01:19 knowledgejunkie Exp $
 #
 # This file contains programme titles that should be processed in order to 
 # produce more consistent programme titles and subtitles. Some programme
@@ -9,20 +9,20 @@
 # and subtitle reversed, and yet more may contain 'season' information that is
 # not part of the programme title. When these entries have a colon separating
 # the title and subtitle components, we use the colon to split the title and 
-# subtitle accordingly.
+# subtitle accordingly. We also flag specific programme titles that are given
+# inconsistently across channels, and provide a consistent title to use in these
+# cases.
 #
 # By default, the tv_grab_uk_rt grabber will read this file and process any 
 # matching programme titles found in the listings data against the flagged
-# titles below. Title processing can be disabled using the '--no-title-updates'
-# option.
+# titles below. Title processing can be disabled during configuration.
 #
 # Each programme title to process is listed below, with one title per line.
 # Comments are allowed and ignored. Each entry contains 2 pipe-delimited 
-# fields, the first of which should contain a procesing code, and the second
+# fields, the first of which should contain a procesing code, the second
 # the programme title entry or non-title text seen in the Radio Times data. 
 # How the entry is processed depends upon the value of the processing code in
 # the first field. Processing codes used are:
-# follows:
 #
 # 1) The text in the second field is non-title text that is to be removed from
 #    any programme titles found containing this text at the beginning of the 
@@ -44,37 +44,64 @@
 #    assignment to ensure the <title> and <episode> elements contain the correct
 #    information.
 #
+# 5) The text in the second file contains two programme titles, separated by a
+#    tilde (~). The first title is the inconsistent programme title to search
+#    for during processing, and the second title is a consistent title to
+#    as a replacement in the listings output. Programme titles can be
+#    inconsistent across channels (e.g. Law and Order vs Law & Order) or use
+#    inconsistent grammar (xxxx's vs xxxxs'), so we provide a consistent 
+#    title, obtained from the programme itself, its website or other media, 
+#    to use instead.
+#
 #
 # Non-title information to remove from beginning of titles
 #
 1|4 Music
 1|Action Heroes Season
+1|Action Movie Season
+1|Arnie Season
 1|Basketball
 1|BBC Four on BBC Two
 1|BBC Switch
 1|Bond Season
 1|CBBC
 1|CBeebies
+1|CBeebies Birthdays
 1|CITV
 1|Comedy Season
 1|Cult Season
+1|Motorsport
+1|No Limits Season
 1|Rock Star Week
 1|Screen Two
 1|Shipwreck Saturday
 1|Sign Zone
+1|Special Forces Night
 1|Sword & Sorcery Season
 1|T4
 1|T4 on the Beach
+1|Thrillers Season
+1|War on Four
 1|Western Season
 #
 # $title:$episode seen in source data title
 #
 2|3 Minute Wonder
+2|4Music Presents
 2|4Play
+2|AFL
 2|Aircrash Unsolved
+2|Animated Bible Stories
+2|A Meet the Ancestors Special
 2|A Perry Mason Mystery
+2|Arena
+2|Autopsy
 2|Best of British
 2|Biography
+2|Bodyshock
+2|Body Spectacular
+2|Bone Detectives
+2|Britain's Got More Talent
 2|Cinemania
 2|Classic Albums
 2|Coast
@@ -88,36 +115,80 @@
 2|Curriculum Bites
 2|Cutting Edge
 2|Deadly Dozen
+2|Diagnosis Murder
+2|Diagnosis X
 2|Dispatches
+2|Drama Trails
 2|Drive Thru
+2|E4 Music Lessons
 2|Edwardians in Colour
+2|Emmerdale
+2|Essential
+2|Euro 2008
+2|Eurografters
 2|Exposed
 2|Extraordinary Humans
 2|Extraordinary People
 2|Extreme
+2|F1
 2|Faith and Music
+2|FIFA World Cup
+2|Firepower
 2|First Cut
+2|GAA
+2|GCSE Bitesize Revision
+2|GCSE Bitesize
+2|Glastonbury 2008
+2|Glastonbury Calling
 2|Great Historical Britons
 2|Greatest Hits
+2|Guess the Year
+2|Hollywood Rocks the Movies
 2|Horizon
+2|Inside Track
 2|Inspector Wexford
+2|IPL
+2|Jane Doe
+2|JD Set Presents
 2|Kalahari
+2|Key Stage 3 Bitesize Revision
 2|Kids by the Dozen
 2|Killer Tanks
+2|Kings of Cool
 2|Lawless Britain
 2|Legends
+2|Live AFL
+2|Live Hockey
+2|Live IPL
+2|Live NRL
+2|Live Rugby Union
+2|Louis Theroux
+2|Lyndal's Lifeline
+2|Major League Baseball
+2|Making the Video
 2|McBride
+2|Miracle Makers
+2|Most Daring
+2|Moto GP
 2|MTV 2 Years
 2|MTV Live
 2|MTV Unplugged
 2|My Unique Family
+2|Mysteries of the Universe
+2|Mystery Woman
 2|Nightwatch with Steve Scott
 2|Murder, She Wrote
+2|Nature Unleashed
+2|NRL
 2|Number 1s
 2|Offset
 2|Our World
 2|Panorama
+2|Pd James
+2|PD James
+2|P D James
 2|Perry Mason
+2|Pimp My Ride
 2|Primary Geography
 2|Primary History
 2|Real Crime
@@ -128,39 +199,91 @@
 2|Sexiest
 2|Shades of Love
 2|Sherlock Holmes
+2|Shipwrecked 2008
+2|Sin Cities 4
+2|Six on the Beach
+2|Songbook
+2|South Bank Show
+2|SPL
+2|Stars of the 80s
 2|Storytellers
 2|Storyville
 2|Super Sleuths
 2|Surviving Disaster
+2|T4 Movie Special
 2|The Afternoon Play
+2|The Bill
 2|The Colour of War
+2|The Naked Chef
 2|The Rewind Chart with Scott Mills
 2|The Ruth Rendell Mysteries
 2|The South Bank Show
-2|The Twenties in Colour
 2|The Third Reich in Colour
+2|The Tower
+2|The Twenties in Colour
+2|The Weakest Link
 2|The World Stands Up
+2|This World
+2|Those Were the Days
+2|Thoroughly Modern
 2|Timewatch
+2|Top 10
+2|Top Ten
+2|Top 20
 2|Top 5
 2|Top Five
+2|Top Gear
 2|Top of the Pops
 2|Travel Spies
-2|Tropics of Lust
 2|True Stories
+2|UEFA Champions League Live
+2|UEFA Cup Live
+2|Unknown Africa
+2|Unplugged
+2|Vaults
 2|VH1 Live
 2|VH1 Loves
+2|VH1 Says
 2|Videography
 2|Viva la Bam
+2|What the Ancients Knew
 2|Wish You Were Here - Now and Then
 2|Wish You Were Here - Now And Then
 2|Wonderland
+2|World's Biggest Airliner
 #
 # $subtitle:$title seen in source data title
 #
 3|Austin Stevens' Adventures
-3|Storyville
+3|E! Special
 3|E! True Hollywood Story
+3|MTV Live
+3|New Heroes of Comedy
+3|Omnibus
+3|Storyville
+3|Style Star
+3|The South Bank Show
+3|Time Team Special
+3|Tonight
+3|VH1 Classic Special
+3|VH1 Live
 #
 # reversed $title and $subtitle entries seen in source data
 #
 4|Timewatch
+#
+# inconsistent programme titles to be written more consistently
+#
+5|P D James~PD James
+5|Pd James~PD James
+5|Law and Order~Law & Order
+5|Law and Order: CI~Law & Order: Criminal Intent
+5|Law and Order: Criminal Intent~Law & Order: Criminal Intent
+5|Law & Order: CI~Law & Order: Criminal Intent
+5|Law and Order: SVU~Law & Order: Special Victims Unit
+5|Law and Order: Special Victims Unit~Law & Order: Special Victims Unit
+5|Law & Order: SVU~Law & Order: Special Victims Unit
+5|Law and Order: Trial by Jury~Law & Order: Trial by Jury
+5|Hercules: the Legendary Journeys~Hercules: The Legendary Journeys
+5|Penn and Teller: Bullsh--t!~Penn and Teller: Bullsh**t!
+5|Dragon's Den~Dragons' Den

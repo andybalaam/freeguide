@@ -21,7 +21,7 @@ SYNOPSIS
                       [--days N] [--offset N] [--quiet] [--notrim]
                       [--old-chan-id] [--low-mem] [--output FILE]
                       [--list-channel] [--share SHAREDIR] [--list-times]
-                      [--download-only] [--padd n] [--dropbadchar]
+                      [--download-only] [--padd n] [--dropbadchar] [--agent NAME]
 
 DESCRIPTION
     This script downloads TV listings using Schedules Direct's data service,
@@ -155,6 +155,12 @@ Grabber Mode options
         DD data is supposed to be in UTF-8 format. Sometimes DD sends bad
         characters which cause a "Bad XML from DD" error. This option causes
         those bad characters to be deleted.
+
+    --agent NAME
+        appends NAME to the http agent string when fetching data. This is a
+        polite way to tell Schedules Direct which application is being used.
+        It helps developers know how many people are using their application
+        and gives applications credit towards free accounts.
 
 Automating configuration
     Sometimes applications want to call tv_grab_na_dd as a standalone
