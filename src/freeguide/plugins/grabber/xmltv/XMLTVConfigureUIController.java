@@ -4,7 +4,6 @@ package freeguide.plugins.grabber.xmltv;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.plugininterfaces.IApplication;
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
-import freeguide.plugins.program.freeguide.lib.fgspecific.ConfigCommandRunner;
 
 import java.awt.Color;
 import java.awt.Component;

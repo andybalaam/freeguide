@@ -1,19 +1,12 @@
 package freeguide.plugins.grabber.xmltv;
 
-import java.nio.channels.ClosedByInterruptException;
-import java.util.Iterator;
 import java.util.logging.Level;
 
 import freeguide.common.plugininterfaces.ILogger;
 import freeguide.common.plugininterfaces.IModuleGrabber;
 import freeguide.common.plugininterfaces.IProgress;
-import freeguide.common.plugininterfaces.IStoragePipe;
-import freeguide.plugins.grabber.xmltv.XMLTVConfig.ModuleInfo;
 import freeguide.plugins.program.freeguide.FreeGuide;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
-import freeguide.plugins.program.freeguide.lib.fgspecific.StoragePipe;
 import freeguide.plugins.program.freeguide.lib.general.ICommandRunner;
-import freeguide.plugins.program.freeguide.viewer.MainController;
 
 public class SingleConfigCommandRunner implements ICommandRunner
 {

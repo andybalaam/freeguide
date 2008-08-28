@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import freeguide.common.plugininterfaces.ILogger;
 import freeguide.common.plugininterfaces.IModuleGrabber;
 import freeguide.common.plugininterfaces.IProgress;
-import freeguide.common.plugininterfaces.IStoragePipe;
 import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.lib.general.ICommandRunner;
 import freeguide.plugins.program.freeguide.viewer.MainController;

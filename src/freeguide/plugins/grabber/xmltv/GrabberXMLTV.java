@@ -19,8 +19,6 @@ import freeguide.common.plugininterfaces.IStoragePipe;
 import freeguide.plugins.grabber.xmltv.XMLTVConfig.ModuleInfo;
 import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.lib.fgspecific.ConfigCommandRunner;
-import freeguide.plugins.program.freeguide.lib.fgspecific.GrabberCommandRunner;
-import freeguide.plugins.program.freeguide.viewer.MainController;
 import freeguide.plugins.program.freeguide.viewer.MainFrame;
 
 import org.xml.sax.SAXException;
