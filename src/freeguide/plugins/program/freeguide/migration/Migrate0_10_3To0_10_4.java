@@ -2,7 +2,6 @@ package freeguide.plugins.program.freeguide.migration;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
 
-import java.util.Map;
 import java.util.prefs.BackingStoreException;
 
 /**
@@ -13,16 +12,6 @@ import java.util.prefs.BackingStoreException;
  */
 public class Migrate0_10_3To0_10_4 extends MigrationProcessBase
 {
-/**
-     *
-     *
-     * @param source DOCUMENT ME!
-     */
-    public Migrate0_10_3To0_10_4( final Map source )
-    {
-        super( source );
-    }
-
 /**
      *
      *

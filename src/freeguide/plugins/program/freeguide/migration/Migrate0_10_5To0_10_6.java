@@ -6,7 +6,6 @@ import freeguide.plugins.program.freeguide.FreeGuide;
 
 import java.io.File;
 
-import java.util.Map;
 import java.util.prefs.BackingStoreException;
 
 /**
@@ -17,16 +16,6 @@ import java.util.prefs.BackingStoreException;
  */
 public class Migrate0_10_5To0_10_6 extends MigrationProcessBase
 {
-/**
-     * Creates a new Migrate0_10_5To0_10_6 object.
-     *
-     * @param source DOCUMENT ME!
-     */
-    public Migrate0_10_5To0_10_6( final Map source )
-    {
-        super( source );
-    }
-
 /**
      * Creates a new Migrate0_10_5To0_10_6 object.
      *

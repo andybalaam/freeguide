@@ -37,16 +37,6 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 /**
      * Creates a new MigrateOldTo0_10_1 object.
      *
-     * @param source DOCUMENT ME!
-     */
-    public MigrateOldTo0_10_1( final Map source )
-    {
-        super( source );
-    }
-
-/**
-     * Creates a new MigrateOldTo0_10_1 object.
-     *
      * @param nodeName DOCUMENT ME!
      *
      * @throws BackingStoreException DOCUMENT ME!

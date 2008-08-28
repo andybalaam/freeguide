@@ -21,18 +21,6 @@ abstract public class MigrationProcessBase
 /**
      * Creates a new MigrationProcessBase object.
      *
-     * @param source DOCUMENT ME!
-     */
-    public MigrationProcessBase( final Map source )
-    {
-        prefFrom = source;
-        Migrate.dumpPrefs( prefFrom, "prefs_old" );
-        prefTo = new TreeMap(  );
-    }
-
-/**
-     * Creates a new MigrationProcessBase object.
-     *
      * @param nodeName DOCUMENT ME!
      *
      * @throws BackingStoreException DOCUMENT ME!
