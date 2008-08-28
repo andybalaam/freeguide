@@ -6,6 +6,7 @@ import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.BaseModule;
+import freeguide.common.plugininterfaces.FGLogger;
 import freeguide.common.plugininterfaces.IApplication;
 import freeguide.common.plugininterfaces.IExecutionController;
 import freeguide.common.plugininterfaces.IModuleExport;
@@ -610,15 +611,14 @@ public class MainController extends BaseModule implements IApplication
         return FreeGuide.runtimeInfo.installDirectory;
     }
 
-    /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public Logger getLogger(  )
+    public Logger getLogger()
     {
-        // TODO Auto-generated method stub
         return FreeGuide.log;
+    }
+
+    public FGLogger getFGLogger(  )
+    {
+        return new FGLogger( FreeGuide.log );
     }
 
     /**
@@ -628,7 +628,6 @@ public class MainController extends BaseModule implements IApplication
      */
     public String getWorkingDirectory(  )
     {
-        // TODO Auto-generated method stub
         return FreeGuide.config.workingDirectory;
     }
 

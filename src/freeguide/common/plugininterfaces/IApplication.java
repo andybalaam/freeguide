@@ -34,6 +34,7 @@ public interface IApplication
     void doPrint(  );
 
     Logger getLogger(  );
+    FGLogger getFGLogger(  );
 
     TimeZone getTimeZone(  );
 
