@@ -225,6 +225,16 @@ public class FreeGuide
                 log.log( Level.SEVERE, "Error load config", ex );
             }
 
+            if( arguments.containsKey( "working_directory" ) )
+            {
+                config.workingDirectory = arguments.getProperty( "working_directory" );
+            }
+            else
+            {
+                runtimeInfo.installDirectory = null;
+
+            }
+
             PluginsManager.loadModules(  );
 
             if( PluginsManager.getApplicationModuleInfo(  ) == null )
