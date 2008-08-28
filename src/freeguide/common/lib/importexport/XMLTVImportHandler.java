@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-class XMLTVImportHandler extends DefaultHandler
+public class XMLTVImportHandler extends DefaultHandler
 {
     final protected IStoragePipe storage;
     final protected XMLTVImport.ProgrammesCountCallback countCallback;
@@ -127,6 +127,11 @@ class XMLTVImportHandler extends DefaultHandler
             if( currentSite == null )
             {
                 currentSite = attributes.getValue( "generator-url" );
+            }
+
+            if( currentSite == null )
+            {
+                currentSite = "unknown generator";
             }
 
             currentChannel = null;
