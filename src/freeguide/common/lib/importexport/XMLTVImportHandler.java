@@ -55,8 +55,8 @@ public class XMLTVImportHandler extends DefaultHandler
         {
             new SimpleDateFormat( "yyyyMMddHHmm" ),
             new SimpleDateFormat( "yyyyMMddHHmm z" ),
-            new SimpleDateFormat( "yyyyMMddHHmmss z" ),
             new SimpleDateFormat( "yyyyMMddHHmmss" ),
+            new SimpleDateFormat( "yyyyMMddHHmmss z" ),
             new SimpleDateFormat( "yyyyMMddHHmmss Z" ),
             new SimpleDateFormat( "yyyyMMddHHmm Z" )
         };

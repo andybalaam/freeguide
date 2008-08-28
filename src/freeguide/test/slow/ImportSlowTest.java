@@ -82,6 +82,8 @@ public class ImportSlowTest
         test_EmptyTVTags();
         test_SingleChannelNoGenerator();
         test_TwoChannelsNormal();
+        test_ProgrammeDate14Num();
+        test_ProgrammeDate14NumPlusZ();
     }
 
     private void test_EmptyTVTags()
@@ -127,6 +129,57 @@ public class ImportSlowTest
             "       <display-name>ARY Digital</display-name>\n" +
             "       <icon src=\"http://www.lyngsat-logo.com/logo/tv/aa/ary_digital.jpg\" />\n" +
             "   </channel>\n" +
+            "</tv>\n",
+            expectedChannels );
+    }
+
+    private void test_ProgrammeDate14Num()
+    throws SAXException, IOException, MyAssertFailureException
+    {
+        ArrayList<TVChannel> expectedChannels = new ArrayList<TVChannel>();
+        expectedChannels.add( new TVChannel( "c.p.ct1_sk", "ABC1" ) );
+        parseString(
+            "<tv>\n" +
+            "   <channel id=\"ct1_sk\">\n" +
+            "       <display-name>CT1</display-name>\n" +
+            "       <display-name>1</display-name>\n" +
+            "       <url>http://frantisheq.net84.net</url>\n" +
+            "   </channel>\n" +
+            "   <programme start=\"20080818000000\" stop=\"20080818050000\" " +
+            "channel=\"ct1_sk\">\n" +
+            "       <title>no schedule</title>\n" +
+            "       <desc>TVxb TERMS AND CONDITIONS: This guide " +
+            "software may be used by private users for personal " +
+            "use only. Commercial use, sale, or distribution, or " +
+            "bundling of this software with commercial products, " +
+            "is prohibited. The use of software or this guide to " +
+            "provide a free or paid service is prohibited. The " +
+            "program information in this guide might be protected " +
+            "by copyright and distribution to other people or " +
+            "organizations without the permission of the copyright " +
+            "holders might not be permitted. [ www.tvxb.com ]</desc>\n" +
+            "   </programme>\n" +
+            "</tv>\n",
+            expectedChannels );
+    }
+
+    private void test_ProgrammeDate14NumPlusZ()
+    throws SAXException, IOException, MyAssertFailureException
+    {
+        ArrayList<TVChannel> expectedChannels = new ArrayList<TVChannel>();
+        expectedChannels.add( new TVChannel( "c.p.ct1_sk", "ABC1" ) );
+        parseString(
+            "<tv>\n" +
+            "   <channel id=\"ct1_sk\">\n" +
+            "       <display-name>CT1</display-name>\n" +
+            "       <display-name>1</display-name>\n" +
+            "       <url>http://frantisheq.net84.net</url>\n" +
+            "   </channel>\n" +
+            "   <programme start=\"20080818000000 +0500\" stop=\"20080818050000 +0500\" " +
+            "channel=\"ct1_sk\">\n" +
+            "       <title>My Prog Title</title>\n" +
+            "       <desc>my prog desc</desc>\n" +
+            "   </programme>\n" +
             "</tv>\n",
             expectedChannels );
     }
