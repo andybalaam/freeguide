@@ -45,16 +45,6 @@ public class Utils
     private final static char dosSlash = 127;
 
     /**
-     * Execute an external command, without waiting for it to finish.
-     *
-     * @param cmds Description of the Parameter
-     */
-    public static void execNoWait( String[] cmds )
-    {
-        //  execNoWait( cmds, null );
-    }
-
-    /**
      * DOCUMENT_ME!
      *
      * @param cmd DOCUMENT_ME!
