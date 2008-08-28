@@ -277,35 +277,6 @@ public class MainController extends BaseModule implements IApplication
     }
 
     /**
-     * Checks whether the XMLTVLoader managed to get any data, and
-     * asks the user to download more if not.
-     */
-
-    /*protected void checkForNoData(  )
-    {
-        if(
-            !Application.getInstance(  ).getDataStorage(  ).getInfo(  ).channelsList
-                .isEmpty(  ) )
-        {
-            return;
-        }
-
-        int r =
-            JOptionPane.showConfirmDialog(
-                Application.getInstance(  ).getApplicationFrame(  ),
-                Application.getInstance(  )
-                           .getLocalizedMessage(
-                    "there_are_missing_listings_for_today" ),
-                Application.getInstance(  )
-                           .getLocalizedMessage( "download_listings_q" ),
-                JOptionPane.YES_NO_OPTION );
-
-        if( r == 0 )
-        {
-            Application.getInstance(  ).doStartGrabbers(  );
-        }
-    }*/
-    /**
      * Starts up all grabbers and reminders via their start() method.
      */
     protected void startModules(  )
