@@ -261,8 +261,11 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                 Application.getInstance(  ).getWorkingDirectory(  ), DIR_CONFIG );
         xmltvConfigDir.mkdirs(  );
 
-        progress.setProgressMessage( 
-            Application.getInstance(  ).getLocalizedMessage( "choosing_channels" ) );
+        if( progress != null )
+        {
+            progress.setProgressMessage(
+                Application.getInstance(  ).getLocalizedMessage( "choosing_channels" ) );
+        }
 
         String cmd = moduleInfo.configCommandToRun;
 
@@ -430,7 +433,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             new File( 
                 Application.getInstance(  ).getWorkingDirectory(  ), DIR_CONFIG );
 
-        progress.setProgressMessage( 
+        progress.setProgressMessage(
             Application.getInstance(  ).getLocalizedMessage( "downloading" ) );
 
         String cmd = moduleInfo.commandToRun;
@@ -714,9 +717,23 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     public void configureFromWizard( 
         final String regionName, final boolean runSelectChannels )
     {
-        IApplication app = Application.getInstance();
-        app.getExecutionController().activate( app, new ConfigCommandRunner(),
-            false );
+        XMLTVConfig.ModuleInfo info = new XMLTVConfig.ModuleInfo(  );
+        info.moduleName = (String)getCommands(  ).get(
+            REGION_PREFIX + regionName + GRABBER_SUFFIX );
+        info.configFileName = (String)getCommands(  ) .get(
+            REGION_PREFIX + regionName + GRABBER_SUFFIX )
+            + SUFFIX_FILE_CONFIG;
+
+        synchronized( config.modules )
+        {
+            config.modules.clear(  );
+            config.modules.add( info );
+        }
+
+        if( runSelectChannels )
+        {
+            configureChannelsOne( info, null, Application.getInstance().getFGLogger() );
+        }
     }
 
     protected String listToString( final List list )
@@ -906,7 +923,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                     {
                         if( ( count % 10 ) == 0 )
                         {
-                            progress.setProgressMessage( 
+                            progress.setProgressMessage(
                                 MessageFormat.format( 
                                     i18n.getString( "Message.Count" ), count ) );
                             
