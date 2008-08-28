@@ -47,7 +47,7 @@ public class Migrate
 
         Version ver = getInstalledVersion(  );
 
-        if( 
+        if(
             new Version( null ).equals( ver )
                 || ( ver.compareTo( Application.VERSION ) > 0 ) )
         {
@@ -99,6 +99,18 @@ public class Migrate
             if( ver.compareTo( new Version( 0, 10, 6 ) ) <= 0 )
             {
                 migr = new Migrate0_10_6To0_10_7( FreeGuide.pref_root_name );
+                migr.migrate(  );
+            }
+
+            if( ver.compareTo( new Version( 0, 10, 7 ) ) <= 0 )
+            {
+                migr = new Migrate0_10_7To0_10_8( FreeGuide.pref_root_name );
+                migr.migrate(  );
+            }
+
+            if( ver.compareTo( new Version( 0, 10, 8 ) ) <= 0 )
+            {
+                migr = new Migrate0_10_8To0_10_9( FreeGuide.pref_root_name );
                 migr.migrate(  );
             }
 
@@ -175,7 +187,7 @@ public class Migrate
                                            .get( "version", null );
         }
 
-        FreeGuide.log.finer( 
+        FreeGuide.log.finer(
             "Migration: storedVersionName=" + storedVersionName );
 
         return new Version( storedVersionName );
@@ -224,12 +236,12 @@ public class Migrate
 
                 FileWriter writer = new FileWriter( fl );
 
-                for( 
+                for(
                     Iterator it = prefs.entrySet(  ).iterator(  );
                         it.hasNext(  ); )
                 {
                     Map.Entry entry = (Map.Entry)it.next(  );
-                    writer.write( 
+                    writer.write(
                         entry.getKey(  ) + "=" + entry.getValue(  ) + "\n" );
                 }
 
@@ -251,7 +263,7 @@ public class Migrate
      *
      * @throws BackingStoreException DOCUMENT_ME!
      */
-    public static void loadMap( 
+    public static void loadMap(
         final String path, final Preferences node, Map prefs )
         throws BackingStoreException
     {
@@ -266,7 +278,7 @@ public class Migrate
 
         for( int i = 0; i < childrenNames.length; i++ )
         {
-            loadMap( 
+            loadMap(
                 path + childrenNames[i] + "/", node.node( childrenNames[i] ),
                 prefs );
         }
