@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title>FreeGuide : Create Installation Packages For Different Platforms </title>
+  <meta http-equiv='Content-Style-Type' content='text/css' />
+  <link rel='stylesheet' href='../pub/skins/plain-freeguide/plain1.css' type='text/css' />
+  <link rel="icon" href="../pub/skins/plain-freeguide/favicon.gif" type="image/x-icon" />
+  <link rel="shortcut icon" href="../pub/skins/plain-freeguide/favicon.gif" type="image/x-icon" />
+  <!--HeaderText--><style type='text/css'><!--
+  ul, ol, pre, dl, p { margin-top:0px; margin-bottom:0px; }
+  code.escaped { white-space: nowrap; }
+  .vspace { margin-top:1.33em; }
+  .indent { margin-left:40px; }
+  .outdent { margin-left:40px; text-indent:-40px; }
+  a.createlinktext { text-decoration:none; border-bottom:1px dotted gray; }
+  a.createlink { text-decoration:none; position:relative; top:-0.5em;
+    font-weight:bold; font-size:smaller; border-bottom:none; }
+  img { border:0px; }
+  .editconflict { color:green; 
+  font-style:italic; margin-top:1.33em; margin-bottom:1.33em; }
+
+  table.markup { border:2px dotted #ccf; width:90%; }
+  td.markup1, td.markup2 { padding-left:10px; padding-right:10px; }
+  table.vert td.markup1 { border-bottom:1px solid #ccf; }
+  table.horiz td.markup1 { width:23em; border-right:1px solid #ccf; }
+  table.markup caption { text-align:left; }
+  div.faq p, div.faq pre { margin-left:2em; }
+  div.faq p.question { margin:1em 0 0.75em 0; font-weight:bold; }
+   
+    .frame 
+      { border:1px solid #cccccc; padding:4px; background-color:#f9f9f9; }
+    .lfloat { float:left; margin-right:0.5em; }
+    .rfloat { float:right; margin-left:0.5em; }
+a.varlink { text-decoration:none; }
+
+--></style>  <meta name='robots' content='index,follow' />
+  <link rel='stylesheet' href='../pub/skins/plain-freeguide/plain2.css' type='text/css' />
+</head>
+<body>
+<!--PageHeaderFmt-->
+ <table id='wikihead' cellspacing='0' cellpadding='0' align='center'><tr>
+  <td id='homelink'><img src='../pub/skins/plain-freeguide/favicon.gif' /> <a href='http://www.artificialworlds.net/freeguide'>FreeGuide</a></td>
+  <td id='location'><span class='pagegroup'><a href='Developers.html'>Developers</a> &raquo;</span>
+  <h1 class='pagetitle'>Create Installation Packages For Different Platforms</h1></td>
+  <td id='wikicmds'><ul><li class='browse'><a accesskey=''  class='selflink' href='CreateInstallationPackagesForDifferentPlatforms.html'>View</a>
+</li><li class='edit'>
+</li><li class='diff'>
+</li><li class='print'>
+</li></ul>
+</td>
+ </tr></table> 
+<!--/PageHeaderFmt-->
+  <table id='wikimid' cellspacing='0' cellpadding='0' align='center'><tr>
+<!--PageLeftFmt-->
+   <td id='wikileft' valign='top'>
+    <p><form action='http://www.artificialworlds.net/freeguide'>
+     <input type='hidden' name='n' value='Developers.CreateInstallationPackagesForDifferentPlatforms' />
+     <input type='hidden' name='action' value='search' />
+     <input type='text' name='q' value=' Search ' class='inputbox searchbox'
+      onfocus="if(this.value=' Search ') {this.value=''}" 
+      onblur="if(this.value=='') {this.value=' Search '}"
+      /><input type='submit' class='inputbutton searchbutton'
+      value='Go' /></form></p><br />
+<ul><li><a class='wikilink' href='../Main/HomePage.html'>Home Page</a>
+</li><li><a class='wikilink' href='../DownloadAndInstall/DownloadAndInstall.html'>Download And Install</a>
+</li><li><a class='wikilink' href='../UserGuide/UserGuide.html'>User Guide</a>
+</li><li><a class='wikilink' href='../FAQ/FAQ.html'>Help And FAQ</a>
+</li><li><a class='wikilink' href='Developers.html'>Developers</a>
+<ul><li><span style='font-size:83%'><a class='wikilink' href='HelpUsMakeFreeGuide.html'>How to help</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='RunTheNightlyBuild.html'>Nightly Builds</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='BuildFromSVN.html'>Build From SVN</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='SVNRules.html'>SVN Rules</a></span>
+</li><li><span style='font-size:83%'><a class='selflink' href='CreateInstallationPackagesForDifferentPlatforms.html'>Building Installers</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='TranslateFreeGuide.html'>Translate FreeGuide</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='Design.html'>Design</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='Roles.html'>Roles</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='SourceLayout.html'>Source Layout</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='ChangingTheVersion.html'>Changing The Version</a></span>
+</li><li><span style='font-size:83%'><a class='urllink' href='http://bugs.launchpad.net/freeguide-tv/+bugs' rel='nofollow'>Bug tracker -&gt;</a></span>
+</li><li><span style='font-size:83%'><a class='urllink' href='http://freeguide-tv.svn.sourceforge.net/viewvc/freeguide-tv/trunk/freeguide-tv/' rel='nofollow'>Browse source -&gt;</a></span>
+</li></ul></li><li><a class='wikilink' href='../Main/Credits.html'>Credits</a>
+</li><li><a class='wikilink' href='../Main/Screenshots.html'>Screenshots</a>
+</li><li><a class='wikilink' href='../Main/Links.html'>Links</a>
+</li><li><a class='wikilink' href='../Main/SiteMap.html'>Site Map</a>
+<div class='vspace'></div></li><li><a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a>
+</li></ul><div class='vspace'></div>
+</td>
+<!--/PageLeftFmt-->
+    <td id='wikibody' valign='top'>
+<!--PageText-->
+<div id='wikitext'>
+<h1>Creating <span class='wikiword'>FreeGuide</span> installer packages</h1>
+<p>This page tells you how to make installers (<span class='wikiword'>EXEs</span> for Windows, <span class='wikiword'>RPMs</span>, debs etc for Linux).
+</p>
+<p class='vspace'>You need to run "ant" in the <span class='wikiword'>FreeGuide</span> root source directory (the one containing the file build.xml) first. It will prepare some files by setting their version number, compile the application and all the plugins, and pack things into JAR files.
+</p>
+<div class='vspace'></div><h3>Windows</h3>
+<p>For building windows package you need to have the NSIS tool for creating windows installers - <a class='urllink' href='http://nsis.sf.net' rel='nofollow'>NSIS</a>.
+</p>
+<p class='vspace'>There are two version of the Windows package - one including the XMLTV grabbers and one without XMLTV.
+</p>
+<p class='vspace'>The two alternative scripts for creating the Windows installer are in:
+</p>
+<div class='vspace'></div><pre class='escaped'>build/install/windows/freeguide-without-xmltv.nsi and
+build/install/windows/freeguide-with-xmltv.nsi</pre>
+<p class='vspace'>(These are relative to the root "freeguide-tv" directory, which contains the build.xml file.)
+</p>
+<p class='vspace'>Once NSIS is installed, you can compile these scripts by right-clicking them in Windows Explorer and selecting "Compile NSIS Script".  The installer will be built and put inside dist/windows/.  You will need to create this directory first.
+</p>
+<p class='vspace'>The version containing the XMLTV grabbers (the xmltv.exe file) is approx 7MB, whereas the version without XMLTV is less than 1MB.
+</p>
+<div class='vspace'></div><h3>Linux .deb</h3>
+<p>[Can someone contribute these instructions?]
+</p>
+<div class='vspace'></div><h3>Linux .rpm</h3>
+<p>To make an RPM of <span class='wikiword'>FreeGuide</span>, run this in the root directory:
+</p>
+<div class='vspace'></div><pre> ant dist-rpm
+</pre><p class='vspace'>Get in touch with the developers if this fails.
+</p>
+<div class='vspace'></div><h3>Linux .tar.gz</h3>
+<p>To make a .tar.gz file containing every file installed by the RPM or deb installers, run this in the root directory:
+</p>
+<div class='vspace'></div><pre> ant dist-tgz
+</pre><p class='vspace'>Get in touch with the developers if this fails.
+</p>
+<div class='vspace'></div><h3>Mac OS X</h3>
+<p>This assumes that you have got xmltv working somehow.
+</p>
+<p class='vspace'><strong>Creating the Package</strong> 
+</p>
+<p class='vspace'>How to create a Mac OS X Application Bundle.
+Download and install the latest version of <span class='wikiword'>XCode</span> from Apple Developer's website.
+Download and extract the Freeguide source code you wish to create the package from.
+Load the Jar Bundler App, which can be found in the  following path after Xcode has been installed 
+/Developer/Applications/Java Tools/ 
+</p>
+<p class='vspace'>For the main class, choose the startup.jar file from the Freeguide source directory.
+Under class path and files, choose all of the files found in the lib directory that is under
+the Freeguide source directory.
+For the command line options enter the following:
+</p>
+<p class='vspace'><code class='escaped'>--doc_directory ./doc --install_directory .</code>
+</p>
+<p class='vspace'>Then check off use Macintosh Menu Bar. In the JVM Version, select 1.5+ for the best results.
+</p>
+<p class='vspace'>In the arguments to commandline dialog box, enter the following:
+</p>
+<p class='vspace'><code class='escaped'>-Dapple.laf.useScreenMenuBar=true</code>
+OR 
+check the check box next to Use Macintosh Menu Bar.
+</p>
+<p class='vspace'>In the JVM Version dialog box, if you want Freeguide to use the Macintosh menu bar, select version 1.4+ of the JVM, otherwise choose any JVM.
+</p>
+<p class='vspace'>Under the Properties Dialog box.
+</p>
+<p class='vspace'>Check Set Working Directory to inside Application Package
+</p>
+<p class='vspace'>Select choose icon and choose a "provided" icns file or make your own.
+</p>
+<p class='vspace'><em>make your own icons coming soon</em>
+</p>
+<p class='vspace'>Then select create application. 
+Choose a file name, I would suggest Freeguide.
+Remember the location where the app bundle is created, because you will need to
+enter into its directory structure like so:
+</p>
+<p class='vspace'>cd "PATH_TO_APP_BUNDLE/Freeguide.app/<span class='wikiword'>Contents/MacOS</span>/"
+then copy the doc files from the source tarball to the path stated above like so
+</p>
+<p class='vspace'>cp -<span class='wikiword'>RLv</span> FREEGUIDE_SOURCE/doc .
+</p>
+<p class='vspace'><strong>Configuring the Package</strong>
+</p>
+<p class='vspace'>Coming soon...
+</p>
+<p class='vspace'><strong><span class='wikiword'>TODOs</span></strong>
+</p>
+<div class='vspace'></div><ul><li>How to create the Freeguide icons (.icns files)
+</li><li>Put the command line options in.
+</li></ul><p class='vspace'><strong>Notes</strong>
+</p>
+<p class='vspace'>I do not believe this creates universal java apps.
+</p>
+</div>
+
+    </td>
+  </tr></table>
+  <!--PageFooterFmt-->
+ <table id='wikifoot' cellspacing='0' cellpadding='0' align='center'>
+ <tr><td class='passwordlink' colspan='2'>If you would like to help improve this site, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we will give you the password to edit pages.</td></tr>
+ <tr>
+  <td class='lastmod'>Page last modified on June 03, 2008 &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
+  <td class='footnav'><div  style='text-align: right;' > 
+<p> -
+ -
+ -
+
+() -
+
+</p></div>
+</td>
+ </tr>
+ </table>
+<!--/PageFooterFmt-->
+</body>
+</html>

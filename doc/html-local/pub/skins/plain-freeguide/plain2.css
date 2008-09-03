@@ -1,0 +1,5 @@
+/*
+These CSS selectors will overrride selectors PmWiki injects into
+the HTML header.
+*/
+.diffbox { width:100%; }

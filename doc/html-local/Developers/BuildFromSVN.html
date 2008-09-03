@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title>FreeGuide : Build From SVN </title>
+  <meta http-equiv='Content-Style-Type' content='text/css' />
+  <link rel='stylesheet' href='../pub/skins/plain-freeguide/plain1.css' type='text/css' />
+  <link rel="icon" href="../pub/skins/plain-freeguide/favicon.gif" type="image/x-icon" />
+  <link rel="shortcut icon" href="../pub/skins/plain-freeguide/favicon.gif" type="image/x-icon" />
+  <!--HeaderText--><style type='text/css'><!--
+  ul, ol, pre, dl, p { margin-top:0px; margin-bottom:0px; }
+  code.escaped { white-space: nowrap; }
+  .vspace { margin-top:1.33em; }
+  .indent { margin-left:40px; }
+  .outdent { margin-left:40px; text-indent:-40px; }
+  a.createlinktext { text-decoration:none; border-bottom:1px dotted gray; }
+  a.createlink { text-decoration:none; position:relative; top:-0.5em;
+    font-weight:bold; font-size:smaller; border-bottom:none; }
+  img { border:0px; }
+  .editconflict { color:green; 
+  font-style:italic; margin-top:1.33em; margin-bottom:1.33em; }
+
+  table.markup { border:2px dotted #ccf; width:90%; }
+  td.markup1, td.markup2 { padding-left:10px; padding-right:10px; }
+  table.vert td.markup1 { border-bottom:1px solid #ccf; }
+  table.horiz td.markup1 { width:23em; border-right:1px solid #ccf; }
+  table.markup caption { text-align:left; }
+  div.faq p, div.faq pre { margin-left:2em; }
+  div.faq p.question { margin:1em 0 0.75em 0; font-weight:bold; }
+   
+    .frame 
+      { border:1px solid #cccccc; padding:4px; background-color:#f9f9f9; }
+    .lfloat { float:left; margin-right:0.5em; }
+    .rfloat { float:right; margin-left:0.5em; }
+a.varlink { text-decoration:none; }
+
+--></style>  <meta name='robots' content='index,follow' />
+  <link rel='stylesheet' href='../pub/skins/plain-freeguide/plain2.css' type='text/css' />
+</head>
+<body>
+<!--PageHeaderFmt-->
+ <table id='wikihead' cellspacing='0' cellpadding='0' align='center'><tr>
+  <td id='homelink'><img src='../pub/skins/plain-freeguide/favicon.gif' /> <a href='http://www.artificialworlds.net/freeguide'>FreeGuide</a></td>
+  <td id='location'><span class='pagegroup'><a href='Developers.html'>Developers</a> &raquo;</span>
+  <h1 class='pagetitle'>Build From SVN</h1></td>
+  <td id='wikicmds'><ul><li class='browse'><a accesskey=''  class='selflink' href='BuildFromSVN.html'>View</a>
+</li><li class='edit'>
+</li><li class='diff'>
+</li><li class='print'>
+</li></ul>
+</td>
+ </tr></table> 
+<!--/PageHeaderFmt-->
+  <table id='wikimid' cellspacing='0' cellpadding='0' align='center'><tr>
+<!--PageLeftFmt-->
+   <td id='wikileft' valign='top'>
+    <p><form action='http://www.artificialworlds.net/freeguide'>
+     <input type='hidden' name='n' value='Developers.BuildFromSVN' />
+     <input type='hidden' name='action' value='search' />
+     <input type='text' name='q' value=' Search ' class='inputbox searchbox'
+      onfocus="if(this.value=' Search ') {this.value=''}" 
+      onblur="if(this.value=='') {this.value=' Search '}"
+      /><input type='submit' class='inputbutton searchbutton'
+      value='Go' /></form></p><br />
+<ul><li><a class='wikilink' href='../Main/HomePage.html'>Home Page</a>
+</li><li><a class='wikilink' href='../DownloadAndInstall/DownloadAndInstall.html'>Download And Install</a>
+</li><li><a class='wikilink' href='../UserGuide/UserGuide.html'>User Guide</a>
+</li><li><a class='wikilink' href='../FAQ/FAQ.html'>Help And FAQ</a>
+</li><li><a class='wikilink' href='Developers.html'>Developers</a>
+<ul><li><span style='font-size:83%'><a class='wikilink' href='HelpUsMakeFreeGuide.html'>How to help</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='RunTheNightlyBuild.html'>Nightly Builds</a></span>
+</li><li><span style='font-size:83%'><a class='selflink' href='BuildFromSVN.html'>Build From SVN</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='SVNRules.html'>SVN Rules</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='CreateInstallationPackagesForDifferentPlatforms.html'>Building Installers</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='TranslateFreeGuide.html'>Translate FreeGuide</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='Design.html'>Design</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='Roles.html'>Roles</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='SourceLayout.html'>Source Layout</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='ChangingTheVersion.html'>Changing The Version</a></span>
+</li><li><span style='font-size:83%'><a class='urllink' href='http://bugs.launchpad.net/freeguide-tv/+bugs' rel='nofollow'>Bug tracker -&gt;</a></span>
+</li><li><span style='font-size:83%'><a class='urllink' href='http://freeguide-tv.svn.sourceforge.net/viewvc/freeguide-tv/trunk/freeguide-tv/' rel='nofollow'>Browse source -&gt;</a></span>
+</li></ul></li><li><a class='wikilink' href='../Main/Credits.html'>Credits</a>
+</li><li><a class='wikilink' href='../Main/Screenshots.html'>Screenshots</a>
+</li><li><a class='wikilink' href='../Main/Links.html'>Links</a>
+</li><li><a class='wikilink' href='../Main/SiteMap.html'>Site Map</a>
+<div class='vspace'></div></li><li><a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a>
+</li></ul><div class='vspace'></div>
+</td>
+<!--/PageLeftFmt-->
+    <td id='wikibody' valign='top'>
+<!--PageText-->
+<div id='wikitext'>
+<h1>Build from SVN</h1>
+<p>Some instructions on how to build the very latest version of <span class='wikiword'>FreeGuide</span>.  If you have developer access to SVN you will want to read the <a class='wikilink' href='SVNRules.html'>SVN Rules</a>.  There is also more useful info on the <a class='wikilink' href='HelpUsMakeFreeGuide.html'>Help us make FreeGuide</a> page.
+</p>
+<div class='vspace'></div><h2>Windows</h2>
+<h3>Getting the JDK (Java)</h3>
+<p>In order to compile <span class='wikiword'>FreeGuide</span> you will need the Java Developer Kit (JDK), not just the Java Runtime Environment (JRE) version of Java.  To get the JDK, got to <a class='urllink' href='http://java.sun.com/j2se' rel='nofollow'>http://java.sun.com/j2se</a> and follow the link on the right to download <span class='wikiword'>J2SE</span>, and then choose to install the JDK.  Its easiest to choose the Windows Online Installation, Multi-language version.
+</p>
+<p class='vspace'>Now you will need to set two environment variables: PATH, which should give the location of the "bin" directory inside the directory where you installed the JDK, and JAVA_HOME, which should give the location of the main JDK directory (the one that contains "bin" and other directories).  Right-click on My Computer and choose Properties, you will find PATH under Advanced/Environment Variables/System Variables. Find PATH and select edit. The PATHS to the various applications are to be found <em>between semicolons</em>. For example, if your PATH looks like this:
+</p>
+<p class='vspace'><code class='escaped'>%SystemRoot%\system32;C:\Ant\bin</code>
+</p>
+<p class='vspace'>You need to edit it to this, assuming that your JDK is in directory C:\Program Files\Java\jdk1.5.0_06:
+</p>
+<p class='vspace'><code class='escaped'>%SystemRoot%\system32;C:\Ant\bin;C:\Program Files\Java\jdk1.5.0_06\bin</code>
+</p>
+<p class='vspace'>Don't forget to add "\bin" on the end.
+</p>
+<p class='vspace'>You will also need to add a new environment variable, called JAVA_HOME.  The value of that should just be the directory in which the JDK is installed, e.g. C:\Program Files\Java\jdk1.5.0_06\bin
+</p>
+<p class='vspace'>Now, close any DOS/Cmd windows you have opened, and start a new one (to make sure the changes you have made are registered) and type:
+</p>
+<p class='vspace'><code class='escaped'>javac</code>
+</p>
+<p class='vspace'>The output should be a long usage message complaining that you haven't provided any source files.  If so, you are ready to go - continue to the next section.
+</p>
+<p class='vspace'>If, instead you get something like this:
+</p>
+<p class='vspace'><code class='escaped'>'javac' is not recognised as an internal or external command, blah blah blah</code>
+</p>
+<p class='vspace'>or something similar, then you either don't have the JDK installed, or it is not in your PATH.  Ask on the <span class='wikiword'>FreeGuide</span> developers' mailing list if you need help getting this set up.
+</p>
+<p class='vspace'>Now type:
+</p>
+<p class='vspace'><code class='escaped'>echo %JAVA_HOME%</code>
+</p>
+<p class='vspace'>If you get no response, you haven't set up your JAVA_HOME environment variable properly (try logging out and logging in again if you think you have).  Ask on our developers' mailing list if you need help here.
+</p>
+<div class='vspace'></div><h3>Getting the code from Subversion</h3>
+<p>You will need a <a class='urllink' href='http://subversion.tigris.org/' rel='nofollow'>Subversion</a> client installed.  You can use <a class='urllink' href='http://tortoisesvn.tigris.org/' rel='nofollow'>Tortoise SVN</a> or the command line client.
+</p>
+<p class='vspace'>Download and install the Windows msi version of <span class='wikiword'>TortoiseSVN</span> by clicking the ".msi" file here: <a class='urllink' href='http://sourceforge.net/project/showfiles.php?group_id=138498&amp;package_id=151948' rel='nofollow'>http://sourceforge.net/project/showfiles.php?group_id=138498&amp;package_id= 151948</a>.
+</p>
+<p class='vspace'>Once the program is installed you will find that it is available in the Context Menus (right mouse click). Tortoise is not a "program" that you can run, it is now always available as part of Windows Explorer.
+</p>
+<p class='vspace'>To download a full copy of the latest source files from <span class='wikiword'>FreeGuide</span> just open My Computer, choose a suitable directory (e.g. My Documents) and right-click somewhere inside it, and select SVN Checkout. You will be asked for the URL of the repository, which is this:
+</p>
+<p class='vspace'><code class='escaped'>https://freeguide-tv.svn.sourceforge.net/svnroot/freeguide-tv/trunk/freeguide-tv</code>
+</p>
+<p class='vspace'>Note: if you have low bandwidth or low disk space, you might like to try <a class='wikilink' href='GettingTheCodeWithoutXMLTV.html'>Getting the code without XMLTV</a>.
+</p>
+<p class='vspace'>The simplest way to start is just to take the default settings and you will get the latest of everything. Just enter the directory where you want to save the files, preferably something short and simple without long file names, and download.
+</p>
+<p class='vspace'>Below, we assume you checked the source out into a directory called C:\My Documents\freeguide-tv.
+</p>
+<div class='vspace'></div><h3>Running using Eclipse</h3>
+<p>See <a href='BuildFromSVN.html#eclipse'>Notes on using Eclipse</a>.
+</p>
+<div class='vspace'></div><h3>Running the classes from the command line</h3>
+<p>[Note: this is the hard way to do it, but simple.  Normally you will want to use an IDE such as Eclipse.]
+</p>
+<p class='vspace'>You will need the <a class='urllink' href='http://ant.apache.org/' rel='nofollow'>Ant</a> tool installed and in your PATH.  You will also need Ant's "optional tasks", which may be distributed under a separate package, possibly called "ant-optional".
+</p>
+<p class='vspace'>To build the code, open a DOS or Cmd window and use the "cd" command to change into the directory where you checked out the code:
+</p>
+<p class='vspace'><code class='escaped'>cd "C:\My Documents\freeguide-tv"</code>
+</p>
+<p class='vspace'>To compile, type this:
+</p>
+<p class='vspace'><code class='escaped'>ant prepare</code>
+<code class='escaped'>ant compile-in-place</code>
+</p>
+<p class='vspace'>Run <span class='wikiword'>FreeGuide</span> (after building as above) like this:
+</p>
+<p class='vspace'><code class='escaped'>ant run</code>
+</p>
+<p class='vspace'>or, alternatively, you can do this:
+</p>
+<p class='vspace'><code class='escaped'>cd src</code>
+<code class='escaped'>java freeguide.startup.Startup</code>
+</p>
+<div class='vspace'></div><h2>Linux</h2>
+<h3>Getting the JDK (Java)</h3>
+<p>In order to compile <span class='wikiword'>FreeGuide</span> you will need the Java Developer Kit (JDK), not just the Java Runtime Environment (JRE) version of Java.  To get the JDK, got to <a class='urllink' href='http://java.sun.com/j2se' rel='nofollow'>http://java.sun.com/j2se</a> and follow the link on the right to download <span class='wikiword'>J2SE</span>, and then choose to install the JDK.
+</p>
+<p class='vspace'>When you have downloaded and installed the JDK, open a DOS/Cmd window or terminal, and type:
+</p>
+<p class='vspace'><code class='escaped'>javac -version</code>
+</p>
+<p class='vspace'>The output should be a long usage message complaining that you haven't provided any source files.  Check the very first line of this output (you may need to scroll up).  It should be something like "javac 1.5.0_06" - make sure it matches the version you downloaded, not an earlier version.  If so, you are ready to go - continue to the next section.
+</p>
+<p class='vspace'>If, instead you get something like this:
+</p>
+<p class='vspace'><code class='escaped'>bash: javac: command not found</code>
+</p>
+<p class='vspace'>or something similar, then you either don't have the JDK installed, or it is not in your PATH.  Ask on the <span class='wikiword'>FreeGuide</span> developers' mailing list if you need help getting this set up.
+</p>
+<div class='vspace'></div><h3>Getting the code from Subversion</h3>
+<p>To check out the latest code, do this (after installing <a class='urllink' href='http://subversion.tigris.org/' rel='nofollow'>Subversion</a>):
+</p>
+<p class='vspace'><code class='escaped'>svn co https://freeguide-tv.svn.sourceforge.net/svnroot/freeguide-tv/trunk/freeguide-tv freeguide-tv</code>
+</p>
+<p class='vspace'>After you've done that, if someone else has made changes and you want to get the latest version, do this:
+</p>
+<p class='vspace'><code class='escaped'>cd freeguide-tv</code>
+<code class='escaped'>svn update</code>
+</p>
+<div class='vspace'></div><h3>XMLTV</h3>
+<p>I really do not recommend installing XMLTV from source - it is very difficult.  It is better to use a package for your operating system.  On Debian and Ubuntu, this should work:
+</p>
+<p class='vspace'><code class='escaped'>apt-get install xmltv</code>
+</p>
+<p class='vspace'>If you do compile from source, ensure you install Tk, so that XMLTV's --gui configuration mode will work from within <span class='wikiword'>FreeGuide</span> (i.e. when you click "Choose channels for XMLTV" something will happen).
+</p>
+<div class='vspace'></div><h3>Running using Eclipse</h3>
+<p>See <a href='BuildFromSVN.html#eclipse'>Notes on using Eclipse</a>.
+</p>
+<div class='vspace'></div><h3>Building the jars</h3>
+<p>Ensure you have ant and ant-optional installed, and do this:
+</p>
+<p class='vspace'><code class='escaped'>cd freeguide-tv</code>
+<code class='escaped'>ant prepare</code>
+<code class='escaped'>ant install-linux-run</code>
+</p>
+<p class='vspace'>Now to run the program do this:
+</p>
+<p class='vspace'><code class='escaped'>cd run</code>
+<code class='escaped'>./freeguide</code>
+</p>
+<div class='vspace'></div><h3>Running the classes from the command line</h3>
+<p>Ensure you have ant and ant-optional installed, and do this:
+</p>
+<p class='vspace'><code class='escaped'>cd freeguide-tv</code>
+<code class='escaped'>ant prepare</code>
+<code class='escaped'>ant compile-in-place</code>
+</p>
+<p class='vspace'>Run <span class='wikiword'>FreeGuide</span> (after building as above) like this:
+</p>
+<p class='vspace'><code class='escaped'>ant run</code>
+</p>
+<p class='vspace'>or, alternatively, do this:
+</p>
+<p class='vspace'><code class='escaped'>cd src</code>
+<code class='escaped'>java freeguide.startup.Startup</code>
+</p>
+<div class='vspace'></div><h2><a name='eclipse' id='eclipse'></a>Notes on using Eclipse</h2>
+<p>Before you build in Eclipse, run this in the main freeguide directory:
+</p>
+<p class='vspace'><code class='escaped'>ant prepare</code>
+</p>
+<p class='vspace'>Download <a class='urllink' href='http://www.eclipse.org/' rel='nofollow'>Eclipse</a> Integrated Development Environment (IDE).
+</p>
+<p class='vspace'>Don't tell Eclipse to use the Ant scripts to set up the build process, as it won't understand our separate XML files.  Instead, just tell Eclipse to compile all the .class files into the same directory as the .java files (which is the default behaviour), and then to run the project set the working directory to the "src" subdirectory, and set the main class to be "freeguide.startup.Startup".
+</p>
+<p class='vspace'>You can put sources in one Eclipse project. However,
+in order to run sources in Eclipse, make sure that the
+working directory of JVM is the same as the output
+directory of the compiling process. In Eclipse, the
+default working directory is usually the workspace
+directory, and the default output directory is bin
+sub-directory of the workspace. Therefore, if your workspace directory is c:\home\freeguideTV and the default output directory is c:\home\freeguideTV\bin then the working directory must be c:\home\freeguideTV\bin.
+</p>
+<p class='vspace'>The working directory can be specified through
+Run/Run.../Arguments or Run/Debug.../Arguments
+(depending on which mode of execution you choose to
+do).
+</p>
+<p class='vspace'>The output directory (or folder) can be specified
+through Project/Properties/Java Build Path.
+</p>
+<p class='vspace'>Note that the workspace directory for a project named "freeguideTV" is accessed through the variable ${workspace_loc:freeguideTV}. You can use this variable to specify other relative paths.
+</p>
+<p class='vspace'>If you receive a "java.util.<span class='wikiword'>MissingResourceException</span>", running 'ant prepare' should fix this.
+</p>
+<div class='vspace'></div><hr />
+<p class='vspace'>Please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> if you have questions.
+</p>
+</div>
+
+    </td>
+  </tr></table>
+  <!--PageFooterFmt-->
+ <table id='wikifoot' cellspacing='0' cellpadding='0' align='center'>
+ <tr><td class='passwordlink' colspan='2'>If you would like to help improve this site, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we will give you the password to edit pages.</td></tr>
+ <tr>
+  <td class='lastmod'>Page last modified on June 03, 2008 &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
+  <td class='footnav'><div  style='text-align: right;' > 
+<p> -
+ -
+ -
+
+() -
+
+</p></div>
+</td>
+ </tr>
+ </table>
+<!--/PageFooterFmt-->
+</body>
+</html>

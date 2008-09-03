@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title>FreeGuide : Initial Setup Tasks </title>
+  <meta http-equiv='Content-Style-Type' content='text/css' />
+  <link rel='stylesheet' href='../pub/skins/plain-freeguide/plain1.css' type='text/css' />
+  <link rel="icon" href="../pub/skins/plain-freeguide/favicon.gif" type="image/x-icon" />
+  <link rel="shortcut icon" href="../pub/skins/plain-freeguide/favicon.gif" type="image/x-icon" />
+  <!--HeaderText--><style type='text/css'><!--
+  ul, ol, pre, dl, p { margin-top:0px; margin-bottom:0px; }
+  code.escaped { white-space: nowrap; }
+  .vspace { margin-top:1.33em; }
+  .indent { margin-left:40px; }
+  .outdent { margin-left:40px; text-indent:-40px; }
+  a.createlinktext { text-decoration:none; border-bottom:1px dotted gray; }
+  a.createlink { text-decoration:none; position:relative; top:-0.5em;
+    font-weight:bold; font-size:smaller; border-bottom:none; }
+  img { border:0px; }
+  .editconflict { color:green; 
+  font-style:italic; margin-top:1.33em; margin-bottom:1.33em; }
+
+  table.markup { border:2px dotted #ccf; width:90%; }
+  td.markup1, td.markup2 { padding-left:10px; padding-right:10px; }
+  table.vert td.markup1 { border-bottom:1px solid #ccf; }
+  table.horiz td.markup1 { width:23em; border-right:1px solid #ccf; }
+  table.markup caption { text-align:left; }
+  div.faq p, div.faq pre { margin-left:2em; }
+  div.faq p.question { margin:1em 0 0.75em 0; font-weight:bold; }
+   
+    .frame 
+      { border:1px solid #cccccc; padding:4px; background-color:#f9f9f9; }
+    .lfloat { float:left; margin-right:0.5em; }
+    .rfloat { float:right; margin-left:0.5em; }
+a.varlink { text-decoration:none; }
+
+--></style>  <meta name='robots' content='noindex,nofollow' />
+  <link rel='stylesheet' href='../pub/skins/plain-freeguide/plain2.css' type='text/css' />
+</head>
+<body>
+<!--PageHeaderFmt-->
+ <table id='wikihead' cellspacing='0' cellpadding='0' align='center'><tr>
+  <td id='homelink'><img src='../pub/skins/plain-freeguide/favicon.gif' /> <a href='http://www.artificialworlds.net/freeguide'>FreeGuide</a></td>
+  <td id='location'><span class='pagegroup'><a href='http://www.artificialworlds.net/freeguide/PmWiki'>PmWiki</a> &raquo;</span>
+  <h1 class='pagetitle'>Initial Setup Tasks</h1></td>
+  <td id='wikicmds'><ul><li class='browse'><a accesskey=''  class='selflink' href='InitialSetupTasks.html'>View</a>
+</li><li class='edit'><a accesskey='e'  rel='nofollow'  class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/InitialSetupTasks?action=edit'>Edit</a>
+</li><li class='diff'><a accesskey='h'  rel='nofollow'  class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/InitialSetupTasks?action=diff'>History</a>
+</li><li class='print'><a accesskey=''  rel='nofollow'  class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/InitialSetupTasks?action=print'>Print</a>
+</li></ul>
+</td>
+ </tr></table> 
+<!--/PageHeaderFmt-->
+  <table id='wikimid' cellspacing='0' cellpadding='0' align='center'><tr>
+<!--PageLeftFmt-->
+   <td id='wikileft' valign='top'>
+    <p><form action='http://www.artificialworlds.net/freeguide'>
+     <input type='hidden' name='n' value='PmWiki.InitialSetupTasks' />
+     <input type='hidden' name='action' value='search' />
+     <input type='text' name='q' value=' Search ' class='inputbox searchbox'
+      onfocus="if(this.value=' Search ') {this.value=''}" 
+      onblur="if(this.value=='') {this.value=' Search '}"
+      /><input type='submit' class='inputbutton searchbutton'
+      value='Go' /></form></p><br />
+<ul><li><a class='wikilink' href='../Main/HomePage.html'>Home Page</a>
+</li><li><a class='wikilink' href='../DownloadAndInstall/DownloadAndInstall.html'>Download And Install</a>
+</li><li><a class='wikilink' href='../UserGuide/UserGuide.html'>User Guide</a>
+</li><li><a class='wikilink' href='../FAQ/FAQ.html'>Help And FAQ</a>
+</li><li><a class='wikilink' href='../Developers/Developers.html'>Developers</a>
+</li><li><a class='wikilink' href='../Main/Credits.html'>Credits</a>
+</li><li><a class='wikilink' href='../Main/Screenshots.html'>Screenshots</a>
+</li><li><a class='wikilink' href='../Main/Links.html'>Links</a>
+</li><li><a class='wikilink' href='../Main/SiteMap.html'>Site Map</a>
+<div class='vspace'></div></li><li><a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a>
+</li></ul><div class='vspace'></div>
+</td>
+<!--/PageLeftFmt-->
+    <td id='wikibody' valign='top'>
+<!--PageText-->
+<div id='wikitext'>
+<p>
+<span class='frame rfloat' style='font-size: smaller; background-color: #ffffcc;'> administrators (basic)</span>
+Once you have <span class='wikiword'>PmWiki</span> running on your site (see <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/Installation'>Installation</a>), you can customize it for your particular needs.
+</p>
+<p class='vspace'>Most <span class='wikiword'>PmWiki</span> configuration is performed in a file called <em>local/config.php</em>. Some configuration is done on special pages in the <a class='wikilink' href='http://www.artificialworlds.net/freeguide/Site/Site'>Site</a> group, such as the <a class='wikilink' href='http://www.artificialworlds.net/freeguide/Site/SideBar'>Site.Side Bar</a> menu.
+</p>
+<div class='vspace'></div><h2>The local configuration file (<em>local/config.php</em>)</h2>
+<p>When you first install <span class='wikiword'>PmWiki</span>, the <em>local/config.php</em> file does not exist. Copy the <em>sample-config.php</em> file (in the <em>docs/</em> directory) to <em>local/config.php</em> and use it as a starting point.  You could create <em>local/config.php</em> from scratch, but <em>sample-config.php</em> is already populated with many of the options you might want to adjust.
+</p>
+<p class='vspace'>Here is a simple <em>config.php</em> file:
+</p>
+<div class='vspace'></div><div class='indent'><pre class='escaped'>
+&lt;?php if (!defined('PmWiki')) exit();
+$WikiTitle = "My New Wiki";
+$PageLogoUrl = "http://www.example.com/mylogo.gif";
+
+$DefaultPasswords['admin'] = crypt('onesecret');
+
+$EnableUpload = 1;
+$DefaultPasswords['upload'] = crypt('secrettwo');
+
+putenv("TZ=EST5EDT");
+$TimeFmt = '%B %d, %Y, at %I:%M %p EST';
+</pre>
+</div><p class='vspace'>Note that <em>config.php</em> begins with <code>&lt;?php</code> . The PHP end tag <code>?&gt;</code> is optional, and can be left off to improve compatibility with some operating systems.  Be sure there aren't any blank lines or spaces before the <code>&lt;?php</code> or after any closing <code>?&gt;</code>, or else you may get strange PHP error messages at the beginning of your wiki pages.
+</p>
+<p class='vspace'>The <em>config.php</em> file above sets the value of four PHP variables used by <span class='wikiword'>PmWiki</span>:
+</p><ul><li>The <a class='varlink' href='http://www.artificialworlds.net/freeguide/PmWiki/LayoutVariables#WikiTitle'><code class='varlink'>&#36;WikiTitle</code></a> variable gives the name of your site as it will appear in a user's browser title bar.
+</li><li>The <a class='varlink' href='http://www.artificialworlds.net/freeguide/PmWiki/LayoutVariables#PageLogoUrl'><code class='varlink'>&#36;PageLogoUrl</code></a> variable specifies the URL of the icon image that will appear in the upper-left corner of each wiki page.
+</li><li>The <a class='varlink' href='http://www.artificialworlds.net/freeguide/PmWiki/SecurityVariables#DefaultPasswords'><code class='varlink'>&#36;DefaultPasswords</code></a>['admin'] sets an administrative password.
+</li><li>Setting <a class='varlink' href='http://www.artificialworlds.net/freeguide/PmWiki/UploadVariables#EnableUpload'><code class='varlink'>&#36;EnableUpload</code></a> to "1" enables Uploads ("Attached files").  <a class='varlink' href='http://www.artificialworlds.net/freeguide/PmWiki/SecurityVariables#DefaultPasswords'><code class='varlink'>&#36;DefaultPasswords</code></a>['upload'] sets an upload password.
+</li><li>The TZ environment variable defines a particular time zone.
+</li><li>The <a class='varlink' href='http://www.artificialworlds.net/freeguide/PmWiki/BasicVariables#TimeFmt'><code class='varlink'>&#36;TimeFmt</code></a> variable defines the appearance of time strings and (along with TZ) localizes the wiki to a specific time zone.
+</li></ul><p class='vspace'>By setting these (and other) variables in <em>local/config.php</em>, you can change the look and feel of <span class='wikiword'>PmWiki</span> from its default, sometimes substantially so.  See <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/Variables'>Pm Wiki.Variables</a> for a list of variables that <span class='wikiword'>PmWiki</span> uses, and see <a class='urllink' href='http://www.pmwiki.org/wiki/PmWiki/PmWikiUsers' rel='nofollow'>Pm Wiki:Pm Wiki Users</a> for examples of sites that use <span class='wikiword'>PmWiki</span> in customized ways.
+</p>
+<div class='vspace'></div><h2>Setting an administrative password</h2>
+<p>The pages in the <a class='wikilink' href='http://www.artificialworlds.net/freeguide/Site/Site'>Site</a> group (except the <span class='wikiword'>Site.SideBar</span>) are locked by default. In order to edit pages in this group you need to create a site-wide admin password in <em>local/config.php</em>.  To set the site-wide admin password to "<code>mysecret</code>", change the line to the following:
+</p>
+<div class='vspace'></div><div class='indent'><code class='escaped'>$DefaultPasswords['admin'] = crypt('mysecret');</code>
+</div><p class='vspace'>You must use the <code class='escaped'>crypt()</code> function, but set the password to a value with meaning for you. See <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/PasswordsAdmin'>Passwords Admin</a> for details about making the password more secure.
+</p>
+<div class='vspace'></div><h2><a name='dontmodify' id='dontmodify'></a>Don't modify or rename <em>pmwiki.php</em></h2>
+<p><span class='wikiword'>PmWiki</span> has been designed so that all customizations can be made without changing the distribution files -- one of its design goals is to provide seamless upgrades.   <span class='wikiword'>PmWiki</span> never writes to files in the <em>local/</em> or <em>cookbook/</em> directories, so placing your customizations here makes it easier to track the changes and <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/Upgrades'>upgrade PmWiki</a> without losing the changes.
+</p>
+<p class='vspace'>When changing the configuration of your site, always change the <em>local/config.php</em> file or add files to the <em>cookbook/</em> or <em>pub</em> directories.  Do not change <em>pmwiki.php</em> or the files in the <em>scripts/</em> directory because the files are supposed to be overwritten upon upgrading.
+</p>
+<p class='vspace'>You shouldn't rename <em>pmwiki.php</em> either.  If you rename the file it will not be overwritten during an upgrade of the software and there will be a version mismatch.  Many administrators add an <em>index.php</em> "wrapper script" in the pmwiki directory that contains the following single line:
+</p>
+<div class='vspace'></div><div class='indent'><code class='escaped'>&lt;?php include('pmwiki.php');</code>
+</div><div class='vspace'></div><h2>Other customization</h2>
+<p>After setting up <em>local/config.php</em> file, you may wish to make other <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/LocalCustomizations'>local customizations</a>. See the <a class='urllink' href='http://www.pmwiki.org/wiki/Cookbook/CookbookBasics' rel='nofollow'>PmWiki Cookbook</a> for a large number of customizations that have been contributed. And don't fear Cookbook recipes - they're well prepared, so that most of them require only to download a single file, add a one-line include command to <code>config.php</code>, and <em>voilà!</em> - they're working!
+</p>
+<p class='vspace'>If you (or others sharing your server) want to maintain more than one wiki on the same server, see <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/WikiFarms'>Wiki Farms</a>.
+</p>
+<div class='vspace'></div><h2>Now what?</h2>
+<p>Don't forget to join a <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/MailingLists'>PmWiki mailing list</a>, where you can email other <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/WikiAdministrator'>wiki administrators</a> for help on customizing <span class='wikiword'>PmWiki</span> and participate in discussions about <span class='wikiword'>PmWiki</span> improvements.  Once you have your site operational, be sure to add it to <a class='urllink' href='http://www.pmwiki.org/wiki/PmWiki/PmWikiUsers' rel='nofollow'>Pm Wiki:Pm Wiki Users</a> so others will know about it!
+</p>
+<p class='vspace'  style='background-color: #eee;'><span class='wikitrail'>&lt;&lt; <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/Installation'>Installation</a> | <a class='wikilink' href='DocumentationIndex.html'>Documentation Index</a> | <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/LocalCustomizations'>Local customizations</a> &gt;&gt;</span>
+</p>
+</div>
+
+    </td>
+  </tr></table>
+  <!--PageFooterFmt-->
+ <table id='wikifoot' cellspacing='0' cellpadding='0' align='center'>
+ <tr><td class='passwordlink' colspan='2'>If you would like to help improve this site, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we will give you the password to edit pages.</td></tr>
+ <tr>
+  <td class='lastmod'>Page last modified on March 16, 2006 &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
+  <td class='footnav'><div  style='text-align: right;' > 
+<p><a rel='nofollow'  class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/InitialSetupTasks?action=edit'>Edit</a> -
+<a rel='nofollow'  class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/InitialSetupTasks?action=diff'>History</a> -
+<a rel='nofollow'  target='_blank'  class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/InitialSetupTasks?action=print'>Print</a> -
+<a rel='nofollow'  class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/RecentChanges?action=browse'>Recent Changes</a>
+() -
+
+</p></div>
+</td>
+ </tr>
+ </table>
+<!--/PageFooterFmt-->
+</body>
+</html>

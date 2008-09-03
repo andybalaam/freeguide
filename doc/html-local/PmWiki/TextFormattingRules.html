@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title>FreeGuide : Text Formatting Rules </title>
+  <meta http-equiv='Content-Style-Type' content='text/css' />
+  <link rel='stylesheet' href='../pub/skins/plain-freeguide/plain1.css' type='text/css' />
+  <link rel="icon" href="../pub/skins/plain-freeguide/favicon.gif" type="image/x-icon" />
+  <link rel="shortcut icon" href="../pub/skins/plain-freeguide/favicon.gif" type="image/x-icon" />
+  <!--HeaderText--><style type='text/css'><!--
+  ul, ol, pre, dl, p { margin-top:0px; margin-bottom:0px; }
+  code.escaped { white-space: nowrap; }
+  .vspace { margin-top:1.33em; }
+  .indent { margin-left:40px; }
+  .outdent { margin-left:40px; text-indent:-40px; }
+  a.createlinktext { text-decoration:none; border-bottom:1px dotted gray; }
+  a.createlink { text-decoration:none; position:relative; top:-0.5em;
+    font-weight:bold; font-size:smaller; border-bottom:none; }
+  img { border:0px; }
+  .editconflict { color:green; 
+  font-style:italic; margin-top:1.33em; margin-bottom:1.33em; }
+
+  table.markup { border:2px dotted #ccf; width:90%; }
+  td.markup1, td.markup2 { padding-left:10px; padding-right:10px; }
+  table.vert td.markup1 { border-bottom:1px solid #ccf; }
+  table.horiz td.markup1 { width:23em; border-right:1px solid #ccf; }
+  table.markup caption { text-align:left; }
+  div.faq p, div.faq pre { margin-left:2em; }
+  div.faq p.question { margin:1em 0 0.75em 0; font-weight:bold; }
+   
+    .frame 
+      { border:1px solid #cccccc; padding:4px; background-color:#f9f9f9; }
+    .lfloat { float:left; margin-right:0.5em; }
+    .rfloat { float:right; margin-left:0.5em; }
+a.varlink { text-decoration:none; }
+
+--></style>  <meta name='robots' content='noindex,nofollow' />
+  <link rel='stylesheet' href='../pub/skins/plain-freeguide/plain2.css' type='text/css' />
+</head>
+<body>
+<!--PageHeaderFmt-->
+ <table id='wikihead' cellspacing='0' cellpadding='0' align='center'><tr>
+  <td id='homelink'><img src='../pub/skins/plain-freeguide/favicon.gif' /> <a href='http://www.artificialworlds.net/freeguide'>FreeGuide</a></td>
+  <td id='location'><span class='pagegroup'><a href='http://www.artificialworlds.net/freeguide/PmWiki'>PmWiki</a> &raquo;</span>
+  <h1 class='pagetitle'>Text Formatting Rules</h1></td>
+  <td id='wikicmds'><ul><li class='browse'><a accesskey=''  class='selflink' href='TextFormattingRules.html'>View</a>
+</li><li class='edit'><a accesskey='e'  rel='nofollow'  class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/TextFormattingRules?action=edit'>Edit</a>
+</li><li class='diff'><a accesskey='h'  rel='nofollow'  class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/TextFormattingRules?action=diff'>History</a>
+</li><li class='print'><a accesskey=''  rel='nofollow'  class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/TextFormattingRules?action=print'>Print</a>
+</li></ul>
+</td>
+ </tr></table> 
+<!--/PageHeaderFmt-->
+  <table id='wikimid' cellspacing='0' cellpadding='0' align='center'><tr>
+<!--PageLeftFmt-->
+   <td id='wikileft' valign='top'>
+    <p><form action='http://www.artificialworlds.net/freeguide'>
+     <input type='hidden' name='n' value='PmWiki.TextFormattingRules' />
+     <input type='hidden' name='action' value='search' />
+     <input type='text' name='q' value=' Search ' class='inputbox searchbox'
+      onfocus="if(this.value=' Search ') {this.value=''}" 
+      onblur="if(this.value=='') {this.value=' Search '}"
+      /><input type='submit' class='inputbutton searchbutton'
+      value='Go' /></form></p><br />
+<ul><li><a class='wikilink' href='../Main/HomePage.html'>Home Page</a>
+</li><li><a class='wikilink' href='../DownloadAndInstall/DownloadAndInstall.html'>Download And Install</a>
+</li><li><a class='wikilink' href='../UserGuide/UserGuide.html'>User Guide</a>
+</li><li><a class='wikilink' href='../FAQ/FAQ.html'>Help And FAQ</a>
+</li><li><a class='wikilink' href='../Developers/Developers.html'>Developers</a>
+</li><li><a class='wikilink' href='../Main/Credits.html'>Credits</a>
+</li><li><a class='wikilink' href='../Main/Screenshots.html'>Screenshots</a>
+</li><li><a class='wikilink' href='../Main/Links.html'>Links</a>
+</li><li><a class='wikilink' href='../Main/SiteMap.html'>Site Map</a>
+<div class='vspace'></div></li><li><a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a>
+</li></ul><div class='vspace'></div>
+</td>
+<!--/PageLeftFmt-->
+    <td id='wikibody' valign='top'>
+<!--PageText-->
+<div id='wikitext'>
+<p>
+This page provides a more complete list of some of the markup sequences available in <span class='wikiword'>PmWiki</span>.  Note that it's easy to create and edit pages without using any of the markups below, but if you ever need them, they're here. 
+</p>
+<p class='vspace'><strong>To experiment</strong> with the rules, <strong>please</strong> try editing the <a class='wikilink' href='../Main/WikiSandbox.html'>Wiki Sandbox</a>.
+</p>
+<div class='vspace'></div><h2>Table of contents</h2>
+<ul><li><a href='TextFormattingRules.html#Paragraphs'>Paragraphs</a>
+</li><li><a href='TextFormattingRules.html#IndentedParagraphs'>Indented Paragraphs <em>(Quotes)</em></a>
+</li><li><a href='TextFormattingRules.html#BulletedLists'>Bulleted and Numbered Lists</a>
+</li><li><a href='TextFormattingRules.html#DefinitionLists'>Definition Lists</a>
+</li><li><a href='TextFormattingRules.html#WhitespaceRules'>Whitespace Rules</a> 
+</li><li><a href='TextFormattingRules.html#HorizontalLine'>Horizontal Line</a>
+</li><li><a href='TextFormattingRules.html#Emphasis'>Emphasis</a>
+</li><li><a href='TextFormattingRules.html#References'>References</a>
+</li><li><a href='TextFormattingRules.html#Headings'>Headings</a>
+</li><li><a href='TextFormattingRules.html#EscapeSequence'>Escape sequence</a>
+</li><li><a href='TextFormattingRules.html#SpecialCharacters'>Special characters</a>
+</li><li><a href='TextFormattingRules.html#Tables'>Tables</a>
+</li></ul><div class='vspace'></div><hr />
+<div class='vspace'></div><h2><a name='Paragraphs' id='Paragraphs'></a> Paragraphs</h2>
+<p>To create paragraphs, simply enter text.  Use a blank line to start a new paragraph.
+</p>
+<p class='vspace'>Words on two lines in a row will wrap and fill as needed (the normal XHTML behavior).  To turn off the automatic filling, use the <code class='escaped'>(:linebreaks:)</code> directive above the paragraph.
+</p>
+<div class='vspace'></div><ul><li>Use <code class='escaped'>\</code> (single backslash) at the end of a line to join the current line to the next one.
+</li><li>Use <code class='escaped'>\\</code> (two backslashes) at the end of a line to force a line break.
+</li><li>Use <code class='escaped'>\\\</code> (three backslashes) at the end of a line to force 2 line breaks.
+</li><li>Use <code class='escaped'>[[&lt;&lt;]]</code> to force a line break that will clear floating elements.
+</li></ul><div class='vspace'></div><h2><a name='IndentedParagraphs' id='IndentedParagraphs'></a> Indented Paragraphs <em>(Quotes)</em></h2>
+<p>Arrows (<code class='escaped'>-&gt;</code>) at the beginning of a paragraph can be used to produce an indented paragraph.  More hyphens at the beginning (<code class='escaped'>---&gt;</code>) produce larger indents.
+</p>
+<div class='vspace'></div><table class='markup vert' align='center'>
+      <tr><td class='markup1' valign='top'><pre>-&gt;Four score and seven years ago our fathers placed upon this continent
+a new nation, conceived in liberty and dedicated to the proposition that
+all men are created equal.
+</pre></td></tr><tr><td 
+        class='markup2' valign='top'><div class='indent'>Four score and seven years ago our fathers placed upon this continent a new nation, conceived in liberty and dedicated to the proposition that all men are created equal.
+</div>
+</td></tr></table>
+<p class='vspace'>Inverted Arrows (<code class='escaped'>-&lt;</code>) at the beginning of a paragraph can be used to produce a paragraph with a hanging indent.  Adding hyphens at the beginning (<code class='escaped'>---&lt;</code>) causes all the text to indent.
+</p>
+<div class='vspace'></div><table class='markup vert' align='center'>
+      <tr><td class='markup1' valign='top'><pre>-&lt;Four score and seven years ago our fathers placed upon this continent
+a new nation, conceived in liberty and dedicated to the proposition that
+all men are created equal. 
+</pre></td></tr><tr><td 
+        class='markup2' valign='top'><div class='outdent'>Four score and seven years ago our fathers placed upon this continent a new nation, conceived in liberty and dedicated to the proposition that all men are created equal. 
+</div>
+</td></tr></table>
+<div class='vspace'></div><table class='markup vert' align='center'>
+      <tr><td class='markup1' valign='top'><pre>--&lt;Four score and seven years ago our fathers placed upon this continent
+a new nation, conceived in liberty and dedicated to the proposition that
+all men are created equal.  And that food would be good to.
+</pre></td></tr><tr><td 
+        class='markup2' valign='top'><dl><dd><div class='outdent'>Four score and seven years ago our fathers placed upon this continent a new nation, conceived in liberty and dedicated to the proposition that all men are created equal.  And that food would be good to.
+</div></dd></dl>
+</td></tr></table>
+<p class='vspace'>Blocks of text to which <code class='escaped'>(:linebreaks:)</code> has been applied can be indented by preceding the first line of the block with indention arrows (<code class='escaped'>-&gt;</code>) and aligning subsequent lines under the first. An unindented line stops the block indentation.  See <a class='urllink' href='http://www.pmwiki.org/wiki/Cookbook/MarkupTricks' rel='nofollow'>Cookbook/Markup Tricks</a> for an example.
+</p>
+<div class='vspace'></div><h2><a name='BulletedLists' id='BulletedLists'></a> Bulleted and Numbered Lists</h2>
+<p>Bullet lists are made by placing asterisks at the left margin. Numbered lists are made by placing number-signs (#) at the left margin.  More asterisks/number-signs increases the level of bullet:
+</p>
+<div class='vspace'></div><table class='markup vert' align='center'>
+      <tr><td class='markup1' valign='top'><pre>* First-level list item
+** Second-level list item
+### Order this
+#### And this (optional)
+### Then this
+** Another second-level item
+* A first-level item: cooking
+## Prepare the experiment
+### Unwrap the pop-tart
+### Insert the pop-tart into the toaster
+## Begin cooking the pop tart
+## Stand back
+</pre></td></tr><tr><td 
+        class='markup2' valign='top'><ul><li>First-level list item
+<ul><li>Second-level list item
+<ol><li>Order this
+<ol><li>And this (optional)
+</li></ol></li><li>Then this
+</li></ol></li><li>Another second-level item
+</li></ul></li><li>A first-level item: cooking
+<ol><li>Prepare the experiment
+<ol><li>Unwrap the pop-tart
+</li><li>Insert the pop-tart into the toaster
+</li></ol></li><li>Begin cooking the pop tart
+</li><li>Stand back
+</li></ol></li></ul>
+</td></tr></table>
+<p>Also see: <a class='createlinktext' rel='nofollow' 
+    href='http://www.artificialworlds.net/freeguide/PmWiki/ListStyles?action=edit'>List Styles</a><a rel='nofollow' 
+    class='createlink' href='http://www.artificialworlds.net/freeguide/PmWiki/ListStyles?action=edit'>?</a>, <a class='urllink' href='http://www.pmwiki.org/wiki/Cookbook/OutlineLists' rel='nofollow'>Cookbook:Outline Lists</a> and <a class='urllink' href='http://www.pmwiki.org/wiki/Cookbook/NumberedHeaders' rel='nofollow'>Cookbook:Numbered Headers</a>
+</p>
+<div class='vspace'></div><h2><a name='DefinitionLists' id='DefinitionLists'></a> Definition Lists</h2>
+<p>Definition lists are made by placing colons at the left margin:
+</p>
+<div class='vspace'></div><table class='markup vert' align='center'>
+      <tr><td class='markup1' valign='top'><pre>:term:definition of term
+::second-level item: definition of 2nd-level item
+</pre></td></tr><tr><td 
+        class='markup2' valign='top'><dl><dt>term</dt><dd>definition of term
+<dl><dt>second-level item</dt><dd> definition of 2nd-level item
+</dd></dl></dd></dl>
+</td></tr></table>
+<div class='vspace'></div><h2><a name='WhitespaceRules' id='WhitespaceRules'></a> Whitespace Rules</h2>
+<p>Whitespace indentation in lists.  Any line that begins with whitespace <em>and aligns</em> with a previous list item (whether bulleted, numbers or definitional) is considered to be "within" that list item.  Text folds and wraps as normal, and the  directive is honored. 
+</p>
+<div class='vspace'></div><table class='markup vert' align='center'>
+      <tr><td class='markup1' valign='top'><pre># First-level item\\
+  Whitespace used to to continue item on a new line
+# Another first-level item
+  # Whitespace combined with a single # to create a new item one level
+deeper
+</pre></td></tr><tr><td 
+        class='markup2' valign='top'><ol><li>First-level item<br />  Whitespace used to to continue item on a new line
+</li><li>Another first-level item
+<ol><li>Whitespace combined with a single # to create a new item one level deeper
+</li></ol></li></ol>
+</td></tr></table>
+<p class='vspace'>Otherwise, lines that begin with whitespace are treated as <em>preformatted text</em>, using a monospace font and not generating linebreaks except where explicitly indicated in the markup.  (Another way to create preformatted text blocks is by using the [@...@] markup.)
+</p>
+<div class='vspace'></div><h2><a name='HorizontalLine' id='HorizontalLine'></a> Horizontal Line</h2>
+<p>Four or more dashes (----) at the beginning of a line produce a horizontal line.
+</p>
+<div class='vspace'></div><h2><a name='Emphasis' id='Emphasis'></a> Emphasis</h2>
+<ul><li>Enclose text in doubled single-quotes (''text''), i.e., <em>two apostrophes</em>, for emphasis (usually <em>italics</em>)
+</li><li>Enclose text in tripled single-quotes ('''text'''), i.e. <em>three apostrophes</em>, for strong emphasis (usually <strong>bold</strong>)
+</li><li>Enclose text in five single-quotes ('''''text'''''), or triples within doubles (<em>five apostrophes</em>), for some other kind of emphasis (usually <strong><em>bold italics</em></strong>)
+</li><li>Enclose text in doubled at-signs (@@text@@) for <code>monospace</code> text
+</li><li>Use [+large+] for <span style='font-size:120%'>large</span> text, [++larger++] for <span style='font-size:144%'>larger</span>, [-small-] for <span style='font-size:83%'>small</span> text, and [--smaller--] for <span style='font-size:69%'>smaller</span>.
+</li><li>Emphasis can be used multiple times within a line, but cannot span across markup line boundaries (i.e., you can't put a paragraph break in the middle of bold text).
+</li></ul><p class='vspace'>Other styling 
+</p><table class='markup vert' align='center'>
+      <tr><td class='markup1' valign='top'><pre>'+big+', '-small-', '^super^', '_sub_', 
+
+{+insert or underscore+}, 
+
+{-delete or strikethrough or strikeout-}
+</pre></td></tr><tr><td 
+        class='markup2' valign='top'><p><big>big</big>, <small>small</small>, <sup>super</sup>, <sub>sub</sub>, 
+</p>
+<p class='vspace'><ins>insert or underscore</ins>, 
+</p>
+<p class='vspace'><del>delete or strikethrough or strikeout</del>
+</p>
+</td></tr></table>
+<ul><li><code class='escaped'>`WikiWord</code> WikiWord neutralisation
+</li></ul><p class='vspace'>See also <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/WikiStyles'>Wiki Styles</a> for advanced text formatting options.
+</p>
+<div class='vspace'></div><h2><a name='References' id='References'></a> References</h2>
+<ul><li>Use words and phrases in double brackets (e.g., [[text formatting rules]]) to create links to other pages on this wiki.
+</li><li>On some <span class='wikiword'>PmWiki</span> installations, capitalized words joined together (e.g., <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/WikiWord'>Wiki Words</a>) can also be used to make references to other pages without needing the double-brackets.
+</li><li>Precede URLs with "<code>http:</code>", "<code>ftp:</code>", "<code>gopher:</code>", "<code>mailto:</code>", or "<code>news:</code>" to create links automatically, as in <a class='urllink' href='http://www.pmichaud.com/toast' rel='nofollow'>http://www.pmichaud.com/toast</a>.
+</li><li>URLs ending with <code>.gif</code>, <code>.jpg</code>, or <code>.png</code> are displayed as images in the page
+</li><li>Links with arbitrary text can be created as either [[<em>target</em> | <em>text</em>]] or [[<em>text</em> -&gt; <em>target</em>]].  <em>Text</em> can be an image URL, in which case the image becomes the link to the remote <em>url</em> or <em><a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/WikiWord'>Wiki Word</a></em>.
+</li><li><a name='Anchors' id='Anchors'></a> Anchor targets within pages (#-links) can be created using <code>[[#target]]</code>.
+</li></ul><div class='vspace'></div><h2><a name='Headings' id='Headings'></a> Headings</h2>
+<p>Headings are made by placing an exclamation mark (<strong>!</strong>) at the left margin.  More exclamation marks increase the level of heading.  For example,
+</p>
+<div class='vspace'></div><table class='markup vert' align='center'>
+      <tr><td class='markup1' valign='top'><pre>! Level 1 Heading
+!! Level 2 Heading
+!!! Level 3 Heading
+!!!! Level 4 Heading
+</pre></td></tr><tr><td 
+        class='markup2' valign='top'><h1>Level 1 Heading</h1>
+<h2>Level 2 Heading</h2>
+<h3>Level 3 Heading</h3>
+<h4>Level 4 Heading</h4>
+</td></tr></table>
+<div class='vspace'></div><h2><a name='EscapeSequence' id='EscapeSequence'></a> Escape sequence</h2>
+<p>Anything placed between [= and =] is not interpreted by <span class='wikiword'>PmWiki</span>.  This makes it possible to turn off  special formatting interpretations and neutralise WikiWords that are not links (even easier is to use a tick ` in front, like `WikiWord).
+</p>
+<p class='vspace'>For preformatted text blocks, use the [@...@] markup. 
+</p>
+<div class='vspace'></div><table class='markup vert' align='center'>
+      <tr><td class='markup1' valign='top'><pre>[@
+Code goes here like [[PmWiki.PmWiki]]
+'$CurrentTime $[by] $AuthorLink:  [=$ChangeSummary=]'; #just some code
+@]
+</pre></td></tr><tr><td 
+        class='markup2' valign='top'><pre class='escaped'>
+Code goes here like [[PmWiki.PmWiki]]
+'$CurrentTime $[by] $AuthorLink:  [=$ChangeSummary=]'; #just some code
+</pre>
+</td></tr></table>
+<p class='vspace'>It is also useful to use [= =] within other wiki structures, as this enables the inclusion of new lines in text values.  The example below shows how to include a multi-line value in a hidden form field.
+</p>
+<div class='vspace'></div><div class='indent'><pre class='escaped'>(:input hidden message "[=Line1
+Line2=]":)</pre>
+</div><div class='vspace'></div><h2><a name='SpecialCharacters' id='SpecialCharacters'></a> Special Characters</h2>
+<p>When creating pages it's common to use commercial trademarks, copyright, umlaut, and other non-keyboard symbols.  therefore it's important that you have the means to input these special characters.  
+</p>
+<div class='vspace'></div><h3>ISO Standard codes</h3>
+<p><span class='wikiword'>PmWiki</span> supports the HTML special character listings by the w3c. <a class='urllink' href='http://www.w3.org/MarkUp/html-spec/html-spec_13.html' rel='nofollow'>W3C Page of Special Character codes ISO standard.</a>
+</p>
+<p class='vspace'>Here are some samples: 
+</p><table class='markup vert' align='center'>
+      <tr><td class='markup1' valign='top'><pre>
+&amp;#169; | &amp;#188; | &amp;#189; | &amp;#174; | &amp;#181; |
+&amp;#168; </pre></td></tr><tr><td 
+        class='markup2' valign='top'><p>&#169; | &#188; | &#189; | &#174; | &#181; | &#168; 
+</p>
+</td></tr></table>
+<div class='vspace'></div><table class='markup vert' align='center'>
+      <tr><td class='markup1' valign='top'><pre>
+&amp;#198; | 32&amp;#176; | Un&amp;#239;ted St&amp;#228;tes | &amp;#182; |
+&amp;#165;Yen | PmWiki&amp;#8482;</pre></td></tr><tr><td 
+        class='markup2' valign='top'><p>&#198; | 32&#176; | Un&#239;ted St&#228;tes | &#182; | &#165;Yen | <span class='wikiword'>PmWiki</span>&#8482;
+</p>
+</td></tr></table>
+<p class='vspace'>For a nice table of the same codes that show the codes with the output go to the <a class='urllink' href='http://www.nobledesktop.com/specialcharacters.html' rel='nofollow'>Noble Desktop</a> special character page. 
+</p>
+<div class='vspace'></div><h3>Other ways to do it: </h3>
+<h4>Character Map</h4>
+<p>Find the "Character Map" utility in your computer's System Tools folder.  Click the symbol you're interested in, and note the keystroke information at the bottom of the box.  You execute these by <em>holding "Alt"</em> while keying the numbers <em>on the numerical keypad</em> of your keyboard (not the numbers across the top of the board).
+</p>
+<p class='vspace'>&amp;#169; = Alt+0169 = © | &amp;#174; = Alt+0174 =  ® | &amp;#176; = Alt+0176 = ° (degrees).
+</p>
+<div class='vspace'></div><h4>Paste</h4>
+<ul><li>Use Word or another desktop application to create your text with the special characters that you want.  Copy and paste the text to the wiki page you're editing or creating.
+</li><li>Find an instance of a special character in an online document; copy and paste the character to your wiki page:  ©
+</li></ul><p class='vspace'>There's a list of special characters at <a class='urllink' href='http://www.pmwiki.org/wiki/PmWiki/SpecialCharactersList' rel='nofollow'>Pm Wiki:Special Characters List</a>.
+<br  />There's another illustration at <a class='urllink' href='http://www.pmwiki.org/wiki/PmWiki/Characters' rel='nofollow'>Pm Wiki:Characters</a>
+</p>
+<div class='vspace'></div><h2><a name='Tables' id='Tables'></a> Tables</h2>
+<p>Tables are defined by enclosing cells with '||'.  A cell with leading and trailing spaces is centered; a cell with leading spaces is right-aligned; all other cells are left-aligned.  An empty cell will cause the previous cell to span multiple columns.  (There is currently no mechanism for spanning multiple rows.)  A line beginning with '||' specifies the table attributes for subsequent tables. A '!' as the first character in a cell provides emphasis that can be used to provide headings. This is interesting stuff.
+</p>
+<div class='vspace'></div><table class='markup vert' align='center'>
+      <tr><td class='markup1' valign='top'><pre>
+||border=1 width=50%
+||!Table||!Heading||!Example||
+||!Left   || Center || Right||
+||A       ||!  a B   ||     C||
+||        || single ||      ||
+||        || multi span   ||||
+</pre></td></tr><tr><td 
+        class='markup2' valign='top'><div class='vspace'></div>
+<table border='1' width='50%' ><tr ><th >Table</th><th >Heading</th><th >Example</th></tr>
+<tr ><th  align='left'>Left</th><td  align='center'>Center</td><td  align='right'>Right</td></tr>
+<tr ><td  align='left'>A</td><th  align='center'>a B</th><td  align='right'>C</td></tr>
+<tr ><td >&nbsp;</td><td  align='center'>single</td><td >&nbsp;</td></tr>
+<tr ><td >&nbsp;</td><td  align='center' colspan='2'>multi span</td></tr>
+</table>
+</td></tr></table>
+<div class='vspace'></div><hr />
+<h3>Can't find it here?</h3>
+<p>See <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/MarkupMasterIndex'>Markup Master Index</a>, <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/Tables'>Tables</a>, <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/TableDirectives'>Table directives</a>, or <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/Links'>Links</a>.
+</p>
+<p class='vspace'  style='background-color: #eee;'><span class='wikitrail'>&lt;&lt; <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/Images'>Images</a> | <a class='wikilink' href='DocumentationIndex.html'>Documentation Index</a> | <a class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/Uploads'>Uploads</a> &gt;&gt;</span>
+</p>
+<div class='vspace'></div>
+</div>
+
+    </td>
+  </tr></table>
+  <!--PageFooterFmt-->
+ <table id='wikifoot' cellspacing='0' cellpadding='0' align='center'>
+ <tr><td class='passwordlink' colspan='2'>If you would like to help improve this site, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we will give you the password to edit pages.</td></tr>
+ <tr>
+  <td class='lastmod'>Page last modified on August 25, 2006 &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
+  <td class='footnav'><div  style='text-align: right;' > 
+<p><a rel='nofollow'  class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/TextFormattingRules?action=edit'>Edit</a> -
+<br  /><a rel='nofollow'  class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/TextFormattingRules?action=diff'>History</a> -
+<br  /><a rel='nofollow'  target='_blank'  class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/TextFormattingRules?action=print'>Print</a> -
+<br  /><a rel='nofollow'  class='wikilink' href='http://www.artificialworlds.net/freeguide/PmWiki/RecentChanges?action=browse'>Recent Changes</a>
+<br  />() -
+<br  />
+</p></div>
+</td>
+ </tr>
+ </table>
+<!--/PageFooterFmt-->
+</body>
+</html>

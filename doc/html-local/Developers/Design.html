@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title>FreeGuide : Design </title>
+  <meta http-equiv='Content-Style-Type' content='text/css' />
+  <link rel='stylesheet' href='../pub/skins/plain-freeguide/plain1.css' type='text/css' />
+  <link rel="icon" href="../pub/skins/plain-freeguide/favicon.gif" type="image/x-icon" />
+  <link rel="shortcut icon" href="../pub/skins/plain-freeguide/favicon.gif" type="image/x-icon" />
+  <!--HeaderText--><style type='text/css'><!--
+  ul, ol, pre, dl, p { margin-top:0px; margin-bottom:0px; }
+  code.escaped { white-space: nowrap; }
+  .vspace { margin-top:1.33em; }
+  .indent { margin-left:40px; }
+  .outdent { margin-left:40px; text-indent:-40px; }
+  a.createlinktext { text-decoration:none; border-bottom:1px dotted gray; }
+  a.createlink { text-decoration:none; position:relative; top:-0.5em;
+    font-weight:bold; font-size:smaller; border-bottom:none; }
+  img { border:0px; }
+  .editconflict { color:green; 
+  font-style:italic; margin-top:1.33em; margin-bottom:1.33em; }
+
+  table.markup { border:2px dotted #ccf; width:90%; }
+  td.markup1, td.markup2 { padding-left:10px; padding-right:10px; }
+  table.vert td.markup1 { border-bottom:1px solid #ccf; }
+  table.horiz td.markup1 { width:23em; border-right:1px solid #ccf; }
+  table.markup caption { text-align:left; }
+  div.faq p, div.faq pre { margin-left:2em; }
+  div.faq p.question { margin:1em 0 0.75em 0; font-weight:bold; }
+   
+    .frame 
+      { border:1px solid #cccccc; padding:4px; background-color:#f9f9f9; }
+    .lfloat { float:left; margin-right:0.5em; }
+    .rfloat { float:right; margin-left:0.5em; }
+a.varlink { text-decoration:none; }
+
+--></style>  <meta name='robots' content='index,follow' />
+  <link rel='stylesheet' href='../pub/skins/plain-freeguide/plain2.css' type='text/css' />
+</head>
+<body>
+<!--PageHeaderFmt-->
+ <table id='wikihead' cellspacing='0' cellpadding='0' align='center'><tr>
+  <td id='homelink'><img src='../pub/skins/plain-freeguide/favicon.gif' /> <a href='http://www.artificialworlds.net/freeguide'>FreeGuide</a></td>
+  <td id='location'><span class='pagegroup'><a href='Developers.html'>Developers</a> &raquo;</span>
+  <h1 class='pagetitle'>Design</h1></td>
+  <td id='wikicmds'><ul><li class='browse'><a accesskey=''  class='selflink' href='Design.html'>View</a>
+</li><li class='edit'>
+</li><li class='diff'>
+</li><li class='print'>
+</li></ul>
+</td>
+ </tr></table> 
+<!--/PageHeaderFmt-->
+  <table id='wikimid' cellspacing='0' cellpadding='0' align='center'><tr>
+<!--PageLeftFmt-->
+   <td id='wikileft' valign='top'>
+    <p><form action='http://www.artificialworlds.net/freeguide'>
+     <input type='hidden' name='n' value='Developers.Design' />
+     <input type='hidden' name='action' value='search' />
+     <input type='text' name='q' value=' Search ' class='inputbox searchbox'
+      onfocus="if(this.value=' Search ') {this.value=''}" 
+      onblur="if(this.value=='') {this.value=' Search '}"
+      /><input type='submit' class='inputbutton searchbutton'
+      value='Go' /></form></p><br />
+<ul><li><a class='wikilink' href='../Main/HomePage.html'>Home Page</a>
+</li><li><a class='wikilink' href='../DownloadAndInstall/DownloadAndInstall.html'>Download And Install</a>
+</li><li><a class='wikilink' href='../UserGuide/UserGuide.html'>User Guide</a>
+</li><li><a class='wikilink' href='../FAQ/FAQ.html'>Help And FAQ</a>
+</li><li><a class='wikilink' href='Developers.html'>Developers</a>
+<ul><li><span style='font-size:83%'><a class='wikilink' href='HelpUsMakeFreeGuide.html'>How to help</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='RunTheNightlyBuild.html'>Nightly Builds</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='BuildFromSVN.html'>Build From SVN</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='SVNRules.html'>SVN Rules</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='CreateInstallationPackagesForDifferentPlatforms.html'>Building Installers</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='TranslateFreeGuide.html'>Translate FreeGuide</a></span>
+</li><li><span style='font-size:83%'><a class='selflink' href='Design.html'>Design</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='Roles.html'>Roles</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='SourceLayout.html'>Source Layout</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='ChangingTheVersion.html'>Changing The Version</a></span>
+</li><li><span style='font-size:83%'><a class='urllink' href='http://bugs.launchpad.net/freeguide-tv/+bugs' rel='nofollow'>Bug tracker -&gt;</a></span>
+</li><li><span style='font-size:83%'><a class='urllink' href='http://freeguide-tv.svn.sourceforge.net/viewvc/freeguide-tv/trunk/freeguide-tv/' rel='nofollow'>Browse source -&gt;</a></span>
+</li></ul></li><li><a class='wikilink' href='../Main/Credits.html'>Credits</a>
+</li><li><a class='wikilink' href='../Main/Screenshots.html'>Screenshots</a>
+</li><li><a class='wikilink' href='../Main/Links.html'>Links</a>
+</li><li><a class='wikilink' href='../Main/SiteMap.html'>Site Map</a>
+<div class='vspace'></div></li><li><a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a>
+</li></ul><div class='vspace'></div>
+</td>
+<!--/PageLeftFmt-->
+    <td id='wikibody' valign='top'>
+<!--PageText-->
+<div id='wikitext'>
+<h1>Design of <span class='wikiword'>FreeGuide</span></h1>
+<p>This is a collection of thoughts about <span class='wikiword'>FreeGuide</span>'s design. Contributions, disagreements and comments are welcome.
+</p>
+<div class='vspace'></div><h2>Target Audience</h2>
+<p>A TV guide is a very simple thing. In fact, my main reason for writing this application is that TV listings magazines are far, far too complicated for their purposes. This is brought about partly by the number of adverts and inane articles they contain, and partly because they try to list all the programmes everyone wants to see. <span class='wikiword'>FreeGuide</span> attacks this problem on three fronts. First, it only shows the channels you ask for, second, it highlights programmes you are likely to want to watch, and third, it lets you produce a guide containing only relevant information.
+</p>
+<p class='vspace'>So I want <span class='wikiword'>FreeGuide</span> to be a simple thing to use. That means that any advanced configuration and so on should be in a place where the average user won't find it.
+</p>
+<p class='vspace'>Example Users:
+</p>
+<div class='vspace'></div><h3>Newbie</h3>
+<p>My Mum has got the hang of Outlook Express, and uses MS Word slightly tentatively. She should find it simple to use <span class='wikiword'>FreeGuide</span>. Why not, it's hardly rocket science, is it?
+</p>
+<div class='vspace'></div><h3>Hacker</h3>
+<p><span class='wikiword'>FreeGuide</span> is listed on Sourceforge, and therefore is likely to get a lot of its initial audience from people who really know what they're doing. They should be able to do advanced things like grab listings from a different web site, and search programmes powerfully using clever techniques. However, these abilities should sail past the basic user without being noticed. Otherwise we disguise the fundamental fact that listing TV programmes is simple.
+</p>
+<p class='vspace'>It's worth noting that the hacker who just wants to get the TV listings quickly without learning anything will appreciate simplicity just as much as the newbie.
+</p>
+<div class='vspace'></div><h2>Tasks</h2>
+<p>In order of frequency of use.
+</p>
+<div class='vspace'></div><h3>Viewing listings</h3>
+<p>The primary use of <span class='wikiword'>FreeGuide</span> is expected to be to look at what's on today, and print off a customised guide. It should also be easy to have a look at what's on tomorrow, and the rest of the week.
+</p>
+<div class='vspace'></div><h3>Downloading listings</h3>
+<p>Every week or so the user will need to download new listings, by connecting to the Internet. This should be almost completely non-interactive, without taking away the user's freedom.
+</p>
+<div class='vspace'></div><h3>Downloading channels</h3>
+<p>The user will probably only do this once, but it will be the first thing they ever have to do with <span class='wikiword'>FreeGuide</span>, so it must be easy, friendly and non-interactive, again not taking away the user's freedom, particularly because they have to connect to the Internet before they begin.
+</p>
+<p class='vspace'>Of course, the user will encounter these tasks in this order: downloading channels, downloading listings, then viewing listings.
+</p>
+<div class='vspace'></div><h2>Progress so far</h2>
+<h3>0.10</h3>
+<p>A slight change here where you click once on a programme to highlight it, and double-click to select.  This improves accessibility since there is now full keyboard navigation.
+</p>
+<p class='vspace'>Some bad features introduced, notably the set of options that appear when you click "Grabbers" on the Options screen.  These are extremely non-discoverable, and this needs fixing!
+</p>
+<p class='vspace'>Gradually making progress for the hackers, since it is now much easier to get <span class='wikiword'>FreeGuide</span> running from SVN.
+</p>
+<div class='vspace'></div><h3>0.8</h3>
+<p>Again a step forward since <span class='wikiword'>FreeGuide</span> is now installed using the normal installation mechanism for each platform, which means users don't need to learn a new way of installing just to use <span class='wikiword'>FreeGuide</span>.
+</p>
+<div class='vspace'></div><h3>0.7</h3>
+<p>This release sees a large step forward with the addition of a GUI for grabber configuration, which means users don't have to open a DOS or Cmd window to install the program. This opens it up to a massive potential user base who would have been scared off before.
+</p>
+<p class='vspace'>This release and the preceeding 0.6.x ones are beginning to see <span class='wikiword'>FreeGuide</span> maturing, as useful features and bugfixes are being picked off one by one, gradually improving the consistency and ease of use of the interface.
+</p>
+<div class='vspace'></div><h3>0.6</h3>
+<p>Still missing GUI grabber configuration, but some nice features added - a heart to make clear exactly which programmes are favourites, and an added entry to the channel sets dropdown that lets you edit the channel sets from there (this should help people understand what this dropdown is for). Other nice stuff: progress bar and picture on the Please Wait screen, and progress bar on the downloader.
+</p>
+<div class='vspace'></div><h3>0.5</h3>
+<p>The major change here is that lots of new grabbers (for different countries) are supported, which is not totally UI-related, but nice nonetheless. UI changes in the form of a dynamically-updated list of available dates slightly enhance the user experience, and better handling of missing data makes things make a little more sense. The biggest missing element is a GUI for doing the configuration of the grabber.
+</p>
+<div class='vspace'></div><h3>0.4.3</h3>
+<p>Minor tweaks including remembering where you left the window last time you were using it, which can really improve the user experience, actually.
+</p>
+<div class='vspace'></div><h3>0.4.2</h3>
+<p>The installer in this version is a bit better (and there's an uninstall option), but otherwise it's fairly similar. Oh yes, I added a "Please Wait" screen to let the user know when it's loading. There are a few GUI improvements that make it a tiny bit easier to understand. Of course, fixing bugs always improves everyone's experiences.
+</p>
+<div class='vspace'></div><h3>0.4</h3>
+<p>Big steps forward here with a simple installer for each platform and region, which takes almost all of the interesting configuration problems away.
+</p>
+<p class='vspace'>However, there is still much room for improvement. The user still has to run the configuration step of the grabber from a command line, which is decidedly unfriendly, and windows users have to set up the timezone info as well.
+</p>
+<p class='vspace'>Linux users have still got it very tough with all the problems of installing XMLTV. We will just have to wait until the XMLTV project solves these problems. However, I feel I can expect Linux people to be much more clued-up than Windows people, so I'm not too worried about this.
+</p>
+<p class='vspace'>Windows installation has become extremely easy (relative to previous releases) because the required XMLTV tools and Perl runtime are included in the jar file they download. Of course, they still have to download Java 1.4 first, but there's not a lot I can do about that in the immediate future.
+</p>
+<div class='vspace'></div><h3>0.3</h3>
+<p>0.3 still has a long way to go if it's going to be usable by the "my Mum" category of users, but it does have some improvements. For example, it notices when there are no listings and asks whether you want to go and download more. A lot of the wording has been made clearer, and the tick-boxes have been replaced with clickable programmes.
+</p>
+<p class='vspace'>The UI generally has been improved, and makes it clearer (I think) what everything is for, and what you might like to do.
+</p>
+<p class='vspace'>The major problem at the moment is installation. Java 1.4's Preferences features mean that a configuration file is no longer a problem, but I've made it very difficult for myself by using external tools through a command-line interface - this causes any number of problems, and there is still no decent installer which would sort some of these out.
+</p>
+<p class='vspace'>When XMLTV gets a little maturer, and settles on an installation method (especially on Windows), then <span class='wikiword'>FreeGuide</span> should follow and become easier on this front. The necessity of running the grabber configuration puts <span class='wikiword'>FreeGuide</span> well out of reach of loads of users at the moment. I really don't know what to do about this - to wrap configuration with a GUI the XMLTV tools will need to have a consistent interface, which is difficult as different grabbers have different requirements.
+</p>
+<p class='vspace'>Hackers are quite well served by 0.3, as the ability to have favourites selected using regular expressions has been added, thanks to Sun finally adding regexp support to Java. In fact loads of great things come from requiring Java 1.4 - you get XML parsing without an external library, the fantastic Preferences stuff, and regular expressions. And because this is an open source project, I can just decide that I want to require Java 1.4, and no-one can argue!
+</p>
+<div class='vspace'></div><h3>0.2</h3>
+<p>0.2 retreats slightly from my most strict ease of use requirements, as an acknowledgement that most users will be experts, mainly because it only works under Linux. It provides lots of unnecessary feedback from its downloading operations, because it is expected to encounter problems that I would like the user to be aware of and report to me. It also expects you to go to Tools and then Options just to download the listings the first time you use it, which is basically a mistake in the design brought about by a complicated system of checking whether it needs to jump you to here or there got a bit annoying and I took it out.
+</p>
+<p class='vspace'>Hiding Download listings and Options (which allows you to download channels) away in the Tools menu is bad, but it if jumped to the right place automatically when needed, that might be appropriate as the normal user wouldn't need to know where they were.
+</p>
+<p class='vspace'>Installation at the moment is fiddly, because you have to alter the config file manually, and I shall work on installers when there is time. This isn't a priority at the moment, because there are plenty of bugs to fix and basic UI stuff to be done.
+</p>
+<p class='vspace'>The user doesn't get much feedback that the program is doing something sometimes - the current window disappears, and it can take a while for a new one to appear.
+</p>
+<div class='vspace'></div><h3>0.1</h3>
+<p>Version 0.1 didn't really work because I had to withdraw the listings grabber, so it didn't satisfy many of the users' requirements.
+</p>
+</div>
+
+    </td>
+  </tr></table>
+  <!--PageFooterFmt-->
+ <table id='wikifoot' cellspacing='0' cellpadding='0' align='center'>
+ <tr><td class='passwordlink' colspan='2'>If you would like to help improve this site, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we will give you the password to edit pages.</td></tr>
+ <tr>
+  <td class='lastmod'>Page last modified on June 03, 2008 &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
+  <td class='footnav'><div  style='text-align: right;' > 
+<p> -
+ -
+ -
+
+() -
+
+</p></div>
+</td>
+ </tr>
+ </table>
+<!--/PageFooterFmt-->
+</body>
+</html>

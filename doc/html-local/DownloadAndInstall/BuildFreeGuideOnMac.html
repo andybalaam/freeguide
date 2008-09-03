@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title>FreeGuide : Build Free Guide On Mac </title>
+  <meta http-equiv='Content-Style-Type' content='text/css' />
+  <link rel='stylesheet' href='../pub/skins/plain-freeguide/plain1.css' type='text/css' />
+  <link rel="icon" href="../pub/skins/plain-freeguide/favicon.gif" type="image/x-icon" />
+  <link rel="shortcut icon" href="../pub/skins/plain-freeguide/favicon.gif" type="image/x-icon" />
+  <!--HeaderText--><style type='text/css'><!--
+  ul, ol, pre, dl, p { margin-top:0px; margin-bottom:0px; }
+  code.escaped { white-space: nowrap; }
+  .vspace { margin-top:1.33em; }
+  .indent { margin-left:40px; }
+  .outdent { margin-left:40px; text-indent:-40px; }
+  a.createlinktext { text-decoration:none; border-bottom:1px dotted gray; }
+  a.createlink { text-decoration:none; position:relative; top:-0.5em;
+    font-weight:bold; font-size:smaller; border-bottom:none; }
+  img { border:0px; }
+  .editconflict { color:green; 
+  font-style:italic; margin-top:1.33em; margin-bottom:1.33em; }
+
+  table.markup { border:2px dotted #ccf; width:90%; }
+  td.markup1, td.markup2 { padding-left:10px; padding-right:10px; }
+  table.vert td.markup1 { border-bottom:1px solid #ccf; }
+  table.horiz td.markup1 { width:23em; border-right:1px solid #ccf; }
+  table.markup caption { text-align:left; }
+  div.faq p, div.faq pre { margin-left:2em; }
+  div.faq p.question { margin:1em 0 0.75em 0; font-weight:bold; }
+   
+    .frame 
+      { border:1px solid #cccccc; padding:4px; background-color:#f9f9f9; }
+    .lfloat { float:left; margin-right:0.5em; }
+    .rfloat { float:right; margin-left:0.5em; }
+a.varlink { text-decoration:none; }
+
+--></style>  <meta name='robots' content='index,follow' />
+  <link rel='stylesheet' href='../pub/skins/plain-freeguide/plain2.css' type='text/css' />
+</head>
+<body>
+<!--PageHeaderFmt-->
+ <table id='wikihead' cellspacing='0' cellpadding='0' align='center'><tr>
+  <td id='homelink'><img src='../pub/skins/plain-freeguide/favicon.gif' /> <a href='http://www.artificialworlds.net/freeguide'>FreeGuide</a></td>
+  <td id='location'><span class='pagegroup'><a href='DownloadAndInstall.html'>DownloadAndInstall</a> &raquo;</span>
+  <h1 class='pagetitle'>Build Free Guide On Mac</h1></td>
+  <td id='wikicmds'><ul><li class='browse'><a accesskey=''  class='selflink' href='BuildFreeGuideOnMac.html'>View</a>
+</li><li class='edit'>
+</li><li class='diff'>
+</li><li class='print'>
+</li></ul>
+</td>
+ </tr></table> 
+<!--/PageHeaderFmt-->
+  <table id='wikimid' cellspacing='0' cellpadding='0' align='center'><tr>
+<!--PageLeftFmt-->
+   <td id='wikileft' valign='top'>
+    <p><form action='http://www.artificialworlds.net/freeguide'>
+     <input type='hidden' name='n' value='DownloadAndInstall.BuildFreeGuideOnMac' />
+     <input type='hidden' name='action' value='search' />
+     <input type='text' name='q' value=' Search ' class='inputbox searchbox'
+      onfocus="if(this.value=' Search ') {this.value=''}" 
+      onblur="if(this.value=='') {this.value=' Search '}"
+      /><input type='submit' class='inputbutton searchbutton'
+      value='Go' /></form></p><br />
+<ul><li><a class='wikilink' href='../Main/HomePage.html'>Home Page</a>
+</li><li><a class='wikilink' href='DownloadAndInstall.html'>Download And Install</a>
+<ul><li><span style='font-size:83%'><a class='wikilink' href='Linux.html'>Linux</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='Windows.html'>Windows</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='MacOSX.html'>Mac OS X</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='FreeBSD.html'>Free BSD</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='Other.html'>Other</a></span>
+</li></ul></li><li><a class='wikilink' href='../UserGuide/UserGuide.html'>User Guide</a>
+</li><li><a class='wikilink' href='../FAQ/FAQ.html'>Help And FAQ</a>
+</li><li><a class='wikilink' href='../Developers/Developers.html'>Developers</a>
+</li><li><a class='wikilink' href='../Main/Credits.html'>Credits</a>
+</li><li><a class='wikilink' href='../Main/Screenshots.html'>Screenshots</a>
+</li><li><a class='wikilink' href='../Main/Links.html'>Links</a>
+</li><li><a class='wikilink' href='../Main/SiteMap.html'>Site Map</a>
+<div class='vspace'></div></li><li><a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a>
+</li></ul><div class='vspace'></div>
+</td>
+<!--/PageLeftFmt-->
+    <td id='wikibody' valign='top'>
+<!--PageText-->
+<div id='wikitext'>
+<h1>How to Build <span class='wikiword'>FreeGuide</span> on Mac OS X</h1>
+<p><em>Based on an email from David Liontooth.</em>
+</p>
+<p class='vspace'>I've now successfully installed Freeguide on OSX, taking these steps
+(please improve):
+</p>
+<div class='vspace'></div><h3>GCC</h3>
+<p>Since we have to build several programs from source, we need a compiler.
+On OSX, the development environment is called xcode and can be
+downloaded from <a class='urllink' href='http://developer.apple.com/tools/download/' rel='nofollow'>http://developer.apple.com/tools/download/</a> -- I had to
+sign up for a free account first.  To install the dmg remotely (see
+detailed instructions at <a class='urllink' href='http://www.hmug.org/HowTos/RemoteInstall.html' rel='nofollow'>http://www.hmug.org/How Tos/Remote Install.html</a>),
+issue
+</p>
+<div class='vspace'></div><pre class='escaped'>
+    hdiutil mount xcode_2.4.1_8m1910_6936315.dmg
+    cd /Volumes/Xcode\ Tools
+    sudo installer -verbose -pkg XcodeTools.mpkg -target /
+    cd
+    hdiutil unmount /Volumes/X*
+</pre>
+<p class='vspace'>You now have a build environment with gcc (3.3 and 4.0 in my case).
+</p>
+<div class='vspace'></div><h3>Perl</h3>
+<p>We need the latest stable version, currently 5.8.8 (cf.
+<a class='urllink' href='http://www.perl.com/download.csp' rel='nofollow'>http://www.perl.com/download.csp</a>):
+</p>
+<div class='vspace'></div><pre class='escaped'>
+    mkdir -p ~/src/perl
+    cd ~/src/perl
+    wget http://www.perl.com/CPAN/src/stable.tar.gz
+    tar zxvf stable.tar.gz
+    cd perl-5.8.8
+    ./configure
+</pre>
+<p class='vspace'>This is a lengthy process -- select defaults where possible, and say yes
+to "Use the <span class='wikiword'>PerlIO</span> abstraction layer." I also said yes to threading, but
+this may not be advisable. I accepted the default prefix, /usr/local.
+Once configured,
+</p>
+<div class='vspace'></div><pre class='escaped'>
+    make
+    make test
+</pre>
+<p class='vspace'>If it checks out -- I got a syslog error, likely because OSX uses
+/var/log/system.log, which I ignored -- you may want to switch to root
+user before you install:
+</p>
+<div class='vspace'></div><pre class='escaped'>
+    sudo bash
+    make install
+</pre>
+<p class='vspace'>Incidentally, one problem with installing stuff remotely on OSX is that
+the system keeps going to sleep on you; I use the wakeonlan program in
+Linux to keep it awake.
+</p>
+<p class='vspace'>Next, if you're using the bash shell, edit /etc/profile and add
+/usr/local/bin to the PATH before /usr/bin. Issue
+</p>
+<div class='vspace'></div><pre class='escaped'>
+    source /etc/profile
+</pre>
+<p class='vspace'>or, if you're on the OSX machine, exit your user and log back in. Verify
+that your default perl is your freshly compiled one:
+</p>
+<div class='vspace'></div><pre class='escaped'>
+    which perl
+</pre>
+<p class='vspace'>should give you "/usr/local/bin/perl" and not "/usr/bin/perl".
+</p>
+<div class='vspace'></div><h3>XMLTV prereqs</h3>
+<p>Get the latest xmltv-prereqs and xmltv from
+<a class='urllink' href='http://sourceforge.net/project/showfiles.php?group_id=39046' rel='nofollow'>http://sourceforge.net/project/showfiles.php?group_id= 39046</a>
+</p>
+<p class='vspace'>Two of the prereqs were too old, so I also got these:
+</p>
+<div class='vspace'></div><pre class='escaped'>
+    wget
+    http://search.cpan.org/CPAN/authors/id/B/BY/BYRNE/SOAP-Lite-0.69.tar.gz
+    wget
+    http://search.cpan.org/CPAN/authors/id/J/JO/JOSEPHW/XML-Writer-0.602.tar.gz
+</pre>
+<p class='vspace'>In addition, you may need the expat library from
+<a class='urllink' href='http://expat.sourceforge.net' rel='nofollow'>http://expat.sourceforge.net</a>
+</p>
+<p class='vspace'>Start with the xmltv-prereqs -- untar the package and enter each
+subdirectory:
+</p>
+<div class='vspace'></div><pre class='escaped'>
+    00_Class-MethodMaker-2.02
+    00_HTML-Tagset-3.03
+    00_TermReadKey-2.21
+    00_Tk-804.027
+    00_URI-1.30
+    00_XML-LibXML-Common-0.13
+    00_XML-NamespaceSupport-1.08
+    00_XML-Parser-2.34
+    01_HTML-Parser-3.36
+    01_XML-SAX-0.12
+    01_libwww-perl-5.79
+    Compress-Zlib-1.33
+    DateManip-5.42a
+    HTML-TableExtract-1.08
+    HTML-Tree-3.18
+    Lingua-EN-Numbers-Ordinate-0.01
+    Lingua-Preferred-0.2.4
+    PerlIO-gzip-0.15
+    Term-ProgressBar-2.06
+    Text-Kakasi-2.04
+    Tk-TableMatrix-1.1
+    Unicode-String-2.07
+    WWW-Mechanize-1.02
+    XML-LibXML-1.58.patched
+    XML-Twig-3.15
+</pre>
+<p class='vspace'>In each of these directories (see the README for those you can skip), issue
+</p>
+<div class='vspace'></div><pre class='escaped'>
+    perl Makefile.PL PREFIX=/usr/local
+    make
+    make test
+    make install
+</pre>
+<p class='vspace'>In the case of 00_Tk-804.027 and Tk-<span class='wikiword'>TableMatrix</span>-1.1, you need the X11
+SDK -- and the tests will only pass if you run them within X11. Unless
+you plan to run Freeguide within X11, these serve no purpose and you can
+live without them.
+</p>
+<p class='vspace'>Do the same in the case of the separately downloaded packages:
+</p>
+<div class='vspace'></div><pre class='escaped'>
+    SOAP-Lite-0.69
+    XML-Writer-0.602
+    xmltv-0.5.45
+</pre>
+<p class='vspace'>You should now have a working XMLTV installation.
+</p>
+<div class='vspace'></div><h3>Freeguide configured according to Andy Balaam</h3>
+<p>Get the latest dmg of Freeguide from
+<a class='urllink' href='http://sourceforge.net/project/showfiles.php?group_id=35309' rel='nofollow'>http://sourceforge.net/project/showfiles.php?group_id= 35309</a> install it.
+</p>
+<p class='vspace'>Before starting Freeguide, configure it as your regular user as follows
+(the example is for North America):
+</p>
+<div class='vspace'></div><pre class='escaped'>
+    mkdir -p ~/.freeguide/xmltv-configs
+</pre>
+<p class='vspace'>And then (as one line):
+</p>
+<div class='vspace'></div><pre class='escaped'>
+    tv_grab_na_dd --config-file ~/.freeguide/xmltv-configs/na_dd.conf
+    --configure
+</pre>
+<p class='vspace'>This will ask you to log in to zap-it and chose your lineup.
+</p>
+<p class='vspace'>Now start <span class='wikiword'>FreeGuide</span> and go to Tools, Options, Advanced, Grabbers, XMLTV,
+and modify the command lines shown for the na_dd grabber.  The bottom
+one relates to the step you've just done manually, so you may as well
+make that one blank, but the top one should read:
+</p>
+<p class='vspace'>/INSTALLATION_DIR/tv_grab_na_dd --quiet --config-file
+YOUR_HOME_DIR/.freeguide/xmltv-configs/na_dd.conf
+</p>
+<p class='vspace'>for instance "/usr/local/bin/tv_grab_na_dd --quiet --config-file
+/Users/tna/.freeguide/xmltv-configs/na_dd.conf".
+</p>
+<p class='vspace'>Click OK -- this is the end of the configuration.
+</p>
+<p class='vspace'>Click on the "Download Listings" and watch the listings file into position.
+</p>
+<p class='vspace'>The program runs great, but the installation is lengthy and it would be
+a great benefit to have packaged binaries.
+</p>
+<div class='vspace'></div>
+</div>
+
+    </td>
+  </tr></table>
+  <!--PageFooterFmt-->
+ <table id='wikifoot' cellspacing='0' cellpadding='0' align='center'>
+ <tr><td class='passwordlink' colspan='2'>If you would like to help improve this site, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we will give you the password to edit pages.</td></tr>
+ <tr>
+  <td class='lastmod'>Page last modified on June 10, 2008 &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
+  <td class='footnav'><div  style='text-align: right;' > 
+<p> -
+ -
+ -
+
+() -
+
+</p></div>
+</td>
+ </tr>
+ </table>
+<!--/PageFooterFmt-->
+</body>
+</html>
