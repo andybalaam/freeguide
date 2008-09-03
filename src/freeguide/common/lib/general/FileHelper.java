@@ -31,7 +31,7 @@ public class FileHelper
     protected static final String DOCS_SUBDIR = "freeguide-docs";
     protected static final String PACKAGE_DOCS = "other/docs/";
     protected static final String PACKAGE_DOCS_LIST = PACKAGE_DOCS + "ls-docs";
-    protected static final String START_FILE = "userguide.html";
+    protected static final String START_FILE = "UserGuide/UserGuide.html";
 
     /**
      * ToDo: DOCUMENT ME!
