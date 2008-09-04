@@ -45,19 +45,26 @@ public class Migrate
             return;
         }
 
-        Version ver = getInstalledVersion(  );
+        Version installedVersion = getInstalledVersion(  );
 
         if(
-            new Version( null ).equals( ver )
-                || ( ver.compareTo( Application.VERSION ) > 0 ) )
+            installedVersion.equals( new Version( null ) )
+                || ( installedVersion.greaterThan( Application.VERSION ) ) )
         {
+            // If we have a very old version installed, or the
+            // installed version is later than the code, we
+            // must re-run the wizard.
             needToRunWizard = true;
         }
         else
         {
+            // Otherwise, we can just run the automatic migration
+            // code to update the user's preferences to the
+            // pattern expected by this version of the code.
+
             MigrationProcessBase migr = null;
 
-            if( ver.compareTo( new Version( 0, 10, 0 ) ) < 0 )
+            if( installedVersion.lessThan( new Version( 0, 10, 0 ) ) )
             {
                 needToRunWizard = true;
                 needToRunAfter = true;
@@ -66,51 +73,57 @@ public class Migrate
                 migr.migrate(  );
             }
 
-            if( ver.compareTo( new Version( 0, 10, 1 ) ) <= 0 )
+            if( installedVersion.lessThan( new Version( 0, 10, 1 ) ) )
             {
                 migr = new Migrate0_10_1To0_10_2( FreeGuide.pref_root_name );
                 migr.migrate(  );
             }
 
-            if( ver.compareTo( new Version( 0, 10, 2 ) ) <= 0 )
+            if( installedVersion.lessThan( new Version( 0, 10, 2 ) ) )
             {
                 migr = new Migrate0_10_2To0_10_3( FreeGuide.pref_root_name );
                 migr.migrate(  );
             }
 
-            if( ver.compareTo( new Version( 0, 10, 3 ) ) <= 0 )
+            if( installedVersion.lessThan( new Version( 0, 10, 3 ) ) )
             {
                 migr = new Migrate0_10_3To0_10_4( FreeGuide.pref_root_name );
                 migr.migrate(  );
             }
 
-            if( ver.compareTo( new Version( 0, 10, 4 ) ) <= 0 )
+            if( installedVersion.lessThan( new Version( 0, 10, 4 ) ) )
             {
                 migr = new Migrate0_10_4To0_10_5( FreeGuide.pref_root_name );
                 migr.migrate(  );
             }
 
-            if( ver.compareTo( new Version( 0, 10, 5 ) ) <= 0 )
+            if( installedVersion.lessThan( new Version( 0, 10, 5 ) ) )
             {
                 migr = new Migrate0_10_5To0_10_6( FreeGuide.pref_root_name );
                 migr.migrate(  );
             }
 
-            if( ver.compareTo( new Version( 0, 10, 6 ) ) <= 0 )
+            if( installedVersion.lessThan( new Version( 0, 10, 6 ) ) )
             {
                 migr = new Migrate0_10_6To0_10_7( FreeGuide.pref_root_name );
                 migr.migrate(  );
             }
 
-            if( ver.compareTo( new Version( 0, 10, 7 ) ) <= 0 )
+            if( installedVersion.lessThan( new Version( 0, 10, 7 ) ) )
             {
                 migr = new Migrate0_10_7To0_10_8( FreeGuide.pref_root_name );
                 migr.migrate(  );
             }
 
-            if( ver.compareTo( new Version( 0, 10, 8 ) ) <= 0 )
+            if( installedVersion.lessThan( new Version( 0, 10, 8 ) ) )
             {
                 migr = new Migrate0_10_8To0_10_9( FreeGuide.pref_root_name );
+                migr.migrate(  );
+            }
+
+            if( installedVersion.lessThan( new Version( 0, 10, 9 ) ) )
+            {
+                migr = new Migrate0_10_9To0_10_10( FreeGuide.pref_root_name );
                 migr.migrate(  );
             }
 
