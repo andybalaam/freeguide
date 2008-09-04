@@ -15,7 +15,6 @@
         <antcall target="install-linux">
             <param name="install_share_dir" value="${builddir}/share"/>
             <param name="install_bin_dir" value="${builddir}"/>
-            <param name="install_doc_dir" value="${builddir}/doc"/>
             <param name="install_real_dir" value="."/>
             <param name="install_real_doc_dir" value="./doc"/>
         </antcall>
@@ -33,6 +32,6 @@
             <tarfileset dir="${build}/tgz" />
         </tar>
     </target>
-    
+
 </project>
 

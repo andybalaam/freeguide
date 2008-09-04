@@ -60,5 +60,5 @@ ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD
 %{_datadir}/applications/freeguide.desktop
 %{_datadir}/man/man1/freeguide.1.gz
 %{_datadir}/freeguide/lib/tagsoup-1.0.1.jar
-%{_datadir}/freeguide/lib/docs.jar
+%{_datadir}/freeguide/lib/docs.zip
 %{_datadir}/freeguide/lib/retroweaver-rt-1.2.5.jar

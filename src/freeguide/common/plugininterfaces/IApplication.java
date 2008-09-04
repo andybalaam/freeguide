@@ -46,6 +46,8 @@ public interface IApplication
 
     String getInstallDirectory(  );
 
+    String getLibDirectory(  );
+
     boolean isUnix(  );
 
     IModuleReminder[] getReminders(  );
@@ -68,7 +70,7 @@ public interface IApplication
     {
         JMenu getTools(  );
     }
-    
+
     IExecutionController getExecutionController();
 
     JProgressBar getApplicationProgressBar();

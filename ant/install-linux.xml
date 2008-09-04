@@ -4,12 +4,11 @@
 
     <import file="compile.xml"/>
 
-    <target name="install-linux" depends="jars-lin, compile-doc">
+    <target name="install-linux" depends="jars-lin, zip-docs">
 
         <!-- These properties are passed in (example values shown):
             install_share_dir = ~/.rpm/tmp/freeguide-0.8.2-root/usr/share
             install_bin_dir   = ~/.rpm/tmp/freeguide-0.8.2-root/usr/bin
-            install_doc_dir   = ~/.rpm/tmp/freeguide-0.8.2-...usr/doc/freeguide
             install_real_dir = /usr/share/freeguide
             install_real_doc_dir = /usr/doc/freeguide
         -->
@@ -21,14 +20,8 @@
         <mkdir dir="${install_jar_dir}" />
         <copy todir="${install_jar_dir}/">
             <fileset dir="${build}/package">
-                <exclude name="doc/**" />
                 <exclude name="lib/xmltv-win.jar" />
             </fileset>
-        </copy>
-
-        <mkdir dir="${install_doc_dir}" />
-        <copy todir="${install_doc_dir}/">
-            <fileset dir="${build}/package/doc" />
         </copy>
 
         <!-- Copy the different-sized icons to the freeguide pixmaps dir -->
@@ -63,7 +56,6 @@
         <antcall target="install-linux">
             <param name="install_share_dir" value="${DESTDIR}/usr/share"/>
             <param name="install_bin_dir" value="${DESTDIR}/usr/bin"/>
-            <param name="install_doc_dir" value="${DESTDIR}/usr/share/doc/freeguide"/>
             <param name="install_real_dir" value="/usr/share/freeguide"/>
             <param name="install_real_doc_dir" value="/usr/share/doc/freeguide"/>
         </antcall>
@@ -75,7 +67,6 @@
         <antcall target="install-linux">
             <param name="install_share_dir" value="${run}/usr/share"/>
             <param name="install_bin_dir" value="${run}"/>
-            <param name="install_doc_dir" value="${run}/usr/share/doc/freeguide"/>
             <param name="install_real_dir" value="usr/share/freeguide"/>
             <param name="install_real_doc_dir" value="usr/share/doc/freeguide"/>
         </antcall>

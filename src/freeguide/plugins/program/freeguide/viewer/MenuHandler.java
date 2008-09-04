@@ -1,12 +1,18 @@
 package freeguide.plugins.program.freeguide.viewer;
 
-import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.general.FileHelper;
-import freeguide.common.lib.general.Utils;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.fgspecific.DisplayDocs;
+import freeguide.common.lib.general.Utils;
 import freeguide.common.plugininterfaces.IModuleExport;
 import freeguide.common.plugininterfaces.IModuleImport;
-
 import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.dialogs.AboutFrame;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
@@ -14,16 +20,6 @@ import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 import freeguide.plugins.program.freeguide.options.OptionsDialog;
 import freeguide.plugins.program.freeguide.updater.UpdaterController;
 import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-
-import java.io.IOException;
-
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
 /**
  * Menu handler for MainController
@@ -121,16 +117,7 @@ public class MenuHandler
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
-                    try
-                    {
-                        FileHelper.showDocs(  );
-                    }
-                    catch( IOException ex )
-                    {
-                        JOptionPane.showMessageDialog( 
-                            controller.mainFrame, ex.getMessage(  ),
-                            "Error display help", JOptionPane.ERROR_MESSAGE );
-                    }
+                    DisplayDocs.displayDocs();
                 }
             } );
 

@@ -16,23 +16,21 @@ import java.io.OutputStreamWriter;
 
 import java.net.URL;
 
+import java.util.Enumeration;
 import java.util.logging.Level;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 /**
  * Helper for support some file operations.
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class FileHelper
+public class FileHelper implements IFileOpener
 {
     protected static final String URL_PATTERN = "%url%";
     protected static final String DEFAULT_CHARSET = "UTF-8";
     protected static final String TEMP_PROPERTY = "java.io.tmpdir";
-    protected static final String DOCS_SUBDIR = "freeguide-docs";
-    protected static final String PACKAGE_DOCS = "other/docs/";
-    protected static final String PACKAGE_DOCS_LIST = PACKAGE_DOCS + "ls-docs";
-    protected static final String START_FILE = "UserGuide/UserGuide.html";
-
     /**
      * ToDo: DOCUMENT ME!
      *
@@ -98,12 +96,12 @@ public class FileHelper
      *
      * @param filename file name
      */
-    public static void openFile( final String filename )
+    public void openFile( final String filename )
     {
         try
         {
             String cmd =
-                StringHelper.replaceAll( 
+                StringHelper.replaceAll(
                     Application.getInstance(  ).getBrowserCommand(  ),
                     URL_PATTERN,
                     new File( filename ).toURI(  ).toURL(  ).toExternalForm(  ) );
@@ -126,7 +124,7 @@ public class FileHelper
         try
         {
             String cmd =
-                StringHelper.replaceAll( 
+                StringHelper.replaceAll(
                     Application.getInstance(  ).getBrowserCommand(  ),
                     URL_PATTERN, url.toExternalForm(  ) );
             Utils.execNoWait( cmd );
@@ -134,7 +132,7 @@ public class FileHelper
         catch( Exception ex )
         {
             Application.getInstance(  ).getLogger(  )
-                       .log( 
+                       .log(
                 Level.WARNING, "Error open url " + url.toExternalForm(  ), ex );
         }
     }
@@ -158,7 +156,7 @@ public class FileHelper
 
             for( int i = 0; i < list.length; i++ )
             {
-                deleteDir( 
+                deleteDir(
                     new File( dir.getPath(  ) + File.separator + list[i] ) );
             }
         }
@@ -178,7 +176,7 @@ public class FileHelper
         throws IOException
     {
         OutputStreamWriter out =
-            new OutputStreamWriter( 
+            new OutputStreamWriter(
                 new FileOutputStream( fileName ), DEFAULT_CHARSET );
 
         try
@@ -202,7 +200,7 @@ public class FileHelper
      *
      * @return boolean indicates success
      */
-    public static boolean unpackFiles( 
+    public static boolean unpackFiles(
         final String lsPath, final String packagePrefix, final File outDir )
     {
         final InputStream inLs =
@@ -234,7 +232,7 @@ public class FileHelper
                 }
 
                 new File( outDir, line ).getParentFile(  ).mkdirs(  );
-                writeFile( packagePrefix + line, new File( outDir, line ) );
+                writeResourceToFile( packagePrefix + line, new File( outDir, line ) );
             }
         }
         catch( IOException ioe )
@@ -261,25 +259,66 @@ public class FileHelper
         return true;
     }
 
+    public static void unzip( File zipFilePath, File outDir ) throws FileNotFoundException, IOException
+    {
+        ZipFile zipFile = new ZipFile( zipFilePath );
+
+        Enumeration<? extends ZipEntry> entries = zipFile.entries();
+
+        while(entries.hasMoreElements())
+        {
+            ZipEntry entry = (ZipEntry)entries.nextElement();
+            File entryFile = new File( outDir, entry.getName() );
+
+            if( entry.isDirectory() )
+            {
+                entryFile.mkdirs();
+            }
+            else
+            {
+                entryFile.getParentFile().mkdirs();
+
+                InputStream is = zipFile.getInputStream( entry );
+                BufferedOutputStream os = new BufferedOutputStream(
+                    new FileOutputStream( entryFile ) );
+
+                copy( is, os );
+
+                os.close();
+            }
+        }
+
+        zipFile.close();
+    }
+
     /**
      * Write data from classpath resource into file.
      *
-     * @param classpath
+     * @param resourcePath
      * @param outFile
+     * @throws IOException
      *
      * @throws IOException
      * @throws FileNotFoundException DOCUMENT ME!
      */
-    protected static void writeFile( 
-        final String classpath, final File outFile ) throws IOException
+
+    public static void writeResourceToFile(
+        final String resourcePath, final File outFile ) throws IOException
     {
-        final InputStream in =
-            FileHelper.class.getClassLoader(  ).getResourceAsStream( 
-                classpath );
+        writeResourceToFile( resourcePath, outFile,
+            FileHelper.class.getClassLoader() );
+    }
+
+    public static void writeResourceToFile(
+        final String resourcePath, final File outFile,
+        ClassLoader classLoader ) throws IOException
+    {
+        final InputStream in = classLoader.getResourceAsStream(
+            resourcePath );
 
         if( in == null )
         {
-            throw new FileNotFoundException( "There is no " + classpath );
+            throw new FileNotFoundException( "There is no " + resourcePath );
         }
 
         try
@@ -312,26 +351,5 @@ public class FileHelper
         {
             in.close(  );
         }
-    }
-
-    /**
-     * Unpack and show docs.
-     *
-     * @throws IOException
-     * @throws FileNotFoundException DOCUMENT ME!
-     */
-    public static void showDocs(  ) throws IOException
-    {
-        final String tempDir = System.getProperty( TEMP_PROPERTY );
-
-        if( tempDir == null )
-        {
-            throw new FileNotFoundException( "Temp directory doesn't defined" );
-        }
-
-        final File outDir = new File( tempDir, DOCS_SUBDIR );
-        FileHelper.unpackFiles( PACKAGE_DOCS_LIST, PACKAGE_DOCS, outDir );
-        FileHelper.openFile( 
-            new File( outDir, START_FILE ).getAbsolutePath(  ) );
     }
 }

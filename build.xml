@@ -56,7 +56,7 @@
         Ant build file for FreeGuide.
     </description>
 
-    <target name="all" depends="prepare, jars-win, compile-doc" />
+    <target name="all" depends="prepare, jars-win" />
     <target name="dist-all" depends="dist-src,dist-rpm,dist-tgz,dist-install-tgz,dist-exe-lin" />
     <target name="dist-all-win" depends="dist-src,dist-rpm,dist-tgz,dist-install-tgz,dist-exe" />
 
@@ -74,10 +74,6 @@
 
     <target name="compile-in-place">
         <ant antfile="ant/compile.xml" target="compile-in-place" />
-    </target>
-
-    <target name="compile-doc">
-        <ant antfile="ant/compile.xml" target="compile-doc" />
     </target>
 
     <target name="jars-lin">

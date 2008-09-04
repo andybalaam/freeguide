@@ -58,16 +58,6 @@ public class ImportSlowTest
         }
     }
 
-    public class MyAssertFailureException extends Exception
-    {
-        static final long serialVersionUID = 1;
-
-        public MyAssertFailureException( String message )
-        {
-            super( message );
-        }
-    }
-
     private SAXParserFactory factory;
     private SAXParser saxParser;
 
@@ -186,14 +176,6 @@ public class ImportSlowTest
 
     // ------------------------------
 
-    private void my_assert( boolean condition ) throws MyAssertFailureException
-    {
-        if( !condition )
-        {
-            throw new MyAssertFailureException( "Assertion failed" );
-        }
-    }
-
     private void parseString( String xmlToParse, ArrayList<TVChannel> expectedChannels )
     throws SAXException, IOException, MyAssertFailureException
     {
@@ -208,6 +190,6 @@ public class ImportSlowTest
 
         saxParser.parse( inputSource, handler );
 
-        my_assert( storage.channels.equals( expectedChannels ) );
+        FreeGuideSlowTest.my_assert( storage.channels.equals( expectedChannels ) );
     }
 }

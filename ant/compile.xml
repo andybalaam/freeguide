@@ -7,7 +7,7 @@
     <import file="../build.xml"/>
 
     <target name="jars-lin" depends="prepare, compile, jar-common, jar-plugins,
-        jar-startup, jar-docs"/>
+        jar-startup, zip-docs"/>
 
     <target name="jars-win" depends="jars-lin, jar-xmltv-win"/>
 
@@ -38,7 +38,7 @@
     </target>
 
     <target name="compile-in-place" depends="prepare"
-    	description="Compile all the .java files inside the src dir.">
+        description="Compile all the .java files inside the src dir.">
 
         <javac srcdir="${src}"
             deprecation="on"
@@ -59,9 +59,9 @@
         <mkdir dir="${build}/package/lib"/>
 
         <jar jarfile="${build}/package/lib/common.jar"
-             basedir="${build}/classes"
-             includes="freeguide/common/**">
-         <fileset dir="${src}" includes="resources/main/*"/>
+                basedir="${build}/classes"
+                includes="freeguide/common/**">
+             <fileset dir="${src}" includes="resources/main/*"/>
              <fileset dir="${src}" includes="resources/i18n/*"/>
         </jar>
 
@@ -71,19 +71,20 @@
         </copy>
     </target>
 
-	<target name="jar-docs">
-		<mkdir dir="${build}/other-docs/other/docs/"/>
-		<copy todir="${build}/other-docs/other/docs/">
-			<fileset dir="${doc}/html-local"/>
-		</copy>
-    	<jar jarfile="${build}/package/lib/docs.jar" basedir="${build}/other-docs"/>
+    <!-- Zip the HTML documentation into the lib dir -->
+    <target name="zip-docs">
+        <mkdir dir="${build}/package/lib"/>
+        <zip zipfile="${build}/package/lib/docs.zip">
+            <fileset dir="${doc}/html-local"/>
+        </zip>
     </target>
+
     <target name="jar-xmltv-win">
-		<mkdir dir="${build}/other-xmltv-win/other/xmltv-win/"/>
-		<copy todir="${build}/other-xmltv-win/other/xmltv-win/">
-			<fileset dir="${xmltv}"/>
-		</copy>
-    	<jar jarfile="${build}/package/lib/xmltv-win.jar" basedir="${build}/other-xmltv-win"/>
+        <mkdir dir="${build}/other-xmltv-win/other/xmltv-win/"/>
+        <copy todir="${build}/other-xmltv-win/other/xmltv-win/">
+            <fileset dir="${xmltv}"/>
+        </copy>
+        <jar jarfile="${build}/package/lib/xmltv-win.jar" basedir="${build}/other-xmltv-win"/>
     </target>
 
     <target name="jar-plugins">
@@ -100,12 +101,12 @@
         <mkdir dir="${src}/freeguide/plugins/${plugin-dir}"/>
 
         <!-- Build the JAR file for this plugin -->
-        <zip zipfile="${build}/package/lib/${plugin-id}.jar" whenempty="skip">
+        <jar jarfile="${build}/package/lib/${plugin-id}.jar">
             <fileset dir="${build}/classes" includes="freeguide/plugins/${plugin-dir}/**"/>
             <fileset dir="${src}" includes="resources/plugins/${plugin-dir}/**"/>
             <fileset dir="${src}/freeguide/plugins/${plugin-dir}"
                 includes="plugin.xml"/>
-        </zip>
+        </jar>
 
     </target>
 
@@ -115,35 +116,6 @@
              basedir="${build}/classes"
              includes="freeguide/startup/**"
              manifest="${src}/resources/manifests/startup.mf" />
-    </target>
-
-    <target name="compile-doc">
-
-        <!-- "really-compile-doc-java" does not work with our docs for some reason.
-             For now, we compile the docs on Linux and commit them to SVN.
-             So all we have to do here is copy them in to the build dir. -->
-
-        <copy todir="${build}/package/doc">
-            <fileset dir="${doc}/html-local"/>
-        </copy>
-
-    </target>
-
-     <target name="really-compile-doc-java" depends="prebuild-buildclasses"
-            description="DOES NOT WORK: use our own custom Java code to build the docs" >
-        <java classpath="${build}/buildclasses"
-                classname="freeguide.build.docxslt.DocXSLT"
-                fork="true"/>
-        <!-- TODO: copy the .html files etc. from doc/* -->
-     </target>
-
-     <target name="really-compile-doc-sh"
-            description="If we're on Linux, make the docs using a shell script.">
-        <chmod file="${doc}/compile_manual.sh" perm="ugo+rx"/>
-        <exec dir="${doc}" executable="compile_manual.sh" resolveexecutable="true" failonerror="true"/>
-        <!-- NOTE: this script currently compiles from doc/* to doc/html-web/*,
-             but for this to work smoothly, it would need to compile to
-             build/package/doc. -->
     </target>
 
 </project>

@@ -1011,7 +1011,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                     true ), buffy );
             buffy.close(  );
 
-            FileHelper.openFile( f.getPath(  ) );
+            new FileHelper().openFile( f.getPath() );
         }
         catch( Exception ex )
         {

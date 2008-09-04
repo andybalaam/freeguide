@@ -13,8 +13,9 @@
 package freeguide.plugins.program.freeguide.wizard;
 
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.general.FileHelper;
+import freeguide.common.lib.fgspecific.DisplayDocs;
 
+import freeguide.common.plugininterfaces.IApplication;
 import freeguide.common.plugininterfaces.IModuleConfigureFromWizard;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
@@ -35,8 +36,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
 import java.util.logging.Level;
-
-import javax.swing.JOptionPane;
 
 /**
  * A first time wizard for FreeGuide
@@ -543,16 +542,7 @@ public class FirstTimeWizard
 
         if( showREADME )
         {
-            try
-            {
-                FileHelper.showDocs(  );
-            }
-            catch( IOException ex )
-            {
-                JOptionPane.showMessageDialog(
-                    wizardFrame, ex.getMessage(  ), "Error display help",
-                    JOptionPane.ERROR_MESSAGE );
-            }
+            DisplayDocs.displayDocs();
         }
     }
 
