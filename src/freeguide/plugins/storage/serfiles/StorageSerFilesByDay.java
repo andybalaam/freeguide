@@ -43,7 +43,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
         Pattern.compile( "day-(\\d{4}-\\d{2}-\\d{2})-[A-D].ser" );
     protected static long MSEC_PER_DAY = 24L * 60L * 60L * 1000L;
     protected static long MSEC_PARTS = 6L * 60L * 60L * 1000L;
-    protected static long OLD_DATA = 10L * 24L * 60L * 60L * 1000L; // 10 days 
+    protected static long OLD_DATA = 10L * 24L * 60L * 60L * 1000L; // 10 days
 
     /**
      * The maximal age of a file. If it's older, it gets deleted in
@@ -60,6 +60,10 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
      */
     protected final File storageDir;
 
+    /**
+     * Set to true for testing purposes only.
+     */
+    public boolean debugIncludeOldProgrammes = false;
 /**
      * Creates a new StorageSerFiles object on application storage dir.
      */
@@ -70,7 +74,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
 
 /**
      * Create storage on custom directory. Used not for FreeGuide GUI application.
-     * 
+     *
      * @param dir directory where files will be stored
      */
     public StorageSerFilesByDay( final File dir )
@@ -99,7 +103,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
     public File getStorageDirectory(  )
     {
         return ( storageDir != null ) ? storageDir
-                                      : new File( 
+                                      : new File(
             Application.getInstance(  ).getWorkingDirectory(  ) );
     }
 
@@ -159,7 +163,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
         try
         {
             ObjectInputStream in =
-                new ObjectInputStream( 
+                new ObjectInputStream(
                     new BufferedInputStream( new FileInputStream( f ) ) );
 
             try
@@ -174,7 +178,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
         catch( Exception ex )
         {
             Application.getInstance(  ).getLogger(  )
-                       .log( 
+                       .log(
                 Level.WARNING, "Error read file " + f.getAbsolutePath(  ), ex );
 
             return null;
@@ -194,15 +198,23 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
 
         if( m.matches(  ) )
         {
-            try
+            if( debugIncludeOldProgrammes )
             {
-                Date fileDate = dateFormat.parse( m.group( 1 ) );
-
-                return fileDate.getTime(  ) < ( System.currentTimeMillis(  )
-                - OLD_DATA );
+                return false;
             }
-            catch( ParseException ex )
+            else
             {
+
+                try
+                {
+                    Date fileDate = dateFormat.parse( m.group( 1 ) );
+
+                    return fileDate.getTime(  ) <
+                        ( System.currentTimeMillis(  ) - OLD_DATA );
+                }
+                catch( ParseException ex )
+                {
+                }
             }
         }
 
@@ -220,7 +232,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
     {
         long letterNum = ( date % MSEC_PER_DAY ) / MSEC_PARTS;
 
-        return new File( 
+        return new File(
             getStorageDirectory(  ),
             "/" + "day-" + dateFormat.format( new Date( date ) ) + "-"
             + (char)( 'A' + letterNum ) + ".ser" );
@@ -253,9 +265,19 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
     {
         final TVData result = new TVData(  );
 
-        for( 
-            long dt = ( ( loadInfo.minDate / MSEC_PARTS ) - 1 ) * MSEC_PARTS;
-                dt < loadInfo.maxDate; dt += MSEC_PARTS )
+        /*
+         * AJB: bug 270348: We go backwards through the files for each date.
+         * This means that if a new programme arrived that spans a file
+         * boundary and should have wiped out a programme in a later file
+         * (but didn't because it was in a later file), it is encountered
+         * later (because we are going backwards) and therefore wipes out
+         * the programmes it should have wiped out earlier, now.
+         *
+         * See ImportTwiceSlowTest::test_bug270348 for details.
+         */
+        long earliest = ( ( loadInfo.minDate / MSEC_PARTS ) - 1 ) * MSEC_PARTS;
+        long latest = loadInfo.maxDate;
+        for( long dt = latest; dt >= earliest ; dt -= MSEC_PARTS )
         {
             TVData data = load( getFile( dt ) );
 
@@ -266,13 +288,13 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
 
             if( loadInfo.channelsList != null )
             {
-                data.iterateChannels( 
+                data.iterateChannels(
                     new TVIteratorChannels(  )
                     {
                         protected void onChannel( TVChannel channel )
                         {
-                            if( 
-                                !loadInfo.channelsList.contains( 
+                            if(
+                                !loadInfo.channelsList.contains(
                                         channel.getID(  ) ) )
                             {
                                 it.remove(  );
@@ -281,7 +303,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
                     } );
             }
 
-            data.iterateProgrammes( 
+            data.iterateProgrammes(
                 new TVIteratorProgrammes(  )
                 {
                     protected void onChannel( TVChannel channel )
@@ -290,7 +312,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
 
                     protected void onProgramme( TVProgramme programme )
                     {
-                        if( 
+                        if(
                             ( programme.getStart(  ) >= loadInfo.maxDate )
                                 || ( programme.getEnd(  ) <= loadInfo.minDate ) )
                         {
@@ -315,10 +337,10 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public synchronized TVProgramme findEarliest( 
+    public synchronized TVProgramme findEarliest(
         long minDate, EarliestCheckAllow check ) throws Exception
     {
-        for( 
+        for(
             long dt = ( minDate / MSEC_PARTS ) * MSEC_PARTS;
                 dt < getInfo(  ).maxDate; dt += MSEC_PARTS )
         {
@@ -366,7 +388,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
         {
             for( int i = 0; i < files.length; i++ )
             {
-                if( 
+                if(
                     ( System.currentTimeMillis(  ) - files[i].lastModified(  ) ) > MAX_FILE_AGE )
                 {
                     files[i].delete(  );
@@ -419,9 +441,10 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
          */
         public void onProgramme( TVProgramme programme )
         {
-            if( 
+            if( !debugIncludeOldProgrammes && (
                 programme.getStart(  ) < ( System.currentTimeMillis(  )
                     - OLD_DATA ) )
+                   )
             {
                 return; // This is old programme
             }
@@ -476,8 +499,8 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
                     file.getParentFile(  ).mkdirs(  );
 
                     ObjectOutputStream out =
-                        new ObjectOutputStream( 
-                            new BufferedOutputStream( 
+                        new ObjectOutputStream(
+                            new BufferedOutputStream(
                                 new FileOutputStream( file ) ) );
 
                     out.writeObject( storedData );
@@ -489,7 +512,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
                 catch( Exception ex )
                 {
                     Application.getInstance(  ).getLogger(  )
-                               .log( 
+                               .log(
                         Level.WARNING,
                         "Error write file " + file.getAbsolutePath(  ), ex );
                 }

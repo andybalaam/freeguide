@@ -8,6 +8,7 @@ public class FreeGuideSlowTest
         try
         {
             new ImportSlowTest().run();
+            new ImportTwiceSlowTest().run();
             new DisplayDocsSlowTest().run();
 
             System.out.println( "Slow tests passed." );

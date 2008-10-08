@@ -23,12 +23,22 @@ public class StoragePipe implements IStoragePipe
     protected int cacheCount;
     protected int normalizedCacheCount;
 
-/**
+    /**
      * Creates a new StoragePipe object.
      */
     public StoragePipe(  )
     {
         storage = Application.getInstance(  ).getDataStorage(  );
+        cache = new TVData(  );
+        normalizedCache = new TVData(  );
+    }
+
+    /**
+     * Creates a new StoragePipe object.
+     */
+    public StoragePipe( IModuleStorage storage )
+    {
+        this.storage = storage;
         cache = new TVData(  );
         normalizedCache = new TVData(  );
     }
