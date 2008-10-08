@@ -54,6 +54,10 @@ public class ImportTwiceSlowTest
      * thing to do would be to store a "received date" on
      * each programme and explicitly keep the latest.
      *
+     * Note that we probably ought to have a slightly simpler
+     * test here as well.  This one uses XML copied and pasted
+     * (and edited) from the bug itself.
+     *
      * @throws Exception
      */
     private void test_bug270348() throws Exception
@@ -99,6 +103,7 @@ public class ImportTwiceSlowTest
                 "<title lang=\"en\">To Be Announced 2</title>" +
                 "</programme></tv>";
 
+        // Read in the first 3 programmes
         InputStream is = new ByteArrayInputStream(
             firstXML.getBytes( "utf-8" ) );
 
@@ -111,14 +116,23 @@ public class ImportTwiceSlowTest
         XMLTVImport imp = new XMLTVImport(  );
         imp.process( is, pipe, null, new XMLTVImport.Filter(  ),
             StringHelper.EMPTY_STRING );
+
+        // Tell the pipe we have finished - flush to file.  (This is needed
+        // trigger the bug - if it's all within the same download you will
+        // not see it.
         pipe.finish();
 
+        // Now read in the second 2 programmes, which overlap the first 3.
         is = new ByteArrayInputStream(
             secondXML.getBytes( "utf-8" ) );
         imp.process( is, pipe, null, new XMLTVImport.Filter(  ),
             StringHelper.EMPTY_STRING );
+
+        // Again, tell the pipe we have finished so we flush to file.
         pipe.finish();
 
+        // Now read in for the files - first we need to make an "Info"
+        // object to say what time and channel we are interested in.
         IModuleStorage.Info infoAllDates = new IModuleStorage.Info();
         infoAllDates.channelsList.add( new TVChannelsSet.Channel(
             "I16318.labs.zap2it.com", "My Channel" ) );
@@ -128,16 +142,25 @@ public class ImportTwiceSlowTest
         infoAllDates.minDate = fmt.parse( "20080914180000 -0400" ).getTime();
         infoAllDates.maxDate = fmt.parse( "20080914235900 -0400" ).getTime();
 
+        // Then we load the data from the files.
         TVData data = storage.get( infoAllDates );
+
+        // And now we get the channel we need out of the loaded data.
         TVChannel channel = data.get( "I16318.labs.zap2it.com" );
 
+        // There should be 2 programmes - the 2 new ones.  The old ones
+        // should be gone.
         FreeGuideSlowTest.my_assert( channel.getProgrammesCount() == 2 );
 
         Iterator<TVProgramme> it = channel.getProgrammes().iterator();
 
-        FreeGuideSlowTest.my_assert( it.next().getTitle().equals( "The Terminal 2" ) );
-        FreeGuideSlowTest.my_assert( it.next().getTitle().equals( "To Be Announced 2" ) );
+        FreeGuideSlowTest.my_assert( it.next().getTitle().equals(
+            "The Terminal 2" ) );
 
+        FreeGuideSlowTest.my_assert( it.next().getTitle().equals(
+            "To Be Announced 2" ) );
+
+        // Finally we clean up our temporary directory.
         for( File f : storagedir.listFiles() )
         {
             f.delete();
