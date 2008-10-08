@@ -37,6 +37,22 @@ public class DisplayDocsSlowTest
         FreeGuideSlowTest.my_assert( opener.filesOpened.get( 0 ).equals(
             new File( "tmp/docs/UserGuide/UserGuide.html" ).getAbsolutePath() ) );
 
-        new File( "tmp" ).delete();
+        deleteDirectory( new File( "tmp" ) );
+    }
+
+    private static void deleteDirectory( File dir )
+    {
+        for( File f : dir.listFiles() )
+        {
+            if( f.isDirectory() )
+            {
+                deleteDirectory( f );
+            }
+            else
+            {
+                f.delete();
+            }
+        }
+        dir.delete();
     }
 }
