@@ -2,6 +2,7 @@ package freeguide.common.lib.importexport;
 
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.general.BadUTF8FilterInputStream;
 
 import freeguide.common.plugininterfaces.IStoragePipe;
 
@@ -66,8 +67,9 @@ public class XMLTVImport
             new XMLTVImportHandler( 
                 storage, countCallback, filter, channelPrefix );
         InputSource ins =
-            new InputSource( 
-                new BufferedInputStream( new FileInputStream( file ) ) );
+            new InputSource(
+                new BadUTF8FilterInputStream(
+                new BufferedInputStream( new FileInputStream( file ) ) ) );
         ins.setSystemId( file.toURI(  ).toURL(  ).toString(  ) );
         saxParser.parse( ins, handler );
         
@@ -96,7 +98,7 @@ public class XMLTVImport
         XMLTVImportHandler handler =
             new XMLTVImportHandler( 
                 storage, countCallback, filter, channelPrefix );
-        InputSource ins = new InputSource( in );
+        InputSource ins = new InputSource( new BadUTF8FilterInputStream( in ) );
         ins.setSystemId( SYSTEM_ID );
         saxParser.parse( ins, handler );
         storage.finishBlock(  );
