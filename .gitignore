@@ -1,4 +1,6 @@
 *.class
+*.swp
+log.txt
 build
 .classpath
 .project
