@@ -44,6 +44,7 @@
     <property name="share"              location="xmltv/share"        />
     <property name="build"              location="build"              />
     <property name="run"                location="run"                />
+    <property name="test"               location="test"               />
     <property name="dist"               location="dist"               />
     <property name="dist-install-tgz"   location="${dist}/install-tgz"/>
     <property name="dist-tgz"           location="${dist}/tgz"        />
@@ -122,6 +123,10 @@
 
     <target name="run">
         <ant antfile="ant/run.xml" />
+    </target>
+
+    <target name="test">
+        <ant antfile="ant/test.xml" />
     </target>
 
     <target name="format-sources">

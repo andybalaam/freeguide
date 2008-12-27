@@ -1,8 +1,16 @@
 package freeguide.test.slow;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Vector;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -14,10 +22,14 @@ import org.xml.sax.SAXException;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.general.BadUTF8FilterInputStream;
+import freeguide.common.lib.importexport.XMLTVImport;
 import freeguide.common.lib.importexport.XMLTVImportHandler;
 import freeguide.common.lib.importexport.XMLTVImport.Filter;
 import freeguide.common.lib.importexport.XMLTVImport.ProgrammesCountCallback;
 import freeguide.common.plugininterfaces.IStoragePipe;
+
+import freeguide.test.FreeGuideTest;
 
 public class ImportSlowTest
 {
@@ -67,13 +79,14 @@ public class ImportSlowTest
         saxParser = factory.newSAXParser(  );
     }
 
-    public void run() throws SAXException, IOException, MyAssertFailureException
+    public void run() throws SAXException, IOException, MyAssertFailureException, ParserConfigurationException
     {
         test_EmptyTVTags();
         test_SingleChannelNoGenerator();
         test_TwoChannelsNormal();
         test_ProgrammeDate14Num();
         test_ProgrammeDate14NumPlusZ();
+        test_InvalidUTF8();
     }
 
     private void test_EmptyTVTags()
@@ -174,8 +187,79 @@ public class ImportSlowTest
             expectedChannels );
     }
 
-    // ------------------------------
+    byte[] ConcatenateByteArrays( byte[][] byteArrays )
+    {
+        ArrayList<Byte> allBytesList = new ArrayList<Byte>();
 
+        for( int i = 0; i < byteArrays.length; ++i )
+        {
+            for( int j = 0; j < byteArrays[i].length; ++j )
+            {
+                allBytesList.add( byteArrays[i][j] );
+            }
+        }
+
+        byte[] ret = new byte[allBytesList.size()];
+        for( int i = 0; i < allBytesList.size(); ++i )
+        {
+            ret[i] = allBytesList.get( i );
+        }
+
+        return ret;
+    }
+
+    private void test_InvalidUTF8()
+    throws SAXException, IOException, MyAssertFailureException, ParserConfigurationException
+    {
+        // Create a byte sequence that contains 11000010, 00100100,
+        // which is incorrect UTF-8 because the first byte indicates
+        // that this is a 2-byte sequence, but the second byte
+        // does not begin with 1 (in binary), which is required
+        // for the second byte of a 2-byte UTF-8 sequence.
+        byte[] badUTF8Bytes = { (byte)0xC2, (byte)0x24 };
+
+        // Create the rest of the string we want
+        String beforeBad =
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+            "<!DOCTYPE tv SYSTEM \"xmltv.dtd\">\n" +
+            "<tv>\n" +
+            "   <channel id=\"ct1_sk\">\n" +
+            "       <display-name>";
+
+        String afterBad =
+            "</display-name>\n" +
+            "       <display-name>1</display-name>\n" +
+            "       <url>http://frantisheq.net84.net</url>\n" +
+            "   </channel>\n" +
+            "</tv>\n";
+
+        // Create a byte array that contains the full string including
+        // the bad
+        /*ByteArrayOutputStream allBytesOStream = new ByteArrayOutputStream();
+        DataOutputStream allBytesDataStream = new DataOutputStream( allBytesOStream );
+        allBytesDataStream.writeUTF( beforeBad );
+        allBytesDataStream.write( badUTF8Bytes );
+        allBytesDataStream.writeUTF( afterBad );*/
+
+        byte[][] byteArrays = {
+            beforeBad.getBytes( "UTF-8" ),
+            badUTF8Bytes,
+            afterBad.getBytes( "UTF-8" )
+        };
+
+        byte[] allBytes = ConcatenateByteArrays( byteArrays );
+
+        ByteArrayInputStream allBytesIStream = new ByteArrayInputStream( allBytes );
+
+        FakeStoragePipe storage = new FakeStoragePipe();
+        FakeProgCountCallBack countCallback = new FakeProgCountCallBack();
+        Filter filter = new Filter();
+
+        XMLTVImport imp = new XMLTVImport();
+        imp.process( allBytesIStream, storage, countCallback, filter, "c.p." );
+    }
+
+    // ------------------------------
     private void parseString( String xmlToParse, ArrayList<TVChannel> expectedChannels )
     throws SAXException, IOException, MyAssertFailureException
     {
@@ -190,6 +274,6 @@ public class ImportSlowTest
 
         saxParser.parse( inputSource, handler );
 
-        FreeGuideSlowTest.my_assert( storage.channels.equals( expectedChannels ) );
+        FreeGuideTest.my_assert( storage.channels.equals( expectedChannels ) );
     }
 }

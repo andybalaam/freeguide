@@ -16,6 +16,8 @@ import freeguide.common.plugininterfaces.IModuleStorage;
 import freeguide.plugins.program.freeguide.lib.fgspecific.StoragePipe;
 import freeguide.plugins.storage.serfiles.StorageSerFilesByDay;
 
+import freeguide.test.FreeGuideTest;
+
 public class ImportTwiceSlowTest
 {
     public void run() throws Exception
@@ -150,14 +152,14 @@ public class ImportTwiceSlowTest
 
         // There should be 2 programmes - the 2 new ones.  The old ones
         // should be gone.
-        FreeGuideSlowTest.my_assert( channel.getProgrammesCount() == 2 );
+        FreeGuideTest.my_assert( channel.getProgrammesCount() == 2 );
 
         Iterator<TVProgramme> it = channel.getProgrammes().iterator();
 
-        FreeGuideSlowTest.my_assert( it.next().getTitle().equals(
+        FreeGuideTest.my_assert( it.next().getTitle().equals(
             "The Terminal 2" ) );
 
-        FreeGuideSlowTest.my_assert( it.next().getTitle().equals(
+        FreeGuideTest.my_assert( it.next().getTitle().equals(
             "To Be Announced 2" ) );
 
         // Finally we clean up our temporary directory.

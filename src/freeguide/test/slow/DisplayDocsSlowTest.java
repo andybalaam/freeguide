@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import freeguide.common.lib.fgspecific.DisplayDocs;
 import freeguide.common.lib.general.IFileOpener;
 
+import freeguide.test.FreeGuideTest;
 
 public class DisplayDocsSlowTest
 {
@@ -29,12 +30,12 @@ public class DisplayDocsSlowTest
         FakeFileOpener opener = new FakeFileOpener();
         DisplayDocs.displayDocs( "tmp", "../build/package/lib", opener );
 
-        FreeGuideSlowTest.my_assert( new File( "tmp/docs/UserGuide/UserGuide.html" ).isFile() );
-        FreeGuideSlowTest.my_assert( new File( "tmp/docs/index.html" ).isFile() );
-        FreeGuideSlowTest.my_assert( new File( "tmp/docs/pub/skins/plain-freeguide/plain1.css" ).isFile() );
+        FreeGuideTest.my_assert( new File( "tmp/docs/UserGuide/UserGuide.html" ).isFile() );
+        FreeGuideTest.my_assert( new File( "tmp/docs/index.html" ).isFile() );
+        FreeGuideTest.my_assert( new File( "tmp/docs/pub/skins/plain-freeguide/plain1.css" ).isFile() );
 
-        FreeGuideSlowTest.my_assert( opener.filesOpened.size() == 1 );
-        FreeGuideSlowTest.my_assert( opener.filesOpened.get( 0 ).equals(
+        FreeGuideTest.my_assert( opener.filesOpened.size() == 1 );
+        FreeGuideTest.my_assert( opener.filesOpened.get( 0 ).equals(
             new File( "tmp/docs/UserGuide/UserGuide.html" ).getAbsolutePath() ) );
 
         deleteDirectory( new File( "tmp" ) );
