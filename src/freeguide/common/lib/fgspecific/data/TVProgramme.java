@@ -258,7 +258,7 @@ public class TVProgramme implements Comparable, Serializable
                 if( Math.floor( num ) == num )
                 {
                     return '('
-                    + STARS.substring( 
+                    + STARS.substring(
                         0, (int)Math.round( Math.floor( num ) ) ) + ')';
 
                 }
@@ -266,7 +266,7 @@ public class TVProgramme implements Comparable, Serializable
                 else
                 {
                     return '('
-                    + STARS.substring( 
+                    + STARS.substring(
                         0, (int)Math.round( Math.floor( num ) ) )
                     + STAR_HALP_SUFFIX + ')';
 
@@ -496,7 +496,7 @@ public class TVProgramme implements Comparable, Serializable
 
         TVProgramme other = (TVProgramme)obj;
 
-        if( 
+        if(
             title.equals( other.getTitle(  ) )
                 && ( start == other.getStart(  ) )
                 && channel.equals( other.getChannel(  ) ) )
@@ -518,16 +518,26 @@ public class TVProgramme implements Comparable, Serializable
     public int hashCode(  )
     {
         // Just add up 3 values - stupid?
-        byte[] titleBytes = title.getBytes(  );
 
-        byte[] channelBytes = channel.getID(  ).getBytes(  );
+        byte[] titleBytes = {};
+
+        if( title != null )
+        {
+            titleBytes = title.getBytes(  );
+        }
+
+        byte[] channelBytes = {};
+
+        if( channel != null )
+        {
+            channel.getID(  ).getBytes(  );
+        }
 
         int ans = 0;
 
         for( int i = 0; i < titleBytes.length; i++ )
         {
             ans += titleBytes[i];
-
         }
 
         ans += (int)( start / ( 1000 * 60 ) );
@@ -549,7 +559,7 @@ public class TVProgramme implements Comparable, Serializable
      * @param attrName DOCUMENT_ME!
      * @param value DOCUMENT_ME!
      */
-    public void setExtraTag( 
+    public void setExtraTag(
         final String tagName, final String attrName, final String value )
     {
         if( extraTags == null )
@@ -705,8 +715,8 @@ public class TVProgramme implements Comparable, Serializable
     /**
      *  Delegates to a TVProgrammeOverlapIsEqualComparator
      */
-	public int compareTo( Object other )
-	{
-		return comparator.compare( this, other );
-	}
+    public int compareTo( Object other )
+    {
+        return comparator.compare( this, other );
+    }
 }

@@ -10,11 +10,12 @@ public class FreeGuideTest
         try
         {
             new BadUTF8FastTest().run();
-            // Disabled since failing atm new ImportSlowTest().run();
+            new TVProgrammeHashCodeFastTest().run();
+            new ImportSlowTest().run();
             new ImportTwiceSlowTest().run();
             // Disabled since fails from cmd line new DisplayDocsSlowTest().run();
 
-            System.out.println( "Slow tests passed." );
+            System.out.println( "All tests passed." );
         }
         catch( Exception e )
         {
