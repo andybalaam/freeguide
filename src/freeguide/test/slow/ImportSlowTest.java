@@ -233,14 +233,6 @@ public class ImportSlowTest
             "   </channel>\n" +
             "</tv>\n";
 
-        // Create a byte array that contains the full string including
-        // the bad
-        /*ByteArrayOutputStream allBytesOStream = new ByteArrayOutputStream();
-        DataOutputStream allBytesDataStream = new DataOutputStream( allBytesOStream );
-        allBytesDataStream.writeUTF( beforeBad );
-        allBytesDataStream.write( badUTF8Bytes );
-        allBytesDataStream.writeUTF( afterBad );*/
-
         byte[][] byteArrays = {
             beforeBad.getBytes( "UTF-8" ),
             badUTF8Bytes,
@@ -249,7 +241,8 @@ public class ImportSlowTest
 
         byte[] allBytes = ConcatenateByteArrays( byteArrays );
 
-        ByteArrayInputStream allBytesIStream = new ByteArrayInputStream( allBytes );
+        ByteArrayInputStream allBytesIStream = new ByteArrayInputStream(
+            allBytes );
 
         FakeStoragePipe storage = new FakeStoragePipe();
         FakeProgCountCallBack countCallback = new FakeProgCountCallBack();
