@@ -104,7 +104,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     public void start(  )
     {
         final File xmltvConfigDir =
-            new File( 
+            new File(
                 Application.getInstance(  ).getWorkingDirectory(  ), DIR_CONFIG );
 
         if( config.modules.size(  ) > 0 )
@@ -112,34 +112,34 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             //na_dd is the only module currently
             XMLTVConfig.ModuleInfo moduleInfo =
                 (XMLTVConfig.ModuleInfo)config.modules.get( 0 );
-    
+
             String cmd = moduleInfo.commandToRun;
-    
+
             if( null == cmd )
             {
                 cmd = getCommand( moduleInfo.moduleName, RUN_KEY_SUFFIX );
-    
+
                 if( null == cmd )
                 {
                     Application.getInstance(  ).getLogger(  )
-                               .severe( 
+                               .severe(
                         "Command not defined for " + moduleInfo.moduleName );
-    
+
                     return;
                 }
             }
-    
-            cmd = StringHelper.replaceAll( 
+
+            cmd = StringHelper.replaceAll(
                     cmd, REPLACE_CONFIG,
                     new File( xmltvConfigDir, moduleInfo.configFileName )
                     .getAbsolutePath(  ) );
-    
-            cmd = StringHelper.replaceAll( 
+
+            cmd = StringHelper.replaceAll(
                     cmd, REPLACE_XMLTV,
-                    new File( 
+                    new File(
                         Application.getInstance(  ).getWorkingDirectory(  ),
                         DIR_INSTALLED ).getAbsolutePath(  ) );
-    
+
             if( checkXmltvExists( Utils.parseCommand( cmd ) ) ) //extracts xmltv from jar on Windows if needed
             {
                 final JMenuItem menuLine =
@@ -148,8 +148,8 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                 menuLine.setText( i18n.getString( "Menu.Tools.ChooseChannels" ) );
                 Application.getInstance(  ).getMainMenu(  ).getTools(  )
                            .insert( menuLine, 0 );
-    
-                menuLine.addActionListener( 
+
+                menuLine.addActionListener(
                     new ActionListener(  )
                     {
                         public void actionPerformed( ActionEvent e )
@@ -193,7 +193,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public boolean grabData( 
+    public boolean grabData(
         final IProgress progress, final ILogger logger,
         final IStoragePipe storage ) throws Exception
     {
@@ -236,8 +236,8 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                 break;
             }
         }
-        
-        
+
+
         if( moduleInfo != null )
         {
             return configureChannelsOne( moduleInfo, progress, logger );
@@ -250,14 +250,14 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             return -1;
         }
     }
-    
+
     protected int configureChannelsOne(
         final XMLTVConfig.ModuleInfo moduleInfo,
         IProgress progress, ILogger logger )
     {
-        
+
         final File xmltvConfigDir =
-            new File( 
+            new File(
                 Application.getInstance(  ).getWorkingDirectory(  ), DIR_CONFIG );
         xmltvConfigDir.mkdirs(  );
 
@@ -276,41 +276,41 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         if( cmd == null )
         {
-            Application.getInstance(  ).getLogger(  ).severe( 
+            Application.getInstance(  ).getLogger(  ).severe(
                 "Command not defined for " + moduleInfo.moduleName );
-            
-            logger.error( 
-                MessageFormat.format( 
+
+            logger.error(
+                MessageFormat.format(
                     i18n.getString( "Message.CommandNotDefined" ),
                     moduleInfo.moduleName ) );
-            
+
             return -1;
 
         }
 
-        cmd = StringHelper.replaceAll( 
+        cmd = StringHelper.replaceAll(
                 cmd, REPLACE_CONFIG,
                 new File( xmltvConfigDir, moduleInfo.configFileName )
                 .getAbsolutePath(  ) );
 
-        cmd = StringHelper.replaceAll( 
+        cmd = StringHelper.replaceAll(
                 cmd, REPLACE_XMLTV,
-                new File( 
+                new File(
                     Application.getInstance(  ).getWorkingDirectory(  ),
                     DIR_INSTALLED ).getAbsolutePath(  ) );
 
-        Application.getInstance(  ).getLogger(  ).finest( 
+        Application.getInstance(  ).getLogger(  ).finest(
             "Run command: " + cmd );
 
-        logger.info( 
+        logger.info(
             MessageFormat.format( i18n.getString( "Message.Command" ), cmd ) );
 
         int resultCode = execConfigCmd( Utils.parseCommand( cmd ), progress, logger );
         Application.getInstance(  ).getLogger(  )
                    .finest( "Result code = " + resultCode );
 
-        logger.info( 
-            MessageFormat.format( 
+        logger.info(
+            MessageFormat.format(
                 i18n.getString( "Message.ResultCode" ), resultCode ) );
 
         return resultCode;
@@ -330,7 +330,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             catch( IOException ex )
             {
                 Application.getInstance(  ).getLogger(  )
-                           .log( 
+                           .log(
                     Level.SEVERE, "Error loading commands settings for xmltv",
                     ex );
             }
@@ -340,7 +340,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
     }
 
-    protected static String getCommand( 
+    protected static String getCommand(
         final String modName, final String suffix )
     {
         Map<String, String> cmds = getCommands(  );
@@ -387,7 +387,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         {
             String key = (String)it.next(  );
 
-            if( 
+            if(
                 key.startsWith( REGION_PREFIX )
                     && key.endsWith( GRABBER_SUFFIX ) )
             {
@@ -410,12 +410,12 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         {
             String key = (String)it.next(  );
 
-            if( 
+            if(
                 key.startsWith( REGION_PREFIX )
                     && key.endsWith( GRABBER_SUFFIX ) )
             {
-                result.add( 
-                    key.substring( 
+                result.add(
+                    key.substring(
                         REGION_PREFIX.length(  ),
                         key.length(  ) - GRABBER_SUFFIX.length(  ) ) );
             }
@@ -424,13 +424,13 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         return (String[])result.toArray( new String[result.size(  )] );
     }
 
-    protected int grabOne( 
+    protected int grabOne(
         final IStoragePipe storage, final XMLTVConfig.ModuleInfo moduleInfo,
         final IProgress progress, final ILogger logger )
         throws Exception
     {
         final File xmltvConfigDir =
-            new File( 
+            new File(
                 Application.getInstance(  ).getWorkingDirectory(  ), DIR_CONFIG );
 
         progress.setProgressMessage(
@@ -447,11 +447,11 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         if( cmd == null )
         {
             Application.getInstance(  ).getLogger(  )
-                       .severe( 
+                       .severe(
                 "Command not defined for " + moduleInfo.moduleName );
 
-            logger.error( 
-                MessageFormat.format( 
+            logger.error(
+                MessageFormat.format(
                     i18n.getString( "Message.CommandNotDefined" ),
                     moduleInfo.moduleName ) );
 
@@ -459,21 +459,21 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         }
 
-        cmd = StringHelper.replaceAll( 
+        cmd = StringHelper.replaceAll(
                 cmd, REPLACE_CONFIG,
                 new File( xmltvConfigDir, moduleInfo.configFileName )
                 .getAbsolutePath(  ) );
 
-        cmd = StringHelper.replaceAll( 
+        cmd = StringHelper.replaceAll(
                 cmd, REPLACE_XMLTV,
-                new File( 
+                new File(
                     Application.getInstance(  ).getWorkingDirectory(  ),
                     DIR_INSTALLED ).getAbsolutePath(  ) );
 
-        Application.getInstance(  ).getLogger(  ).finest( 
+        Application.getInstance(  ).getLogger(  ).finest(
             "Run command: " + cmd );
 
-        logger.info( 
+        logger.info(
             MessageFormat.format( i18n.getString( "Message.Command" ), cmd ) );
 
         int resultCode =
@@ -482,14 +482,14 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         Application.getInstance(  ).getLogger(  )
                    .finest( "Result code = " + resultCode );
 
-        logger.info( 
-            MessageFormat.format( 
+        logger.info(
+            MessageFormat.format(
                 i18n.getString( "Message.ResultCode" ), resultCode ) );
 
         return resultCode;
     }
 
-    protected int execGrabCmd( 
+    protected int execGrabCmd(
         final IStoragePipe storage, final String[] args,
         final IProgress progress, final ILogger logger )
         throws Exception
@@ -503,7 +503,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         // Get the input and output streams of this process
         BufferedReader prErr =
-            new BufferedReader( 
+            new BufferedReader(
                 new InputStreamReader( pr.getErrorStream(  ) ) );
 
         final Thread threadData =
@@ -548,7 +548,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         {
             if( FreeGuide.runtimeInfo.isUnix )
             {
-                JOptionPane.showMessageDialog( 
+                JOptionPane.showMessageDialog(
                     Application.getInstance(  ).getApplicationFrame(  ),
                     i18n.getString( "ErrorBox.Text.Linux" ),
                     i18n.getString( "ErrorBox.Title" ),
@@ -556,7 +556,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             }
             else
             {
-                JOptionPane.showMessageDialog( 
+                JOptionPane.showMessageDialog(
                     Application.getInstance(  ).getApplicationFrame(  ),
                     i18n.getString( "ErrorBox.Text.Windows" ),
                     i18n.getString( "ErrorBox.Title" ),
@@ -595,14 +595,14 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         if( !Application.getInstance(  ).isUnix(  ) )
         {
             final File xmltvDir =
-                new File( 
+                new File(
                     Application.getInstance(  ).getWorkingDirectory(  ),
                     DIR_INSTALLED );
 
             if( !xmltvDir.exists(  ) )
             {
-                if( 
-                    !FileHelper.unpackFiles( 
+                if(
+                    !FileHelper.unpackFiles(
                             PACKAGE_XMLTVWIN_LIST, PACKAGE_XMLTVWIN, xmltvDir ) )
                 {
                     return false;
@@ -649,7 +649,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         return false;
     }
 
-    protected int execConfigCmd( 
+    protected int execConfigCmd(
         final String[] args,
         final IProgress progress, final ILogger logger )
     {
@@ -671,7 +671,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         // Get the input and output streams of this process
         BufferedReader prErr =
-            new BufferedReader( 
+            new BufferedReader(
                 new InputStreamReader( pr.getErrorStream(  ) ) );
 
         final Thread threadErrors = new ReadErrors( prErr, logger );
@@ -714,7 +714,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
      * @param regionName DOCUMENT_ME!
      * @param runSelectChannels DOCUMENT ME!
      */
-    public void configureFromWizard( 
+    public void configureFromWizard(
         final String regionName, final boolean runSelectChannels )
     {
         XMLTVConfig.ModuleInfo info = new XMLTVConfig.ModuleInfo(  );
@@ -775,7 +775,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
                 if( cmds.containsKey( regionPlusCode + DISPLAY_NAME_SUFFIX ) )
                 {
-                    displayName = cmds.get( 
+                    displayName = cmds.get(
                             regionPlusCode + DISPLAY_NAME_SUFFIX );
                 }
 
@@ -783,11 +783,11 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
                 if( cmds.containsKey( regionPlusCode + CHANNEL_SELECT_SUFFIX ) )
                 {
-                    allowChannelsSelect = Boolean.parseBoolean( 
+                    allowChannelsSelect = Boolean.parseBoolean(
                             cmds.get( regionPlusCode + CHANNEL_SELECT_SUFFIX ) );
                 }
 
-                countryInfos[i] = new CountryInfo( 
+                countryInfos[i] = new CountryInfo(
                         countryCodes[i], displayName, 0, allowChannelsSelect );
             }
         }
@@ -832,7 +832,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             catch( IOException ex )
             {
                 Application.getInstance(  ).getLogger(  )
-                           .log( 
+                           .log(
                     Level.WARNING, "Error on read xmltv console stream", ex );
             }
         }
@@ -878,7 +878,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             catch( IOException ex )
             {
                 Application.getInstance(  ).getLogger(  )
-                           .log( 
+                           .log(
                     Level.WARNING, "Error read output from xmltv grabber", ex );
             }
         }
@@ -901,7 +901,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
          * @param logger
          *            DOCUMENT ME!
          */
-        public ReadOutput( 
+        public ReadOutput(
             final IStoragePipe storage, final InputStream in,
             final IProgress progress, final ILogger logger )
         {
@@ -924,11 +924,11 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                         if( ( count % 10 ) == 0 )
                         {
                             progress.setProgressMessage(
-                                MessageFormat.format( 
+                                MessageFormat.format(
                                     i18n.getString( "Message.Count" ), count ) );
-                            
+
                             int percent;
-                            
+
                             if( config.totalProgrammesGuess == 0 )
                             {
                                 percent = 50;
@@ -936,10 +936,10 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                             else
                             {
                                 percent = (int)(
-                                    ( (float)count / 
+                                    ( (float)count /
                                         (float)config.totalProgrammesGuess )
                                     * 95.0 );
-                                
+
                                 if( percent > 95 )
                                 {
                                     percent = 95;
@@ -957,10 +957,10 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
             try
             {
-                int totalCount = new XMLTVImport(  ).process( 
+                int totalCount = new XMLTVImport(  ).process(
                     in, storage, callback, new XMLTVImport.Filter(  ),
                     CHANNEL_PREFIX );
-                
+
                 progress.setProgressValue( 100 );
 
                 if( totalCount > 50 )
@@ -970,44 +970,64 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             }
             catch( SAXException ex )
             {
-                if( !Thread.interrupted(  ) && ( ex.getException(  ) != null ) )
-                {
-                    String msg = ex.getException(  ).getMessage(  );
+                ex.printStackTrace();
 
-                    logger.error( 
-                        MessageFormat.format( 
+                if( !Thread.interrupted(  ) )
+                {
+                    String msg = ex.getMessage(  );
+
+                    logger.error(
+                        MessageFormat.format(
                             i18n.getString( "Message.ExecuteError" ), msg ) );
 
                     Application.getInstance(  ).getLogger(  )
-                               .log( 
+                               .log(
                         Level.WARNING, "SAX Error executing grabber: " + msg,
-                        ex.getException(  ) );
+                        ex );
+
+                    if( ex.getException(  ) != null )
+                    {
+                        String msg2 = ex.getException(  ).getMessage(  );
+
+                        logger.error(
+                            MessageFormat.format(
+                                i18n.getString( "Message.ExecuteError" ), msg2 ) );
+
+                        Application.getInstance(  ).getLogger(  )
+                                   .log(
+                            Level.WARNING, "SAX Error executing grabber: " + msg2,
+                            ex.getException(  ) );
+                    }
                 }
             }
             catch( ParserConfigurationException ex )
             {
+                ex.printStackTrace();
+
                 String msg = ex.getMessage(  );
 
-                logger.error( 
-                    MessageFormat.format( 
+                logger.error(
+                    MessageFormat.format(
                         i18n.getString( "Message.ExecuteError" ), msg ) );
 
                 Application.getInstance(  ).getLogger(  )
-                           .log( 
+                           .log(
                     Level.WARNING,
                     "ParserConfigurationException executing grabber: " + msg,
                     ex );
             }
             catch( IOException ex )
             {
+                ex.printStackTrace();
+
                 String msg = ex.getMessage(  );
 
-                logger.error( 
-                    MessageFormat.format( 
+                logger.error(
+                    MessageFormat.format(
                         i18n.getString( "Message.ExecuteError" ), msg ) );
 
                 Application.getInstance(  ).getLogger(  )
-                           .log( 
+                           .log(
                     Level.WARNING, "Error executing grabber: " + msg, ex );
             }
         }
