@@ -19,7 +19,9 @@ public class BadUTF8FilterInputStream extends FilterInputStream
 
         int bytes_left = 0;
         int bytes_read = 0;
-        for( int i = off; i < ret; ++i )
+
+        // If ret == -1 we won't enter the loop, as required
+        for( int i = off; i < off + ret; ++i )
         {
             byte bt = bytes[i];
 
@@ -54,6 +56,7 @@ public class BadUTF8FilterInputStream extends FilterInputStream
                         // invalid byte since c0 and c1 are not allowed
                 {
                     bytes[i] = 63;
+                    // TODO: log if you do this
                 }
                 else if( (byte)( bt & (byte)0xc0 ) == (byte)0xc0 )
                     // start of 2 byte sequence 110.....
@@ -65,6 +68,7 @@ public class BadUTF8FilterInputStream extends FilterInputStream
                     // invalid byte (starts with 10)
                 {
                     bytes[i] = 63;
+                    // TODO: log if you do this
                 }
             }
             else
@@ -76,17 +80,19 @@ public class BadUTF8FilterInputStream extends FilterInputStream
                     int starti = i - bytes_read;
                     if( starti < off )
                     {
+                        // The first byte of this bad sequence
+                        // was before we entered this read call,
+                        // so all we can do is set this byte to 0
+                        // so the whole sequence will be valid UTF-8,
+                        // but we may have wiped out characters we
+                        // needed.  Nothing we can do about it.
                         bytes[i] = 0;
                     }
                     else
                     {
-                        for( int j = starti;
-                             j < Math.min( i + bytes_left, off + len );
-                             ++j )
-                        {
-                            bytes[j] = 63;
-                        }
-                        i += bytes_left - 1;
+                        i = starti;
+                        bytes[i] = 63;
+                        // TODO: log if you do this
                         bytes_left = 1;
                     }
                 }
