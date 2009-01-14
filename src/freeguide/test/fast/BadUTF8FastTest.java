@@ -17,10 +17,17 @@ public class BadUTF8FastTest
     throws Exception
     {
         test_OneGoodChar();
+        test_OneGoodMultibyteChar();
+        test_OneGoodMultibyteChar_split1();
+        test_OneGoodMultibyteChar_split2();
+        test_OneGoodMultibyteChar_split3();
         test_OneBadChar();
         test_BadStartOf2ByteSequence();
         test_Bad2Bytes();
         test_BadFiancC3C2A9e();
+        test_BadFiancC3C2A9e_split1();
+        test_BadFiancC3C2A9e_split2();
+        test_BadFiancC3C2A9e_split3();
         test_Bad3BytesInStringLastBad();
         test_Bad3BytesInStringMiddleBad();
         test_BadStartOf2ByteBeforeLT();
@@ -38,6 +45,78 @@ public class BadUTF8FastTest
 
         FreeGuideTest.my_assert( readbytes[0] == 116 );
             // The byte is left unchanged
+    }
+
+    private void test_OneGoodMultibyteChar()
+    throws Exception
+    {
+        // A good 3-byte character
+        byte[] inbytes = { (byte)0xe4, (byte)0x80, (byte)0x81 };
+        ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream );
+
+        byte[] readbytes = new byte[inbytes.length];
+        filterstream.read( readbytes, 0, inbytes.length );
+
+        FreeGuideTest.my_assert( ( readbytes[0] & 0xff ) == 0xe4 );
+        FreeGuideTest.my_assert( ( readbytes[1] & 0xff ) == 0x80 );
+        FreeGuideTest.my_assert( ( readbytes[2] & 0xff ) == 0x81 );
+            // The bytes are left unchanged
+    }
+
+    private void test_OneGoodMultibyteChar_split1()
+    throws Exception
+    {
+        // A good 3-byte character
+        byte[] inbytes = { (byte)0xe4, (byte)0x80, (byte)0x81 };
+        ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream );
+
+        byte[] readbytes = new byte[inbytes.length];
+        filterstream.read( readbytes, 0, 1 );
+        filterstream.read( readbytes, 1, inbytes.length - 1 );
+
+        FreeGuideTest.my_assert( ( readbytes[0] & 0xff ) == 0xe4 );
+        FreeGuideTest.my_assert( ( readbytes[1] & 0xff ) == 0x80 );
+        FreeGuideTest.my_assert( ( readbytes[2] & 0xff ) == 0x81 );
+            // The bytes are left unchanged
+    }
+
+    private void test_OneGoodMultibyteChar_split2()
+    throws Exception
+    {
+        // A good 3-byte character
+        byte[] inbytes = { (byte)0xe4, (byte)0x80, (byte)0x81 };
+        ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream );
+
+        byte[] readbytes = new byte[inbytes.length];
+        filterstream.read( readbytes, 0, 2 );
+        filterstream.read( readbytes, 2, inbytes.length - 2 );
+
+        FreeGuideTest.my_assert( ( readbytes[0] & 0xff ) == 0xe4 );
+        FreeGuideTest.my_assert( ( readbytes[1] & 0xff ) == 0x80 );
+        FreeGuideTest.my_assert( ( readbytes[2] & 0xff ) == 0x81 );
+            // The bytes are left unchanged
+    }
+
+    private void test_OneGoodMultibyteChar_split3()
+    throws Exception
+    {
+        // A good 3-byte character
+        byte[] inbytes = { (byte)0xe4, (byte)0x80, (byte)0x81 };
+        ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream );
+
+        byte[] readbytes = new byte[inbytes.length];
+        filterstream.read( readbytes, 0, 1 );
+        filterstream.read( readbytes, 1, 1 );
+        filterstream.read( readbytes, 2, inbytes.length - 2 );
+
+        FreeGuideTest.my_assert( ( readbytes[0] & 0xff ) == 0xe4 );
+        FreeGuideTest.my_assert( ( readbytes[1] & 0xff ) == 0x80 );
+        FreeGuideTest.my_assert( ( readbytes[2] & 0xff ) == 0x81 );
+            // The bytes are left unchanged
     }
 
     private void test_OneBadChar()
@@ -91,8 +170,7 @@ public class BadUTF8FastTest
             // first byte is gone, this looks like good UTF-8
     }
 
-    private void test_BadFiancC3C2A9e()
-    throws Exception
+    private byte[] getFiancC3C2A9eBytes()
     {
         byte[] inbytes = {
             (byte)0x66, // f
@@ -106,6 +184,14 @@ public class BadUTF8FastTest
             (byte)0x65, // e
         };
 
+        return inbytes;
+    }
+
+    private void test_BadFiancC3C2A9e()
+    throws Exception
+    {
+        byte[] inbytes = getFiancC3C2A9eBytes();
+
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
         BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream(
             stream );
@@ -115,9 +201,70 @@ public class BadUTF8FastTest
         filterstream.read( readbytes, 0, 2 );
         filterstream.read( readbytes, 2, inbytes.length - 2 );
 
+        FreeGuideTest.my_assert( readbytes[0] == 102 ); // f
+        FreeGuideTest.my_assert( readbytes[1] == 105 ); // i
+        FreeGuideTest.my_assert( readbytes[2] ==  97 ); // a
+        FreeGuideTest.my_assert( readbytes[3] == 110 ); // n
+        FreeGuideTest.my_assert( readbytes[4] ==  99 ); // c
+        FreeGuideTest.my_assert( readbytes[5] ==  63 ); // ?
+        FreeGuideTest.my_assert( ( readbytes[6] & 0xff ) == 0xc2 );
+        FreeGuideTest.my_assert( ( readbytes[7] & 0xff ) == 0xa9 );
+            // c2a9 actually looks like a valid 2-byte character
+        FreeGuideTest.my_assert( readbytes[8] == 101 ); // e
+    }
+
+    private void test_BadFiancC3C2A9e_split1()
+    throws Exception
+    {
+        byte[] inbytes = getFiancC3C2A9eBytes();
+
+        ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream(
+            stream );
+
+        // Read in 2 parts, with the split in the middle of the
+        // invalid multi-byte character
+        byte[] readbytes = new byte[inbytes.length];
+        filterstream.read( readbytes, 0, 6 );
+        filterstream.read( readbytes, 6, inbytes.length - 6 );
+
         //for( int i = 0; i < readbytes.length; ++i )
         //{
-        //    System.err.println( Integer.toHexString( readbytes[i] ) );
+        //    System.err.println( Integer.toHexString( readbytes[i] & 0xff ) );
+        //}
+
+        FreeGuideTest.my_assert( readbytes[0] == 102 ); // f
+        FreeGuideTest.my_assert( readbytes[1] == 105 ); // i
+        FreeGuideTest.my_assert( readbytes[2] ==  97 ); // a
+        FreeGuideTest.my_assert( readbytes[3] == 110 ); // n
+        FreeGuideTest.my_assert( readbytes[4] ==  99 ); // c
+        FreeGuideTest.my_assert( ( readbytes[5] & 0xff ) == 0xc3 );
+        FreeGuideTest.my_assert( ( readbytes[6] & 0xff ) == 0x80 );
+            // We received byte 5 in a previous read so we can't go back and
+            // fix it - we must just make the next byte a valid byte of
+            // a 2-byte sequence.
+        FreeGuideTest.my_assert( readbytes[7] == 63 ); // ?
+            // The a9 byte is not valid as the start of a sequence
+        FreeGuideTest.my_assert( readbytes[8] == 101 ); // e
+    }
+
+    private void test_BadFiancC3C2A9e_split2()
+    throws Exception
+    {
+        byte[] inbytes = getFiancC3C2A9eBytes();
+
+        ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream(
+            stream );
+
+        // Read in 2 parts with the split immediately after the character
+        byte[] readbytes = new byte[inbytes.length];
+        filterstream.read( readbytes, 0, 7 );
+        filterstream.read( readbytes, 7, inbytes.length - 7 );
+
+        //for( int i = 0; i < readbytes.length; ++i )
+        //{
+        //    System.err.println( Integer.toHexString( readbytes[i] & 0xff ) );
         //}
 
         FreeGuideTest.my_assert( readbytes[0] == 102 ); // f
@@ -129,6 +276,41 @@ public class BadUTF8FastTest
         FreeGuideTest.my_assert( ( readbytes[6] & 0xff ) == 0xc2 );
         FreeGuideTest.my_assert( ( readbytes[7] & 0xff ) == 0xa9 );
             // c2a9 actually looks like a valid 2-byte character
+        FreeGuideTest.my_assert( readbytes[8] == 101 ); // e
+    }
+
+    private void test_BadFiancC3C2A9e_split3()
+    throws Exception
+    {
+        byte[] inbytes = getFiancC3C2A9eBytes();
+
+        ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream(
+            stream );
+
+        // Read in 3 parts just to check that works too
+        byte[] readbytes = new byte[inbytes.length];
+        filterstream.read( readbytes, 0, 6 );
+        filterstream.read( readbytes, 6, 1 );
+        filterstream.read( readbytes, 7, inbytes.length - 7 );
+
+        //for( int i = 0; i < readbytes.length; ++i )
+        //{
+        //    System.err.println( Integer.toHexString( readbytes[i] & 0xff ) );
+        //}
+
+        FreeGuideTest.my_assert( readbytes[0] == 102 ); // f
+        FreeGuideTest.my_assert( readbytes[1] == 105 ); // i
+        FreeGuideTest.my_assert( readbytes[2] ==  97 ); // a
+        FreeGuideTest.my_assert( readbytes[3] == 110 ); // n
+        FreeGuideTest.my_assert( readbytes[4] ==  99 ); // c
+        FreeGuideTest.my_assert( ( readbytes[5] & 0xff ) == 0xc3 );
+        FreeGuideTest.my_assert( ( readbytes[6] & 0xff ) == 0x80 );
+            // We received byte 5 in a previous read so we can't go back and
+            // fix it - we must just make the next byte a valid byte of
+            // a 2-byte sequence.
+        FreeGuideTest.my_assert( readbytes[7] == 63 ); // ?
+            // The a9 byte is not valid as the start of a sequence
         FreeGuideTest.my_assert( readbytes[8] == 101 ); // e
     }
 

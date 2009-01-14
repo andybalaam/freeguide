@@ -7,6 +7,8 @@ import java.io.InputStream;
 public class BadUTF8FilterInputStream extends FilterInputStream
 {
     byte[] previousBytes = new byte[0];
+    int bytes_left = 0;
+    int bytes_read = 0;
 
     public BadUTF8FilterInputStream( InputStream arg0 )
     {
@@ -16,9 +18,6 @@ public class BadUTF8FilterInputStream extends FilterInputStream
     public int read( byte[] bytes, int off, int len ) throws IOException
     {
         int ret = this.in.read( bytes, off, len );
-
-        int bytes_left = 0;
-        int bytes_read = 0;
 
         // If ret == -1 we won't enter the loop, as required
         for( int i = off; i < off + ret; ++i )
@@ -55,7 +54,7 @@ public class BadUTF8FilterInputStream extends FilterInputStream
                          bt == (byte)0xc1 )
                         // invalid byte since c0 and c1 are not allowed
                 {
-                    bytes[i] = 63;
+                    bytes[i] = 63; // ? character
                     // TODO: log if you do this
                 }
                 else if( (byte)( bt & (byte)0xc0 ) == (byte)0xc0 )
@@ -67,7 +66,7 @@ public class BadUTF8FilterInputStream extends FilterInputStream
                 else if( (byte)( bt & (byte)0x80 ) == (byte)0x80 )
                     // invalid byte (starts with 10)
                 {
-                    bytes[i] = 63;
+                    bytes[i] = 63; // ? character
                     // TODO: log if you do this
                 }
             }
@@ -82,16 +81,17 @@ public class BadUTF8FilterInputStream extends FilterInputStream
                     {
                         // The first byte of this bad sequence
                         // was before we entered this read call,
-                        // so all we can do is set this byte to 0
+                        // so all we can do is set this byte to 0x80
                         // so the whole sequence will be valid UTF-8,
                         // but we may have wiped out characters we
                         // needed.  Nothing we can do about it.
-                        bytes[i] = 0;
+                        bytes[i] = (byte)0x80;  // A valid 2nd, 3rd etc. byte
+                        // TODO: log if you do this
                     }
                     else
                     {
                         i = starti;
-                        bytes[i] = 63;
+                        bytes[i] = 63; // ? character
                         // TODO: log if you do this
                         bytes_left = 1;
                     }
