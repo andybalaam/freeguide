@@ -6,19 +6,46 @@ import java.io.InputStream;
 
 public class BadUTF8FilterInputStream extends FilterInputStream
 {
-    byte[] previousBytes = new byte[0];
-    int bytes_left = 0;
-    int bytes_read = 0;
+    private int bytes_left = 0;
+    private int bytes_read = 0;
+
+    private IsUTF8StreamChecker checker = new IsUTF8StreamChecker();
 
     public BadUTF8FilterInputStream( InputStream arg0 )
     {
         super( arg0 );
     }
 
+    public int read() throws IOException
+    {
+        byte[] bytes = new byte[1];
+        int ret = read( bytes, 0, 1 );
+        if( ret == 0 )
+        {
+            return -1;
+        }
+        else
+        {
+            return bytes[0];
+        }
+    }
+
     public int read( byte[] bytes, int off, int len ) throws IOException
     {
         int ret = this.in.read( bytes, off, len );
 
+        boolean isUTF8 = checker.checkUTF8( bytes, off, ret );
+
+        if( isUTF8 )
+        {
+            doRead( bytes, off, ret );
+        }
+
+        return ret;
+    }
+
+    private void doRead( byte[] bytes, int off, int ret )
+    {
         // If ret == -1 we won't enter the loop, as required
         for( int i = off; i < off + ret; ++i )
         {
@@ -100,8 +127,10 @@ public class BadUTF8FilterInputStream extends FilterInputStream
                 ++bytes_read;
             }
         }
-
-        return ret;
     }
 
+    public boolean TESTING_ONLY_isUTF8Stream()
+    {
+        return checker.isUTF8Stream();
+    }
 }

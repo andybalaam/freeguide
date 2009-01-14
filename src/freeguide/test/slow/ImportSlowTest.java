@@ -1,16 +1,12 @@
 package freeguide.test.slow;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Vector;
-import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -22,7 +18,6 @@ import org.xml.sax.SAXException;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-import freeguide.common.lib.general.BadUTF8FilterInputStream;
 import freeguide.common.lib.importexport.XMLTVImport;
 import freeguide.common.lib.importexport.XMLTVImportHandler;
 import freeguide.common.lib.importexport.XMLTVImport.Filter;
@@ -47,6 +42,7 @@ public class ImportSlowTest
     public class FakeStoragePipe implements IStoragePipe
     {
         public ArrayList<TVChannel> channels = new ArrayList<TVChannel>();
+        public ArrayList<TVProgramme> progs = new ArrayList<TVProgramme>();
 
         public void addChannel( TVChannel channel )
         {
@@ -59,10 +55,12 @@ public class ImportSlowTest
 
         public void addProgramme( String channelID, TVProgramme programme )
         {
+            progs.add( programme );
         }
 
         public void addProgrammes( String channelID, TVProgramme[] programmes )
         {
+            progs.addAll( Arrays.asList( programmes ) );
         }
 
         public void finishBlock()
@@ -79,7 +77,7 @@ public class ImportSlowTest
         saxParser = factory.newSAXParser(  );
     }
 
-    public void run() throws SAXException, IOException, MyAssertFailureException, ParserConfigurationException
+    public void run() throws Exception
     {
         test_EmptyTVTags();
         test_SingleChannelNoGenerator();
@@ -87,6 +85,9 @@ public class ImportSlowTest
         test_ProgrammeDate14Num();
         test_ProgrammeDate14NumPlusZ();
         test_InvalidUTF8();
+        test_ValidISO88591();
+        test_ValidUTF8();
+        test_InvalidUTF8_stripped();
     }
 
     private void test_EmptyTVTags()
@@ -250,6 +251,82 @@ public class ImportSlowTest
 
         XMLTVImport imp = new XMLTVImport();
         imp.process( allBytesIStream, storage, countCallback, filter, "c.p." );
+    }
+
+    private void test_ValidISO88591()
+    throws Exception
+    {
+        // Create a byte sequence that contains an e-acute in ISO-8859-1
+        // encoding and verify that the character comes through into the
+        // programme description.
+        byte[] iso88591_EAcuteBytes = { (byte)0xE9 };
+        do_test_EAcute( iso88591_EAcuteBytes, "ISO-8859-1", "surprised fiancée" );
+    }
+
+    private void test_ValidUTF8()
+    throws Exception
+    {
+        // Create a byte sequence that contains an e-acute in utf-8
+        // encoding and verify that the character comes through into the
+        // programme description.
+        byte[] utf8_EAcuteBytes = { (byte)0xc3, (byte)0xa9 };
+        do_test_EAcute( utf8_EAcuteBytes, "UTF-8", "surprised fiancée" );
+    }
+
+    private void test_InvalidUTF8_stripped()
+    throws Exception
+    {
+        // Create a byte sequence that contains an e-acute in ISO-8859-1
+        // encoding even though this file claims that it is in utf-8.
+        // This character should be replaced by a '?' in the final
+        // programme description.
+        byte[] iso88591_EAcuteBytes = { (byte)0xE9 };
+        do_test_EAcute( iso88591_EAcuteBytes, "UTF-8", "surprised fianc?e" );
+    }
+
+    private void do_test_EAcute( byte[] eAcuteBytes, String encoding, String expectedDescription ) throws UnsupportedEncodingException, ParserConfigurationException, SAXException, IOException, MyAssertFailureException
+    {
+        // Create the rest of the string we want
+        String beforeEAcute =
+            "<?xml version=\"1.0\" encoding=\"" + encoding.toLowerCase() + "\"?>\n" +
+            "<!DOCTYPE tv SYSTEM \"xmltv.dtd\">\n" +
+            "<tv>\n" +
+            "    <channel id=\"channel4.com\">\n" +
+            "    <display-name>Channel 4</display-name>\n" +
+            "    </channel>\n" +
+            "    <programme start=\"20090111231000 +0000\" stop=\"20090112005500 +0000\" channel=\"channel4.com\">\n" +
+            "        <title>In &amp; Out</title>\n" +
+            "        <desc lang=\"en\">surprised fianc";
+
+        String afterEAcute =
+                    "e</desc>\n" +
+            "    </programme>\n" +
+            "</tv>\n";
+
+        byte[][] byteArrays = {
+            beforeEAcute.getBytes( encoding ),
+            eAcuteBytes,
+            afterEAcute.getBytes( encoding )
+        };
+
+        byte[] allBytes = ConcatenateByteArrays( byteArrays );
+
+        ByteArrayInputStream allBytesIStream = new ByteArrayInputStream(
+            allBytes );
+
+        // Import it into our storage pipe
+        FakeStoragePipe storage = new FakeStoragePipe();
+        FakeProgCountCallBack countCallback = new FakeProgCountCallBack();
+        Filter filter = new Filter();
+
+        XMLTVImport imp = new XMLTVImport();
+        imp.process( allBytesIStream, storage, countCallback, filter, "c.p." );
+
+        // Check that it looks as we expect
+        TVProgramme prog = storage.progs.get(0);
+
+        FreeGuideTest.my_assert( prog.getDescription().equals(
+            expectedDescription ) );
     }
 
     // ------------------------------

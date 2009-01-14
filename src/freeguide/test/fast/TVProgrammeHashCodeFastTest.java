@@ -1,7 +1,5 @@
 package freeguide.test.fast;
 
-import freeguide.test.FreeGuideTest;
-
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 public class TVProgrammeHashCodeFastTest

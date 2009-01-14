@@ -3,6 +3,7 @@ package freeguide.test.fast;
 import java.io.ByteArrayInputStream;
 
 import freeguide.common.lib.general.BadUTF8FilterInputStream;
+import freeguide.common.lib.general.IsUTF8StreamChecker;
 
 import freeguide.test.FreeGuideTest;
 
@@ -31,6 +32,17 @@ public class BadUTF8FastTest
         test_Bad3BytesInStringLastBad();
         test_Bad3BytesInStringMiddleBad();
         test_BadStartOf2ByteBeforeLT();
+        test_UTFChecker_ExtractBracket();
+        test_UTFChecker_ExtractBracket_BOMsplit();
+        test_UTFChecker_ProcessEncoding_UTF8();
+        test_UTFChecker_ProcessEncoding_NotUTF8();
+        test_UTFChecker_ProcessBracket_UTF8();
+        test_UTFChecker_ProcessBracket_NotUTF8();
+        test_UTFChecker_UTF8();
+        test_UTFChecker_UTF8BOM();
+        test_UTFChecker_NotUTF8();
+        test_UTFChecker_NoHeader();
+        test_NotUTF8Stream();
     }
 
     private void test_OneGoodChar()
@@ -374,7 +386,8 @@ public class BadUTF8FastTest
         // P  a  r  a  d  i  s  e     C  a  f  ?  <  /  t
 
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
-        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream(
+            stream );
 
         byte[] readbytes = new byte[inbytes.length];
         filterstream.read( readbytes, 0, inbytes.length );
@@ -403,6 +416,148 @@ public class BadUTF8FastTest
         FreeGuideTest.my_assert( readbytes[13] == '<' );
         FreeGuideTest.my_assert( readbytes[14] == '/' );
         FreeGuideTest.my_assert( readbytes[15] == 't' );
+    }
+
+    private void test_UTFChecker_ExtractBracket()
+    throws Exception
+    {
+        byte[] inbytes = { '<', '?', 'x', 'm', 'l', ' ', 'v', 'e', 'r', 's', 'i', 'o', 'n', '=', '"', '1', '.', '0', '"', ' ', 'e', 'n', 'c', 'o', 'd', 'i', 'n', 'g', '=', '"', 'U', 'T', 'F', '-', '8', '"', '?', '>', '\n', 'h', 'e', 'l', 'l', 'o' };
+
+        IsUTF8StreamChecker checker = new IsUTF8StreamChecker();
+        checker.checkUTF8( inbytes, 0, inbytes.length );
+        String bracket = checker.TESTING_ONLY_getCollectedBracket();
+
+        FreeGuideTest.my_assert( bracket.equals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" ) );
+    }
+
+    private void test_UTFChecker_ExtractBracket_BOMsplit()
+    throws Exception
+    {
+        byte[] inbytes = { (byte)0xef, (byte)0xbb, (byte)0xbf, '<', '?', 'x', 'm', 'l', ' ', 'v', 'e', 'r', 's', 'i', 'o', 'n', '=', '"', '1', '.', '0', '"', ' ', 'e', 'n', 'c', 'o', 'd', 'i', 'n', 'g', '=', '"', 'U', 'T', 'F', '-', '8', '"', '?', '>', '\n', 'h', 'e', 'l', 'l', 'o' };
+
+        IsUTF8StreamChecker checker = new IsUTF8StreamChecker();
+        checker.checkUTF8( inbytes, 0,  2 ); // Half-way through BOM
+        checker.checkUTF8( inbytes, 2,  2 ); // Half-way through <?
+        checker.checkUTF8( inbytes, 4, 36 ); // Half-way through ?>
+        checker.checkUTF8( inbytes, 40, inbytes.length - 40 );
+
+        String bracket = checker.TESTING_ONLY_getCollectedBracket();
+
+        FreeGuideTest.my_assert( bracket.equals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" ) );
+    }
+
+    private void test_UTFChecker_ProcessEncoding_UTF8()
+    throws Exception
+    {
+        IsUTF8StreamChecker checker = new IsUTF8StreamChecker();
+        IsUTF8StreamChecker.IsUTF8Status status =
+            checker.TESTING_ONLY_processEncoding( "utF-8" );
+
+        FreeGuideTest.my_assert(
+            status == IsUTF8StreamChecker.IsUTF8Status.UTF8 );
+    }
+
+    private void test_UTFChecker_ProcessEncoding_NotUTF8()
+    throws Exception
+    {
+        IsUTF8StreamChecker checker = new IsUTF8StreamChecker();
+        IsUTF8StreamChecker.IsUTF8Status status =
+            checker.TESTING_ONLY_processEncoding( "iso-8859-1" );
+
+        FreeGuideTest.my_assert(
+            status == IsUTF8StreamChecker.IsUTF8Status.OTHER );
+    }
+
+    private void test_UTFChecker_ProcessBracket_UTF8()
+    throws Exception
+    {
+        IsUTF8StreamChecker checker = new IsUTF8StreamChecker();
+        IsUTF8StreamChecker.IsUTF8Status status =
+            checker.TESTING_ONLY_processBracket(
+                "<?xml version = '1.0' encoding = 'utf-8'?>" );
+
+        FreeGuideTest.my_assert(
+            status == IsUTF8StreamChecker.IsUTF8Status.UTF8 );
+    }
+
+    private void test_UTFChecker_ProcessBracket_NotUTF8()
+    throws Exception
+    {
+        IsUTF8StreamChecker checker = new IsUTF8StreamChecker();
+        IsUTF8StreamChecker.IsUTF8Status status =
+            checker.TESTING_ONLY_processBracket(
+                "<?xml version='1.0' encoding='ISO-8859-1'?>" );
+
+        FreeGuideTest.my_assert(
+            status == IsUTF8StreamChecker.IsUTF8Status.OTHER );
+    }
+
+    private void test_UTFChecker_UTF8()
+    throws Exception
+    {
+        // Normal UTF-8 sequence
+
+        byte[] inbytes = { '<', '?', 'x', 'm', 'l', ' ', 'v', 'e', 'r', 's', 'i', 'o', 'n', '=', '"', '1', '.', '0', '"', ' ', 'e', 'n', 'c', 'o', 'd', 'i', 'n', 'g', '=', '"', 'U', 'T', 'F', '-', '8', '"', '?', '>', '\n', 'h', 'e', 'l', 'l', 'o' };
+
+        IsUTF8StreamChecker checker = new IsUTF8StreamChecker();
+        boolean isUTF8 = checker.checkUTF8( inbytes, 0, inbytes.length );
+
+        FreeGuideTest.my_assert( isUTF8 );
+
+    }
+
+    private void test_UTFChecker_UTF8BOM()
+    throws Exception
+    {
+        // Windows evil byte-order mark and then the normal UTF-8 sequence
+
+        byte[] inbytes = { (byte)0xef, (byte)0xbb, (byte)0xbf, '<', '?', 'x', 'm', 'l', ' ', 'v', 'e', 'r', 's', 'i', 'o', 'n', '=', '"', '1', '.', '0', '"', ' ', 'e', 'n', 'c', 'o', 'd', 'i', 'n', 'g', '=', '\'', 'u', 't', 'f', '-', '8', '\'', '?', '>', '\n', 'h', 'e', 'l', 'l', 'o' };
+
+        IsUTF8StreamChecker checker = new IsUTF8StreamChecker();
+        boolean isUTF8 = checker.checkUTF8( inbytes, 0, inbytes.length );
+
+        FreeGuideTest.my_assert( isUTF8 );
+    }
+
+    private void test_UTFChecker_NotUTF8()
+    throws Exception
+    {
+        byte[] inbytes = { '\n', '<', '?', 'x', 'm', 'l', ' ', 'v', 'e', 'r', 's', 'i', 'o', 'n', '=', '"', '1', '.', '0', '"', ' ', 'e', 'n', 'c', 'o', 'd', 'i', 'n', 'g', '=', '"', 'I', 'S', 'O', '-', '8', '8', '5', '9', '-', '1', '"', '?', '>', '\n', 'h', 'e', 'l', 'l', 'o' };
+
+        IsUTF8StreamChecker checker = new IsUTF8StreamChecker();
+        boolean isUTF8 = checker.checkUTF8( inbytes, 0, inbytes.length );
+
+        FreeGuideTest.my_assert( !isUTF8 );
+    }
+
+    private void test_UTFChecker_NoHeader()
+    throws Exception
+    {
+        byte[] inbytes = { 'h', 'e', 'l', 'l', 'o', ' ', 'e', 'v', 'e', 'r', 'y', 'o', 'n', 'e', ' ', 'h', 'o', 'w', ' ', 'a', 'r', 'e', ' ', 'y', 'o', 'u', '?' };
+
+        IsUTF8StreamChecker checker = new IsUTF8StreamChecker();
+        boolean isUTF8 = checker.checkUTF8( inbytes, 0, inbytes.length );
+
+        FreeGuideTest.my_assert( isUTF8 );
+    }
+
+    private void test_NotUTF8Stream()
+    throws Exception
+    {
+        byte[] inbytes = { '<', '?', 'x', 'm', 'l', ' ', 'v', 'e', 'r', 's', 'i', 'o', 'n', '=', '"', '1', '.', '0', '"', ' ', 'e', 'n', 'c', 'o', 'd', 'i', 'n', 'g', '=', '"', 'I', 'S', 'O', '-', '8', '8', '5', '9', '-', '1', '"', '?', '>', '\n', 'h', 'e', 'l', 'l', 'o' };
+
+        ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream(
+            stream );
+
+        FreeGuideTest.my_assert( filterstream.TESTING_ONLY_isUTF8Stream() );
+
+        byte[] readbytes = new byte[inbytes.length];
+        filterstream.read( readbytes, 0, inbytes.length );
+
+        FreeGuideTest.my_assert( !filterstream.TESTING_ONLY_isUTF8Stream() );
     }
 
 }
