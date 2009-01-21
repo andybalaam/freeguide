@@ -1,4 +1,4 @@
-XMLTV 0.5.52, Windows binary release
+XMLTV 0.5.54, Windows binary release
 
 Gather television listings, process them and organize your viewing.
 XMLTV is a file format for storing TV listings, defined in xmltv.dtd.
@@ -14,7 +14,7 @@ xmltv.exe, generated from the Perl source code linked from
 * Known problems
 
 Due to prerequisite problems, EXE support is not currently available
-for tv_grab_jp and tv_grab_il. If you need that, you'll need to install
+for tv_grab_jp and tv_grab_is. If you need that, you'll need to install
 Perl and the necessary modules and use the full distribution.
 
 Some Win98 users get errors in Perl58.dll when running tv_grab_na_dd. See
@@ -27,19 +27,14 @@ the environment variable HOME to a path without spaces (e.g. c:\home).
 Progress is being made for a 1.0 release.  We've really been stable for
 a while I and consider it well overdue. 
 
-* Changes in this release (0.5.52)
+* Changes in this release (0.5.54)
 
-tv_grab_uk_rt: lots of improvements.. should upgrade 
-
-tv_grab_re: better season/episode number handling
-tv_grab_be: responding to source site changes 
-tv_grab_fr: better title detection
-tv_grab_huro: now generates stop times
-tv_grab_na_dtv: responding to source site changes 
-tv_grab_pt: responding to source site changes 
-tv_grab_za: improve episode tags
-
-not working, removed: tv_grab_il, tv_grab_nl_wolf
+tv_grab_be: removed due to source site blocking
+tv_grab_eu_epgdata: should now work on win32
+tv_grab_id: add 3 more backends
+tv_grab_na_dd: add Movie and Sports category
+tv_grab_uk_rt: add support for Sky Arts 2
+tv_check: add --season-reset switch to change everything to 'title-only'
 
 And of some bugfixes and polish. 
 
@@ -128,5 +123,5 @@ Sourceforge also hosts the following mailing lists
     xmltv-users    - how to use XMLTV
     xmltv-devel    - detailed discussions among developers
 
--- Robert Eden, rmeden@yahoo.com, 2007-07-13
-$Id: README.win32,v 1.81 2008/07/14 04:05:55 rmeden Exp $
+-- Robert Eden, rmeden@yahoo.com, 2009-01-13
+$Id: README.win32,v 1.84 2009/01/14 05:45:59 rmeden Exp $

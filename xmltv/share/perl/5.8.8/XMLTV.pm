@@ -1,5 +1,5 @@
 # -*- perl -*-
-# $Id: XMLTV.pm.in,v 1.137 2008/07/14 04:05:56 rmeden Exp $
+# $Id: XMLTV.pm.in,v 1.140 2009/01/14 05:45:59 rmeden Exp $
 package XMLTV;
 
 use strict;
@@ -12,7 +12,7 @@ our @EXPORT_OK = qw(read_data parse parsefile parsefiles write_data
 # the xmltv package as a whole.  This number should be checked by the
 # mkdist tool.
 #
-our $VERSION = '0.5.52';
+our $VERSION = '0.5.54';
 
 # Work around changing behaviour of XML::Twig.  On some systems (like
 # mine) it always returns UTF-8 data unless KeepEncoding is specified.
@@ -498,7 +498,7 @@ sub parsefiles_callback( $$$$@ ) {
 
     my $do_next_file; # to be defined below
     my $my_enc_cb = sub( $ ) {
-	my $e = uc(shift);
+	my $e = shift;
 	t 'encoding callback';
 	if ($have_encoding) {
 	    t 'seen encoding before, just check';
@@ -514,7 +514,7 @@ sub parsefiles_callback( $$$$@ ) {
 		warn "input file with unspecified encoding, assuming same as others ($all_encoding)\n";
 	    }
 	    elsif ($da and $de) {
-		if ($all_encoding ne $e) {
+		if (uc($all_encoding) ne uc($e)) {
 		    die "this file's encoding $e differs from others' $all_encoding - aborting\n";
 		}
 	    }

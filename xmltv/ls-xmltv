@@ -3,14 +3,14 @@ doc/COPYING
 doc/man/date_formats.txt
 doc/man/tv_cat.txt
 doc/man/tv_check.txt
+doc/man/tv_extractinfo_ar.txt
 doc/man/tv_extractinfo_en.txt
 doc/man/tv_find_grabbers.txt
 doc/man/tv_grab_ar.txt
-doc/man/tv_grab_be.txt
 doc/man/tv_grab_br_net.txt
 doc/man/tv_grab_ch_search.txt
 doc/man/tv_grab_combiner.txt
-doc/man/tv_grab_dk.txt
+doc/man/tv_grab_dk_dr.txt
 doc/man/tv_grab_dtv_la.txt
 doc/man/tv_grab_ee.txt
 doc/man/tv_grab_es_laguiatv.txt
@@ -21,6 +21,7 @@ doc/man/tv_grab_fi.txt
 doc/man/tv_grab_fr.txt
 doc/man/tv_grab_hr.txt
 doc/man/tv_grab_huro.txt
+doc/man/tv_grab_is.txt
 doc/man/tv_grab_it.txt
 doc/man/tv_grab_na_dd.txt
 doc/man/tv_grab_na_dtv.txt
@@ -81,9 +82,8 @@ share/perl/5.8.8/XMLTV/Usage.pm
 share/perl/5.8.8/XMLTV/ValidateFile.pm
 share/perl/5.8.8/XMLTV/ValidateGrabber.pm
 share/perl/5.8.8/XMLTV/Version.pm
-share/xmltv/tv_grab_be/channel_ids_fr
-share/xmltv/tv_grab_be/channel_ids_nl
 share/xmltv/tv_grab_ch_search/channel_ids
+share/xmltv/tv_grab_eu_epgdata/channel_ids
 share/xmltv/tv_grab_huro/catmap.hu
 share/xmltv/tv_grab_huro/catmap.ro
 share/xmltv/tv_grab_huro/jobmap

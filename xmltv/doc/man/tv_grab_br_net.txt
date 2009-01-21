@@ -91,23 +91,19 @@ TODO
     - further preparation for new features in XMLTV 0.6
 
 KNOWN PROBLEMS
-    For some channels it seems NET has no data available whatsoever. When
-    grabbing data for "today" or "tomorrow" these channels will
-    automatically be commented out in the used configuration-file. This
-    should not disturb any functionality unless you're keen for "empty"
-    channels.
+    For some channels it seems NET has no data available whatsoever.
+
+    [ Removed 2008-07-22: When grabbing data for "today" or "tomorrow" these
+    channels will automatically be commented out in the used
+    configuration-file. This should not disturb any functionality unless
+    you're keen for "empty" channels. To add back in set $auto_update_conf
+    to 1.]
 
     The NET website is sometimes inconsistent and buggy. And while the
     grabber might work perfect for some cities, it might not even be
     configurable for others. This is due to the bundles/selections they
     offer for the particular cities. It looks like for some cities the site
     works completely different :-(
-
-    NET currently seems to have a problem with the encoding of their data.
-    While their site is coded in ISO-8859-1 their data looks like it has
-    been corrupted by a conversion from UTF-8 (characters replaced with
-    questionmarks). Since this happens at their site there is no way we can
-    work around that, sorry :-(
 
 SEE ALSO
     xmltv(5).
@@ -123,7 +119,7 @@ BUGS
     *http://sourceforge.net/projects/xmltv/*.
 
 COPYRIGHT
-    Copyright © 2005-2006 Max Becker.
+    Copyright © 2005-2008 Max Becker.
 
     This program is free software; you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the

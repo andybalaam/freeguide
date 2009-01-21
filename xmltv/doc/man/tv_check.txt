@@ -14,6 +14,11 @@ OPTIONS
     --configure Run configuration GUI. Either this option or --scan must be
     provided.
 
+    --season-reset special --configure option to remove everything but the
+    title to help new season setup. The idea is to keep everything a
+    "season-reset" search until it shows as available to record. Then you
+    update the details including record device. *expirimental*
+
     --scan Scan TV listings. Either this option or --configure must be
     provided.
 

@@ -76,3 +76,12 @@ BUGS
     codes. We do not support that. If you encounter this problem, try
     entering a nearby zip code where your local channels appear by default.
 
+    The XML generated for channel information is kludged for compatibility
+    with MythTV and is not very pretty.
+
+    Like any screen-scraping grabber, this one will break regularly as the
+    web site changes, and you should try to fetch a new one from the
+    project's repository. At some point the breakage might not be fixable or
+    it may be that nobody wants to fix it. Sane people should use Schedules
+    Direct instead.
+

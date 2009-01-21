@@ -19,8 +19,8 @@ DESCRIPTION
     Output TV listings for several channels available in Argentina. Now
     supports the terrestrial analog tv listings, which is the most common tv
     viewed in Argentina. The tv listings comes from
-    http://www.buscadormulticanal.com.ar/ The grabber relies on parsing HTML
-    so it might stop working at any time.
+    http://www.buscadorcablevision.com.ar/ The grabber relies on parsing
+    HTML so it might stop working at any time.
 
     First run tv_grab_ar --configure to choose, which channels you want to
     download. Then running tv_grab_ar with no arguments will output listings
@@ -60,10 +60,14 @@ SEE ALSO
     xmltv(5).
 
 AUTHOR
-    Christian A. Rodriguez, car@cespi.unlp.edu.ar, based on tv_grab_es, from
-    Ramon Roca.
+    1.6 Mariano S. Cosentino, Mok@marianok.com.ar 1.5 Christian A.
+    Rodriguez, car@cespi.unlp.edu.ar, based on tv_grab_es, from Ramon Roca.
 
 BUGS
-    This grabber extracts all information from multicanal website. Any
+    This grabber extracts all information from cablevision website. Any
     change in this web page may cause this grabber to stop working.
+    Retrieving the description information adds a considerable amount of
+    time to the run and makes the file quite large. migth be a good idea to
+    add a cache file the keeps the program description so there is no need
+    to fetch it.
 

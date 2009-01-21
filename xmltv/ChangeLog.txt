@@ -1,8 +1,472 @@
-2008-07-13 06:30  knowledgejunkie
+2009-01-12 14:32  knowledgejunkie
+
+	* grab/uk_rt/tv_grab_uk_rt.in: Improved mis-encoded UTF-8 character
+	  handling. Should handle more characters, and corrects source data
+	  in UTF-8 before any further character encoding is carried out.
+
+2009-01-12 09:45  knowledgejunkie
+
+	* grab/uk_rt/tv_grab_uk_rt.in: Update debug output for title
+	  processing
+
+2009-01-12 09:03  knowledgejunkie
+
+	* grab/uk_rt/prog_titles_to_process: More titles
+
+2009-01-12 07:14  knowledgejunkie
+
+	* grab/uk_rt/: channel_ids, channels_platforms: Add support for Sky
+	  Arts 2
+
+2009-01-12 06:36  knowledgejunkie
+
+	* grab/uk_rt/tv_grab_uk_rt.in: Updates to documentation: fix some
+	  typos, update links and add details on mailing list.
+
+2009-01-07 21:07  rmeden
+
+	* grab/na_dd/tv_grab_na_dd.in: don't print  a message when you're
+	  auto-ignoring a channel
+
+2009-01-03 05:07  eggertthor
+
+	* grab/is/tv_grab_is: Updated URL for ruv.is
+
+2008-12-15 03:57  attila_nagy
+
+	* grab/huro/tv_grab_huro.in:  - small website change caused evening
+	  programs to not show up in the
+	     listings
+
+2008-12-14 16:29  ecastelnau
+
+	* grab/re/: test.conf, tv_grab_re:
+	  CANALSAT is activated again.
+
+	  PARABOLE site is working but it no longer delivers information.
+
+2008-12-13 00:46  ecastelnau
+
+	* grab/re/: test.conf, tv_grab_re:
+	  canal-sat is back.  It seems that cookies were not the problem.
+	  I need to make a POST request instead of a GET request (thanks to
+	  LESFRITZ Johann for his help).  However, canal-sat is still
+	  disabled for further testing.
+
+	  Another point: parabole seems broken now.
+
+2008-12-09 10:48  sunsetsystems
+
+	* grab/na_dtv/tv_grab_na_dtv: More adjustments for web site
+	  changes.
+
+2008-12-04 08:35  ngarratt
+
+	* grab/za/tv_grab_za: Remove option for 30-days - no longer
+	  available on source site
+
+2008-12-03 10:11  ngarratt
+
+	* grab/za/tv_grab_za: New POST method with session state
+	  verification required Listings structure changes
+
+2008-12-01 06:39  knowledgejunkie
+
+	* grab/uk_rt/regional_channels_by_postcode: Updates
+	  MK40,MK41,MK42,MK43,MK44,MK45 postcodes to use BBC East listings
+
+2008-12-01 05:28  knowledgejunkie
+
+	* grab/uk_rt/tv_grab_uk_rt.in, Makefile.PL: Use HTML::Entities to
+	  remove any HTML entities seen in the source data (which is
+	  currently UTF-8 text), and re-add as a prerequisite. The problem
+	  has been reported to the Radio Times but not yet fixed.
+
+2008-12-01 05:25  knowledgejunkie
+
+	* grab/uk_rt/: channel_ids, channels_platforms: Adds Discovery
+	  Travel & Living +1 support
+
+2008-11-30 01:49  rmeden
+
+	* lib/exe_opt.pl: trim more modules after upgrading Soap::Lite
+	  module
+
+2008-11-30 01:48  rmeden
+
+	* grab/na_dd/tv_grab_na_dd.in: oops.. remove double category for
+	  show-type
+
+2008-11-30 01:30  rmeden
+
+	* grab/na_dd/tv_grab_na_dd.in: generate Movie and Sports category
+	  if TMS prog_id indicates Movie or Sports
+
+2008-11-25 20:14  knowledgejunkie
+
+	* grab/uk_rt/prog_titles_to_process: Adds more titles
+
+2008-11-25 20:03  knowledgejunkie
+
+	* grab/uk_rt/: channel_ids, channels_platforms: Adds Sky basic
+	  channels to VirginTV platform, adds Five to Freesat platform, and
+	  renames Sky Arts channel to Sky Arts 1
+
+2008-11-25 14:38  mihaas
+
+	* grab/eu_epgdata/tv_grab_eu_epgdata: call binmode() on file handle
+	  for downloaded file - should fix grabber on win32
+
+2008-11-23 20:30  sunsetsystems
+
+	* grab/na_dtv/tv_grab_na_dtv: a couple more refinements for
+	  robustness
+
+2008-11-23 19:13  sunsetsystems
+
+	* grab/na_dtv/tv_grab_na_dtv: working on better air-time accuracy
+
+2008-11-22 22:55  sunsetsystems
+
+	* grab/na_dtv/tv_grab_na_dtv: extensive changes due to changes at
+	  www.directv.com
+
+2008-11-09 17:40  rmeden
+
+	* Makefile.PL: remove tv_grab_be due to site blocking XMLTV user
+	  agent
+
+2008-10-29 21:17  knowledgejunkie
+
+	* grab/uk_rt/channels_platforms: Adds ITV HD to Freesat list
+
+2008-10-29 10:43  knowledgejunkie
+
+	* grab/uk_rt/prog_titles_to_process: More titles
+
+2008-10-29 10:39  knowledgejunkie
+
+	* grab/uk_rt/channel_ids: Adds ITV HD channel
+
+2008-10-28 10:46  epaepa
+
+	* grab/DST.pm: dst_dates_na: updated for 2007 change to daylight
+	  saving time rules.
+
+2008-10-20 15:05  rmeden
+
+	* choose/tv_check/tv_check: use correct variable for SEASON-RESET
+	  (no idea how this got committed!)
+
+2008-10-18 18:39  knowledgejunkie
+
+	* grab/uk_rt/channel_ids: Adds new logos for Alibi and G.O.L.D.
+	  channels
+
+2008-10-14 19:24  knowledgejunkie
+
+	* grab/uk_rt/prog_titles_to_process: Fixes 'Later...with Jools
+	  Holland' programme titles
+
+2008-10-14 04:22  nielm
+
+	* grab/be/tv_grab_be.in: Remove capability to grab from TeveBlad
+	  (Dutch language listings)
+
+2008-10-11 20:58  knowledgejunkie
+
+	* grab/uk_rt/prog_titles_to_process: Season info to remove from
+	  titles
+
+2008-10-10 12:14  knowledgejunkie
+
+	* grab/uk_rt/channel_ids: Adds new logo for Watch, and removes old
+	  logos for G.O.L.D. and Alibi
+
+2008-10-09 19:40  knowledgejunkie
+
+	* grab/uk_rt/prog_titles_to_process: More titles to process
+
+2008-10-09 19:29  knowledgejunkie
+
+	* grab/uk_rt/: channel_ids, channels_platforms: Adds Hallmark +1
+	  support, and updates channel availability of several channels on
+	  Sky Digital and Virgin TV since launch of Watch
+
+2008-10-08 21:26  knowledgejunkie
+
+	* grab/uk_rt/: channel_ids, channels_platforms,
+	  regional_channels_by_postcode: MAJOR UPDATE: changes to
+	  BBC/ITV1/Sky Movies/UKTV channel XMLTVIDs to bring them into line
+	  with current channel identities. Adds/updates support for new
+	  Alibi, Watch and G.O.L.D. channels. You will need to ensure your
+	  XMLTV configuration file (and applications such as MythTV) is
+	  updated to match the new XMLTVIDs or rerun tv_grab_uk_rt
+	  configuration to continue receiving listings for these updated
+	  channels (see commit log for full list). Apologies in advance,
+	  but this XMLTVID update was a few years overdue.
+
+2008-10-04 14:51  rmeden
+
+	* choose/tv_check/tv_check: add --season-reset switch to change
+	  everything to 'title-only'
+
+2008-10-03 11:24  knowledgejunkie
+
+	* grab/uk_rt/tv_grab_uk_rt.in: More checks for uninitialised
+	  values.
+
+2008-10-03 11:06  knowledgejunkie
+
+	* grab/uk_rt/channel_ids: Adds BBC Alba and Propeller TV. Updates
+	  Setanta channels due to Radio Times changes.
+
+2008-09-30 01:23  sunsetsystems
+
+	* grab/na_dtv/tv_grab_na_dtv: updated due to more directv html
+	  changes
+
+2008-09-25 14:01  jveldhuis
+
+	* lib/IMDB.pm: soften requirement on genre sanity test, also update
+	  estimate # for ui
+
+2008-09-25 12:02  mnbjhguyt
+
+	* grab/it/: channel_ids, tv_grab_it.in: 3 more backend sites added,
+	  including iris, mediasetpremium, raisat (also rai4)
+
+2008-09-02 02:29  rmeden
+
+	* mkdist: change to use SF.NET sftp server for releases
+
+2008-09-02 02:11  rmeden
+
+	* README, doc/README.win32: building release spanned midnight..
+	  give new date to files
+
+2008-09-02 00:24  rmeden
+
+	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in,
+	  lib/exe_wrap.pl: prepare for 0.5.53 release
+
+2008-08-30 17:28  mihaas
+
+	* grab/eu_epgdata/tv_grab_eu_epgdata: Add various improvements -
+	  based on a slightly modified patch by Andreas Oeldenberger
+
+	  * add category support * add stop time * add age-rating * add
+	  year of production * fix parser for Actors, Directors and Guests
+	  * fix Episod-num to use sequence number
+
+	  The last item will likely break duplicate detection in apps like
+	  MythTV.
+
+2008-08-30 07:46  eggertthor
+
+	* grab/is/tv_grab_is: Just a minor change to prevent programmes
+	  starting at midnight from spilling out onto the previous day.
+	  Should stop duplicate-warnings from the validator
+
+2008-08-30 04:55  knowledgejunkie
+
+	* grab/uk_rt/prog_titles_to_process: More titles
+
+2008-08-30 04:47  knowledgejunkie
+
+	* grab/uk_rt/channel_ids: Deactivate the BBC Olympics channels
+	  which the Radio Times have not yet removed from their site
+
+2008-08-28 12:00  rmeden
+
+	* grab/na_dd/tv_grab_na_dd.in: add auto-config to the config file
+	  in addition to the command line
+
+2008-08-27 10:38  rmeden
+
+	* grab/se_swedb/test.conf: remove missing station to make quiet
+
+2008-08-26 09:29  eggertthor
+
+	* grab/is/tv_grab_is: Prevented error message that was generated if
+	  conf file had bogus channels.
+
+2008-08-26 07:24  eggertthor
+
+	* grab/is/test.conf: Updated test.conf to test all channels
+	  supported by new grabber
+
+2008-08-26 01:23  knowledgejunkie
+
+	* lib/XMLTV.pm.in: Reverts r1.135 and replaces encoding comparison
+	  check with a case-insensitive check which should allow all make
+	  tests to complete successfully.
+
+2008-08-25 17:11  eggertthor
+
+	* grab/is/tv_grab_is: Seperated <programme> elements by newlines to
+	  make XML more readable.  Removed outdated comment.
+
+2008-08-25 02:14  rmeden
+
+	* Makefile.PL, grab/is/tv_grab_is: add new version of tv_grab_is by
+	  Eggert Thorlacius
+
+2008-08-24 22:30  knowledgejunkie
+
+	* grab/uk_rt/tv_grab_uk_rt.in: More robust checks for empty fields
+	  before writing XMLTV data. Adds check for zero length programmes
+	  which will not be output if detected.
+
+2008-08-24 02:49  knowledgejunkie
+
+	* grab/uk_rt/channel_ids: Update icon for Fiver and restore some
+	  channels which are now providing data again
+
+2008-08-23 01:13  knowledgejunkie
+
+	* grab/uk_rt/channel_ids: Remove old BBC Olympics channels which
+	  have been removed from Radio Times site
+
+2008-08-23 01:11  knowledgejunkie
+
+	* grab/uk_rt/channel_ids: Another update to BBC Olympics channels
+
+2008-08-16 23:08  knowledgejunkie
+
+	* grab/uk_rt/prog_titles_to_process: More titles
+
+2008-08-16 22:51  knowledgejunkie
+
+	* grab/uk_rt/channel_ids: Adds updated BBC Olympics channels. If
+	  you have previously configured these channels you may need to
+	  update your XMLTVIDs as the original Olympics data files are
+	  currently empty and the Radio Times have newly added data.
+
+2008-08-09 22:28  rmeden
+
+	* grab/na_icons/tv_grab_na_icons.in: patch from  cheetah@sf to
+	  adjust to site changes
+
+2008-08-09 21:03  rmeden
+
+	* MANIFEST, Makefile.PL, filter/tv_extractinfo_ar: add
+	  tv_extractinfo_ar
+
+2008-08-09 18:40  car_unlp
+
+	* grab/ar/tv_grab_ar: add option to select from 2 different
+	  providers, as well as functionality to retrieve the program
+	  description, genere, actors from the provider
+
+2008-08-07 10:23  pingel
+
+	* grab/dk_tvtid/tv_grab_dk_tvtid: Fjernede de sidste
+	  dr.dk-referencer.  Satte "." efter "Episode $episode".
+
+2008-08-07 04:46  pingel
+
+	* grab/dk_tvtid/: test.conf, tv_grab_dk_tvtid: [no log message]
+
+2008-08-07 04:45  pingel
+
+	* grab/dk_dr/: test.conf, tv_grab_dk_tvtid: UNDO... sorry
+
+2008-08-07 03:28  pingel
+
+	* grab/dk_dr/: test.conf, tv_grab_dk_tvtid: [no log message]
+
+2008-08-03 23:36  knowledgejunkie
+
+	* grab/uk_rt/tv_grab_uk_rt.in: Adds detection of another episode
+	  numbering variant and updates comments. Reformats episode regexps
+	  to make it easier to update in the future.
+
+2008-08-03 23:17  knowledgejunkie
+
+	* grab/uk_rt/prog_titles_to_process: Correct 'The New Yankee
+	  Workshop' title variation
+
+2008-08-03 05:57  pingel
+
+	* grab/dk_dr/tv_grab_dk_dr: fjernede forkert indentering
+
+2008-08-01 18:27  knowledgejunkie
+
+	* grab/uk_rt/: channel_ids, channels_platforms: Adds 9 new BBC
+	  Olympics Interactive channels - how many of these you will be
+	  able to receive depends upon your digital TV service
+
+2008-07-28 02:31  pingel
+
+	* grab/dk_dr/tv_grab_dk_dr: Indenteret og kode fra brugerne er
+	  tilføjet.
+
+2008-07-26 16:27  mihaas
+
+	* grab/eu_epgdata/tv_grab_eu_epgdata: don't download day 1 twice on
+	  normal runs.	Thanks to Andreas Oeldenberger for the patch!
+
+2008-07-26 16:07  mihaas
+
+	* Makefile.PL: Fix installation of channel_ids for
+	  tv_grab_eu_epgdata
+
+2008-07-23 10:47  rmeden
+
+	* grab/no_gfeed/test.conf: remove missing channel from test
+	  (prevent warning)
+
+2008-07-22 22:43  b4max
+
+	* grab/br_net/: test.conf, tv_grab_br_net: Removed feature to
+	  auto-remove failed channels. To reenable set $auto_update_conf to
+	  1.
+
+2008-07-22 18:09  rmeden
+
+	* Makefile.PL: remove tv_grab_dk
+
+2008-07-22 15:35  rmeden
+
+	* MANIFEST, Makefile.PL: initial load tv_grab_dk_dr
+
+2008-07-22 15:24  rmeden
+
+	* grab/dk_dr/: test.conf, tv_grab_dk_dr: initial load tv_grab_dk_dr
+
+2008-07-22 12:55  rmeden
+
+	* grab/pt/tv_grab_pt: fix a few things so --quiet works
+
+2008-07-22 12:29  rmeden
+
+	* grab/no_gfeed/test.conf: let's see if this config gives errors
+
+2008-07-19 13:32  attila_nagy
+
+	* grab/huro/tv_grab_huro.in:  - tv_grab_huro still had problems
+	  when --offset was used. Fixed.
+
+2008-07-17 17:27  attila_nagy
+
+	* grab/huro/tv_grab_huro.in:  - Updated grabber to reflect changes
+	  in data provider source codes
+	   - Days begin & end is now handled correctly, days start at
+	  00:00, and
+	     finishes at 23:59
+	   - Icon download for romania is also fixed
+
+2008-07-14 00:05  rmeden
+
+	* MANIFEST, Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in,
+	  lib/exe_wrap.pl: prepare for 0.5.52 release
+
+2008-07-13 07:30  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Updates to comments and perldoc
 
-2008-07-13 04:01  knowledgejunkie
+2008-07-13 05:01  knowledgejunkie
 
 	* grab/uk_rt/: prog_titles_to_process, tv_grab_uk_rt.in: Adds a
 	  title processing routine to enable inconsistent programme titles
@@ -12,7 +476,7 @@
 	  channels and over time, and allow better programme matching by
 	  PVR software such as MythTV.
 
-2008-07-13 01:23  knowledgejunkie
+2008-07-13 02:23  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Moves episode number detection so
 	  that it occurs before title/episode processing. If the only data
@@ -23,70 +487,70 @@
 	  number details. Also adds some debug output to show when episode
 	  numbering has been detected.
 
-2008-07-12 23:33  knowledgejunkie
+2008-07-13 00:33  knowledgejunkie
 
 	* grab/uk_rt/test.conf: Adds encoding and title-processing entries
 	  to test configuration
 
-2008-07-12 23:30  knowledgejunkie
+2008-07-13 00:30  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Improvements to episode numbering
 	  detection, which should also remove remaining numbering from the
 	  title of an episode.
 
-2008-07-12 20:08  rmeden
+2008-07-12 21:08  rmeden
 
 	* Makefile.PL: remove non-working grabbers in preparation for
 	  release: tv_grab_il tv_grab_nl_wolf
 
-2008-07-12 08:25  knowledgejunkie
+2008-07-12 09:25  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds comprehensive bad-character
 	  handling for the range of lower-case non-Latin characters likely
 	  to be seen in listings.
 
-2008-07-12 08:22  knowledgejunkie
+2008-07-12 09:22  knowledgejunkie
 
 	* grab/uk_rt/: channel_ids, channels_platforms: Adds two new
 	  channels - Horror Channel +1 and Discovery Knowledge +1
 
-2008-07-12 07:37  knowledgejunkie
+2008-07-12 08:37  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: Adds a couple more titles
 
-2008-07-08 09:50  ecastelnau
+2008-07-08 10:50  ecastelnau
 
 	* grab/re/: test.conf, tv_grab_re:
 	  Disable CANALSAT channel because of website/cookies changes not
 	  correctly handled for now. If someone has an idea...	PARABOL
 	  channel still functionnal.
 
-2008-06-30 10:52  mnbjhguyt
+2008-06-30 11:52  mnbjhguyt
 
 	* grab/it/channel_ids: new channels added
 
-2008-06-30 10:39  mnbjhguyt
+2008-06-30 11:39  mnbjhguyt
 
 	* grab/it/tv_grab_it.in: better handling of season/episode numbers
 
-2008-06-30 00:07  rmeden
+2008-06-30 01:07  rmeden
 
 	* grab/is/tv_grab_is: add patch from Tómas Edwardsson, but it still
 	  doesn't work.
 
-2008-06-29 23:45  rmeden
+2008-06-30 00:45  rmeden
 
 	* lib/XMLTV.pm.in: add parsefiles to export_ok
 
-2008-06-28 14:37  knowledgejunkie
+2008-06-28 15:37  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: Adds a couple more titles
 
-2008-06-23 03:23  knowledgejunkie
+2008-06-23 04:23  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Updates BBC channel names to be less loud
 
-2008-06-22 22:09  knowledgejunkie
+2008-06-22 23:09  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Enable additional title-processing
 	  via grabber config file instead of using the non-standard runtime
@@ -94,23 +558,23 @@
 	  enabled by default. Configuration file entry is
 	  'title-processing=enabled' when enabled.
 
-2008-06-22 10:31  knowledgejunkie
+2008-06-22 11:31  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: More titles to process
 
-2008-06-21 01:06  knowledgejunkie
+2008-06-21 02:06  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Update perldoc to cover new
 	  configuration options
 
-2008-06-21 01:00  knowledgejunkie
+2008-06-21 02:00  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Write all programme elements for a
 	  channel in one go, rather than one write for each programme. This
 	  should help to reduce constant disk activity when running the
 	  grabber with a specified output file.
 
-2008-06-21 00:22  knowledgejunkie
+2008-06-21 01:22  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Enables a configuration option for a
 	  user to specify which character encoding to use for XMLTV output.
@@ -120,13 +584,13 @@
 	  will still propagate into the output data until we handle them,
 	  or the Radio Times fixes the issue.
 
-2008-06-18 07:30  knowledgejunkie
+2008-06-18 08:30  knowledgejunkie
 
 	* Makefile.PL, grab/uk_rt/channels_platforms: Adds a new
 	  supplemental file mapping channels to TV platforms for
 	  tv_grab_uk_rt.
 
-2008-06-18 07:26  knowledgejunkie
+2008-06-18 08:26  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Enables a configuration option for a
 	  user to specify which TV platform they use. This information is
@@ -136,42 +600,42 @@
 	  Freeview, FreeSat, FreeSat from Sky, Sky Digital, and Virgin TV.
 	  Please note that no channel/EPG numbering is provided (yet).
 
-2008-06-18 07:15  knowledgejunkie
+2008-06-18 08:15  knowledgejunkie
 
 	* grab/uk_rt/regional_channels_by_postcode: Moves generic BBC1 and
 	  BBC2 channels into file, flagged to match all postcodes
 
-2008-06-18 04:45  knowledgejunkie
+2008-06-18 05:45  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Deactivate PremPlus, TV Travelshop and TV
 	  Travelshop 2 channels which have ceased broadcasting
 
-2008-06-18 04:20  knowledgejunkie
+2008-06-18 05:20  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Replace VH2 entry with MTV ONE +1. Tidy
 	  up some icon URLs.
 
-2008-06-18 01:42  ngarratt
+2008-06-18 02:42  ngarratt
 
 	* grab/za/tv_grab_za: Handle new episode tag format
 
-2008-06-17 23:11  knowledgejunkie
+2008-06-18 00:11  knowledgejunkie
 
 	* grab/uk_rt/: regional_channels_by_postcode, tv_grab_uk_rt.in:
 	  Adds initial regional channel support for users in the Republic
 	  of Ireland, using a pseudo-postcode of 'Eire'.
 
-2008-06-16 23:34  knowledgejunkie
+2008-06-17 00:34  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Updates name and icon for BBC News
 
-2008-06-14 00:48  knowledgejunkie
+2008-06-14 01:48  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Handles another mis-encoded UTF-8
 	  character in the source data. Adds a couple of FIXMEs for the
 	  future.
 
-2008-06-14 00:24  knowledgejunkie
+2008-06-14 01:24  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds functionality to support
 	  filtering of regional channels during configuration. The user is
@@ -182,65 +646,65 @@
 	  will add platform-level filtering of channels to further speed up
 	  configuration.
 
-2008-06-13 23:57  knowledgejunkie
+2008-06-14 00:57  knowledgejunkie
 
 	* grab/uk_rt/regional_channels_by_postcode: Adds TeleG and TG4
 	  entries
 
-2008-06-13 21:06  knowledgejunkie
+2008-06-13 22:06  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Updates name of S4C Digidol
 
-2008-06-13 21:05  knowledgejunkie
+2008-06-13 22:05  knowledgejunkie
 
 	* grab/uk_rt/regional_channels_by_postcode: Adds S4C and RTE
 	  entries
 
-2008-06-13 20:35  knowledgejunkie
+2008-06-13 21:35  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: More titles to process.
 
-2008-06-10 20:35  knowledgejunkie
+2008-06-10 21:35  knowledgejunkie
 
 	* grab/uk_rt/regional_channels_by_postcode: Adds ITV1 Border
 	  (Scottish) entry
 
-2008-06-10 05:19  knowledgejunkie
+2008-06-10 06:19  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Removes 'South East' from BBC London
 	  channel descriptions
 
-2008-06-10 04:38  knowledgejunkie
+2008-06-10 05:38  knowledgejunkie
 
 	* grab/uk_rt/regional_channels_by_postcode: Adds a couple more
 	  regional BBC1 and BBC2 channels missed in initial version of file
 
-2008-06-10 04:37  knowledgejunkie
+2008-06-10 05:37  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Flags generic BBC1 and BBC2 channels as
 	  such
 
-2008-06-10 03:41  knowledgejunkie
+2008-06-10 04:41  knowledgejunkie
 
 	* MANIFEST: Adds entry for new supplemental file for tv_grab_uk_rt.
 	  Fixes up tv_grab_eu_epgdata script entry as a result of the
 	  removal of its .in/.PL files from grab/eu_epgdata.
 
-2008-06-08 20:47  knowledgejunkie
+2008-06-08 21:47  knowledgejunkie
 
 	* Makefile.PL: Adds a new supplemental file mapping regional
 	  channels to UK postcodes for tv_grab_uk_rt.
 
-2008-06-08 20:42  knowledgejunkie
+2008-06-08 21:42  knowledgejunkie
 
 	* grab/uk_rt/regional_channels_by_postcode: Adds a new supplemental
 	  file mapping regional channels to UK postcodes
 
-2008-06-08 16:10  nielm
+2008-06-08 17:10  nielm
 
 	* grab/be/tv_grab_be.in: checked in correct version
 
-2008-06-08 16:03  nielm
+2008-06-08 17:03  nielm
 
 	* grab/be/: channel_ids_fr, channel_ids_nl, tv_grab_be.in: updated
 	  grabber to work with new telemoustique (french) site layout
@@ -248,74 +712,74 @@
 	  nl channel Ids for ARTE BELGIQUE updated grabber to genenerate
 	  valid URLS for channels with spaces
 
-2008-06-06 05:38  mihaas
+2008-06-06 06:38  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata: Fix error message  - I
 	  accidentally used $opt->quiet instead of $opt->{quiet}
 
-2008-06-05 13:23  jtoft
+2008-06-05 14:23  jtoft
 
 	* grab/dk/tv_grab_dk: Added onscreen episode-num tag
 
-2008-06-03 06:30  knowledgejunkie
+2008-06-03 07:30  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Configuration now asks the user to
 	  choose their TV platform (Freeview, Sky, etc) and stores it in
 	  the configuration file. Currently unused.
 
-2008-06-03 05:35  knowledgejunkie
+2008-06-03 06:35  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Configuration now asks for the first
 	  part of a user's postcode and stores it in the configuration
 	  file. Currently unused.
 
-2008-06-03 04:57  sunsetsystems
+2008-06-03 05:57  sunsetsystems
 
 	* grab/na_dtv/tv_grab_na_dtv: adapt to change in duration format at
 	  directv.com
 
-2008-06-03 04:29  knowledgejunkie
+2008-06-03 05:29  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Updates BBC London channel names to
 	  include South East.
 
-2008-06-03 04:04  knowledgejunkie
+2008-06-03 05:04  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Update config_stage() to allow for
 	  more configuration stages to be added easily in the future.
 
-2008-06-03 03:50  knowledgejunkie
+2008-06-03 04:50  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Use XMLTV::Memoize with get()
 	  instead of get_nice(). Confirm --cache option caches data
 	  locally.
 
-2008-06-03 03:21  knowledgejunkie
+2008-06-03 04:21  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: Adds some more titles
 
-2008-06-03 02:55  knowledgejunkie
+2008-06-03 03:55  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Makes a cachedir entry a requirement
 	  when using a new-style config file, as the entry will be added
 	  when running configure. Old-style config files will continue to
 	  use the default of ~/.xmltv/cache as before
 
-2008-06-03 02:38  knowledgejunkie
+2008-06-03 03:38  knowledgejunkie
 
 	* grab/uk_rt/test.conf: Adds cachedir entry to test.conf.
 
-2008-06-03 02:08  knowledgejunkie
+2008-06-03 03:08  knowledgejunkie
 
 	* grab/uk_rt/test.conf: Update test.conf to new config file format.
 	  Adds a second channel to test.
 
-2008-06-02 23:30  knowledgejunkie
+2008-06-03 00:30  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Should ensure the channel elements
 	  are actually included in output. Some other minor tweaks.
 
-2008-06-01 02:19  knowledgejunkie
+2008-06-01 03:19  knowledgejunkie
 
 	* grab/uk_rt/: tv_grab_uk_rt.PL, tv_grab_uk_rt.in: Adds support for
 	  ParseOptions and configure-api, amongst other things. This is a
@@ -326,111 +790,111 @@
 	  aside from being moved to various subroutines. Please report any
 	  issues encounted with this new version.
 
-2008-05-31 20:48  knowledgejunkie
+2008-05-31 21:48  knowledgejunkie
 
 	* lib/Options.pm: Updates formatting of perldoc material. Fixes a
 	  typo. Updates comment for preferredmethod to state it is
 	  optional.
 
-2008-05-30 07:45  knowledgejunkie
+2008-05-30 08:45  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Adds new Sky Movies HD channel feeds from
 	  Radio Times. Restores Discovery +1.5 feed (although unsure
 	  whether this is still available on any platform)
 
-2008-05-24 15:22  reudeudeu
+2008-05-24 16:22  reudeudeu
 
 	* grab/fr/tv_grab_fr: Update:  - Fix issue when grabbing the
 	  picture of a programl, thanks to Andre Auzi
 
-2008-05-23 23:41  sunsetsystems
+2008-05-24 00:41  sunsetsystems
 
 	* grab/na_dtv/tv_grab_na_dtv: reworked due to changes in the
 	  directv.com site
 
-2008-05-20 23:09  knowledgejunkie
+2008-05-21 00:09  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Clarification to help text stating
 	  --quiet and --debug are exclusive
 
-2008-05-19 21:20  knowledgejunkie
+2008-05-19 22:20  knowledgejunkie
 
 	* lib/Ask/Term.pm: Allows case-insensitive single character y/n
 	  answers to questions asked on terminal
 
-2008-05-17 02:22  knowledgejunkie
+2008-05-17 03:22  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Adds updated Radio Times ID for Fiver
 
-2008-05-16 15:40  knowledgejunkie
+2008-05-16 16:40  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: Another title to process.
 
-2008-05-16 05:34  knowledgejunkie
+2008-05-16 06:34  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: More titles to process. Thanks
 	  to Mike Holden for these.
 
-2008-05-15 15:42  mihaas
+2008-05-15 16:42  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata: Some documentation updates: *
 	  link to http://wiki.xmltv.org/index.php/EU_epgdata * document
 	  --debug and --quiet * also add some whitespace changes because
 	  everyone loves them
 
-2008-05-15 15:18  mihaas
+2008-05-15 16:18  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata: * fix --debug/--quiet
 
-2008-05-15 14:17  mihaas
+2008-05-15 15:17  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata: add preferredmethod
 	  capability; set to 'allatonce' this change should avoid the "too
 	  many downloads" problem when used with mythfilldatabase
 
-2008-05-02 01:48  knowledgejunkie
+2008-05-02 02:48  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds handling of another mis-encoded
 	  UTF-8 character
 
-2008-04-30 20:27  knowledgejunkie
+2008-04-30 21:27  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: More titles to process
 
-2008-04-30 19:59  knowledgejunkie
+2008-04-30 20:59  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds some more handling of
 	  mis-encoded UTF-8 characters
 
-2008-04-29 06:57  mihaas
+2008-04-29 07:57  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata: * Fix decoding of entities
 	  for --list-channels
 
-2008-04-24 12:26  knowledgejunkie
+2008-04-24 13:26  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Removes Five Life (removed today by Radio
 	  Times). Please use newly added Fiver listings
 
-2008-04-23 09:13  knowledgejunkie
+2008-04-23 10:13  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Remove a film's year of production
 	  from sub-title if seen, and moves it to <year> element if not
 	  provided in source data
 
-2008-04-23 08:21  knowledgejunkie
+2008-04-23 09:21  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Adds new Fiver and Fiver +1 channels
 	  (starting 2008-04-28 when Five Life is rebranded). Removes
 	  Discovery +1.5 (ceased 2008-04-21) which is replaced with
 	  Discovery Science +1
 
-2008-04-20 06:25  mihaas
+2008-04-20 07:25  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata: * Replace @@desc with
 	  something more meaningful * fix some warnings
 
-2008-04-20 05:41  mihaas
+2008-04-20 06:41  mihaas
 
 	* Makefile.PL, grab/eu_epgdata/revision_log,
 	  grab/eu_epgdata/tv_grab_eu_epgdata.PL,
@@ -446,57 +910,57 @@
 	  <rant> Many people probably are aware that CVS can't rename files
 	  properly. I wasn't.  I weep bitter tears.</rant>
 
-2008-04-20 05:33  mihaas
+2008-04-20 06:33  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata: Clean up build system for
 	  tv_grab_eu_epgdata.  Currently broken, missing parts will follow
 	  in a few minutes.
 
-2008-04-20 04:56  mihaas
+2008-04-20 05:56  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata.in: * tell the user when their
 	  PIN expires * also fix a bug in the last commit which would
 	  overwrite the list of zip files
 
-2008-04-19 16:19  mihaas
+2008-04-19 17:19  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata.in: update documentation fix
 	  perldoc parsing
 
-2008-04-19 16:09  mihaas
+2008-04-19 17:09  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata.in: Fix some obsolete comments
 	  and documentation Warn if time zone is not defined
 
-2008-04-19 15:57  mihaas
+2008-04-19 16:57  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata.in: * Don't guess the file
 	  names for the xml files, use the list of files we extracted from
 	  the zip instead
 
-2008-04-19 14:43  mihaas
+2008-04-19 15:43  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata.in: cleanup: * remove
 	  findchannelcode function, it's not used anymore * @filenames
 	  variable doesn't need to be global
 
-2008-04-19 14:32  mihaas
+2008-04-19 15:32  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata.in: add some messages, eg when
 	  a file is downloaded. some are hidden unless you use --debug
 
-2008-04-19 13:26  mihaas
+2008-04-19 14:26  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata.in: In the
 	  x-epgdata-packageavailable header, epgdata tells us whether we'll
 	  get a zip file or not. Make use of this to stop downloading after
 	  we don't get any more zip files.
 
-2008-04-19 12:51  mihaas
+2008-04-19 13:51  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata.in: Remove obsolete comment
 
-2008-04-14 04:12  knowledgejunkie
+2008-04-14 05:12  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Detects additional series
 	  information occasionally provided in	field (tonight's Torchwood
@@ -504,79 +968,79 @@
 	  series (currently unused) information, leaving only the episode's
 	  title intact.
 
-2008-04-13 02:54  knowledgejunkie
+2008-04-13 03:54  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Catches more separators seen in
 	  updated listing information.
 
-2008-04-13 02:21  knowledgejunkie
+2008-04-13 03:21  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds handling for another malformed
 	  UTF-8 character in source data. Working on a proper long-term
 	  solution.
 
-2008-04-13 01:45  knowledgejunkie
+2008-04-13 02:45  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: Another non-title entry to
 	  remove
 
-2008-04-13 01:03  knowledgejunkie
+2008-04-13 02:03  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Removes any last-minute updated
 	  listing information from programme descriptions and moves it to a
 	  placeholder variable for future use.
 
-2008-04-07 20:12  jveldhuis
+2008-04-07 21:12  jveldhuis
 
 	* lib/IMDB.pm: version .8     = updated file size est calculations
 	  = moviedb.dat directors and actors list no longer include
 	  repeated names (which mostly	     occured in episodic tv
 	  programs (reported by Alexy Khrabrov)
 
-2008-04-02 23:28  knowledgejunkie
+2008-04-03 00:28  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds a check to ensure Date::Manip
 	  timezone is set to UTC. Related debug updates.
 
-2008-04-02 08:53  ngarratt
+2008-04-02 09:53  ngarratt
 
 	* grab/za/test.conf: Refresh full channel map
 
-2008-04-02 08:52  ngarratt
+2008-04-02 09:52  ngarratt
 
 	* grab/za/tv_grab_za: Disable MNET site support - they have no
 	  plans to list the rest of the DSTV channels Fix internal channel
 	  reference extraction
 
-2008-04-02 03:45  knowledgejunkie
+2008-04-02 04:45  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds support for another UTF-8
 	  character seen after conversion to ISO 8859-1.
 
-2008-04-02 03:30  knowledgejunkie
+2008-04-02 04:30  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Grabber will now return a non-zero
 	  exit status if the Radio Times listings for a configured channel
 	  are missing. Also includes some debugging output improvements and
 	  more data validation.
 
-2008-04-01 14:02  knowledgejunkie
+2008-04-01 15:02  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Flags more empty channels to ignore
 	  during configuration/retrieval
 
-2008-04-01 06:09  knowledgejunkie
+2008-04-01 07:09  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: More improvements to pre-processing
 	  checks to help eliminate run-time errors due to lack of data.
 
-2008-03-31 15:17  va1210
+2008-03-31 16:17  va1210
 
 	* grab/fi/tv_grab_fi: Info for programs with empty descriptions
 	  were being lost if the "series description"-option was being
 	  used. Thanks again to Stefan for the fix.
 
-2008-03-29 00:41  knowledgejunkie
+2008-03-29 01:41  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Updates handling of GMT/BST
 	  changeover. We now use the given start time and programme length,
@@ -587,11 +1051,11 @@
 	  This update should also work for the changeover at the end of
 	  BST, but we shall have to wait until October to find out.
 
-2008-03-28 23:08  knowledgejunkie
+2008-03-29 00:08  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: More titles
 
-2008-03-28 07:52  knowledgejunkie
+2008-03-28 08:52  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Reduces the number of situations in
 	  which the grabber will terminate prematurely. We now skip any
@@ -603,56 +1067,56 @@
 	  supplement file data, or a missing config file) will now result
 	  in a premature exit.
 
-2008-03-28 03:53  knowledgejunkie
+2008-03-28 04:53  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Improves checking of prerequisite
 	  information necessary for grabbing and improves feedback when
 	  problems are detected.
 
-2008-03-28 00:51  knowledgejunkie
+2008-03-28 01:51  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Implement convenience debugging
 	  method as used in tv_grab_se_swedb to reduce clutter in code.
 
-2008-03-28 00:00  knowledgejunkie
+2008-03-28 01:00  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Updates GMT/BST handling to use
 	  start time and programme duration to determine correct stop time
 	  for flagged programmes, as stop times can be incorrectly stated
 	  in source data. Another couple of other small code tidy-ups.
 
-2008-03-27 23:40  knowledgejunkie
+2008-03-28 00:40  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.PL: First in a series of major code
 	  clean-ups, inspired in part by Perl Best Practices and
 	  tv_grab_se_swedb. There should be no functional changes.
 
-2008-03-27 19:54  knowledgejunkie
+2008-03-27 20:54  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: First in a series of major code
 	  clean-ups, inspired in part by Perl Best Practices and
 	  tv_grab_se_swedb. There should be no functional changes.
 
-2008-03-25 17:49  attila_nagy
+2008-03-25 18:49  attila_nagy
 
 	* grab/huro/tv_grab_huro.in:  - It has been asked for a stop
 	  attribute on the programmes. EyeTV needs it.
 	     so here is a quick fix for this.
 
-2008-03-25 13:43  betlit
+2008-03-25 14:43  betlit
 
 	* grab/ch_search/tv_grab_ch_search.in: fixed a bug causing grabbing
 	  to fail if there is a '=' sign present in the title of a show and
 	  --slow is not used.
 
-2008-03-23 14:53  mihaas
+2008-03-23 15:53  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata.in: * get the code for the
 	  channel group from the http headers instead of relying   on
 	  regular expressions * remove hardcoded channel group code from
 	  --configure step * remove some cruft
 
-2008-03-21 11:58  knowledgejunkie
+2008-03-21 12:58  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Updates descriptions for those few
 	  channels (generally non-24hr) available on Freeview having
@@ -661,87 +1125,87 @@
 	  configuration of these channels unambiguous. Request from Steve
 	  Goodey.
 
-2008-03-17 03:09  ngarratt
+2008-03-17 04:09  ngarratt
 
 	* grab/za/test.conf: Switch to DSTV - MNET only providing limited
 	  channels for now
 
-2008-03-15 08:15  mnbjhguyt
+2008-03-15 09:15  mnbjhguyt
 
 	* grab/it/: channel_ids: new channels
 
-2008-03-14 06:22  knowledgejunkie
+2008-03-14 07:22  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Removes Log::TraceMessages module
 	  code, which is not currently used. Detailed debugging information
 	  is currently available using the --debug option.
 
-2008-03-14 06:07  knowledgejunkie
+2008-03-14 07:07  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: Adds a couple more titles to
 	  process against. F1 fans note that this update moves the specific
 	  GP information to the programme subtitle, leaving the title as
 	  'F1', where possible.
 
-2008-03-14 05:46  knowledgejunkie
+2008-03-14 06:46  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds handling for 2 more badly
 	  formatted UTF-8 characters in Radio Times source data
 
-2008-03-12 04:30  knowledgejunkie
+2008-03-12 05:30  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: Another title to process
 	  against
 
-2008-03-10 01:48  knowledgejunkie
+2008-03-10 02:48  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: More titles to process against
 
-2008-03-08 20:21  knowledgejunkie
+2008-03-08 21:21  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Fixes lack of programme filtering on
 	  part-time channels when debug output disabled
 
-2008-03-07 21:31  knowledgejunkie
+2008-03-07 22:31  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Updates some channel icons
 
-2008-03-03 09:21  rmeden
+2008-03-03 10:21  rmeden
 
 	* grab/na_dd/tv_grab_na_dd.in: add support for --agent
 
-2008-03-02 11:55  gawen
+2008-03-02 12:55  gawen
 
 	* grab/pt/tv_grab_pt: Site new date formatting.
 
-2008-02-28 19:16  knowledgejunkie
+2008-02-28 20:16  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: Adds more titles to process
 	  against
 
-2008-02-28 17:58  knowledgejunkie
+2008-02-28 18:58  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Separates out empty/unusable Radio Times
 	  listings files
 
-2008-02-28 17:49  knowledgejunkie
+2008-02-28 18:49  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Adds Movies4Men +1 support
 
-2008-02-28 14:10  reudeudeu
+2008-02-28 15:10  reudeudeu
 
 	* grab/fr/tv_grab_fr: Enhance the detection of title/subtitle
 
-2008-02-26 14:36  reudeudeu
+2008-02-26 15:36  reudeudeu
 
 	* grab/fr/tv_grab_fr:  - Process properly the title and the
 	  subtitle
 
-2008-02-24 09:46  rmeden
+2008-02-24 10:46  rmeden
 
 	* grab/na_icons/tv_grab_na_icons.in: adjust to site changes
 
-2008-02-22 11:18  knowledgejunkie
+2008-02-22 12:18  knowledgejunkie
 
 	* Makefile.PL, grab/uk_rt/tv_grab_uk_rt.in: Converts tv_grab_uk_rt
 	  to use Encode rather than Unicode::UTF8simple for UTF-8
@@ -750,31 +1214,31 @@
 	  sensible to move to a core module. Thanks to Chris Butler for
 	  supplying the patch.
 
-2008-02-22 10:12  knowledgejunkie
+2008-02-22 11:12  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Adds 3 new channels just added by the
 	  Radio Times - Discovery Real Time Extra, Movies4Men, and True
 	  Movies.
 
-2008-02-18 14:16  rmeden
+2008-02-18 15:16  rmeden
 
 	* lib/XMLTV.pm.in: force encoding to upper case on concatination
 	  so mixed case comparisions work.
 
-2008-02-17 21:58  rmeden
+2008-02-17 22:58  rmeden
 
 	* Makefile.PL: shorted description for tv_grab_uk_rt for
 	  consistancy and to avoid column width issues
 
-2008-02-17 14:23  rmeden
+2008-02-17 15:23  rmeden
 
 	* README: Fix typo
 
-2008-02-17 13:25  knowledgejunkie
+2008-02-17 14:25  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: Some more titles
 
-2008-02-17 03:42  knowledgejunkie
+2008-02-17 04:42  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Removes title processing data from
 	  grabber and places it in a new file, prog_titles_to_process,
@@ -782,27 +1246,27 @@
 	  debugging messages for UTF-8 characters and provides more
 	  detailed information on number and types of available channels.
 
-2008-02-17 03:22  knowledgejunkie
+2008-02-17 04:22  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: Comment update
 
-2008-02-17 02:26  knowledgejunkie
+2008-02-17 03:26  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: More programme titles to
 	  process against
 
-2008-02-17 01:08  rmeden
+2008-02-17 02:08  rmeden
 
 	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in,
 	  lib/exe_wrap.pl: prepare for 0.5.51 release
 
-2008-02-16 20:36  knowledgejunkie
+2008-02-16 21:36  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: Simplifies the way we flag the
 	  required processing for each programme title, using a simpler
 	  2-field (code|title) approach.
 
-2008-02-15 23:45  knowledgejunkie
+2008-02-16 00:45  knowledgejunkie
 
 	* MANIFEST, Makefile.PL: Updates for current development version of
 	  tv_grab_uk_rt. Removes unnecessary prereq for HTML::Entities and
@@ -810,101 +1274,101 @@
 	  Unicode::UTF8simple. Adds reference to new share file for
 	  title/subtitle processing feature. Updates blurb.
 
-2008-02-15 22:02  knowledgejunkie
+2008-02-15 23:02  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: Fix Id keyword
 
-2008-02-15 21:53  knowledgejunkie
+2008-02-15 22:53  knowledgejunkie
 
 	* grab/uk_rt/prog_titles_to_process: Adds a new data file to be
 	  retrieved using XMLTV::Supplement that contains the data required
 	  during the procesing and remapping of programme titles/subtitles
 	  that are found to be inconsistent in the Radio Times data.
 
-2008-02-15 19:59  knowledgejunkie
+2008-02-15 20:59  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Adds support for MTV +1. Minor changes to
 	  some channel names.
 
-2008-02-15 05:04  reudeudeu
+2008-02-15 06:04  reudeudeu
 
 	* grab/fr/tv_grab_fr: Fixes the configure mode, working now with
 	  the latests changes on the website
 
-2008-02-13 21:10  rmeden
+2008-02-13 22:10  rmeden
 
 	* Makefile.PL: remove  non-working tv_grab_nc
 
-2008-02-13 09:24  ngarratt
+2008-02-13 10:24  ngarratt
 
 	* grab/za/test.conf: Change ActionX to M-Net Action in test
 	  configuration
 
-2008-02-09 22:03  knowledgejunkie
+2008-02-09 23:03  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds some more programme titles to
 	  process against.
 
-2008-02-09 21:23  knowledgejunkie
+2008-02-09 22:23  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Minor updates to comments.
 
-2008-02-09 21:15  knowledgejunkie
+2008-02-09 22:15  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Fixes an oversight which was causing
 	  the listings for part-time channels starting and stopping
 	  broadcast on the same calendar day (e.g. UKTV History) to contain
 	  programme entries during the channel's off-air period.
 
-2008-02-08 04:31  b4max
+2008-02-08 05:31  b4max
 
 	* grab/br_net/test.conf: making the testsuite happy with a new
 	  config ;-)
 
-2008-02-02 14:15  mihaas
+2008-02-02 15:15  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata.in: Fix --configure by
 	  reverting to the old behavior of just concatenating strings
 	  instead of using the proper libraries to the job.  It looks like
 	  XMLTV::Twig is breaking the redirection to stdout..
 
-2008-01-30 15:48  b4max
+2008-01-30 16:48  b4max
 
 	* grab/br_net/tv_grab_br_net: adapted for changes on the grabbed
 	  website
 
-2008-01-30 11:18  ecastelnau
+2008-01-30 12:18  ecastelnau
 
 	* grab/re/tv_grab_re:
 	  - use length attribute instead of start and stop time - fix
 	  problem of seeing same program twice for multiple days grabbing -
 	  clean code
 
-2008-01-27 06:48  ecastelnau
+2008-01-27 07:48  ecastelnau
 
 	* grab/re/tv_grab_re:
 	  - fix tv_grab_re because of web site changes - remove cache
 	  capability to pass test_grabbers check
 
-2008-01-26 07:24  candu_sf
+2008-01-26 08:24  candu_sf
 
 	* grab/es_laguiatv/test.conf: es_laguiatv - updated test.conf file
 
-2008-01-25 19:40  knowledgejunkie
+2008-01-25 20:40  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Adds regionalised icons for ITV1 channels
 
-2008-01-23 18:11  knowledgejunkie
+2008-01-23 19:11  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: More programme titles to process
 	  against
 
-2008-01-22 12:39  knowledgejunkie
+2008-01-22 13:39  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds another programme title to
 	  process against
 
-2008-01-22 12:16  knowledgejunkie
+2008-01-22 13:16  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Reorders the channel entries. The file
 	  now contains the timeshifted and part-time channel entries first,
@@ -920,17 +1384,17 @@
 	  and future releases of the grabber to share the same channel_ids
 	  file.
 
-2008-01-22 11:56  rmeden
+2008-01-22 12:56  rmeden
 
 	* Makefile.PL: remove tv_grab_no at author's request. Been replaced
 	  by tv_grab_no_gfeed
 
-2008-01-21 02:52  knowledgejunkie
+2008-01-21 03:52  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds some more programme titles to
 	  process against
 
-2008-01-20 05:44  knowledgejunkie
+2008-01-20 06:44  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds title processing routine to
 	  accommodate programmes having titles in format sub-title:title.
@@ -941,12 +1405,12 @@
 	  from cache to 1hr now that we re-use the data for timeshifted and
 	  part-time channels.
 
-2008-01-18 18:39  knowledgejunkie
+2008-01-18 19:39  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Re-enables timeshifted channel
 	  support, which I inadvertently disabled in the last update.
 
-2008-01-18 12:49  knowledgejunkie
+2008-01-18 13:49  knowledgejunkie
 
 	* grab/uk_rt/: channel_ids, tv_grab_uk_rt.in: Adds support for
 	  part-time channels seen on platforms such as FreeView, which do
@@ -960,7 +1424,7 @@
 	  only FreeView channels currently unsupported by the grabber. As
 	  always, please report any issues you encounter.
 
-2008-01-16 22:44  knowledgejunkie
+2008-01-16 23:44  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds title/sub-title processing,
 	  which should begin to produce more consistent programming
@@ -972,7 +1436,7 @@
 	  non-title information to remove from titles. All title processing
 	  can be disabled by using the --no-title-updates option.
 
-2008-01-16 15:16  knowledgejunkie
+2008-01-16 16:16  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds a '--no-title-updates' option
 	  to the grabber to disable processing of programme titles. In
@@ -987,13 +1451,13 @@
 	  users who wish to receive unadulterated programme titles can
 	  contine to do so.
 
-2008-01-16 14:41  knowledgejunkie
+2008-01-16 15:41  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Updates display name for UKTV Gardens.
 	  Note that the previous commit (Timeshifted channels support) also
 	  updated a few channel names.
 
-2008-01-16 14:08  knowledgejunkie
+2008-01-16 15:08  knowledgejunkie
 
 	* grab/uk_rt/: channel_ids, tv_grab_uk_rt.in: Adds timeshifted
 	  channel support to tv_grab_uk_rt. This enables the creation of
@@ -1016,57 +1480,57 @@
 	  Many thanks to David Greaves for the initial patch upon which I
 	  have based this update.
 
-2008-01-15 12:13  mnbjhguyt
+2008-01-15 13:13  mnbjhguyt
 
 	* grab/it/: channel_ids, tv_grab_it.in: major speed up in grabbing
 
-2008-01-15 12:12  mnbjhguyt
+2008-01-15 13:12  mnbjhguyt
 
 	* grab/it/tv_grab_it.PL: updated pod
 
-2008-01-13 15:22  atirc
+2008-01-13 16:22  atirc
 
 	* grab/es_miguiatv/: tv_grab_es_miguiatv, test.conf: [no log
 	  message]
 
-2008-01-13 15:18  atirc
+2008-01-13 16:18  atirc
 
 	* Makefile.PL: Add es_miguiatv to Makefile.PL
 
-2008-01-13 15:18  atirc
+2008-01-13 16:18  atirc
 
 	* MANIFEST: Add es_miguiatv to MANIFEST
 
-2008-01-13 08:09  candu_sf
+2008-01-13 09:09  candu_sf
 
 	* grab/es_laguiatv/tv_grab_es_laguiatv: es_laguiatv: fix for site
 	  update with descriptions
 
-2008-01-11 08:48  candu_sf
+2008-01-11 09:48  candu_sf
 
 	* grab/es_laguiatv/tv_grab_es_laguiatv: Fix for es_laguiatv to
 	  match updates to the site. Descriptions are not fixed yet.
 
-2008-01-11 00:51  sunsetsystems
+2008-01-11 01:51  sunsetsystems
 
 	* grab/na_dtv/tv_grab_na_dtv: changed to skip non-numeric channel
 	  numbers as directv now seems to be appending "-1" to some that
 	  are otherwise duplicated
 
-2008-01-09 14:05  mattiasholmlund
+2008-01-09 15:05  mattiasholmlund
 
 	* Makefile.PL: Add dependency for File::Slurp.
 
-2008-01-09 02:45  knowledgejunkie
+2008-01-09 03:45  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Small change to --debug output text
 
-2008-01-08 02:21  knowledgejunkie
+2008-01-08 03:21  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds debug output for programme
 	  titles that may include non-title information
 
-2008-01-07 06:25  knowledgejunkie
+2008-01-07 07:25  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Reverts handling of a bad UTF-8
 	  Degree symbol character coded as <C3><8B><C2><9A> in the source
@@ -1074,13 +1538,13 @@
 	  <B0>, but instead is the Latin-1 (not UTF-8) E-umlaut character
 	  <CB>
 
-2008-01-07 04:43  knowledgejunkie
+2008-01-07 05:43  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds handling of a bad UTF-8
 	  characters which remains undecoded in Latin-1 output (Degree
 	  symbol, Channel 4 listings)
 
-2008-01-07 04:24  knowledgejunkie
+2008-01-07 05:24  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds a --debug option to the
 	  grabber, which provides detailed progress information on
@@ -1089,18 +1553,18 @@
 	  grabber without progress bars for the clearest output. This
 	  update also cleans up the standard non-debug log output.
 
-2008-01-05 20:09  knowledgejunkie
+2008-01-05 21:09  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds basic handling of some invalid
 	  UTF-8 characters which remain undecoded in Latin-1 output
 
-2008-01-05 07:44  sunsetsystems
+2008-01-05 08:44  sunsetsystems
 
 	* grab/na_dtv/tv_grab_na_dtv: fixed failure to pick up the first
 	  program when it starts about 5 minutes before the end of a 2-hour
 	  time slot
 
-2008-01-04 00:39  knowledgejunkie
+2008-01-04 01:39  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Since the resumption of the Radio
 	  Times' XMLTV service in early January 2008, the RT source data
@@ -1111,17 +1575,17 @@
 	  result of this change, please report any occurences of odd
 	  characters in the output data.
 
-2008-01-02 20:59  knowledgejunkie
+2008-01-02 21:59  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Tidies up non-fatal line breaks in
 	  reviewed/updated listings
 
-2008-01-02 20:48  knowledgejunkie
+2008-01-02 21:48  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Removes old and unused HTML entity
 	  handling code
 
-2008-01-02 20:14  knowledgejunkie
+2008-01-02 21:14  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds yet more handling for
 	  non-English characters in listings data. These now seem to be all
@@ -1131,38 +1595,38 @@
 	  characters and replace them with their correct ISO/IEC 8859-1
 	  codes
 
-2008-01-02 11:06  knowledgejunkie
+2008-01-02 12:06  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Adds Channel 4 HD to available channels
 
-2007-12-31 11:18  sunsetsystems
+2007-12-31 12:18  sunsetsystems
 
 	* grab/na_dtv/tv_grab_na_dtv: fix for end-of-year bug
 
-2007-12-25 09:35  va1210
+2007-12-25 10:35  va1210
 
 	* grab/fi/tv_grab_fi: Updated regexp due to site markup change.
 	  Also added other small changes. Thanks (again) to Stefan Becker
 	  for the patch.
 
-2007-12-16 10:48  reudeudeu
+2007-12-16 11:48  reudeudeu
 
 	* grab/fr/tv_grab_fr: Cleanup the genre field to replace wrong
 	  characters
 
-2007-12-14 08:08  knowledgejunkie
+2007-12-14 09:08  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Updates comment. A new release of
 	  HTTP::Cache::Transparent (version 1.0) is now available from
 	  CPAN. The latest release of this module is required to enable the
 	  improved Radio Times 'empty file' handling.
 
-2007-12-14 07:58  knowledgejunkie
+2007-12-14 08:58  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: More updates for bad character
 	  handling.
 
-2007-12-11 02:31  knowledgejunkie
+2007-12-11 03:31  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Updates comments regarding using
 	  non-CPAN version of HTTP::Cache::Transparent to work around bad
@@ -1172,22 +1636,22 @@
 	  repository at
 	  http://git.holmlund.se/?p=HTTP-Cache-Transparent.git;a=summary.
 
-2007-12-11 02:22  knowledgejunkie
+2007-12-11 03:22  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds more bad character handling.
 	  Comments out some likely superfluous HTML entity decoding code
 	  that was used when the grabber was parsing HTML data.
 
-2007-12-08 14:34  rmeden
+2007-12-08 15:34  rmeden
 
 	* lib/XMLTV.pm.in: add quality optoin to video on parsing file
 
-2007-12-08 09:35  mnbjhguyt
+2007-12-08 10:35  mnbjhguyt
 
 	* grab/it/: channel_ids, tv_grab_it.in: main site has moved to
 	  another domain, plus code cleanup
 
-2007-12-07 04:46  knowledgejunkie
+2007-12-07 05:46  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Additionally checks for presence of
 	  DOCTYPE element in Radio Times data which indicates a lack of
@@ -1195,11 +1659,11 @@
 	  bad/missing data support will need to upgrade
 	  HTTP::Cache::Transparent to a release later than 0.7
 
-2007-12-07 04:28  knowledgejunkie
+2007-12-07 05:28  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Additional bad character handling.
 
-2007-12-07 04:17  knowledgejunkie
+2007-12-07 05:17  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Implements support for the
 	  approveContent callback functionality being added to
@@ -1212,75 +1676,75 @@
 	  will instead be used and will only be updated if the online
 	  version is updated with actual content.
 
-2007-11-30 18:54  knowledgejunkie
+2007-11-30 19:54  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Ensures cached data files are kept
 	  for no more than 15 days. The Radio Times data contains listings
 	  information for at most 2 weeks, so this ensures no stale data is
 	  retained.
 
-2007-11-30 18:06  knowledgejunkie
+2007-11-30 19:06  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Adds $ keyword to channel_ids file
 
-2007-11-29 18:28  jveldhuis
+2007-11-29 19:28  jveldhuis
 
 	* lib/IMDB.pm: updated estimates calculations and added
 	  file_size_uncompressed values to moviedb.info file
 
-2007-11-29 15:29  mihaas
+2007-11-29 16:29  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata.in: Make things work again:
 	  forgot to create writer object in listchannels sub
 
-2007-11-29 15:07  mihaas
+2007-11-29 16:07  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata.in: Trying to be a good boy
 	  here. Use XMLTV's writer module instead of just printing strings
 	  in the listchannels sub
 
-2007-11-29 15:01  mihaas
+2007-11-29 16:01  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata.in: Add "people" tags and the
 	  series id field
 
-2007-11-27 07:20  mihaas
+2007-11-27 08:20  mihaas
 
 	* grab/eu_epgdata/channel_ids: Updated channel_ids with channel ids
 	  for NL taken from tv_grab_nl_wolf. Thanks!
 
-2007-11-25 07:09  mattiasholmlund
+2007-11-25 08:09  mattiasholmlund
 
 	* lib/Supplement.pm.in: Add new environment variable
 	  XMLTV_SUPPLEMENT_VERBOSE.  Always load supplement-file from
 	  server if user switches to another server.
 
-2007-11-24 13:02  reudeudeu
+2007-11-24 14:02  reudeudeu
 
 	* grab/fr/tv_grab_fr: - Update man page
 
-2007-11-23 21:27  rmeden
+2007-11-23 22:27  rmeden
 
 	* Makefile.PL: remove tv_grab_nl due to agent string blocking
 
-2007-11-22 14:37  reudeudeu
+2007-11-22 15:37  reudeudeu
 
 	* grab/fr/tv_grab_fr: -Add management of "hidden" channels from the
 	  website -Various minor patches
 
-2007-11-21 13:40  mattiasholmlund
+2007-11-21 14:40  mattiasholmlund
 
 	* lib/Supplement.pm.in: Fix caching with the Last-Modified header.
 	  Lower cache-time to one hour.
 
-2007-11-19 04:12  knowledgejunkie
+2007-11-19 05:12  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Adds caching of listings data and
 	  channel index file via HTTP::Cache::Transparent. Cache directory
 	  is currently hardcoded to ~/.xmltv/cache which will be created if
 	  missing.
 
-2007-11-19 02:20  knowledgejunkie
+2007-11-19 03:20  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: Improves handling of GMT/BST
 	  changeovers in March/October by fixing issues described in bug
@@ -1288,90 +1752,90 @@
 	  to its calculated length. Convert existing tabs to spaces in
 	  source code.
 
-2007-11-19 00:22  knowledgejunkie
+2007-11-19 01:22  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Adds new Al Jazeera channel and removes
 	  defunct Dave +1 listings
 
-2007-11-19 00:10  rmeden
+2007-11-19 01:10  rmeden
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata.in: remove duplicate "our" to
 	  avoid warning
 
-2007-11-18 06:57  mihaas
+2007-11-18 07:57  mihaas
 
 	* grab/eu_epgdata/channel_ids: Oops, forgot another one
 
-2007-11-18 06:56  mihaas
+2007-11-18 07:56  mihaas
 
 	* grab/eu_epgdata/channel_ids: Remove some blanks. I need to make
 	  the grabber more robust against this...
 
-2007-11-16 14:34  mattiasholmlund
+2007-11-16 15:34  mattiasholmlund
 
 	* lib/Supplement.pm.in: Prettier error-message.
 
-2007-11-16 14:11  mattiasholmlund
+2007-11-16 15:11  mattiasholmlund
 
 	* lib/Supplement.pm.in: Report WHY a download failed.
 
-2007-11-14 23:19  rmeden
+2007-11-15 00:19  rmeden
 
 	* grab/na_dd/tv_grab_na_dd.in: write  timeoffset instead of
 	  timezone in config file for clarity.	Still read timezone if it's
 	  there.
 
-2007-11-08 10:50  knowledgejunkie
+2007-11-08 11:50  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Adds updated configuration for Dave +1
 	  channel which the Radio Times have changed, and updates XMLTV IDs
 	  for RT channels no longer carrying listings
 
-2007-11-06 14:23  mnbjhguyt
+2007-11-06 15:23  mnbjhguyt
 
 	* grab/it/tv_grab_it.in: added new backend
 
-2007-11-06 14:23  mnbjhguyt
+2007-11-06 15:23  mnbjhguyt
 
 	* grab/it/test.conf: [no log message]
 
-2007-11-06 05:03  knowledgejunkie
+2007-11-06 06:03  knowledgejunkie
 
 	* grab/uk_rt/tv_grab_uk_rt.in: More bad character handling
 
-2007-11-05 15:04  mnbjhguyt
+2007-11-05 16:04  mnbjhguyt
 
 	* grab/it/channel_ids: new channels added
 
-2007-11-05 11:06  rmeden
+2007-11-05 12:06  rmeden
 
 	* MANIFEST: add eu_epgdata to MANIFEST
 
-2007-11-05 09:24  rmeden
+2007-11-05 10:24  rmeden
 
 	* Makefile.PL: let ChangeLog on windows be Changelog.txt
 
-2007-11-05 02:14  rmeden
+2007-11-05 03:14  rmeden
 
 	* Makefile.PL, README, doc/README.win32, lib/XMLTV.pm.in,
 	  lib/exe_wrap.pl: prepare for 0.5.50 release
 
-2007-11-04 20:37  rmeden
+2007-11-04 21:37  rmeden
 
 	* Makefile.PL: let windows README be README.TXT
 
-2007-11-04 14:28  mattiasholmlund
+2007-11-04 15:28  mattiasholmlund
 
 	* grab/be/tv_grab_be.in, grab/ch_search/tv_grab_ch_search.in,
 	  grab/huro/tv_grab_huro.in, grab/it/tv_grab_it.in,
 	  grab/uk_bleb/tv_grab_uk_bleb.in, lib/Supplement.pm.in: Fix
 	  possible problems with line-endings on Windows.
 
-2007-11-04 13:07  rmeden
+2007-11-04 14:07  rmeden
 
 	* Makefile.PL: our version numbers aren't numeric.  Use ge not >=
 
-2007-11-04 12:57  knowledgejunkie
+2007-11-04 13:57  knowledgejunkie
 
 	* grab/uk_rt/channel_ids: Removes Discovery Civilisation which
 	  ceased broadcasting 2007-10-31. Adds new Discovery Knowledge
@@ -1379,13 +1843,13 @@
 	  for Discovery Knowledge (knowledge.discoveryeurope.com). Please
 	  update accordingly.
 
-2007-11-04 11:35  mihaas
+2007-11-04 12:35  mihaas
 
 	* grab/eu_epgdata/tv_grab_eu_epgdata.in: An attempt to fix DSt
 	  issues. Now the user has to change the time zone twice a year ;)
 	  Also add a little bit of documentation
 
-2007-11-04 01:33  mattiasholmlund
+2007-11-04 02:33  mattiasholmlund
 
 	* lib/Supplement.pm.in: Remove debug printout.
 

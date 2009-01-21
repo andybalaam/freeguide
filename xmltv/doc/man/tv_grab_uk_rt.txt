@@ -22,14 +22,14 @@ SYNOPSIS
     [--quiet] [--debug]
 
 DESCRIPTION
-    Output TV listings in XMLTV format for many stations available in the
-    United Kingdom and Republic of Ireland. The data comes from
-    machine-readable files produced by the Radio Times website.
+    Output TV listings in XMLTV format for many channels available in the
+    United Kingdom and Republic of Ireland. Source data comes from
+    machine-readable files made available from the Radio Times website.
 
 USAGE
-    First you must run tv_grab_uk_rt --configure to choose which stations
-    you want to receive. Then running tv_grab_uk_rt with no arguments will
-    get about a fortnight's listings for the stations you chose.
+    First run tv_grab_uk_rt --configure to choose which channels you want to
+    receive listings for. Then run tv_grab_uk_rt with no arguments to get
+    about 14 days of listings for the configured channels.
 
 OPTIONS
     --help Print a help message and exit.
@@ -41,22 +41,22 @@ OPTIONS
 
     --description Show a brief description of the grabber.
 
-    --config-file FILE Set the name of the configuration file, the default
-    is ~/.xmltv/tv_grab_uk_rt.conf. This is the file written by --configure
-    and read when grabbing.
+    --config-file FILE Specify the name of the configuration file to use. If
+    not specified, a default of ~/.xmltv/tv_grab_uk_rt.conf if used. This is
+    the file written by --configure and read when grabbing.
 
-    --output FILE When grabbing, write output to FILE rather than standard
-    output.
+    --output FILE When grabbing, write output to FILE rather than to
+    standard output.
 
     --days N When grabbing, grab N days of data instead of all available.
     Supported values are 1-15.
 
     --offset N Start grabbing at today + N days. Supported values are 0-14.
 
-    Note that tv_grab_uk_rt always downloads data for all days and then
-    filters out the days specified with --days and --offset. It is therefore
-    more efficient to omit --days and --offset and use all the returned
-    data.
+    Note that due to the format of the source data, tv_grab_uk_rt always
+    downloads data for all days and then filters for days specified with
+    --days and --offset. Specifying --days and/or --offset in order to speed
+    up downloads or reduce data transfer will therefore not work.
 
     --quiet Suppress all progress messages normally written to standard
     error.
@@ -101,12 +101,11 @@ TITLE PROCESSING
     list of flagged titles. The software will correct such programme titles,
     which in turn should result in better performance of PVR software which
     rely on consistent programme naming in the XMLTV data. Please be aware
-    that enabling title processing will result in the grabber taking
-    slightly longer to complete its operation due to the extra processing
-    overhead.
+    that enabling title processing will result in the grabber taking longer
+    to complete its operation due to the extra processing overhead.
 
 REGIONAL CHANNELS
-    During configuration, the software asks for postcode information. The
+    During configuration, the software asks for UK postcode information. The
     first half of a user's postcode is used to determine which regional
     channels are available in their locality, and only these matching
     regional channels are included in the list of available channels. A user
@@ -130,7 +129,7 @@ ERROR HANDLING
     problems. Running the grabber in non-quiet mode should report why the
     grabber failed.
 
-    There have been several occasions when the Radio Times channels list has
+    There have been several occasions when the Radio Times channel index has
     been missing from the Radio Times website. This file is essential to
     being able to run the grabber, as it contains the list of channels
     having available listings data. If this file is missing or empty, and
@@ -147,24 +146,39 @@ ERROR HANDLING
 
 ENVIRONMENT VARIABLES
     The environment variable HOME can be set to change where the
-    configuration files are stored. All configuration is stored in
+    configuration file is stored. All configuration is stored in
     $HOME/.xmltv/ by default. On Windows it might be necessary to set HOME
     to a pathname containing no spaces.
 
     The environment variable XMLTV_SUPPLEMENT can be set to change where the
-    XMLTV channel configuration file is retrieved from. By default, the file
-    is retrieved from the xmltv server. See XMLTV::Supplement for more
-    information.
+    supplemental XMLTV files are retrieved from. By default, the file is
+    retrieved from the XMLTV supplement server. See XMLTV::Supplement for
+    more information.
 
     If you want the grabber to use customised local copies of the
     supplemental files, you should set XMLTV_SUPPLEMENT to the path of the
-    directoties containing a tv_grab_uk_rt/ directory containing the
-    supplement files. For example, if you local supplement files are stored
-    in /usr/local/share/xmltv/tv_grab_uk_rt, you should 'export
+    directory containing a tv_grab_uk_rt/ directory containing the
+    supplement files. For example, if your local supplement files are stored
+    in /usr/local/share/xmltv/tv_grab_uk_rt/ you should 'export
     XMLTV_SUPPLEMENT=/usr/local/share/xmltv/' before running the grabber.
 
+MAILING LIST
+    You can subscribe to and read the XMLTV users mailing list by visiting
+    <http://lists.sourceforge.net/lists/listinfo/xmltv-users>. This is a
+    source of help and advice for new users.
+
 SEE ALSO
-    xmltv(5), <http://www.xmltv.org/wiki/>, <http://www.radiotimes.com/>
+    xmltv(5), <http://wiki.xmltv.org>, <http://www.radiotimes.com/>
+
+BUGS
+    There is an ongoing issue with the Radio Times source data containing
+    mis-encoded UTF-8 characters, which we currently try to handle on a
+    case-by-case basis when observed. The issue has been reported to the
+    Radio Times who are investigating the problem.
+
+    If you encounter a reproducible bug, please report it on the XMLTV bug
+    tracker at <http://sourceforge.net/projects/xmltv/>, making sure you
+    assign the bug to the tv_grab_uk_rt category.
 
 AUTHOR
     The current maintainer is Nick Morrott (knowledgejunkie at gmail dot
@@ -172,10 +186,4 @@ AUTHOR
     this code were copied from tv_grab_se_swedb by Mattias Holmlund, and
     from the XMLTV wiki <http://www.xmltv.org/wiki/>. Regional postcode
     information was kindly made available from <http://www.ukfree.tv>.
-
-BUGS
-    No bugs are currently reported. If you encounter a reproducible bug,
-    please report it on the XMLTV bug tracker at
-    <http://sourceforge.net/projects/xmltv/>, making sure you assign the bug
-    to the tv_grab_uk_rt category.
 
