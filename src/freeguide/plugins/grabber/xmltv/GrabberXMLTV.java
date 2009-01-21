@@ -959,7 +959,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
             {
                 int totalCount = new XMLTVImport(  ).process(
                     in, storage, callback, new XMLTVImport.Filter(  ),
-                    CHANNEL_PREFIX );
+                    CHANNEL_PREFIX, logger );
 
                 progress.setProgressValue( 100 );
 

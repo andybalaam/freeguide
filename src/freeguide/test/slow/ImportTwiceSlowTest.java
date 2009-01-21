@@ -16,10 +16,13 @@ import freeguide.common.plugininterfaces.IModuleStorage;
 import freeguide.plugins.program.freeguide.lib.fgspecific.StoragePipe;
 import freeguide.plugins.storage.serfiles.StorageSerFilesByDay;
 
+import freeguide.test.FakeLogger;
 import freeguide.test.FreeGuideTest;
 
 public class ImportTwiceSlowTest
 {
+    private FakeLogger logger = new FakeLogger();
+
     public void run() throws Exception
     {
         test_bug270348();
@@ -117,7 +120,7 @@ public class ImportTwiceSlowTest
         StoragePipe pipe = new StoragePipe( storage );
         XMLTVImport imp = new XMLTVImport(  );
         imp.process( is, pipe, null, new XMLTVImport.Filter(  ),
-            StringHelper.EMPTY_STRING );
+            StringHelper.EMPTY_STRING, logger );
 
         // Tell the pipe we have finished - flush to file.  (This is needed
         // trigger the bug - if it's all within the same download you will
@@ -128,7 +131,7 @@ public class ImportTwiceSlowTest
         is = new ByteArrayInputStream(
             secondXML.getBytes( "utf-8" ) );
         imp.process( is, pipe, null, new XMLTVImport.Filter(  ),
-            StringHelper.EMPTY_STRING );
+            StringHelper.EMPTY_STRING, logger );
 
         // Again, tell the pipe we have finished so we flush to file.
         pipe.finish();

@@ -24,6 +24,7 @@ import freeguide.common.lib.importexport.XMLTVImport.Filter;
 import freeguide.common.lib.importexport.XMLTVImport.ProgrammesCountCallback;
 import freeguide.common.plugininterfaces.IStoragePipe;
 
+import freeguide.test.FakeLogger;
 import freeguide.test.FreeGuideTest;
 
 public class ImportSlowTest
@@ -248,9 +249,10 @@ public class ImportSlowTest
         FakeStoragePipe storage = new FakeStoragePipe();
         FakeProgCountCallBack countCallback = new FakeProgCountCallBack();
         Filter filter = new Filter();
+        FakeLogger logger = new FakeLogger();
 
         XMLTVImport imp = new XMLTVImport();
-        imp.process( allBytesIStream, storage, countCallback, filter, "c.p." );
+        imp.process( allBytesIStream, storage, countCallback, filter, "c.p.", logger );
     }
 
     private void test_ValidISO88591()
@@ -318,9 +320,10 @@ public class ImportSlowTest
         FakeStoragePipe storage = new FakeStoragePipe();
         FakeProgCountCallBack countCallback = new FakeProgCountCallBack();
         Filter filter = new Filter();
+        FakeLogger logger = new FakeLogger();
 
         XMLTVImport imp = new XMLTVImport();
-        imp.process( allBytesIStream, storage, countCallback, filter, "c.p." );
+        imp.process( allBytesIStream, storage, countCallback, filter, "c.p.", logger );
 
         // Check that it looks as we expect
         TVProgramme prog = storage.progs.get(0);

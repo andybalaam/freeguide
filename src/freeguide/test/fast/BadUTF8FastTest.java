@@ -4,11 +4,14 @@ import java.io.ByteArrayInputStream;
 
 import freeguide.common.lib.general.BadUTF8FilterInputStream;
 import freeguide.common.lib.general.IsUTF8StreamChecker;
+import freeguide.common.plugininterfaces.ILogger;
 
+import freeguide.test.FakeLogger;
 import freeguide.test.FreeGuideTest;
 
 public class BadUTF8FastTest
 {
+    private FakeLogger logger = new FakeLogger();
 
     public BadUTF8FastTest()
     {
@@ -50,7 +53,7 @@ public class BadUTF8FastTest
     {
         byte[] inbytes = { 116 };
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
-        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream, logger );
 
         byte[] readbytes = new byte[inbytes.length];
         filterstream.read( readbytes, 0, inbytes.length );
@@ -65,7 +68,7 @@ public class BadUTF8FastTest
         // A good 3-byte character
         byte[] inbytes = { (byte)0xe4, (byte)0x80, (byte)0x81 };
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
-        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream, logger );
 
         byte[] readbytes = new byte[inbytes.length];
         filterstream.read( readbytes, 0, inbytes.length );
@@ -82,7 +85,7 @@ public class BadUTF8FastTest
         // A good 3-byte character
         byte[] inbytes = { (byte)0xe4, (byte)0x80, (byte)0x81 };
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
-        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream, logger );
 
         byte[] readbytes = new byte[inbytes.length];
         filterstream.read( readbytes, 0, 1 );
@@ -100,7 +103,7 @@ public class BadUTF8FastTest
         // A good 3-byte character
         byte[] inbytes = { (byte)0xe4, (byte)0x80, (byte)0x81 };
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
-        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream, logger );
 
         byte[] readbytes = new byte[inbytes.length];
         filterstream.read( readbytes, 0, 2 );
@@ -118,7 +121,7 @@ public class BadUTF8FastTest
         // A good 3-byte character
         byte[] inbytes = { (byte)0xe4, (byte)0x80, (byte)0x81 };
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
-        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream, logger );
 
         byte[] readbytes = new byte[inbytes.length];
         filterstream.read( readbytes, 0, 1 );
@@ -136,7 +139,7 @@ public class BadUTF8FastTest
     {
         byte[] inbytes = { (byte)0x81 };
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
-        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream, logger );
 
         byte[] readbytes = new byte[inbytes.length];
         filterstream.read( readbytes, 0, inbytes.length );
@@ -154,7 +157,7 @@ public class BadUTF8FastTest
 
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
         BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream(
-            stream );
+            stream, logger );
 
         byte[] readbytes = new byte[inbytes.length];
         filterstream.read( readbytes, 0, inbytes.length );
@@ -170,7 +173,7 @@ public class BadUTF8FastTest
         byte[] inbytes = { (byte)0xc2, (byte)0x24 };
 
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
-        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream, logger );
 
         byte[] readbytes = new byte[inbytes.length];
         filterstream.read( readbytes, 0, inbytes.length );
@@ -206,7 +209,7 @@ public class BadUTF8FastTest
 
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
         BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream(
-            stream );
+            stream, logger );
 
         // Read in 2 parts just to check that works too
         byte[] readbytes = new byte[inbytes.length];
@@ -232,7 +235,7 @@ public class BadUTF8FastTest
 
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
         BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream(
-            stream );
+            stream, logger );
 
         // Read in 2 parts, with the split in the middle of the
         // invalid multi-byte character
@@ -267,7 +270,7 @@ public class BadUTF8FastTest
 
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
         BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream(
-            stream );
+            stream, logger );
 
         // Read in 2 parts with the split immediately after the character
         byte[] readbytes = new byte[inbytes.length];
@@ -298,7 +301,7 @@ public class BadUTF8FastTest
 
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
         BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream(
-            stream );
+            stream, logger );
 
         // Read in 3 parts just to check that works too
         byte[] readbytes = new byte[inbytes.length];
@@ -334,7 +337,7 @@ public class BadUTF8FastTest
             // ">???<"
 
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
-        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream, logger );
 
         byte[] readbytes = new byte[inbytes.length];
         filterstream.read( readbytes, 0, inbytes.length );
@@ -356,7 +359,7 @@ public class BadUTF8FastTest
             // ">???<"
 
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
-        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream );
+        BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream( stream, logger );
 
         byte[] readbytes = new byte[inbytes.length];
         filterstream.read( readbytes, 0, inbytes.length );
@@ -387,7 +390,7 @@ public class BadUTF8FastTest
 
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
         BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream(
-            stream );
+            stream, logger );
 
         byte[] readbytes = new byte[inbytes.length];
         filterstream.read( readbytes, 0, inbytes.length );
@@ -550,7 +553,7 @@ public class BadUTF8FastTest
 
         ByteArrayInputStream stream = new ByteArrayInputStream( inbytes );
         BadUTF8FilterInputStream filterstream = new BadUTF8FilterInputStream(
-            stream );
+            stream, logger );
 
         FreeGuideTest.my_assert( filterstream.TESTING_ONLY_isUTF8Stream() );
 

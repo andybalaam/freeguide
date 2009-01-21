@@ -16,6 +16,7 @@ import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.PreferencesHelper;
 import freeguide.common.lib.general.Version;
 
+import freeguide.common.plugininterfaces.FGLogger;
 import freeguide.common.plugininterfaces.IApplication;
 import freeguide.common.plugininterfaces.IModuleImport;
 import freeguide.common.plugininterfaces.IModuleStorage;
@@ -361,7 +362,8 @@ public class FreeGuide
             for( int i = 0; i < xmltvFiles.length; i++ )
             {
                 final StoragePipe pipe = new StoragePipe(  );
-                xmltvHandler.importData( xmltvFiles[i], pipe );
+                xmltvHandler.importData( xmltvFiles[i], pipe,
+                    new FGLogger( log ) );
                 pipe.finish(  );
                 xmltvFiles[i].delete(  );
             }

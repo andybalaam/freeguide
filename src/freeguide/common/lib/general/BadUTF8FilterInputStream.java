@@ -4,16 +4,20 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import freeguide.common.plugininterfaces.ILogger;
+
 public class BadUTF8FilterInputStream extends FilterInputStream
 {
     private int bytes_left = 0;
     private int bytes_read = 0;
+    private ILogger logger;
 
     private IsUTF8StreamChecker checker = new IsUTF8StreamChecker();
 
-    public BadUTF8FilterInputStream( InputStream arg0 )
+    public BadUTF8FilterInputStream( InputStream arg0, ILogger logger )
     {
         super( arg0 );
+        this.logger = logger;
     }
 
     public int read() throws IOException
@@ -42,6 +46,12 @@ public class BadUTF8FilterInputStream extends FilterInputStream
         }
 
         return ret;
+    }
+
+    private void warnRemovingCharacter( byte byteRemoved )
+    {
+        logger.warning( "Removing bad utf-8 character: " +
+            Integer.toHexString( byteRemoved & 0xff ) );
     }
 
     private void doRead( byte[] bytes, int off, int ret )
@@ -81,8 +91,8 @@ public class BadUTF8FilterInputStream extends FilterInputStream
                          bt == (byte)0xc1 )
                         // invalid byte since c0 and c1 are not allowed
                 {
+                    warnRemovingCharacter( bt );
                     bytes[i] = 63; // ? character
-                    // TODO: log if you do this
                 }
                 else if( (byte)( bt & (byte)0xc0 ) == (byte)0xc0 )
                     // start of 2 byte sequence 110.....
@@ -93,8 +103,8 @@ public class BadUTF8FilterInputStream extends FilterInputStream
                 else if( (byte)( bt & (byte)0x80 ) == (byte)0x80 )
                     // invalid byte (starts with 10)
                 {
+                    warnRemovingCharacter( bt );
                     bytes[i] = 63; // ? character
-                    // TODO: log if you do this
                 }
             }
             else
@@ -112,14 +122,14 @@ public class BadUTF8FilterInputStream extends FilterInputStream
                         // so the whole sequence will be valid UTF-8,
                         // but we may have wiped out characters we
                         // needed.  Nothing we can do about it.
+                        warnRemovingCharacter( bt );
                         bytes[i] = (byte)0x80;  // A valid 2nd, 3rd etc. byte
-                        // TODO: log if you do this
                     }
                     else
                     {
                         i = starti;
+                        warnRemovingCharacter( bytes[i] );
                         bytes[i] = 63; // ? character
-                        // TODO: log if you do this
                         bytes_left = 1;
                     }
                 }

@@ -17,7 +17,8 @@ public interface IModuleImport extends IModule
      * @param parent
      * @param storage DOCUMENT ME!
      */
-    void importDataUI( final JFrame parent, final IStoragePipe storage );
+    void importDataUI( final JFrame parent, final IStoragePipe storage,
+        ILogger logger );
 
     /**
      * Load data from file.
@@ -27,6 +28,7 @@ public interface IModuleImport extends IModule
      *
      * @throws Exception
      */
-    void importData( final File path, final IStoragePipe storage )
+    void importData( final File path, final IStoragePipe storage,
+        ILogger logger )
         throws Exception;
 }

@@ -4,6 +4,7 @@ import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.BadUTF8FilterInputStream;
 
+import freeguide.common.plugininterfaces.ILogger;
 import freeguide.common.plugininterfaces.IStoragePipe;
 
 import org.xml.sax.InputSource;
@@ -61,7 +62,7 @@ public class XMLTVImport
     public int process( 
         File file, final IStoragePipe storage,
         final ProgrammesCountCallback countCallback, Filter filter,
-        final String channelPrefix ) throws SAXException, IOException
+        final String channelPrefix, ILogger logger ) throws SAXException, IOException
     {
         XMLTVImportHandler handler =
             new XMLTVImportHandler( 
@@ -69,7 +70,7 @@ public class XMLTVImport
         InputSource ins =
             new InputSource(
                 new BadUTF8FilterInputStream(
-                new BufferedInputStream( new FileInputStream( file ) ) ) );
+                new BufferedInputStream( new FileInputStream( file ) ), logger ) );
         ins.setSystemId( file.toURI(  ).toURL(  ).toString(  ) );
         saxParser.parse( ins, handler );
         
@@ -92,13 +93,14 @@ public class XMLTVImport
     public int process( 
         InputStream in, final IStoragePipe storage,
         final ProgrammesCountCallback countCallback, Filter filter,
-        final String channelPrefix )
+        final String channelPrefix, ILogger logger )
         throws SAXException, IOException, ParserConfigurationException
     {
         XMLTVImportHandler handler =
             new XMLTVImportHandler( 
                 storage, countCallback, filter, channelPrefix );
-        InputSource ins = new InputSource( new BadUTF8FilterInputStream( in ) );
+        InputSource ins = new InputSource( new BadUTF8FilterInputStream( in,
+            logger ) );
         ins.setSystemId( SYSTEM_ID );
         saxParser.parse( ins, handler );
         storage.finishBlock(  );

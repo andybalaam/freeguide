@@ -9,6 +9,7 @@ import freeguide.common.lib.general.EndianInputStream;
 import freeguide.common.lib.general.EndianOutputByteArray;
 
 import freeguide.common.plugininterfaces.BaseModule;
+import freeguide.common.plugininterfaces.ILogger;
 import freeguide.common.plugininterfaces.IModuleExport;
 import freeguide.common.plugininterfaces.IModuleImport;
 import freeguide.common.plugininterfaces.IStoragePipe;
@@ -60,7 +61,8 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
      * @param parent DOCUMENT_ME!
      * @param storage DOCUMENT ME!
      */
-    public void importDataUI( JFrame parent, final IStoragePipe storage )
+    public void importDataUI( JFrame parent, final IStoragePipe storage,
+        ILogger logger )
     {
         JFileChooser chooser = new JFileChooser(  );
         chooser.setFileFilter( 
@@ -125,7 +127,8 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public void importData( File path, final IStoragePipe storage )
+    public void importData( File path, final IStoragePipe storage,
+        ILogger logger )
         throws Exception
     {
         loadFromFile( path.getPath(  ), storage );

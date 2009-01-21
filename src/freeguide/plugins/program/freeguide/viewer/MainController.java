@@ -501,7 +501,8 @@ public class MainController extends BaseModule implements IApplication
                 public void run(  )
                 {
                     final StoragePipe pipe = new StoragePipe(  );
-                    imp.importDataUI( mainFrame, pipe );
+                    imp.importDataUI( mainFrame, pipe,
+                        new FGLogger( FreeGuide.log ) );
                     pipe.finish(  );
                     viewer.onDataChanged(  );
                 }

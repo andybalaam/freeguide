@@ -8,6 +8,7 @@ import freeguide.common.lib.importexport.XMLTVExport;
 import freeguide.common.lib.importexport.XMLTVImport;
 
 import freeguide.common.plugininterfaces.BaseModule;
+import freeguide.common.plugininterfaces.ILogger;
 import freeguide.common.plugininterfaces.IModuleExport;
 import freeguide.common.plugininterfaces.IModuleImport;
 import freeguide.common.plugininterfaces.IStoragePipe;
@@ -49,7 +50,8 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
      * @param parent DOCUMENT_ME!
      * @param storage DOCUMENT ME!
      */
-    public void importDataUI( final JFrame parent, final IStoragePipe storage )
+    public void importDataUI( final JFrame parent, final IStoragePipe storage,
+        ILogger logger )
     {
         JFileChooser chooser = new JFileChooser(  );
         chooser.setFileFilter( 
@@ -86,7 +88,7 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
                             imp.process( 
                                 files[i], storage, null,
                                 new XMLTVImport.Filter(  ),
-                                StringHelper.EMPTY_STRING );
+                                StringHelper.EMPTY_STRING, logger );
                         }
                         catch( IOException e )
                         {
@@ -114,12 +116,13 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public void importData( final File file, final IStoragePipe storage )
-        throws Exception
+    public void importData( final File file, final IStoragePipe storage,
+        ILogger logger )
+    throws Exception
     {
         new XMLTVImport(  ).process( 
             file, storage, null, new XMLTVImport.Filter(  ),
-            StringHelper.EMPTY_STRING );
+            StringHelper.EMPTY_STRING, logger );
     }
 
     /**
