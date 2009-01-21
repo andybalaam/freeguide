@@ -5,7 +5,9 @@
 
 ;--------------------------------
 
-!cd ..\..\..
+!include "MUI.nsh"
+
+!cd ../../..
 !system "mkdir dist"
 !system "mkdir dist\exe"
 
@@ -21,10 +23,63 @@ InstallDir $PROGRAMFILES\FreeGuide
 ;--------------------------------
 XPStyle on
 
-LoadLanguageFile "${NSISDIR}\Contrib\Language Files\English.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language Files\Belarusian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language Files\French.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language Files\German.nlf"
+!insertmacro MUI_LANGUAGE "English"
+!insertmacro MUI_LANGUAGE "Afrikaans"
+!insertmacro MUI_LANGUAGE "Albanian"
+!insertmacro MUI_LANGUAGE "Arabic"
+!insertmacro MUI_LANGUAGE "Basque"
+!insertmacro MUI_LANGUAGE "Belarusian"
+!insertmacro MUI_LANGUAGE "Bosnian"
+!insertmacro MUI_LANGUAGE "Breton"
+!insertmacro MUI_LANGUAGE "Bulgarian"
+!insertmacro MUI_LANGUAGE "Catalan"
+!insertmacro MUI_LANGUAGE "Croatian"
+!insertmacro MUI_LANGUAGE "Czech"
+!insertmacro MUI_LANGUAGE "Danish"
+!insertmacro MUI_LANGUAGE "Dutch"
+!insertmacro MUI_LANGUAGE "Estonian"
+!insertmacro MUI_LANGUAGE "Farsi"
+!insertmacro MUI_LANGUAGE "Finnish"
+!insertmacro MUI_LANGUAGE "French"
+!insertmacro MUI_LANGUAGE "Galician"
+!insertmacro MUI_LANGUAGE "German"
+!insertmacro MUI_LANGUAGE "Greek"
+!insertmacro MUI_LANGUAGE "Hebrew"
+!insertmacro MUI_LANGUAGE "Hungarian"
+!insertmacro MUI_LANGUAGE "Icelandic"
+!insertmacro MUI_LANGUAGE "Indonesian"
+!insertmacro MUI_LANGUAGE "Irish"
+!insertmacro MUI_LANGUAGE "Italian"
+!insertmacro MUI_LANGUAGE "Japanese"
+!insertmacro MUI_LANGUAGE "Korean"
+!insertmacro MUI_LANGUAGE "Kurdish"
+!insertmacro MUI_LANGUAGE "Latvian"
+!insertmacro MUI_LANGUAGE "Lithuanian"
+!insertmacro MUI_LANGUAGE "Luxembourgish"
+!insertmacro MUI_LANGUAGE "Macedonian"
+!insertmacro MUI_LANGUAGE "Malay"
+!insertmacro MUI_LANGUAGE "Mongolian"
+!insertmacro MUI_LANGUAGE "Norwegian"
+!insertmacro MUI_LANGUAGE "NorwegianNynorsk"
+!insertmacro MUI_LANGUAGE "Polish"
+!insertmacro MUI_LANGUAGE "PortugueseBR"
+!insertmacro MUI_LANGUAGE "Portuguese"
+!insertmacro MUI_LANGUAGE "Romanian"
+!insertmacro MUI_LANGUAGE "Russian"
+!insertmacro MUI_LANGUAGE "SerbianLatin"
+!insertmacro MUI_LANGUAGE "Serbian"
+!insertmacro MUI_LANGUAGE "SimpChinese"
+!insertmacro MUI_LANGUAGE "Slovak"
+!insertmacro MUI_LANGUAGE "Slovenian"
+!insertmacro MUI_LANGUAGE "SpanishInternational"
+!insertmacro MUI_LANGUAGE "Spanish"
+!insertmacro MUI_LANGUAGE "Swedish"
+!insertmacro MUI_LANGUAGE "Thai"
+!insertmacro MUI_LANGUAGE "TradChinese"
+!insertmacro MUI_LANGUAGE "Turkish"
+!insertmacro MUI_LANGUAGE "Ukrainian"
+!insertmacro MUI_LANGUAGE "Uzbek"
+!insertmacro MUI_LANGUAGE "Welsh"
 
 Var JAVA_PATH
 
@@ -42,23 +97,8 @@ Function .onInit
         Abort
     GoLabel:
 
-    ;Language selection dialog
-    Push ""
-    Push ${LANG_ENGLISH}
-    Push English
-    Push ${LANG_BELARUSIAN}
-    Push Belarusian
-    Push ${LANG_FRENCH}
-    Push French
-    Push ${LANG_GERMAN}
-    Push German
-    Push A ; A means auto count languages
-           ; for the auto count to work the first empty push (Push "") must remain
-    LangDLL::LangDialog "Installer Language" "Please select the language of the installer"
+    !insertmacro MUI_LANGDLL_DISPLAY
 
-    Pop $LANGUAGE
-    StrCmp $LANGUAGE "cancel" 0 +2
-        Abort
 FunctionEnd
 
 Function DetectJRE
