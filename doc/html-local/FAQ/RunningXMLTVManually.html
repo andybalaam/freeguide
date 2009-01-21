@@ -2,7 +2,7 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-  <title>FreeGuide : Diagnosing Problems </title>
+  <title>FreeGuide : Running XMLTV Manually </title>
   <meta http-equiv='Content-Style-Type' content='text/css' />
   <link rel='stylesheet' href='../pub/skins/plain-freeguide/plain1.css' type='text/css' />
   <link rel="icon" href="../pub/skins/plain-freeguide/favicon.gif" type="image/x-icon" />
@@ -42,8 +42,8 @@ a.varlink { text-decoration:none; }
  <table id='wikihead' cellspacing='0' cellpadding='0' align='center'><tr>
   <td id='homelink'><img src='../pub/skins/plain-freeguide/favicon.gif' /> <a href='http://www.artificialworlds.net/freeguide'>FreeGuide</a></td>
   <td id='location'><span class='pagegroup'><a href='FAQ.html'>FAQ</a> &raquo;</span>
-  <h1 class='pagetitle'>Diagnosing Problems</h1></td>
-  <td id='wikicmds'><ul><li class='browse'><a accesskey=''  class='selflink' href='DiagnosingProblems.html'>View</a>
+  <h1 class='pagetitle'>Running XMLTV Manually</h1></td>
+  <td id='wikicmds'><ul><li class='browse'><a accesskey=''  class='selflink' href='RunningXMLTVManually.html'>View</a>
 </li><li class='edit'>
 </li><li class='diff'>
 </li><li class='print'>
@@ -55,7 +55,7 @@ a.varlink { text-decoration:none; }
 <!--PageLeftFmt-->
    <td id='wikileft' valign='top'>
     <p><form action='http://www.artificialworlds.net/freeguide'>
-     <input type='hidden' name='n' value='FAQ.DiagnosingProblems' />
+     <input type='hidden' name='n' value='FAQ.RunningXMLTVManually' />
      <input type='hidden' name='action' value='search' />
      <input type='text' name='q' value=' Search ' class='inputbox searchbox'
       onfocus="if(this.value=' Search ') {this.value=''}" 
@@ -78,31 +78,27 @@ a.varlink { text-decoration:none; }
     <td id='wikibody' valign='top'>
 <!--PageText-->
 <div id='wikitext'>
-<h1>Something is going wrong - how can I help to diagnose the problem?</h1>
-<p>If <span class='wikiword'>FreeGuide</span> is not working or acting strangely, you should contact the developers (see <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a>).
+<p>If you are having trouble downloading listings into <span class='wikiword'>FreeGuide</span>, or if you prefer to download listings when you are not at your computer, you may want to download the listings manually or via a script.
 </p>
-<p class='vspace'>When you do contact the mailing lists, it would be useful to know various pieces of information.  You should find out:
+<p class='vspace'>In order to do this, you will need to find the command that <span class='wikiword'>FreeGuide</span> uses to run XMLTV.  The easiest way to do this is to launch a download, and then click on the "Show Output" button:
 </p>
-<div class='vspace'></div><ul><li>Your operating system (e.g Windows XP)
-</li><li>The version of Java you are using (e.g. jre 1.4.2)
-</li><li>The version of <span class='wikiword'>FreeGuide</span> (e.g. <span class='wikiword'>FreeGuide</span> 0.10.7)
-</li></ul><p class='vspace'>Linux users should also check their XMLTV version.
+<div class='vspace'></div><div><img src='../uploads/FAQ/ShowOutput.png' alt='' title='' /></div>
+<p class='vspace'>and then copy the command after where it says "Running Command":
 </p>
-<p class='vspace'>If you are having problems downloading, the first useful piece of information is the contents of the <strong>Show details</strong> window in the download window. Copy and paste the information from there into your email.
+<div class='vspace'></div><div><img src='../uploads/FAQ/CopyXMLTVCommand.png' alt='' title='' /></div>
+<p class='vspace'>(On Windows, this will look something like <strong>"C:\Documents and Settings\Paul\.freeguide\xmltv/xmltv.exe" tv_grab_uk_rt --quiet --config-file "C:\Documents and Settings\Paul\.freeguide\xmltv-configs\uk_rt.conf"</strong>)
 </p>
-<p class='vspace'>If you are having more complex problems, the developers may ask you to try running <span class='wikiword'>FreeGuide</span> from within a DOS or Cmd Window. Here is how to do that in Windows:
+<p class='vspace'>Open a DOS/Cmd or terminal window, and type or paste in the command.  For example:
 </p>
-<p class='vspace'>From the <strong>Start</strong> menu choose <strong>Programs</strong>, <strong>Accessories</strong> and click <strong>Cmd Window</strong> or <strong>DOS Window</strong>.
+<p class='vspace'><code class='escaped'>"C:\Documents and Settings\Paul\.freeguide\xmltv/xmltv.exe" tv_grab_uk_rt --quiet --config-file "C:\Documents and Settings\Paul\.freeguide\xmltv-configs\uk_rt.conf"</code>
 </p>
-<p class='vspace'>Now type the following 2 lines:
+<p class='vspace'>Before you press RETURN, you should probably remove the "--quiet" part if it's there (this will mean you can see more error messages), and you should add this at the end: <strong>&gt; tv.xmltv</strong>.  So your full command in our example would look like this:
 </p>
-<p class='vspace'><code class='escaped'>cd "C:\Program Files\FreeGuide"</code> <span style='font-size:83%'><em>&lt;PRESS RETURN&gt;</em></span>
+<p class='vspace'><code class='escaped'>"C:\Documents and Settings\Paul\.freeguide\xmltv/xmltv.exe" tv_grab_uk_rt --config-file "C:\Documents and Settings\Paul\.freeguide\xmltv-configs\uk_rt.conf" &gt; tv.xmltv</code>
 </p>
-<p class='vspace'><code class='escaped'>run.cmd &gt; log.txt</code> <span style='font-size:83%'><em>&lt;PRESS RETURN&gt;</em></span>
+<p class='vspace'>Now press RETURN and see what happens.  If all goes well, a new file will be created called tv.xmltv with the listings in.  If not, you should see some useful error messages.
 </p>
-<p class='vspace'>Now copy and paste the contents of C:\Program Files\<span class='wikiword'>FreeGuide</span>\log.txt into an email, remembering to CC the mailing list you first sent your message to.
-</p>
-<p class='vspace'>A further thing to try would be <a class='wikilink' href='RunningXMLTVManually.html'>Running XMLTV Manually</a>.
+<p class='vspace'>If you want to import the listings into <span class='wikiword'>FreeGuide</span> next time it starts, simply move the file tv.xmltv into the <strong>.freeguide</strong> directory in your home directory.  NOTE: the file will be deleted once it has been imported.
 </p>
 </div>
 
@@ -112,7 +108,7 @@ a.varlink { text-decoration:none; }
  <table id='wikifoot' cellspacing='0' cellpadding='0' align='center'>
  <tr><td class='passwordlink' colspan='2'>If you would like to help improve this site, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we will give you the password to edit pages.</td></tr>
  <tr>
-  <td class='lastmod'>Page last modified on October 23, 2008 &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
+  <td class='lastmod'>Page last modified on October 20, 2008 &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
   <td class='footnav'><div  style='text-align: right;' > 
 <p> -
  -
