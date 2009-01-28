@@ -10,7 +10,6 @@ import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-import freeguide.common.lib.general.StringHelper;
 import freeguide.common.lib.importexport.XMLTVImport;
 import freeguide.common.plugininterfaces.IModuleStorage;
 import freeguide.plugins.program.freeguide.lib.fgspecific.StoragePipe;
@@ -120,7 +119,7 @@ public class ImportTwiceSlowTest
         StoragePipe pipe = new StoragePipe( storage );
         XMLTVImport imp = new XMLTVImport(  );
         imp.process( is, pipe, null, new XMLTVImport.Filter(  ),
-            StringHelper.EMPTY_STRING, logger );
+            logger );
 
         // Tell the pipe we have finished - flush to file.  (This is needed
         // trigger the bug - if it's all within the same download you will
@@ -131,7 +130,7 @@ public class ImportTwiceSlowTest
         is = new ByteArrayInputStream(
             secondXML.getBytes( "utf-8" ) );
         imp.process( is, pipe, null, new XMLTVImport.Filter(  ),
-            StringHelper.EMPTY_STRING, logger );
+            logger );
 
         // Again, tell the pipe we have finished so we flush to file.
         pipe.finish();
@@ -140,7 +139,7 @@ public class ImportTwiceSlowTest
         // object to say what time and channel we are interested in.
         IModuleStorage.Info infoAllDates = new IModuleStorage.Info();
         infoAllDates.channelsList.add( new TVChannelsSet.Channel(
-            "I16318.labs.zap2it.com", "My Channel" ) );
+            "xmltv/I16318.labs.zap2it.com", "My Channel" ) );
 
         SimpleDateFormat fmt = new SimpleDateFormat( "yyyyMMddHHmmss Z" );
 
@@ -151,7 +150,7 @@ public class ImportTwiceSlowTest
         TVData data = storage.get( infoAllDates );
 
         // And now we get the channel we need out of the loaded data.
-        TVChannel channel = data.get( "I16318.labs.zap2it.com" );
+        TVChannel channel = data.get( "xmltv/I16318.labs.zap2it.com" );
 
         // There should be 2 programmes - the 2 new ones.  The old ones
         // should be gone.

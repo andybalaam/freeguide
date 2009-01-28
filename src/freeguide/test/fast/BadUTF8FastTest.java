@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 
 import freeguide.common.lib.general.BadUTF8FilterInputStream;
 import freeguide.common.lib.general.IsUTF8StreamChecker;
-import freeguide.common.plugininterfaces.ILogger;
 
 import freeguide.test.FakeLogger;
 import freeguide.test.FreeGuideTest;

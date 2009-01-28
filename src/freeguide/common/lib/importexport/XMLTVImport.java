@@ -52,8 +52,6 @@ public class XMLTVImport
      * @param storage DOCUMENT_ME!
      * @param countCallback DOCUMENT ME!
      * @param filter DOCUMENT_ME!
-     * @param channelPrefix DOCUMENT ME!
-     *
      * @return the number of programmes processed
      *
      * @throws SAXException DOCUMENT_ME!
@@ -62,11 +60,11 @@ public class XMLTVImport
     public int process( 
         File file, final IStoragePipe storage,
         final ProgrammesCountCallback countCallback, Filter filter,
-        final String channelPrefix, ILogger logger ) throws SAXException, IOException
+        ILogger logger ) throws SAXException, IOException
     {
         XMLTVImportHandler handler =
             new XMLTVImportHandler( 
-                storage, countCallback, filter, channelPrefix );
+                storage, countCallback, filter );
         InputSource ins =
             new InputSource(
                 new BadUTF8FilterInputStream(
@@ -84,8 +82,6 @@ public class XMLTVImport
      * @param storage DOCUMENT ME!
      * @param filter DOCUMENT_ME!
      * @param filter DOCUMENT_ME!
-     * @param channelPrefix DOCUMENT ME!
-     *
      * @throws SAXException DOCUMENT_ME!
      * @throws IOException DOCUMENT_ME!
      * @throws ParserConfigurationException DOCUMENT_ME!
@@ -93,12 +89,12 @@ public class XMLTVImport
     public int process( 
         InputStream in, final IStoragePipe storage,
         final ProgrammesCountCallback countCallback, Filter filter,
-        final String channelPrefix, ILogger logger )
+        ILogger logger )
         throws SAXException, IOException, ParserConfigurationException
     {
         XMLTVImportHandler handler =
             new XMLTVImportHandler( 
-                storage, countCallback, filter, channelPrefix );
+                storage, countCallback, filter );
         InputSource ins = new InputSource( new BadUTF8FilterInputStream( in,
             logger ) );
         ins.setSystemId( SYSTEM_ID );

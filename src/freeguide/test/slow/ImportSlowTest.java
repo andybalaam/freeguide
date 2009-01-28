@@ -102,7 +102,7 @@ public class ImportSlowTest
     throws SAXException, IOException, MyAssertFailureException
     {
         ArrayList<TVChannel> expectedChannels = new ArrayList<TVChannel>();
-        expectedChannels.add( new TVChannel( "c.p.ct1_sk", "CT1" ) );
+        expectedChannels.add( new TVChannel( "xmltv/ct1_sk", "CT1" ) );
         parseString(
             "<tv>\n" +
             "   <channel id=\"ct1_sk\">\n" +
@@ -118,8 +118,8 @@ public class ImportSlowTest
     throws SAXException, IOException, MyAssertFailureException
     {
         ArrayList<TVChannel> expectedChannels = new ArrayList<TVChannel>();
-        expectedChannels.add( new TVChannel( "c.p.abc1.disney.com", "ABC1" ) );
-        expectedChannels.add( new TVChannel( "c.p.arydigital.tv", "ARY Digital" ) );
+        expectedChannels.add( new TVChannel( "xmltv/abc1.disney.com", "ABC1" ) );
+        expectedChannels.add( new TVChannel( "xmltv/arydigital.tv", "ARY Digital" ) );
         parseString(
             "<tv source-info-name=\"Radio Times\" " +
             "generator-info-name=\"XMLTV\" "+
@@ -142,7 +142,7 @@ public class ImportSlowTest
     throws SAXException, IOException, MyAssertFailureException
     {
         ArrayList<TVChannel> expectedChannels = new ArrayList<TVChannel>();
-        expectedChannels.add( new TVChannel( "c.p.ct1_sk", "ABC1" ) );
+        expectedChannels.add( new TVChannel( "xmltv/ct1_sk", "ABC1" ) );
         parseString(
             "<tv>\n" +
             "   <channel id=\"ct1_sk\">\n" +
@@ -172,7 +172,7 @@ public class ImportSlowTest
     throws SAXException, IOException, MyAssertFailureException
     {
         ArrayList<TVChannel> expectedChannels = new ArrayList<TVChannel>();
-        expectedChannels.add( new TVChannel( "c.p.ct1_sk", "ABC1" ) );
+        expectedChannels.add( new TVChannel( "xmltv/ct1_sk", "ABC1" ) );
         parseString(
             "<tv>\n" +
             "   <channel id=\"ct1_sk\">\n" +
@@ -252,7 +252,7 @@ public class ImportSlowTest
         FakeLogger logger = new FakeLogger();
 
         XMLTVImport imp = new XMLTVImport();
-        imp.process( allBytesIStream, storage, countCallback, filter, "c.p.", logger );
+        imp.process( allBytesIStream, storage, countCallback, filter, logger );
     }
 
     private void test_ValidISO88591()
@@ -323,7 +323,7 @@ public class ImportSlowTest
         FakeLogger logger = new FakeLogger();
 
         XMLTVImport imp = new XMLTVImport();
-        imp.process( allBytesIStream, storage, countCallback, filter, "c.p.", logger );
+        imp.process( allBytesIStream, storage, countCallback, filter, logger );
 
         // Check that it looks as we expect
         TVProgramme prog = storage.progs.get(0);
@@ -342,7 +342,7 @@ public class ImportSlowTest
 
         XMLTVImportHandler handler =
             new XMLTVImportHandler(
-                storage, countCallback, filter, "c.p." );
+                storage, countCallback, filter );
         InputSource inputSource = new InputSource( new StringReader( xmlToParse ) );
 
         saxParser.parse( inputSource, handler );

@@ -35,7 +35,7 @@ public class XMLTVImportHandler extends DefaultHandler
     final protected IStoragePipe storage;
     final protected XMLTVImport.ProgrammesCountCallback countCallback;
     final protected XMLTVImport.Filter filter;
-    final protected String channelPrefix;
+    static final protected String channelPrefix = "xmltv/";
     protected String currentSite;
     protected TVProgramme currentProgramme;
     protected TVChannel currentChannel;
@@ -66,18 +66,16 @@ public class XMLTVImportHandler extends DefaultHandler
      * Creates a new Handler object.
      *
      * @param storage variable for store results
-     * @param filter filter
-     * @param channelPrefix DOCUMENT ME!
+ * @param filter filter
      */
     public XMLTVImportHandler( 
         final IStoragePipe storage,
         final XMLTVImport.ProgrammesCountCallback countCallback,
-        final XMLTVImport.Filter filter, final String channelPrefix )
+        final XMLTVImport.Filter filter )
     {
         this.storage = storage;
         this.countCallback = countCallback;
         this.filter = filter;
-        this.channelPrefix = channelPrefix;
     }
 
     /**
