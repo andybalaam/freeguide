@@ -9,11 +9,23 @@ public class FreeGuideTest
     {
         try
         {
+            if( args.length > 0 )
+            {
+                if( args[0].equals( "--slow" ) )
+                {
+                    new ImportPerformanceSlowTest().run();
+                    new ImportTwiceSlowTest().run();
+                    // Disabled since fails from cmd line new DisplayDocsSlowTest().run();
+                }
+                else
+                {
+                    System.err.println( "Unrecognised argument '" + args[0] + "'" );
+                }
+            }
+
             new BadUTF8FastTest().run();
             new TVProgrammeHashCodeFastTest().run();
             new ImportFastTest().run();
-            new ImportTwiceSlowTest().run();
-            // Disabled since fails from cmd line new DisplayDocsSlowTest().run();
 
             System.out.println( "All tests passed." );
         }
