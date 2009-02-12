@@ -1,4 +1,4 @@
-package freeguide.test.slow;
+package freeguide.test.fast;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -26,8 +26,9 @@ import freeguide.common.plugininterfaces.IStoragePipe;
 
 import freeguide.test.FakeLogger;
 import freeguide.test.FreeGuideTest;
+import freeguide.test.MyAssertFailureException;
 
-public class ImportSlowTest
+public class ImportFastTest
 {
     public class FakeProgCountCallBack extends ProgrammesCountCallback
     {
@@ -72,7 +73,7 @@ public class ImportSlowTest
     private SAXParserFactory factory;
     private SAXParser saxParser;
 
-    public ImportSlowTest() throws ParserConfigurationException, SAXException
+    public ImportFastTest() throws ParserConfigurationException, SAXException
     {
         factory = SAXParserFactory.newInstance(  );
         saxParser = factory.newSAXParser(  );

@@ -1,7 +1,7 @@
 /**
  *
  */
-package freeguide.test.slow;
+package freeguide.test;
 
 public class MyAssertFailureException extends Exception
 {

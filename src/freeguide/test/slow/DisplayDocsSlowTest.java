@@ -8,6 +8,7 @@ import freeguide.common.lib.fgspecific.DisplayDocs;
 import freeguide.common.lib.general.IFileOpener;
 
 import freeguide.test.FreeGuideTest;
+import freeguide.test.MyAssertFailureException;
 
 public class DisplayDocsSlowTest
 {

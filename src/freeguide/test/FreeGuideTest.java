@@ -11,7 +11,7 @@ public class FreeGuideTest
         {
             new BadUTF8FastTest().run();
             new TVProgrammeHashCodeFastTest().run();
-            new ImportSlowTest().run();
+            new ImportFastTest().run();
             new ImportTwiceSlowTest().run();
             // Disabled since fails from cmd line new DisplayDocsSlowTest().run();
 
