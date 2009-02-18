@@ -294,7 +294,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         {
             IApplication app = Application.getInstance();
             app.getExecutionController().activate( app,
-                new SingleConfigCommandRunner( parent, moduleInfo.moduleName ),
+                new SingleConfigCommandRunner( parent, moduleInfo ),
                 true );
         }
     }

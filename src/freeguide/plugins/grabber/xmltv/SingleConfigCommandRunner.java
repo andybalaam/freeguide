@@ -5,18 +5,19 @@ import java.util.logging.Level;
 import freeguide.common.plugininterfaces.ILogger;
 import freeguide.common.plugininterfaces.IModuleGrabber;
 import freeguide.common.plugininterfaces.IProgress;
+import freeguide.plugins.grabber.xmltv.XMLTVConfig.ModuleInfo;
 import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.lib.general.ICommandRunner;
 
 public class SingleConfigCommandRunner implements ICommandRunner
 {
     IModuleGrabber grabber;
-    String moduleName;
+    ModuleInfo moduleInfo;
     
-    SingleConfigCommandRunner( IModuleGrabber grabber, String moduleName )
+    SingleConfigCommandRunner( IModuleGrabber grabber, ModuleInfo moduleInfo )
     {
         this.grabber = grabber;
-        this.moduleName = moduleName;
+        this.moduleInfo = moduleInfo;
     }
 
 	public boolean run( IProgress progress, ILogger logger )
@@ -25,7 +26,7 @@ public class SingleConfigCommandRunner implements ICommandRunner
 
 		try
 		{
-            int retCode = grabber.chooseChannelsOne( moduleName, progress, logger );
+            int retCode = grabber.chooseChannelsOne( moduleInfo, progress, logger );
             cmdSucceeded = ( retCode == 0 );
 		}
 		/*catch( ClosedByInterruptException ex )

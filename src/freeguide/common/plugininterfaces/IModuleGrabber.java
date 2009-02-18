@@ -1,5 +1,7 @@
 package freeguide.common.plugininterfaces;
 
+import freeguide.plugins.grabber.xmltv.XMLTVConfig.ModuleInfo;
+
 /**
  * Interface for grabber modules. Each grabber module should implement this
  * interface. Each grabber should be ready to be interrupted by
@@ -48,5 +50,5 @@ public interface IModuleGrabber extends IModule
      */
     void stop(  );
 
-    int chooseChannelsOne( String moduleName, IProgress progress, ILogger logger );
+    int chooseChannelsOne( ModuleInfo moduleInfo, IProgress progress, ILogger logger );
 }

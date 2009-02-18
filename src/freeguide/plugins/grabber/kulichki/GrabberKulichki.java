@@ -11,6 +11,7 @@ import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import freeguide.common.plugininterfaces.IModuleGrabber;
 import freeguide.common.plugininterfaces.IProgress;
 import freeguide.common.plugininterfaces.IStoragePipe;
+import freeguide.plugins.grabber.xmltv.XMLTVConfig.ModuleInfo;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -410,7 +411,7 @@ public class GrabberKulichki extends BaseModule implements IModuleGrabber
         return false;
     }
 
-    public int chooseChannelsOne( String moduleName, IProgress progress, ILogger logger )
+    public int chooseChannelsOne( ModuleInfo moduleInfo, IProgress progress, ILogger logger )
     {
         // No need to choose channels for this grabber
         return -1;

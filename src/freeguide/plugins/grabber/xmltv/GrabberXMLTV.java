@@ -222,33 +222,10 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         return ( code == 0 );
     }
 
-    public int chooseChannelsOne( String moduleName,
+    public int chooseChannelsOne( ModuleInfo moduleInfo,
         IProgress progress, ILogger logger )
     {
-        ModuleInfo moduleInfo = null;
-        Iterator it = config.modules.iterator();
-        while( it.hasNext() )
-        {
-            ModuleInfo tmpModuleInfo = (ModuleInfo)( it.next() );
-            if( tmpModuleInfo.moduleName == moduleName )
-            {
-                moduleInfo = tmpModuleInfo;
-                break;
-            }
-        }
-
-
-        if( moduleInfo != null )
-        {
-            return configureChannelsOne( moduleInfo, progress, logger );
-        }
-        else
-        {
-            Application.getInstance().getLogger().severe(
-                "Unable to find module '" + moduleName + "'." );
-            logger.error( "Unable to find module '" + moduleName + "'." );
-            return -1;
-        }
+        return configureChannelsOne( moduleInfo, progress, logger );
     }
 
     protected int configureChannelsOne(
