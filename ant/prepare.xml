@@ -16,9 +16,7 @@
             source="1.5"
             target="1.5"
             destdir="${build}/buildclasses">
-            <src path="${src}/freeguide/build"/>
-            <src path="${src}/freeguide/plugins/program/freeguide"/>
-            <src path="${src}/freeguide/common"/>
+            <src path="${src}"/>
             <classpath>
                 <fileset dir="${lib}" includes="**/*.jar"/>
             </classpath>
@@ -62,11 +60,4 @@
         </classpath>
     </taskdef>
 
-    <target name="format-sources" depends="prepare">
-    	<jalopy convention="scripts\source_formatting\freeguide-jalopy.xml" encoding="UTF-8" fileformat="UNIX" failOnError="true" loglevel="ERROR">
-    		<fileset dir="src">
-	    		<include name="**/*.java"/>
-    		</fileset>
-    	</jalopy>
-    </target>
 </project>
