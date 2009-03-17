@@ -39,6 +39,7 @@
     <property name="resources"          location="${src}/resources"   />
     <property name="resources-utf8"     location="${src}/resources-utf8"   />
     <property name="doc"                location="doc"                />
+    <property name="install"            location="install"            />
     <property name="lib"                location="lib"                />
     <property name="xmltv"              location="xmltv"              />
     <property name="share"              location="xmltv/share"        />
@@ -50,6 +51,7 @@
     <property name="dist-tgz"           location="${dist}/tgz"        />
     <property name="dist-src"           location="${dist}/src"        />
     <property name="dist-rpm"           location="${dist}/rpm"        />
+    <property name="dist-deb"           location="${dist}/deb"        />
     <property name="dist-webstart"      location="${dist}/webstart"   />
     <property name="dist-exe"           location="${dist}/exe"        />
 
@@ -105,6 +107,9 @@
     <target name="dist-rpm">
         <ant antfile="ant/dist-rpm.xml" />
     </target>
+    <target name="dist-deb">
+        <ant antfile="ant/dist-deb.xml" />
+    </target>
     <target name="dist-tgz">
         <ant antfile="ant/dist-tgz.xml" />
     </target>
@@ -127,10 +132,6 @@
 
     <target name="test">
         <ant antfile="ant/test.xml" />
-    </target>
-
-    <target name="format-sources">
-        <ant antfile="ant/prepare.xml" target="format-sources"/>
     </target>
 
 </project>

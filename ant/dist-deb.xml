@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<project name="freeguide-tv-dist-deb" default="dist-deb">
+
+    <!-- To run this:
+    sudo apt-get install devscripts lintian
+    -->
+
+    <import file="compile.xml"/>
+    <import file="dist-src.xml"/>
+    <import file="plugins-info.xml"/>
+
+    <target name="dist-deb" depends="prepare,dist-src">
+
+        <mkdir dir="${dist-deb}"/>
+
+        <property name="real-tarball-name" value="${application-id}-${application-version}.tar.gz"/>
+
+        <property name="build-deb" value="${build}/install/linux/deb"/>
+        <property name="app-name-ver" value="${application-id}_${application-version}"/>
+
+        <property name="tarball-name-orig" value="${app-name-ver}.orig.tar.gz"/>
+
+        <mkdir dir="${build-deb}"/>
+
+        <copy file="${dist-src}/${real-tarball-name}" tofile="${build-deb}/${tarball-name-orig}"/>
+
+        <gunzip src="${build-deb}/${tarball-name-orig}"/>
+        <untar src="${build-deb}/${app-name-ver}.orig.tar" dest="${build-deb}"/>
+
+        <copy todir="${build-deb}/${app-name-ver}/debian">
+            <fileset dir="${install}/linux/debian"/>
+        </copy>
+
+        <exec dir="${build-deb}" executable="debuild" resolveexecutable="true" failonerror="true"/>
+
+    </target>
+
+</project>
+
+
