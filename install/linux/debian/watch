@@ -1,0 +1,3 @@
+version=3
+http://heanet.dl.sourceforge.net/sourceforge/freeguide-tv/ \
+	freeguide-([0-9.]*)\.tar\.gz debian uupdate

@@ -1,0 +1,40 @@
+#!/usr/bin/make -f
+
+include /usr/share/dpatch/dpatch.make
+
+build: build-stamp
+build-stamp: patch
+	rm -f doc/html-local/README.html
+	rm -f doc/html-local/developers-*.html
+	ant
+	touch $@
+
+install: build
+	dh_prep
+	ant -DDESTDIR=debian/tmp install-linux-destdir
+	rm debian/tmp/usr/share/doc/freeguide/COPYING
+	cp debian/freeguide.xpm debian/tmp/usr/share/pixmaps/
+
+clean: unpatch
+	rm -f build-stamp
+	ant clean
+	dh_clean
+
+binary-indep: install
+	dh_install -i --sourcedir=debian/tmp
+	dh_installchangelogs -i
+	dh_installdocs -i
+	dh_installman -i
+	dh_installmenu -i
+	dh_installdeb -i
+	dh_compress -i
+	dh_fixperms -i
+	dh_gencontrol -i
+	dh_md5sums -i
+	dh_builddeb -i
+
+binary-arch:
+
+binary: binary-indep
+
+.PHONY: build clean install binary-indep binary-arch binary

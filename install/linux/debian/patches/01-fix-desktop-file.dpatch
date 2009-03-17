@@ -1,0 +1,20 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 01-fix-desktop-file.dpatch by Daniel Watkins <daniel@daniel-watkins.co.uk>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Fix the categories in freeguide.desktop and remove the now unnecessary
+## DP: Encoding key.
+
+@DPATCH@
+
+--- freeguide-0.10.7.orig/install/linux/freeguide.desktop
++++ freeguide-0.10.7/install/linux/freeguide.desktop
+@@ -4,7 +4,5 @@
+ GenericName=TV Guide
+-Encoding=UTF-8
+ Type=Application
+-Categories=Application;Utility;Java;AudioVideo;Video;TV
++Categories=Utility;Java;AudioVideo;Video;TV
+ Exec=freeguide
+ Icon=freeguide.png
+-
