@@ -11,13 +11,6 @@
 
     <target name="jars-win" depends="jars-lin, jar-xmltv-win"/>
 
-    <taskdef name="retroweaver" classname="com.rc.retroweaver.ant.RetroWeaverTask">
-        <classpath>
-            <fileset dir="ant/tasks" includes="**/*.jar"/>
-            <pathelement location="retroweaver-all-1.2.5.jar"/>
-        </classpath>
-    </taskdef>
-
     <target name="compile"
         description="Compile all the .java files into the build dir.">
 
@@ -34,7 +27,6 @@
             </classpath>
             <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
           </javac>
-        <retroweaver srcdir="${build}/classes" target="1.4"/>
     </target>
 
     <target name="compile-in-place" depends="prepare"
