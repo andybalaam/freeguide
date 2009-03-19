@@ -12,29 +12,32 @@
 
     <target name="dist-deb" depends="prepare,dist-src">
 
-        <mkdir dir="${dist-deb}"/>
-
-        <property name="real-app-name-ver" value="${application-id}-${application-version}"/>
-        <property name="real-tarball-name" value="${real-app-name-ver}.tar.gz"/>
+        <property name="name-ver" value="${application-id}-${application-version}"/>
+        <property name="name_ver" value="${application-id}_${application-version}"/>
 
         <property name="build-deb" value="${build}/install/linux/deb"/>
         <property name="app-name-ver" value="${application-id}_${application-version}"/>
 
-        <property name="tarball-name-orig" value="${app-name-ver}.orig.tar.gz"/>
-
+        <delete dir="${build-deb}"/>
         <mkdir dir="${build-deb}"/>
 
-        <copy file="${dist-src}/${real-tarball-name}" tofile="${build-deb}/${tarball-name-orig}"/>
+        <copy file="${dist-src}/${name-ver}.tar.gz" tofile="${build-deb}/${name_ver}.orig.tar.gz"/>
 
-        <gunzip src="${build-deb}/${tarball-name-orig}"/>
-        <untar src="${build-deb}/${app-name-ver}.orig.tar" dest="${build-deb}"/>
-        <move file="${build-deb}/${real-app-name-ver}" tofile="${build-deb}/${app-name-ver}"/>
+        <gunzip src="${build-deb}/${name_ver}.orig.tar.gz"/>
+        <untar src="${build-deb}/${name_ver}.orig.tar" dest="${build-deb}"/>
 
-        <copy todir="${build-deb}/${app-name-ver}/debian">
+        <copy todir="${build-deb}/${name-ver}/debian">
             <fileset dir="${install}/linux/debian"/>
         </copy>
 
-        <exec dir="${build-deb}/${app-name-ver}" executable="debuild" resolveexecutable="true" failonerror="true"/>
+        <exec dir="${build-deb}/${name-ver}" executable="debuild" resolveexecutable="true" failonerror="true"/>
+
+        <mkdir dir="${dist-deb}"/>
+        <move todir="${dist-deb}">
+            <fileset dir="${build-deb}">
+                <include name="*.deb"/>
+            </fileset>
+        </move>
 
     </target>
 

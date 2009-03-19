@@ -12,7 +12,7 @@ build-stamp: patch
 install: build
 	dh_prep
 	ant -DDESTDIR=debian/tmp install-linux-destdir
-	rm debian/tmp/usr/share/doc/freeguide/COPYING
+	mkdir -p debian/tmp/usr/share/doc/freeguide
 	cp debian/freeguide.xpm debian/tmp/usr/share/pixmaps/
 
 clean: unpatch

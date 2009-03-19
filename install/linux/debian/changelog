@@ -1,8 +1,9 @@
-freeguide (0.10.10-1) unstable; urgency=low
+freeguide (0.10.10-1.1) unstable; urgency=low
 
+  * Non-maintainer upload
   * New upstream release.
 
- -- Andy Balaam <axis3x3@users.sourceforge.net>  Mon, 16 Mar 2009 21:08:00 +0100
+ -- Andy Balaam <andybalaam@artificialworlds.net>  Mon, 16 Mar 2009 21:08:00 +0100
 
 freeguide (0.10.9-1) unstable; urgency=low
 
