@@ -60,8 +60,7 @@
     </description>
 
     <target name="all" depends="prepare, jars-win" />
-    <target name="dist-all" depends="dist-src,dist-rpm,dist-tgz,dist-install-tgz,dist-exe-lin" />
-    <target name="dist-all-win" depends="dist-src,dist-rpm,dist-tgz,dist-install-tgz,dist-exe" />
+    <target name="dist-all" depends="dist-src,dist-rpm,dist-tgz,dist-install-tgz,dist-exe,dist-deb"/>
 
     <target name="prepare">
         <ant antfile="ant/prepare.xml" />
