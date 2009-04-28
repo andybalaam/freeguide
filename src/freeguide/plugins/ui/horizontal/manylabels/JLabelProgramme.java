@@ -300,6 +300,10 @@ public class JLabelProgramme extends JLabel
 
             }
 
+	    Graphics2D g2d = (Graphics2D) g;
+	    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, // Anti-alias!
+				 RenderingHints.VALUE_ANTIALIAS_ON);
+
             // now we now where, draw the text
             g.drawString( 
                 getText(  ), fontX,
