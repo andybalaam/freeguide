@@ -122,6 +122,8 @@ public class FavouritesListDialog extends JDialog
         if( btnOK == null )
         {
             btnOK = new JButton(  );
+            btnOK.setMinimumSize( new java.awt.Dimension( 87, 26 ) );
+            btnOK.setPreferredSize( new java.awt.Dimension( 87, 26 ) );
             btnOK.setText( 
                 Application.getInstance(  ).getLocalizedMessage( "ok" ) );
         }
@@ -139,6 +141,8 @@ public class FavouritesListDialog extends JDialog
         if( btnCancel == null )
         {
             btnCancel = new JButton(  );
+            btnCancel.setMinimumSize( new java.awt.Dimension( 87, 26 ) );
+            btnCancel.setPreferredSize( new java.awt.Dimension( 87, 26 ) );
             btnCancel.setText( 
                 Application.getInstance(  ).getLocalizedMessage( "cancel" ) );
         }
