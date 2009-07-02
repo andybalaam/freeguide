@@ -619,10 +619,10 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         getContentPane(  ).add( labBlankFields, gridBagConstraints );
-        labTimeFormat = new javax.swing.JLabel( 
+        labTimeFormat = new javax.swing.JLabel( "<html>" +
                 Application.getInstance(  )
                            .getLocalizedMessage( 
-                    "times_should_be_entered_as_hhmm" ),
+                    "times_should_be_entered_as_hhmm" ) + "</html>",
                 javax.swing.SwingConstants.LEFT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 2;
