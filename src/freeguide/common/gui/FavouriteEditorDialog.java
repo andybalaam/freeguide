@@ -581,20 +581,20 @@ public class FavouriteEditorDialog extends FGDialog
         getContentPane(  ).add( labAfter, gridBagConstraints );
         txtAfter = new javax.swing.JTextField(  );
         txtAfter.setMinimumSize( new java.awt.Dimension( 50, 25 ) );
-        txtAfter.setPreferredSize( new java.awt.Dimension( 50, 25 ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
         getContentPane(  ).add( txtAfter, gridBagConstraints );
         txtBefore = new javax.swing.JTextField(  );
         txtBefore.setMinimumSize( new java.awt.Dimension( 50, 25 ) );
-        txtBefore.setPreferredSize( new java.awt.Dimension( 50, 25 ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.9;
@@ -632,7 +632,7 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 0.4;
+        gridBagConstraints.weightx = 0.1;
         getContentPane(  ).add( labTimeFormat, gridBagConstraints );
         labDayOfWeek = new javax.swing.JLabel( 
                 Application.getInstance(  ).getLocalizedMessage( 
@@ -714,8 +714,6 @@ public class FavouriteEditorDialog extends FGDialog
         */
         getRootPane(  ).setDefaultButton( butOK );
         pack(  );
-
-        setSize( new java.awt.Dimension( 400, 300 ) );
     }
 
     /**
