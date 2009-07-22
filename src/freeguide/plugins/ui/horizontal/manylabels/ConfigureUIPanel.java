@@ -1,5 +1,6 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,382 +21,408 @@ import javax.swing.JTextField;
  * Panel for edit horizontal viewer options.
  *
  * @author Alex Buloichik (alex73 at zaval.org)
+ *
+ * This code was re-organized and simplified by:
+ *    Michael McLagan (mmclagan at invlogic.com)
+ *
  */
 public class ConfigureUIPanel extends JPanel
 {
-    private JLabel labelHeight;
-    private JLabel labelWidth;
-    private JLabel labelFont;
-    private JTextField textFont;
-    private JButton btnFont;
-    private JPanel panelSpacer;
-    private JTextField textHeight;
-    private JTextField textWidth;
-    private JSlider sliderWidth;
-    private JSlider sliderHeight;
-    private JLabel labelColorNormal;
-    private JPanel panelColorNormal;
-    private JButton btnColorNormal;
-    private JLabel labelColorMovie;
-    private JLabel labelColorChannel;
-    private JLabel labelColorSelected;
-    private JPanel panelColorMovie;
-    private JPanel panelColorSelected;
-    private JPanel panelColorChannel;
-    private JButton btnColorMovie;
-    private JButton btnColorChannel;
-    private JButton btnColorSelected;
     protected ResourceBundle localizer;
-    private JTextField dayStart;
-    private JLabel jLabel;
-    private JPanel panelTimeFormat;
-    private JLabel labelTimeFormat;
-    private JRadioButton rbTime12;
-    private JRadioButton rbTime24;
-    private JCheckBox cbDrawTime;
-    private JCheckBox cbAlignLeft;
-    private JCheckBox cbDisplayTooltips;
-    private JPanel jPanel = null;
+
+    // Grid line 0
+    private   JTextField     textHeight;
+    private   JSlider        sliderHeight;
+
+    // Grid line 1
+    private   JTextField     textWidth;
+    private   JSlider        sliderWidth;
+
+    // Grid line 2
+    private   JTextField     textFont;
+    private   JButton        btnFont;
+
+    // Grid line 3
+    private   JPanel         panelColorNormal;
+    private   JButton        btnColorNormal;
+
+    // Grid line 4
+    private   JPanel         panelColorNew;
+    private   JButton        btnColorNew;
+
+    // Grid line 5
+    private   JPanel         panelColorSelected;
+    private   JButton        btnColorSelected;
+
+    // Grid line 6
+    private   JPanel         panelColorMovie;
+    private   JButton        btnColorMovie;
+
+    // Grid line 7
+    private   JPanel         panelColorChannel;
+    private   JButton        btnColorChannel;
+
+    // Grid line 8
+    private   JTextField     dayStart;
+
+    // Grid line 9
+    private   JRadioButton   rbTime12;
+    private   JRadioButton   rbTime24;
+
+    // Grid line 10
+    private   JCheckBox      cbDrawTime;
+
+    // Grid line 11
+    private   JCheckBox      cbAlignLeft;
+
+    // Grid line 12
+    private   JCheckBox      cbDisplayTooltips;
+
+    private   JPanel         jPanel;
+    private   JPanel         panelTimeFormat;
+    private   JPanel         panelSpacer;
 
 /**
      * This is the default constructor
      *
      * @param localizer DOCUMENT ME!
      */
-    public ConfigureUIPanel( final ResourceBundle localizer )
+    public ConfigureUIPanel(final ResourceBundle localizer)
     {
-        super(  );
+        super();
 
         this.localizer = localizer;
 
-        initialize(  );
+        initialize();
 
     }
 
     /**
-     * This method initializes this
+    private JLabel jLabel;
+    private JLabel labelHeight;
+    private JLabel labelWidth;
+    private JLabel labelFont;
+    private JLabel labelColorNormal;
+    private JLabel labelColorNew;
+    private JLabel labelColorMovie;
+    private JLabel labelColorChannel;
+    private JLabel labelColorSelected;
+    private JLabel labelTimeFormat;
+     * Fill in the panel with the desired controls
      */
-    private void initialize(  )
+    private void initialize()
     {
-        GridBagConstraints gridBagConstraints110 = new GridBagConstraints(  );
-        gridBagConstraints110.gridx = 1;
-        gridBagConstraints110.gridy = 9;
-        gridBagConstraints110.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints110.weightx = 0.1D;
-
-        GridBagConstraints gridBagConstraints31 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints11 = new GridBagConstraints(  );
-
-        labelTimeFormat = new JLabel(  );
-        jLabel = new JLabel(  );
-
-        GridBagConstraints gridBagConstraints42 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints51 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints61 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints72 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints92 = new GridBagConstraints(  );
-
-        labelColorNormal = new JLabel(  );
-        labelColorChannel = new JLabel(  );
-        labelColorSelected = new JLabel(  );
-        labelColorMovie = new JLabel(  );
-
-        GridBagConstraints gridBagConstraints19 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints20 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints18 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints15 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints14 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints16 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints81 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints71 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints6 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints101 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints111 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints50 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints5 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints41 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints3 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints2 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints13 = new GridBagConstraints(  );
-
-        labelFont = new JLabel(  );
-        labelWidth = new JLabel(  );
-        labelHeight = new JLabel(  );
-
-        GridBagConstraints gridBagConstraints1 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints4 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints7 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints8 = new GridBagConstraints(  );
-        GridBagConstraints gridBagConstraints9 = new GridBagConstraints(  );
-
-        this.setLayout( new GridBagLayout(  ) );
-
-        gridBagConstraints1.gridx = 0;
-
-        gridBagConstraints1.gridy = 0;
-
-        gridBagConstraints1.anchor = java.awt.GridBagConstraints.WEST;
-
-        gridBagConstraints1.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        labelHeight.setText( localizer.getString( "channel_height" ) + ":" );
-
-        labelHeight.setLabelFor( getSliderHeight(  ) );
-
-        labelHeight.setDisplayedMnemonic( KeyEvent.VK_H );
-
-        gridBagConstraints6.gridx = 0;
-
-        gridBagConstraints6.gridy = 3;
-
-        labelColorNormal.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_N );
-        labelColorNormal.setLabelFor( getBtnColorNormal(  ) );
-        labelColorNormal.setText( localizer.getString( "normal_prog_colour" ) );
-
-        gridBagConstraints6.anchor = java.awt.GridBagConstraints.WEST;
-
-        gridBagConstraints6.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        gridBagConstraints71.gridx = 1;
-
-        gridBagConstraints71.gridy = 3;
-
-        gridBagConstraints71.fill = java.awt.GridBagConstraints.BOTH;
-
-        gridBagConstraints71.gridwidth = 2;
-
-        gridBagConstraints71.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        gridBagConstraints81.gridx = 3;
-
-        gridBagConstraints81.gridy = 3;
-
-        gridBagConstraints81.insets = new java.awt.Insets( 5, 5, 0, 5 );
-
-        gridBagConstraints101.gridx = 0;
-        gridBagConstraints101.gridy = 6;
-        labelColorMovie.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_M );
-        labelColorMovie.setLabelFor( getBtnColorMovie(  ) );
-        labelColorMovie.setText( localizer.getString( "movie_colour" ) );
-
-        gridBagConstraints111.gridx = 0;
-        gridBagConstraints111.gridy = 7;
-        labelColorChannel.setLabelFor( getBtnColorChannel(  ) );
-        labelColorChannel.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_C );
-        labelColorChannel.setText( localizer.getString( "channel_colour" ) );
-
-        gridBagConstraints50.gridx = 0;
-        gridBagConstraints50.gridy = 5;
-        labelColorSelected.setLabelFor( getBtnColorSelected(  ) );
-        labelColorSelected.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_A );
-        labelColorSelected.setText( localizer.getString( "selected_colour" ) );
-
-        gridBagConstraints101.anchor = java.awt.GridBagConstraints.WEST;
-
-        gridBagConstraints101.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        gridBagConstraints111.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints50.anchor = java.awt.GridBagConstraints.WEST;
-
-        gridBagConstraints111.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        gridBagConstraints50.insets = new java.awt.Insets( 5, 5, 0, 0 );
-
-        gridBagConstraints14.gridx = 1;
-        gridBagConstraints14.gridy = 6;
-        gridBagConstraints14.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints14.gridwidth = 2;
-        gridBagConstraints14.insets = new java.awt.Insets( 5, 5, 0, 0 );
-
-        gridBagConstraints16.gridx = 1;
-        gridBagConstraints16.gridy = 5;
-        gridBagConstraints16.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints16.gridwidth = 2;
-        gridBagConstraints16.insets = new java.awt.Insets( 5, 5, 0, 0 );
-
-        gridBagConstraints15.gridx = 1;
-        gridBagConstraints15.gridy = 7;
-        gridBagConstraints15.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints15.gridwidth = 2;
-        gridBagConstraints15.insets = new java.awt.Insets( 5, 5, 0, 0 );
-
-        gridBagConstraints18.gridx = 3;
-        gridBagConstraints18.gridy = 6;
-        gridBagConstraints18.insets = new java.awt.Insets( 5, 5, 0, 5 );
-
-        gridBagConstraints19.gridx = 3;
-        gridBagConstraints19.gridy = 7;
-        gridBagConstraints19.insets = new java.awt.Insets( 5, 5, 0, 5 );
-
-        gridBagConstraints20.gridx = 3;
-        gridBagConstraints20.gridy = 5;
-        gridBagConstraints20.insets = new java.awt.Insets( 5, 5, 0, 5 );
-
-        gridBagConstraints4.gridx = 0;
-        gridBagConstraints4.gridy = 1;
-        gridBagConstraints4.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints4.insets = new java.awt.Insets( 5, 5, 0, 0 );
-
-        labelWidth.setText( localizer.getString( "width_of_1hr" ) + ":" );
-        labelWidth.setLabelFor( getSliderWidth(  ) );
-        labelWidth.setDisplayedMnemonic( KeyEvent.VK_W );
-
-        gridBagConstraints7.gridx = 0;
-        gridBagConstraints7.gridy = 2;
-        gridBagConstraints7.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints7.insets = new java.awt.Insets( 5, 5, 0, 0 );
-
-        labelFont.setText( localizer.getString( "ui_horiz_font" ) + ":" );
-
-        labelFont.setLabelFor( btnFont );
-
-        labelFont.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_F );
-        gridBagConstraints8.gridx = 1;
-
-        gridBagConstraints8.gridy = 2;
-
-        gridBagConstraints8.fill = java.awt.GridBagConstraints.HORIZONTAL;
-
-        gridBagConstraints8.gridwidth = 2;
-
-        gridBagConstraints8.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        gridBagConstraints9.gridx = 3;
-
-        gridBagConstraints9.gridy = 2;
-
-        gridBagConstraints9.insets = new java.awt.Insets( 5, 5, 0, 5 );
-        gridBagConstraints13.gridx = 2;
-
-        gridBagConstraints13.gridy = 9;
-
-        gridBagConstraints13.weightx = 1.0D;
-
-        gridBagConstraints13.fill = java.awt.GridBagConstraints.HORIZONTAL;
-
-        gridBagConstraints2.gridx = 1;
-
-        gridBagConstraints2.gridy = 0;
-
-        gridBagConstraints2.fill = java.awt.GridBagConstraints.HORIZONTAL;
-
-        gridBagConstraints2.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        gridBagConstraints3.gridx = 1;
-
-        gridBagConstraints3.gridy = 1;
-
-        gridBagConstraints3.fill = java.awt.GridBagConstraints.HORIZONTAL;
-
-        gridBagConstraints3.insets = new java.awt.Insets( 5, 5, 0, 0 );
-        gridBagConstraints41.gridx = 2;
-
-        gridBagConstraints41.gridy = 1;
-
-        gridBagConstraints41.fill = java.awt.GridBagConstraints.HORIZONTAL;
-
-        gridBagConstraints41.gridwidth = 2;
-
-        gridBagConstraints41.insets = new java.awt.Insets( 5, 5, 0, 5 );
-        gridBagConstraints5.gridx = 2;
-
-        gridBagConstraints5.gridy = 0;
-
-        gridBagConstraints5.fill = java.awt.GridBagConstraints.HORIZONTAL;
-
-        gridBagConstraints5.gridwidth = 2;
-
-        gridBagConstraints5.insets = new java.awt.Insets( 5, 5, 0, 5 );
-        gridBagConstraints42.gridx = 1;
-
-        gridBagConstraints42.gridy = 10;
-
-        gridBagConstraints42.fill = java.awt.GridBagConstraints.HORIZONTAL;
-
-        gridBagConstraints42.insets = new java.awt.Insets( 5, 5, 0, 5 );
-        gridBagConstraints51.gridx = 0;
-
-        gridBagConstraints51.gridy = 10;
-
-        gridBagConstraints51.anchor = java.awt.GridBagConstraints.WEST;
-
-        gridBagConstraints51.insets = new java.awt.Insets( 5, 5, 0, 0 );
-
-        jLabel.setLabelFor( getDayStart(  ) );
-        jLabel.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_S );
-        jLabel.setText( localizer.getString( "day_starts_at" ) + ":" );
-
-        gridBagConstraints61.gridx = 1;
-
-        gridBagConstraints61.gridy = 11;
-
-        gridBagConstraints61.fill = java.awt.GridBagConstraints.BOTH;
-
-        gridBagConstraints61.gridwidth = 3;
-
-        gridBagConstraints61.insets = new java.awt.Insets( 5, 5, 0, 5 );
-        gridBagConstraints72.gridx = 0;
-
-        gridBagConstraints72.gridy = 11;
-
-        gridBagConstraints72.anchor = java.awt.GridBagConstraints.WEST;
-
-        gridBagConstraints72.insets = new java.awt.Insets( 5, 5, 0, 0 );
-
-        labelTimeFormat.setLabelFor( getRbTime12(  ) );
-        labelTimeFormat.setText( localizer.getString( "time_format" ) + ":" );
-
-        gridBagConstraints92.gridx = 0;
-
-        gridBagConstraints92.gridy = 12;
-
-        gridBagConstraints92.gridwidth = 4;
-
-        gridBagConstraints92.anchor = java.awt.GridBagConstraints.WEST;
-
-        gridBagConstraints92.insets = new java.awt.Insets( 5, 5, 0, 5 );
-        gridBagConstraints11.gridx = 0;
-
-        gridBagConstraints11.gridy = 13;
-
-        gridBagConstraints11.anchor = java.awt.GridBagConstraints.WEST;
-
-        gridBagConstraints11.gridwidth = 4;
-
-        gridBagConstraints11.insets = new java.awt.Insets( 5, 5, 0, 5 );
-
-        gridBagConstraints31.gridx = 0;
-
-        gridBagConstraints31.gridy = 14;
-
-        gridBagConstraints31.gridwidth = 4;
-
-        gridBagConstraints31.anchor = java.awt.GridBagConstraints.WEST;
-
-        gridBagConstraints31.insets = new java.awt.Insets( 5, 5, 5, 5 );
-        this.add( getCbDisplayTooltips(  ), gridBagConstraints31 );
-        this.add( getCbAlignLeft(  ), gridBagConstraints11 );
-        this.add( getCbDrawTime(  ), gridBagConstraints92 );
-        this.add( labelTimeFormat, gridBagConstraints72 );
-        this.add( getPanelTimeFormat(  ), gridBagConstraints61 );
-        this.add( jLabel, gridBagConstraints51 );
-        this.add( getDayStart(  ), gridBagConstraints42 );
-        this.add( getSliderHeight(  ), gridBagConstraints5 );
-        this.add( getSliderWidth(  ), gridBagConstraints41 );
-        this.add( getTextWidth(  ), gridBagConstraints3 );
-        this.add( getTextHeight(  ), gridBagConstraints2 );
-        this.add( getBtnFont(  ), gridBagConstraints9 );
-        this.add( labelFont, gridBagConstraints7 );
-        this.add( getTextFont(  ), gridBagConstraints8 );
-        this.add( labelWidth, gridBagConstraints4 );
-        this.add( labelHeight, gridBagConstraints1 );
-        this.add( getPanelColorChannel(  ), gridBagConstraints15 );
-        this.add( getBtnColorMovie(  ), gridBagConstraints18 );
-        this.add( getPanelColorMovie(  ), gridBagConstraints14 );
-        this.add( getPanelColorSelected(  ), gridBagConstraints16 );
-        this.add( getBtnColorNormal(  ), gridBagConstraints81 );
-        this.add( getPanelColorNormal(  ), gridBagConstraints71 );
-        this.add( labelColorNormal, gridBagConstraints6 );
-        this.add( getBtnColorChannel(  ), gridBagConstraints19 );
-        this.add( getBtnColorSelected(  ), gridBagConstraints20 );
-        this.add( labelColorChannel, gridBagConstraints111 );
-        this.add( labelColorSelected, gridBagConstraints50 );
-        this.add( labelColorMovie, gridBagConstraints101 );
-        this.add( getPanelSpacer(  ), gridBagConstraints13 );
-        this.add( getJPanel(  ), gridBagConstraints110 );
+        GridBagConstraints gbc;
+        JLabel             label;
+
+        // Set the layout engine
+        setLayout(new GridBagLayout());
+
+        // Grid line 0
+        label = new JLabel();
+        label.setText(localizer.getString("channel_height") + ":");
+        label.setLabelFor(getSliderHeight());
+        label.setDisplayedMnemonic(KeyEvent.VK_H);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(label, gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(getTextHeight(), gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 2;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 5);
+        add(getSliderHeight(), gbc);
+
+        // Grid line 1
+        label = new JLabel();
+        label.setText(localizer.getString("width_of_1hr") + ":");
+        label.setLabelFor(getSliderWidth());
+        label.setDisplayedMnemonic(KeyEvent.VK_W);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(label, gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(getTextWidth(), gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 2;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 5);
+        add(getSliderWidth(), gbc);
+
+        // Grid line 2
+        label = new JLabel();
+        label.setText(localizer.getString("ui_horiz_font") + ":");
+        label.setLabelFor(btnFont);
+        label.setDisplayedMnemonic(java.awt.event.KeyEvent.VK_F);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(label, gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 2;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(getTextFont(), gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 3;
+        gbc.gridy = 2;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 5);
+        add(getBtnFont(), gbc);
+
+        // Grid line 3
+        label = new JLabel();
+        label.setDisplayedMnemonic(java.awt.event.KeyEvent.VK_N);
+        label.setLabelFor(getBtnColorNormal());
+        label.setText(localizer.getString("normal_prog_colour"));
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(label, gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.fill = java.awt.GridBagConstraints.BOTH;
+        gbc.gridwidth = 2;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(getPanelColorNormal(), gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 3;
+        gbc.gridy = 3;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 5);
+        add(getBtnColorNormal(), gbc);
+
+        // Grid line 4
+        label = new JLabel();
+        label.setLabelFor(getBtnColorSelected());
+        label.setDisplayedMnemonic(java.awt.event.KeyEvent.VK_E);
+        label.setText(localizer.getString("new_prog_colour"));
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(label, gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        gbc.fill = java.awt.GridBagConstraints.BOTH;
+        gbc.gridwidth = 2;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(getPanelColorNew(), gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 3;
+        gbc.gridy = 4;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 5);
+        add(getBtnColorNew(), gbc);
+
+        // Grid line 5
+        label = new JLabel();
+        label.setLabelFor(getBtnColorSelected());
+        label.setDisplayedMnemonic(java.awt.event.KeyEvent.VK_A);
+        label.setText(localizer.getString("selected_colour"));
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(label, gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        gbc.fill = java.awt.GridBagConstraints.BOTH;
+        gbc.gridwidth = 2;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(getPanelColorSelected(), gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 3;
+        gbc.gridy = 5;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 5);
+        add(getBtnColorSelected(), gbc);
+
+        // Grid line 6
+        label = new JLabel();
+        label.setDisplayedMnemonic(java.awt.event.KeyEvent.VK_M);
+        label.setLabelFor(getBtnColorMovie());
+        label.setText(localizer.getString("movie_colour"));
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(label, gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 6;
+        gbc.fill = java.awt.GridBagConstraints.BOTH;
+        gbc.gridwidth = 2;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(getPanelColorMovie(), gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 3;
+        gbc.gridy = 6;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 5);
+        add(getBtnColorMovie(), gbc);
+
+        // Grid line 7
+        label = new JLabel();
+        label.setLabelFor(getBtnColorChannel());
+        label.setDisplayedMnemonic(java.awt.event.KeyEvent.VK_C);
+        label.setText(localizer.getString("channel_colour"));
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(label, gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 7;
+        gbc.fill = java.awt.GridBagConstraints.BOTH;
+        gbc.gridwidth = 2;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(getPanelColorChannel(), gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 3;
+        gbc.gridy = 7;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 5);
+        add(getBtnColorChannel(), gbc);
+
+        // Grid line 9
+//        gbc.gridx = 1;
+//        gbc.gridy = 9;
+//        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
+//        gbc.weightx = 0.1D;
+//        add(getJPanel(), gbc);
+
+//        gbc.gridx = 2;
+//        gbc.gridy = 9;
+//        gbc.weightx = 1.0D;
+//        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
+//        add(getPanelSpacer(), gbc);
+
+        // Grid line 10
+        label = new JLabel();
+        label.setLabelFor(getDayStart());
+        label.setDisplayedMnemonic(java.awt.event.KeyEvent.VK_S);
+        label.setText(localizer.getString("day_starts_at") + ":");
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 10;
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(label, gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 10;
+        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 5);
+        add(getDayStart(), gbc);
+
+        // Grid line 11
+        label = new JLabel();
+        label.setLabelFor(getRbTime12());
+        label.setText(localizer.getString("time_format") + ":");
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 11;
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 0);
+        add(label, gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 11;
+        gbc.fill = java.awt.GridBagConstraints.BOTH;
+        gbc.gridwidth = 3;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 5);
+        add(getPanelTimeFormat(), gbc);
+
+        // Grid line 12
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 12;
+        gbc.gridwidth = 4;
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 5);
+        add(getCbDrawTime(), gbc);
+
+        // Grid line 13
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 13;
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.gridwidth = 4;
+        gbc.insets = new java.awt.Insets(5, 5, 0, 5);
+        add(getCbAlignLeft(), gbc);
+
+        // Grid line 14
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 14;
+        gbc.gridwidth = 4;
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.insets = new java.awt.Insets(5, 5, 5, 5);
+        add(getCbDisplayTooltips(), gbc);
+
+        validate();
+
+        panelColorNormal.setMinimumSize(panelColorNormal.getSize());
+        panelColorNew.setMinimumSize(panelColorNew.getSize());
+        panelColorSelected.setMinimumSize(panelColorSelected.getSize());
+        panelColorMovie.setMinimumSize(panelColorMovie.getSize());
+        panelColorChannel.setMinimumSize(panelColorChannel.getSize());
     }
 
     /**
@@ -403,13 +430,13 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JTextField
      */
-    protected JTextField getTextFont(  )
+    protected JTextField getTextFont()
     {
-        if( textFont == null )
+        if(textFont == null)
         {
-            textFont = new JTextField(  );
+            textFont = new JTextField();
 
-            textFont.setEditable( false );
+            textFont.setEditable(false);
 
         }
 
@@ -422,13 +449,13 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JButton
      */
-    protected JButton getBtnFont(  )
+    protected JButton getBtnFont()
     {
-        if( btnFont == null )
+        if(btnFont == null)
         {
-            btnFont = new JButton(  );
+            btnFont = new JButton();
 
-            btnFont.setText( "..." );
+            btnFont.setText("...");
 
         }
 
@@ -441,14 +468,14 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JPanel
      */
-    private JPanel getPanelSpacer(  )
+    private JPanel getPanelSpacer()
     {
-        if( panelSpacer == null )
+        if(panelSpacer == null)
         {
-            panelSpacer = new JPanel(  );
+            panelSpacer = new JPanel();
 
-            panelSpacer.setPreferredSize( new java.awt.Dimension( 100, 6 ) );
-            panelSpacer.setMinimumSize( new java.awt.Dimension( 100, 5 ) );
+            panelSpacer.setPreferredSize(new java.awt.Dimension(100, 6));
+            panelSpacer.setMinimumSize(new java.awt.Dimension(100, 5));
         }
 
         return panelSpacer;
@@ -460,15 +487,15 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JTextField
      */
-    protected JTextField getTextHeight(  )
+    protected JTextField getTextHeight()
     {
-        if( textHeight == null )
+        if(textHeight == null)
         {
-            textHeight = new JTextField(  );
+            textHeight = new JTextField();
 
-            textHeight.setColumns( 5 );
+            textHeight.setColumns(5);
 
-            textHeight.setEditable( false );
+            textHeight.setEditable(false);
 
         }
 
@@ -481,15 +508,15 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JTextField
      */
-    protected JTextField getTextWidth(  )
+    protected JTextField getTextWidth()
     {
-        if( textWidth == null )
+        if(textWidth == null)
         {
-            textWidth = new JTextField(  );
+            textWidth = new JTextField();
 
-            textWidth.setColumns( 5 );
+            textWidth.setColumns(5);
 
-            textWidth.setEditable( false );
+            textWidth.setEditable(false);
 
         }
 
@@ -502,21 +529,21 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JSlider
      */
-    protected JSlider getSliderWidth(  )
+    protected JSlider getSliderWidth()
     {
-        if( sliderWidth == null )
+        if(sliderWidth == null)
         {
-            sliderWidth = new JSlider(  );
+            sliderWidth = new JSlider();
 
-            sliderWidth.setPreferredSize( new java.awt.Dimension( 40, 16 ) );
+            sliderWidth.setPreferredSize(new java.awt.Dimension(40, 16));
 
-            sliderWidth.getAccessibleContext(  )
-                       .setAccessibleName( 
-                localizer.getString( "width_of_1hr" ) );
+            sliderWidth.getAccessibleContext()
+                       .setAccessibleName(
+                localizer.getString("width_of_1hr"));
 
-            sliderWidth.setMinimum( 100 );
+            sliderWidth.setMinimum(100);
 
-            sliderWidth.setMaximum( 1000 );
+            sliderWidth.setMaximum(1000);
 
         }
 
@@ -529,19 +556,19 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JSlider
      */
-    protected JSlider getSliderHeight(  )
+    protected JSlider getSliderHeight()
     {
-        if( sliderHeight == null )
+        if(sliderHeight == null)
         {
-            sliderHeight = new JSlider(  );
+            sliderHeight = new JSlider();
 
-            sliderHeight.setPreferredSize( new java.awt.Dimension( 40, 16 ) );
+            sliderHeight.setPreferredSize(new java.awt.Dimension(40, 16));
 
-            sliderHeight.getAccessibleContext(  )
-                        .setAccessibleName( 
-                localizer.getString( "channel_height" ) );
+            sliderHeight.getAccessibleContext()
+                        .setAccessibleName(
+                localizer.getString("channel_height"));
 
-            sliderHeight.setMinimum( 10 );
+            sliderHeight.setMinimum(10);
 
         }
 
@@ -554,11 +581,11 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JPanel
      */
-    protected JPanel getPanelColorNormal(  )
+    protected JPanel getPanelColorNormal()
     {
-        if( panelColorNormal == null )
+        if(panelColorNormal == null)
         {
-            panelColorNormal = new JPanel(  );
+            panelColorNormal = new JPanel();
 
         }
 
@@ -571,13 +598,13 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JButton
      */
-    protected JButton getBtnColorNormal(  )
+    protected JButton getBtnColorNormal()
     {
-        if( btnColorNormal == null )
+        if(btnColorNormal == null)
         {
-            btnColorNormal = new JButton(  );
+            btnColorNormal = new JButton();
 
-            btnColorNormal.setText( "..." );
+            btnColorNormal.setText("...");
 
         }
 
@@ -586,15 +613,51 @@ public class ConfigureUIPanel extends JPanel
     }
 
     /**
+     * This method initializes jPanel2
+     *
+     * @return javax.swing.JPanel
+     */
+    protected JPanel getPanelColorNew()
+    {
+        if(panelColorNew == null)
+        {
+            panelColorNew = new JPanel();
+
+        }
+
+        return panelColorNew;
+
+    }
+
+    /**
+     * This method initializes jButton
+     *
+     * @return javax.swing.JButton
+     */
+    protected JButton getBtnColorNew()
+    {
+        if(btnColorNew == null)
+        {
+            btnColorNew = new JButton();
+
+            btnColorNew.setText("...");
+
+        }
+
+        return btnColorNew;
+
+    }
+
+    /**
      * Return the movie colour box.
      *
      * @return javax.swing.JPanel
      */
-    protected JPanel getPanelColorMovie(  )
+    protected JPanel getPanelColorMovie()
     {
-        if( panelColorMovie == null )
+        if(panelColorMovie == null)
         {
-            panelColorMovie = new JPanel(  );
+            panelColorMovie = new JPanel();
         }
 
         return panelColorMovie;
@@ -605,11 +668,11 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JPanel
      */
-    protected JPanel getPanelColorSelected(  )
+    protected JPanel getPanelColorSelected()
     {
-        if( panelColorSelected == null )
+        if(panelColorSelected == null)
         {
-            panelColorSelected = new JPanel(  );
+            panelColorSelected = new JPanel();
         }
 
         return panelColorSelected;
@@ -620,11 +683,11 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JPanel
      */
-    protected JPanel getPanelColorChannel(  )
+    protected JPanel getPanelColorChannel()
     {
-        if( panelColorChannel == null )
+        if(panelColorChannel == null)
         {
-            panelColorChannel = new JPanel(  );
+            panelColorChannel = new JPanel();
 
         }
 
@@ -637,13 +700,13 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JButton
      */
-    protected JButton getBtnColorMovie(  )
+    protected JButton getBtnColorMovie()
     {
-        if( btnColorMovie == null )
+        if(btnColorMovie == null)
         {
-            btnColorMovie = new JButton(  );
+            btnColorMovie = new JButton();
 
-            btnColorMovie.setText( "..." );
+            btnColorMovie.setText("...");
 
         }
 
@@ -656,12 +719,12 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JButton
      */
-    protected JButton getBtnColorChannel(  )
+    protected JButton getBtnColorChannel()
     {
-        if( btnColorChannel == null )
+        if(btnColorChannel == null)
         {
-            btnColorChannel = new JButton(  );
-            btnColorChannel.setText( "..." );
+            btnColorChannel = new JButton();
+            btnColorChannel.setText("...");
         }
 
         return btnColorChannel;
@@ -672,12 +735,12 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JButton
      */
-    protected JButton getBtnColorSelected(  )
+    protected JButton getBtnColorSelected()
     {
-        if( btnColorSelected == null )
+        if(btnColorSelected == null)
         {
-            btnColorSelected = new JButton(  );
-            btnColorSelected.setText( "..." );
+            btnColorSelected = new JButton();
+            btnColorSelected.setText("...");
         }
 
         return btnColorSelected;
@@ -688,13 +751,13 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JTextField
      */
-    public JTextField getDayStart(  )
+    public JTextField getDayStart()
     {
-        if( dayStart == null )
+        if(dayStart == null)
         {
-            dayStart = new JTextField(  );
+            dayStart = new JTextField();
 
-            dayStart.setColumns( 5 );
+            dayStart.setColumns(5);
         }
 
         return dayStart;
@@ -706,27 +769,27 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JPanel
      */
-    private JPanel getPanelTimeFormat(  )
+    private JPanel getPanelTimeFormat()
     {
-        if( panelTimeFormat == null )
+        if(panelTimeFormat == null)
         {
-            FlowLayout flowLayout8 = new FlowLayout(  );
+            FlowLayout flowLayout8 = new FlowLayout();
 
-            panelTimeFormat = new JPanel(  );
+            panelTimeFormat = new JPanel();
 
-            panelTimeFormat.setLayout( flowLayout8 );
+            panelTimeFormat.setLayout(flowLayout8);
 
-            flowLayout8.setAlignment( java.awt.FlowLayout.LEFT );
+            flowLayout8.setAlignment(java.awt.FlowLayout.LEFT);
 
-            ButtonGroup g = new ButtonGroup(  );
+            ButtonGroup g = new ButtonGroup();
 
-            g.add( getRbTime12(  ) );
+            g.add(getRbTime12());
 
-            g.add( getRbTime24(  ) );
+            g.add(getRbTime24());
 
-            panelTimeFormat.add( getRbTime12(  ), null );
+            panelTimeFormat.add(getRbTime12(), null);
 
-            panelTimeFormat.add( getRbTime24(  ), null );
+            panelTimeFormat.add(getRbTime24(), null);
 
         }
 
@@ -739,14 +802,14 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JRadioButton
      */
-    protected JRadioButton getRbTime12(  )
+    protected JRadioButton getRbTime12()
     {
-        if( rbTime12 == null )
+        if(rbTime12 == null)
         {
-            rbTime12 = new JRadioButton(  );
+            rbTime12 = new JRadioButton();
 
-            rbTime12.setMnemonic( java.awt.event.KeyEvent.VK_1 );
-            rbTime12.setText( localizer.getString( "12_hour" ) );
+            rbTime12.setMnemonic(java.awt.event.KeyEvent.VK_1);
+            rbTime12.setText(localizer.getString("12_hour"));
 
         }
 
@@ -759,14 +822,14 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JRadioButton
      */
-    protected JRadioButton getRbTime24(  )
+    protected JRadioButton getRbTime24()
     {
-        if( rbTime24 == null )
+        if(rbTime24 == null)
         {
-            rbTime24 = new JRadioButton(  );
+            rbTime24 = new JRadioButton();
 
-            rbTime24.setMnemonic( java.awt.event.KeyEvent.VK_2 );
-            rbTime24.setText( localizer.getString( "24_hour" ) );
+            rbTime24.setMnemonic(java.awt.event.KeyEvent.VK_2);
+            rbTime24.setText(localizer.getString("24_hour"));
 
         }
 
@@ -779,14 +842,14 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JCheckBox
      */
-    protected JCheckBox getCbDrawTime(  )
+    protected JCheckBox getCbDrawTime()
     {
-        if( cbDrawTime == null )
+        if(cbDrawTime == null)
         {
-            cbDrawTime = new JCheckBox(  );
+            cbDrawTime = new JCheckBox();
 
-            cbDrawTime.setMnemonic( java.awt.event.KeyEvent.VK_O );
-            cbDrawTime.setText( localizer.getString( "show_programme_times" ) );
+            cbDrawTime.setMnemonic(java.awt.event.KeyEvent.VK_O);
+            cbDrawTime.setText(localizer.getString("show_programme_times"));
 
         }
 
@@ -799,14 +862,14 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JCheckBox
      */
-    protected JCheckBox getCbAlignLeft(  )
+    protected JCheckBox getCbAlignLeft()
     {
-        if( cbAlignLeft == null )
+        if(cbAlignLeft == null)
         {
-            cbAlignLeft = new JCheckBox(  );
+            cbAlignLeft = new JCheckBox();
 
-            cbAlignLeft.setMnemonic( java.awt.event.KeyEvent.VK_V );
-            cbAlignLeft.setText( localizer.getString( "moving_names" ) );
+            cbAlignLeft.setMnemonic(java.awt.event.KeyEvent.VK_V);
+            cbAlignLeft.setText(localizer.getString("moving_names"));
 
         }
 
@@ -819,14 +882,14 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JCheckBox
      */
-    protected JCheckBox getCbDisplayTooltips(  )
+    protected JCheckBox getCbDisplayTooltips()
     {
-        if( cbDisplayTooltips == null )
+        if(cbDisplayTooltips == null)
         {
-            cbDisplayTooltips = new JCheckBox(  );
+            cbDisplayTooltips = new JCheckBox();
 
-            cbDisplayTooltips.setMnemonic( java.awt.event.KeyEvent.VK_L );
-            cbDisplayTooltips.setText( localizer.getString( "show_tooltips" ) );
+            cbDisplayTooltips.setMnemonic(java.awt.event.KeyEvent.VK_L);
+            cbDisplayTooltips.setText(localizer.getString("show_tooltips"));
 
         }
 
@@ -839,12 +902,12 @@ public class ConfigureUIPanel extends JPanel
      *
      * @return javax.swing.JPanel
      */
-    private JPanel getJPanel(  )
+    private JPanel getJPanel()
     {
-        if( jPanel == null )
+        if(jPanel == null)
         {
-            jPanel = new JPanel(  );
-            jPanel.setMinimumSize( new java.awt.Dimension( 50, 5 ) );
+            jPanel = new JPanel();
+            jPanel.setMinimumSize(new java.awt.Dimension(50, 5));
         }
 
         return jPanel;

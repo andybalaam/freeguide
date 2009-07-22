@@ -60,6 +60,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
     private JButton okButton;
     private JButton cancelButton;
     private JButton defaultButton;
+    private DefaultMutableTreeNode horzViewer;
     protected JSplitPane splitPane;
 
 /**
@@ -92,6 +93,13 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
         JScrollPane menuScrollPane = new JScrollPane( menuTree );
 
+        // Don't allow the pane to be shrunk less than the default
+        Dimension minDim = new Dimension();
+        minDim.setSize(menuScrollPane.getPreferredSize().getWidth() + 2,
+                       menuScrollPane.getPreferredSize().getHeight());
+        menuScrollPane.setMinimumSize(minDim);
+
+        // Create the split pane
         splitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT );
 
         defaultButton = newStandardJButton( 
@@ -120,11 +128,6 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
         splitPane.setLeftComponent( menuScrollPane );
 
-        // Make the menu tree
-        setTreeNode( defaultLeaf );
-
-        splitPane.setDividerLocation( 150 );
-
         // Events
         defaultButton.addActionListener( this );
 
@@ -135,9 +138,12 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         // Set dialog-wide stuff
         getRootPane(  ).setDefaultButton( okButton );
 
-        pack(  );
+        // This sets the size of the dialog based on the largest known panel
+        setTreeNode( horzViewer );
+        pack();
 
-        //        setSize( new Dimension( 500, 350 ) );
+        // Select the default (root) node
+        setTreeNode( defaultLeaf );
     }
 
     /**
@@ -168,7 +174,8 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         IModule hv = PluginsManager.getModuleByID( FreeGuide.VIEWER_ID );
         ui = hv.getConfigurationUI( this );
 
-        DefaultMutableTreeNode horzViewer =
+        // This particular leaf is used to size the dialog
+        horzViewer =
             new DefaultMutableTreeNode( 
                 new ModuleNode( 
                     ui,
@@ -292,7 +299,6 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
         if( node == null )
         {
             return;
-
         }
 
         Object userObject = node.getUserObject(  );

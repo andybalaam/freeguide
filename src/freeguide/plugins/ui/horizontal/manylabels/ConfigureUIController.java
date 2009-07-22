@@ -83,6 +83,10 @@ public class ConfigureUIController implements IModuleConfigurationUI
                 {
                     panelColor = panel.getPanelColorNormal(  );
                 }
+                else if( e.getSource(  ) == panel.getBtnColorNew(  ) )
+                {
+                    panelColor = panel.getPanelColorNew(  );
+                }
 
                 Color col =
                     JColorChooser.showDialog( 
@@ -134,6 +138,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
             config.fontStyle = currentFont.getStyle(  );
             config.sizeChannelHeight = panel.getSliderHeight(  ).getValue(  );
             config.sizeProgrammePanelWidth = panel.getSliderWidth(  ).getValue(  ) * 24;
+            config.colorNew = panel.getPanelColorNew(  ).getBackground(  );
             config.colorChannel = panel.getPanelColorChannel(  ).getBackground(  );
             config.colorMovie = panel.getPanelColorMovie(  ).getBackground(  );
             config.colorTicked = panel.getPanelColorSelected(  ).getBackground(  );
@@ -189,6 +194,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
         panel.getPanelColorMovie(  ).setBackground( config.colorMovie );
         panel.getPanelColorSelected(  ).setBackground( config.colorTicked );
         panel.getPanelColorNormal(  ).setBackground( config.colorNonTicked );
+        panel.getPanelColorNew(  ).setBackground( config.colorNew );
 
         panel.getBtnFont(  ).addActionListener( 
             new ActionListener(  )
@@ -222,6 +228,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
         panel.getBtnColorSelected(  ).addActionListener( colorBtnAction );
         panel.getBtnColorMovie(  ).addActionListener( colorBtnAction );
         panel.getBtnColorNormal(  ).addActionListener( colorBtnAction );
+        panel.getBtnColorNew(  ).addActionListener( colorBtnAction );
         panel.getSliderHeight(  ).addChangeListener( sliderChange );
         panel.getSliderWidth(  ).addChangeListener( sliderChange );
         panel.getCbDisplayTooltips(  ).setSelected( config.displayTooltips );
