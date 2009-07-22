@@ -44,6 +44,9 @@ public class HorizontalViewerConfig
     /** Default colour of a normal programme */
     public Color colorNonTicked = Color.WHITE;
 
+    /** Default colour of a new programme */
+    public Color colorNew = new Color( 192, 192, 255 );
+
     /** Default colour of the channel labels */
     public Color colorChannel = new Color( 245, 245, 255 );
 
@@ -90,5 +93,10 @@ public class HorizontalViewerConfig
 
         return result;
 
+    }
+
+    public Time getDayStartTime( )
+    {
+        return dayStartTime;
     }
 }

@@ -39,9 +39,17 @@ import javax.swing.border.Border;
 public class JLabelProgramme extends JLabel
 {
     protected static Border DEFAULT_BORDER;
+    protected static Border DEFAULT_FOCUS;
     protected static Border MOVIE_BORDER;
-    protected static Border INGUIDE_BORDER;
-    protected static Border FOCUSED_BORDER;
+    protected static Border MOVIE_FOCUS;
+    protected static Border NEW_BORDER;
+    protected static Border NEW_FOCUS;
+    protected static Border INGUIDE_DEFAULT_BORDER;
+    protected static Border INGUIDE_DEFAULT_FOCUS;
+    protected static Border INGUIDE_MOVIE_BORDER;
+    protected static Border INGUIDE_MOVIE_FOCUS;
+    protected static Border INGUIDE_NEW_BORDER;
+    protected static Border INGUIDE_NEW_FOCUS;
 
     /** Standard reminder. */
     protected static IModuleReminder REMINDER;
@@ -96,7 +104,7 @@ public class JLabelProgramme extends JLabel
         this.controller = main;
         this.moveNames = moveNames;
         setText( getTitle( programme ) );
-        setupColors(  );
+        setupColors( main.theDate );
         setupHeart(  );
         setOpaque( true );
         setFocusable( true );
@@ -184,28 +192,45 @@ public class JLabelProgramme extends JLabel
     /**
      * Setup colors for current label.
      */
-    public void setupColors(  )
+    public void setupColors( final long theDate )
     {
+        final boolean isMovie = programme.getIsMovie( );
+        final boolean isNew   = programme.isAirDay( theDate );
+        final boolean isFocus = isFocusOwner(  );
+
         if( ( REMINDER != null ) && REMINDER.isSelected( programme ) )
         {
             setBackground( controller.config.colorTicked );
-            setBorder( INGUIDE_BORDER );
-
-        }
-        else if( !programme.getIsMovie(  ) )
-        {
-            setBackground( controller.config.colorNonTicked );
-            setBorder( DEFAULT_BORDER );
+            if ( isNew )
+            {
+               setBorder( isFocus ? INGUIDE_NEW_FOCUS : INGUIDE_NEW_BORDER );
+            }
+            else if ( isMovie )
+            {
+               setBorder( isFocus ? INGUIDE_MOVIE_FOCUS : INGUIDE_MOVIE_BORDER );
+            }
+            else
+            {
+               setBorder( isFocus ? INGUIDE_DEFAULT_FOCUS : INGUIDE_DEFAULT_BORDER );
+            }
         }
         else
         {
-            setBackground( controller.config.colorMovie );
-            setBorder( MOVIE_BORDER );
-        }
-
-        if( isFocusOwner(  ) )
-        {
-            setBorder( FOCUSED_BORDER );
+            if ( isNew )
+            {
+               setBackground( controller.config.colorNew );
+               setBorder( isFocus ? NEW_FOCUS : NEW_BORDER );
+            }
+            else if ( isMovie )
+            {
+               setBackground( controller.config.colorMovie );
+               setBorder( isFocus ? MOVIE_FOCUS : MOVIE_BORDER );
+            }
+            else
+            {
+               setBackground( controller.config.colorNonTicked );
+               setBorder( isFocus ? DEFAULT_FOCUS : DEFAULT_BORDER );
+            }
         }
     }
 
@@ -230,16 +255,46 @@ public class JLabelProgramme extends JLabel
 
         DEFAULT_BORDER = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
+                BorderFactory.createLineBorder( main.config.colorNonTicked, 3 ) );
+        DEFAULT_FOCUS = BorderFactory.createCompoundBorder( 
+                BorderFactory.createLineBorder( Color.BLUE, 2 ),
                 BorderFactory.createLineBorder( main.config.colorNonTicked, 2 ) );
+
         MOVIE_BORDER = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
-                BorderFactory.createLineBorder( main.config.colorMovie, 2 ) );
-        INGUIDE_BORDER = BorderFactory.createCompoundBorder( 
-                BorderFactory.createLineBorder( Color.BLACK, 1 ),
-                BorderFactory.createLineBorder( main.config.colorTicked, 2 ) );
-        FOCUSED_BORDER = BorderFactory.createCompoundBorder( 
+                BorderFactory.createLineBorder( main.config.colorMovie, 3 ) );
+        MOVIE_FOCUS = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
-                BorderFactory.createLineBorder( main.config.colorNonTicked, 1 ) );
+                BorderFactory.createLineBorder( main.config.colorMovie, 2 ) );
+
+        NEW_BORDER = BorderFactory.createCompoundBorder( 
+                BorderFactory.createLineBorder( Color.BLACK, 1 ),
+                BorderFactory.createLineBorder( main.config.colorNew, 3 ) );
+        NEW_FOCUS = BorderFactory.createCompoundBorder( 
+                BorderFactory.createLineBorder( Color.BLUE, 2 ),
+                BorderFactory.createLineBorder( main.config.colorNew, 2 ) );
+
+        INGUIDE_DEFAULT_BORDER = BorderFactory.createCompoundBorder( 
+                BorderFactory.createLineBorder( Color.BLACK, 1 ),
+                BorderFactory.createLineBorder( main.config.colorTicked, 3 ) );
+        INGUIDE_DEFAULT_FOCUS = BorderFactory.createCompoundBorder( 
+                BorderFactory.createLineBorder( Color.BLUE, 2 ),
+                BorderFactory.createLineBorder( main.config.colorTicked, 2 ) );
+
+        INGUIDE_MOVIE_BORDER = BorderFactory.createCompoundBorder( 
+                BorderFactory.createLineBorder( Color.BLACK, 1 ),
+                BorderFactory.createLineBorder( main.config.colorMovie, 3 ) );
+        INGUIDE_MOVIE_FOCUS = BorderFactory.createCompoundBorder( 
+                BorderFactory.createLineBorder( Color.BLUE, 2 ),
+                BorderFactory.createLineBorder( main.config.colorMovie, 2 ) );
+
+        INGUIDE_NEW_BORDER = BorderFactory.createCompoundBorder( 
+                BorderFactory.createLineBorder( Color.BLACK, 1 ),
+                BorderFactory.createLineBorder( main.config.colorNew, 3 ) );
+        INGUIDE_NEW_FOCUS = BorderFactory.createCompoundBorder( 
+                BorderFactory.createLineBorder( Color.BLUE, 2 ),
+                BorderFactory.createLineBorder( main.config.colorNew, 2 ) );
+
     }
 
     /**

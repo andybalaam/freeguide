@@ -60,10 +60,9 @@ public class XMLTVImportHandler extends DefaultHandler
             new SimpleDateFormat( "yyyyMMddHHmmss Z" ),
             new SimpleDateFormat( "yyyyMMddHHmm Z" )
         };
-    private SimpleDateFormat dateAir = new SimpleDateFormat( "yyyyMMdd" );
     public int programmesCount;
 
-    /**
+/**
      * Creates a new Handler object.
      *
      * @param storage variable for store results
@@ -235,10 +234,6 @@ public class XMLTVImportHandler extends DefaultHandler
         {
             // Handled in parseEndProgramme
         }
-        else if( "date".equals( tag ) )
-        {
-            // Handled in parseEndProgramme
-        }
         else if( "rating".equals( tag ) )
         { // tv:programme:rating
 
@@ -297,24 +292,6 @@ public class XMLTVImportHandler extends DefaultHandler
         else if( "desc".equals( tag ) )
         {
             currentProgramme.addDesc( charData.toString(  ) );
-        }
-        else if( "date".equals( tag ) )
-        {
-            /*
-             * Preserve the tag for display as was done previously
-             */
-            programmeEndExtraTag( tag, "", charData.toString(  ) );
-
-            /*
-             * Capture date for airDay display
-             */
-            try
-            {
-                currentProgramme.setAirDay( dateAir.parse( charData.toString(  ) ) );
-            }
-            catch( ParseException ex )
-            {
-            }
         }
         else if( "category".equals( tag ) )
         {

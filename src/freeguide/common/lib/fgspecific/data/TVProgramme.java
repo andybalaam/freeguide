@@ -2,6 +2,7 @@ package freeguide.common.lib.fgspecific.data;
 
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.StringHelper;
+import freeguide.common.lib.general.Time;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -13,6 +14,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -76,6 +79,9 @@ public class TVProgramme implements Comparable, Serializable
     /** A URL to more info about the programme */
     private URL link;
 
+    /** The day the program was first shown */
+    private Date airDay;
+
     /** Any unrecognised tags go in here. */
     private Map extraTags;
 
@@ -107,6 +113,7 @@ public class TVProgramme implements Comparable, Serializable
         result.isMovie = isMovie;
         result.isSubtitled = isSubtitled;
         result.link = link;
+        result.airDay = airDay;
         result.previouslyShown = previouslyShown;
         result.starRating = starRating;
         result.subtitle = subtitle;
@@ -179,6 +186,54 @@ public class TVProgramme implements Comparable, Serializable
     {
         return this.isMovie;
 
+    }
+
+    /**
+     * Sets the airDay attribute of the Programme object
+     *
+     * @param airDay The new airDay value
+     */
+    public void setAirDay( Date airDay )
+    {
+        this.airDay = airDay;
+
+    }
+
+    /**
+     * Gets the airDay attribute of the Programme object
+     *
+     * @return The airDay value
+     */
+    public Date getAirDay(  )
+    {
+        return this.airDay;
+
+    }
+
+    /**
+     * Determine if the current date viewed is the date of the
+     * program's first viewing.  This uses the "start of day" time
+     * specified on the config page, hopefully accommodating any 
+     * "time shifting" available.
+     *
+     * @return true/false
+     */
+    public boolean isAirDay( final long theDate )
+    {
+        if ( airDay == null )
+        {
+            return false;
+        }
+
+        GregorianCalendar d1 = new GregorianCalendar();
+        d1.setTime(new Date(theDate));
+
+        /**
+         * Set the time to midnight on the date for comparison
+         */
+        new Time(0,0).adjustCalendar(d1);
+
+        return airDay.equals(d1.getTime());
     }
 
     /**
