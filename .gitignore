@@ -1,9 +1,12 @@
 *.class
 *.swp
+lib/xercesImpl.jar
+lib/xml-apis.jar
 log.txt
 build
 .classpath
 .project
+nbproject
 doc/html-web
 dist
 *~
