@@ -5,4 +5,13 @@
             dir="src" fork="true">
         </java>
     </target>
+    <target name="profile" description="Profiles the application in NetBeans">
+        <fail unless="netbeans.home">This target can only run inside the NetBeans IDE.</fail>
+        <nbprofiledirect>
+            <classpath> <pathelement location="src"/> </classpath>
+        </nbprofiledirect>
+        <java classname="freeguide.startup.Startup" dir="src">
+                <jvmarg value="${profiler.info.jvmargs.agent}"/>
+        </java>
+    </target>
 </project>
