@@ -17,8 +17,6 @@
   </package>
   <package id="grabber-rbc" version="0.1" type="plugin-grabber" repositoryPath="package-grabber-rbc-0.1.zip">
   </package>
-  <package id="grabber-vsetv" version="2" type="plugin-grabber" repositoryPath="package-grabber-vsetv-2.zip">
-  </package>
   <package id="grabber-xmltv" version="2" type="plugin-grabber" repositoryPath="package-grabber-xmltv-2.zip">
   </package>
   <package id="importexport-html" version="1" type="plugin-importexport" repositoryPath="package-importexport-html-1.zip">

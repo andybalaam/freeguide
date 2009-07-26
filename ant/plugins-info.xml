@@ -42,11 +42,6 @@
       <param name="plugin-version" value="0.1"/>
     </antcall>
     <antcall target="${actual-target}">
-      <param name="plugin-id" value="grabber-vsetv"/>
-      <param name="plugin-dir" value="grabber/vsetv"/>
-      <param name="plugin-version" value="2"/>
-    </antcall>
-    <antcall target="${actual-target}">
       <param name="plugin-id" value="grabber-xmltv"/>
       <param name="plugin-dir" value="grabber/xmltv"/>
       <param name="plugin-version" value="2"/>
