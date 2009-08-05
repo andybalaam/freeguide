@@ -15,17 +15,20 @@ public class FreeGuideTest
                 {
                     new ImportPerformanceSlowTest().run();
                     new ImportTwiceSlowTest().run();
-                    // Disabled since fails from cmd line new DisplayDocsSlowTest().run();
+                    // Disabled since fails from cmd line new
+                    // DisplayDocsSlowTest().run();
                 }
                 else
                 {
-                    System.err.println( "Unrecognised argument '" + args[0] + "'" );
+                    System.err.println( "Unrecognised argument '" + args[0]
+                        + "'" );
                 }
             }
 
             new BadUTF8FastTest().run();
             new TVProgrammeHashCodeFastTest().run();
             new ImportFastTest().run();
+            new XMLTVExportFilterFastTest().run();
 
             System.out.println( "All tests passed." );
         }
@@ -35,7 +38,8 @@ public class FreeGuideTest
         }
     }
 
-    public static void my_assert( boolean condition ) throws MyAssertFailureException
+    public static void my_assert( boolean condition )
+        throws MyAssertFailureException
     {
         if( !condition )
         {

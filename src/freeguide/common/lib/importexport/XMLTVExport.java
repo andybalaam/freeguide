@@ -1,24 +1,25 @@
 package freeguide.common.lib.importexport;
 
-import freeguide.common.lib.fgspecific.data.TVChannel;
-import freeguide.common.lib.fgspecific.data.TVData;
-import freeguide.common.lib.fgspecific.data.TVProgramme;
-import freeguide.common.lib.general.StringHelper;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-
+import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+
+import freeguide.common.lib.fgspecific.data.TVChannel;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet;
+import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.general.StringHelper;
+import freeguide.plugins.importexport.xmltv.ITVDataIterators;
 
 /**
  * Export data to xmltv file.
@@ -47,33 +48,52 @@ public class XMLTVExport
      *
      * @throws IOException DOCUMENT_ME!
      */
-    public void export( final File outFile, final TVData data )
-        throws IOException
+    public void export( final File outFile, final ITVDataIterators data )
+        throws Exception
     {
         final BufferedWriter out =
             new BufferedWriter( 
                 new OutputStreamWriter( 
                     new FileOutputStream( outFile ), "UTF-8" ) );
 
+        exportToWriter( out, data );
+
+        out.flush(  );
+
+        out.close(  );
+    }
+
+    /**
+     * Write some XMLTV to a file.
+     *
+     * @param out the writer to write the exprted XMLTV to
+     * @param data the object that supplies the channels and programmes to write
+     * @throws IOException
+     * @throws Exception
+     */
+    public void exportToWriter( final Writer out, final ITVDataIterators data ) throws IOException, Exception
+    {
         writeHeader( out );
 
-        Iterator itCh = data.getChannelsIterator(  );
+        Collection channels = data.getChannels();
+        Iterator itCh = channels.iterator();
 
         while( itCh.hasNext(  ) )
         {
-            TVChannel ch = (TVChannel)itCh.next(  );
-
+            TVChannelsSet.Channel chinfo = (TVChannelsSet.Channel)itCh.next(  );
+            TVChannel ch = data.getRealChannel( chinfo );
             writeChannelInfo( out, ch );
-
         }
 
-        itCh = data.getChannelsIterator(  );
+        itCh = channels.iterator();
 
         while( itCh.hasNext(  ) )
         {
-            TVChannel ch = (TVChannel)itCh.next(  );
+            TVChannelsSet.Channel ch = (TVChannelsSet.Channel)itCh.next(  );
 
-            final Iterator itP = ch.getProgrammes(  ).iterator(  );
+            Collection progs = data.getProgrammes( ch );
+
+            final Iterator itP = progs.iterator(  );
 
             while( itP.hasNext(  ) )
             {
@@ -85,14 +105,9 @@ public class XMLTVExport
         }
 
         writeFooter( out );
-
-        out.flush(  );
-
-        out.close(  );
-
     }
 
-    protected void writeHeader( final BufferedWriter out )
+    protected void writeHeader( final Writer out )
         throws IOException
     {
         out.write( 
@@ -103,14 +118,14 @@ public class XMLTVExport
 
     }
 
-    protected void writeFooter( final BufferedWriter out )
+    protected void writeFooter( final Writer out )
         throws IOException
     {
         out.write( "</tv>\n" );
 
     }
 
-    protected void writeChannelInfo( final BufferedWriter out, TVChannel ch )
+    protected void writeChannelInfo( final Writer out, TVChannel ch )
         throws IOException
     {
         out.write( 
@@ -133,7 +148,7 @@ public class XMLTVExport
     }
 
     protected void writeProgrammeInfo( 
-        final BufferedWriter out, TVProgramme prog ) throws IOException
+        final Writer out, TVProgramme prog ) throws IOException
     {
         out.write( 
             "  <programme start=\""

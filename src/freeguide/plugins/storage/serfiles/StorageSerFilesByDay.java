@@ -286,45 +286,55 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
                 continue;
             }
 
-            if( loadInfo.channelsList != null )
-            {
-                data.iterateChannels(
-                    new TVIteratorChannels(  )
-                    {
-                        protected void onChannel( TVChannel channel )
-                        {
-                            if(
-                                !loadInfo.channelsList.contains(
-                                        channel.getID(  ) ) )
-                            {
-                                it.remove(  );
-                            }
-                        }
-                    } );
-            }
-
-            data.iterateProgrammes(
-                new TVIteratorProgrammes(  )
-                {
-                    protected void onChannel( TVChannel channel )
-                    {
-                    }
-
-                    protected void onProgramme( TVProgramme programme )
-                    {
-                        if(
-                            ( programme.getStart(  ) >= loadInfo.maxDate )
-                                || ( programme.getEnd(  ) <= loadInfo.minDate ) )
-                        {
-                            itProgrammes.remove(  );
-                        }
-                    }
-                } );
-
-            result.moveFrom( data );
+            filterData( loadInfo, result, data );
         }
 
         return result;
+    }
+
+    /**
+     * @param loadInfo
+     * @param resultData
+     * @param loadedData
+     */
+    protected void filterData( final Info loadInfo, TVData resultData, final TVData loadedData )
+    {
+        if( loadInfo.channelsList != null )
+        {
+            loadedData.iterateChannels(
+                new TVIteratorChannels(  )
+                {
+                    protected void onChannel( TVChannel channel )
+                    {
+                        if(
+                            !loadInfo.channelsList.contains(
+                                    channel.getID(  ) ) )
+                        {
+                            it.remove(  );
+                        }
+                    }
+                } );
+        }
+
+        loadedData.iterateProgrammes(
+            new TVIteratorProgrammes(  )
+            {
+                protected void onChannel( TVChannel channel )
+                {
+                }
+
+                protected void onProgramme( TVProgramme programme )
+                {
+                    if(
+                        ( programme.getStart(  ) >= loadInfo.maxDate )
+                            || ( programme.getEnd(  ) <= loadInfo.minDate ) )
+                    {
+                        itProgrammes.remove(  );
+                    }
+                }
+            } );
+
+        resultData.moveFrom( loadedData );
     }
 
     /**

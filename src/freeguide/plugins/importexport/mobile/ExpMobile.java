@@ -11,6 +11,7 @@ import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.Time;
 
 import freeguide.common.plugininterfaces.BaseModule;
+import freeguide.common.plugininterfaces.IApplication;
 import freeguide.common.plugininterfaces.IModuleExport;
 
 import java.io.BufferedOutputStream;
@@ -96,7 +97,9 @@ public class ExpMobile extends BaseModule implements IModuleExport
         chooser.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
         chooser.setMultiSelectionEnabled( false );
 
-        chooser.setAccessory( new FileChooserExtension(  ) );
+        IApplication app = Application.getInstance(  );
+        chooser.setAccessory( new FileChooserExtension(
+            app.getDataStorage(  ), app.getViewer(  ), app ) );
 
         if( chooser.showSaveDialog( parent ) == JFileChooser.APPROVE_OPTION )
         {

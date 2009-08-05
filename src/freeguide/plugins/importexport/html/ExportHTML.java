@@ -2,10 +2,12 @@ package freeguide.plugins.importexport.html;
 
 import freeguide.common.gui.FileChooserExtension;
 
+import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.general.TemplateParser;
 
 import freeguide.common.plugininterfaces.BaseModule;
+import freeguide.common.plugininterfaces.IApplication;
 import freeguide.common.plugininterfaces.IModuleExport;
 
 import java.io.BufferedWriter;
@@ -112,7 +114,9 @@ public class ExportHTML extends BaseModule implements IModuleExport
         chooser.setFileSelectionMode( JFileChooser.FILES_ONLY );
         chooser.setMultiSelectionEnabled( false );
 
-        final FileChooserExtension ext = new FileChooserExtension(  );
+        IApplication app = Application.getInstance(  );
+        final FileChooserExtension ext = new FileChooserExtension(
+            app.getDataStorage(  ), app.getViewer(  ), app );
         chooser.setAccessory( ext );
 
         if( chooser.showSaveDialog( parent ) == JFileChooser.APPROVE_OPTION )
