@@ -1,24 +1,21 @@
 package freeguide.common.lib.fgspecific.data;
 
-import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.general.StringHelper;
-import freeguide.common.lib.general.Time;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.Date;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
+
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.general.StringHelper;
+import freeguide.common.lib.general.Time;
 
 /**
  * A class that holds info about a particular programme.

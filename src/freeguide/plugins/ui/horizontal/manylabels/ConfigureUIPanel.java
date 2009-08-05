@@ -1,11 +1,9 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.KeyEvent;
-
 import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
