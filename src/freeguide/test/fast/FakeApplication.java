@@ -92,6 +92,11 @@ public class FakeApplication implements IApplication
         return null;
     }
 
+    public String getDocsDirectory()
+    {
+        return null;
+    }
+
     /**
      * Always returns the empty string
      */

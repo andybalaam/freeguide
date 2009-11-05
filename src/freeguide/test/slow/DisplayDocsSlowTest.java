@@ -26,7 +26,7 @@ public class DisplayDocsSlowTest
     public void run() throws MyAssertFailureException, ClassNotFoundException, MalformedURLException
     {
         FakeFileOpener opener = new FakeFileOpener();
-        DisplayDocs.displayDocs( "tmp", "../build/package/lib", opener );
+        DisplayDocs.displayDocs( "tmp", "../build/package/lib", null, opener );
 
         FreeGuideTest.my_assert( new File( "tmp/docs/UserGuide/UserGuide.html" ).isFile() );
         FreeGuideTest.my_assert( new File( "tmp/docs/index.html" ).isFile() );

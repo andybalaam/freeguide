@@ -22,32 +22,35 @@ public class DisplayDocs
     {
         IApplication app = Application.getInstance();
         displayDocs( app.getWorkingDirectory(),
-            app.getLibDirectory(), new FileHelper() );
+            app.getLibDirectory(), app.getDocsDirectory(), new FileHelper() );
     }
 
-    public static File displayDocs( String workingDirectory,
-        String libDirectory, IFileOpener fileOpener )
+    public static void displayDocs( String workingDirectory,
+        String libDirectory, String docsDirectory, IFileOpener fileOpener )
     {
-        final File outDir = new File( workingDirectory,
-            DOCS_SUBDIR );
-        final File inZipFile = new File( libDirectory, DOCS_ZIPFILE );
+        // If the user didn't provide a documents dir on
+        // the command line, we unzip the docs into a
+        // temporary location.
+        if( docsDirectory == null )
+        {
+            final File outDir = new File( workingDirectory,
+                DOCS_SUBDIR );
+            final File inZipFile = new File( libDirectory, DOCS_ZIPFILE );
 
-        try
-        {
-            FileHelper.unzip( inZipFile, outDir );
-            fileOpener.openFile(
-                new File( outDir, DisplayDocs.START_FILE ).getAbsolutePath() );
-        }
-        catch( FileNotFoundException e )
-        {
-            e.printStackTrace();
-        }
-        catch( IOException e )
-        {
-            e.printStackTrace();
+            try
+            {
+                FileHelper.unzip( inZipFile, outDir );
+                docsDirectory = outDir.toString();
+            }
+            catch( IOException e )
+            {
+                e.printStackTrace();
+            }
         }
 
-        return outDir;
+        fileOpener.openFile(
+            new File( docsDirectory, DisplayDocs.START_FILE
+                ).getAbsolutePath() );
     }
 
 }

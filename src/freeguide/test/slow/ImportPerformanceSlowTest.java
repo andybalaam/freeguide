@@ -152,6 +152,11 @@ public class ImportPerformanceSlowTest
             return null;
         }
 
+        public String getDocsDirectory()
+        {
+            return null;
+        }
+
         public String getLocalizedMessage( String key )
         {
             return null;

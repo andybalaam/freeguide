@@ -48,6 +48,8 @@ public interface IApplication
 
     String getLibDirectory(  );
 
+    String getDocsDirectory();
+
     boolean isUnix(  );
 
     IModuleReminder[] getReminders(  );

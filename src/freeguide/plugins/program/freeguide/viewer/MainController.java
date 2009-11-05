@@ -630,6 +630,11 @@ public class MainController extends BaseModule implements IApplication
         return ret.toString();
     }
 
+    public String getDocsDirectory()
+    {
+        return FreeGuide.runtimeInfo.docDirectory;
+    }
+
     public Logger getLogger()
     {
         return FreeGuide.log;
