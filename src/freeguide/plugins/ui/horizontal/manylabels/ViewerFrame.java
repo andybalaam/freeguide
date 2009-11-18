@@ -4,6 +4,7 @@ import freeguide.common.lib.fgspecific.data.TVProgramme;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.FocusEvent;
@@ -118,6 +119,12 @@ public class ViewerFrame extends JPanel
 
     }
 
+    public void setHTMLFont( Font font )
+    {
+        printedGuideArea.setFont( font );
+        detailsPanel.setFont(     font );
+    }
+
     /**
      * Set up the entire static bit of the GUI
      */
@@ -143,10 +150,14 @@ public class ViewerFrame extends JPanel
         printedGuideScrollPane = new FocusJScrollPane(  );
 
         printedGuideArea = new JEditorPane(  );
+        printedGuideArea.putClientProperty(
+            JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE );
 
         detailsPanel = new JEditorPane(  );
         detailsPanel.setEditable( false );
         detailsPanel.setContentType( "text/html" );
+        detailsPanel.putClientProperty(
+            JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE );
 
         splitPaneChanProg = new javax.swing.JSplitPane(  );
 

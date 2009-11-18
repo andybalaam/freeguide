@@ -483,6 +483,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         final Font font =
             new Font( config.fontName, config.fontStyle, config.fontSize );
 
+        panel.setHTMLFont( font );
+
         final TVChannelsSet currentChannelSet =
             (TVChannelsSet)getChannelsSetByName( config.currentChannelSetName )
                                .clone(  );
