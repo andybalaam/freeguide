@@ -17,9 +17,6 @@
             target="1.5"
             destdir="${build}/buildclasses">
             <src path="${src}"/>
-            <classpath>
-                <fileset dir="${lib}" includes="**/*.jar"/>
-            </classpath>
             <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
         </javac>
     </target>

@@ -22,9 +22,6 @@
             target="1.5"
             debug="yes"
             encoding="UTF-8">
-            <classpath>
-                <fileset dir="${lib}" includes="**/*.jar"/>
-            </classpath>
             <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
           </javac>
     </target>
@@ -38,9 +35,6 @@
             target="1.5"
             debug="yes"
             encoding="UTF-8">
-            <classpath>
-                <fileset dir="${lib}" includes="**/*.jar"/>
-            </classpath>
             <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
           </javac>
 
@@ -56,11 +50,6 @@
              <fileset dir="${src}" includes="resources/main/*"/>
              <fileset dir="${src}" includes="resources/i18n/*"/>
         </jar>
-
-        <!-- Copy everything from within lib to the lib dir inside build/package -->
-        <copy todir="${build}/package/lib">
-            <fileset dir="${lib}" includes="**/*.jar"/>
-        </copy>
     </target>
 
     <!-- Zip the HTML documentation into the lib dir -->
