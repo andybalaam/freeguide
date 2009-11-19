@@ -6,9 +6,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
-import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.DisplayDocs;
 import freeguide.common.lib.general.Utils;
 import freeguide.common.plugininterfaces.IModuleExport;

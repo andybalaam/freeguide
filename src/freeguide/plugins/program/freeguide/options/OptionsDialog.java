@@ -12,26 +12,11 @@
  */
 package freeguide.plugins.program.freeguide.options;
 
-import freeguide.common.gui.FGDialog;
-
-import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.general.GridBagEasy;
-import freeguide.common.lib.general.Utils;
-
-import freeguide.common.plugininterfaces.IModule;
-import freeguide.common.plugininterfaces.IModuleGrabber;
-import freeguide.common.plugininterfaces.IModuleConfigurationUI;
-
-import freeguide.plugins.program.freeguide.FreeGuide;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
-
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
 import java.util.Enumeration;
 
 import javax.swing.JButton;
@@ -45,6 +30,16 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+
+import freeguide.common.gui.FGDialog;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.general.GridBagEasy;
+import freeguide.common.lib.general.Utils;
+import freeguide.common.plugininterfaces.IModule;
+import freeguide.common.plugininterfaces.IModuleConfigurationUI;
+import freeguide.plugins.program.freeguide.FreeGuide;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
+import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 
 /**
  * FreeGuide's options screen.
