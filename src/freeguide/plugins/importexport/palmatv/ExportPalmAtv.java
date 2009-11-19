@@ -1,5 +1,6 @@
 package freeguide.plugins.importexport.palmatv;
 
+import freeguide.common.base.IModuleConfigurationUI;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
@@ -8,7 +9,6 @@ import freeguide.common.lib.general.EndianInputStream;
 import freeguide.common.lib.general.EndianOutputByteArray;
 
 import freeguide.common.plugininterfaces.BaseModule;
-import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import freeguide.common.plugininterfaces.IModuleExport;
 
 import java.io.File;

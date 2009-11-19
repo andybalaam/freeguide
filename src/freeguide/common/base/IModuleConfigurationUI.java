@@ -1,4 +1,4 @@
-package freeguide.common.plugininterfaces;
+package freeguide.common.base;
 
 import java.awt.Component;
 

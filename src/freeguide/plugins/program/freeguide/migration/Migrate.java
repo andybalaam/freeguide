@@ -1,7 +1,7 @@
 package freeguide.plugins.program.freeguide.migration;
 
+import freeguide.common.base.Version;
 import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.general.Version;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
 

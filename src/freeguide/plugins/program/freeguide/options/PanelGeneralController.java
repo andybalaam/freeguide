@@ -1,8 +1,8 @@
 package freeguide.plugins.program.freeguide.options;
 
+import freeguide.common.base.IModuleConfigurationUI;
 import freeguide.common.lib.fgspecific.Application;
 
-import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.lib.general.LookAndFeelManager;

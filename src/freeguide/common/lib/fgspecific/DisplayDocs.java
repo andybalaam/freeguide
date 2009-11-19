@@ -1,7 +1,6 @@
 package freeguide.common.lib.fgspecific;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import freeguide.common.lib.general.FileHelper;

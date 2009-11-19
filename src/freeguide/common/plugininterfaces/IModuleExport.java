@@ -1,5 +1,6 @@
 package freeguide.common.plugininterfaces;
 
+import freeguide.common.base.IModule;
 import freeguide.common.lib.fgspecific.data.TVData;
 
 import javax.swing.JFrame;

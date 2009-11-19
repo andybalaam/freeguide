@@ -1,8 +1,8 @@
 package freeguide.build.patchallfiles;
 
-import freeguide.common.lib.general.Version;
+import freeguide.common.base.PluginInfo;
+import freeguide.common.base.Version;
 
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

@@ -4,6 +4,8 @@ import java.io.File;
 
 import javax.swing.JFrame;
 
+import freeguide.common.base.IModule;
+
 /**
  * Load data from file(s). Each import module should implement this interface.
  *

@@ -1,5 +1,6 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
+import freeguide.common.base.IModuleConfigurationUI;
 import freeguide.common.gui.SearchDialog;
 
 import freeguide.common.lib.fgspecific.Application;
@@ -14,7 +15,6 @@ import freeguide.common.lib.general.TemplateParser;
 import freeguide.common.lib.general.Time;
 
 import freeguide.common.plugininterfaces.BaseModule;
-import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import freeguide.common.plugininterfaces.IModuleStorage;
 import freeguide.common.plugininterfaces.IModuleStorage.Info;
 import freeguide.common.plugininterfaces.IModuleViewer;

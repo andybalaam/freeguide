@@ -1,10 +1,11 @@
 package freeguide.plugins.program.freeguide.lib.fgspecific;
 
+import freeguide.common.base.IModule;
+import freeguide.common.base.PluginInfo;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.PreferencesHelper;
 import freeguide.common.lib.general.ResourceHelper;
 
-import freeguide.common.plugininterfaces.IModule;
 import freeguide.common.plugininterfaces.IModuleExport;
 import freeguide.common.plugininterfaces.IModuleGrabber;
 import freeguide.common.plugininterfaces.IModuleImport;

@@ -1,6 +1,6 @@
 package freeguide.common.lib.fgspecific;
 
-import freeguide.common.lib.general.Version;
+import freeguide.common.base.Version;
 
 import freeguide.common.plugininterfaces.IApplication;
 

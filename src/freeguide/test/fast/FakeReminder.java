@@ -7,9 +7,9 @@ import javax.swing.JDialog;
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
+import freeguide.common.base.IModuleConfigurationUI;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.fgspecific.selection.Favourite;
-import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import freeguide.common.plugininterfaces.IModuleReminder;
 
 public class FakeReminder implements IModuleReminder

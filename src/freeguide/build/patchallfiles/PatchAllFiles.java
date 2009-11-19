@@ -1,6 +1,6 @@
 package freeguide.build.patchallfiles;
 
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
+import freeguide.common.base.PluginInfo;
 
 import java.io.File;
 import java.io.FileFilter;

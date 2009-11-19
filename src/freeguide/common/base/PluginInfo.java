@@ -1,10 +1,6 @@
-package freeguide.plugins.program.freeguide.lib.fgspecific;
+package freeguide.common.base;
 
-import freeguide.common.lib.general.Version;
 
-import freeguide.common.plugininterfaces.IModule;
-
-import freeguide.plugins.program.freeguide.FreeGuide;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -123,7 +119,6 @@ public class PluginInfo extends DefaultHandler
         {
             if( className != null )
             {
-                FreeGuide.log.finest( "Loading class '" + className + "'." );
 
                 try
                 {
@@ -134,9 +129,7 @@ public class PluginInfo extends DefaultHandler
                 }
                 catch( Exception ex )
                 {
-                    FreeGuide.log.log( 
-                        Level.SEVERE, "Cannot create instance for "
-                        + className, ex );
+                    ex.printStackTrace();
                 }
             }
         }

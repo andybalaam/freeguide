@@ -12,13 +12,13 @@
  */
 package freeguide.plugins.program.freeguide.wizard;
 
+import freeguide.common.base.PluginInfo;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.DisplayDocs;
 
 import freeguide.common.plugininterfaces.IModuleConfigureFromWizard;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 import freeguide.plugins.program.freeguide.migration.Migrate;
 

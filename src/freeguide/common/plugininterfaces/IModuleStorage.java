@@ -1,5 +1,6 @@
 package freeguide.common.plugininterfaces;
 
+import freeguide.common.base.IModule;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVProgramme;

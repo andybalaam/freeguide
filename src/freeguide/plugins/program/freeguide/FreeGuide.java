@@ -12,9 +12,9 @@
  */
 package freeguide.plugins.program.freeguide;
 
+import freeguide.common.base.Version;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.PreferencesHelper;
-import freeguide.common.lib.general.Version;
 
 import freeguide.common.plugininterfaces.FGLogger;
 import freeguide.common.plugininterfaces.IApplication;

@@ -5,10 +5,10 @@ import java.util.ResourceBundle;
 
 import javax.swing.JDialog;
 
+import freeguide.common.base.IModuleConfigurationUI;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
-import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import freeguide.plugins.storage.serfiles.StorageSerFilesByDay;
 
 public class FakeStorage extends StorageSerFilesByDay

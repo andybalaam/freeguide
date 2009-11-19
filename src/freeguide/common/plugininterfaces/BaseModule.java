@@ -1,5 +1,7 @@
 package freeguide.common.plugininterfaces;
 
+import freeguide.common.base.IModule;
+import freeguide.common.base.IModuleConfigurationUI;
 import freeguide.common.lib.fgspecific.Application;
 
 import java.util.ResourceBundle;

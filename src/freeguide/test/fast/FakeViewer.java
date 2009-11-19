@@ -6,7 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import freeguide.common.plugininterfaces.IModuleConfigurationUI;
+import freeguide.common.base.IModuleConfigurationUI;
 import freeguide.common.plugininterfaces.IModuleViewer;
 import freeguide.common.plugininterfaces.IModuleStorage.Info;
 

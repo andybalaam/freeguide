@@ -12,6 +12,7 @@
  */
 package freeguide.plugins.program.freeguide.lib.fgspecific;
 
+import freeguide.common.base.Version;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.*;
 

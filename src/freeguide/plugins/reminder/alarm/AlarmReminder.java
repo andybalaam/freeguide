@@ -1,5 +1,6 @@
 package freeguide.plugins.reminder.alarm;
 
+import freeguide.common.base.IModuleConfigurationUI;
 import freeguide.common.gui.FavouritesController;
 
 import freeguide.common.lib.fgspecific.Application;
@@ -8,7 +9,6 @@ import freeguide.common.lib.fgspecific.selection.Favourite;
 import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.BaseModuleReminder;
-import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import freeguide.common.plugininterfaces.IModuleReminder;
 import freeguide.common.plugininterfaces.IModuleStorage;
 import freeguide.common.plugininterfaces.IModuleViewer;

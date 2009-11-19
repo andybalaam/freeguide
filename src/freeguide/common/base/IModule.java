@@ -1,8 +1,9 @@
-package freeguide.common.plugininterfaces;
+package freeguide.common.base;
 
 import java.util.ResourceBundle;
 
 import javax.swing.JDialog;
+
 
 /**
  * Basic interface for all modules for freeguide-tv.

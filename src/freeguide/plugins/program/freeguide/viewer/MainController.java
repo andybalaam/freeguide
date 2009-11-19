@@ -1,5 +1,6 @@
 package freeguide.plugins.program.freeguide.viewer;
 
+import freeguide.common.base.PluginInfo;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.data.TVData;
@@ -20,7 +21,6 @@ import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.dialogs.ChannelSetListDialog;
 import freeguide.plugins.program.freeguide.lib.fgspecific.ExecutionController;
 import freeguide.plugins.program.freeguide.lib.fgspecific.GrabberCommandRunner;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 import freeguide.plugins.program.freeguide.lib.fgspecific.StoragePipe;
 import freeguide.plugins.program.freeguide.lib.fgspecific.VersionCheckerThread;

@@ -10,7 +10,7 @@
  *
  *  See the file COPYING for more information.
  */
-package freeguide.common.lib.general;
+package freeguide.common.base;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

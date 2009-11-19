@@ -12,7 +12,7 @@
  */
 package freeguide.plugins.reminder.alarm;
 
-import freeguide.common.plugininterfaces.IModuleConfigurationUI;
+import freeguide.common.base.IModuleConfigurationUI;
 
 import java.awt.Component;
 

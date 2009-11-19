@@ -1,6 +1,6 @@
 package freeguide.plugins.importexport.palmatv;
 
-import freeguide.common.plugininterfaces.IModuleConfigurationUI;
+import freeguide.common.base.IModuleConfigurationUI;
 
 import java.awt.Component;
 

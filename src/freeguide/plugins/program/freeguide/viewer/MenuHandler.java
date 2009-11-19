@@ -7,13 +7,13 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JMenuItem;
 
+import freeguide.common.base.PluginInfo;
 import freeguide.common.lib.fgspecific.DisplayDocs;
 import freeguide.common.lib.general.Utils;
 import freeguide.common.plugininterfaces.IModuleExport;
 import freeguide.common.plugininterfaces.IModuleImport;
 import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.dialogs.AboutFrame;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 import freeguide.plugins.program.freeguide.options.OptionsDialog;
 import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;

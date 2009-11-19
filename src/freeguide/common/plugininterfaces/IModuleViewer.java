@@ -3,6 +3,8 @@ package freeguide.common.plugininterfaces;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import freeguide.common.base.IModule;
+
 /**
  * Interface for viewer modules.
  *

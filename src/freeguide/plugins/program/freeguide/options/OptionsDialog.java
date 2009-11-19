@@ -31,14 +31,14 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import freeguide.common.base.IModule;
+import freeguide.common.base.IModuleConfigurationUI;
+import freeguide.common.base.PluginInfo;
 import freeguide.common.gui.FGDialog;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.general.GridBagEasy;
 import freeguide.common.lib.general.Utils;
-import freeguide.common.plugininterfaces.IModule;
-import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 import freeguide.plugins.program.freeguide.FreeGuide;
-import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 
 /**

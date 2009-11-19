@@ -16,7 +16,8 @@
             source="1.5"
             target="1.5"
             destdir="${build}/buildclasses">
-            <src path="${src}"/>
+            <src path="${src}/freeguide/build"/>
+            <src path="${src}/freeguide/common/base"/>
             <!-- Uncomment to show warnings <compilerarg value="-Xlint:unchecked"/>-->
         </javac>
     </target>
