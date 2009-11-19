@@ -10,13 +10,6 @@
     <jar href="lib/program-freeguide.jar"/>
     <jar href="lib/common.jar"/>
     <jar href="lib/docs.jar"/>
-    <jar href="lib/grabber-cosmostv.jar"/>
-    <jar href="lib/grabber-hallmark.jar"/>
-    <jar href="lib/grabber-kulichki.jar"/>
-    <jar href="lib/grabber-newsvm.jar"/>
-    <jar href="lib/grabber-ntvplus.jar"/>
-    <jar href="lib/grabber-rbc.jar"/>
-    <jar href="lib/grabber-vsetv.jar"/>
     <jar href="lib/grabber-xmltv.jar"/>
     <jar href="lib/importexport-html.jar"/>
     <jar href="lib/importexport-jtv.jar"/>
@@ -26,7 +19,6 @@
     <jar href="lib/reminder-alarm.jar"/>
     <jar href="lib/retroweaver-rt-1.2.5.jar"/>
     <jar href="lib/storage-serfiles.jar"/>
-    <jar href="lib/tagsoup-1.0.1.jar"/>
     <jar href="lib/ui-horizontal.jar"/>
     <jar href="lib/ui-vertical.jar"/>
     <jar href="lib/xmltv-win.jar"/>
