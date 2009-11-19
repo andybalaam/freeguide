@@ -34,7 +34,6 @@ public class PatchAllFiles
     public static void main( final String[] args ) throws Exception
     {
         PluginInfo[] plugins = loadPluginsInfo(  );
-        PatchRepository.patch( plugins );
         PatchBuild.patch( plugins );
         PatchApplication_java.patch( plugins );
 
