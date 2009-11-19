@@ -219,7 +219,7 @@ public class MainController extends BaseModule implements IApplication
 
         if( grabberFromWizard != null )
         {
-            config.activeGrabberIDs.add( grabberFromWizard );
+            config.getActiveGrabberIDs().add( grabberFromWizard );
         }
 
         mainFrame.pack(  );
@@ -708,7 +708,22 @@ public class MainController extends BaseModule implements IApplication
         public List channelsSetsList = new ArrayList(  );
 
         /** DOCUMENT ME! */
-        public Set activeGrabberIDs = new TreeSet(  );
+        private Set activeGrabberIDs = new TreeSet(  );
+
+        public Set getActiveGrabberIDs()
+        {
+            // Ensure XMLTV is always selected.  This is needed
+            // because for now the only grabber type there is
+            // XMLTV, so what would be the point of it being
+            // deselected?
+            activeGrabberIDs.add( "grabber-xmltv" );
+            return activeGrabberIDs;
+        }
+
+        public void setActiveGrabberIDs( TreeSet iActiveGrabberIDs )
+        {
+            activeGrabberIDs = iActiveGrabberIDs;
+        }
 
         /** The default selected viewer */
         public String viewerId = FreeGuide.VIEWER_ID;

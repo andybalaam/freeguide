@@ -47,7 +47,6 @@ public class MainFrame extends JWaitFrame
     private JPanel jPanel;
     private JProgressBar progressBar;
     private JButton foregroundButton;
-    private JMenuItem menuItemUpdater;
     private JMenuItem menuItemImport = null;
     private final IApplication.IMainMenu menuForExport =
         new IApplication.IMainMenu(  )
@@ -412,7 +411,6 @@ public class MainFrame extends JWaitFrame
             menuTools.add( new JSeparator(  ) );
             menuTools.add( getMenuItemWizard(  ) ); // First time wiz
 
-            // menuTools.add( getMenuItemUpdater(  ) ); // Plugins man
             menuTools.add( new JSeparator(  ) );
             menuTools.add( getMenuItemOptions(  ) ); // Options
             menuTools.add( new JSeparator(  ) );
@@ -605,28 +603,6 @@ public class MainFrame extends JWaitFrame
         }
 
         return foregroundButton;
-    }
-
-    /**
-     * This method initializes jMenuItem
-     *
-     * @return javax.swing.JMenuItem
-     */
-    public JMenuItem getMenuItemUpdater(  )
-    {
-        if( menuItemUpdater == null )
-        {
-            menuItemUpdater = new JMenuItem(  );
-            menuItemUpdater.setText( 
-                getLocalizedString( "MainFrame.Menu.Updater" ) );
-
-            menuItemUpdater.setMnemonic( KeyEvent.VK_U );
-
-            menuItemUpdater.setAccelerator( 
-                KeyStroke.getKeyStroke( KeyEvent.VK_U, InputEvent.CTRL_MASK ) );
-        }
-
-        return menuItemUpdater;
     }
 
     /**

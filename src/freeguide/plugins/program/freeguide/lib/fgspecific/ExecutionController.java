@@ -157,7 +157,7 @@ public class ExecutionController implements IExecutionController
                 }.start(  );
         }
 
-        if( MainController.config.activeGrabberIDs.size(  ) == 0 )
+        if( MainController.config.getActiveGrabberIDs().size(  ) == 0 )
         {
             wasError = true;
             progressDialog.showNoGrabberMessage(  );

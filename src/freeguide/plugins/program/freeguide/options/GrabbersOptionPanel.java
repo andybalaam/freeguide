@@ -24,7 +24,7 @@ import javax.swing.JCheckBox;
  */
 public class GrabbersOptionPanel extends OptionPanel
 {
-    protected Set activeGrabberIDs = new TreeSet(  );
+    protected TreeSet activeGrabberIDs = new TreeSet(  );
     ActionListener cbAction =
         new ActionListener(  )
         {
@@ -81,7 +81,7 @@ public class GrabbersOptionPanel extends OptionPanel
             cb.setToolTipText( grabbers[i].getDescription(  ) );
 
             if( 
-                MainController.config.activeGrabberIDs.contains( 
+                MainController.config.getActiveGrabberIDs().contains( 
                         grabbers[i].getID(  ) ) )
             {
                 cb.setSelected( true );
@@ -109,7 +109,7 @@ public class GrabbersOptionPanel extends OptionPanel
 
     protected boolean doSave(  )
     {
-        MainController.config.activeGrabberIDs = activeGrabberIDs;
+        MainController.config.setActiveGrabberIDs( activeGrabberIDs );
 
         return true;
 

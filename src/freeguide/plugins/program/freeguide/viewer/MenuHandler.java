@@ -18,7 +18,6 @@ import freeguide.plugins.program.freeguide.dialogs.AboutFrame;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginInfo;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 import freeguide.plugins.program.freeguide.options.OptionsDialog;
-import freeguide.plugins.program.freeguide.updater.UpdaterController;
 import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
 
 /**
@@ -138,30 +137,6 @@ public class MenuHandler
                 public void actionPerformed( ActionEvent e )
                 {
                     new FirstTimeWizard( true );
-                }
-            } );
-
-        controller.mainFrame.getMenuItemUpdater(  ).addActionListener( 
-            new ActionListener(  )
-            {
-                public void actionPerformed( java.awt.event.ActionEvent e )
-                {
-                    if( FreeGuide.arguments.containsKey( "no-plugin-manager" ) )
-                    {
-                        JOptionPane.showMessageDialog( 
-                            controller.mainFrame,
-                            Application.getInstance(  )
-                                       .getLocalizedMessage( 
-                                "UpdateManager.Disabled.Text" ),
-                            Application.getInstance(  )
-                                       .getLocalizedMessage( 
-                                "UpdateManager.Disabled.Header" ),
-                            JOptionPane.ERROR_MESSAGE );
-                    }
-                    else
-                    {
-                        new UpdaterController( controller.mainFrame ).run(  );
-                    }
                 }
             } );
 

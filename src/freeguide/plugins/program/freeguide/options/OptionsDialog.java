@@ -19,6 +19,7 @@ import freeguide.common.lib.general.GridBagEasy;
 import freeguide.common.lib.general.Utils;
 
 import freeguide.common.plugininterfaces.IModule;
+import freeguide.common.plugininterfaces.IModuleGrabber;
 import freeguide.common.plugininterfaces.IModuleConfigurationUI;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
@@ -204,14 +205,9 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
             new DefaultMutableTreeNode( 
                 Application.getInstance(  ).getLocalizedMessage( "advanced" ) );
 
-        //optionsPane.add(panel, panel.toString());
         trunk.add( advancedBranch );
 
-        panel = new GrabbersOptionPanel( this );
-        panel.construct(  );
-
-        addBranchWithModules( 
-            advancedBranch, panel, PluginsManager.getGrabbers(  ) );
+        addGrabbersBranch( advancedBranch );
 
         addBranchWithModules( 
             advancedBranch,
@@ -252,6 +248,40 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
     }
 
+    private void addGrabbersBranch( DefaultMutableTreeNode advancedBranch )
+    {
+        // Previously we had other grabbers (written in Java)
+        // so we needed a submenu here.  The code is preserved
+        // just in case:
+
+        PluginInfo[] grabbers_info = PluginsManager.getGrabbers();
+        if( grabbers_info.length > 1 )
+        {
+            GrabbersOptionPanel panel = new GrabbersOptionPanel( this );
+            panel.construct(  );
+
+            addBranchWithModules(
+                advancedBranch, panel, PluginsManager.getGrabbers(  ) );
+        }
+        else
+        {
+            // But the normal case for now is just to have one
+            // grabber plugin, which is XMLTV.
+
+            PluginInfo xmltvinfo = (PluginInfo)( grabbers_info[0] );
+            IModuleConfigurationUI confUI = xmltvinfo.getInstance()
+                .getConfigurationUI( this );
+    
+            if( confUI != null )
+            {
+                final DefaultMutableTreeNode modBranch =
+                    new DefaultMutableTreeNode(
+                        new ModuleNode( confUI, xmltvinfo.getName(  ) ) );
+                advancedBranch.add( modBranch );
+            }
+        }
+    }
+    
     protected TreePath addBranchWithModules( 
         DefaultMutableTreeNode parent, Object obj, PluginInfo[] plugins )
     {

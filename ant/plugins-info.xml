@@ -12,36 +12,6 @@
       <param name="plugin-version" value="0.10.11"/>
     </antcall>
     <antcall target="${actual-target}">
-      <param name="plugin-id" value="grabber-cosmostv"/>
-      <param name="plugin-dir" value="grabber/cosmostv"/>
-      <param name="plugin-version" value="2"/>
-    </antcall>
-    <antcall target="${actual-target}">
-      <param name="plugin-id" value="grabber-hallmark"/>
-      <param name="plugin-dir" value="grabber/hallmark"/>
-      <param name="plugin-version" value="2"/>
-    </antcall>
-    <antcall target="${actual-target}">
-      <param name="plugin-id" value="grabber-kulichki"/>
-      <param name="plugin-dir" value="grabber/kulichki"/>
-      <param name="plugin-version" value="2"/>
-    </antcall>
-    <antcall target="${actual-target}">
-      <param name="plugin-id" value="grabber-newsvm"/>
-      <param name="plugin-dir" value="grabber/newsvm"/>
-      <param name="plugin-version" value="2"/>
-    </antcall>
-    <antcall target="${actual-target}">
-      <param name="plugin-id" value="grabber-ntvplus"/>
-      <param name="plugin-dir" value="grabber/ntvplus"/>
-      <param name="plugin-version" value="2"/>
-    </antcall>
-    <antcall target="${actual-target}">
-      <param name="plugin-id" value="grabber-rbc"/>
-      <param name="plugin-dir" value="grabber/rbc"/>
-      <param name="plugin-version" value="0.1"/>
-    </antcall>
-    <antcall target="${actual-target}">
       <param name="plugin-id" value="grabber-xmltv"/>
       <param name="plugin-dir" value="grabber/xmltv"/>
       <param name="plugin-version" value="2"/>

@@ -18,7 +18,7 @@ public class GrabberCommandRunner implements ICommandRunner
 	{
 		boolean cmdSucceeded = true;
 
-		Iterator it = MainController.config.activeGrabberIDs.iterator(  );
+		Iterator it = MainController.config.getActiveGrabberIDs().iterator(  );
 
 		while( it.hasNext(  ) )
 		{
