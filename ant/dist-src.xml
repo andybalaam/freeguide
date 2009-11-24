@@ -22,6 +22,8 @@
                 <exclude name="doc/nonlocal/**"/>
                 <exclude name="doc/html-web/**"/>
                 <exclude name="**/*.class"/>
+                <exclude name="**/xmltv/xmltv.exe"/>
+                <exclude name="**/xmltv-*/**"/>
             </tarfileset>
             
         </tar>
@@ -38,6 +40,7 @@
                 <exclude name="doc/nonlocal/**"/>
                 <exclude name="doc/html-web/**"/>
                 <exclude name="**/*.class"/>
+                <exclude name="**/xmltv-*/**"/>
             </zipfileset>
             
         </zip>
