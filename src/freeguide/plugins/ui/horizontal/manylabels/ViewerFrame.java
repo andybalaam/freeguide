@@ -150,6 +150,8 @@ public class ViewerFrame extends JPanel
         printedGuideScrollPane = new FocusJScrollPane(  );
 
         printedGuideArea = new JEditorPane(  );
+        printedGuideArea.setEditable( false );
+        printedGuideArea.setContentType( "text/html" );
         printedGuideArea.putClientProperty(
             JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE );
 
@@ -333,17 +335,15 @@ public class ViewerFrame extends JPanel
         splitPaneGuideDet.setOrientation( 
             javax.swing.JSplitPane.HORIZONTAL_SPLIT );
 
-        printedGuideArea.setEditable( false );
-
-        printedGuideArea.setContentType( "text/html" );
-
         printedGuideScrollPane.setViewportView( printedGuideArea );
 
         splitPaneMainDet.setRightComponent( splitPaneGuideDet );
 
         splitPaneGuideDet.setLeftComponent( printedGuideScrollPane );
 
-        splitPaneGuideDet.setRightComponent( new JScrollPane( detailsPanel ) );
+        FocusJScrollPane detailsScrollPane = new FocusJScrollPane(  );
+        detailsScrollPane.setViewportView( detailsPanel );
+        splitPaneGuideDet.setRightComponent( detailsScrollPane );
 
         channelNameScrollPane.setBorder( null );
 
