@@ -1005,7 +1005,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
             TemplateParser parser =
                 new TemplateParser( 
-                    "resources/plugins/ui/horizontal/manylabels/templates/TemplatePersonalGuide.html" );
+                    "resources/plugins/ui/horizontal/manylabels/templates/TemplatePersonalGuidePrint.html" );
             parser.process( 
                 new HandlerPersonalGuide( 
                     getLocalizer(  ), currentData, new Date( theDate ),

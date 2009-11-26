@@ -36,13 +36,13 @@
 <body>
   <h1><VALUE:.getHeader()/></h1>
     <ITERATOR:getProgrammes()>
-    	<p><b><VALUE:.getProgrammeStartTime(this)/> - <a href="<VALUE:.getProgrammeURL(this)/>"><VALUE:.getProgrammeTitle(this)><VALUE:.getProgrammeSubTitle(this)/></a></b>
+    	<p><b><VALUE:.getProgrammeStartTime(this)/> - <VALUE:.getProgrammeTitle(this)><VALUE:.getProgrammeSubTitle(this)/></b>
     	  <br><VALUE:.getProgrammeChannelName(this)/>, ends <VALUE:.getProgrammeEndTime(this)/> <VALUE:.getProgrammeCategory(this)/>
     	  <br><VALUE:.getProgrammeDescription(this)/> <VALUE:.getPreviouslyShown(this)/> <VALUE:.getStarRating(this)/>
     	</p>
     </ITERATOR>
 
 <hr/>
-<address>http://freeguide-tv.sourceforge.net</address>
+<address><a href="http://freeguide-tv.sourceforge.net">http://freeguide-tv.sourceforge.net</a></address>
 </body>
 </html>
