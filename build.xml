@@ -12,12 +12,8 @@
       jars-win        - compile application and all plugins to jars, and the xmltv-win jar.
       dist-tgz          - make .tar.gz files for slackware and other unpackaged linuxes
 
-      (currently unused)
-      dist-repository   - make .zip files for repository
-
   After builds we have:
     dist/src        - sources
-    dist/repository - zip files for repository
     dist/rpm        - rpm Linux installer file
     dist/srpm       - srpm source rpm file
     dist/tgz        - tar.gz binary file
