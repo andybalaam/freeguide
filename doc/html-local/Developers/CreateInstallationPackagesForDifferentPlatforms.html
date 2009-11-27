@@ -79,6 +79,7 @@ a.varlink { text-decoration:none; }
 </li><li><span style='font-size:83%'><a class='wikilink' href='ChangingTheVersion.html'>Changing The Version</a></span>
 </li><li><span style='font-size:83%'><a class='urllink' href='http://bugs.launchpad.net/freeguide-tv/+bugs' rel='nofollow'>Bug tracker -&gt;</a></span>
 </li><li><span style='font-size:83%'><a class='urllink' href='http://freeguide-tv.svn.sourceforge.net/viewvc/freeguide-tv/trunk/freeguide-tv/' rel='nofollow'>Browse source -&gt;</a></span>
+</li><li><span style='font-size:83%'><a class='urllink' href='http://sourceforge.net/projects/freeguide-tv' rel='nofollow'>Sourceforge -&gt;</a></span>
 </li></ul></li><li><a class='wikilink' href='../Main/Credits.html'>Credits</a>
 </li><li><a class='wikilink' href='../Main/Screenshots.html'>Screenshots</a>
 </li><li><a class='wikilink' href='../Main/Links.html'>Links</a>
@@ -93,25 +94,30 @@ a.varlink { text-decoration:none; }
 <h1>Creating <span class='wikiword'>FreeGuide</span> installer packages</h1>
 <p>This page tells you how to make installers (<span class='wikiword'>EXEs</span> for Windows, <span class='wikiword'>RPMs</span>, debs etc for Linux).
 </p>
-<p class='vspace'>You need to run "ant" in the <span class='wikiword'>FreeGuide</span> root source directory (the one containing the file build.xml) first. It will prepare some files by setting their version number, compile the application and all the plugins, and pack things into JAR files.
-</p>
 <div class='vspace'></div><h3>Windows</h3>
 <p>For building windows package you need to have the NSIS tool for creating windows installers - <a class='urllink' href='http://nsis.sf.net' rel='nofollow'>NSIS</a>.
 </p>
-<p class='vspace'>There are two version of the Windows package - one including the XMLTV grabbers and one without XMLTV.
+<p class='vspace'>If you are building on Windows, install NSIS and make sure the <code class='escaped'>makensis</code> command is in your PATH.  Then go to the <span class='wikiword'>FreeGuide</span> root directory and type:
 </p>
-<p class='vspace'>The two alternative scripts for creating the Windows installer are in:
+<div class='vspace'></div><pre> ant dist-exe
+</pre><p class='vspace'>If you are on Linux, install NSIS (<code class='escaped'>apt-get install nsis</code> or equivalent may be enough) and then go to the <span class='wikiword'>FreeGuide</span> root directory and type:
 </p>
-<div class='vspace'></div><pre class='escaped'>build/install/windows/freeguide-without-xmltv.nsi and
-build/install/windows/freeguide-with-xmltv.nsi</pre>
-<p class='vspace'>(These are relative to the root "freeguide-tv" directory, which contains the build.xml file.)
+<div class='vspace'></div><pre> ant dist-exe
+</pre><p class='vspace'>If you want to run NSIS using <a class='urllink' href='http://www.winehq.org/' rel='nofollow'>Wine</a>, instead of natively, install it in Wine, and go to the <span class='wikiword'>FreeGuide</span> root directory and type:
 </p>
-<p class='vspace'>Once NSIS is installed, you can compile these scripts by right-clicking them in Windows Explorer and selecting "Compile NSIS Script".  The installer will be built and put inside dist/windows/.  You will need to create this directory first.
+<div class='vspace'></div><pre> ant dist-exe-lin
+</pre><div class='vspace'></div><h3>Linux .deb</h3>
+<p>To make a .deb of <span class='wikiword'>FreeGuide</span>:
 </p>
-<p class='vspace'>The version containing the XMLTV grabbers (the xmltv.exe file) is approx 7MB, whereas the version without XMLTV is less than 1MB.
+<p class='vspace'>First modify the file install/linux/debian/changelog to add a new entry for the current version.
 </p>
-<div class='vspace'></div><h3>Linux .deb</h3>
-<p>[Can someone contribute these instructions?]
+<p class='vspace'>Second, ensure you have a gpg key with which to sign the package.  This command will create one:
+</p>
+<div class='vspace'></div><pre> gpg --gen-key
+</pre><p class='vspace'>Now run this in the root directory:
+</p>
+<div class='vspace'></div><pre> ant dist-deb
+</pre><p class='vspace'>Get in touch with the developers if this fails.
 </p>
 <div class='vspace'></div><h3>Linux .rpm</h3>
 <p>To make an RPM of <span class='wikiword'>FreeGuide</span>, run this in the root directory:
@@ -126,7 +132,9 @@ build/install/windows/freeguide-with-xmltv.nsi</pre>
 </pre><p class='vspace'>Get in touch with the developers if this fails.
 </p>
 <div class='vspace'></div><h3>Mac OS X</h3>
-<p>This assumes that you have got xmltv working somehow.
+<p>You need to run "ant" in the <span class='wikiword'>FreeGuide</span> root source directory (the one containing the file build.xml) first. It will prepare some files by setting their version number, compile the application and all the plugins, and pack things into JAR files.
+</p>
+<p class='vspace'>This assumes that you have got xmltv working somehow.
 </p>
 <p class='vspace'><strong>Creating the Package</strong> 
 </p>
@@ -191,7 +199,7 @@ then copy the doc files from the source tarball to the path stated above like so
  <table id='wikifoot' cellspacing='0' cellpadding='0' align='center'>
  <tr><td class='passwordlink' colspan='2'>If you would like to help improve this site, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we will give you the password to edit pages.</td></tr>
  <tr>
-  <td class='lastmod'>Page last modified on June 03, 2008 &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
+  <td class='lastmod'>Page last modified on March 19, 2009, at 12:31 AM &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
   <td class='footnav'><div  style='text-align: right;' > 
 <p> -
  -

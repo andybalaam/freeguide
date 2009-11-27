@@ -79,31 +79,16 @@ a.varlink { text-decoration:none; }
 <!--PageText-->
 <div id='wikitext'>
 <h1><span class='wikiword'>FreeGuide</span> freezes during downloads. How can I fix it?</h1>
-<p>One reason why <span class='wikiword'>FreeGuide</span> might freeze when it's downloading listings is because it is running out of memory.  This is especially likely to happen if you have chosen a large number of channels.
+<p>There is a bug in Java 6 which can cause <span class='wikiword'>FreeGuide</span> to run out of memory while it is downloading listings, and freeze up.
 </p>
-<p class='vspace'>You can work around this problem by telling <span class='wikiword'>FreeGuide</span> to use more memory.  (Thanks to Rick Brown for this solution.)
+<p class='vspace'>There are two possible ways to avoid this bug in Java:
 </p>
-<p class='vspace'>How you do this depends on what operating system you are using:
-</p>
-<div class='vspace'></div><h3>Linux, <span class='wikiword'>FreeBSD</span>, etc.</h3>
-<p>Create a file in your home directory called ".freeguiderc", and make it look like this:
-</p>
-<p class='vspace'><code class='escaped'>FREEGUIDE_OPTS=-Xmx256m</code>
-</p>
-<p class='vspace'>If that doesn't work, try a larger number, for example "-Xmx512m".  If it still doesn't work, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we'll try to work out what is going wrong.
-</p>
-<div class='vspace'></div><h3>Windows</h3>
-<div class='vspace'></div><ul><li>Find the shortcut (button) you use to launch <span class='wikiword'>FreeGuide</span> (e.g. on your Start Menu under Programs, on your Quick Launch bar near the Start button, or on your desktop.
-<div class='vspace'></div></li><li>Right-click the shortcut and choose "Properties".
-</li></ul><div class='indent'><img src='../uploads/FAQ/EditShortcut-1.png' alt='' title='' />
-</div><div class='vspace'></div><ul><li>Find the command that is used to launch <span class='wikiword'>FreeGuide</span>.  It will probably look something like this:
-</li></ul><div class='indent'><code class='escaped'>C:\WINDOWS\system32\javaw.exe -jar "C:\Program Files\FreeGuide\startup.jar" --doc_directory="C:\Program Files\FreeGuide\doc" --install_directory="C:\Program Files\FreeGuide"</code>
-</div><div class='indent'><img src='../uploads/FAQ/EditShortcut-2.png' alt='' title='' />
-</div><div class='vspace'></div><ul><li>Change the command, to add something after the "javaw.exe" part.  What you need to add is:
-</li></ul><div class='vspace'></div><div class='indent'><code class='escaped'>-Xmx256m</code>
-</div><div class='vspace'></div><ul><li>So the example above would now look like:
-</li></ul><div class='indent'><code class='escaped'>C:\WINDOWS\system32\javaw.exe -Xmx256m -jar "C:\Program Files\FreeGuide\startup.jar" --doc_directory="C:\Program Files\FreeGuide\doc" --install_directory="C:\Program Files\FreeGuide"</code>
-</div><p class='vspace'>If that doesn't work, try a larger number, for example "-Xmx512m".  If it still doesn't work, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we'll try to work out what is going wrong.
+<div class='vspace'></div><ol><li>Use a different version of Java.  Working versions include: Java 5, Java 7, and Java 6 after update 14.  If you upgrade to Ubuntu Jaunty 9.04 or Fedora 11, these already include Java 6 update 14, so you shouldn't see this problem.  (<a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> if you do.)
+<div class='vspace'></div></li><li>Download a Xerces version that contains a fix.
+<ul><li>Download the file <a class='urllink' href='http://apache.mirror.anlx.net/xerces/j/Xerces-J-bin.2.9.1.zip' rel='nofollow'>http://apache.mirror.anlx.net/xerces/j/Xerces-J-bin.2.9.1.zip</a> , or a similar file from the <a class='urllink' href='http://xerces.apache.org/xerces2-j/download.cgi' rel='nofollow'>Xerces download page</a>.
+</li><li>Unzip this file and copy the files xml-apis.jar and xercesImpl.jar into the "lib" directory in your <span class='wikiword'>FreeGuide</span> installation directory (probably either C:\Program Files\<span class='wikiword'>FreeGuide</span>\lib or /usr/share/freeguide/lib.
+</li><li>If you want to confirm you have put them in the right place, run <span class='wikiword'>FreeGuide</span> from the command line and check that you see the lines "Load module jar: lib/xercesImpl.jar" and "Load module jar: lib/xml-apis.jar" or similar.
+</li></ul></li></ol><p class='vspace'>If you try one of the above methods and <span class='wikiword'>FreeGuide</span> still freezes during downloads, please try following the instructions about <span class='wikiword'>FreeGuide</span> <a class='wikilink' href='RunningOutOfMemory.html'>Running Out Of Memory</a>, and if that doesn't work, <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a>.
 </p>
 </div>
 
@@ -113,7 +98,7 @@ a.varlink { text-decoration:none; }
  <table id='wikifoot' cellspacing='0' cellpadding='0' align='center'>
  <tr><td class='passwordlink' colspan='2'>If you would like to help improve this site, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we will give you the password to edit pages.</td></tr>
  <tr>
-  <td class='lastmod'>Page last modified on June 10, 2008 &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
+  <td class='lastmod'>Page last modified on July 25, 2009, at 02:51 AM &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
   <td class='footnav'><div  style='text-align: right;' > 
 <p> -
  -
