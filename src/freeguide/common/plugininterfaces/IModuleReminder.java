@@ -75,4 +75,10 @@ public interface IModuleReminder extends IModule
     void addFavourite( final Favourite favourite );
 
     void removeFavourite( final Favourite favourite );
+
+    /**
+     *  Delete old selections so they don't slow us down
+     *  in future.
+     */
+    public void cleanup( long timeNow );
 }

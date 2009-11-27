@@ -435,7 +435,7 @@ public class TVProgramme implements Comparable, Serializable
      *
      * @param channel The new channel value
      */
-    protected void setChannel( TVChannel channel )
+    public void setChannel( TVChannel channel )
     {
         this.channel = channel;
 

@@ -29,6 +29,7 @@ public class FreeGuideTest
             new TVProgrammeHashCodeFastTest().run();
             new ImportFastTest().run();
             new XMLTVExportFilterFastTest().run();
+            new DeleteSelectionsFastTest().run();
 
             System.out.println( "All tests passed." );
         }

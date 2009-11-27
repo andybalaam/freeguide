@@ -89,4 +89,8 @@ public class FakeReminder implements IModuleReminder
     {
     }
 
+    public void cleanup( long timeNow )
+    {
+    }
+
 }

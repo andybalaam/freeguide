@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -26,6 +27,13 @@ abstract public class BaseModuleReminder extends BaseModule
 {
     protected Scheduler thread;
 
+    /**
+     * The maximal age of a selection. If it's older, it gets deleted in
+     * cleanup() 86400 (seconds in 1 day)  7 (days/week) 4 (weeks)  1000 (to
+     * make milliseconds)
+     */
+    private static final long MAX_SELECTION_AGE = (long)86400 * 7 * 4 * 1000;
+    
     /**
      * Start scheduler thread.
      */
@@ -47,7 +55,13 @@ abstract public class BaseModuleReminder extends BaseModule
         }
     }
 
-    protected Config getReminderConfig(  )
+    /**
+     * Public for test only.
+     * 
+     * @return our config object cast to the base
+     * reminder config type.
+     */
+    public Config getReminderConfig(  )
     {
         return (Config)getConfig(  );
     }
@@ -332,5 +346,26 @@ abstract public class BaseModuleReminder extends BaseModule
             {
             }
         }
+    }
+
+    /**
+     *  Delete old selections so they don't slow us down
+     *  in future.
+     */
+    public void cleanup( long timeNow )
+    {
+        ArrayList<ManualSelection> to_remove = new ArrayList<ManualSelection>();
+        
+        List selections = getReminderConfig(  ).manualSelectionList;
+        for( Iterator sit = selections.iterator(); sit.hasNext(); )
+        {
+            ManualSelection sel = (ManualSelection)sit.next();
+            if( timeNow - sel.programmeTime > MAX_SELECTION_AGE )
+            {
+                to_remove.add( sel );
+            }
+        }
+
+        selections.removeAll( to_remove );
     }
 }

@@ -317,7 +317,10 @@ public class MainController extends BaseModule implements IApplication
 
         for( int i = 0; i < reminders.length; i++ )
         {
-            ( (IModuleReminder)reminders[i].getInstance(  ) ).stop(  );
+            IModuleReminder reminder =
+                (IModuleReminder)reminders[i].getInstance(  );
+            reminder.stop();
+            reminder.cleanup( System.currentTimeMillis(  ) );
         }
 
         //stop grabbers
