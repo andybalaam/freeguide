@@ -4,7 +4,7 @@
 	print "10\n";
 	print "12\n";
 
-	$userlog = fopen( "/tmp/persistent/freeguide-tv/userlog.txt", "a" );
+	$userlog = fopen( "/home/groups/f/fr/freeguide-tv/persistent/userlog.txt", "a" );
 	
 	$dt = date( "Y-m-d H:i:s" );
 
@@ -19,5 +19,6 @@
 	$ver = $_GET{"version"};
 	
 	fwrite( $userlog, $dt." - ".$ip." - ".$ver."\n" );
-	
+
+	fclose( $userlog );
 ?>
