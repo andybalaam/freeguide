@@ -80,6 +80,9 @@ public class HorizontalViewerConfig
     /** DOCUMENT ME! */
     public Time dayStartTime = new Time( 6, 0 );
 
+    /** The directory the user last looked in for channel icons */
+    public String lastIconDir = new String();
+
     /**
      * DOCUMENT_ME!
      *

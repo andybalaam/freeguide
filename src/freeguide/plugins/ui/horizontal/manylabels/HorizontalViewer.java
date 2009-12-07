@@ -928,7 +928,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
      */
     public void changeIconActionPerformed( final TVChannel channel )
     {
-        JFileChooser chooser = new JFileChooser(  );
+        JFileChooser chooser = new JFileChooser( config.lastIconDir );
 
         chooser.setFileFilter( 
             new FileFilter(  )
@@ -960,6 +960,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         if( returnVal == JFileChooser.APPROVE_OPTION )
         {
+            config.lastIconDir = chooser.getCurrentDirectory().toString();
             try
             {
                 FileHelper.copy( 
