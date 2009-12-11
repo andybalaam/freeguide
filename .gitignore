@@ -12,6 +12,7 @@ dist
 *~
 src/resources/i18n/MessagesBundle.properties
 src/resources/i18n/MessagesBundle_be.properties
+src/resources/i18n/MessagesBundle_pt_BR.properties
 src/resources/i18n/MessagesBundle_de.properties
 src/resources/i18n/MessagesBundle_en_RC.properties
 src/resources/i18n/MessagesBundle_en_US.properties
