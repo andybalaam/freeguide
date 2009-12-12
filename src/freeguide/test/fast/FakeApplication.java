@@ -135,7 +135,7 @@ public class FakeApplication implements IApplication
 
     public TimeZone getTimeZone()
     {
-        return null;
+        return TimeZone.getDefault();
     }
 
     public IModuleViewer getViewer()
