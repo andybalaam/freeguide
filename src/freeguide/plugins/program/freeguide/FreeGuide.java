@@ -32,6 +32,7 @@ import freeguide.plugins.program.freeguide.wizard.FirstTimeWizard;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 
 import java.text.MessageFormat;
 
@@ -103,84 +104,149 @@ public class FreeGuide
      */
     public FreeGuide( String[] args ) throws Exception
     {
-        // Check Java version. If wrong, exit with error
-        checkJavaVersion(  );
-
-        arguments = CmdArgs.parse( args );
-
-        if( arguments.containsKey( "log_level" ) )
+        String modID = preStartup( args );
+        if( modID != null )
         {
-            Level lev;
-            String strlev =
-                arguments.getProperty( "log_level" ).toUpperCase(  );
-
-            if( strlev.equals( "SEVERE" ) )
-            {
-                lev = Level.SEVERE;
-            }
-            else if( strlev.equals( "WARNING" ) )
-            {
-                lev = Level.WARNING;
-            }
-            else if( strlev.equals( "INFO" ) )
-            {
-                lev = Level.INFO;
-            }
-            else if( strlev.equals( "CONFIG" ) )
-            {
-                lev = Level.CONFIG;
-            }
-            else if( strlev.equals( "FINE" ) )
-            {
-                lev = Level.FINE;
-            }
-            else if( strlev.equals( "FINER" ) )
-            {
-                lev = Level.FINER;
-            }
-            else if( strlev.equals( "FINEST" ) )
-            {
-                lev = Level.FINEST;
-            }
-            else
-            {
-                lev = Level.INFO;
-                log.warning( 
-                    "Unrecognised log level \"" + strlev
-                    + "\", defaulting to info" );
-            }
-
-            // I know this looks wrong and totally stupid, but this is what you
-            // have to do:
-            log.setLevel( lev );
-            log.getParent(  ).setLevel( lev );
-            log.getParent(  ).getHandlers(  )[0].setLevel( lev );
+            normalStartup( modID );
         }
+    }
 
-        if( arguments.containsKey( "pref_root" ) )
+/**
+ * @param args
+ * @throws IOException
+ * @throws Exception
+ * @return The empty string for normal startup, null if no startup is required,
+ *         or the string name of the country module to use if the First
+ *         Time Wizard was run.
+ */
+public static String preStartup( String[] args ) throws IOException, Exception
+{
+    // Check Java version. If wrong, exit with error
+    checkJavaVersion(  );
+
+    arguments = CmdArgs.parse( args );
+
+    if( arguments.containsKey( "log_level" ) )
+    {
+        Level lev;
+        String strlev =
+            arguments.getProperty( "log_level" ).toUpperCase(  );
+
+        if( strlev.equals( "SEVERE" ) )
         {
-            pref_root_name = arguments.getProperty( "pref_root" );
+            lev = Level.SEVERE;
+        }
+        else if( strlev.equals( "WARNING" ) )
+        {
+            lev = Level.WARNING;
+        }
+        else if( strlev.equals( "INFO" ) )
+        {
+            lev = Level.INFO;
+        }
+        else if( strlev.equals( "CONFIG" ) )
+        {
+            lev = Level.CONFIG;
+        }
+        else if( strlev.equals( "FINE" ) )
+        {
+            lev = Level.FINE;
+        }
+        else if( strlev.equals( "FINER" ) )
+        {
+            lev = Level.FINER;
+        }
+        else if( strlev.equals( "FINEST" ) )
+        {
+            lev = Level.FINEST;
         }
         else
         {
-            pref_root_name = DEFAULT_pref_root_name;
+            lev = Level.INFO;
+            log.warning( 
+                "Unrecognised log level \"" + strlev
+                + "\", defaulting to info" );
         }
 
-        // Find out what the documents directory is from the command line
-        if( arguments.containsKey( "doc_directory" ) )
+        // I know this looks wrong and totally stupid, but this is what you
+        // have to do:
+        log.setLevel( lev );
+        log.getParent(  ).setLevel( lev );
+        log.getParent(  ).getHandlers(  )[0].setLevel( lev );
+    }
+
+    if( arguments.containsKey( "pref_root" ) )
+    {
+        pref_root_name = arguments.getProperty( "pref_root" );
+    }
+    else
+    {
+        pref_root_name = DEFAULT_pref_root_name;
+    }
+
+    // Find out what the documents directory is from the command line
+    if( arguments.containsKey( "doc_directory" ) )
+    {
+        runtimeInfo.docDirectory = arguments.getProperty( "doc_directory" );
+    }
+    else
+    {
+        // we will unpack doc as need
+        runtimeInfo.docDirectory = null;
+    }
+
+    if( arguments.containsKey( "install_directory" ) )
+    {
+        runtimeInfo.installDirectory = arguments.getProperty( 
+                "install_directory" );
+    }
+    else
+    {
+        runtimeInfo.installDirectory = null;
+
+    }
+
+    config = new Config(  );
+
+    if( arguments.containsKey( "dump_prefs" ) )
+    {
+        Migrate.setDumpPrefs( true );
+    }
+
+    try
+    {
+        Migrate.migrateBeforeWizard(  );
+    }
+    catch( Exception ex )
+    {
+        log.log( Level.WARNING, "Error on migration", ex );
+    }
+
+    if( Migrate.isDumpPrefs(  ) )
+    {
+        Migrate.dumpPrefs( pref_root_name );
+        log.info( 
+            "The preferences were written to files in the current"
+            + " directory." );
+        System.exit( 0 );
+    }
+    else
+    {
+        // load config
+        try
         {
-            runtimeInfo.docDirectory = arguments.getProperty( "doc_directory" );
+            PreferencesHelper.load( 
+                Preferences.userRoot(  ).node( pref_root_name ), config );
+            config.version = Application.VERSION.getDotFormat(  );
         }
-        else
+        catch( Exception ex )
         {
-            // we will unpack doc as need
-            runtimeInfo.docDirectory = null;
+            log.log( Level.SEVERE, "Error load config", ex );
         }
 
-        if( arguments.containsKey( "install_directory" ) )
+        if( arguments.containsKey( "working_directory" ) )
         {
-            runtimeInfo.installDirectory = arguments.getProperty( 
-                    "install_directory" );
+            config.workingDirectory = arguments.getProperty( "working_directory" );
         }
         else
         {
@@ -188,83 +254,38 @@ public class FreeGuide
 
         }
 
-        config = new Config(  );
+        PluginsManager.loadModules(  );
 
-        if( arguments.containsKey( "dump_prefs" ) )
+        if( PluginsManager.getApplicationModuleInfo(  ) == null )
         {
-            Migrate.setDumpPrefs( true );
+            die( 
+                startupMessages.getString( "startup.NoApplicationModule" ) );
         }
 
-        try
+        Application.setInstance( 
+            (IApplication)PluginsManager.getApplicationModuleInfo(  )
+                                        .getInstance(  ) );
+
+        storage = (IModuleStorage)PluginsManager.getModuleByID( STORAGE_ID );
+
+        setLocale( config.lang );
+
+        String modID = "";
+
+        if( Migrate.isNeedToRunWizard(  ) )
         {
-            Migrate.migrateBeforeWizard(  );
+            hidePleaseWait(  );
+
+            final FirstTimeWizard wizard =
+                new FirstTimeWizard( !Migrate.isFirstTime(  ) );
+            wizard.getFrame(  ).waitForClose(  );
+            modID = wizard.getSelectedModuleID(  );
         }
-        catch( Exception ex )
-        {
-            log.log( Level.WARNING, "Error on migration", ex );
-        }
 
-        if( Migrate.isDumpPrefs(  ) )
-        {
-            Migrate.dumpPrefs( pref_root_name );
-            log.info( 
-                "The preferences were written to files in the current"
-                + " directory." );
-            System.exit( 0 );
-        }
-        else
-        {
-            // load config
-            try
-            {
-                PreferencesHelper.load( 
-                    Preferences.userRoot(  ).node( pref_root_name ), config );
-                config.version = Application.VERSION.getDotFormat(  );
-            }
-            catch( Exception ex )
-            {
-                log.log( Level.SEVERE, "Error load config", ex );
-            }
-
-            if( arguments.containsKey( "working_directory" ) )
-            {
-                config.workingDirectory = arguments.getProperty( "working_directory" );
-            }
-            else
-            {
-                runtimeInfo.installDirectory = null;
-
-            }
-
-            PluginsManager.loadModules(  );
-
-            if( PluginsManager.getApplicationModuleInfo(  ) == null )
-            {
-                die( 
-                    startupMessages.getString( "startup.NoApplicationModule" ) );
-            }
-
-            Application.setInstance( 
-                (IApplication)PluginsManager.getApplicationModuleInfo(  )
-                                            .getInstance(  ) );
-
-            setLocale( config.lang );
-
-            String modID = null;
-
-            if( Migrate.isNeedToRunWizard(  ) )
-            {
-                hidePleaseWait(  );
-
-                final FirstTimeWizard wizard =
-                    new FirstTimeWizard( !Migrate.isFirstTime(  ) );
-                wizard.getFrame(  ).waitForClose(  );
-                modID = wizard.getSelectedModuleID(  );
-            }
-
-            normalStartup( modID );
-        }
+        return modID;
     }
+    return null;
+}
 
     /**
      * DOCUMENT_ME!
@@ -300,7 +321,6 @@ public class FreeGuide
             (IModuleViewer)PluginsManager.getModuleByID( 
                 ( (MainController.Config)( (MainController)Application
                 .getInstance(  ) ).getConfig(  ) ).viewerId );
-        storage = (IModuleStorage)PluginsManager.getModuleByID( STORAGE_ID );
 
         if( viewer == null )
         {
