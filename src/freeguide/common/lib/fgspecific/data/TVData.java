@@ -208,7 +208,7 @@ public class TVData implements Serializable
         {
             iterator.it = channels.values(  ).iterator(  );
 
-            while( iterator.it.hasNext(  ) )
+            while( iterator.continueIterating() && iterator.it.hasNext(  ) )
             {
                 TVChannel ch = (TVChannel)iterator.it.next(  );
 
@@ -228,7 +228,7 @@ public class TVData implements Serializable
         {
             iterator.itChannels = channels.values(  ).iterator(  );
 
-            while( iterator.itChannels.hasNext(  ) )
+            while( iterator.continueIterating() && iterator.itChannels.hasNext(  ) )
             {
                 TVChannel ch = (TVChannel)iterator.itChannels.next(  );
 

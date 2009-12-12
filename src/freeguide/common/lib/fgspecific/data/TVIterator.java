@@ -7,4 +7,15 @@ package freeguide.common.lib.fgspecific.data;
  */
 abstract public class TVIterator
 {
+    private boolean contIt = true;
+
+    public boolean continueIterating()
+    {
+        return contIt;
+    }
+
+    public void stopIterating()
+    {
+        contIt = false;
+    }
 }
