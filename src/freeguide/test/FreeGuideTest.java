@@ -30,6 +30,8 @@ public class FreeGuideTest
             new ImportFastTest().run();
             new XMLTVExportFilterFastTest().run();
             new DeleteSelectionsFastTest().run();
+            new SearchResultsHolderFastTest().run();
+            new SearchProgrammesThreadFastTest().run();
 
             System.out.println( "All tests passed." );
         }
