@@ -4,12 +4,12 @@
 
 <project name="freeguide-tv-plugins-info" basedir=".">
   <property name="application-id" value="freeguide"/>
-  <property name="application-version" value="0.10.12"/>
+  <property name="application-version" value="0.11"/>
   <target name="all-plugins" description="Do something for each plugin">
     <antcall target="${actual-target}">
       <param name="plugin-id" value="program-freeguide"/>
       <param name="plugin-dir" value="program/freeguide"/>
-      <param name="plugin-version" value="0.10.12"/>
+      <param name="plugin-version" value="0.11"/>
     </antcall>
     <antcall target="${actual-target}">
       <param name="plugin-id" value="grabber-xmltv"/>
