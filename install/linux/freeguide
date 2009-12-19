@@ -1,5 +1,5 @@
 #!/bin/sh
-STARTUP_JAR=__ANT_INSTALL_DIRECTORY__/startup.jar
+STARTUP_JAR=__ANT_INSTALL_DIRECTORY__/FreeGuide.jar
 # Load default settings from config file (if it exists)
 if [ -f "$HOME/.freeguiderc" ]; then
 	. "$HOME/.freeguiderc"
