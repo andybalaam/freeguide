@@ -24,15 +24,15 @@ echo \$ mkdir -p $RPM_TOPDIR/tmp
 mkdir -p $RPM_TOPDIR/tmp
 
 # Clean
-echo \$ rm -f $RPM_TOPDIR/RPMS/noarch/freeguide-*.rpm
+echo \$ rm -f $RPM_TOPDIR/RPMS/noarch/freeguide-\*.rpm
 rm -f $RPM_TOPDIR/RPMS/noarch/freeguide-*.rpm
-echo \$ rm -f $RPM_TOPDIR/SRPMS/freeguide-*.rpm
+echo \$ rm -f $RPM_TOPDIR/SRPMS/freeguide-\*.rpm
 rm -f $RPM_TOPDIR/SRPMS/freeguide-*.rpm
-echo \$ rm -f $RPM_TOPDIR/SOURCES/freeguide-*.tar.gz
+echo \$ rm -f $RPM_TOPDIR/SOURCES/freeguide-\*.tar.gz
 rm -f $RPM_TOPDIR/SOURCES/freeguide-*.tar.gz
-echo \$ rm -f $RPM_TOPDIR/BUILD/freeguide-*
-rm -f $RPM_TOPDIR/BUILD/freeguide-*
-echo \$ rm -rf $RPM_TOPDIR/tmp/*
+echo \$ rm -rf $RPM_TOPDIR/BUILD/freeguide-\*
+rm -rf $RPM_TOPDIR/BUILD/freeguide-*
+echo \$ rm -rf $RPM_TOPDIR/tmp/\*
 rm -rf $RPM_TOPDIR/tmp/*
 
 # The following are not needed if you build using "ant dist-rpm"
@@ -46,7 +46,7 @@ rm -rf $RPM_TOPDIR/tmp/*
 #ant dist-src
 
 # Copy in the newly-built source package
-echo cp -f dist/src/freeguide-*.tar.gz $RPM_TOPDIR/SOURCES/
+echo cp -f dist/src/freeguide-\*.tar.gz $RPM_TOPDIR/SOURCES/
 cp -f dist/src/freeguide-*.tar.gz $RPM_TOPDIR/SOURCES/
 
 # Build the RPMs, in the right order
