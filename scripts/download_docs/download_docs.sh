@@ -21,8 +21,8 @@ for RE in \
 	find ./ -name "*.html" | xargs perl -pi -e "s/$RE//g;"
 }; done
 
-cd ../../
-rm -r html-local
-mv www.artificialworlds.net/freeguide html-local
-rmdir www.artificialworlds.net
+cd ../../../
+rm -r doc-bin
+mv doc/www.artificialworlds.net/freeguide doc-bin
+rmdir doc/www.artificialworlds.net
 

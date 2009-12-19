@@ -4,16 +4,19 @@ include /usr/share/dpatch/dpatch.make
 
 build: build-stamp
 build-stamp: patch
-	rm -f doc/html-local/README.html
-	rm -f doc/html-local/developers-*.html
 	ant
 	touch $@
 
 install: build
 	dh_prep
-	ant -DDESTDIR=debian/tmp install-linux-destdir
-	mkdir -p debian/tmp/usr/share/doc/freeguide
-	cp debian/freeguide.xpm debian/tmp/usr/share/pixmaps/
+	ant -Dinstall_share_dir=install-bin/linux/debian/tmp/usr/share \
+	    -Dinstall_bin_dir=install-bin/linux/debian/tmp/usr/bin \
+	    -Dinstall_real_dir=/usr/share/freeguide \
+	    -Dinstall_real_doc_dir=/usr/share/doc/freeguide \
+	    install
+	mkdir -p install-bin/linux/debian/tmp/usr/share/doc/freeguide
+	cp install/linux/debian/freeguide.xpm \
+	    install-bin/linux/debian/tmp/usr/share/pixmaps/
 
 clean: unpatch
 	rm -f build-stamp
@@ -21,7 +24,7 @@ clean: unpatch
 	dh_clean
 
 binary-indep: install
-	dh_install -i --sourcedir=debian/tmp
+	dh_install -i --sourcedir=install-bin/linux/debian/tmp
 	dh_installchangelogs -i
 	dh_installdocs -i
 	dh_installman -i

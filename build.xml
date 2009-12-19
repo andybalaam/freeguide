@@ -1,135 +1,354 @@
 <?xml version="1.0"?>
 
-<!--
-
-  Main build file with meta tasks.
-  Used tasks:
-
-    all: prepare, dist-src, jars-win, dist-tgz
-      prepare           - compile helper classes and apply versions and names from plugin.xml's to all files.
-      dist-src        - pack all sources to .zip and .tar.gz formats.
-      jars-lin        - compile application and all plugins to jars.
-      jars-win        - compile application and all plugins to jars, and the xmltv-win jar.
-      dist-tgz          - make .tar.gz files for slackware and other unpackaged linuxes
-
-  After builds we have:
-    dist/src        - sources
-    dist/rpm        - rpm Linux installer file
-    dist/srpm       - srpm source rpm file
-    dist/tgz        - tar.gz binary file
-    dist/exe        - Windows installers (must be built with NSIS from script
-                      in build/install/windows)
-
-    To build the project you just need to run "ant clean", then "ant".
-      After that you can run :
-        dist-rpm  - package to .rpm
-
-    To package the XMLTV exe, you need to unzip the xmltv-win32
-    zip into the xmltv directory.
--->
-
 <project name="freeguide-tv" default="all" basedir=".">
 
-    <!-- set global properties for this build -->
-    <property name="src"                location="src"                />
-    <property name="resources"          location="${src}/resources"   />
-    <property name="resources-utf8"     location="${src}/resources-utf8"   />
-    <property name="doc"                location="doc"                />
-    <property name="install"            location="install"            />
-    <property name="lib"                location="lib"                />
-    <property name="xmltv"              location="xmltv"              />
-    <property name="share"              location="xmltv/share"        />
-    <property name="build"              location="build"              />
-    <property name="run"                location="run"                />
-    <property name="test"               location="test"               />
-    <property name="dist"               location="dist"               />
-    <property name="dist-install-tgz"   location="${dist}/install-tgz"/>
-    <property name="dist-tgz"           location="${dist}/tgz"        />
-    <property name="dist-src"           location="${dist}/src"        />
-    <property name="dist-rpm"           location="${dist}/rpm"        />
-    <property name="dist-deb"           location="${dist}/deb"        />
-    <property name="dist-webstart"      location="${dist}/webstart"   />
-    <property name="dist-exe"           location="${dist}/exe"        />
-
     <description>
-        Ant build file for FreeGuide.
+        Apache Ant build file for FreeGuide.
+        Simply typing "ant run" will build and run FreeGuide.
     </description>
 
-    <target name="all" depends="prepare, jars-win" />
-    <target name="dist-all" depends="dist-src,dist-rpm,dist-tgz,dist-install-tgz,dist-exe,dist-deb"/>
 
-    <target name="prepare">
-        <ant antfile="ant/prepare.xml" />
-    </target>
+    <!-- Directories -->
+    <property name="src"         location="src"         />
+    <property name="bin"         location="bin"         />
+    <property name="jar"         location="jar"         />
+    <property name="doc"         location="doc"         />
+    <property name="doc-bin"     location="doc-bin"     />
+    <property name="install"     location="install"     />
+    <property name="install-bin" location="install-bin" />
+    <property name="tmp"         location="tmp"         />
+    <property name="build"       location="build"       />
+    <property name="dist"        location="dist"        />
 
-    <target name="prepare-properties">
-        <ant antfile="ant/prepare.xml" target="prepare-properties" />
-    </target>
+    <!-- TODO: are these needed? -->
+    <property name="xmltv" location="xmltv"      />
+    <property name="share" location="xmltv/share"/>
 
-    <target name="compile">
-        <ant antfile="ant/compile.xml" target="compile" />
-    </target>
+    <import file="plugins-info.xml"/>
 
-    <target name="compile-in-place">
-        <ant antfile="ant/compile.xml" target="compile-in-place" />
-    </target>
+    <target name="all" depends="jar"/>
 
-    <target name="jars-lin">
-        <ant antfile="ant/compile.xml" />
-    </target>
+    <target name="dist-all"
+        depends="dist-src,dist-rpm,dist-tgz,dist-install-tgz,dist-exe,dist-deb"/>
 
-    <target name="jars-win">
-        <ant antfile="ant/compile.xml" target="jars-win" />
-    </target>
+    <!-- New-style targets, inside this file instead of in separate files -->
 
     <target name="clean">
-        <ant antfile="ant/clean.xml" />
+        <delete dir="${tmp}"/>
+        <delete dir="${dist}"/>
+        <delete dir="${bin}"/>
+        <delete dir="${jar}"/>
+        <delete dir="${install-bin}"/>
     </target>
 
-    <target name="install-linux">
-        <ant antfile="ant/install-linux.xml" />
-    </target>
-    <target name="install-linux-destdir">
-        <ant antfile="ant/install-linux.xml" target="install-linux-destdir" />
-    </target>
-    <target name="install-linux-run">
-        <ant antfile="ant/install-linux.xml" target="install-linux-run" />
+    <target name="resources"
+            description="Convert and move the resources to bin/resources">
+        <!-- Convert all propertiesd files from utf-8 -->
+        <mkdir dir="${bin}/resources"/>
+        <native2ascii encoding="UTF-8"
+            src="${src}/resources"
+            dest="${bin}/resources"
+            includes="**/*.properties">
+        </native2ascii>
+        <!-- Copy everything else as-is -->
+        <copy todir="${bin}/resources">
+            <fileset dir="${src}/resources">
+                <exclude name="**/*.properties"/>
+            </fileset>
+        </copy>
     </target>
 
-    <target name="dist-src">
-        <ant antfile="ant/dist-src.xml" />
+    <target name="precompile"
+            description="Update version numbers etc. in source code.">
+        <mkdir dir="${bin}"/>
+        <javac
+            source="1.5"
+            target="1.5"
+            destdir="${bin}">
+            <src path="${src}/freeguide/build"/>
+            <src path="${src}/freeguide/common/base"/>
+        </javac>
+        <java classpath="${bin}"
+            classname="freeguide.build.patchallfiles.PatchAllFiles"
+            fork="true"/>
     </target>
-    <target name="dist-rpm">
-        <ant antfile="ant/dist-rpm.xml" />
+
+    <target name="compile"
+            depends="precompile,resources"
+            description="Compile all the .java files into the build dir.">
+        <mkdir dir="${bin}"/>
+        <javac srcdir="${src}"
+            destdir="${bin}"
+            deprecation="on"
+            source="1.5"
+            target="1.5"
+            debug="yes"
+            encoding="UTF-8">
+            <!--compilerarg value="-Xlint:unchecked"/-->
+          </javac>
+          <!-- Copy the plugin.xml files into the bin directory too
+            TODO - remove the plugin.xml files altogether? -->
+          <copy todir="${bin}/freeguide">
+            <fileset dir="${src}/freeguide">
+                <include name="**/plugin.xml"/>
+            </fileset>
+        </copy>
     </target>
-    <target name="dist-deb">
-        <ant antfile="ant/dist-deb.xml" />
+
+    <target name="jar"
+            depends="compile"
+            description="Build the FreeGuide jar file">
+        <mkdir dir="${jar}"/>
+        <jar
+            jarfile="${jar}/FreeGuide.jar"
+            basedir="${bin}"
+            manifest="${src}/manifests/startup.mf"/>
     </target>
-    <target name="dist-tgz">
-        <ant antfile="ant/dist-tgz.xml" />
+
+    <target name="run"
+            description="Runs FreeGuide from the jar"
+            depends="jar">
+        <java jar="${jar}/FreeGuide.jar" dir="${jar}" fork="true"/>
     </target>
+
+        <target name="run-classes"
+            description="Runs FreeGuide from the class files in bin"
+            depends="compile">
+        <java classname="freeguide.startup.Startup" dir="${bin}" fork="true"/>
+    </target>
+
+    <target name="profile" description="Profiles the application in NetBeans">
+        <fail unless="netbeans.home">This target can only run inside the NetBeans IDE.</fail>
+        <nbprofiledirect>
+            <classpath><pathelement location="${bin}"/></classpath>
+        </nbprofiledirect>
+        <java classname="freeguide.startup.Startup" dir="${bin}">
+            <jvmarg value="${profiler.info.jvmargs.agent}"/>
+        </java>
+    </target>
+
+    <target name="test"
+            description="Runs all tests"
+            depends="compile">
+        <java
+            classname="freeguide.test.FreeGuideTest"
+            dir="${bin}"
+            fork="true" />
+    </target>
+
+    <!-- Documentation -->
+
+    <target name="doc">
+        <exec executable="download_docs.sh"
+            dir="scripts/download_docs"
+            resolveexecutable="true"
+            failonerror="true" />
+    </target>
+
+    <target name="zip-docs">
+        <mkdir dir="${install-bin}"/>
+        <zip zipfile="${install-bin}/docs.zip">
+            <fileset dir="${doc-bin}"/>
+        </zip>
+    </target>
+
+    <!-- Install -->
+
+    <target name="install" depends="jar, zip-docs">
+
+        <!-- These properties must be passed in (example values shown):
+            install_share_dir = ~/.rpm/tmp/freeguide-0.8.2-root/usr/share
+            install_bin_dir   = ~/.rpm/tmp/freeguide-0.8.2-root/usr/bin
+            install_real_dir = /usr/share/freeguide
+            install_real_doc_dir = /usr/doc/freeguide
+
+            Example invocation:
+            ant -Dinstall_share_dir=debian/tmp/usr/share
+                -Dinstall_bin_dir=debian/tmp/usr/bin
+                -Dinstall_real_dir=/usr/share/freeguide
+                -Dinstall_real_doc_dir=/usr/share/doc/freeguide
+                install
+        -->
+
+        <property name="install_jar_dir" location="${install_share_dir}/freeguide" />
+
+        <property name="install_pixmap_dir" location="${install_share_dir}/pixmaps/freeguide" />
+
+        <mkdir dir="${install_jar_dir}" />
+        <copy todir="${install_jar_dir}/">
+            <fileset dir="${jar}" />
+        </copy>
+
+        <!-- Copy the different-sized icons to the freeguide pixmaps dir -->
+        <mkdir dir="${install_pixmap_dir}" />
+        <copy todir="${install_pixmap_dir}/" >
+            <fileset dir="install/linux/icons" />
+        </copy>
+
+        <copy tofile="${install_share_dir}/pixmaps/freeguide.png"
+            file="${install}/linux/icons/logo-32x32.png" />
+
+        <!-- Creating the launch script: first we need to copy the source launch script, then we replace the string "__ANT_DOC_DIRECTORY__" with the docs directory, and then we move it into place and make it executable. -->
+        <copy file="${install}/linux/freeguide" tofile="${install}/linux/freeguide.tmp" />
+        <replace file="${install}/linux/freeguide.tmp">
+                <replacefilter token="__ANT_DOC_DIRECTORY__" value="${install_real_doc_dir}" />
+                <replacefilter token="__ANT_INSTALL_DIRECTORY__" value="${install_real_dir}" />
+        </replace>
+
+        <mkdir dir="${install_bin_dir}" />
+        <move file="${install}/linux/freeguide.tmp" tofile="${install_bin_dir}/freeguide" />
+        <chmod file="${install_bin_dir}/freeguide" perm="a+x" />
+
+        <mkdir dir="${install_share_dir}/applications" />
+        <copy file="install/linux/freeguide.desktop" todir="${install_share_dir}/applications/" />
+
+        <mkdir dir="${install_share_dir}/man/man1" />
+        <gzip src="${install-bin}/linux/freeguide.1" destfile="${install_share_dir}/man/man1/freeguide.1.gz"/>
+
+        <mkdir dir="${install_share_dir}/freeguide/lib" />
+        <copy file="${install-bin}/docs.zip" todir="${install_share_dir}/freeguide/lib/" />
+    </target>
+
+    <!-- Packaging -->
+
+    <target name="dist-src"
+        depends="precompile"
+        description="generate the source tar.gz and zip">
+        
+        <mkdir dir="${dist}/src" />
+        <tar longfile="gnu"
+            destfile="${dist}/src/${application-id}-${application-version}.tar.gz"
+            compression="gzip">
+            
+            <tarfileset dir="." prefix="${application-id}-${application-version}">
+                <exclude name="**/.xvpics/**" />
+                <exclude name="**/.svn/**"/>
+                <exclude name="**/.git/**"/>
+                <exclude name="build/**"/>
+                <exclude name="dist/**"/>
+                <exclude name="stats/**"/>
+                <exclude name="doc/nonlocal/**"/>
+                <exclude name="doc/html-web/**"/>
+                <exclude name="**/*.class"/>
+                <exclude name="**/xmltv/xmltv.exe"/>
+                <exclude name="**/xmltv-*/**"/>
+            </tarfileset>
+            
+        </tar>
+        
+        <zip zipfile="${dist}/src/${application-id}-${application-version}.zip">
+        
+            <zipfileset dir="." prefix="${application-id}-${application-version}">
+                <exclude name="**/.xvpics/**" />
+                <exclude name="**/.svn/**"/>
+                <exclude name="**/.git/**"/>
+                <exclude name="build/**"/>
+                <exclude name="dist/**"/>
+                <exclude name="stats/**"/>
+                <exclude name="doc/nonlocal/**"/>
+                <exclude name="doc/html-web/**"/>
+                <exclude name="**/*.class"/>
+                <exclude name="**/xmltv-*/**"/>
+            </zipfileset>
+            
+        </zip>
+        
+    </target>
+
+    <target name="dist-deb" depends="dist-src">
+
+        <property name="name-ver" value="${application-id}-${application-version}"/>
+        <property name="name_ver" value="${application-id}_${application-version}"/>
+
+        <delete dir="${tmp}"/>
+        <mkdir dir="${tmp}"/>
+
+        <copy file="${dist}/src/${name-ver}.tar.gz" tofile="${tmp}/${name_ver}.orig.tar.gz"/>
+
+        <gunzip src="${tmp}/${name_ver}.orig.tar.gz"/>
+        <untar src="${tmp}/${name_ver}.orig.tar" dest="${tmp}"/>
+
+        <copy todir="${tmp}/${name-ver}/debian">
+            <fileset dir="${install}/linux/debian"/>
+        </copy>
+
+        <exec
+            executable="debuild"
+            dir="${tmp}/${name-ver}"
+            resolveexecutable="true"
+            failonerror="true"/>
+
+        <mkdir dir="${dist}/bin"/>
+        <move todir="${dist}/bin">
+            <fileset dir="${tmp}">
+                <include name="*.deb"/>
+            </fileset>
+        </move>
+
+        <delete dir="${tmp}"/>
+    </target>
+
+    <target name="dist-rpm" depends="dist-src">
+        <mkdir dir="${dist}/bin"/>
+        <exec executable="buildrpm"
+            dir="${install}/linux/rpm"
+            resolveexecutable="true"
+            failonerror="true"/>
+    </target>
+
+    <target name="dist-exe" depends="jar">
+        <mkdir dir="${dist}/bin"/>
+        <exec
+                executable="makensis"
+                dir="${install-bin}/windows/"
+                resolveexecutable="true"
+                failonerror="true">
+            <arg value="freeguide-with-xmltv.nsi"/>
+        </exec>
+    </target>
+
     <target name="dist-install-tgz">
-        <ant antfile="ant/dist-install-tgz.xml" />
-    </target>
-    <target name="dist-webstart">
-        <ant antfile="ant/dist-webstart.xml" />
-    </target>
-    <target name="dist-exe">
-        <ant antfile="ant/dist-exe.xml" />
-    </target>
-    <target name="dist-exe-lin">
-        <ant antfile="ant/dist-exe-lin.xml" />
+
+        <delete dir="${tmp}"/>
+        <antcall target="install">
+            <param name="install_share_dir" value="${tmp}/usr/share"/>
+            <param name="install_bin_dir" value="${tmp}/usr/bin"/>
+            <param name="install_real_dir" value="/usr/share/freeguide"/>
+            <param name="install_real_doc_dir" value="/usr/share/freeguide/doc"/>
+        </antcall>
+
+        <mkdir dir="${dist}/bin"/>
+        <tar longfile="gnu"
+             destfile="${dist}/bin/${application-id}-${application-version}-install-bin.tar.gz" compression="gzip" >
+            <tarfileset dir="${tmp}" />
+        </tar>
+        <delete dir="${tmp}"/>
     </target>
 
-    <target name="run">
-        <ant antfile="ant/run.xml" />
-    </target>
-    <target name="profile">
-        <ant antfile="ant/run.xml" target="profile" />
-    </target>
+    <target name="dist-tgz">
 
-    <target name="test">
-        <ant antfile="ant/test.xml" />
+        <property name="builddir" value="${tmp}/${application-id}-${application-version}-bin"/>
+        <delete dir="${tmp}"/>
+        <antcall target="install">
+            <param name="install_share_dir" value="${builddir}/share"/>
+            <param name="install_bin_dir" value="${builddir}"/>
+            <param name="install_real_dir" value="."/>
+            <param name="install_real_doc_dir" value="./doc"/>
+        </antcall>
+
+        <!-- There is no way to get install not to create a freeguide
+         directory in share, so we need to move the files out there -->
+        <move todir="${builddir}">
+            <fileset dir="${builddir}/share/freeguide/"/>
+        </move>
+        <delete dir="${builddir}/share"/>
+
+        <mkdir dir="${dist}/bin"/>
+        <tar longfile="gnu"
+            destfile="${dist}/bin/${application-id}-${application-version}-bin.tar.gz" compression="gzip" >
+            <tarfileset dir="${tmp}" />
+        </tar>
+        <delete dir="${tmp}"/>
     </target>
 
 </project>

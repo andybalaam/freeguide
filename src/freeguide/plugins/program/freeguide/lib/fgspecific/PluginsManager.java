@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import java.util.logging.Level;
 import java.util.prefs.Preferences;
 
@@ -259,15 +261,37 @@ public class PluginsManager
     protected static void findInClassLoader( List ret )
         throws IOException
     {
-        Enumeration e =
-            PluginsManager.class.getClassLoader(  ).getResources( 
-                "plugin.xml" );
-
-        while( e.hasMoreElements(  ) )
+        // Find any plugin.xml files in the main JAR
+        // Note: This is a bit of a hack - is there a better way?
+        //       Could make the list of plugins at compile time.
+        String jarPath = System.getProperty("java.class.path");
+        if( jarPath.endsWith( ".jar" ) )
         {
-            URL url = (URL)( e.nextElement(  ) );
-            ret.add( url );
+            JarFile jarFile = new JarFile( jarPath );
+            Enumeration<JarEntry> e = jarFile.entries();
+            while( e.hasMoreElements() )
+            {
+                String fileName = e.nextElement().getName();
+                if( fileName.endsWith( "/plugin.xml" ) )
+                {
+                    URL url = new URL( "jar:file:" + jarPath + "!/"
+                        + fileName );
+                    ret.add( url );
+                }
+            }
         }
+        
+
+        // Doesn't work at the moment - need the right classloader?
+        // Now look in any other jars we may have loaded from the lib dir
+//        Enumeration<URL> e = PluginsManager.class.getClassLoader(
+//            ).getResources( "plugin.xml" );
+//        while( e.hasMoreElements(  ) )
+//        {
+//            URL url = e.nextElement();
+//            System.err.println( url );
+//            ret.add( url );
+//        }
     }
 
     /**

@@ -3,9 +3,4 @@
 <plugin id="grabber-xmltv"
         version="2"
         class="freeguide.plugins.grabber.xmltv.GrabberXMLTV">
-
-  <files>
-    <file path="lib/grabber-xmltv.jar"/>
-    <file path="lib/"/>
-  </files>
 </plugin>

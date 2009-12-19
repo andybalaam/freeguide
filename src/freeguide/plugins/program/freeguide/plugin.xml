@@ -5,9 +5,6 @@
         class="freeguide.plugins.program.freeguide.viewer.MainController">
 
   <files>
-    <file path="startup.jar"/>
-    <file path="lib/common.jar"/>
-    <file path="lib/program-freeguide.jar"/>
-    <file path="lib/"/>
+    <file path="FreeGuide.jar"/>
   </files>
 </plugin>

@@ -3,9 +3,4 @@
 <plugin id="importexport-palmatv"
         version="2"
         class="freeguide.plugins.importexport.palmatv.ExportPalmAtv">
-
-  <files>
-    <file path="lib/importexport-palmatv.jar"/>
-    <file path="lib/"/>
-  </files>
 </plugin>

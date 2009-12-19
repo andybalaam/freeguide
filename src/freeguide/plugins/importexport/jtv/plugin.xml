@@ -3,9 +3,4 @@
 <plugin id="importexport-jtv"
         version="2"
         class="freeguide.plugins.importexport.jtv.JTV">
-
-  <files>
-    <file path="lib/importexport-jtv.jar"/>
-    <file path="lib/"/>
-  </files>
 </plugin>

@@ -3,9 +3,4 @@
 <plugin id="storage-serfiles"
         version="2"
         class="freeguide.plugins.storage.serfiles.StorageSerFilesByDay">
-
-  <files>
-    <file path="lib/storage-serfiles.jar"/>
-    <file path="lib/"/>
-  </files>
 </plugin>

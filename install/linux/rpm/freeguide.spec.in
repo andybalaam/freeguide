@@ -42,10 +42,10 @@ FreeGuide requires Java 2 version 1.4.
 %setup -n __ANT_NAME_VERSION__
 
 %build
-ant jars-lin
+ant jar
 
 %install
-ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dinstall_doc_dir=$RPM_BUILD_ROOT/%{_datadir}/doc/freeguide install-linux -Dinstall_real_dir=%{_datadir}/freeguide -Dinstall_real_doc_dir=%{_datadir}/doc/freeguide
+ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD_ROOT/%{_bindir} -Dinstall_doc_dir=$RPM_BUILD_ROOT/%{_datadir}/doc/freeguide -Dinstall_real_dir=%{_datadir}/freeguide -Dinstall_real_doc_dir=%{_datadir}/doc/freeguide install
 
 
 %files

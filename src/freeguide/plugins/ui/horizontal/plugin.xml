@@ -3,9 +3,4 @@
 <plugin id="ui-horizontal"
         version="2"
         class="freeguide.plugins.ui.horizontal.manylabels.HorizontalViewer">
-
-  <files>
-    <file path="lib/ui-horizontal.jar"/>
-    <file path="lib/"/>
-  </files>
 </plugin>

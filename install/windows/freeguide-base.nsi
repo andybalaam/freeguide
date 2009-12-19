@@ -7,15 +7,15 @@
 
 !include "MUI.nsh"
 
-!cd ../../..
+!cd ../..
 !system "mkdir dist"
-!system "mkdir dist\exe"
+!system "mkdir dist\bin"
 
 ; The name of the installer
 Name "FreeGuide"
 
 ; The file to write
-OutFile dist\exe\${NAME_VERSION}-win32.exe
+OutFile dist\bin\${NAME_VERSION}-win32.exe
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\FreeGuide
@@ -171,7 +171,7 @@ Section "Desktop icon"
 
     SetOutPath $INSTDIR
 
-    CreateShortCut "$DESKTOP\FreeGuide TV Guide.lnk" $JAVA_PATH '-jar "$INSTDIR\startup.jar" --install_directory="$INSTDIR"' $INSTDIR\icons\logo.ico
+    CreateShortCut "$DESKTOP\FreeGuide TV Guide.lnk" $JAVA_PATH '-jar "$INSTDIR\FreeGuide.jar" --install_directory="$INSTDIR"' $INSTDIR\icons\logo.ico
 
 SectionEnd
 
@@ -183,7 +183,7 @@ Section "Start menu folder"
 
     SetOutPath $INSTDIR
 
-    CreateShortCut "$SMPROGRAMS\FreeGuide\FreeGuide TV Guide.lnk" $JAVA_PATH '-jar "$INSTDIR\startup.jar" --install_directory="$INSTDIR"' $INSTDIR\icons\logo.ico
+    CreateShortCut "$SMPROGRAMS\FreeGuide\FreeGuide TV Guide.lnk" $JAVA_PATH '-jar "$INSTDIR\FreeGuide.jar" --install_directory="$INSTDIR"' $INSTDIR\icons\logo.ico
 
 SectionEnd
 
@@ -193,7 +193,7 @@ Section "Quicklaunch icon"
 
     SetOutPath $INSTDIR
 
-    CreateShortCut "$QUICKLAUNCH\FreeGuide TV Guide.lnk" $JAVA_PATH '-jar "$INSTDIR\startup.jar" --install_directory="$INSTDIR"' $INSTDIR\icons\logo.ico
+    CreateShortCut "$QUICKLAUNCH\FreeGuide TV Guide.lnk" $JAVA_PATH '-jar "$INSTDIR\FreeGuide.jar" --install_directory="$INSTDIR"' $INSTDIR\icons\logo.ico
 
 SectionEnd
 
@@ -209,7 +209,7 @@ Section "!FreeGuide program"
 
   SetOutPath $INSTDIR
 
-  File /r build\package\*.*
+  File /r jar\*.*
   File /r install\windows\run.cmd
 
   ; --------------------- make uninstaller ---------------------

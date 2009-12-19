@@ -3,9 +3,4 @@
 <plugin id="importexport-html"
         version="1"
         class="freeguide.plugins.importexport.html.ExportHTML">
-
-  <files>
-    <file path="lib/importexport-html.jar"/>
-    <file path="lib/"/>
-  </files>
 </plugin>
