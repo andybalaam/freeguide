@@ -224,14 +224,16 @@
                 <exclude name="**/.xvpics/**" />
                 <exclude name="**/.svn/**"/>
                 <exclude name="**/.git/**"/>
-                <exclude name="build/**"/>
+                <exclude name="bin/**"/>
+                <exclude name="install-bin/**"/>
                 <exclude name="dist/**"/>
                 <exclude name="stats/**"/>
-                <exclude name="doc/nonlocal/**"/>
-                <exclude name="doc/html-web/**"/>
-                <exclude name="**/*.class"/>
-                <exclude name="**/xmltv/xmltv.exe"/>
+                <exclude name="nbproject/**"/>
+                <exclude name=".project"/>
+                <exclude name=".classpath"/>
+                <exclude name="**/xmltv.exe"/>
                 <exclude name="**/xmltv-*/**"/>
+                <exclude name="**/*.class"/>
             </tarfileset>
             
         </tar>
@@ -242,13 +244,15 @@
                 <exclude name="**/.xvpics/**" />
                 <exclude name="**/.svn/**"/>
                 <exclude name="**/.git/**"/>
-                <exclude name="build/**"/>
+                <exclude name="bin/**"/>
+                <exclude name="install-bin/**"/>
                 <exclude name="dist/**"/>
                 <exclude name="stats/**"/>
-                <exclude name="doc/nonlocal/**"/>
-                <exclude name="doc/html-web/**"/>
-                <exclude name="**/*.class"/>
+                <exclude name="nbproject/**"/>
+                <exclude name=".project"/>
+                <exclude name=".classpath"/>
                 <exclude name="**/xmltv-*/**"/>
+                <exclude name="**/*.class"/>
             </zipfileset>
             
         </zip>
@@ -319,8 +323,14 @@
 
         <mkdir dir="${dist}/bin"/>
         <tar longfile="gnu"
-             destfile="${dist}/bin/${application-id}-${application-version}-install-bin.tar.gz" compression="gzip" >
-            <tarfileset dir="${tmp}" />
+                destfile="${dist}/bin/${application-id}-${application-version}-install-bin.tar.gz"
+                compression="gzip">
+            <tarfileset dir="${tmp}"
+                excludes="usr/bin/freeguide"/>
+            <tarfileset
+                prefix="usr/bin/"
+                file="${tmp}/usr/bin/freeguide"
+                filemode="755"/>
         </tar>
         <delete dir="${tmp}"/>
     </target>
@@ -341,12 +351,17 @@
         <move todir="${builddir}">
             <fileset dir="${builddir}/share/freeguide/"/>
         </move>
-        <delete dir="${builddir}/share"/>
 
         <mkdir dir="${dist}/bin"/>
         <tar longfile="gnu"
-            destfile="${dist}/bin/${application-id}-${application-version}-bin.tar.gz" compression="gzip" >
-            <tarfileset dir="${tmp}" />
+                destfile="${dist}/bin/${application-id}-${application-version}-bin.tar.gz"
+                compression="gzip" >
+            <tarfileset dir="${tmp}"
+                excludes="${application-id}-${application-version}-bin/freeguide"/>
+            <tarfileset
+                prefix="${application-id}-${application-version}-bin"
+                file="${builddir}/freeguide"
+                filemode="755"/>
         </tar>
         <delete dir="${tmp}"/>
     </target>
