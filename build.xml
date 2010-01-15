@@ -184,7 +184,7 @@
         <!-- Copy the different-sized icons to the freeguide pixmaps dir -->
         <mkdir dir="${install_pixmap_dir}" />
         <copy todir="${install_pixmap_dir}/" >
-            <fileset dir="install/linux/icons" />
+            <fileset dir="${install}/linux/icons" />
         </copy>
 
         <copy tofile="${install_share_dir}/pixmaps/freeguide.png"
@@ -202,13 +202,15 @@
         <chmod file="${install_bin_dir}/freeguide" perm="a+x" />
 
         <mkdir dir="${install_share_dir}/applications" />
-        <copy file="install/linux/freeguide.desktop" todir="${install_share_dir}/applications/" />
+        <copy file="${install}/linux/freeguide.desktop" todir="${install_share_dir}/applications/" />
 
         <mkdir dir="${install_share_dir}/man/man1" />
         <gzip src="${install-bin}/linux/freeguide.1" destfile="${install_share_dir}/man/man1/freeguide.1.gz"/>
 
-        <mkdir dir="${install_share_dir}/freeguide/lib" />
-        <copy file="${install-bin}/docs.zip" todir="${install_share_dir}/freeguide/lib/" />
+        <mkdir dir="${install_share_dir}/doc/freeguide" />
+        <copy todir="${install_share_dir}/doc/freeguide/">
+            <fileset dir="${doc-bin}" />
+        </copy>
     </target>
 
     <!-- Packaging -->
