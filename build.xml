@@ -147,16 +147,9 @@
             failonerror="true" />
     </target>
 
-    <target name="zip-docs">
-        <mkdir dir="${install-bin}"/>
-        <zip zipfile="${install-bin}/docs.zip">
-            <fileset dir="${doc-bin}"/>
-        </zip>
-    </target>
-
     <!-- Install -->
 
-    <target name="install" depends="jar, zip-docs">
+    <target name="install" depends="jar">
 
         <!-- These properties must be passed in (example values shown):
             install_share_dir = ~/.rpm/tmp/freeguide-0.8.2-root/usr/share
