@@ -131,9 +131,11 @@
             description="Runs all tests"
             depends="compile">
         <java
-            classname="freeguide.test.FreeGuideTest"
-            dir="${bin}"
-            fork="true" />
+                classname="freeguide.test.FreeGuideTest"
+                dir="${bin}"
+                fork="true">
+            <arg value="--slow" />
+        </java>
     </target>
 
     <!-- Documentation -->
