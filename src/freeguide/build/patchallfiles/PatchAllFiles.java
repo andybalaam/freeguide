@@ -40,7 +40,7 @@ public class PatchAllFiles
         new File( "install-bin/windows" ).mkdirs(  );
         new File( "install-bin/linux/rpm" ).mkdirs(  );
 
-        PatchFile.patch( "doc/VERSION.php.in", "doc/VERSION.php", plugins );
+        PatchFile.patch( "doc/VERSION.php.in", "doc/sourceforge-redirects/VERSION.php", plugins );
         PatchFile.patch( 
             "install/windows/freeguide-without-xmltv.nsi.in",
             "install-bin/windows/freeguide-without-xmltv.nsi", plugins );
