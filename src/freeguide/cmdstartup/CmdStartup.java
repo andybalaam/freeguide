@@ -4,15 +4,10 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.search.ProgrammeSearcher;
-import freeguide.common.plugininterfaces.IApplication;
-import freeguide.common.plugininterfaces.IModuleStorage;
 import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.lib.fgspecific.PluginsManager;
 import freeguide.plugins.program.freeguide.lib.general.CmdArgs;
-import freeguide.plugins.program.freeguide.viewer.MainController;
-import freeguide.startup.Startup;
 
 public class CmdStartup
 {
