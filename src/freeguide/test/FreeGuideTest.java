@@ -9,22 +9,6 @@ public class FreeGuideTest
     {
         try
         {
-            if( args.length > 0 )
-            {
-                if( args[0].equals( "--slow" ) )
-                {
-                    new ImportPerformanceSlowTest().run();
-                    new ImportTwiceSlowTest().run();
-                    // Disabled since fails from cmd line new
-                    // DisplayDocsSlowTest().run();
-                }
-                else
-                {
-                    System.err.println( "Unrecognised argument '" + args[0]
-                        + "'" );
-                }
-            }
-
             new BadUTF8FastTest().run();
             new TVProgrammeHashCodeFastTest().run();
             new ImportFastTest().run();
@@ -33,7 +17,24 @@ public class FreeGuideTest
             new SearchResultsHolderFastTest().run();
             new SearchProgrammesThreadFastTest().run();
 
-            System.out.println( "All tests passed." );
+            System.out.println( "All fast tests passed." );
+
+            if( args.length > 0 )
+            {
+                if( args[0].equals( "--slow" ) )
+                {
+                    new ImportPerformanceSlowTest().run();
+                    new ImportTwiceSlowTest().run();
+                    new DisplayDocsSlowTest().run();
+
+                    System.out.println( "All slow tests passed." );
+                }
+                else
+                {
+                    System.err.println( "Unrecognised argument '" + args[0]
+                        + "'" );
+                }
+            }
         }
         catch( Exception e )
         {

@@ -2,6 +2,7 @@ package freeguide.common.lib.general;
 
 import freeguide.common.lib.fgspecific.Application;
 
+import java.awt.Desktop;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import java.util.Enumeration;
@@ -26,7 +28,7 @@ import java.util.zip.ZipFile;
  *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
-public class FileHelper implements IFileOpener
+public class FileHelper implements IBrowserLauncher
 {
     protected static final String URL_PATTERN = "%url%";
     protected static final String DEFAULT_CHARSET = "UTF-8";
@@ -95,22 +97,40 @@ public class FileHelper implements IFileOpener
      * Open file in the current browser.
      *
      * @param filename file name
+     * @throws MalformedURLException 
      */
-    public void openFile( final String filename )
+    public void browseLocalFile( final File file ) throws Exception
     {
-        try
+        boolean doneWithDesktopAPI = false;
+        if( Desktop.isDesktopSupported() )
         {
+            Desktop desktop = Desktop.getDesktop();
+            if( desktop.isSupported( Desktop.Action.BROWSE ) )
+            {
+                try
+                {
+                    desktop.browse( file.toURI() );
+                    doneWithDesktopAPI = true;
+                }
+                catch( IOException e )
+                {
+                    e.printStackTrace();
+                    // Browsing failed.  We didn't set the
+                    // doneWithDesktopAPI flag, so we will
+                    // try the old-fashioned way.
+                }
+            }
+        }
+
+        if( !doneWithDesktopAPI )
+        {
+            // Try to open it the old-fashioned way
             String cmd =
                 StringHelper.replaceAll(
                     Application.getInstance(  ).getBrowserCommand(  ),
                     URL_PATTERN,
-                    new File( filename ).toURI(  ).toURL(  ).toExternalForm(  ) );
+                    file.toURI().toURL().toExternalForm() );
             Utils.execNoWait( cmd );
-        }
-        catch( Exception ex )
-        {
-            Application.getInstance(  ).getLogger(  )
-                       .log( Level.WARNING, "Error open file " + filename, ex );
         }
     }
 
@@ -119,7 +139,7 @@ public class FileHelper implements IFileOpener
      *
      * @param url url
      */
-    public static void openURL( final URL url )
+    public static void browseURL( final URL url )
     {
         try
         {

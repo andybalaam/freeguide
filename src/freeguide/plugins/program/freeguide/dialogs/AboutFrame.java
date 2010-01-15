@@ -139,7 +139,7 @@ public class AboutFrame extends JDialog implements HyperlinkListener
     {
         if( HyperlinkEvent.EventType.ACTIVATED == e.getEventType(  ) )
         {
-            FileHelper.openURL( e.getURL(  ) );
+            FileHelper.browseURL( e.getURL(  ) );
         }
     }
 

@@ -7,8 +7,8 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JMenuItem;
 
+import freeguide.common.gui.DisplayDocsOrError;
 import freeguide.common.base.PluginInfo;
-import freeguide.common.lib.fgspecific.DisplayDocs;
 import freeguide.common.lib.general.Utils;
 import freeguide.common.plugininterfaces.IModuleExport;
 import freeguide.common.plugininterfaces.IModuleImport;
@@ -114,7 +114,7 @@ public class MenuHandler
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
-                    DisplayDocs.displayDocs();
+                    DisplayDocsOrError.displayDocsOrError();
                 }
             } );
 

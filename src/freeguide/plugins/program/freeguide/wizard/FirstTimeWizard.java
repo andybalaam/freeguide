@@ -13,6 +13,7 @@
 package freeguide.plugins.program.freeguide.wizard;
 
 import freeguide.common.base.PluginInfo;
+import freeguide.common.gui.DisplayDocsOrError;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.DisplayDocs;
 
@@ -541,7 +542,7 @@ public class FirstTimeWizard
 
         if( showREADME )
         {
-            DisplayDocs.displayDocs();
+            DisplayDocsOrError.displayDocsOrError();
         }
     }
 
