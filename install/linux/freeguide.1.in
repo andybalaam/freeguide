@@ -1,4 +1,4 @@
-.TH freeguide "1" "September 2007" "__ANT_NAME_VERSION__" "User Commands"
+.TH freeguide "1" "January 2010" "__ANT_NAME_VERSION__" "User Commands"
 .SH NAME
 freeguide \- display TV listings
 .SH SYNOPSIS
@@ -15,7 +15,7 @@ This manual page was written by Shaun Jackman <sjackman@debian.org>.
 .SH "REPORTING BUGS"
 Report bugs to <freeguide-tv-devel@lists.sourceforge.net>.
 .SH COPYRIGHT
-Copyright 2001-2007 by Andy Balaam and the FreeGuide contributors
+Copyright 2001-2010 by Andy Balaam and the FreeGuide contributors
 
 This is free software; see the source for copying conditions. There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
