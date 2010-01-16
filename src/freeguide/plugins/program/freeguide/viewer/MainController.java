@@ -599,6 +599,7 @@ public class MainController extends BaseModule implements IApplication
     /**
      * DOCUMENT_ME!
      *
+     * @deprecated use IBrowserLauncher instead
      * @return DOCUMENT_ME!
      */
     public String getBrowserCommand(  )

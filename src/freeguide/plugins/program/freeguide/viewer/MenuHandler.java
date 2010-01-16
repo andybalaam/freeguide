@@ -7,7 +7,7 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JMenuItem;
 
-import freeguide.common.gui.DisplayDocsOrError;
+import freeguide.common.gui.LaunchBrowserOrError;
 import freeguide.common.base.PluginInfo;
 import freeguide.common.lib.general.Utils;
 import freeguide.common.plugininterfaces.IModuleExport;
@@ -114,7 +114,7 @@ public class MenuHandler
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
-                    DisplayDocsOrError.displayDocsOrError();
+                    LaunchBrowserOrError.displayDocsOrError();
                 }
             } );
 

@@ -181,14 +181,7 @@ public class OptionsDialog extends FGDialog implements TreeSelectionListener,
 
         trunk.add( horzViewer );
 
-        OptionPanel panel = new BrowserOptionPanel( this );
-        DefaultMutableTreeNode browserLeaf =
-            new DefaultMutableTreeNode( panel );
-        panel.construct(  );
-
-        trunk.add( browserLeaf );
-
-        panel = new PrivacyOptionPanel( this );
+        OptionPanel panel = new PrivacyOptionPanel( this );
 
         DefaultMutableTreeNode privateLeaf =
             new DefaultMutableTreeNode( panel );

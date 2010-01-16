@@ -56,6 +56,9 @@ public interface IApplication
 
     void saveAllConfigs(  );
 
+    /**
+     * Don't use this directly: use IBrowserLauncher instead
+     */
     String getBrowserCommand(  );
 
     IMainMenu getMainMenu(  );

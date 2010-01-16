@@ -13,7 +13,7 @@
 package freeguide.plugins.program.freeguide.wizard;
 
 import freeguide.common.base.PluginInfo;
-import freeguide.common.gui.DisplayDocsOrError;
+import freeguide.common.gui.LaunchBrowserOrError;
 import freeguide.common.lib.fgspecific.Application;
 
 import freeguide.common.plugininterfaces.IModuleConfigureFromWizard;
@@ -44,7 +44,6 @@ import java.util.logging.Level;
  */
 public class FirstTimeWizard
 {
-    static private String defaultBrowser;
     private FreeGuide.Config config;
 
     // map of properties files by region name
@@ -53,7 +52,6 @@ public class FirstTimeWizard
     // map of properties files by region name
     private Map regionByISO;
     private Map allRegionsGrabbers;
-    private Map allBrowsers;
     private boolean showREADME;
     private boolean configGrabber;
     private WizardFrame wizardFrame;
@@ -83,14 +81,11 @@ public class FirstTimeWizard
          */
         getAllRegions(  );
 
-        allBrowsers = getAllBrowsers(  );
-
         List<WizardPanel> panels = new ArrayList<WizardPanel>(  );
 
         panels.add( createFirstPanel( upgrade ) );
         panels.add( createRegionPanel(  ) );
         panels.add( createWorkingDirectoryPanel(  ) );
-        panels.add( createBrowserPanel(  ) );
         panels.add( createPrivacyPanel(  ) );
         panels.add( createInstallPanel(  ) );
 
@@ -146,10 +141,6 @@ public class FirstTimeWizard
                     configGrabber = ( (InstallWizardPanel)panel ).configgrabberCheckBox
                         .isSelected(  );
 
-                    FreeGuide.config.browserName = config.browserName;
-
-                    FreeGuide.config.browserCommand = config.browserCommand;
-
                     FreeGuide.config.countryID = config.countryID;
 
                     FreeGuide.config.workingDirectory = config.workingDirectory;
@@ -190,52 +181,6 @@ public class FirstTimeWizard
             } );
 
         return privacyPanel;
-    }
-
-    /**
-     * Returns the browser choice panel for the first-time wizard.
-     *
-     * @return The browser {@link ChoiceWizardPanel}
-     */
-    private ChoiceWizardPanel createBrowserPanel(  )
-    {
-        ChoiceWizardPanel browserPanel =
-            new ChoiceWizardPanel( allBrowsers.keySet(  ) );
-
-        browserPanel.setMessages(
-            Application.getInstance(  )
-                       .getLocalizedMessage(
-                "what_is_the_name_of_your_web_browser.1" ),
-            Application.getInstance(  )
-                       .getLocalizedMessage(
-                "what_is_the_name_of_your_web_browser.2" ), KeyEvent.VK_W );
-
-        if( config.browserName == null )
-        {
-            config.browserName = defaultBrowser;
-        }
-
-        browserPanel.setOnEnter(
-            new WizardPanel.OnEnter(  )
-            {
-                public void onEnter( WizardPanel panel )
-                {
-                    panel.setBoxValue( config.browserName );
-
-                }
-            } );
-
-        browserPanel.setOnExit(
-            new WizardPanel.OnExit(  )
-            {
-                public void onExit( WizardPanel panel )
-                {
-                    config.browserName = (String)panel.getBoxValue(  );
-
-                }
-            } );
-
-        return browserPanel;
     }
 
     /**
@@ -410,35 +355,6 @@ public class FirstTimeWizard
     }
 
     /**
-     * DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
-     */
-    public static Map getAllBrowsers(  )
-    {
-        try
-        {
-            Map result =
-                readMap(
-                    "resources/main/browsers-"
-                    + ( FreeGuide.runtimeInfo.isUnix ? "lin" : "win" )
-                    + ".properties" );
-
-            defaultBrowser = (String)result.remove( "DEFAULT" );
-
-            return result;
-
-        }
-
-        catch( IOException ex )
-        {
-            FreeGuide.log.log( Level.SEVERE, "Error loading browser list", ex );
-
-            return null;
-        }
-    }
-
-    /**
      * Get list of all countries from all grabbers.
      */
     private void getAllRegions(  )
@@ -512,8 +428,6 @@ public class FirstTimeWizard
      */
     public void onFinish(  )
     {
-        config.browserCommand = (String)allBrowsers.get( config.browserName );
-
         new File( config.workingDirectory ).mkdirs(  );
 
         FreeGuide.config = config;
@@ -541,7 +455,7 @@ public class FirstTimeWizard
 
         if( showREADME )
         {
-            DisplayDocsOrError.displayDocsOrError();
+            LaunchBrowserOrError.displayDocsOrError();
         }
     }
 

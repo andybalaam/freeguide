@@ -539,10 +539,10 @@ public static String preStartup( String[] args ) throws IOException, Exception
         /** Freeguide version of stored config. */
         public String version = Application.VERSION.getDotFormat(  );
 
-        /** Browser name. */
+        /** Browser name (deprecated). */
         public String browserName;
 
-        /** Browser command. */
+        /** Browser command (deprecated). */
         public String browserCommand;
 
         /** Region name for first time wizard. */

@@ -1,6 +1,7 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
 import freeguide.common.base.IModuleConfigurationUI;
+import freeguide.common.gui.LaunchBrowserOrError;
 import freeguide.common.gui.SearchDialog;
 
 import freeguide.common.lib.fgspecific.Application;
@@ -1014,7 +1015,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                     true ), buffy );
             buffy.close(  );
 
-            new FileHelper().browseLocalFile( f );
+            LaunchBrowserOrError.browseLocalFileOrError( f );
         }
         catch( Exception ex )
         {

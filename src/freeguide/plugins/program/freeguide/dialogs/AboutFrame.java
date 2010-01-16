@@ -12,13 +12,13 @@
  */
 package freeguide.plugins.program.freeguide.dialogs;
 
-import freeguide.common.lib.fgspecific.Application;
-import freeguide.common.lib.general.FileHelper;
-import freeguide.common.lib.general.Utils;
-
 import javax.swing.JDialog;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+
+import freeguide.common.gui.LaunchBrowserOrError;
+import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.general.Utils;
 
 // To Be Added Shortly (Rob)
 //import freeguide.common.lib.general.*;
@@ -139,7 +139,7 @@ public class AboutFrame extends JDialog implements HyperlinkListener
     {
         if( HyperlinkEvent.EventType.ACTIVATED == e.getEventType(  ) )
         {
-            FileHelper.browseURL( e.getURL(  ) );
+            LaunchBrowserOrError.launchBrowserOrError( e.getURL() );
         }
     }
 

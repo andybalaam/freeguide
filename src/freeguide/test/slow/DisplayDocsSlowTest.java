@@ -1,24 +1,24 @@
 package freeguide.test.slow;
 
 import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 
 import freeguide.common.lib.fgspecific.DisplayDocs;
-import freeguide.common.lib.fgspecific.DisplayDocs.UnableToDisplayDocsException;
+import freeguide.common.lib.general.FileHelper;
 import freeguide.common.lib.general.IBrowserLauncher;
 import freeguide.test.FreeGuideTest;
 
 public class DisplayDocsSlowTest
 {
-    class FakeFileOpener implements IBrowserLauncher
+    class FakeBrowserLauncher implements IBrowserLauncher
     {
         public ArrayList<String> filesOpened = new ArrayList<String>();
 
-        public void browseLocalFile( File file ) throws Exception
+        public void browseLocalFile( final File file ) throws Exception
         {
             filesOpened.add( file.toString() );
         }
-
     }
 
     public void run() throws Exception
@@ -34,12 +34,15 @@ public class DisplayDocsSlowTest
      */
     public void test_CurrentDir() throws Exception
     {
-        FakeFileOpener opener = new FakeFileOpener();
-        DisplayDocs.displayDocs( null, opener );
+        FakeBrowserLauncher launcher = new FakeBrowserLauncher();
+        DisplayDocs.displayDocs( null, launcher );
 
-        FreeGuideTest.my_assert( opener.filesOpened.size() == 1 );
-        FreeGuideTest.my_assert( opener.filesOpened.get( 0 ).equals(
-            "../doc-bin/UserGuide/UserGuide.html" ) );
+        FreeGuideTest.my_assert( launcher.filesOpened.size() == 1 );
+        FreeGuideTest
+            .my_assert( launcher.filesOpened
+                .get( 0 )
+                .equals(
+                    "../doc-bin/UserGuide/UserGuide.html" ) );
     }
 
     /**
@@ -54,14 +57,14 @@ public class DisplayDocsSlowTest
 
         try
         {
-            FakeFileOpener opener = new FakeFileOpener();
-            DisplayDocs.displayDocs( "mydocdir", opener, "tmp" );
+            FakeBrowserLauncher launcher = new FakeBrowserLauncher();
+            DisplayDocs.displayDocs( "mydocdir", launcher, "tmp" );
 
             // Should not get here since an exception should be thrown
             throw new Exception(
-                "Should have thrown an UnableToDisplayDocsException." );
+                "Should have thrown an UnableToFindFileToBrowseException." );
         }
-        catch( UnableToDisplayDocsException e )
+        catch( FileHelper.UnableToFindFileToBrowseException e )
         {
             // We expected this exception
         }
@@ -74,12 +77,15 @@ public class DisplayDocsSlowTest
         FreeGuideTest.my_assert( new File(
             "tmp/mydocdir/UserGuide/UserGuide.html" ).isFile() );
 
-        FakeFileOpener opener = new FakeFileOpener();
-        DisplayDocs.displayDocs( "mydocdir", opener, "tmp" );
+        FakeBrowserLauncher launcher = new FakeBrowserLauncher();
+        DisplayDocs.displayDocs( "mydocdir", launcher, "tmp" );
 
-        FreeGuideTest.my_assert( opener.filesOpened.size() == 1 );
-        FreeGuideTest.my_assert( opener.filesOpened.get( 0 ).equals(
-            "tmp/mydocdir/UserGuide/UserGuide.html" ) );
+        FreeGuideTest.my_assert( launcher.filesOpened.size() == 1 );
+        FreeGuideTest
+            .my_assert( launcher.filesOpened
+                .get( 0 )
+                .equals(
+                    "tmp/mydocdir/UserGuide/UserGuide.html" ) );
 
         deleteDirectory( new File( "tmp" ) );
     }
@@ -97,11 +103,11 @@ public class DisplayDocsSlowTest
         FreeGuideTest.my_assert( new File(
             "tmp/doc-bin/UserGuide/UserGuide.html" ).isFile() );
 
-        FakeFileOpener opener = new FakeFileOpener();
-        DisplayDocs.displayDocs( null, opener, "tmp" );
+        FakeBrowserLauncher launcher = new FakeBrowserLauncher();
+        DisplayDocs.displayDocs( null, launcher, "tmp" );
 
-        FreeGuideTest.my_assert( opener.filesOpened.size() == 1 );
-        FreeGuideTest.my_assert( opener.filesOpened.get( 0 ).equals(
+        FreeGuideTest.my_assert( launcher.filesOpened.size() == 1 );
+        FreeGuideTest.my_assert( launcher.filesOpened.get( 0 ).equals(
             "tmp/./doc-bin/UserGuide/UserGuide.html" ) );
 
         deleteDirectory( new File( "tmp" ) );
