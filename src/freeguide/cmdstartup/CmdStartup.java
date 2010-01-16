@@ -18,7 +18,7 @@ public class CmdStartup
     {
         int retval = 1;
 
-        Properties argProps = new CmdArgs().parse( args );
+        Properties argProps = CmdArgs.parse( args );
 
         if( argProps.containsKey( "search" ) )
         {
