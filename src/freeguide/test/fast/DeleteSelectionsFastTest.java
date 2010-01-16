@@ -1,15 +1,12 @@
 package freeguide.test.fast;
 
-import java.io.ByteArrayInputStream;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.List;
 
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.fgspecific.selection.ManualSelection;
-import freeguide.common.lib.general.BadUTF8FilterInputStream;
 import freeguide.plugins.reminder.alarm.AlarmReminder;
 import freeguide.test.FreeGuideTest;
 

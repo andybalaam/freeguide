@@ -1,12 +1,11 @@
 package freeguide.common.lib.fgspecific;
 
 import java.io.File;
+import java.io.IOException;
 
-import freeguide.common.plugininterfaces.IApplication;
 import freeguide.common.lib.general.FileHelper;
 import freeguide.common.lib.general.IBrowserLauncher;
-
-import java.awt.Desktop;
+import freeguide.common.plugininterfaces.IApplication;
 
 public class DisplayDocs
 {

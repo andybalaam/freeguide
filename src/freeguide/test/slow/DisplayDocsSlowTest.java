@@ -1,16 +1,12 @@
 package freeguide.test.slow;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Properties;
 
 import freeguide.common.lib.fgspecific.DisplayDocs;
 import freeguide.common.lib.fgspecific.DisplayDocs.UnableToDisplayDocsException;
 import freeguide.common.lib.general.IBrowserLauncher;
-
 import freeguide.test.FreeGuideTest;
-import freeguide.test.MyAssertFailureException;
 
 public class DisplayDocsSlowTest
 {
