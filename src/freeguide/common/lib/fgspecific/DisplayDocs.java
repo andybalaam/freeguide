@@ -11,6 +11,8 @@ public class DisplayDocs
 {
     public static class UnableToDisplayDocsException extends Exception
     {
+        private static final long serialVersionUID = 1L;
+
         public String docsDirectory;
 
         public UnableToDisplayDocsException( String docsDirectory )
@@ -30,14 +32,14 @@ public class DisplayDocs
      * 
      * @throws IOException
      */
-    public static void displayDocs() throws UnableToDisplayDocsException
+    public static void displayDocs() throws Exception
     {
         IApplication app = Application.getInstance();
         displayDocs( app.getDocsDirectory(), new FileHelper() );
     }
 
     public static void displayDocs( String docsDirectory,
-        IBrowserLauncher fileOpener ) throws UnableToDisplayDocsException
+        IBrowserLauncher fileOpener ) throws Exception
     {
         displayDocs( docsDirectory, fileOpener, null );
     }
@@ -67,7 +69,7 @@ public class DisplayDocs
 
     public static void displayDocs( String docsDirectory,
         IBrowserLauncher fileOpener, String presentWorkingDir )
-        throws UnableToDisplayDocsException
+        throws Exception
     {
         String[] dirsToTry = { docsDirectory, CURRENT_DIR_DOCS, UP_ONE_DIR_DOCS };
 
@@ -91,15 +93,7 @@ public class DisplayDocs
             throw new UnableToDisplayDocsException( docsDirectory );
         }
 
-        try
-        {
-            fileOpener.browseLocalFile( userGuideFile );
-        }
-        catch( Exception e )
-        {
-            e.printStackTrace();
-            throw new UnableToDisplayDocsException( docsDirectory );
-        }
+        fileOpener.browseLocalFile( userGuideFile );
     }
 
 }
