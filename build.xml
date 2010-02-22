@@ -256,7 +256,7 @@
         
     </target>
 
-    <target name="dist-deb" depends="dist-src">
+    <target name="pre-deb" depends="dist-src">
 
         <property name="name-ver" value="${application-id}-${application-version}"/>
         <property name="name_ver" value="${application-id}_${application-version}"/>
@@ -272,6 +272,9 @@
         <copy todir="${tmp}/${name-ver}/debian">
             <fileset dir="${install}/linux/debian"/>
         </copy>
+    </target>
+
+    <target name="dist-deb" depends="pre-deb">
 
         <exec
             executable="debuild"
@@ -285,6 +288,26 @@
                 <include name="*.deb"/>
             </fileset>
         </move>
+
+        <delete dir="${tmp}"/>
+    </target>
+
+    <target name="upload-launchpad-rc" depends="pre-deb">
+        <exec
+                executable="debuild"
+                dir="${tmp}/${name-ver}"
+                resolveexecutable="true"
+                failonerror="true">
+            <arg value="-S"/>
+        </exec>
+
+        <exec
+                executable="${install}/linux/debian/run-dput"
+                dir="${tmp}"
+                resolveexecutable="false"
+                failonerror="true">
+            <arg value="freeguide-tv-release-candidates"/>
+        </exec>
 
         <delete dir="${tmp}"/>
     </target>
