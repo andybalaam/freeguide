@@ -11,9 +11,7 @@ else:
 
 MISSING_STR = "__MISSING__"
 
-main_language = "en"
-
-en_GB_suffix = ".%s.properties" % main_language
+main_language = ""
 
 ignore_missing_strings_languages = []
 ignore_missing_strings_languages.append( "en_US" )
@@ -38,7 +36,7 @@ non_lang_strings["fr"].append( "file" );
 non_lang_strings["fr"].append( "ip" );
 non_lang_strings["fr"].append( "timedialog.ok" );
 
-main_translation_file_re = re.compile( r'MessagesBundle\.(.*?)\.properties' )
+main_translation_file_re = re.compile( r'MessagesBundle_?(.*?)\.properties' )
 
 translation_res = []
 translation_res.append(
@@ -121,7 +119,7 @@ for ( lang,
 	
 	# Search for strings translated into this language
 	for fn in i18n_dir_files:
-		if fn.endswith( ".%s.properties" % lang ):
+		if fn.endswith( "_%s.properties" % lang ) or contains_no_lang_part( fn ):
 			filenames.append( fn )
 			fl = file( i18n_dir + "/" + fn, 'r' )
 			for ln in fl:
@@ -152,6 +150,7 @@ for ( lang,
 	
 	if lang == main_language:
 		en_GB_filenames = filenames
+		print "hhh", len( en_GB_filenames )
 		en_GB_translations = translations
 
 # Find which files were not translated
