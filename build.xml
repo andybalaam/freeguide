@@ -312,6 +312,26 @@
         <delete dir="${tmp}"/>
     </target>
 
+    <target name="upload-mentors" depends="pre-deb">
+        <exec
+                executable="debuild"
+                dir="${tmp}/${name-ver}"
+                resolveexecutable="true"
+                failonerror="true">
+            <arg value="-S"/>
+        </exec>
+
+        <exec
+                executable="${install}/linux/debian/run-dput"
+                dir="${tmp}"
+                resolveexecutable="false"
+                failonerror="true">
+            <arg value="mentors"/>
+        </exec>
+
+        <delete dir="${tmp}"/>
+    </target>
+
     <target name="dist-rpm" depends="dist-src">
         <mkdir dir="${dist}/bin"/>
         <exec executable="buildrpm"
