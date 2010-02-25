@@ -20,7 +20,7 @@ public class TVProgrammeOverlapIsEqualComparator implements java.util.Comparator
 
         // If the end times have not been downloaded, we
         // must compare purely by start time.
-        // If both end times are valid, we delare them equal if
+        // If both end times are valid, we declare them equal if
         // They overlap at all, so we don't get overlapping
         // programmes showing.
         if( p1.getEnd() == 0 || p2.getEnd() == 0 )
