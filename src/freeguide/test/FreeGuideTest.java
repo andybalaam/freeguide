@@ -9,6 +9,7 @@ public class FreeGuideTest
     {
         try
         {
+            new MigrationFastTest().run();
             new BadUTF8FastTest().run();
             new TVProgrammeHashCodeFastTest().run();
             new ImportFastTest().run();

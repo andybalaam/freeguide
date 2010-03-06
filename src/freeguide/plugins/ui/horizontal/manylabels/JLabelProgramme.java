@@ -104,7 +104,7 @@ public class JLabelProgramme extends JLabel
         this.controller = main;
         this.moveNames = moveNames;
         setText( getTitle( programme ) );
-        setupColors( main.theDate );
+        setupColors( main.getDate() );
         setupHeart(  );
         setOpaque( true );
         setFocusable( true );

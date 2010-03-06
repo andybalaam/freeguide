@@ -133,6 +133,18 @@ public class Migrate
                 migr.migrate(  );
             }
 
+            if( installedVersion.lessThan( new Version( 0, 10, 12 ) ) )
+            {
+                migr = new Migrate0_10_11To0_10_12( FreeGuide.pref_root_name );
+                migr.migrate(  );
+            }
+
+            if( installedVersion.lessThan( new Version( 0, 11 ) ) )
+            {
+                migr = new Migrate0_10_12To0_11( FreeGuide.pref_root_name );
+                migr.migrate(  );
+            }
+
             if( migr != null )
             {
                 migr.saveTo( FreeGuide.pref_root_name );

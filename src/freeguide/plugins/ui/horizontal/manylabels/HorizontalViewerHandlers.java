@@ -39,16 +39,16 @@ public class HorizontalViewerHandlers
                 // Do nothing if this isn't an item selection
                 if( evt.getStateChange(  ) == ItemEvent.SELECTED )
                 {
-                    long oldDate = controller.theDate;
+                    long oldDate = controller.getDate();
 
-                    // Set theDate to the date chosen
+                    // Set to the date chosen
                     int dateIndex =
                         controller.panel.getComboDate(  ).getSelectedIndex(  );
 
-                    controller.theDate = ( (Long)( controller.dateExistList.get( 
-                            dateIndex ) ) ).longValue(  );
+                    controller.setDate(( (Long)( controller.dateExistList.get(
+                            dateIndex ) ) ).longValue(  ));
 
-                    if( oldDate != controller.theDate )
+                    if( oldDate != controller.getDate() )
                     {
                         controller.loadData(  );
 
@@ -205,14 +205,14 @@ public class HorizontalViewerHandlers
                 controller.currentProgrammeLabel = labelProgramme;
                 controller.updateProgrammeInfo( 
                     labelProgramme.getProgramme(  ) );
-                labelProgramme.setupColors( controller.theDate );
+                labelProgramme.setupColors( controller.getDate( ) );
             }
 
             public void focusLost( FocusEvent e )
             {
                 final JLabelProgramme labelProgramme =
                     (JLabelProgramme)e.getComponent(  );
-                labelProgramme.setupColors( labelProgramme.controller.theDate );
+                labelProgramme.setupColors( labelProgramme.controller.getDate( ) );
             }
         };
 

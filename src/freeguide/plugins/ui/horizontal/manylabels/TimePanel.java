@@ -33,17 +33,15 @@ import javax.swing.JPanel;
  */
 public class TimePanel extends JPanel
 {
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
+    // The time on the left hand side of the panel
     private long startTime;
 
-    // The time on the left hand side of the panel
+    // The time on the right hand side of the panel
     private long endTime;
 
-    // The time on the right hand side of the panel
+    // The no. millisecs over the no. pixels
     private double multiplier;
 
-    // The no. millisecs over the no. pixels
     private boolean display = false;
     private final SimpleDateFormat time24format =
         new SimpleDateFormat( "HH:mm" );

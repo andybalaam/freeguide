@@ -35,7 +35,7 @@ public class HorizontalViewerConfig
     public int sizeHalfHorGap = 1;
 
     /** DOCUMENT ME! */
-    public int sizeProgrammePanelWidth = 8000;
+    public int sizeProgrammeHour = 333;
 
     /** Default width of the channels scrolling panel */
     /** Default colour of a movie */

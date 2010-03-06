@@ -18,7 +18,7 @@ abstract public class MigrationProcessBase
     protected final Map prefFrom;
     protected final Map prefTo;
 
-/**
+    /**
      * Creates a new MigrationProcessBase object.
      *
      * @param nodeName DOCUMENT ME!
@@ -32,6 +32,16 @@ abstract public class MigrationProcessBase
         loadFrom( "", Preferences.userRoot(  ).node( nodeName ) );
         Migrate.dumpPrefs( prefFrom, "prefs_old" );
         prefTo = new TreeMap(  );
+    }
+
+    /**
+     * TEST ONLY: creates a new Migrate0_10_12To0_11 object
+     * without initialising it.
+     */
+    public MigrationProcessBase()
+    {
+        prefFrom = new TreeMap();
+        prefTo = new TreeMap();
     }
 
     /**
