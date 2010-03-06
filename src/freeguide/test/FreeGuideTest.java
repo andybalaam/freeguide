@@ -33,12 +33,14 @@ public class FreeGuideTest
                 {
                     System.err.println( "Unrecognised argument '" + args[0]
                         + "'" );
+                    System.exit( 2 );
                 }
             }
         }
         catch( Exception e )
         {
             e.printStackTrace();
+            System.exit( 1 );
         }
     }
 
