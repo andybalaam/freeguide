@@ -133,6 +133,7 @@
         <java
                 classname="freeguide.test.FreeGuideTest"
                 dir="${bin}"
+                failonerror="true"
                 fork="true">
             <arg value="--slow" />
         </java>
