@@ -752,6 +752,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     public void onChannelsSetsChanged(  )
     {
         prepareChannelsSetList(  );
+        loadData(  );
+        redraw();
     }
 
     /**
