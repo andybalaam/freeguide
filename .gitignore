@@ -11,3 +11,4 @@ bin
 install-bin
 jar
 dist
+*.marks
