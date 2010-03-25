@@ -731,11 +731,26 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     }
 
     /**
+     * Change the date
+     */
+    private void changeDay(int offset)
+    {
+        Calendar cal =
+            Calendar.getInstance(
+                Application.getInstance(  ).getTimeZone(  ), Locale.ENGLISH );
+
+        cal.setTimeInMillis( getDate() );
+        cal.add( Calendar.DATE, offset );
+
+        goToDate( cal.getTimeInMillis() );
+    }
+
+    /**
      * Move forward in time one day.
      */
     public void goToNextDay(  )
     {
-        goToDate( getDate() + todayMillis );
+        changeDay(1);
     }
 
     /**
@@ -743,7 +758,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
      */
     public void goToPrevDay(  )
     {
-        goToDate( getDate() - todayMillis );
+        changeDay(-1);
     }
 
     /**
