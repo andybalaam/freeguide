@@ -62,11 +62,15 @@ public class Migrate0_10_12To0_11 extends MigrationProcessBase
         // Convert from panel width to programme width
         String sizeProgrammePanelWidth = getAndRemoveKey(
             "modules/ui-horizontal/sizeProgrammePanelWidth" );
-        int panelWidth = Integer.parseInt( sizeProgrammePanelWidth );
-        int programmeWidth = panelWidth / 24;
 
-        putKey( "modules/ui-horizontal/sizeProgrammeHour",
-            Integer.toString( programmeWidth ) );
+        if( sizeProgrammePanelWidth != null )
+        {
+            int panelWidth = Integer.parseInt( sizeProgrammePanelWidth );
+            int programmeWidth = panelWidth / 24;
+    
+            putKey( "modules/ui-horizontal/sizeProgrammeHour",
+                Integer.toString( programmeWidth ) );
+        }
 
         moveNode( "" );
 

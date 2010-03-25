@@ -2,15 +2,24 @@ package freeguide.test.fast;
 
 import java.util.TreeMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 import freeguide.test.FreeGuideTest;
+import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.migration.Migrate0_10_12To0_11;
 
 public class MigrationFastTest
 {
     public void run() throws Exception
     {
+        // Suppress INFO log messages.
+        FreeGuide.log.setLevel( Level.WARNING );
+        FreeGuide.log.getParent(  ).setLevel( Level.WARNING );
+        FreeGuide.log.getParent(  ).getHandlers(  )[0].setLevel(
+            Level.WARNING );
+
         test_0_10_12To0_11();
+        test_0_10_12To0_11_NoPanelWidth();
     }
 
     private void test_0_10_12To0_11()
@@ -45,4 +54,27 @@ public class MigrationFastTest
                 .equals( "333" ) );
     }
 
+    
+    private void test_0_10_12To0_11_NoPanelWidth()
+    throws Exception
+    {
+        // Sub-class to access members and bypass initialisation
+        class Migr extends Migrate0_10_12To0_11
+        {
+            public Map getFrom()
+            {
+                return prefFrom;
+            }
+        }
+
+        Migr migr = new Migr();
+
+        // Don't put in a sizeProgrammePanelWidth
+
+        migr.migrate();
+
+        // No exception should be thrown, even though the expected
+        // setting is missing.
+    }
+    
 }
