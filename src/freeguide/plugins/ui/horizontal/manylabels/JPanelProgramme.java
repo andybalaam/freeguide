@@ -1,6 +1,7 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
 import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.general.Time;
 
 import java.awt.Font;
 import java.awt.Point;
@@ -126,13 +127,12 @@ public class JPanelProgramme extends JPanel
     protected void setupBounds( 
         final JLabelProgramme label, final TVProgramme programme, final int row )
     {
-        //int x = (int)( ( ( programme.getStart(  ) - startDate ) * main.config.sizeProgrammePanelWidth ) / main.MILLISECONDS_PER_DAY ) + 1;
-        //int y = ( main.config.sizeChannelHeight * row ) + 1;
-        //int height = main.config.sizeChannelHeight - 2;
-        //int width =(int)( ( ( programme.getEnd(  ) - programme.getStart(  ) ) * main.config.sizeProgrammePanelWidth ) / main.MILLISECONDS_PER_DAY ) - 2;
+        int    sizePanel = (int) (controller.config.sizeProgrammeHour * controller.todayMillis / Time.HOUR);
+        double sizeMilli = (double) (controller.config.sizeProgrammeHour) / Time.HOUR;
+
         int x =
             ( ( controller.config.sizeHalfHorGap * 2 )
-            + (int)( ( ( programme.getStart(  ) - startDate ) * controller.config.sizeProgrammePanelWidth ) / controller.MILLISECONDS_PER_DAY ) )
+            + (int) ( ( programme.getStart(  ) - startDate ) * sizeMilli ) )
             - 1;
         int y =
             ( ( controller.config.sizeHalfVerGap * 2 )
@@ -141,7 +141,7 @@ public class JPanelProgramme extends JPanel
             controller.config.sizeChannelHeight
             - ( controller.config.sizeHalfVerGap * 4 );
         int width =
-            (int)( ( ( programme.getEnd(  ) - programme.getStart(  ) ) * controller.config.sizeProgrammePanelWidth ) / controller.MILLISECONDS_PER_DAY )
+            (int) ( ( programme.getEnd(  ) - programme.getStart(  ) ) * sizeMilli )
             - ( controller.config.sizeHalfHorGap * 4 );
 
         if( x < 0 )
@@ -152,10 +152,10 @@ public class JPanelProgramme extends JPanel
             width -= dt;
         }
 
-        if( x > controller.config.sizeProgrammePanelWidth )
+        if( x > sizePanel )
         {
             // trunc for window if programme ends after current day
-            int dt = x - controller.config.sizeProgrammePanelWidth;
+            int dt = x - sizePanel;
             width -= dt;
         }
 
@@ -179,7 +179,7 @@ public class JPanelProgramme extends JPanel
         if( cursorHorizontalPos == -1 )
         {
             cursorHorizontalPos = label.getMiddle( 
-                    startDate, startDate + controller.MILLISECONDS_PER_DAY );
+                    startDate, startDate + controller.todayMillis );
         }
 
         for( int i = row - 1; i >= 0; i-- )
@@ -212,7 +212,7 @@ public class JPanelProgramme extends JPanel
         if( cursorHorizontalPos == -1 )
         {
             cursorHorizontalPos = label.getMiddle( 
-                    startDate, startDate + controller.MILLISECONDS_PER_DAY );
+                    startDate, startDate + controller.todayMillis );
         }
 
         for( int i = row + 1; i < rows.length; i++ )
@@ -251,7 +251,7 @@ public class JPanelProgramme extends JPanel
             focusAndShow( newLabel );
 
             cursorHorizontalPos = newLabel.getMiddle( 
-                    startDate, startDate + controller.MILLISECONDS_PER_DAY );
+                    startDate, startDate + controller.todayMillis );
         }
     }
 
@@ -278,7 +278,7 @@ public class JPanelProgramme extends JPanel
             focusAndShow( newLabel );
 
             cursorHorizontalPos = newLabel.getMiddle( 
-                    startDate, startDate + controller.MILLISECONDS_PER_DAY );
+                    startDate, startDate + controller.todayMillis );
         }
     }
 
@@ -320,7 +320,7 @@ public class JPanelProgramme extends JPanel
             if( 
                 current.isOverlap( 
                         middleTime, startDate,
-                        startDate + controller.MILLISECONDS_PER_DAY ) )
+                        startDate + controller.todayMillis ) )
             {
                 return current;
             }

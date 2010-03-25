@@ -12,8 +12,8 @@ import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVIteratorProgrammes;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.lib.general.FileHelper;
-import freeguide.common.lib.general.TemplateParser;
 import freeguide.common.lib.general.Time;
+import freeguide.common.lib.general.TemplateParser;
 
 import freeguide.common.plugininterfaces.BaseModule;
 import freeguide.common.plugininterfaces.IModuleStorage;
@@ -107,7 +107,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     protected ViewerFrame panel;
 
     /** Current displayed date. */
-    protected long theDate;
+    private long ourDate;
+    public  long todayMillis;
 
     /** Current displayed data. */
     public TVData currentData = new TVData(  );
@@ -117,9 +118,6 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
      * the data directory.  (Members of this list are Longs.)
      */
     public LinkedList dateExistList = new LinkedList(  );
-
-    /** Day in milliseconds. */
-    public long MILLISECONDS_PER_DAY = 24L * 60L * 60L * 1000L;
 
     /** Handlers for handle events from UI controls. */
     protected final HorizontalViewerHandlers handlers =
@@ -247,6 +245,30 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     }
 
     /**
+     * Methods to handle the current date
+     */
+    public void setDate(long newDate)
+    {
+        // Save the date
+        ourDate = newDate;
+
+        // Use the calendar to calculate the length of the day
+        Calendar cal =
+            Calendar.getInstance(
+                Application.getInstance(  ).getTimeZone(  ), Locale.ENGLISH );
+
+        cal.setTimeInMillis( newDate );
+        cal.add(Calendar.DATE, 1);
+
+        todayMillis = cal.getTimeInMillis() - ourDate;
+    }
+
+    public long getDate()
+    {
+       return ourDate;
+    }
+
+    /**
      * Start viewer.
      */
     public void open(  )
@@ -260,7 +282,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         panel.splitPaneGuideDet.setDividerLocation( 
             config.positionSplitPaneHorizontalBottom );
 
-        theDate = System.currentTimeMillis(  );
+        setDate(System.currentTimeMillis(  ));
 
         prepareChannelsSetList(  );
 
@@ -361,7 +383,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         panel.getProgrammesScrollPane(  ).getVerticalScrollBar(  )
              .setUnitIncrement( config.sizeChannelHeight );
         panel.getProgrammesScrollPane(  ).getHorizontalScrollBar(  )
-             .setUnitIncrement( config.sizeProgrammePanelWidth / 24 / 6 );
+             .setUnitIncrement( config.sizeProgrammeHour / 6 );
 
         // Refresh the programmes
         drawProgrammes(  );
@@ -377,7 +399,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     {
         if( currentProgrammeLabel != null )
         {
-            currentProgrammeLabel.setupColors( theDate );
+            currentProgrammeLabel.setupColors( getDate() );
             currentProgrammeLabel.repaint(  );
         }
 
@@ -415,8 +437,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         final IModuleStorage.Info info = new IModuleStorage.Info(  );
         info.channelsList = getChannelsSetByName( 
                 config.currentChannelSetName );
-        info.minDate = theDate;
-        info.maxDate = theDate + Time.DAY;
+        info.minDate = getDate();
+        info.maxDate = getDate() + todayMillis;
 
         return info;
     }
@@ -505,7 +527,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         panel.getProgrammesPanel(  )
              .init( 
-            theDate, font, currentChannelSet.getChannels(  ).size(  ),
+            getDate(), font, currentChannelSet.getChannels(  ).size(  ),
             timeFormat );
 
         final List channels = new ArrayList(  );
@@ -534,26 +556,22 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         Dimension tmp =
             new Dimension( 
-                config.sizeProgrammePanelWidth,
+                (int) (config.sizeProgrammeHour * todayMillis / Time.HOUR),
                 currentChannelSet.getChannels(  ).size(  ) * config.sizeChannelHeight );
 
         panel.getProgrammesPanel(  ).setPreferredSize( tmp );
-
         panel.getProgrammesPanel(  ).setMinimumSize( tmp );
-
         panel.getProgrammesPanel(  ).setMaximumSize( tmp );
 
         tmp = new Dimension( 
-                config.sizeProgrammePanelWidth,
+                (int) (config.sizeProgrammeHour * todayMillis / Time.HOUR),
                 panel.getTimePanel(  ).getPreferredSize(  ).height );
 
         panel.getTimePanel(  ).setPreferredSize( tmp );
-
         panel.getTimePanel(  ).setMinimumSize( tmp );
-
         panel.getTimePanel(  ).setMaximumSize( tmp );
 
-        panel.getTimePanel(  ).setTimes( theDate, theDate + Time.DAY );
+        panel.getTimePanel(  ).setTimes( getDate(), getDate() + todayMillis );
 
         // Create labels for all programmes
         currentData.iterate( 
@@ -610,7 +628,13 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             {
                 lastResortIndex = it.previousIndex(  );
 
-                if( newDate < ( itemdt + Time.DAY ) )
+                // Calculate the next day
+                Calendar itemCal = Calendar.getInstance( Application.getInstance(  ).getTimeZone(  ), Locale.ENGLISH );
+                itemCal.setTimeInMillis(itemdt);
+                itemCal.add(Calendar.DATE, 1);
+
+                // Comparison based on actual next day
+                if( newDate < ( itemCal.getTimeInMillis() ) )
                 {
                     // If there is already an item in the combo box for this
                     // date, select it.
@@ -627,9 +651,10 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         {
             // If the day asked for is not in the past, create an entry
             // for it in the combo box.
-            long now = System.currentTimeMillis(  );
+            Calendar now = Calendar.getInstance( Application.getInstance(  ).getTimeZone(  ), Locale.ENGLISH );
+            now.add(Calendar.DATE, -1);
 
-            if( newDate >= ( now - Time.DAY ) )
+            if( newDate >= ( now.getTimeInMillis( ) ) )
             {
                 // Check whether we need to insert into the list
                 it = dateExistList.listIterator( 0 );
@@ -706,11 +731,26 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     }
 
     /**
+     * Change the date
+     */
+    private void changeDay(int offset)
+    {
+        Calendar cal =
+            Calendar.getInstance(
+                Application.getInstance(  ).getTimeZone(  ), Locale.ENGLISH );
+
+        cal.setTimeInMillis( getDate() );
+        cal.add( Calendar.DATE, offset );
+
+        goToDate( cal.getTimeInMillis() );
+    }
+
+    /**
      * Move forward in time one day.
      */
     public void goToNextDay(  )
     {
-        goToDate( theDate + Time.DAY );
+        changeDay(1);
     }
 
     /**
@@ -718,7 +758,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
      */
     public void goToPrevDay(  )
     {
-        goToDate( theDate - Time.DAY );
+        changeDay(-1);
     }
 
     /**
@@ -727,6 +767,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     public void onChannelsSetsChanged(  )
     {
         prepareChannelsSetList(  );
+        loadData(  );
+        redraw();
     }
 
     /**
@@ -738,7 +780,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         loadData(  );
 
-        goToDate( theDate );
+        goToDate( getDate() );
 
         redraw(  );
 
@@ -1010,7 +1052,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                     "resources/plugins/ui/horizontal/manylabels/templates/TemplatePersonalGuidePrint.html" );
             parser.process( 
                 new HandlerPersonalGuide( 
-                    getLocalizer(  ), currentData, new Date( theDate ),
+                    getLocalizer(  ), currentData, new Date( getDate() ),
                     htmlDateFormat, weekdayFormat, getCurrentDateFormat(  ),
                     true ), buffy );
             buffy.close(  );
@@ -1038,7 +1080,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                     "resources/plugins/ui/horizontal/manylabels/templates/TemplatePersonalGuide.html" );
             parser.process( 
                 new HandlerPersonalGuide( 
-                    getLocalizer(  ), currentData, new Date( theDate ),
+                    getLocalizer(  ), currentData, new Date( getDate() ),
                     htmlDateFormat, weekdayFormat, getCurrentDateFormat(  ),
                     false ), str );
         }

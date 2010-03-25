@@ -137,7 +137,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
             config.fontSize = currentFont.getSize(  );
             config.fontStyle = currentFont.getStyle(  );
             config.sizeChannelHeight = panel.getSliderHeight(  ).getValue(  );
-            config.sizeProgrammePanelWidth = panel.getSliderWidth(  ).getValue(  ) * 24;
+            config.sizeProgrammeHour = panel.getSliderWidth(  ).getValue(  );
             config.colorNew = panel.getPanelColorNew(  ).getBackground(  );
             config.colorChannel = panel.getPanelColorChannel(  ).getBackground(  );
             config.colorMovie = panel.getPanelColorMovie(  ).getBackground(  );
@@ -186,10 +186,8 @@ public class ConfigureUIController implements IModuleConfigurationUI
              .setText( Integer.toString( config.sizeChannelHeight ) );
         panel.getSliderHeight(  ).setValue( config.sizeChannelHeight );
         panel.getTextWidth(  )
-             .setText( 
-            Integer.toString( config.sizeProgrammePanelWidth / 24 ) );
-        panel.getSliderWidth(  ).setValue( 
-            config.sizeProgrammePanelWidth / 24 );
+             .setText( Integer.toString( config.sizeProgrammeHour ) );
+        panel.getSliderWidth(  ).setValue( config.sizeProgrammeHour );
         panel.getPanelColorChannel(  ).setBackground( config.colorChannel );
         panel.getPanelColorMovie(  ).setBackground( config.colorMovie );
         panel.getPanelColorSelected(  ).setBackground( config.colorTicked );

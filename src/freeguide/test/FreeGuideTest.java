@@ -11,6 +11,7 @@ public class FreeGuideTest
         {
             new PathSearcherFastTest().run();
             new BrowserFastTest().run();
+            new MigrationFastTest().run();
             new BadUTF8FastTest().run();
             new TVProgrammeHashCodeFastTest().run();
             new ImportFastTest().run();
@@ -35,6 +36,7 @@ public class FreeGuideTest
                 {
                     System.err.println( "Unrecognised argument '" + args[0]
                         + "'" );
+                    System.exit( 2 );
                 }
             }
         }
