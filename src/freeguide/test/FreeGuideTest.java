@@ -9,6 +9,8 @@ public class FreeGuideTest
     {
         try
         {
+            new PathSearcherFastTest().run();
+            new BrowserFastTest().run();
             new BadUTF8FastTest().run();
             new TVProgrammeHashCodeFastTest().run();
             new ImportFastTest().run();
@@ -39,6 +41,7 @@ public class FreeGuideTest
         catch( Exception e )
         {
             e.printStackTrace();
+            System.exit( 1 );
         }
     }
 

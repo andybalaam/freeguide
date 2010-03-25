@@ -19,6 +19,7 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import freeguide.common.plugininterfaces.IApplication;
 import freeguide.common.lib.fgspecific.Application;
 
 /**
@@ -45,6 +46,34 @@ public class FileHelper implements IBrowserLauncher
     protected static final String DEFAULT_CHARSET = "UTF-8";
 
     protected static final String TEMP_PROPERTY = "java.io.tmpdir";
+
+    /**
+     * A class to search through the system PATH for
+     * one of a list of exes.
+     */
+    public IPathSearcher pathSearcher;
+
+    /**
+     * The list of possible EXEs that will launch some kind
+     * of browser.
+     */
+    private static final String[] BROWSER_EXES = {
+        "xdg-open",
+        "sensible-browser",
+        "konqueror",
+        "firefox"
+    };
+
+    /**
+     * If we found no browser in the path, we try this one
+     * anyway.
+     */
+    private static final String FALLBACK_BROWSER = "firefox";
+
+    /**
+     * For test only - if false, don't use java.awt.Desktop.
+     */
+    public boolean useDesktopAPI = true;
 
     /**
      * ToDo: DOCUMENT ME!
@@ -132,11 +161,16 @@ public class FileHelper implements IBrowserLauncher
         browseURI( url.toURI() );
     }
 
-
     public void browseURI( final URI uri ) throws Exception
     {
+        browseURIImpl( uri, Application.getInstance() );
+    }
+
+    public void browseURIImpl( final URI uri, final IApplication app )
+    throws Exception
+    {
         boolean doneWithDesktopAPI = false;
-        if( Desktop.isDesktopSupported() )
+        if( useDesktopAPI && Desktop.isDesktopSupported() )
         {
             Desktop desktop = Desktop.getDesktop();
             if( desktop.isSupported( Desktop.Action.BROWSE ) )
@@ -159,11 +193,30 @@ public class FileHelper implements IBrowserLauncher
         if( !doneWithDesktopAPI )
         {
             // Try to open it the old-fashioned way
-            String cmd = StringHelper
-                .replaceAll( Application.getInstance().getBrowserCommand(),
-                    URL_PATTERN, uri.toURL().toExternalForm() );
-            Utils.execNoWait( cmd );
+
+            String browserCommand = app.getBrowserCommand();
+
+            if( browserCommand == null )
+            {
+                browserCommand = pathSearcher.findInPath( BROWSER_EXES,
+                    FALLBACK_BROWSER );
+                browserCommand += " \"%url%\"";
+            }
+
+            String cmd = StringHelper.replaceAll( browserCommand, URL_PATTERN,
+                uri.toURL().toExternalForm() );
+
+            runBrowserCommand( cmd );
         }
+    }
+
+    /**
+     * Actually run the browser command (only used if the Desktop
+     * API failed).  We override this for testing.
+     */
+    protected void runBrowserCommand( String cmd )
+    {
+        Utils.execNoWait( cmd );
     }
 
     /**
