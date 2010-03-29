@@ -210,6 +210,13 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         return config;
     }
 
+    public void setConfig ( HorizontalViewerConfig config )
+    {
+        this.config = config;
+
+        redraw( );
+    }
+
     /**
      * Set locale handler.
      *
@@ -384,6 +391,9 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
              .setUnitIncrement( config.sizeChannelHeight );
         panel.getProgrammesScrollPane(  ).getHorizontalScrollBar(  )
              .setUnitIncrement( config.sizeProgrammeHour / 6 );
+
+        // Refresh the time
+        panel.getTimePanel().repaint();
 
         // Refresh the programmes
         drawProgrammes(  );

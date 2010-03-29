@@ -173,7 +173,7 @@ public class ViewerFrame extends JPanel
 
         //programmesPanel = new JPanel(new ProgrammesPanelLayout());
         programmesPanel = new JPanelProgramme( parent );
-        timePanel = new TimePanel( parent.config );
+        timePanel = new TimePanel( parent );
 
         butPrint = new javax.swing.JButton(  );
 

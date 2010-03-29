@@ -3,6 +3,7 @@ package freeguide.common.gui;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.selection.Favourite;
+import freeguide.common.lib.general.StringHelper;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +30,7 @@ public class FavouritesController
     private final FavouritesListDialog listDialog;
     private boolean changed = false;
 
-/**
+    /**
      * Creates a new FavouritesController object.
      *
      * @param owner DOCUMENT ME!
@@ -90,7 +91,6 @@ public class FavouritesController
                 public void actionPerformed( ActionEvent e )
                 {
                     Favourite newFav = new Favourite(  );
-                    favourites.add( newFav );
 
                     if( 
                         new FavouriteEditorDialog( 
@@ -100,11 +100,15 @@ public class FavouritesController
                                     "add_a_new_favourite" ), newFav,
                                 allChannelsSet ).showDialog(  ) )
                     {
-                        changed = true;
-                    }
+                        // save the favourite only if one was created
+                        latestIndex = favourites.size(  );
+                        favourites.add( newFav );
 
-                    latestIndex = favouritesModel.size(  );
-                    reShow(  );
+                        changed = true;
+
+                        // update the display
+                        reShow(  );
+                    }
                 }
             } );
         listDialog.getBtnEdit(  ).addActionListener( 
@@ -114,11 +118,9 @@ public class FavouritesController
                 {
                     latestIndex = listDialog.getList(  ).getSelectedIndex(  );
 
-                    int i = listDialog.getList(  ).getSelectedIndex(  );
-
-                    if( i != -1 )
+                    if( latestIndex != -1 )
                     {
-                        Favourite fav = (Favourite)favourites.get( i );
+                        Favourite fav = (Favourite)favourites.get( latestIndex );
 
                         if( 
                             new FavouriteEditorDialog( 
@@ -129,8 +131,13 @@ public class FavouritesController
                                 .showDialog(  ) )
                         {
                             changed = true;
+
+                            // update the display
+                            reShow(  );
                         }
                     }
+
+                    reShow();
                 }
             } );
         listDialog.getBtnRemove(  ).addActionListener( 
@@ -196,8 +203,18 @@ public class FavouritesController
 
         for( int i = 0; i < favourites.size(  ); i++ )
         {
-            favouritesModel.addElement( 
-                ( (Favourite)( favourites.get( i ) ) ).getName(  ) );
+            // Ensure that we have some kind of name, even if something
+            // went wrong when creating the favourite.
+            String name = ( (Favourite)( favourites.get( i ) ) ).getName(  );
+
+            if( ( name == null ) ||
+                ( name.equals( StringHelper.EMPTY_STRING ) ) )
+            {
+                name = Application.getInstance(  )
+                                  .getLocalizedMessage( "all_programmes" );
+            }
+
+            favouritesModel.addElement( name );
         }
     }
 

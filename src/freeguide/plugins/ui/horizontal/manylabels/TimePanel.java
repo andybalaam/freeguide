@@ -11,7 +11,10 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
 import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.general.Time;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -24,6 +27,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  * A panel that displays a ruler-like time line.
@@ -31,7 +35,7 @@ import javax.swing.JPanel;
  * @author Andy Balaam
  * @version 5
  */
-public class TimePanel extends JPanel
+public class TimePanel extends JPanel implements ActionListener
 {
     // The time on the left hand side of the panel
     private long startTime;
@@ -47,26 +51,44 @@ public class TimePanel extends JPanel
         new SimpleDateFormat( "HH:mm" );
     private final SimpleDateFormat timeformat =
         new SimpleDateFormat( "h:mm aa" );
-    HorizontalViewerConfig config;
 
-/**
-     * Constructor for the TimePanel object
-     *
-     * @param config DOCUMENT ME!
+    /**
+     * A timer running 3 times every minute to refresh the display
+     * so that the time indicator stays up-to-date.
      */
-    public TimePanel( HorizontalViewerConfig config )
+    private Timer timer;
+
+    // Save the parent viewer
+    private HorizontalViewer parent;
+
+    /**
+     * Constructor for the TimePanel object
+     */
+    public TimePanel( HorizontalViewer parent )
     {
-        this.config = config;
+        this.parent = parent;
 
         display = false;
 
-        initComponents(  );
+        setLayout( new java.awt.BorderLayout(  ) );
 
+        // Run the timer 3 times every minute
+        timer = new Timer( (int)( Time.MINUTE / 3 ), this );
+        timer.start();
     }
 
-    private void initComponents(  )
+    /**
+     * Called every 20 secs: redraws the panel so that the time
+     * indicator stays correct.
+     */
+    public void actionPerformed( ActionEvent e )
     {
-        setLayout( new java.awt.BorderLayout(  ) );
+        // Only bother redrawing if we are on today, so the
+        // time indicator is shown.
+        if( getNowScroll( System.currentTimeMillis() ) > 0 )
+        {
+            repaint();
+        }
     }
 
     /**
@@ -81,10 +103,11 @@ public class TimePanel extends JPanel
         {
             super.paintComponent( g );
 
-	    Graphics2D g2 = (Graphics2D)g;
-	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON );
+            Graphics2D g2 = (Graphics2D)g;
+            g2.setRenderingHint( RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON );
 
+            // FIXME: This prevents a divide by zero but does extra work!!
             int wid = this.getPreferredSize(  ).width;
 
             if( wid > 0 )
@@ -92,7 +115,7 @@ public class TimePanel extends JPanel
                 SimpleDateFormat fmt;
 
                 //DMT use preferences for 24 hour or 12 hour display
-                if( config.display24time )
+                if( parent.config.display24time )
                 {
                     fmt = time24format;
                 }
@@ -110,11 +133,14 @@ public class TimePanel extends JPanel
                 //computeVisibleRect(viewable);
                 multiplier = (double)( endTime - startTime ) / (double)( wid );
 
+                // FIXME: Instance variable?  Inconsistent locale setting
                 Calendar tmpTime =
-                    GregorianCalendar.getInstance( 
+                    GregorianCalendar.getInstance(
                         Application.getInstance(  ).getTimeZone(  ),
                         Locale.ENGLISH );
 
+                // FIXME: Why do this every paint?  Modify start/end
+                //        in setTimes()?
                 tmpTime.setTimeInMillis( startTime );
 
                 // Forget about seconds and milliseconds
@@ -123,9 +149,11 @@ public class TimePanel extends JPanel
                 tmpTime.set( Calendar.MILLISECOND, 0 );
 
                 // Round to the nearest 5 mins
-                tmpTime.set( 
+                tmpTime.set(
                     Calendar.MINUTE,
                     ( (int)( tmpTime.get( Calendar.MINUTE ) / 5 ) ) * 5 );
+
+                // FIXME: -- END --
 
                 // Step through each 5 mins
                 while( tmpTime.getTimeInMillis(  ) < endTime )
@@ -134,7 +162,7 @@ public class TimePanel extends JPanel
                         (int)( ( tmpTime.getTimeInMillis(  ) - startTime ) / multiplier );
 
                     // If this time is on screen, draw a mark
-                    if( 
+                    if(
                         ( ( xPos + 50 ) >= drawHere.x )
                             && ( ( xPos - 50 ) <= ( drawHere.x
                             + drawHere.width ) ) )
@@ -145,7 +173,7 @@ public class TimePanel extends JPanel
                             // Hours
                             g.drawLine( xPos, 0, xPos, 10 );
                             g.drawLine( xPos + 1, 0, xPos + 1, 10 );
-                            g.drawString( 
+                            g.drawString(
                                 fmt.format( tmpTime.getTime(  ) ), xPos - 17,
                                 21 );
 
@@ -156,7 +184,7 @@ public class TimePanel extends JPanel
                             // Half hours
                             g.drawLine( xPos, 0, xPos, 7 );
 
-                            g.drawString( 
+                            g.drawString(
                                 fmt.format( tmpTime.getTime(  ) ), xPos - 17,
                                 21 );
                         }
@@ -177,9 +205,12 @@ public class TimePanel extends JPanel
                     tmpTime.add( Calendar.MINUTE, 5 );
                 } //while
 
-                // Draw the "now" line
-                int xPos = getNowScroll(  );
-                drawNowLine( g, xPos );
+                // Draw the "now" line ONLY for the current day!
+                int xNow = getNowScroll( System.currentTimeMillis() );
+                if ( xNow >= 0 )
+                {
+                    drawNowLine( g, xNow );
+                }
             } //if
         } //if
     } //paintComponent
@@ -194,37 +225,41 @@ public class TimePanel extends JPanel
     {
         int[] xPoints = { xPos - 5, xPos + 5, xPos };
         int[] yPoints = { 0, 0, 25 };
-        int nPoints = 3;
+        int   nPoints = 3;
+
         Graphics2D g2 = (Graphics2D)g;
-        g2.setRenderingHint( 
+        g2.setRenderingHint(
             RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
         g2.fillPolygon( xPoints, yPoints, nPoints );
     }
 
     /**
-     * Gets the nowScroll attribute of the TimePanel object
-     *
-     * @return The nowScroll value
+     * Find the value to use to scroll to the supplied time,
+     * or -1 if the supplied time is not in this day.
      */
-    public int getNowScroll(  )
+    private int getNowScroll( long showMillis )
     {
-        return getScrollValue( GregorianCalendar.getInstance(  ) );
+        if( ( showMillis >= startTime ) && ( showMillis <= endTime ) )
+        {
+            return (int)( ( showMillis - startTime ) / multiplier );
+        }
+
+        return -1;
     }
 
     /**
-     * DOCUMENT_ME!
-     *
-     * @param showMillis DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
+     * Find the value to use to scroll to the supplied time,
+     * or 0 if the supplied time is not in this day, or
+     * the panel has not yet been displayed.
      */
     public int getScrollValue( long showMillis )
     {
         if( display )
         {
-            if( ( showMillis >= startTime ) && ( showMillis <= endTime ) )
+            int nAns = getNowScroll( showMillis );
+            if( nAns > 0 )
             {
-                return (int)( ( showMillis - startTime ) / multiplier );
+                return nAns;
             }
         }
 
@@ -232,11 +267,9 @@ public class TimePanel extends JPanel
     }
 
     /**
-     * Gets the value to use to scroll the to a specified time.
-     *
-     * @param showTime DOCUMENT ME!
-     *
-     * @return The value to use to scroll to showTime
+     * Find the value to use to scroll to the supplied time,
+     * or 0 if the supplied time is not in this day, or
+     * the panel has not yet been displayed.
      */
     public int getScrollValue( Calendar showTime )
     {
@@ -251,8 +284,10 @@ public class TimePanel extends JPanel
      */
     public void setTimes( long newStartTime, long newEndTime )
     {
+        // FIXME: divide by zero possible!!
         int wid = this.getPreferredSize(  ).width;
         multiplier = (double)( newEndTime - newStartTime ) / (double)( wid );
+
         startTime = newStartTime;
         endTime = newEndTime;
         display = true;
