@@ -51,7 +51,7 @@ public class FileHelper implements IBrowserLauncher
      * A class to search through the system PATH for
      * one of a list of exes.
      */
-    public IPathSearcher pathSearcher;
+    public IPathSearcher pathSearcher = new PathSearcher();
 
     /**
      * The list of possible EXEs that will launch some kind
