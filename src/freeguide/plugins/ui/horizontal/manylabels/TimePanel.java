@@ -51,7 +51,6 @@ public class TimePanel extends JPanel implements ActionListener
         new SimpleDateFormat( "HH:mm" );
     private final SimpleDateFormat timeformat =
         new SimpleDateFormat( "h:mm aa" );
-    HorizontalViewerConfig config;
 
     /**
      * A timer running 3 times every minute to refresh the display
@@ -59,27 +58,23 @@ public class TimePanel extends JPanel implements ActionListener
      */
     private Timer timer;
 
+    // Save the parent viewer
+    private HorizontalViewer parent;
+
     /**
      * Constructor for the TimePanel object
-     *
-     * @param config DOCUMENT ME!
      */
-    public TimePanel( HorizontalViewerConfig config )
+    public TimePanel( HorizontalViewer parent )
     {
-        this.config = config;
+        this.parent = parent;
 
         display = false;
 
-        initComponents(  );
+        setLayout( new java.awt.BorderLayout(  ) );
 
         // Run the timer 3 times every minute
         timer = new Timer( (int)( Time.MINUTE / 3 ), this );
         timer.start();
-    }
-
-    private void initComponents(  )
-    {
-        setLayout( new java.awt.BorderLayout(  ) );
     }
 
     /**
@@ -103,10 +98,11 @@ public class TimePanel extends JPanel implements ActionListener
         {
             super.paintComponent( g );
 
-	    Graphics2D g2 = (Graphics2D)g;
-	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON );
+            Graphics2D g2 = (Graphics2D)g;
+            g2.setRenderingHint( RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON );
 
+            // FIXME: This prevents a divide by zero but does extra work!!
             int wid = this.getPreferredSize(  ).width;
 
             if( wid > 0 )
@@ -114,7 +110,7 @@ public class TimePanel extends JPanel implements ActionListener
                 SimpleDateFormat fmt;
 
                 //DMT use preferences for 24 hour or 12 hour display
-                if( config.display24time )
+                if( parent.config.display24time )
                 {
                     fmt = time24format;
                 }
@@ -132,11 +128,14 @@ public class TimePanel extends JPanel implements ActionListener
                 //computeVisibleRect(viewable);
                 multiplier = (double)( endTime - startTime ) / (double)( wid );
 
+                // FIXME: Instance variable?  Inconsistent locale setting
                 Calendar tmpTime =
                     GregorianCalendar.getInstance(
                         Application.getInstance(  ).getTimeZone(  ),
                         Locale.ENGLISH );
 
+                // FIXME: Why do this every paint?  Modify start/end
+                //        in setTimes()?
                 tmpTime.setTimeInMillis( startTime );
 
                 // Forget about seconds and milliseconds
@@ -148,6 +147,8 @@ public class TimePanel extends JPanel implements ActionListener
                 tmpTime.set(
                     Calendar.MINUTE,
                     ( (int)( tmpTime.get( Calendar.MINUTE ) / 5 ) ) * 5 );
+
+                // FIXME: -- END --
 
                 // Step through each 5 mins
                 while( tmpTime.getTimeInMillis(  ) < endTime )
@@ -216,7 +217,8 @@ public class TimePanel extends JPanel implements ActionListener
     {
         int[] xPoints = { xPos - 5, xPos + 5, xPos };
         int[] yPoints = { 0, 0, 25 };
-        int nPoints = 3;
+        int   nPoints = 3;
+
         Graphics2D g2 = (Graphics2D)g;
         g2.setRenderingHint(
             RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
@@ -273,8 +275,10 @@ public class TimePanel extends JPanel implements ActionListener
      */
     public void setTimes( long newStartTime, long newEndTime )
     {
+        // FIXME: divide by zero possible!!
         int wid = this.getPreferredSize(  ).width;
         multiplier = (double)( newEndTime - newStartTime ) / (double)( wid );
+
         startTime = newStartTime;
         endTime = newEndTime;
         display = true;

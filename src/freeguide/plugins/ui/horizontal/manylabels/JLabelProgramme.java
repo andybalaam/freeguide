@@ -145,9 +145,7 @@ public class JLabelProgramme extends JLabel
 
         String programmeStarString = programme.getStarString(  );
 
-        if( 
-            ( (HorizontalViewerConfig)controller.getConfig(  ) ).displayTime
-                && ( timeFormat != null ) )
+        if( controller.config.displayTime && ( timeFormat != null ) )
         {
             toAppendTo.append( 
                 timeFormat.format( new Date( programmeStart ) ) ).append( " " );
