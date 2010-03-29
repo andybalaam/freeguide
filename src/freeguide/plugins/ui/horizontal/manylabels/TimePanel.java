@@ -59,7 +59,7 @@ public class TimePanel extends JPanel implements ActionListener
      */
     private Timer timer;
 
-/**
+    /**
      * Constructor for the TimePanel object
      *
      * @param config DOCUMENT ME!
@@ -133,7 +133,7 @@ public class TimePanel extends JPanel implements ActionListener
                 multiplier = (double)( endTime - startTime ) / (double)( wid );
 
                 Calendar tmpTime =
-                    GregorianCalendar.getInstance( 
+                    GregorianCalendar.getInstance(
                         Application.getInstance(  ).getTimeZone(  ),
                         Locale.ENGLISH );
 
@@ -145,7 +145,7 @@ public class TimePanel extends JPanel implements ActionListener
                 tmpTime.set( Calendar.MILLISECOND, 0 );
 
                 // Round to the nearest 5 mins
-                tmpTime.set( 
+                tmpTime.set(
                     Calendar.MINUTE,
                     ( (int)( tmpTime.get( Calendar.MINUTE ) / 5 ) ) * 5 );
 
@@ -156,7 +156,7 @@ public class TimePanel extends JPanel implements ActionListener
                         (int)( ( tmpTime.getTimeInMillis(  ) - startTime ) / multiplier );
 
                     // If this time is on screen, draw a mark
-                    if( 
+                    if(
                         ( ( xPos + 50 ) >= drawHere.x )
                             && ( ( xPos - 50 ) <= ( drawHere.x
                             + drawHere.width ) ) )
@@ -167,7 +167,7 @@ public class TimePanel extends JPanel implements ActionListener
                             // Hours
                             g.drawLine( xPos, 0, xPos, 10 );
                             g.drawLine( xPos + 1, 0, xPos + 1, 10 );
-                            g.drawString( 
+                            g.drawString(
                                 fmt.format( tmpTime.getTime(  ) ), xPos - 17,
                                 21 );
 
@@ -178,7 +178,7 @@ public class TimePanel extends JPanel implements ActionListener
                             // Half hours
                             g.drawLine( xPos, 0, xPos, 7 );
 
-                            g.drawString( 
+                            g.drawString(
                                 fmt.format( tmpTime.getTime(  ) ), xPos - 17,
                                 21 );
                         }
@@ -218,7 +218,7 @@ public class TimePanel extends JPanel implements ActionListener
         int[] yPoints = { 0, 0, 25 };
         int nPoints = 3;
         Graphics2D g2 = (Graphics2D)g;
-        g2.setRenderingHint( 
+        g2.setRenderingHint(
             RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
         g2.fillPolygon( xPoints, yPoints, nPoints );
     }
