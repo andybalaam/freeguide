@@ -3,6 +3,7 @@ package freeguide.common.gui;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannelsSet;
 import freeguide.common.lib.fgspecific.selection.Favourite;
+import freeguide.common.lib.general.StringHelper;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -198,8 +199,18 @@ public class FavouritesController
 
         for( int i = 0; i < favourites.size(  ); i++ )
         {
-            favouritesModel.addElement( 
-                ( (Favourite)( favourites.get( i ) ) ).getName(  ) );
+            // Ensure that we have some kind of name, even if something
+            // went wrong when creating the favourite.
+            String name = ( (Favourite)( favourites.get( i ) ) ).getName(  );
+
+            if( ( name == null ) ||
+                ( name.equals( StringHelper.EMPTY_STRING ) ) )
+            {
+                name = Application.getInstance(  )
+                                  .getLocalizedMessage( "all_programmes" );
+            }
+
+            favouritesModel.addElement( name );
         }
     }
 
