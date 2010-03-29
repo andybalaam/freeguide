@@ -26,6 +26,7 @@ public class FreeGuideTest
             {
                 if( args[0].equals( "--slow" ) )
                 {
+                    new PathSearcherSlowTest().run();
                     new ImportPerformanceSlowTest().run();
                     new ImportTwiceSlowTest().run();
                     new DisplayDocsSlowTest().run();

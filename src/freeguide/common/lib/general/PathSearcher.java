@@ -4,14 +4,24 @@ import java.io.File;
 
 public class PathSearcher implements IPathSearcher
 {
-    protected String[] getPathDirs()
+    public String[] getPathDirs()
     {
-        return null;
+        String pathEnvVar = System.getenv( "PATH" );
+
+        // If there is no "PATH", return the empty array
+        if( pathEnvVar == null )
+        {
+            return new String[0];
+        }
+        else
+        {
+            return pathEnvVar.split( System.getProperty( "path.separator" ) );
+        }
     }
 
-    protected boolean existsAndIsExecutable( final File fullPath )
+    public boolean existsAndIsExecutable( final File fullPath )
     {
-        return false;
+        return fullPath.canExecute();
     }
 
     public String findInPath( String[] listOfExes, String fallbackExe )

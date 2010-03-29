@@ -1,10 +1,8 @@
 package freeguide.test.fast;
 
 import java.io.File;
-import java.net.URI;
 
 import freeguide.common.lib.general.PathSearcher;
-
 import freeguide.test.FreeGuideTest;
 
 public class PathSearcherFastTest
@@ -20,12 +18,12 @@ public class PathSearcherFastTest
             this.exesThatExist = exesThatExist;
         }
 
-        protected String[] getPathDirs()
+        public String[] getPathDirs()
         {
             return dirsToSearch;
         }
 
-        protected boolean existsAndIsExecutable( final File fullPath )
+        public boolean existsAndIsExecutable( final File fullPath )
         {
             String stringPath = fullPath.toString();
 
