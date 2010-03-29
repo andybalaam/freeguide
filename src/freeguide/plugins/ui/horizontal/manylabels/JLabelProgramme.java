@@ -253,45 +253,45 @@ public class JLabelProgramme extends JLabel
 
         DEFAULT_BORDER = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
-                BorderFactory.createLineBorder( main.config.colorNonTicked, 3 ) );
+                BorderFactory.createLineBorder( main.config.colorNonTicked, 2 ) );
         DEFAULT_FOCUS = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
-                BorderFactory.createLineBorder( main.config.colorNonTicked, 2 ) );
+                BorderFactory.createLineBorder( main.config.colorNonTicked, 1 ) );
 
         MOVIE_BORDER = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
-                BorderFactory.createLineBorder( main.config.colorMovie, 3 ) );
+                BorderFactory.createLineBorder( main.config.colorMovie, 2 ) );
         MOVIE_FOCUS = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
-                BorderFactory.createLineBorder( main.config.colorMovie, 2 ) );
+                BorderFactory.createLineBorder( main.config.colorMovie, 1 ) );
 
         NEW_BORDER = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
-                BorderFactory.createLineBorder( main.config.colorNew, 3 ) );
+                BorderFactory.createLineBorder( main.config.colorNew, 2 ) );
         NEW_FOCUS = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
-                BorderFactory.createLineBorder( main.config.colorNew, 2 ) );
+                BorderFactory.createLineBorder( main.config.colorNew, 1 ) );
 
         INGUIDE_DEFAULT_BORDER = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
-                BorderFactory.createLineBorder( main.config.colorTicked, 3 ) );
+                BorderFactory.createLineBorder( main.config.colorTicked, 2 ) );
         INGUIDE_DEFAULT_FOCUS = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
-                BorderFactory.createLineBorder( main.config.colorTicked, 2 ) );
+                BorderFactory.createLineBorder( main.config.colorTicked, 1 ) );
 
         INGUIDE_MOVIE_BORDER = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
-                BorderFactory.createLineBorder( main.config.colorMovie, 3 ) );
+                BorderFactory.createLineBorder( main.config.colorMovie, 2 ) );
         INGUIDE_MOVIE_FOCUS = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
-                BorderFactory.createLineBorder( main.config.colorMovie, 2 ) );
+                BorderFactory.createLineBorder( main.config.colorMovie, 1 ) );
 
         INGUIDE_NEW_BORDER = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
-                BorderFactory.createLineBorder( main.config.colorNew, 3 ) );
+                BorderFactory.createLineBorder( main.config.colorNew, 2 ) );
         INGUIDE_NEW_FOCUS = BorderFactory.createCompoundBorder( 
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
-                BorderFactory.createLineBorder( main.config.colorNew, 2 ) );
+                BorderFactory.createLineBorder( main.config.colorNew, 1 ) );
 
     }
 
