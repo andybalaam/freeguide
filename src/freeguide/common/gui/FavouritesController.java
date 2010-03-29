@@ -131,6 +131,8 @@ public class FavouritesController
                             changed = true;
                         }
                     }
+
+                    reShow();
                 }
             } );
         listDialog.getBtnRemove(  ).addActionListener( 
