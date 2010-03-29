@@ -30,7 +30,7 @@ public class FavouritesController
     private final FavouritesListDialog listDialog;
     private boolean changed = false;
 
-/**
+    /**
      * Creates a new FavouritesController object.
      *
      * @param owner DOCUMENT ME!
@@ -91,7 +91,6 @@ public class FavouritesController
                 public void actionPerformed( ActionEvent e )
                 {
                     Favourite newFav = new Favourite(  );
-                    favourites.add( newFav );
 
                     if( 
                         new FavouriteEditorDialog( 
@@ -101,11 +100,15 @@ public class FavouritesController
                                     "add_a_new_favourite" ), newFav,
                                 allChannelsSet ).showDialog(  ) )
                     {
-                        changed = true;
-                    }
+                        // save the favourite only if one was created
+                        latestIndex = favourites.size(  );
+                        favourites.add( newFav );
 
-                    latestIndex = favouritesModel.size(  );
-                    reShow(  );
+                        changed = true;
+
+                        // update the display
+                        reShow(  );
+                    }
                 }
             } );
         listDialog.getBtnEdit(  ).addActionListener( 
@@ -115,11 +118,9 @@ public class FavouritesController
                 {
                     latestIndex = listDialog.getList(  ).getSelectedIndex(  );
 
-                    int i = listDialog.getList(  ).getSelectedIndex(  );
-
-                    if( i != -1 )
+                    if( latestIndex != -1 )
                     {
-                        Favourite fav = (Favourite)favourites.get( i );
+                        Favourite fav = (Favourite)favourites.get( latestIndex );
 
                         if( 
                             new FavouriteEditorDialog( 
@@ -130,6 +131,9 @@ public class FavouritesController
                                 .showDialog(  ) )
                         {
                             changed = true;
+
+                            // update the display
+                            reShow(  );
                         }
                     }
 
