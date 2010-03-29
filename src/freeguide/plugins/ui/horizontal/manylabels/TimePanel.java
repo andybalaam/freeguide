@@ -11,7 +11,10 @@
 package freeguide.plugins.ui.horizontal.manylabels;
 
 import freeguide.common.lib.fgspecific.Application;
+import freeguide.common.lib.general.Time;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -24,6 +27,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  * A panel that displays a ruler-like time line.
@@ -31,7 +35,7 @@ import javax.swing.JPanel;
  * @author Andy Balaam
  * @version 5
  */
-public class TimePanel extends JPanel
+public class TimePanel extends JPanel implements ActionListener
 {
     // The time on the left hand side of the panel
     private long startTime;
@@ -49,6 +53,12 @@ public class TimePanel extends JPanel
         new SimpleDateFormat( "h:mm aa" );
     HorizontalViewerConfig config;
 
+    /**
+     * A timer running 3 times every minute to refresh the display
+     * so that the time indicator stays up-to-date.
+     */
+    private Timer timer;
+
 /**
      * Constructor for the TimePanel object
      *
@@ -62,11 +72,23 @@ public class TimePanel extends JPanel
 
         initComponents(  );
 
+        // Run the timer 3 times every minute
+        timer = new Timer( (int)( Time.MINUTE / 3 ), this );
+        timer.start();
     }
 
     private void initComponents(  )
     {
         setLayout( new java.awt.BorderLayout(  ) );
+    }
+
+    /**
+     * Called every 20 secs: redraws the panel so that the time
+     * indicator stays correct.
+     */
+    public void actionPerformed( ActionEvent e )
+    {
+        repaint();
     }
 
     /**
