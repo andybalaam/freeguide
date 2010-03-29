@@ -86,7 +86,8 @@ public class BrowserFastTest
 
         fh.browseURIImpl( new URI( "http://t" ), app );
 
-        // We default to firefox if we have no information
+        // There is a browsercommand left over from a previous
+        // FreeGuide version.
         FreeGuideTest.my_assert( fh.cmdThatWasRun.equals(
             "mybrowser http://t" ) );
     }
@@ -104,7 +105,7 @@ public class BrowserFastTest
 
         fh.browseURIImpl( new URI( "http://t" ), app );
 
-        // We default to firefox if we have no information
+        // fredbrowser was found in the PATH
         FreeGuideTest.my_assert( fh.cmdThatWasRun.equals(
             "fredbrowser \"http://t\"" ) );
     }
