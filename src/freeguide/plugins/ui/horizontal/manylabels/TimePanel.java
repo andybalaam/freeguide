@@ -83,7 +83,12 @@ public class TimePanel extends JPanel implements ActionListener
      */
     public void actionPerformed( ActionEvent e )
     {
-        repaint();
+        // Only bother redrawing if we are on today, so the
+        // time indicator is shown.
+        if( getNowScroll( System.currentTimeMillis() ) > 0 )
+        {
+            repaint();
+        }
     }
 
     /**
@@ -200,9 +205,12 @@ public class TimePanel extends JPanel implements ActionListener
                     tmpTime.add( Calendar.MINUTE, 5 );
                 } //while
 
-                // Draw the "now" line
-                int xPos = getNowScroll(  );
-                drawNowLine( g, xPos );
+                // Draw the "now" line ONLY for the current day!
+                int xNow = getNowScroll( System.currentTimeMillis() );
+                if ( xNow >= 0 )
+                {
+                    drawNowLine( g, xNow );
+                }
             } //if
         } //if
     } //paintComponent
@@ -226,29 +234,32 @@ public class TimePanel extends JPanel implements ActionListener
     }
 
     /**
-     * Gets the nowScroll attribute of the TimePanel object
-     *
-     * @return The nowScroll value
+     * Find the value to use to scroll to the supplied time,
+     * or -1 if the supplied time is not in this day.
      */
-    public int getNowScroll(  )
+    private int getNowScroll( long showMillis )
     {
-        return getScrollValue( GregorianCalendar.getInstance(  ) );
+        if( ( showMillis >= startTime ) && ( showMillis <= endTime ) )
+        {
+            return (int)( ( showMillis - startTime ) / multiplier );
+        }
+
+        return -1;
     }
 
     /**
-     * DOCUMENT_ME!
-     *
-     * @param showMillis DOCUMENT_ME!
-     *
-     * @return DOCUMENT_ME!
+     * Find the value to use to scroll to the supplied time,
+     * or 0 if the supplied time is not in this day, or
+     * the panel has not yet been displayed.
      */
     public int getScrollValue( long showMillis )
     {
         if( display )
         {
-            if( ( showMillis >= startTime ) && ( showMillis <= endTime ) )
+            int nAns = getNowScroll( showMillis );
+            if( nAns > 0 )
             {
-                return (int)( ( showMillis - startTime ) / multiplier );
+                return nAns;
             }
         }
 
@@ -256,11 +267,9 @@ public class TimePanel extends JPanel implements ActionListener
     }
 
     /**
-     * Gets the value to use to scroll the to a specified time.
-     *
-     * @param showTime DOCUMENT ME!
-     *
-     * @return The value to use to scroll to showTime
+     * Find the value to use to scroll to the supplied time,
+     * or 0 if the supplied time is not in this day, or
+     * the panel has not yet been displayed.
      */
     public int getScrollValue( Calendar showTime )
     {
