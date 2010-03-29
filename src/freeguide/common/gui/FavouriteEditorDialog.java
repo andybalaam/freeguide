@@ -29,6 +29,7 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /*
  *  FreeGuideFavouriteEditor
@@ -201,8 +202,10 @@ public class FavouriteEditorDialog extends FGDialog
     /**
      * Description of the Method
      */
-    private void updateFavourite(  )
+    private boolean updateFavourite(  )
     {
+        boolean setField = false;
+
         // Calculate the name
         calcTxtName(  );
 
@@ -228,6 +231,7 @@ public class FavouriteEditorDialog extends FGDialog
             else
             {
                 favourite.setTitleString( tmp );
+                setField = true;
             }
         }
         else if( 
@@ -248,6 +252,7 @@ public class FavouriteEditorDialog extends FGDialog
             else
             {
                 favourite.setTitleContains( tmp );
+                setField = true;
             }
         }
         else
@@ -264,6 +269,7 @@ public class FavouriteEditorDialog extends FGDialog
             else
             {
                 favourite.setTitleRegex( tmp );
+                setField = true;
             }
         }
 
@@ -274,6 +280,7 @@ public class FavouriteEditorDialog extends FGDialog
         {
             favourite.setChannelID( 
                 ( (TVChannelsSet.Channel)sel ).getChannelID(  ) );
+            setField = true;
         }
         else
         {
@@ -289,6 +296,7 @@ public class FavouriteEditorDialog extends FGDialog
         {
             //String hhmm = tmp.substring(0,2) + tmp.substring(3);
             favourite.setAfterTime( new Time( tmp ) );
+            setField = true;
         }
         else
         {
@@ -304,6 +312,7 @@ public class FavouriteEditorDialog extends FGDialog
         {
             //String hhmm = tmp.substring(0,2) + tmp.substring(3);
             favourite.setBeforeTime( new Time( tmp ) );
+            setField = true;
         }
         else
         {
@@ -321,6 +330,7 @@ public class FavouriteEditorDialog extends FGDialog
             {
                 cal.setTime( dayOfWeekFormat.parse( tmp ) );
                 favourite.setDayOfWeek( cal.get( Calendar.DAY_OF_WEEK ) );
+                setField = true;
             }
             catch( java.text.ParseException ex )
             {
@@ -335,7 +345,9 @@ public class FavouriteEditorDialog extends FGDialog
             favourite.setDayOfWeek( -1 );
         }
 
-        setSave(  );
+        setChanged( );
+
+        return setField;
     }
 
     /**
@@ -793,9 +805,19 @@ public class FavouriteEditorDialog extends FGDialog
      */
     private void butOKActionPerformed( java.awt.event.ActionEvent evt )
     {
-        updateFavourite(  );
-        setChanged(  );
-        setSave(  );
-        quit(  );
+        if ( updateFavourite(  ) )
+        {
+           setSave(  );
+           quit(  );
+        }
+        else
+        {
+            JOptionPane.showMessageDialog( this,
+                Application.getInstance().getLocalizedMessage(
+                    "please_choose_some_filter_options" ),
+                Application.getInstance().getLocalizedMessage(
+                    "no_filters_chosen" ),
+                JOptionPane.ERROR_MESSAGE );
+        }
     }
 }
