@@ -61,7 +61,15 @@ public class FileHelper implements IBrowserLauncher
         "xdg-open",
         "sensible-browser",
         "konqueror",
-        "firefox"
+        "firefox",
+        "galeon",
+        "epiphany",
+        "chromium",
+        "flock",
+        "netscape",
+        "midori",
+        "amaya",
+        "opera"
     };
 
     /**
