@@ -31,7 +31,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
     /** The current date in milliseconds */
     private long theDate;
 
-/**
+    /**
      * Creates a new VerticalViewer object.
      */
     public VerticalViewer(  )
@@ -119,7 +119,7 @@ public class VerticalViewer extends BaseModule implements IModuleViewer
                 model.prepareRows( currentData.getProgrammesCount(  ) );
 
                 //transfer the programs to the model
-                currentData.iterate( 
+                currentData.iterate(
                     new TVIteratorProgrammes(  )
                     {
                         protected void onChannel( TVChannel channel )

@@ -26,7 +26,7 @@ public class LabelWizardPanel extends WizardPanel
     // -------------------------------------------
     private String middleMessage;
 
-/**
+    /**
      * Create a new FreeGuideLabelWizardPanel.
      *
      * @param middleMessage Description of the Parameter

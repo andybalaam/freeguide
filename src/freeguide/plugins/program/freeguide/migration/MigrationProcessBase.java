@@ -84,7 +84,7 @@ abstract public class MigrationProcessBase
     protected void moveNode( final String fromName, final String toName )
     {
         final String[] keys =
-            (String[])prefFrom.keySet(  ).toArray( 
+            (String[])prefFrom.keySet(  ).toArray(
                 new String[prefFrom.size(  )] );
 
         for( int i = 0; i < keys.length; i++ )

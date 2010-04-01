@@ -25,7 +25,7 @@ import javax.swing.JFileChooser;
  */
 public class DirectoryWizardPanel extends AbstractFileWizardPanel
 {
-/**
+    /**
      * Create a new FreeGuideDirectoryWizardPanel. This is almost, but not
      * quite identical to a FreeGuideFileWizardPanel.
      */

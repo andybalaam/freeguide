@@ -44,7 +44,7 @@ public class Startup
         catch( IOException ex )
         {
             ex.printStackTrace(  );
-            MessageBox.display( 
+            MessageBox.display(
                 "Warning W01", "Error unpacking updates: " + ex.getMessage(  ) );
         }
 
@@ -66,7 +66,7 @@ public class Startup
         }
 
         File[] libs =
-            libDirectory.listFiles( 
+            libDirectory.listFiles(
                 new FileFilter(  )
                 {
                     public boolean accept( File fl )
@@ -92,7 +92,7 @@ public class Startup
             }
         }
 
-        return new URLClassLoader( 
+        return new URLClassLoader(
             (URL[])jarUrls.toArray( new URL[jarUrls.size(  )] ) );
     }
 
@@ -113,7 +113,7 @@ public class Startup
         {
             Class startupClass = classLoader.loadClass( STARTUP_CLASS );
             Method startupMethod =
-                startupClass.getMethod( 
+                startupClass.getMethod(
                     STARTUP_METHOD, new Class[] { String[].class } );
 
             startupMethod.invoke( startupClass, new Object[] { args } );
@@ -121,7 +121,7 @@ public class Startup
         catch( NoClassDefFoundError ex )
         {
             ex.printStackTrace(  );
-            die( 
+            die(
                 "Error E05",
                 "Wrong java version: " + System.getProperty( "java.version" )
                 + ". You need at least version 1.4", null );
@@ -129,7 +129,7 @@ public class Startup
         catch( UnsupportedClassVersionError ex )
         {
             ex.printStackTrace(  );
-            die( 
+            die(
                 "Error E06",
                 "Wrong java version: " + System.getProperty( "java.version" )
                 + ". You need at least version 1.4", null );
@@ -164,7 +164,7 @@ public class Startup
         }
     }
 
-    protected static void die( 
+    protected static void die(
         final String title, final String message, final Exception ex )
     {
         System.err.println( message );
@@ -194,14 +194,14 @@ public class Startup
     {
         for( int i = 0; i < args.length; i++ )
         {
-            if( 
+            if(
                 args[i].equals( INSTALL_PREFIX ) && ( ( i + 1 ) < args.length ) )
             {
                 return new File( args[i + 1] );
             }
             else if( args[i].startsWith( INSTALL_PREFIX + "=" ) )
             {
-                return new File( 
+                return new File(
                     args[i].substring( INSTALL_PREFIX.length(  ) + 1 ) );
             }
         }

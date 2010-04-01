@@ -84,17 +84,17 @@ public class SearchDialog extends JDialog
     // The programmes found from the last search
     private DefaultListModel foundModel = new DefaultListModel(  );
 
-/**
+    /**
      * Class Constructor from owner and  a Mouse listener.
      *
      * @param owner the <code>JFrame</code> from which the dialog is
      *        displayed
-     * @param m the MouseListener to handle MouseEvents from Result List. 
+     * @param m the MouseListener to handle MouseEvents from Result List.
      */
-    public SearchDialog( 
+    public SearchDialog(
         JFrame owner, MouseListener mouseListener, KeyListener keyListener )
     {
-        super( 
+        super(
             owner, Application.getInstance(  ).getLocalizedMessage( "search" ) );
 
         initComponents(  );
@@ -130,9 +130,9 @@ public class SearchDialog extends JDialog
 
         // Add buttons to do the work or close
         jPanelButtons = new Box( BoxLayout.X_AXIS );
-        searchButton = new JButton( 
+        searchButton = new JButton(
                 Application.getInstance(  ).getLocalizedMessage( "search" ) );
-        searchButton.addActionListener( 
+        searchButton.addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent evt )
@@ -143,9 +143,9 @@ public class SearchDialog extends JDialog
         searchButton.setMnemonic( KeyEvent.VK_S );
         jPanelButtons.add( searchButton );
 
-        closeButton = new JButton( 
+        closeButton = new JButton(
                 Application.getInstance(  ).getLocalizedMessage( "close" ) );
-        closeButton.addActionListener( 
+        closeButton.addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent evt )
@@ -160,26 +160,26 @@ public class SearchDialog extends JDialog
 
         // Show the options to the question
         jPanelOptions = new JPanel( new GridLayout( 2, 2 ) );
-        caseSensitive = new JCheckBox( 
+        caseSensitive = new JCheckBox(
                 Application.getInstance(  )
                            .getLocalizedMessage( "case_sensitive" ) );
         caseSensitive.setMnemonic( KeyEvent.VK_A );
 
         jPanelOptions.add( caseSensitive );
-        includeFinished = new JCheckBox( 
+        includeFinished = new JCheckBox(
                 Application.getInstance(  )
                            .getLocalizedMessage( "include_finished" ) );
         includeFinished.setMnemonic( KeyEvent.VK_F );
 
         jPanelOptions.add( includeFinished );
 
-        searchDescription = new JCheckBox( 
+        searchDescription = new JCheckBox(
                 Application.getInstance(  )
                            .getLocalizedMessage( "search_descriptions" ) );
         searchDescription.setMnemonic( KeyEvent.VK_D );
         jPanelOptions.add( searchDescription );
 
-        searchSubtitle = new JCheckBox( 
+        searchSubtitle = new JCheckBox(
                 Application.getInstance(  )
                            .getLocalizedMessage( "search_subtitles" ) );
         searchSubtitle.setMnemonic( KeyEvent.VK_U );
@@ -194,8 +194,8 @@ public class SearchDialog extends JDialog
 
         // Add a panel to display the result
         jPanelResult = new Box( BoxLayout.Y_AXIS );
-        jPanelResult.add( 
-            new JLabel( 
+        jPanelResult.add(
+            new JLabel(
                 Application.getInstance(  ).getLocalizedMessage( "results" ) ) );
         jPanelResult.setBorder( BorderFactory.createEtchedBorder(  ) );
 
@@ -242,7 +242,7 @@ public class SearchDialog extends JDialog
         catch( Exception ex )
         {
             //             FreeGuide.log.log( Level.WARNING, "Error Searching data", ex );
-            JOptionPane.showMessageDialog( 
+            JOptionPane.showMessageDialog(
                 this, ex.toString(  ),
                 Application.getInstance(  )
                            .getLocalizedMessage( "Error.Load.Title" ),
@@ -251,7 +251,7 @@ public class SearchDialog extends JDialog
             return;
         }
 
-        data.iterate( 
+        data.iterate(
             new TVIteratorProgrammes(  )
             {
                 /**
@@ -275,7 +275,7 @@ public class SearchDialog extends JDialog
                  */
                 protected boolean matchText( String toMatch )
                 {
-                    if( 
+                    if(
                         ( toMatch == null )
                             || ( toMatch == StringHelper.EMPTY_STRING ) )
                     {
@@ -312,14 +312,14 @@ public class SearchDialog extends JDialog
                 protected void onProgramme( TVProgramme programme )
                 {
                     // If we are allowed old programmes, or this one is new
-                    if( 
+                    if(
                         includeFinished.isSelected(  )
                             || ( programme.getEnd(  ) > System
                             .currentTimeMillis(  ) ) )
                     {
                         // If our title matches or our description or our
                         // subtitle then add a match.
-                        if( 
+                        if(
                             ( matchText( programme.getTitle(  ) ) )
                                 || ( searchDescription.isSelected(  )
                                 && matchText( programme.getDescription(  ) ) )
@@ -350,7 +350,7 @@ public class SearchDialog extends JDialog
          *
          * @return DOCUMENT_ME!
          */
-        public Component getListCellRendererComponent( 
+        public Component getListCellRendererComponent(
             JList list, Object value, int index, boolean isSelected,
             boolean cellHasFocus )
         {
@@ -401,7 +401,7 @@ public class SearchDialog extends JDialog
                 JList programmeList = (JList)e.getSource(  );
 
                 // Print out the value of the program selected
-                System.out.println( 
+                System.out.println(
                     programmeList.getSelectedValue(  ).toString(  ) );
             }
         }

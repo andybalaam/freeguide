@@ -37,7 +37,7 @@ public class PleaseWaitFrame extends JFrame
     private javax.swing.JLabel imageLabel;
     private javax.swing.ImageIcon image;
 
-/**
+    /**
      * Creates this form, makes it visible, and starts the StartupChecker -
      * called on launching the program
      */
@@ -53,7 +53,7 @@ public class PleaseWaitFrame extends JFrame
         try
         {
             byte[] data =
-                ResourceHelper.loadResourceAsByteArray( 
+                ResourceHelper.loadResourceAsByteArray(
                     "resources/plugins/program/freeguide/images/logo-16x16.png" );
 
             if( data != null )
@@ -63,17 +63,17 @@ public class PleaseWaitFrame extends JFrame
             }
 
             byte[] data2 =
-                ResourceHelper.loadResourceAsByteArray( 
+                ResourceHelper.loadResourceAsByteArray(
                     "resources/plugins/program/freeguide/images/logo-256x256.png" );
 
             if( data2 != null )
             {
                 image = new ImageIcon( data2, "FreeGuide" );
-                imageLabel = new JLabel( 
+                imageLabel = new JLabel(
                         image, javax.swing.SwingConstants.CENTER );
-                imageLabel.setBorder( 
+                imageLabel.setBorder(
                     BorderFactory.createLineBorder( java.awt.Color.BLACK ) );
-                getContentPane(  ).add( 
+                getContentPane(  ).add(
                     imageLabel, java.awt.BorderLayout.CENTER );
                 setResizable( false );
             }
@@ -82,7 +82,7 @@ public class PleaseWaitFrame extends JFrame
         {
         }
 
-        addWindowListener( 
+        addWindowListener(
             new java.awt.event.WindowAdapter(  )
             {
                 public void windowClosing( java.awt.event.WindowEvent evt )

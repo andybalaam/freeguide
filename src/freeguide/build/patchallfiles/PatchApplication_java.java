@@ -35,8 +35,8 @@ public class PatchApplication_java
         throws Exception
     {
         BufferedReader rd =
-            new BufferedReader( 
-                new InputStreamReader( 
+            new BufferedReader(
+                new InputStreamReader(
                     new FileInputStream( FILENAME ), "UTF-8" ) );
         StringBuffer data = new StringBuffer(  );
 
@@ -62,7 +62,7 @@ public class PatchApplication_java
 
         if( ( posBeg < 0 ) || ( posEnd < 0 ) || ( posEnd <= posBeg ) )
         {
-            throw new Exception( 
+            throw new Exception(
                 "Application.java must include /*VER_BEG*/ and /*VER_END*/ tags" );
         }
 
@@ -71,8 +71,8 @@ public class PatchApplication_java
             + strData.substring( posEnd );
 
         BufferedWriter wr =
-            new BufferedWriter( 
-                new OutputStreamWriter( 
+            new BufferedWriter(
+                new OutputStreamWriter(
                     new FileOutputStream( FILENAME + ".new" ), "UTF-8" ) );
         wr.write( strData );
         wr.flush(  );

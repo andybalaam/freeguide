@@ -14,7 +14,7 @@ import java.util.prefs.BackingStoreException;
  */
 public class Migrate0_10_2To0_10_3 extends MigrationProcessBase
 {
-/**
+    /**
      * Creates a new Migrate0_10_1To0_10_2 object.
      *
      * @param nodeName DOCUMENT ME!
@@ -37,9 +37,9 @@ public class Migrate0_10_2To0_10_3 extends MigrationProcessBase
         FreeGuide.log.info( "Upgrading preferences 0.10.2 -> 0.10.3" );
 
         String browserCommand = getAndRemoveKey( "browserCommand" );
-        browserCommand = StringHelper.replaceAll( 
+        browserCommand = StringHelper.replaceAll(
                 browserCommand, "file://%filename%", "%url%" );
-        browserCommand = StringHelper.replaceAll( 
+        browserCommand = StringHelper.replaceAll(
                 browserCommand, "%filename%", "%url%" );
         putKey( "browserCommand", browserCommand );
 

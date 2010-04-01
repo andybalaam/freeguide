@@ -33,7 +33,7 @@ public class FGDialog extends JDialog
     /** This flag indicated whether parameters should be saved after exit. */
     private boolean isSave = false;
 
-/**
+    /**
      * Constructor - just creates a modal dialog with the given title and
      * owner
      *
@@ -47,7 +47,7 @@ public class FGDialog extends JDialog
         init(  );
     }
 
-/**
+    /**
      * Constructor - just creates a modal dialog with the given title and
      * owner
      *
@@ -64,7 +64,7 @@ public class FGDialog extends JDialog
 
     private void init(  )
     {
-        addWindowListener( 
+        addWindowListener(
             new java.awt.event.WindowAdapter(  )
             {
                 public void windowClosing( java.awt.event.WindowEvent evt )

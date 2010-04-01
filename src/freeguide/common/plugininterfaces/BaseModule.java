@@ -61,7 +61,7 @@ public abstract class BaseModule implements IModule
         {
             final String bundleName =
                 RESOURCES_PREFIX
-                + package_name.substring( 
+                + package_name.substring(
                     plugin_package_name_prefix.length(  ) ).replace( '.', '_' );
 
             i18n = ResourceBundle.getBundle( bundleName );
@@ -69,7 +69,7 @@ public abstract class BaseModule implements IModule
         else
         {
             Application.getInstance(  ).getLogger(  )
-                       .log( 
+                       .log(
                 Level.SEVERE,
                 "Unable to set Locale for plugin '" + package_name
                 + "' since the package name does not start with '"

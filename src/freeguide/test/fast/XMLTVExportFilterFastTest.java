@@ -116,7 +116,7 @@ public class XMLTVExportFilterFastTest
 
     /**
      * Test exporting everything for today.
-     * 
+     *
      * @throws IOException
      * @throws Exception
      */
@@ -142,7 +142,7 @@ public class XMLTVExportFilterFastTest
 
     /**
      * Test exporting only selected programmes
-     * 
+     *
      * @throws IOException
      * @throws Exception
      */
@@ -177,7 +177,7 @@ public class XMLTVExportFilterFastTest
 
     /**
      * Test exporting only programmes on today
-     * 
+     *
      * @throws IOException
      * @throws Exception
      */

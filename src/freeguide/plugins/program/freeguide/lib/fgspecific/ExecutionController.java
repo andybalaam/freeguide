@@ -139,7 +139,7 @@ public class ExecutionController implements IExecutionController
                         }
                     }
                 } );
-            
+
             if( !dialogVisible )
             {
                 progressDialog.sendToBackground();

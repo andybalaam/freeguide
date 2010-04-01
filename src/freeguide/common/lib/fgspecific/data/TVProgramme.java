@@ -82,7 +82,7 @@ public class TVProgramme implements Comparable, Serializable
     /** Any unrecognised tags go in here. */
     private Map extraTags;
 
-/**
+    /**
      * Constructor for the Programme object
      */
     public TVProgramme(  )
@@ -210,7 +210,7 @@ public class TVProgramme implements Comparable, Serializable
     /**
      * Determine if the current date viewed is the date of the
      * program's first viewing.  This uses the "start of day" time
-     * specified on the config page, hopefully accommodating any 
+     * specified on the config page, hopefully accommodating any
      * "time shifting" available.
      *
      * @return true/false

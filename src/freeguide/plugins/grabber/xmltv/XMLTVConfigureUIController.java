@@ -61,7 +61,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
             }
         };
 
-/**
+    /**
      * Creates a new ConfigureUIController object.
      *
      * @param parent DOCUMENT ME!
@@ -107,7 +107,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
                 addModule( (XMLTVConfig.ModuleInfo)config.modules.get( i ) );
             }
 
-            panel.getBtnAdd(  ).addActionListener( 
+            panel.getBtnAdd(  ).addActionListener(
                 new ActionListener(  )
                 {
                     public void actionPerformed( ActionEvent e )
@@ -160,12 +160,12 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
     public JPanel getOnePanel( final XMLTVConfig.ModuleInfo moduleInfo )
     {
         final XMLTVConfigureUIPanelModule confPanel =
-            new XMLTVConfigureUIPanelModule( 
+            new XMLTVConfigureUIPanelModule(
                 parent.getLocalizer(  ), moduleInfo, new TextChanged(  ),
                 new ConfigTextChanged(  ) );
 
         confPanel.getBtnChannels(  )
-                 .addActionListener( 
+                 .addActionListener(
             new BtnChannelsAction( parent, moduleInfo ) );
         confPanel.getBtnCommandReset(  )
                  .addActionListener( new BtnCommandResetAction( confPanel ) );
@@ -174,17 +174,17 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
         textNoEdited = confPanel.getTextCommand(  ).getForeground(  );
 
-        confPanel.getBtnDelete(  ).addActionListener( 
+        confPanel.getBtnDelete(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
                 {
-                    if( 
-                        JOptionPane.showConfirmDialog( 
+                    if(
+                        JOptionPane.showConfirmDialog(
                                 panel,
-                                parent.getLocalizer(  ).getString( 
+                                parent.getLocalizer(  ).getString(
                                     "UI.Confirm" ),
-                                parent.getLocalizer(  ).getString( 
+                                parent.getLocalizer(  ).getString(
                                     "UI.Remove" ), JOptionPane.OK_CANCEL_OPTION ) == JOptionPane.OK_OPTION )
                     {
                         synchronized( config.modules )
@@ -219,13 +219,13 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
     }
 
-    protected void setTextFieldMarkAsEdited( 
+    protected void setTextFieldMarkAsEdited(
         final XMLTVConfigureUIPanelModule panel )
     {
         panel.getTextCommand(  ).setForeground( textEdited );
     }
 
-    protected void setConfigTextFieldMarkAsEdited( 
+    protected void setConfigTextFieldMarkAsEdited(
         final XMLTVConfigureUIPanelModule panel )
     {
         panel.getTextConfigCommand(  ).setForeground( textEdited );
@@ -237,8 +237,8 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         {
             panel.getTextCommand(  ).setForeground( textNoEdited );
             panel.getTextCommand(  )
-                 .setText( 
-                GrabberXMLTV.getCommand( 
+                 .setText(
+                GrabberXMLTV.getCommand(
                     panel.moduleInfo.moduleName, GrabberXMLTV.RUN_KEY_SUFFIX ) );
         }
         else
@@ -248,15 +248,15 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         }
     }
 
-    protected void setConfigTextFieldSet( 
+    protected void setConfigTextFieldSet(
         final XMLTVConfigureUIPanelModule panel )
     {
         if( panel.moduleInfo.configCommandToRun == null )
         {
             panel.getTextConfigCommand(  ).setForeground( textNoEdited );
             panel.getTextConfigCommand(  )
-                 .setText( 
-                GrabberXMLTV.getCommand( 
+                 .setText(
+                GrabberXMLTV.getCommand(
                     panel.moduleInfo.moduleName, GrabberXMLTV.CONFIG_KEY_SUFFIX ) );
         }
         else
@@ -272,13 +272,13 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
         final protected GrabberXMLTV parent;
         final protected XMLTVConfig.ModuleInfo moduleInfo;
 
-/**
+        /**
          * Creates a new BtnChannelsAction object.
          *
          * @param parent DOCUMENT ME!
          * @param moduleInfo DOCUMENT ME!
          */
-        public BtnChannelsAction( 
+        public BtnChannelsAction(
             final GrabberXMLTV parent, final XMLTVConfig.ModuleInfo moduleInfo )
         {
             this.parent = parent;
@@ -303,12 +303,12 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
     {
         final protected XMLTVConfigureUIPanelModule confPanel;
 
-/**
+        /**
          * Creates a new BtnCommandResetAction object.
          *
          * @param confPanel DOCUMENT ME!
          */
-        public BtnCommandResetAction( 
+        public BtnCommandResetAction(
             final XMLTVConfigureUIPanelModule confPanel )
         {
             this.confPanel = confPanel;
@@ -336,12 +336,12 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
     {
         protected final XMLTVConfigureUIPanelModule confPanel;
 
-/**
+        /**
          * Creates a new ComboModulesAction object.
          *
          * @param confPanel DOCUMENT ME!
          */
-        public ComboModulesAction( 
+        public ComboModulesAction(
             final XMLTVConfigureUIPanelModule confPanel )
         {
             this.confPanel = confPanel;
@@ -416,7 +416,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
             try
             {
-                panel.moduleInfo.commandToRun = doc.getText( 
+                panel.moduleInfo.commandToRun = doc.getText(
                         0, doc.getLength(  ) );
             }
             catch( BadLocationException ex )
@@ -477,7 +477,7 @@ public class XMLTVConfigureUIController implements IModuleConfigurationUI
 
             try
             {
-                panel.moduleInfo.configCommandToRun = doc.getText( 
+                panel.moduleInfo.configCommandToRun = doc.getText(
                         0, doc.getLength(  ) );
             }
             catch( BadLocationException ex )

@@ -28,9 +28,9 @@ public class TimeEditor extends JFormattedTextField
     /** Current editor mode. */
     protected final MODE mode;
 
-/**
+    /**
      * Creates a new TimeEditor object.
-     * 
+     *
      * @param mode
      *            DOCUMENT ME!
      */
@@ -39,7 +39,7 @@ public class TimeEditor extends JFormattedTextField
         setupKeymap(  );
         this.mode = mode;
         setColumns( 5 );
-        setFormatterFactory( 
+        setFormatterFactory(
             new AbstractFormatterFactory(  )
             {
                 public AbstractFormatter getFormatter( JFormattedTextField tf )
@@ -53,7 +53,7 @@ public class TimeEditor extends JFormattedTextField
 
                                 if( !m.matches(  ) )
                                 {
-                                    throw new ParseException( 
+                                    throw new ParseException(
                                         "Error parse: " + text, 0 );
                                 }
 
@@ -116,12 +116,12 @@ public class TimeEditor extends JFormattedTextField
     protected void setupKeymap(  )
     {
         final Keymap keymap =
-            JTextField.addKeymap( 
+            JTextField.addKeymap(
                 this.getClass(  ).getName(  ), getKeymap(  ) );
-        keymap.addActionForKeyStroke( 
+        keymap.addActionForKeyStroke(
             KeyStroke.getKeyStroke( KeyEvent.VK_UP, 0 ),
             new KeyPressed( KeyEvent.VK_UP ) );
-        keymap.addActionForKeyStroke( 
+        keymap.addActionForKeyStroke(
             KeyStroke.getKeyStroke( KeyEvent.VK_DOWN, 0 ),
             new KeyPressed( KeyEvent.VK_DOWN ) );
         setKeymap( keymap );
@@ -175,9 +175,9 @@ public class TimeEditor extends JFormattedTextField
     {
         protected final int key;
 
-/**
+        /**
          * Creates a new KeyPressed object.
-         * 
+         *
          * @param key
          *            DOCUMENT ME!
          */
@@ -208,7 +208,7 @@ public class TimeEditor extends JFormattedTextField
                 int pos = getCaretPosition(  );
 
                 int val =
-                    Integer.parseInt( 
+                    Integer.parseInt(
                         ( pos <= div ) ? text.substring( 0, div )
                                        : text.substring( div + 1 ) );
                 val += diff;

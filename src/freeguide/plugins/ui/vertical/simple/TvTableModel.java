@@ -33,7 +33,7 @@ public class TvTableModel extends AbstractTableModel
     protected TVProgramme[] arProgrammes = new TVProgramme[0];
     protected int nCurrentTransferProgram = 0;
 
-/**
+    /**
      * Creates a new TvTableModel object.
      */
     public TvTableModel(  )
@@ -91,13 +91,13 @@ public class TvTableModel extends AbstractTableModel
             return arProgrammes[row].getTitle(  );
 
         case COL_TIME:
-            return VerticalViewerConfig.listTimeFormat24Hour.format( 
+            return VerticalViewerConfig.listTimeFormat24Hour.format(
                 new Date( arProgrammes[row].getStart(  ) ) ) + " - "
-            + VerticalViewerConfig.listTimeFormat24Hour.format( 
+            + VerticalViewerConfig.listTimeFormat24Hour.format(
                 new Date( arProgrammes[row].getEnd(  ) ) );
 
         case COL_DATE:
-            return VerticalViewerConfig.listDateFormat.format( 
+            return VerticalViewerConfig.listDateFormat.format(
                 new Date( arProgrammes[row].getStart(  ) ) );
 
         case COL_CHANNEL:
@@ -159,7 +159,7 @@ public class TvTableModel extends AbstractTableModel
     public void postpare(  )
     {
         //Sort them by time
-        java.util.Arrays.sort( 
+        java.util.Arrays.sort(
             this.arProgrammes, new ProgrammeTimeComparator(  ) );
     }
 

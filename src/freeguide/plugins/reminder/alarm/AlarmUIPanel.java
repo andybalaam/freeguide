@@ -25,7 +25,7 @@ public class AlarmUIPanel extends JPanel
     private JTextField textGiveup = null;
     private final ResourceBundle i18n;
 
-/**
+    /**
      * This is the default constructor
      *
      * @param localizer DOCUMENT ME!

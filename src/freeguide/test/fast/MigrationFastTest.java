@@ -53,7 +53,7 @@ public class MigrationFastTest
                 .equals( "333" ) );
     }
 
-    
+
     private void test_0_10_12To0_11_NoPanelWidth()
     throws Exception
     {
@@ -66,5 +66,5 @@ public class MigrationFastTest
         // No exception should be thrown, even though the expected
         // setting is missing.
     }
-    
+
 }

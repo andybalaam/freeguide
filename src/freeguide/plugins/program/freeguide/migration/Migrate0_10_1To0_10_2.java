@@ -11,7 +11,7 @@ import java.util.prefs.BackingStoreException;
  */
 public class Migrate0_10_1To0_10_2 extends MigrationProcessBase
 {
-/**
+    /**
      * Creates a new Migrate0_10_1To0_10_2 object.
      *
      * @param nodeName DOCUMENT ME!
@@ -38,16 +38,16 @@ public class Migrate0_10_1To0_10_2 extends MigrationProcessBase
         moveKey( "privacyInfo" );
 
         moveNode( "mainController/selection/", "modules/reminder-alarm/" );
-        moveKey( 
+        moveKey(
             "mainController/reminderOn", "modules/reminder-alarm/reminderOn" );
-        moveKey( 
+        moveKey(
             "mainController/reminderGiveUp",
             "modules/reminder-alarm/reminderGiveUp" );
-        moveKey( 
+        moveKey(
             "mainController/reminderWarning",
             "modules/reminder-alarm/reminderWarning" );
         moveNode( "mainController/" );
-        moveKey( 
+        moveKey(
             "modules/viewer/Horizontal/colorTicked",
             "modules/reminder-alarm/colorTicked" );
 
@@ -77,7 +77,7 @@ public class Migrate0_10_1To0_10_2 extends MigrationProcessBase
             {
                 String gr =
                     getAndRemoveKey( "mainController/activeGrabberIDs." + i );
-                putKey( 
+                putKey(
                     "mainController/activeGrabberIDs." + i, "grabber-" + gr );
             }
         }

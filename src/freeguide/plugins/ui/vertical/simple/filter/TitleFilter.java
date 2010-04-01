@@ -11,7 +11,7 @@ public class TitleFilter extends ProgrammeFilter
 {
     protected String searchString = null;
 
-/**
+    /**
      * Creates a new TitleFilter object.
      */
     public TitleFilter(  )

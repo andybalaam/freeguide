@@ -87,7 +87,7 @@ public class JLabelProgramme extends JLabel
     protected final boolean moveNames;
     protected final DateFormat timeFormat;
 
-/**
+    /**
      * Creates a new JLabelProgramme object.
      *
      * @param programme DOCUMENT ME!
@@ -95,7 +95,7 @@ public class JLabelProgramme extends JLabel
      * @param moveNames DOCUMENT ME!
      * @param timeFormat DOCUMENT ME!
      */
-    public JLabelProgramme( 
+    public JLabelProgramme(
         final TVProgramme programme, final HorizontalViewer main,
         final boolean moveNames, final DateFormat timeFormat )
     {
@@ -112,7 +112,7 @@ public class JLabelProgramme extends JLabel
         addFocusListener( main.handlers.labelProgrammeFocusListener );
 
         setActionMap( main.handlers.labelProgrammeActionMap );
-        setInputMap( 
+        setInputMap(
             JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT,
             main.handlers.labelProgrammeInputMap );
 
@@ -147,7 +147,7 @@ public class JLabelProgramme extends JLabel
 
         if( controller.config.displayTime && ( timeFormat != null ) )
         {
-            toAppendTo.append( 
+            toAppendTo.append(
                 timeFormat.format( new Date( programmeStart ) ) ).append( " " );
         }
 
@@ -169,7 +169,7 @@ public class JLabelProgramme extends JLabel
         {
             toAppendTo.append( " " );
 
-            toAppendTo.append( 
+            toAppendTo.append(
                 Application.getInstance(  ).getLocalizedMessage( "r" ) );
 
         }
@@ -251,45 +251,45 @@ public class JLabelProgramme extends JLabel
             REMINDER = null;
         }
 
-        DEFAULT_BORDER = BorderFactory.createCompoundBorder( 
+        DEFAULT_BORDER = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
                 BorderFactory.createLineBorder( main.config.colorNonTicked, 2 ) );
-        DEFAULT_FOCUS = BorderFactory.createCompoundBorder( 
+        DEFAULT_FOCUS = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
                 BorderFactory.createLineBorder( main.config.colorNonTicked, 1 ) );
 
-        MOVIE_BORDER = BorderFactory.createCompoundBorder( 
+        MOVIE_BORDER = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
                 BorderFactory.createLineBorder( main.config.colorMovie, 2 ) );
-        MOVIE_FOCUS = BorderFactory.createCompoundBorder( 
+        MOVIE_FOCUS = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
                 BorderFactory.createLineBorder( main.config.colorMovie, 1 ) );
 
-        NEW_BORDER = BorderFactory.createCompoundBorder( 
+        NEW_BORDER = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
                 BorderFactory.createLineBorder( main.config.colorNew, 2 ) );
-        NEW_FOCUS = BorderFactory.createCompoundBorder( 
+        NEW_FOCUS = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
                 BorderFactory.createLineBorder( main.config.colorNew, 1 ) );
 
-        INGUIDE_DEFAULT_BORDER = BorderFactory.createCompoundBorder( 
+        INGUIDE_DEFAULT_BORDER = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
                 BorderFactory.createLineBorder( main.config.colorTicked, 2 ) );
-        INGUIDE_DEFAULT_FOCUS = BorderFactory.createCompoundBorder( 
+        INGUIDE_DEFAULT_FOCUS = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
                 BorderFactory.createLineBorder( main.config.colorTicked, 1 ) );
 
-        INGUIDE_MOVIE_BORDER = BorderFactory.createCompoundBorder( 
+        INGUIDE_MOVIE_BORDER = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
                 BorderFactory.createLineBorder( main.config.colorMovie, 2 ) );
-        INGUIDE_MOVIE_FOCUS = BorderFactory.createCompoundBorder( 
+        INGUIDE_MOVIE_FOCUS = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
                 BorderFactory.createLineBorder( main.config.colorMovie, 1 ) );
 
-        INGUIDE_NEW_BORDER = BorderFactory.createCompoundBorder( 
+        INGUIDE_NEW_BORDER = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLACK, 1 ),
                 BorderFactory.createLineBorder( main.config.colorNew, 2 ) );
-        INGUIDE_NEW_FOCUS = BorderFactory.createCompoundBorder( 
+        INGUIDE_NEW_FOCUS = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder( Color.BLUE, 2 ),
                 BorderFactory.createLineBorder( main.config.colorNew, 1 ) );
 
@@ -345,7 +345,7 @@ public class JLabelProgramme extends JLabel
 
             }
 
-            if( 
+            if(
                 ( g.getClipBounds(  ) != null )
                     && ( fontX < g.getClipBounds(  ).x ) )
             {
@@ -358,7 +358,7 @@ public class JLabelProgramme extends JLabel
 				 RenderingHints.VALUE_ANTIALIAS_ON);
 
             // now we now where, draw the text
-            g.drawString( 
+            g.drawString(
                 getText(  ), fontX,
                 ( ins.top
                 + ( getHeight(  ) - ins.top - ins.bottom
@@ -378,7 +378,7 @@ public class JLabelProgramme extends JLabel
             graphics.setColor( Color.RED );
 
             // switch on anti-aliasing
-            graphics.setRenderingHint( 
+            graphics.setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON );
 
@@ -427,10 +427,10 @@ public class JLabelProgramme extends JLabel
         {
             final StringWriter out = new StringWriter(  );
             TemplateParser parser =
-                new TemplateParser( 
+                new TemplateParser(
                     "resources/plugins/ui/horizontal/manylabels/templates/TemplateProgrammeTooltip.html" );
-            parser.process( 
-                new HandlerProgrammeInfo( 
+            parser.process(
+                new HandlerProgrammeInfo(
                     controller.getLocalizer(  ), programme, timeFormat ), out );
             this.tooltip = out.toString(  );
         }
@@ -468,7 +468,7 @@ public class JLabelProgramme extends JLabel
      *
      * @return DOCUMENT_ME!
      */
-    public boolean isOverlap( 
+    public boolean isOverlap(
         final long middleTime, final long startMin, final long endMax )
     {
         long start = Math.max( getProgramme(  ).getStart(  ), startMin );

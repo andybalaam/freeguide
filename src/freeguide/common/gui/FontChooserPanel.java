@@ -101,10 +101,10 @@ public class FontChooserPanel extends JPanel
     /** The checkbox that indicates whether or not the font is italic. */
     private JCheckBox italic;
 
-/**
+    /**
      * Standard constructor - builds a FontChooserPanel initialised with the
      * specified font.
-     * 
+     *
      * @param font
      *            the initial font to display.
      */
@@ -121,8 +121,8 @@ public class FontChooserPanel extends JPanel
 
         JPanel fontPanel = new JPanel( new BorderLayout(  ) );
 
-        fontPanel.setBorder( 
-            BorderFactory.createTitledBorder( 
+        fontPanel.setBorder(
+            BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(  ),
                 Application.getInstance(  ).getLocalizedMessage( "font" )
                 + ':' ) );
@@ -139,8 +139,8 @@ public class FontChooserPanel extends JPanel
 
         JPanel sizePanel = new JPanel( new BorderLayout(  ) );
 
-        sizePanel.setBorder( 
-            BorderFactory.createTitledBorder( 
+        sizePanel.setBorder(
+            BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(  ),
                 Application.getInstance(  ).getLocalizedMessage( "size" )
                 + ':' ) );
@@ -155,18 +155,18 @@ public class FontChooserPanel extends JPanel
 
         JPanel attributes = new JPanel( new GridLayout( 1, 2 ) );
 
-        bold = new JCheckBox( 
+        bold = new JCheckBox(
                 Application.getInstance(  ).getLocalizedMessage( "bold" ) );
 
-        italic = new JCheckBox( 
+        italic = new JCheckBox(
                 Application.getInstance(  ).getLocalizedMessage( "italic" ) );
 
         attributes.add( bold );
 
         attributes.add( italic );
 
-        attributes.setBorder( 
-            BorderFactory.createTitledBorder( 
+        attributes.setBorder(
+            BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(  ),
                 Application.getInstance(  ).getLocalizedMessage( "attributes" )
                 + ':' ) );
@@ -186,7 +186,7 @@ public class FontChooserPanel extends JPanel
      */
     public Font getSelectedFont(  )
     {
-        return new Font( 
+        return new Font(
             getSelectedName(  ), getSelectedStyle(  ), getSelectedSize(  ) );
 
     }

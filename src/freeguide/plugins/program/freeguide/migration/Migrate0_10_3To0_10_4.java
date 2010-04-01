@@ -12,7 +12,7 @@ import java.util.prefs.BackingStoreException;
  */
 public class Migrate0_10_3To0_10_4 extends MigrationProcessBase
 {
-/**
+    /**
      *
      *
      * @param nodeName DOCUMENT ME!

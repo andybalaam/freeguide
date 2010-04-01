@@ -34,12 +34,12 @@ public class TemplateHandler
     protected final DateFormat timeFormat;
     protected final String title;
 
-/**
+    /**
      * Creates a new TemplateHandler object.
      *
      * @param ext DOCUMENT ME!
      */
-    public TemplateHandler( 
+    public TemplateHandler(
         final FileChooserExtension ext, final ResourceBundle i18n )
     {
         selectedOnly = ext.isSelectedOnly(  );
@@ -130,8 +130,8 @@ public class TemplateHandler
             {
                 final TVProgramme programme = (TVProgramme)it.next(  );
 
-                if( 
-                    !Application.getInstance(  ).getReminders(  )[0].isSelected( 
+                if(
+                    !Application.getInstance(  ).getReminders(  )[0].isSelected(
                             programme ) )
                 {
                     it.remove(  );

@@ -51,7 +51,7 @@ public class WizardPanel extends javax.swing.JPanel
     protected OnEnter onEnter;
     protected OnExit onExit;
 
-/**
+    /**
      * Constructor for the WizardPanel superclass. This panel can be linked to
      * a config entry, or it can have an onExit Method, or both.
      */
@@ -79,7 +79,7 @@ public class WizardPanel extends javax.swing.JPanel
      * @param bottomMessage DOCUMENT_ME!
      * @param topMnemonic DOCUMENT_ME!
      */
-    public void setMessages( 
+    public void setMessages(
         String topMessage, String bottomMessage, int topMnemonic )
     {
         this.topMessage = topMessage;
@@ -151,13 +151,13 @@ public class WizardPanel extends javax.swing.JPanel
                 // to continue
                 String lb = System.getProperty( "line.separator" );
                 int ignore =
-                    JOptionPane.showConfirmDialog( 
+                    JOptionPane.showConfirmDialog(
                         this,
                         error + lb
                         + Application.getInstance(  )
-                                     .getLocalizedMessage( 
+                                     .getLocalizedMessage(
                             "do_you_want_to_continue" ),
-                        Application.getInstance(  ).getLocalizedMessage( 
+                        Application.getInstance(  ).getLocalizedMessage(
                             "error" ), JOptionPane.YES_NO_OPTION );
 
                 if( ignore == JOptionPane.NO_OPTION )
@@ -217,7 +217,7 @@ public class WizardPanel extends javax.swing.JPanel
         // Should never get here
     }
 
-/**
+    /**
      * DOCUMENT ME!
      *
      * @author $author$
@@ -228,7 +228,7 @@ public class WizardPanel extends javax.swing.JPanel
         void onEnter( WizardPanel panel );
     }
 
-/**
+    /**
      * DOCUMENT ME!
      *
      * @author $author$

@@ -25,7 +25,7 @@ public class TvList extends JTable implements MouseListener
     protected TitleFilter titleFilter;
     protected TimeFilter timeFilter;
 
-/**
+    /**
      * Creates a new TvList object.
      */
     public TvList(  )
@@ -92,7 +92,7 @@ public class TvList extends JTable implements MouseListener
         switch( nColumn )
         {
         case TvTableModel.COL_CHANNEL:
-            this.mnuChannels.show( 
+            this.mnuChannels.show(
                 mouseEvent.getComponent(  ), mouseEvent.getX(  ),
                 mouseEvent.getY(  ) );
 
@@ -102,11 +102,11 @@ public class TvList extends JTable implements MouseListener
 
             if( this.mnuTitle == null )
             {
-                this.mnuTitle = new GenericFilterMenu( 
+                this.mnuTitle = new GenericFilterMenu(
                         this.titleFilter, TitleDialog.class );
             }
 
-            this.mnuTitle.show( 
+            this.mnuTitle.show(
                 mouseEvent.getComponent(  ), mouseEvent.getX(  ),
                 mouseEvent.getY(  ) );
 
@@ -116,11 +116,11 @@ public class TvList extends JTable implements MouseListener
 
             if( this.mnuTime == null )
             {
-                this.mnuTime = new GenericFilterMenu( 
+                this.mnuTime = new GenericFilterMenu(
                         timeFilter, TimeDialog.class );
             }
 
-            this.mnuTime.show( 
+            this.mnuTime.show(
                 mouseEvent.getComponent(  ), mouseEvent.getX(  ),
                 mouseEvent.getY(  ) );
 

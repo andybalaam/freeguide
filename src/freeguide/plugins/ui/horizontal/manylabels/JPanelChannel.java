@@ -16,7 +16,7 @@ public class JPanelChannel extends JPanel
     protected JLabelChannel[] displayedChannels;
     protected int maxChannelWidth;
 
-/**
+    /**
      * Creates a new JPanelChannel object.
      *
      * @param controller DOCUMENT ME!
@@ -43,7 +43,7 @@ public class JPanelChannel extends JPanel
         {
             JLabelChannel ctxt =
                 new JLabelChannel( channels[i], controller, getFont(  ) );
-            maxChannelWidth = Math.max( 
+            maxChannelWidth = Math.max(
                     ctxt.getRequiredWidth(  ), maxChannelWidth );
             add( ctxt );
             displayedChannels[i] = ctxt;
@@ -74,7 +74,7 @@ public class JPanelChannel extends JPanel
      * @param maxWidth width
      * @param row label row
      */
-    protected void setupBounds( 
+    protected void setupBounds(
         final JLabelChannel ctxt, int maxWidth, int row )
     {
         int x = 0;
@@ -99,8 +99,8 @@ public class JPanelChannel extends JPanel
     {
         for( int i = 0; i < displayedChannels.length; i++ )
         {
-            if( 
-                displayedChannels[i].getChannel(  ).getID(  ).equals( 
+            if(
+                displayedChannels[i].getChannel(  ).getID(  ).equals(
                         channelID ) )
             {
                 return ( i - 2 ) * controller.config.sizeChannelHeight;

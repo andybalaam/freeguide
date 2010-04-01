@@ -24,7 +24,7 @@ public class PanelGeneralUI extends JPanel
 
     //private JLabel labelLang = null;
     //private JComboBox cbLang = null;
-/**
+    /**
      * This is the default constructor
      */
     public PanelGeneralUI(  )
@@ -55,7 +55,7 @@ public class PanelGeneralUI extends JPanel
         gridBagConstraints1.insets = new java.awt.Insets( 3, 3, 3, 3 );
         gridBagConstraints1.anchor = java.awt.GridBagConstraints.WEST;
         labelWorkDir.setText( "Working dir:" );
-        labelWorkDir.setText( 
+        labelWorkDir.setText(
             Application.getInstance(  )
                        .getLocalizedMessage( "Options.General.WorkingDir" )
             + ":" );
@@ -68,7 +68,7 @@ public class PanelGeneralUI extends JPanel
         labelLF.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_F );
         labelWorkDir.setLabelFor( getTextWorkingDir(  ) );
         labelWorkDir.setDisplayedMnemonic( java.awt.event.KeyEvent.VK_W );
-        labelLF.setText( 
+        labelLF.setText(
             Application.getInstance(  )
                        .getLocalizedMessage( "Options.General.LF" ) + ":" );
         gridBagConstraints3.gridx = 1;
@@ -136,7 +136,7 @@ public class PanelGeneralUI extends JPanel
         return cbLF;
     }
 
-/**
+    /**
      * This method initializes jComboBox
      *
      * @return javax.swing.JComboBox

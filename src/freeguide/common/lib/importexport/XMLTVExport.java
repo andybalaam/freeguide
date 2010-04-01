@@ -31,7 +31,7 @@ public class XMLTVExport
     protected DateFormat DATE_FORMAT =
         new SimpleDateFormat( "yyyyMMddHHmmss Z", Locale.ENGLISH );
 
-/**
+    /**
      * Creates a new XMLTVExport object.
      */
     public XMLTVExport(  )
@@ -52,8 +52,8 @@ public class XMLTVExport
         throws Exception
     {
         final BufferedWriter out =
-            new BufferedWriter( 
-                new OutputStreamWriter( 
+            new BufferedWriter(
+                new OutputStreamWriter(
                     new FileOutputStream( outFile ), "UTF-8" ) );
 
         exportToWriter( out, data );
@@ -110,10 +110,10 @@ public class XMLTVExport
     protected void writeHeader( final Writer out )
         throws IOException
     {
-        out.write( 
+        out.write(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE tv SYSTEM \"xmltv.dtd\">\n\n" );
 
-        out.write( 
+        out.write(
             "<tv source-info-url=\"freeguide-tv\" generator-info-name=\"freeguide-tv\">\n" );
 
     }
@@ -128,16 +128,16 @@ public class XMLTVExport
     protected void writeChannelInfo( final Writer out, TVChannel ch )
         throws IOException
     {
-        out.write( 
+        out.write(
             "  <channel id=\"" + StringHelper.toXML( ch.getID(  ) ) + "\">\n" );
 
-        out.write( 
+        out.write(
             "    <display-name>" + StringHelper.toXML( ch.getDisplayName(  ) )
             + "</display-name>\n" );
 
         if( ch.getIconURL(  ) != null )
         {
-            out.write( 
+            out.write(
                 "    <icon src=\"" + StringHelper.toXML( ch.getIconURL(  ) )
                 + "\"/>\n" );
 
@@ -147,23 +147,23 @@ public class XMLTVExport
 
     }
 
-    protected void writeProgrammeInfo( 
+    protected void writeProgrammeInfo(
         final Writer out, TVProgramme prog ) throws IOException
     {
-        out.write( 
+        out.write(
             "  <programme start=\""
             + DATE_FORMAT.format( new Date( prog.getStart(  ) ) )
             + "\" stop=\"" + DATE_FORMAT.format( new Date( prog.getEnd(  ) ) )
             + "\" channel=\""
             + StringHelper.toXML( prog.getChannel(  ).getID(  ) ) + "\">\n" );
 
-        out.write( 
+        out.write(
             "    <title>" + StringHelper.toXML( prog.getTitle(  ) )
             + "</title>\n" );
 
         if( prog.getDescription(  ) != null )
         {
-            out.write( 
+            out.write(
                 "    <desc>" + StringHelper.toXML( prog.getDescription(  ) )
                 + "</desc>\n" );
 
@@ -183,7 +183,7 @@ public class XMLTVExport
                     if( ( attrs.size(  ) == 1 ) && attrs.containsKey( "" ) )
                     {
                         out.write( "    <" + tag + ">" );
-                        out.write( 
+                        out.write(
                             StringHelper.toXML( (String)attrs.get( "" ) ) );
                         out.write( "</" + tag + ">\n" );
                     }

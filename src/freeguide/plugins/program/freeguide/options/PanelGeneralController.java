@@ -38,7 +38,7 @@ public class PanelGeneralController implements IModuleConfigurationUI
 
             List lfs = LookAndFeelManager
                 .getAvailableLooksAndFeels(  );
-            lfs.add( 
+            lfs.add(
                 0,
                 Application.getInstance(  )
                            .getLocalizedMessage( "Options.General.LF.default" ) );
@@ -49,7 +49,7 @@ public class PanelGeneralController implements IModuleConfigurationUI
 
             //String[] langNames = new String[locales.length + 1];
             //langNames[0] = Application.getInstance(  )
-            //                          .getLocalizedMessage( 
+            //                          .getLocalizedMessage(
             //        "Options.General.Language.default" );
 
             //for( int i = 0; i < locales.length; i++ )
@@ -57,7 +57,7 @@ public class PanelGeneralController implements IModuleConfigurationUI
             //    langNames[i + 1] = locales[i].getDisplayName(  );
             //}
 
-            //panel.getCbLang(  ).setModel( 
+            //panel.getCbLang(  ).setModel(
             //    new DefaultComboBoxModel( langNames ) );
             resetToDefaults(  );
 
@@ -70,7 +70,7 @@ public class PanelGeneralController implements IModuleConfigurationUI
             //if( FreeGuide.config.lang != null )
             //{
             //    panel.getCbLang(  )
-            //         .setSelectedItem( 
+            //         .setSelectedItem(
             //        FreeGuide.config.lang.getDisplayName(  ) );
             //}
         }

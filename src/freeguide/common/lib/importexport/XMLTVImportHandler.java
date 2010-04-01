@@ -69,7 +69,7 @@ public class XMLTVImportHandler extends DefaultHandler
      * @param storage variable for store results
  * @param filter filter
      */
-    public XMLTVImportHandler( 
+    public XMLTVImportHandler(
         final IStoragePipe storage,
         final XMLTVImport.ProgrammesCountCallback countCallback,
         final XMLTVImport.Filter filter )
@@ -103,7 +103,7 @@ public class XMLTVImportHandler extends DefaultHandler
      *
      * @throws SAXException
      */
-    public void startElement( 
+    public void startElement(
         String uri, String localName, String qName, Attributes attributes )
         throws SAXException
     {
@@ -201,7 +201,7 @@ public class XMLTVImportHandler extends DefaultHandler
         }
     }
 
-    protected void parseStartChannel( 
+    protected void parseStartChannel(
         final String tag, final Attributes attributes )
     {
         if( "icon".equals( tag ) )
@@ -210,7 +210,7 @@ public class XMLTVImportHandler extends DefaultHandler
         }
     }
 
-    protected void parseStartProgramme( 
+    protected void parseStartProgramme(
         final String tag, final Attributes attributes )
     {
         if( "previously-shown".equals( tag ) )
@@ -269,7 +269,7 @@ public class XMLTVImportHandler extends DefaultHandler
     {
         if( "display-name".equals( tag ) )
         {
-            if( 
+            if(
                 ( currentChannel.getDisplayName(  ) == null )
                     || "".equals( currentChannel.getDisplayName(  ) ) )
             {
@@ -321,7 +321,7 @@ public class XMLTVImportHandler extends DefaultHandler
             String category = charData.toString(  );
             currentProgramme.addCategory( category );
 
-            if( 
+            if(
                 "Film".equalsIgnoreCase( category )
                     || "CINE".equalsIgnoreCase( category ) )
             {
@@ -346,7 +346,7 @@ public class XMLTVImportHandler extends DefaultHandler
             catch( java.net.MalformedURLException ex )
             {
                 Application.getInstance(  ).getLogger(  )
-                           .log( 
+                           .log(
                     Level.FINE,
                     "Invalid URL for programme : " + charData.toString(  ), ex );
             }
@@ -386,7 +386,7 @@ public class XMLTVImportHandler extends DefaultHandler
                 storage.addChannel( currentChannel );
                 currentChannel = null;
             }
-            else if( 
+            else if(
                 "programme".equals( qName ) && ( currentProgramme != null ) )
             {
                 storage.addProgramme( currentChannelID, currentProgramme );
@@ -425,17 +425,17 @@ public class XMLTVImportHandler extends DefaultHandler
         charData.append( ch, start, length );
     }
 
-    protected void programmeStartExtraTag( 
+    protected void programmeStartExtraTag(
         final String name, final Attributes attrs )
     {
         for( int i = 0; i < attrs.getLength(  ); i++ )
         {
-            currentProgramme.setExtraTag( 
+            currentProgramme.setExtraTag(
                 name, attrs.getQName( i ), attrs.getValue( i ) );
         }
     }
 
-    protected void programmeEndExtraTag( 
+    protected void programmeEndExtraTag(
         final String mainTag, final String subTag, final String data )
     {
         currentProgramme.setExtraTag( mainTag, subTag, data );
@@ -476,7 +476,7 @@ public class XMLTVImportHandler extends DefaultHandler
         if( dtAns == null )
         {
             Application.getInstance(  ).getLogger(  )
-                       .log( 
+                       .log(
                 Level.WARNING,
                 "Unable to parse date '" + strDate
                 + "' when parsing XMLTV data." );
@@ -506,8 +506,8 @@ public class XMLTVImportHandler extends DefaultHandler
         {
             try
             {
-                return new InputSource( 
-                    ResourceHelper.getUncachedStream( 
+                return new InputSource(
+                    ResourceHelper.getUncachedStream(
                         "resources/main/xmltv.dtd" ) );
             }
             catch( IOException ex )

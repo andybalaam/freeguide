@@ -45,12 +45,12 @@ public class ProgrammeCellRenderer extends DefaultTableCellRenderer
      *
      * @return DOCUMENT_ME!
      */
-    public Component getTableCellRendererComponent( 
+    public Component getTableCellRendererComponent(
         JTable table, Object value, boolean isSelected, boolean hasFocus,
         int row, int column )
     {
         Component c =
-            super.getTableCellRendererComponent( 
+            super.getTableCellRendererComponent(
                 table, value, isSelected, hasFocus, row, column );
         TVProgramme programme =
             (TVProgramme)table.getModel(  )

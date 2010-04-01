@@ -57,7 +57,7 @@ public class MainFrame extends JWaitFrame
             }
         };
 
-/**
+    /**
      * This is the default constructor
      */
     public MainFrame(  )
@@ -67,7 +67,7 @@ public class MainFrame extends JWaitFrame
         try
         {
             byte[] data =
-                ResourceHelper.loadResourceAsByteArray( 
+                ResourceHelper.loadResourceAsByteArray(
                     "resources/plugins/program/freeguide/images/logo-16x16.png" );
 
             if( data != null )
@@ -202,12 +202,12 @@ public class MainFrame extends JWaitFrame
         {
             menuItemOptions = new JMenuItem(  );
 
-            menuItemOptions.setText( 
+            menuItemOptions.setText(
                 getLocalizedString( "MainFrame.Menu.Options" ) );
 
             menuItemOptions.setMnemonic( KeyEvent.VK_O );
 
-            menuItemOptions.setAccelerator( 
+            menuItemOptions.setAccelerator(
                 KeyStroke.getKeyStroke( KeyEvent.VK_O, InputEvent.CTRL_MASK ) );
 
         }
@@ -231,7 +231,7 @@ public class MainFrame extends JWaitFrame
 
             menuItemExit.setMnemonic( KeyEvent.VK_Q );
 
-            menuItemExit.setAccelerator( 
+            menuItemExit.setAccelerator(
                 KeyStroke.getKeyStroke( KeyEvent.VK_Q, InputEvent.CTRL_MASK ) );
 
         }
@@ -278,12 +278,12 @@ public class MainFrame extends JWaitFrame
         {
             menuItemAbout = new JMenuItem(  );
 
-            menuItemAbout.setText( 
+            menuItemAbout.setText(
                 getLocalizedString( "MainFrame.Menu.About" ) );
 
             menuItemAbout.setMnemonic( KeyEvent.VK_A );
 
-            menuItemAbout.setAccelerator( 
+            menuItemAbout.setAccelerator(
                 KeyStroke.getKeyStroke( KeyEvent.VK_A, InputEvent.CTRL_MASK ) );
 
         }
@@ -303,7 +303,7 @@ public class MainFrame extends JWaitFrame
         {
             menuItemUserGuide = new JMenuItem(  );
 
-            menuItemUserGuide.setText( 
+            menuItemUserGuide.setText(
                 getLocalizedString( "MainFrame.Menu.UserGuide" ) );
 
             menuItemUserGuide.setMnemonic( KeyEvent.VK_U );
@@ -335,7 +335,7 @@ public class MainFrame extends JWaitFrame
                 /** DOCUMENT ME! */
                 public String data = null;
 
-/**
+                /**
                  * Creates a new JDataRadioButtonMenuItem object.
                  *
                  * @param string DOCUMENT ME!
@@ -362,21 +362,21 @@ public class MainFrame extends JWaitFrame
                 JDataRadioButtonMenuItem item =
                     new JDataRadioButtonMenuItem( viewer.getName(  ) );
                 item.data = viewer.getID(  );
-                item.addActionListener( 
+                item.addActionListener(
                     new ActionListener(  )
                     {
                         public void actionPerformed( ActionEvent actionEvent )
                         {
                             ( (MainController)Application.getInstance(  ) )
-                            .setViewer( 
+                            .setViewer(
                                 ( (JDataRadioButtonMenuItem)actionEvent
                                 .getSource(  ) ).data );
                         }
                     } );
 
-                if( 
+                if(
                     viewer.getID(  )
-                              .equals( 
+                              .equals(
                             ( (MainController.Config)( (MainController)Application
                             .getInstance(  ) ).getConfig(  ) ).viewerId ) )
                 {
@@ -431,12 +431,12 @@ public class MainFrame extends JWaitFrame
         {
             menuItemDownload = new JMenuItem(  );
 
-            menuItemDownload.setText( 
+            menuItemDownload.setText(
                 getLocalizedString( "MainFrame.Menu.Download" ) );
 
             menuItemDownload.setMnemonic( KeyEvent.VK_D );
 
-            menuItemDownload.setAccelerator( 
+            menuItemDownload.setAccelerator(
                 KeyStroke.getKeyStroke( KeyEvent.VK_D, InputEvent.CTRL_MASK ) );
 
             //	                    mbtDownloadActionPerformed( evt );
@@ -456,7 +456,7 @@ public class MainFrame extends JWaitFrame
         if( menuItemExport == null )
         {
             menuItemExport = new JMenu(  );
-            menuItemExport.setText( 
+            menuItemExport.setText(
                 getLocalizedString( "MainFrame.Menu.Export" ) );
 
         }
@@ -475,12 +475,12 @@ public class MainFrame extends JWaitFrame
         {
             menuItemPrint = new JMenuItem(  );
 
-            menuItemPrint.setText( 
+            menuItemPrint.setText(
                 getLocalizedString( "MainFrame.Menu.Print" ) );
 
             menuItemPrint.setMnemonic( KeyEvent.VK_P );
 
-            menuItemPrint.setAccelerator( 
+            menuItemPrint.setAccelerator(
                 KeyStroke.getKeyStroke( KeyEvent.VK_P, InputEvent.CTRL_MASK ) );
 
             //	                    mbtPrintActionPerformed( evt );
@@ -501,7 +501,7 @@ public class MainFrame extends JWaitFrame
         {
             menuItemWizard = new JMenuItem(  );
 
-            menuItemWizard.setText( 
+            menuItemWizard.setText(
                 getLocalizedString( "MainFrame.Menu.Wizard" ) );
         }
 
@@ -520,12 +520,12 @@ public class MainFrame extends JWaitFrame
         {
             menuItemChannelsSets = new JMenuItem(  );
 
-            menuItemChannelsSets.setText( 
+            menuItemChannelsSets.setText(
                 getLocalizedString( "MainFrame.Menu.ChannelsSets" ) );
 
             menuItemChannelsSets.setMnemonic( KeyEvent.VK_H );
 
-            menuItemChannelsSets.setAccelerator( 
+            menuItemChannelsSets.setAccelerator(
                 KeyStroke.getKeyStroke( KeyEvent.VK_H, InputEvent.CTRL_MASK ) );
 
         }
@@ -595,7 +595,7 @@ public class MainFrame extends JWaitFrame
     {
         if( foregroundButton == null )
         {
-            foregroundButton = new JButton( 
+            foregroundButton = new JButton(
                     Application.getInstance(  )
                                .getLocalizedMessage( "foreground" ) );
             foregroundButton.setFont( new java.awt.Font( "Dialog", 0, 10 ) );
@@ -615,7 +615,7 @@ public class MainFrame extends JWaitFrame
         if( menuItemImport == null )
         {
             menuItemImport = new JMenu(  );
-            menuItemImport.setText( 
+            menuItemImport.setText(
                 getLocalizedString( "MainFrame.Menu.Import" ) );
         }
 

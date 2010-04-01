@@ -38,7 +38,7 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
 {
     private HorizontalViewer controller;
 
-/**
+    /**
      * Creates a new HTMLGuideListener object.
      *
      * @param controller the HorizontalViewer controller used to access other
@@ -64,7 +64,7 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
         if( HyperlinkEvent.EventType.ACTIVATED == e.getEventType(  ) )
         {
             TVProgramme programme =
-                getProgrammeFromReference( 
+                getProgrammeFromReference(
                     e.getDescription(  ).substring( 1 ) );
 
             JLabelProgramme label =
@@ -94,7 +94,7 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
         final IModuleReminder[] reminders =
             Application.getInstance(  ).getReminders(  );
 
-        controller.currentData.iterate( 
+        controller.currentData.iterate(
             new TVIteratorProgrammes(  )
             {
                 protected void onChannel( TVChannel channel )
@@ -132,7 +132,7 @@ public class ViewerFramePersonalGuideListener implements HyperlinkListener
 
     }
 
-/**
+    /**
      * Utility method to create a unique ASCII-only name (reference) to
      * identify each program in the HTML program guide.
      */

@@ -51,7 +51,7 @@ public interface IModuleReminder extends IModule
      * @param programme programme
      * @param newSelection DOCUMENT ME!
      */
-    public void setProgrammeSelection( 
+    public void setProgrammeSelection(
         final TVProgramme programme, final boolean newSelection );
 
     /**
@@ -67,7 +67,7 @@ public interface IModuleReminder extends IModule
      * @param programme programme
      * @param menu popup menu
      */
-    public void addItemsToPopupMenu( 
+    public void addItemsToPopupMenu(
         final TVProgramme programme, final JPopupMenu menu );
 
     Favourite getFavourite( TVProgramme programme );

@@ -38,7 +38,7 @@ public abstract class OptionPanel extends JPanel
     protected FGDialog parent;
     private String lb = System.getProperty( "line.separator" );
 
-/**
+    /**
      * Creates a new OptionPanel object.
      *
      * @param parent DOCUMENT ME!
@@ -117,7 +117,7 @@ public abstract class OptionPanel extends JPanel
     protected JLabel newLeftJLabel( String text )
     {
         JLabel ans = new JLabel( text + " " );
-        ans.setBorder( 
+        ans.setBorder(
             BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ) );
         ans.setHorizontalAlignment( JLabel.RIGHT );
 

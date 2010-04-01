@@ -29,7 +29,7 @@ public class CommandsWizardPanel extends WizardPanel
     // -------------------------------------------
     private JTextArea textarea;
 
-/**
+    /**
      * Create a new FreeGuideCommandsWizardPanel.
      */
     public CommandsWizardPanel(  )

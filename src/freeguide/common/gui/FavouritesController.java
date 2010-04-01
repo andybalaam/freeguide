@@ -37,7 +37,7 @@ public class FavouritesController
      * @param fav DOCUMENT ME!
      * @param allChannelsSet DOCUMENT ME!
      */
-    public FavouritesController( 
+    public FavouritesController(
         JFrame owner, List fav, TVChannelsSet allChannelsSet )
     {
         listDialog = new FavouritesListDialog( owner );
@@ -85,18 +85,18 @@ public class FavouritesController
      */
     public void setupList(  )
     {
-        listDialog.getBtnAdd(  ).addActionListener( 
+        listDialog.getBtnAdd(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
                 {
                     Favourite newFav = new Favourite(  );
 
-                    if( 
-                        new FavouriteEditorDialog( 
+                    if(
+                        new FavouriteEditorDialog(
                                 listDialog,
                                 Application.getInstance(  )
-                                               .getLocalizedMessage( 
+                                               .getLocalizedMessage(
                                     "add_a_new_favourite" ), newFav,
                                 allChannelsSet ).showDialog(  ) )
                     {
@@ -111,7 +111,7 @@ public class FavouritesController
                     }
                 }
             } );
-        listDialog.getBtnEdit(  ).addActionListener( 
+        listDialog.getBtnEdit(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
@@ -122,11 +122,11 @@ public class FavouritesController
                     {
                         Favourite fav = (Favourite)favourites.get( latestIndex );
 
-                        if( 
-                            new FavouriteEditorDialog( 
+                        if(
+                            new FavouriteEditorDialog(
                                     listDialog,
                                     Application.getInstance(  )
-                                                   .getLocalizedMessage( 
+                                                   .getLocalizedMessage(
                                         "edit_favourite" ), fav, allChannelsSet )
                                 .showDialog(  ) )
                         {
@@ -140,7 +140,7 @@ public class FavouritesController
                     reShow();
                 }
             } );
-        listDialog.getBtnRemove(  ).addActionListener( 
+        listDialog.getBtnRemove(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
@@ -163,7 +163,7 @@ public class FavouritesController
                     reShow(  );
                 }
             } );
-        listDialog.getBtnOK(  ).addActionListener( 
+        listDialog.getBtnOK(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
@@ -171,7 +171,7 @@ public class FavouritesController
                     listDialog.dispose(  );
                 }
             } );
-        listDialog.getBtnCancel(  ).addActionListener( 
+        listDialog.getBtnCancel(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )

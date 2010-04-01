@@ -64,7 +64,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
      * Set to true for testing purposes only.
      */
     public boolean debugIncludeOldProgrammes = false;
-/**
+    /**
      * Creates a new StorageSerFiles object on application storage dir.
      */
     public StorageSerFilesByDay(  )
@@ -72,7 +72,7 @@ public class StorageSerFilesByDay extends BaseModule implements IModuleStorage
         this( null );
     }
 
-/**
+    /**
      * Create storage on custom directory. Used not for FreeGuide GUI application.
      *
      * @param dir directory where files will be stored

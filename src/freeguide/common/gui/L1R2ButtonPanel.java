@@ -86,7 +86,7 @@ public class L1R2ButtonPanel extends JPanel
     /** The second button on the right of the panel. */
     private JButton right2;
 
-/**
+    /**
      * Standard constructor - creates a three button panel with the specified
      * button labels.
      *

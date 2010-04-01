@@ -12,14 +12,14 @@ import freeguide.common.plugininterfaces.IModuleReminder;
 
 /**
  * Context menu for programme label.
- * 
+ *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
 public class MenuProgramme extends JPopupMenu
 {
     /**
      * Creates a new MenuProgramme object.
-     * 
+     *
      * @param main DOCUMENT ME!
      * @param programme DOCUMENT ME!
      */

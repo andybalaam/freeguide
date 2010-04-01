@@ -27,7 +27,7 @@ public class TextWizardPanel extends WizardPanel
     // -------------------------------------------
     private JTextField textfield;
 
-/**
+    /**
      * Create a new FreeGuideTextWizardPanel.
      */
     public TextWizardPanel(  )

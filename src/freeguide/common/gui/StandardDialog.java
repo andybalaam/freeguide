@@ -88,7 +88,7 @@ public class StandardDialog extends JDialog implements ActionListener
     /** Flag that indicates whether or not the dialog was cancelled. */
     private boolean cancelled;
 
-/**
+    /**
      * Standard constructor - builds a dialog...
      *
      * @param owner the owner.
@@ -103,7 +103,7 @@ public class StandardDialog extends JDialog implements ActionListener
 
     }
 
-/**
+    /**
      * Standard constructor - builds a dialog...
      *
      * @param owner the owner.
@@ -170,7 +170,7 @@ public class StandardDialog extends JDialog implements ActionListener
     protected L1R2ButtonPanel createButtonPanel(  )
     {
         L1R2ButtonPanel buttons =
-            new L1R2ButtonPanel( 
+            new L1R2ButtonPanel(
                 Application.getInstance(  ).getLocalizedMessage( "help" ),
                 Application.getInstance(  ).getLocalizedMessage( "cancel" ),
                 Application.getInstance(  ).getLocalizedMessage( "ok" ) );

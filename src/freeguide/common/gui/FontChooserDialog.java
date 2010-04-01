@@ -87,7 +87,7 @@ public class FontChooserDialog extends StandardDialog
      */
     private FontChooserPanel fontChooserPanel;
 
-/**
+    /**
      * Standard constructor - builds a font chooser dialog owned by another
      * dialog.
      *
@@ -97,7 +97,7 @@ public class FontChooserDialog extends StandardDialog
      *        modal.
      * @param font the initial font displayed.
      */
-    public FontChooserDialog( 
+    public FontChooserDialog(
         Dialog owner, String title, boolean modal, Font font )
     {
         super( owner, title, modal );
@@ -106,7 +106,7 @@ public class FontChooserDialog extends StandardDialog
 
     }
 
-/**
+    /**
      * Standard constructor - builds a font chooser dialog owned by a frame.
      *
      * @param owner the frame that 'owns' this dialog.
@@ -115,7 +115,7 @@ public class FontChooserDialog extends StandardDialog
      *        modal.
      * @param font the initial font displayed.
      */
-    public FontChooserDialog( 
+    public FontChooserDialog(
         Frame owner, String title, boolean modal, Font font )
     {
         super( owner, title, modal );

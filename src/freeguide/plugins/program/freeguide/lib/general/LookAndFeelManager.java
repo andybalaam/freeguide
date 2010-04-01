@@ -54,18 +54,18 @@ public class LookAndFeelManager
 
         knownLAFs.put( "Metal", "javax.swing.plaf.metal.MetalLookAndFeel" );
 
-        knownLAFs.put( 
+        knownLAFs.put(
             "CDE/Motif", "com.sun.java.swing.plaf.motif.MotifLookAndFeel" );
 
-        knownLAFs.put( 
+        knownLAFs.put(
             "Windows", "com.sun.java.swing.plaf.windows.WindowsLookAndFeel" );
 
-        knownLAFs.put( 
+        knownLAFs.put(
             "Windows Classic",
             "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel" );
 
         // LGPL - http://www.incors.org/
-        knownLAFs.put( 
+        knownLAFs.put(
             "Kunststoff", "com.incors.plaf.kunststoff.KunststoffLookAndFeel" );
 
         // Compiere Public License (Modified MPL) -
@@ -76,32 +76,32 @@ public class LookAndFeelManager
         knownLAFs.put( "Fh", "com.shfarr.ui.plaf.fh.FhLookAndFeel" );
 
         // LGPL - http://gtkswing.sourceforge.net/
-        knownLAFs.put( 
+        knownLAFs.put(
             "GTK/Swing", "org.gtk.java.swing.plaf.gtk.GtkLookAndFeel" );
 
         // HippoLF Software Lic - http://www.diod.se/
         knownLAFs.put( "HippoLF", "se.diod.hippo.plaf.HippoLookAndFeel" );
 
         // BSD License - http://looks.dev.java.net/
-        knownLAFs.put( 
+        knownLAFs.put(
             "JGoodies Plastic", "com.jgoodies.plaf.plastic.PlasticLookAndFeel" );
 
-        knownLAFs.put( 
+        knownLAFs.put(
             "JGoodies Plastic 3D",
             "com.jgoodies.plaf.plastic.Plastic3DLookAndFeel" );
 
-        knownLAFs.put( 
+        knownLAFs.put(
             "JGoodies Plastic XP",
             "com.jgoodies.plaf.plastic.PlasticXPLookAndFeel" );
 
-        knownLAFs.put( 
+        knownLAFs.put(
             "ExtWindows", "com.jgoodies.plaf.windows.ExtWindowsLookAndFeel" );
 
         // LGPL - http://liquidlnf.sourceforge.net/
         knownLAFs.put( "Liquid", "com.birosoft.liquid.LiquidLookAndFeel" );
 
         // LGPL - http://mlf.sourceforge.net/
-        knownLAFs.put( 
+        knownLAFs.put(
             "Metouia", "net.sourceforge.mlf.metouia.MetouiaLookAndFeel" );
 
         // Unknown License -
@@ -109,8 +109,8 @@ public class LookAndFeelManager
         knownLAFs.put( "NEXT L&F", "nextlf.plaf.NextLookAndFeel" );
 
         // OYOAHA License (Apache-like) -
-        // http://www.oyoaha.com/lookandfeel/ 
-        knownLAFs.put( 
+        // http://www.oyoaha.com/lookandfeel/
+        knownLAFs.put(
             "Oyoaha", "com.oyoaha.swing.plaf.oyoaha.OyoahaLookAndFeel" );
 
         // GPL - http://www.memoire.com/guillaume-desnoix/slaf/
@@ -121,16 +121,16 @@ public class LookAndFeelManager
         knownLAFs.put( "SkinLF", "com.l2fprod.gui.plaf.skin.SkinLookAndFeel" );
 
         // LGPL - http://www.muntjak.de/hans/java/tinylaf/index.html
-        knownLAFs.put( 
+        knownLAFs.put(
             "TinyLaF", "de.muntjak.tinylookandfeel.TinyLookAndFeel" );
 
         // LGPL - http://www.muntjak.de/hans/java/tinylaf/index.html
-        knownLAFs.put( 
+        knownLAFs.put(
             "TinyLaF", "de.muntjak.tinylookandfeel.TinyLookAndFeel" );
 
-        // Unknown License - 
+        // Unknown License -
         // http://www.geekfarm.org/emeade/index.html?teknolust_plaf/index.html
-        knownLAFs.put( 
+        knownLAFs.put(
             "Teknolust", "com.teknolust.plaf.teknolust.TeknolustLookAndFeel" );
 
         // Tonic Look And Feel License

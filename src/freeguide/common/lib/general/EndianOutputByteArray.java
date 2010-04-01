@@ -21,14 +21,14 @@ public class EndianOutputByteArray
     int size;
     int pos;
 
-/**
+    /**
      * Creates a new EndianOutputByteArray object.
      */
     public EndianOutputByteArray(  )
     {
     }
 
-/**
+    /**
      * Creates a new EndianOutputByteArray object.
      *
      * @param littleEndian DOCUMENT ME!
@@ -38,13 +38,13 @@ public class EndianOutputByteArray
         this.littleEndian = littleEndian;
     }
 
-/**
+    /**
      * Creates a new EndianOutputByteArray object.
      *
      * @param littleEndian DOCUMENT ME!
      * @param charsetName DOCUMENT ME!
      */
-    public EndianOutputByteArray( 
+    public EndianOutputByteArray(
         final boolean littleEndian, String charsetName )
     {
         this.littleEndian = littleEndian;
@@ -727,7 +727,7 @@ public class EndianOutputByteArray
 
             for( int i = 0; i < fields.length; i++ )
             {
-                if( 
+                if(
                     !Modifier.isPublic( fields[i].getModifiers(  ) )
                         || Modifier.isTransient( fields[i].getModifiers(  ) )
                         || Modifier.isStatic( fields[i].getModifiers(  ) ) )

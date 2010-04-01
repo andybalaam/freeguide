@@ -29,14 +29,14 @@ public class HandlerProgrammeInfo
     protected final DateFormat timeFormat;
     protected final ResourceBundle localizer;
 
-/**
+    /**
      * Creates a new HandlerProgrammeInfo object.
      *
      * @param localizer DOCUMENT ME!
      * @param programme DOCUMENT ME!
      * @param timeFormat DOCUMENT ME!
      */
-    public HandlerProgrammeInfo( 
+    public HandlerProgrammeInfo(
         final ResourceBundle localizer, final TVProgramme programme,
         final DateFormat timeFormat )
     {
@@ -247,7 +247,7 @@ public class HandlerProgrammeInfo
      */
     public String getStarRating(  )
     {
-        if( 
+        if(
             programme.getIsMovie(  ) && ( programme.getStarRating(  ) != null ) )
         {
             return " "

@@ -188,10 +188,10 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             }
             else
             {
-                JOptionPane.showMessageDialog( 
+                JOptionPane.showMessageDialog(
                     Application.getInstance(  ).getCurrentFrame(  ),
                     Application.getInstance(  )
-                               .getLocalizedMessage( 
+                               .getLocalizedMessage(
                         "this_channel_is_not_visible" ),
                     Application.getInstance(  )
                                .getLocalizedMessage( "channel_not_visible" ),
@@ -280,13 +280,13 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
      */
     public void open(  )
     {
-        panel.splitPaneChanProg.setDividerLocation( 
+        panel.splitPaneChanProg.setDividerLocation(
             config.positionSplitPaneVertical );
 
-        panel.splitPaneMainDet.setDividerLocation( 
+        panel.splitPaneMainDet.setDividerLocation(
             config.positionSplitPaneHorizontalTop );
 
-        panel.splitPaneGuideDet.setDividerLocation( 
+        panel.splitPaneGuideDet.setDividerLocation(
             config.positionSplitPaneHorizontalBottom );
 
         setDate(System.currentTimeMillis(  ));
@@ -295,7 +295,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         onDataChanged(  );
 
-        panel.getButtonGoToNow(  ).addActionListener( 
+        panel.getButtonGoToNow(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent evt )
@@ -305,7 +305,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                 }
             } );
 
-        panel.getButtonDownload(  ).addActionListener( 
+        panel.getButtonDownload(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent evt )
@@ -315,7 +315,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                 }
             } );
         panel.getPrintedGuideArea(  )
-             .addHyperlinkListener( 
+             .addHyperlinkListener(
             new ViewerFramePersonalGuideListener( this ) );
 
         panel.getProgrammesScrollPane(  ).validate(  );
@@ -325,16 +325,16 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         //Add Search Menu if not already added
         if( !searchMenuAdded )
         {
-            menuSearch.setText( 
+            menuSearch.setText(
                 Application.getInstance(  ).getLocalizedMessage( "search" ) );
 
-            menuSearch.setAccelerator( 
+            menuSearch.setAccelerator(
                 KeyStroke.getKeyStroke( KeyEvent.VK_F, InputEvent.CTRL_MASK ) );
 
             Application.getInstance(  ).getMainMenu(  ).getTools(  )
                        .insert( menuSearch, 0 );
 
-            menuSearch.addActionListener( 
+            menuSearch.addActionListener(
                 new ActionListener(  )
                 {
                     public void actionPerformed( ActionEvent e )
@@ -432,7 +432,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         long now = System.currentTimeMillis(  );
 
         panel.getProgrammesScrollPane(  ).getHorizontalScrollBar(  )
-             .setValue( 
+             .setValue(
             panel.getTimePanel(  ).getScrollValue( now )
             - PIXELS_PADDING_FROM_LEFT );
     }
@@ -445,7 +445,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     public Info getDisplayedInfo(  )
     {
         final IModuleStorage.Info info = new IModuleStorage.Info(  );
-        info.channelsList = getChannelsSetByName( 
+        info.channelsList = getChannelsSetByName(
                 config.currentChannelSetName );
         info.minDate = getDate();
         info.maxDate = getDate() + todayMillis;
@@ -485,10 +485,10 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             alreadyAskedForLoadData = true;
 
             int r =
-                JOptionPane.showConfirmDialog( 
+                JOptionPane.showConfirmDialog(
                     Application.getInstance(  ).getCurrentFrame(  ),
                     Application.getInstance(  )
-                               .getLocalizedMessage( 
+                               .getLocalizedMessage(
                         "there_are_missing_listings_for_today" ),
                     Application.getInstance(  )
                                .getLocalizedMessage( "download_listings_q" ),
@@ -536,7 +536,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         }
 
         panel.getProgrammesPanel(  )
-             .init( 
+             .init(
             getDate(), font, currentChannelSet.getChannels(  ).size(  ),
             timeFormat );
 
@@ -553,19 +553,19 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         panel.getChannelNamePanel(  ).setFont( font );
         panel.getChannelNamePanel(  )
-             .setChanels( 
+             .setChanels(
             (TVChannel[])channels.toArray( new TVChannel[channels.size(  )] ) );
 
         // Resize the areas
         panel.getChannelNamePanel(  )
-             .setPreferredSize( 
-            new Dimension( 
+             .setPreferredSize(
+            new Dimension(
                 panel.getChannelNamePanel(  ).getMaxChannelWidth(  ),
                 ( currentChannelSet.getChannels(  ).size(  ) * config.sizeChannelHeight )
                 + 50 ) );
 
         Dimension tmp =
-            new Dimension( 
+            new Dimension(
                 (int) (config.sizeProgrammeHour * todayMillis / Time.HOUR),
                 currentChannelSet.getChannels(  ).size(  ) * config.sizeChannelHeight );
 
@@ -573,7 +573,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         panel.getProgrammesPanel(  ).setMinimumSize( tmp );
         panel.getProgrammesPanel(  ).setMaximumSize( tmp );
 
-        tmp = new Dimension( 
+        tmp = new Dimension(
                 (int) (config.sizeProgrammeHour * todayMillis / Time.HOUR),
                 panel.getTimePanel(  ).getPreferredSize(  ).height );
 
@@ -584,7 +584,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         panel.getTimePanel(  ).setTimes( getDate(), getDate() + todayMillis );
 
         // Create labels for all programmes
-        currentData.iterate( 
+        currentData.iterate(
             new TVIteratorProgrammes(  )
             {
                 protected void onChannel( TVChannel channel )
@@ -594,7 +594,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                 public void onProgramme( TVProgramme programme )
                 {
                     int row =
-                        currentChannelSet.getChannelIndex( 
+                        currentChannelSet.getChannelIndex(
                             getCurrentChannel(  ).getID(  ) );
 
                     if( row != -1 )
@@ -677,7 +677,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
                     if( ( prevdt < newDate ) && ( newDate < itemdt ) )
                     {
-                        addDateExistItem( 
+                        addDateExistItem(
                             cmbDate, newDate, it.previousIndex(  ) );
                         moved = true;
 
@@ -702,7 +702,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                     ( (Long)( dateExistList.get( lastResortIndex ) ) )
                     .longValue(  );
 
-                if( 
+                if(
                     ( cmbDate.getSelectedIndex(  ) == lastResortIndex )
                         && ( newDate > lastresortlong ) )
                 {
@@ -721,7 +721,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     private void addDateExistItem( JComboBox cmbDate, long newDate, int idx )
     {
         Calendar cal =
-            Calendar.getInstance( 
+            Calendar.getInstance(
                 Application.getInstance(  ).getTimeZone(  ), Locale.ENGLISH );
 
         cal.setTimeInMillis( newDate );
@@ -816,7 +816,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         panel.getComboChannelsSet(  )
              .insertItemAt( getLocalizer(  ).getString( "all_channels" ), 0 );
 
-        for( 
+        for(
             int i = 0;
                 i < Application.getInstance(  ).getChannelsSetsList(  ).size(  );
                 i++ )
@@ -846,8 +846,8 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         else
         {
             panel.getComboChannelsSet(  )
-                 .setSelectedIndex( 
-                Application.getInstance(  ).getChannelsSetsList(  ).indexOf( 
+                 .setSelectedIndex(
+                Application.getInstance(  ).getChannelsSetsList(  ).indexOf(
                     cs ) + 1 );
 
         }
@@ -857,7 +857,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
     }
 
-    protected TVChannelsSet getChannelsSetByName( 
+    protected TVChannelsSet getChannelsSetByName(
         final String channelsSetName )
     {
         if( channelsSetName == null )
@@ -868,7 +868,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         else
         {
-            for( 
+            for(
                 int i = 0;
                     i < Application.getInstance(  ).getChannelsSetsList(  )
                                        .size(  ); i++ )
@@ -900,7 +900,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             Application.getInstance(  ).getDataStorage(  ).getInfo(  );
 
         Calendar cal =
-            Calendar.getInstance( 
+            Calendar.getInstance(
                 Application.getInstance(  ).getTimeZone(  ), Locale.ENGLISH );
 
         cal.setTimeInMillis( info.minDate );
@@ -916,7 +916,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
 
         dateExistList.clear(  );
 
-        for( 
+        for(
             ; cal.getTimeInMillis(  ) <= info.maxDate;
                 cal.add( Calendar.DATE, 1 ) )
         {
@@ -933,7 +933,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         //comTheDate.removeAllItems();
         ( (DefaultComboBoxModel)cmbDate.getModel(  ) ).removeAllElements(  );
 
-        comboBoxDateFormat.setTimeZone( 
+        comboBoxDateFormat.setTimeZone(
             Application.getInstance(  ).getTimeZone(  ) );
 
         ListIterator it = dateExistList.listIterator(  );
@@ -943,7 +943,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             long dt = ( (Long)( it.next(  ) ) ).longValue(  );
             Date date = new Date( dt );
 
-            cmbDate.addItem( 
+            cmbDate.addItem(
                 shortWeekdayFormat.format( date ) + " "
                 + comboBoxDateFormat.format( date ) );
         }
@@ -983,7 +983,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     {
         JFileChooser chooser = new JFileChooser( config.lastIconDir );
 
-        chooser.setFileFilter( 
+        chooser.setFileFilter(
             new FileFilter(  )
             {
                 private Pattern images = null;
@@ -992,7 +992,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                 {
                     if( images == null )
                     {
-                        images = Pattern.compile( 
+                        images = Pattern.compile(
                                 "\\.(?i)(?:jpe?g|gif|png|JPG)$" );
 
                     }
@@ -1016,7 +1016,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
             config.lastIconDir = chooser.getCurrentDirectory().toString();
             try
             {
-                FileHelper.copy( 
+                FileHelper.copy(
                     chooser.getSelectedFile(  ),
                     new File( TVChannelIconHelper.getIconFileName( channel ) ) );
                 redraw(  );
@@ -1046,22 +1046,22 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
     {
         // Make a file in the default location
         File f =
-            new File( 
+            new File(
                 Application.getInstance(  ).getWorkingDirectory(  )
                 + "/guide.html" );
 
         try
         {
             BufferedWriter buffy =
-                new BufferedWriter( 
-                    new OutputStreamWriter( 
+                new BufferedWriter(
+                    new OutputStreamWriter(
                         new FileOutputStream( f ), "UTF-8" ) );
 
             TemplateParser parser =
-                new TemplateParser( 
+                new TemplateParser(
                     "resources/plugins/ui/horizontal/manylabels/templates/TemplatePersonalGuidePrint.html" );
-            parser.process( 
-                new HandlerPersonalGuide( 
+            parser.process(
+                new HandlerPersonalGuide(
                     getLocalizer(  ), currentData, new Date( getDate() ),
                     htmlDateFormat, weekdayFormat, getCurrentDateFormat(  ),
                     true ), buffy );
@@ -1086,10 +1086,10 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         try
         {
             TemplateParser parser =
-                new TemplateParser( 
+                new TemplateParser(
                     "resources/plugins/ui/horizontal/manylabels/templates/TemplatePersonalGuide.html" );
-            parser.process( 
-                new HandlerPersonalGuide( 
+            parser.process(
+                new HandlerPersonalGuide(
                     getLocalizer(  ), currentData, new Date( getDate() ),
                     htmlDateFormat, weekdayFormat, getCurrentDateFormat(  ),
                     false ), str );
@@ -1097,7 +1097,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         catch( Exception ex )
         {
             Application.getInstance(  ).getLogger(  )
-                       .log( 
+                       .log(
                 Level.SEVERE,
                 "Error construct personalized HTML guide for screen", ex );
         }
@@ -1117,11 +1117,11 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         try
         {
             final TemplateParser parser =
-                new TemplateParser( 
+                new TemplateParser(
                     "resources/plugins/ui/horizontal/manylabels/templates/TemplateProgrammeInfo.html" );
             StringWriter out = new StringWriter(  );
-            parser.process( 
-                new HandlerProgrammeInfo( 
+            parser.process(
+                new HandlerProgrammeInfo(
                     getLocalizer(  ), programme, getCurrentDateFormat(  ) ),
                 out );
 
@@ -1131,7 +1131,7 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         catch( Exception ex )
         {
             Application.getInstance(  ).getLogger(  )
-                       .log( 
+                       .log(
                 Level.SEVERE, "Error construct programme info HTML for screen",
                 ex );
         }

@@ -13,7 +13,7 @@ public class SingleConfigCommandRunner implements ICommandRunner
 {
     IModuleGrabber grabber;
     ModuleInfo moduleInfo;
-    
+
     SingleConfigCommandRunner( IModuleGrabber grabber, ModuleInfo moduleInfo )
     {
         this.grabber = grabber;

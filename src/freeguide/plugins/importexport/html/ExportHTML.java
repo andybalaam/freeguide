@@ -124,21 +124,21 @@ public class ExportHTML extends BaseModule implements IModuleExport
             String path = chooser.getSelectedFile(  ).getPath(  );
             String lowerPath = path.toLowerCase(  );
 
-            if( 
+            if(
                 ( chooser.getFileFilter(  ) == zipFilter )
                     && !lowerPath.endsWith( EXT_ZIP ) )
             {
                 path += EXT_ZIP;
             }
 
-            if( 
+            if(
                 ( chooser.getFileFilter(  ) == gzipFilter )
                     && !lowerPath.endsWith( EXT_GZ ) )
             {
                 path += EXT_GZ;
             }
 
-            if( 
+            if(
                 ( chooser.getFileFilter(  ) == htmlFilter )
                     && !( lowerPath.endsWith( EXT_HTML )
                     || ( lowerPath.endsWith( EXT_HTM ) ) ) )
@@ -162,7 +162,7 @@ public class ExportHTML extends BaseModule implements IModuleExport
             }
             else if( lowerPath.endsWith( EXT_GZ ) )
             {
-                outStream = new GZIPOutputStream( 
+                outStream = new GZIPOutputStream(
                         new FileOutputStream( path ) );
             }
             else
@@ -171,7 +171,7 @@ public class ExportHTML extends BaseModule implements IModuleExport
             }
 
             final Writer out =
-                new BufferedWriter( 
+                new BufferedWriter(
                     new OutputStreamWriter( outStream, CHARSET ) );
 
             try

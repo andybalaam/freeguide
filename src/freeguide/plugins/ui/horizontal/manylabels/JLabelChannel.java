@@ -31,14 +31,14 @@ public class JLabelChannel extends JLabel
     /** Parent controller. */
     final protected HorizontalViewer controller;
 
-/**
+    /**
      * Creates a new JLabelChannel object.
      *
      * @param channel DOCUMENT ME!
      * @param main DOCUMENT ME!
      * @param font DOCUMENT ME!
      */
-    public JLabelChannel( 
+    public JLabelChannel(
         final TVChannel channel, final HorizontalViewer main, final Font font )
     {
         super( channel.getDisplayName(  ) );
@@ -138,10 +138,10 @@ public class JLabelChannel extends JLabel
 
         }
 
-        setIcon( 
-            new ImageIcon( 
+        setIcon(
+            new ImageIcon(
                 icon.getImage(  )
-                    .getScaledInstance( 
+                    .getScaledInstance(
                     new_icon_width, new_icon_height, Image.SCALE_AREA_AVERAGING ) ) );
     }
 }

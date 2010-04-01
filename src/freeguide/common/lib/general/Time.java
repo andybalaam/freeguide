@@ -54,16 +54,16 @@ public class Time
     /** Default value. */
     public long milliseconds = -1;
 
-/**
+    /**
      * Create a FreeGuideTime object set to midnight.
      */
     public Time(  )
     {
     }
 
-/**
+    /**
      * Create a FreeGuideTime object with the same time as other.
-     * 
+     *
      * @param other
      *            Description of the Parameter
      */
@@ -72,9 +72,9 @@ public class Time
         setTime( other );
     }
 
-/**
+    /**
      * Create a FreeGuideTime object set to the given hour.
-     * 
+     *
      * @param hour
      *            Description of the Parameter
      */
@@ -83,9 +83,9 @@ public class Time
         setTime( hour );
     }
 
-/**
+    /**
      * Create a FreeGuideTime object set to the given hour and minute.
-     * 
+     *
      * @param hour
      *            Description of the Parameter
      * @param minute
@@ -96,9 +96,9 @@ public class Time
         setTime( hour, minute );
     }
 
-/**
+    /**
      * Create a FreeGuideTime object set to the given hour, minute and second.
-     * 
+     *
      * @param hour
      *            Description of the Parameter
      * @param minute
@@ -111,10 +111,10 @@ public class Time
         setTime( hour, minute, second );
     }
 
-/**
+    /**
      * Create a FreeGuideTime object set to the given hour, minute, second and
      * millisecond.
-     * 
+     *
      * @param hour
      *            Description of the Parameter
      * @param minute
@@ -129,10 +129,10 @@ public class Time
         setTime( hour, minute, second, millisecond );
     }
 
-/**
+    /**
      * Create a FreeGuideTime object by taking the just time-related bits of the
      * given Date object.
-     * 
+     *
      * @param date
      *            Description of the Parameter
      */
@@ -141,10 +141,10 @@ public class Time
         setTime( date );
     }
 
-/**
+    /**
      * Create a FreeGuideTime object by taking the just time-related bits of the
      * given Calendar object.
-     * 
+     *
      * @param date
      *            Description of the Parameter
      */
@@ -153,9 +153,9 @@ public class Time
         setTime( date );
     }
 
-/**
+    /**
      * Create a FreeGuideTime object from this string in the form HH:MM.
-     * 
+     *
      * @param hhmm
      *            Description of the Parameter
      */
@@ -217,7 +217,7 @@ public class Time
      */
     public void setTime( int hour, int minute, int second )
     {
-        setMillisecondsSinceMidnight( 
+        setMillisecondsSinceMidnight(
             ( hour * HOUR ) + ( minute * MINUTE ) + ( second * SECOND ) );
     }
 
@@ -231,7 +231,7 @@ public class Time
      */
     public void setTime( int hour, int minute, int second, int millisecond )
     {
-        setMillisecondsSinceMidnight( 
+        setMillisecondsSinceMidnight(
             ( hour * HOUR ) + ( minute * MINUTE ) + ( second * SECOND )
             + millisecond );
     }
@@ -246,7 +246,7 @@ public class Time
     {
         Calendar cal = GregorianCalendar.getInstance(  );
         cal.setTime( date );
-        setTime( 
+        setTime(
             cal.get( Calendar.HOUR_OF_DAY ), cal.get( Calendar.MINUTE ),
             cal.get( Calendar.SECOND ), cal.get( Calendar.MILLISECOND ) );
     }
@@ -259,7 +259,7 @@ public class Time
      */
     public void setTime( Calendar date )
     {
-        setTime( 
+        setTime(
             date.get( Calendar.HOUR_OF_DAY ), date.get( Calendar.MINUTE ),
             date.get( Calendar.SECOND ), date.get( Calendar.MILLISECOND ) );
     }
@@ -283,14 +283,14 @@ public class Time
         {
             try
             {
-                setTime( 
+                setTime(
                     Integer.parseInt( hhmm.substring( 0, 2 ) ),
                     Integer.parseInt( hhmm.substring( 3 ) ) );
             }
             catch( NumberFormatException e )
             {
                 Application.getInstance(  ).getLogger(  )
-                           .severe( 
+                           .severe(
                     "FGTime.setTimeHHMMString(" + hhmm
                     + "): NumberFormatException..." );
                 setTime( 0 );

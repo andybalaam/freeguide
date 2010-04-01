@@ -25,7 +25,7 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
     ChannelFilter filter;
     HashMap channelMap;
 
-/**
+    /**
      * Creates a new ChannelMenu object.
      *
      * @param filter DOCUMENT ME!
@@ -47,7 +47,7 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
 
         //Add a "no channels" button
         ChannelsetMenuItem nullItem =
-            new ChannelsetMenuItem( 
+            new ChannelsetMenuItem(
                 VerticalViewer.getInstance(  )
                               .getLocalizedMessage( "channelmenu.all" ), null );
         this.add( nullItem );
@@ -72,7 +72,7 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
         //Add checkbox items for the single channels
         this.channelMap = new HashMap(  );
 
-        for( 
+        for(
             Iterator it =
                 Application.getInstance(  ).getDataStorage(  ).getInfo(  ).channelsList.getChannels(  )
                                                                                        .iterator(  );
@@ -80,7 +80,7 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
         {
             TVChannelsSet.Channel listCh = (TVChannelsSet.Channel)it.next(  );
             JCheckBoxMenuItem item =
-                new ChannelCheckBoxMenuItem( 
+                new ChannelCheckBoxMenuItem(
                     listCh.getDisplayName(  ), listCh.getChannelID(  ) );
             item.addActionListener( this );
             this.add( item );
@@ -136,7 +136,7 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
                     TVChannelsSet.Channel channel =
                         (TVChannelsSet.Channel)arChannels[nA];
                     ChannelCheckBoxMenuItem item =
-                        (ChannelCheckBoxMenuItem)this.channelMap.get( 
+                        (ChannelCheckBoxMenuItem)this.channelMap.get(
                             channel.getChannelID(  ) );
 
                     if( item != null )
@@ -157,7 +157,7 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
         /** DOCUMENT ME! */
         public String channelId = null;
 
-/**
+        /**
          * Creates a new ChannelCheckBoxMenuItem object.
          *
          * @param title DOCUMENT ME!
@@ -176,7 +176,7 @@ public class ChannelMenu extends JPopupMenu implements ActionListener
         /** DOCUMENT ME! */
         public TVChannelsSet set;
 
-/**
+        /**
          * Creates a new ChannelsetMenuItem object.
          *
          * @param title DOCUMENT ME!

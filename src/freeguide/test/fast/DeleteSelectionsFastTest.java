@@ -49,7 +49,7 @@ public class DeleteSelectionsFastTest
         prog_old2.setChannel( chan );
         cal.set( 2008, 10, 25, 12, 15 );
         prog_old2.setStart( cal.getTimeInMillis() );
-        
+
         rem.setProgrammeSelection( prog_new1, true );
         rem.setProgrammeSelection( prog_new2, false );
         rem.setProgrammeSelection( prog_old1, true );

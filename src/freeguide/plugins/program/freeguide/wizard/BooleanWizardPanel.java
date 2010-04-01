@@ -28,7 +28,7 @@ public class BooleanWizardPanel extends WizardPanel
     // -------------------------------------------
     private JCheckBox checkbox;
 
-/**
+    /**
      * Constructor for the BooleanWizardPanel object
      */
     BooleanWizardPanel(  )

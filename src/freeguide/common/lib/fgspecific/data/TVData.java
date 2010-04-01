@@ -163,7 +163,7 @@ public class TVData implements Serializable
         synchronized( this )
         {
             return (String[])channels.keySet(  )
-                                     .toArray( 
+                                     .toArray(
                 new String[channels.keySet(  ).size(  )] );
 
         }

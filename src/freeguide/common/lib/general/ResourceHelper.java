@@ -131,7 +131,7 @@ public class ResourceHelper
     public static InputStream getUncachedStream( final String resourceName )
         throws IOException
     {
-        return getUncachedStream( 
+        return getUncachedStream(
             ResourceHelper.class.getClassLoader(  ).getResource( resourceName ) );
     }
 }

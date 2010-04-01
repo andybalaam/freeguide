@@ -16,7 +16,7 @@ import java.util.prefs.BackingStoreException;
  */
 public class Migrate0_10_9To0_10_10 extends MigrationProcessBase
 {
-/**
+    /**
      * Creates a new Migrate0_10_9To0_10_10 object.
      *
      * @param nodeName DOCUMENT ME!

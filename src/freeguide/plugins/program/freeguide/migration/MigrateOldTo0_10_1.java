@@ -34,7 +34,7 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
     protected static String xmltvConfig;
     protected static Map icons;
 
-/**
+    /**
      * Creates a new MigrateOldTo0_10_1 object.
      *
      * @param nodeName DOCUMENT ME!
@@ -60,15 +60,15 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
         if( workDir != null )
         {
-            workDir = StringHelper.replaceAll( 
+            workDir = StringHelper.replaceAll(
                     workDir, "%home%", System.getProperty( "user.home" ) );
-            workDir = StringHelper.replaceAll( 
+            workDir = StringHelper.replaceAll(
                     workDir, "%misc.install_directory%",
                     FreeGuide.runtimeInfo.installDirectory );
             putKey( "workingDirectory", workDir );
 
             final File[] dataFiles =
-                new File( workDir ).listFiles( 
+                new File( workDir ).listFiles(
                     new FileFilter(  )
                     {
                         public boolean accept( File pathname )
@@ -95,21 +95,21 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
         if( region != null )
         {
             Properties conv = new Properties(  );
-            conv.load( 
+            conv.load(
                 MigrateOldTo0_10_1.class.getClassLoader(  )
-                                        .getResourceAsStream( 
+                                        .getResourceAsStream(
                     "resources/plugins/program/freeguide/migration/regions.0.8.6.properties" ) );
             putKey( "countryID", (String)conv.get( region ) );
         }
 
-        moveKey( 
+        moveKey(
             "misc/day_start_time", "modules/viewer/Horizontal/day_start_time" );
         moveKey( "misc/privacy", "privacyInfo" );
         moveKey( "misc/reminders_on", "mainController/reminderOn" );
-        putKey( 
+        putKey(
             "mainController/reminderGiveUp",
             getAndRemoveKey( "misc/reminders_give_up_secs" ) + "000" );
-        putKey( 
+        putKey(
             "mainController/reminderWarning",
             getAndRemoveKey( "misc/reminders_warning_secs" ) + "000" );
 
@@ -131,16 +131,16 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
             putKey( "mainController/channelsSetsList." + i + ".name", name );
 
             String[] ch = channels.split( "\\|" );
-            putKey( 
+            putKey(
                 "mainController/channelsSetsList." + i + ".channels.size",
                 "" + ch.length );
 
             for( int j = 0; j < ch.length; j++ )
             {
-                putKey( 
+                putKey(
                     "mainController/channelsSetsList." + i + ".channels." + j
                     + ".channelID", "xmltv/" + ch[j] );
-                putKey( 
+                putKey(
                     "mainController/channelsSetsList." + i + ".channels." + j
                     + ".displayName", ch[j] );
             }
@@ -159,17 +159,17 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
                 break;
             }
 
-            putKey( 
+            putKey(
                 "mainController/selection/favouritesList." + i + ".name", name );
-            moveKey( 
+            moveKey(
                 "favourites/" + ( i + 1 ) + ".title_contains",
                 "mainController/selection/favouritesList." + i
                 + ".titleContains" );
-            moveKey( 
+            moveKey(
                 "favourites/" + ( i + 1 ) + ".title_string",
                 "mainController/selection/favouritesList." + i
                 + ".titleString" );
-            moveKey( 
+            moveKey(
                 "favourites/" + ( i + 1 ) + ".title_regex",
                 "mainController/selection/favouritesList." + i + ".titleRegex" );
 
@@ -178,7 +178,7 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
             if( channelId != null )
             {
-                putKey( 
+                putKey(
                     "mainController/selection/favouritesList." + i
                     + ".channelID", "xmltv/" + channelId );
             }
@@ -188,13 +188,13 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
             if( dayOfWeek != null )
             {
-                putKey( 
+                putKey(
                     "mainController/selection/favouritesList." + i
                     + ".dayOfWeek", dayOfWeek );
             }
             else
             {
-                putKey( 
+                putKey(
                     "mainController/selection/favouritesList." + i
                     + ".dayOfWeek", "-1" );
             }
@@ -205,14 +205,14 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
             if( afterTime != null )
             {
                 final Time t = new Time( afterTime );
-                putKey( 
+                putKey(
                     "mainController/selection/favouritesList." + i
                     + ".afterTime.milliseconds",
                     Long.toString( t.getLongValue(  ) ) );
             }
             else
             {
-                putKey( 
+                putKey(
                     "mainController/selection/favouritesList." + i
                     + ".afterTime.milliseconds", "-1" );
             }
@@ -223,14 +223,14 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
             if( beforeTime != null )
             {
                 final Time t = new Time( beforeTime );
-                putKey( 
+                putKey(
                     "mainController/selection/favouritesList." + i
                     + ".beforeTime.milliseconds",
                     Long.toString( t.getLongValue(  ) ) );
             }
             else
             {
-                putKey( 
+                putKey(
                     "mainController/selection/favouritesList." + i
                     + ".beforeTime.milliseconds", "-1" );
             }
@@ -250,48 +250,48 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
             icons.put( key, value );
         }
 
-        moveKey( 
+        moveKey(
             "screen/align_text_to_left",
             "modules/viewer/Horizontal/displayAlignToLeft" );
-        moveKey( 
+        moveKey(
             "screen/display_24hour_time",
             "modules/viewer/Horizontal/display24time" );
-        moveKey( 
+        moveKey(
             "screen/display_programme_time",
             "modules/viewer/Horizontal/displayTime" );
-        moveKey( 
+        moveKey(
             "screen/display_time_delta",
             "modules/viewer/Horizontal/displayDelta" );
-        moveKey( 
+        moveKey(
             "screen/display_tooltips",
             "modules/viewer/Horizontal/displayTooltips" );
-        moveKey( 
+        moveKey(
             "screen/channel_height",
             "modules/viewer/Horizontal/sizeChannelHeight" );
-        moveKey( 
+        moveKey(
             "screen/panel_width",
             "modules/viewer/Horizontal/sizeProgrammePanelWidth" );
 
-        copyColor( 
+        copyColor(
             "modules/viewer/Horizontal/colorHeart",
             "screen/programme_heart_colour" );
-        copyColor( 
+        copyColor(
             "modules/viewer/Horizontal/colorMovie",
             "screen/programme_movie_colour" );
-        copyColor( 
+        copyColor(
             "modules/viewer/Horizontal/colorNonTicked",
             "screen/programme_normal_colour" );
-        copyColor( 
+        copyColor(
             "modules/viewer/Horizontal/colorChannel", "screen/channel_colour" );
         copyColor( "modules/viewer/Horizontal/colorTicked", "screen/" );
 
-        moveKey( 
+        moveKey(
             "screen/viewer_splitpane_horizontal",
             "modules/viewer/Horizontal/positionSplitPaneHorizontalTop" );
-        moveKey( 
+        moveKey(
             "screen/viewer_splitpane_horizontal_bottom",
             "modules/viewer/Horizontal/positionSplitPaneHorizontalBottom" );
-        moveKey( 
+        moveKey(
             "screen/viewer_splitpane_vertical",
             "modules/viewer/Horizontal/positionSplitPaneVertical" );
 
@@ -300,16 +300,16 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
         moveKey( "screen/font_style", "modules/viewer/Horizontal/fontStyle" );
 
         moveKey( "screen/look_and_feel", "mainController/ui.LFname" );
-        moveKey( 
+        moveKey(
             "screen/viewer_left", "mainController/ui.mainWindowPosition.x" );
-        moveKey( 
+        moveKey(
             "screen/viewer_top", "mainController/ui.mainWindowPosition.y" );
-        moveKey( 
+        moveKey(
             "screen/viewer_width", "mainController/ui.mainWindowPosition.width" );
-        moveKey( 
+        moveKey(
             "screen/viewer_height",
             "mainController/ui.mainWindowPosition.height" );
-        moveKey( 
+        moveKey(
             "screen/viewer_channel_set",
             "modules/viewer/Horizontal/currentChannelSetName" );
 
@@ -317,9 +317,9 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
         if( xmltvConfig != null )
         {
-            xmltvConfig = StringHelper.replaceAll( 
+            xmltvConfig = StringHelper.replaceAll(
                     xmltvConfig, "%home%", System.getProperty( "user.home" ) );
-            xmltvConfig = StringHelper.replaceAll( 
+            xmltvConfig = StringHelper.replaceAll(
                     xmltvConfig, "%misc.install_directory%",
                     FreeGuide.runtimeInfo.installDirectory );
         }
@@ -376,8 +376,8 @@ public class MigrateOldTo0_10_1 extends MigrationProcessBase
 
         if( ( r != null ) && ( ( g != null ) & ( b != null ) ) )
         {
-            return Integer.toString( 
-                new Color( 
+            return Integer.toString(
+                new Color(
                     Integer.parseInt( r ), Integer.parseInt( g ),
                     Integer.parseInt( b ) ).getRGB(  ) );
         }

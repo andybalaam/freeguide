@@ -32,7 +32,7 @@ public class XMLTVConfig
         {
             for( int i = 0; i < modules.size(  ); i++ )
             {
-                result.modules.add( 
+                result.modules.add(
                     ( (ModuleInfo)modules.get( i ) ).clone(  ) );
             }
         }

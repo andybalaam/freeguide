@@ -62,13 +62,13 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
     protected ActionListener foregroundActionListener;
     protected ActionListener backgroundActionListener;
 
-/**
+    /**
      * Creates a new ExecutorDialog object.
      *
      * @param owner DOCUMENT ME!
      * @param secondProgressBar DOCUMENT ME!
      */
-    public ExecutorDialog( 
+    public ExecutorDialog(
         JFrame owner, final JProgressBar secondProgressBar,
         final JButton foregroundButton )
     {
@@ -77,7 +77,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         this.secondProgressBar = secondProgressBar;
         this.foregroundButton = foregroundButton;
 
-        addWindowListener( 
+        addWindowListener(
             new WindowAdapter(  )
             {
                 public void windowClosing( WindowEvent e )
@@ -95,10 +95,10 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
     {
         java.awt.GridBagConstraints gridBagConstraints;
         getContentPane(  ).setLayout( new java.awt.GridBagLayout(  ) );
-        setTitle( 
-            Application.getInstance(  ).getLocalizedMessage( 
+        setTitle(
+            Application.getInstance(  ).getLocalizedMessage(
                 "executing_command" ) );
-        butCancel = new javax.swing.JButton( 
+        butCancel = new javax.swing.JButton(
                 Application.getInstance(  ).getLocalizedMessage( "cancel" ) );
         butCancel.setMnemonic( KeyEvent.VK_C );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -107,7 +107,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( butCancel, gridBagConstraints );
-        butBackground = new javax.swing.JButton( 
+        butBackground = new javax.swing.JButton(
                 Application.getInstance(  ).getLocalizedMessage( "background" ) );
         butBackground.setMnemonic( KeyEvent.VK_B );
 
@@ -141,11 +141,11 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
 
         foregroundButton.addActionListener( foregroundActionListener );
 
-        butDetails = new javax.swing.JButton( 
-                Application.getInstance(  ).getLocalizedMessage( 
+        butDetails = new javax.swing.JButton(
+                Application.getInstance(  ).getLocalizedMessage(
                     "show_output" ) );
         butDetails.setMnemonic( KeyEvent.VK_S );
-        butDetails.addActionListener( 
+        butDetails.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -160,17 +160,17 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( butDetails, gridBagConstraints );
 
-        labPleaseWait = new javax.swing.JLabel( 
-                Application.getInstance(  ).getLocalizedMessage( 
+        labPleaseWait = new javax.swing.JLabel(
+                Application.getInstance(  ).getLocalizedMessage(
                     "please_wait" ), javax.swing.SwingConstants.CENTER );
-        labPleaseWait.setBorder( 
-            javax.swing.BorderFactory.createBevelBorder( 
+        labPleaseWait.setBorder(
+            javax.swing.BorderFactory.createBevelBorder(
                 javax.swing.border.BevelBorder.LOWERED ) );
-        labPleaseWait.setHorizontalTextPosition( 
+        labPleaseWait.setHorizontalTextPosition(
             javax.swing.SwingConstants.CENTER );
 
         Font labFont = labPleaseWait.getFont(  );
-        labPleaseWait.setFont( 
+        labPleaseWait.setFont(
             labFont.deriveFont( Font.BOLD ).deriveFont( 14f ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
@@ -256,7 +256,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
         foregroundButton.setVisible( true );
         secondProgressBar.setVisible( true );
 
-        SwingUtilities.invokeLater( 
+        SwingUtilities.invokeLater(
             new Runnable(  )
             {
                 public void run(  )
@@ -285,7 +285,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
             Utils.centreDialog( owner, this );
         }
 
-        SwingUtilities.invokeLater( 
+        SwingUtilities.invokeLater(
             new Runnable(  )
             {
                 public void run(  )
@@ -309,7 +309,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      */
     public void showDetails(  )
     {
-        butDetails.setText( 
+        butDetails.setText(
             Application.getInstance(  ).getLocalizedMessage( "hide_output" ) );
 
         int width = getWidth(  );
@@ -317,7 +317,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
 
         setSize( width, height );
 
-        SwingUtilities.invokeLater( 
+        SwingUtilities.invokeLater(
             new Runnable(  )
             {
                 public void run(  )
@@ -336,7 +336,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
     {
         //logScroll.setVisible( false );
         //log.setVisible( false );
-        butDetails.setText( 
+        butDetails.setText(
             Application.getInstance(  ).getLocalizedMessage( "show_output" ) );
 
         int width = getWidth(  );
@@ -346,7 +346,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
 
         setSize( width, height );
 
-        SwingUtilities.invokeLater( 
+        SwingUtilities.invokeLater(
             new Runnable(  )
             {
                 public void run(  )
@@ -365,7 +365,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      */
     public void setProgressValue( final int percent )
     {
-        SwingUtilities.invokeLater( 
+        SwingUtilities.invokeLater(
             new Runnable(  )
             {
                 public void run(  )
@@ -427,7 +427,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      */
     public void setProgressMessage( final String message, final String label )
     {
-        SwingUtilities.invokeLater( 
+        SwingUtilities.invokeLater(
             new Runnable(  )
             {
                 public void run(  )
@@ -439,7 +439,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
                     {
                         String localizedMessage =
                             Application.getInstance(  )
-                                       .getLocalizedMessage( 
+                                       .getLocalizedMessage(
                                 "comma_please_wait_template", messageArguments );
 
                         labPleaseWait.setText( localizedMessage );
@@ -473,7 +473,7 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      */
     public void setButtonLabel( final String label )
     {
-        SwingUtilities.invokeLater( 
+        SwingUtilities.invokeLater(
             new Runnable(  )
             {
                 public void run(  )
@@ -498,13 +498,13 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
      */
     public void setCloseLabel(  )
     {
-        setButtonLabel( 
+        setButtonLabel(
             Application.getInstance(  ).getLocalizedMessage( "close" ) );
     }
 
     protected void addToLog( final String msg )
     {
-        SwingUtilities.invokeLater( 
+        SwingUtilities.invokeLater(
             new Runnable(  )
             {
                 public void run(  )
@@ -563,10 +563,10 @@ public class ExecutorDialog extends JDialog implements IProgress, ILogger
     {
         butBackground.setEnabled( false );
         error( Application.getInstance(  ).getLocalizedMessage( "nograbber" ) );
-        setProgressMessage( 
-            Application.getInstance(  ).getLocalizedMessage( 
+        setProgressMessage(
+            Application.getInstance(  ).getLocalizedMessage(
                 "nograbber_title" ),
-            Application.getInstance(  ).getLocalizedMessage( 
+            Application.getInstance(  ).getLocalizedMessage(
                 "nograbber_title" ) );
     }
 

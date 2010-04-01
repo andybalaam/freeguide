@@ -75,7 +75,7 @@ public class PDBFile
     //protected Addable SortInfoBlock = null;
     protected int[][] recordList;
 
-/**
+    /**
      * Creates a new PDBFile object.
      *
      * @param pdbName DOCUMENT ME!
@@ -110,7 +110,7 @@ public class PDBFile
                               .getBytes(  );
     }
 
-/**
+    /**
      * Creates a new PDBFile object.
      *
      * @param fileName DOCUMENT ME!
@@ -144,7 +144,7 @@ public class PDBFile
     {
         if( arr.length > MAX_RECORD_SIZE )
         {
-            throw new IOException( 
+            throw new IOException(
                 "Too long record for pdb file : " + arr.length + " bytes" );
         }
 
@@ -272,7 +272,7 @@ public class PDBFile
 
             if( record.length > 65505 )
             {
-                throw new IOException( 
+                throw new IOException(
                     "Too long record(" + record.length + ") bytes" );
             }
 
@@ -414,7 +414,7 @@ public class PDBFile
      *
      * @throws IOException DOCUMENT_ME!
      */
-    public static PDBFile createStreamPDB( 
+    public static PDBFile createStreamPDB(
         final byte[] data, String pdbName, String creatorId,
         String databaseType ) throws IOException
     {

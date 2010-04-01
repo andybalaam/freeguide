@@ -28,7 +28,7 @@ public class ProgrammeFilterModel extends AbstractTableModel
     /** Association of local row numbers to submodel row numbers */
     protected int[] arRowAssociation;
 
-/**
+    /**
      * Creates a new ProgrammeFilterModel object.
      *
      * @param model DOCUMENT ME!
@@ -109,7 +109,7 @@ public class ProgrammeFilterModel extends AbstractTableModel
             //apply the filters
             for( int nA = 0; nA < nModelRowCount; nA++ )
             {
-                programme = (TVProgramme)this.model.getValueAt( 
+                programme = (TVProgramme)this.model.getValueAt(
                         nA, TvTableModel.COL_PROGRAMME );
                 bShowProgramme = true;
 

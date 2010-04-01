@@ -88,7 +88,7 @@ public class GridBagEasy
     /** DOCUMENT ME! */
     public int default_weighty = 0;
 
-/**
+    /**
      * Creates a new GridBagEasy object.
      *
      * @param container DOCUMENT ME!
@@ -147,7 +147,7 @@ public class GridBagEasy
      * @param weightx DOCUMENT_ME!
      * @param weighty DOCUMENT_ME!
      */
-    public void addAWXWY( 
+    public void addAWXWY(
         Component comp, int gridx, int gridy, int anchor, double weightx,
         double weighty )
     {
@@ -186,7 +186,7 @@ public class GridBagEasy
      * @param anchor DOCUMENT_ME!
      * @param weightx DOCUMENT_ME!
      */
-    public void addAWX( 
+    public void addAWX(
         Component comp, int gridx, int gridy, int anchor, double weightx )
     {
         gbc.anchor = anchor;
@@ -224,7 +224,7 @@ public class GridBagEasy
      * @param fill DOCUMENT_ME!
      * @param weightx DOCUMENT_ME!
      */
-    public void addFWX( 
+    public void addFWX(
         Component comp, int gridx, int gridy, int fill, double weightx )
     {
         gbc.anchor = default_anchor;
@@ -263,7 +263,7 @@ public class GridBagEasy
      * @param weightx DOCUMENT_ME!
      * @param gridwidth DOCUMENT_ME!
      */
-    public void addAWXGW( 
+    public void addAWXGW(
         Component comp, int gridx, int gridy, int anchor, double weightx,
         int gridwidth )
     {
@@ -303,7 +303,7 @@ public class GridBagEasy
      * @param weighty DOCUMENT_ME!
      * @param gridwidth DOCUMENT_ME!
      */
-    public void addWXWYGW( 
+    public void addWXWYGW(
         Component comp, int gridx, int gridy, double weightx, double weighty,
         int gridwidth )
     {
@@ -342,7 +342,7 @@ public class GridBagEasy
      * @param weightx DOCUMENT_ME!
      * @param weighty DOCUMENT_ME!
      */
-    public void addWXWY( 
+    public void addWXWY(
         Component comp, int gridx, int gridy, double weightx, double weighty )
     {
         gbc.anchor = default_anchor;
@@ -382,7 +382,7 @@ public class GridBagEasy
      * @param weighty DOCUMENT_ME!
      * @param gridwidth DOCUMENT_ME!
      */
-    public void addFWXWYGW( 
+    public void addFWXWYGW(
         Component comp, int gridx, int gridy, int fill, double weightx,
         double weighty, int gridwidth )
     {
@@ -423,7 +423,7 @@ public class GridBagEasy
      * @param ipadx DOCUMENT_ME!
      * @param ipady DOCUMENT_ME!
      */
-    public void addAWXPXPY( 
+    public void addAWXPXPY(
         Component comp, int gridx, int gridy, int anchor, double weightx,
         int ipadx, int ipady )
     {
@@ -463,7 +463,7 @@ public class GridBagEasy
      * @param weightx DOCUMENT_ME!
      * @param weighty DOCUMENT_ME!
      */
-    public void addFWXWY( 
+    public void addFWXWY(
         Component comp, int gridx, int gridy, int fill, double weightx,
         double weighty )
     {
@@ -505,7 +505,7 @@ public class GridBagEasy
      * @param gridwidth DOCUMENT_ME!
      * @param gridheight DOCUMENT_ME!
      */
-    public void addFWXWYGWGH( 
+    public void addFWXWYGWGH(
         Component comp, int gridx, int gridy, int fill, double weightx,
         double weighty, int gridwidth, int gridheight )
     {
@@ -581,7 +581,7 @@ public class GridBagEasy
      * @param fill DOCUMENT_ME!
      * @param weightx DOCUMENT_ME!
      */
-    public void addAFWX( 
+    public void addAFWX(
         Component comp, int gridx, int gridy, int anchor, int fill,
         double weightx )
     {

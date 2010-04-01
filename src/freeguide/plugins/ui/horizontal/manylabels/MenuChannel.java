@@ -10,24 +10,24 @@ import javax.swing.JPopupMenu;
  */
 public class MenuChannel extends JPopupMenu
 {
-/**
+    /**
      * Creates a new MenuChannel object.
      *
      * @param labelChannel DOCUMENT ME!
      * @param main DOCUMENT ME!
      */
-    public MenuChannel( 
+    public MenuChannel(
         final JLabelChannel labelChannel, final HorizontalViewer main )
     {
         JMenuItem mbtChangeIcon =
-            new javax.swing.JMenuItem( 
+            new javax.swing.JMenuItem(
                 main.getLocalizer(  ).getString( "change_icon" ) );
-        mbtChangeIcon.addActionListener( 
+        mbtChangeIcon.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
                 {
-                    main.changeIconActionPerformed( 
+                    main.changeIconActionPerformed(
                         labelChannel.getChannel(  ) );
                 }
             } );
@@ -36,15 +36,15 @@ public class MenuChannel extends JPopupMenu
         if( labelChannel.getIcon(  ) != null )
         {
             JMenuItem mbtResetIcon =
-                new javax.swing.JMenuItem( 
+                new javax.swing.JMenuItem(
                     main.getLocalizer(  ).getString( "reset_to_default_icon" ) );
-            mbtResetIcon.addActionListener( 
+            mbtResetIcon.addActionListener(
                 new java.awt.event.ActionListener(  )
                 {
-                    public void actionPerformed( 
+                    public void actionPerformed(
                         java.awt.event.ActionEvent evt )
                     {
-                        main.resetIconActionPerformed( 
+                        main.resetIconActionPerformed(
                             labelChannel.getChannel(  ) );
 
                     }

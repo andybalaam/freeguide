@@ -37,7 +37,7 @@ public class ChoiceWizardPanel extends WizardPanel
     // The combobox for the choice
     private Set choices;
 
-/**
+    /**
      * Create a new FreeGuideChoiceWizardPanel.
      *
      * @param choices Description of the Parameter

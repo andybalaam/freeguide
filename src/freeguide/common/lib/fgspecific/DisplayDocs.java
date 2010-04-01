@@ -16,7 +16,7 @@ public class DisplayDocs
 
     /**
      * Show the FreeGuide user guide in a browser.
-     * 
+     *
      * @throws Exception
      */
     public static void displayDocs() throws Exception
@@ -27,7 +27,7 @@ public class DisplayDocs
 
     /**
      * Show the FreeGuide user guide in a browser.
-     * 
+     *
      * @param docsDirectory the directory where the documentation is installed,
      *            or null if it is not (e.g. we are running in a development
      *            environment.
@@ -44,7 +44,7 @@ public class DisplayDocs
 
     /**
      * Show the FreeGuide user guide in a browser.
-     * 
+     *
      * @param docsDirectory the directory where the documentation is installed,
      *            or null if it is not (e.g. we are running in a development
      *            environment.
@@ -93,7 +93,7 @@ public class DisplayDocs
 
     /**
      * Construct a File object made from the three parts supplied.
-     * 
+     *
      * @param part1 the first part of the directory path, or null
      * @param part2 the second part of the directory path, or null
      * @param part3 the last part, including the file name if this is a file.

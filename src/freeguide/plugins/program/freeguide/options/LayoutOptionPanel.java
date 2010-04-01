@@ -44,7 +44,7 @@ public class LayoutOptionPanel extends OptionPanel
     // ----------------------------------
     private JComboBox lookAndFeelCombo;
 
-/**
+    /**
      * Creates a new LayoutOptionPanel object.
      *
      * @param parent DOCUMENT ME!
@@ -61,8 +61,8 @@ public class LayoutOptionPanel extends OptionPanel
     {
         // Make the objects
         JLabel lookAndFeelLabel =
-            newLeftJLabel( 
-                Application.getInstance(  ).getLocalizedMessage( 
+            newLeftJLabel(
+                Application.getInstance(  ).getLocalizedMessage(
                     "look_and_feel" ) + ":" );
         lookAndFeelCombo = new JComboBox(  );
         lookAndFeelCombo.setEditable( true );
@@ -81,7 +81,7 @@ public class LayoutOptionPanel extends OptionPanel
         gbe.default_ipadx = 5;
         gbe.default_ipady = 5;
         gbe.addFWX( lookAndFeelLabel, 0, 0, GridBagEasy.FILL_HOR, 0.2 );
-        gbe.addFWXWYGW( 
+        gbe.addFWXWYGW(
             lookAndFeelCombo, 1, 0, GridBagEasy.FILL_HOR, 0.1, 0, 2 );
         // Load in the values from config
         load(  );

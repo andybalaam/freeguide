@@ -149,7 +149,7 @@ public class PluginInfo extends DefaultHandler
      *
      * @throws SAXException DOCUMENT_ME!
      */
-    public void startElement( 
+    public void startElement(
         String uri, String localName, String qName, Attributes attributes )
         throws SAXException
     {

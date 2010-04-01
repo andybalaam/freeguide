@@ -21,7 +21,7 @@ public class XMLTVConfigureUIPanel extends JScrollPane
     private JPanel panelModules = null;
     protected final ResourceBundle i18n;
 
-/**
+    /**
      * This is the default constructor
      *
      * @param localizer DOCUMENT ME!
@@ -39,7 +39,7 @@ public class XMLTVConfigureUIPanel extends JScrollPane
     private void initialize(  )
     {
         this.setViewportView( getJPanel(  ) );
-        this.setHorizontalScrollBarPolicy( 
+        this.setHorizontalScrollBarPolicy(
             javax.swing.JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
         this.setSize( 300, 200 );
     }

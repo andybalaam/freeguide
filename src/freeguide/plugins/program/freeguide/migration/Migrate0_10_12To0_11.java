@@ -67,7 +67,7 @@ public class Migrate0_10_12To0_11 extends MigrationProcessBase
         {
             int panelWidth = Integer.parseInt( sizeProgrammePanelWidth );
             int programmeWidth = panelWidth / 24;
-    
+
             putKey( "modules/ui-horizontal/sizeProgrammeHour",
                 Integer.toString( programmeWidth ) );
         }

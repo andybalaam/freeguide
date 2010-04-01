@@ -777,7 +777,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         final protected BufferedReader stream;
         final protected Level logLevel;
 
-/**
+        /**
          * Creates a new ReadProcess object.
          *
          * @param stream
@@ -820,7 +820,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         BufferedReader rd;
         ILogger logger;
 
-/**
+        /**
          * Creates a new Read object.
          *
          * @param rd
@@ -868,7 +868,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         final protected IProgress progress;
         final protected IStoragePipe storage;
 
-/**
+        /**
          * Creates a new ReadOutputData object.
          *
          * @param storage

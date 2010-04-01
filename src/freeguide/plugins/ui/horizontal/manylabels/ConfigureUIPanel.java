@@ -80,7 +80,7 @@ public class ConfigureUIPanel extends JPanel
     private   JPanel         panelTimeFormat;
     private   JPanel         panelSpacer;
 
-/**
+    /**
      * This is the default constructor
      *
      * @param localizer DOCUMENT ME!

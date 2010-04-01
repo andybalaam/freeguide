@@ -51,7 +51,7 @@ public class WizardFrame extends JWaitFrame
     private Runnable finishMethod;
     private Runnable exitMethod;
 
-/**
+    /**
      * Construct this wizard
      *
      * @param title the String title of the wizard
@@ -60,15 +60,15 @@ public class WizardFrame extends JWaitFrame
      *        successfully
      * @param exitMethod a method to call when the user prematurely exited
      */
-    public WizardFrame( 
+    public WizardFrame(
         String title, List<WizardPanel> panels, Runnable finishMethod,
         Runnable exitMethod )
     {
         try
         {
             Image icon =
-                ( new ImageIcon( 
-                    ResourceHelper.loadResourceAsByteArray( 
+                ( new ImageIcon(
+                    ResourceHelper.loadResourceAsByteArray(
                         "resources/plugins/program/freeguide/images/logo-16x16.png" ),
                     "icon" ) ).getImage(  );
             setIconImage( icon );
@@ -118,7 +118,7 @@ public class WizardFrame extends JWaitFrame
 
         setTitle( title );
 
-        addWindowListener( 
+        addWindowListener(
             new WindowAdapter(  )
             {
                 public void windowClosing( WindowEvent evt )
@@ -128,12 +128,12 @@ public class WizardFrame extends JWaitFrame
                 }
             } );
 
-        butCancel.setText( 
+        butCancel.setText(
             Application.getInstance(  ).getLocalizedMessage( "exit" ) );
 
         butCancel.setMnemonic( KeyEvent.VK_X );
 
-        butCancel.addActionListener( 
+        butCancel.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -145,14 +145,14 @@ public class WizardFrame extends JWaitFrame
 
         panButtons.add( butCancel );
 
-        butBack.setText( 
+        butBack.setText(
             "<< " + Application.getInstance(  ).getLocalizedMessage( "back" ) );
 
         butBack.setMnemonic( KeyEvent.VK_B );
 
         butBack.setEnabled( false );
 
-        butBack.addActionListener( 
+        butBack.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -164,12 +164,12 @@ public class WizardFrame extends JWaitFrame
 
         panButtons.add( butBack );
 
-        butNext.setText( 
+        butNext.setText(
             Application.getInstance(  ).getLocalizedMessage( "next" ) + " >>" );
 
         butNext.setMnemonic( KeyEvent.VK_N );
 
-        butNext.addActionListener( 
+        butNext.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -181,14 +181,14 @@ public class WizardFrame extends JWaitFrame
 
         panButtons.add( butNext );
 
-        butFinish.setText( 
+        butFinish.setText(
             Application.getInstance(  ).getLocalizedMessage( "finish" ) );
 
         butFinish.setMnemonic( KeyEvent.VK_F );
 
         butFinish.setEnabled( false );
 
-        butFinish.addActionListener( 
+        butFinish.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -285,7 +285,7 @@ public class WizardFrame extends JWaitFrame
     private void butNextActionPerformed( java.awt.event.ActionEvent evt )
     {
         // Save the info on this panel and check we're allowed to leave it
-        if( 
+        if(
             ( panelCounter < panels.size(  ) )
                 && panels.get( panelCounter ).onExit(  ) )
         {

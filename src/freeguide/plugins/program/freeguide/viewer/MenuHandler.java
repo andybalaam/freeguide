@@ -31,7 +31,7 @@ public class MenuHandler
     {
         this.controller = controller;
 
-        controller.mainFrame.getMenuItemExit(  ).addActionListener( 
+        controller.mainFrame.getMenuItemExit(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
@@ -42,8 +42,8 @@ public class MenuHandler
 
                     for( int i = 0; i < listeners.length; i++ )
                     {
-                        listeners[i].windowClosing( 
-                            new WindowEvent( 
+                        listeners[i].windowClosing(
+                            new WindowEvent(
                                 controller.mainFrame,
                                 WindowEvent.WINDOW_CLOSING ) );
                     }
@@ -52,7 +52,7 @@ public class MenuHandler
                 }
             } );
 
-        controller.mainFrame.getMenuItemOptions(  ).addActionListener( 
+        controller.mainFrame.getMenuItemOptions(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
@@ -79,7 +79,7 @@ public class MenuHandler
                 }
             } );
 
-        controller.mainFrame.getMenuItemDownload(  ).addActionListener( 
+        controller.mainFrame.getMenuItemDownload(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
@@ -89,7 +89,7 @@ public class MenuHandler
                 }
             } );
 
-        controller.mainFrame.getMenuItemPrint(  ).addActionListener( 
+        controller.mainFrame.getMenuItemPrint(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
@@ -99,7 +99,7 @@ public class MenuHandler
                 }
             } );
 
-        controller.mainFrame.getMenuItemChannelsSets(  ).addActionListener( 
+        controller.mainFrame.getMenuItemChannelsSets(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
@@ -109,7 +109,7 @@ public class MenuHandler
                 }
             } );
 
-        controller.mainFrame.getMenuItemUserGuide(  ).addActionListener( 
+        controller.mainFrame.getMenuItemUserGuide(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
@@ -118,18 +118,18 @@ public class MenuHandler
                 }
             } );
 
-        controller.mainFrame.getMenuItemAbout(  ).addActionListener( 
+        controller.mainFrame.getMenuItemAbout(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent e )
                 {
-                    new AboutFrame( controller.mainFrame, true ).setVisible( 
+                    new AboutFrame( controller.mainFrame, true ).setVisible(
                         true );
 
                 }
             } );
 
-        controller.mainFrame.getMenuItemWizard(  ).addActionListener( 
+        controller.mainFrame.getMenuItemWizard(  ).addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
@@ -153,7 +153,7 @@ public class MenuHandler
                 final JMenuItem item =
                     new JMenuItem( exporters[i].getName(  ) );
                 controller.mainFrame.getMenuItemExport(  ).add( item );
-                item.addActionListener( 
+                item.addActionListener(
                     new ActionListener(  )
                     {
                         public void actionPerformed( ActionEvent e )
@@ -179,7 +179,7 @@ public class MenuHandler
                 final JMenuItem item =
                     new JMenuItem( importers[i].getName(  ) );
                 controller.mainFrame.getMenuItemImport(  ).add( item );
-                item.addActionListener( 
+                item.addActionListener(
                     new ActionListener(  )
                     {
                         public void actionPerformed( ActionEvent e )

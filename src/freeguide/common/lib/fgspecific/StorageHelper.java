@@ -28,7 +28,7 @@ public class StorageHelper
      *
      * @return DOCUMENT_ME!
      */
-    public static TVProgramme findEarliest( 
+    public static TVProgramme findEarliest(
         final TVData data, final long minDate,
         final IModuleStorage.EarliestCheckAllow checker )
     {
@@ -45,13 +45,13 @@ public class StorageHelper
      * @param info DOCUMENT_ME!
      * @param programme DOCUMENT_ME!
      */
-    public static void performInInfo( 
+    public static void performInInfo(
         final IModuleStorage.Info info, final TVProgramme programme )
     {
         if( !info.channelsList.contains( programme.getChannel(  ).getID(  ) ) )
         {
-            info.channelsList.add( 
-                new TVChannelsSet.Channel( 
+            info.channelsList.add(
+                new TVChannelsSet.Channel(
                     programme.getChannel(  ).getID(  ),
                     programme.getChannel(  ).getDisplayName(  ) ) );
         }
@@ -73,10 +73,10 @@ public class StorageHelper
      * @param info DOCUMENT_ME!
      * @param data DOCUMENT_ME!
      */
-    public static void performInInfo( 
+    public static void performInInfo(
         final IModuleStorage.Info info, final TVData data )
     {
-        data.iterate( 
+        data.iterate(
             new TVIteratorChannels(  )
             {
                 protected void onChannel( TVChannel channel )
@@ -92,17 +92,17 @@ public class StorageHelper
      * @param info
      * @param channel
      */
-    public static void performInInfo( 
+    public static void performInInfo(
         final IModuleStorage.Info info, final TVChannel channel )
     {
         if( !info.channelsList.contains( channel.getID(  ) ) )
         {
-            info.channelsList.add( 
-                new TVChannelsSet.Channel( 
+            info.channelsList.add(
+                new TVChannelsSet.Channel(
                     channel.getID(  ), channel.getDisplayName(  ) ) );
         }
 
-        for( 
+        for(
             final Iterator it = channel.getProgrammes(  ).iterator(  );
                 it.hasNext(  ); )
         {
@@ -127,13 +127,13 @@ public class StorageHelper
         final protected IModuleStorage.EarliestCheckAllow checker;
         final protected long minDate;
 
-/**
+        /**
          * Creates a new EarliestIteratorProgrammes object.
          *
          * @param minDate DOCUMENT ME!
          * @param checker DOCUMENT ME!
          */
-        public EarliestIteratorProgrammes( 
+        public EarliestIteratorProgrammes(
             final long minDate, final IModuleStorage.EarliestCheckAllow checker )
         {
             this.checker = checker;

@@ -38,7 +38,7 @@ public class InstallWizardPanel extends WizardPanel
     public JCheckBox configgrabberCheckBox;
     private JPanel middlePanel;
 
-/**
+    /**
      * Creates a new InstallWizardPanel object.
      */
     public InstallWizardPanel(  )
@@ -56,7 +56,7 @@ public class InstallWizardPanel extends WizardPanel
 
         middlePanel = new JPanel(  );
 
-        readmeCheckBox = new JCheckBox( 
+        readmeCheckBox = new JCheckBox(
                 Application.getInstance(  )
                            .getLocalizedMessage( "display_the_readme" ), true );
 
@@ -64,7 +64,7 @@ public class InstallWizardPanel extends WizardPanel
 
         readmeCheckBox.setSelected( true );
 
-        configgrabberCheckBox = new JCheckBox( 
+        configgrabberCheckBox = new JCheckBox(
                 Application.getInstance(  )
                            .getLocalizedMessage( "choose_channels_now" ), true );
 

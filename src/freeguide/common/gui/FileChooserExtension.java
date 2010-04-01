@@ -14,7 +14,7 @@ import freeguide.common.plugininterfaces.IModuleViewer;
 
 /**
  * DOCUMENT ME!
- * 
+ *
  * @author $author$
  * @version $Revision$
  */
@@ -59,7 +59,7 @@ public class FileChooserExtension extends JPanel
 
     /**
      * DOCUMENT_ME!
-     * 
+     *
      * @param comp
      *            DOCUMENT_ME!
      */
@@ -73,7 +73,7 @@ public class FileChooserExtension extends JPanel
 
     /**
      * This method initializes cbSelected (public for test)
-     * 
+     *
      * @return javax.swing.JCheckBox
      */
     public JCheckBox getCbSelected()
@@ -90,7 +90,7 @@ public class FileChooserExtension extends JPanel
 
     /**
      * This method initializes cbToday (public for test)
-     * 
+     *
      * @return javax.swing.JCheckBox
      */
     public JCheckBox getCbToday()
@@ -107,7 +107,7 @@ public class FileChooserExtension extends JPanel
 
     /**
      * DOCUMENT_ME!
-     * 
+     *
      * @return DOCUMENT_ME!
      */
     public boolean isSelectedOnly()
@@ -117,7 +117,7 @@ public class FileChooserExtension extends JPanel
 
     /**
      * DOCUMENT_ME!
-     * 
+     *
      * @return DOCUMENT_ME!
      */
     public boolean isTodayOnly()
@@ -127,7 +127,7 @@ public class FileChooserExtension extends JPanel
 
     /**
      * DOCUMENT_ME!
-     * 
+     *
      * @return DOCUMENT_ME!
      */
     public boolean isChannelsList()
@@ -137,7 +137,7 @@ public class FileChooserExtension extends JPanel
 
     /**
      * This method initializes cbChannelsList (public for test)
-     * 
+     *
      * @return javax.swing.JCheckBox
      */
     public JCheckBox getCbChannelsList()
@@ -154,7 +154,7 @@ public class FileChooserExtension extends JPanel
 
     /**
      * DOCUMENT_ME!
-     * 
+     *
      * @return DOCUMENT_ME!
      */
     public IModuleStorage.Info getSaveInfo()

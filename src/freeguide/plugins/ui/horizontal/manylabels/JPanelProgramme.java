@@ -32,7 +32,7 @@ public class JPanelProgramme extends JPanel
     protected DateFormat timeFormat;
     private long cursorHorizontalPos = -1;
 
-/**
+    /**
      * Creates a new JPanelProgramme object.
      *
      * @param controller DOCUMENT ME!
@@ -51,7 +51,7 @@ public class JPanelProgramme extends JPanel
      * @param rowCount DOCUMENT_ME!
      * @param timeFormat DOCUMENT_ME!
      */
-    public void init( 
+    public void init(
         final long theDate, final Font font, final int rowCount,
         final DateFormat timeFormat )
     {
@@ -68,7 +68,7 @@ public class JPanelProgramme extends JPanel
         }
     }
 
-    protected JLabelProgramme getLabelForProgramme( 
+    protected JLabelProgramme getLabelForProgramme(
         final TVProgramme programme )
     {
         return (JLabelProgramme)labelsForProgrammes.get( programme );
@@ -83,7 +83,7 @@ public class JPanelProgramme extends JPanel
     public void addProgramme( final TVProgramme programme, final int row )
     {
         JLabelProgramme label =
-            new JLabelProgramme( 
+            new JLabelProgramme(
                 programme, controller, controller.config.displayAlignToLeft,
                 timeFormat );
         setupBounds( label, programme, row );
@@ -101,7 +101,7 @@ public class JPanelProgramme extends JPanel
     {
         for( int i = 0; i < rows.length; i++ )
         {
-            Collections.sort( 
+            Collections.sort(
                 rows[i],
                 new Comparator(  )
                 {
@@ -124,7 +124,7 @@ public class JPanelProgramme extends JPanel
      * @param programme DOCUMENT ME!
      * @param row label row
      */
-    protected void setupBounds( 
+    protected void setupBounds(
         final JLabelProgramme label, final TVProgramme programme, final int row )
     {
         int    sizePanel = (int) (controller.config.sizeProgrammeHour * controller.todayMillis / Time.HOUR);
@@ -178,7 +178,7 @@ public class JPanelProgramme extends JPanel
 
         if( cursorHorizontalPos == -1 )
         {
-            cursorHorizontalPos = label.getMiddle( 
+            cursorHorizontalPos = label.getMiddle(
                     startDate, startDate + controller.todayMillis );
         }
 
@@ -211,7 +211,7 @@ public class JPanelProgramme extends JPanel
 
         if( cursorHorizontalPos == -1 )
         {
-            cursorHorizontalPos = label.getMiddle( 
+            cursorHorizontalPos = label.getMiddle(
                     startDate, startDate + controller.todayMillis );
         }
 
@@ -250,7 +250,7 @@ public class JPanelProgramme extends JPanel
                 (JLabelProgramme)rows[row].get( pos - 1 );
             focusAndShow( newLabel );
 
-            cursorHorizontalPos = newLabel.getMiddle( 
+            cursorHorizontalPos = newLabel.getMiddle(
                     startDate, startDate + controller.todayMillis );
         }
     }
@@ -277,7 +277,7 @@ public class JPanelProgramme extends JPanel
                 (JLabelProgramme)rows[row].get( pos + 1 );
             focusAndShow( newLabel );
 
-            cursorHorizontalPos = newLabel.getMiddle( 
+            cursorHorizontalPos = newLabel.getMiddle(
                     startDate, startDate + controller.todayMillis );
         }
     }
@@ -310,15 +310,15 @@ public class JPanelProgramme extends JPanel
      *
      * @return found label, or null if there is no label in specified row
      */
-    protected JLabelProgramme getNearestFor( 
+    protected JLabelProgramme getNearestFor(
         final int row, final long middleTime )
     {
         for( int i = 0; i < rows[row].size(  ); i++ )
         {
             JLabelProgramme current = (JLabelProgramme)rows[row].get( i );
 
-            if( 
-                current.isOverlap( 
+            if(
+                current.isOverlap(
                         middleTime, startDate,
                         startDate + controller.todayMillis ) )
             {

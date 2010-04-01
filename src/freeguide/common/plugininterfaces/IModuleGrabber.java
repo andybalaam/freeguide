@@ -23,7 +23,7 @@ public interface IModuleGrabber extends IModule
      *
      * @throws Exception
      */
-    boolean grabData( 
+    boolean grabData(
         IProgress progress, ILogger logger, IStoragePipe storage )
         throws Exception;
 
@@ -42,7 +42,7 @@ public interface IModuleGrabber extends IModule
 
     /**
      * Start module. Called when application starts.
-     * @param controller  
+     * @param controller
      */
     void start(  );
 

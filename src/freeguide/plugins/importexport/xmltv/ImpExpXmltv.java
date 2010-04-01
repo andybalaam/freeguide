@@ -27,7 +27,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * XMLTV import/export plugin.
- * 
+ *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
 public class ImpExpXmltv extends BaseModule implements IModuleImport,
@@ -37,7 +37,7 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
 
     /**
      * DOCUMENT_ME!
-     * 
+     *
      * @return DOCUMENT_ME!
      */
     public Object getConfig()
@@ -47,7 +47,7 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
 
     /**
      * DOCUMENT_ME!
-     * 
+     *
      * @param parent
      *            DOCUMENT_ME!
      * @param storage
@@ -110,12 +110,12 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
 
     /**
      * DOCUMENT_ME!
-     * 
+     *
      * @param file
      *            DOCUMENT_ME!
      * @param storage
      *            DOCUMENT ME!
-     * 
+     *
      * @throws Exception
      *             DOCUMENT_ME!
      */
@@ -128,12 +128,12 @@ public class ImpExpXmltv extends BaseModule implements IModuleImport,
 
     /**
      * DOCUMENT_ME!
-     * 
+     *
      * @param data
      *            DOCUMENT_ME!
      * @param parent
      *            DOCUMENT_ME!
-     * 
+     *
      * @throws IOException
      *             DOCUMENT_ME!
      */

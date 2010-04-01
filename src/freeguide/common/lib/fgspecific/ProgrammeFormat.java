@@ -96,7 +96,7 @@ public class ProgrammeFormat
         // nothing else to do
         if( delta == 0 )
         {
-            toAppend.append( 
+            toAppend.append(
                 Application.getInstance(  ).getLocalizedMessage( "starts_now" ) );
 
             return;
@@ -111,44 +111,44 @@ public class ProgrammeFormat
         {
             if( days == 1 )
             {
-                toAppend.append( 
+                toAppend.append(
                     Application.getInstance(  )
                                .getLocalizedMessage( "starts_in_1_day" ) );
             }
             else if( days > 1 )
             {
                 Object[] messageArguments = { new Integer( days ) };
-                toAppend.append( 
+                toAppend.append(
                     Application.getInstance(  )
-                               .getLocalizedMessage( 
+                               .getLocalizedMessage(
                         "starts_in_days_template", messageArguments ) );
             }
             else if( hours == 1 )
             {
-                toAppend.append( 
+                toAppend.append(
                     Application.getInstance(  )
                                .getLocalizedMessage( "starts_in_1_hour" ) );
             }
             else if( hours > 1 )
             {
                 Object[] messageArguments = { new Integer( hours ) };
-                toAppend.append( 
+                toAppend.append(
                     Application.getInstance(  )
-                               .getLocalizedMessage( 
+                               .getLocalizedMessage(
                         "starts_in_hours_template", messageArguments ) );
             }
             else if( minutes == 1 )
             {
-                toAppend.append( 
+                toAppend.append(
                     Application.getInstance(  )
                                .getLocalizedMessage( "starts_in_1_minute" ) );
             }
             else
             {
                 Object[] messageArguments = { new Integer( minutes ) };
-                toAppend.append( 
+                toAppend.append(
                     Application.getInstance(  )
-                               .getLocalizedMessage( 
+                               .getLocalizedMessage(
                         "starts_in_minutes_template", messageArguments ) );
             }
         }
@@ -156,44 +156,44 @@ public class ProgrammeFormat
         {
             if( days == -1 )
             {
-                toAppend.append( 
+                toAppend.append(
                     Application.getInstance(  )
                                .getLocalizedMessage( "started_1_day_ago" ) );
             }
             else if( days < -1 )
             {
                 Object[] messageArguments = { new Integer( -days ) };
-                toAppend.append( 
+                toAppend.append(
                     Application.getInstance(  )
-                               .getLocalizedMessage( 
+                               .getLocalizedMessage(
                         "started_days_ago_template", messageArguments ) );
             }
             else if( hours == -1 )
             {
-                toAppend.append( 
+                toAppend.append(
                     Application.getInstance(  )
                                .getLocalizedMessage( "started_1_hour_ago" ) );
             }
             else if( hours < -1 )
             {
                 Object[] messageArguments = { new Integer( -hours ) };
-                toAppend.append( 
+                toAppend.append(
                     Application.getInstance(  )
-                               .getLocalizedMessage( 
+                               .getLocalizedMessage(
                         "started_hours_ago_template", messageArguments ) );
             }
             else if( minutes == -1 )
             {
-                toAppend.append( 
+                toAppend.append(
                     Application.getInstance(  )
                                .getLocalizedMessage( "started_1_minute_ago" ) );
             }
             else
             {
                 Object[] messageArguments = { new Integer( -minutes ) };
-                toAppend.append( 
+                toAppend.append(
                     Application.getInstance(  )
-                               .getLocalizedMessage( 
+                               .getLocalizedMessage(
                         "started_minutes_ago_template", messageArguments ) );
             }
         }
@@ -213,7 +213,7 @@ public class ProgrammeFormat
 
         // According to HTML spec, name must be unique and use only ASCII chars
         StringBuffer ref =
-            new StringBuffer( 
+            new StringBuffer(
                 LINK_DATE_FORMAT.format( new Date( programme.getStart(  ) ) ) );
         ref.append( ';' );
         ref.append( programme.getChannel(  ).getID(  ) );

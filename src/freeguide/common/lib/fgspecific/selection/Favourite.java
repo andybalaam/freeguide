@@ -59,7 +59,7 @@ public class Favourite
     /** Day of week, or -1 if any. */
     public int dayOfWeek = -1;
 
-/**
+    /**
      * Constructor for the Favourite object
      */
     public Favourite(  )
@@ -116,7 +116,7 @@ public class Favourite
         }
 
         // Match the title to containing a string
-        if( 
+        if(
             ( titleContains != null )
                 && ( progTitle.indexOf( titleContains ) == -1 ) )
         {
@@ -124,7 +124,7 @@ public class Favourite
         }
 
         // Match the title to a regular expression
-        if( 
+        if(
             ( titleRegex != null )
                 && !getTitleRegexPattern(  ).matcher( progTitle ).matches(  ) )
         {
@@ -132,7 +132,7 @@ public class Favourite
         }
 
         // Match the channel ID
-        if( 
+        if(
             ( channelID != null )
                 && !channelID.equals( prog.getChannel(  ).getID(  ) ) )
         {
@@ -158,7 +158,7 @@ public class Favourite
         cal.setTimeInMillis( prog.getStart(  ) );
 
         // Match the day of the week
-        if( 
+        if(
             ( dayOfWeek != -1 )
                 && ( dayOfWeek != cal.get( Calendar.DAY_OF_WEEK ) ) )
         {

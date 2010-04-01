@@ -75,7 +75,7 @@ public class AlarmReminder extends BaseModuleReminder
      * @param programme DOCUMENT_ME!
      * @param menu DOCUMENT_ME!
      */
-    public void addItemsToPopupMenu( 
+    public void addItemsToPopupMenu(
         final TVProgramme programme, final JPopupMenu menu )
     {
         final JMenuItem sel = new JMenuItem(  );
@@ -83,7 +83,7 @@ public class AlarmReminder extends BaseModuleReminder
         if( !isSelected( programme ) )
         {
             sel.setText( i18n.getString( "popup.selection.add" ) );
-            sel.addActionListener( 
+            sel.addActionListener(
                 new ActionListener(  )
                 {
                     public void actionPerformed( ActionEvent e )
@@ -96,7 +96,7 @@ public class AlarmReminder extends BaseModuleReminder
         else
         {
             sel.setText( i18n.getString( "popup.selection.del" ) );
-            sel.addActionListener( 
+            sel.addActionListener(
                 new ActionListener(  )
                 {
                     public void actionPerformed( ActionEvent e )
@@ -114,7 +114,7 @@ public class AlarmReminder extends BaseModuleReminder
         if( getFavourite( programme ) == null )
         {
             fav.setText( i18n.getString( "popup.favourite.add" ) );
-            fav.addActionListener( 
+            fav.addActionListener(
                 new ActionListener(  )
                 {
                     public void actionPerformed( ActionEvent e )
@@ -132,7 +132,7 @@ public class AlarmReminder extends BaseModuleReminder
         else
         {
             fav.setText( i18n.getString( "popup.favourite.del" ) );
-            fav.addActionListener( 
+            fav.addActionListener(
                 new ActionListener(  )
                 {
                     public void actionPerformed( ActionEvent e )
@@ -160,9 +160,9 @@ public class AlarmReminder extends BaseModuleReminder
         Object[] messageArguments = { favourite.getName(  ) };
 
         int r =
-            JOptionPane.showConfirmDialog( 
+            JOptionPane.showConfirmDialog(
                 null, //controller.getPanel(  ),
-                MessageFormat.format( 
+                MessageFormat.format(
                     i18n.getString( "popup.favourite.del.prompt" ),
                     messageArguments ),
                 i18n.getString( "popup.favourite.del.title" ),
@@ -178,12 +178,12 @@ public class AlarmReminder extends BaseModuleReminder
     protected void onMenuItem(  )
     {
         FavouritesController favController =
-            new FavouritesController( 
+            new FavouritesController(
                 Application.getInstance(  ).getApplicationFrame(  ),
                 config.favouritesList,
                 Application.getInstance(  ).getDataStorage(  ).getInfo(  ).channelsList );
 
-        Utils.centreDialog( 
+        Utils.centreDialog(
             Application.getInstance(  ).getApplicationFrame(  ),
             favController.getListDialog(  ) );
         favController.getListDialog(  ).setVisible( true );
@@ -239,7 +239,7 @@ public class AlarmReminder extends BaseModuleReminder
                 try
                 {
                     scheduledProgramme =
-                        Application.getInstance(  ).getDataStorage(  ).findEarliest( 
+                        Application.getInstance(  ).getDataStorage(  ).findEarliest(
                             System.currentTimeMillis(  )
                             + config.reminderWarning,
                             new IModuleStorage.EarliestCheckAllow(  )
@@ -261,12 +261,12 @@ public class AlarmReminder extends BaseModuleReminder
                 catch( Exception ex )
                 {
                     Application.getInstance(  ).getLogger(  )
-                               .log( 
+                               .log(
                         Level.WARNING, "Error find next programme", ex );
                 }
             }
 
-            return Math.min( 
+            return Math.min(
                 Math.min( timeForClose, timeForDisplay ),
                 System.currentTimeMillis(  ) + 300000 );
         }
@@ -278,7 +278,7 @@ public class AlarmReminder extends BaseModuleReminder
         {
             if( scheduledDialog != null )
             {
-                if( 
+                if(
                     ( timeForClose <= System.currentTimeMillis(  ) )
                         || ( timeForDisplay <= System.currentTimeMillis(  ) ) )
                 {
@@ -287,19 +287,19 @@ public class AlarmReminder extends BaseModuleReminder
                 }
             }
 
-            if( 
+            if(
                 ( scheduledProgramme != null )
                     && ( timeForDisplay <= System.currentTimeMillis(  ) ) )
             {
                 String message =
-                    MessageFormat.format( 
+                    MessageFormat.format(
                         i18n.getString( "alarm.text" ),
                         new Object[] { scheduledProgramme.getTitle(  ) } );
 
                 JOptionPane optionPane =
                     new JOptionPane( message, JOptionPane.INFORMATION_MESSAGE );
 
-                scheduledDialog = optionPane.createDialog( 
+                scheduledDialog = optionPane.createDialog(
                         Application.getInstance(  ).getApplicationFrame(  ),
                         i18n.getString( "alarm.title" ) );
 

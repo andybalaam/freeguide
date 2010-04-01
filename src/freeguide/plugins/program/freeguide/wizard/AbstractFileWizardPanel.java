@@ -35,7 +35,7 @@ public abstract class AbstractFileWizardPanel extends WizardPanel
     // ------------------------------
     private JTextField textfield;
 
-/**
+    /**
      * Create a new FreeGuideFileWizardPanel.
      */
     AbstractFileWizardPanel(  )
@@ -96,12 +96,12 @@ public abstract class AbstractFileWizardPanel extends WizardPanel
         // Make the browse button
         butBrowse.setFont( new java.awt.Font( "Dialog", 0, 12 ) );
 
-        butBrowse.setText( 
+        butBrowse.setText(
             Application.getInstance(  ).getLocalizedMessage( "browse" ) );
 
         butBrowse.setMnemonic( KeyEvent.VK_B );
 
-        butBrowse.addActionListener( 
+        butBrowse.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -152,7 +152,7 @@ public abstract class AbstractFileWizardPanel extends WizardPanel
 
         if( returnVal == JFileChooser.APPROVE_OPTION )
         {
-            textfield.setText( 
+            textfield.setText(
                 chooser.getSelectedFile(  ).getAbsolutePath(  ) );
 
         }

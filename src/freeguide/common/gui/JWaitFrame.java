@@ -14,13 +14,13 @@ import javax.swing.JFrame;
  */
 public class JWaitFrame extends JFrame
 {
-/**
+    /**
      * Creates a new JWaitFrame object.
      */
     public JWaitFrame(  )
     {
         setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
-        addWindowListener( 
+        addWindowListener(
             new WindowAdapter(  )
             {
                 public void windowClosed( WindowEvent e )

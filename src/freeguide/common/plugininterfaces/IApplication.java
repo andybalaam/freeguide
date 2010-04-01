@@ -65,7 +65,7 @@ public interface IApplication
 
     Locale[] getSupportedLocales(  );
 
-/**
+    /**
      * DOCUMENT ME!
      *
      * @author $author$

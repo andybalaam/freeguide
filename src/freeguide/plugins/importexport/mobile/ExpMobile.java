@@ -53,7 +53,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
     protected static final String DATEFORMAT_MASK = "yyyy-MM-dd";
     protected final int version;
 
-/**
+    /**
      * Creates a new ExpMobile object.
      */
     public ExpMobile(  )
@@ -61,7 +61,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
         version = 2;
     }
 
-/**
+    /**
      * Creates a new ExpMobile object.
      *
      * @param version DOCUMENT ME!
@@ -106,7 +106,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
             final File destination = chooser.getSelectedFile(  );
 
             clearDir( destination );
-            exportToDir( 
+            exportToDir(
                 data, destination, Application.getInstance(  ).getTimeZone(  ) );
         }
     }
@@ -126,7 +126,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
             {
                 if( !files[i].isDirectory(  ) )
                 {
-                    if( 
+                    if(
                         FILE_LIST.equals( files[i].getName(  ) )
                             || DATA_FILE_RE.matcher( files[i].getName(  ) )
                                                .matches(  ) )
@@ -147,12 +147,12 @@ public class ExpMobile extends BaseModule implements IModuleExport
      *
      * @throws IOException DOCUMENT ME!
      */
-    public void exportToDir( 
+    public void exportToDir(
         final TVData data, final File dir, final TimeZone tz )
         throws IOException
     {
         final DivideIterator itdivide =
-            new DivideIterator( 
+            new DivideIterator(
                 tz, System.currentTimeMillis(  ) - ( MSEC_PER_DAY * 2 ) );
         data.iterate( itdivide );
 
@@ -165,8 +165,8 @@ public class ExpMobile extends BaseModule implements IModuleExport
         }
 
         final DataOutputStream dout =
-            new DataOutputStream( 
-                new BufferedOutputStream( 
+            new DataOutputStream(
+                new BufferedOutputStream(
                     new FileOutputStream( new File( dir, FILE_LIST ) ) ) );
 
         try
@@ -210,7 +210,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
      *
      * @throws IOException
      */
-    protected void exportOneDay( 
+    protected void exportOneDay(
         final File file, final TVData dayData, final TimeZone tz )
         throws IOException
     {
@@ -257,7 +257,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
      *
      * @throws IOException
      */
-    protected byte[] exportHeader( 
+    protected byte[] exportHeader(
         final Map<String, byte[]> channelsData,
         final Map<String, Integer> offsets, final int headerOffset )
         throws IOException
@@ -312,7 +312,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
         protected Map<String, TVData> filesData =
             new TreeMap<String, TVData>(  );
 
-/**
+        /**
          * Creates a new DivideIterator object.
          */
         public DivideIterator( final TimeZone tz, final long minimumDate )
@@ -387,7 +387,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
         protected final int version;
         protected IOException ex;
 
-/**
+        /**
          * Creates a new OutIterator object.
          *
          * @param tz DOCUMENT ME!
@@ -425,7 +425,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
             for( int i = 0; i < programmes.length; i++ )
             {
                 progNames[i] = putToList( strings, programmes[i].getTitle(  ) );
-                progDescs[i] = putToList( 
+                progDescs[i] = putToList(
                         strings,
                         fixDescription( programmes[i].getDescription(  ) ) );
             }
@@ -442,7 +442,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
 
                 for( int i = 0; i < programmes.length; i++ )
                 {
-                    dout.writeInt( 
+                    dout.writeInt(
                         (int)( programmes[i].getStart(  ) / 1000 / 60 ) );
 
                     switch( version )
@@ -451,7 +451,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
                         break;
 
                     case 2:
-                        dout.writeShort( 
+                        dout.writeShort(
                             tz.getOffset( programmes[i].getStart(  ) ) / 1000 / 60 );
 
                         break;
@@ -460,7 +460,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
                         throw new IOException( "Unknown version" );
                     }
 
-                    dout.writeShort( 
+                    dout.writeShort(
                         (int)( ( programmes[i].getEnd(  )
                         - programmes[i].getStart(  ) ) / 1000 / 60 ) );
                     dout.writeShort( progNames[i] );
@@ -520,7 +520,7 @@ public class ExpMobile extends BaseModule implements IModuleExport
             try
             {
                 final DataOutputStream dout =
-                    new DataOutputStream( 
+                    new DataOutputStream(
                         new GZIPOutputStream( array, BUFFER_SIZE ) );
                 dout.write( data );
                 dout.flush(  );

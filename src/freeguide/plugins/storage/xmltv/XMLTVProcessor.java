@@ -50,7 +50,7 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
      *
      * @throws Exception
      */
-    public TVData load( 
+    public TVData load(
         final TVChannelsSet channels, long minDate, long maxDate )
         throws Exception
     {
@@ -175,7 +175,7 @@ public class XMLTVProcessor extends BaseModule //implements IStorage
         public void performChannelEnd( final TVChannel currentChannel )
         {
             TVChannelsSet.Channel ch =
-                new TVChannelsSet.Channel( 
+                new TVChannelsSet.Channel(
                     currentChannel.getID(  ), currentChannel.getDisplayName(  ) );
 
             if( !info.channelsList.contains( ch.getChannelID(  ) ) )

@@ -1,12 +1,12 @@
 /*
  * FreeGuide J2
- * 
+ *
  * Copyright (c) 2001-2004 by Andy Balaam and the FreeGuide contributors
- * 
+ *
  * freeguide-tv.sourceforge.net
- * 
+ *
  * Released under the GNU General Public License with ABSOLUTELY NO WARRANTY.
- * 
+ *
  * See the file COPYING for more information.
  */
 package freeguide.plugins.program.freeguide.dialogs;
@@ -25,7 +25,7 @@ import freeguide.plugins.program.freeguide.FreeGuide;
 
 /**
  * Tell the user there's a new version of FreeGuide available
- * 
+ *
  * @author Andy Balaam
  * @version 1
  */
@@ -41,7 +41,7 @@ public class NewVersionDialog extends JDialog
 
     /**
      * Constructor which sets the customiser up as a JDialog...
-     * 
+     *
      * @param parent DOCUMENT ME!
      */
     public NewVersionDialog( JFrame parent )
@@ -111,7 +111,7 @@ public class NewVersionDialog extends JDialog
 
     /**
      * Description of the Method
-     * 
+     *
      * @param evt Description of the Parameter
      */
     private void butOKActionPerformed( java.awt.event.ActionEvent evt )
@@ -126,7 +126,7 @@ public class NewVersionDialog extends JDialog
 
     /**
      * Description of the Method
-     * 
+     *
      * @param evt Description of the Parameter
      */
     private void butURLActionPerformed( java.awt.event.ActionEvent evt )

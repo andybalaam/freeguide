@@ -30,13 +30,13 @@ public class PatchSpec
      *
      * @throws IOException DOCUMENT_ME!
      */
-    public static void patch( 
+    public static void patch(
         final String inFileName, final String outFileName,
         final PluginInfo[] plugins ) throws IOException
     {
         BufferedReader rd =
-            new BufferedReader( 
-                new InputStreamReader( 
+            new BufferedReader(
+                new InputStreamReader(
                     new FileInputStream( inFileName ), "UTF-8" ) );
         StringBuffer data = new StringBuffer(  );
 
@@ -56,8 +56,8 @@ public class PatchSpec
         rd.close(  );
 
         BufferedWriter wr =
-            new BufferedWriter( 
-                new OutputStreamWriter( 
+            new BufferedWriter(
+                new OutputStreamWriter(
                     new FileOutputStream( outFileName ), "UTF-8" ) );
         wr.write( data.toString(  ) );
 
@@ -103,13 +103,13 @@ public class PatchSpec
      *
      * @throws IOException DOCUMENT_ME!
      */
-    public static void patchAllPlugins( 
+    public static void patchAllPlugins(
         final String templateFileName, final String prefix, final String suffix,
         final PluginInfo[] plugins ) throws IOException
     {
         BufferedReader rd =
-            new BufferedReader( 
-                new InputStreamReader( 
+            new BufferedReader(
+                new InputStreamReader(
                     new FileInputStream( templateFileName ), "UTF-8" ) );
         StringBuffer data = new StringBuffer(  );
 
@@ -135,9 +135,9 @@ public class PatchSpec
             String result = replaceAppInfo( plugins[0], strData );
 
             BufferedWriter wr =
-                new BufferedWriter( 
-                    new OutputStreamWriter( 
-                        new FileOutputStream( 
+                new BufferedWriter(
+                    new OutputStreamWriter(
+                        new FileOutputStream(
                             prefix + plugins[i].getID(  ) + suffix ), "UTF-8" ) );
             wr.write( result );
             wr.flush(  );
@@ -145,23 +145,23 @@ public class PatchSpec
         }
     }
 
-    protected static String replaceAppInfo( 
+    protected static String replaceAppInfo(
         final PluginInfo appInfo, final String in )
     {
         String strData = in;
-        strData = strData.replaceAll( 
+        strData = strData.replaceAll(
                 "__ANT_VERSION_MAJOR__", "" + appInfo.getVersion(  ).major );
-        strData = strData.replaceAll( 
+        strData = strData.replaceAll(
                 "__ANT_VERSION_MINOR__", "" + appInfo.getVersion(  ).minor );
-        strData = strData.replaceAll( 
+        strData = strData.replaceAll(
                 "__ANT_VERSION_REVISION__",
                 "" + appInfo.getVersion(  ).revision );
-        strData = strData.replaceAll( 
+        strData = strData.replaceAll(
                 "__ANT_VERSION_BUILD__", "" + appInfo.getVersion(  ).build );
-        strData = strData.replaceAll( 
+        strData = strData.replaceAll(
                 "__ANT_NAME_VERSION__",
                 "freeguide-" + appInfo.getVersion(  ).getDotFormat(  ) );
-        strData = strData.replaceAll( 
+        strData = strData.replaceAll(
                 "__ANT_VERSION_DOTTED__",
                 appInfo.getVersion(  ).getDotFormat(  ) );
 

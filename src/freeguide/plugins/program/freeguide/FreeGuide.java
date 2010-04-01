@@ -90,7 +90,7 @@ public class FreeGuide
     /** DOCUMENT ME! */
     protected static PleaseWaitFrame pleaseWaitFrame;
 
-/**
+    /**
      * Run FreeGuide. Command line arguments are: --language lang Set the
      * language FreeGuide uses, e.g. "en" for English, "de" for German --country
      * ctry Set the country variant for localisation, e.g. "GB" for Great
@@ -163,7 +163,7 @@ public static String preStartup( String[] args ) throws IOException, Exception
         else
         {
             lev = Level.INFO;
-            log.warning( 
+            log.warning(
                 "Unrecognised log level \"" + strlev
                 + "\", defaulting to info" );
         }
@@ -197,7 +197,7 @@ public static String preStartup( String[] args ) throws IOException, Exception
 
     if( arguments.containsKey( "install_directory" ) )
     {
-        runtimeInfo.installDirectory = arguments.getProperty( 
+        runtimeInfo.installDirectory = arguments.getProperty(
                 "install_directory" );
     }
     else
@@ -225,7 +225,7 @@ public static String preStartup( String[] args ) throws IOException, Exception
     if( Migrate.isDumpPrefs(  ) )
     {
         Migrate.dumpPrefs( pref_root_name );
-        log.info( 
+        log.info(
             "The preferences were written to files in the current"
             + " directory." );
         System.exit( 0 );
@@ -235,7 +235,7 @@ public static String preStartup( String[] args ) throws IOException, Exception
         // load config
         try
         {
-            PreferencesHelper.load( 
+            PreferencesHelper.load(
                 Preferences.userRoot(  ).node( pref_root_name ), config );
             config.version = Application.VERSION.getDotFormat(  );
         }
@@ -258,11 +258,11 @@ public static String preStartup( String[] args ) throws IOException, Exception
 
         if( PluginsManager.getApplicationModuleInfo(  ) == null )
         {
-            die( 
+            die(
                 startupMessages.getString( "startup.NoApplicationModule" ) );
         }
 
-        Application.setInstance( 
+        Application.setInstance(
             (IApplication)PluginsManager.getApplicationModuleInfo(  )
                                         .getInstance(  ) );
 
@@ -294,7 +294,7 @@ public static String preStartup( String[] args ) throws IOException, Exception
     {
         try
         {
-            PreferencesHelper.save( 
+            PreferencesHelper.save(
                 Preferences.userRoot(  ).node( pref_root_name ), config );
 
         }
@@ -318,7 +318,7 @@ public static String preStartup( String[] args ) throws IOException, Exception
         throws Exception
     {
         IModuleViewer viewer =
-            (IModuleViewer)PluginsManager.getModuleByID( 
+            (IModuleViewer)PluginsManager.getModuleByID(
                 ( (MainController.Config)( (MainController)Application
                 .getInstance(  ) ).getConfig(  ) ).viewerId );
 
@@ -329,7 +329,7 @@ public static String preStartup( String[] args ) throws IOException, Exception
                 die( startupMessages.getString( "startup.NoUI" ) );
             }
 
-            viewer = (IModuleViewer)PluginsManager.getModuleByID( 
+            viewer = (IModuleViewer)PluginsManager.getModuleByID(
                     PluginsManager.getViewers(  )[0].getID(  ) );
         }
 
@@ -347,7 +347,7 @@ public static String preStartup( String[] args ) throws IOException, Exception
             log.log( Level.WARNING, "Error loading XMLTV file", ex );
         }
 
-        ( (MainController)Application.getInstance(  ) ).start( 
+        ( (MainController)Application.getInstance(  ) ).start(
             viewer, grabberFromWizard );
     }
 
@@ -367,7 +367,7 @@ public static String preStartup( String[] args ) throws IOException, Exception
         }
 
         File[] xmltvFiles =
-            new File( config.workingDirectory ).listFiles( 
+            new File( config.workingDirectory ).listFiles(
                 new FileFilter(  )
                 {
                     public boolean accept( File pathname )
@@ -417,7 +417,7 @@ public static String preStartup( String[] args ) throws IOException, Exception
     public static void die( String msg )
     {
         log.severe( msg );
-        JOptionPane.showMessageDialog( 
+        JOptionPane.showMessageDialog(
             null, msg, null, JOptionPane.ERROR_MESSAGE );
         System.exit( 1 );
     }
@@ -430,7 +430,7 @@ public static String preStartup( String[] args ) throws IOException, Exception
     public static void warning( String msg )
     {
         log.warning( msg );
-        JOptionPane.showMessageDialog( 
+        JOptionPane.showMessageDialog(
             null, msg, null, JOptionPane.WARNING_MESSAGE );
     }
 
@@ -521,8 +521,8 @@ public static String preStartup( String[] args ) throws IOException, Exception
     {
         if( Version.getJavaVersion(  ).lessThan( MINIMUM_JAVA_VERSION ) )
         {
-            die( 
-                MessageFormat.format( 
+            die(
+                MessageFormat.format(
                     startupMessages.getString( "startup.WrongJavaVersion" ),
                     new Object[] { System.getProperty( "java.version" ) } ) );
         }
@@ -560,7 +560,7 @@ public static String preStartup( String[] args ) throws IOException, Exception
         /** User's locale, or null if it use default locale. */
         public Locale lang;
 
-/**
+        /**
          * Creates a new Config object and setup default values.
          */
         public Config(  )
@@ -609,7 +609,7 @@ public static String preStartup( String[] args ) throws IOException, Exception
         /** Default system locale or from --language, --country flags. */
         public Locale defaultLocale;
 
-/**
+        /**
          * Creates a new RuntimeInfo object.
          */
         public RuntimeInfo(  )

@@ -39,14 +39,14 @@ public interface IModuleConfigureFromWizard
         final protected int priority;
         final protected boolean supportSelectChannel;
 
-/**
+        /**
          * Creates a new CountryInfo object.
          *
          * @param country DOCUMENT ME!
          * @param priority DOCUMENT ME!
          * @param supportSelectChannels DOCUMENT ME!
          */
-        public CountryInfo( 
+        public CountryInfo(
             final String country, final String displayCountry,
             final int priority, final boolean supportSelectChannels )
         {
@@ -94,9 +94,9 @@ public interface IModuleConfigureFromWizard
             }
             else if( displayCountry.indexOf( "%country%" ) != -1 )
             {
-                displayCountry = displayCountry.replaceAll( 
+                displayCountry = displayCountry.replaceAll(
                         "%country%",
-                        getDisplayCountryForCode( 
+                        getDisplayCountryForCode(
                             getCountry(  ).substring( 0, 2 ) ) );
             }
 

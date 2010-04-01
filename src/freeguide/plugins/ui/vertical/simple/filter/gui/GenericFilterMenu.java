@@ -29,7 +29,7 @@ public class GenericFilterMenu extends JPopupMenu implements ActionListener
     /** List with all "recent" time items */
     protected LinkedList history = new LinkedList(  );
 
-/**
+    /**
      * Creates a new GenericFilterMenu object.
      *
      * @param filter DOCUMENT ME!
@@ -46,16 +46,16 @@ public class GenericFilterMenu extends JPopupMenu implements ActionListener
     //public GenericFilterMenu(TimeFilter filter)
     protected void buildMenu(  )
     {
-        this.mnuEdit = new JMenuItem( 
+        this.mnuEdit = new JMenuItem(
                 VerticalViewer.getInstance(  )
-                              .getLocalizedMessage( 
+                              .getLocalizedMessage(
                     "genericfilter.menu.editfilter" ) );
         this.mnuEdit.addActionListener( this );
         this.add( this.mnuEdit );
 
-        this.mnuNoFilter = new JMenuItem( 
+        this.mnuNoFilter = new JMenuItem(
                 VerticalViewer.getInstance(  )
-                              .getLocalizedMessage( 
+                              .getLocalizedMessage(
                     "genericfilter.menu.nofilter" ) );
         this.mnuNoFilter.addActionListener( this );
         this.add( this.mnuNoFilter );
@@ -80,7 +80,7 @@ public class GenericFilterMenu extends JPopupMenu implements ActionListener
         else
         {
             //import the filter setting
-            this.filter.importSettings( 
+            this.filter.importSettings(
                 (String)( (DataMenuItem)e.getSource(  ) ).getData(  ) );
         }
     }
@@ -141,8 +141,8 @@ public class GenericFilterMenu extends JPopupMenu implements ActionListener
 
         for( int nA = 0; nA < arItems.length; nA++ )
         {
-            if( 
-                ( (DataMenuItem)arItems[nA] ).getData(  ).equals( 
+            if(
+                ( (DataMenuItem)arItems[nA] ).getData(  ).equals(
                         strExportValue ) )
             {
                 bExists = true;

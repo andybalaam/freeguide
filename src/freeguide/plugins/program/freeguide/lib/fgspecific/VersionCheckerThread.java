@@ -35,7 +35,7 @@ public class VersionCheckerThread implements Runnable
 {
     JFrame parent;
 
-/**
+    /**
      * Creates a new VersionCheckerThread object.
      *
      * @param parent DOCUMENT ME!
@@ -86,7 +86,7 @@ public class VersionCheckerThread implements Runnable
             */
             URL fgversion = new URL( url );
             BufferedReader in =
-                new BufferedReader( 
+                new BufferedReader(
                     new InputStreamReader( fgversion.openStream(  ) ) );
             major = Integer.parseInt( in.readLine(  ) );
             minor = Integer.parseInt( in.readLine(  ) );
@@ -101,7 +101,7 @@ public class VersionCheckerThread implements Runnable
         }
         catch( java.io.IOException e )
         {
-            FreeGuide.log.info( 
+            FreeGuide.log.info(
                 Application.getInstance(  )
                            .getLocalizedMessage( "unable_to_check_version" ) );
 
@@ -128,9 +128,9 @@ public class VersionCheckerThread implements Runnable
      */
     private void warnFutureVersion(  )
     {
-        FreeGuide.log.info( 
+        FreeGuide.log.info(
             Application.getInstance(  )
-                       .getLocalizedMessage( 
+                       .getLocalizedMessage(
                 "you_are_using_a_development_version_of_freeguide" ) );
     }
 

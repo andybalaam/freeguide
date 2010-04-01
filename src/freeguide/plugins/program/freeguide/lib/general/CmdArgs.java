@@ -64,7 +64,7 @@ public class CmdArgs
                 {
                     key = args[i].substring( 2 );
 
-                    if( 
+                    if(
                         !KEY_TRIGGERS.contains( key )
                             && ( ( i + 1 ) < args.length ) )
                     {

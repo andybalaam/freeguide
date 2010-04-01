@@ -105,7 +105,7 @@ public class ViewerFrame extends JPanel
     /** Constructor for the FreeGuideViewer object */
     HorizontalViewer parent;
 
-/**
+    /**
      * Creates a new ViewerFrame object.
      *
      * @param parent DOCUMENT ME!
@@ -205,7 +205,7 @@ public class ViewerFrame extends JPanel
 
         butPreviousDay.setMnemonic( KeyEvent.VK_MINUS );
 
-        butPreviousDay.addActionListener( 
+        butPreviousDay.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -248,7 +248,7 @@ public class ViewerFrame extends JPanel
 
         butNextDay.setMnemonic( KeyEvent.VK_EQUALS );
 
-        butNextDay.addActionListener( 
+        butNextDay.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -308,7 +308,7 @@ public class ViewerFrame extends JPanel
 
         butDownload.setFont( new java.awt.Font( "Dialog", 0, 10 ) );
 
-        butDownload.setText( 
+        butDownload.setText(
             parent.getLocalizer(  ).getString( "HorizontalViewer.Download" ) );
 
         butDownload.setMnemonic( KeyEvent.VK_D );
@@ -327,12 +327,12 @@ public class ViewerFrame extends JPanel
         // {{{ Split panes etc
         splitPaneMainDet.setOneTouchExpandable( true );
 
-        splitPaneMainDet.setOrientation( 
+        splitPaneMainDet.setOrientation(
             javax.swing.JSplitPane.VERTICAL_SPLIT );
 
         splitPaneGuideDet.setOneTouchExpandable( true );
 
-        splitPaneGuideDet.setOrientation( 
+        splitPaneGuideDet.setOrientation(
             javax.swing.JSplitPane.HORIZONTAL_SPLIT );
 
         printedGuideScrollPane.setViewportView( printedGuideArea );
@@ -347,13 +347,13 @@ public class ViewerFrame extends JPanel
 
         channelNameScrollPane.setBorder( null );
 
-        channelNameScrollPane.setVerticalScrollBarPolicy( 
+        channelNameScrollPane.setVerticalScrollBarPolicy(
             javax.swing.JScrollPane.VERTICAL_SCROLLBAR_NEVER );
 
-        channelNameScrollPane.setMinimumSize( 
+        channelNameScrollPane.setMinimumSize(
             new java.awt.Dimension( 10, 10 ) );
 
-        channelNameScrollPane.setPreferredSize( 
+        channelNameScrollPane.setPreferredSize(
             new java.awt.Dimension( 10, 10 ) );
 
         Color bg = new java.awt.Color( 245, 245, 255 );
@@ -429,12 +429,12 @@ public class ViewerFrame extends JPanel
 
         splitPaneChanProg.setFocusable( false );
 
-        splitPaneChanProg.addFocusListener( 
+        splitPaneChanProg.addFocusListener(
             new BorderChanger( splitPaneChanProg ) );
 
         splitPaneMainDet.setLeftComponent( splitPaneChanProg );
 
-        splitPaneMainDet.addFocusListener( 
+        splitPaneMainDet.addFocusListener(
             new BorderChanger( splitPaneMainDet ) );
 
         gridBagConstraints = new java.awt.GridBagConstraints(  );
@@ -486,12 +486,12 @@ public class ViewerFrame extends JPanel
 
         butPrint.setFont( new java.awt.Font( "Dialog", 0, 10 ) );
 
-        butPrint.setText( 
+        butPrint.setText(
             parent.getLocalizer(  ).getString( "HorizontalViewer.Print" ) );
 
         butPrint.setMnemonic( KeyEvent.VK_P );
 
-        butPrint.addActionListener( 
+        butPrint.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -539,10 +539,10 @@ public class ViewerFrame extends JPanel
         // }}}
         // {{{ Event listeners
         // Do the listeners
-        programmesScrollPane.getVerticalScrollBar(  ).addAdjustmentListener( 
+        programmesScrollPane.getVerticalScrollBar(  ).addAdjustmentListener(
             new java.awt.event.AdjustmentListener(  )
             {
-                public void adjustmentValueChanged( 
+                public void adjustmentValueChanged(
                     java.awt.event.AdjustmentEvent evt )
                 {
                     programmesScrollPaneVerAdjust( evt );
@@ -555,7 +555,7 @@ public class ViewerFrame extends JPanel
         // FreeGuide.prefs.screen.getBoolean( "align_text_to_left", true );
         if( alignTextToLeftOfScreen )
         {
-/**
+            /**
              * Listen for scroll events to make programmes off the left still
              * visible.
              */
@@ -570,7 +570,7 @@ public class ViewerFrame extends JPanel
                     };
 
             programmesScrollPane.getHorizontalScrollBar(  )
-                                .addAdjustmentListener( 
+                                .addAdjustmentListener(
                 comProgramScrollListener );
 
         }
@@ -619,7 +619,7 @@ public class ViewerFrame extends JPanel
      *
      * @param evt The event object
      */
-    public void programmesScrollPaneVerAdjust( 
+    public void programmesScrollPaneVerAdjust(
         java.awt.event.AdjustmentEvent evt )
     {
         scrollChannelNames(  );
@@ -635,7 +635,7 @@ public class ViewerFrame extends JPanel
     public void scrollChannelNames(  )
     {
         channelNameScrollPane.getVerticalScrollBar(  )
-                             .setValue( 
+                             .setValue(
             programmesScrollPane.getVerticalScrollBar(  ).getValue(  ) );
 
     }
@@ -677,11 +677,11 @@ public class ViewerFrame extends JPanel
         scrollToPadded( cal, programme.getChannel(  ).getID(  ) );
     }
 
-    private void scrollToPadded( 
+    private void scrollToPadded(
         final Calendar showTime, final String channelID )
     {
         getProgrammesScrollPane(  ).getHorizontalScrollBar(  )
-            .setValue( 
+            .setValue(
             getTimePanel(  ).getScrollValue( showTime )
             - HorizontalViewer.PIXELS_PADDING_FROM_LEFT );
 
@@ -837,7 +837,7 @@ public class ViewerFrame extends JPanel
         /** ToDo: DOCUMENT ME! */
         JComponent borderChangee;
 
-/**
+        /**
          * Creates a new BorderChanger object.
          *
          * @param borderChangee DOCUMENT ME!
@@ -873,7 +873,7 @@ public class ViewerFrame extends JPanel
 
     static class FocusJScrollPane extends JScrollPane
     {
-/**
+        /**
          * Creates a new FocusJScrollPane object. ToDo: DOCUMENT ME!
          */
         FocusJScrollPane(  )

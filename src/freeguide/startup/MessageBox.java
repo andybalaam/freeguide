@@ -47,11 +47,11 @@ public class MessageBox extends Dialog
 
         final Dimension dialogSize = box.getSize(  );
 
-        box.setLocation( 
+        box.setLocation(
             ( screenSize.width - dialogSize.width ) / 2,
             ( screenSize.height - dialogSize.height ) / 2 );
 
-        okBtn.addActionListener( 
+        okBtn.addActionListener(
             new ActionListener(  )
             {
                 public void actionPerformed( ActionEvent e )
@@ -59,7 +59,7 @@ public class MessageBox extends Dialog
                     box.dispose(  );
                 }
             } );
-        box.addWindowListener( 
+        box.addWindowListener(
             new WindowListener(  )
             {
                 public void windowClosing( WindowEvent e )

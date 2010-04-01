@@ -39,13 +39,13 @@ import javax.swing.JScrollPane;
  */
 public class PrivacyInfoDialog extends JDialog
 {
-/**
+    /**
      * Constructor which sets the customiser up as a JDialog...
      */
     public PrivacyInfoDialog(  )
     {
         super( Application.getInstance(  ).getApplicationFrame(  ) );
-        setTitle( 
+        setTitle(
             Application.getInstance(  )
                        .getLocalizedMessage( "privacy_information" ) );
         setModal( true );
@@ -58,13 +58,13 @@ public class PrivacyInfoDialog extends JDialog
 
         try
         {
-            privacyInfo = ResourceHelper.loadResourceAsString( 
+            privacyInfo = ResourceHelper.loadResourceAsString(
                     "resources/i18n/PrivacyBundle."
                     + Locale.getDefault(  ).getLanguage(  ) + ".html" );
         }
         catch( IOException ex )
         {
-            FreeGuide.log.log( 
+            FreeGuide.log.log(
                 Level.WARNING, "Error loading privacy text", ex );
             privacyInfo = "";
         }
@@ -75,13 +75,13 @@ public class PrivacyInfoDialog extends JDialog
 
         JScrollPane scrollPane = new JScrollPane( infoPane );
         JButton OKButton =
-            new JButton( 
+            new JButton(
                 Application.getInstance(  ).getLocalizedMessage( "ok" ) );
         GridBagEasy gbe = new GridBagEasy( getContentPane(  ) );
         gbe.default_insets = new java.awt.Insets( 5, 5, 5, 5 );
         gbe.addFWXWY( scrollPane, 0, 0, GridBagEasy.FILL_BOTH, 1, 1 );
         gbe.addAWXWY( OKButton, 0, 1, GridBagEasy.ANCH_EAST, 1, 0 );
-        OKButton.addActionListener( 
+        OKButton.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -95,7 +95,7 @@ public class PrivacyInfoDialog extends JDialog
         Dimension screenSize = Toolkit.getDefaultToolkit(  ).getScreenSize(  );
         Dimension dialogSize = new Dimension( 600, 400 );
         setSize( dialogSize );
-        setLocation( 
+        setLocation(
             ( screenSize.width - dialogSize.width ) / 2,
             ( screenSize.height - dialogSize.height ) / 2 );
 

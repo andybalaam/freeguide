@@ -43,7 +43,7 @@ public class TimeFilter extends ProgrammeFilter
     {
         //I think that here is too expensive, but tell me how to make it faster..
         int nTime =
-            Integer.parseInt( 
+            Integer.parseInt(
                 time.format( new Date( programme.getStart(  ) ) ) );
 
         return ( ( this.nStartTime == -1 ) || ( nTime >= this.nStartTime ) )
@@ -136,14 +136,14 @@ public class TimeFilter extends ProgrammeFilter
     {
         if( ( this.nStartTime == -1 ) && ( this.nEndTime == -1 ) )
         {
-            this.setTitle( 
+            this.setTitle(
                 VerticalViewer.getInstance(  ).getLocalizer(  )
                               .getString( "timefilter.anytime" ) );
         }
         else
         {
             StringBuffer strTitle = new StringBuffer( 20 );
-            strTitle.append( 
+            strTitle.append(
                 VerticalViewer.getInstance(  )
                               .getLocalizedMessage( "timefilter.begins" ) )
                     .append( " " );
@@ -160,10 +160,10 @@ public class TimeFilter extends ProgrammeFilter
             }
             else
             {
-                strTitle.append( 
+                strTitle.append(
                     VerticalViewer.getInstance(  )
                                   .getLocalizedMessage( "timefilter.until" ) )
-                        .append( " " ).append( 
+                        .append( " " ).append(
                     getTimeFromInt( this.nEndTime ) );
             }
 

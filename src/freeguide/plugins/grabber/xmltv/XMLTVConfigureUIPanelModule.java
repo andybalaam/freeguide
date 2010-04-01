@@ -31,14 +31,14 @@ public class XMLTVConfigureUIPanelModule extends JPanel
     private JComboBox comboModules = null;
     protected final ResourceBundle i18n;
 
-/**
+    /**
      * This is the default constructor
      *
      * @param localizer DOCUMENT ME!
      * @param moduleInfo DOCUMENT ME!
      * @param textChangedEvent DOCUMENT ME!
      */
-    public XMLTVConfigureUIPanelModule( 
+    public XMLTVConfigureUIPanelModule(
         final ResourceBundle i18n, final XMLTVConfig.ModuleInfo moduleInfo,
         final XMLTVConfigureUIController.TextChanged textChangedEvent,
         final XMLTVConfigureUIController.ConfigTextChanged configTextChangedEvent )
@@ -65,8 +65,8 @@ public class XMLTVConfigureUIPanelModule extends JPanel
         GridBagConstraints gridBagConstraints1 = new GridBagConstraints(  );
         this.setLayout( new GridBagLayout(  ) );
 
-        this.setBorder( 
-            javax.swing.BorderFactory.createEtchedBorder( 
+        this.setBorder(
+            javax.swing.BorderFactory.createEtchedBorder(
                 javax.swing.border.EtchedBorder.RAISED ) );
 
         gridBagConstraints1.gridx = 1;
@@ -210,8 +210,8 @@ public class XMLTVConfigureUIPanelModule extends JPanel
             gridBagConstraints5.weightx = 1.0;
             gridBagConstraints5.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints5.insets = new Insets( 5, 5, 5, 5 );
-            jPanel.setBorder( 
-                javax.swing.BorderFactory.createEtchedBorder( 
+            jPanel.setBorder(
+                javax.swing.BorderFactory.createEtchedBorder(
                     javax.swing.border.EtchedBorder.RAISED ) );
             gridBagConstraints6.gridx = 0;
             gridBagConstraints6.gridy = 0;

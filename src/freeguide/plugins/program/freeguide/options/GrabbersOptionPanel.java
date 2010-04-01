@@ -42,7 +42,7 @@ public class GrabbersOptionPanel extends OptionPanel
             }
         };
 
-/**
+    /**
      * Creates a new GrabbersOptionPanel object.
      *
      * @param parent DOCUMENT ME!
@@ -76,8 +76,8 @@ public class GrabbersOptionPanel extends OptionPanel
             cb.setText( grabbers[i].getName(  ) );
             cb.setToolTipText( grabbers[i].getDescription(  ) );
 
-            if( 
-                MainController.config.getActiveGrabberIDs().contains( 
+            if(
+                MainController.config.getActiveGrabberIDs().contains(
                         grabbers[i].getID(  ) ) )
             {
                 cb.setSelected( true );

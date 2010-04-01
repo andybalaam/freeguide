@@ -60,7 +60,7 @@ public class PreferencesHelper
      *
      * @throws Exception DOCUMENT_ME!
      */
-    protected static void loadObject( 
+    protected static void loadObject(
         final Preferences prefNode, final String namePrefix, final Object obj )
         throws Exception
     {
@@ -87,7 +87,7 @@ public class PreferencesHelper
                 {
                     if( boolean.class == field.getType(  ) )
                     {
-                        field.setBoolean( 
+                        field.setBoolean(
                             obj, prefNode.getBoolean( keyName, false ) );
                     }
                     else if( int.class == field.getType(  ) )
@@ -129,30 +129,30 @@ public class PreferencesHelper
                     if( existKeys.contains( keyName + LOCALE_SUFFIX_LANGUAGE ) )
                     {
                         String language =
-                            prefNode.get( 
+                            prefNode.get(
                                 keyName + LOCALE_SUFFIX_LANGUAGE,
                                 StringHelper.EMPTY_STRING );
                         String country =
-                            prefNode.get( 
+                            prefNode.get(
                                 keyName + LOCALE_SUFFIX_COUNTRY,
                                 StringHelper.EMPTY_STRING );
                         String variant =
-                            prefNode.get( 
+                            prefNode.get(
                                 keyName + LOCALE_SUFFIX_VARIANT,
                                 StringHelper.EMPTY_STRING );
 
-                        field.set( 
+                        field.set(
                             obj, new Locale( language, country, variant ) );
                     }
                 }
                 else if( Map.class.isAssignableFrom( field.getType(  ) ) )
                 {
                     Class keyType =
-                        checkTypeDefined( 
+                        checkTypeDefined(
                             obj, field.getName(  ) + MAP_SUFFIX_KEY_TYPE );
 
                     Class valueType =
-                        checkTypeDefined( 
+                        checkTypeDefined(
                             obj, field.getName(  ) + MAP_SUFFIX_VALUE_TYPE );
 
                     Map map = (Map)field.get( obj );
@@ -162,22 +162,22 @@ public class PreferencesHelper
                     //field.set( obj, list );
                 }
 
-                else if( 
+                else if(
                     Collection.class.isAssignableFrom( field.getType(  ) ) )
                 {
                     Field typeField =
                         obj.getClass(  )
-                           .getField( 
+                           .getField(
                             field.getName(  ) + COLLECTION_SUFFIX_TYPE );
 
                     int modsT = typeField.getModifiers(  );
 
-                    if( 
+                    if(
                         !Modifier.isPublic( modsT )
                             || !Modifier.isStatic( modsT )
                             || ( Class.class != typeField.getType(  ) ) )
                     {
-                        throw new Exception( 
+                        throw new Exception(
                             "Type not defined for Collection "
                             + field.getName(  ) + " of class "
                             + obj.getClass(  ) );
@@ -201,18 +201,18 @@ public class PreferencesHelper
         }
     }
 
-    protected static Class checkTypeDefined( 
+    protected static Class checkTypeDefined(
         final Object obj, final String fieldName ) throws Exception
     {
         Field typeField = obj.getClass(  ).getField( fieldName );
 
         int modsT = typeField.getModifiers(  );
 
-        if( 
+        if(
             !Modifier.isPublic( modsT ) || !Modifier.isStatic( modsT )
                 || ( Class.class != typeField.getType(  ) ) )
         {
-            throw new Exception( 
+            throw new Exception(
                 "Type not defined for Collection " + fieldName + " of class "
                 + obj.getClass(  ) );
 
@@ -232,7 +232,7 @@ public class PreferencesHelper
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public static void loadList( 
+    public static void loadList(
         final Preferences prefNode, final String namePrefix,
         final Collection list, final Class elementClass )
         throws Exception
@@ -249,8 +249,8 @@ public class PreferencesHelper
 
         for( int i = 0; i < size; i++ )
         {
-            list.add( 
-                loadAndCreateObject( 
+            list.add(
+                loadAndCreateObject(
                     prefNode, elementClass, namePrefix + '.' + i + '.' ) );
 
         }
@@ -267,7 +267,7 @@ public class PreferencesHelper
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public static void loadMap( 
+    public static void loadMap(
         final Preferences prefNode, final String namePrefix, final Map map,
         final Class keyClass, final Class valueClass )
         throws Exception
@@ -285,12 +285,12 @@ public class PreferencesHelper
         for( int i = 0; i < size; i++ )
         {
             Object key =
-                loadAndCreateObject( 
+                loadAndCreateObject(
                     prefNode, keyClass,
                     namePrefix + '.' + i + MAP_SUFFIX_KEY + '.' );
 
             Object value =
-                loadAndCreateObject( 
+                loadAndCreateObject(
                     prefNode, valueClass,
                     namePrefix + '.' + i + MAP_SUFFIX_VALUE + '.' );
 
@@ -299,7 +299,7 @@ public class PreferencesHelper
         }
     }
 
-    protected static Object loadAndCreateObject( 
+    protected static Object loadAndCreateObject(
         final Preferences prefNode, final Class objClass, String namePrefix )
         throws Exception
     {
@@ -345,7 +345,7 @@ public class PreferencesHelper
         saveObject( prefNode, obj, StringHelper.EMPTY_STRING );
     }
 
-    protected static void saveObject( 
+    protected static void saveObject(
         final Preferences prefNode, final Object obj, final String namePrefix )
         throws Exception
     {
@@ -377,11 +377,11 @@ public class PreferencesHelper
         {
             final Locale value = (Locale)obj;
 
-            prefNode.put( 
+            prefNode.put(
                 namePrefix + LOCALE_SUFFIX_LANGUAGE, value.getLanguage(  ) );
-            prefNode.put( 
+            prefNode.put(
                 namePrefix + LOCALE_SUFFIX_COUNTRY, value.getCountry(  ) );
-            prefNode.put( 
+            prefNode.put(
                 namePrefix + LOCALE_SUFFIX_VARIANT, value.getVariant(  ) );
         }
         else if( Map.class.isAssignableFrom( obj.getClass(  ) ) )
@@ -414,7 +414,7 @@ public class PreferencesHelper
                 {
                     if( boolean.class == field.getType(  ) )
                     {
-                        prefNode.putBoolean( 
+                        prefNode.putBoolean(
                             newPrefix, field.getBoolean( obj ) );
                     }
                     else if( int.class == field.getType(  ) )
@@ -443,7 +443,7 @@ public class PreferencesHelper
      *
      * @throws Exception DOCUMENT_ME!
      */
-    protected static void saveList( 
+    protected static void saveList(
         final Preferences prefNode, final String namePrefix,
         final Collection elements ) throws Exception
     {
@@ -460,7 +460,7 @@ public class PreferencesHelper
 
     }
 
-    protected static void saveMap( 
+    protected static void saveMap(
         final Preferences prefNode, final String namePrefix, final Map map )
         throws Exception
     {
@@ -476,7 +476,7 @@ public class PreferencesHelper
 
             saveObject( prefNode, key, namePrefix + '.' + i + MAP_SUFFIX_KEY );
 
-            saveObject( 
+            saveObject(
                 prefNode, value, namePrefix + '.' + i + MAP_SUFFIX_VALUE );
         }
 
@@ -488,7 +488,7 @@ public class PreferencesHelper
     {
         int mods = field.getModifiers(  );
 
-        if( 
+        if(
             !Modifier.isPublic( mods )
                 || ( Modifier.isTransient( mods ) && Modifier.isFinal( mods ) )
                 || Modifier.isStatic( mods ) )
@@ -567,7 +567,7 @@ public class PreferencesHelper
      */
     protected static String trimDots( final String str )
     {
-        if( 
+        if(
             ( str.length(  ) > 0 )
                 && ( str.charAt( str.length(  ) - 1 ) == '.' ) )
         {

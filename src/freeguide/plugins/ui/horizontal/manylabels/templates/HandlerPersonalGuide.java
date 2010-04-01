@@ -36,7 +36,7 @@ public class HandlerPersonalGuide
     protected final DateFormat weekdayFormat;
     protected final boolean forPrint;
 
-/**
+    /**
      * Creates a new ParserPersonalizedGuide object.
      *
      * @param localizer DOCUMENT ME!
@@ -47,7 +47,7 @@ public class HandlerPersonalGuide
      * @param weekdayFormat DOCUMENT ME!
      * @param forPrint DOCUMENT ME!
      */
-    public HandlerPersonalGuide( 
+    public HandlerPersonalGuide(
         final ResourceBundle localizer, final TVData currentData,
         final Date theDate, final DateFormat dateFormat,
         final DateFormat weekdayFormat, final DateFormat timeFormat,
@@ -72,7 +72,7 @@ public class HandlerPersonalGuide
     public String getEnds( final TVProgramme programme )
     {
         return Application.getInstance(  )
-                          .getLocalizedMessage( 
+                          .getLocalizedMessage(
             "ends_template", new Object[] { getProgrammeEndTime( programme ) } );
     }
 
@@ -89,7 +89,7 @@ public class HandlerPersonalGuide
                 + dateFormat.format( theDate )
             };
 
-        return MessageFormat.format( 
+        return MessageFormat.format(
             localizer.getString( "tv_guide_for_template" ), messageArguments );
     }
 
@@ -110,13 +110,13 @@ public class HandlerPersonalGuide
 
         if( forPrint )
         {
-            ans = MessageFormat.format( 
+            ans = MessageFormat.format(
                     localizer.getString( "tv_guide_for_template" ), args );
         }
         else
         {
-            ans = MessageFormat.format( 
-                    localizer.getString( 
+            ans = MessageFormat.format(
+                    localizer.getString(
                         "your_personalised_tv_guide_for_template" ), args );
         }
 
@@ -266,7 +266,7 @@ public class HandlerPersonalGuide
      */
     public String getStarRating( final TVProgramme programme )
     {
-        if( 
+        if(
             programme.getIsMovie(  ) && ( programme.getStarRating(  ) != null ) )
         {
             return " "
@@ -289,7 +289,7 @@ public class HandlerPersonalGuide
         final IModuleReminder[] reminders =
             Application.getInstance(  ).getReminders(  );
         final List result = new ArrayList(  );
-        currentData.iterate( 
+        currentData.iterate(
             new TVIteratorProgrammes(  )
             {
                 protected void onChannel( TVChannel channel )
@@ -298,7 +298,7 @@ public class HandlerPersonalGuide
 
                 protected void onProgramme( TVProgramme programme )
                 {
-                    if( 
+                    if(
                         ( programme.getEnd(  ) < System.currentTimeMillis(  ) ) )
                     {
                         return;

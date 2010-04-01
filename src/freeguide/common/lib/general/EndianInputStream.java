@@ -18,7 +18,7 @@ public class EndianInputStream
     byte[] data;
     int pos;
 
-/**
+    /**
      * Creates a new EndianInputStream object.
      *
      * @param file DOCUMENT ME!
@@ -30,7 +30,7 @@ public class EndianInputStream
         this( file, null );
     }
 
-/**
+    /**
      * Creates a new EndianInputStream object.
      *
      * @param file DOCUMENT ME!
@@ -65,7 +65,7 @@ public class EndianInputStream
         pos = 0;
     }
 
-/**
+    /**
      * Creates a new EndianInputStream object.
      *
      * @param data DOCUMENT ME!

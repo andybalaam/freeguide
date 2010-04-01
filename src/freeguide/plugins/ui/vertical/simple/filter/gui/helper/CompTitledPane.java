@@ -20,7 +20,7 @@ public class CompTitledPane extends JPanel
     protected boolean transmittingAllowed;
     protected StateTransmitter transmitter;
 
-/**
+    /**
      * Creates a new CompTitledPane object.
      */
     public CompTitledPane(  )
@@ -33,7 +33,7 @@ public class CompTitledPane extends JPanel
         // label.setBackground(Color.yellow);
     }
 
-/**
+    /**
      * Creates a new CompTitledPane object.
      *
      * @param component DOCUMENT ME!

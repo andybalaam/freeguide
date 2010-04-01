@@ -35,14 +35,14 @@ public class FavouritesListDialog extends JDialog
     private JList list = null;
     private JPanel jPanel4 = null;
 
-/**
+    /**
      * This is the default constructor
      *
      * @param owner DOCUMENT ME!
      */
     public FavouritesListDialog( JFrame owner )
     {
-        super( 
+        super(
             owner,
             Application.getInstance(  ).getLocalizedMessage( "favourites" ),
             true );
@@ -124,7 +124,7 @@ public class FavouritesListDialog extends JDialog
             btnOK = new JButton(  );
             btnOK.setMinimumSize( new java.awt.Dimension( 87, 26 ) );
             btnOK.setPreferredSize( new java.awt.Dimension( 87, 26 ) );
-            btnOK.setText( 
+            btnOK.setText(
                 Application.getInstance(  ).getLocalizedMessage( "ok" ) );
         }
 
@@ -143,7 +143,7 @@ public class FavouritesListDialog extends JDialog
             btnCancel = new JButton(  );
             btnCancel.setMinimumSize( new java.awt.Dimension( 87, 26 ) );
             btnCancel.setPreferredSize( new java.awt.Dimension( 87, 26 ) );
-            btnCancel.setText( 
+            btnCancel.setText(
                 Application.getInstance(  ).getLocalizedMessage( "cancel" ) );
         }
 
@@ -221,7 +221,7 @@ public class FavouritesListDialog extends JDialog
         if( btnRemove == null )
         {
             btnRemove = new JButton(  );
-            btnRemove.setText( 
+            btnRemove.setText(
                 Application.getInstance(  ).getLocalizedMessage( "remove" ) );
         }
 
@@ -238,7 +238,7 @@ public class FavouritesListDialog extends JDialog
         if( btnAdd == null )
         {
             btnAdd = new JButton(  );
-            btnAdd.setText( 
+            btnAdd.setText(
                 Application.getInstance(  ).getLocalizedMessage( "add" ) );
         }
 
@@ -255,7 +255,7 @@ public class FavouritesListDialog extends JDialog
         if( btnEdit == null )
         {
             btnEdit = new JButton(  );
-            btnEdit.setText( 
+            btnEdit.setText(
                 Application.getInstance(  ).getLocalizedMessage( "edit" ) );
         }
 

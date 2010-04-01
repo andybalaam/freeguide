@@ -746,7 +746,7 @@ public class MainController extends BaseModule implements IApplication
             /** DOCUMENT ME! */
             public String LFname;
 
-/**
+            /**
              * Creates a new UI object.
              */
             public UI(  )

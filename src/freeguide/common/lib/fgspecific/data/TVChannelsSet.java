@@ -252,14 +252,14 @@ public class TVChannelsSet
         /** DOCUMENT ME! */
         public String displayName;
 
-/**
+        /**
          * Creates a new Channel object.
          */
         public Channel(  )
         {
         }
 
-/**
+        /**
          * Creates a new Channel object.
          *
          * @param channelID DOCUMENT ME!
@@ -273,7 +273,7 @@ public class TVChannelsSet
 
         }
 
-/**
+        /**
          * Creates a new Channel object.
          *
          * @param channel DOCUMENT ME!

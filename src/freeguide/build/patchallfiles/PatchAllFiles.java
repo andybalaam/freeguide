@@ -41,20 +41,20 @@ public class PatchAllFiles
         new File( "install-bin/linux/rpm" ).mkdirs(  );
 
         PatchFile.patch( "doc/VERSION.php.in", "doc/sourceforge-redirects/VERSION.php", plugins );
-        PatchFile.patch( 
+        PatchFile.patch(
             "install/windows/freeguide-without-xmltv.nsi.in",
             "install-bin/windows/freeguide-without-xmltv.nsi", plugins );
-        PatchFile.patch( 
+        PatchFile.patch(
             "install/windows/freeguide-with-xmltv.nsi.in",
             "install-bin/windows/freeguide-with-xmltv.nsi", plugins );
-        PatchFile.patch( 
+        PatchFile.patch(
             "install/linux/rpm/freeguide.spec.in",
             "install-bin/linux/rpm/freeguide.spec", plugins );
-        PatchSpec.patch( 
+        PatchSpec.patch(
             "install-bin/linux/rpm/freeguide.spec",
             "install-bin/linux/rpm/freeguide.spec", plugins );
 
-        PatchFile.patch( 
+        PatchFile.patch(
             "install/linux/freeguide.1.in", "install-bin/linux/freeguide.1",
             plugins );
     }
@@ -69,7 +69,7 @@ public class PatchAllFiles
     protected static void findPluginDirs( File dir, List files )
     {
         File[] plugin_files =
-            dir.listFiles( 
+            dir.listFiles(
                 new FileFilter(  )
                 {
                     public boolean accept( File fl )
@@ -84,7 +84,7 @@ public class PatchAllFiles
         }
 
         File[] dirs =
-            dir.listFiles( 
+            dir.listFiles(
                 new FileFilter(  )
                 {
                     public boolean accept( File fl )
@@ -120,7 +120,7 @@ public class PatchAllFiles
             }
         }
 
-        Collections.sort( 
+        Collections.sort(
             result,
             new Comparator(  )
             {
@@ -155,15 +155,15 @@ public class PatchAllFiles
     {
         new File( baseFileName + ".bak" ).delete(  );
 
-        if( 
-            !new File( baseFileName ).renameTo( 
+        if(
+            !new File( baseFileName ).renameTo(
                     new File( baseFileName + ".bak" ) ) )
         {
             throw new IOException( "Error rename file to .bak" );
         }
 
-        if( 
-            !new File( baseFileName + ".new" ).renameTo( 
+        if(
+            !new File( baseFileName + ".new" ).renameTo(
                     new File( baseFileName ) ) )
         {
             throw new IOException( "Error rename .new to file" );

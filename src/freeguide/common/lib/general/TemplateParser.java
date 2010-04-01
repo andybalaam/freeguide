@@ -49,7 +49,7 @@ public class TemplateParser
     /** Output stream. */
     protected Writer out;
 
-/**
+    /**
      * Creates a new TemplateParser.
      *
      * @param templateClassPath classpathpath to template
@@ -99,7 +99,7 @@ public class TemplateParser
             final int posIfEnd = getNextPos( PREFIX_IF_END );
 
             int nextType =
-                getNextPosIndex( 
+                getNextPosIndex(
                     new int[]
                     {
                         template.length(  ), posIteratorStart, posIteratorEnd,
@@ -112,13 +112,13 @@ public class TemplateParser
 
                 if( currentObject != null )
                 {
-                    out.write( 
+                    out.write(
                         template, currentPos, posIteratorStart - currentPos );
                 }
 
                 currentPos = posIteratorStart;
                 currentPos = getNextPos( '>' ) + 1;
-                iterate( 
+                iterate(
                     template.substring( posIteratorStart, currentPos - 1 ),
                     currentObject );
 
@@ -128,7 +128,7 @@ public class TemplateParser
 
                 if( currentObject != null )
                 {
-                    out.write( 
+                    out.write(
                         template, currentPos, posIteratorEnd - currentPos );
                 }
 
@@ -149,8 +149,8 @@ public class TemplateParser
 
                 if( currentObject != null )
                 {
-                    out.write( 
-                        getStringValue( 
+                    out.write(
+                        getStringValue(
                             template.substring( posValue, currentPos - 1 ),
                             currentObject ) );
                 }
@@ -161,7 +161,7 @@ public class TemplateParser
 
                 if( currentObject != null )
                 {
-                    out.write( 
+                    out.write(
                         template, currentPos, template.length(  ) - currentPos );
                 }
 
@@ -182,13 +182,13 @@ public class TemplateParser
                 if( currentObject != null )
                 {
                     Object value =
-                        calculate( 
+                        calculate(
                             template.substring( posIfStart, currentPos - 1 ),
                             currentObject );
 
                     if( ( value == null ) || !( value instanceof Boolean ) )
                     {
-                        throw new Exception( 
+                        throw new Exception(
                             "Invalid type of value: "
                             + template.substring( posValue, currentPos - 1 ) );
                     }
@@ -287,7 +287,7 @@ public class TemplateParser
      *
      * @throws Exception
      */
-    protected String getStringValue( 
+    protected String getStringValue(
         final String str, final Object currentObject )
         throws Exception
     {
@@ -316,7 +316,7 @@ public class TemplateParser
 
             if( value instanceof Collection )
             {
-                for( 
+                for(
                     Iterator it = ( (Collection)value ).iterator(  );
                         it.hasNext(  ); )
                 {
@@ -375,7 +375,7 @@ public class TemplateParser
         protected final String expr;
         protected int currentPos;
 
-/**
+        /**
          * Creates a new Calculator object.
          *
          * @param expr expression to calculate
@@ -396,7 +396,7 @@ public class TemplateParser
          *
          * @throws IOException DOCUMENT ME!
          */
-        public Object calculate( 
+        public Object calculate(
             final Object rootObject, final Object currentObject )
             throws IOException
         {
@@ -405,7 +405,7 @@ public class TemplateParser
             final int posNext = getNextPos( ',' );
 
             int nextType =
-                getNextPosIndex( 
+                getNextPosIndex(
                     new int[] { expr.length(  ), posOpen, posClose, posNext } );
 
             String methodName = null;
@@ -458,11 +458,11 @@ public class TemplateParser
                     {
                         final Method method =
                             calledObject.getClass(  )
-                                        .getMethod( 
+                                        .getMethod(
                                 methodName, parameterTypes );
 
                         // invoke methods for Map.Entry by hand, because it can't be invoked through reflection - cannot access to protected class HashMap$Entry
-                        if( 
+                        if(
                             method.getName(  ).equals( DEF_KEY )
                                 && ( method.getParameterTypes(  ).length == 0 )
                                 && calledObject instanceof Map.Entry )
@@ -470,7 +470,7 @@ public class TemplateParser
                             final Map.Entry entry = (Map.Entry)calledObject;
                             value = entry.getKey(  );
                         }
-                        else if( 
+                        else if(
                             method.getName(  ).equals( DEF_VALUE )
                                 && ( method.getParameterTypes(  ).length == 0 )
                                 && calledObject instanceof Map.Entry )
@@ -482,7 +482,7 @@ public class TemplateParser
                         {
                             try
                             {
-                                value = method.invoke( 
+                                value = method.invoke(
                                         calledObject, params.toArray(  ) );
                             }
                             catch( IllegalAccessException e )
@@ -493,7 +493,7 @@ public class TemplateParser
                             catch( InvocationTargetException e )
                             {
                                 Application.getInstance(  ).getLogger(  )
-                                           .warning( 
+                                           .warning(
                                     "Error running method '" + methodName
                                     + "' on object class '"
                                     + calledObject.getClass(  ).toString(  )
@@ -518,7 +518,7 @@ public class TemplateParser
                 return value;
 
             case EXPR_CLOSE:
-                value = getField( 
+                value = getField(
                         expr.substring( currentPos, posClose ), rootObject,
                         currentObject );
                 currentPos = posClose + 1;
@@ -526,7 +526,7 @@ public class TemplateParser
                 return value;
 
             case EXPR_NEXT:
-                value = getField( 
+                value = getField(
                         expr.substring( currentPos, posNext ), rootObject,
                         currentObject );
                 currentPos = posNext + 1;
@@ -537,7 +537,7 @@ public class TemplateParser
             throw new IOException( "Invalid expression format" );
         }
 
-        protected Object getField( 
+        protected Object getField(
             final String name, final Object rootObject,
             final Object currentObject )
         {

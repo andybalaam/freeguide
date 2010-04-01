@@ -15,7 +15,7 @@ public interface IStoragePipe
 
     void addProgramme( final String channelID, final TVProgramme programme );
 
-    void addProgrammes( 
+    void addProgrammes(
         final String channelID, final TVProgramme[] programmes );
 
     void addData( final TVData data );

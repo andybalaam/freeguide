@@ -57,7 +57,7 @@ public class FirstTimeWizard
     private WizardFrame wizardFrame;
     protected String selectedModuleID;
 
-/**
+    /**
      * Constructor for the FirstTimeWizard object
      *
      * @param upgrade

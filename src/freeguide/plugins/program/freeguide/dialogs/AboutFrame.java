@@ -34,7 +34,7 @@ public class AboutFrame extends JDialog implements HyperlinkListener
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextPane jTextPane1;
 
-/**
+    /**
      * Constructor for the About object
      *
      * @param parent Description of the Parameter
@@ -42,31 +42,31 @@ public class AboutFrame extends JDialog implements HyperlinkListener
      */
     public AboutFrame( java.awt.Frame parent, boolean modal )
     {
-        super( 
+        super(
             parent, Application.getInstance(  ).getLocalizedMessage( "about" ),
             modal );
         initComponents(  );
         jTextPane1.setContentType( "text/html" );
 
         StringBuffer str = new StringBuffer(  );
-        str.append( 
+        str.append(
             "<font face=\"verdana, arial, helvetica, helv, sans serif\" size=3>" );
-        str.append( 
+        str.append(
             "<table width=\"100%\" height=\"100%\" border=\"0\"><tr><td height=\"100%\" align=\"center\">" );
-        str.append( 
+        str.append(
             "<h1><font face=\"arial, helvetica, helv, sans serif\" size=\"5\">FreeGuide " )
            .append( Application.VERSION.getDotFormat(  ) )
            .append( "</font></h1>" );
         str.append( "<p>" );
-        str.append( 
+        str.append(
             Application.getInstance(  )
                        .getLocalizedMessage( "free_software_by_contributors" ) );
         str.append( "</p><p>" );
         str.append( Application.getInstance(  ).getLocalizedMessage( "web" ) );
-        str.append( 
+        str.append(
             ": <a href=\"http://freeguide-tv.sourceforge.net\">freeguide-tv.sourceforge.net</a></p><p>" );
         str.append( Application.getInstance(  ).getLocalizedMessage( "mail" ) );
-        str.append( 
+        str.append(
             ": <a href=\"mailto:freeguide-tv-devel@lists.sourceforge.net\">freeguide-tv-devel@lists.sourceforge.net</a></p>" );
         str.append( "</td></tr></table>" );
         str.append( "</font>" );
@@ -78,7 +78,7 @@ public class AboutFrame extends JDialog implements HyperlinkListener
     private void initComponents(  )
     {
         getContentPane(  ).setLayout( new java.awt.BorderLayout( 2, 2 ) );
-        addWindowListener( 
+        addWindowListener(
             new java.awt.event.WindowAdapter(  )
             {
                 public void windowClosing( java.awt.event.WindowEvent evt )
@@ -86,9 +86,9 @@ public class AboutFrame extends JDialog implements HyperlinkListener
                     closeDialog( evt );
                 }
             } );
-        jButton1 = new javax.swing.JButton( 
+        jButton1 = new javax.swing.JButton(
                 Application.getInstance(  ).getLocalizedMessage( "ok" ) );
-        jButton1.addActionListener( 
+        jButton1.addActionListener(
             new java.awt.event.ActionListener(  )
             {
                 public void actionPerformed( java.awt.event.ActionEvent evt )

@@ -24,7 +24,7 @@ import freeguide.common.lib.fgspecific.Application;
 
 /**
  * Helper for support some file operations.
- * 
+ *
  * @author Alex Buloichik (alex73 at zaval.org)
  */
 public class FileHelper implements IBrowserLauncher
@@ -85,10 +85,10 @@ public class FileHelper implements IBrowserLauncher
 
     /**
      * ToDo: DOCUMENT ME!
-     * 
+     *
      * @param in ToDo: DOCUMENT ME!
      * @param out ToDo: DOCUMENT ME!
-     * 
+     *
      * @throws IOException ToDo: DOCUMENT ME!
      */
     public static void copy( final File in, final File out ) throws IOException
@@ -117,10 +117,10 @@ public class FileHelper implements IBrowserLauncher
 
     /**
      * DOCUMENT_ME!
-     * 
+     *
      * @param in DOCUMENT_ME!
      * @param out DOCUMENT_ME!
-     * 
+     *
      * @throws IOException DOCUMENT_ME!
      */
     public static void copy( final InputStream in, final OutputStream out )
@@ -144,7 +144,7 @@ public class FileHelper implements IBrowserLauncher
 
     /**
      * Open file in the current browser.
-     * 
+     *
      * @param filename file name
      * @throws MalformedURLException
      */
@@ -161,7 +161,7 @@ public class FileHelper implements IBrowserLauncher
 
     /**
      * Open url in the current browser.
-     * 
+     *
      * @param url url
      */
     public void browseURL( final URL url ) throws Exception
@@ -229,7 +229,7 @@ public class FileHelper implements IBrowserLauncher
 
     /**
      * Deletes a whole directory recursively (also deletes a single file).
-     * 
+     *
      * @param dir The directory to delete
      */
     public static void deleteDir( File dir )
@@ -254,10 +254,10 @@ public class FileHelper implements IBrowserLauncher
 
     /**
      * Write data to file.
-     * 
+     *
      * @param fileName file name
      * @param data data
-     * 
+     *
      * @throws IOException
      */
     public static void write( final String fileName, final String data )
@@ -280,11 +280,11 @@ public class FileHelper implements IBrowserLauncher
     /**
      * Method unpacks files from classpath. Used to unpack docs into temp
      * directory and xmltv from its jar.
-     * 
+     *
      * @param lsPath resource path with file with list of files
      * @param packagePrefix DOCUMENT ME!
      * @param outDir DOCUMENT ME!
-     * 
+     *
      * @return boolean indicates success
      */
     public static boolean unpackFiles( final String lsPath,
@@ -380,11 +380,11 @@ public class FileHelper implements IBrowserLauncher
 
     /**
      * Write data from classpath resource into file.
-     * 
+     *
      * @param resourcePath
      * @param outFile
      * @throws IOException
-     * 
+     *
      * @throws IOException
      * @throws FileNotFoundException DOCUMENT ME!
      */

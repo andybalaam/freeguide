@@ -7,7 +7,7 @@ import javax.swing.JDialog;
 
 /**
  * Basic interface for all modules for freeguide-tv.
- * 
+ *
  * @author Alex Buloichik (mailto: alex73 at zaval.org)
  */
 public interface IModule

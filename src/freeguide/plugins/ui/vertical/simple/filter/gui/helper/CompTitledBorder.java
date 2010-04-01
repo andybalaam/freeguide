@@ -22,7 +22,7 @@ public class CompTitledBorder extends TitledBorder
     private static final long serialVersionUID = 1L;
     protected JComponent component;
 
-/**
+    /**
      * Creates a new CompTitledBorder object.
      *
      * @param component DOCUMENT ME!
@@ -32,7 +32,7 @@ public class CompTitledBorder extends TitledBorder
         this( null, component, LEFT, TOP );
     }
 
-/**
+    /**
      * Creates a new CompTitledBorder object.
      *
      * @param border DOCUMENT ME!
@@ -42,7 +42,7 @@ public class CompTitledBorder extends TitledBorder
         this( border, null, LEFT, TOP );
     }
 
-/**
+    /**
      * Creates a new CompTitledBorder object.
      *
      * @param border DOCUMENT ME!
@@ -53,7 +53,7 @@ public class CompTitledBorder extends TitledBorder
         this( border, component, LEFT, TOP );
     }
 
-/**
+    /**
      * Creates a new CompTitledBorder object.
      *
      * @param border DOCUMENT ME!
@@ -61,7 +61,7 @@ public class CompTitledBorder extends TitledBorder
      * @param titleJustification DOCUMENT ME!
      * @param titlePosition DOCUMENT ME!
      */
-    public CompTitledBorder( 
+    public CompTitledBorder(
         Border border, JComponent component, int titleJustification,
         int titlePosition )
     {
@@ -84,11 +84,11 @@ public class CompTitledBorder extends TitledBorder
      * @param width DOCUMENT_ME!
      * @param height DOCUMENT_ME!
      */
-    public void paintBorder( 
+    public void paintBorder(
         Component c, Graphics g, int x, int y, int width, int height )
     {
         Rectangle borderR =
-            new Rectangle( 
+            new Rectangle(
                 x + EDGE_SPACING, y + EDGE_SPACING,
                 width - ( EDGE_SPACING * 2 ), height - ( EDGE_SPACING * 2 ) );
         Insets borderInsets;
@@ -141,7 +141,7 @@ public class CompTitledBorder extends TitledBorder
             break;
         }
 
-        border.paintBorder( 
+        border.paintBorder(
             c, g, borderR.x, borderR.y, borderR.width, borderR.height );
 
         Color col = g.getColor(  );

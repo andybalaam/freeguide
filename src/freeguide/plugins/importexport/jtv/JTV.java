@@ -65,7 +65,7 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
         ILogger logger )
     {
         JFileChooser chooser = new JFileChooser(  );
-        chooser.setFileFilter( 
+        chooser.setFileFilter(
             new FileFilter(  )
             {
                 public String getDescription(  )
@@ -92,7 +92,7 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
             {
                 String path = files[i].getPath(  );
 
-                if( 
+                if(
                     path.endsWith( SUFFIX_INDEX )
                         || path.endsWith( SUFFIX_DATA ) )
                 {
@@ -134,22 +134,22 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
         loadFromFile( path.getPath(  ), storage );
     }
 
-    protected void loadFromFile( 
+    protected void loadFromFile(
         final String fileName, final IStoragePipe storage )
         throws IOException
     {
         final EndianInputStream inndx =
-            new EndianInputStream( 
+            new EndianInputStream(
                 new File( fileName + SUFFIX_INDEX ), CHARSET );
         final EndianInputStream inpdt =
-            new EndianInputStream( 
+            new EndianInputStream(
                 new File( fileName + SUFFIX_DATA ), CHARSET );
         final byte[] sig = new byte[SIGNATURE.length];
         inpdt.read( sig );
 
         if( !Arrays.equals( SIGNATURE, sig ) )
         {
-            throw new IOException( 
+            throw new IOException(
                 "Error JTV file format in '" + fileName + ".pdt'" );
         }
 
@@ -217,7 +217,7 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
         IOException ex;
         Calendar c = Calendar.getInstance(  );
 
-/**
+        /**
          * Creates a new ExportIterator object.
          */
         public ExportIterator(  )
@@ -258,11 +258,11 @@ public class JTV extends BaseModule implements IModuleImport, IModuleExport
 
         protected void onChannelFinish(  )
         {
-            save( 
+            save(
                 wrndx.getBytes(  ),
                 getCurrentChannel(  ).getID(  ).replace( '/', '_' )
                 + SUFFIX_INDEX );
-            save( 
+            save(
                 wrpdt.getBytes(  ),
                 getCurrentChannel(  ).getID(  ).replace( '/', '_' )
                 + SUFFIX_DATA );

@@ -39,13 +39,13 @@ public class StartupUpdates
         throws IOException
     {
         File[] files =
-            new File( installDir, "updates" ).listFiles( 
+            new File( installDir, "updates" ).listFiles(
                 new FileFilter(  )
                 {
                     public boolean accept( File pathname )
                     {
                         return !pathname.isDirectory(  )
-                        && pathname.getName(  ).toLowerCase(  ).endsWith( 
+                        && pathname.getName(  ).toLowerCase(  ).endsWith(
                             ".zip" );
                     }
                 } );
@@ -54,7 +54,7 @@ public class StartupUpdates
         {
             for( int i = 0; i < files.length; i++ )
             {
-                System.out.println( 
+                System.out.println(
                     "Unzip file '" + files[i] + "' to "
                     + installDir.getPath(  ) );
 
@@ -96,7 +96,7 @@ public class StartupUpdates
 
                 if( !files[i].delete(  ) )
                 {
-                    System.err.println( 
+                    System.err.println(
                         "Error delete " + files[i].getPath(  ) );
                 }
             }
@@ -134,8 +134,8 @@ public class StartupUpdates
         if( deleteList.exists(  ) )
         {
             BufferedReader in =
-                new BufferedReader( 
-                    new InputStreamReader( 
+                new BufferedReader(
+                    new InputStreamReader(
                         new FileInputStream( deleteList ), "UTF-8" ) );
 
             try
@@ -153,12 +153,12 @@ public class StartupUpdates
 
                     if( !toDelete.delete(  ) )
                     {
-                        if( 
+                        if(
                             !toDelete.isDirectory(  )
-                                && !"startup.jar".equals( 
+                                && !"startup.jar".equals(
                                     toDelete.getName(  ) ) )
                         {
-                            System.err.println( 
+                            System.err.println(
                                 "Error delete " + toDelete.getPath(  ) );
                         }
                     }

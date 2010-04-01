@@ -47,7 +47,7 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
     private JButton infoButton;
     private JTextField nicknameTextField;
 
-/**
+    /**
      * Creates a new PrivacyOptionPanel object.
      *
      * @param parent DOCUMENT ME!
@@ -65,7 +65,7 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
     {
         // Make the objects
         JLabel checkLabel =
-            newLeftJLabel( 
+            newLeftJLabel(
                 Application.getInstance(  )
                            .getLocalizedMessage( "check_for_new_versions" ) );
 
@@ -82,8 +82,8 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
         checkLabel.setDisplayedMnemonic( KeyEvent.VK_V );
 
         JLabel provideLabel =
-            newLeftJLabel( 
-                Application.getInstance(  ).getLocalizedMessage( 
+            newLeftJLabel(
+                Application.getInstance(  ).getLocalizedMessage(
                     "provide_info" ) + ":" );
 
         options = new Object[3];
@@ -92,7 +92,7 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
 
         options[1] = Application.getInstance(  ).getLocalizedMessage( "ip" );
 
-        options[2] = Application.getInstance(  ).getLocalizedMessage( 
+        options[2] = Application.getInstance(  ).getLocalizedMessage(
                 "nickname" ) + ":";
 
         provideComboBox = newRightJComboBox( options );
@@ -102,7 +102,7 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
         provideLabel.setDisplayedMnemonic( KeyEvent.VK_P );
 
         JLabel nicknameLabel =
-            newLeftJLabel( 
+            newLeftJLabel(
                 Application.getInstance(  ).getLocalizedMessage( "nickname" )
                 + ":" );
 
@@ -112,7 +112,7 @@ public class PrivacyOptionPanel extends OptionPanel implements ActionListener
 
         nicknameLabel.setDisplayedMnemonic( KeyEvent.VK_N );
 
-        infoButton = newRightJButton( 
+        infoButton = newRightJButton(
                 Application.getInstance(  ).getLocalizedMessage( "more_info" ) );
 
         infoButton.setMnemonic( KeyEvent.VK_M );

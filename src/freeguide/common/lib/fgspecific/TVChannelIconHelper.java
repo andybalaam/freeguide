@@ -94,7 +94,7 @@ public class TVChannelIconHelper
             dir.mkdirs(  );
         }
 
-        sb.append( 
+        sb.append(
             channel.getID(  ).replace( '.', '_' )
                    .replaceAll( INVALID_CHARS_RE_FROM, INVALID_CHARS_RE_TO ) );
 
@@ -109,7 +109,7 @@ public class TVChannelIconHelper
      *
      * @return true if icon downloaded, else - false
      */
-    protected static boolean loadIcon( 
+    protected static boolean loadIcon(
         final String urlString, final File outFile )
     {
         if( urlString == null )

@@ -31,7 +31,7 @@ public class XMLTVImport
     protected SAXParserFactory factory;
     protected SAXParser saxParser;
 
-/**
+    /**
      * Creates a new XMLTVImport object.
      *
      * @throws ParserConfigurationException DOCUMENT ME!
@@ -57,13 +57,13 @@ public class XMLTVImport
      * @throws SAXException DOCUMENT_ME!
      * @throws IOException DOCUMENT_ME!
      */
-    public int process( 
+    public int process(
         File file, final IStoragePipe storage,
         final ProgrammesCountCallback countCallback, Filter filter,
         ILogger logger ) throws SAXException, IOException
     {
         XMLTVImportHandler handler =
-            new XMLTVImportHandler( 
+            new XMLTVImportHandler(
                 storage, countCallback, filter );
         InputSource ins =
             new InputSource(
@@ -71,7 +71,7 @@ public class XMLTVImport
                 new BufferedInputStream( new FileInputStream( file ) ), logger ) );
         ins.setSystemId( file.toURI(  ).toURL(  ).toString(  ) );
         saxParser.parse( ins, handler );
-        
+
         return handler.programmesCount;
     }
 
@@ -86,21 +86,21 @@ public class XMLTVImport
      * @throws IOException DOCUMENT_ME!
      * @throws ParserConfigurationException DOCUMENT_ME!
      */
-    public int process( 
+    public int process(
         InputStream in, final IStoragePipe storage,
         final ProgrammesCountCallback countCallback, Filter filter,
         ILogger logger )
         throws SAXException, IOException, ParserConfigurationException
     {
         XMLTVImportHandler handler =
-            new XMLTVImportHandler( 
+            new XMLTVImportHandler(
                 storage, countCallback, filter );
         InputSource ins = new InputSource( new BadUTF8FilterInputStream( in,
             logger ) );
         ins.setSystemId( SYSTEM_ID );
         saxParser.parse( ins, handler );
         storage.finishBlock(  );
-        
+
         return handler.programmesCount;
     }
 

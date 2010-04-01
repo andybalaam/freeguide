@@ -52,7 +52,7 @@ public class TitleDialog implements SettingDialog
     public void show(  )
     {
         String strAnswer =
-            JOptionPane.showInputDialog( 
+            JOptionPane.showInputDialog(
                 VerticalViewer.getInstance(  )
                               .getLocalizedMessage( "titledialog.question" ),
                 this.filter.getSearchString(  ) );

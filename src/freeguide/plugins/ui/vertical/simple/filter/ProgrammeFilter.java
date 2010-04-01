@@ -90,7 +90,7 @@ public abstract class ProgrammeFilter
     public void deactivate(  )
     {
         //Override me!
-        System.err.println( 
+        System.err.println(
             "The deactivate() method of ProgrammeFilter in "
             + getClass(  ).getName(  ) + " should be overridden" );
     }
@@ -104,7 +104,7 @@ public abstract class ProgrammeFilter
     public String exportSettings(  )
     {
         //Override me!
-        System.err.println( 
+        System.err.println(
             "The exportSettings() method of ProgrammeFilter in "
             + getClass(  ).getName(  ) + " should be overridden" );
 
@@ -119,7 +119,7 @@ public abstract class ProgrammeFilter
     public void importSettings( String strSettings )
     {
         //Override me!
-        System.err.println( 
+        System.err.println(
             "The importSettings() method of ProgrammeFilter in "
             + getClass(  ).getName(  ) + " should be overridden" );
     }
@@ -132,7 +132,7 @@ public abstract class ProgrammeFilter
     public boolean isDeactivated(  )
     {
         //Override me!
-        System.err.println( 
+        System.err.println(
             "The isDeactivated() method of ProgrammeFilter in "
             + getClass(  ).getName(  ) + " should be overridden" );
 

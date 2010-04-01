@@ -45,7 +45,7 @@ public class Version
     /** Build value. */
     public int build;
 
-/**
+    /**
      * Creates a new Version object.
      *
      * @param major DOCUMENT ME!
@@ -59,7 +59,7 @@ public class Version
 
     }
 
-/**
+    /**
      * Create a Version object with the given major, minor and revision
      * numbers
      *
@@ -77,7 +77,7 @@ public class Version
 
     }
 
-/**
+    /**
      * Create a Version object with the given major, minor, revision and build
      * numbers
      *
@@ -97,7 +97,7 @@ public class Version
         this.build = build;
     }
 
-/**
+    /**
      * Create a Version object from a string that looks like this: d.d.d_x
      * where d represents any number of digits . is a literal dot _ is either
      * an _, - or . character x is any sequence of characters

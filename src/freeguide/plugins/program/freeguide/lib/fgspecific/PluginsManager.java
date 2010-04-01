@@ -97,7 +97,7 @@ public class PluginsManager
 
                 try
                 {
-                    FreeGuide.log.finest( 
+                    FreeGuide.log.finest(
                         "Loading XML from " + url.toString(  ) );
 
                     PluginInfo handler = new PluginInfo(  );
@@ -137,12 +137,12 @@ public class PluginsManager
                     {
                         viewersList.add( handler );
                     }
-                    else if( 
+                    else if(
                         handler.getInstance(  ) instanceof IModuleReminder )
                     {
                         remindersList.add( handler );
                     }
-                    else if( 
+                    else if(
                         handler.getInstance(  ) instanceof IModuleImport
                             || handler.getInstance(  ) instanceof IModuleExport )
                     {
@@ -167,17 +167,17 @@ public class PluginsManager
                         {
                             if( handler == applicationInfo )
                             {
-                                PreferencesHelper.load( 
+                                PreferencesHelper.load(
                                     Preferences.userRoot(  )
-                                               .node( 
+                                               .node(
                                         FreeGuide.pref_root_name
                                         + "/mainController" ), config );
                             }
                             else
                             {
-                                PreferencesHelper.load( 
+                                PreferencesHelper.load(
                                     Preferences.userRoot(  )
-                                               .node( 
+                                               .node(
                                         FreeGuide.pref_root_name + "/modules/"
                                         + handler.getID(  ) ), config );
                             }
@@ -186,7 +186,7 @@ public class PluginsManager
                 }
                 catch( Exception ex )
                 {
-                    FreeGuide.log.log( 
+                    FreeGuide.log.log(
                         Level.SEVERE, "Error loading plugin", ex );
                 }
             }
@@ -224,17 +224,17 @@ public class PluginsManager
                     {
                         if( handler == applicationInfo )
                         {
-                            PreferencesHelper.save( 
+                            PreferencesHelper.save(
                                 Preferences.userRoot(  )
-                                           .node( 
+                                           .node(
                                     FreeGuide.pref_root_name
                                     + "/mainController" ), config );
                         }
                         else
                         {
-                            PreferencesHelper.save( 
+                            PreferencesHelper.save(
                                 Preferences.userRoot(  )
-                                           .node( 
+                                           .node(
                                     FreeGuide.pref_root_name + "/modules/"
                                     + handler.getID(  ) ), config );
                         }
@@ -244,7 +244,7 @@ public class PluginsManager
             catch( Exception ex )
             {
                 Application.getInstance(  ).getLogger(  )
-                           .log( 
+                           .log(
                     Level.SEVERE,
                     "Error save config for module " + handler.getID(  ), ex );
             }
@@ -280,7 +280,7 @@ public class PluginsManager
                 }
             }
         }
-        
+
 
         // Doesn't work at the moment - need the right classloader?
         // Now look in any other jars we may have loaded from the lib dir
@@ -310,7 +310,7 @@ public class PluginsManager
 
         // finding plugin.xml in the current directory
         File[] plugin_files =
-            dir.listFiles( 
+            dir.listFiles(
                 new FileFilter(  )
                 {
                     public boolean accept( File fl )
@@ -336,7 +336,7 @@ public class PluginsManager
 
         // go down into sub-directories other than .svn to find other plugin.xml
         File[] dirs =
-            dir.listFiles( 
+            dir.listFiles(
                 new FileFilter(  )
                 {
                     public boolean accept( File fl )
@@ -428,7 +428,7 @@ public class PluginsManager
                 }
                 catch( Exception ex )
                 {
-                    FreeGuide.log.log( 
+                    FreeGuide.log.log(
                         Level.SEVERE,
                         "Error set locale for module " + info.getID(  ), ex );
                 }
@@ -443,7 +443,7 @@ public class PluginsManager
      */
     public static PluginInfo[] getGrabbers(  )
     {
-        return (PluginInfo[])grabbersList.toArray( 
+        return (PluginInfo[])grabbersList.toArray(
             new PluginInfo[grabbersList.size(  )] );
     }
 
@@ -454,7 +454,7 @@ public class PluginsManager
      */
     public static PluginInfo[] getImportersAndExporters(  )
     {
-        return (PluginInfo[])importexportsList.toArray( 
+        return (PluginInfo[])importexportsList.toArray(
             new PluginInfo[importexportsList.size(  )] );
     }
 
@@ -465,7 +465,7 @@ public class PluginsManager
      */
     public static PluginInfo[] getReminders(  )
     {
-        return (PluginInfo[])remindersList.toArray( 
+        return (PluginInfo[])remindersList.toArray(
             new PluginInfo[remindersList.size(  )] );
     }
 
@@ -476,7 +476,7 @@ public class PluginsManager
      */
     public static PluginInfo[] getStorages(  )
     {
-        return (PluginInfo[])storagesList.toArray( 
+        return (PluginInfo[])storagesList.toArray(
             new PluginInfo[storagesList.size(  )] );
     }
 
@@ -487,7 +487,7 @@ public class PluginsManager
      */
     public static PluginInfo[] getViewers(  )
     {
-        return (PluginInfo[])viewersList.toArray( 
+        return (PluginInfo[])viewersList.toArray(
             new PluginInfo[viewersList.size(  )] );
     }
 
@@ -498,7 +498,7 @@ public class PluginsManager
      */
     public static PluginInfo[] getImporters(  )
     {
-        return (PluginInfo[])importersList.toArray( 
+        return (PluginInfo[])importersList.toArray(
             new PluginInfo[importersList.size(  )] );
     }
 
@@ -509,7 +509,7 @@ public class PluginsManager
      */
     public static PluginInfo[] getExporters(  )
     {
-        return (PluginInfo[])exportersList.toArray( 
+        return (PluginInfo[])exportersList.toArray(
             new PluginInfo[exportersList.size(  )] );
     }
 

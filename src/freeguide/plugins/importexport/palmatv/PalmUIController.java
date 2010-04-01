@@ -25,7 +25,7 @@ public class PalmUIController implements IModuleConfigurationUI
     protected PalmUIPanel panel;
     protected final ExportPalmAtv parent;
 
-/**
+    /**
      * Creates a new PalmUIController object.
      *
      * @param parent DOCUMENT ME!

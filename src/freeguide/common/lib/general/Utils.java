@@ -64,7 +64,7 @@ public class Utils
         catch( java.io.IOException ex )
         {
             Application.getInstance(  ).getLogger(  )
-                       .log( 
+                       .log(
                 Level.WARNING, "Error execute command : " + cmd, ex );
         }
     }
@@ -109,7 +109,7 @@ public class Utils
 
         try
         {
-loop: 
+loop:
 
             while( true )
             {
@@ -153,7 +153,7 @@ loop:
      *
      * @return Description of the Return Value
      */
-    public static String[] substitute( 
+    public static String[] substitute(
         String[] str, String oldStr, String newStr )
     {
         String[] ans = new String[str.length];
@@ -202,7 +202,7 @@ loop:
      * @param parent parent window
      * @param dialog window to move
      */
-    public static void centreDialog( 
+    public static void centreDialog(
         final Component parent, final Window dialog )
     {
         Dimension thisSize = parent.getSize(  );
@@ -211,7 +211,7 @@ loop:
 
         Point thisLocation = parent.getLocation(  );
 
-        dialog.setLocation( 
+        dialog.setLocation(
             thisLocation.x + ( ( thisSize.width - dialogSize.width ) / 2 ),
             thisLocation.y + ( ( thisSize.height - dialogSize.height ) / 2 ) );
     }
@@ -227,7 +227,7 @@ loop:
 
         Dimension dialogSize = dialog.getSize(  );
 
-        dialog.setLocation( 
+        dialog.setLocation(
             ( screenSize.width - dialogSize.width ) / 2,
             ( screenSize.height - dialogSize.height ) / 2 );
     }

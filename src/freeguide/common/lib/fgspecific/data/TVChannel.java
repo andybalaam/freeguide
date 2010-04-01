@@ -35,7 +35,7 @@ public class TVChannel implements Serializable
     /** List of programmes for channel. */
     protected TreeSet<TVProgramme> programmes = new TreeSet<TVProgramme>();
 
-/**
+    /**
      * Create channel with specified ID. It should be locale-insensitive.
      *
      * @param id channel ID
@@ -46,7 +46,7 @@ public class TVChannel implements Serializable
 
     }
 
-/**
+    /**
      * Create channel with specified ID and display name.
      *
      * @param id channel ID
@@ -65,7 +65,7 @@ public class TVChannel implements Serializable
      */
     public void mergeHeaderFrom( final TVChannel channel )
     {
-        if( 
+        if(
             ( channel.displayName != null )
                 && ( channel.displayName.length(  ) > 0 ) )
         {
@@ -259,14 +259,14 @@ public class TVChannel implements Serializable
         {
             if( ( prevProg != null ) && ( prevProg.getEnd(  ) == 0 ) )
             {
-                if( 
+                if(
                     ( prog.getStart(  ) - prevProg.getStart(  ) ) <= PROG_LENGTH_MAX )
                 {
                     prevProg.setEnd( prog.getStart(  ) );
                 }
                 else
                 {
-                    prevProg.setEnd( 
+                    prevProg.setEnd(
                         prevProg.getStart(  ) + PROG_LENGTH_DEFAULT );
                 }
             }

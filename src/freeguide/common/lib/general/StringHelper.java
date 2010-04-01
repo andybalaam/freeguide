@@ -57,7 +57,7 @@ public class StringHelper
      *
      * @return DOCUMENT_ME!
      */
-    public static String replaceAll( 
+    public static String replaceAll(
         final String in, final String mask, final String to )
     {
         String result = in;

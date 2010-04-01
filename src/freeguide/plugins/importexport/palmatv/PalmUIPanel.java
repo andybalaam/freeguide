@@ -19,7 +19,7 @@ public class PalmUIPanel extends JPanel
     private JComboBox cbCharset = null;
     private JLabel jLabel = null;
 
-/**
+    /**
      * This is the default constructor
      *
      * @param parent DOCUMENT ME!

@@ -31,7 +31,7 @@ public class TVChannelsTree extends JTree
     protected TVChannelsSelection channels;
     protected final Map nodesByChannelID = new TreeMap(  );
 
-/**
+    /**
      * Creates a new TVChannelsTree object.
      */
     public TVChannelsTree(  )
@@ -79,7 +79,7 @@ public class TVChannelsTree extends JTree
      */
     public String[] getSelectedChannelIDs(  )
     {
-        return (String[])channels.selectedChannelIDs.toArray( 
+        return (String[])channels.selectedChannelIDs.toArray(
             new String[channels.selectedChannelIDs.size(  )] );
 
     }
@@ -118,7 +118,7 @@ public class TVChannelsTree extends JTree
      *
      * @return DOCUMENT_ME!
      */
-    public DefaultMutableTreeNode getNodeByPath( 
+    public DefaultMutableTreeNode getNodeByPath(
         DefaultMutableTreeNode root, String channelID )
     {
         if( channelID == null )
@@ -160,7 +160,7 @@ public class TVChannelsTree extends JTree
      *
      * @return DOCUMENT_ME!
      */
-    public DefaultMutableTreeNode getNodeByPathOld( 
+    public DefaultMutableTreeNode getNodeByPathOld(
         DefaultMutableTreeNode root, TVChannelsSet.Channel channel )
     {
         String[] pathElements =
@@ -210,7 +210,7 @@ public class TVChannelsTree extends JTree
     {
         TVChannelsSet.Channel currentChannel;
 
-/**
+        /**
          * Creates a new Renderer object.
          */
         public Renderer(  )
@@ -232,7 +232,7 @@ public class TVChannelsTree extends JTree
          *
          * @return DOCUMENT_ME!
          */
-        public Component getTreeCellRendererComponent( 
+        public Component getTreeCellRendererComponent(
             JTree tree, Object value, boolean selected, boolean expanded,
             boolean leaf, int row, boolean hasFocus )
         {
@@ -252,8 +252,8 @@ public class TVChannelsTree extends JTree
             {
                 setText( currentChannel.getDisplayName(  ) );
 
-                setSelected( 
-                    channels.selectedChannelIDs.contains( 
+                setSelected(
+                    channels.selectedChannelIDs.contains(
                         currentChannel.getChannelID(  ) ) );
 
             }
