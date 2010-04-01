@@ -20,6 +20,7 @@ public class StoragePipe implements IStoragePipe
     protected final IModuleStorage storage;
     protected final TVData cache;
     protected final TVData normalizedCache;
+    protected int cacheTotal;
     protected int cacheCount;
     protected int normalizedCacheCount;
 
@@ -50,10 +51,12 @@ public class StoragePipe implements IStoragePipe
      */
     public void addChannel( final TVChannel channel )
     {
-        cacheCount += channel.getProgrammesCount(  );
-
         final TVChannel cachedChannel = cache.get( channel.getID(  ) );
+
+        cacheTotal += channel.getProgrammesCount(  );
+        cacheCount += channel.getProgrammesCount(  );
         cachedChannel.moveFrom( channel );
+        checkForMaxCache(  );
     }
 
     /**
@@ -65,8 +68,10 @@ public class StoragePipe implements IStoragePipe
     public void addProgramme( String channelID, TVProgramme programme )
     {
         final TVChannel cachedChannel = cache.get( channelID );
-        cachedChannel.put( programme );
+
+        cacheTotal++;
         cacheCount++;
+        cachedChannel.put( programme );
         checkForMaxCache(  );
     }
 
@@ -79,8 +84,10 @@ public class StoragePipe implements IStoragePipe
     public void addProgrammes( String channelID, TVProgramme[] programmes )
     {
         final TVChannel cachedChannel = cache.get( channelID );
-        cachedChannel.put( programmes );
+
+        cacheTotal += programmes.length;
         cacheCount += programmes.length;
+        cachedChannel.put( programmes );
         checkForMaxCache(  );
     }
 
@@ -91,8 +98,10 @@ public class StoragePipe implements IStoragePipe
      */
     public void addData( TVData data )
     {
+        cacheTotal += data.getProgrammesCount(  );
         cacheCount += data.getProgrammesCount(  );
         cache.moveFrom( data );
+        checkForMaxCache(  );
     }
 
     /**
@@ -105,12 +114,12 @@ public class StoragePipe implements IStoragePipe
 
     protected void checkForMaxCache(  )
     {
-        if( ( cacheCount + normalizedCacheCount ) > MAX_CACHE_SIZE )
+        if( ( cacheCount + normalizedCacheCount ) >= MAX_CACHE_SIZE )
         {
             if( normalizedCacheCount == 0 )
             {
                 Application.getInstance(  ).getLogger(  )
-                           .warning( "Cache was forced normalized" );
+                           .warning( "Cache was forced normalized (" + cacheTotal + ")");
                 normalizeCache(  );
             }
 
@@ -141,7 +150,7 @@ public class StoragePipe implements IStoragePipe
         if( cacheCount > 0 )
         {
             Application.getInstance(  ).getLogger(  )
-                       .warning( "Cache was forced normalized" );
+                       .warning( "Cache was forced normalized (" + cacheTotal + ")");
             normalizeCache(  );
         }
 
