@@ -38,15 +38,16 @@ import javax.swing.Timer;
 public class TimePanel extends JPanel implements ActionListener
 {
     // The time on the left hand side of the panel
-    private long startTime;
+    private long startTime = 0;
 
     // The time on the right hand side of the panel
-    private long endTime;
+    // Initialised to -1 so no times are between start and end until
+    // setTimes has been called.
+    private long endTime = -1;
 
     // The no. millisecs over the no. pixels
     private double multiplier;
 
-    private boolean display = false;
     private final SimpleDateFormat time24format =
         new SimpleDateFormat( "HH:mm" );
     private final SimpleDateFormat timeformat =
@@ -67,8 +68,6 @@ public class TimePanel extends JPanel implements ActionListener
     public TimePanel( HorizontalViewer parent )
     {
         this.parent = parent;
-
-        display = false;
 
         setLayout( new java.awt.BorderLayout(  ) );
 
@@ -99,16 +98,16 @@ public class TimePanel extends JPanel implements ActionListener
     public void paintComponent( Graphics g )
     {
         //FreeGuide.log.info("Painting Time Panel.");
-        if( display )
+
+        // FIXME: This prevents a divide by zero but does extra work!!
+        int wid = this.getPreferredSize(  ).width;
+        if( isVisible() && ( wid > 0 ) )
         {
             super.paintComponent( g );
 
             Graphics2D g2 = (Graphics2D)g;
             g2.setRenderingHint( RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON );
-
-            // FIXME: This prevents a divide by zero but does extra work!!
-            int wid = this.getPreferredSize(  ).width;
 
             if( wid > 0 )
             {
@@ -254,13 +253,10 @@ public class TimePanel extends JPanel implements ActionListener
      */
     public int getScrollValue( long showMillis )
     {
-        if( display )
+        int nAns = getNowScroll( showMillis );
+        if( nAns > 0 )
         {
-            int nAns = getNowScroll( showMillis );
-            if( nAns > 0 )
-            {
-                return nAns;
-            }
+            return nAns;
         }
 
         return 0;
@@ -290,7 +286,6 @@ public class TimePanel extends JPanel implements ActionListener
 
         startTime = newStartTime;
         endTime = newEndTime;
-        display = true;
         repaint(  );
     }
 }
