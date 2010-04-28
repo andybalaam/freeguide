@@ -101,116 +101,118 @@ public class TimePanel extends JPanel implements ActionListener
 
         // FIXME: This prevents a divide by zero but does extra work!!
         int wid = this.getPreferredSize(  ).width;
-        if( isVisible() && ( wid > 0 ) )
+        if (!isVisible() || (wid <= 0))
         {
-            super.paintComponent( g );
+           return;
+        }
 
-            Graphics2D g2 = (Graphics2D)g;
-            g2.setRenderingHint( RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON );
+        super.paintComponent( g );
 
-            if( wid > 0 )
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setRenderingHint( RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON );
+
+        if( wid > 0 )
+        {
+            SimpleDateFormat fmt;
+
+            //DMT use preferences for 24 hour or 12 hour display
+            if( parent.config.display24time )
             {
-                SimpleDateFormat fmt;
+                fmt = time24format;
+            }
 
-                //DMT use preferences for 24 hour or 12 hour display
-                if( parent.config.display24time )
+            else
+            {
+                fmt = timeformat;
+            }
+
+            fmt.setTimeZone( Application.getInstance(  ).getTimeZone(  ) );
+
+            Rectangle drawHere = g.getClipBounds(  );
+
+            //Rectangle viewable = new Rectangle();
+            //computeVisibleRect(viewable);
+            multiplier = (double)( endTime - startTime ) / (double)( wid );
+
+            // FIXME: Instance variable?  Inconsistent locale setting
+            Calendar tmpTime =
+                GregorianCalendar.getInstance(
+                    Application.getInstance(  ).getTimeZone(  ),
+                    Locale.ENGLISH );
+
+            // FIXME: Why do this every paint?  Modify start/end
+            //        in setTimes()?
+            tmpTime.setTimeInMillis( startTime );
+
+            // Forget about seconds and milliseconds
+            tmpTime.set( Calendar.SECOND, 0 );
+
+            tmpTime.set( Calendar.MILLISECOND, 0 );
+
+            // Round to the nearest 5 mins
+            tmpTime.set(
+                Calendar.MINUTE,
+                ( (int)( tmpTime.get( Calendar.MINUTE ) / 5 ) ) * 5 );
+
+            // FIXME: -- END --
+
+            // Step through each 5 mins
+            while( tmpTime.getTimeInMillis(  ) < endTime )
+            {
+                int xPos =
+                    (int)( ( tmpTime.getTimeInMillis(  ) - startTime ) / multiplier );
+
+                // If this time is on screen, draw a mark
+                if(
+                    ( ( xPos + 50 ) >= drawHere.x )
+                        && ( ( xPos - 50 ) <= ( drawHere.x
+                        + drawHere.width ) ) )
                 {
-                    fmt = time24format;
-                }
-
-                else
-                {
-                    fmt = timeformat;
-                }
-
-                fmt.setTimeZone( Application.getInstance(  ).getTimeZone(  ) );
-
-                Rectangle drawHere = g.getClipBounds(  );
-
-                //Rectangle viewable = new Rectangle();
-                //computeVisibleRect(viewable);
-                multiplier = (double)( endTime - startTime ) / (double)( wid );
-
-                // FIXME: Instance variable?  Inconsistent locale setting
-                Calendar tmpTime =
-                    GregorianCalendar.getInstance(
-                        Application.getInstance(  ).getTimeZone(  ),
-                        Locale.ENGLISH );
-
-                // FIXME: Why do this every paint?  Modify start/end
-                //        in setTimes()?
-                tmpTime.setTimeInMillis( startTime );
-
-                // Forget about seconds and milliseconds
-                tmpTime.set( Calendar.SECOND, 0 );
-
-                tmpTime.set( Calendar.MILLISECOND, 0 );
-
-                // Round to the nearest 5 mins
-                tmpTime.set(
-                    Calendar.MINUTE,
-                    ( (int)( tmpTime.get( Calendar.MINUTE ) / 5 ) ) * 5 );
-
-                // FIXME: -- END --
-
-                // Step through each 5 mins
-                while( tmpTime.getTimeInMillis(  ) < endTime )
-                {
-                    int xPos =
-                        (int)( ( tmpTime.getTimeInMillis(  ) - startTime ) / multiplier );
-
-                    // If this time is on screen, draw a mark
-                    if(
-                        ( ( xPos + 50 ) >= drawHere.x )
-                            && ( ( xPos - 50 ) <= ( drawHere.x
-                            + drawHere.width ) ) )
+                    // Make a mark
+                    if( tmpTime.get( Calendar.MINUTE ) == 0 )
                     {
-                        // Make a mark
-                        if( tmpTime.get( Calendar.MINUTE ) == 0 )
-                        {
-                            // Hours
-                            g.drawLine( xPos, 0, xPos, 10 );
-                            g.drawLine( xPos + 1, 0, xPos + 1, 10 );
-                            g.drawString(
-                                fmt.format( tmpTime.getTime(  ) ), xPos - 17,
-                                21 );
+                        // Hours
+                        g.drawLine( xPos, 0, xPos, 10 );
+                        g.drawLine( xPos + 1, 0, xPos + 1, 10 );
+                        g.drawString(
+                            fmt.format( tmpTime.getTime(  ) ), xPos - 17,
+                            21 );
 
-                        }
-
-                        else if( tmpTime.get( Calendar.MINUTE ) == 30 )
-                        {
-                            // Half hours
-                            g.drawLine( xPos, 0, xPos, 7 );
-
-                            g.drawString(
-                                fmt.format( tmpTime.getTime(  ) ), xPos - 17,
-                                21 );
-                        }
-
-                        else if( ( tmpTime.get( Calendar.MINUTE ) % 10 ) == 0 )
-                        {
-                            // 10 mins
-                            g.drawLine( xPos, 0, xPos, 4 );
-                        }
-
-                        else
-                        {
-                            g.drawLine( xPos, 0, xPos, 1 );
-                        }
                     }
 
-                    // Add another 5 mins
-                    tmpTime.add( Calendar.MINUTE, 5 );
-                } //while
+                    else if( tmpTime.get( Calendar.MINUTE ) == 30 )
+                    {
+                        // Half hours
+                        g.drawLine( xPos, 0, xPos, 7 );
 
-                // Draw the "now" line ONLY for the current day!
-                int xNow = getNowScroll( System.currentTimeMillis() );
-                if ( xNow >= 0 )
-                {
-                    drawNowLine( g, xNow );
+                        g.drawString(
+                            fmt.format( tmpTime.getTime(  ) ), xPos - 17,
+                            21 );
+                    }
+
+                    else if( ( tmpTime.get( Calendar.MINUTE ) % 10 ) == 0 )
+                    {
+                        // 10 mins
+                        g.drawLine( xPos, 0, xPos, 4 );
+                    }
+
+                    else
+                    {
+                        g.drawLine( xPos, 0, xPos, 1 );
+                    }
                 }
-            } //if
+
+                // Add another 5 mins
+                tmpTime.add( Calendar.MINUTE, 5 );
+            } //while
+
+            // Draw the "now" line ONLY for the current day!
+            int xNow = getNowScroll( System.currentTimeMillis() );
+            if ( xNow >= 0 )
+            {
+                drawNowLine( g, xNow );
+            }
         } //if
     } //paintComponent
 
