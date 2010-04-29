@@ -1,6 +1,7 @@
 package freeguide.test.slow;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -18,6 +19,7 @@ import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVChannel;
 import freeguide.common.lib.fgspecific.data.TVData;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
+import freeguide.common.lib.fgspecific.data.TVChannelsSet.Channel;
 import freeguide.common.lib.general.FileHelper;
 import freeguide.common.lib.importexport.XMLTVImport;
 import freeguide.common.lib.importexport.XMLTVImportHandler;
@@ -30,10 +32,15 @@ import freeguide.common.plugininterfaces.IModuleViewer;
 import freeguide.common.plugininterfaces.IStoragePipe;
 import freeguide.plugins.program.freeguide.lib.fgspecific.StoragePipe;
 import freeguide.plugins.storage.serfiles.StorageSerFilesByDay;
+import freeguide.test.FreeGuideTest;
 
 public class ImportPerformanceSlowTest
 {
+    /** A number suitable for doing a lot of in-memory things */
     private static final int LARGE_NUMBER = 1000000;
+
+    /** A number suitable for doing a lot of on-disk things */
+    private static final int SOMEWHAT_LARGE_NUMBER = 10000;
 
     private class NullStoragePipe implements IStoragePipe
     {
@@ -217,7 +224,8 @@ public class ImportPerformanceSlowTest
 
     public void run() throws Exception
     {
-        test_StorageManyProgrammes();
+        test_StorageSaveManyProgrammes();
+        test_StorageLoadManyProgrammes();
         test_XMLTVHandlerManyProgrammes();
     }
 
@@ -227,26 +235,90 @@ public class ImportPerformanceSlowTest
      *
      * @throws Exception
      */
-    private void test_StorageManyProgrammes() throws Exception
+    private void test_StorageSaveManyProgrammes() throws Exception
     {
         Application.setInstance( new NullApplication() );
 
         File tmp_dir = new File( "tmp_dir_test_StorageManyProgrammes" );
 
-        StorageSerFilesByDay storage = new StorageSerFilesByDay( tmp_dir );
-        StoragePipe pipe = new StoragePipe( storage );
-        pipe.addChannel( new TVChannel( "channel1" ) );
+        String timePerProg = saveManyProgrammes( tmp_dir );
 
-        for( int i = 0; i < LARGE_NUMBER; ++i )
-        {
-            TVProgramme prog = new TVProgramme();
-            prog.setStart( i );
-            prog.setEnd( i + 1 );
-            prog.setTitle( "prog" + i );
-            pipe.addProgramme( "channel1", new TVProgramme() );
-        }
+        System.out.println( "test_StorageSaveManyProgrammes: "
+            + timePerProg + " secs for " + SOMEWHAT_LARGE_NUMBER
+            + " programmes" );
 
         FileHelper.deleteDir( tmp_dir );
+    }
+
+    /**
+     * Check that when we read many programmes from the StorageSerFilesByDay
+     * and StoragePipe classes they don't blow up or be slow.
+     *
+     * @throws Exception
+     */
+    private void test_StorageLoadManyProgrammes() throws Exception
+    {
+        Application.setInstance( new NullApplication() );
+
+        File tmp_dir = new File( "tmp_dir_test_StorageManyProgrammes" );
+
+        saveManyProgrammes( tmp_dir );
+        String timePerProg = loadManyProgrammes( tmp_dir );
+
+        System.out.println( "test_StorageLoadManyProgrammes: "
+            + timePerProg + " secs for " + SOMEWHAT_LARGE_NUMBER
+            + " programmes" );
+
+        FileHelper.deleteDir( tmp_dir );
+    }
+
+    private String saveManyProgrammes( File tmp_dir )
+    {
+        StorageSerFilesByDay storage = new StorageSerFilesByDay( tmp_dir );
+        storage.debugIncludeOldProgrammes = true;
+        StoragePipe pipe = new StoragePipe( storage );
+
+        Calendar start = Calendar.getInstance();
+
+        pipe.addChannel( new TVChannel( "channel1" ) );
+
+        for( int i = 0; i < SOMEWHAT_LARGE_NUMBER; ++i )
+        {
+            TVProgramme prog = new TVProgramme();
+            prog.setStart( i*10 );
+            prog.setEnd( (i+1)*10 - 1 );
+            prog.setTitle( "prog" + i );
+            pipe.addProgramme( "channel1", prog );
+        }
+
+        pipe.finish();
+
+        Calendar end = Calendar.getInstance();
+
+        return FreeGuideTest.Cals2SecsInterval( start, end );
+    }
+
+    private String loadManyProgrammes( File tmp_dir )
+    throws Exception
+    {
+        final IModuleStorage.Info info = new IModuleStorage.Info();
+        Channel chan = new Channel();
+        chan.channelID = "channel1";
+        info.channelsList.add( chan );
+        info.minDate = 0;
+        info.maxDate = (SOMEWHAT_LARGE_NUMBER*10) + 1;
+
+        StorageSerFilesByDay storage = new StorageSerFilesByDay( tmp_dir );
+        storage.debugIncludeOldProgrammes = true;
+
+        Calendar start = Calendar.getInstance();
+        TVData data = storage.get(  info  );
+        Calendar end = Calendar.getInstance();
+
+        FreeGuideTest.my_assert(
+            data.getProgrammesCount() == SOMEWHAT_LARGE_NUMBER );
+
+        return FreeGuideTest.Cals2SecsInterval( start, end );
     }
 
     /**
