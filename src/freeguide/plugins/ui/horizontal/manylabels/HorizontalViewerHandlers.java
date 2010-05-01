@@ -344,16 +344,6 @@ public class HorizontalViewerHandlers
                         if( fav != null )
                         {
                             reminder.removeFavourite( fav );
-
-                            JLabelProgramme labelNew =
-                                ( (ViewerFrame)label.controller
-                                  .getPanel(  ) ).getProgrammesPanel(  )
-                                  .getLabelForProgramme( programme );
-
-                            if( labelNew != null )
-                            {
-                                labelNew.requestFocus(  );
-                            }
                         }
                         else
                         {
@@ -362,17 +352,6 @@ public class HorizontalViewerHandlers
                                 label.getProgramme(  ).getTitle(  ) );
                             fav.setName( label.getProgramme(  ).getTitle(  ) );
                             reminder.addFavourite( fav );
-                            label.controller.redraw(  );
-
-                            JLabelProgramme labelNew =
-                                ( (ViewerFrame)label.controller
-                                  .getPanel(  ) ).getProgrammesPanel(  )
-                                  .getLabelForProgramme( programme );
-
-                            if( labelNew != null )
-                            {
-                                labelNew.requestFocus(  );
-                            }
                         }
                     }
                 } );
