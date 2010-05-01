@@ -36,7 +36,7 @@ public class FavouritePerformanceSlowTest
         String timePerMatch = FreeGuideTest.Cals2SecsInterval( start, end );
 
         System.out.println( "FavouritePerformanceSlowTest.test_matches_title: "
-            + timePerMatch + " secs for " + LARGE_NUMBER
-            + " calls to match" );
+            + timePerMatch + " secs for " + LARGE_NUMBER / 1000000
+            + " million calls to match" );
     }
 }
