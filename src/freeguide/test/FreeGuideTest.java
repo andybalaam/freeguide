@@ -32,6 +32,8 @@ public class FreeGuideTest
             {
                 if( args[0].equals( "--slow" ) )
                 {
+                    new PreferencesHelperPerformanceSlowTest().run();
+                    new PreferencesPerformanceSlowTest().run();
                     new FavouritePerformanceSlowTest().run();
                     new SelectionPerformanceSlowTest().run();
                     new PathSearcherSlowTest().run();

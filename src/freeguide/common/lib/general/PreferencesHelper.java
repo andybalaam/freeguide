@@ -48,7 +48,10 @@ public class PreferencesHelper
     public static void load( final Preferences prefNode, final Object obj )
         throws Exception
     {
-        loadObject( prefNode, StringHelper.EMPTY_STRING, obj );
+        final TreeSet existKeys =
+            new TreeSet( Arrays.asList( prefNode.keys(  ) ) );
+
+        loadObject( prefNode, existKeys, StringHelper.EMPTY_STRING, obj );
     }
 
     /**
@@ -60,13 +63,11 @@ public class PreferencesHelper
      *
      * @throws Exception DOCUMENT_ME!
      */
-    protected static void loadObject(
-        final Preferences prefNode, final String namePrefix, final Object obj )
+    private static void loadObject(
+        final Preferences prefNode, final TreeSet existKeys,
+        final String namePrefix, final Object obj )
         throws Exception
     {
-        final Set existKeys =
-            new TreeSet( Arrays.asList( prefNode.keys(  ) ) );
-
         final Field[] fields = obj.getClass(  ).getFields(  );
 
         for( int i = 0; i < fields.length; i++ )
@@ -157,7 +158,8 @@ public class PreferencesHelper
 
                     Map map = (Map)field.get( obj );
 
-                    loadMap( prefNode, keyName, map, keyType, valueType );
+                    loadMap( prefNode, existKeys, keyName, map, keyType,
+                        valueType );
 
                     //field.set( obj, list );
                 }
@@ -188,12 +190,13 @@ public class PreferencesHelper
 
                     Class typeClass = (Class)typeField.get( obj.getClass(  ) );
 
-                    loadList( prefNode, keyName, list, typeClass );
+                    loadList( prefNode, existKeys, keyName, list, typeClass );
                 }
                 else
                 {
                     // Object fieldObj = field.getType().newInstance();
-                    loadObject( prefNode, keyName + '.', field.get( obj ) );
+                    loadObject( prefNode, existKeys,
+                        keyName + '.', field.get( obj ) );
 
                     // field.set(obj, fieldObj);
                 }
@@ -201,7 +204,7 @@ public class PreferencesHelper
         }
     }
 
-    protected static Class checkTypeDefined(
+    private static Class checkTypeDefined(
         final Object obj, final String fieldName ) throws Exception
     {
         Field typeField = obj.getClass(  ).getField( fieldName );
@@ -232,9 +235,10 @@ public class PreferencesHelper
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public static void loadList(
-        final Preferences prefNode, final String namePrefix,
-        final Collection list, final Class elementClass )
+    private static void loadList(
+        final Preferences prefNode, final TreeSet existKeys,
+        final String namePrefix, final Collection list,
+        final Class elementClass )
         throws Exception
     {
         if( prefNode.get( namePrefix + SUFFIX_SIZE, null ) == null )
@@ -251,7 +255,8 @@ public class PreferencesHelper
         {
             list.add(
                 loadAndCreateObject(
-                    prefNode, elementClass, namePrefix + '.' + i + '.' ) );
+                    prefNode, existKeys, elementClass,
+                    namePrefix + '.' + i + '.' ) );
 
         }
     }
@@ -267,8 +272,9 @@ public class PreferencesHelper
      *
      * @throws Exception DOCUMENT_ME!
      */
-    public static void loadMap(
-        final Preferences prefNode, final String namePrefix, final Map map,
+    private static void loadMap(
+        final Preferences prefNode, final TreeSet existKeys,
+        final String namePrefix, final Map map,
         final Class keyClass, final Class valueClass )
         throws Exception
     {
@@ -286,12 +292,12 @@ public class PreferencesHelper
         {
             Object key =
                 loadAndCreateObject(
-                    prefNode, keyClass,
+                    prefNode, existKeys, keyClass,
                     namePrefix + '.' + i + MAP_SUFFIX_KEY + '.' );
 
             Object value =
                 loadAndCreateObject(
-                    prefNode, valueClass,
+                    prefNode, existKeys, valueClass,
                     namePrefix + '.' + i + MAP_SUFFIX_VALUE + '.' );
 
             map.put( key, value );
@@ -299,8 +305,9 @@ public class PreferencesHelper
         }
     }
 
-    protected static Object loadAndCreateObject(
-        final Preferences prefNode, final Class objClass, String namePrefix )
+    private static Object loadAndCreateObject(
+        final Preferences prefNode, final TreeSet existKeys,
+        final Class objClass, String namePrefix )
         throws Exception
     {
         final Object obj;
@@ -317,7 +324,7 @@ public class PreferencesHelper
         {
             obj = objClass.newInstance(  );
 
-            loadObject( prefNode, namePrefix, obj );
+            loadObject( prefNode, existKeys, namePrefix, obj );
         }
 
         return obj;
