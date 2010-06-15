@@ -93,6 +93,7 @@ public class FavouritesController
                 {
                     Favourite newFav = new Favourite(  );
 
+                    // save the favourite only if one was created
                     if(
                         new FavouriteEditorDialog(
                                 listDialog,
@@ -101,11 +102,17 @@ public class FavouritesController
                                     "add_a_new_favourite" ), newFav,
                                 allChannelsSet ).showDialog(  ) )
                     {
-                        // save the favourite only if one was created
-                        latestIndex = favourites.size(  );
+                        // note the change
+                        changed = true;
+
+                        // add the new favourite
                         favourites.add( newFav );
 
-                        changed = true;
+                        // sort the list with the new favourite
+                        Collections.sort( favourites, Favourite.GetNameComparator() );
+
+                        // get the index of the new favourite
+                        latestIndex = favourites.indexOf(newFav);
 
                         // update the display
                         reShow(  );
@@ -131,7 +138,14 @@ public class FavouritesController
                                         "edit_favourite" ), fav, allChannelsSet )
                                 .showDialog(  ) )
                         {
+                            // note the change
                             changed = true;
+
+                            // sort the list with the modified favourite
+                            Collections.sort( favourites, Favourite.GetNameComparator() );
+
+                            // get the new index in the sorted list
+                            latestIndex = favourites.indexOf(fav);
 
                             // update the display
                             reShow(  );
