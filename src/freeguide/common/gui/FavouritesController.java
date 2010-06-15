@@ -14,6 +14,7 @@ import java.util.Collections;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JList;
 
 /**
  * DOCUMENT ME!
@@ -194,7 +195,10 @@ public class FavouritesController
 
     private void selectLatest(  )
     {
-        listDialog.getList(  ).setSelectedIndex( latestIndex );
+        JList list = listDialog.getList(  );
+
+        list.setSelectedIndex( latestIndex );
+        list.ensureIndexIsVisible(latestIndex);
     }
 
     private void fillList(  )
