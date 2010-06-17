@@ -20,6 +20,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
@@ -42,24 +43,29 @@ public class XMLTVImportHandler extends DefaultHandler
     protected String currentChannelID;
     protected boolean isStarRating;
     protected StringBuffer charData = new StringBuffer(  );
-    private Pattern[] dateFormatPatterns =
+
+    private static class P2F
+    {
+        public Pattern p;
+        public SimpleDateFormat f;
+
+        P2F( String pattern, String fmt )
         {
-            Pattern.compile( "^\\d{12}$" ),
-            Pattern.compile( "^\\d{12} [-+]\\d{4}$" ),
-            Pattern.compile( "^\\d{14}$" ),
-            Pattern.compile( "^\\d{14} [-+]\\d{4}$" ),
-            Pattern.compile( "^\\d{14} .*$" ),
-            Pattern.compile( "^\\d{12} .*$" )
-        };
-    private SimpleDateFormat[] dateFormats =
+            p = Pattern.compile( pattern );
+            f = new SimpleDateFormat( fmt );
+        }
+    }
+
+    private static P2F[] dateFormats =
         {
-            new SimpleDateFormat( "yyyyMMddHHmm" ),
-            new SimpleDateFormat( "yyyyMMddHHmm z" ),
-            new SimpleDateFormat( "yyyyMMddHHmmss" ),
-            new SimpleDateFormat( "yyyyMMddHHmmss z" ),
-            new SimpleDateFormat( "yyyyMMddHHmmss Z" ),
-            new SimpleDateFormat( "yyyyMMddHHmm Z" )
+              new P2F( "^\\d{12}$",            "yyyyMMddHHmm"     )
+            , new P2F( "^\\d{12} [-+]\\d{4}$", "yyyyMMddHHmm Z"   )
+            , new P2F( "^\\d{14}$",            "yyyyMMddHHmmss"   )
+            , new P2F( "^\\d{14} [-+]\\d{4}$", "yyyyMMddHHmmss Z" )
+            , new P2F( "^\\d{14} .*$",         "yyyyMMddHHmmss z" )
+            , new P2F( "^\\d{12} .*$",         "yyyyMMddHHmm z"   )
         };
+
     private SimpleDateFormat dateAir = new SimpleDateFormat( "yyyyMMdd" );
     public int programmesCount;
 
@@ -444,24 +450,26 @@ public class XMLTVImportHandler extends DefaultHandler
     /**
      * Parse data string.
      *
+     * Public for test only.
+     *
      * @param strDate a time represented in string form.
      *
      * @return the time in milliseconds since 1970 represented by the supplied
      *         string.
      */
-    private long parseDate( String strDate )
+    public static long parseDate( String strDate )
     {
         Date dtAns = null;
 
-        for( int i = 0; i < dateFormatPatterns.length; ++i )
+        for( P2F p2f : Arrays.asList( dateFormats ) )
         {
-            Matcher m = dateFormatPatterns[i].matcher( strDate );
+            Matcher m = p2f.p.matcher( strDate );
 
             if( m.matches(  ) )
             {
                 try
                 {
-                    dtAns = dateFormats[i].parse( strDate );
+                    dtAns = p2f.f.parse( strDate );
                 }
                 catch( ParseException ex )
                 {

@@ -15,6 +15,7 @@ public class FreeGuideTest
     {
         try
         {
+            new DateParsingFastTest().run();
             new PathSearcherFastTest().run();
             new BrowserFastTest().run();
             new MigrationFastTest().run();
