@@ -172,7 +172,9 @@
 
         <mkdir dir="${install_jar_dir}" />
         <copy todir="${install_jar_dir}/">
-            <fileset dir="${jar}" />
+            <fileset dir="${jar}">
+                <exclude name="**/*.txt"/>
+            </fileset>
         </copy>
 
         <!-- Copy the different-sized icons to the freeguide pixmaps dir -->
