@@ -20,6 +20,8 @@ echo \$ mkdir -p $RPM_TOPDIR/SOURCES
 mkdir -p $RPM_TOPDIR/SOURCES
 echo \$ mkdir -p $RPM_TOPDIR/BUILD
 mkdir -p $RPM_TOPDIR/BUILD
+echo \$ mkdir -p $RPM_TOPDIR/BUILDROOT
+mkdir -p $RPM_TOPDIR/BUILDROOT
 echo \$ mkdir -p $RPM_TOPDIR/tmp
 mkdir -p $RPM_TOPDIR/tmp
 
@@ -32,6 +34,8 @@ echo \$ rm -f $RPM_TOPDIR/SOURCES/freeguide-\*.tar.gz
 rm -f $RPM_TOPDIR/SOURCES/freeguide-*.tar.gz
 echo \$ rm -rf $RPM_TOPDIR/BUILD/freeguide-\*
 rm -rf $RPM_TOPDIR/BUILD/freeguide-*
+echo \$ rm -rf $RPM_TOPDIR/BUILDROOT/freeguide-\*
+rm -rf $RPM_TOPDIR/BUILDROOT/freeguide-*
 echo \$ rm -rf $RPM_TOPDIR/tmp/\*
 rm -rf $RPM_TOPDIR/tmp/*
 
