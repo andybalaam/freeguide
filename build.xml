@@ -214,49 +214,48 @@
     <target name="dist-src"
         depends="precompile"
         description="generate the source tar.gz and zip">
-        
+
         <mkdir dir="${dist}/src" />
+
         <tar longfile="gnu"
             destfile="${dist}/src/${application-id}-${application-version}.tar.gz"
             compression="gzip">
-            
+
             <tarfileset dir="." prefix="${application-id}-${application-version}">
-                <exclude name="**/.xvpics/**" />
-                <exclude name="**/.svn/**"/>
-                <exclude name="**/.git/**"/>
-                <exclude name="bin/**"/>
-                <exclude name="install-bin/**"/>
-                <exclude name="dist/**"/>
-                <exclude name="stats/**"/>
-                <exclude name="nbproject/**"/>
-                <exclude name=".project"/>
-                <exclude name=".classpath"/>
-                <exclude name="**/xmltv.exe"/>
-                <exclude name="**/xmltv-*/**"/>
+                <include name=".gitignore"/>
+                <include name="build.xml"/>
+                <include name="contrib/**"/>
+                <include name="doc/**"/>
+                <include name="install/**"/>
+                <include name="images/**"/>
+                <include name="plugins-info.xml"/>
+                <include name="scripts/**"/>
+                <include name="src/**"/>
+                <include name="tools/**"/>
+                <include name="xmltv/**"/>
                 <exclude name="**/*.class"/>
+                <exclude name="**/xmltv.exe"/>
             </tarfileset>
-            
         </tar>
         
         <zip zipfile="${dist}/src/${application-id}-${application-version}.zip">
-        
             <zipfileset dir="." prefix="${application-id}-${application-version}">
-                <exclude name="**/.xvpics/**" />
-                <exclude name="**/.svn/**"/>
-                <exclude name="**/.git/**"/>
-                <exclude name="bin/**"/>
-                <exclude name="install-bin/**"/>
-                <exclude name="dist/**"/>
-                <exclude name="stats/**"/>
-                <exclude name="nbproject/**"/>
-                <exclude name=".project"/>
-                <exclude name=".classpath"/>
-                <exclude name="**/xmltv-*/**"/>
+                <include name=".gitignore"/>
+                <include name="build.xml"/>
+                <include name="contrib/**"/>
+                <include name="doc/**"/>
+                <include name="install/**"/>
+                <include name="images/**"/>
+                <include name="plugins-info.xml"/>
+                <include name="scripts/**"/>
+                <include name="src/**"/>
+                <include name="tools/**"/>
+                <include name="xmltv/**"/>
                 <exclude name="**/*.class"/>
+                <!-- NOTE: we include xmltv.exe in the zip. -->
             </zipfileset>
-            
         </zip>
-        
+
     </target>
 
     <target name="pre-deb" depends="dist-src">
