@@ -1,0 +1,88 @@
+NAME
+    tv_grab_in - Grab TV listings for India using WhatsOn.
+
+SYNOPSIS
+        tv_grab_in --help
+
+        tv_grab_in --version
+
+        tv_grab_in --capabilities
+
+        tv_grab_in --configure [--config-file FILE]
+                                    [--auto-config add|ignore]
+                                  [--gui OPTION]
+
+        tv_grab_in --list-lineups [--config-file FILE] [--dd-data FILE]
+                                     [--reprocess]
+
+        tv_grab_in [--config-file FILE] [--dd-data FILE]
+                      [--auto-config add|ignore]
+                      [--days N] [--offset N] [--quiet] [--notrim]
+                      [--output FILE]
+                      [--list-channel]
+
+DESCRIPTION
+    This script downloads TV listings using What's On's XMLTV data service.
+
+Stand-alone options
+    --help
+        Print a help message and exit.
+
+    --version
+        Show the version of the grabber.
+
+    --capabilities
+        Show which capabilities the grabber supports. For more information,
+        see <http://xmltv.org/wiki/xmltvcapabilities.html>
+
+Mode selection (default is grab mode)
+    --configure
+        Activates configure mode. If a config file already exists the values
+        are used as defaults.
+
+    --gui OPTION
+        Use this option to enable a graphical interface to be used. OPTION
+        may be 'Tk', or left blank for the best available choice. Additional
+        allowed values of OPTION are 'Term' for normal terminal output
+        (default) and 'TermNoProgressBar' to disable the use of
+        Term::ProgressBar.
+
+    --list-lineups
+        Lists available lineups. Only requires username in the config file.
+        Used by programs that automate the "--configure" process.
+
+General Options
+    --config-file *file*
+        Set the name of the configuration file, the default is
+        ~/.xmltv/tv_grab_in.conf. This is the file created during
+        "--configure" mode.
+
+    --auto-config *add|ignore*
+        When used in --configure mode, updates the config file, removing old
+        channels, and adding or ignoring new channels. Prompts are skipped
+        if defaults are available in the current config file.
+
+        When used in grab mode, appends new channels to the config file.
+
+Grabber Mode options
+    --days *n*
+        Grab *n* days. The default is 7.
+
+    --offset *n*
+        Start N days after the default.
+
+    --quiet
+        Suppress some messages normally written to standard error.
+
+    --output *file*
+        Write xml to *file* rather than standard output.
+
+    --list-channel
+        Same as --days 0
+
+SEE ALSO
+    xmltv.
+
+Author
+    Author/Maintainer: Robert Eden, rmeden@yahoo.com
+
