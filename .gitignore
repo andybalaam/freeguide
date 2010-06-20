@@ -3,6 +3,7 @@
 *~
 .classpath
 .project
+.metadata
 nbproject
 lib/xercesImpl.jar
 lib/xml-apis.jar
