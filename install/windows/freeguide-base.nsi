@@ -203,7 +203,7 @@ SectionEnd
 Section "!FreeGuide program"
   SectionIn RO
 
-  ; -------------------- main jar --------------------
+  ; ------------------ main files to install -------------------
 
   Delete "$INSTDIR\lib\*.*"
 
@@ -216,13 +216,23 @@ Section "!FreeGuide program"
 
   File /r doc-bin\*.*
 
+ !ifdef XMLTV
+
+    CreateDirectory $INSTDIR\xmltv
+
+    SetOutPath $INSTDIR\xmltv
+
+    File /r xmltv\*.*
+
+ !endif
+
   ; --------------------- make uninstaller ---------------------
 
   WriteUninstaller $INSTDIR\uninstall.exe
 
   ; --------------------------- icons --------------------------
 
-  CreateDirectory $INSTDIR\icons\
+  CreateDirectory $INSTDIR\icons
 
   File /oname=$INSTDIR\icons\logo.ico install\windows\icons\logo.ico
 
