@@ -59,7 +59,7 @@ ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD
 %{_datadir}/pixmaps/freeguide/logo-96x96.png
 %{_datadir}/applications/freeguide.desktop
 %{_datadir}/man/man1/freeguide.1.gz
-%{_datadir}/doc/freeguide/Developers/BuildFromSVN.html
+%{_datadir}/doc/freeguide/Developers/BuildTheLatestSource.html
 %{_datadir}/doc/freeguide/Developers/ChangingTheVersion.html
 %{_datadir}/doc/freeguide/Developers/CreateInstallationPackagesForDifferentPlatforms.html
 %{_datadir}/doc/freeguide/Developers/Design.html
@@ -71,7 +71,7 @@ ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD
 %{_datadir}/doc/freeguide/Developers/RecentChanges.html
 %{_datadir}/doc/freeguide/Developers/Roles.html
 %{_datadir}/doc/freeguide/Developers/RunTheNightlyBuild.html
-%{_datadir}/doc/freeguide/Developers/SVNRules.html
+%{_datadir}/doc/freeguide/Developers/CodeRules.html
 %{_datadir}/doc/freeguide/Developers/SideBar.html
 %{_datadir}/doc/freeguide/Developers/SourceLayout.html
 %{_datadir}/doc/freeguide/Developers/TODOList.html
@@ -97,6 +97,7 @@ ant -Dinstall_share_dir=$RPM_BUILD_ROOT/%{_datadir} -Dinstall_bin_dir=$RPM_BUILD
 %{_datadir}/doc/freeguide/FAQ/ChangeGTKTheme.html
 %{_datadir}/doc/freeguide/FAQ/ChangeTimeZone.html
 %{_datadir}/doc/freeguide/FAQ/ChooseChannelsFails.html
+%{_datadir}/doc/freeguide/FAQ/DateManipError.html
 %{_datadir}/doc/freeguide/FAQ/DiagnosingProblems.html
 %{_datadir}/doc/freeguide/FAQ/DownloadListingsFromCron.html
 %{_datadir}/doc/freeguide/FAQ/ExecutionError.html
