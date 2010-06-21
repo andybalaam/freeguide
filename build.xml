@@ -226,6 +226,7 @@
                 <include name="build.xml"/>
                 <include name="contrib/**"/>
                 <include name="doc/**"/>
+                <include name="doc-bin/**"/>
                 <include name="install/**"/>
                 <include name="images/**"/>
                 <include name="plugins-info.xml"/>
@@ -244,6 +245,7 @@
                 <include name="build.xml"/>
                 <include name="contrib/**"/>
                 <include name="doc/**"/>
+                <include name="doc-bin/**"/>
                 <include name="install/**"/>
                 <include name="images/**"/>
                 <include name="plugins-info.xml"/>
