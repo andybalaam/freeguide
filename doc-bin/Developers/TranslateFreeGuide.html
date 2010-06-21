@@ -69,8 +69,8 @@ a.varlink { text-decoration:none; }
 </li><li><a class='wikilink' href='Developers.html'>Developers</a>
 <ul><li><span style='font-size:83%'><a class='wikilink' href='HelpUsMakeFreeGuide.html'>How to help</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='RunTheNightlyBuild.html'>Nightly Builds</a></span>
-</li><li><span style='font-size:83%'><a class='wikilink' href='BuildFromSVN.html'>Build From SVN</a></span>
-</li><li><span style='font-size:83%'><a class='wikilink' href='SVNRules.html'>SVN Rules</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='BuildTheLatestSource.html'>Build The Latest Source</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='CodeRules.html'>Code Rules</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='CreateInstallationPackagesForDifferentPlatforms.html'>Building Installers</a></span>
 </li><li><span style='font-size:83%'><a class='selflink' href='TranslateFreeGuide.html'>Translate FreeGuide</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='Design.html'>Design</a></span>
@@ -78,7 +78,7 @@ a.varlink { text-decoration:none; }
 </li><li><span style='font-size:83%'><a class='wikilink' href='SourceLayout.html'>Source Layout</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='ChangingTheVersion.html'>Changing The Version</a></span>
 </li><li><span style='font-size:83%'><a class='urllink' href='http://bugs.launchpad.net/freeguide-tv/+bugs' rel='nofollow'>Bug tracker -&gt;</a></span>
-</li><li><span style='font-size:83%'><a class='urllink' href='http://freeguide-tv.svn.sourceforge.net/viewvc/freeguide-tv/trunk/freeguide-tv/' rel='nofollow'>Browse source -&gt;</a></span>
+</li><li><span style='font-size:83%'><a class='urllink' href='http://freeguide-tv.git.sourceforge.net/git/gitweb.cgi?p=freeguide-tv/freeguide-tv;a=tree' rel='nofollow'>Browse source -&gt;</a></span>
 </li><li><span style='font-size:83%'><a class='urllink' href='http://sourceforge.net/projects/freeguide-tv' rel='nofollow'>Sourceforge -&gt;</a></span>
 </li></ul></li><li><a class='wikilink' href='../Main/Credits.html'>Credits</a>
 </li><li><a class='wikilink' href='../Main/Screenshots.html'>Screenshots</a>
@@ -93,9 +93,9 @@ a.varlink { text-decoration:none; }
 <div id='wikitext'>
 <h1>Translating <span class='wikiword'>FreeGuide</span></h1>
 <h3>Files to translate</h3>
-<p>You can help translating <span class='wikiword'>FreeGuide</span> by downloading a source package and providing translated versions of all the files called "something.en.properties" that you find inside the "src/resources-utf8/i18n" folder, but the best way is to <a class='wikilink' href='BuildFromSVN.html'>Build from SVN</a>.  Then you can test your work more easily, and keep it up-to-date with the latest changes to <span class='wikiword'>FreeGuide</span>.
+<p>You can help translating <span class='wikiword'>FreeGuide</span> by downloading a source package and providing translated versions of all the files called "something.en.properties" that you find inside the "src/resources/i18n" folder, but the best way is to <a class='wikilink' href='BuildTheLatestSource.html'>Build the latest source</a>.  Then you can test your work more easily, and keep it up-to-date with the latest changes to <span class='wikiword'>FreeGuide</span>.
 </p>
-<p class='vspace'>There are quite a lot of files in the src/resources-utf8/i18n folder, but the most important (and largest) file is <span class='wikiword'>MessagesBundle</span>.en.properties.
+<p class='vspace'>There are quite a lot of files in the src/resources/i18n folder, but the most important (and largest) file is <span class='wikiword'>MessagesBundle</span>.en.properties.
 </p>
 <p class='vspace'>To translate a file, copy the file ending with .en.properties, and rename it for your language and region (e.g. ".fr.properties" or ".en_US.properties").  Ask on the developers' mailing list if you don't know what your language and region codes should be.  Now, modify the copied file so that everything on the right-hand side of the "=" sign is in your language (leave everything on the left of the "=" exactly as it is).
 </p>
@@ -108,24 +108,24 @@ a.varlink { text-decoration:none; }
 <p class='vspace'>In general, we really welcome translations of <span class='wikiword'>FreeGuide</span>, so if you need help, please do ask and we'll do our best to help you.
 </p>
 <div class='vspace'></div><h3>Testing your translation</h3>
-<p>To test your translation, follow the instructions on how to <a class='wikilink' href='BuildFromSVN.html'>Build from SVN</a>.
+<p>To test your translation, follow the instructions on how to <a class='wikilink' href='BuildTheLatestSource.html'>Build the latest source</a>.  (The short answer is: run "ant compile".)
 </p>
-<p class='vspace'>Put your translated files into the src/resources-utf8/i18n folder with the others.
+<p class='vspace'>Put your translated files into the src/resources/i18n folder with the others.
 </p>
 <p class='vspace'>Now run <span class='wikiword'>FreeGuide</span> from within the src directory like this:
 </p>
-<div class='vspace'></div><pre class='escaped'>cd src
+<div class='vspace'></div><pre class='escaped'>cd bin
 java -Duser.language=zh -Duser.country=TW freeguide.startup.Startup</pre>
 <p class='vspace'>replacing "zh" with your language code, and "TW" with your region code.
 </p>
 <p class='vspace'>If you are not using a region code, the correct command is just:
 </p>
-<div class='vspace'></div><pre class='escaped'>cd src
+<div class='vspace'></div><pre class='escaped'>cd bin
 java -Duser.language=zh freeguide.startup.Startup</pre>
-<p class='vspace'>Alternatively, if you want to test the translation inside the JAR files once they have been created (i.e. you are building with "ant install-linux-run" on Linux) then the command would look something like this:
+<p class='vspace'>Alternatively, if you want to test the translation inside the JAR files once they have been created (i.e. after running "ant jar") then the command would look something like this:
 </p>
-<div class='vspace'></div><pre class='escaped'>cd run
-FREEGUIDE_OPTS="-Duser.language=en -Duser.region=RC" ./freeguide</pre>
+<div class='vspace'></div><pre class='escaped'>cd jar
+java -Duser.language=zh -Duser.country=TW -jar FreeGuide.jar</pre>
 <p class='vspace'>Do ask the developers (see <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a>) if you run into any problems or have questions.
 </p>
 </div>
@@ -136,7 +136,7 @@ FREEGUIDE_OPTS="-Duser.language=en -Duser.region=RC" ./freeguide</pre>
  <table id='wikifoot' cellspacing='0' cellpadding='0' align='center'>
  <tr><td class='passwordlink' colspan='2'>If you would like to help improve this site, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we will give you the password to edit pages.</td></tr>
  <tr>
-  <td class='lastmod'>Page last modified on June 03, 2008, at 09:09 AM &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
+  <td class='lastmod'>Page last modified on May 24, 2010, at 01:21 PM &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
   <td class='footnav'><div  style='text-align: right;' > 
 <p> -
  -

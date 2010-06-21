@@ -2,7 +2,7 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-  <title>FreeGuide : SVN Rules </title>
+  <title>FreeGuide : Code Rules </title>
   <meta http-equiv='Content-Style-Type' content='text/css' />
   <link rel='stylesheet' href='../pub/skins/plain-freeguide/plain1.css' type='text/css' />
   <link rel="icon" href="../pub/skins/plain-freeguide/favicon.gif" type="image/x-icon" />
@@ -42,8 +42,8 @@ a.varlink { text-decoration:none; }
  <table id='wikihead' cellspacing='0' cellpadding='0' align='center'><tr>
   <td id='homelink'><img src='../pub/skins/plain-freeguide/favicon.gif' /> <a href='http://www.artificialworlds.net/freeguide'>FreeGuide</a></td>
   <td id='location'><span class='pagegroup'><a href='Developers.html'>Developers</a> &raquo;</span>
-  <h1 class='pagetitle'>SVN Rules</h1></td>
-  <td id='wikicmds'><ul><li class='browse'><a accesskey=''  class='selflink' href='SVNRules.html'>View</a>
+  <h1 class='pagetitle'>Code Rules</h1></td>
+  <td id='wikicmds'><ul><li class='browse'><a accesskey=''  class='selflink' href='CodeRules.html'>View</a>
 </li><li class='edit'>
 </li><li class='diff'>
 </li><li class='print'>
@@ -55,7 +55,7 @@ a.varlink { text-decoration:none; }
 <!--PageLeftFmt-->
    <td id='wikileft' valign='top'>
     <p><form action='http://www.artificialworlds.net/freeguide'>
-     <input type='hidden' name='n' value='Developers.SVNRules' />
+     <input type='hidden' name='n' value='Developers.CodeRules' />
      <input type='hidden' name='action' value='search' />
      <input type='text' name='q' value=' Search ' class='inputbox searchbox'
       onfocus="if(this.value=' Search ') {this.value=''}" 
@@ -69,8 +69,8 @@ a.varlink { text-decoration:none; }
 </li><li><a class='wikilink' href='Developers.html'>Developers</a>
 <ul><li><span style='font-size:83%'><a class='wikilink' href='HelpUsMakeFreeGuide.html'>How to help</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='RunTheNightlyBuild.html'>Nightly Builds</a></span>
-</li><li><span style='font-size:83%'><a class='wikilink' href='BuildFromSVN.html'>Build From SVN</a></span>
-</li><li><span style='font-size:83%'><a class='selflink' href='SVNRules.html'>SVN Rules</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='BuildTheLatestSource.html'>Build The Latest Source</a></span>
+</li><li><span style='font-size:83%'><a class='selflink' href='CodeRules.html'>Code Rules</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='CreateInstallationPackagesForDifferentPlatforms.html'>Building Installers</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='TranslateFreeGuide.html'>Translate FreeGuide</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='Design.html'>Design</a></span>
@@ -78,7 +78,7 @@ a.varlink { text-decoration:none; }
 </li><li><span style='font-size:83%'><a class='wikilink' href='SourceLayout.html'>Source Layout</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='ChangingTheVersion.html'>Changing The Version</a></span>
 </li><li><span style='font-size:83%'><a class='urllink' href='http://bugs.launchpad.net/freeguide-tv/+bugs' rel='nofollow'>Bug tracker -&gt;</a></span>
-</li><li><span style='font-size:83%'><a class='urllink' href='http://freeguide-tv.svn.sourceforge.net/viewvc/freeguide-tv/trunk/freeguide-tv/' rel='nofollow'>Browse source -&gt;</a></span>
+</li><li><span style='font-size:83%'><a class='urllink' href='http://freeguide-tv.git.sourceforge.net/git/gitweb.cgi?p=freeguide-tv/freeguide-tv;a=tree' rel='nofollow'>Browse source -&gt;</a></span>
 </li><li><span style='font-size:83%'><a class='urllink' href='http://sourceforge.net/projects/freeguide-tv' rel='nofollow'>Sourceforge -&gt;</a></span>
 </li></ul></li><li><a class='wikilink' href='../Main/Credits.html'>Credits</a>
 </li><li><a class='wikilink' href='../Main/Screenshots.html'>Screenshots</a>
@@ -91,16 +91,16 @@ a.varlink { text-decoration:none; }
     <td id='wikibody' valign='top'>
 <!--PageText-->
 <div id='wikitext'>
-<h1><span class='wikiword'>FreeGuide</span> SVN Rules</h1>
+<h1><span class='wikiword'>FreeGuide</span> Code Rules</h1>
 <h3>The Benevolent Fascist Dictator Rule</h3>
-<p>Andy Balaam is the "benevolent" fascist dictator of <span class='wikiword'>FreeGuide</span>.  He runs the latest version of <span class='wikiword'>FreeGuide</span> from SVN on his desktop.  If you break <span class='wikiword'>FreeGuide</span> so he can't use it for any reason, he will revert your changes until he can use it again.
+<p>Andy Balaam is the "benevolent" fascist dictator of <span class='wikiword'>FreeGuide</span>.  He runs the latest version of <span class='wikiword'>FreeGuide</span> from git on his desktop.  If you break <span class='wikiword'>FreeGuide</span> so he can't use it for any reason, he will revert your changes until he can use it again.
 </p>
-<p class='vspace'>It is <em>crucial</em> that developers be able to run the latest code.  Otherwise new bugs simply don't get fixed, and the code base stagnates.  If you are a developer, please use the SVN version as your normal desktop <span class='wikiword'>FreeGuide</span>.  If it breaks, let us know on the developers' mailing list, and Andy will revert the offending changes.
+<p class='vspace'>It is <em>crucial</em> that developers be able to run the latest code.  Otherwise new bugs simply don't get fixed, and the code base stagnates.  If you are a developer, please use the git version as your normal desktop <span class='wikiword'>FreeGuide</span>.  If it breaks, let us know on the developers' mailing list, and Andy will revert the offending changes.
 </p>
 <p class='vspace'>We apologise if this rules bites you - it's not supposed to be a punishment, it's supposed to guarantee that the developers are always running the latest code.
 </p>
 <div class='vspace'></div><h3>Send patches to the mailing list before committing</h3>
-<p>If you have developer access to the SVN repository, don't commit anything unless you have explicit permission from Andy Balaam. Instead, send a patch file to the developers' mailing list (see <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a>) and wait for permission to apply it. The exception to this is when someone has been given control of a particular file or files, for example if you have made a translation or a plugin - in that case you may modify the files you control freely.
+<p>If you have developer access to the git repository, don't commit anything unless you have explicit permission from Andy Balaam. Instead, send a patch file to the developers' mailing list (see <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a>) and wait for permission to apply it. The exception to this is when someone has been given control of a particular file or files, for example if you have made a translation or a plugin - in that case you may modify the files you control freely.
 </p>
 <div class='vspace'></div><h3>Follow the coding style</h3>
 <p>Please be very careful to follow the coding style we use within <span class='wikiword'>FreeGuide</span>.
@@ -114,8 +114,8 @@ a.varlink { text-decoration:none; }
 </p>
 <p class='vspace'>The exception to this is if the code you are committing doesn't get run.  There's no point committing code that doesn't get run as it won't help us discover bugs in it until it actually runs.  An example of this is if you're implementing a new menu action there is no point committing the code that does the action when you haven't added the menu item itself.  On the other hand, if you can add the menu item but make it do nothing, that might be worth doing, since it could catch bugs like that item appearing in a different theme from the rest of the menu (yes, that is a real bug we had once...)
 </p>
-<div class='vspace'></div><h3>How do I get SVN access?</h3>
-<p>Under normal circumstances, you will be given SVN access when you have demonstrated an understanding of the code by submitting some good patches to the developers' mailing list.
+<div class='vspace'></div><h3>How do I get git access?</h3>
+<p>Under normal circumstances, you will be given git access when you have demonstrated an understanding of the code by submitting some good patches to the developers' mailing list.
 </p>
 </div>
 
@@ -125,7 +125,7 @@ a.varlink { text-decoration:none; }
  <table id='wikifoot' cellspacing='0' cellpadding='0' align='center'>
  <tr><td class='passwordlink' colspan='2'>If you would like to help improve this site, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we will give you the password to edit pages.</td></tr>
  <tr>
-  <td class='lastmod'>Page last modified on June 03, 2008, at 09:00 AM &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
+  <td class='lastmod'>Page last modified on May 23, 2010, at 05:27 PM &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
   <td class='footnav'><div  style='text-align: right;' > 
 <p> -
  -

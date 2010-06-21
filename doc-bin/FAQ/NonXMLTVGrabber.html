@@ -78,14 +78,42 @@ a.varlink { text-decoration:none; }
     <td id='wikibody' valign='top'>
 <!--PageText-->
 <div id='wikitext'>
-<h1>How do I use a listings grabber that is not part of the XMLTV project? (E.g. for using <span class='wikiword'>FreeGuide</span> in Australia.)</h1>
+<h1>How do I use a listings grabber that is not part of the XMLTV project? (E.g. for French or Australian listings.)</h1>
+<h2>French listings</h2>
+<p>At the time of writing, the French listings grabber in XMLTV is broken, but there is an external one that one of our users, Xavier, has managed to get work.  Here is how:
+</p>
+<div class='vspace'></div><div class='indent'>Some good news : I got some help from a french user :
+<div class='vspace'></div></div><div class='indent'><a class='urllink' href='http://forum.ubuntu-fr.org/viewtopic.php?id=365188' rel='nofollow'>http://forum.ubuntu-fr.org/viewtopic.php?id= 365188</a>
+<div class='vspace'></div></div><div class='indent'>and we finally managed to make file tv_grab_fr working with Freeguide 0.10.12 !
+<div class='vspace'></div></div><div class='indent'>So you were right about your explanations about vim and setting file on unix format, I did not understand how vim worked and I did not type the ":" so it could not be OK.
+<div class='vspace'></div></div><div class='indent'>What we have done, if it can help for the FAQ :
+<div class='vspace'></div></div><div class='indent'>I use last version of Freeguide (0.10.12), Ubuntu package, on Karmic 9.10
+<div class='vspace'></div></div><div class='indent'>I download this french grabber : <a class='urllink' href='http://www.lahiette.com/biboobox/download/tv_grab_fr' rel='nofollow'>http://www.lahiette.com/biboobox/download/tv_grab_fr</a>
+<div class='vspace'></div></div><div class='indent'>I open it with vim (in the terminal "vim tv_grab_fr") and made the modifications suggested :
+<div class='vspace'></div></div><div class='indent'><code class='escaped'>: set fileformat=unix</code>
+</div><div class='indent'><code class='escaped'>: w</code>
+</div><div class='indent'><code class='escaped'>: q</code>
+<div class='vspace'></div></div><div class='indent'>After that I run Freeguide, go to menu "Tools" - "Option" - "Advanced" (I do not know if it is the exact word in english) - "XMLTV"
+<div class='vspace'></div></div><div class='indent'>I choose Fr in the first line, and for the 2 following, I modify the path to indicate in which folder is located the tv_grab_fr I want to use instead of official XMLTV one.
+<div class='vspace'></div></div><div class='indent'>Here is the screenshot:
+</div><div class='indent'><img src='http://pix.toile-libre.org/upload/original/1263471383.png' alt='' title='' />
+<div class='vspace'></div></div><div class='indent'>In this example, tv_grab_fr is located on my desktop : /home/xavierg/Bureau/
+<div class='vspace'></div></div><div class='indent'>I do not modify other rules
+<div class='vspace'></div></div><div class='indent'>After that, when I click OK, sometimes Freeguide crashed : I opened it throw a terminal to see the error message :
+<div class='vspace'></div></div><div class='indent'>"The program '&lt;unknown&gt;' received an X Window System error.
+</div><div class='indent'>This probably reflects a bug in the program.
+</div><div class='indent'>The error was '<span class='wikiword'>BadWindow</span> (invalid Window parameter)'.
+</div><div class='indent'>(Details: serial 11253 error_code 3 request_code 20 minor_code 0)"
+<div class='vspace'></div></div><div class='indent'>But when I reload Freeguide, configuration is saved.
+<div class='vspace'></div></div><div class='indent'>After that I run menu "Tools" - "Choose channels" ("Choisir les chaines" in french) and select the channels I want to add.
+<div class='vspace'></div></div><div class='indent'>Then I run the programs download, here it takes a long time (comparing to previous french tv_grab) but I think it comes from the new french site used for the grabber, which is sometimes slow.
+<div class='vspace'></div></div><div class='indent'>And finally I get all the programs and can restart to use Freeguide, make bookmarks and alerts for my favorite shows ! :-)
+</div><div class='vspace'></div><h2>Australian listings</h2>
 <p>Here is some advice from one of our users on how he got Australian listings working:
 </p>
-<p class='vspace'><em>I went to <a class='urllink' href='http://minnie.tuhs.org/twiki/bin/view/TVGuide/' rel='nofollow'>http://minnie.tuhs.org/twiki/bin/view/TV Guide/</a> and signed up for an account, then I downloaded <a class='urllink' href='http://www.wireplay.org/xmltv_au/tv_grab_au.exe' rel='nofollow'>http://www.wireplay.org/xmltv_au/tv_grab_au.exe</a> then I just went into <strong>Tools</strong>, <strong>Options</strong>, <strong>Advanced</strong>, <strong>Grabbers</strong>, <strong>XMLTV</strong>, picked any one and changed the command path to:</em>
-</p>
-<p class='vspace'><code class='escaped'>C:\Program Files\video\FreeGuide\TVGuideGrabber\tv_grab_au_tuhs.exe --config-file "C:\Program Files\video\FreeGuide\TVGuideGrabber\tv_grab_au_tuhs.xml"</code>
-</p>
-<p class='vspace'>If you manage to get any non-official grabbers working, <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and let us know so we can help others do the same.
+<div class='vspace'></div><div class='indent'>I went to <a class='urllink' href='http://minnie.tuhs.org/twiki/bin/view/TVGuide/' rel='nofollow'>http://minnie.tuhs.org/twiki/bin/view/TV Guide/</a> and signed up for an account, then I downloaded <a class='urllink' href='http://www.wireplay.org/xmltv_au/tv_grab_au.exe' rel='nofollow'>http://www.wireplay.org/xmltv_au/tv_grab_au.exe</a> then I just went into <strong>Tools</strong>, <strong>Options</strong>, <strong>Advanced</strong>, <strong>Grabbers</strong>, <strong>XMLTV</strong>, picked any one and changed the command path to:
+<div class='vspace'></div></div><div class='indent'><code class='escaped'>C:\Program Files\video\FreeGuide\TVGuideGrabber\tv_grab_au_tuhs.exe --config-file  "C:\Program Files\video\FreeGuide\TVGuideGrabber\tv_grab_au_tuhs.xml"</code>
+</div><p class='vspace'>If you manage to get any non-official grabbers working, <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and let us know so we can help others do the same.
 </p>
 <p class='vspace'>If any third-party grabber works well, and is not going to go into XMLTV for some reason (e.g. it's not written in Perl), and it's GPL licenced, we will consider distributing it as a part of <span class='wikiword'>FreeGuide</span> to make it easier for others to use.
 </p>
@@ -97,7 +125,7 @@ a.varlink { text-decoration:none; }
  <table id='wikifoot' cellspacing='0' cellpadding='0' align='center'>
  <tr><td class='passwordlink' colspan='2'>If you would like to help improve this site, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we will give you the password to edit pages.</td></tr>
  <tr>
-  <td class='lastmod'>Page last modified on June 04, 2008, at 02:33 AM &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
+  <td class='lastmod'>Page last modified on April 01, 2010, at 02:38 PM &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
   <td class='footnav'><div  style='text-align: right;' > 
 <p> -
  -

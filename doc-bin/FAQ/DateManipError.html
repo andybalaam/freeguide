@@ -2,7 +2,7 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-  <title>FreeGuide : Changing The Version </title>
+  <title>FreeGuide : Date Manip Error </title>
   <meta http-equiv='Content-Style-Type' content='text/css' />
   <link rel='stylesheet' href='../pub/skins/plain-freeguide/plain1.css' type='text/css' />
   <link rel="icon" href="../pub/skins/plain-freeguide/favicon.gif" type="image/x-icon" />
@@ -41,9 +41,9 @@ a.varlink { text-decoration:none; }
 <!--PageHeaderFmt-->
  <table id='wikihead' cellspacing='0' cellpadding='0' align='center'><tr>
   <td id='homelink'><img src='../pub/skins/plain-freeguide/favicon.gif' /> <a href='http://www.artificialworlds.net/freeguide'>FreeGuide</a></td>
-  <td id='location'><span class='pagegroup'><a href='Developers.html'>Developers</a> &raquo;</span>
-  <h1 class='pagetitle'>Changing The Version</h1></td>
-  <td id='wikicmds'><ul><li class='browse'><a accesskey=''  class='selflink' href='ChangingTheVersion.html'>View</a>
+  <td id='location'><span class='pagegroup'><a href='FAQ.html'>FAQ</a> &raquo;</span>
+  <h1 class='pagetitle'>Date Manip Error</h1></td>
+  <td id='wikicmds'><ul><li class='browse'><a accesskey=''  class='selflink' href='DateManipError.html'>View</a>
 </li><li class='edit'>
 </li><li class='diff'>
 </li><li class='print'>
@@ -55,7 +55,7 @@ a.varlink { text-decoration:none; }
 <!--PageLeftFmt-->
    <td id='wikileft' valign='top'>
     <p><form action='http://www.artificialworlds.net/freeguide'>
-     <input type='hidden' name='n' value='Developers.ChangingTheVersion' />
+     <input type='hidden' name='n' value='FAQ.DateManipError' />
      <input type='hidden' name='action' value='search' />
      <input type='text' name='q' value=' Search ' class='inputbox searchbox'
       onfocus="if(this.value=' Search ') {this.value=''}" 
@@ -65,22 +65,9 @@ a.varlink { text-decoration:none; }
 <ul><li><a class='wikilink' href='../Main/HomePage.html'>Home Page</a>
 </li><li><a class='wikilink' href='../DownloadAndInstall/DownloadAndInstall.html'>Download And Install</a>
 </li><li><a class='wikilink' href='../UserGuide/UserGuide.html'>User Guide</a>
-</li><li><a class='wikilink' href='../FAQ/FAQ.html'>Help And FAQ</a>
-</li><li><a class='wikilink' href='Developers.html'>Developers</a>
-<ul><li><span style='font-size:83%'><a class='wikilink' href='HelpUsMakeFreeGuide.html'>How to help</a></span>
-</li><li><span style='font-size:83%'><a class='wikilink' href='RunTheNightlyBuild.html'>Nightly Builds</a></span>
-</li><li><span style='font-size:83%'><a class='wikilink' href='BuildTheLatestSource.html'>Build The Latest Source</a></span>
-</li><li><span style='font-size:83%'><a class='wikilink' href='CodeRules.html'>Code Rules</a></span>
-</li><li><span style='font-size:83%'><a class='wikilink' href='CreateInstallationPackagesForDifferentPlatforms.html'>Building Installers</a></span>
-</li><li><span style='font-size:83%'><a class='wikilink' href='TranslateFreeGuide.html'>Translate FreeGuide</a></span>
-</li><li><span style='font-size:83%'><a class='wikilink' href='Design.html'>Design</a></span>
-</li><li><span style='font-size:83%'><a class='wikilink' href='Roles.html'>Roles</a></span>
-</li><li><span style='font-size:83%'><a class='wikilink' href='SourceLayout.html'>Source Layout</a></span>
-</li><li><span style='font-size:83%'><a class='selflink' href='ChangingTheVersion.html'>Changing The Version</a></span>
-</li><li><span style='font-size:83%'><a class='urllink' href='http://bugs.launchpad.net/freeguide-tv/+bugs' rel='nofollow'>Bug tracker -&gt;</a></span>
-</li><li><span style='font-size:83%'><a class='urllink' href='http://freeguide-tv.git.sourceforge.net/git/gitweb.cgi?p=freeguide-tv/freeguide-tv;a=tree' rel='nofollow'>Browse source -&gt;</a></span>
-</li><li><span style='font-size:83%'><a class='urllink' href='http://sourceforge.net/projects/freeguide-tv' rel='nofollow'>Sourceforge -&gt;</a></span>
-</li></ul></li><li><a class='wikilink' href='../Main/Credits.html'>Credits</a>
+</li><li><a class='wikilink' href='FAQ.html'>Help And FAQ</a>
+</li><li><a class='wikilink' href='../Developers/Developers.html'>Developers</a>
+</li><li><a class='wikilink' href='../Main/Credits.html'>Credits</a>
 </li><li><a class='wikilink' href='../Main/Screenshots.html'>Screenshots</a>
 </li><li><a class='wikilink' href='../Main/Links.html'>Links</a>
 </li><li><a class='wikilink' href='../Main/SiteMap.html'>Site Map</a>
@@ -91,18 +78,33 @@ a.varlink { text-decoration:none; }
     <td id='wikibody' valign='top'>
 <!--PageText-->
 <div id='wikitext'>
-<h1>Changing <span class='wikiword'>FreeGuide</span>'s version number</h1>
-<p>If you modify the file:
+<h1>I see an error message "XMLTV requires a Date::Manip timezone of +0000 to work properly." - how can I fix it?</h1>
+<p>This problem is being tracked in <a class='urllink' href='http://bugs.launchpad.net/freeguide-tv/+bug/544522' rel='nofollow'>Bug 544522</a>.  It occurs in Ubuntu 10.4 (Lucid) when trying to download UK listings.
 </p>
-<p class='vspace'><code class='escaped'>freeguide-tv/src/freeguide/plugins/program/freeguide/plugin.xml</code>
+<p class='vspace'><span class='wikiword'>FreeGuide</span> relies on XMLTV to download its listings, and XMLTV relies on a library called Date::Manip.  Date::Manip was recently changed, and those changes appear in Ubuntu 10.04.  Unfortunately, the version of XMLTV included with Ubuntu 10.04 does not work properly with the changed Date::Manip.
 </p>
-<p class='vspace'>and change the version number there, and then run
+<p class='vspace'>There are 3 possible solutions to this problem.
 </p>
-<p class='vspace'><code class='escaped'>ant prepare</code>
+<div class='vspace'></div><h3>Wait for Ubuntu release in backports or updates</h3>
+<p>Hopefully, soon, the fixed version of XMLTV will be placed in the "Backports" section of the Lucid repositories.  You can enable this section in the Software Sources tool on Ubuntu.
 </p>
-<p class='vspace'>you should see all the other <span class='wikiword'>FreeGuide</span> version numbers in the source code change to match the version you put in.
+<p class='vspace'>It might even be placed into the updates section, which should mean you don't need to change anything to upgrade to it.  This looks unlikely, though.
 </p>
-<p class='vspace'>The exception is the Debian version number which must be added manually in install/linux/debian/changelog.
+<div class='vspace'></div><h3>Get it from Debian unstable</h3>
+<p>A version of XMLTV that contains the fix may be downloaded from the Debian archives.  You should download these packages (.deb files):  <a class='urllink' href='http://packages.debian.org/squeeze/all/xmltv-util/download' rel='nofollow'>xmltv-util</a>, <a class='urllink' href='http://packages.debian.org/squeeze/all/xmltv/download' rel='nofollow'>xmltv</a> and <a class='urllink' href='http://packages.debian.org/squeeze/all/xmltv-gui/download' rel='nofollow'>xmltv-gui</a> (you may also need <a class='urllink' href='http://packages.debian.org/squeeze/all/libxmltv-perl/download' rel='nofollow'>libxmltv-perl</a>).  You can install them by opening a terminal, <code>cd</code>-ing into the directory that contains the .deb files you downloaded, and typing:
+</p>
+<p class='vspace'><code>sudo dpkg -i *xmltv*.deb</code>
+</p>
+<div class='vspace'></div><h3>Build from source</h3>
+<p>Another approach is to run:
+</p>
+<p class='vspace'><code>sudo apt-get build-dep xmltv-gui</code>
+</p>
+<p class='vspace'>and then download the <a class='urllink' href='http://sourceforge.net/projects/xmltv/files/xmltv/0.5.57/xmltv-0.5.57.tar.bz2/download' rel='nofollow'>XMLTV source</a> and build it with:
+</p>
+<p class='vspace'><code>perl Makefile.PL &amp;&amp; make &amp;&amp; sudo make install</code>
+</p>
+<p class='vspace'>This worked for me, but is not recommended.
 </p>
 </div>
 
@@ -112,7 +114,7 @@ a.varlink { text-decoration:none; }
  <table id='wikifoot' cellspacing='0' cellpadding='0' align='center'>
  <tr><td class='passwordlink' colspan='2'>If you would like to help improve this site, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we will give you the password to edit pages.</td></tr>
  <tr>
-  <td class='lastmod'>Page last modified on March 19, 2009, at 12:36 AM &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
+  <td class='lastmod'>Page last modified on May 17, 2010, at 03:13 AM &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
   <td class='footnav'><div  style='text-align: right;' > 
 <p> -
  -

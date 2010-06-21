@@ -69,8 +69,8 @@ a.varlink { text-decoration:none; }
 </li><li><a class='wikilink' href='Developers.html'>Developers</a>
 <ul><li><span style='font-size:83%'><a class='wikilink' href='HelpUsMakeFreeGuide.html'>How to help</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='RunTheNightlyBuild.html'>Nightly Builds</a></span>
-</li><li><span style='font-size:83%'><a class='wikilink' href='BuildFromSVN.html'>Build From SVN</a></span>
-</li><li><span style='font-size:83%'><a class='wikilink' href='SVNRules.html'>SVN Rules</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='BuildTheLatestSource.html'>Build The Latest Source</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='CodeRules.html'>Code Rules</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='CreateInstallationPackagesForDifferentPlatforms.html'>Building Installers</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='TranslateFreeGuide.html'>Translate FreeGuide</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='Design.html'>Design</a></span>
@@ -78,7 +78,7 @@ a.varlink { text-decoration:none; }
 </li><li><span style='font-size:83%'><a class='selflink' href='SourceLayout.html'>Source Layout</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='ChangingTheVersion.html'>Changing The Version</a></span>
 </li><li><span style='font-size:83%'><a class='urllink' href='http://bugs.launchpad.net/freeguide-tv/+bugs' rel='nofollow'>Bug tracker -&gt;</a></span>
-</li><li><span style='font-size:83%'><a class='urllink' href='http://freeguide-tv.svn.sourceforge.net/viewvc/freeguide-tv/trunk/freeguide-tv/' rel='nofollow'>Browse source -&gt;</a></span>
+</li><li><span style='font-size:83%'><a class='urllink' href='http://freeguide-tv.git.sourceforge.net/git/gitweb.cgi?p=freeguide-tv/freeguide-tv;a=tree' rel='nofollow'>Browse source -&gt;</a></span>
 </li><li><span style='font-size:83%'><a class='urllink' href='http://sourceforge.net/projects/freeguide-tv' rel='nofollow'>Sourceforge -&gt;</a></span>
 </li></ul></li><li><a class='wikilink' href='../Main/Credits.html'>Credits</a>
 </li><li><a class='wikilink' href='../Main/Screenshots.html'>Screenshots</a>
@@ -92,22 +92,24 @@ a.varlink { text-decoration:none; }
 <!--PageText-->
 <div id='wikitext'>
 <h1><span class='wikiword'>FreeGuide</span> Source Layout</h1>
-<p>Under the trunk folder in SVN, the directories are like this:
+<p>Under the trunk folder in git, the directories are like this:
 </p>
 <div class='vspace'></div><ul><li>src - everything that will go inside a JAR file is in here, and nothing else.  This includes all the .java files, .properties files for translations and other uses, and some images.
-</li><li>ant &amp; build.xml - the build files used with Ant.
+</li><li>build.xml - the build file used with Ant.
 </li><li>contrib - files used by other packagers (e.g. Debian packager)
 </li><li>doc - documentation
 </li><li>images - source images for the <span class='wikiword'>FreeGuide</span> logo etc. in SVG format.
 </li><li>install - files for creating installers on different platforms - .spec files, NSIS files, images
-</li><li>lib - third-party <span class='wikiword'>JARs</span> used by our code
-</li><li>repository - not used at the moment
+</li><li>stats - scripts for generating usage statistics - only useful to Andy Balaam.
 </li><li>scripts - useful scripts used by the developers
-</li><li>stats - scripts etc. for downloading and analysing the numbers of users <span class='wikiword'>FreeGuide</span> has (only really useable by Andy Balaam).
+</li><li>tools - really should be in scripts
 </li><li>xmltv - the latest version of the XMLTV EXE for Windows
 </li></ul><p class='vspace'>Temporary directories:
 </p>
-<div class='vspace'></div><ul><li>build - all stuff that is created in the process of buulding <span class='wikiword'>FreeGuide</span>.
+<div class='vspace'></div><ul><li>bin - the .class files created when the .java files are compiled.
+</li><li>doc-bin - the documentation once it has been prepared for packaging up.
+</li><li>install-bin - the installation files prepared for use.
+</li><li>build - all stuff that is created in the process of buulding <span class='wikiword'>FreeGuide</span>.
 </li><li>dist - where the final distribution files (<span class='wikiword'>EXEs</span>, <span class='wikiword'>RPMs</span>, etc) are placed when built.
 </li></ul>
 </div>
@@ -118,7 +120,7 @@ a.varlink { text-decoration:none; }
  <table id='wikifoot' cellspacing='0' cellpadding='0' align='center'>
  <tr><td class='passwordlink' colspan='2'>If you would like to help improve this site, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we will give you the password to edit pages.</td></tr>
  <tr>
-  <td class='lastmod'>Page last modified on June 03, 2008, at 09:26 AM &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
+  <td class='lastmod'>Page last modified on June 20, 2010, at 05:02 PM &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
   <td class='footnav'><div  style='text-align: right;' > 
 <p> -
  -

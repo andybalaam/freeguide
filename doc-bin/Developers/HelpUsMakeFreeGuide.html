@@ -69,8 +69,8 @@ a.varlink { text-decoration:none; }
 </li><li><a class='wikilink' href='Developers.html'>Developers</a>
 <ul><li><span style='font-size:83%'><a class='selflink' href='HelpUsMakeFreeGuide.html'>How to help</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='RunTheNightlyBuild.html'>Nightly Builds</a></span>
-</li><li><span style='font-size:83%'><a class='wikilink' href='BuildFromSVN.html'>Build From SVN</a></span>
-</li><li><span style='font-size:83%'><a class='wikilink' href='SVNRules.html'>SVN Rules</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='BuildTheLatestSource.html'>Build The Latest Source</a></span>
+</li><li><span style='font-size:83%'><a class='wikilink' href='CodeRules.html'>Code Rules</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='CreateInstallationPackagesForDifferentPlatforms.html'>Building Installers</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='TranslateFreeGuide.html'>Translate FreeGuide</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='Design.html'>Design</a></span>
@@ -78,7 +78,7 @@ a.varlink { text-decoration:none; }
 </li><li><span style='font-size:83%'><a class='wikilink' href='SourceLayout.html'>Source Layout</a></span>
 </li><li><span style='font-size:83%'><a class='wikilink' href='ChangingTheVersion.html'>Changing The Version</a></span>
 </li><li><span style='font-size:83%'><a class='urllink' href='http://bugs.launchpad.net/freeguide-tv/+bugs' rel='nofollow'>Bug tracker -&gt;</a></span>
-</li><li><span style='font-size:83%'><a class='urllink' href='http://freeguide-tv.svn.sourceforge.net/viewvc/freeguide-tv/trunk/freeguide-tv/' rel='nofollow'>Browse source -&gt;</a></span>
+</li><li><span style='font-size:83%'><a class='urllink' href='http://freeguide-tv.git.sourceforge.net/git/gitweb.cgi?p=freeguide-tv/freeguide-tv;a=tree' rel='nofollow'>Browse source -&gt;</a></span>
 </li><li><span style='font-size:83%'><a class='urllink' href='http://sourceforge.net/projects/freeguide-tv' rel='nofollow'>Sourceforge -&gt;</a></span>
 </li></ul></li><li><a class='wikilink' href='../Main/Credits.html'>Credits</a>
 </li><li><a class='wikilink' href='../Main/Screenshots.html'>Screenshots</a>
@@ -95,15 +95,15 @@ a.varlink { text-decoration:none; }
 <h3>Want to do something specific?</h3>
 <p>To help out by fixing something that is bugging you:
 </p>
-<div class='vspace'></div><ul><li><a class='wikilink' href='BuildFromSVN.html'>Build from SVN</a>
+<div class='vspace'></div><ul><li><a class='wikilink' href='BuildTheLatestSource.html'>Build the latest source</a>
 </li><li>Unless you are doing something trivial, talk to the developers about what you are planning to do.  They may well have useful suggestions.  The best place to do this is the developers' mailing list - find it on the <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> page.
 </li><li>Modify the Java source code to add the feature you want, fix the bug you have found, or whatever, and then
-</li><li>Send a patch to the developers' mailing list.  The best way to make the patch is with the "svn diff" command, but if you don't know what I'm talking about, just attach the files you modified to your email.  Make sure you give a full explanation of what the patch is for and how it works.
+</li><li>Send a patch to the developers' mailing list.  The best way to make the patch is with the "git diff" command, but if you don't know what I'm talking about, just attach the files you modified to your email.  Make sure you give a full explanation of what the patch is for and how it works.
 </li></ul><div class='vspace'></div><h3>Want to help generally?</h3>
 <p>If you just want to help out, try this:
 </p>
 <div class='vspace'></div><ul><li>Find out about who does what, and what help is needed on the <a class='wikilink' href='Roles.html'>Roles</a> page.
-</li><li><a class='wikilink' href='BuildFromSVN.html'>Build from SVN</a> or <a class='wikilink' href='RunTheNightlyBuild.html'>Run the nightly build</a>
+</li><li><a class='wikilink' href='BuildTheLatestSource.html'>Build the latest source</a> or <a class='wikilink' href='RunTheNightlyBuild.html'>Run the nightly build</a>
 </li><li>Test the latest version, and report any bugs, bad design or any other problems to the developers' mailing list: freeguide-tv-devel@lists.sourceforge.net
 </li><li>Check out the current <a class='urllink' href='http://bugs.launchpad.net/freeguide-tv/+bugs' rel='nofollow'>bugs list</a> - most of the tasks there are programming, but if you're not a programmer look for tasks like "Check X works with Y" or "Write documentation for Z" or something like that.
 </li><li>Choose a task, or if you can't find anything appropriate, ask on the mailing list what needs doing.  Try to find something you care about or are interested in - it's more fun!
@@ -116,7 +116,7 @@ a.varlink { text-decoration:none; }
 </p>
 <p class='vspace'>The releases are built using Apache's <a class='urllink' href='http://ant.apache.org/' rel='nofollow'>Ant</a> build tool. You can use the <span class='wikiword'>AntFarm</span> plugin in <span class='wikiword'>JEdit</span>, or Eclipse, or the command line, but you will need ant.
 </p>
-<p class='vspace'>Read <a class='wikilink' href='SVNRules.html'>SVN Rules</a> for what you need to know as a developer.
+<p class='vspace'>Read <a class='wikilink' href='CodeRules.html'>Code Rules</a> for what you need to know as a developer.
 </p>
 <div class='vspace'></div><h3>Help and questions</h3>
 <p><a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> on the developers' mailing list if you have questions and we'll do our best to answer them, and put useful answers up on this wiki.
@@ -130,7 +130,7 @@ a.varlink { text-decoration:none; }
  <table id='wikifoot' cellspacing='0' cellpadding='0' align='center'>
  <tr><td class='passwordlink' colspan='2'>If you would like to help improve this site, please <a class='wikilink' href='../Main/ContactUs.html'>Contact Us</a> and we will give you the password to edit pages.</td></tr>
  <tr>
-  <td class='lastmod'>Page last modified on June 03, 2008, at 08:24 AM &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
+  <td class='lastmod'>Page last modified on May 23, 2010, at 05:11 PM &nbsp; &nbsp;<a class='pmwikiinfolink' href="../Main/PmWikiInfo.html">PmWiki Info</a></td>
   <td class='footnav'><div  style='text-align: right;' > 
 <p> -
  -
