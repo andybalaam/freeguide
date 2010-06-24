@@ -55,30 +55,13 @@ import javax.xml.parsers.ParserConfigurationException;
 public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     IModuleConfigureFromWizard
 {
-    protected static final String DIR_CONFIG = "xmltv-configs";
-    protected static final String DIR_INSTALLED = "xmltv";
     protected static final String REPLACE_CONFIG = "%config_file%";
     protected static final String REPLACE_XMLTV = "%xmltv_path%";
     protected static final String SUBST_LIN = "lin";
     protected static final String SUBST_WIN = "win";
     protected static final String ENV_PATH = "PATH";
-    protected static final String CHANNEL_PREFIX = "xmltv/";
     protected static final String CONFIG_KEY_SUFFIX = "cfg";
     protected static final String RUN_KEY_SUFFIX = "run";
-    protected static final String LIN_KEY_SUFFIX = "lin";
-    protected static final String WIN_KEY_SUFFIX = "win";
-    protected static final String PACKAGE_XMLTVWIN = "other/xmltv-win/";
-    protected static final String PACKAGE_XMLTVWIN_LIST =
-        PACKAGE_XMLTVWIN + "ls-xmltv";
-
-    /** DOCUMENT ME! */
-    public final static int REDOWNLOAD_ALWAYS = 0;
-
-    /** DOCUMENT ME! */
-    public final static int REDOWNLOAD_NEVER = 1;
-
-    /** DOCUMENT ME! */
-    public final static int REDOWNLOAD_ASK = 2;
 
     // execExternal
     // ----------------------------------------------------------------------
@@ -98,14 +81,44 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
     protected XMLTVConfigureUIPanelModule confUI;
     protected CountryInfo[] countryInfos;
 
+    private static String substituteXmltvExeDir( IApplication app, String cmd )
+    {
+        final String xmltvDir = new File(
+            app.getInstallDirectory(), "xmltv"
+            ).getAbsolutePath();
+
+        return StringHelper.replaceAll( cmd, REPLACE_XMLTV, xmltvDir );
+    }
+
+    private static File getXmltvConfigDir( IApplication app )
+    {
+        return new File( app.getWorkingDirectory(), "xmltv-configs" );
+    }
+
+    private static String substituteXmltvConfigDir( IApplication app,
+        String cmd, XMLTVConfig.ModuleInfo moduleInfo )
+    {
+        return StringHelper.replaceAll( cmd, REPLACE_CONFIG, new File(
+            getXmltvConfigDir( app ).getAbsolutePath(), moduleInfo.configFileName
+            ).getAbsolutePath(  ) );
+    }
+
+    /**
+     * Public for test.
+     */
+    public static String substituteXmltvDirs( IApplication app, String cmd,
+        XMLTVConfig.ModuleInfo moduleInfo )
+    {
+        return substituteXmltvExeDir( app,
+            substituteXmltvConfigDir( app, cmd, moduleInfo ) );
+    }
+
     /**
      * DOCUMENT_ME!
      */
     public void start(  )
     {
-        final File xmltvConfigDir =
-            new File(
-                Application.getInstance(  ).getWorkingDirectory(  ), DIR_CONFIG );
+        IApplication app = Application.getInstance();
 
         if( config.modules.size(  ) > 0 )
         {
@@ -121,33 +134,22 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
                 if( null == cmd )
                 {
-                    Application.getInstance(  ).getLogger(  )
-                               .severe(
+                    app.getLogger(  ).severe(
                         "Command not defined for " + moduleInfo.moduleName );
 
                     return;
                 }
             }
 
-            cmd = StringHelper.replaceAll(
-                    cmd, REPLACE_CONFIG,
-                    new File( xmltvConfigDir, moduleInfo.configFileName )
-                    .getAbsolutePath(  ) );
-
-            cmd = StringHelper.replaceAll(
-                    cmd, REPLACE_XMLTV,
-                    new File(
-                        Application.getInstance(  ).getWorkingDirectory(  ),
-                        DIR_INSTALLED ).getAbsolutePath(  ) );
+            cmd = substituteXmltvDirs( app, cmd, moduleInfo );
 
             if( checkXmltvExists( Utils.parseCommand( cmd ) ) ) //extracts xmltv from jar on Windows if needed
             {
                 final JMenuItem menuLine =
-                    ( (MainFrame)Application.getInstance(  ).getApplicationFrame(  ) )
+                    ( (MainFrame)app.getApplicationFrame(  ) )
                     .getMenuItemChooseXMLTVChannels(  );
                 menuLine.setText( i18n.getString( "Menu.Tools.ChooseChannels" ) );
-                Application.getInstance(  ).getMainMenu(  ).getTools(  )
-                           .insert( menuLine, 0 );
+                app.getMainMenu(  ).getTools(  ).insert( menuLine, 0 );
 
                 menuLine.addActionListener(
                     new ActionListener(  )
@@ -155,7 +157,8 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
                         public void actionPerformed( ActionEvent e )
                         {
                             IApplication app = Application.getInstance();
-                            app.getExecutionController().activate( app, new ConfigCommandRunner(),
+                            app.getExecutionController().activate( app,
+                                new ConfigCommandRunner(),
                                 false );
                         }
                     } );
@@ -232,16 +235,15 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         final XMLTVConfig.ModuleInfo moduleInfo,
         IProgress progress, ILogger logger )
     {
+        IApplication app = Application.getInstance();
 
-        final File xmltvConfigDir =
-            new File(
-                Application.getInstance(  ).getWorkingDirectory(  ), DIR_CONFIG );
-        xmltvConfigDir.mkdirs(  );
+        final File xmltvConfigDir = getXmltvConfigDir( app );
+        xmltvConfigDir.mkdirs();
 
         if( progress != null )
         {
             progress.setProgressMessage(
-                Application.getInstance(  ).getLocalizedMessage( "choosing_channels" ) );
+                app.getLocalizedMessage( "choosing_channels" ) );
         }
 
         String cmd = moduleInfo.configCommandToRun;
@@ -253,7 +255,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         if( cmd == null )
         {
-            Application.getInstance(  ).getLogger(  ).severe(
+            app.getLogger(  ).severe(
                 "Command not defined for " + moduleInfo.moduleName );
 
             logger.error(
@@ -265,26 +267,15 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         }
 
-        cmd = StringHelper.replaceAll(
-                cmd, REPLACE_CONFIG,
-                new File( xmltvConfigDir, moduleInfo.configFileName )
-                .getAbsolutePath(  ) );
+        cmd = substituteXmltvDirs( app, cmd, moduleInfo );
 
-        cmd = StringHelper.replaceAll(
-                cmd, REPLACE_XMLTV,
-                new File(
-                    Application.getInstance(  ).getWorkingDirectory(  ),
-                    DIR_INSTALLED ).getAbsolutePath(  ) );
-
-        Application.getInstance(  ).getLogger(  ).finest(
-            "Run command: " + cmd );
+        app.getLogger(  ).finest( "Run command: " + cmd );
 
         logger.info(
             MessageFormat.format( i18n.getString( "Message.Command" ), cmd ) );
 
         int resultCode = execConfigCmd( Utils.parseCommand( cmd ), progress, logger );
-        Application.getInstance(  ).getLogger(  )
-                   .finest( "Result code = " + resultCode );
+        app.getLogger(  ).finest( "Result code = " + resultCode );
 
         logger.info(
             MessageFormat.format(
@@ -406,12 +397,9 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         final IProgress progress, final ILogger logger )
         throws Exception
     {
-        final File xmltvConfigDir =
-            new File(
-                Application.getInstance(  ).getWorkingDirectory(  ), DIR_CONFIG );
+        IApplication app = Application.getInstance();
 
-        progress.setProgressMessage(
-            Application.getInstance(  ).getLocalizedMessage( "downloading" ) );
+        progress.setProgressMessage( app.getLocalizedMessage( "downloading" ) );
 
         String cmd = moduleInfo.commandToRun;
 
@@ -423,8 +411,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         if( cmd == null )
         {
-            Application.getInstance(  ).getLogger(  )
-                       .severe(
+            app.getLogger(  ).severe(
                 "Command not defined for " + moduleInfo.moduleName );
 
             logger.error(
@@ -436,19 +423,9 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
 
         }
 
-        cmd = StringHelper.replaceAll(
-                cmd, REPLACE_CONFIG,
-                new File( xmltvConfigDir, moduleInfo.configFileName )
-                .getAbsolutePath(  ) );
+        cmd = substituteXmltvDirs( app, cmd, moduleInfo );
 
-        cmd = StringHelper.replaceAll(
-                cmd, REPLACE_XMLTV,
-                new File(
-                    Application.getInstance(  ).getWorkingDirectory(  ),
-                    DIR_INSTALLED ).getAbsolutePath(  ) );
-
-        Application.getInstance(  ).getLogger(  ).finest(
-            "Run command: " + cmd );
+        app.getLogger(  ).finest( "Run command: " + cmd );
 
         logger.info(
             MessageFormat.format( i18n.getString( "Message.Command" ), cmd ) );
@@ -456,8 +433,7 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         int resultCode =
             execGrabCmd( storage, Utils.parseCommand( cmd ), progress, logger );
 
-        Application.getInstance(  ).getLogger(  )
-                   .finest( "Result code = " + resultCode );
+        app.getLogger(  ) .finest( "Result code = " + resultCode );
 
         logger.info(
             MessageFormat.format(
@@ -567,24 +543,6 @@ public class GrabberXMLTV extends BaseModule implements IModuleGrabber,
         if( ( args == null ) || ( args.length == 0 ) )
         {
             return false;
-        }
-
-        if( !Application.getInstance(  ).isUnix(  ) )
-        {
-            final File xmltvDir =
-                new File(
-                    Application.getInstance(  ).getWorkingDirectory(  ),
-                    DIR_INSTALLED );
-
-            if( !xmltvDir.exists(  ) )
-            {
-                if(
-                    !FileHelper.unpackFiles(
-                            PACKAGE_XMLTVWIN_LIST, PACKAGE_XMLTVWIN, xmltvDir ) )
-                {
-                    return false;
-                }
-            }
         }
 
         final String xmltvName = args[0];

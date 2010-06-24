@@ -15,6 +15,7 @@ public class FreeGuideTest
     {
         try
         {
+            new GrabberXMLTVFastTest().run();
             new DateParsingFastTest().run();
             new PathSearcherFastTest().run();
             new BrowserFastTest().run();
