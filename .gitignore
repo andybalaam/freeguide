@@ -1,6 +1,11 @@
 *.class
 build
 doc/html-web
+.metadata
+bin
+install-bin
+jar
+nbproject
 dist
 *~
 src/resources/i18n/MessagesBundle.properties
