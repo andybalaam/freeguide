@@ -1,8 +1,6 @@
 *.class
 *.swp
 *~
-.classpath
-.project
 .metadata
 nbproject
 lib/xercesImpl.jar
@@ -11,5 +9,7 @@ log.txt
 bin
 install-bin
 jar
+build
+doc/html-web
 dist
 *.marks

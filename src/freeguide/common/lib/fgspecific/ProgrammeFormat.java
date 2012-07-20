@@ -87,9 +87,16 @@ public class ProgrammeFormat
      */
     public static void calcTimeDelta( long startTime, StringBuffer toAppend )
     {
+        calcTimeDeltaBetween(
+            startTime, System.currentTimeMillis(  ), toAppend );
+    }
+
+    public static void calcTimeDeltaBetween(
+        long startTime, long nowTime, StringBuffer toAppend )
+    {
         // Get the current time and calculates the difference in minutes
         // from the starting time.  >0 means in the future
-        long delta = startTime - System.currentTimeMillis(  );
+        long delta = startTime - nowTime;
         delta /= 60000;
 
         // If delta = 0 then it starts now and we leave as there's
@@ -103,9 +110,9 @@ public class ProgrammeFormat
         }
 
         // Split delta in meaningful fields
-        int days = (int)( delta / ( 24 * 60 ) );
-        int hours = (int)( ( delta / 60 ) % 60 );
-        int minutes = (int)( delta % 60 );
+        int days    = (int)( Math.round( delta / ( 24.0 * 60.0 ) ) );
+        int hours   = (int)( Math.round( delta / 60.0 ) );
+        int minutes = (int)( delta );
 
         if( delta > 0 )
         {

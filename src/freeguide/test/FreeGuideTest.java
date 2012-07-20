@@ -3,6 +3,7 @@ package freeguide.test;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
+import freeguide.common.lib.fgspecific.test.ProgrammeFormatFastTest;
 import freeguide.test.slow.*;
 import freeguide.test.fast.*;
 
@@ -27,6 +28,7 @@ public class FreeGuideTest
             new DeleteSelectionsFastTest().run();
             new SearchResultsHolderFastTest().run();
             new SearchProgrammesThreadFastTest().run();
+            new ProgrammeFormatFastTest().run();
 
             System.out.println( "All fast tests passed." );
 
