@@ -1,7 +1,5 @@
 *.class
 build
-.classpath
-.project
 doc/html-web
 dist
 *~
