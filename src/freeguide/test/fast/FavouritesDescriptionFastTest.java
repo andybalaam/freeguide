@@ -102,6 +102,20 @@ public class FavouritesDescriptionFastTest
 
     }
 
+    private void testEmptyProgrammeDoesNotMatch() throws Exception
+    {
+        Favourite fav = new Favourite();
+        fav.setDescriptionContains ( "EP29" );
+
+        TVProgramme prog = new TVProgramme();
+        prog1.setTitle( "prog1" );
+        prog1.setStart( 1000 );
+
+        // This programme has no description or tags, so it can't
+        // match the favourite.
+        FreeGuideTest.my_assert( !fav.matches( prog ) );
+
+    }
 
     public void run() throws Exception
     {
@@ -112,6 +126,7 @@ public class FavouritesDescriptionFastTest
         testFindByActorOnly( );
         testFindByDescriptionOnly( );
         testFindByEpisodeNumberAndChannel( );
+        testEmptyProgrammeDoesNotMatch( );
     }
 }
 

@@ -380,64 +380,37 @@ public class Favourite
      * @param prog the programme whose description we will check
      *
      * @return true if this programme matches this favourite's description
-     *         field, or the description field is empty.
+     *         field, or the descriptionContains field is empty.
      */
     public boolean descriptionOrTagsMatch( TVProgramme prog )
     {
+        if( descriptionContains == null )
+        {
+            // If there is no requirement for the description to match
+            // anything, we "match".
+            return true;
+        }
+
         String progDescription = prog.getDescription(  );
         Map progExtraTags = prog.getExtraTags(  );
 
-        if( descriptionContains != null )
+        if(
+            progDescription != null &&
+            progDescription.contains( descriptionContains )
+        )
         {
-            if( progExtraTags == null )
-            {
-                if( progDescription == null )
-                {
-                    return false;
-                }
-                else
-                {
-                    if( progDescription.indexOf( descriptionContains ) == -1 )
-                    {
-                        return false;
-                    }
-                }
-            }
-            else if( progDescription == null )
-            {
-                if( progExtraTags == null )
-                {
-                    return false;
-                }
-                else
-                {
-                    if(
-                        !matchInExtraTags(
-                            progExtraTags.values(  ), descriptionContains )
-                        )
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                if(
-                    (
-                        progDescription.indexOf( descriptionContains ) == -1
-                    ) &&
-                    (
-                        !matchInExtraTags(
-                            progExtraTags.values( ), descriptionContains )
-                        )
-                    )
-                {
-                    return false;
-                }
-            }
+            return true;
         }
 
-        return true;
+        if(
+            progExtraTags != null &&
+            matchInExtraTags( progExtraTags.values(  ), descriptionContains )
+        )
+        {
+            return true;
+        }
+
+        return false;
     }
 
     /**
