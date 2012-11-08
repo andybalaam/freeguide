@@ -66,9 +66,12 @@ public class FavouriteEditorDialog extends FGDialog
     private javax.swing.JLabel labDayOfWeek;
     private javax.swing.JLabel labName;
     private javax.swing.JLabel labTimeFormat;
+    private javax.swing.JLabel labDescription;
+    private javax.swing.JLabel labSearchDescriptionAndCredits;
 
     //    private javax.swing.JLabel labTimeFormat1;
     private javax.swing.JLabel labTitle;
+    private javax.swing.JTextField txtDescriptionContains;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtAfter;
     private javax.swing.JTextField txtBefore;
@@ -123,6 +126,12 @@ public class FavouriteEditorDialog extends FGDialog
             cmbTitle.setSelectedItem(
                 Application.getInstance(  )
                            .getLocalizedMessage( "regular_expression" ) );
+        }
+
+        if( favourite.getDescriptionContains(  ) != null )
+        {
+            txtDescriptionContains.setText(
+                favourite.getDescriptionContains(  ) );
         }
 
         if( favourite.getChannelID(  ) != null )
@@ -273,6 +282,17 @@ public class FavouriteEditorDialog extends FGDialog
             }
         }
 
+        String tmpDescription = txtDescriptionContains.getText(  );
+        if( tmpDescription.equals( StringHelper.EMPTY_STRING ) )
+        {
+            favourite.setDescriptionContains( null );
+        }
+        else
+        {
+            favourite.setDescriptionContains( tmpDescription );
+            setField = true;
+        }
+
         // Set the channel
         Object sel = cmbChannel.getSelectedItem(  );
 
@@ -361,6 +381,7 @@ public class FavouriteEditorDialog extends FGDialog
         String after = txtAfter.getText(  );
         String before = txtBefore.getText(  );
         String dayOfWeek = cmbDayOfWeek.getSelectedItem(  ).toString(  );
+        String description = txtDescriptionContains.getText(  );
 
         // Prepare strings that will be substituted into the name template
         String equalsString = StringHelper.EMPTY_STRING;
@@ -377,6 +398,8 @@ public class FavouriteEditorDialog extends FGDialog
         Object[] beforeArray = { before };
         String dayOfWeekString = StringHelper.EMPTY_STRING;
         Object[] dayOfWeekArray = { dayOfWeek };
+        String descriptionContainsString = StringHelper.EMPTY_STRING;
+        Object[] descriptionContainsArray = { description };
 
         if( !title.equals( StringHelper.EMPTY_STRING ) )
         {
@@ -436,11 +459,20 @@ public class FavouriteEditorDialog extends FGDialog
                     "favourite_name_day_of_week_template", dayOfWeekArray );
         }
 
+        if( !description.equals( StringHelper.EMPTY_STRING ) )
+        {
+            descriptionContainsString =
+                Application.getInstance(  ).getLocalizedMessage(
+                    "favourite_name_description_contains_template",
+                    descriptionContainsArray
+                );
+        }
+
         Object[] nameArgs =
             {
                 equalsString, containsString, regexpString, channelString,
-
-                beforeString, afterString, dayOfWeekString
+                beforeString, afterString, dayOfWeekString,
+                descriptionContainsString
             };
         String name =
             Application.getInstance(  )
@@ -476,6 +508,14 @@ public class FavouriteEditorDialog extends FGDialog
                 public void actionPerformed( java.awt.event.ActionEvent evt )
                 {
                     cmbTitleActionPerformed( evt );
+                }
+            } );
+        txtDescriptionContains.addActionListener(
+            new java.awt.event.ActionListener(  )
+            {
+                public void actionPerformed( java.awt.event.ActionEvent evt)
+                {
+                    txtDescriptionContainsActionPerformed( evt );
                 }
             } );
         cmbChannel.addActionListener(
@@ -563,12 +603,47 @@ public class FavouriteEditorDialog extends FGDialog
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( cmbTitle, gridBagConstraints );
+        labDescription = new javax.swing.JLabel(
+                Application.getInstance(  ).getLocalizedMessage(
+                    "description" ) + ':', javax.swing.SwingConstants.RIGHT );
+        gridBagConstraints = new java.awt.GridBagConstraints(  );
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
+        getContentPane(  ).add( labDescription, gridBagConstraints );
+        txtDescriptionContains = new javax.swing.JTextField(  );
+        txtDescriptionContains.setMinimumSize(
+            new java.awt.Dimension( 50, 25 ) );
+        txtDescriptionContains.setPreferredSize(
+            new java.awt.Dimension( 200, 25 ) );
+        gridBagConstraints = new java.awt.GridBagConstraints(  );
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
+        getContentPane(  ).add( txtDescriptionContains, gridBagConstraints );
+        labSearchDescriptionAndCredits = new javax.swing.JLabel(
+            Application.getInstance().getLocalizedMessage(
+            "search_in_description_and_credits" ),
+            javax.swing.SwingConstants.LEFT
+        );
+        gridBagConstraints = new java.awt.GridBagConstraints(  );
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 0.1;
+        getContentPane(  ).add(
+            labSearchDescriptionAndCredits, gridBagConstraints );
         labChannel = new javax.swing.JLabel(
                 Application.getInstance(  ).getLocalizedMessage( "channel_is" )
                 + ':', javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( labChannel, gridBagConstraints );
@@ -576,7 +651,7 @@ public class FavouriteEditorDialog extends FGDialog
         cmbChannel.setPreferredSize( new java.awt.Dimension( 200, 25 ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
@@ -587,7 +662,7 @@ public class FavouriteEditorDialog extends FGDialog
                 + ':', javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( labAfter, gridBagConstraints );
@@ -595,7 +670,7 @@ public class FavouriteEditorDialog extends FGDialog
         txtAfter.setMinimumSize( new java.awt.Dimension( 50, 25 ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -605,7 +680,7 @@ public class FavouriteEditorDialog extends FGDialog
         txtBefore.setMinimumSize( new java.awt.Dimension( 50, 25 ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -616,7 +691,7 @@ public class FavouriteEditorDialog extends FGDialog
                 + ':', javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( labBefore, gridBagConstraints );
@@ -638,7 +713,7 @@ public class FavouriteEditorDialog extends FGDialog
                 javax.swing.SwingConstants.LEFT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -651,7 +726,7 @@ public class FavouriteEditorDialog extends FGDialog
                     "on_day_label" ) + ':', javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( labDayOfWeek, gridBagConstraints );
@@ -660,7 +735,7 @@ public class FavouriteEditorDialog extends FGDialog
                 + ':', javax.swing.SwingConstants.RIGHT );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
         getContentPane(  ).add( labName, gridBagConstraints );
@@ -668,7 +743,7 @@ public class FavouriteEditorDialog extends FGDialog
         cmbDayOfWeek.setPreferredSize( new java.awt.Dimension( 200, 25 ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
@@ -682,7 +757,7 @@ public class FavouriteEditorDialog extends FGDialog
         txtName.setMinimumSize( new java.awt.Dimension( 200, 25 ) );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets( 5, 5, 5, 5 );
@@ -705,7 +780,7 @@ public class FavouriteEditorDialog extends FGDialog
         jPanel1.add( butCancel, gridBagConstraints );
         gridBagConstraints = new java.awt.GridBagConstraints(  );
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         getContentPane(  ).add( jPanel1, gridBagConstraints );
@@ -734,6 +809,11 @@ public class FavouriteEditorDialog extends FGDialog
      * @param evt Description of the Parameter
      */
     private void txtTitleActionPerformed( java.awt.event.ActionEvent evt )
+    {
+        calcTxtName(  );
+    }
+
+    private void txtDescriptionContainsActionPerformed( java.awt.event.ActionEvent evt )
     {
         calcTxtName(  );
     }

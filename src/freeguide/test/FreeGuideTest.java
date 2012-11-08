@@ -29,6 +29,7 @@ public class FreeGuideTest
             new SearchResultsHolderFastTest().run();
             new SearchProgrammesThreadFastTest().run();
             new ProgrammeFormatFastTest().run();
+            new FavouritesDescriptionFastTest().run();
 
             System.out.println( "All fast tests passed." );
 
@@ -44,6 +45,7 @@ public class FreeGuideTest
                     new ImportPerformanceSlowTest().run();
                     new ImportTwiceSlowTest().run();
                     new DisplayDocsSlowTest().run();
+                    new FavouriteDescriptionPerformanceSlowTest().run();
 
                     System.out.println( "All slow tests passed." );
                 }

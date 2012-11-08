@@ -24,6 +24,8 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import java.util.Map;
+import java.util.Collection;
 /**
  * FreeGuideFavourite A description of a favourite TV program, vague or
  * specific.
@@ -46,6 +48,9 @@ public class Favourite
     /** Regular expression to match the title */
     public String titleRegex;
     transient protected Pattern titleRegexPattern;
+
+    /** String contained in the description or in the extraTags */
+    public String descriptionContains;
 
     /** The channel it must be on */
     public String channelID;
@@ -78,6 +83,7 @@ public class Favourite
         result.titleString = titleString;
         result.titleContains = titleContains;
         result.titleRegex = titleRegex;
+        result.descriptionContains = descriptionContains;
         result.channelID = channelID;
         result.afterTime = afterTime;
         result.beforeTime = beforeTime;
@@ -127,6 +133,13 @@ public class Favourite
         if(
             ( titleRegex != null )
                 && !getTitleRegexPattern(  ).matcher( progTitle ).matches(  ) )
+        {
+            return false;
+        }
+
+        // Matches if the description or anything else in extraTags (like the
+        // actor, producer, writer, or episode number) contains the string.
+        if( !descriptionOrTagsMatch( prog ) )
         {
             return false;
         }
@@ -210,6 +223,11 @@ public class Favourite
         return titleRegex;
     }
 
+    public String getDescriptionContains(  )
+    {
+        return descriptionContains;
+    }
+
     /**
      * Gets the channel attribute of the Favourite object
      *
@@ -291,6 +309,11 @@ public class Favourite
         this.titleRegexPattern = null;
     }
 
+    public void setDescriptionContains( String descriptionContains )
+    {
+        this.descriptionContains = descriptionContains;
+    }
+
     /**
      * Sets the channelID attribute of the Favourite object
      *
@@ -348,4 +371,100 @@ public class Favourite
         return new FavouriteComparator();
     }
     // The day of the week it's on
+
+
+    /**
+     * descriptionOrTagsMatch decides if a description (ultimately entered by
+     * the user) is contained in a program's Description or ExtraTags.
+     *
+     * @param prog the programme whose description we will check
+     *
+     * @return true if this programme matches this favourite's description
+     *         field, or the description field is empty.
+     */
+    public boolean descriptionOrTagsMatch( TVProgramme prog )
+    {
+        String progDescription = prog.getDescription(  );
+        Map progExtraTags = prog.getExtraTags(  );
+
+        if( descriptionContains != null )
+        {
+            if( progExtraTags == null )
+            {
+                if( progDescription == null )
+                {
+                    return false;
+                }
+                else
+                {
+                    if( progDescription.indexOf( descriptionContains ) == -1 )
+                    {
+                        return false;
+                    }
+                }
+            }
+            else if( progDescription == null )
+            {
+                if( progExtraTags == null )
+                {
+                    return false;
+                }
+                else
+                {
+                    if(
+                        !matchInExtraTags(
+                            progExtraTags.values(  ), descriptionContains )
+                        )
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                if(
+                    (
+                        progDescription.indexOf( descriptionContains ) == -1
+                    ) &&
+                    (
+                        !matchInExtraTags(
+                            progExtraTags.values( ), descriptionContains )
+                        )
+                    )
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Searches for the supplied description in the extra tags map of a
+     * programme.
+     *
+     * @param tags the programme to check
+     * @param description the description to match
+     *
+     * @return true if the supplied description appears in one of the tags
+     *         in the map supplied.  False otherwise.
+     */
+    public boolean matchInExtraTags( Collection tags, String description )
+    {
+        for( Object tag : tags )
+        {
+            Map hashOfAttrs = (Map)tag;
+            for( Object attrValue : hashOfAttrs.values( ) )
+            {
+                String s = (String)attrValue;
+                if( s.indexOf( description ) != -1 )
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }
