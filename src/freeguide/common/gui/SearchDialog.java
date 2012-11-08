@@ -108,6 +108,30 @@ public class SearchDialog extends JDialog
     }
 
     /**
+     * Class Constructor from owner and a Mouse and Key listener with an initial
+     * search string. Automatically performs a case sensitive future search.
+     *
+     * @param owner the <code>JFrame</code> from which the dialog is
+     *        displayed
+     * @param mouseListener the MouseListener to handle MouseEvents from Result List.
+     * @param keyListener the KeyListener to handle KeyEvents from Result List.
+     * @param searchStr the initial search string.
+     */
+    public SearchDialog(
+        JFrame owner, MouseListener mouseListener, KeyListener keyListener,
+        String searchStr )
+    {
+        this( owner, mouseListener, keyListener );
+
+        searchForText.setText( searchStr );
+        searchSubtitle.setSelected( false );
+        caseSensitive.setSelected( true );
+        searchButtonActionPerformed(
+            new ActionEvent( searchButton, MouseEvent.MOUSE_CLICKED, "Search" )
+        );
+    }
+
+    /**
      * Adds l to MouseListener list of the programme list.
      *
      * @param l the MouseListener to handle MouseEvents from the Result List.

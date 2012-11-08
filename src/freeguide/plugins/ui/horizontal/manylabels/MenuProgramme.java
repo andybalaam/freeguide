@@ -6,6 +6,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import freeguide.common.gui.LaunchBrowserOrError;
+import freeguide.common.gui.SearchDialog;
 import freeguide.common.lib.fgspecific.Application;
 import freeguide.common.lib.fgspecific.data.TVProgramme;
 import freeguide.common.plugininterfaces.IModuleReminder;
@@ -46,6 +47,26 @@ public class MenuProgramme extends JPopupMenu
                 {
                     LaunchBrowserOrError.launchBrowserOrError( programme
                         .getLink() );
+                }
+            } );
+
+            add( item );
+        }
+
+        // Add search option
+        {
+            JMenuItem item = new JMenuItem();
+            item.setText( main.getLocalizer().getString( "search_for_more" ) );
+
+            // Event handler for when the search popup menu item is clicked
+            item.addActionListener( new java.awt.event.ActionListener()
+            {
+                public void actionPerformed( ActionEvent evt )
+                {
+                    new SearchDialog(
+                        Application.getInstance().getCurrentFrame(),
+                        main.searchMouseAdapter, main.searchKeyAdapter,
+                        programme.getTitle());
                 }
             } );
 
