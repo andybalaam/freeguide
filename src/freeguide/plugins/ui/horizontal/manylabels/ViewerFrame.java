@@ -565,7 +565,6 @@ public class ViewerFrame extends JPanel
                         public void adjustmentValueChanged( AdjustmentEvent e )
                         {
                             programScrolled( e );
-
                         }
                     };
 
@@ -653,7 +652,7 @@ public class ViewerFrame extends JPanel
     }
 
     /**
-     * When a scoll event happens, repaint the main panel, to allow
+     * When a scroll event happens, repaint the main panel, to allow
      * the text to be adjusted to be visible even if the programme starts off
      * to the left.
      *
