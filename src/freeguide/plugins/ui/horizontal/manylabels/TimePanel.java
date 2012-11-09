@@ -76,6 +76,11 @@ public class TimePanel extends JPanel implements ActionListener
         timer.start();
     }
 
+    public void stopTimer( )
+    {
+        timer.stop();
+    }
+
     /**
      * Called every 20 secs: redraws the panel so that the time
      * indicator stays correct.

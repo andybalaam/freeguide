@@ -361,6 +361,9 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
         // Remove Search Menu
         menuSearch.setVisible( false );
 
+        // Stop timer
+        panel.getTimePanel().stopTimer();
+
         panel = null;
     }
 
