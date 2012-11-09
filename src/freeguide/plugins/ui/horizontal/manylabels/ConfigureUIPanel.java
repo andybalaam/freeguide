@@ -112,11 +112,12 @@ public class ConfigureUIPanel extends JPanel
     {
         GridBagConstraints gbc;
         JLabel             label;
+        int                gridy = 0;
 
         // Set the layout engine
         setLayout(new GridBagLayout());
 
-        // Grid line 0
+        // Channel Height
         label = new JLabel();
         label.setText(localizer.getString("channel_height") + ":");
         label.setLabelFor(getSliderHeight());
@@ -124,27 +125,28 @@ public class ConfigureUIPanel extends JPanel
 
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = gridy;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
         add(label, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridy = gridy;
         gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
         add(getTextHeight(), gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 0;
+        gbc.gridy = gridy;
         gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = 2;
         gbc.insets = new java.awt.Insets(5, 5, 0, 5);
         add(getSliderHeight(), gbc);
 
-        // Grid line 1
+        // Width or 1 hour
+        gridy++;
         label = new JLabel();
         label.setText(localizer.getString("width_of_1hr") + ":");
         label.setLabelFor(getSliderWidth());
@@ -152,27 +154,28 @@ public class ConfigureUIPanel extends JPanel
 
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = gridy;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
         add(label, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = gridy;
         gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
         add(getTextWidth(), gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 1;
+        gbc.gridy = gridy;
         gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = 2;
         gbc.insets = new java.awt.Insets(5, 5, 0, 5);
         add(getSliderWidth(), gbc);
 
-        // Grid line 2
+        // Font
+        gridy++;
         label = new JLabel();
         label.setText(localizer.getString("ui_horiz_font") + ":");
         label.setLabelFor(btnFont);
@@ -180,14 +183,14 @@ public class ConfigureUIPanel extends JPanel
 
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = gridy;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
         add(label, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = gridy;
         gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = 2;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
@@ -195,11 +198,12 @@ public class ConfigureUIPanel extends JPanel
 
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
-        gbc.gridy = 2;
+        gbc.gridy = gridy;
         gbc.insets = new java.awt.Insets(5, 5, 0, 5);
         add(getBtnFont(), gbc);
 
-        // Grid line 3
+        // Normal programme colour
+        gridy++;
         label = new JLabel();
         label.setDisplayedMnemonic(java.awt.event.KeyEvent.VK_N);
         label.setLabelFor(getBtnColorNormal());
@@ -207,14 +211,14 @@ public class ConfigureUIPanel extends JPanel
 
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = gridy;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
         add(label, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = gridy;
         gbc.fill = java.awt.GridBagConstraints.BOTH;
         gbc.gridwidth = 2;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
@@ -222,11 +226,12 @@ public class ConfigureUIPanel extends JPanel
 
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
-        gbc.gridy = 3;
+        gbc.gridy = gridy;
         gbc.insets = new java.awt.Insets(5, 5, 0, 5);
         add(getBtnColorNormal(), gbc);
 
-        // Grid line 4
+        // New programme colour
+        gridy++;
         label = new JLabel();
         label.setLabelFor(getBtnColorSelected());
         label.setDisplayedMnemonic(java.awt.event.KeyEvent.VK_E);
@@ -234,14 +239,14 @@ public class ConfigureUIPanel extends JPanel
 
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = gridy;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
         add(label, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 4;
+        gbc.gridy = gridy;
         gbc.fill = java.awt.GridBagConstraints.BOTH;
         gbc.gridwidth = 2;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
@@ -249,11 +254,12 @@ public class ConfigureUIPanel extends JPanel
 
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
-        gbc.gridy = 4;
+        gbc.gridy = gridy;
         gbc.insets = new java.awt.Insets(5, 5, 0, 5);
         add(getBtnColorNew(), gbc);
 
-        // Grid line 5
+        // Selected programme colour
+        gridy++;
         label = new JLabel();
         label.setLabelFor(getBtnColorSelected());
         label.setDisplayedMnemonic(java.awt.event.KeyEvent.VK_A);
@@ -261,14 +267,14 @@ public class ConfigureUIPanel extends JPanel
 
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = gridy;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
         add(label, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 5;
+        gbc.gridy = gridy;
         gbc.fill = java.awt.GridBagConstraints.BOTH;
         gbc.gridwidth = 2;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
@@ -276,11 +282,12 @@ public class ConfigureUIPanel extends JPanel
 
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
-        gbc.gridy = 5;
+        gbc.gridy = gridy;
         gbc.insets = new java.awt.Insets(5, 5, 0, 5);
         add(getBtnColorSelected(), gbc);
 
-        // Grid line 6
+        // Movie colour
+        gridy++;
         label = new JLabel();
         label.setDisplayedMnemonic(java.awt.event.KeyEvent.VK_M);
         label.setLabelFor(getBtnColorMovie());
@@ -288,14 +295,14 @@ public class ConfigureUIPanel extends JPanel
 
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = gridy;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
         add(label, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 6;
+        gbc.gridy = gridy;
         gbc.fill = java.awt.GridBagConstraints.BOTH;
         gbc.gridwidth = 2;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
@@ -303,11 +310,12 @@ public class ConfigureUIPanel extends JPanel
 
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
-        gbc.gridy = 6;
+        gbc.gridy = gridy;
         gbc.insets = new java.awt.Insets(5, 5, 0, 5);
         add(getBtnColorMovie(), gbc);
 
-        // Grid line 7
+        // Channel colour
+        gridy++;
         label = new JLabel();
         label.setLabelFor(getBtnColorChannel());
         label.setDisplayedMnemonic(java.awt.event.KeyEvent.VK_C);
@@ -315,14 +323,14 @@ public class ConfigureUIPanel extends JPanel
 
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 7;
+        gbc.gridy = gridy;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
         add(label, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 7;
+        gbc.gridy = gridy;
         gbc.fill = java.awt.GridBagConstraints.BOTH;
         gbc.gridwidth = 2;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
@@ -330,24 +338,26 @@ public class ConfigureUIPanel extends JPanel
 
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
-        gbc.gridy = 7;
+        gbc.gridy = gridy;
         gbc.insets = new java.awt.Insets(5, 5, 0, 5);
         add(getBtnColorChannel(), gbc);
 
-        // Grid line 9
+        // Spacer
+//        gridy++;
 //        gbc.gridx = 1;
-//        gbc.gridy = 9;
+//        gbc.gridy = gridy;
 //        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
 //        gbc.weightx = 0.1D;
 //        add(getJPanel(), gbc);
-
+//
 //        gbc.gridx = 2;
-//        gbc.gridy = 9;
+//        gbc.gridy = gridy;
 //        gbc.weightx = 1.0D;
 //        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
 //        add(getPanelSpacer(), gbc);
 
-        // Grid line 10
+        // Start of Day
+        gridy++;
         label = new JLabel();
         label.setLabelFor(getDayStart());
         label.setDisplayedMnemonic(java.awt.event.KeyEvent.VK_S);
@@ -355,60 +365,64 @@ public class ConfigureUIPanel extends JPanel
 
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 10;
+        gbc.gridy = gridy;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
         add(label, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 10;
+        gbc.gridy = gridy;
         gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gbc.insets = new java.awt.Insets(5, 5, 0, 5);
         add(getDayStart(), gbc);
 
-        // Grid line 11
+        // Time Format
+        gridy++;
         label = new JLabel();
         label.setLabelFor(getRbTime12());
         label.setText(localizer.getString("time_format") + ":");
 
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 11;
+        gbc.gridy = gridy;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
         gbc.insets = new java.awt.Insets(5, 5, 0, 0);
         add(label, gbc);
 
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 11;
+        gbc.gridy = gridy;
         gbc.fill = java.awt.GridBagConstraints.BOTH;
         gbc.gridwidth = 3;
         gbc.insets = new java.awt.Insets(5, 5, 0, 5);
         add(getPanelTimeFormat(), gbc);
 
-        // Grid line 12
+        // Show programme times
+        gridy++;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 12;
+        gbc.gridy = gridy;
         gbc.gridwidth = 4;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
         gbc.insets = new java.awt.Insets(5, 5, 0, 5);
         add(getCbDrawTime(), gbc);
 
-        // Grid line 13
+        // Moving Names
+        gridy++;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 13;
+        gbc.gridy = gridy;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
         gbc.gridwidth = 4;
         gbc.insets = new java.awt.Insets(5, 5, 0, 5);
         add(getCbAlignLeft(), gbc);
 
-        // Grid line 14
+        // Display Tooltips
+        gridy++;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 14;
+        gbc.gridy = gridy;
         gbc.gridwidth = 4;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
         gbc.insets = new java.awt.Insets(5, 5, 5, 5);
