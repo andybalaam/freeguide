@@ -5,6 +5,7 @@ import java.util.logging.Level;
 
 import freeguide.plugins.program.freeguide.FreeGuide;
 import freeguide.plugins.program.freeguide.migration.Migrate0_10_12To0_11;
+import freeguide.plugins.program.freeguide.migration.Migrate0_11To0_11_1;
 import freeguide.test.FreeGuideTest;
 
 public class MigrationFastTest
@@ -19,6 +20,7 @@ public class MigrationFastTest
 
         test_0_10_12To0_11();
         test_0_10_12To0_11_NoPanelWidth();
+        test_0_11To0_11_1();
     }
 
     private void test_0_10_12To0_11()
@@ -67,4 +69,25 @@ public class MigrationFastTest
         // setting is missing.
     }
 
+    private void test_0_11To0_11_1()
+    throws Exception
+    {
+        // Sub-class to access members and bypass initialisation
+        class Migr extends Migrate0_11To0_11_1
+        {
+            public Map getFrom()
+            {
+                return prefFrom;
+            }
+        }
+
+        Migr migr = new Migr();
+
+        migr.migrate();
+
+        // The old programme panel size is gone
+        FreeGuideTest.my_assert(
+            migr.getResult().get( "version" ).equals( "0.11.1" )
+        );
+    }
 }

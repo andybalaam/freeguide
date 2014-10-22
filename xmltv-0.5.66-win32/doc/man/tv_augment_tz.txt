@@ -1,0 +1,25 @@
+NAME
+    tv_augment_tz - Convert floating time to explicit time.
+
+SYNOPSIS
+    tv_augment_tz [--help] [--output FILE] [--tz TIMEZONE] [FILE...]
+
+DESCRIPTION
+    Read XMLTV data and augment all times with the correct offset. Times
+    that are already explicit will be converted to TIMEZONE as well.
+
+    --output FILE write to FILE rather than standard output
+
+    --tz TIMEZONE use TIMEZONE (e.g. Europe/Berlin) rather then the default
+    of UTC
+
+SEE ALSO
+    xmltv(5).
+
+AUTHOR
+    Karl Dietz, <dekarl@spaetfruehstuecken.org>
+
+BUGS
+    Guessing the right time when local time is abigous doesn't work
+    properly.
+

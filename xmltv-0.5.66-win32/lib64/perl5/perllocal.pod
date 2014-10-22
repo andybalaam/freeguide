@@ -1,0 +1,22 @@
+=head2 Tue Oct 21 02:10:41 2014: C<Module> L<XMLTV|XMLTV>
+
+=over 4
+
+=item *
+
+C<installed into: /tmp/xmltv-0.5.65-win32/share/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.5.66>
+
+=item *
+
+C<EXE_FILES: filter/tv_augment_tz filter/tv_extractinfo_en filter/tv_extractinfo_ar filter/tv_grep filter/tv_sort filter/tv_to_latex filter/tv_to_text filter/tv_to_potatoe filter/tv_cat filter/tv_split filter/tv_imdb filter/tv_remove_some_overlapping filter/tv_count filter/tv_merge tools/tv_validate_grabber tools/tv_validate_file tools/tv_find_grabbers grab/ar/tv_grab_ar grab/ch_search/tv_grab_ch_search grab/dtv_la/tv_grab_dtv_la grab/uk_rt/tv_grab_uk_rt grab/uk_bleb/tv_grab_uk_bleb grab/uk_atlas/tv_grab_uk_atlas grab/uk_tvguide/tv_grab_uk_tvguide grab/is/tv_grab_is grab/it/tv_grab_it grab/na_dd/tv_grab_na_dd grab/fi/tv_grab_fi grab/fi_sv/tv_grab_fi_sv grab/il/tv_grab_il grab/es_laguiatv/tv_grab_es_laguiatv grab/nl/tv_grab_nl grab/huro/tv_grab_huro grab/dk_dr/tv_grab_dk_dr grab/se_swedb/tv_grab_se_swedb grab/hr/tv_grab_hr grab/no_gfeed/tv_grab_no_gfeed grab/eu_egon/tv_grab_eu_egon grab/se_tvzon/tv_grab_se_tvzon grab/fr/tv_grab_fr grab/fr_kazer/tv_grab_fr_kazer grab/pt/tv_grab_pt grab/pt_meo/tv_grab_pt_meo grab/za/tv_grab_za grab/eu_epgdata/tv_grab_eu_epgdata grab/combiner/tv_grab_combiner choose/tv_check/tv_check grab/na_dtv/tv_grab_na_dtv grab/tr/tv_grab_tr grab/na_tvmedia/tv_grab_na_tvmedia>
+
+=back
+

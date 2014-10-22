@@ -1,3 +1,10 @@
+freeguide (0.11.1-1) trusty; urgency=low
+
+  * Non-maintainer upload
+  * New upstream release.
+
+ -- Andy Balaam <andybalaam@artificialworlds.net>  Wed, 22 Oct 2014 21:32:13 +0100
+
 freeguide (0.11-1) lucid; urgency=low
 
   * Non-maintainer upload

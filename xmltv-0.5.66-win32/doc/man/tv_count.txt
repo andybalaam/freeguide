@@ -1,0 +1,24 @@
+NAME
+    tv_count - Count (and print) the number of channels and programmes in an
+    XMLTV file.
+
+SYNOPSIS
+    tv_count FILE
+
+DESCRIPTION
+    Read XMLTV listings and print a count of the number of channels and
+    number of programmes in the file.
+
+EXAMPLE
+    Use "tv_count listings.xml" to count programmes in the file called
+    listings.xml.
+
+SEE ALSO
+    xmltv(5)
+
+AUTHOR
+    Copyright Geoff Westcott, February 2013.
+
+    This code is distributed under the GNU General Public License v2 (GPLv2)
+    .
+

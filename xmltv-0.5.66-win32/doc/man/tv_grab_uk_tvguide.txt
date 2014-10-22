@@ -1,0 +1,91 @@
+NAME
+    tv_grab_uk_tvguide - Grab TV listings for UK from the TV Guide UK
+    website.
+
+DESCRIPTION
+    Output TV listings in XMLTV format for many channels available in UK.
+    The data come from tvguide.co.uk
+
+    First you must run tv_grab_uk_tvguide --configure to choose which
+    channels you want to receive.
+
+    Then running tv_grab_uk_tvguide with no arguments will get a listings in
+    XML format for the channels you chose for available days including
+    today.
+
+OPTIONS
+    Please see tv_grab_uk_tvguide --help
+
+INSTALLATION
+    The file tv_grab_uk_tvguide.map.conf has two purposes. Firstly you can
+    map the channel ids used by the site into something more meaningful to
+    your PVR. E.g.
+
+          map==74==BBC 1
+
+    will change "74" to "BBC 1" in the output XML.
+
+    Note: the lines are of the form "map=={channel id}=={my name}".
+
+    The second purpose is to likewise translate genre names. So if your PVR
+    doesn"t have a category for "Science Fiction" but uses "Sci-fi" instead,
+    then you can specify
+
+          cat==Science Fiction==Sci-fi
+
+    and the output XML will have "Sci-fi".
+
+    IMPORTANT: the downloaded "tv_grab_uk_tvguide.map.conf" contains example
+    lines to illustrate the format - you should edit this file to suit your
+    own purposes!
+
+ERROR HANDLING
+    If the grabber fails to download data for some channel on a specific
+    day, it will print an errormessage to STDERR and then continue with the
+    other channels and days. The grabber will exit with a status code of 1
+    to indicate that the data is incomplete.
+
+ENVIRONMENT VARIABLES
+    The environment variable HOME can be set to change where configuration
+    files are stored. All configuration is stored in $HOME/.xmltv/. On
+    Windows, it might be necessary to set HOME to a path without spaces in
+    it.
+
+SUPPORTED CHANNELS
+    For information on supported channels, see http://tvguide.co.uk/
+
+XMLTV VALIDATION
+    tv_validate_grabber may report an error similar to:
+
+          "Line 5 Invalid channel-id BBC 1"
+
+    This is a because ValidateFile.pm insists the channel-id adheres to
+    RFC2838 despite the xmltv.dtd only saying "preferably" not "SHOULD".
+    (Having channel ids of the form "bbc1.bbc.co.uk" will be rejected by
+    many PVRs since they require the data to match their own list.)
+
+    It may also report:
+
+          "tv_sort failed on the concatenated data. Probably due to overlapping data between days."
+
+    Both these errors can be ignored.
+
+DISCLAIMER
+    The TV Guide website"s license for these data does not allow
+    non-personal use.
+
+    Certainly any commercial use of listings data obtained by using this
+    grabber will breach copyright law, but if you are just using the data
+    for your own personal use then you are probably fine.
+
+    By using this grabber you aver you are using the listings data for your
+    own personal use only and you absolve the author(s) from any liability
+    under copyright law or otherwise.
+
+AUTHOR
+    Geoff Westcott. This documentation and parts of the code based on
+    various other tv_grabbers from the XMLTV-project.
+
+SEE ALSO
+    xmltv(5).
+

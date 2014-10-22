@@ -1,0 +1,85 @@
+NAME
+    tv_grab_pt_meo - Grab TV listings for MEO from SAPO in Portugal.
+
+SYNOPSIS
+    tv_grab_pt_meo --help
+
+    tv_grab_pt_meo --configure [--config-file FILE] [--root-url URL]
+
+    tv_grab_pt_meo [--config-file FILE] [--root-url URL] [--days N]
+    [--offset N] [--channel xmltvid,xmltvid,...] [--output FILE] [--quiet]
+    [--debug]
+
+    tv_grab_pt_meo --list-channels [--config-file FILE] [--root-url URL]
+    [--output FILE] [--quiet] [--debug]
+
+DESCRIPTION
+    Output TV and listings in XMLTV format for many stations available in
+    Portugal. This program consumes the EPG service offering from SAPO at
+    <http://services.sapo.pt/Metadata/Service/EPG?culture=EN>. See
+    <http://seguranca.sapo.pt/termosdeutilizacao/apis_rss_webservices.html>
+    for their terms of service. (automatic translation suggests it's free
+    for personal use, verfication appreciated)
+
+    First you must run tv_grab_pt_meo --configure to choose which stations
+    you want to receive.
+
+    Then running tv_grab_pt_meo with no arguments will get a listings for
+    the stations you chose for all available days including today.
+
+OPTIONS
+    --configure Prompt for which stations to download and write the
+    configuration file.
+
+    --config-file FILE Set the name of the configuration file, the default
+    is ~/.xmltv/tv_grab_pt_meo.conf. This is the file written by --configure
+    and read when grabbing.
+
+    --output FILE When grabbing, write output to FILE rather than standard
+    output.
+
+    --days N When grabbing, grab N days rather than everything available.
+
+    --offset N Start grabbing at today + N days.
+
+    --quiet Only print error-messages on STDERR.
+
+    --debug Provide more information on progress to stderr to help in
+    debugging.
+
+    --list-channels Output a list of all channels that data is available
+    for. The list is in xmltv-format.
+
+    --capabilities Show which capabilities the grabber supports. For more
+    information, see <http://wiki.xmltv.org/index.php/XmltvCapabilities>
+
+    --version Show the version of the grabber.
+
+    --help Print a help message and exit.
+
+ERROR HANDLING
+    If the grabber fails to download data from webstep, it will print an
+    errormessage to STDERR and then exit with a status code of 1 to indicate
+    that the data is missing.
+
+ENVIRONMENT VARIABLES
+    The environment variable HOME can be set to change where configuration
+    files are stored. All configuration is stored in $HOME/.xmltv/. On
+    Windows, it might be necessary to set HOME to a path without spaces in
+    it.
+
+CREDITS
+    Grabber written by Karl Dietz, dekarl -at- users -dot- sourceforge -dot-
+    net as a test of the documentation on grabber writing. This
+    documentation copied from tv_grab_cz by Mattias Holmlund, This
+    documentation copied from tv_grab_uk by Ed Avis, ed -at- membled -dot-
+    com. Original grabber by Jiri Kaderavek, jiri -dot- kaderavek -at-
+    webstep -dot- net with modifications by Petr Stehlik, pstehlik -at-
+    sophics -dot- cz.
+
+    Data provided via web service from SAPO accompanying their MEO TV
+    service. Check their terms of usage!
+
+BUGS
+    None known.
+

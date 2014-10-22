@@ -1,0 +1,71 @@
+NAME
+    tv_grab_na_tvmedia - Grab TV listings for North America.
+
+SYNOPSIS
+    tv_grab_na_tvmedia --help
+
+    tv_grab_na_tvmedia --configure [--config-file FILE]
+
+    tv_grab_na_tvmedia [--config-file FILE] [--root-url URL] [--days N]
+    [--offset N] [--output FILE] [--quiet]
+
+    tv_grab_na_tvmedia --list-channels [--config-file FILE] [--output FILE]
+    [--quiet]
+
+DESCRIPTION
+    Outputs TV listings in XMLTV format for stations available in North
+    America. Data is provided by TVMedia Inc.
+
+    The grabber requires an _active_ subscription to XMLTVListings.com, as
+    well as at least one lineup selected from your account page. Then you
+    can run tv_grab_na_tvmedia --configure to set your API key and which
+    lineup you want to receive.
+
+    Then running tv_grab_na_tvmedia with no arguments will get listings for
+    all the channels you in your lineup, as you configured on
+    XMLTVListings.com
+
+OPTIONS
+    --configure Prompt for which stations to download and write the
+    configuration file.
+
+    --config-file FILE Set the name of the configuration file, the default
+    is ~/.xmltv/tv_grab_na_tvmedia.conf. This is the file written by
+    --configure and read when grabbing.
+
+    --output FILE When grabbing, write output to FILE rather than standard
+    output.
+
+    --days N When grabbing, grab N days rather than 5.
+
+    --offset N Start grabbing at today + N days. Also supports negative
+    offset for past listings.
+
+    --quiet Only print error-messages on STDERR.
+
+    --debug Provide more information on progress to stderr to help in
+    debugging.
+
+    --list-channels Output a list of all channels that data is available
+    for. The list is in xmltv-format.
+
+    --capabilities Show which capabilities the grabber supports. For more
+    information, see <http://wiki.xmltv.org/index.php/XmltvCapabilities>
+
+    --version Show the version of the grabber.
+
+    --help Print a help message and exit.
+
+ERROR HANDLING
+    If the grabber fails to download data, it will print an errormessage to
+    STDERR and then exit with a status code of 1 to indicate that the data
+    is missing.
+
+CREDITS
+    Grabber written by Matthew April on behalf of TVMedia.ca This
+    documentation copied from tv_grab_cz, This code modified from
+    tv_grab_cz, by Mattias Holmlund, mattias -at- holmlund -dot- se.
+
+BUGS
+    None known.
+

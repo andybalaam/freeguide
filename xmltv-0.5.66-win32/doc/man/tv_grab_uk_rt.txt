@@ -1,0 +1,244 @@
+NAME
+    tv_grab_uk_rt - Grab TV listings for United Kingdom/Republic of Ireland
+
+SYNOPSIS
+    tv_grab_uk_rt --help
+
+    tv_grab_uk_rt --version
+
+    tv_grab_uk_rt --capabilities
+
+    tv_grab_uk_rt --description
+
+    tv_grab_uk_rt [--config-file FILE] [--days N] [--offset N] [--output
+    FILE] [--quiet] [--debug]
+
+    tv_grab_uk_rt --configure [--config-file FILE]
+
+    tv_grab_uk_rt --configure-api [--stage NAME] [--config-file FILE]
+    [--output FILE]
+
+    tv_grab_uk_rt --list-channels [--config-file FILE] [--output FILE]
+    [--quiet] [--debug]
+
+    tv_grab_uk_rt --list-lineups
+
+    tv_grab_uk_rt --get-lineup [--config-file FILE]
+
+DESCRIPTION
+    Output TV listings in XMLTV format for many channels available in the
+    United Kingdom and Republic of Ireland. Source data comes from
+    machine-readable files made available from the Radio Times website.
+
+USAGE
+    First run tv_grab_uk_rt --configure to choose which channels you want to
+    receive listings for. Then run tv_grab_uk_rt (with optional arguments)
+    to get around 14 days of listings for your configured channels.
+
+OPTIONS
+    --help Print a help message and exit.
+
+    --version Show the versions of the XMLTV libraries, the grabber and of
+    key modules used for processing listings.
+
+    --capabilities Show which capabilities the grabber supports. For more
+    information, see <http://wiki.xmltv.org/index.php/XmltvCapabilities>
+
+    --description Show a brief description of the grabber.
+
+    --config-file FILE Specify the name of the configuration file to use. If
+    not specified, a default of ~/.xmltv/tv_grab_uk_rt.conf is used. This is
+    also the default file written by --configure and read when grabbing.
+
+    --output FILE When grabbing, write output to FILE rather than to
+    standard output.
+
+    --days N When grabbing, grab N days of data instead of all available.
+    Supported values are 1-15.
+
+    --offset N Start grabbing at today + N days. Supported values are 0-14.
+
+    Note that due to the format of the source data, tv_grab_uk_rt always
+    downloads data for all available days and then filters for days
+    specified with --days and --offset. Specifying --days and/or --offset in
+    order to speed up downloads or reduce data transfer will therefore have
+    no effect.
+
+    --quiet Suppress all progress messages normally written to standard
+    error.
+
+    --debug Provide detailed progress messages to standard error. Due to the
+    volume of debug information produced, it is not advised to use this
+    option during normal grabber use.
+
+    --gui OPTION Use this option to enable a graphical interface to be used.
+    OPTION may be 'Tk', or left blank for the best available choice.
+    Additional allowed values of OPTION are 'Term' for normal terminal
+    output (default) and 'TermNoProgressBar' to disable the use of
+    Term::ProgressBar.
+
+    --configure Prompt for which channels/lineup to download listings for,
+    where to store the cache directory for retrieved listings, what
+    character encoding to use for output, and whether to enable programme
+    title and bad character fixups.
+
+    --list-channels Outputs an XML document containing all channels
+    available to the grabber.
+
+    --list-lineups Outputs an XML document containing all channel lineups
+    available to the grabber.
+
+    --get-lineup Outputs an XML document containing the configured channel
+    lineup.
+
+SOURCE DATA TERMS OF USE
+    All data is the copyright of the Radio Times and the use of this data is
+    restricted to personal use only. Commercial use of this data is
+    forbidden. <http://www.radiotimes.com/>
+
+    In accessing this XML feed, you agree that you will only access its
+    contents for your own personal and non-commercial use and not for any
+    commercial or other purposes, including advertising or selling any goods
+    or services, including any third-party software applications available
+    to the general public.
+
+CHANNEL LINEUPS
+    A channel lineup is a list of TV and radio channels that are available
+    in a particular location on a particular TV platform (e.g. Freeview).
+
+    Whilst configurations containing individual "channel=..." entries are
+    still supported, the grabber allows a user to select their location and
+    TV platform at configuration time and have their channel lineup
+    generated dynamically at runtime. This means that if a new channel
+    launches or a channel ceases broadcasting, an update to the relevant
+    lineup (stored on the XMLTV server) will result in listings containing
+    such channel changes without any reconfiguration by the user.
+
+CHARACTER ENCODING
+    During configuration, the software asks the user to choose the character
+    encoding to be used for output. Currently supported encodings are UTF-8
+    and ISO-8859-1.
+
+TITLE PROCESSING
+    Over time, listings may contain inconsistent programme details, such as
+    the programme title combined with episode details for some showings of a
+    programme, but separate for others; or the episode title being given as
+    the programme title, and the programme title given as the episode title.
+    Some programme titles may also change slightly over time, or across
+    channels.
+
+    Enabling title processing during configuration enables this software to
+    process programme titles against a list of flagged titles. The software
+    will correct such programme titles, which in turn should result in
+    better performance of PVR software which rely on consistent programme
+    data. Please be aware that enabling title processing will result in the
+    grabber taking slightly longer to complete its operation due to the
+    extra processing overhead.
+
+    N.B. Please note that title updates can clearly alter programme titles
+    near to transmission time, and it is therefore quite possible for PVR
+    schedules to fail if they have been configured using an old title.
+    Whilst care is taken to ensure title updates are made as far ahead of
+    transmission as possible, be aware that last minute updates can be made.
+
+MIS-ENCODED UTF-8 SOURCE DATA
+    Prior to the transition of the XMLTV service to metabroadcast.com in
+    December 2011, there was an ongoing issue with source data containing
+    mis-encoded UTF-8 characters. Since the transition, the source data
+    should be UTF-8 safe and automatic processing of the data may not be
+    required. A configuration option is provided to permit detection and
+    correction of such character encoding errors and users are recommended
+    to enable this option during configuration.
+
+PERFORMANCE
+    Improvements to date and time handling in the grabber have increased
+    performance 6-7X. Grabbing 14 days of listings with utf-8 and title
+    fixups enabled should take about 2 seconds per configured channel on a
+    typical machine.
+
+ERROR HANDLING
+    tv_grab_uk_rt will only terminate early if it is impossible to continue
+    with grabbing data. This can be due to a lack of channel configuration
+    data, a bad/missing configuration file, or filesystem permission
+    problems. Running the grabber in non-quiet mode should report why the
+    grabber failed.
+
+    Non-fatal errors are reported during a grabber run, and can result in
+    listings for a channel being skipped either in part, or entirely.
+    Progress messages will state why data is missing when it is possible to
+    do so. A non-zero exit status will normally be given when the grabber
+    has encountered problems during listings retrieval.
+
+ENVIRONMENT VARIABLES
+    The environment variable HOME can be set to change where the
+    configuration file is stored. All configuration is stored in
+    $HOME/.xmltv/ by default. On Windows it might be necessary to set HOME
+    to a pathname containing no spaces.
+
+    The environment variable XMLTV_SUPPLEMENT can be set to change where the
+    supplemental XMLTV files are retrieved from. By default, the file is
+    retrieved from the XMLTV supplement server. See XMLTV::Supplement for
+    more information.
+
+    If you want the grabber to use customised local copies of the
+    supplemental files, you should set XMLTV_SUPPLEMENT to the path of the
+    directory containing a tv_grab_uk_rt/ directory containing the
+    supplement files. For example, if your local supplement files are stored
+    in /usr/local/share/xmltv/tv_grab_uk_rt/ you should `export
+    XMLTV_SUPPLEMENT="/usr/local/share/xmltv/"` before running the grabber.
+
+RADIO LISTINGS
+    Ironically, the Radio Times feed does not offer listings for radio. They
+    have been asked about the possibility of adding radio listings, but
+    stated that this would require significant development effort. It has
+    not been ruled out entirely, but is unlikely to be added soon.
+
+    Users who would like to obtain BBC radio listings in XMLTV format are
+    advised to investigate a new grabber that obtains listings from the BBC
+    Backstage service. See <http://wiki.xmltv.org/index.php/BBC_Backstage>
+    for more information.
+
+MAILING LIST
+    You can subscribe to and read the XMLTV users mailing list by visiting
+    <http://lists.sourceforge.net/lists/listinfo/xmltv-users>. This is a
+    source of help and advice for new users. A searchable archive of the
+    list is available at
+    <http://news.gmane.org/gmane.comp.tv.xmltv.general>.
+
+SEE ALSO
+    xmltv(5), <http://wiki.xmltv.org>, <http://www.radiotimes.com/>
+
+BUGS
+    If you encounter a reproducible bug, please report it on the XMLTV bug
+    tracker at <http://sourceforge.net/tracker/?group_id=39046&atid=424135>,
+    making sure you assign the bug to the tv_grab_uk_rt category. Please
+    check that the bug has not already been reported.
+
+    The source data on the Radio Times website is generated daily before
+    0600. Occasionally the source data may not get recreated, leaving the
+    source files for some (or all) channels empty. Users are encouraged to
+    wait at least 1 day before reporting an issue with missing listings, as
+    they frequently reappear in the next update or later the same day. If
+    listings continue to be missing from the Radio Times website, please
+    report the fact on the XMLTV users mailing list.
+
+    There have been several occasions in the past when the Radio Times
+    channel index has been missing from the Radio Times website. This file
+    is essential to being able to run the grabber, as it contains the list
+    of channels having available listings data. If this file is missing or
+    empty, and there is no locally-cached copy of the file, it will not be
+    possible to run the grabber. The file usually regenerates automatically
+    over the course of the next day, at which point it will be possible to
+    run the grabber successfully.
+
+    There are no other reported ongoing issues.
+
+AUTHOR
+    Since 2007 the maintainer has been Nick Morrott (knowledgejunkie at
+    gmail dot com).
+
+    The original author was Ed Avis (ed at membled dot com). Parts of this
+    code were copied from tv_grab_se_swedb by Mattias Holmlund, and from the
+    XMLTV wiki <http://wiki.xmltv.org/>. Regional postcode information was
+    kindly made available from <http://www.ukfree.tv>.
+

@@ -1,0 +1,108 @@
+NAME
+    tv_grab_fr_kazer - Grab TV listings from Kazer in France.
+
+SYNOPSIS
+    tv_grab_fr_kazer --help
+
+    tv_grab_fr_kazer --configure [--config-file FILE] [--root-url URL]
+
+    tv_grab_fr_kazer [--config-file FILE] [--root-url URL] [--days N]
+    [--offset N] [--channel xmltvid,xmltvid,...] [--output FILE] [--quiet]
+    [--debug]
+
+    tv_grab_fr_kazer --list-channels [--config-file FILE] [--root-url URL]
+    [--output FILE] [--quiet] [--debug]
+
+DESCRIPTION
+    Output TV and listings in XMLTV format for many stations available in
+    France. This program consumes the EPG service offering from Kazer at
+    <http://www.kazer.org/>. See TODO INSERTLINKHERE for their terms of
+    service. (automatic translation suggests it's free for personal use,
+    verfication appreciated)
+
+    First you must register an account at kazer.org and choose which
+    stations you want to receive.
+
+    Then run tv_grab_fr_kazer --configure to setup the grabber with your
+    userhash and maybe filter the channels. (in case you feed multiple
+    consumers with data from one account, like using different
+    configurations for tv cable and iptv channels)
+
+    After these two steps running tv_grab_fr_kazer with no arguments will
+    get a listings for the stations you chose for all available days
+    including today.
+
+    ATTENTION: The downloaded data is cached for one hour, so if you add
+    channels to your account it can take up to one hour until they are
+    returned from the grabber. You can remove the downloaded guide to force
+    an immediate refresh by deleteing the guide from the supplementry file
+    cache. On Unix like system it is by default at
+    ~/.xmltv/supplement/tvguide.zip?u=<your userhash>.
+
+OPTIONS
+    --configure Prompt for which stations to download and write the
+    configuration file.
+
+    Note that due to the format of the source data, tv_grab_fr_kazer always
+    downloads data for all channels that have been selected on kazer.org.
+    Removing channels from the configuration in order to speed up downloads
+    or reduce data transfer will therefore not work.
+
+    --config-file FILE Set the name of the configuration file, the default
+    is ~/.xmltv/tv_grab_fr_kazer.conf. This is the file written by
+    --configure and read when grabbing.
+
+    --output FILE When grabbing, write output to FILE rather than standard
+    output.
+
+    --days N When grabbing, grab N days rather than everything available.
+
+    --offset N Start grabbing at today + N days.
+
+    Note that due to the format of the source data, tv_grab_fr_kazer always
+    downloads data for all available days and then filters for days
+    specified with --days and --offset. Specifying --days and/or --offset in
+    order to speed up downloads or reduce data transfer will therefore not
+    work.
+
+    --quiet Only print error-messages on STDERR.
+
+    --debug Provide more information on progress to stderr to help in
+    debugging.
+
+    --list-channels Output a list of all channels that data is available
+    for. The list is in xmltv-format.
+
+    --capabilities Show which capabilities the grabber supports. For more
+    information, see <http://wiki.xmltv.org/index.php/XmltvCapabilities>
+
+    --version Show the version of the grabber.
+
+    --help Print a help message and exit.
+
+ERROR HANDLING
+    If the grabber fails to download data from kazer.org, it will print an
+    errormessage to STDERR and then exit with a status code of 1 to indicate
+    that the data is missing.
+
+ENVIRONMENT VARIABLES
+    The environment variable HOME can be set to change where configuration
+    files are stored. All configuration is stored in $HOME/.xmltv/. On
+    Windows, it might be necessary to set HOME to a path without spaces in
+    it.
+
+CREDITS
+    Grabber written by Karl Dietz, dekarl -at- users -dot- sourceforge -dot-
+    net as a an example on how to wrap a file download into a well formed
+    grabber. This documentation copied from tv_grab_cz by Mattias Holmlund,
+    This documentation copied from tv_grab_uk by Ed Avis, ed -at- membled
+    -dot- com. Original grabber by Jiri Kaderavek, jiri -dot- kaderavek -at-
+    webstep -dot- net with modifications by Petr Stehlik, pstehlik -at-
+    sophics -dot- cz.
+
+    Data provided via web service from kazer.org. Check their terms of
+    usage!
+
+BUGS
+    None known.
+

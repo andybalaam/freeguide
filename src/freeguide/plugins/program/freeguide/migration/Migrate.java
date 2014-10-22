@@ -145,6 +145,12 @@ public class Migrate
                 migr.migrate(  );
             }
 
+            if( installedVersion.lessThan( new Version( 0, 11, 1 ) ) )
+            {
+                migr = new Migrate0_11To0_11_1( FreeGuide.pref_root_name );
+                migr.migrate(  );
+            }
+
             if( migr != null )
             {
                 migr.saveTo( FreeGuide.pref_root_name );

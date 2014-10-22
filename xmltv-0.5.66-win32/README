@@ -1,0 +1,134 @@
+XMLTV 0.5.66
+
+Gather television listings, process them and organize your viewing.
+XMLTV is a file format for storing TV listings, defined in xmltv.dtd.
+Then there are several tools to produce and process these listings.
+
+Please see doc/QuickStart for documentation on what each program does,
+and xmltv.dtd for documentation on the file format.
+
+* Major Changes in this release (0.5.66) 
+
+tv_garb_na_tvmedia  - new grabber for US/Canada
+
+tv_grab_ar          - adjustments for site changes
+tv_grab_is          - adjustments for site changes
+tv_grab_na_dd       - adjustments for source changes
+tv_grab_na_dtv      - now uses parallel processes
+tv_grab_pt          - adjustments for site changes
+tv_sort              -   major performance fixes
+
+And lots of other changes (see ChangeLog for details)
+
+* Installation
+
+Note: Windows users are strongly advised to use the pre-built EXE as installing
+all the prerequisites is non-trivial. For those who want to give it a go,
+instructions are in doc/exe_build.html. Those instructions can be used for both
+building xmltv.exe as well as a local install.
+
+Basic installation instructions (Linux/Unix):
+
+% perl Makefile.PL
+% make
+% make test
+% make install
+
+To install in a custom directory, replace the first line with
+something like
+
+% perl Makefile.PL PREFIX=/wherever/
+
+The system requirements are Perl 5.6 or later, and a few Perl modules.
+You will be asked about some optional components; if you choose not to
+install them then there are fewer dependencies.  The full list of
+required modules is:
+
+LWP 5.65
+XML::Parser 2.34
+XML::Twig 3.10
+XML::Writer 0.4.6
+Date::Manip 5.42a 
+Memoize (included with Perl 5.8 and later)
+Storable (included with Perl 5.8 and later)
+
+Archive::Zip             (if you want to run tv_grab_uk_bleb)
+CGI                      (if you want to run tv_pick_cgi)
+Compress::Zlib           (if you want to run tv_grab_se_swedb)
+Data::Dumper             (if you want to run tv_grab_dk_dr)
+DateTime                 (if you want to run tv_grab_dk_dr)
+HTML::Parser 3.34        (for grabbers which use HTML::Entities)
+HTML::TableExtract       (if you want to run tv_grab_na_icons)
+HTML::TreeBuilder        (for many of the grabbers)
+HTTP::Cache::Transparent (for several of the grabbers)
+HTTP::Cookies            (if you want to run tv_grab_br_net)
+IO::File                 (if you want to run tv_grab_fr)
+IO::Scalar               (if you want to run tv_grab_uk_bleb, tv_grab_in)
+IO::Stringy              (if you want to run tv_grab_se_swedb)
+JSON                     (if you want to run tv_grab_fi)
+Parse::RecDescent        (if you want to run tv_grab_dk_dr)
+SOAP::Lite               (if you want to run tv_grab_na_dd)
+Term::ReadKey            (if you want to run tv_grab_na_dd)
+Text::Kakasi             (if you want to run tv_grab_jp)
+Tk                       (if you want to run tv_check)
+Tk::TableMatrix          (if you want to run tv_check)
+WWW::Mechanize           (if you want to run tv_grab_na_icons, tv_grab_br_net)
+XML::LibXML              (if you want to run tv_grab_se_swedb, tv_grab_in)
+Unicode::UTF8simple      (if you want to run tv_grab_pt)
+
+You may have difficulty with the XML modules on Perl 5.8.0 - if so
+send mail to the xmltv-users list.  Other Perl versions should be OK.
+
+The following modules are recommended, but the software still works
+without them:
+
+Term::ProgressBar                (displays pretty progress meters)
+PerlIO::gzip (for perl 5.8+)     (makes tv_imdb a bit faster)
+Lingua::Preferred 0.2.4          (helps with multilingual listings)
+Unicode::String                  (non-ASCII chars in LaTeX output)
+Lingua::EN::Numbers::Ordinate    (not really needed, to be honest)
+
+And the Log::TraceMessages module is useful for debugging, but not
+needed for normal use.
+
+All of these can be installed with tarballs downloaded from CPAN or
+(hopefully) using the CPAN shell program: 'perl -MCPAN -e shell', then
+'install XML::Twig' and so on.  But you may find it easier to search
+for packaged versions from your OS vendor or others - places which
+distribute a packaged version of XMLTV will often provide the modules
+it needs too.
+
+* Proxy servers
+
+Proxy server support is provide by the LWP modules.
+You can define a proxy server via the HTTP_PROXY enviornment variable.
+    http_proxy=http://somehost.somedomain:port
+
+For more information, see the the following:
+http://search.cpan.org/~gaas/libwww-perl-5.803/lib/LWP/UserAgent.pm#$ua->env_proxy
+
+* Known issues
+
+tv_grab_se_swedb sometimes fails to work on Windows if there are spaces
+in the path to your home-directory. This can be avoided by setting
+the environment variable HOME to a path without spaces (e.g. c:\home).
+
+* Author and copying
+
+This is free software distributed under the GPL, see COPYING.  But if
+you would like to use the code under some other conditions, please do
+ask.  There are many who have contributed code, they are credited in
+individual source files.
+
+There is a web page at http://www.xmltv.org  and a Sourceforge
+project 'XMLTV'.  There are some mailing lists:
+
+    xmltv-announce@lists.sourceforge.net
+    xmltv-users@lists.sourceforge.net
+    xmltv-devel@lists.sourceforge.net
+
+You ought to subscribe to the announce list at least.  Contact the
+users list with most problems.
+
+-- Robert Eden, rmeden@yahoo.com, 2014-10-21
+$Id: README,v 1.178 2014/10/21 06:57:28 rmeden Exp $
