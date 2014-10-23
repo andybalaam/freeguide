@@ -77,6 +77,9 @@ public class HorizontalViewerConfig
     /** DOCUMENT ME! */
     public boolean displayTooltips = false;
 
+    /** Whether or not to keep the display in sync with current time */
+    public boolean timeTracking = false;
+
     /** DOCUMENT ME! */
     public Time dayStartTime = new Time( 6, 0 );
 

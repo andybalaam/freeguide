@@ -149,6 +149,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
             config.displayAlignToLeft = panel.getCbAlignLeft(  ).isSelected(  );
             config.display24time = panel.getRbTime24(  ).isSelected(  );
             config.dayStartTime = new Time( panel.getDayStart(  ).getText(  ) );
+            config.timeTracking = panel.getCbTimeTracking(  ).isSelected(  );
 
             parent.setConfig( config );
         }
@@ -232,6 +233,7 @@ public class ConfigureUIController implements IModuleConfigurationUI
         panel.getCbDisplayTooltips(  ).setSelected( parent.config.displayTooltips );
         panel.getCbDrawTime(  ).setSelected( parent.config.displayTime );
         panel.getCbAlignLeft(  ).setSelected( parent.config.displayAlignToLeft );
+        panel.getCbTimeTracking(  ).setSelected( parent.config.timeTracking );
 
         if( parent.config.display24time )
         {

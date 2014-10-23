@@ -136,6 +136,10 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
      */
     protected boolean searchMenuAdded = false;
 
+    // Whether or not to keep the viewer on the current time
+    protected boolean trackTime = true;
+    protected int lastScrolledTo;
+
     /**
      * Defines the action when a mouse is used in the search window.
      * The current action is when a programme is clicked, the main viewer
@@ -301,7 +305,6 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
                 public void actionPerformed( ActionEvent evt )
                 {
                     goToNow(  );
-
                 }
             } );
 
@@ -438,6 +441,9 @@ public class HorizontalViewer extends BaseModule implements IModuleViewer
              .setValue(
             panel.getTimePanel(  ).getScrollValue( now )
             - PIXELS_PADDING_FROM_LEFT );
+
+        lastScrolledTo = panel.getProgrammesScrollPane(  ).getHorizontalScrollBar(  ).getValue();
+        trackTime = true;
     }
 
     /**

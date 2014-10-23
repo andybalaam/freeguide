@@ -87,6 +87,9 @@ public class TimePanel extends JPanel implements ActionListener
      */
     public void actionPerformed( ActionEvent e )
     {
+        if ( parent.config.timeTracking && parent.trackTime )
+            parent.goToNow();
+
         // Only bother redrawing if we are on today, so the
         // time indicator is shown.
         if( getNowScroll( System.currentTimeMillis() ) > 0 )

@@ -76,6 +76,9 @@ public class ConfigureUIPanel extends JPanel
     // Grid line 12
     private   JCheckBox      cbDisplayTooltips;
 
+    // Grid line 13
+    private   JCheckBox      cbTimeTracking;
+
     private   JPanel         jPanel;
     private   JPanel         panelTimeFormat;
     private   JPanel         panelSpacer;
@@ -425,8 +428,18 @@ public class ConfigureUIPanel extends JPanel
         gbc.gridy = gridy;
         gbc.gridwidth = 4;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
-        gbc.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbc.insets = new java.awt.Insets(5, 5, 0, 5);
         add(getCbDisplayTooltips(), gbc);
+
+        // Track Time
+        gridy++;
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = gridy;
+        gbc.gridwidth = 4;
+        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.insets = new java.awt.Insets(5, 5, 5, 5);
+        add(getCbTimeTracking(), gbc);
 
         validate();
 
@@ -907,6 +920,25 @@ public class ConfigureUIPanel extends JPanel
 
         return cbDisplayTooltips;
 
+    }
+
+    /**
+     * This method initializes cbTimeTracking
+     *
+     * @return javax.swing.JCheckBox
+     */
+    protected JCheckBox getCbTimeTracking()
+    {
+        if(cbTimeTracking == null)
+        {
+            cbTimeTracking = new JCheckBox();
+
+            cbTimeTracking.setMnemonic(java.awt.event.KeyEvent.VK_T);
+            cbTimeTracking.setText(localizer.getString("time_tracking"));
+
+        }
+
+        return cbTimeTracking;
     }
 
     /**

@@ -50,6 +50,8 @@ public class HorizontalViewerHandlers
 
                     if( oldDate != controller.getDate() )
                     {
+                        controller.trackTime = false;
+
                         controller.loadData(  );
 
                         controller.redraw(  );

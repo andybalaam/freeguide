@@ -660,8 +660,11 @@ public class ViewerFrame extends JPanel
      */
     private void programScrolled( AdjustmentEvent e )
     {
-        programmesPanel.repaint(  );
+        if (parent.lastScrolledTo !=
+                getProgrammesScrollPane(  ).getHorizontalScrollBar(  ).getValue())
+            parent.trackTime = false;
 
+        programmesPanel.repaint(  );
     }
 
     /**
