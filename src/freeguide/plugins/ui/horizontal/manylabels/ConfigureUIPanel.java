@@ -236,7 +236,7 @@ public class ConfigureUIPanel extends JPanel
         // New programme colour
         gridy++;
         label = new JLabel();
-        label.setLabelFor(getBtnColorSelected());
+        label.setLabelFor(getBtnColorNew());
         label.setDisplayedMnemonic(java.awt.event.KeyEvent.VK_E);
         label.setText(localizer.getString("new_prog_colour"));
 
