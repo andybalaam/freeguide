@@ -1,5 +1,4 @@
-# freeguide
-FreeGuide TV Guide
+# FreeGuide TV Guide
 
 FreeGuide is a TV guide program. It allows you to find programmes you are interested in quickly, and ignore the rest.
 
