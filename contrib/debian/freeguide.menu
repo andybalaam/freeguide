@@ -1,2 +1,0 @@
-?package(freeguide):needs="x11" section="Apps/Tools" \
-  title="FreeGuide" icon="freeguide.xpm" command="/usr/bin/freeguide"

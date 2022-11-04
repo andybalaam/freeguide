@@ -1,7 +1,0 @@
-#!/bin/sh
-
-# Run the dput command from in a directory containing the _source.changes file.
-# This is needed because ant won't glob for us to find the correct file name.
-
-dput "$1" *_source.changes 
-

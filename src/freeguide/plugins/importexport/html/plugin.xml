@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<plugin id="importexport-html"
-        version="1"
-        class="freeguide.plugins.importexport.html.ExportHTML">
-</plugin>

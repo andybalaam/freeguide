@@ -1,7 +1,0 @@
-tv_grab_is: adjustments for site changes
-tv_garb_na_tvmedia: new grabber for US/Canada
-tv_grab_na_dd: adjustments for new data source
-tv-grab_ar: adjusted for site changes
-tv_sort: major performance fixes
-tv_grab_na_dtv: now uses parallel processes
-tv_grab_pt adjusted for site changes
